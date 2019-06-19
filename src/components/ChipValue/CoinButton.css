@@ -1,0 +1,44 @@
+@import "../../styles/all.css";
+
+$coin-size: 35px;
+
+.root {
+  position: relative;
+
+  padding: calc($spacing-4 * 0.5) $spacing-4 calc($spacing-4 * 0.5) $spacing-4;
+
+  background: none;
+
+  cursor: pointer;
+
+  outline: none;
+
+  text-align: center;
+}
+
+.container {
+  width: $coin-size;
+  height: $coin-size;
+
+  border-radius: 50%;
+}
+
+.container.selected {
+  box-shadow: $olive 0px 3px 0px 0px, white 0px 1px 0px 4px;
+}
+
+.value {
+  position: absolute;
+  top: calc($coin-size * 0.45);
+  left: 0;
+
+  width: 100%;
+
+  text-align: center;
+}
+
+.container.disabled {
+  cursor: default;
+
+  opacity: 0.5;
+}

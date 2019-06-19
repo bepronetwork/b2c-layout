@@ -1,0 +1,15 @@
+@import "../../styles/all.css";
+
+.root {
+  background-color: transparent;
+  cursor: pointer;
+  outline: none;
+
+  * {
+    cursor: pointer !important;
+  }
+}
+
+.root:hover {
+  opacity: 0.75;
+}

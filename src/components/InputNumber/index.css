@@ -1,0 +1,112 @@
+@import "../../styles/all.css";
+
+.root {
+  width: 100%;
+
+  * {
+    box-sizing: border-box;
+  }
+}
+
+.container {
+  padding: $spacing-8;
+
+  background-color: $mirage;
+
+  border: 2px solid $pickled-bluewood3;
+
+  border-radius: $spacing-4;
+}
+
+.container:hover {
+  border: 2px solid $light-pickled-bluewood;
+
+  transition: border 200ms ease-out 0s;
+}
+
+.container.is-focused {
+  border-color: $light-pickled-bluewood;
+}
+
+.input-container {
+  position: relative;
+
+  display: grid;
+
+  align-items: center;
+  grid-template-columns: 100%;
+  min-width: $column;
+}
+
+.input-container.with-icon {
+  grid-template-columns: calc(100% - $spacing-16) $spacing-16;
+}
+
+.input {
+  padding: 0;
+
+  background: none;
+
+  border: 0;
+  color: white;
+  outline: 0;
+
+  font-family: $font-family;
+  font-size: $font-size-body;
+  font-weight: $font-weight-semibold;
+  line-height: $line-height-body;
+
+  @include Breakpoint-mobileOnly {
+    font-size: $font-size-body-mobile;
+    line-height: $line-height-body-mobile;
+  }
+}
+
+.input:focus {
+  outline: none;
+}
+
+.label {
+  composes: visuallyHidden from "../../styles/utilities.css";
+}
+
+.unit {
+  width: 100%;
+
+  color: $light-grey;
+
+  font-weight: $font-weight-regular;
+
+  text-align: center;
+}
+
+.icon {
+  width: 100%;
+
+  text-align: center;
+
+  svg {
+    width: 15px;
+    height: 15px;
+
+    fill: $light-grey;
+  }
+}
+
+.title {
+  margin-bottom: $spacing-4;
+}
+
+.disabled {
+  opacity: 0.5;
+}
+
+.disabled .icon {
+  cursor: not-allowed;
+}
+
+.disabled .input {
+  color: white;
+  cursor: not-allowed;
+  appearance: none;
+}

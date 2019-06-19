@@ -1,0 +1,29 @@
+@import "../../styles/all.css";
+
+.root {
+  position: relative;
+
+  display: flex;
+
+  flex-direction: row;
+  margin-left: $spacing-8;
+}
+
+.root:after {
+  content: "";
+
+  position: absolute;
+  right: 0;
+  bottom: -2px;
+  left: calc(- 1 * $spacing-8);
+
+  height: 2px;
+
+  background: $pickled-bluewood;
+
+  border-radius: 1px;
+}
+
+.tab:not(:last-child) {
+  padding-right: $spacing-20;
+}

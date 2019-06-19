@@ -1,0 +1,66 @@
+@import "../../styles/all.css";
+
+.root {
+  display: flex;
+}
+
+.toggle {
+  padding: $spacing-8;
+
+  background: $pickled-bluewood3;
+
+  border-radius: $spacing-4;
+
+  cursor: pointer;
+
+  outline: none;
+
+  transition: background 300ms ease 0s;
+}
+
+.toggle:hover {
+  background-color: $light-pickled-bluewood;
+}
+
+.toggle-left {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: $spacing-4;
+  border-top-left-radius: $spacing-4;
+}
+
+.toggle-right {
+  border-top-right-radius: $spacing-4;
+  border-bottom-right-radius: $spacing-4;
+  border-bottom-left-radius: 0;
+  border-top-left-radius: 0;
+}
+
+.toggle.selected {
+  background-color: $mirage;
+
+  transition: background 300ms linear;
+}
+
+.toggle.selected:hover {
+  background-color: $mirage;
+}
+
+.toggle.medium {
+  width: $three-columns;
+}
+
+.toggle.selected.red {
+  background-color: $red;
+}
+
+.toggle.selected.tree-poppy {
+  background-color: $tree-poppy;
+}
+
+.toggle.auto {
+}
+
+.toggle.full {
+  width: 100% !important;
+}

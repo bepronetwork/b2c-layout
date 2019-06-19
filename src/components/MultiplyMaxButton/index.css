@@ -1,0 +1,42 @@
+@import "../../styles/all.css";
+
+.root {
+  background: $pickled-bluewood3;
+
+  border-top-right-radius: $spacing-4;
+  border-bottom-right-radius: $spacing-4;
+}
+
+.container {
+  display: grid;
+  align-items: center;
+  grid-template-columns: 33% 33% 33%;
+
+  height: 100%;
+}
+
+.button {
+  height: 100%;
+
+  background: $pickled-bluewood3;
+  cursor: pointer;
+
+  outline: none;
+}
+
+.button:last-child {
+  border-top-right-radius: $spacing-4;
+  border-bottom-right-radius: $spacing-4;
+}
+
+.button:hover {
+  background-color: $light-pickled-bluewood;
+}
+
+.button-container {
+  border-right: 1.5px solid $casper;
+}
+
+.button:last-child .button-container {
+  border-right: none;
+}

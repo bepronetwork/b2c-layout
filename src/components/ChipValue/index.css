@@ -1,0 +1,78 @@
+@import "../../styles/all.css";
+
+$coin-size: 35px;
+
+.root {
+  width: 100%;
+
+  margin-top: $spacing-12;
+}
+
+.title {
+  display: flex;
+
+  svg {
+    width: $spacing-12;
+    height: $spacing-12;
+  }
+}
+
+.biticon {
+  width: 13px;
+}
+
+.container {
+  display: flex;
+
+  height: $spacing-52;
+
+  margin-top: $spacing-4;
+
+  background-color: $pickled-bluewood3;
+
+  border-radius: $spacing-4;
+}
+
+.arrow-container {
+  align-items: center;
+  height: 100%;
+
+  padding: 0 calc($spacing-4 * 1.5);
+
+  background: none;
+
+  cursor: pointer;
+
+  outline: none;
+}
+
+.arrow-container:hover {
+  background-color: $light-pickled-bluewood;
+
+  border-radius: $spacing-4;
+}
+
+.coins {
+  flex-grow: 1;
+  display: flex;
+  width: 100%;
+
+  padding: calc($spacing-4 * 0.5) 0;
+
+  overflow: hidden;
+
+  background-color: $mirage;
+
+  border: 2px solid $pickled-bluewood3;
+}
+
+.coins:hover {
+  border: 2px solid $light-pickled-bluewood;
+}
+
+.coins-container {
+  display: flex;
+  flex-direction: row;
+
+  transition: margin-left 150ms ease-in;
+}

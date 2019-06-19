@@ -1,0 +1,91 @@
+@import "../../styles/all.css";
+
+.root {
+  position: relative;
+
+  z-index: 0;
+
+  width: 350px;
+
+  margin: 0 auto;
+
+  @include Breakpoint-mobileOnly {
+    width: 250px;
+  }
+}
+
+.diamond {
+  position: absolute;
+
+  top: 0px;
+
+  right: $spacing-52;
+
+  z-index: 1;
+
+  width: $spacing-64;
+
+  transform: scale(1);
+
+  transition: all 100ms linear 300ms;
+
+  @include Breakpoint-mobileOnly {
+    display: none;
+  }
+}
+
+.root:hover .diamond {
+  top: calc($spacing-4 * -0.5);
+
+  transform: scale(1.01);
+
+  transition: all 100ms linear;
+}
+
+.card1 {
+  position: absolute;
+
+  top: $spacing-28;
+
+  left: calc($spacing-64 * -1);
+
+  z-index: 1;
+
+  width: $spacing-120;
+
+  transition: top 200ms ease-in 300ms;
+
+  @include Breakpoint-mobileOnly {
+    display: none;
+  }
+}
+
+.root:hover .card1 {
+  top: $spacing-20;
+
+  transition: top 300ms ease-in;
+}
+
+.card2 {
+  position: absolute;
+
+  top: 90px;
+
+  right: calc($spacing-52 * -1);
+
+  z-index: 1;
+
+  width: 140px;
+
+  transition: top 200ms linear 300ms;
+
+  @include Breakpoint-mobileOnly {
+    display: none;
+  }
+}
+
+.root:hover .card2 {
+  top: $spacing-88;
+
+  transition: top 300ms ease-out;
+}

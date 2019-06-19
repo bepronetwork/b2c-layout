@@ -1,0 +1,450 @@
+@import "../../styles/all.css";
+
+.root {
+  display: grid;
+
+  grid-template-areas:
+    "number0 number3 number6 number9 number12 number15 number18 number21 number24 number27 number30 number33 number36 row1"
+    "number0 number2 number5 number8 number11 number14 number17 number20 number23 number26 number29 number32 number35 row2"
+    "number0 number1 number4 number7 number10 number13 number16 number19 number22 number25 number28 number31 number34 row3"
+    ". range0112 range0112 range0112 range0112 range1324 range1324 range1324 range1324 range2536 range2536 range2536 range2536 ."
+    ". range0118 range0118 parityEven parityEven colorRed colorRed colorBlack colorBlack parityOdd parityOdd range1936 range1936 .";
+
+  gap: $spacing-4;
+  width: 100%;
+
+  * {
+    outline: none;
+  }
+
+  @include Breakpoint-mobileOnly {
+    grid-template-areas:
+      ". . number0 number0 number0" "range0118 range0112 number1 number2 number3"
+      "range0118 range0112 number4 number5 number6"
+      "parityEven range0112 number7 number8 number9"
+      "parityEven range0112 number10 number11 number12"
+      "colorRed range1324 number13 number14 number15"
+      "colorRed range1324 number16 number17 number18"
+      "colorBlack range1324 number19 number20 number21"
+      "colorBlack range1324 number22 number23 number24"
+      "parityOdd range2536 number25 number26 number27"
+      "parityOdd range2536 number28 number29 number30"
+      "range1936 range2536 number31 number32 number33"
+      "range1936 range2536 number34 number35 number36"
+      ". . row3 row2 row1";
+
+    width: max-content;
+  }
+}
+
+.range1936 {
+  grid-area: range1936 / range1936 / range1936 / range1936;
+  height: 100%;
+
+  background-color: inherit;
+}
+
+.parityOdd {
+  grid-area: parityOdd / parityOdd / parityOdd / parityOdd;
+  height: 100%;
+
+  background-color: inherit;
+}
+
+.colorBlack {
+  grid-area: colorBlack / colorBlack / colorBlack / colorBlack;
+  height: 100%;
+
+  background-color: inherit;
+}
+
+.colorRed {
+  grid-area: colorRed / colorRed / colorRed / colorRed;
+  height: 100%;
+
+  background-color: inherit;
+}
+
+.parityEven {
+  grid-area: parityEven / parityEven / parityEven / parityEven;
+  height: 100%;
+
+  background-color: inherit;
+}
+
+.range0118 {
+  grid-area: range0118 / range0118 / range0118 / range0118;
+  height: 100%;
+
+  background-color: inherit;
+}
+
+.range2536 {
+  grid-area: range2536 / range2536 / range2536 / range2536;
+  height: 100%;
+
+  background-color: inherit;
+}
+
+.range1324 {
+  grid-area: range1324 / range1324 / range1324 / range1324;
+  height: 100%;
+
+  background-color: inherit;
+}
+
+.range0112 {
+  grid-area: range0112 / range0112 / range0112 / range0112;
+  height: 100%;
+
+  background-color: inherit;
+}
+
+.row3 {
+  grid-area: row3 / row3 / row3 / row3;
+  height: 100%;
+
+  background-color: inherit;
+}
+
+.row2 {
+  grid-area: row2 / row2 / row2 / row2;
+  height: 100%;
+
+  background-color: inherit;
+}
+
+.row1 {
+  grid-area: row1 / row1 / row1 / row1;
+  height: 100%;
+
+  background-color: inherit;
+}
+
+.number36 {
+  grid-area: number36 / number36 / number36 / number36;
+
+  background-color: inherit;
+}
+
+.number35 {
+  grid-area: number35 / number35 / number35 / number35;
+
+  background-color: inherit;
+}
+
+.number34 {
+  grid-area: number34 / number34 / number34 / number34;
+
+  background-color: inherit;
+}
+
+.number33 {
+  grid-area: number33 / number33 / number33 / number33;
+
+  background-color: inherit;
+}
+
+.number32 {
+  grid-area: number32 / number32 / number32 / number32;
+
+  background-color: inherit;
+}
+
+.number31 {
+  grid-area: number31 / number31 / number31 / number31;
+
+  background-color: inherit;
+}
+
+.number30 {
+  grid-area: number30 / number30 / number30 / number30;
+
+  background-color: inherit;
+}
+
+.number29 {
+  grid-area: number29 / number29 / number29 / number29;
+
+  background-color: inherit;
+}
+
+.number28 {
+  grid-area: number28 / number28 / number28 / number28;
+
+  background-color: inherit;
+}
+
+.number27 {
+  grid-area: number27 / number27 / number27 / number27;
+
+  background-color: inherit;
+}
+
+.number26 {
+  grid-area: number26 / number26 / number26 / number26;
+
+  background-color: inherit;
+}
+
+.number25 {
+  grid-area: number25 / number25 / number25 / number25;
+
+  background-color: inherit;
+}
+
+.number24 {
+  grid-area: number24 / number24 / number24 / number24;
+
+  background-color: inherit;
+}
+
+.number23 {
+  grid-area: number23 / number23 / number23 / number23;
+
+  background-color: inherit;
+}
+
+.number22 {
+  grid-area: number22 / number22 / number22 / number22;
+
+  background-color: inherit;
+}
+
+.number21 {
+  grid-area: number21 / number21 / number21 / number21;
+
+  background-color: inherit;
+}
+
+.number20 {
+  grid-area: number20 / number20 / number20 / number20;
+
+  background-color: inherit;
+}
+
+.number19 {
+  grid-area: number19 / number19 / number19 / number19;
+
+  background-color: inherit;
+}
+
+.number18 {
+  grid-area: number18 / number18 / number18 / number18;
+
+  background-color: inherit;
+}
+
+.number17 {
+  grid-area: number17 / number17 / number17 / number17;
+
+  background-color: inherit;
+}
+
+.number16 {
+  grid-area: number16 / number16 / number16 / number16;
+
+  background-color: inherit;
+}
+
+.number15 {
+  grid-area: number15 / number15 / number15 / number15;
+
+  background-color: inherit;
+}
+
+.number14 {
+  grid-area: number14 / number14 / number14 / number14;
+
+  background-color: inherit;
+}
+
+.number13 {
+  grid-area: number13 / number13 / number13 / number13;
+
+  background-color: inherit;
+}
+
+.number12 {
+  grid-area: number12 / number12 / number12 / number12;
+
+  background-color: inherit;
+}
+
+.number11 {
+  grid-area: number11 / number11 / number11 / number11;
+
+  background-color: inherit;
+}
+
+.number10 {
+  grid-area: number10 / number10 / number10 / number10;
+
+  background-color: inherit;
+}
+
+.number9 {
+  grid-area: number9 / number9 / number9 / number9;
+
+  background-color: inherit;
+}
+
+.number8 {
+  grid-area: number8 / number8 / number8 / number8;
+
+  background-color: inherit;
+}
+
+.number7 {
+  grid-area: number7 / number7 / number7 / number7;
+
+  background-color: inherit;
+}
+
+.number6 {
+  grid-area: number6 / number6 / number6 / number6;
+
+  background-color: inherit;
+}
+
+.number5 {
+  grid-area: number5 / number5 / number5 / number5;
+
+  background-color: inherit;
+}
+
+.number4 {
+  grid-area: number4 / number4 / number4 / number4;
+
+  background-color: inherit;
+}
+
+.number3 {
+  grid-area: number3 / number3 / number3 / number3;
+
+  background-color: inherit;
+}
+
+.number2 {
+  grid-area: number2 / number2 / number2 / number2;
+  height: 100%;
+
+  background-color: inherit;
+}
+
+.number1 {
+  grid-area: number1 / number1 / number1 / number1;
+  height: 100%;
+
+  background-color: inherit;
+}
+
+.number0 {
+  grid-area: number0 / number0 / number0 / number0;
+  height: 100%;
+
+  background-color: inherit;
+}
+
+.cell {
+  position: relative;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  height: 100%;
+
+  min-width: 30px;
+  min-height: 40px;
+
+  @include Breakpoint-mobileOnly {
+    min-width: 7vh;
+    min-height: 6vh;
+  }
+
+  padding: $spacing-4;
+
+  border-radius: $spacing-4;
+  box-shadow: $pickled-bluewood2 0px 0px 0px 2px inset;
+  cursor: pointer;
+
+  transition-duration: 200ms;
+  transition-property: background-color, box-shadow, opacity, border;
+
+  svg {
+    display: none;
+  }
+}
+
+.cell.red {
+  background-color: $red;
+}
+
+.cell.japanese-laurel {
+  background-color: $japanese-laurel;
+}
+
+.cell.pickled-bluewood {
+  background-color: $pickled-bluewood2;
+}
+
+.cell.pickled-bluewood.focused {
+  background-color: $light-pickled-bluewood;
+}
+
+.cell.red.focused {
+  background-color: $watermelon;
+}
+
+.cell.red,
+.cell.japanese-laurel,
+.cell.pickled-bluewood {
+  box-shadow: none;
+}
+
+.cell.auto:hover {
+  background-color: $light-pickled-bluewood;
+  box-shadow: none;
+}
+
+.cell.pickled-bluewood:hover {
+  background-color: $light-pickled-bluewood;
+}
+
+.cell.japanese-laurel:hover {
+  background-color: $green;
+}
+
+.cell.red:hover {
+  background-color: $watermelon;
+}
+
+.cell.is-result {
+  box-shadow: $green 0px 0px 0px 2px inset;
+
+  transition: box-shadow 100ms linear 100ms;
+}
+
+.cell.active {
+  svg {
+    position: absolute;
+    z-index: 2;
+
+    display: flex;
+
+    height: 90%;
+    max-width: 90%;
+    max-height: 40px;
+
+    @include Breakpoint-mobileOnly {
+      height: 5vh;
+    }
+  }
+
+  p {
+    z-index: 3;
+
+    background-color: transparent;
+  }
+}

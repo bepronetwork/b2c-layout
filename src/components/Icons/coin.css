@@ -1,0 +1,50 @@
+@import "../../styles/all.css";
+
+$coin-color-001: #ffce00;
+$coin-color-01: #fec30c;
+$coin-color-1: #feb918;
+$coin-color-10: #fdae23;
+$coin-color-100: #fca32f;
+$coin-color-1k: #fc8d28;
+$coin-color-10k: #fc7820;
+
+.root {
+  border-radius: 50%;
+
+  fill: white;
+}
+
+.coin001 {
+  background-color: $coin-color-001;
+  box-shadow: color($coin-color-001 alpha(70%)) 0px 3px 0px 0px;
+}
+
+.coin01 {
+  background-color: $coin-color-01;
+  box-shadow: color($coin-color-01 alpha(70%)) 0px 3px 0px 0px;
+}
+
+.coin1 {
+  background-color: $coin-color-1;
+  box-shadow: color($coin-color-1 alpha(70%)) 0px 3px 0px 0px;
+}
+
+.coin10 {
+  background-color: $coin-color-10;
+  box-shadow: color($coin-color-10 alpha(70%)) 0px 3px 0px 0px;
+}
+
+.coin100 {
+  background-color: $coin-color-100;
+  box-shadow: color($coin-color-100 alpha(70%)) 0px 3px 0px 0px;
+}
+
+.coin1k {
+  background-color: $coin-color-1k;
+  box-shadow: color($coin-color-1k alpha(70%)) 0px 3px 0px 0px;
+}
+
+.coin10k {
+  background-color: $coin-color-10k;
+  box-shadow: color($coin-color-10k alpha(70%)) 0px 3px 0px 0px;
+}

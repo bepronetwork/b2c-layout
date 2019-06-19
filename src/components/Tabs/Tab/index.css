@@ -1,0 +1,45 @@
+@import "../../../styles/all.css";
+
+.root {
+  position: relative;
+
+  padding-bottom: $spacing-8;
+
+  background-color: inherit;
+  cursor: pointer;
+
+  outline: none;
+
+  text-align: left;
+  * {
+    cursor: pointer;
+  }
+}
+
+.root:not(.selected) {
+  &:hover {
+    * {
+      color: $mercury;
+      opacity: 0.75;
+    }
+  }
+}
+
+.selected {
+  * {
+    color: $mercury;
+    opacity: 0.75;
+  }
+}
+
+.selected-underline {
+  position: absolute;
+  top: calc($spacing-8 + $spacing-20);
+  left: calc(- 1 * $spacing-8);
+  z-index: 1;
+
+  width: calc(100% + $spacing-16);
+
+  border: 1px solid $dodger-blue;
+  border-radius: 1px;
+}

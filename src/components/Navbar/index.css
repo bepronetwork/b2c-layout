@@ -1,0 +1,198 @@
+@import "../../styles/all.css";
+
+.root {
+  position: fixed;
+  top: 0;
+  z-index: 20;
+
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
+  width: 100%;
+  height: $navbar-height;
+  padding-top : $padding-height-navbar;
+  padding-bottom : $padding-height-navbar;
+  padding-left : $padding-width-navbar;
+  padding-right : $padding-width-navbar;
+
+
+  background-color: $gable-green;
+
+  box-shadow: color($firefly alpha(40%)) 0px 5px 10px;
+}
+
+.container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
+  @include Breakpoint-tabletAndAbove {
+    width: $content-width-desktop;
+
+    padding: 0 $spacing-20;
+    margin: 0 auto;
+  }
+
+  @include Breakpoint-mobileOnly {
+    width: 100%;
+    padding: 0 $spacing-8;
+    margin: 0 auto;
+  }
+}
+
+.image {
+  max-width: 75px;
+  max-height: 48px;
+}
+
+.content {
+  display: flex;
+  flex-direction: row;
+
+  width: 100%;
+}
+
+.coin {
+  position: relative;
+  width: fit-content;
+  margin: auto;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: $spacing-4;
+    margin-top : 4px;
+  margin-left: auto;
+
+  background-color: $mirage;
+  border-radius: $spacing-4;
+  cursor: default;
+
+  *:first-child {
+    margin-right: $spacing-4;
+  }
+
+  .icon {
+    width: $spacing-16;
+    height: $spacing-16;
+  }
+
+  .diff-won {
+    position: absolute;
+    top: 60%;
+    left: 10%;
+    * {
+      color: $green;
+      opacity: 0;
+
+      animation: won-animation 1s running;
+    }
+  }
+
+  .diff-lost {
+    position: absolute;
+    top: 60%;
+    left: 10%;
+    * {
+      color: $red;
+      opacity: 0;
+
+      animation: lost-animation 1s running;
+    }
+  }
+}
+
+
+.diff-won {
+    position: absolute;
+    top: 60%;
+    left: 10%;
+    * {
+      color: $green;
+      opacity: 0;
+
+      animation: won-animation 1s running;
+    }
+}
+
+.diff-lost {
+    position: absolute;
+    top: 60%;
+    left: 10%;
+    * {
+        color: $red;
+        opacity: 0;
+
+        animation: lost-animation 1s running;
+}
+}
+
+@keyframes lost-animation {
+  50% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(100%) scale(0.8);
+  }
+}
+
+@keyframes won-animation {
+  0% {
+    opacity: 0;
+
+    transform: translateY(80%);
+  }
+
+  50% {
+    opacity: 1;
+
+    transform: translateY(50%) scale(1.2);
+  }
+}
+
+.buttons {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin: auto;
+  text-align: center;
+  width: fit-content;
+  position: relative;
+  .login {
+    margin-right: $spacing-8;
+  }
+}
+
+
+.small-icon{
+    width : 30px;
+}
+
+.address-box{
+    margin: auto;
+    display: flex;
+    text-align: center;
+    width: fit-content;
+    position: relative;
+}
+
+
+.logo-image{
+    text-align: center;
+    width: fit-content;
+    position: relative;
+    display: flex;
+    margin: auto;
+}
+
+.user-menu{
+    margin-top : 10px !important;
+}
+
+.icon-green{
+    color : $green;
+}
+
+.icon-red{
+    color : $red;
+}

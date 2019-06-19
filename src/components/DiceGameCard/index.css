@@ -1,0 +1,54 @@
+@import "../../styles/all.css";
+
+$values-height: 92px;
+$with-without-padding: calc(100% - $spacing-20 - $spacing-20);
+
+.root {
+  width: calc(100% - $spacing-20 - $spacing-20);
+  height: calc(100% - $spacing-20 - $spacing-20);
+
+  padding: $spacing-20;
+
+  background-color: $mirage;
+}
+
+.container {
+  display: grid;
+  grid-template-columns: 100%;
+  grid-template-rows: calc(100% - $values-height) $values-height;
+
+  width: 100%;
+  height: 100%;
+}
+
+.slider {
+  display: flex;
+  align-items: center;
+
+  width: 100%;
+}
+
+.slider-container {
+  width: 96%;
+  margin: 0 auto;
+}
+
+.values {
+  width: calc(100% - $spacing-16 - $spacing-16);
+  padding: $spacing-16;
+
+  background-color: $pickled-bluewood;
+
+  border-radius: $spacing-4;
+}
+
+.values-container {
+  display: grid;
+
+  grid-column-gap: $spacing-20;
+  grid-template-columns:
+    calc($with-without-padding / 3) calc($with-without-padding / 3)
+    calc($with-without-padding / 3);
+
+  width: 100%;
+}

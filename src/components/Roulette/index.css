@@ -1,0 +1,11 @@
+@import "../../styles/all.css";
+
+.container {
+  width: 270px;
+  height: 270px;
+
+  margin: 0 auto;
+
+  background-repeat: no-repeat;
+  background-size: contain;
+}

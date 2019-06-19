@@ -1,0 +1,35 @@
+$spacing-4: 4px;
+$spacing-8: 8px;
+$spacing-12: 12px;
+$spacing-16: 16px;
+$spacing-20: 20px;
+$spacing-28: 28px;
+$spacing-36: 36px;
+$spacing-52: 52px;
+$spacing-64: 64px;
+$spacing-88: 84px;
+$spacing-120: 120px;
+$spacing-160: 180px;
+
+$column: 81px;
+$gutter: 20px;
+$column-spacing: calc($column + 2 * $gutter);
+$column-gutter: calc($column + $gutter);
+
+$two-columns: calc(2 * $column + $gutter);
+$three-columns: calc(3 * $column + 2 * $gutter);
+$four-columns: calc(4 * $column + 3 * $gutter);
+$five-columns: calc(5 * $column + 4 * $gutter);
+$six-columns: calc(6 * $column + 5 * $gutter);
+$seven-columns: calc(7 * $column + 6 * $gutter);
+$eight-columns: calc(8 * $column + 7 * $gutter);
+$nine-columns: calc(9 * $column + 8 * $gutter);
+$ten-columns: calc(10 * $column + 9 * $gutter);
+$eleven-columns: calc(11 * $column + 10 * $gutter);
+$twelve-columns: calc(12 * $column + 11 * $gutter);
+
+$content-width-desktop: $twelve-columns;
+$content-width-mobile: $eight-columns;
+$navbar-height: calc($spacing-52 + $spacing-8);
+$minimum-card-height: 504px;
+$table-max-width: calc($twelve-columns - $gutter - $gutter);

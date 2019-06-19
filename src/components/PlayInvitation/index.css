@@ -1,0 +1,94 @@
+@import "../../styles/all.css";
+
+.root {
+  width: 100%;
+
+  text-align: center;
+}
+
+.container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+
+  margin-bottom: $spacing-64;
+
+  @include Breakpoint-tabletOnly {
+    grid-template-columns: 1fr;
+    margin: 0 auto;
+  }
+
+  @include Breakpoint-mobileOnly {
+    grid-template-columns: 1fr;
+    margin: 0 auto;
+  }
+}
+
+.invitation {
+  position: relative;
+
+  display: inline-block;
+}
+
+.play-button {
+  position: absolute;
+
+  top: 100px;
+
+  z-index: 1;
+
+  width: 100%;
+
+  @include Breakpoint-mobileOnly {
+    top: 70px;
+  }
+}
+
+.labels-container {
+  display: inline-block;
+
+  margin-bottom: $spacing-52;
+
+  text-align: left;
+
+  @include Breakpoint-tabletOnly {
+    margin-top: $spacing-36;
+
+    text-align: center;
+  }
+
+  @include Breakpoint-mobileOnly {
+    margin-top: $spacing-36;
+
+    text-align: center;
+  }
+}
+
+.labels {
+  max-width: 500px;
+
+  padding-left: $spacing-20;
+
+  margin: $spacing-12 auto 0 auto;
+
+  li {
+    display: list-item;
+
+    margin-top: $spacing-8;
+
+    color: $casper;
+
+    list-style-type: disc;
+  }
+
+  @include Breakpoint-tabletOnly {
+    max-width: 400px;
+
+    text-align: left;
+  }
+
+  @include Breakpoint-mobileOnly {
+    max-width: 250px;
+
+    text-align: left;
+  }
+}

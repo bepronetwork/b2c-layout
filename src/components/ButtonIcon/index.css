@@ -1,0 +1,57 @@
+@import "../../styles/all.css";
+
+.root {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  height: $spacing-20;
+
+  margin-top: $spacing-20;
+
+  background-color: inherit;
+
+  outline: none;
+
+  *:first-child {
+    margin-right: $spacing-8;
+  }
+}
+
+.disabled {
+}
+
+.root:not(.disabled):hover {
+  * {
+    color: $concrete;
+    cursor: pointer;
+    fill: $concrete;
+  }
+}
+
+.button {
+  width: $spacing-20;
+  height: $spacing-20;
+
+  background-color: inherit;
+
+  outline: none;
+  svg {
+    width: $spacing-16;
+
+    @include Breakpoint-mobileOnly {
+      width: 14px;
+    }
+
+    transform: rotate(0deg);
+
+    transition: transform 150ms linear;
+  }
+}
+
+.over {
+  svg {
+    transform: rotate(180deg);
+
+    transition: transform 150ms linear;
+  }
+}

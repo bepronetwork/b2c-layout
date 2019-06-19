@@ -1,0 +1,54 @@
+@import "../../styles/all.css";
+
+$root-index: 20;
+$icon-index: calc($root-index + 1);
+
+:export {
+  scrollwidth: 17px;
+}
+
+.root {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: $root-index;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+
+  background-color: color($pickled-bluewood alpha(70%));
+
+  @include Breakpoint-mobileOnly {
+    height: 110%;
+  }
+}
+
+.icon {
+  position: absolute;
+
+  top: $spacing-4;
+  right: $spacing-4;
+  z-index: $icon-index;
+
+  width: $spacing-20;
+  height: $spacing-20;
+  padding-bottom: 1px;
+
+  background-color: $gable-green;
+
+  cursor: pointer;
+  outline: none;
+}
+
+.content {
+  position: relative;
+
+  width: 800px;
+
+  background-color: $gable-green;
+
+  border-radius: $spacing-4;
+}

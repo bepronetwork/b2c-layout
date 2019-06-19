@@ -1,0 +1,79 @@
+@import "../../styles/all.css";
+
+.root {
+  text-align: center;
+}
+
+.button {
+  display: inline-block;
+
+  background: none;
+
+  text-decoration: none;
+}
+
+.image-container {
+  display: flex;
+  align-items: center;
+  width: calc($spacing-160 * 1.7);
+  height: calc($spacing-160 * 1.2);
+
+  margin: 0 0 $spacing-8 0;
+
+  border-radius: $spacing-12;
+
+  transition: margin 100ms linear;
+}
+
+.image-container:hover {
+  margin: calc($spacing-4 * -1) 0 $spacing-12 0;
+
+  transition: margin 200ms ease-out;
+}
+
+.image-container.firefly {
+  background-color: $firefly;
+}
+
+.image-container.cornflower-blue {
+  background-color: $cornflower-blue;
+}
+
+.image-container.dodger-blue {
+  background-color: $dodger-blue;
+}
+
+.image-container.malachite {
+  background-color: $malachite;
+}
+
+.labels {
+  display: grid;
+  align-items: center;
+
+  grid-template-columns: 1fr 30%;
+}
+
+.title {
+  text-align: left;
+}
+
+.icon {
+  width: 160px;
+
+  margin: 0 auto;
+
+  transform: scale(1) rotate(0deg);
+
+  transition: transform 800ms linear;
+
+  img {
+    max-width: 135px;
+  }
+}
+
+.image-container:hover .icon {
+  transform: scale(1.01) rotate(-10deg);
+
+  transition: transform 500ms linear;
+}

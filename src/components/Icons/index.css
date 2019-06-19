@@ -1,0 +1,34 @@
+@import "../../styles/all.css";
+
+.close-cross {
+  fill: $casper;
+}
+
+.close-cross:hover {
+  fill: $baby-powder;
+}
+
+.arrow {
+  fill: $casper;
+}
+
+.coins,
+.logout {
+  fill: $casper;
+}
+
+.rotate.casper {
+  fill: $casper;
+}
+.rotate.pickled-bluewood {
+  fill: $pickled-bluewood;
+}
+
+.undo.casper,
+.sound.casper {
+  fill: $casper;
+}
+.undo.pickled-bluewood,
+.sound.pickled-bluewood {
+  fill: $pickled-bluewood;
+}

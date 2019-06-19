@@ -1,0 +1,52 @@
+@import "../../styles/all.css";
+
+$bet-width: $spacing-52;
+
+.root {
+  display: flex;
+  width: calc(100% - $spacing-12 * 2);
+  padding: $spacing-12;
+}
+
+.container {
+  display: inline-grid;
+  margin: 0 0 0 auto;
+}
+
+.container.hide {
+  opacity: 0;
+
+  transform: translateX(10px);
+
+  transition: opacity 100ms linear;
+}
+
+.container.show {
+  opacity: 1;
+
+  transform: translateX(0px);
+
+  transition: opacity, transform 100ms linear;
+}
+
+.bet {
+  padding: $spacing-4 $spacing-8;
+
+  margin-right: $spacing-4;
+
+  background-color: $pickled-bluewood2;
+
+  border-radius: $spacing-36;
+
+  list-style: none;
+
+  text-align: center;
+
+  p {
+    margin: 0 auto;
+  }
+}
+
+.bet.win {
+  background-color: $green;
+}

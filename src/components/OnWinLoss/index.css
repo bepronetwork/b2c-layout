@@ -1,0 +1,19 @@
+@import "../../styles/all.css";
+
+.container {
+  display: flex;
+
+  width: 100%;
+
+  margin-top: $spacing-8;
+
+  background: $pickled-bluewood3;
+
+  border: 2px solid color($pickled-bluewood3 alpha(50%));
+
+  border-radius: $spacing-4;
+}
+
+.input {
+  flex-grow: 1;
+}

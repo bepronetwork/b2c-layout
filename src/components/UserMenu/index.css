@@ -1,0 +1,92 @@
+@import "../../styles/all.css";
+
+.root {
+  position: relative;
+
+  cursor: pointer;
+  outline: none;
+
+  * {
+    background-color: transparent;
+    cursor: pointer;
+    outline: none;
+  }
+}
+
+.triangle {
+  position: absolute;
+
+  top: calc($spacing-4 * -1);
+  right: $spacing-20;
+
+  width: 0;
+  height: 0;
+
+  border-right: $spacing-4 solid transparent;
+
+  border-bottom: $spacing-4 solid $baby-powder;
+
+  border-left: $spacing-4 solid transparent;
+}
+
+.options {
+  position: absolute;
+  right: 0;
+  z-index: 2;
+
+  display: inline-block;
+
+  margin-top: $spacing-12;
+
+  background: $baby-powder;
+
+  border-radius: $spacing-4;
+}
+
+.option {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 100%;
+
+  padding: $spacing-8 $spacing-16;
+
+  border-radius: $spacing-4;
+
+  *:first-child {
+    width: $spacing-16;
+    margin-right: $spacing-8;
+  }
+
+  cursor: pointer;
+  outline: none;
+}
+
+.option:hover {
+  background-color: $concrete;
+
+  * {
+    color: $nepal;
+  }
+}
+
+.label {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  height: $spacing-16;
+
+  cursor: pointer;
+
+  *:first-child {
+    margin-right: $spacing-4;
+  }
+}
+
+.label:hover {
+  * {
+    opacity: 0.75;
+
+    transition: opacity 0.1s ease-in;
+  }
+}

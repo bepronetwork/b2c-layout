@@ -1,0 +1,31 @@
+@import "../../styles/all.css";
+
+.root {
+  position: relative;
+
+  text-align: center;
+
+  p {
+    position: absolute;
+    top: 0;
+  }
+}
+.green,
+.red {
+  font-family: $font-family;
+  font-size: $font-size-small-body;
+  font-weight: 600;
+  line-height: $line-height-small-body;
+
+  @include Breakpoint-mobileOnly {
+    font-size: $font-size-small-body-mobile;
+    line-height: $line-height-small-body-mobile;
+  }
+}
+.green {
+  fill: $green;
+}
+
+.red {
+  fill: $red;
+}

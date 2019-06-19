@@ -1,0 +1,52 @@
+@import "../../styles/all.css";
+
+.root {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  padding: $spacing-52 $spacing-20;
+}
+
+.tabs {
+    width: 100%;
+}
+
+.deposit {
+    height: 250px;
+
+    text-align: center;
+}
+
+.title {
+  margin-top: $spacing-52;
+
+  text-align: center;
+
+  a {
+    text-decoration: none;
+  }
+}
+
+.title:hover {
+  h4 {
+    color: $casper;
+  }
+}
+
+.button {
+  margin-top: $spacing-52;
+  margin-bottom: $spacing-36;
+}
+
+
+.withdraws-table{
+    max-width: 70%;
+    margin: auto;
+    position: relative;
+}
+
+.input-box{
+    max-width: 200px;
+    margin: 20px auto;
+}

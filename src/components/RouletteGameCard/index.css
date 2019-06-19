@@ -1,0 +1,199 @@
+@import "../../styles/all.css";
+
+.root {
+  display: grid;
+  align-content: space-between;
+  justify-items: center;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-areas: "Result Wheel LastBets" "Board Board Board" "ChipControls ChipControls ChipControls";
+  box-sizing: border-box;
+  height: 100%;
+  min-width: 400px;
+
+  gap: $spacing-16;
+
+  padding: $spacing-36;
+
+  background-color: $mirage;
+
+  @include Breakpoint-mobileOnly {
+    grid-template-columns: auto auto;
+    grid-template-areas: "Result Board" "LastBets Board" "ChipControls ChipControls";
+  }
+}
+
+.result-container {
+  grid-area: Result / Result / Result / Result;
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  @include Breakpoint-mobileOnly {
+    height: 140px;
+  }
+}
+
+.result {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 70px;
+  height: 70px;
+
+  border-radius: 6px;
+  opacity: 0;
+
+  h4 {
+    color: white;
+
+    font-family: $font-family;
+    font-size: $font-size-h4;
+    font-weight: 600;
+    line-height: $line-height-h4;
+  }
+}
+
+.result.picked {
+  background-color: $pickled-bluewood2;
+  opacity: 1;
+
+  transition: all 100ms linear;
+}
+
+.result.red {
+  background-color: $red;
+  opacity: 1;
+
+  transition: all 100ms linear;
+}
+
+.result.green {
+  background-color: $japanese-laurel;
+
+  opacity: 1;
+
+  transition: all 100ms linear;
+}
+
+.wheel {
+  grid-area: Wheel / Wheel / Wheel / Wheel;
+
+  img {
+    width: 270px;
+    height: 270px;
+  }
+
+  @include Breakpoint-mobileOnly {
+    display: none;
+  }
+
+  animation: rotation 10s linear infinite;
+}
+
+@keyframes rotation {
+  from {
+    transform: rotate(360deg);
+  }
+  to {
+    transform: rotate(0deg);
+  }
+}
+
+.board {
+  position: relative;
+
+  grid-area: Board / Board / Board / Board;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  max-width: 750px;
+}
+
+.board-top {
+  @include Breakpoint-desktopOnly {
+    position: absolute;
+
+    top: 0;
+    left: 0;
+
+    z-index: -1;
+
+    width: 100%;
+    height: 100%;
+
+    background-color: color($mirage alpha(60%));
+
+    opacity: 0;
+
+    transition: opacity 100ms linear;
+  }
+}
+
+.board-top.block {
+  @include Breakpoint-desktopOnly {
+    z-index: 4;
+
+    opacity: 1;
+
+    transition: opacity 100ms linear;
+  }
+}
+
+.chip-controls {
+  grid-area: ChipControls / ChipControls / ChipControls / ChipControls;
+  display: flex;
+
+  flex-wrap: wrap;
+
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+
+  box-pack: justify;
+
+  box-align: center;
+}
+
+.clear-button {
+  display: flex;
+  flex-direction: row;
+  padding: $spacing-4;
+
+  margin-top: 20px;
+
+  background-color: $mirage;
+
+  cursor: pointer;
+
+  outline: none;
+
+  svg {
+    width: 22px;
+
+    background-color: $mirage;
+
+    fill: $casper;
+    outline: none;
+  }
+}
+
+.animation {
+  @include Breakpoint-mobileOnly {
+    display: block;
+  }
+
+  .wheel {
+    @include Breakpoint-mobileOnly {
+      display: block;
+    }
+  }
+
+  .result-container,
+  .chip-controls,
+  .board {
+    @include Breakpoint-mobileOnly {
+      display: none;
+    }
+  }
+}

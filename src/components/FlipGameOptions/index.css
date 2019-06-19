@@ -1,0 +1,102 @@
+@import "../../styles/all.css";
+
+.root {
+  display: flex;
+  flex-direction: column;
+
+  height: calc(100% - $spacing-20 - $spacing-20);
+
+  padding: $spacing-20;
+
+  background: $pickled-bluewood2;
+
+  * {
+    box-sizing: border-box;
+  }
+}
+
+.button {
+  order: 4;
+
+  margin-top: $spacing-20;
+
+  @include Breakpoint-mobileOnly {
+    order: 0;
+
+    margin-top: 0;
+  }
+}
+
+.element {
+  margin-top: $spacing-20;
+}
+
+.amount {
+  order: 1;
+  margin-top: $spacing-20;
+
+  @include Breakpoint-mobileOnly {
+    order: 2;
+  }
+}
+
+.content {
+  order: 2;
+}
+
+.toggle {
+  order: 0;
+
+  @include Breakpoint-mobileOnly {
+    order: 4;
+
+    margin-top: $spacing-20;
+  }
+}
+
+.side {
+  order: 4;
+
+  margin-top: $spacing-28;
+
+  @include Breakpoint-mobileOnly {
+    order: 1;
+
+    margin-top: $spacing-28;
+    margin-bottom: $spacing-8;
+  }
+
+  .label {
+    display: flex;
+    margin-bottom: $spacing-8;
+  }
+}
+
+.amount-title {
+  margin-bottom: $spacing-4;
+}
+
+.amount-container {
+  display: grid;
+  grid-template-columns: 55% 45%;
+
+  margin-top: $spacing-4;
+}
+
+.container {
+  display: flex;
+
+  width: 100%;
+
+  margin-top: $spacing-8;
+
+  background: $pickled-bluewood3;
+
+  border: 2px solid color($pickled-bluewood3 alpha(50%));
+
+  border-radius: $spacing-4;
+}
+
+.input {
+  flex-grow: 1;
+}

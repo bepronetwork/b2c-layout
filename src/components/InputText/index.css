@@ -1,0 +1,104 @@
+@import "../../styles/all.css";
+
+.root {
+  width: 100%;
+
+  * {
+    box-sizing: border-box;
+  }
+}
+
+.container {
+  padding: $spacing-8;
+
+  background-color: $mirage;
+
+  border: 2px solid $pickled-bluewood3;
+
+  border-radius: $spacing-4;
+}
+
+.container:hover {
+  border: 2px solid $light-pickled-bluewood;
+
+  transition: border 200ms ease-out 0s;
+
+  svg {
+    fill: white;
+  }
+}
+
+.container.disabled {
+  background-color: $pickled-bluewood3;
+}
+
+.container.with-icon {
+  cursor: pointer;
+
+  * {
+    cursor: pointer;
+  }
+}
+
+.label {
+  margin-bottom: $spacing-8;
+
+  text-align: left;
+}
+
+.input-container {
+  position: relative;
+
+  display: grid;
+
+  align-items: center;
+
+  grid-template-columns: 100%;
+
+  min-width: $column;
+}
+
+.input-container.with-icon {
+  grid-template-columns: calc(100% - $spacing-28) $spacing-28;
+}
+
+.input {
+  width: 99%;
+
+  background: none;
+
+  border: 0;
+  color: white;
+  outline: 0;
+
+  font-family: $font-family;
+  font-size: $font-size-body;
+  font-weight: $font-weight-semibold;
+  line-height: $line-height-body;
+
+  @include Breakpoint-mobileOnly {
+    font-size: $font-size-body-mobile;
+    line-height: $line-height-body-mobile;
+  }
+}
+
+.input::placeholder {
+  color: white;
+
+  font-size: $font-size-body;
+}
+
+.icon {
+  width: 100%;
+
+  cursor: pointer;
+
+  text-align: center;
+
+  svg {
+    width: 16px;
+    height: 16px;
+
+    fill: $light-grey;
+  }
+}

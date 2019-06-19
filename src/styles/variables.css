@@ -1,0 +1,39 @@
+$font-family: "Open Sans", sans-serif;
+
+$font-weight-regular: 400;
+$font-weight-semibold: 600;
+
+$font-size-h1: 52px;
+$line-height-h1: 88px;
+$font-size-h2: 36px;
+$line-height-h2: 52px;
+$font-size-h3: 28px;
+$line-height-h3: 36px;
+$font-size-h4: 20px;
+$line-height-h4: 28px;
+
+$font-size-body: 16px;
+$line-height-body: 20px;
+$font-size-small-body: 12px;
+$line-height-small-body: 16px;
+$font-size-x-small-body: 9px;
+$line-height-x-small-body: 12px;
+
+$font-size-h1-mobile: 36px;
+$line-height-h1-mobile: 52px;
+$font-size-h2-mobile: 28px;
+$line-height-h2-mobile: 36px;
+$font-size-h3-mobile: 20px;
+$line-height-h3-mobile: 28px;
+$font-size-h4-mobile: 16px;
+$line-height-h4-mobile: 20px;
+
+$font-size-body-mobile: 12px;
+$line-height-body-mobile: 16px;
+$font-size-small-body-mobile: 9px;
+$line-height-small-body-mobile: 12px;
+$font-size-x-small-body-mobile: 9px;
+$line-height-x-small-body-mobile: 12px;
+
+$padding-height-navbar : 10px;
+$padding-width-navbar : 50px;

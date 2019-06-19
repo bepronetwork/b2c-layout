@@ -1,0 +1,30 @@
+@import "../../../styles/all.css";
+
+.yellow-box{
+    background-color: #f7f72e;
+    border-radius: 20px;
+    width: max-content;
+    padding: 5px 10px;
+}
+
+.grey-box{
+    background-color: #ccc;
+    border-radius: 20px;
+    width: max-content;
+    padding: 5px 10px;
+}
+
+
+.green-box{
+    background-color: #10bf47;
+    border-radius: 20px;
+    width: max-content;
+    padding: 5px 10px;
+}
+
+.orange-box{
+    background-color:orange;
+    border-radius: 20px;
+    width: max-content;
+    padding: 5px 10px;
+}

@@ -1,0 +1,82 @@
+import React, { Component } from "react";
+import PropTypes from "prop-types";
+import { ButtonIcon, History } from "components";
+import UserContext from "containers/App/UserContext";
+
+import "./index.css";
+
+export default class GamePage extends Component {
+    static contextType = UserContext;
+
+    static propTypes = {
+        options: PropTypes.node,
+        game: PropTypes.node,
+        history: PropTypes.oneOf(["diceHistory", "rouletteHistory", "flipHistory"])
+    };
+
+    static defaultProps = {
+        options: null,
+        game: null,
+        history: ""
+    };
+
+    constructor(props) {
+        super(props);
+
+        const sound = localStorage.getItem("sound");
+
+        this.state = {
+        soundMode: sound || "off"
+        };
+    }
+
+    handleSounds = () => {
+        const { soundMode } = this.state;
+        const mode = soundMode === "off" ? "on" : "off";
+
+        this.setState({ soundMode: mode }, () => {
+        localStorage.setItem("sound", mode);
+        });
+    };
+
+    renderHistory = () => {
+        const { user } = this.context;
+        const { history } = this.props;
+
+        if (!user) {
+        return null;
+        }
+
+        return (
+        <div styleName="history">
+            <History game={history} />
+        </div>
+        );
+    };
+
+    render() {
+        const { options, game } = this.props;
+        const { soundMode } = this.state;
+
+        return (
+        <div styleName="root">
+            <div styleName="container">
+            <div styleName="options-container">{options}</div>
+            <div styleName="game-container">
+                {game}
+                {this.renderHistory()}
+            </div>
+            </div>
+            <div styleName="sound">
+            <ButtonIcon
+                iconAtLeft
+                icon="sound"
+                label="Sound"
+                onClick={this.handleSounds}
+                soundMode={soundMode}
+            />
+            </div>
+        </div>
+        );
+    }
+}

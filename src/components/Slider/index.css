@@ -1,0 +1,194 @@
+@import "../../styles/all.css";
+
+$diamond-width: calc($spacing-120 * 0.6);
+$handle: 32px;
+
+.root {
+  position: relative;
+
+  width: 100%;
+
+  padding-top: $spacing-36;
+}
+
+.container {
+  position: relative;
+
+  width: calc(100% - $spacing-28);
+  height: 30px;
+
+  padding-left: $spacing-8;
+
+  background-color: $mirage;
+
+  border: solid $spacing-12 $pickled-bluewood;
+
+  border-radius: $spacing-28;
+}
+
+.slider-container {
+  position: relative;
+
+  width: calc(100% - $spacing-8);
+  padding-top: 2px;
+}
+
+.marker-0,
+.marker-25,
+.marker-50,
+.marker-75,
+.marker-100 {
+  position: absolute;
+  top: calc(-1 * $spacing-36);
+
+  width: 20px;
+
+  text-align: center;
+
+  .triangle {
+    width: 0;
+    height: 0;
+    margin-top: $spacing-4;
+
+    margin-left: 6px;
+
+    border-right: $spacing-4 solid transparent;
+
+    border-bottom: $spacing-4 solid $pickled-bluewood;
+
+    border-left: $spacing-4 solid transparent;
+  }
+}
+
+.marker-0 {
+  left: 0;
+
+  text-align: left;
+
+  .triangle {
+    margin-left: 0;
+  }
+}
+
+.marker-25 {
+  left: 25%;
+
+  margin-left: -10px;
+}
+.marker-50 {
+  left: 50%;
+
+  margin-left: -10px;
+}
+.marker-75 {
+  left: 75%;
+
+  margin-left: -10px;
+}
+.marker-100 {
+  right: calc($spacing-4 * -1);
+}
+
+:global {
+  .rc-slider {
+      top : -10px;
+    position: relative;
+
+    box-sizing: border-box;
+
+    width: 100%;
+    height: $spacing-12;
+    -ms-touch-action: none;
+    touch-action: none;
+
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  }
+
+  .rc-slider * {
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  }
+
+  .rc-slider-rail {
+    position: absolute;
+
+    top: $spacing-8;
+
+    width: 100%;
+
+    height: $spacing-8;
+
+    background-color: $green;
+
+    border-radius: $spacing-4;
+  }
+
+  .rc-slider-track {
+    position: absolute;
+
+    top: $spacing-8;
+    left: 0;
+
+    height: $spacing-8;
+
+    background-color: $red;
+
+    border-radius: $spacing-4;
+  }
+
+  .under {
+    .rc-slider-rail {
+      background-color: $red;
+    }
+    .rc-slider-track {
+      background-color: $green;
+    }
+  }
+
+  .rc-slider-handle {
+    position: absolute;
+
+    width: $handle;
+    height: $handle;
+
+    margin-top: calc(($handle * 0.12) * -1);
+    margin-left: calc($handle * 0.5 * -1);
+
+    background-color: $dodger-blue;
+    background-image: url("../../assets/lines.svg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: calc($handle * 0.5) calc($handle * 0.4);
+
+    border-radius: $spacing-4;
+
+    cursor: grab;
+
+    -ms-touch-action: pan-x;
+    touch-action: pan-x;
+  }
+
+  .rc-slider-handle:focus {
+    outline: none;
+  }
+
+  .rc-slider-handle:active {
+    cursor: grabbing;
+  }
+
+  .rc-slider-disabled .rc-slider-handle {
+    cursor: not-allowed;
+  }
+}
+
+.result {
+  position: absolute;
+
+  top: calc($diamond-width * -1);
+  left: 0;
+  z-index: -1;
+
+  width: $diamond-width;
+
+  transform: scale(0.1);
+}
