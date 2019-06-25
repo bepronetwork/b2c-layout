@@ -11,7 +11,7 @@ $values-height: 92px;
 
   padding: $spacing-20;
 
-  background-color: $mirage;
+  background-color: $background-main-table;
 }
 
 .flip-container {
@@ -139,7 +139,7 @@ $values-height: 92px;
 
   padding: $spacing-16;
 
-  background-color: $pickled-bluewood;
+  background-color: $background-table-1-outer;
 
   border-radius: $spacing-4;
 }

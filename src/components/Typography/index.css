@@ -100,11 +100,11 @@
 }
 
 .pickled-bluewood {
-  color: $pickled-bluewood;
+  color: $background-table-1-outer;
 }
 
 .white {
-  color: white;
+  color: $text-primary-color;
 }
 
 .mercury {
@@ -112,7 +112,7 @@
 }
 
 .casper {
-  color: $casper;
+  color:  $text-secondary-color;
 }
 
 .green {
@@ -124,5 +124,5 @@
 }
 
 .grey{
-    color : #ccc;
+    color : $grey;
 }

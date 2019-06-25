@@ -11,15 +11,15 @@
 .container {
   padding: $spacing-8;
 
-  background-color: $mirage;
+  background-color: $background-main-table;
 
-  border: 2px solid $pickled-bluewood3;
+  border: 2px solid $background-table-1-outer-2;
 
   border-radius: $spacing-4;
 }
 
 .container:hover {
-  border: 2px solid $light-pickled-bluewood;
+  border: 2px solid $light-background-table-1-outer;
 
   transition: border 200ms ease-out 0s;
 
@@ -29,7 +29,7 @@
 }
 
 .container.disabled {
-  background-color: $pickled-bluewood3;
+  background-color: $background-table-1-outer-2;
 }
 
 .container.with-icon {

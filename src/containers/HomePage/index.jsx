@@ -1,10 +1,8 @@
 import React, { Component } from "react";
 import { find } from "lodash";
-import { GameCard } from "components";
+import { GameCard, CoinFlip, Roulette } from "components";
 import PropTypes from "prop-types";
 import Dices from "components/Icons/Dices";
-import roulette from "assets/roulette-wheel.png";
-import Bitcoin from "components/Icons/Bitcoin";
 import UserContext from "containers/App/UserContext";
 import PlayInvitation from "components/PlayInvitation";
 import { Row, Col} from 'reactstrap';
@@ -15,22 +13,20 @@ const games = [{
     name : 'Linear Dice',
     path :"/dice",
     title : "Linear Dice",
-    width : "145px",
-    color: "cornflower-blue",
+    color: "dice-background-color",
     content : <Dices/>
 }, {
     name : 'Roulette',
     path :"/roulette",
     title : "Roulette",
-    color: "malachite",
-    content : (<img alt="roulette" src={roulette} />)
+    color: "roulette-background-color",
+    content : <Roulette/>
 },  {
     name : 'CoinFlip',
     path :"/coinflip",
     title : "CoinFlip",
-    width : '110px',
-    color: "dodger-blue",
-    content : (<div styleName="coin"><Bitcoin /></div>)
+    color: "coinflip-background-color",
+    content : <CoinFlip/>
 }];
 
 export default class HomePage extends Component {
@@ -53,7 +49,7 @@ export default class HomePage extends Component {
         return find(appInfo.games, { name: game });
     };
 
-    renderGame = ({path, title, width, color, content}) => {
+    renderGame = ({path, title, color, content}) => {
         if(!this.isGameAvailable(title)){return null};
 
         return (
@@ -61,7 +57,6 @@ export default class HomePage extends Component {
                 <GameCard
                     path={path}
                     title={title}
-                    width={width}
                     color={color}
                 >
                     {content}

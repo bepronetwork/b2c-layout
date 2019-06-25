@@ -1,5 +1,7 @@
 @import "../../styles/all.css";
 
+
+
 .root {
   text-align: center;
 }
@@ -35,16 +37,16 @@
   background-color: $firefly;
 }
 
-.image-container.cornflower-blue {
-  background-color: $cornflower-blue;
+.image-container.dice-background-color {
+    background-color: $dice-background-color;
 }
 
-.image-container.dodger-blue {
-  background-color: $dodger-blue;
+.image-container.roulette-background-color {
+    background-color: $roulette-background-color;
 }
 
-.image-container.malachite {
-  background-color: $malachite;
+.image-container.coinflip-background-color {
+    background-color: $coinflip-background-color;
 }
 
 .labels {
@@ -59,17 +61,9 @@
 }
 
 .icon {
-  width: 160px;
-
   margin: 0 auto;
-
   transform: scale(1) rotate(0deg);
-
   transition: transform 800ms linear;
-
-  img {
-    max-width: 135px;
-  }
 }
 
 .image-container:hover .icon {
@@ -77,3 +71,4 @@
 
   transition: transform 500ms linear;
 }
+

@@ -25,7 +25,7 @@
 
     border-radius: $spacing-12;
 
-    box-shadow: color($mirage alpha(75%)) 0px 0px 10px;
+    box-shadow: color($background-shadow alpha(75%)) 0px 0px 10px;
 
   @include Breakpoint-mobileOnly {
     grid-template-columns: 100%;
@@ -46,7 +46,7 @@
 
 .options-container {
     height: 100%;
-    background-color: $pickled-bluewood;
+    background-color: $background-table-1-outer;
     padding : 10px;
   @include Breakpoint-mobileOnly {
     order: 2;

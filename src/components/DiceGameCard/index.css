@@ -6,7 +6,7 @@ $with-without-padding: calc(100% - $spacing-20 - $spacing-20);
 .root {
   height: inherit;
   padding: $spacing-20;
-  background-color: $mirage;
+  background-color: $background-main-table;
 }
 
 .container {
@@ -34,7 +34,7 @@ $with-without-padding: calc(100% - $spacing-20 - $spacing-20);
   width: calc(100% - $spacing-16 - $spacing-16);
   padding: $spacing-16;
   margin: auto;
-  background-color: $pickled-bluewood;
+  background-color: $background-table-1-outer;
 
   border-radius: $spacing-4;
 }

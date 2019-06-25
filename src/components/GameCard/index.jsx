@@ -14,7 +14,6 @@ export default class GameCard extends Component {
         path: PropTypes.string.isRequired,
         children: PropTypes.node.isRequired,
         width: PropTypes.string,
-        color: PropTypes.oneOf(["cornflower-blue", "dodger-blue", "malachite"])
     };
 
     static defaultProps = {
@@ -41,16 +40,14 @@ export default class GameCard extends Component {
     render() {
         const { title, edge, path, children, width, color } = this.props;
 
-        const imageStyles = classNames("image-container", {
-            [color]: true
-        });
+        const imageStyles = "image-container " + color;
 
         return (
             <div styleName="root">
                 <Link to={path} styleName="button">
                 <div styleName={imageStyles}>
-                    <div styleName="icon" style={{ width }}>
-                    {children || null}
+                    <div styleName="icon">
+                        {children || null}
                     </div>
                 </div>
                 <div styleName="labels">

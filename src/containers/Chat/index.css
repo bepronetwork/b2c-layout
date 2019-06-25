@@ -25,7 +25,7 @@
 
     border-radius: $spacing-12;
 
-    box-shadow: color($mirage alpha(75%)) 0px 0px 10px;
+    box-shadow: color($background-shadow alpha(75%)) 0px 0px 10px;
 
     @include Breakpoint-mobileOnly {
         grid-template-columns: 100%;
@@ -38,7 +38,7 @@
 
 .text-container{
     height: $top-chat-message-percentage;
-    background-color: $big-stone;
+    background-color: $text-container-interior-color;
     padding : 10px;
     overflow : auto;
 }
@@ -48,19 +48,19 @@
     width: 100%;
     margin : 10px auto;
     border-radius : $border-radius-messsage-box;
-    background-color: $dark-blue;
+    background-color: $chat-message-container-color;
 }
 
 .message-container{
     padding : 10px;
     height: $bot-chat-message-percentage;
-    background-color: $dark-blue;
+    background-color:$chat-container-color;
 }
 
 .options-container {
   height: 100%;
 
-  background-color: $pickled-bluewood;
+  background-color: $background-table-1-outer;
 
   @include Breakpoint-mobileOnly {
     order: 2;

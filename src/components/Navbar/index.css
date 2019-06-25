@@ -4,25 +4,24 @@
 
 }
 .root {
-  position: fixed;
-  top: 0;
-  z-index: 20;
+    position: fixed;
+    top: 0;
+    z-index: 20;
 
-  display: flex;
-  flex-direction: row;
-  align-items: center;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
 
-  width: 100%;
-  height: $navbar-height;
-  padding-top : $padding-height-navbar;
-  padding-bottom : $padding-height-navbar;
-  padding-left : $padding-width-navbar;
-  padding-right : $padding-width-navbar;
+    width: 100%;
+    height: $navbar-height;
+    padding-top : $padding-height-navbar;
+    padding-bottom : $padding-height-navbar;
+    padding-left : $padding-width-navbar;
+    padding-right : $padding-width-navbar;
 
+    background-color: $background-top-bar-theme;
 
-  background-color: $gable-green;
-
-  box-shadow: color($firefly alpha(40%)) 0px 5px 10px;
+    box-shadow: color($firefly alpha(40%)) 0px 5px 10px;
 }
 
 
@@ -47,9 +46,14 @@
 }
 
 .image {
-  max-width: 75px;
-  max-height: 48px;
+    width: 120px;
+
+    @include Breakpoint-mobileOnly {
+        width: 70px;
+      }
 }
+
+
 
 .content {
   display: flex;
@@ -59,27 +63,27 @@
 }
 
 .coin {
-  position: relative;
-  width: fit-content;
-  margin: auto;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  padding: $spacing-4;
+    position: relative;
+    width: fit-content;
+    margin: auto;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
     margin-top : 4px;
-  margin-left: auto;
+    margin-left: auto;
+    padding: 5px 10px !important;
+    background-color: $background-main-table;
+    border-radius: $spacing-4;
+    cursor: default;
 
-  background-color: $mirage;
-  border-radius: $spacing-4;
-  cursor: default;
-
-  *:first-child {
-    margin-right: $spacing-4;
-  }
+    *:first-child {
+        margin-right: $spacing-4;
+    }
 
   .icon {
-    width: $spacing-16;
-    height: $spacing-16;
+        margin-top : -4px;
+        width: $spacing-16;
+        height: $spacing-16;
   }
 
   .diff-won {

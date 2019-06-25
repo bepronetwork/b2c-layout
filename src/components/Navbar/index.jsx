@@ -5,7 +5,7 @@ import { Button, SubtleButton, Typography, UserMenu, AnimationNumber } from "com
 import UserContext from "containers/App/UserContext";
 import Bitcoin from "components/Icons/Bitcoin";
 import { Numbers } from "../../lib/ethereum/lib";
-import logo from "../../assets/logo.ico";
+import logo from "assets/logo.png";
 import { connect } from "react-redux";
 import { compose } from 'lodash/fp'
 import _ from 'lodash';
@@ -118,7 +118,7 @@ class Navbar extends Component {
                                 <Col xs={2} md={2}/>
                                 <Col xs={4} md={3}>
                                     <div styleName="coin">
-                                        <AnimationNumber  number={this.state.currentBalance}/>
+                                        <AnimationNumber number={this.state.currentBalance}/>
                                         <div styleName="icon">
                                             <CoinSign />
                                         </div>

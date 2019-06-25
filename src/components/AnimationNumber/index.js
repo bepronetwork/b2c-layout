@@ -7,7 +7,7 @@ import "./index.css";
 
 const AnimationNumber = ({number}) => {
     return (
-        <Typography variant="body" color="white">
+        <Typography variant="h4" color="white">
             <AnimatedNumber 
                 style={{
                     transition: '0.4s ease-out',

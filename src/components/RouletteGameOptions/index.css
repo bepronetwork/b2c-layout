@@ -10,7 +10,7 @@
 
   padding: $spacing-20;
 
-  background: $pickled-bluewood2;
+  background: $background-table-1;
 }
 
 .button {
@@ -50,9 +50,9 @@
 
   margin-top: $spacing-8;
 
-  background: $pickled-bluewood3;
+  background: $background-table-1-outer-2;
 
-  border: 2px solid color($pickled-bluewood3 alpha(50%));
+  border: 2px solid color($background-table-1-outer-2 alpha(50%));
 
   border-radius: $spacing-4;
 }

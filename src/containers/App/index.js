@@ -283,7 +283,7 @@ export default class App extends Component {
                 {this.isGameAvailable("CoinFlip") ? (
                     <Route
                     exact
-                    path="/flip"
+                    path="/coinflip"
                     render={props => (
                         <FlipPage
                         {...props}

@@ -7,6 +7,7 @@ import { map } from "lodash";
 import { connect } from "react-redux";
 import _ from 'lodash';
 import "./index.css";
+import invitation from 'assets/invitation.png';
 
 class PlayInvitation extends Component {
   static propTypes = {
@@ -37,33 +38,35 @@ class PlayInvitation extends Component {
 
     render() {
         return (
-        <div styleName="root">
-            <div styleName="container">
-                <div styleName="invitation">
-                    <InvitationCards />
-                    <div styleName="play-button">
-                        <Button onClick={this.handleClick} theme="primary">
-                            {_.isEmpty(this.props.profile) ?
-                            (
-                                <Typography weight="semi-bold" color="pickled-bluewood">
-                                    Play Now
-                                </Typography>
-                            ) :   
-                                <Typography weight="semi-bold" color="pickled-bluewood">
-                                    Go!
-                                </Typography>
-                            }
-                        </Button>
+                
+            <div styleName="root">
+                <div styleName="container">
+                    <div styleName="invitation">
+                        <img src={invitation} styleName='invitation-cards'/>
+                        {/* <InvitationCards /> */}
+                        <div styleName="play-button">
+                            <Button onClick={this.handleClick} theme="primary">
+                                {_.isEmpty(this.props.profile) ?
+                                (
+                                    <Typography weight="semi-bold" color="$background-table-1-outer">
+                                        Play Now
+                                    </Typography>
+                                ) :   
+                                    <Typography weight="semi-bold" color="pickled-bluewood">
+                                        Go!
+                                    </Typography>
+                                }
+                            </Button>
+                        </div>
+                    </div>
+                    <div styleName="labels-container">
+                        <Typography weight="semi-bold" color="white" variant="h4">
+                            {config.title}
+                        </Typography>
+                        {this.renderLabels()}
                     </div>
                 </div>
-                <div styleName="labels-container">
-                    <Typography weight="semi-bold" color="white" variant="h4">
-                        {config.title}
-                    </Typography>
-                    {this.renderLabels()}
-                </div>
             </div>
-        </div>
         );
     }
 }

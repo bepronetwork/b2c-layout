@@ -36,7 +36,11 @@ import UserMenu from "components/UserMenu";
 import AnimationNumber from "components/AnimationNumber";
 import Dollar from "components/Icons/Dollar";
 import DropDownField from "components/DropDownField";
+import CoinFlip from "components/Icons/CoinFlip";
+import Roulette from "components/Icons/Roulette";
 
+export { Roulette };
+export { CoinFlip };
 export { DropDownField };
 export { AnimationNumber };
 export { BitcoinIcon };

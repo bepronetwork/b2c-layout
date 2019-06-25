@@ -7,7 +7,7 @@
 .toggle {
   padding: $spacing-8;
 
-  background: $pickled-bluewood3;
+  background: $background-table-1-outer-2;
 
   border-radius: $spacing-4;
 
@@ -37,13 +37,13 @@
 }
 
 .toggle.selected {
-  background-color: $mirage;
+  background-color: $background-main-table;
 
   transition: background 300ms linear;
 }
 
 .toggle.selected:hover {
-  background-color: $mirage;
+  background-color: $background-main-table;
 }
 
 .toggle.medium {

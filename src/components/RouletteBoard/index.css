@@ -366,7 +366,7 @@
   padding: $spacing-4;
 
   border-radius: $spacing-4;
-  box-shadow: $pickled-bluewood2 0px 0px 0px 2px inset;
+  box-shadow: $background-shadow 0px 0px 0px 2px inset;
   cursor: pointer;
 
   transition-duration: 200ms;
@@ -386,11 +386,11 @@
 }
 
 .cell.pickled-bluewood {
-  background-color: $pickled-bluewood2;
+  background-color: $background-table-1;
 }
 
 .cell.pickled-bluewood.focused {
-  background-color: $light-pickled-bluewood;
+  background-color: $light-background-table-1-outer;
 }
 
 .cell.red.focused {
@@ -404,12 +404,12 @@
 }
 
 .cell.auto:hover {
-  background-color: $light-pickled-bluewood;
+  background-color: $light-background-table-1-outer;
   box-shadow: none;
 }
 
 .cell.pickled-bluewood:hover {
-  background-color: $light-pickled-bluewood;
+  background-color: $light-background-table-1-outer;
 }
 
 .cell.japanese-laurel:hover {

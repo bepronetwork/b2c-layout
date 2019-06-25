@@ -20,15 +20,27 @@
 .rotate.casper {
   fill: $casper;
 }
-.rotate.pickled-bluewood {
-  fill: $pickled-bluewood;
+.rotate.$background-table-1-outer {
+  fill: $background-table-1-outer;
 }
 
 .undo.casper,
 .sound.casper {
-  fill: $casper;
+    fill: $casper;
 }
-.undo.pickled-bluewood,
-.sound.pickled-bluewood {
-  fill: $pickled-bluewood;
+.undo.$background-table-1-outer,
+.sound.$background-table-1-outer {
+    fill: $background-table-1-outer;
+}
+
+.dice-icon{
+    width: $games-dice-size;
+}
+
+.roulette-icon{
+    width: $games-roulette-size;
+}
+
+.coinflip-icon{
+    width: $games-coinflip-size;
 }

@@ -28,7 +28,7 @@ $coin-size: 35px;
 
   margin-top: $spacing-4;
 
-  background-color: $pickled-bluewood3;
+  background-color: $background-table-1-outer-2;
 
   border-radius: $spacing-4;
 }
@@ -61,9 +61,9 @@ $coin-size: 35px;
 
   overflow: hidden;
 
-  background-color: $mirage;
+  background-color: $background-main-table;
 
-  border: 2px solid $pickled-bluewood3;
+  border: 2px solid $background-table-1-outer-2;
 }
 
 .coins:hover {

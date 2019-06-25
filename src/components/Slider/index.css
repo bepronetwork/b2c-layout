@@ -19,9 +19,9 @@ $handle: 32px;
 
   padding-left: $spacing-8;
 
-  background-color: $mirage;
+  background-color: $background-main-table;
 
-  border: solid $spacing-12 $pickled-bluewood;
+  border: solid $spacing-12 $background-table-1-outer;
 
   border-radius: $spacing-28;
 }
@@ -54,7 +54,7 @@ $handle: 32px;
 
     border-right: $spacing-4 solid transparent;
 
-    border-bottom: $spacing-4 solid $pickled-bluewood;
+    border-bottom: $spacing-4 solid $background-table-1-outer;
 
     border-left: $spacing-4 solid transparent;
   }

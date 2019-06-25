@@ -3,27 +3,30 @@
 @import "./variables.css";
 @import "./googlefonts.css";
 @import "./breakpoints.css";
-
+@import "./components.css";
 
 /* width */
 ::-webkit-scrollbar {
     width: 5px;
-    height: 5px;;
+    height: 5px;
+    background-color: transparent;
 }
 
 /* Track */
 ::-webkit-scrollbar-track {
     border-radius: 10px;
+    background-color: transparent;
 }
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-    background: #ccc; 
+    background: $scroll-bar-color;
     border-radius: 10px;
 }
 
 body{
     overflow-x : hidden;
+    background-color: $background-color-theme;
     overflow-y: auto !important;
     padding-bottom: 30px;
 }

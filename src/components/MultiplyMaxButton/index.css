@@ -1,7 +1,7 @@
 @import "../../styles/all.css";
 
 .root {
-  background: $pickled-bluewood3;
+  background: $background-table-1-outer-2;
 
   border-top-right-radius: $spacing-4;
   border-bottom-right-radius: $spacing-4;
@@ -18,7 +18,7 @@
 .button {
   height: 100%;
 
-  background: $pickled-bluewood3;
+  background: $background-table-1-outer-2;
   cursor: pointer;
 
   outline: none;
@@ -30,7 +30,7 @@
 }
 
 .button:hover {
-  background-color: $light-pickled-bluewood;
+  background-color: $light-background-table-1-outer;
 }
 
 .button-container {
