@@ -13,6 +13,9 @@ import { getCurrentUser, login } from 'lib/api/users';
 import codes from 'lib/config/codes';
 import { processResponse } from "../../lib/api/apiConfig";
 import Cache from "../../lib/cache/cache";
+import ChatChannel from "../Chat";
+import store from "../../containers/App/store";
+import { setProfileInfo } from "../../redux/actions/profile";
 
 export default class User {
     constructor({
@@ -26,7 +29,7 @@ export default class User {
         app
     }) {
     
-        this.id       =userId;
+        this.id = userId;
         this.user_id = userId;
         this.app_id = appId;
         this.platformAddress = platformAddress;
@@ -45,8 +48,40 @@ export default class User {
      * @use Initialization Function
      */
 
-    __init__() {
+    __init__ = async () =>  {
         this.setupCasinoContract();
+        await this.setupChat();
+        this.connectMetamask();
+        this.updateUserState();
+    }
+
+    updateUserState = async () => {
+        /* Add Everything to the Redux State */  
+        await store.dispatch(setProfileInfo(this));
+    }
+
+    connectMetamask = () => {
+        window.ethereum.on('accountsChanged', (accounts) => {
+            // Time to reload your interface with accounts[0]!
+            this.setMetamaskAddress(accounts[0]);
+        })
+        
+        window.ethereum.on('networkChanged', (netId) =>  {
+            
+        })
+    }
+
+    setupChat = async () => {
+        this.chat = new ChatChannel({id : this.id, name : this.username});
+        await this.chat.__init__();
+    }
+
+    getMessages = () => {
+        return this.chat.getMessages();
+    }
+
+    sendMessage = async ({message, data}) => {
+        await this.chat.sendMessage({message, data});
     }
 
     updateUser = async () => {
@@ -155,11 +190,19 @@ export default class User {
         return this.user.address;
     }
 
+    setMetamaskAddress = (address) => {
+        this.metamaskAddress = address;
+        this.updateUserState();
+    }
+
     getMetamaskAddress = async () => {
+        if(this.metamaskAddress){return this.metamaskAddress};
+        
         /* Enable Metamask Auth */
         await enableMetamask("eth");
         let accounts = await window.web3.eth.getAccounts();
         return accounts[0];
+        
     }
 
     askForWithdraw = async ({amount}) => {
@@ -168,8 +211,6 @@ export default class User {
             /* Enable Metamask Auth */
             await enableMetamask("eth");
             let accounts = await window.web3.eth.getAccounts();
-            await this.cancelWithdrawals();
-
             var nonce = getNonce();
             res = {...res, nonce};
             let user = await getCurrentUser()
@@ -234,8 +275,6 @@ export default class User {
                 nonce
             });
 
-            console.log(resEthereum)
-            console.log(withdraw_id, nonce, amount)
             /* Finalize Withdraw to API */
             let res_fin = await finalizeWithdraw(
                 {

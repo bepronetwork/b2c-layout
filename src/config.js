@@ -1,10 +1,8 @@
 export default {
   title: "The Original Crypto Casino",
   labels: [
-    "Sed vitae mi in tellus ultrices iaculis eu vehicula sapien.",
-    "Phasellus vulputate sapien a orci iaculis, et pulvinar ex imperdiet.",
-    "Nam ut congue dui, quis porttitor urna. Mauris id euismod ipsum.",
-    "Donec suscipit lorem est, laoreet hendrerit augue tempus ac.",
-    "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+    "Hybrid Control of the Platform built in Ethereum",
+    "Fast Deposits & Withdrawals, completely decentralized",
+    "Provably Fair Bets and with the speed of a Centralized Betting App"
   ]
 };

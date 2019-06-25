@@ -9,11 +9,9 @@ export default async function bet({ rollNumber, rollType, betAmount, user }) {
         const game = find(appInfo.games, { name: "Linear Dice" });
 
         const maxRoll = rollType === "under" ? rollNumber : 100 - rollNumber;
-
-        const result = map(range(2, maxRoll + 1), index => {
-        return { place: index, value: betAmount / maxRoll };
+        const result = map(range(2, maxRoll + 2), index => {
+            return { place: index, value: betAmount / maxRoll };
         });
-
         const response = await user.createBet({
             amount: betAmount,
             result,

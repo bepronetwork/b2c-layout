@@ -29,19 +29,17 @@ export default class DicePage extends Component {
             const { user } = this.context;
             const { onHandleLoginOrRegister } = this.props;
             const { rollNumber, rollType } = this.state;
-
             this.setState({ disableControls: true });
-
             if (!user) return onHandleLoginOrRegister("register");
 
             const result = await diceBet({
-            rollNumber,
-            rollType,
-            betAmount: amount,
-            user
+                rollNumber,
+                rollType,
+                betAmount: amount,
+                user
             });
 
-            return this.setState({ result });
+            return this.setState({ result, disableControls : false  });
         }catch(err){
             return this.setState({ result : 0, disableControls : false });
 
@@ -84,11 +82,11 @@ export default class DicePage extends Component {
 
     render() {
         return (
-        <GamePage
-            game={this.getGameCard()}
-            options={this.getOptions()}
-            history="diceHistory"
-        />
+            <GamePage
+                game={this.getGameCard()}
+                options={this.getOptions()}
+                history="diceHistory"
+            />
         );
     }
 }

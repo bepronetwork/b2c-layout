@@ -20,18 +20,23 @@ import getAppInfo from "lib/api/app";
 import handleError from "lib/api/handleError";
 import User from "controllers/User/User";
 import UserContext from "./UserContext";
-
+import { Row, Col, Container } from 'reactstrap';
 import "./index.css";
 import Web3 from "web3";
 import { setProfileInfo } from "../../redux/actions/profile";
 import store from "./store";
 import Cache from "../../lib/cache/cache";
+import ChatPage from "../Chat";
+import gif from "assets/gif.gif";
 
 const history = createBrowserHistory();
 
 export default class App extends Component {
     constructor(props) {
         super(props);
+        this.state = {
+            isLoading : true
+        }
     }
 
     componentDidMount = () => {
@@ -39,13 +44,21 @@ export default class App extends Component {
     };
 
 
+
 	asyncCalls = async () => {
         try{
             this.startWallet();
+            await this.startLoading();
             await this.loginAccount();
         }catch(err){
 
         }
+    }
+
+    startLoading = async () => {
+        setTimeout( () => {
+            this.setState({...this.state, isLoading : false})
+        },4*1000)
     }
 
     loginAccount = async () => {
@@ -80,7 +93,8 @@ export default class App extends Component {
     state = {
         registerLoginModalOpen: null,
         cashierOpen: null,
-        error: null
+        error: null,
+        isLoading : true
     };
 
     handleRegisterLoginModalClose = () => {
@@ -111,7 +125,8 @@ export default class App extends Component {
             if (response.status !== 200) {
                 return this.setState({ error: response.status });
             }
-            this.updateUser(response);
+            let user = await this.updateUser(response);
+            await user.updateUser();
 
             return this.setState({ registerLoginModalOpen: null, error: null });
         } catch (error) {
@@ -124,7 +139,8 @@ export default class App extends Component {
             const response = await register(form);
             Cache.setToCache('Authentication', {username : form.username, password : form.password});
             if (response.status !== 200) { return this.setState({ error: response }); }
-            this.updateUser(response);
+            let user = await this.updateUser(response);
+            await user.updateUser();
             return this.setState({ registerLoginModalOpen: null, error: null });
         } catch (error) {
             console.log(error);
@@ -152,7 +168,6 @@ export default class App extends Component {
 
 
     updateUser = async user => {
-        console.log(user);
         const appInfo = this.state.app;
 
         let userObject = new User({
@@ -165,12 +180,14 @@ export default class App extends Component {
             user : user
         })
 
+        
         await store.dispatch(setProfileInfo(userObject));
         Cache.setToCache('user', userObject)
-
+        
         this.setState({
             user: userObject
         });
+        return userObject;
     };
 
     handleLogout = async () => {
@@ -238,12 +255,65 @@ export default class App extends Component {
         return find(appInfo.games, { name: game });
     };
 
-  
+    renderPages = ({history}) => {
+        return (
+            <Switch history={history}>
+                <Route
+                    exact
+                    path="/"
+                    render={props => (
+                    <HomePage
+                        {...props}
+                        onHandleLoginOrRegister={this.handleLoginOrRegisterOpen}
+                    />
+                    )}
+                />
+                {this.isGameAvailable("Linear Dice") ? (
+                    <Route
+                    exact
+                    path="/dice"
+                    render={props => (
+                        <DicePage
+                        {...props}
+                        onHandleLoginOrRegister={this.handleLoginOrRegisterOpen}
+                        />
+                    )}
+                    />
+                ) : null}
+                {this.isGameAvailable("CoinFlip") ? (
+                    <Route
+                    exact
+                    path="/flip"
+                    render={props => (
+                        <FlipPage
+                        {...props}
+                        onHandleLoginOrRegister={this.handleLoginOrRegisterOpen}
+                        />
+                    )}
+                    />
+                ) : null}
+                {this.isGameAvailable("Roulette") ? (
+                    <Route
+                    exact
+                    path="/roulette"
+                    render={props => (
+                        <RoulettePage
+                        {...props}
+                        onHandleLoginOrRegister={this.handleLoginOrRegisterOpen}
+                        />
+                    )}
+                    />
+                ) : null}
+            </Switch>
+        )
+    }
 
     render() {
-        const { user, app } = this.state;
+        const { user, app, isLoading } = this.state;
 
         if (!app) return null;
+
+        if(isLoading){ return( <img src={gif} styleName='gif'/> )}
 
         return (
                 <UserContext.Provider
@@ -264,56 +334,18 @@ export default class App extends Component {
                         {this.renderCashierModal()}
                         <MessageForm user={user}/>
                     </header>
-                    <main styleName="container">
-                        <Switch history={history}>
-                        <Route
-                            exact
-                            path="/"
-                            render={props => (
-                            <HomePage
-                                {...props}
-                                onHandleLoginOrRegister={this.handleLoginOrRegisterOpen}
-                            />
-                            )}
-                        />
-                        {this.isGameAvailable("Linear Dice") ? (
-                            <Route
-                            exact
-                            path="/dice"
-                            render={props => (
-                                <DicePage
-                                {...props}
-                                onHandleLoginOrRegister={this.handleLoginOrRegisterOpen}
-                                />
-                            )}
-                            />
-                        ) : null}
-                        {this.isGameAvailable("CoinFlip") ? (
-                            <Route
-                            exact
-                            path="/flip"
-                            render={props => (
-                                <FlipPage
-                                {...props}
-                                onHandleLoginOrRegister={this.handleLoginOrRegisterOpen}
-                                />
-                            )}
-                            />
-                        ) : null}
-                        {this.isGameAvailable("Roulette") ? (
-                            <Route
-                            exact
-                            path="/roulette"
-                            render={props => (
-                                <RoulettePage
-                                {...props}
-                                onHandleLoginOrRegister={this.handleLoginOrRegisterOpen}
-                                />
-                            )}
-                            />
-                        ) : null}
-                        </Switch>
-                    </main>
+                    <Row>
+                        <Col md={8} lg={9} xl={9}>
+                            <main styleName="container">
+                                {this.renderPages({history})}
+                            </main>
+                        </Col>
+                        <Col md={4} lg={3} xl={3}>
+                            <div styleName={'chat-container'}>
+                                <ChatPage/>
+                            </div>
+                        </Col>
+                    </Row>
                     </Router>
                 </UserContext.Provider>
         );

@@ -1,5 +1,8 @@
 @import "../../styles/all.css";
 
+.address-text{
+
+}
 .root {
   position: fixed;
   top: 0;
@@ -21,6 +24,8 @@
 
   box-shadow: color($firefly alpha(40%)) 0px 5px 10px;
 }
+
+
 
 .container {
   display: flex;
@@ -151,16 +156,17 @@
 }
 
 .buttons {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  margin: auto;
-  text-align: center;
-  width: fit-content;
-  position: relative;
-  .login {
-    margin-right: $spacing-8;
-  }
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin: auto;
+    text-align: center;
+    width: fit-content;
+    margin-top : -5px !important;
+    position: relative;
+    .login {
+        margin-right: $spacing-8;
+    }
 }
 
 
@@ -170,6 +176,7 @@
 
 .address-box{
     margin: auto;
+    margin-top : -6px !important;
     display: flex;
     text-align: center;
     width: fit-content;
@@ -186,7 +193,7 @@
 }
 
 .user-menu{
-    margin-top : 10px !important;
+    margin-top : 10px;
 }
 
 .icon-green{

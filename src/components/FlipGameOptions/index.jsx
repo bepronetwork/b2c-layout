@@ -11,6 +11,7 @@ import {
 import UserContext from "containers/App/UserContext";
 import betSound from "assets/bet-sound.mp3";
 import Sound from "react-sound";
+import Dice from "components/Icons/Dice";
 
 import "./index.css";
 
@@ -48,7 +49,7 @@ export default class FlipGameOptions extends Component {
 
   handleBetAmountChange = value => {
     this.setState({
-      betAmount: value
+        betAmount: value
     });
   };
 
@@ -76,31 +77,25 @@ export default class FlipGameOptions extends Component {
     this.setState({ betAmount: newAmount });
   };
 
-  isBetValid = () => {
-    const { user } = this.context;
-    const { disableControls } = this.props;
-    const { betAmount } = this.state;
+    isBetValid = () => {
+        const { user } = this.context;
+        const { disableControls } = this.props;
+        const { betAmount } = this.state;
+        return (
+        (user && betAmount > 0 && user.balance >= betAmount && !disableControls) || !user);
+    };
 
-    return (
-      (user &&
-        betAmount > 0 &&
-        user.balance >= betAmount &&
-        !disableControls) ||
-      !user
-    );
-  };
+    handleBet = () => {
+        const { onBet } = this.props;
 
-  handleBet = () => {
-    const { onBet } = this.props;
+        if (this.isBetValid()) {
+            this.setState({ sound: true });
 
-    if (this.isBetValid()) {
-      this.setState({ sound: true });
+            return onBet(this.state);
+        }
 
-      return onBet(this.state);
-    }
-
-    return null;
-  };
+        return null;
+    };
 
   handleOnWin = value => {
     this.setState({ onWin: value });
@@ -277,6 +272,7 @@ export default class FlipGameOptions extends Component {
             theme="primary"
             disabled={!this.isBetValid()}
             onClick={this.handleBet}
+            animation={<Dice />}
           >
             <Typography weight="semi-bold" color="pickled-bluewood">
               {type === "manual" ? "Bet" : "Start AutoBet"}

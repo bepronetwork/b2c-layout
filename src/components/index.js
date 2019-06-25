@@ -35,7 +35,9 @@ import UndoIcon from "components/Icons/Undo";
 import UserMenu from "components/UserMenu";
 import AnimationNumber from "components/AnimationNumber";
 import Dollar from "components/Icons/Dollar";
+import DropDownField from "components/DropDownField";
 
+export { DropDownField };
 export { AnimationNumber };
 export { BitcoinIcon };
 export { Button };

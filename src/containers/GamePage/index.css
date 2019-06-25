@@ -13,19 +13,19 @@
 }
 
 .container {
-  display: grid;
-  grid-template-columns: 310px 1fr;
+    display: block;
+    grid-template-columns: 310px 1fr;
+    margin : 0px 20px;
+    box-sizing: border-box;
 
-  box-sizing: border-box;
+    width: 100%;
 
-  width: 100%;
+    min-width: 450px;
+    min-height: 42vw;
 
-  min-width: 450px;
-  min-height: 42vw;
+    border-radius: $spacing-12;
 
-  border-radius: $spacing-12;
-
-  box-shadow: color($mirage alpha(75%)) 0px 0px 10px;
+    box-shadow: color($mirage alpha(75%)) 0px 0px 10px;
 
   @include Breakpoint-mobileOnly {
     grid-template-columns: 100%;
@@ -36,14 +36,20 @@
   }
 }
 
+.no-padding{
+    padding : 0;
+}
+
+.game-page-container{
+    height: -webkit-fill-available;
+}
+
 .options-container {
-  height: 100%;
-
-  background-color: $pickled-bluewood;
-
+    height: 100%;
+    background-color: $pickled-bluewood;
+    padding : 10px;
   @include Breakpoint-mobileOnly {
     order: 2;
-
     width: 100%;
   }
 }

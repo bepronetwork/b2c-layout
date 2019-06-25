@@ -87,18 +87,18 @@ export default class Button extends Component {
       [size]: true,
       fullwidth: fullWidth
     });
-
     return (
-      // eslint-disable-next-line react/button-has-type
-      <button
-        styleName={rootStyles}
-        onClick={onClick ? this.handleClick : null}
-        type={type}
-        name={name}
-        disabled={disabled}
-      >
-        <div styleName={contentStyles}>{this.renderContent()}</div>
-      </button>
+        // eslint-disable-next-line react/button-has-type
+        <button
+            style={this.props.style}
+            styleName={rootStyles}
+            onClick={onClick ? this.handleClick : null}
+            type={type}
+            name={name}
+            disabled={disabled}
+        >
+            <div styleName={contentStyles}>{this.renderContent()}</div>
+        </button>
     );
   }
 }

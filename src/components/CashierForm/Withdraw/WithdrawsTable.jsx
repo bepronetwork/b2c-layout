@@ -19,10 +19,11 @@ import IconButton from '@material-ui/core/IconButton';
 import Tooltip from '@material-ui/core/Tooltip';
 import { lighten } from '@material-ui/core/styles/colorManipulator';
 import FilterListIcon from 'mdi-react/FilterListIcon';
-import { Numbers } from '../../../lib/ethereum/lib';
+import { Numbers, AddressConcat } from '../../../lib/ethereum/lib';
 import withdrawStatus from './codes';
 import { Button } from "components";
 import "./index.css";
+import { etherscanLinkID } from '../../../lib/api/apiConfig';
 
 let counter = 0;
 
@@ -59,6 +60,7 @@ const fromDatabasetoTable = (data) => {
 			amount : Numbers.toFloat(data.amount),
             confirmed: data.confirmed ? 'Confirmed' : 'Open',
             done :  data.confirmed,
+            transactionHash : data.transactionHash,
             creation_date : new Date(data.creation_timestamp).toDateString(),
             address: data.address,
             nonce : data.nonce
@@ -81,6 +83,11 @@ const rows = [
     {
         id: 'withdraw',
         label: 'Withdraw',
+        numeric: false
+    },
+    {
+        id: 'transactionHash',
+        label: 'Tx Hash',
         numeric: false
     },
     {
@@ -206,12 +213,18 @@ EnhancedTableToolbar = withStyles(toolbarStyles)(EnhancedTableToolbar);
 const styles = theme => ({
     root: {
         width: '100%',
-        backgroundColor : '#283b48',
-        color : 'white'
+        margin : 'auto',
+        backgroundColor : '#192c38',
+        color : 'white',
+        marginBottom : 20,
+        overflowX : 'auto'
     },
     head : {
         color : 'white'
 
+    },
+    pagination : {
+        color : 'white'
     },
     body: {
         color : 'white'
@@ -347,6 +360,7 @@ class WithdrawTable extends React.Component {
                                             {n.confirmed}
                                         </p>
                                     </StyledTableCell>
+                                  
                                     <StyledTableCell align="left">
                                         {
                                             !n.done
@@ -361,6 +375,16 @@ class WithdrawTable extends React.Component {
                                             </Button>
                                          : 'Done'}
                                      </StyledTableCell>
+                                     <StyledTableCell align="left">
+                                        {n.transactionHash ?
+                                            <a href={`${etherscanLinkID}/tx/${n.transactionHash}`} target={'_blank'}>
+                                                {AddressConcat(n.transactionHash)}
+                                            </a>
+                                        : 
+                                            'N/A'
+                                        }
+
+                                    </StyledTableCell>
                                     <StyledTableCell align="left">{n.creation_date}</StyledTableCell>
                                 </TableRow>
                             );
@@ -374,6 +398,7 @@ class WithdrawTable extends React.Component {
                     </Table>
                 </div>
                 <TablePagination
+                    style={{color : 'white'}}
                     rowsPerPageOptions={[5, 10, 25]}
                     component="div"
                     count={data.length}

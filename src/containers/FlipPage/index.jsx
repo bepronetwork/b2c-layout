@@ -43,7 +43,7 @@ export default class FlipPage extends Component {
             return this.setState({
                 flipResult,
                 hasWon,
-                disableControls: true
+                disableControls: false
             });
         }catch(err){
             return this.setState({

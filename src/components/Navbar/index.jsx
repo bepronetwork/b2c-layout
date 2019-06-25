@@ -56,8 +56,9 @@ class Navbar extends Component {
     
     projectData = async (props) => {
         let user = !_.isEmpty(props.profile) ? props.profile : null ;
-        let metamaksAddress = user ? await user.getMetamaskAddress() : defaultProps.userMetamaskAddress;
         if(user){
+            let userMetamaskAddress = await user.getMetamaskAddress();
+            let metamaksAddress = userMetamaskAddress ? userMetamaskAddress: defaultProps.userMetamaskAddress;
             let diff = user.balance - this.state.currentBalance;
             // Remove Errors from double update
             if(diff == 0){diff = this.state.difference};
@@ -82,7 +83,7 @@ class Navbar extends Component {
     renderLoginOrRegister = () => {
         return(
             <Row>
-                <Col lg={8}/>
+                <Col lg={5}/>
                 <Col lg={4}>
                     <div styleName='buttons'>
                         <div styleName="login">
@@ -95,6 +96,7 @@ class Navbar extends Component {
                         </Button>
                     </div>
                 </Col>
+                <Col lg={3}/>
             </Row>
         )
     }
@@ -104,17 +106,17 @@ class Navbar extends Component {
         let { currentBalance, difference, user } = this.state;
         return (
                 <Row styleName="root">
-                    <Col lg={2}></Col>
-                    <Col lg={1}>
+                    <Col xs={0} md={2}></Col>
+                    <Col xs={3} md={1}>
                         <Link className='logo-image' to="/">
                             <img styleName="image" alt="bet protocol logo" src={logo} />
                         </Link>
                     </Col>
-                    <Col lg={9}>
+                    <Col xs={8} md={9}>
                         {user ? 
                             <Row>
-                                <Col lg={2}/>
-                                <Col lg={4}>
+                                <Col xs={2} md={2}/>
+                                <Col xs={4} md={3}>
                                     <div styleName="coin">
                                         <AnimationNumber  number={this.state.currentBalance}/>
                                         <div styleName="icon">
@@ -132,8 +134,8 @@ class Navbar extends Component {
                                         ) : null}
                                     </div>
                                 </Col>
-                                <Col lg={1}/>
-                                <Col lg={2}>
+                                <Col xs={1} md={1}/>
+                                <Col xs={1} md={4}>
                                     <div styleName='address-box'>
                                         <Typography color="white">
                                             <Tooltip title={text[this.state.isValid]}>
@@ -149,7 +151,7 @@ class Navbar extends Component {
                                         </Typography>
                                     </div>
                                 </Col>
-                                <Col lg={2}>
+                                <Col xs={2} md={2}>
                                     <div styleName="buttons">
                                         <div styleName='user-menu'>
                                             <UserMenu

@@ -1,23 +1,27 @@
 @import "../../styles/reset.css";
 @import "../../styles/all.css";
 
+
+.chat-container{
+
+}
+
 .container {
-  max-width: $content-width-desktop;
-
-  @include Breakpoint-tabletAndAbove {
     max-width: $content-width-desktop;
+    @include Breakpoint-tabletAndAbove {
+        max-width: $content-width-desktop;
 
-    padding: calc($navbar-height + $spacing-36) $spacing-20 0 $spacing-20;
-    margin: 0 auto;
-  }
+        padding: calc($navbar-height + $spacing-36) $spacing-20 0 $spacing-20;
+        margin: 0 auto;
+    }
 
-  @include Breakpoint-mobileOnly {
-    width: 100%;
+    @include Breakpoint-mobileOnly {
+        width: 100%;
 
-    max-width: $content-width-mobile;
-    padding: calc($navbar-height + $spacing-36) 0 0 0;
-    margin: 0 auto;
-  }
+        max-width: $content-width-mobile;
+        padding: calc($navbar-height + $spacing-36) 0 0 0;
+        margin: 0 auto;
+    }
 }
 
 .modal {
@@ -30,4 +34,14 @@
   .tabs {
     width: 100%;
   }
+}
+
+
+.gif{
+    width : 200px;
+    position: fixed;
+    margin-left: -100px;
+    top: 50%;
+    left: 50%;
+    margin-top: -100px;
 }

@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { ButtonIcon, History } from "components";
 import UserContext from "containers/App/UserContext";
-
+import { Row, Col } from 'reactstrap';
 import "./index.css";
 
 export default class GamePage extends Component {
@@ -61,20 +61,26 @@ export default class GamePage extends Component {
         return (
         <div styleName="root">
             <div styleName="container">
-            <div styleName="options-container">{options}</div>
-            <div styleName="game-container">
-                {game}
-                {this.renderHistory()}
-            </div>
-            </div>
-            <div styleName="sound">
-            <ButtonIcon
-                iconAtLeft
-                icon="sound"
-                label="Sound"
-                onClick={this.handleSounds}
-                soundMode={soundMode}
-            />
+                <Row styleName="game-page-container">
+                    <Col lg={{ size: 9, order: 2}} styleName='no-padding'>
+                        <div styleName="game-container">
+                            {game}
+                            {this.renderHistory()}
+                        </div>
+                        <div styleName="sound">
+                            <ButtonIcon
+                                iconAtLeft
+                                icon="sound"
+                                label="Sound"
+                                onClick={this.handleSounds}
+                                soundMode={soundMode}
+                            />
+                        </div>
+                    </Col>
+                    <Col lg={{ size: 3, order: 1}} styleName='no-padding'>
+                        <div styleName="options-container">{options}</div>
+                    </Col>
+                </Row>
             </div>
         </div>
         );

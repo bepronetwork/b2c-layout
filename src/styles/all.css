@@ -8,6 +8,7 @@
 /* width */
 ::-webkit-scrollbar {
     width: 5px;
+    height: 5px;;
 }
 
 /* Track */
@@ -20,3 +21,30 @@
     background: #ccc; 
     border-radius: 10px;
 }
+
+body{
+    overflow-x : hidden;
+    overflow-y: auto !important;
+    padding-bottom: 30px;
+}
+
+
+@media only screen and (max-width: 600px) {
+    .chat-container{
+        display: none !important;
+    }
+
+    .address-box{
+        display: none !important;
+    }
+    
+    .user-menu{
+        margin-top : 3px !important;
+    }   
+
+    .coin{
+        margin-top : 0px !important;
+    }
+    
+}
+

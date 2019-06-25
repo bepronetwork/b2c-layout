@@ -4,11 +4,8 @@ $values-height: 92px;
 $with-without-padding: calc(100% - $spacing-20 - $spacing-20);
 
 .root {
-  width: calc(100% - $spacing-20 - $spacing-20);
-  height: calc(100% - $spacing-20 - $spacing-20);
-
+  height: inherit;
   padding: $spacing-20;
-
   background-color: $mirage;
 }
 
@@ -36,7 +33,7 @@ $with-without-padding: calc(100% - $spacing-20 - $spacing-20);
 .values {
   width: calc(100% - $spacing-16 - $spacing-16);
   padding: $spacing-16;
-
+  margin: auto;
   background-color: $pickled-bluewood;
 
   border-radius: $spacing-4;

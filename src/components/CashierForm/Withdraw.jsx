@@ -88,14 +88,12 @@ class Withdraw extends Component {
         }catch(err){
             console.log(err)
             await updateUserBalance(user, setUser);
-            this.projectData(this.props);
             this.setState({...this.state, onWithdraw : null});
         }
     }
 
     cancelWithdraw = async () => {
         const { user, setUser } = this.context;
-        
         try{
             this.setState({...this.state, onWithdraw : 'processing'});
             /* Create Withdraw */
@@ -103,7 +101,6 @@ class Withdraw extends Component {
             /* Update User Balance */
             this.setState({...this.state, onWithdraw : null});
         }catch(err){
-            console.log(err)
             await updateUserBalance(user, setUser);
             this.projectData(this.props);
             this.setState({...this.state, onWithdraw : null});
@@ -223,9 +220,13 @@ class Withdraw extends Component {
                     <Col lg={12}>
                         <div styleName="deposit">
                             <div styleName='withdraws-table'>
+                                <Typography variant="body" color="white" otherStyles={{textAlign : 'center', marginBottom : 10}}>
+                                    You have <strong style={{color : 'green'}}>{this.state.withdrawAvailable} {this.state.ticker}</strong> Tokens Available to Withdraw
+                                </Typography>
                                 <WithdrawsTable
-                                withdraw={this.withdrawTokens} 
-                                currency={this.props.profile.getAppCurrencyTicker()} data={this.state.withdraws}/>
+                                    withdraw={this.withdrawTokens} 
+                                    currency={this.props.profile.getAppCurrencyTicker()} data={this.state.withdraws}
+                                />
                             </div>
                         </div>
                     </Col>

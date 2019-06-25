@@ -5,7 +5,6 @@
 }
 
 .container {
-  display: grid;
   justify-content: center;
 
   grid-column-gap: $spacing-28;

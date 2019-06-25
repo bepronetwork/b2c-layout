@@ -1,0 +1,160 @@
+@import "../../styles/all.css";
+
+.root {
+  width: 100%;
+  padding-bottom: $spacing-36;
+  position: relative;
+  display: block;
+  @include Breakpoint-mobileOnly {
+    width: 100%;
+    max-width: 350px;
+    margin: 0 auto;
+  }
+  height: -webkit-fill-available;
+}
+
+.container {
+    grid-template-columns: 310px 1fr;
+    padding : $padding-chat-box;
+    box-sizing: border-box;
+    height: 100%;
+    width: 100%;
+
+    position: absolute;
+    min-height: 42vw;
+
+    border-radius: $spacing-12;
+
+    box-shadow: color($mirage alpha(75%)) 0px 0px 10px;
+
+    @include Breakpoint-mobileOnly {
+        grid-template-columns: 100%;
+        width: 100%;
+        height: 100%;
+        max-width: 350px;
+        margin: 0 auto;
+    }
+}
+
+.text-container{
+    height: $top-chat-message-percentage;
+    background-color: $big-stone;
+    padding : 10px;
+    overflow : auto;
+}
+
+.message-box{
+    padding : 10px;
+    width: 100%;
+    margin : 10px auto;
+    border-radius : $border-radius-messsage-box;
+    background-color: $dark-blue;
+}
+
+.message-container{
+    padding : 10px;
+    height: $bot-chat-message-percentage;
+    background-color: $dark-blue;
+}
+
+.options-container {
+  height: 100%;
+
+  background-color: $pickled-bluewood;
+
+  @include Breakpoint-mobileOnly {
+    order: 2;
+
+    width: 100%;
+  }
+}
+
+.game-container {
+  position: relative;
+
+  display: block;
+
+  width: 100%;
+  height: 100%;
+
+  @include Breakpoint-mobileOnly {
+    order: 1;
+
+    min-height: 300px;
+  }
+}
+
+.history {
+  position: absolute;
+
+  top: 0;
+
+  right: 0;
+
+  width: 100%;
+
+  overflow: hidden;
+}
+
+.sound {
+  padding-top: $spacing-8;
+  padding-right: $spacing-8;
+
+  button {
+    margin: 0 auto;
+    display: block;
+    position: relative;
+  }
+}
+
+
+.button{
+    background-color: $blue-ribbon;    
+    margin : auto;
+    position: relative;
+    display: block;
+    width: 100px;
+    padding : 10px;
+    border-radius : $border-radius;
+}
+
+
+@media only screen and (max-width: 800px) {
+    .button{
+        width : 50px !important;
+    }
+    
+}
+
+
+.container-box{
+    margin-top : $spacing-12;
+}
+
+
+.users-box{
+    margin: 6px auto;
+    position: relative;
+    display: block;
+}
+
+.green-light{
+    width : $light-size;
+    border-radius: $light-size;
+    height: $light-size;
+    background-color: $green;
+    margin : $light-margin-top auto;
+
+}
+
+.red-light{
+    width : $light-size;
+    border-radius: $light-size;
+    height: $light-size;
+    background-color: $red;
+    margin : $light-margin-top auto;
+}
+
+.image-language{
+    width: 20px;
+}

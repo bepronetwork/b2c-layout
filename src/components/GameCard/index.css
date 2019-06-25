@@ -15,8 +15,8 @@
 .image-container {
   display: flex;
   align-items: center;
-  width: calc($spacing-160 * 1.7);
-  height: calc($spacing-160 * 1.2);
+  width: $games-box-width;
+  height: $games-box-heigth;
 
   margin: 0 0 $spacing-8 0;
 
