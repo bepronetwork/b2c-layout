@@ -20,7 +20,7 @@
 .rotate.casper {
   fill: $casper;
 }
-.rotate.$background-table-1-outer {
+.rotate.pickled-bluewood {
   fill: $background-table-1-outer;
 }
 
@@ -28,8 +28,8 @@
 .sound.casper {
     fill: $casper;
 }
-.undo.$background-table-1-outer,
-.sound.$background-table-1-outer {
+.undo.pickled-bluewood,
+.sound.pickled-bluewood{
     fill: $background-table-1-outer;
 }
 
