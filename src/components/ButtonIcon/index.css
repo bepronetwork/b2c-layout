@@ -31,7 +31,9 @@
 .button {
   width: $spacing-20;
   height: $spacing-20;
-
+  z-index: 1000;
+  position: relative;
+  margin-top : 5px;
   background-color: inherit;
 
   outline: none;

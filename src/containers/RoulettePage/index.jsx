@@ -72,7 +72,11 @@ export default class RoulettePage extends Component {
                 betAmount: this.getTotalBet(),
                 user
             });
-            return this.setState({ result });
+            return this.setState({ 
+                result,
+                hasWon : true,
+                disableControls: false
+            });
         }catch(err){
             return this.setState({
                 bet : false,

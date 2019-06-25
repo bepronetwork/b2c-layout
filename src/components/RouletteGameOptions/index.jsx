@@ -47,7 +47,7 @@ export default class RouletteGameOptions extends Component {
     const { user } = this.context;
 
     const { totalBet, disableControls } = this.props;
-
+    console.log(disableControls);
     return (totalBet > 0 && !disableControls) || !user;
   };
 
