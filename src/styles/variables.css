@@ -7,32 +7,32 @@ $font-size-h1: 52px;
 $line-height-h1: 88px;
 $font-size-h2: 36px;
 $line-height-h2: 52px;
-$font-size-h3: 28px;
+$font-size-h3: 30px;
 $line-height-h3: 36px;
-$font-size-h4: 20px;
+$font-size-h4: 24px;
 $line-height-h4: 28px;
 
-$font-size-body: 16px;
+$font-size-body: 20px;
 $line-height-body: 20px;
-$font-size-small-body: 12px;
+$font-size-small-body: 16px;
 $line-height-small-body: 16px;
-$font-size-x-small-body: 9px;
+$font-size-x-small-body: 12px;
 $line-height-x-small-body: 12px;
 
-$font-size-h1-mobile: 36px;
+$font-size-h1-mobile: 50px;
 $line-height-h1-mobile: 52px;
-$font-size-h2-mobile: 28px;
+$font-size-h2-mobile: 36px;
 $line-height-h2-mobile: 36px;
-$font-size-h3-mobile: 20px;
+$font-size-h3-mobile: 30px;
 $line-height-h3-mobile: 28px;
-$font-size-h4-mobile: 16px;
+$font-size-h4-mobile: 24px;
 $line-height-h4-mobile: 20px;
 
-$font-size-body-mobile: 12px;
+$font-size-body-mobile: 20px;
 $line-height-body-mobile: 16px;
-$font-size-small-body-mobile: 9px;
+$font-size-small-body-mobile: 16px;
 $line-height-small-body-mobile: 12px;
-$font-size-x-small-body-mobile: 9px;
+$font-size-x-small-body-mobile: 12px;
 $line-height-x-small-body-mobile: 12px;
 
 $padding-height-navbar : 10px;

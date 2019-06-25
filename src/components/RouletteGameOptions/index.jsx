@@ -11,7 +11,7 @@ import {
 import UserContext from "containers/App/UserContext";
 import Sound from "react-sound";
 import betSound from "assets/bet-sound.mp3";
-import Roulette from "components/Icons/Roulette";
+import Dice from "components/Icons/Dice";
 
 import "./index.css";
 
@@ -195,8 +195,8 @@ export default class RouletteGameOptions extends Component {
             onClick={this.handleBet}
             fullWidth
             theme="primary"
-            animation={<Roulette />}
-          >
+            animation={<Dice />}
+            >
             <Typography weight="semi-bold" color="pickled-bluewood">
               {type === "manual" ? "Bet" : "Start AutoBet"}
             </Typography>

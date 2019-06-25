@@ -38,7 +38,7 @@
 
 .default {
   .content {
-    background-color: $dark-table-color;
+    background-color: $button-hover-color;
     transition: background-color 0.2s ease-out, color 0.2s ease-out;
   }
 }
@@ -54,7 +54,7 @@
 .default:hover {
   @include Breakpoint-desktopOnly {
     .content {
-      background-color: $dark-table-color;
+      background-color: $button-hover-color;
 
       transition: background-color 0.2s ease-in;
     }
@@ -70,8 +70,7 @@
 .primary:hover {
   @include Breakpoint-desktopOnly {
     .content {
-      background-color: $dark-table-color;
-
+      background-color: $button-hover-color;
       transition: background-color 0.2s ease-in;
     }
   }
