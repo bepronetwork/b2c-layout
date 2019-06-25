@@ -2,6 +2,16 @@
   "name": "betprotocol-casino",
   "version": "0.0.1",
   "private": true,
+  "scripts": {
+    "start": "node bin/www.js",
+    "dev": "craco start",
+    "heroku-postbuild": "npm run build",
+    "build": "craco build",
+    "test": "craco test --no-watch",
+    "eject": "react-scripts eject",
+    "lint": "eslint --ext js,jsx src",
+    "stylelint": "stylelint src"
+  },
   "dependencies": {
     "@craco/craco": "^4.1.0",
     "@material-ui/core": "^3.9.3",
@@ -46,16 +56,7 @@
     "web3": "^1.0.0-beta.55",
     "whatwg-fetch-timeout": "^2.0.2-timeout"
   },
-  "scripts": {
-    "start": "node bin/www.js",
-    "dev": "craco start",
-    "heroku-postbuild": "npm run build",
-    "build": "craco build",
-    "test": "craco test --no-watch",
-    "eject": "react-scripts eject",
-    "lint": "eslint --ext js,jsx src",
-    "stylelint": "stylelint src"
-  },
+ 
   "browserslist": [
     ">0.2%",
     "not dead",
