@@ -48,7 +48,7 @@ class PlayInvitation extends Component {
                             <Button onClick={this.handleClick} theme="primary">
                                 {_.isEmpty(this.props.profile) ?
                                 (
-                                    <Typography weight="semi-bold" color="pickled-bluewood">
+                                    <Typography weight="semi-bold" color="background-table-1-outer">
                                         Play Now
                                     </Typography>
                                 ) :   
