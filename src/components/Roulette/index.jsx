@@ -144,7 +144,7 @@ export default class Roulette extends Component {
       return;
     }
 
-    if (result && bet !== prevProps.bet) {
+    if (result !== prevProps.result) {
       anim.start();
       onAnimation(true);
 
