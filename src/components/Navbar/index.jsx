@@ -106,13 +106,12 @@ class Navbar extends Component {
         let { currentBalance, difference, user } = this.state;
         return (
                 <Row styleName="root">
-                    <Col xs={0} md={2}></Col>
-                    <Col xs={3} md={1}>
+                    <Col xs={3} md={2}>
                         <Link className='logo-image' to="/">
                             <img styleName="image" alt="bet protocol logo" src={logo} />
                         </Link>
                     </Col>
-                    <Col xs={8} md={9}>
+                    <Col xs={8} md={8}>
                         {user ? 
                             <Row>
                                 <Col xs={2} md={2}/>
@@ -134,7 +133,6 @@ class Navbar extends Component {
                                         ) : null}
                                     </div>
                                 </Col>
-                                <Col xs={1} md={1}/>
                                 <Col xs={1} md={4}>
                                     <div styleName='address-box'>
                                         <Typography color="white">
@@ -162,9 +160,13 @@ class Navbar extends Component {
                                         </div>
                                     </div>
                                 </Col>
+                                <Col xs={1} md={1}/>
+
                             </Row>
                         :  this.renderLoginOrRegister()
                     }
+                    </Col>
+                    <Col xs={1} md={2}>
                     </Col>
                 </Row>
         );

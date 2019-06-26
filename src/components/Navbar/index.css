@@ -7,7 +7,6 @@
     position: fixed;
     top: 0;
     z-index: 20;
-
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -15,13 +14,11 @@
     width: 100%;
     height: $navbar-height;
     padding-top : $padding-height-navbar;
-    padding-bottom : $padding-height-navbar;
     padding-left : $padding-width-navbar;
     padding-right : $padding-width-navbar;
 
     background-color: $background-top-bar-theme;
-
-    box-shadow: color($firefly alpha(40%)) 0px 5px 10px;
+    box-shadow : 1px 1px 100px 1px #0000006b;
 }
 
 
@@ -49,7 +46,9 @@
     width: 120px;
 
     @include Breakpoint-mobileOnly {
-        width: 70px;
+        width: 100px;
+        margin-left: -15px;
+        margin-top: 5px;
       }
 }
 
@@ -66,10 +65,10 @@
     position: relative;
     width: fit-content;
     margin: auto;
+    margin-top : -5px;
     display: flex;
     flex-direction: row;
     align-items: center;
-    margin-top : 4px;
     margin-left: auto;
     padding: 5px 10px !important;
     background-color: $background-main-table;

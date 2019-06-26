@@ -51,9 +51,7 @@ class ChatPage extends React.Component {
                 messages :  props.chat.messages,
                 open :  props.chat.open
             });
-            setTimeout( () => {
-                this.scrollToBottom();
-            }, 400)
+            this.scrollToBottom();
         }
     }
 
@@ -62,6 +60,7 @@ class ChatPage extends React.Component {
         this.scrollToBottom();
         try{
             await this.props.profile.sendMessage({message : this.state.message})
+            this.scrollToBottom();
             this.setState({...this.state, message : ''})
         }catch(err){
             this.setState({...this.state, message : ''})

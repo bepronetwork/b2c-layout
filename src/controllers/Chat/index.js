@@ -19,7 +19,7 @@ class ChatChannel{
             this.user = await this.connectUser();
             await this.updateUser();
             this.channel = await this.enterChannel();
-            this.listenChannelUpdates();
+            this.setTimer()
         }catch(err){
             console.log(err);
         }
@@ -35,6 +35,12 @@ class ChatChannel{
             open            : this.open,
             messages        : this.messages
         }));
+    }
+
+    setTimer = () => {
+        setInterval( () => {
+            this.listenChannelUpdates();
+        }, 1000) // each 1 sec
     }
 
     enterChannel = async () => {
