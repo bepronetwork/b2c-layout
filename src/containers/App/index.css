@@ -3,7 +3,16 @@
 
 
 .chat-container{
+    position: fixed;
+    width: 22%;
+    right: 0;
+    height: fit-content;
     background-color: $chat-container-color;
+}
+
+.chat-container-outro{
+    width: 100%;
+    position: relative;
 }
 
 .container {

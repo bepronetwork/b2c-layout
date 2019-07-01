@@ -116,8 +116,8 @@ class Navbar extends Component {
                     <Col xs={8} md={8}>
                         {user ? 
                             <Row>
-                                <Col xs={2} md={2}/>
-                                <Col xs={4} md={3}>
+                                <Col xs={2} md={1} lg={2}/>
+                                <Col xs={4} md={3} lg={3}>
                                     <div styleName="coin">
                                         <AnimationNumber number={this.state.currentBalance}/>
                                         <div styleName="icon">
@@ -135,7 +135,7 @@ class Navbar extends Component {
                                         ) : null}
                                     </div>
                                 </Col>
-                                <Col xs={1} md={4}>
+                                <Col xs={1} md={6} lg={4}>
                                     <div styleName='address-box'>
                                         <Typography color="white">
                                             <Tooltip title={text[this.state.isValid]}>
@@ -151,7 +151,7 @@ class Navbar extends Component {
                                         </Typography>
                                     </div>
                                 </Col>
-                                <Col xs={2} md={2}>
+                                <Col xs={2} md={2} lg={2}>
                                     <div styleName="buttons-1">
                                         <div styleName='user-menu'>
                                             <UserMenu
@@ -162,7 +162,7 @@ class Navbar extends Component {
                                         </div>
                                     </div>
                                 </Col>
-                                <Col xs={1} md={1}/>
+                                <Col xs={1} md={0} lg={1}/>
 
                             </Row>
                         :  this.renderLoginOrRegister()

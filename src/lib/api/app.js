@@ -13,3 +13,19 @@ export default async function getAppInfo() {
     return handleError(error);
   }
 }
+
+
+async function getLastBets() {
+    try {
+        const response = await axios.post(`${apiUrl}/app/lastBets`, {
+            app: appId
+        });
+    
+        return response.data.data.message;
+    } catch (error) {
+        return handleError(error);
+    }
+}
+  
+
+export { getLastBets }

@@ -171,6 +171,10 @@
     @include Breakpoint-mobileOnly {
         margin-top : -5px !important;
     }
+
+    @include Breakpoint-tabletOnly {
+        margin-top : 0px !important;
+    }
     
     .login {
         margin-right: $spacing-8;

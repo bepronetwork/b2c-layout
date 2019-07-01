@@ -8,6 +8,7 @@ import PlayInvitation from "components/PlayInvitation";
 import { Row, Col} from 'reactstrap';
 
 import "./index.css";
+import LastBets from "../LastBets";
 
 const games = [{
     name : 'Linear Dice',
@@ -73,6 +74,7 @@ export default class HomePage extends Component {
                     <Row>
                         {games.map( (item) => this.renderGame(item))}
                     </Row>
+                    <LastBets/>
                 </div>
             </div>
         );

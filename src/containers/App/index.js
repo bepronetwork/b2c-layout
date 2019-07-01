@@ -96,7 +96,6 @@ export default class App extends Component {
 
     }
 
-
     state = {
         registerLoginModalOpen: null,
         cashierOpen: null,
@@ -248,9 +247,9 @@ export default class App extends Component {
         const { cashierOpen } = this.state;
 
         return cashierOpen ? (
-        <Modal onClose={this.handleCashierModalClose}>
-            <CashierForm />
-        </Modal>
+            <Modal onClose={this.handleCashierModalClose}>
+                <CashierForm />
+            </Modal>
         ) : null;
     };
 
@@ -349,14 +348,16 @@ export default class App extends Component {
                         <MessageForm user={user}/>
                     </header>
                     <Row>
-                        <Col md={8} lg={9} xl={9}>
+                        <Col md={12} lg={9} xl={9}>
                             <main styleName="container">
                                 {this.renderPages({history})}
                             </main>
                         </Col>
                         <Col md={4} lg={3} xl={3}>
-                            <div styleName={'chat-container'}>
-                                <ChatPage/>
+                            <div styleName='chat-container-outro'> 
+                                <div styleName={'chat-container'}>
+                                    <ChatPage/>
+                                </div>
                             </div>
                         </Col>
                     </Row>
