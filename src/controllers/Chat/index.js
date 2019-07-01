@@ -21,8 +21,23 @@ class ChatChannel{
             this.channel = await this.enterChannel();
             this.setTimer()
         }catch(err){
-            console.log(err);
+            // Nothing
         }
+    }
+
+    __initNotLogged__ = async () => {
+        try{
+            this.id = 'none';
+            this.user = await this.connectUser();
+            this.channel = await this.enterChannel();
+            this.setTimer()
+        }catch(err){
+            // Nothing
+        }
+    }
+
+    __kill__ = () => {
+        this.timer = null;
     }
 
     getMessages = () => {
@@ -38,7 +53,7 @@ class ChatChannel{
     }
 
     setTimer = () => {
-        setInterval( () => {
+        this.timer = setInterval( () => {
             this.listenChannelUpdates();
         }, 1000) // each 1 sec
     }
@@ -64,7 +79,7 @@ class ChatChannel{
         messageListQuery.reverse = false;
         
         messageListQuery.load( async (messageList, error) =>  {
-            if (error) {console.log(error); return;}
+            if (error) { return;}
             this.messages = messageList;
             await this.updateReduxState();
         });
@@ -73,7 +88,7 @@ class ChatChannel{
         var participantListQuery = this.channel.createParticipantListQuery();
 
         participantListQuery.next( async (participantList, error) => {
-            if (error) {console.log(error); return;}
+            if (error) {return;}
             this.participants = participantList.length;
             await this.updateReduxState();
         });

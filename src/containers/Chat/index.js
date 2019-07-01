@@ -10,6 +10,9 @@ import { Row, Col } from 'reactstrap';
 import "./index.css";
 import { MenuItem } from '@material-ui/core';
 import languages from "../../config/languages";
+import { setMessageNotification } from "../../redux/actions/message";
+import { CopyText } from "../../copy";
+import store from "../App/store";
 
 const sound = localStorage.getItem("sound");
 
@@ -45,7 +48,7 @@ class ChatPage extends React.Component {
 
     projectData = async (props) => {
         
-        if(!_.isEmpty(props.profile) && props.chat.messages.length >= 1){
+        if(props.chat.messages.length >= 1){
             this.setState({...this.state,
                 participants : props.chat.participants,
                 messages :  props.chat.messages,
@@ -57,6 +60,10 @@ class ChatPage extends React.Component {
 
     sendMessage = async (e) => {
         e.preventDefault();
+        if(_.isEmpty(this.props.profile)){
+            console.log("ieuheuir")
+            await store.dispatch(setMessageNotification(CopyText.ERRORS.CHAT_USER_NOT_LOGGED));
+        }
         this.scrollToBottom();
         try{
             await this.props.profile.sendMessage({message : this.state.message})

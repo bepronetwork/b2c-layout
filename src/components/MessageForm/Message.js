@@ -24,29 +24,35 @@ class Message extends Component {
     }
 
     render() {
+        let hasMessage = !_.isEmpty(this.props.message);
+        if(!hasMessage){return null};
+        let messageArray = _.isArray(this.props.message) ? this.props.message : [this.props.message];
+        console.log(messageArray);
+        
         return (
-            !_.isEmpty(this.props.message) ? 
-                <Modal>
-                    <div styleName="root">
-                        <div styleName="title">
+            <Modal>
+                <div styleName="root">
+                    <div styleName="title">
+                        {messageArray.map( text => {
+                            return (
                                 <Typography variant="h4" color="white">
-                                    {this.props.message}
+                                    {text}
                                 </Typography>
-                        
-                            <div styleName="button">
-                                <Button
-                                    name="close"
-                                    theme="primary"
-                                    variant="small-body"
-                                    onClick={this.closeWindow}
-                                >
-                                    <Typography>Close</Typography>
-                                </Button>
-                            </div>
-                        </div> 
-                    </div>
-                </Modal>
-            : null
+                            );
+                        })}
+                        <div styleName="button">
+                            <Button
+                                name="close"
+                                theme="primary"
+                                variant="small-body"
+                                onClick={this.closeWindow}
+                            >
+                                <Typography>Close</Typography>
+                            </Button>
+                        </div>
+                    </div> 
+                </div>
+            </Modal>
         );
     }
 }

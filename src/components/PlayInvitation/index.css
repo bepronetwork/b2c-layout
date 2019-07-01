@@ -97,3 +97,9 @@
     text-align: left;
   }
 }
+
+
+.inner-text-container{
+    margin-top : 8%;
+    vertical-align: middle;    
+}

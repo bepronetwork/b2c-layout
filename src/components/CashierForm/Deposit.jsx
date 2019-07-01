@@ -35,7 +35,6 @@ class Deposit extends Component {
     projectData = async (props) => {
         let user = props.profile;
         let decentralizedTokenAmount = await user.getTokenAmount();
-        console.log(decentralizedTokenAmount);
         this.setState({...this.state, 
             tokenAmount : decentralizedTokenAmount,
             ticker : 'DAI',    

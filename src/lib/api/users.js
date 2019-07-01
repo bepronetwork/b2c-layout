@@ -11,57 +11,57 @@ let SEC = 200;
 instance.defaults.timeout = SEC*1000;
 
 export async function register({ username, password, email, address }) {
-  try {
-    const response = await axios.post(`${apiUrl}/users/register`, {
-      username,
-      email,
-      password,
-      name: username,
-      app: appId,
-      address: address 
-    });
+    try {
+        const response = await axios.post(`${apiUrl}/users/register`, {
+            username,
+            email,
+            password,
+            name: username,
+            app: appId,
+            address: address 
+        });
 
-    if (response.data.data.status !== 200) {
-      return response.data.data;
+        if (response.data.data.status !== 200) {
+        return response.data.data;
+        }
+
+        const { status, message } = response.data.data;
+
+        return {
+            status,
+            balance: message.wallet.playBalance,
+            id: message._id,
+            username: message.username
+        };
+    } catch (error) {
+        return handleError(error);
     }
-
-    const { status, message } = response.data.data;
-
-    return {
-        status,
-        balance: message.wallet.playBalance,
-        id: message._id,
-        username: message.username
-    };
-  } catch (error) {
-    return handleError(error);
-  }
 }
 
 export async function login({ username, password }) {
-  try {
-    const response = await axios.post(`${apiUrl}/users/login`, {
-      username,
-      password
-    });
+    try {
+        const response = await axios.post(`${apiUrl}/users/login`, {
+            username,
+            password
+        });
 
-    if (response.data.data.status !== 200) {
-      return response.data.data;
+        if (response.data.data.status !== 200) {
+        return response.data.data;
+        }
+        const { status, message } = response.data.data;
+        return {
+            address : message.address,
+            status,
+            balance: message.wallet.playBalance,
+            id  : message.id,
+            bearerToken : message.bearerToken,
+            username    : message.username,
+            withdraws   : message.withdraws,
+            deposits    : message.deposits
+        };
+    } catch (error) {
+        return handleError(error);
     }
-
-    const { status, message } = response.data.data;
-    return {
-        address : message.address,
-        status,
-        balance: message.wallet.playBalance,
-        id  : message.id,
-        username    : message.username,
-        withdraws   : message.withdraws,
-        deposits    : message.deposits
-    };
-  } catch (error) {
-    return handleError(error);
-  }
 }
 
 export async function getCurrentUser() {
@@ -75,17 +75,19 @@ export async function getCurrentUser() {
 export async function updateUserBalance(user, setUser) {
 
     try {
-        console.log(user);
-        const response = await axios.post(`${apiUrl}/users/summary`, {
-            user: user.id,
-            type: "WALLET"
-        });
-
-        console.log(response);
-
+        const res = await fetch(`${apiUrl}/users/summary`, {
+            method : 'POST',
+            timeout: 1000*1000,
+            headers : addSecurityHeader({bearerToken : user.bearerToken, payload : user.id}),
+            body : JSON.stringify({
+                user : user.id,
+                type : 'WALLET'
+            })}
+        )
+        let response = await res.json();
         const newUser = {
-        ...user,
-        balance: response.data.data.message["0"].playBalance
+            ...user,
+            balance: response.data.message["0"].playBalance
         };
 
         return setUser(newUser);
@@ -107,13 +109,12 @@ export async function logout() {
  * @use Once User Wants to Withdraw Decentralized
  */
 
-export async function requestWithdraw(params, bearerToken) {
-    console.log(params)
+export async function requestWithdraw(params, bearerToken, payload) {
     try{
         let res = await fetch(`${apiUrl}/users/requestWithdraw`, {
             method : 'POST',
             timeout: 1000*1000,
-            headers : addSecurityHeader(bearerToken),
+            headers : addSecurityHeader({bearerToken, payload :  payload || params.user}),
             body : JSON.stringify(params)})
         return res.json();
     }catch(err){
@@ -129,11 +130,11 @@ export async function requestWithdraw(params, bearerToken) {
  * @use Once User Wants to Withdraw Decentralized
  */
 
-export async function cancelWithdraw(params, bearerToken) {
+export async function cancelWithdraw(params, bearerToken, payload) {
     try{
         let res = await fetch(`${apiUrl}/users/cancelWithdraw`, {
             method : 'POST',
-            headers : addSecurityHeader(bearerToken),
+            headers : addSecurityHeader({bearerToken, payload :  payload || params.user}),
             body : JSON.stringify(params)})
         return res.json();
     }catch(err){
@@ -149,12 +150,12 @@ export async function cancelWithdraw(params, bearerToken) {
  * @use Once User has Finalized or just canceled his Withdraw
  */
 
-export async function finalizeWithdraw(params, bearerToken) {
+export async function finalizeWithdraw(params, bearerToken, payload) {
     try{
         let res = await fetch(`${apiUrl}/users/finalizeWithdraw`, {
             method : 'POST',
             timeout: 1000*1000,
-            headers : addSecurityHeader(bearerToken),
+            headers : addSecurityHeader({bearerToken, payload :  payload || params.user}),
             body : JSON.stringify(params)})
         return res.json();
     }catch(err){
@@ -170,11 +171,17 @@ export async function finalizeWithdraw(params, bearerToken) {
  * @use Once User wants to bet
  */
 
-export async function createBet(params, bearerToken) {
-    try{
-        let res = await axios.post(`${apiUrl}/app/games/bet/place`, params, addSecurityHeader(bearerToken))
-        return res.data;
+export async function createBet(params, bearerToken, payload) {
+    try{        
+        let res = await fetch(`${apiUrl}/app/games/bet/place`, {
+            method : 'POST',
+            timeout: 1000*1000,
+            headers : addSecurityHeader({bearerToken, payload :  payload || params.user}),
+            body : JSON.stringify(params)}
+        )
+        return res.json();
     }catch(err){
+        console.log(err);
         throw err;
     }  
 }
@@ -188,25 +195,21 @@ export async function createBet(params, bearerToken) {
  */
 
 
-export async function updateUserWallet(params, bearerToken) {
-    return axios
-      .post(
-        `${apiUrl}/users/updateWallet`,
-        params,
-        addSecurityHeader(bearerToken)
-      )
-      .then(res => {
-        return res.data;
-      })
-      .catch(error => {
-        throw error;
-      });
+export async function updateUserWallet(params, bearerToken, payload) {
+    let res = await fetch(`${apiUrl}/users/updateWallet`, {
+        method : 'POST',
+        timeout: 1000*1000,
+        headers : addSecurityHeader({bearerToken, payload :  payload || params.user}),
+        body : JSON.stringify(params)
+    })
+    return res.json();
   }
   
 
-function addSecurityHeader(bearerToken) {
+function addSecurityHeader({bearerToken, payload}) {
   return {
         'Content-Type' : 'application/json',
-        authorization: `Bearer ${bearerToken}`
+        'authorization': `Bearer ${bearerToken}`,
+        'payload'       : JSON.stringify({id : payload})
   };
 }

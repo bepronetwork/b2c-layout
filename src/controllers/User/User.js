@@ -19,23 +19,20 @@ import { setProfileInfo } from "../../redux/actions/profile";
 
 export default class User {
     constructor({
-        userId,
         platformAddress,
         tokenAddress,
         decimals,
-        bearerToken,
         appId,
-        user,
-        app
+        user
     }) {
-    
-        this.id = userId;
-        this.user_id = userId;
+        // Logged
+        this.id = user.id;
+        this.user_id = user.id;
         this.app_id = appId;
         this.platformAddress = platformAddress;
         this.tokenAddress = tokenAddress;
         this.decimals = decimals;
-        this.bearerToken = bearerToken;
+        this.bearerToken = user.bearerToken;
         this.balance  = user.balance;
         this.username = user.username;
         this.address = user.address;
@@ -55,20 +52,28 @@ export default class User {
         this.updateUserState();
     }
 
+    __initNotLogged__ = async () => {
+
+    }
+    
+
     updateUserState = async () => {
         /* Add Everything to the Redux State */  
         await store.dispatch(setProfileInfo(this));
     }
 
     connectMetamask = () => {
-        window.ethereum.on('accountsChanged', (accounts) => {
-            // Time to reload your interface with accounts[0]!
-            this.setMetamaskAddress(accounts[0]);
-        })
-        
-        window.ethereum.on('networkChanged', (netId) =>  {
+        if(window.ethereum){
+            window.ethereum.on('accountsChanged', (accounts) => {
+                // Time to reload your interface with accounts[0]!
+                this.setMetamaskAddress(accounts[0]);
+            })
             
-        })
+            window.ethereum.on('networkChanged', (netId) =>  {
+                console.log(netId);
+            })
+        }
+       
     }
 
     setupChat = async () => {
@@ -267,7 +272,6 @@ export default class User {
                 address : accounts[0], winBalance :  Numbers.toFloat(user.balance), nonce, decimals : this.decimals,
                 category : codes.Withdraw
             });
-            console.log(accounts[0], amount, nonce);
             /* Run Withdraw Function */
             const resEthereum = await this.casinoContract.withdrawTokens({
                 address : accounts[0],
@@ -290,7 +294,6 @@ export default class User {
                 this.bearerToken
             );
 
-            console.log(res_fin)
             await processResponse(res_fin);
 
         } catch (err) {
@@ -303,27 +306,23 @@ export default class User {
     }
 
 
-    createBet = async ({ amount, result, gameId }) => {
+    createBet = async ({ result, gameId }) => {
         try {
-        /* Enable Metamask Auth */
-        await enableMetamask("eth");
+            const nonce = getNonce();
 
-        /* Get Metamask Account Address */
-        const accAddress = await getMetamaksAccount();
-        const nonce = getNonce();
-
-        /* Create Bet API Setup */
-        return await createBet(
-            {
-                user: this.user_id,
-                app: this.app_id,
-                game: gameId,
-                result,
-                address: accAddress,
-                nonce
-            },
-            this.bearerToken
-        );
+            /* Create Bet API Setup */
+            let res = await createBet(
+                {
+                    user: this.user_id,
+                    app: this.app_id,
+                    game: gameId,
+                    result,
+                    nonce
+                },
+                this.bearerToken
+            );
+            console.log(res);
+            return res;
         } catch (err) {
             throw err;
         }

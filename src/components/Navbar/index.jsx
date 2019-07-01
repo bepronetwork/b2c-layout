@@ -70,6 +70,8 @@ class Navbar extends Component {
                 userMetamaskAddress : user ? AddressConcat(metamaksAddress) : defaultProps.userMetamaskAddress,
                 isValid : user ? new String(user.getAddress()).toLowerCase() == new String(metamaksAddress).toLowerCase() :  defaultProps.isValid     
             })
+        }else{
+            this.setState({user : null})
         }
         
     }
@@ -83,8 +85,8 @@ class Navbar extends Component {
     renderLoginOrRegister = () => {
         return(
             <Row>
-                <Col lg={5}/>
-                <Col lg={4}>
+                <Col xs={5} md={8}/>
+                <Col xs={5} md={4}>
                     <div styleName='buttons'>
                         <div styleName="login">
                             <SubtleButton onClick={this.handleClick} name="login">
@@ -96,7 +98,7 @@ class Navbar extends Component {
                         </Button>
                     </div>
                 </Col>
-                <Col lg={3}/>
+                <Col md={1}/>
             </Row>
         )
     }
@@ -150,7 +152,7 @@ class Navbar extends Component {
                                     </div>
                                 </Col>
                                 <Col xs={2} md={2}>
-                                    <div styleName="buttons">
+                                    <div styleName="buttons-1">
                                         <div styleName='user-menu'>
                                             <UserMenu
                                                 onLogout={onLogout}

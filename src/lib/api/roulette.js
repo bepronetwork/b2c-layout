@@ -96,31 +96,31 @@ const boardCellsNumbers = {
 function getBetOnEachNumber(betHistory) {
   const totalBetOnEachCell = {};
 
-  /* eslint-disable no-unused-expressions  */
+    /* eslint-disable no-unused-expressions  */
 
-  forEach(betHistory, ({ cell, chip }) => {
-    totalBetOnEachCell[cell]
-      ? (totalBetOnEachCell[cell] += chip)
-      : (totalBetOnEachCell[cell] = chip);
-  });
+    forEach(betHistory, ({ cell, chip }) => {
+        totalBetOnEachCell[cell]
+        ? (totalBetOnEachCell[cell] += chip)
+        : (totalBetOnEachCell[cell] = chip);
+    });
 
-  let finalBetOnEachNumber = [];
+    let finalBetOnEachNumber = [];
 
-  forEach(totalBetOnEachCell, (value, key) => {
-    !boardCellsNumbers[key]
-      ? (finalBetOnEachNumber = [
-          ...finalBetOnEachNumber,
-          { place: Number(key), value }
-        ])
-      : (finalBetOnEachNumber = [
-          ...finalBetOnEachNumber,
-          ...map(boardCellsNumbers[key], boardNumber => {
-            return {
-              place: boardNumber,
-              value: value / boardCellsNumbers[key].length
-            };
-          })
-        ]);
+    forEach(totalBetOnEachCell, (value, key) => {
+        !boardCellsNumbers[key]
+        ? (finalBetOnEachNumber = [
+            ...finalBetOnEachNumber,
+            { place: Number(key), value }
+            ])
+        : (finalBetOnEachNumber = [
+            ...finalBetOnEachNumber,
+            ...map(boardCellsNumbers[key], boardNumber => {
+                return {
+                place: boardNumber,
+                value: value / boardCellsNumbers[key].length
+                };
+            })
+            ]);
   });
   /* eslint-enable no-unused-expressions */
 
@@ -130,13 +130,14 @@ function getBetOnEachNumber(betHistory) {
 export default async function bet({ betHistory, betAmount, user }) {
     try {
         const betOnEachNumber = getBetOnEachNumber(betHistory);
-
+        
         const appInfo = JSON.parse(localStorage.getItem("appInfo"));
-
+        
         const game = find(appInfo.games, { name: "Roulette" });
-
+        
         /* eslint-disable no-underscore-dangle, id-length, no-unused-vars */
-
+        
+        console.log("iefuwhe")
         const response = await user.createBet({
             amount: betAmount,
             result: betOnEachNumber,

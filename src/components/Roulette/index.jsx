@@ -138,22 +138,22 @@ export default class Roulette extends Component {
   }
 
   componentDidUpdate(prevProps) {
-    const { result, bet, onAnimation } = this.props;
+        const { result, bet, onAnimation } = this.props;
 
-    if (!bet) {
-      return;
-    }
+        if (!bet) {
+        return;
+        }
 
-    if (result && bet !== prevProps.bet) {
-      anim.start();
-      onAnimation(true);
+        if (result !== prevProps.result) {
+            anim.start();
+            onAnimation(true);
 
-      setTimeout(() => {
-        anim.stop();
-        endAnim.start();
-        this.setState({ ballStop: true });
-      }, 2000);
-    }
+            setTimeout(() => {
+                anim.stop();
+                endAnim.start();
+                this.setState({ ballStop: true });
+            }, 2000);
+        }
   }
 
   renderSound = () => {

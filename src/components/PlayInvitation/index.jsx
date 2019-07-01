@@ -8,6 +8,7 @@ import { connect } from "react-redux";
 import _ from 'lodash';
 import "./index.css";
 import invitation from 'assets/invitation.png';
+import { Row, Col } from 'reactstrap';
 
 class PlayInvitation extends Component {
   static propTypes = {
@@ -40,8 +41,9 @@ class PlayInvitation extends Component {
         return (
                 
             <div styleName="root">
-                <div styleName="container">
-                    <div styleName="invitation">
+                <Row>
+                    <Col md={6}>
+                        <div styleName="invitation">
                         <img src={invitation} styleName='invitation-cards'/>
                         {/* <InvitationCards /> */}
                         <div styleName="play-button">
@@ -58,14 +60,19 @@ class PlayInvitation extends Component {
                                 }
                             </Button>
                         </div>
-                    </div>
-                    <div styleName="labels-container">
-                        <Typography weight="semi-bold" color="white" variant="h4">
-                            {config.title}
-                        </Typography>
-                        {this.renderLabels()}
-                    </div>
-                </div>
+                        </div>
+                    </Col>
+                    <Col md={6}>
+                        <div styleName="labels-container">
+                            <div styleName='inner-text-container'>
+                                <Typography weight="semi-bold" color="white" variant="h4">
+                                    {config.title}
+                                </Typography>
+                                {this.renderLabels()}
+                            </div>
+                        </div>
+                    </Col>
+                </Row>
             </div>
         );
     }

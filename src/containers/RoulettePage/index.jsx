@@ -58,15 +58,14 @@ export default class RoulettePage extends Component {
 
     handleBet = async () => {
         try{
-
             var { user } = this.context;
             var { onHandleLoginOrRegister } = this.props;
             var { betHistory } = this.state;
-
+            
             if (!user) return onHandleLoginOrRegister("register");
-
+            
             this.setState({ bet: true });
-        
+            
             const result = await rouletteBet({
                 betHistory,
                 betAmount: this.getTotalBet(),

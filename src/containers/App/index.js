@@ -28,6 +28,9 @@ import store from "./store";
 import Cache from "../../lib/cache/cache";
 import ChatPage from "../Chat";
 import gif from "assets/gif.gif";
+import ChatChannel from "../../controllers/Chat";
+import { CopyText } from "../../copy";
+import { setMessageNotification } from "../../redux/actions/message";
 
 const history = createBrowserHistory();
 
@@ -41,9 +44,13 @@ export default class App extends Component {
 
     componentDidMount = () => {
         this.asyncCalls();
+        this.startChatNoLogged();
     };
 
-
+    startChatNoLogged = async () => {
+        this.chat = new ChatChannel({id : null, name : null});
+        await this.chat.__initNotLogged__();
+    }
 
 	asyncCalls = async () => {
         try{
@@ -161,20 +168,26 @@ export default class App extends Component {
         // Non-dapp browsers...
         else {
             window.web3 = new Web3(new Web3.providers.HttpProvider('https://ropsten.infura.io/'));
-            alert('Non-Ethereum browser detected. You should consider trying MetaMask!');
+            await store.dispatch(setMessageNotification(CopyText.ERRORS.NON_ETHEREUM_BROWSER_ENTRY));
         }        
 
     }
 
 
     updateUser = async user => {
+        
+        /* Destory Unlogged Chat Instance */
+        if(this.chat){
+            this.chat.__kill__();
+            this.chat = null;
+        }
+
         const appInfo = this.state.app;
 
         let userObject = new User({
             platformAddress: appInfo.platformAddress,
             tokenAddress: appInfo.platformTokenAddress,
             decimals: appInfo.decimals,
-            bearerToken: appInfo.bearerToken,
             appId: appInfo.id,
             userId: user.id,
             user : user
@@ -192,6 +205,7 @@ export default class App extends Component {
 
     handleLogout = async () => {
         await logout();
+        await store.dispatch(setProfileInfo(null));
         Cache.setToCache('user', null);
         Cache.setToCache('Authentication', null);
         localStorage.removeItem("diceHistory");
