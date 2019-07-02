@@ -71,9 +71,9 @@ export default class HomePage extends Component {
             <div styleName="root">
                 {this.renderPlayNow()}
                 <div styleName="container">
-                    <Row>
-                        {games.map( (item) => this.renderGame(item))}
-                    </Row>
+                        <Row>
+                            {games.map( (item) => this.renderGame(item))}
+                        </Row>
                     <LastBets/>
                 </div>
             </div>

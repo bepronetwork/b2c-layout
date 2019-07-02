@@ -1,12 +1,12 @@
 @import "../../styles/all.css";
 
 .root {
-  position: relative;
+    position: relative;
 
-  display: flex;
-
-  flex-direction: row;
-  margin-left: $spacing-8;
+    display: flex;
+    
+    flex-direction: row;
+    margin-left: $spacing-8;
 }
 
 .root:after {

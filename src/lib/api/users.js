@@ -186,6 +186,27 @@ export async function createBet(params, bearerToken, payload) {
     }  
 }
 
+
+/**
+ *
+ * @param {*} params
+ * @param {*} bearerToken
+ * @name Get Bets
+ * @use Get User Bets
+ */
+
+export async function getMyBets(params, bearerToken, payload) {
+    try{
+        let res = await fetch(`${apiUrl}/users/bets`, {
+            method : 'POST',
+            headers : addSecurityHeader({bearerToken, payload :  payload || params.user}),
+            body : JSON.stringify(params)})
+        return res.json();
+    }catch(err){
+        throw err;
+    }    
+}
+
 /**
  *
  * @param {*} params
@@ -203,7 +224,7 @@ export async function updateUserWallet(params, bearerToken, payload) {
         body : JSON.stringify(params)
     })
     return res.json();
-  }
+}
   
 
 function addSecurityHeader({bearerToken, payload}) {

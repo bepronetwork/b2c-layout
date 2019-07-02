@@ -5,7 +5,8 @@ import {
   requestWithdraw,
   finalizeWithdraw,
   cancelWithdraw,
-  createBet
+  createBet,
+  getMyBets
 } from "lib/api/users";
 import CryptographySingleton from "lib/api/Cryptography";
 import { Numbers } from "../../lib/ethereum/lib";
@@ -72,8 +73,20 @@ export default class User {
             window.ethereum.on('networkChanged', (netId) =>  {
                 console.log(netId);
             })
+        }  
+    }
+
+    getMyBets = async ({size}) => {
+        try{
+            let res = await getMyBets({               
+                user: this.user_id,
+                size
+            }, this.bearerToken);
+            return await processResponse(res);
+        }catch(err){
+            console.log(err)
+            throw err;
         }
-       
     }
 
     setupChat = async () => {
