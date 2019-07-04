@@ -24,7 +24,8 @@ const defaultProps = {
     message : '',
     participants : 0,
     open : true,
-    history: ""
+    history: "",
+    language : languages[0]
 }
 
 class ChatPage extends React.Component {
@@ -47,11 +48,11 @@ class ChatPage extends React.Component {
     }
 
     projectData = async (props) => {
-        
-        if(props.chat.messages.length >= 1){
+        if(props.chat.messages.length >= 0){
             this.setState({...this.state,
                 participants : props.chat.participants,
                 messages :  props.chat.messages,
+                name : props.chat.name,
                 open :  props.chat.open
             });
             this.scrollToBottom();
@@ -61,15 +62,14 @@ class ChatPage extends React.Component {
     sendMessage = async (e) => {
         e.preventDefault();
         if(_.isEmpty(this.props.profile)){
-            console.log("ieuheuir")
             await store.dispatch(setMessageNotification(CopyText.ERRORS.CHAT_USER_NOT_LOGGED));
         }
-        this.scrollToBottom();
         try{
             await this.props.profile.sendMessage({message : this.state.message})
             this.scrollToBottom();
             this.setState({...this.state, message : ''})
         }catch(err){
+            console.log(err)
             this.setState({...this.state, message : ''})
         }
     }
@@ -92,9 +92,15 @@ class ChatPage extends React.Component {
         )
     }
 
-    changeLanguage = (item) => {
-        // TO DO : 
-        console.log(item);
+    changeLanguage = async (item) => {
+        item = languages.find( a => {
+            if(a.channel_id == item.value){
+                return a;
+            }
+        })
+        let { profile } = this.props;
+        profile.getChat().changeLanguage({language : item.name, channel_id : item.channel_id});
+        this.setState({...this.state, language : item.channel_id})
     }
 
     changeMessage = event => {
@@ -107,7 +113,7 @@ class ChatPage extends React.Component {
                     <div styleName="container">
                         <div ref={el => { this.el = el; }} styleName="text-container">
                             {this.state.messages.map((item) => {
-                                return this.createMessageBox({username : item._sender.nickname, message : item.message, id : item.messageId})
+                                return this.createMessageBox({username : item.user ? item.user.displayName : 'none', message : item.text, id : item.id})
                             })}
                             <div style={{ float:"left", clear: "both" }}
                                 ref={(el) => { this.messagesEnd = el; }}>
@@ -140,12 +146,12 @@ class ChatPage extends React.Component {
                                                     type={'language'}
                                                     onChange={this.changeLanguage}
                                                     options={languages}
-                                                    value={languages[0]}
+                                                    value={this.state.language.channel_id}
                                                     style={{width : '80%'}}
                                                     label="Language Name"
                                                     >
                                                     {languages.map(option => (
-                                                        <MenuItem key={option} value={option}>
+                                                        <MenuItem key={option.channel_id} value={option.channel_id}>
                                                             <img src={option.image} styleName='image-language'/>
                                                         </MenuItem>
                                                     ))}

@@ -6,7 +6,11 @@ class cache{
      * @type Authentication
      */
     setToCache = (type, data) => {
-        localStorage.setItem(type, JSON.stringify(data), {expires : 365});
+        try{
+            localStorage.setItem(type, JSON.stringify(data), {expires : 365});
+        }catch(err){
+            console.log(err)
+        }
     }
 
     getFromCache = (type) => {

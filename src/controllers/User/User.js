@@ -47,14 +47,22 @@ export default class User {
      */
 
     __init__ = async () =>  {
-        this.setupCasinoContract();
-        await this.setupChat();
-        this.connectMetamask();
-        this.updateUserState();
+        try{
+            this.setupCasinoContract();
+            await this.setupChat();
+            this.connectMetamask();
+            this.updateUserState();
+        }catch(err){
+            console.log(err)
+        }
     }
 
     __initNotLogged__ = async () => {
 
+    }
+
+    getChat = () => {
+        return this.chat;
     }
     
 
@@ -90,8 +98,11 @@ export default class User {
     }
 
     setupChat = async () => {
-        this.chat = new ChatChannel({id : this.id, name : this.username});
-        await this.chat.__init__();
+        let chat = new ChatChannel({id : this.id, name : this.username});
+        await chat.__init__();
+        let ObjectChat = chat;
+        ObjectChat.cc.transportManager.client = null;
+        this.chat = ObjectChat;
     }
 
     getMessages = () => {

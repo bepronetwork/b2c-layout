@@ -234,15 +234,14 @@ export default class DiceGameOptions extends Component {
     render() {
         const { type, amount } = this.state;
         const { user } = this.context;
-
         return (
         <div styleName="root">
             {this.renderSound()}
             <div styleName="toggle">
             <ToggleButton
                 config={{
-                left: { value: "manual", title: "Manual" },
-                right: { value: "auto", title: "Auto", disabled : true}
+                    left: { value: "manual", title: "Manual" },
+                    right: { value: "auto", title: "Auto"}
                 }}
                 selected={type}
                 size="full"

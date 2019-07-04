@@ -2,16 +2,24 @@ import SendBird from 'sendbird';
 import { sendbirdAppID, sendbirdChannelID } from '../../lib/api/apiConfig';
 import store from '../../containers/App/store';
 import { setChatInfo } from '../../redux/actions/chat';
+import ChatCamp from 'chatcamp';
+import languages from '../../config/languages';
 
+const APP_ID = '6551851573570433024';
 
 class ChatChannel{
     constructor({id, name}){
         this.id = id;
+        this.channel_id = languages[0].channel_id;
         this.name = name;
+        this.cc = new ChatCamp({ appId: APP_ID });
         this.sendbird = new SendBird({appId: sendbirdAppID});
         this.messages = [];
+        this.channelListener = {};
         this.participants = 0;
         this.open = true;
+        this.chatName = '';
+        this.isWorking = true;
     }
 
     __init__ = async () => {
@@ -21,22 +29,27 @@ class ChatChannel{
             this.channel = await this.enterChannel();
             this.setTimer()
         }catch(err){
+            this.isWorking = false;
+            console.log(err)
             // Nothing
         }
     }
 
     __initNotLogged__ = async () => {
         try{
-            this.id = 'none';
+            this.id = 'asdf';
             this.user = await this.connectUser();
             this.channel = await this.enterChannel();
             this.setTimer()
         }catch(err){
+            this.isWorking = false;
+            console.log(err)
             // Nothing
         }
     }
 
     __kill__ = () => {
+        clearInterval(this.timer);
         this.timer = null;
     }
 
@@ -44,59 +57,67 @@ class ChatChannel{
         return this.messages
     }
 
+    changeLanguage = async ({language, channel_id}) => {
+        this.language = language;
+        this.channel_id = channel_id;
+        clearInterval(this.timer);
+        this.channel = await this.enterChannel();
+        this.setTimer();
+    }
+
     updateReduxState = async () => {
-        await store.dispatch(setChatInfo({
-            participants    : this.participants,
-            open            : this.open,
-            messages        : this.messages
-        }));
+        if(this.isWorking){
+            await store.dispatch(setChatInfo({
+                name            : this.chatName,
+                participants    : this.participants,
+                open            : this.open,
+                messages        : this.messages
+            }));
+        }
     }
 
     setTimer = () => {
         this.timer = setInterval( () => {
             this.listenChannelUpdates();
-        }, 1000) // each 1 sec
+        }, 1000) /* each 1 sec */
     }
 
     enterChannel = async () => {
         return new Promise( (resolve, reject) => {
-            this.sendbird.OpenChannel.getChannel(sendbirdChannelID, async (openChannel, error) => {
-                this.open =  (openChannel.channelType == 'open')
+            this.cc.OpenChannel.get(this.channel_id, async (error, openChannel) => {
+                if(error){reject(error)}
+                this.open = openChannel.isActive;
+                this.chatName = openChannel.name;
+                this.participants = openChannel.participantsCount;
+                openChannel.join(function(error) {
+                    if(!error){
+                    console.log("Open Channel Successfully Joined")
+                }});
                 await this.updateReduxState()
-                if (error) { reject(error); }
-                openChannel.enter(function(response, error) {
-                    resolve(openChannel);
-                    if (error) { reject(error); }
-                })
-            });
+                resolve(openChannel); 
+            })
         })  
     }
 
     listenChannelUpdates = async () => {
         // Get Messages
-        var messageListQuery = this.channel.createPreviousMessageListQuery();
-        messageListQuery.limit = 30;
-        messageListQuery.reverse = false;
-        
-        messageListQuery.load( async (messageList, error) =>  {
-            if (error) { return;}
-            this.messages = messageList;
-            await this.updateReduxState();
-        });
-        
-        // Get Participants
-        var participantListQuery = this.channel.createParticipantListQuery();
+        let previousMessageListQuery = this.channel.createPreviousMessageListQuery();
+        previousMessageListQuery.setLimit(30);
+        previousMessageListQuery.setSortBy('INSERTED_AT');
 
-        participantListQuery.next( async (participantList, error) => {
-            if (error) {return;}
-            this.participants = participantList.length;
+        previousMessageListQuery.load( async (error, messages) => {
+            let messagesSorted = messages.sort((a, b) => a.insertedAt - b.insertedAt )
+            if (error) { return;}
+            this.messages = messagesSorted;
+            
             await this.updateReduxState();
         });
+
     }
 
     connectUser = async () => {
         return new Promise( (resolve, reject) => {
-            this.sendbird.connect(this.id, (user, error) => {
+            this.cc.connect(this.id, function(error, user) {
                 if (error) { reject(error); }
                 resolve(user); 
             });
@@ -104,23 +125,34 @@ class ChatChannel{
     }
 
     updateUser = async () => {
-        return new Promise( (resolve, reject) => {
-            this.sendbird.updateCurrentUserInfo(this.name, null, (response, error) => {
-                if (error) { reject(error); }
-                resolve(response); 
+        try{
+            return new Promise( (resolve, reject) => {
+                this.cc.updateUserDisplayName(this.name, (error, user) => {
+                    if (error) { reject(error); }
+                    resolve(user); 
+                });
             });
-        });
+        }catch(err){
+            console.log(err);
+        }
     }
    
 
     sendMessage = async ({message, data}) => {
-        return new Promise( (resolve, reject) => {
-            this.channel.sendUserMessage(message, (message, error) => {
-                if (error) { reject(error); }
-                this.listenChannelUpdates();
-                resolve(message);
-            });
-        })
+        try{
+            return new Promise( (resolve, reject) => {
+                this.channel.sendMessage(message, (message, error) => {
+                    console.log(error, message)
+                    if (error) { reject(error); }
+                    this.listenChannelUpdates();
+
+                    resolve(message);
+                });
+            })
+        }catch(err){
+            console.log(err)
+        }
+       
     }
 }
 

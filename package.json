@@ -22,6 +22,7 @@
     "babel-plugin-react-css-modules": "^5.2.4",
     "bcryptjs": "^2.4.3",
     "browser-cookies": "^1.2.0",
+    "chatcamp": "^2.3.6",
     "classnames": "^2.2.6",
     "crypto-js": "^3.1.9-1",
     "css-loader": "^2.1.1",

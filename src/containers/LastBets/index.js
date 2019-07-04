@@ -9,6 +9,7 @@ import { Numbers } from "../../lib/ethereum/lib";
 import { dateToHourAndMinute } from "../../lib/helpers";
 import Tabs from "../../components/Tabs";
 import TableDefault from "./Table";
+import _ from 'lodash';
 
 const rows = {
     all_bets : {
@@ -139,7 +140,11 @@ class LastBets extends Component {
         let { profile } = props;
 
         let all_bets = await getLastBets();
-        let my_bets = await profile.getMyBets({size : 15});
+        let my_bets = [];
+
+        if(profile && !_.isEmpty(profile)){
+            my_bets = await profile.getMyBets({size : 15});
+        }
 
         this.setState({...this.state, 
             all_bets : {

@@ -48,8 +48,12 @@ export default class App extends Component {
     };
 
     startChatNoLogged = async () => {
-        this.chat = new ChatChannel({id : null, name : null});
-        await this.chat.__initNotLogged__();
+        try{
+            this.chat = new ChatChannel({id : null, name : null});
+            await this.chat.__initNotLogged__();
+        }catch(err){
+            console.log(err)
+        }
     }
 
 	asyncCalls = async () => {
@@ -58,7 +62,7 @@ export default class App extends Component {
             await this.startLoading();
             await this.loginAccount();
         }catch(err){
-
+            console.log(err);
         }
     }
 
@@ -131,11 +135,13 @@ export default class App extends Component {
             if (response.status !== 200) {
                 return this.setState({ error: response.status });
             }
+
             let user = await this.updateUser(response);
             await user.updateUser();
 
             return this.setState({ registerLoginModalOpen: null, error: null });
         } catch (error) {
+            console.log(error)
             return handleError(error);
         }
     };
@@ -192,7 +198,6 @@ export default class App extends Component {
             user : user
         })
 
-        
         await store.dispatch(setProfileInfo(userObject));
         Cache.setToCache('user', userObject)
         
