@@ -134,10 +134,7 @@ export default async function bet({ betHistory, betAmount, user }) {
         const appInfo = JSON.parse(localStorage.getItem("appInfo"));
         
         const game = find(appInfo.games, { name: "Roulette" });
-        
-        /* eslint-disable no-underscore-dangle, id-length, no-unused-vars */
-        
-        console.log("iefuwhe")
+                
         const response = await user.createBet({
             amount: betAmount,
             result: betOnEachNumber,

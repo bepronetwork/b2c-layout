@@ -5,22 +5,39 @@ import GamePage from "containers/GamePage";
 import UserContext from "containers/App/UserContext";
 import coinFlipBet from "lib/api/coinFlip";
 import { updateUserBalance } from "lib/api/users";
+import Cache from "../../lib/cache/cache";
+import { find } from "lodash";
 
-export default class FlipPage extends Component {
+
+const defaultState = {
+    edge : 0,
+    flipResult: null,
+    hasWon: null,
+    game_name : 'CoinFlip',
+    game : {
+        edge : 0
+    }
+}
+
+
+class FlipPage extends Component {
     static contextType = UserContext;
 
     static propTypes = {
         onHandleLoginOrRegister: propTypes.func.isRequired
     };
 
-    state = {
-        flipResult: null,
-        hasWon: null
-    };
+    constructor(props){
+        super(props);
+        this.state = defaultState;
+    }
+
+    componentDidMount(){
+        this.getGame()
+    }
 
     handleUpdateBalance = async () => {
         const { user, setUser } = this.context;
-
         await updateUserBalance(user, setUser);
     };
 
@@ -58,10 +75,11 @@ export default class FlipPage extends Component {
         const { disableControls } = this.state;
 
         return (
-        <FlipGameOptions
-            onBet={this.handleBet}
-            disableControls={disableControls}
-        />
+            <FlipGameOptions
+                onBet={this.handleBet}
+                game={this.state.game}
+                disableControls={disableControls}
+            />
         );
     };
 
@@ -69,22 +87,35 @@ export default class FlipPage extends Component {
         const { flipResult, hasWon } = this.state;
 
         return (
-        <FlipGameCard
-            updateBalance={this.handleUpdateBalance}
-            flipResult={flipResult}
-            hasWon={hasWon}
-            onResult={this.handleEnableControls}
-        />
+            <FlipGameCard
+                updateBalance={this.handleUpdateBalance}
+                flipResult={flipResult}
+                game={this.state.game}
+                hasWon={hasWon}
+                onResult={this.handleEnableControls}
+            />
         );
     };
 
+    getGame = () => {
+        const appInfo = Cache.getFromCache("appInfo");
+        if(appInfo){
+            console.log(appInfo.games)
+            let game = find(appInfo.games, { name: this.state.game_name });
+            this.setState({...this.state, game});
+        }
+    };
+
+
     render() {
         return (
-        <GamePage
-            options={this.getOptions()}
-            game={this.getGameCard()}
-            history="flipHistory"
-        />
+            <GamePage
+                options={this.getOptions()}
+                game={this.getGameCard()}
+                history="flipHistory"
+            />
         );
     }
 }
+
+export default FlipPage;

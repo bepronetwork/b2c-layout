@@ -12,156 +12,160 @@ import winSound from "assets/win-sound.mp3";
 import loseSound from "assets/lose-sound.mp3";
 
 import "./index.css";
+import { Numbers } from "../../lib/ethereum/lib";
+
+const defaultState = {
+    payout : 2,
+    win_chance : 50,
+    isCoinSpinning: false,
+    result: null,
+    edge : 0
+}
 
 export default class FlipGameCard extends Component {
-  static contextType = UserContext;
+    static contextType = UserContext;
 
-  static propTypes = {
-    flipResult: PropTypes.string,
-    hasWon: PropTypes.bool,
-    updateBalance: PropTypes.func.isRequired,
-    onResult: PropTypes.func.isRequired
-  };
-
-  static defaultProps = {
-    flipResult: null,
-    hasWon: null
-  };
-
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      isCoinSpinning: false,
-      result: null
+    static propTypes = {
+        flipResult: PropTypes.string,
+        hasWon: PropTypes.bool,
+        updateBalance: PropTypes.func.isRequired,
+        onResult: PropTypes.func.isRequired
     };
-  }
 
-  static getDerivedStateFromProps(props, state) {
-    if (props.flipResult && state.result !== props.flipResult) {
-      return {
-        result: props.flipResult
-      };
+    static defaultProps = {
+        flipResult: null,
+        hasWon: null
+    };
+
+    constructor(props) {
+        super(props);
+        this.state = defaultState;
     }
 
-    if (state.result && props.flipResult) {
-      return {
-        result: null
-      };
+    componentDidMount(){
+        this.projectData(this.props);
     }
 
-    return null;
-  }
-
-  renderWinLost = () => {
-    const { flipResult, hasWon } = this.props;
-
-    return hasWon
-      ? `You won, ${upperFirst(flipResult)}`
-      : `You lost, ${upperFirst(flipResult)}`;
-  };
-
-  renderCoinSound = () => {
-    const { flipResult } = this.props;
-    const { isCoinSpinning } = this.state;
-
-    if (!flipResult || !isCoinSpinning) {
-      return null;
+    componentWillReceiveProps(props){
+        this.projectData(props);
     }
 
-    return <Sound volume={100} url={coinSound} playStatus="PLAYING" autoLoad />;
-  };
+    projectData(props){
+        let result;
+        if (props.flipResult && this.state.result !== props.flipResult) {
+            result = props.flipResult;
+        }
+        if (this.state.result && props.flipResult) {
+            result = null;
+        }
 
-  renderWinLoseSound = () => {
-    const { isCoinSpinning } = this.state;
-    const { flipResult, hasWon } = this.props;
-
-    if (isCoinSpinning || !flipResult) {
-      return null;
+        this.setState({...this.state, 
+            edge : props.game.edge,
+            result
+        });
     }
 
-    return (
-      <Sound
-        volume={100}
-        url={hasWon ? winSound : loseSound}
-        playStatus="PLAYING"
-        autoLoad
-        onFinishedPlaying={this.handleWinLoseFinished}
-      />
-    );
-  };
+    renderWinLost = () => {
+        const { flipResult, hasWon } = this.props;
 
-  handleWinLoseFinished = () => {
-    const { onResult } = this.props;
+        return hasWon
+        ? `You won, ${upperFirst(flipResult)}`
+        : `You lost, ${upperFirst(flipResult)}`;
+    };
 
-    onResult();
-  };
+    renderCoinSound = () => {
+        const { flipResult } = this.props;
+        const { isCoinSpinning } = this.state;
 
-  handleAnimationEnd = () => {
-    this.setState({ isCoinSpinning: false }, () => {
-      const { updateBalance } = this.props;
+        if (!flipResult || !isCoinSpinning) {
+        return null;
+        }
 
-      updateBalance();
-    });
-  };
+        return <Sound volume={100} url={coinSound} playStatus="PLAYING" autoLoad />;
+    };
 
-  handleAnimationStart = () => {
-    this.setState({ isCoinSpinning: true });
-  };
+    renderWinLoseSound = () => {
+        const { isCoinSpinning } = this.state;
+        const { flipResult, hasWon } = this.props;
 
-  render() {
-    const { flipResult } = this.props;
+        if (isCoinSpinning || !flipResult) {
+            return null;
+        }
 
-    const coinStyles = classNames(
-      "coin",
-      flipResult
-        ? {
-            [flipResult]: true
-          }
-        : null
-    );
+        return (
+            <Sound
+                volume={100}
+                url={hasWon ? winSound : loseSound}
+                playStatus="PLAYING"
+                autoLoad
+                onFinishedPlaying={this.handleWinLoseFinished}
+            />
+        );
+    };
 
-    return (
-      <div styleName="root">
-        {this.renderCoinSound()}
-        {this.renderWinLoseSound()}
-        <div styleName="flip-container">
-          <div
-            styleName={coinStyles}
-            onAnimationStart={this.handleAnimationStart}
-            onAnimationEnd={this.handleAnimationEnd}
-          >
-            <div styleName="side-heads">
-              <Bitcoin />
+    handleWinLoseFinished = () => {
+        const { onResult } = this.props;
+        onResult();
+    };
+
+    handleAnimationEnd = () => {
+        this.setState({ isCoinSpinning: false }, () => {
+            const { updateBalance } = this.props;
+            updateBalance();
+        });
+    };
+
+    handleAnimationStart = () => {
+        this.setState({ isCoinSpinning: true });
+    };
+
+    render() {
+        const { flipResult } = this.props;
+        const coinStyles = classNames( "coin", flipResult ? { [flipResult]: true } : null);
+        let winEdge = (100-(this.state.edge))/100;
+        let payout = this.state.payout * winEdge;
+
+        return (
+            <div styleName="root">
+                {this.renderCoinSound()}
+                {this.renderWinLoseSound()}
+                <div styleName="flip-container">
+                <div
+                    styleName={coinStyles}
+                    onAnimationStart={this.handleAnimationStart}
+                    onAnimationEnd={this.handleAnimationEnd}
+                >
+                    <div styleName="side-heads">
+                        <Bitcoin />
+                    </div>
+                    <div styleName="side-tails">
+                        <Bitcoin />
+                    </div>
+                </div>
+                <div styleName={flipResult ? "show-label" : "label"}>
+                    <Typography variant="h3" color="white">
+                        {flipResult ? this.renderWinLost() : ""}
+                    </Typography>
+                </div>
+                </div>
+                <div styleName="values">
+                    <InputNumber
+                        name="payout"
+                        title="Payout"
+                        icon="cross"
+                        value={Numbers.toFloat(payout)}
+                        disabled
+                    />
+
+                    <InputNumber
+                        name="chance"
+                        unit="%"
+                        title="Win Chance"
+                        disabled
+                        value={Numbers.toFloat(this.state.win_chance)}
+                    />
+                </div>
             </div>
-            <div styleName="side-tails">
-              <Bitcoin />
-            </div>
-          </div>
-          <div styleName={flipResult ? "show-label" : "label"}>
-            <Typography variant="h3" color="white">
-              {flipResult ? this.renderWinLost() : ""}
-            </Typography>
-          </div>
-        </div>
-        <div styleName="values">
-          <InputNumber
-            name="payout"
-            title="Payout"
-            icon="cross"
-            value={Number("2.0000")}
-            disabled
-          />
-
-          <InputNumber
-            name="chance"
-            unit="%"
-            title="Win Chance"
-            disabled
-            value={50}
-          />
-        </div>
-      </div>
-    );
-  }
+        );
+    }
 }

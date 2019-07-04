@@ -14,6 +14,7 @@ import Sound from "react-sound";
 import Dice from "components/Icons/Dice";
 
 import "./index.css";
+import { Numbers } from "../../lib/ethereum/lib";
 
 export default class DiceGameOptions extends Component {
     static contextType = UserContext;
@@ -33,14 +34,15 @@ export default class DiceGameOptions extends Component {
         super(props);
 
         this.state = {
-        type: "manual",
-        amount: 0,
-        bets: 1,
-        profitStop: 0,
-        lossStop: 0,
-        onWin: null,
-        onLoss: null,
-        sound: false
+            type: "manual",
+            amount: 0,
+            bets: 1,
+            profitStop: 0,
+            lossStop: 0,
+            onWin: null,
+            edge : 0,
+            onLoss: null,
+            sound: false
         };
     }
 
@@ -75,6 +77,21 @@ export default class DiceGameOptions extends Component {
         />
         );
     };
+
+    componentDidMount(){
+        this.projectData(this.props);
+    }
+
+    componentWillReceiveProps(props){
+        this.projectData(props);
+    }
+
+    projectData(props){
+        this.setState({...this.state, 
+            edge : props.game.edge
+        });
+    }
+
 
     handleSongFinishedPlaying = () => {
         this.setState({ sound: false });
@@ -185,12 +202,15 @@ export default class DiceGameOptions extends Component {
             : (middleRoll * middlePayout) / rollNumber;
         }
 
-        return payout;
+        let winEdge = (100-(this.state.edge))/100;
+        payout = payout * winEdge;
+        
+        return Numbers.toFloat(payout);
     };
 
     renderManual = () => {
         const { amount } = this.state;
-
+   
         return (
         <div>
             <div styleName="element">
@@ -198,9 +218,9 @@ export default class DiceGameOptions extends Component {
                 name="win-profit"
                 title="Profit on Win"
                 icon="bitcoin"
-                precision={5}
+                precision={2}
                 disabled
-                value={amount * (this.getPayout() - 1)}
+                value={Numbers.toFloat(amount * (this.getPayout() - 1))}
             />
             </div>
         </div>

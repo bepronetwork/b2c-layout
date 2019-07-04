@@ -13,6 +13,7 @@ import languages from "../../config/languages";
 import { setMessageNotification } from "../../redux/actions/message";
 import { CopyText } from "../../copy";
 import store from "../App/store";
+import { dateToHourAndMinute } from "../../lib/helpers";
 
 const sound = localStorage.getItem("sound");
 
@@ -48,7 +49,7 @@ class ChatPage extends React.Component {
     }
 
     projectData = async (props) => {
-        if(props.chat.messages.length >= 0){
+        if(props.chat.messages.length > 0){
             this.setState({...this.state,
                 participants : props.chat.participants,
                 messages :  props.chat.messages,
@@ -74,7 +75,8 @@ class ChatPage extends React.Component {
         }
     }
 
-    createMessageBox = ({username, message, id}) => {
+    createMessageBox = ({username, message, id, time}) => {
+        
         return(
             <div styleName='message-box' key={id}>
                 <div style={{float : 'left', marginRight : 10}}>
@@ -86,6 +88,11 @@ class ChatPage extends React.Component {
                 <div style={{marginLeft : 10}}>
                     <Typography variant="small-body" color="white">
                         {message}
+                    </Typography>
+                </div>
+                <div>
+                    <Typography variant="x-small-body" color="grey"> 
+                        {dateToHourAndMinute(time)} 
                     </Typography>
                 </div>
             </div>
@@ -113,7 +120,7 @@ class ChatPage extends React.Component {
                     <div styleName="container">
                         <div ref={el => { this.el = el; }} styleName="text-container">
                             {this.state.messages.map((item) => {
-                                return this.createMessageBox({username : item.user ? item.user.displayName : 'none', message : item.text, id : item.id})
+                                return this.createMessageBox({username : item.user ? item.user.displayName : 'none', message : item.text, id : item.id, time : new Date(item.insertedAt*1000)})
                             })}
                             <div style={{ float:"left", clear: "both" }}
                                 ref={(el) => { this.messagesEnd = el; }}>

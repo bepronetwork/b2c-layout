@@ -10,75 +10,98 @@ const maxPayout = 49.5;
 const middlePayout = 2;
 const middleRoll = 50;
 
+
+const defaultState = {
+    rollType: "over",
+    roll: Number("50"),
+    chance: Number("49.5000"),
+    payout: Number("2.0000"),
+    edge : 0
+}
+
+
 export default class DiceGameCard extends Component {
-  static propTypes = {
-    result: PropTypes.number,
-    disableControls: PropTypes.bool,
-    onResultAnimation: PropTypes.func.isRequired,
-    onChangeRollAndRollType: PropTypes.func.isRequired
-  };
-
-  static defaultProps = {
-    result: null,
-    disableControls: false
-  };
-
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      rollType: "over",
-      roll: Number("50"),
-      chance: Number("49.5000"),
-      payout: Number("2.0000"),
-      result: props.result
+    static propTypes = {
+        result: PropTypes.number,
+        disableControls: PropTypes.bool,
+        onResultAnimation: PropTypes.func.isRequired,
+        onChangeRollAndRollType: PropTypes.func.isRequired
     };
-  }
 
-  static getDerivedStateFromProps(nextProps, prevState) {
-    if (nextProps.result && nextProps.result !== prevState.result) {
-      let history = localStorage.getItem("diceHistory");
-      const win = !!(
-        (nextProps.result >= prevState.roll && prevState.rollType === "over") ||
-        (nextProps.result < prevState.roll && prevState.rollType === "under")
-      );
+    static defaultProps = {
+        result: null,
+        disableControls: false
+    };
 
-      history = history ? JSON.parse(history) : [];
-      history.unshift({ value: nextProps.result, win });
+    constructor(props) {
+        super(props);
 
-      localStorage.setItem("diceHistory", JSON.stringify(history));
-
-      return {
-        result: nextProps.result
-      };
+        this.state = {
+            ...defaultState,
+            result: props.result
+        };
     }
 
-    return null;
-  }
-
-  handlePayout = payout => {
-    const { onChangeRollAndRollType } = this.props;
-    const { rollType } = this.state;
-
-    let newRoll = 0;
-
-    if (payout === middlePayout) {
-      newRoll = middleRoll;
-    } else {
-      newRoll =
-        rollType === "over"
-          ? (middleRoll * middlePayout - 100 * payout) / (payout * -1)
-          : (middleRoll * middlePayout) / payout;
+      componentDidMount(){
+        this.projectData(this.props);
     }
 
-    this.setState({
-      payout,
-      roll: newRoll,
-      chance: rollType === "over" ? 100 - newRoll : newRoll
-    });
+    componentWillReceiveProps(props){
+        this.projectData(props);
+    }
 
-    onChangeRollAndRollType(newRoll, rollType);
-  };
+    projectData(props){
+        let result = null;
+        let nextProps = props;
+        let prevState = this.state;
+
+        if (nextProps.result && nextProps.result !== prevState.result) {
+            let history = localStorage.getItem("diceHistory");
+            const win = !!(
+                (nextProps.result >= prevState.roll && prevState.rollType === "over") ||
+                (nextProps.result < prevState.roll && prevState.rollType === "under")
+            );
+
+            history = history ? JSON.parse(history) : [];
+            history.unshift({ value: nextProps.result, win });
+            localStorage.setItem("diceHistory", JSON.stringify(history));
+            result = nextProps.result;
+            this.setState({...this.state, 
+                result
+            });
+        }else{
+            this.setState({
+                edge : props.game.edge
+            });
+            // Nothing
+        }
+    }
+
+    handlePayout = payout => {
+        const { onChangeRollAndRollType } = this.props;
+        const { rollType } = this.state;
+
+        let newRoll = 0;
+
+        if (payout === middlePayout) {
+        newRoll = middleRoll;
+        } else {
+        newRoll =
+            rollType === "over"
+            ? (middleRoll * middlePayout - 100 * payout) / (payout * -1)
+            : (middleRoll * middlePayout) / payout;
+        }
+
+        console.log("Roll" + newRoll)
+
+        this.setState({
+            payout,
+            roll: newRoll,
+            chance: rollType === "over" ? 100 - newRoll : newRoll
+        });
+
+        onChangeRollAndRollType(newRoll, rollType);
+    };
 
     handleChance = value => {
         const { onChangeRollAndRollType } = this.props;
@@ -87,6 +110,7 @@ export default class DiceGameCard extends Component {
         const newRoll = rollType === "over" ? 100 - value : value;
 
         const payout = this.getPayout(newRoll);
+        console.log("Roll" + newRoll)
 
         this.setState({
             chance: value,
@@ -133,16 +157,18 @@ export default class DiceGameCard extends Component {
         const { onChangeRollAndRollType } = this.props;
         const { rollType } = this.state;
         const payout = this.getPayout(value);
+        let chance = rollType === "over" ? 100 - value : value;
 
         this.setState({
-        roll: value,
-        chance: rollType === "over" ? 100 - value : value,
-        payout
+            roll: value,
+            chance: chance,
+            payout
         });
+
         onChangeRollAndRollType(value, rollType);
     };
 
-  getPayoutStep = () => {
+    getPayoutStep = () => {
         const { roll, rollType } = this.state;
 
         if (rollType === "over") {
@@ -161,8 +187,10 @@ export default class DiceGameCard extends Component {
     };
 
     render() {
-        const { rollType, roll, chance, payout } = this.state;
+        let { rollType, roll, chance, payout } = this.state;
         const { result, disableControls, onResultAnimation } = this.props;
+        let winEdge = (100-(this.state.edge))/100;
+        payout = payout * winEdge;
 
         return (
         <div styleName="root">

@@ -5,6 +5,8 @@ import PropTypes from "prop-types";
 import UserContext from "containers/App/UserContext";
 import GamePage from "containers/GamePage";
 import diceBet from "lib/api/dice";
+import Cache from "../../lib/cache/cache";
+import { find } from "lodash";
 
 export default class DicePage extends Component {
     static contextType = UserContext;
@@ -17,8 +19,25 @@ export default class DicePage extends Component {
         result: null,
         disableControls: false,
         rollNumber: 50,
-        rollType: "over"
+        rollType: "over",
+        game_name : 'Linear Dice',
+        game : {
+            edge : 0
+        }
     };
+
+    componentDidMount(){
+        this.getGame();
+    }
+
+    getGame = () => {
+        const appInfo = Cache.getFromCache("appInfo");
+        if(appInfo){
+            let game = find(appInfo.games, { name: this.state.game_name });
+            this.setState({...this.state, game});
+        }
+    };
+
 
     handleRollAndRollTypeChange = (rollNumber, rollType) => {
         this.setState({ rollNumber, rollType });
@@ -58,12 +77,13 @@ export default class DicePage extends Component {
         const { disableControls, rollType, rollNumber } = this.state;
 
         return (
-        <DiceGameOptions
-            disableControls={disableControls}
-            onBet={this.handleBet}
-            rollType={rollType}
-            rollNumber={rollNumber}
-        />
+            <DiceGameOptions
+                disableControls={disableControls}
+                onBet={this.handleBet}
+                game={this.state.game}
+                rollType={rollType}
+                rollNumber={rollNumber}
+            />
         );
     };
 
@@ -75,6 +95,7 @@ export default class DicePage extends Component {
             onResultAnimation={this.handleAnimation}
             disableControls={disableControls}
             result={result}
+            game={this.state.game}
             onChangeRollAndRollType={this.handleRollAndRollTypeChange}
         />
         );

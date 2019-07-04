@@ -46,19 +46,20 @@ export default class HomePage extends Component {
 
     isGameAvailable = game => {
         const appInfo = JSON.parse(localStorage.getItem("appInfo"));
-        if (!appInfo) return null;
+        if (!appInfo) { return null; }
         return find(appInfo.games, { name: game });
     };
 
     renderGame = ({path, title, color, content}) => {
-        if(!this.isGameAvailable(title)){return null};
-
+        let game = this.isGameAvailable(title);
+        if(!game) {return null};
         return (
             <Col md={6} lg={4}>
                 <GameCard
                     path={path}
                     title={title}
                     color={color}
+                    edge={game.edge}
                 >
                     {content}
                 </GameCard>

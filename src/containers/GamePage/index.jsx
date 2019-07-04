@@ -26,7 +26,7 @@ export default class GamePage extends Component {
         const sound = localStorage.getItem("sound");
 
         this.state = {
-        soundMode: sound || "off"
+            soundMode: sound || "off"
         };
     }
 
