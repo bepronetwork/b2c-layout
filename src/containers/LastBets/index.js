@@ -2,15 +2,19 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import UserContext from "containers/App/UserContext";
 import { connect } from "react-redux";
-
+import { Row, Col } from 'reactstrap';
 import "./index.css";
 import { getLastBets } from "../../lib/api/app";
 import { Numbers } from "../../lib/ethereum/lib";
 import { dateToHourAndMinute } from "../../lib/helpers";
 import Tabs from "../../components/Tabs";
+import { DropDownField, Typography } from 'components';
 import TableDefault from "./Table";
+import { MenuItem } from '@material-ui/core';
 import _ from 'lodash';
 import { CopyText } from "../../copy";
+
+const views = [10 , 25, 50, 100];
 
 const rows = {
     all_bets : {
@@ -103,7 +107,8 @@ const options = [
 const defaultProps = {
     all_bets    : rows.all_bets,
     my_bets     : rows.my_bets,
-    view        : 'all_bets'
+    view        : 'all_bets',
+    view_amount : views[1],
 }
 
 class LastBets extends Component {
@@ -136,15 +141,20 @@ class LastBets extends Component {
     handleTabChange = name => {
         this.setState({...this.state, view : name})
     };
+
+    changeViewBets = ({value}) => {
+        this.setState({...this.state, view_amount : value});
+    }
     
     projectData = async (props) => {
         let { profile, ln } = props;
+        let { view_amount } = this.state;
         const copy = CopyText.homepage[ln];
-        let all_bets = await getLastBets();
+        let all_bets = await getLastBets({size : view_amount});
         let my_bets = [];
 
         if(profile && !_.isEmpty(profile)){
-            my_bets = await profile.getMyBets({size : 15});
+            my_bets = await profile.getMyBets({size : view_amount});
         }
 
         this.setState({...this.state, 
@@ -187,11 +197,39 @@ class LastBets extends Component {
             <div styleName="last-bets-container">
                 <div styleName="root">
                      <div styleName="container">
-                        <Tabs
-                            selected={this.state.view}
-                            options={options}
-                            onSelect={this.handleTabChange}
-                        />
+                        <Row>
+                            <Col md={11}>
+                                <Tabs
+                                    selected={this.state.view}
+                                    options={options}
+                                    onSelect={this.handleTabChange}
+                                />
+                            </Col>
+                            <Col md={1}>
+                                <div styleName='bets-dropdown'>
+                                    <DropDownField
+                                        id="view"
+                                        type={'view'}
+                                        onChange={this.changeViewBets}
+                                        options={views}
+                                        value={this.state.view_amount}
+                                        style={{width : '80%'}}
+                                        >
+                                        {views.map(option => (
+                                            <MenuItem key={option} value={option}>
+                                                <Typography
+                                                    variant="body"
+                                                    color="casper"
+                                                >
+                                                    {`${option}`}
+                                                </Typography>
+                                            </MenuItem>
+                                        ))}
+                                    </DropDownField> 
+                                </div>
+                            </Col>
+                        </Row>
+                      
                         <TableDefault
                             rows={this.state[this.state.view].rows}
                             titles={this.state[this.state.view].titles}

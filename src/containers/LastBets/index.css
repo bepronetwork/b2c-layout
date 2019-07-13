@@ -22,6 +22,10 @@
     }
 }
 
+.bets-dropdown{
+    margin-top : -20px;
+}
+
 .coin {
   background-color: $tree-poppy;
 

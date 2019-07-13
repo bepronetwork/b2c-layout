@@ -28,10 +28,11 @@ async function getGames(){
 }
 
 
-async function getLastBets() {
+async function getLastBets({size}) {
     try {
         const response = await axios.post(`${apiUrl}/app/lastBets`, {
-            app: appId
+            app: appId,
+            size
         });
     
         return response.data.data.message;
