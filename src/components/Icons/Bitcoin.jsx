@@ -1,5 +1,5 @@
 import React from "react";
-import letterlogo from 'assets/letterlogo.svg';
+import letterlogo from 'assets/letter-logo.svg';
 
 const Bitcoin = () => {
   return (
