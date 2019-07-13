@@ -14,6 +14,10 @@ $values-height: 92px;
   background-color: $background-main-table;
 }
 
+.logo{
+    width : 20px;
+}
+
 .flip-container {
   display: flex;
   flex-direction: column;

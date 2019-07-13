@@ -119,6 +119,7 @@ export default class FlipGameCard extends Component {
         this.setState({ isCoinSpinning: true });
     };
 
+
     render() {
         const { flipResult } = this.props;
         const coinStyles = classNames( "coin", flipResult ? { [flipResult]: true } : null);
