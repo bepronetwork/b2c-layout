@@ -12,56 +12,57 @@ import UserContext from "containers/App/UserContext";
 import Sound from "react-sound";
 import betSound from "assets/bet-sound.mp3";
 import Dice from "components/Icons/Dice";
+import { connect } from "react-redux";
 
 import "./index.css";
+import { CopyText } from "../../copy";
 
-export default class RouletteGameOptions extends Component {
-  static contextType = UserContext;
+class RouletteGameOptions extends Component {
+    static contextType = UserContext;
 
-  static propTypes = {
-    onBet: PropTypes.func.isRequired,
-    onChangeChip: PropTypes.func.isRequired,
-    totalBet: PropTypes.number,
-    disableControls: PropTypes.bool
-  };
+    static propTypes = {
+        onBet: PropTypes.func.isRequired,
+        onChangeChip: PropTypes.func.isRequired,
+        totalBet: PropTypes.number,
+        disableControls: PropTypes.bool
+    };
 
-  static defaultProps = {
-    totalBet: 0,
-    disableControls: false
-  };
+    static defaultProps = {
+        totalBet: 0,
+        disableControls: false
+    };
 
-  state = {
-    type: "manual",
-    profitStop: 0,
-    lossStop: 0,
-    onWin: null,
-    onLoss: null,
-    sound: false
-  };
+    state = {
+        type: "manual",
+        profitStop: 0,
+        lossStop: 0,
+        onWin: null,
+        onLoss: null,
+        sound: false
+    };
 
-  handleType = type => {
-    this.setState({ type });
-  };
+    handleType = type => {
+        this.setState({ type });
+    };
 
-  isBetValid = () => {
-    const { user } = this.context;
+    isBetValid = () => {
+        const { user } = this.context;
 
-    const { totalBet, disableControls } = this.props;
-    console.log(disableControls);
-    return (totalBet > 0 && !disableControls) || !user;
-  };
+        const { totalBet, disableControls } = this.props;
+        return (totalBet > 0 && !disableControls) || !user;
+    };
 
-  handleBet = () => {
-    const { onBet } = this.props;
+    handleBet = () => {
+        const { onBet } = this.props;
 
-    if (this.isBetValid()) {
-      this.setState({ sound: true });
+        if (this.isBetValid()) {
+        this.setState({ sound: true });
 
-      return onBet();
-    }
+        return onBet();
+        }
 
-    return null;
-  };
+        return null;
+    };
 
   renderAuto = () => {
     const { bets, profitStop, lossStop, onWin, onLoss } = this.state;
@@ -157,7 +158,8 @@ export default class RouletteGameOptions extends Component {
 
   render() {
     const { type } = this.state;
-    const { onChangeChip, totalBet } = this.props;
+    const { onChangeChip, totalBet, ln } = this.props;
+    const copy = CopyText.shared[ln];
 
     return (
       <div styleName="root">
@@ -166,8 +168,8 @@ export default class RouletteGameOptions extends Component {
         <div styleName="toggle">
           <ToggleButton
             config={{
-              left: { value: "manual", title: "Manual" },
-              right: { value: "auto", title: "Auto", disabled : true}
+              left: { value: "manual", title: copy.MANUAL_NAME},
+              right: { value: "auto", title: copy.AUTO_NAME, disabled : true}
             }}
             selected={type}
             size="full"
@@ -183,7 +185,7 @@ export default class RouletteGameOptions extends Component {
             icon="bitcoin"
             precision={2}
             value={totalBet}
-            title="Total Bet"
+            title={copy.TOTAL_BET_NAME}
           />
         </div>
         <div styleName="content">
@@ -198,7 +200,7 @@ export default class RouletteGameOptions extends Component {
             animation={<Dice />}
             >
             <Typography weight="semi-bold" color="pickled-bluewood">
-              {type === "manual" ? "Bet" : "Start AutoBet"}
+              {type === "manual" ? copy.BET_NAME : copy.AUTO_BET_NAME}
             </Typography>
           </Button>
         </div>
@@ -206,3 +208,13 @@ export default class RouletteGameOptions extends Component {
     );
   }
 }
+
+
+
+function mapStateToProps(state){
+    return {
+        ln : state.language
+    };
+}
+
+export default connect(mapStateToProps)(RouletteGameOptions);

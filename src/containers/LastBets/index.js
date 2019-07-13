@@ -10,6 +10,7 @@ import { dateToHourAndMinute } from "../../lib/helpers";
 import Tabs from "../../components/Tabs";
 import TableDefault from "./Table";
 import _ from 'lodash';
+import { CopyText } from "../../copy";
 
 const rows = {
     all_bets : {
@@ -137,8 +138,8 @@ class LastBets extends Component {
     };
     
     projectData = async (props) => {
-        let { profile } = props;
-
+        let { profile, ln } = props;
+        const copy = CopyText.homepage[ln];
         let all_bets = await getLastBets();
         let my_bets = [];
 
@@ -149,6 +150,7 @@ class LastBets extends Component {
         this.setState({...this.state, 
             all_bets : {
                 ...this.state.all_bets,
+                titles : copy.TABLE.ALL_BETS,
                 rows : all_bets.map( (bet) =>  {
                     return {
                         game: bet.game,
@@ -164,6 +166,7 @@ class LastBets extends Component {
             },
             my_bets : {
                 ...this.state.my_bets,
+                titles : copy.TABLE.MY_BETS,
                 rows : my_bets.map( (bet) =>  {
                     return {
                         game: bet.game,
@@ -205,6 +208,7 @@ class LastBets extends Component {
 function mapStateToProps(state){
     return {
         profile: state.profile,
+        ln : state.language
     };
 }
 

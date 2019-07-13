@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
-import { Button, SubtleButton, Typography, UserMenu, AnimationNumber } from "components";
+import { Button, SubtleButton, Typography, UserMenu, AnimationNumber, LanguagePicker } from "components";
 import UserContext from "containers/App/UserContext";
 import Bitcoin from "components/Icons/Bitcoin";
 import { Numbers } from "../../lib/ethereum/lib";
@@ -168,7 +168,8 @@ class Navbar extends Component {
                         :  this.renderLoginOrRegister()
                     }
                     </Col>
-                    <Col xs={1} md={2}>
+                    <Col xs={0} md={2}>
+                        <LanguagePicker/>
                     </Col>
                 </Row>
         );

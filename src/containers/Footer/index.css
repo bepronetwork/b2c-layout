@@ -1,0 +1,58 @@
+@import "../../styles/all.css";
+
+.footer {
+    text-align: center;
+    padding : $spacing-36;
+    margin-top : $spacing-36;
+    background-color : $footer-background;
+}
+
+.container {
+  justify-content: center;
+
+  grid-column-gap: $spacing-28;
+  grid-row-gap: $spacing-28;
+
+  grid-template-columns: repeat(3, 290px);
+
+  @include Breakpoint-tabletOnly {
+    grid-template-columns: 1fr;
+  }
+
+  @include Breakpoint-mobileOnly {
+    grid-template-columns: 1fr;
+  }
+}
+
+.left{
+    text-align: left;
+}
+
+.title{
+    margin : $spacing-20;
+    margin-left : 0;
+}
+
+.item{
+    margin : $spacing-8;
+    margin-left : 0;
+    display : block;
+    position : relative;
+}
+
+.logo{
+    width : 200;
+    align-self: left;
+    float: left;
+}
+
+.item:hover{
+    opacity : 0.6 !important;  
+}
+
+.coin {
+  background-color: $tree-poppy;
+  border-radius: 50%;
+  box-shadow: inset 0 0 15px color($red alpha(50%));
+}
+

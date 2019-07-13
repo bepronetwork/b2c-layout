@@ -9,6 +9,7 @@ import _ from 'lodash';
 import "./index.css";
 import invitation from 'assets/invitation.png';
 import { Row, Col } from 'reactstrap';
+import { CopyText } from "../../copy";
 
 class PlayInvitation extends Component {
   static propTypes = {
@@ -21,10 +22,10 @@ class PlayInvitation extends Component {
     else if (onLoginRegister) onLoginRegister("register");
   };
 
-  renderLabels = () => {
+  renderLabels = (labels) => {
     return (
         <ul styleName="labels">
-            {map(config.labels, label => {
+            {map(labels, label => {
             return (
                 <li key={label}>
                     <Typography weight="regular" color="casper">
@@ -38,6 +39,9 @@ class PlayInvitation extends Component {
   };
 
     render() {
+        const { ln } = this.props;
+        const copy = CopyText.homepage[ln];
+
         return (
                 
             <div styleName="root">
@@ -51,11 +55,11 @@ class PlayInvitation extends Component {
                                 {_.isEmpty(this.props.profile) ?
                                 (
                                     <Typography weight="semi-bold" color="white">
-                                        Play Now
+                                       {copy.BUTTON_HOME.FIRST}
                                     </Typography>
                                 ) :   
                                     <Typography weight="semi-bold" color="white">
-                                        Go!
+                                       {copy.BUTTON_HOME.SECOND}
                                     </Typography>
                                 }
                             </Button>
@@ -66,9 +70,9 @@ class PlayInvitation extends Component {
                         <div styleName="labels-container">
                             <div styleName='inner-text-container'>
                                 <Typography weight="semi-bold" color="white" variant="h4">
-                                    {config.title}
+                                    {copy.TITLE}
                                 </Typography>
-                                {this.renderLabels()}
+                                {this.renderLabels(copy.LABELS)}
                             </div>
                         </div>
                     </Col>
@@ -82,6 +86,7 @@ class PlayInvitation extends Component {
 function mapStateToProps(state){
     return {
         profile: state.profile,
+        ln : state.language
     };
 }
 

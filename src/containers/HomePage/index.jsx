@@ -9,6 +9,7 @@ import { Row, Col} from 'reactstrap';
 
 import "./index.css";
 import LastBets from "../LastBets";
+import Footer from "../Footer";
 
 const games = [{
     name : 'Linear Dice',
@@ -76,6 +77,7 @@ export default class HomePage extends Component {
                             {games.map( (item) => this.renderGame(item))}
                         </Row>
                     <LastBets/>
+                    <Footer/>
                 </div>
             </div>
         );

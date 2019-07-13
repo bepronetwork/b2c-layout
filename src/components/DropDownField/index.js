@@ -4,7 +4,7 @@
 import React from 'react';
 import { TextField } from '@material-ui/core';
 import _ from 'lodash';
-  
+
 class DropDownField extends React.Component{
 
     constructor(props){
@@ -35,7 +35,6 @@ class DropDownField extends React.Component{
     }
 
     render = () => {
-
         return ( 
             <TextField
                 disabled={this.props.disabled}

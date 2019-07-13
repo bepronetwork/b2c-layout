@@ -8,6 +8,7 @@ import "./index.css";
 import { connect } from "react-redux";
 import { compose } from 'lodash/fp';
 import { Numbers } from "../../lib/ethereum/lib";
+import { CopyText } from "../../copy";
 
 const defaultProps = {
     amount : 10,
@@ -59,6 +60,9 @@ class Deposit extends Component {
 
     render() {
         const { amount, onDeposit } = this.state;
+        const { ln } = this.props;
+        const copy = CopyText.Deposit;
+
         return (
             <div styleName="deposit">
                 <div styleName="title">
@@ -66,11 +70,11 @@ class Deposit extends Component {
                    { (this.state.tokenAmount > 0) ? 
                         <div>
                             <Typography variant="body" color="white">
-                                You have <strong style={{color : 'green'}}>{Numbers.toFloat(this.state.tokenAmount)} {this.state.ticker}</strong> 
+                                {copy[ln].TITLE} <strong style={{color : 'green'}}>{Numbers.toFloat(this.state.tokenAmount)} {this.state.ticker}</strong> 
                             </Typography>
                             <div style={{marginTop : 20}}>
                                 <Typography variant="small-body" color="casper" >
-                                    Tokens in Your Decentralized Wallet Available to Deposit
+                                    {copy[ln].SUB_TITLE.FIRST}
                                 </Typography>
                             </div>
                         </div>
@@ -81,11 +85,11 @@ class Deposit extends Component {
                             rel="noopener noreferrer"
                         >
                             <Typography variant="body" color="white">
-                                Click to Trade your ETH or Tokens to <strong style={{color : 'green'}}>{this.state.ticker}</strong>
+                                {copy[ln].SUB_TITLE.SECOND} <strong style={{color : 'green'}}>{this.state.ticker}</strong>
                             </Typography>
                             <div style={{marginTop : 20}}>
                                 <Typography variant="small-body" color="casper">
-                                    You have currently 0  {this.state.ticker} Tokens
+                                    {copy[ln].SUB_TITLE.THIRD.FIRST}  {this.state.ticker}  {copy[ln].SUB_TITLE.THIRD.SECOND} 
                                 </Typography>
                             </div>
                         </a>
@@ -114,14 +118,17 @@ class Deposit extends Component {
                             onClick={this.depositTokens}
                             >
                             
-                                <Typography>Deposit</Typography>
+                                <Typography> {copy[ln].BUTTON_ONE} </Typography>
                             </Button>
                         </div>
                     ) : null}
                     {onDeposit === ("processing") ? 
                         <div>
                             <Typography color="white" variant="body">
-                               Don´t close the Window!<br></br>There are 2 Actions Taking Place <br></br> 1 - Allowing Deposit <br></br>2- Creating Deposit
+                               {copy[ln].INFO.FIRST}<br></br>
+                               {copy[ln].INFO.SECOND} <br></br> 
+                               {copy[ln].INFO.THIRD} <br></br>
+                               {copy[ln].INFO.FORTH}
                             </Typography>
                             <div style={{marginTop : 30}}>
                                 <Loader />
@@ -130,7 +137,7 @@ class Deposit extends Component {
                    : null}
                     {onDeposit === "completed" ? (
                         <Typography color="green" variant="body">
-                            {const_text[this.state.onDeposit]}
+                            {copy[ln].INFO.FIFTH}
                         </Typography>
                     ) : null}
                 </div>
@@ -143,7 +150,8 @@ class Deposit extends Component {
 
 function mapStateToProps(state){
     return {
-        profile: state.profile,
+        profile : state.profile,
+        ln : state.language
     };
 }
 

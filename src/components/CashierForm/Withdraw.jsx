@@ -14,6 +14,7 @@ import "./index.css";
 import { Numbers } from "../../lib/ethereum/lib";
 import { processResponse } from "../../lib/api/apiConfig";
 import WithdrawsTable from "./Withdraw/WithdrawsTable";
+import { CopyText } from "../../copy";
 
 const defaultProps = {
     amount : 10,
@@ -110,6 +111,8 @@ class Withdraw extends Component {
 
     render() {
         const { permission, processing, onWithdraw, amount } = this.state;
+        const { ln } = this.props;
+        const COPY = CopyText.Withdraw[ln];
 
         return (
                 <Row>
@@ -117,7 +120,7 @@ class Withdraw extends Component {
                         <div styleName="deposit">
                             <div styleName="title">
                                 <Typography variant="body" color="white">
-                                    You have <strong style={{color : 'green'}}>{this.state.totalAmount} {this.state.ticker}</strong> Tokens
+                                   {COPY.TITLE.FIRST} <strong style={{color : 'green'}}>{this.state.totalAmount} {this.state.ticker}</strong> {COPY.TITLE.SECOND}
                                 </Typography>
                             </div>
                             <div styleName="button">
@@ -143,7 +146,7 @@ class Withdraw extends Component {
                                             onClick={this.askForWithdraw}
                                         >
                                         
-                                            <Typography>Ask for Withdraw</Typography>
+                                            <Typography>{COPY.BUTTON_ONE}</Typography>
                                         </Button>
 
                                       
@@ -152,7 +155,8 @@ class Withdraw extends Component {
                                 {onWithdraw === ("processing") ? 
                                     <div>
                                         <Typography color="white" variant="body">
-                                            Don´t close the Window 🤗<br></br> Please Wait..
+                                           {COPY.INFO.FIRST}<br></br> 
+                                           {COPY.INFO.SECOND}
                                         </Typography>
                                         <div style={{marginTop : 30}}>
                                             <Loader />
@@ -161,7 +165,7 @@ class Withdraw extends Component {
                             : null}
                                 {onWithdraw === "completed" ? (
                                     <Typography color="green" variant="body">
-                                        Withdraw Succeeded
+                                           {COPY.INFO.THIRD}
                                     </Typography>
                                 ) : null}
                             </div>
@@ -221,9 +225,12 @@ class Withdraw extends Component {
                         <div styleName="deposit">
                             <div styleName='withdraws-table'>
                                 <Typography variant="body" color="white" otherStyles={{textAlign : 'center', marginBottom : 10}}>
-                                    You have <strong style={{color : 'green'}}>{this.state.withdrawAvailable} {this.state.ticker}</strong> Tokens Available to Withdraw
+                                    {COPY.INFO.FORTH}
+                                    <strong style={{color : 'green'}}>{this.state.withdrawAvailable} {this.state.ticker}</strong> 
+                                    {COPY.INFO.FIFTH}
                                 </Typography>
                                 <WithdrawsTable
+                                    ln={this.props.ln}
                                     withdraw={this.withdrawTokens} 
                                     currency={this.props.profile.getAppCurrencyTicker()} data={this.state.withdraws}
                                 />
@@ -239,6 +246,7 @@ class Withdraw extends Component {
 function mapStateToProps(state){
     return {
         profile: state.profile,
+        ln : state.language
     };
 }
 

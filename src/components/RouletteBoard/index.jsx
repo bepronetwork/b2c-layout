@@ -5,6 +5,7 @@ import coinSound from "assets/coin-board-sound.mp3";
 import TableCell from "./TableCell";
 
 import "./index.css";
+import { CopyText } from "../../copy";
 
 export default class RouletteBoard extends Component {
   static propTypes = {
@@ -159,7 +160,9 @@ export default class RouletteBoard extends Component {
       row3Focused
     } = this.state;
 
-    const { result, betHistory, rotating } = this.props;
+    const { result, betHistory, rotating, ln } = this.props;
+    const copy = CopyText.shared[ln];
+
 
     return (
       <div styleName="root">
@@ -183,7 +186,7 @@ export default class RouletteBoard extends Component {
           onClick={this.handleClick}
           type="button"
         >
-          <TableCell label="Odd" id="parityOdd" betHistory={betHistory} />
+          <TableCell label={copy.ODD_NAME} id="parityOdd" betHistory={betHistory} />
         </button>
         <button
           styleName="colorBlack"
@@ -217,7 +220,7 @@ export default class RouletteBoard extends Component {
           onClick={this.handleClick}
           type="button"
         >
-          <TableCell label="Even" id="parityEven" betHistory={betHistory} />
+          <TableCell label={copy.EVEN_NAME}  id="parityEven" betHistory={betHistory} />
         </button>
         <button
           styleName="range0118"

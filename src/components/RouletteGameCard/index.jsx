@@ -5,12 +5,14 @@ import classNames from "classnames";
 import { ButtonIcon } from "components";
 import { isEmpty } from "lodash";
 import Roulette from "components/Roulette";
+import { connect } from "react-redux";
 
 import "./index.css";
+import { CopyText } from "../../copy";
 
 const mobileBreakpoint = 768;
 
-export default class RouletteGameCard extends Component {
+class RouletteGameCard extends Component {
     redColors = [1, 3, 5, 7, 9, 12, 14, 18, 16, 21, 23, 27, 25, 30, 32, 36, 34];
 
     static propTypes = {
@@ -63,8 +65,9 @@ export default class RouletteGameCard extends Component {
     };
 
     renderClearUndo = () => {
-        const { onClear, onUndo, betHistory } = this.props;
+        const { onClear, onUndo, betHistory, ln } = this.props;
         const { rotating } = this.state;
+        const copy = CopyText.shared[ln];
 
         const disabled = !betHistory || isEmpty(betHistory) || rotating;
 
@@ -72,7 +75,7 @@ export default class RouletteGameCard extends Component {
         <div styleName="chip-controls">
             <ButtonIcon
             icon="undo"
-            label="Undo"
+            label={copy.UNDO_NAME}
             iconAtLeft
             onClick={onUndo}
             disabled={disabled}
@@ -80,7 +83,7 @@ export default class RouletteGameCard extends Component {
 
             <ButtonIcon
             icon="rotate"
-            label="Clear"
+            label={copy.CLEAR_NAME}
             onClick={onClear}
             disabled={disabled}
             />
@@ -136,6 +139,7 @@ export default class RouletteGameCard extends Component {
             <div styleName="board">
             <div styleName={blockStyles} />
             <RouletteBoard
+                ln={this.props.ln}
                 onAddChip={onAddChip}
                 result={result}
                 betHistory={betHistory}
@@ -148,3 +152,14 @@ export default class RouletteGameCard extends Component {
         );
     }
 }
+
+
+
+
+function mapStateToProps(state){
+    return {
+        ln : state.language
+    };
+}
+
+export default connect(mapStateToProps)(RouletteGameCard);

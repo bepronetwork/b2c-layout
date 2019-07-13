@@ -5,11 +5,13 @@ import ArrowRight from "components/Icons/ArrowRight";
 import { Typography, BitcoinIcon, Dollar } from "components";
 import UserContext from "containers/App/UserContext";
 import { get } from "lodash";
+import { connect } from "react-redux";
 
 import Coin from "./CoinButton";
 import "./index.css";
+import { CopyText } from "../../copy";
 
-export default class ChipValue extends Component {
+class ChipValue extends Component {
   static contextType = UserContext;
 
   static propTypes = {
@@ -73,12 +75,14 @@ export default class ChipValue extends Component {
 
   render() {
     const { coin, coinsPosition } = this.state;
+    const { ln } = this.props;
+    const copy = CopyText.shared[ln];
 
     return (
       <div styleName="root">
         <div styleName="title">
           <Typography weight="semi-bold" variant="small-body" color="casper">
-            {`Chip Value (${coin.toFixed(2)}  `}
+            {`${copy.CHIP_INFO} (${coin.toFixed(2)}`}
             <Dollar />
             {" )"}
           </Typography>
@@ -164,3 +168,12 @@ export default class ChipValue extends Component {
     );
   }
 }
+
+
+function mapStateToProps(state){
+    return {
+        ln : state.language
+    };
+}
+
+export default connect(mapStateToProps)(ChipValue);

@@ -3,10 +3,12 @@ import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import { Typography } from "components";
 import classNames from "classnames";
+import { connect } from "react-redux";
 
 import "./index.css";
+import { CopyText } from "../../copy";
 
-export default class GameCard extends Component {
+class GameCard extends Component {
     static propTypes = {
         title: PropTypes.string.isRequired,
         edge: PropTypes.number,
@@ -38,8 +40,8 @@ export default class GameCard extends Component {
     };
 
     render() {
-        const { title, edge, path, children, width, color } = this.props;
-
+        const { title, edge, path, children, width, color, ln } = this.props;
+        const copy = CopyText.shared[ln];
         const imageStyles = "image-container " + color;
 
         return (
@@ -57,7 +59,7 @@ export default class GameCard extends Component {
                     </Typography>
                     </div>
                     <Typography variant="small-body" color="white">
-                    {edge ? `${edge}% Edge` : ""}
+                    {edge ? `${edge}% ${copy.EDGE_NAME}` : ""}
                     </Typography>
                 </div>
                 </Link>
@@ -65,3 +67,12 @@ export default class GameCard extends Component {
         );
     }
 }
+
+
+function mapStateToProps(state){
+    return {
+        ln : state.language
+    };
+}
+
+export default connect(mapStateToProps)(GameCard);

@@ -173,7 +173,7 @@ export default class App extends Component {
         // Non-dapp browsers...
         else {
             window.web3 = new Web3(new Web3.providers.HttpProvider('https://ropsten.infura.io/'));
-            await store.dispatch(setMessageNotification(CopyText.ERRORS.NON_ETHEREUM_BROWSER_ENTRY));
+            await store.dispatch(setMessageNotification(CopyText.Errors.en.NON_ETHEREUM_BROWSER_ENTRY));
         }        
 
     }

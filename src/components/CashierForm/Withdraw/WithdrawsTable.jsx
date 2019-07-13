@@ -24,6 +24,7 @@ import withdrawStatus from './codes';
 import { Button } from "components";
 import "./index.css";
 import { etherscanLinkID } from '../../../lib/api/apiConfig';
+import { CopyText } from '../../../copy';
 
 let counter = 0;
 
@@ -322,9 +323,10 @@ class WithdrawTable extends React.Component {
     isSelected = id => this.state.selected.indexOf(id) !== -1;
 
     render() {
-        const { classes } = this.props;
+        const { classes, ln } = this.props;
         const { data, order, orderBy, selected, rowsPerPage, page } = this.state;
         const emptyRows = rowsPerPage - Math.min(rowsPerPage, data.length - page * rowsPerPage);
+        const copy = CopyText.Withdraw[ln];
 
         return (
             <Paper className={classes.root}>
@@ -371,7 +373,7 @@ class WithdrawTable extends React.Component {
                                                 variant="small-body"
                                                 onClick={ () => this.props.withdraw(n)}
                                             >
-                                                <Typography> <strong>Withdraw</strong></Typography>
+                                                <Typography> <strong>{copy.TABLE.BUTTON_ONE}</strong></Typography>
                                             </Button>
                                          : 'Done'}
                                      </StyledTableCell>
@@ -417,6 +419,8 @@ class WithdrawTable extends React.Component {
         );
     }
 }
+
+
 
 WithdrawTable.propTypes = {
     classes: PropTypes.object.isRequired,

@@ -63,7 +63,7 @@ class ChatPage extends React.Component {
     sendMessage = async (e) => {
         e.preventDefault();
         if(_.isEmpty(this.props.profile)){
-            await store.dispatch(setMessageNotification(CopyText.ERRORS.CHAT_USER_NOT_LOGGED));
+            await store.dispatch(setMessageNotification(CopyText.Errors.en.CHAT_USER_NOT_LOGGED));
         }
         try{
             await this.props.profile.sendMessage({message : this.state.message})
@@ -115,6 +115,8 @@ class ChatPage extends React.Component {
     };
 
     render() {
+        const { ln } = this.props;
+        const copy = CopyText.shared[ln];
         return (
             <div styleName="root">
                     <div styleName="container">
@@ -130,7 +132,7 @@ class ChatPage extends React.Component {
                             <form onSubmit={this.sendMessage}>
                                 <InputText
                                     name="text"
-                                    placeholder='Type your Message'
+                                    placeholder={copy.PLACEHOLDER_CHAT}
                                     onChange={this.changeMessage}
                                     value={this.state.message}
                                     type={'slim'}
@@ -199,7 +201,8 @@ class ChatPage extends React.Component {
 function mapStateToProps(state){
     return {
         profile: state.profile,
-        chat : state.chat
+        chat : state.chat,
+        ln : state.language
     };
 }
 
