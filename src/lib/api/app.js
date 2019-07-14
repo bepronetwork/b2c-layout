@@ -40,6 +40,32 @@ async function getLastBets({size}) {
         return handleError(error);
     }
 }
+
+async function getBiggestBetWinners({size}) {
+    try {
+        const response = await axios.post(`${apiUrl}/app/biggestBetWinners`, {
+            app: appId,
+            size
+        });
+    
+        return response.data.data.message;
+    } catch (error) {
+        return handleError(error);
+    }
+}
+
+async function getBiggestUserWinners({size}) {
+    try {
+        const response = await axios.post(`${apiUrl}/app/biggestUserWinners`, {
+            app: appId,
+            size
+        });
+        return response.data.data.message;
+    } catch (error) {
+        return handleError(error);
+    }
+}
+  
   
 
-export { getLastBets, getGames }
+export { getLastBets, getGames, getBiggestUserWinners, getBiggestBetWinners }

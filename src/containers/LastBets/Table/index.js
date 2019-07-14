@@ -20,7 +20,6 @@ class TableDefault extends Component {
     
     render() {
         let { titles, rows, fields } = this.props;
-
         return (
             <table styleName='table-row'>
                 <thead styleName='table-head'>

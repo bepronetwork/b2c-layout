@@ -4,7 +4,7 @@ import UserContext from "containers/App/UserContext";
 import { connect } from "react-redux";
 import { Row, Col } from 'reactstrap';
 import "./index.css";
-import { getLastBets } from "../../lib/api/app";
+import { getLastBets, getBiggestUserWinners, getBiggestBetWinners } from "../../lib/api/app";
 import { Numbers } from "../../lib/ethereum/lib";
 import { dateToHourAndMinute } from "../../lib/helpers";
 import Tabs from "../../components/Tabs";
@@ -18,15 +18,7 @@ const views = [10 , 25, 50, 100];
 
 const rows = {
     all_bets : {
-        titles : [
-            'Game',
-            'Bet ID',
-            'User',
-            'Time',
-            'Bet',
-            'Payout',
-            'Profit'
-        ],
+        titles : [],
         fields : [
             {
                 value : 'game'
@@ -57,14 +49,7 @@ const rows = {
         rows : []
     },
     my_bets : {
-        titles : [
-            'Game',
-            'Bet ID',
-            'Time',
-            'Bet',
-            'Payout',
-            'Profit'
-        ],
+        titles : [],
         fields : [
             {
                 value : 'game'
@@ -90,25 +75,66 @@ const rows = {
             }
         ],
         rows : []
-    }
-}
-  
-
-
-const options = [
-    {
-      value: "all_bets",
-      label: "All Bets"
     },
-    { value: "my_bets", label: "My Bets" }
-  ];
+    biggest_win_bets : {
+        titles : [],
+        fields : [
+            {
+                value : 'game'
+            },
+            {
+                value : 'id'
+            },
+            {
+                value : 'username'
+            },
+            {
+                value : 'timestamp'
+            },
+            {
+                value : 'betAmount'
+            },
+            {
+                value : 'winAmount',
+                dependentColor : true,
+                condition : 'isWon'
+            },
+            {
+                value : 'payout',
+                dependentColor : true,
+                condition : 'isWon'
+            }
+        ],
+        rows : []
+    },
+    biggest_win_users : {
+        titles : [],
+        fields : [
+            {
+                value : 'position'
+            },
+            {
+                value : 'username'
+            },
+            {
+                value : 'winAmount',
+                dependentColor : true,
+                condition : 'isWon'
+            }
+        ],
+        rows : []
+    },
+}
   
 
 const defaultProps = {
     all_bets    : rows.all_bets,
     my_bets     : rows.my_bets,
+    biggest_win_bets : rows.biggest_win_bets,
+    biggest_win_users : rows.biggest_win_users,
     view        : 'all_bets',
     view_amount : views[1],
+    options : []
 }
 
 class LastBets extends Component {
@@ -150,7 +176,10 @@ class LastBets extends Component {
         let { profile, ln } = props;
         let { view_amount } = this.state;
         const copy = CopyText.homepage[ln];
+
         let all_bets = await getLastBets({size : view_amount});
+        let biggest_winners_bets = await getBiggestBetWinners({size : view_amount});
+        let biggest_win_users = await getBiggestUserWinners({size : view_amount});
         let my_bets = [];
 
         if(profile && !_.isEmpty(profile)){
@@ -158,9 +187,15 @@ class LastBets extends Component {
         }
 
         this.setState({...this.state, 
+            options : Object.keys(copy.TABLE).map( (key) => {
+                return {
+                    value : new String(key).toLowerCase(),
+                    label : copy.TABLE[key].TITLE,
+                }
+            }),
             all_bets : {
                 ...this.state.all_bets,
-                titles : copy.TABLE.ALL_BETS,
+                titles : copy.TABLE.ALL_BETS.ITEMS,
                 rows : all_bets.map( (bet) =>  {
                     return {
                         game: bet.game,
@@ -176,7 +211,7 @@ class LastBets extends Component {
             },
             my_bets : {
                 ...this.state.my_bets,
-                titles : copy.TABLE.MY_BETS,
+                titles : copy.TABLE.MY_BETS.ITEMS,
                 rows : my_bets.map( (bet) =>  {
                     return {
                         game: bet.game,
@@ -186,6 +221,34 @@ class LastBets extends Component {
                         winAmount: Numbers.toFloat(bet.winAmount),
                         isWon : bet.isWon,
                         payout : `${Numbers.toFloat(bet.winAmount/bet.betAmount)}x`
+                    }
+                })
+            },
+            biggest_win_bets  : {
+                ...this.state.biggest_win_bets,
+                titles : copy.TABLE.BIGGEST_WIN_BETS.ITEMS,
+                rows : biggest_winners_bets.map( (bet) =>  {
+                    return {
+                        game: bet.game,
+                        id: new String(bet._id).slice(3, 15),
+                        username: bet.username,
+                        timestamp: dateToHourAndMinute(bet.timestamp),
+                        betAmount: Numbers.toFloat(bet.betAmount),
+                        winAmount: Numbers.toFloat(bet.winAmount),
+                        isWon : bet.isWon,
+                        payout : `${Numbers.toFloat(bet.winAmount/bet.betAmount)}x`
+                    }
+                })
+            },
+            biggest_win_users : {
+                ...this.state.biggest_win_users,
+                titles : copy.TABLE.BIGGEST_WIN_USERS.ITEMS,
+                rows : biggest_win_users.map( (bet, index) =>  {
+                    return {
+                        position : `${index+1}º`,
+                        username: bet._id,
+                        winAmount: Numbers.toFloat(bet.winAmount),
+                        isWon : (index < 3),
                     }
                 })
             }
@@ -201,7 +264,7 @@ class LastBets extends Component {
                             <Col md={11}>
                                 <Tabs
                                     selected={this.state.view}
-                                    options={options}
+                                    options={this.state.options}
                                     onSelect={this.handleTabChange}
                                 />
                             </Col>
