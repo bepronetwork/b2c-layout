@@ -5,9 +5,9 @@ import { Typography } from 'components';
 
 import "./index.css";
 
-const AnimationNumber = ({number}) => {
+const AnimationNumber = ({number, variant='h4', color='white', span=null}) => {
     return (
-        <Typography variant="h4" color="white">
+        <Typography variant={variant} color={color}>
             <AnimatedNumber 
                 style={{
                     transition: '0.4s ease-out',
@@ -21,6 +21,7 @@ const AnimationNumber = ({number}) => {
                 value={number}
                 component="text"
             formatValue={n => Numbers.toFloat(n)}/>
+            <span style={{marginLeft : 4, fontSize : 18, opacity : 0.4}}>{span}</span>
         </Typography>
 
 )};

@@ -65,7 +65,25 @@ async function getBiggestUserWinners({size}) {
         return handleError(error);
     }
 }
+
+async function getPopularNumbers({size}) {
+    try {
+        const response = await axios.post(`${apiUrl}/app/popularNumbers`, {
+            app: appId,
+            size
+        });
+        return response.data.data.message;
+    } catch (error) {
+        return handleError(error);
+    }
+}
   
   
 
-export { getLastBets, getGames, getBiggestUserWinners, getBiggestBetWinners }
+export { 
+    getLastBets, 
+    getGames, 
+    getBiggestUserWinners, 
+    getBiggestBetWinners,
+    getPopularNumbers 
+}

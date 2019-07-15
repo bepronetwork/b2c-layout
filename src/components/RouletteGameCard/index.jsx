@@ -2,13 +2,17 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import RouletteBoard from "components/RouletteBoard";
 import classNames from "classnames";
-import { ButtonIcon } from "components";
+import { ButtonIcon, Typography } from "components";
 import { isEmpty } from "lodash";
 import Roulette from "components/Roulette";
 import { connect } from "react-redux";
+import { find } from "lodash";
 
 import "./index.css";
 import { CopyText } from "../../copy";
+import { getPopularNumbers } from "../../lib/api/app";
+import AnimationNumber from "../AnimationNumber";
+import cells from "../RouletteBoard/cells";
 
 const mobileBreakpoint = 768;
 
@@ -36,6 +40,25 @@ class RouletteGameCard extends Component {
     state = {
         rotating: null
     };
+
+    componentDidMount(){
+        this.projectData(this.props)
+    }
+
+    componentWillReceiveProps(props){
+        this.projectData(props);
+    }
+    
+    projectData = async (props) => {
+        let popularNumbers = await getPopularNumbers({size : 15});
+        var gamePopularNumbers = find(popularNumbers, { game: props.game._id });
+        if(gamePopularNumbers){
+            this.setState({...this.state,
+                popularNumbers : gamePopularNumbers.numbers.sort((a, b) => b.resultAmount - a.resultAmount )   
+            })    
+        }
+            
+    }
 
     handleAnimationEnd = () => {
         const { onResultAnimation, bet } = this.props;
@@ -108,15 +131,47 @@ class RouletteGameCard extends Component {
         }
     };
 
+    renderPopularNumbers = ({popularNumbers}) => {
+        if(!popularNumbers){return null}
+        const totalAmount = popularNumbers.reduce( (acc, item) => {
+            return acc+item.resultAmount;
+        }, 0)
+        return(
+            <div styleName='outer-popular-numbers'>
+                <div styleName='inner-popular-numbers'>
+                    {popularNumbers.map( item => 
+                        {
+                            let color = cells[item.key].metadata.color;
+                            return(
+                                <div styleName='popular-number-row'>
+                                    <div styleName={`popular-number-container ${color}-square`}>
+                                        <Typography variant={'small-body'} color={'white'}>
+                                            {item.key}    
+                                        </Typography>       
+                                    </div>
+                                    <div styleName='popular-number-container-amount'>
+                                        <AnimationNumber number={item.resultAmount/totalAmount} variant={'small-body'} color={'white'} span={'%'}/>
+                                    </div>
+                                </div>
+                            )
+                        }
+                    )}
+                </div>
+            </div>
+        )
+    }
+
     render() {
+
         const {
-        result,
-        onAddChip,
-        betHistory,
-        bet,
-        isAddChipDisabled
+            result,
+            onAddChip,
+            betHistory,
+            bet,
+            isAddChipDisabled
         } = this.props;
-        const { rotating } = this.state;
+
+        const { rotating, popularNumbers } = this.state;
 
         const rootStyles = classNames("root", {
         animation: rotating
@@ -129,6 +184,7 @@ class RouletteGameCard extends Component {
         return (
         <div styleName={rootStyles}>
             {this.renderResult()}
+            {this.renderPopularNumbers({popularNumbers})}
             <div styleName="wheel">
             <Roulette
                 bet={bet}

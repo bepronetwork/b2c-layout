@@ -10,7 +10,7 @@ const withdrawCopy = {
                 FIRST : ' Don´t close the Window 🤗',
                 SECOND : 'Please Wait..',
                 THIRD : 'Withdraw Succeeded',
-                FORTH : ' You have',
+                FORTH : ' You have ',
                 COMPLETED : 'Tokens Available to Withdraw'
             },
             TABLE : {
@@ -20,19 +20,19 @@ const withdrawCopy = {
     'ko' : 
         {
             TITLE : {
-                FIRST : ' You have ',
-                SECOND : 'Tokens',
+                FIRST : ' 당신이 가진 ',
+                SECOND : '토큰',
             },
-            BUTTON_ONE:  'Ask for Withdraw',
+            BUTTON_ONE:  '인출 요청',
             INFO : {
-                FIRST : ' Don´t close the Window 🤗',
-                SECOND : 'Please Wait..',
-                THIRD : 'Withdraw Succeeded',
-                FORTH : ' You have',
-                COMPLETED : 'Tokens Available to Withdraw'
+                FIRST : '창을 닫지 마세요 🤗',
+                SECOND : '잠시 기다려 주세요..',
+                THIRD : '인출이 성공적으로 이루어졌습니다',
+                FORTH : ' 당신이 가진',
+                COMPLETED : '인출 가능한 토큰'
             },
             TABLE : {
-                BUTTON_ONE:  'Withdraw'
+                BUTTON_ONE:  '인출'
             }
         },
     'ch' : 
@@ -56,19 +56,19 @@ const withdrawCopy = {
     'jp' : 
         {
             TITLE : {
-                FIRST : ' You have ',
-                SECOND : 'Tokens',
+                FIRST : ' あなたは ',
+                SECOND : 'トークンお持ちです',
             },
-            BUTTON_ONE:  'Ask for Withdraw',
+            BUTTON_ONE:  '出金申請',
             INFO : {
-                FIRST : ' Don´t close the Window 🤗',
-                SECOND : 'Please Wait..',
-                THIRD : 'Withdraw Succeeded',
-                FORTH : ' You have ',
-                COMPLETED : 'Tokens Available to Withdraw'
+                FIRST : ' 画面を閉じないでください🤗',
+                SECOND : 'お待ちください..',
+                THIRD : '出金完了',
+                FORTH : ' あなたは ',
+                COMPLETED : 'トークン出金可能です'
             },
             TABLE : {
-                BUTTON_ONE:  'Withdraw'
+                BUTTON_ONE:  '出金'
             }
         }
 }

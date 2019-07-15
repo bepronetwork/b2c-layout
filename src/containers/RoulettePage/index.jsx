@@ -5,7 +5,9 @@ import GamePage from "containers/GamePage";
 import { reduce } from "lodash";
 import UserContext from "containers/App/UserContext";
 import rouletteBet from "lib/api/roulette";
+import Cache from "../../lib/cache/cache";
 import { updateUserBalance } from "lib/api/users";
+import { find } from "lodash";
 
 export default class RoulettePage extends Component {
     static contextType = UserContext;
@@ -18,7 +20,23 @@ export default class RoulettePage extends Component {
         result: null,
         selectedChip: 0.01,
         betHistory: [],
+        game_name : 'Roulette',
+        game : {
+            edge : 0
+        },
         bet: false
+    };
+
+    componentDidMount(){
+        this.getGame();
+    }
+
+    getGame = () => {
+        const appInfo = Cache.getFromCache("appInfo");
+        if(appInfo){
+            let game = find(appInfo.games, { name: this.state.game_name });
+            this.setState({...this.state, game});
+        }
     };
 
     isAddChipDisabled = () => {
@@ -111,6 +129,7 @@ export default class RoulettePage extends Component {
                 onBet={this.handleBet}
                 onChangeChip={this.handleChangeChip}
                 totalBet={this.getTotalBet()}
+                game={this.state.game}
                 disableControls={bet}
             />
         );
@@ -125,6 +144,7 @@ export default class RoulettePage extends Component {
                 onAddChip={this.handleAddChipToBoard}
                 betHistory={betHistory}
                 onClear={this.handleClear}
+                game={this.state.game}
                 onUndo={this.handleUndo}
                 bet={bet}
                 onResultAnimation={this.handleAnimation}

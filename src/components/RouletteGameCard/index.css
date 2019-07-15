@@ -22,6 +22,28 @@
   }
 }
 
+.popular-number-container{
+    padding : 10px;
+    width: 40px;
+    margin-bottom : 5px;
+    text-align: center;
+    display: inline-block;
+    border-radius : 4px;
+}
+
+.popular-number-container-amount{
+    padding : 10px;
+    padding-top : 5px;
+    width: 40px;
+    text-align: center;
+    display : inline-flex;
+    border-radius : 4px;
+}
+
+.popular-number-row{
+    margin-left : -30px;
+}
+
 .result-container {
   grid-area: Result / Result / Result / Result;
   display: flex;
@@ -32,6 +54,42 @@
   @include Breakpoint-mobileOnly {
     height: 140px;
   }
+}
+
+.green-square{
+    background-color : $green;
+}
+
+.blue-square{
+    background-color : $roulette-blue-color;
+}
+
+.red-square{
+    background-color : $red;
+}
+
+.outer-popular-numbers{
+    width : 120px;
+    border : 2px solid $dark-table-color;
+    height: 40%;
+    background-color : $popular-numbers-container;
+    left : 10px;
+    border-radius : 5px;
+    text-align: center;
+    top : 10px;
+    overflow-y : auto;
+    overflow-x : hidden;
+    position : absolute;
+}
+
+.inner-popular-numbers{
+    width : 100%;
+    height: auto;
+    overflow-y: hidden;
+    margin : 10px;
+    text-align: center;
+    overflow-x: hidden;
+    position : relative;
 }
 
 .result {

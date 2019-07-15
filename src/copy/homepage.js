@@ -60,59 +60,59 @@ const homepageCopy = {
     'ko' : 
         {
             BUTTON_HOME : {
-                FIRST : 'Play Now',
-                SECOND : ' Go!'
+                FIRST : '지금 플레이',
+                SECOND : ' 시작!'
             },
-            TITLE: "The Original Crypto Casino",
+            TITLE: "오리지널 암호화폐 카지노",
             LABELS: [
-              "Hybrid Control of the Platform built in Ethereum",
-              "Fast Deposits & Withdrawals, completely decentralized",
-              "Provably Fair Bets and with the speed of a Centralized Betting App"
+              "이더리움에 장착된 플랫폼의 하이브리드 제어",
+              "빠른 예금 및 출금, 완전한 탈중앙화",
+              "입증 가능한 공정 베트 및 빠른 스피드의 탈중앙화 된 베팅 앱"
             ],
             TABLE : {
                 ALL_BETS : {
-                    TITLE : 'All Bets' ,
+                    TITLE : '모든 베팅' ,
                     ITEMS : [
-                        'Game',
-                        'Bet ID',
-                        'User',
-                        'Time',
-                        'Bet',
-                        'Payout',
-                        'Profit'
+                        '게임',
+                        '베트 ID',
+                        '사용자',
+                        '시간',
+                        '베트',
+                        '페이아웃',
+                        '이윤'
                     ]
                 }
                 ,
                 MY_BETS : {
-                    TITLE : 'My Bets', 
+                    TITLE : '내 베팅', 
                     ITEMS : [
-                        'Game',
-                        'Bet ID',
-                        'User',
-                        'Time',
-                        'Bet',
-                        'Payout',
-                        'Profit'
+                        '게임',
+                        '베트 ID',
+                        '사용자',
+                        '시간',
+                        '베트',
+                        '페이아웃',
+                        '이윤'
                     ]
                 },
                 BIGGEST_WIN_BETS : {
-                    TITLE : 'Biggest Wins', 
+                    TITLE : '가장 큰 우승', 
                     ITEMS : [
-                        'Game',
-                        'Bet ID',
-                        'User',
-                        'Time',
-                        'Bet',
-                        'Payout',
-                        'Profit'
+                        '게임',
+                        '베트 ID',
+                        '사용자',
+                        '시간',
+                        '베트',
+                        '페이아웃',
+                        '이윤'
                     ]
                 },
                 BIGGEST_WIN_USERS : {
-                    TITLE : 'LeaderBoard', 
+                    TITLE : '리더 보드', 
                     ITEMS : [
-                        'Position',
-                        'User',
-                        'Win Amount'
+                        '위치',
+                        '사용자',
+                        '승리 금액'
                     ]
                 }
             }
@@ -180,59 +180,59 @@ const homepageCopy = {
     'jp' : 
         {
             BUTTON_HOME : {
-                FIRST : 'Play Now',
-                SECOND : ' Go!'
+                FIRST : '今すぐプレイ',
+                SECOND : 'GO!'
             },
-            TITLE: "The Original Crypto Casino",
+            TITLE: "オリジナル仮想通貨カジノ",
             LABELS: [
-              "Hybrid Control of the Platform built in Ethereum",
-              "Fast Deposits & Withdrawals, completely decentralized",
-              "Provably Fair Bets and with the speed of a Centralized Betting App"
+              "Ethereumに組み込まれたハイブリッドコントロールプラットフォーム",
+              "完全分散型、即時入出金",
+              "迅速で公平なベット、中央集中型ベッティングApp"
             ],
             TABLE : {
                 ALL_BETS : {
-                    TITLE : 'All Bets' ,
+                    TITLE : 'すべての賭け' ,
                     ITEMS : [
-                        'Game',
-                        'Bet ID',
-                        'User',
-                        'Time',
-                        'Bet',
-                        'Payout',
-                        'Profit'
+                        'ゲーム',
+                        'ベットID',
+                        'ユーザー',
+                        '時間',
+                        'ベット',
+                        'ペイアウト',
+                        '利益'
                     ]
                 }
                 ,
                 MY_BETS : {
-                    TITLE : 'My Bets', 
+                    TITLE : '私の賭け', 
                     ITEMS : [
-                        'Game',
-                        'Bet ID',
-                        'User',
-                        'Time',
-                        'Bet',
-                        'Payout',
-                        'Profit'
+                        'ゲーム',
+                        'ベットID',
+                        'ユーザー',
+                        '時間',
+                        'ベット',
+                        'ペイアウト',
+                        '利益'
                     ]
                 },
                 BIGGEST_WIN_BETS : {
-                    TITLE : 'Biggest Wins', 
+                    TITLE : '最大の勝利', 
                     ITEMS : [
-                        'Game',
-                        'Bet ID',
-                        'User',
-                        'Time',
-                        'Bet',
-                        'Payout',
-                        'Profit'
+                        'ゲーム',
+                        'ベットID',
+                        'ユーザー',
+                        '時間',
+                        'ベット',
+                        'ペイアウト',
+                        '利益'
                     ]
                 },
                 BIGGEST_WIN_USERS : {
-                    TITLE : 'LeaderBoard', 
+                    TITLE : 'リーダーボード', 
                     ITEMS : [
-                        'Position',
-                        'User',
-                        'Win Amount'
+                        'ポジション',
+                        'ユーザー',
+                        '勝利額'
                     ]
                 }
             }
