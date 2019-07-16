@@ -45,15 +45,16 @@
 }
 
 .result-container {
-  grid-area: Result / Result / Result / Result;
-  display: flex;
+    grid-area: Result / Result / Result / Result;
+    display: flex;
+    margin-left: 30%;
+    align-items: center;
+    justify-content: center;
 
-  align-items: center;
-  justify-content: center;
-
-  @include Breakpoint-mobileOnly {
-    height: 140px;
-  }
+    @include Breakpoint-mobileOnly {
+        height: 140px;
+        margin-top : 300%
+    }
 }
 
 .green-square{

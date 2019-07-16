@@ -59,17 +59,10 @@ export default class App extends Component {
 	asyncCalls = async () => {
         try{
             this.startWallet();
-            await this.startLoading();
             await this.loginAccount();
         }catch(err){
             console.log(err);
         }
-    }
-
-    startLoading = async () => {
-        setTimeout( () => {
-            this.setState({...this.state, isLoading : false})
-        },4*1000)
     }
 
     loginAccount = async () => {
@@ -331,7 +324,7 @@ export default class App extends Component {
 
         if (!app) return null;
 
-        if(isLoading){ return( <img src={gif} styleName='gif'/> )}
+        if(window.onload){ return( <img src={gif} styleName='gif'/> )}
 
         return (
                 <UserContext.Provider

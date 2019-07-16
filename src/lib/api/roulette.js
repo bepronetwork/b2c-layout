@@ -94,7 +94,7 @@ const boardCellsNumbers = {
 };
 
 function getBetOnEachNumber(betHistory) {
-  const totalBetOnEachCell = {};
+    const totalBetOnEachCell = {};
 
     /* eslint-disable no-unused-expressions  */
 
@@ -116,21 +116,35 @@ function getBetOnEachNumber(betHistory) {
             ...finalBetOnEachNumber,
             ...map(boardCellsNumbers[key], boardNumber => {
                 return {
-                place: boardNumber,
-                value: value / boardCellsNumbers[key].length
+                    place: boardNumber,
+                    value: value / boardCellsNumbers[key].length
                 };
             })
             ]);
-  });
-  /* eslint-enable no-unused-expressions */
-
-  return finalBetOnEachNumber;
+    });
+    let distributedBetOnEachNumber = finalBetOnEachNumber.reduce( (array, el) => {
+        var equalEl = array.find( currentEl => (currentEl.place == el.place));
+        if(equalEl){
+            array.splice( array.indexOf(equalEl, 1), 1);
+            let newEl = {
+                place : el.place,
+                value: parseFloat(el.value) + parseFloat(equalEl.value)
+            }
+            array.push(newEl);
+            return array;
+        }else{
+            array.push(el);
+            return array;
+        }
+    }, []).filter( el => el != null);
+    /* eslint-enable no-unused-expressions */
+    console.log(distributedBetOnEachNumber, distributedBetOnEachNumber.reduce( (acc, e) => acc+e.value, 0));
+    return distributedBetOnEachNumber;
 }
 
 export default async function bet({ betHistory, betAmount, user }) {
     try {
         const betOnEachNumber = getBetOnEachNumber(betHistory);
-        
         const appInfo = JSON.parse(localStorage.getItem("appInfo"));
         
         const game = find(appInfo.games, { name: "Roulette" });
@@ -140,9 +154,9 @@ export default async function bet({ betHistory, betAmount, user }) {
             result: betOnEachNumber,
             gameId: game._id
         });
-        await processResponse(response);
-        return response.data.message.outcomeResultSpace.index;
+        return await processResponse(response);
     } catch (error) {
+        console.log(error);
         throw error;
     }
 }

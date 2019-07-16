@@ -45,6 +45,15 @@ class FlipPage extends Component {
         this.setState({ disableControls: false, flipResult: null });
     };
 
+    addToHistory = ({result, won}) => {
+        let history = Cache.getFromCache("flipHistory");
+        history = history ? history : [];
+        history.unshift({ value: result, win : won });
+        Cache.setToCache("flipHistory", history);
+    }
+
+
+
     handleBet = async form => {
         try{
             const { user } = this.context;
@@ -56,6 +65,9 @@ class FlipPage extends Component {
                 ...form,
                 user
             });
+            setTimeout( () => {
+                this.addToHistory({result : `${flipResult} `, won : hasWon})
+            }, 1*1000);
 
             return this.setState({
                 flipResult,

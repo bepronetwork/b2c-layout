@@ -8,7 +8,6 @@
 }
 
 .grey-box{
-    background-color: #ccc;
     border-radius: 20px;
     width: max-content;
     padding: 5px 10px;
@@ -16,9 +15,10 @@
 
 
 .green-box{
-    background-color: #10bf47;
-    border-radius: 20px;
+    background-color: $green;
+    border-radius: 5px;
     width: max-content;
+    text-align : center;
     padding: 5px 10px;
 }
 
@@ -27,4 +27,15 @@
     border-radius: 20px;
     width: max-content;
     padding: 5px 10px;
+}
+
+.deposit-button{
+    width : 100px;
+    padding : 10px 20px;
+    border-radius : 10px;
+    background-color: $green;
+
+    &:hover{
+        opacity : 0.6;
+    }
 }

@@ -16,6 +16,7 @@ import { connect } from "react-redux";
 
 import "./index.css";
 import { CopyText } from "../../copy";
+import Cache from "../../lib/cache/cache";
 
 class RouletteGameOptions extends Component {
     static contextType = UserContext;
@@ -52,15 +53,13 @@ class RouletteGameOptions extends Component {
         return (totalBet > 0 && !disableControls) || !user;
     };
 
+
     handleBet = () => {
         const { onBet } = this.props;
-
         if (this.isBetValid()) {
-        this.setState({ sound: true });
-
-        return onBet();
+            this.setState({ sound: true });
+            return onBet();
         }
-
         return null;
     };
 

@@ -13,6 +13,7 @@ import { CopyText } from "../../copy";
 import { getPopularNumbers } from "../../lib/api/app";
 import AnimationNumber from "../AnimationNumber";
 import cells from "../RouletteBoard/cells";
+import Cache from "../../lib/cache/cache";
 
 const mobileBreakpoint = 768;
 
@@ -57,15 +58,15 @@ class RouletteGameCard extends Component {
                 popularNumbers : gamePopularNumbers.numbers.sort((a, b) => b.resultAmount - a.resultAmount )   
             })    
         }
-            
     }
 
     handleAnimationEnd = () => {
         const { onResultAnimation, bet } = this.props;
-        if (document.documentElement.clientWidth > mobileBreakpoint && bet) {
+        if (document.documentElement.clientWidth > mobileBreakpoint && bet){
             onResultAnimation();
         }
     };
+
 
     renderResult = () => {
         const { result } = this.props;
@@ -77,7 +78,7 @@ class RouletteGameCard extends Component {
         picked:
             result && result !== 0 && !this.redColors.includes(result) && !rotating
         });
-
+        
         return (
             <div styleName="result-container">
                 <div styleName={resultStyles} onTransitionEnd={this.handleAnimationEnd}>
@@ -95,22 +96,22 @@ class RouletteGameCard extends Component {
         const disabled = !betHistory || isEmpty(betHistory) || rotating;
 
         return (
-        <div styleName="chip-controls">
-            <ButtonIcon
-            icon="undo"
-            label={copy.UNDO_NAME}
-            iconAtLeft
-            onClick={onUndo}
-            disabled={disabled}
-            />
+            <div styleName="chip-controls">
+                <ButtonIcon
+                icon="undo"
+                label={copy.UNDO_NAME}
+                iconAtLeft
+                onClick={onUndo}
+                disabled={disabled}
+                />
 
-            <ButtonIcon
-            icon="rotate"
-            label={copy.CLEAR_NAME}
-            onClick={onClear}
-            disabled={disabled}
-            />
-        </div>
+                <ButtonIcon
+                icon="rotate"
+                label={copy.CLEAR_NAME}
+                onClick={onClear}
+                disabled={disabled}
+                />
+            </div>
         );
     };
 
@@ -141,6 +142,7 @@ class RouletteGameCard extends Component {
                 <div styleName='inner-popular-numbers'>
                     {popularNumbers.map( item => 
                         {
+                            if(!cells[item.key]){return null}
                             let color = cells[item.key].metadata.color;
                             return(
                                 <div styleName='popular-number-row'>

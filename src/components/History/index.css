@@ -9,7 +9,6 @@ $bet-width: $spacing-52;
 }
 
 .container {
-  display: inline-grid;
   margin: 0 0 0 auto;
 }
 
@@ -23,28 +22,26 @@ $bet-width: $spacing-52;
 
 .container.show {
   opacity: 1;
-
   transform: translateX(0px);
-
   transition: opacity, transform 100ms linear;
 }
 
 .bet {
-  padding: $spacing-4 $spacing-8;
+    padding: $spacing-4 $spacing-8;
+    width: fit-content;
+    margin: $spacing-4;
+    display: inline-flex;
+    background-color: $background-table-1;
+    max-width : 100px;
+    border-radius: $spacing-36;
 
-  margin-right: $spacing-4;
+    list-style: none;
 
-  background-color: $background-table-1;
+    text-align: center;
 
-  border-radius: $spacing-36;
-
-  list-style: none;
-
-  text-align: center;
-
-  p {
-    margin: 0 auto;
-  }
+    p {
+        margin: 0 auto;
+    }
 }
 
 .bet.win {

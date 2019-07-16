@@ -12,7 +12,6 @@ import TablePagination from '@material-ui/core/TablePagination';
 import TableRow from '@material-ui/core/TableRow';
 import TableSortLabel from '@material-ui/core/TableSortLabel';
 import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
 import Checkbox from '@material-ui/core/Checkbox';
 import IconButton from '@material-ui/core/IconButton';
@@ -21,7 +20,7 @@ import { lighten } from '@material-ui/core/styles/colorManipulator';
 import FilterListIcon from 'mdi-react/FilterListIcon';
 import { Numbers, AddressConcat } from '../../../lib/ethereum/lib';
 import withdrawStatus from './codes';
-import { Button } from "components";
+import { Button, Typography } from "components";
 import "./index.css";
 import { etherscanLinkID } from '../../../lib/api/apiConfig';
 import { CopyText } from '../../../copy';
@@ -53,20 +52,25 @@ function getSorting(order, orderBy) {
   return order === 'desc' ? (a, b) => desc(a, b, orderBy) : (a, b) => -desc(a, b, orderBy);
 }
 
-
 const fromDatabasetoTable = (data) => {
-	return data.map( (data) => {
+    if(!data){return null}
+    let sortedByTimestamp = data.sort(( a, b) => {
+        return new Date(b.creation_timestamp) - new Date(a.creation_timestamp)
+    });
+	let res = sortedByTimestamp.map( (data) => {
         return {
             id :  data._id,
 			amount : Numbers.toFloat(data.amount),
             confirmed: data.confirmed ? 'Confirmed' : 'Open',
             done :  data.confirmed,
             transactionHash : data.transactionHash,
+            creation_timestamp : new Date(data.creation_timestamp),
             creation_date : new Date(data.creation_timestamp).toDateString(),
             address: data.address,
             nonce : data.nonce
 		}
-	})
+    })
+    return res;
 }
 
 
@@ -74,27 +78,36 @@ const rows = [
     {
         id: 'amount',
         label: 'Amount',
-        numeric: true
+        numeric: true,
+        align : 'center'
     },
     {
         id: 'confirmed',
         label: 'Status',
-        numeric: false
+        numeric: false,
+        align : 'center'
+
     },
     {
         id: 'withdraw',
         label: 'Withdraw',
-        numeric: false
+        numeric: false,
+        align : 'center'
+
     },
     {
         id: 'transactionHash',
         label: 'Tx Hash',
-        numeric: false
+        numeric: false,
+        align : 'center'
+
     },
     {
         id: 'creation_date',
         label: 'Creation Date',
-        numeric: false
+        numeric: false,
+        align : 'center'
+
     }
 ];
 
@@ -113,7 +126,7 @@ class EnhancedTableHead extends React.Component {
                     row => (
                     <StyledTableCell
                         key={row.id}
-                        align={row.numeric ? 'right' : 'left'}
+                        align={row.align ? row.align : row.numeric ? 'right' : 'left'}
                         padding={row.disablePadding ? 'none' : 'default'}
                         sortDirection={orderBy === row.id ? order : false}
                     >
@@ -127,7 +140,9 @@ class EnhancedTableHead extends React.Component {
                             direction={order}
                             onClick={this.createSortHandler(row.id)}
                         >
-                            {row.label}
+                            <Typography variant={'body'} color='casper'>
+                                {row.label}
+                            </Typography>
                         </TableSortLabel>
                         </Tooltip>
                     </StyledTableCell>
@@ -187,11 +202,11 @@ let EnhancedTableToolbar = props => {
             >
             <div className={classes.title}>
                 {numSelected > 0 ? (
-                <Typography color="inherit" variant="subtitle1">
+                <Typography color="white" variant="small-body">
                     {numSelected} selected
                 </Typography>
                 ) : (
-                <Typography variant="h6" id="tableTitle" style={{color : 'white'}}>
+                <Typography variant="h4" id="tableTitle" color={'casper'}>
                     Withdraws
                 </Typography>
                 )}
@@ -215,14 +230,15 @@ const styles = theme => ({
     root: {
         width: '100%',
         margin : 'auto',
-        backgroundColor : '#192c38',
+        backgroundColor : 'transparent',
         color : 'white',
+        marginTop : 40,
         marginBottom : 20,
+        border : '2px solid white',
         overflowX : 'auto'
     },
     head : {
         color : 'white'
-
     },
     pagination : {
         color : 'white'
@@ -262,8 +278,8 @@ class WithdrawTable extends React.Component {
     constructor(props){
         super(props)
         this.state = {
-            order: 'asc',
-            orderBy: 'id',
+            order: 'desc',
+            orderBy: 'creation_timestamp',
             selected: [],
             data: props.data ? fromDatabasetoTable(props.data) : [],
             page: 0,
@@ -356,38 +372,46 @@ class WithdrawTable extends React.Component {
                                     key={n.id}
                                     selected={isSelected}
                                 >
-                                    <StyledTableCell align="center">{n.amount} {this.props.currency}</StyledTableCell>
+                                    <StyledTableCell align="center">
+                                        <Typography variant={'small-body'} color='white'>
+                                            {n.amount} {this.props.currency}
+                                        </Typography>
+                                    </StyledTableCell>
                                     <StyledTableCell style={{width : 50}} align="center">
-                                        <p styleName={withdrawStatus[n.confirmed.toLowerCase()]}>
+                                        <Typography variant={'small-body'} color='white' styleName={withdrawStatus[n.confirmed.toLowerCase()]}>
                                             {n.confirmed}
-                                        </p>
+                                        </Typography>
                                     </StyledTableCell>
                                   
-                                    <StyledTableCell align="left">
+                                    <StyledTableCell align="center">
                                         {
                                             !n.done
                                             ?
-                                            <Button
-                                                name="deposit"
-                                                theme="primary"
-                                                variant="small-body"
+                                            <button
+                                                styleName='deposit-button'
                                                 onClick={ () => this.props.withdraw(n)}
                                             >
-                                                <Typography> <strong>{copy.TABLE.BUTTON_ONE}</strong></Typography>
-                                            </Button>
+                                                <Typography color={'white'} variant={'small-body'}>{copy.TABLE.BUTTON_ONE}</Typography>
+                                            </button>
                                          : 'Done'}
                                      </StyledTableCell>
                                      <StyledTableCell align="left">
                                         {n.transactionHash ?
                                             <a href={`${etherscanLinkID}/tx/${n.transactionHash}`} target={'_blank'}>
-                                                {AddressConcat(n.transactionHash)}
+                                                <Typography variant={'small-body'} color='white'>
+                                                    {AddressConcat(n.transactionHash)}
+                                                </Typography>
                                             </a>
                                         : 
                                             'N/A'
                                         }
 
                                     </StyledTableCell>
-                                    <StyledTableCell align="left">{n.creation_date}</StyledTableCell>
+                                    <StyledTableCell align="left">
+                                        <Typography variant={'small-body'} color='white'>
+                                            {n.creation_date}
+                                        </Typography>
+                                    </StyledTableCell>
                                 </TableRow>
                             );
                         })}

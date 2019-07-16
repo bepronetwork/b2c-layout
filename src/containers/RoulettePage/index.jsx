@@ -74,6 +74,14 @@ export default class RoulettePage extends Component {
         this.setState({ selectedChip: chip });
     };
 
+    addToHistory = ({result, won}) => {
+        let history = Cache.getFromCache("rouletteHistory");
+        history = history ? history : [];
+        history.unshift({ value: result, win : won });
+        Cache.setToCache("rouletteHistory", history);
+    }
+
+
     handleBet = async () => {
         try{
             var { user } = this.context;
@@ -83,12 +91,15 @@ export default class RoulettePage extends Component {
             if (!user) return onHandleLoginOrRegister("register");
             
             this.setState({ bet: true });
-            
-            const result = await rouletteBet({
+            const { outcomeResultSpace, isWon } = await rouletteBet({
                 betHistory,
                 betAmount: this.getTotalBet(),
                 user
             });
+            const result = outcomeResultSpace.index;
+            setTimeout( () => {
+                this.addToHistory({result, won : isWon});
+            }, 0.3*1000);
             return this.setState({ 
                 result,
                 hasWon : true,

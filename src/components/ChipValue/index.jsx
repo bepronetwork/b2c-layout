@@ -82,9 +82,7 @@ class ChipValue extends Component {
       <div styleName="root">
         <div styleName="title">
           <Typography weight="semi-bold" variant="small-body" color="casper">
-            {`${copy.CHIP_INFO} (${coin.toFixed(2)}`}
-            <Dollar />
-            {" )"}
+            {`${copy.CHIP_INFO}`}
           </Typography>
         </div>
         <div styleName="container">

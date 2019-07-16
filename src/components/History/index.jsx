@@ -83,7 +83,7 @@ export default class History extends Component {
       });
 
       const node = (
-        <li style={{ opacity }} key={index} styleName={betStyles}>
+        <div style={{ opacity }} key={index} styleName={betStyles}>
           <Typography
             weight="semi-bold"
             color={win ? "gable-green" : "casper"}
@@ -91,7 +91,7 @@ export default class History extends Component {
           >
             {value}
           </Typography>
-        </li>
+        </div>
       );
 
       opacity += 0.2;
@@ -105,30 +105,29 @@ export default class History extends Component {
     this.setState({ anime: false });
   };
 
-  render() {
-    const { bets, anime } = this.state;
+    render() {
+        const { bets, anime } = this.state;
+        if (!bets) {
+            return null;
+        }
 
-    if (!bets) {
-      return null;
+        const containerStyles = classNames("container", {
+            hide: anime,
+            show: true
+        });
+
+        return (
+            <div styleName="root">
+                <div
+                    styleName={containerStyles}
+                    onAnimationEnd={this.handleAnimation}
+                    style={{
+                        gridTemplateColumns: `repeat(${bets.length}, ${betWidth})`
+                    }}
+                >
+                    {this.renderBets()}
+                </div>
+            </div>
+        );
     }
-
-    const containerStyles = classNames("container", {
-      hide: anime,
-      show: !isNull(anime) && anime === false
-    });
-
-    return (
-      <div styleName="root">
-        <div
-          styleName={containerStyles}
-          onAnimationEnd={this.handleAnimation}
-          style={{
-            gridTemplateColumns: `repeat(${bets.length}, ${betWidth})`
-          }}
-        >
-          {this.renderBets()}
-        </div>
-      </div>
-    );
-  }
 }
