@@ -161,7 +161,7 @@ class LastBets extends Component {
     setTimer = () => {
         this.timer = setInterval( () => {
             this.projectData(this.props)
-        }, 10*1000)
+        }, 1*1000);
     }
 
     handleTabChange = name => {
@@ -170,6 +170,7 @@ class LastBets extends Component {
 
     changeViewBets = ({value}) => {
         this.setState({...this.state, view_amount : value});
+
     }
     
     projectData = async (props) => {

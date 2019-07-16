@@ -47,6 +47,10 @@ export default class App extends Component {
         this.startChatNoLogged();
     };
 
+    start = () => {
+        this.setState({...this.state, isLoading : false})
+    }
+
     startChatNoLogged = async () => {
         try{
             this.chat = new ChatChannel({id : null, name : null});
@@ -60,6 +64,7 @@ export default class App extends Component {
         try{
             this.startWallet();
             await this.loginAccount();
+            this.start()
         }catch(err){
             console.log(err);
         }
@@ -324,7 +329,7 @@ export default class App extends Component {
 
         if (!app) return null;
 
-        if(window.onload){ return( <img src={gif} styleName='gif'/> )}
+        if(isLoading){ return( <img src={gif} styleName='gif'/> )}
 
         return (
                 <UserContext.Provider
