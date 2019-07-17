@@ -64,10 +64,9 @@ export default class App extends Component {
         try{
             this.startWallet();
             await this.loginAccount();
-            this.start()
         }catch(err){
-            console.log(err);
         }
+        this.start();
     }
 
     loginAccount = async () => {
