@@ -43,7 +43,6 @@ class GameCard extends Component {
         const { title, edge, path, children, width, color, ln } = this.props;
         const copy = CopyText.shared[ln];
         const imageStyles = "image-container " + color;
-
         return (
             <div styleName="root">
                 <Link to={path} styleName="button">
@@ -59,7 +58,7 @@ class GameCard extends Component {
                     </Typography>
                     </div>
                     <Typography variant="small-body" color="white">
-                    {edge ? `${edge}% ${copy.EDGE_NAME}` : ""}
+                    {edge >= 0 ? `${edge}% ${copy.EDGE_NAME}` : ""}
                     </Typography>
                 </div>
                 </Link>
