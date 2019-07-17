@@ -120,59 +120,59 @@ const homepageCopy = {
     'ch' : 
         {
             BUTTON_HOME : {
-                FIRST : 'Play Now',
-                SECOND : ' Go!'
+                FIRST : '现在开始游戏',
+                SECOND : ' 出发!'
             },
-            TITLE: "The Original Crypto Casino",
+            TITLE: "原始加密赌场",
             LABELS: [
-              "Hybrid Control of the Platform built in Ethereum",
-              "Fast Deposits & Withdrawals, completely decentralized",
-              "Provably Fair Bets and with the speed of a Centralized Betting App"
+            "基于以太坊的混合控制平台",
+            "快速存款和取款，完全分散",
+            "可证明的公平投注和集中投注应用程序的速度"
             ],
             TABLE : {
                 ALL_BETS : {
-                    TITLE : 'All Bets' ,
+                    TITLE : '所有投注' ,
                     ITEMS : [
-                        'Game',
-                        'Bet ID',
-                        'User',
-                        'Time',
-                        'Bet',
-                        'Payout',
-                        'Profit'
+                        '游戏',
+                        '赌博 ID',
+                        '用户',
+                        '时间',
+                        '下注',
+                        '花费',
+                        '盈利'
                     ]
                 }
                 ,
                 MY_BETS : {
-                    TITLE : 'My Bets', 
+                    TITLE : '我的投注', 
                     ITEMS : [
-                        'Game',
-                        'Bet ID',
-                        'User',
-                        'Time',
-                        'Bet',
-                        'Payout',
-                        'Profit'
+                        '游戏',
+                        '赌博 ID',
+                        '用户',
+                        '时间',
+                        '下注',
+                        '花费',
+                        '盈利'
                     ]
                 },
                 BIGGEST_WIN_BETS : {
-                    TITLE : 'Biggest Wins', 
+                    TITLE : '最大的胜利', 
                     ITEMS : [
-                        'Game',
-                        'Bet ID',
-                        'User',
-                        'Time',
-                        'Bet',
-                        'Payout',
-                        'Profit'
+                        '游戏',
+                        '赌博 ID',
+                        '用户',
+                        '时间',
+                        '下注',
+                        '花费',
+                        '盈利'
                     ]
                 },
                 BIGGEST_WIN_USERS : {
-                    TITLE : 'LeaderBoard', 
+                    TITLE : '排行榜', 
                     ITEMS : [
-                        'Position',
-                        'User',
-                        'Win Amount'
+                        '位置',
+                        '用户',
+                        '赢金额'
                     ]
                 }
             }

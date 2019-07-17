@@ -38,19 +38,19 @@ const withdrawCopy = {
     'ch' : 
         {
             TITLE : {
-                FIRST : ' You have ',
-                SECOND : 'Tokens',
+                FIRST : ' 您有 ',
+                SECOND : '代币',
             },
-            BUTTON_ONE:  'Ask for Withdraw',
+            BUTTON_ONE:  '请求撤回',
             INFO : {
-                FIRST : ' Don´t close the Window 🤗',
-                SECOND : 'Please Wait..',
-                THIRD : 'Withdraw Succeeded',
-                FORTH : ' You have ',
-                COMPLETED : 'Tokens Available to Withdraw'
+                FIRST : ' 请勿关闭窗口 🤗',
+                SECOND : '请稍等..',
+                THIRD : '撤回成功',
+                FORTH : ' 您有 ',
+                COMPLETED : '代币可撤回'
             },
             TABLE : {
-                BUTTON_ONE:  'Withdraw'
+                BUTTON_ONE:  '撤回'
             }
         },
     'jp' : 

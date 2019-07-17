@@ -28,18 +28,18 @@ const sharedCopy = {
         AUTO_NAME : '자동'
     },
     'ch' : {
-        CHIP_INFO : 'Chip Value',
-        EDGE_NAME : 'Edge',
-        PLACEHOLDER_CHAT : 'Type your Message',
-        CLEAR_NAME : 'Clear',
-        UNDO_NAME : 'Undo',
-        EVEN_NAME : 'Even',
-        ODD_NAME : 'Odd',
-        TOTAL_BET_NAME : 'Total bet',
-        BET_NAME : 'Bet',
-        AUTO_BET_NAME : 'Start Auto Bet',
-        MANUAL_NAME : 'Manual',
-        AUTO_NAME : 'Auto'
+        CHIP_INFO : '筹码价值',
+        EDGE_NAME : '预期收益',
+        PLACEHOLDER_CHAT : '输入你的消息',
+        CLEAR_NAME : '清空',
+        UNDO_NAME : '取消',
+        EVEN_NAME : '对注',
+        ODD_NAME : '赔率',
+        TOTAL_BET_NAME : '总赌注',
+        BET_NAME : '下注',
+        AUTO_BET_NAME : '开始自动下注',
+        MANUAL_NAME : '手动',
+        AUTO_NAME : '自动'
     },
     'jp' : {
         CHIP_INFO : 'チップバリュー',

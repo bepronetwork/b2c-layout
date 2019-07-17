@@ -44,19 +44,19 @@ const depositCopy = {
             TITLE : '你有 ',
             SUB_TITLE:  {
                 FIRST : '您的分散钱包中的代币可以存入',
-                SECOND : 'Click to Trade your ETH or Tokens to',
+                SECOND : '单击交易您的交易您的ETH或代币至',
                 THIRD : {
-                    FIRST : 'You have currently 0',
-                    SECOND : 'Tokens'
+                    FIRST : '您目前拥有 0',
+                    SECOND : '代币'
                 }
             },
             BUTTON_ONE : '存款',
             INFO : {
-                FIRST : 'Don´t close the Window!',
-                SECOND : 'There are 2 Actions Taking Place',
-                THIRD : '1 - Allowing Deposit',
-                FORTH : '2 - Creating Deposit',
-                FIFTH : 'Deposit Completed with Success'
+                FIRST : '请不要关闭窗口!',
+                SECOND : '有两个操作正在进行',
+                THIRD : '1 - 允许存款',
+                FORTH : '2 - 创建存款',
+                FIFTH : '存款成功'
             }
         },
     'jp' : 

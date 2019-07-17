@@ -11,8 +11,8 @@ const errorsCopy = {
         },
     'ch' : 
         {
-            CHAT_USER_NOT_LOGGED : ['Please Log In before using the chat'],
-            NON_ETHEREUM_BROWSER_ENTRY : ['Hey! Your browser it not plugged with any Ethereum Wallet but no worries :)',' Even thought Deposits and Withdrawals require it', 'You Still can Bet in our Platform!!']
+            CHAT_USER_NOT_LOGGED : ['请登陆后再使用聊天功能'],
+            NON_ETHEREUM_BROWSER_ENTRY: ['嘿! 您的浏览器没有插入任何以太坊钱包，但请不要担心 :)','即使您需要它来进行存款和提款', '您仍可以在我们的平台赌博!!']
         },
     'jp' : 
         {

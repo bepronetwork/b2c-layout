@@ -158,10 +158,13 @@ class LastBets extends Component {
         this.projectData(props);
     }
 
-    setTimer = () => {
+    setTimer = (options) => {
+        clearInterval(this.timer);
+        this.timer = null;
+        this.projectData(this.props, options)
         this.timer = setInterval( () => {
-            this.projectData(this.props)
-        }, 1*1000);
+            this.projectData(this.props, options)
+        }, 10*1000);
     }
 
     handleTabChange = name => {
@@ -169,13 +172,17 @@ class LastBets extends Component {
     };
 
     changeViewBets = ({value}) => {
-        this.setState({...this.state, view_amount : value});
-
+        this.setTimer({view_amount : value})
     }
     
-    projectData = async (props) => {
+    projectData = async (props, options=null) => {
         let { profile, ln } = props;
         let { view_amount } = this.state;
+
+        if(options){
+            view_amount = options.view_amount
+        }
+
         const copy = CopyText.homepage[ln];
 
         let all_bets = await getLastBets({size : view_amount});
@@ -186,8 +193,8 @@ class LastBets extends Component {
         if(profile && !_.isEmpty(profile)){
             my_bets = await profile.getMyBets({size : view_amount});
         }
-
         this.setState({...this.state, 
+            ...options,
             options : Object.keys(copy.TABLE).map( (key) => {
                 return {
                     value : new String(key).toLowerCase(),
