@@ -12,7 +12,7 @@ const withdrawCopy = {
                 THIRD : 'Withdraw Succeeded',
                 FORTH : ' You have ',
                 FIFTH : ' Available for Withdraw',
-                SIXTH : 'Please search on the table open Withdrawals Available - Green Button',
+                SIXTH : 'Please Click "Withdraw" below on the withdrawal entry',
                 COMPLETED : 'Tokens Available to Withdraw'
             },
             TABLE : {
