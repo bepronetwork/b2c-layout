@@ -5,6 +5,14 @@
   flex-direction: column;
   align-items: center;
   padding: $spacing-52 $spacing-20;
+
+  @include Breakpoint-mobileOnly {
+    width: 320px;
+    margin: auto;
+    position: relative;
+    display: block;
+    overflow-x: auto !important;
+  }
 }
 
 .tabs {

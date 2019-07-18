@@ -21,12 +21,15 @@
     
     grid-template-columns: repeat(3, 290px);
     
-    @include Breakpoint-tabletAndAbove {
-        max-width: $content-width-desktop;
-        padding: calc($navbar-height + $spacing-36) $spacing-20 0 $spacing-20;
+    @include Breakpoint-tabletOnly {
         margin: 0 auto;
+        margin-top : 80px;
     }
-      
+
+    @include Breakpoint-mobileOnly {
+        margin: 0 auto;
+        margin-top : 100px;
+    }
 }
 
 

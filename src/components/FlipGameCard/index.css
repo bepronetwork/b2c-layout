@@ -23,6 +23,11 @@ $values-height: 92px;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+
+  @include Breakpoint-mobileOnly {
+    margin-top : 50px;
+  }
+
 }
 
 .coin {

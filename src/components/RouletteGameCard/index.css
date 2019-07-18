@@ -167,6 +167,11 @@
   justify-content: center;
   width: 100%;
   max-width: 750px;
+
+  @include Breakpoint-mobileOnly {
+    margin-top : 30px;
+  }
+
 }
 
 .board-top {
