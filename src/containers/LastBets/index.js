@@ -265,47 +265,49 @@ class LastBets extends Component {
 
     render() {
         return (
-            <div styleName="last-bets-container">
-                <div styleName="root">
-                     <div styleName="container">
-                        <Row>
-                            <Col md={11}>
-                                <Tabs
-                                    selected={this.state.view}
-                                    options={this.state.options}
-                                    onSelect={this.handleTabChange}
-                                />
-                            </Col>
-                            <Col md={1}>
-                                <div styleName='bets-dropdown'>
-                                    <DropDownField
-                                        id="view"
-                                        type={'view'}
-                                        onChange={this.changeViewBets}
-                                        options={views}
-                                        value={this.state.view_amount}
-                                        style={{width : '80%'}}
-                                        >
-                                        {views.map(option => (
-                                            <MenuItem key={option} value={option}>
-                                                <Typography
-                                                    variant="body"
-                                                    color="casper"
-                                                >
-                                                    {`${option}`}
-                                                </Typography>
-                                            </MenuItem>
-                                        ))}
-                                    </DropDownField> 
-                                </div>
-                            </Col>
-                        </Row>
-                      
-                        <TableDefault
-                            rows={this.state[this.state.view].rows}
-                            titles={this.state[this.state.view].titles}
-                            fields={this.state[this.state.view].fields}
-                        />                    
+            <div styleName='container'>
+                <div styleName="last-bets-container">
+                    <div styleName="root">
+                        <div styleName="container">
+                            <Row>
+                                <Col md={11}>
+                                    <Tabs
+                                        selected={this.state.view}
+                                        options={this.state.options}
+                                        onSelect={this.handleTabChange}
+                                    />
+                                </Col>
+                                <Col md={1}>
+                                    <div styleName='bets-dropdown'>
+                                        <DropDownField
+                                            id="view"
+                                            type={'view'}
+                                            onChange={this.changeViewBets}
+                                            options={views}
+                                            value={this.state.view_amount}
+                                            style={{width : '80%'}}
+                                            >
+                                            {views.map(option => (
+                                                <MenuItem key={option} value={option}>
+                                                    <Typography
+                                                        variant="body"
+                                                        color="casper"
+                                                    >
+                                                        {`${option}`}
+                                                    </Typography>
+                                                </MenuItem>
+                                            ))}
+                                        </DropDownField> 
+                                    </div>
+                                </Col>
+                            </Row>
+                        
+                            <TableDefault
+                                rows={this.state[this.state.view].rows}
+                                titles={this.state[this.state.view].titles}
+                                fields={this.state[this.state.view].fields}
+                            />                    
+                        </div>
                     </div>
                 </div>
             </div>

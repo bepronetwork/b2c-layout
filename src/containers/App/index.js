@@ -146,11 +146,8 @@ export default class App extends Component {
     handleRegister = async form => {
         try {
             const response = await register(form);
-            Cache.setToCache('Authentication', {username : form.username, password : form.password});
             if (response.status !== 200) { return this.setState({ error: response }); }
-            let user = await this.updateUser(response);
-            await user.updateUser();
-            return this.setState({ registerLoginModalOpen: null, error: null });
+            this.handleLogin({username : form.username, password : form.password});
         } catch (error) {
             console.log(error);
             return handleError(error);
@@ -350,12 +347,12 @@ export default class App extends Component {
                         <MessageForm user={user}/>
                     </header>
                     <Row>
-                        <Col md={12} lg={9} xl={9}>
-                            <main styleName="container">
+                        <Col  lg={10} xl={10}>
+                            <div styleName='platform-container'>
                                 {this.renderPages({history})}
-                            </main>
+                            </div>
                         </Col>
-                        <Col md={4} lg={3} xl={3}>
+                        <Col md={4} lg={2} xl={2}>
                             <div styleName='chat-container-outro'> 
                                 <div styleName={'chat-container'}>
                                     <ChatPage/>

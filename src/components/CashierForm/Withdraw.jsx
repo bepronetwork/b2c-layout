@@ -229,6 +229,10 @@ class Withdraw extends Component {
                                     <strong style={{color : 'green'}}>{this.state.withdrawAvailable} {this.state.ticker}</strong> 
                                     {COPY.INFO.FIFTH}
                                 </Typography>
+                                <Typography variant="small-body" color="casper" otherStyles={{textAlign : 'center', marginBottom : 10}}>
+                                    {COPY.INFO.SIXTH}
+                                </Typography>
+
                                 <WithdrawsTable
                                     ln={this.props.ln}
                                     withdraw={this.withdrawTokens} 

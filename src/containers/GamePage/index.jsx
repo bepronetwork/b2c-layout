@@ -59,30 +59,32 @@ export default class GamePage extends Component {
         const { soundMode } = this.state;
 
         return (
-        <div styleName="root">
-            <div styleName="container">
-                <Row styleName="game-page-container">
-                    <Col lg={{ size: 9, order: 2}} styleName='no-padding'>
-                        <div styleName="game-container">
-                            {game}
-                            {this.renderHistory()}
-                        </div>
-                        <div styleName="sound">
-                            <ButtonIcon
-                                iconAtLeft
-                                icon="sound"
-                                label="Sound"
-                                onClick={this.handleSounds}
-                                soundMode={soundMode}
-                            />
-                        </div>
-                    </Col>
-                    <Col lg={{ size: 3, order: 1}} styleName='no-padding'>
-                        <div styleName="options-container">{options}</div>
-                    </Col>
-                </Row>
+            <div styleName='main-container'>
+                <div styleName="root">
+                    <div styleName="container">
+                        <Row styleName="game-page-container">
+                            <Col lg={{ size: 9, order: 2}} styleName='no-padding'>
+                                <div styleName="game-container">
+                                    {game}
+                                    {this.renderHistory()}
+                                </div>
+                                <div styleName="sound">
+                                    <ButtonIcon
+                                        iconAtLeft
+                                        icon="sound"
+                                        label="Sound"
+                                        onClick={this.handleSounds}
+                                        soundMode={soundMode}
+                                    />
+                                </div>
+                            </Col>
+                            <Col lg={{ size: 3, order: 1}} styleName='no-padding'>
+                                <div styleName="options-container">{options}</div>
+                            </Col>
+                        </Row>
+                    </div>
+                </div>
             </div>
-        </div>
         );
     }
 }

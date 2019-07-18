@@ -16,7 +16,9 @@ export const ethNetwork = process.env.REACT_APP_ETH_NETWORK;
 export async function processResponse(response){
     try{
         if(parseInt(response.data.status) != 200){
-            throw new Error(response.data.message)
+            let { message } = response.data;
+            if(!message){message = 'Technical Issues'}
+            throw new Error(message)
         }
         return response.data.message
     }catch(err){

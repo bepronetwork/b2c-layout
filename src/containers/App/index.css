@@ -33,6 +33,24 @@
     }
 }
 
+.platform-holder-pad{
+    @include Breakpoint-mobileOnly {
+        padding: 0 !important;
+        margin : 0 !important;
+    }
+}
+
+.platform-container{
+    width : 100%;
+    padding-right: 6%;
+    left: 0;
+
+    @include Breakpoint-mobileOnly {
+        padding-right: 0%;
+
+    }
+}
+
 .modal {
   display: flex;
   flex-direction: column;

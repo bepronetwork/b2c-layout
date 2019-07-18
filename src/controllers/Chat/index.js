@@ -37,7 +37,7 @@ class ChatChannel{
 
     __initNotLogged__ = async () => {
         try{
-            this.id = 'asdf';
+            this.id = 'random-user+' + new String(Math.random()*10000/2342*Math.random()).toString();
             this.user = await this.connectUser();
             this.channel = await this.enterChannel();
             this.setTimer()
@@ -77,6 +77,8 @@ class ChatChannel{
     }
 
     setTimer = () => {
+        clearInterval(this.timer);
+        this.timer = null;
         this.timer = setInterval( () => {
             this.listenChannelUpdates();
         }, 1000) /* each 1 sec */
@@ -117,6 +119,7 @@ class ChatChannel{
 
     connectUser = async () => {
         return new Promise( (resolve, reject) => {
+            console.log(this.id);
             this.cc.connect(this.id, function(error, user) {
                 if (error) { reject(error); }
                 resolve(user); 

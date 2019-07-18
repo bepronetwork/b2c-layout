@@ -118,47 +118,50 @@ export default class Footer extends Component {
 
     render() {
         return (
-            <div styleName="footer">
-                <Row>
-                    {footer.tabs.map( tab =>  {
-                        return(
-                            <Col md={tab.col}>
-                                <div styleName={tab.align}>
+            <div styleName="container">
+                <div styleName="footer">
+                    <Row>
+                        {footer.tabs.map( tab =>  {
+                            return(
+                                <Col md={tab.col}>
+                                    <div styleName={tab.align}>
 
-                                    {/* Title */}
-                                    {tab.title ? 
-                                        <div styleName='title'>
-                                            <Typography
-                                                weight={tab.title.size}
-                                                color={tab.title.color} 
-                                            >   
-                                                {tab.title.text}
-                                            </Typography>
-                                        </div>
-                                    : null}
+                                        {/* Title */}
+                                        {tab.title ? 
+                                            <div styleName='title'>
+                                                <Typography
+                                                    weight={tab.title.size}
+                                                    color={tab.title.color} 
+                                                >   
+                                                    {tab.title.text}
+                                                </Typography>
+                                            </div>
+                                        : null}
 
-                                    {/* Text */}
-                                    {tab.items.map( col => {
-                                        return (
-                                            col.type == 'link' ? 
-                                                <a styleName='item' href={col.href} target={'_blank'}>
-                                                    <Typography
-                                                        weight={col.size}
-                                                        color={col.color}
-                                                    > {col.text}</Typography>
-                                                </a>
-                                            : col.type == 'image' ? 
-                                                <img src={col.image} style={{width : col.width}}/>
-                                            : 
-                                                null 
-                                        )
-                                    })}
-                                </div>
-                            </Col>
+                                        {/* Text */}
+                                        {tab.items.map( col => {
+                                            return (
+                                                col.type == 'link' ? 
+                                                    <a styleName='item' href={col.href} target={'_blank'}>
+                                                        <Typography
+                                                            weight={col.size}
+                                                            color={col.color}
+                                                        > {col.text}</Typography>
+                                                    </a>
+                                                : col.type == 'image' ? 
+                                                    <img src={col.image} style={{width : col.width}}/>
+                                                : 
+                                                    null 
+                                            )
+                                        })}
+                                    </div>
+                                </Col>
+                            )}
                         )}
-                    )}
-                </Row>
+                    </Row>
+                </div>
             </div>
+
         );
     }
 }

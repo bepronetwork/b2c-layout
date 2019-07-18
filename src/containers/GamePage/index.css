@@ -12,6 +12,24 @@
   }
 }
 
+.main-container{
+
+    justify-content: center;
+    
+    grid-column-gap: $spacing-28;
+    grid-row-gap: $spacing-28;
+    
+    grid-template-columns: repeat(3, 290px);
+    
+    @include Breakpoint-tabletAndAbove {
+        max-width: $content-width-desktop;
+        padding: calc($navbar-height + $spacing-36) $spacing-20 0 $spacing-20;
+        margin: 0 auto;
+    }
+      
+}
+
+
 .container {
     display: block;
     grid-template-columns: 310px 1fr;

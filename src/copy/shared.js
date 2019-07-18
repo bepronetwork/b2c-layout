@@ -1,7 +1,7 @@
 const sharedCopy = {
     'en' : {
         CHIP_INFO : 'Chip Value',
-        EDGE_NAME : 'Edge',
+        EDGE_NAME : 'Fee',
         PLACEHOLDER_CHAT : 'Type your Message',
         CLEAR_NAME : 'Clear',
         UNDO_NAME : 'Undo',

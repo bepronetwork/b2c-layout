@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { find } from "lodash";
-import { GameCard, CoinFlip, Roulette } from "components";
+import { GameCard, CoinFlip, Roulette, Caroussel } from "components";
 import PropTypes from "prop-types";
 import Dices from "components/Icons/Dices";
 import UserContext from "containers/App/UserContext";
@@ -55,27 +55,30 @@ export default class HomePage extends Component {
         let game = this.isGameAvailable(title);
         if(!game) {return null};
         return (
-            <Col md={6} lg={4}>
-                <GameCard
-                    path={path}
-                    title={title}
-                    color={color}
-                    edge={game.edge}
-                >
-                    {content}
-                </GameCard>
-            </Col>
+                <Col md={6} lg={4}>
+                    <GameCard
+                        path={path}
+                        title={title}
+                        color={color}
+                        edge={game.edge}
+                    >
+                        {content}
+                    </GameCard>
+                </Col>
         )
     }
 
     render() {
         return (
             <div styleName="root">
-                {this.renderPlayNow()}
+                <Caroussel/>
+                {/* this.renderPlayNow() */}
                 <div styleName="container">
+                    <div styleName='container-small'>                       
                         <Row>
                             {games.map( (item) => this.renderGame(item))}
                         </Row>
+                    </div>
                     <LastBets/>
                     <Footer/>
                 </div>

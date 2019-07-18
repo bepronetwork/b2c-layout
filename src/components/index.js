@@ -39,7 +39,9 @@ import DropDownField from "components/DropDownField";
 import CoinFlip from "components/Icons/CoinFlip";
 import Roulette from "components/Icons/Roulette";
 import LanguagePicker from "components/LanguagePicker";
+import Caroussel from "components/Caroussel";
 
+export { Caroussel };
 export { LanguagePicker };
 export { Roulette };
 export { CoinFlip };

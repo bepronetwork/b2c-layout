@@ -7,6 +7,8 @@
     background-color : $footer-background;
 }
 
+
+
 .container {
   justify-content: center;
 
@@ -15,13 +17,25 @@
 
   grid-template-columns: repeat(3, 290px);
 
+  @include Breakpoint-tabletAndAbove {
+    max-width: $content-width-desktop;
+    padding-top : 10px !important;
+    padding: calc($navbar-height + $spacing-36) $spacing-20 0 $spacing-20;
+    margin: 0 auto;
+}
+
+@include Breakpoint-mobileOnly {
+    width: 100%;
+
+    max-width: $content-width-mobile;
+    padding: calc($navbar-height + $spacing-36) 0 0 0;
+    margin: 0 auto;
+}
+
   @include Breakpoint-tabletOnly {
     grid-template-columns: 1fr;
   }
 
-  @include Breakpoint-mobileOnly {
-    grid-template-columns: 1fr;
-  }
 }
 
 .left{

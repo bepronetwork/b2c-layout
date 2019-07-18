@@ -140,30 +140,30 @@ export default class User {
 
     createDeposit = async ({ amount }) => {
         try {
-        /* Enable Metamask Auth */
-        await enableMetamask("eth");
-        let accounts = await window.web3.eth.getAccounts();
-        const nonce = getNonce();
-        /* Deposit Tokens */
-        const resEthereum = await this.casinoContract.depositTokens({
-            address : accounts[0],
-            amount,
-            nonce : nonce
-        });
-
-        /* Update API Wallet Update */
-        let res =  await updateUserWallet(
-            {
-                user: this.user_id,
+            /* Enable Metamask Auth */
+            await enableMetamask("eth");
+            let accounts = await window.web3.eth.getAccounts();
+            const nonce = getNonce();
+            /* Deposit Tokens */
+            const resEthereum = await this.casinoContract.depositTokens({
+                address : accounts[0],
                 amount,
-                app: this.app_id,
-                nonce : nonce,
-                transactionHash: resEthereum.transactionHash
-            },
-            this.bearerToken
-        );
+                nonce : nonce
+            });
 
-        return res;
+            /* Update API Wallet Update */
+            let res =  await updateUserWallet(
+                {
+                    user: this.user_id,
+                    amount,
+                    app: this.app_id,
+                    nonce : nonce,
+                    transactionHash: resEthereum.transactionHash
+                },
+                this.bearerToken
+            );
+
+            return res;
         } catch (err) {
             // TO DO : Verify if User declined Metamask or there was another type of error
             // TO DO : Display the Error
