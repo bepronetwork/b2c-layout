@@ -45,7 +45,7 @@ class TableDefault extends Component {
                                 }else if(field.image){
                                     return (
                                         <th styleName='th-row'>
-                                            <Typography variant='small-body' color={"white"}> {row[field.value]} </Typography>
+                                            <img styleName='image-icon' src={row[field.value]}/>
                                         </th>
                                     )
                                 }else{

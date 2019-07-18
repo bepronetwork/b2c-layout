@@ -42,6 +42,11 @@
     text-align: center;
 }
 
+.image-icon{
+    width : 70px;
+    margin-top : -20px;
+}
+
 .tr-row{
     display: grid;
     grid-template-rows: 50px;

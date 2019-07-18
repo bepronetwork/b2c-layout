@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import { find } from "lodash";
 import { GameCard, CoinFlip, Roulette, Caroussel } from "components";
 import PropTypes from "prop-types";
-import Dices from "components/Icons/Dices";
 import UserContext from "containers/App/UserContext";
 import PlayInvitation from "components/PlayInvitation";
 import { Row, Col} from 'reactstrap';
@@ -10,26 +9,8 @@ import { Row, Col} from 'reactstrap';
 import "./index.css";
 import LastBets from "../LastBets";
 import Footer from "../Footer";
+import games from "../../config/games";
 
-const games = [{
-    name : 'Linear Dice',
-    path :"/dice",
-    title : "Linear Dice",
-    color: "dice-background-color",
-    content : <Dices/>
-}, {
-    name : 'Roulette',
-    path :"/roulette",
-    title : "Roulette",
-    color: "roulette-background-color",
-    content : <Roulette/>
-},  {
-    name : 'CoinFlip',
-    path :"/coinflip",
-    title : "CoinFlip",
-    color: "coinflip-background-color",
-    content : <CoinFlip/>
-}];
 
 export default class HomePage extends Component {
     static contextType = UserContext;
