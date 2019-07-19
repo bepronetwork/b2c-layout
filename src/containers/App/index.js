@@ -346,20 +346,22 @@ export default class App extends Component {
                         {this.renderCashierModal()}
                         <MessageForm user={user}/>
                     </header>
-                    <Row>
-                        <Col  lg={10} xl={10}>
-                            <div styleName='platform-container'>
-                                {this.renderPages({history})}
-                            </div>
-                        </Col>
-                        <Col md={4} lg={2} xl={2}>
-                            <div styleName='chat-container-outro'> 
-                                <div styleName={'chat-container'}>
-                                    <ChatPage/>
+                    <div>
+                        <Row>
+                            <Col  lg={10} xl={10}>
+                                <div styleName='platform-container'>
+                                    {this.renderPages({history})}
                                 </div>
-                            </div>
-                        </Col>
-                    </Row>
+                            </Col>
+                            <Col md={4} lg={2} xl={2}>
+                                <div styleName='chat-container-outro'> 
+                                    <div styleName={'chat-container'}>
+                                        <ChatPage/>
+                                    </div>
+                                </div>
+                            </Col>
+                        </Row>
+                    </div>
                     </Router>
                 </UserContext.Provider>
         );

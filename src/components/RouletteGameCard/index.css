@@ -53,7 +53,7 @@
 
     @include Breakpoint-mobileOnly {
         height: 140px;
-        margin-top : 300%
+        margin-top : 500%
     }
 }
 
