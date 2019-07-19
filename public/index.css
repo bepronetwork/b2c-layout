@@ -1,5 +1,11 @@
 
-
+#back{
+    z-index: -20;
+    background-color: #16162d;
+    position: absolute;
+    width: 100%;
+    height: -webkit-fill-available;
+}
 #loading{
     background: url('gif.gif') no-repeat;
     width : 400px;
