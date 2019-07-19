@@ -15,12 +15,12 @@
 .main-container{
 
     justify-content: center;
-    
     grid-column-gap: $spacing-28;
     grid-row-gap: $spacing-28;
-    
+    max-width : 1020px;
+    margin-left : 2%;
     grid-template-columns: repeat(3, 290px);
-    
+    margin-top : 80px;
     @include Breakpoint-tabletOnly {
         margin: 0 auto;
         margin-top : 80px;

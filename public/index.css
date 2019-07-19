@@ -1,4 +1,24 @@
 
+
+#loading{
+    background: url('gif.gif') no-repeat;
+    width : 400px;
+    z-index : -20;
+    height: 300px;
+    position: fixed;
+    margin-left: -200px;
+    top: 50%;
+    left: 50%;
+    margin-top: -50px;
+}
+
+#root{
+    position : relative;
+    display : block;
+    z-index: 100;
+    background-color : inherit;
+}
+
 .image-gallery-fullscreen-button::before,
 .image-gallery-play-button::before,
 .image-gallery-left-nav::before,
