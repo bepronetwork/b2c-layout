@@ -5,6 +5,7 @@
     width : 400px;
     z-index : -20;
     height: 300px;
+    background-color : #16162d;
     position: fixed;
     margin-left: -200px;
     top: 50%;

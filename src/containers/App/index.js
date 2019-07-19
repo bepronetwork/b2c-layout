@@ -325,7 +325,7 @@ export default class App extends Component {
 
         if (!app) return null;
 
-        if(isLoading){ return( <img src={gif} styleName='gif'/> )}
+        if(isLoading){ return(null)}
 
         return (
                 <UserContext.Provider
