@@ -5,7 +5,7 @@ import languages from '../../config/languages';
 
 const APP_ID = '6551851573570433024';
 
- class ChatChannel{
+class ChatChannelUnlogged{
     constructor({id, name}){
         this.id = id;
         this.channel_id = languages[0].channel_id;
@@ -31,6 +31,27 @@ const APP_ID = '6551851573570433024';
             console.log(err)
             // Nothing
         }
+    }
+
+    __initNotLogged__ = async () => {
+        try{
+            this.id = 'user-' + new String(Math.random()*10000/2342*Math.random()).toString();
+            this.name = 'user-' + new String(Math.random()*10000/2342*Math.random()).toString();
+            this.user = await this.connectUser();
+            this.channel = await this.enterChannel();
+            this.setTimer()
+        }catch(err){
+            this.isWorking = false;
+            console.log(err)
+            // Nothing
+        }
+    }
+
+    __kill__ = async  () => {
+        this.user = null;
+        await this.leaveChannel()
+        clearInterval(this.timer);
+        this.timer = null;
     }
 
     getMessages = () => {
@@ -71,7 +92,7 @@ const APP_ID = '6551851573570433024';
                 this.open = openChannel.isActive;
                 this.chatName = openChannel.name;
                 this.participants = openChannel.participantsCount;
-                openChannel.join( (error) => {
+                openChannel.join(function(error) {
                     if(!error){
                 }});
                 await this.updateReduxState()
@@ -92,7 +113,17 @@ const APP_ID = '6551851573570433024';
             this.messages = messagesSorted;
             await this.updateReduxState();
         });
+    }
 
+    leaveChannel = () => {
+        return new Promise( (resolve, reject) => {
+            this.cc.OpenChannel.get(this.channel_id, (error, openChannel) => {
+                openChannel.leave( (error) =>  {
+                    if (error) { reject(error); }
+                    resolve(openChannel); 
+                })
+            })
+        })
     }
 
     connectUser = async () => {
@@ -119,7 +150,6 @@ const APP_ID = '6551851573570433024';
    
 
     sendMessage = async ({message, data}) => {
-        console.log(message)
         try{
             return new Promise( (resolve, reject) => {
                 this.channel.sendMessage(message, (message, error) => {
@@ -137,4 +167,4 @@ const APP_ID = '6551851573570433024';
 }
 
 
-export default ChatChannel;
+export default ChatChannelUnlogged;

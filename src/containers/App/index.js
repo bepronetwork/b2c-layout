@@ -31,6 +31,7 @@ import gif from "assets/gif.gif";
 import ChatChannel from "../../controllers/Chat";
 import { CopyText } from "../../copy";
 import { setMessageNotification } from "../../redux/actions/message";
+import ChatChannelUnlogged from "../../controllers/Chat/ChatUnlogged";
 
 const history = createBrowserHistory();
 
@@ -44,7 +45,6 @@ export default class App extends Component {
 
     componentDidMount = () => {
         this.asyncCalls();
-        this.startChatNoLogged();
     };
 
     start = () => {
@@ -53,7 +53,7 @@ export default class App extends Component {
 
     startChatNoLogged = async () => {
         try{
-            this.chat = new ChatChannel({id : null, name : null});
+            this.chat = new ChatChannelUnlogged({id : null, name : null});
             await this.chat.__initNotLogged__();
         }catch(err){
             console.log(err)
@@ -65,6 +65,8 @@ export default class App extends Component {
             this.startWallet();
             await this.loginAccount();
         }catch(err){
+            console.log(err)
+            this.startChatNoLogged();
         }
         this.start();
     }
@@ -177,7 +179,7 @@ export default class App extends Component {
         
         /* Destory Unlogged Chat Instance */
         if(this.chat){
-            this.chat.__kill__();
+            await this.chat.__kill__();
             this.chat = null;
         }
 

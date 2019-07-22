@@ -32,3 +32,5 @@ $table-odd-background : $secondary-background-color;
 $table-odd-border-radius : 0px;
 $footer-background : $secondary-background-color;
 $popular-numbers-container : $primary-background-color;
+$flipcoin-color-tails : $orange;
+$flipcoin-color-head : $red;

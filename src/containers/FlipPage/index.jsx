@@ -14,6 +14,7 @@ const defaultState = {
     flipResult: null,
     hasWon: null,
     game_name : 'CoinFlip',
+    isCoinSpinning : false,
     game : {
         edge : 0
     }
@@ -36,6 +37,16 @@ class FlipPage extends Component {
         this.getGame()
     }
 
+    handleAnimationEnd = () => {
+        this.setState({ isCoinSpinning: false }, () => {
+            this.handleUpdateBalance();
+        });
+    };
+
+    handleAnimationStart = () => {
+        this.setState({ isCoinSpinning: true });
+    };
+
     handleUpdateBalance = async () => {
         const { user, setUser } = this.context;
         await updateUserBalance(user, setUser);
@@ -52,7 +63,11 @@ class FlipPage extends Component {
         Cache.setToCache("flipHistory", history);
     }
 
-
+    onBet = async form => {
+        this.setState({onBet : true})
+        await this.handleBet(form);
+        this.setState({onBet : false})
+    }
 
     handleBet = async form => {
         try{
@@ -72,6 +87,7 @@ class FlipPage extends Component {
             return this.setState({
                 flipResult,
                 hasWon,
+                isCoinSpinning : true,
                 disableControls: false
             });
         }catch(err){
@@ -88,8 +104,10 @@ class FlipPage extends Component {
 
         return (
             <FlipGameOptions
-                onBet={this.handleBet}
+                onBet={this.onBet}
                 game={this.state.game}
+                onBetTrigger={this.state.onBet}
+                isCoinSpinning={this.state.isCoinSpinning}
                 disableControls={disableControls}
             />
         );
@@ -102,6 +120,10 @@ class FlipPage extends Component {
             <FlipGameCard
                 updateBalance={this.handleUpdateBalance}
                 flipResult={flipResult}
+                onBetTrigger={this.state.onBet}
+                handleAnimationEnd={this.handleAnimationEnd}
+                handleAnimationStart={this.handleAnimationStart}
+                isCoinSpinning={this.state.isCoinSpinning}
                 game={this.state.game}
                 hasWon={hasWon}
                 onResult={this.handleEnableControls}
@@ -112,7 +134,6 @@ class FlipPage extends Component {
     getGame = () => {
         const appInfo = Cache.getFromCache("appInfo");
         if(appInfo){
-            console.log(appInfo.games)
             let game = find(appInfo.games, { name: this.state.game_name });
             this.setState({...this.state, game});
         }

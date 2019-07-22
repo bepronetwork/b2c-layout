@@ -57,10 +57,6 @@ export default class User {
         }
     }
 
-    __initNotLogged__ = async () => {
-
-    }
-
     getChat = () => {
         return this.chat;
     }
@@ -110,7 +106,11 @@ export default class User {
     }
 
     sendMessage = async ({message, data}) => {
-        await this.chat.sendMessage({message, data});
+        try{
+            return await this.chat.sendMessage({message, data});
+        } catch (err){
+            throw err;
+        }
     }
 
     updateUser = async () => {

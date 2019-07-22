@@ -28,8 +28,6 @@ class CasinoContract {
             amount,
             self.decimals
         );
-
-        console.log(address, amountWithDecimals);
         
         return new Promise ( (resolve, reject) => {
             self.contract.getContract().methods.withdraw(amountWithDecimals)

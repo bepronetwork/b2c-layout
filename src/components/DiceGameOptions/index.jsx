@@ -71,6 +71,7 @@ export default class DiceGameOptions extends Component {
         <Sound
             onFinishedPlaying={this.handleSongFinishedPlaying}
             volume={100}
+            useConsole={false}
             url={betSound}
             playStatus="PLAYING"
             autoLoad
@@ -91,7 +92,6 @@ export default class DiceGameOptions extends Component {
             edge : props.game.edge
         });
     }
-
 
     handleSongFinishedPlaying = () => {
         this.setState({ sound: false });
@@ -204,28 +204,47 @@ export default class DiceGameOptions extends Component {
 
         let winEdge = (100-(this.state.edge))/100;
         payout = payout * winEdge;
-        
         return Numbers.toFloat(payout);
     };
 
     renderManual = () => {
         const { amount } = this.state;
+        
    
         return (
-        <div>
-            <div styleName="element">
-            <InputNumber
-                name="win-profit"
-                title="Profit on Win"
-                icon="bitcoin"
-                precision={2}
-                disabled
-                value={Numbers.toFloat(amount * (this.getPayout() - 1))}
-            />
+            <div>
+                <div styleName="element">
+                <InputNumber
+                    name="win-profit"
+                    title="Profit on Win"
+                    icon="bitcoin"
+                    precision={2}
+                    disabled
+                    value={Numbers.toFloat(amount * (this.getPayout() - 1))}
+                />
+                </div>
             </div>
-        </div>
         );
     };
+
+    renderAmountDice = () => {   
+        return (
+            <div>
+                <div styleName="element">
+                <InputNumber
+                    name="roll-number"
+                    title="Amount on Percentage"
+                    onChange={ e => this.props.onChangeRollAndRollType(e)}
+                    max={97}
+                    step={1}
+                    precision={0}
+                    value={this.props.rollNumber}
+                />
+                </div>
+            </div>
+        );
+    };
+
 
     handleMultiply = value => {
         const { user } = this.context;
@@ -275,20 +294,24 @@ export default class DiceGameOptions extends Component {
             </Typography>
             <div styleName="amount-container">
                 <InputNumber
-                name="amount"
-                value={amount}
-                max={user ? user.balance : null}
-                step={0.01}
-                icon="bitcoin"
-                precision={2}
-                onChange={this.handleBetAmountChange}
-                />
+                    name="amount"
+                    value={amount}
+                    max={user ? user.balance : null}
+                    step={0.01}
+                    icon="bitcoin"
+                    precision={2}
+                    onChange={this.handleBetAmountChange}
+                    />
                 <MultiplyMaxButton onSelect={this.handleMultiply} />
             </div>
             </div>
             <div styleName="content">
+                {this.renderAmountDice()}
+            </div>
+            <div styleName="content">
             {type === "manual" ? this.renderManual() : this.renderAuto()}
             </div>
+         
             <div styleName="button">
             <Button
                 disabled={!this.isBetValid()}

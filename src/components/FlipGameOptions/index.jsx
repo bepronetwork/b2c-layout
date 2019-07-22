@@ -35,6 +35,7 @@ export default class FlipGameOptions extends Component {
         profitStop: 0,
         lossStop: 0,
         edge : 0,
+        onBet : false,
         onWin: null,
         onLoss: null,
         sound: false
@@ -43,7 +44,7 @@ export default class FlipGameOptions extends Component {
     componentDidMount(){
         this.projectData(this.props);
     }
-
+    
     componentWillReceiveProps(props){
         this.projectData(props);
     }
@@ -93,25 +94,24 @@ export default class FlipGameOptions extends Component {
         this.setState({ betAmount: newAmount });
     };
 
-        isBetValid = () => {
-            const { user } = this.context;
-            const { disableControls } = this.props;
-            const { betAmount } = this.state;
-            return (
-            (user && betAmount > 0 && user.balance >= betAmount && !disableControls) || !user);
-        };
+    isBetValid = () => {
+        const { user } = this.context;
+        const { disableControls } = this.props;
+        const { betAmount } = this.state;
+        return (
+        (user && betAmount > 0 && user.balance >= betAmount && !disableControls) || !user);
+    };
 
-        handleBet = () => {
-            const { onBet } = this.props;
+    handleBet = async () => {
+        const { onBet } = this.props;
 
-            if (this.isBetValid()) {
-                this.setState({ sound: true });
+        if (this.isBetValid()) {
+            this.setState({ sound: true });
+            await onBet(this.state);
+        }
 
-                return onBet(this.state);
-            }
-
-            return null;
-        };
+        return null;
+    };
 
     handleOnWin = value => {
         this.setState({ onWin: value });
@@ -228,6 +228,7 @@ export default class FlipGameOptions extends Component {
 
     render() {
         const { type, betAmount, side } = this.state;
+        const { isCoinSpinning, onBetTrigger } = this.props;
         const { user } = this.context;
 
         return (
@@ -287,7 +288,7 @@ export default class FlipGameOptions extends Component {
             <Button
                 fullWidth
                 theme="primary"
-                disabled={!this.isBetValid()}
+                disabled={!this.isBetValid()|| onBetTrigger || isCoinSpinning}
                 onClick={this.handleBet}
                 animation={<Dice />}
             >

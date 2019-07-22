@@ -39,7 +39,7 @@ export default class DicePage extends Component {
     };
 
 
-    handleRollAndRollTypeChange = (rollNumber, rollType) => {
+    handleRollAndRollTypeChange = (rollNumber, rollType=this.state.rollType) => {
         this.setState({ rollNumber, rollType });
     };
 
@@ -81,6 +81,7 @@ export default class DicePage extends Component {
                 disableControls={disableControls}
                 onBet={this.handleBet}
                 game={this.state.game}
+                onChangeRollAndRollType={this.handleRollAndRollTypeChange}
                 rollType={rollType}
                 rollNumber={rollNumber}
             />
@@ -88,13 +89,14 @@ export default class DicePage extends Component {
     };
 
     getGameCard = () => {
-        const { result, disableControls } = this.state;
+        const { result, disableControls, rollNumber } = this.state;
 
         return (
         <DiceGameCard
             onResultAnimation={this.handleAnimation}
             disableControls={disableControls}
             result={result}
+            rollNumber={rollNumber}
             game={this.state.game}
             onChangeRollAndRollType={this.handleRollAndRollTypeChange}
         />

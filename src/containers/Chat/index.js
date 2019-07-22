@@ -50,13 +50,20 @@ class ChatPage extends React.Component {
 
     projectData = async (props) => {
         if(props.chat.messages.length > 0){
+            let currentMessages = this.state.messages;
             this.setState({...this.state,
                 participants : props.chat.participants,
                 messages :  props.chat.messages,
                 name : props.chat.name,
                 open :  props.chat.open
             });
-            this.scrollToBottom();
+
+            if((currentMessages.length > 0) 
+            &&  (props.chat.messages.length > 0) 
+            &&  (props.chat.messages[props.chat.messages.length-1].id != currentMessages[currentMessages.length-1].id)){
+                console.log("Scolling")
+                this.scrollToBottom();
+            }
         }
     }
 
@@ -66,9 +73,9 @@ class ChatPage extends React.Component {
             await store.dispatch(setMessageNotification(CopyText.Errors.en.CHAT_USER_NOT_LOGGED));
         }
         try{
-            await this.props.profile.sendMessage({message : this.state.message})
-            this.scrollToBottom();
-            this.setState({...this.state, message : ''})
+            await this.props.profile.sendMessage({message : this.state.message});
+            this.projectData(this.props);
+
         }catch(err){
             console.log(err)
             this.setState({...this.state, message : ''})

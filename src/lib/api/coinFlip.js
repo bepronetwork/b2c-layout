@@ -19,7 +19,7 @@ export default async function bet({ betAmount, side, user }) {
         });
         await processResponse(response);
         const { message } = response.data;
-        console.log(message);
+
         return {
             flipResult: message.outcomeResultSpace.index === 1 ? "heads" : "tails",
             hasWon: message.isWon

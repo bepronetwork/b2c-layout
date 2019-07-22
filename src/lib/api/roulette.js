@@ -138,7 +138,6 @@ function getBetOnEachNumber(betHistory) {
         }
     }, []).filter( el => el != null);
     /* eslint-enable no-unused-expressions */
-    console.log(distributedBetOnEachNumber, distributedBetOnEachNumber.reduce( (acc, e) => acc+e.value, 0));
     return distributedBetOnEachNumber;
 }
 
