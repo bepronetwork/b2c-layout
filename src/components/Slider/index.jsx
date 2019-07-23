@@ -111,7 +111,6 @@ export default class Slider extends Component {
   renderResult = () => {
     const { roll } = this.props;
     const { result, value, leftP, oldLeftP, moving } = this.state;
-    console.log(result, value, moving)
     if (!result || moving) return null;
 
     const slide = keyframes`

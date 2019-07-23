@@ -4,8 +4,8 @@ import ImageGallery from 'react-image-gallery';
 import { connect } from "react-redux";
 import _ from 'lodash';
 import "./index.css";
-import image_1 from 'assets/home-page/carousel-1.png';
-import image_2 from 'assets/home-page/carousel-2.png';
+import image_1 from 'assets/home-page/carousel-1.jpg';
+import image_2 from 'assets/home-page/carousel-2.jpg';
 
 
 const images = [

@@ -99,9 +99,17 @@ export default class DiceGameOptions extends Component {
 
     handleBet = () => {
         const { onBet } = this.props;
-        const { amount } = this.state;
+        const { amount, type} = this.state;
 
         if (this.isBetValid()) {
+            switch (type) {
+                case 'manual' : {
+
+                };
+                case 'auto' : {
+                    
+                }
+            }
             // to be completed with the other options
             this.setState({ sound: true });
             return onBet({ amount });
