@@ -52,13 +52,13 @@ export default class HomePage extends Component {
     render() {
         return (
             <div styleName="root">
-                <Caroussel/>
+               <Caroussel/> 
                 {/* this.renderPlayNow() */}
                 <div styleName="container">
                     <div styleName='container-small'>                       
-                        <Row>
+                        <div className='row' style={{margin : 0}}>
                             {games.map( (item) => this.renderGame(item))}
-                        </Row>
+                        </div>
                     </div>
                     <LastBets/>
                     <Footer/>

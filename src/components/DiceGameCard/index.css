@@ -98,6 +98,10 @@ $with-without-padding: calc(100% - $spacing-20 - $spacing-20);
     overflow-y : auto;
     overflow-x : hidden;
     position : absolute;
+
+    @include Breakpoint-mobileOnly {
+        margin-top: -50px !important;
+    }
 }
 
 .inner-popular-numbers{
@@ -109,3 +113,4 @@ $with-without-padding: calc(100% - $spacing-20 - $spacing-20);
     overflow-x: hidden;
     position : relative;
 }
+

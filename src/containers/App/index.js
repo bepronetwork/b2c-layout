@@ -132,13 +132,15 @@ export default class App extends Component {
             Cache.setToCache('Authentication', form)
 
             if (response.status !== 200) {
-                return this.setState({ error: response.status });
+                this.setState({ error: response.status });
+                throw new Error("Login Didn´t Work")
             }
 
             let user = await this.updateUser(response);
             await user.updateUser();
 
-            return this.setState({ registerLoginModalOpen: null, error: null });
+            this.setState({ registerLoginModalOpen: null, error: null });
+            return response;
         } catch (error) {
             console.log(error)
             return handleError(error);
@@ -350,11 +352,11 @@ export default class App extends Component {
                     </header>
                     <div>
                         <Row>
-                            <Col  lg={10} xl={10}>
+                            <div className='col-lg-10 col-xl-10' styleName='no-padding'>
                                 <div styleName='platform-container'>
                                     {this.renderPages({history})}
                                 </div>
-                            </Col>
+                            </div>
                             <Col md={4} lg={2} xl={2}>
                                 <div styleName='chat-container-outro'> 
                                     <div styleName={'chat-container'}>
