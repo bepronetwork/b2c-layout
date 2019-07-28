@@ -7,6 +7,8 @@ import GamePage from "containers/GamePage";
 import diceBet from "lib/api/dice";
 import Cache from "../../lib/cache/cache";
 import { find } from "lodash";
+import store from "../App/store";
+import { setBetResult } from "../../redux/actions/bet";
 
 export default class DicePage extends Component {
     static contextType = UserContext;
@@ -51,14 +53,20 @@ export default class DicePage extends Component {
             this.setState({ disableControls: true });
             if (!user) return onHandleLoginOrRegister("register");
 
-            const result = await diceBet({
+            const res = await diceBet({
                 rollNumber,
                 rollType,
                 betAmount: amount,
                 user
             });
+            await store.dispatch(setBetResult(res));
 
-            return this.setState({ result, disableControls : false  });
+            this.setState({ 
+                result : res.result, 
+                disableControls : false, 
+                betObjectResult : res 
+            });
+            return res;
         }catch(err){
             return this.setState({ result : 0, disableControls : false });
 
@@ -67,8 +75,10 @@ export default class DicePage extends Component {
 
     handleAnimation = async () => {
         const { user, setUser } = this.context;
+        const { betObjectResult } = this.state;
 
         await updateUserBalance(user, setUser);
+
 
         this.setState({ result: null, disableControls: false });
     };
@@ -92,14 +102,14 @@ export default class DicePage extends Component {
         const { result, disableControls, rollNumber } = this.state;
 
         return (
-        <DiceGameCard
-            onResultAnimation={this.handleAnimation}
-            disableControls={disableControls}
-            result={result}
-            rollNumber={rollNumber}
-            game={this.state.game}
-            onChangeRollAndRollType={this.handleRollAndRollTypeChange}
-        />
+            <DiceGameCard
+                onResultAnimation={this.handleAnimation}
+                disableControls={disableControls}
+                result={result}
+                rollNumber={rollNumber}
+                game={this.state.game}
+                onChangeRollAndRollType={this.handleRollAndRollTypeChange}
+            />
         );
     };
 

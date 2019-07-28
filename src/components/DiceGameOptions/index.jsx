@@ -12,7 +12,7 @@ import {
 import betSound from "assets/bet-sound.mp3";
 import Sound from "react-sound";
 import Dice from "components/Icons/Dice";
-
+import delay from 'delay';
 import "./index.css";
 import { Numbers } from "../../lib/ethereum/lib";
 
@@ -36,6 +36,7 @@ export default class DiceGameOptions extends Component {
         this.state = {
             type: "manual",
             amount: 0,
+            isAutoBetting : false,
             bets: 1,
             profitStop: 0,
             lossStop: 0,
@@ -59,6 +60,8 @@ export default class DiceGameOptions extends Component {
         return (amount > 0 && !disableControls) || !user;
     };
 
+    isInAutoBet = () => this.state.isAutoBetting;
+
     renderSound = () => {
         const { sound } = this.state;
         const soundConfig = localStorage.getItem("sound");
@@ -68,14 +71,14 @@ export default class DiceGameOptions extends Component {
         }
 
         return (
-        <Sound
-            onFinishedPlaying={this.handleSongFinishedPlaying}
-            volume={100}
-            useConsole={false}
-            url={betSound}
-            playStatus="PLAYING"
-            autoLoad
-        />
+            <Sound
+                onFinishedPlaying={this.handleSongFinishedPlaying}
+                volume={100}
+                useConsole={false}
+                url={betSound}
+                playStatus="PLAYING"
+                autoLoad
+            />
         );
     };
 
@@ -97,25 +100,62 @@ export default class DiceGameOptions extends Component {
         this.setState({ sound: false });
     };
 
-    handleBet = () => {
+    betAction = ({amount}) => {
         const { onBet } = this.props;
-        const { amount, type} = this.state;
+        return new Promise( (resolve, reject) => {
+            try{
+                setTimeout( async () => {
+                    let res = await onBet({ amount });
+                    console.log(res);
+                    resolve(res)
+                },2*1000)
+            }catch(err){
+                console.log(err)
+                reject(err)
+            }
+
+        })
+    }
+
+    handleBet = async () => {
+        const { onBet } = this.props;
+        const { amount, type, bets, profitStop, lossStop, onWin, onLoss} = this.state;
 
         if (this.isBetValid()) {
-            switch (type) {
-                case 'manual' : {
-
-                };
-                case 'auto' : {
-                    
-                }
-            }
             // to be completed with the other options
             this.setState({ sound: true });
-            return onBet({ amount });
+            switch(type){
+                case 'manual' : {
+                    await onBet({ amount });
+                    break;
+                };
+                case 'auto' : {
+                    this.setState({isAutoBetting : true})
+                    var totalProfit = 0, totalLoss = 0, lastBet = 0, wasWon = 0;
+                    var betAmount = amount;
+                    for( var i = 0; i < bets ; i++){
+                        if(
+                            (profitStop == 0  || totalProfit <= profitStop) && // Stop Profit
+                            (lossStop == 0 || totalLoss <= lossStop) // Stop Loss
+                        ){
+                            await delay(1.5*1000);
+                            let { winAmount } = await this.betAction({amount : betAmount});
+                            totalProfit += (winAmount-betAmount);
+                            totalLoss += (winAmount == 0) ? -Math.abs(betAmount) : 0;
+                            wasWon = (winAmount != 0);
+                            lastBet = betAmount;
+                            if(onWin && wasWon){ betAmount += Numbers.toFloat(betAmount*onWin/100) }; 
+                            if(onLoss && !wasWon){ betAmount += Numbers.toFloat(betAmount*onLoss/100) }; 
+                        
+                        }
+                            
+                    }
+                    this.setState({isAutoBetting : false})
+                    break;
+                }
+            }
         }
-
-        return null;
+        return true;
     };
 
     handleBetAmountChange = value => {
@@ -279,7 +319,7 @@ export default class DiceGameOptions extends Component {
     };
 
     render() {
-        const { type, amount } = this.state;
+        const { type, amount, isAutoBetting } = this.state;
         const { user } = this.context;
         return (
         <div styleName="root">
@@ -322,14 +362,14 @@ export default class DiceGameOptions extends Component {
          
             <div styleName="button">
             <Button
-                disabled={!this.isBetValid()}
+                disabled={!this.isBetValid() || this.isInAutoBet()}
                 onClick={this.handleBet}
                 fullWidth
                 theme="primary"
                 animation={<Dice />}
             >
                 <Typography weight="semi-bold" color="pickled-bluewood">
-                {type === "manual" ? "Bet" : "Start AutoBet"}
+                    {type === "manual" ? "Bet" : "Start AutoBet"  }
                 </Typography>
             </Button>
             </div>

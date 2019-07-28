@@ -120,6 +120,7 @@ export default class User {
             password : cache.password
         });
         this.user = user;
+        return user;
     }
 
     setupCasinoContract() {
@@ -231,8 +232,9 @@ export default class User {
         await enableMetamask("eth");
         let accounts = await window.web3.eth.getAccounts();
         return accounts[0];
-        
     }
+
+    getNewB
 
     askForWithdraw = async ({amount}) => {
         try {
@@ -345,7 +347,6 @@ export default class User {
                 },
                 this.bearerToken
             );
-            console.log(res);
             return res;
         } catch (err) {
             throw err;

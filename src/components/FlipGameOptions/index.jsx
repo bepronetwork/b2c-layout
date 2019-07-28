@@ -12,8 +12,9 @@ import UserContext from "containers/App/UserContext";
 import betSound from "assets/bet-sound.mp3";
 import Sound from "react-sound";
 import Dice from "components/Icons/Dice";
-
+import delay from 'delay';
 import "./index.css";
+import { Numbers } from "../../lib/ethereum/lib";
 
 export default class FlipGameOptions extends Component {
     static contextType = UserContext;
@@ -91,7 +92,7 @@ export default class FlipGameOptions extends Component {
         newAmount = user.balance;
         }
 
-        this.setState({ betAmount: newAmount });
+        this.setState({ betAmount : newAmount });
     };
 
     isBetValid = () => {
@@ -104,14 +105,45 @@ export default class FlipGameOptions extends Component {
 
     handleBet = async () => {
         const { onBet } = this.props;
+        const { type, bets, profitStop, lossStop, onWin, onLoss, side} = this.state;
+        var betAmount = this.state.betAmount;
 
         if (this.isBetValid()) {
+            // to be completed with the other options
             this.setState({ sound: true });
-            await onBet(this.state);
+            switch(type){
+                case 'manual' : {
+                    await onBet({ amount : betAmount, side });
+                    break;
+                };
+                case 'auto' : {
+                    this.setState({isAutoBetting : true})
+                    var totalProfit = 0, totalLoss = 0, lastBet = 0, wasWon = 0;
+                    for( var i = 0; i < bets ; i++){
+                        if(
+                            (profitStop == 0  || totalProfit <= profitStop) && // Stop Profit
+                            (lossStop == 0 || totalLoss <= lossStop) // Stop Loss
+                        ){
+                            await delay(4*1000);
+                            let { winAmount } = await onBet({amount : betAmount, side});
+                            totalProfit += (winAmount-betAmount);
+                            totalLoss += (winAmount == 0) ? -Math.abs(betAmount) : 0;
+                            wasWon = (winAmount != 0);
+                            lastBet = betAmount;
+                            if(onWin && wasWon){ betAmount += Numbers.toFloat(betAmount*onWin/100) }; 
+                            if(onLoss && !wasWon){ betAmount += Numbers.toFloat(betAmount*onLoss/100) }; 
+                        
+                        }
+                            
+                    }
+                    this.setState({isAutoBetting : false})
+                    break;
+                }
+            }
         }
-
-        return null;
+        return true;
     };
+
 
     handleOnWin = value => {
         this.setState({ onWin: value });
@@ -227,7 +259,7 @@ export default class FlipGameOptions extends Component {
     };
 
     render() {
-        const { type, betAmount, side } = this.state;
+        const { type, betAmount, side, isAutoBetting } = this.state;
         const { isCoinSpinning, onBetTrigger } = this.props;
         const { user } = this.context;
 
@@ -238,7 +270,7 @@ export default class FlipGameOptions extends Component {
             <ToggleButton
                 config={{
                 left: { value: "manual", title: "Manual" },
-                right: { value: "auto", title: "Auto", disabled : true}
+                right: { value: "auto", title: "Auto"}
                 }}
                 selected={type}
                 size="full"
@@ -288,7 +320,7 @@ export default class FlipGameOptions extends Component {
             <Button
                 fullWidth
                 theme="primary"
-                disabled={!this.isBetValid()|| onBetTrigger || isCoinSpinning}
+                disabled={!this.isBetValid()|| onBetTrigger || isCoinSpinning  || isAutoBetting}
                 onClick={this.handleBet}
                 animation={<Dice />}
             >

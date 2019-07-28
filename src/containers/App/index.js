@@ -335,7 +335,7 @@ export default class App extends Component {
                 <UserContext.Provider
                     value={{
                         user,
-                        setUser: this.updateUser
+                        setUser: (() => {})
                     }}
                 >
                     <Router history={history}>

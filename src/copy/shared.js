@@ -9,6 +9,7 @@ const sharedCopy = {
         ODD_NAME : 'Odd',
         TOTAL_BET_NAME : 'Total bet',
         BET_NAME : 'Bet',
+        DOUBLE_DOWN_NAME : 'Double Down',
         AUTO_BET_NAME : 'Start Auto Bet',
         MANUAL_NAME : 'Manual',
         AUTO_NAME : 'Auto'
@@ -22,6 +23,7 @@ const sharedCopy = {
         EVEN_NAME : '짝수',
         ODD_NAME : '홀수',
         TOTAL_BET_NAME : '총 베트',
+        DOUBLE_DOWN_NAME : 'Double Down',
         BET_NAME : '베트',
         AUTO_BET_NAME : '자동 베트 시작',
         MANUAL_NAME : '수동',
@@ -31,6 +33,7 @@ const sharedCopy = {
         CHIP_INFO : '筹码价值',
         EDGE_NAME : '预期收益',
         PLACEHOLDER_CHAT : '输入你的消息',
+        DOUBLE_DOWN_NAME : 'Double Down',
         CLEAR_NAME : '清空',
         UNDO_NAME : '取消',
         EVEN_NAME : '对注',
@@ -44,6 +47,7 @@ const sharedCopy = {
     'jp' : {
         CHIP_INFO : 'チップバリュー',
         EDGE_NAME : 'エッジ',
+        DOUBLE_DOWN_NAME : 'Double Down',
         PLACEHOLDER_CHAT : 'メッセージを入力',
         CLEAR_NAME : 'クリア',
         UNDO_NAME : 'アンドゥ(取消)',

@@ -7,6 +7,8 @@ import coinFlipBet from "lib/api/coinFlip";
 import { updateUserBalance } from "lib/api/users";
 import Cache from "../../lib/cache/cache";
 import { find } from "lodash";
+import store from "../App/store";
+import { setBetResult } from "../../redux/actions/bet";
 
 
 const defaultState = {
@@ -49,6 +51,9 @@ class FlipPage extends Component {
 
     handleUpdateBalance = async () => {
         const { user, setUser } = this.context;
+        const { betObjectResult } = this.state;
+        await store.dispatch(setBetResult(betObjectResult));
+        this.addToHistory({result : `${betObjectResult.result} `, won : betObjectResult.hasWon})
         await updateUserBalance(user, setUser);
     };
 
@@ -65,31 +70,36 @@ class FlipPage extends Component {
 
     onBet = async form => {
         this.setState({onBet : true})
-        await this.handleBet(form);
-        this.setState({onBet : false})
+        let res = await this.handleBet(form);
+        this.setState({onBet : false});
+        return res;
     }
 
-    handleBet = async form => {
+    handleBet = async ({amount, side}) => {
         try{
             const { user } = this.context;
             const { onHandleLoginOrRegister } = this.props;
 
             if (!user) return onHandleLoginOrRegister("register");
 
-            const { flipResult, hasWon } = await coinFlipBet({
-                ...form,
+            const res = await coinFlipBet({
+                betAmount : amount,
+                side,
                 user
             });
-            setTimeout( () => {
-                this.addToHistory({result : `${flipResult} `, won : hasWon})
-            }, 1*1000);
 
-            return this.setState({
-                flipResult,
+            const { result, hasWon } = res;
+
+
+            this.setState({
+                flipResult : result,
+                betObjectResult  :res,
                 hasWon,
                 isCoinSpinning : true,
                 disableControls: false
             });
+
+            return res;
         }catch(err){
             return this.setState({
                 flipResult : 0,

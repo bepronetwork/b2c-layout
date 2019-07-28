@@ -3,7 +3,8 @@ import {
     messageReducer,
     profileReducer,
     chatReducer,
-    languageReducer
+    languageReducer,
+    betReducer
 } from '../../redux/reducers/index';
 
 
@@ -11,7 +12,8 @@ const reducer = combineReducers({
     profile  : profileReducer,
     message : messageReducer,
     chat : chatReducer,
-    language : languageReducer
+    language : languageReducer,
+    bet : betReducer
 });
 const store = createStore(reducer);
 

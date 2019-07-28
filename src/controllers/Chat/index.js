@@ -119,11 +119,9 @@ const APP_ID = '6551851573570433024';
    
 
     sendMessage = async ({message, data}) => {
-        console.log(message)
         try{
             return new Promise( (resolve, reject) => {
                 this.channel.sendMessage(message, (message, error) => {
-                    console.log(message, error);
                     if (error) { reject(error); }
                     this.listenChannelUpdates();
                     resolve(message);

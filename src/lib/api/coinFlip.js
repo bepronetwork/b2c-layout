@@ -18,11 +18,17 @@ export default async function bet({ betAmount, side, user }) {
             gameId: game._id
         });
         await processResponse(response);
+        
         const { message } = response.data;
+        const { winAmount, betAmount : amountBetted, _id : id, isWon, outcomeResultSpace } =message;
+        const { index } = outcomeResultSpace;
 
         return {
-            flipResult: message.outcomeResultSpace.index === 1 ? "heads" : "tails",
-            hasWon: message.isWon
+            result : index === 1 ? "heads" : "tails",
+            hasWon: isWon,
+            winAmount, 
+            betAmount : amountBetted,
+            id
         };
     } catch (error) {
         throw error;

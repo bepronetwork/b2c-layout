@@ -33,7 +33,8 @@ const defaultProps = {
     userAddress : 'N/A',
     userMetamaskAddress : 'N/A',
     isValid : false,
-    currentBalance : 0
+    currentBalance : 0,
+    betIDVerified : '',
 };
 
 class Navbar extends Component {
@@ -55,18 +56,37 @@ class Navbar extends Component {
     }
     
     projectData = async (props) => {
-        let user = !_.isEmpty(props.profile) ? props.profile : null ;
+        var user = !_.isEmpty(props.profile) ? props.profile : null ;
+        var bet = !_.isEmpty(props.bet) ? props.bet : null ;
+
         if(user){
             let userMetamaskAddress = await user.getMetamaskAddress();
             let metamaksAddress = userMetamaskAddress ? userMetamaskAddress: defaultProps.userMetamaskAddress;
-            let diff = user.balance - this.state.currentBalance;
-            // Remove Errors from double update
-            if(diff == 0){diff = this.state.difference};
+
+            var __state_add__ = {};
+
+            // Grant that there are no double updates on Difference and user balance
+            if(bet && (bet.id.toLowerCase() != this.state.betIDVerified.toLowerCase())){
+                // Bet Occurred
+                let updatedUser = await user.updateUser();
+                const { id, betAmount, winAmount } = bet;
+                __state_add__ = {
+                    difference : -parseFloat(Math.abs(betAmount)) + parseFloat(Math.abs(winAmount)),
+                    betIDVerified : new String(id).toLowerCase(),
+                    currentBalance : updatedUser.balance
+                }
+            }else{
+                // Bet hasn´t Occurred
+                __state_add__ = {
+                    difference : null,
+                    currentBalance : user ? user.balance : defaultProps.balance,
+                }
+            }
+
             this.setState({...this.state, 
+                ...__state_add__,
                 user    : user,
                 userAddress : user.getAddress() ? AddressConcat(user.getAddress()) : defaultProps.userAddress,
-                currentBalance : user ? user.balance : defaultProps.balance,
-                difference  : diff,
                 userMetamaskAddress : user ? AddressConcat(metamaksAddress) : defaultProps.userMetamaskAddress,
                 isValid : user ? new String(user.getAddress()).toLowerCase() == new String(metamaksAddress).toLowerCase() :  defaultProps.isValid     
             })
@@ -106,6 +126,7 @@ class Navbar extends Component {
     render() {
         let { onLogout, onCashier } = this.props;
         let { currentBalance, difference, user } = this.state;
+        console.log("Difference Log : " + difference)
         return (
                 <Row styleName="root">
                     <Col xs={3} md={2}>
@@ -179,6 +200,7 @@ class Navbar extends Component {
 function mapStateToProps(state){
     return {
         profile: state.profile,
+        bet : state.bet
     };
 }
 

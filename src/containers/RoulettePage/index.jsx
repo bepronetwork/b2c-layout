@@ -8,6 +8,9 @@ import rouletteBet from "lib/api/roulette";
 import Cache from "../../lib/cache/cache";
 import { updateUserBalance } from "lib/api/users";
 import { find } from "lodash";
+import store from "../App/store";
+import { setBetResult } from "../../redux/actions/bet";
+import { Numbers } from "lib/ethereum/lib";
 
 export default class RoulettePage extends Component {
     static contextType = UserContext;
@@ -24,6 +27,7 @@ export default class RoulettePage extends Component {
         game : {
             edge : 0
         },
+        betObjectResult : {},
         bet: false
     };
 
@@ -81,6 +85,10 @@ export default class RoulettePage extends Component {
         Cache.setToCache("rouletteHistory", history);
     }
 
+    addBetToRedux = async () => {
+        await store.dispatch(setBetResult(this.state.betObjectResult));
+    }
+
 
     handleBet = async () => {
         try{
@@ -91,20 +99,20 @@ export default class RoulettePage extends Component {
             if (!user) return onHandleLoginOrRegister("register");
             
             this.setState({ bet: true });
-            const { outcomeResultSpace, isWon } = await rouletteBet({
+            const res = await rouletteBet({
                 betHistory,
                 betAmount: this.getTotalBet(),
                 user
             });
-            const result = outcomeResultSpace.index;
-            setTimeout( () => {
-                this.addToHistory({result, won : isWon});
-            }, 0.3*1000);
-            return this.setState({ 
+            const { isWon, result } = res;
+
+            this.setState({ 
                 result,
-                hasWon : true,
-                disableControls: false
+                hasWon : isWon,
+                disableControls: false,
+                betObjectResult : res
             });
+            return res;
         }catch(err){
             return this.setState({
                 bet : false,
@@ -117,8 +125,11 @@ export default class RoulettePage extends Component {
 
     handleAnimation = async () => {
         this.setState({ bet: false });
-
         const { user, setUser } = this.context;
+        /* Update Info User View */
+        this.addBetToRedux();
+        const { isWon, result} = this.state.betObjectResult;
+        this.addToHistory({result, won : isWon});
         await updateUserBalance(user, setUser);
     };
 
@@ -132,6 +143,19 @@ export default class RoulettePage extends Component {
         },0);
     };
 
+    doubleDownBet = () => {
+        const { betHistory } = this.state;
+
+        this.setState({...this.state,
+            betHistory : betHistory.map( (item) => {
+                return {
+                    cell : item.cell,
+                    chip : Numbers.toFloat(parseFloat(item.chip)*2)
+                }
+            })
+        })
+    }
+
     renderGameOptions = () => {
         const { bet } = this.state;
 
@@ -141,6 +165,7 @@ export default class RoulettePage extends Component {
                 onChangeChip={this.handleChangeChip}
                 totalBet={this.getTotalBet()}
                 game={this.state.game}
+                doubleDownBet={this.doubleDownBet}
                 disableControls={bet}
             />
         );

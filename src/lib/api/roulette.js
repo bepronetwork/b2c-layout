@@ -153,7 +153,19 @@ export default async function bet({ betHistory, betAmount, user }) {
             result: betOnEachNumber,
             gameId: game._id
         });
-        return await processResponse(response);
+
+        await processResponse(response);
+
+        const { winAmount, betAmount : amountBetted, _id : id, isWon } = response.data.message;
+        const { index } = response.data.message.outcomeResultSpace;
+
+        return {
+            result : index,
+            winAmount, 
+            isWon,
+            betAmount : amountBetted,
+            id
+        };
     } catch (error) {
         console.log(error);
         throw error;

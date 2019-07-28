@@ -63,149 +63,162 @@ class RouletteGameOptions extends Component {
         return null;
     };
 
-  renderAuto = () => {
-    const { bets, profitStop, lossStop, onWin, onLoss } = this.state;
+    renderAuto = () => {
+        const { bets, profitStop, lossStop, onWin, onLoss } = this.state;
 
-    return (
-      <div>
-        <div styleName="element">
-          <InputNumber
-            name="bets"
-            title="Number of Bets"
-            value={bets}
-            onChange={this.handleBets}
-          />
+        return (
+        <div>
+            <div styleName="element">
+            <InputNumber
+                name="bets"
+                title="Number of Bets"
+                value={bets}
+                onChange={this.handleBets}
+            />
+            </div>
+            <div styleName="element">
+            <OnWinLoss title="On Win" value={onWin} onChange={this.handleOnWin} />
+            </div>
+            <div styleName="element">
+            <OnWinLoss
+                title="On Loss"
+                value={onLoss}
+                onChange={this.handleOnLoss}
+            />
+            </div>
+            <div styleName="element">
+            <InputNumber
+                name="profit"
+                step={0.01}
+                title="Stop on Profit"
+                icon="bitcoin"
+                precision={2}
+                value={profitStop}
+                onChange={this.handleStopOnProfit}
+            />
+            </div>
+            <div styleName="element">
+            <InputNumber
+                name="loss"
+                step={0.01}
+                precision={2}
+                title="Stop on Loss"
+                icon="bitcoin"
+                value={lossStop}
+                onChange={this.handleStopOnLoss}
+            />
+            </div>
         </div>
-        <div styleName="element">
-          <OnWinLoss title="On Win" value={onWin} onChange={this.handleOnWin} />
-        </div>
-        <div styleName="element">
-          <OnWinLoss
-            title="On Loss"
-            value={onLoss}
-            onChange={this.handleOnLoss}
-          />
-        </div>
-        <div styleName="element">
-          <InputNumber
-            name="profit"
-            step={0.01}
-            title="Stop on Profit"
-            icon="bitcoin"
-            precision={2}
-            value={profitStop}
-            onChange={this.handleStopOnProfit}
-          />
-        </div>
-        <div styleName="element">
-          <InputNumber
-            name="loss"
-            step={0.01}
-            precision={2}
-            title="Stop on Loss"
-            icon="bitcoin"
-            value={lossStop}
-            onChange={this.handleStopOnLoss}
-          />
-        </div>
-      </div>
-    );
-  };
+        );
+    };
 
-  handleOnWin = value => {
-    this.setState({ onWin: value });
-  };
+    handleOnWin = value => {
+        this.setState({ onWin: value });
+    };
 
-  handleOnLoss = value => {
-    this.setState({ onLoss: value });
-  };
+    handleOnLoss = value => {
+        this.setState({ onLoss: value });
+    };
 
-  handleBets = value => {
-    this.setState({ bets: value });
-  };
+    handleBets = value => {
+        this.setState({ bets: value });
+    };
 
-  handleStopOnProfit = value => {
-    this.setState({ profitStop: value });
-  };
+    handleStopOnProfit = value => {
+        this.setState({ profitStop: value });
+    };
 
-  handleStopOnLoss = value => {
-    this.setState({ lossStop: value });
-  };
+    handleStopOnLoss = value => {
+        this.setState({ lossStop: value });
+    };
 
-  renderSound = () => {
-    const { sound } = this.state;
-    const soundConfig = localStorage.getItem("sound");
+    renderSound = () => {
+        const { sound } = this.state;
+        const soundConfig = localStorage.getItem("sound");
 
-    if (!sound || soundConfig !== "on") {
-      return null;
+        if (!sound || soundConfig !== "on") {
+        return null;
+        }
+
+        return (
+        <Sound
+            onFinishedPlaying={this.handleSongFinishedPlaying}
+            volume={100}
+            url={betSound}
+            playStatus="PLAYING"
+            autoLoad
+        />
+        );
+    };
+
+    handleSongFinishedPlaying = () => {
+        this.setState({ sound: false });
+    };
+
+    render() {
+        const { type } = this.state;
+        const { onChangeChip, totalBet, ln, doubleDownBet } = this.props;
+        const copy = CopyText.shared[ln];
+
+        return (
+            <div styleName="root">
+                {this.renderSound()}
+
+                <div styleName="toggle">
+                <ToggleButton
+                    config={{
+                    left: { value: "manual", title: copy.MANUAL_NAME},
+                    right: { value: "auto", title: copy.AUTO_NAME, disabled : true}
+                    }}
+                    selected={type}
+                    size="full"
+                    differentBorders
+                    onSelect={this.handleType}
+                />
+                </div>
+                <ChipValue onChangeChip={onChangeChip} totalBet={totalBet} />
+                <div styleName="element">
+                <InputNumber
+                    name="amount"
+                    disabled
+                    icon="bitcoin"
+                    precision={2}
+                    value={totalBet}
+                    title={copy.TOTAL_BET_NAME}
+                />
+                </div>
+                <div styleName="content">
+                {type === "manual" ? null : this.renderAuto()}
+                </div>
+                <div styleName="button">
+                <Button
+                    disabled={!this.isBetValid()}
+                    onClick={this.handleBet}
+                    fullWidth
+                    theme="primary"
+                    animation={<Dice />}
+                    >
+                    <Typography weight="semi-bold" color="pickled-bluewood">
+                    {type === "manual" ? copy.BET_NAME : copy.AUTO_BET_NAME}
+                    </Typography>
+                </Button>
+                </div>
+                <div styleName="button" style={{marginTop : 10}}>
+                <Button
+                    disabled={!this.isBetValid()}
+                    onClick={doubleDownBet}
+                    fullWidth
+                    theme="default"
+                    animation={<Dice />}
+                    >
+                    <Typography weight="semi-bold" color="pickled-bluewood">
+                        {copy.DOUBLE_DOWN_NAME}
+                    </Typography>
+                </Button>
+                </div>
+            </div>
+        );
     }
-
-    return (
-      <Sound
-        onFinishedPlaying={this.handleSongFinishedPlaying}
-        volume={100}
-        url={betSound}
-        playStatus="PLAYING"
-        autoLoad
-      />
-    );
-  };
-
-  handleSongFinishedPlaying = () => {
-    this.setState({ sound: false });
-  };
-
-  render() {
-    const { type } = this.state;
-    const { onChangeChip, totalBet, ln } = this.props;
-    const copy = CopyText.shared[ln];
-
-    return (
-      <div styleName="root">
-        {this.renderSound()}
-
-        <div styleName="toggle">
-          <ToggleButton
-            config={{
-              left: { value: "manual", title: copy.MANUAL_NAME},
-              right: { value: "auto", title: copy.AUTO_NAME, disabled : true}
-            }}
-            selected={type}
-            size="full"
-            differentBorders
-            onSelect={this.handleType}
-          />
-        </div>
-        <ChipValue onChangeChip={onChangeChip} totalBet={totalBet} />
-        <div styleName="element">
-          <InputNumber
-            name="amount"
-            disabled
-            icon="bitcoin"
-            precision={2}
-            value={totalBet}
-            title={copy.TOTAL_BET_NAME}
-          />
-        </div>
-        <div styleName="content">
-          {type === "manual" ? null : this.renderAuto()}
-        </div>
-        <div styleName="button">
-          <Button
-            disabled={!this.isBetValid()}
-            onClick={this.handleBet}
-            fullWidth
-            theme="primary"
-            animation={<Dice />}
-            >
-            <Typography weight="semi-bold" color="pickled-bluewood">
-              {type === "manual" ? copy.BET_NAME : copy.AUTO_BET_NAME}
-            </Typography>
-          </Button>
-        </div>
-      </div>
-    );
-  }
 }
 
 
