@@ -40,6 +40,7 @@ import CoinFlip from "components/Icons/CoinFlip";
 import Roulette from "components/Icons/Roulette";
 import LanguagePicker from "components/LanguagePicker";
 import Caroussel from "components/Caroussel";
+import AccountInfoModal from "components/AccountInfoModal";
 
 export { Caroussel };
 export { LanguagePicker };
@@ -50,6 +51,7 @@ export { AnimationNumber };
 export { BitcoinIcon };
 export { Button };
 export { ButtonIcon };
+export { AccountInfoModal };
 export { CashierForm };
 export { MessageForm };
 export { ChipValue };

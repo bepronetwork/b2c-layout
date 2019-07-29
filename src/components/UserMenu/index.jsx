@@ -4,6 +4,7 @@ import Typography from "components/Typography";
 import ArrowDown from "components/Icons/ArrowDown";
 import ArrowUp from "components/Icons/ArrowUp";
 import Coins from "components/Icons/Coins";
+import Account from "components/Icons/Account";
 import Logout from "components/Icons/Logout";
 import { map } from "lodash";
 
@@ -36,16 +37,27 @@ export default class UserMenu extends Component {
     }
 
     getOptions = () => {
-        const { onLogout, onCashier } = this.props;
+        const { onLogout, onCashier, onAccount } = this.props;
 
         return [
         {
             value: "cashier",
             label: "Cashier",
-            icon: <Coins />,
+            icon: <Coins/>,
             action: onCashier
         },
-        { value: "logout", label: "Logout", icon: <Logout />, action: onLogout }
+        {
+            value: "account",
+            label: "Account",
+            icon: <Account/>,
+            action: onAccount
+        },
+        { 
+            value: "logout", 
+            label: "Logout", 
+            icon: <Logout/>, 
+            action: onLogout 
+        }
         ];
     };
 

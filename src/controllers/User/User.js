@@ -60,6 +60,8 @@ export default class User {
     getChat = () => {
         return this.chat;
     }
+
+    getID = () => this.id;
     
 
     updateUserState = async () => {

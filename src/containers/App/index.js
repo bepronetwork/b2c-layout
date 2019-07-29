@@ -9,26 +9,25 @@ import {
     Tabs,
     LoginForm,
     RegisterForm,
+    AccountInfoModal,
     CashierForm,
     MessageForm
 } from "components";
 import DicePage from "containers/DicePage";
 import FlipPage from "containers/FlipPage";
 import RoulettePage from "containers/RoulettePage";
-import { login, logout, register, getCurrentUser } from "lib/api/users";
+import { login, logout, register } from "lib/api/users";
 import getAppInfo from "lib/api/app";
 import handleError from "lib/api/handleError";
 import User from "controllers/User/User";
 import UserContext from "./UserContext";
-import { Row, Col, Container } from 'reactstrap';
+import { Row, Col } from 'reactstrap';
 import "./index.css";
 import Web3 from "web3";
 import { setProfileInfo } from "../../redux/actions/profile";
 import store from "./store";
 import Cache from "../../lib/cache/cache";
 import ChatPage from "../Chat";
-import gif from "assets/gif.gif";
-import ChatChannel from "../../controllers/Chat";
 import { CopyText } from "../../copy";
 import { setMessageNotification } from "../../redux/actions/message";
 import ChatChannelUnlogged from "../../controllers/Chat/ChatUnlogged";
@@ -114,6 +113,10 @@ export default class App extends Component {
         this.setState({ cashierOpen: null });
     };
 
+    handleAccountModalClose = () => {
+        this.setState({ accountInfoOpen: null });
+    };
+
     handleTabChange = name => {
         this.setState({ registerLoginModalOpen: name, error: null });
     };
@@ -125,6 +128,10 @@ export default class App extends Component {
     handleCashierOpen = () => {
         this.setState({ cashierOpen: true });
     };
+
+    handleAccountOpen = () => {
+        this.setState({ accountInfoOpen: true });
+    }
 
     handleLogin = async form => {
         try {
@@ -256,6 +263,16 @@ export default class App extends Component {
         ) : null;
     };
 
+    renderAccountInfoModal = () => {
+        const { accountInfoOpen } = this.state;
+
+        return accountInfoOpen ? (
+            <Modal onClose={this.handleAccountModalClose}>
+                <AccountInfoModal />
+            </Modal>
+        ) : null;
+    };
+
 
     updateAppInfo = async () => {
         let app = await getAppInfo();
@@ -342,10 +359,12 @@ export default class App extends Component {
                     <header>
                         <Navbar
                             user={user}
+                            onAccount={this.handleAccountOpen}
                             onLogout={this.handleLogout}
                             onLoginRegister={this.handleLoginOrRegisterOpen}
                             onCashier={this.handleCashierOpen}
                         />
+                        {this.renderAccountInfoModal()}
                         {this.renderLoginRegisterModal()}
                         {this.renderCashierModal()}
                         <MessageForm user={user}/>

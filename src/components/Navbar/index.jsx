@@ -124,7 +124,7 @@ class Navbar extends Component {
     }
 
     render() {
-        let { onLogout, onCashier } = this.props;
+        let { onLogout, onCashier, onAccount } = this.props;
         let { currentBalance, difference, user } = this.state;
         console.log("Difference Log : " + difference)
         return (
@@ -176,6 +176,7 @@ class Navbar extends Component {
                                     <div styleName="buttons-1">
                                         <div styleName='user-menu'>
                                             <UserMenu
+                                                onAccount={onAccount}
                                                 onLogout={onLogout}
                                                 onCashier={onCashier}
                                                 username={user.username}
