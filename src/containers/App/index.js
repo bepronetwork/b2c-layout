@@ -343,7 +343,6 @@ export default class App extends Component {
 
     render() {
         const { user, app, isLoading } = this.state;
-
         if (!app) return null;
 
         if(isLoading){ return(null)}

@@ -51,7 +51,7 @@ class CasinoContract {
             );
 
             return new Promise ( (resolve, reject) => {
-                self.contract.getContract().methods.deposit(address, amountWithDecimals, nonce)
+                self.contract.getContract().methods.deposit(amountWithDecimals)
                 .send({ from: address })
                 .on('transactionHash', (hash) => {
                 })
@@ -64,38 +64,25 @@ class CasinoContract {
             throw err;
         }
     }
+
+    async getMaxWithdrawal(){
+        return Numbers.fromBigNumberToInteger( await self.contract.getContract().methods.maxWithdrawal().call())
+    }
+
+    async getWithdrawalTimeRelease(){
+        return Numbers.fromSmartContractTimeToSeconds(await self.contract.getContract().methods.releaseTime().call());
+    }
     
     async getApprovedWithdrawAmount(address){
         try{
-            return Numbers.fromBigNumberToInteger(await self.contract.getContract().methods.approveWithdraw(address).call())
+            return Numbers.fromBigNumberToInteger(
+                (await self.contract.getContract().methods.withdrawals(address).call()).amount
+                )
         }catch(err){
             throw err;
         }
     }
-
-    async cancelWithdraw({address}){
-        try{
-            var res;
-            let approvedWithdrawAmount = await this.getApprovedWithdrawAmount(address);
-            if(approvedWithdrawAmount > 0){
-                return new Promise ( (resolve, reject) => {
-                    self.contract.getContract().methods.cancelWithdraw().send({from : address})
-                    .on('transactionHash', (hash) => {
-                    })
-                    .on('confirmation', (confirmations, receipt) => {
-                        resolve(receipt)
-                    })
-                    .on('error', () => {reject("Transaction Error")})
-                });
-            }
-            return res;
-        }catch(err){
-            throw err;
-        }
-    }
-
-
-
+ 
 	async allowWithdrawalFromContract({ address, amount }) {
 		try {
             await self.erc20TokenContract.allowWithdrawalFromContract({
@@ -123,29 +110,6 @@ class CasinoContract {
 		}
 	}
 
-	async determinePlayer(signedMessageObject, winBalance, nonce, category) {
-		let accounts = await window.web3.eth.getAccounts();
-
-		try {
-		let response = await self.contract
-			.getContract()
-			.methods.determinePlayer(
-			parseInt(winBalance),
-			nonce,
-			category,
-			signedMessageObject.v,
-			signedMessageObject.r,
-			signedMessageObject.s
-			)
-			.call({
-			from: accounts[0]
-			});
-		return response;
-		} catch (err) {
-		throw err;
-		}
-	}
-
 	fromIntToFloatEthereum(int) {
 		return Math.round(int * 100);
 	}
@@ -165,7 +129,7 @@ class CasinoContract {
 		return Numbers.fromBigNumberToInteger(
 			await self.contract
 			.getContract()
-			.methods.playerBalance()
+			.methods.totalPlayerBalance()
 			.call()
 		);
 		} catch (err) {

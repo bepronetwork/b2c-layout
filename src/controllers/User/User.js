@@ -63,6 +63,11 @@ export default class User {
 
     getID = () => this.id;
     
+    isValidAddress = async () => {
+        let userMetamaskAddress = await this.getMetamaskAddress();
+        return new String(this.getAddress()).toLowerCase() == new String(userMetamaskAddress).toLowerCase();
+
+    }
 
     updateUserState = async () => {
         /* Add Everything to the Redux State */  
@@ -117,12 +122,15 @@ export default class User {
 
     updateUser = async () => {
         let cache = Cache.getFromCache('Authentication');
-        let user = await login({
-            username : cache.username, 
-            password : cache.password
-        });
-        this.user = user;
-        return user;
+        if(cache){
+            let user = await login({
+                username : cache.username, 
+                password : cache.password
+            });
+            this.user = user;
+            return user;
+        }
+
     }
 
     setupCasinoContract() {
@@ -165,7 +173,8 @@ export default class User {
                 },
                 this.bearerToken
             );
-
+            console.log(res);
+            await processResponse(res);
             return res;
         } catch (err) {
             // TO DO : Verify if User declined Metamask or there was another type of error
@@ -203,13 +212,24 @@ export default class User {
         }
     }
 
+    getWithdrawalTimeRelease = async () => {
+        try{
+            return await this.casinoContract.getWithdrawalTimeRelease();
+        }catch(err){
+            throw err;
+        }
+    }
+
+    getMaxWithdrawal = async () => {
+        try{
+            return await this.casinoContract.getMaxWithdrawal();
+        }catch(err){
+            throw err;
+        }
+    }
+
     cancelWithdrawals = async () => {
         try{
-            /* Enable Metamask Auth */
-            await enableMetamask("eth");
-            let accounts = await window.web3.eth.getAccounts();
-            /* Cancel Withdraws in SC */
-            await this.casinoContract.cancelWithdraw({address : accounts[0]});
             /* Cancel Withdraws in API */
             await this.cancelWithdrawAPI();
             return true;
@@ -235,8 +255,6 @@ export default class User {
         let accounts = await window.web3.eth.getAccounts();
         return accounts[0];
     }
-
-    getNewB
 
     askForWithdraw = async ({amount}) => {
         try {
@@ -275,8 +293,7 @@ export default class User {
                 return res;
             }
 
-            await processResponse(res_with);
-            return res;
+            return await processResponse(res_with);
 
         } catch (err) {
             throw err;

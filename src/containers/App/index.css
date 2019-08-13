@@ -5,8 +5,8 @@
 .chat-container{
     position: fixed;
     width: 22%;
+    height: -webkit-fill-available !important;
     right: 0;
-    height: fit-content;
     background-color: $chat-container-color;
 }
 

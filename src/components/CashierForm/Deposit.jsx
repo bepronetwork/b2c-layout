@@ -9,15 +9,13 @@ import { connect } from "react-redux";
 import { compose } from 'lodash/fp';
 import { Numbers } from "../../lib/ethereum/lib";
 import { CopyText } from "../../copy";
+import store from "../../containers/App/store";
+import { setDepositOrWithdrawResult } from "../../redux/actions/depositOrWithdraw";
 
 const defaultProps = {
     amount : 10,
-    ticker : 'DAI'
-}
-
-const const_text = {
-    'processing'    : "",
-    'completed'     : 'Deposit Completed with Success'
+    ticker : 'DAI',
+    isAddressValid : true
 }
 
 class Deposit extends Component {
@@ -36,9 +34,12 @@ class Deposit extends Component {
     projectData = async (props) => {
         let user = props.profile;
         let decentralizedTokenAmount = await user.getTokenAmount();
+        const isAddressValid = await user.isValidAddress();
+
         this.setState({...this.state, 
             tokenAmount : decentralizedTokenAmount,
             ticker : 'DAI',    
+            isAddressValid
         })
     }
 
@@ -47,9 +48,11 @@ class Deposit extends Component {
             const { user, setUser } = this.context;
             this.setState({...this.state, onDeposit : 'processing'});
             /* Create Deposit Framework */
-            await user.createDeposit({amount : Numbers.toFloat(this.state.amount)});
+            let res = await user.createDeposit({amount : Numbers.toFloat(this.state.amount)});
+            let { message } = res.data;
+            console.log(message);
+            await store.dispatch(setDepositOrWithdrawResult(message));
             /* Update user Data */
-            
             await updateUserBalance(user, setUser);
             this.setState({...this.state, onDeposit : 'completed'});
         }catch(err){
@@ -59,7 +62,7 @@ class Deposit extends Component {
     }
 
     render() {
-        const { amount, onDeposit } = this.state;
+        const { amount, onDeposit, isAddressValid } = this.state;
         const { ln } = this.props;
         const copy = CopyText.Deposit;
 
@@ -111,11 +114,11 @@ class Deposit extends Component {
                                 />
                             </div>
                             <Button
-                            disabled={amount <= 0 || onDeposit}
-                            name="deposit"
-                            theme="primary"
-                            variant="small-body"
-                            onClick={this.depositTokens}
+                                disabled={amount <= 0 || onDeposit || !isAddressValid}
+                                name="deposit"
+                                theme="primary"
+                                variant="small-body"
+                                onClick={this.depositTokens}
                             >
                             
                                 <Typography> {copy[ln].BUTTON_ONE} </Typography>

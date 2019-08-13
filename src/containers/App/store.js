@@ -2,6 +2,7 @@ import { combineReducers, createStore } from 'redux';
 import {
     messageReducer,
     profileReducer,
+    depositOrWithdrawReducer,
     chatReducer,
     languageReducer,
     betReducer
@@ -13,6 +14,7 @@ const reducer = combineReducers({
     message : messageReducer,
     chat : chatReducer,
     language : languageReducer,
+    depositOrWithdraw : depositOrWithdrawReducer,
     bet : betReducer
 });
 const store = createStore(reducer);

@@ -34,6 +34,7 @@ const defaultProps = {
     userMetamaskAddress : 'N/A',
     isValid : false,
     currentBalance : 0,
+    depositOrWithdrawIDVerified : '',
     betIDVerified : '',
 };
 
@@ -58,15 +59,14 @@ class Navbar extends Component {
     projectData = async (props) => {
         var user = !_.isEmpty(props.profile) ? props.profile : null ;
         var bet = !_.isEmpty(props.bet) ? props.bet : null ;
+        var depositOrWithdraw = !_.isEmpty(props.depositOrWithdraw) ? props.depositOrWithdraw : null ;
 
         if(user){
             let userMetamaskAddress = await user.getMetamaskAddress();
             let metamaksAddress = userMetamaskAddress ? userMetamaskAddress: defaultProps.userMetamaskAddress;
-
             var __state_add__ = {};
-
             // Grant that there are no double updates on Difference and user balance
-            if(bet && (bet.id.toLowerCase() != this.state.betIDVerified.toLowerCase())){
+            if( (bet && !_.isEmpty(bet) && (bet.id.toLowerCase() != this.state.betIDVerified.toLowerCase())) ) {
                 // Bet Occurred
                 let updatedUser = await user.updateUser();
                 const { id, betAmount, winAmount } = bet;
@@ -75,7 +75,17 @@ class Navbar extends Component {
                     betIDVerified : new String(id).toLowerCase(),
                     currentBalance : updatedUser.balance
                 }
-            }else{
+            }else if(depositOrWithdraw && (new String(depositOrWithdraw.id).toLowerCase() != this.state.depositOrWithdrawIDVerified.toLowerCase())){
+                // Deposit/Withdraw Occurred
+                let updatedUser = await user.updateUser();
+                const { id, amount } = depositOrWithdraw;
+                __state_add__ = {
+                    difference : -parseFloat(amount),
+                    betIDVerified : new String(id).toLowerCase(),
+                    currentBalance : updatedUser.balance
+                }
+            }
+            else{
                 // Bet hasn´t Occurred
                 __state_add__ = {
                     difference : null,
@@ -126,7 +136,6 @@ class Navbar extends Component {
     render() {
         let { onLogout, onCashier, onAccount } = this.props;
         let { currentBalance, difference, user } = this.state;
-        console.log("Difference Log : " + difference)
         return (
                 <Row styleName="root">
                     <Col xs={3} md={2}>
@@ -201,7 +210,8 @@ class Navbar extends Component {
 function mapStateToProps(state){
     return {
         profile: state.profile,
-        bet : state.bet
+        bet : state.bet,
+        depositOrWithdraw : state.depositOrWithdraw
     };
 }
 

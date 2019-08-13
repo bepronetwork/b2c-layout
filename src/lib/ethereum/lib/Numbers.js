@@ -65,6 +65,10 @@ class NumbersObject {
 
         return x;
     }
+
+    fromSmartContractTimeToSeconds(time){
+        return time;
+    }
 }
 
 const Numbers = new NumbersObject();

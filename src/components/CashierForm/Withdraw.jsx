@@ -15,6 +15,8 @@ import { Numbers } from "../../lib/ethereum/lib";
 import { processResponse } from "../../lib/api/apiConfig";
 import WithdrawsTable from "./Withdraw/WithdrawsTable";
 import { CopyText } from "../../copy";
+import { setDepositOrWithdrawResult } from "../../redux/actions/depositOrWithdraw";
+import store from "../../containers/App/store";
 
 const defaultProps = {
     amount : 10,
@@ -64,6 +66,7 @@ class Withdraw extends Component {
             this.setState({...this.state, onWithdraw : 'processing'});
             /* Create Withdraw */
             let res = await user.askForWithdraw({amount : Numbers.toFloat(this.state.amount)});
+            await store.dispatch(setDepositOrWithdrawResult(res));
             this.setState({...this.state, nonce : res.nonce});
             /* Update User Balance */
             await updateUserBalance(user, setUser);

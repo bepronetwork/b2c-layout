@@ -136,6 +136,7 @@
     margin: 6px auto;
     position: relative;
     display: block;
+    width : max-content;
 }
 
 .green-light{
