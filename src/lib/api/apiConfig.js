@@ -9,7 +9,7 @@ export const apiURL_TEST = process.env.REACT_APP_API_URL_TEST;
 
 export const apiUrl_PROD = process.env.REACT_APP_API_URL;
 
-export const apiUrl = (IS_PRODUCTION == true) ? apiUrl_PROD : apiURL_TEST;
+export const apiUrl = (IS_PRODUCTION == 'true') ? apiUrl_PROD : apiURL_TEST;
 
 export const sendbirdAppID = process.env.REACT_APP_SENDBIRD_APP_ID;
 
