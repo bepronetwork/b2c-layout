@@ -38,12 +38,12 @@ export async function register({ username, password, email, address }) {
     }
 }
 
-export async function login({ username, password, app }) {
+export async function login({ username, password }) {
     try {
         const response = await axios.post(`${apiUrl}/users/login`, {
             username,
             password,
-            app
+            app : appId
         });
 
         if (response.data.data.status !== 200) {
