@@ -40,15 +40,15 @@ class GameCard extends Component {
     };
 
     render() {
-        const { title, edge, path, children, width, color, ln } = this.props;
+        const { title, edge, path, image_url, ln } = this.props;
         const copy = CopyText.shared[ln];
-        const imageStyles = "image-container " + color;
+        const imageStyles = "image-container dice-background-color"
         return (
             <div styleName="root">
                 <Link to={path} styleName="button">
                 <div styleName={imageStyles}>
                     <div styleName="icon">
-                        {children || null}
+                        <img src={image_url} styleName='coinflip-icon'/>
                     </div>
                 </div>
                 <div styleName="labels">
@@ -58,7 +58,7 @@ class GameCard extends Component {
                     </Typography>
                     </div>
                     <Typography variant="small-body" color="white">
-                    {edge >= 0 ? `${edge}% ${copy.EDGE_NAME}` : ""}
+                        {edge >= 0 ? `${edge}% ${copy.EDGE_NAME}` : ""}
                     </Typography>
                 </div>
                 </Link>

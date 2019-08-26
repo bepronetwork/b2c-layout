@@ -182,6 +182,7 @@ class LastBets extends Component {
     projectData = async (props, options=null) => {
         let { profile, ln } = props;
         let { view_amount } = this.state;
+        const appInfo = JSON.parse(localStorage.getItem("appInfo"));
 
         if(options){
             view_amount = options.view_amount
@@ -210,7 +211,7 @@ class LastBets extends Component {
                 titles : copy.TABLE.ALL_BETS.ITEMS,
                 rows : all_bets.map( (bet) =>  {
                     return {
-                        game: (games.find(game => new String(game.name).toLowerCase() == new String(bet.game).toLowerCase())).image,
+                        game: (appInfo.games.find(game => new String(game.name).toLowerCase() == new String(bet.game).toLowerCase())).image_url,
                         id: new String(bet._id).slice(3, 15),
                         username: bet.username,
                         timestamp: dateToHourAndMinute(bet.timestamp),
@@ -226,7 +227,7 @@ class LastBets extends Component {
                 titles : copy.TABLE.MY_BETS.ITEMS,
                 rows : my_bets.map( (bet) =>  {
                     return {
-                        game: (games.find(game => new String(game.name).toLowerCase() == new String(bet.game).toLowerCase())).image,
+                        game: (appInfo.games.find(game => new String(game.name).toLowerCase() == new String(bet.game).toLowerCase())).image_url,
                         id: new String(bet._id).slice(3, 15),
                         timestamp: dateToHourAndMinute(bet.timestamp),
                         betAmount: Numbers.toFloat(bet.betAmount),
@@ -241,7 +242,7 @@ class LastBets extends Component {
                 titles : copy.TABLE.BIGGEST_WIN_BETS.ITEMS,
                 rows : biggest_winners_bets.map( (bet) =>  {
                     return {
-                        game: (games.find(game => new String(game.name).toLowerCase() == new String(bet.game).toLowerCase())).image,
+                        game: (appInfo.games.find(game => new String(game.name).toLowerCase() == new String(bet.game).toLowerCase())).image_url,
                         id: new String(bet._id).slice(3, 15),
                         username: bet.username,
                         timestamp: dateToHourAndMinute(bet.timestamp),

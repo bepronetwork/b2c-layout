@@ -280,13 +280,12 @@ export default class App extends Component {
         this.setState({...this.state, app})
     };
 
-    isGameAvailable = game => {
+    isGameAvailable = metaName => {
         const appInfo = Cache.getFromCache("appInfo");
-
         if (!appInfo) return null;
-
-        return find(appInfo.games, { name: game });
+        return find(appInfo.games, { metaName: metaName });
     };
+
 
     renderPages = ({history}) => {
         return (
@@ -301,10 +300,10 @@ export default class App extends Component {
                     />
                     )}
                 />
-                {this.isGameAvailable("Linear Dice") ? (
+                {this.isGameAvailable("linear_dice_simple") ? (
                     <Route
                     exact
-                    path="/dice"
+                    path="/linear_dice_simple"
                     render={props => (
                         <DicePage
                         {...props}
@@ -313,10 +312,10 @@ export default class App extends Component {
                     )}
                     />
                 ) : null}
-                {this.isGameAvailable("CoinFlip") ? (
+                {this.isGameAvailable("coinflip_simple") ? (
                     <Route
                     exact
-                    path="/coinflip"
+                    path="/coinflip_simple"
                     render={props => (
                         <FlipPage
                         {...props}
@@ -325,10 +324,10 @@ export default class App extends Component {
                     )}
                     />
                 ) : null}
-                {this.isGameAvailable("Roulette") ? (
+                {this.isGameAvailable("european_roulette_simple") ? (
                     <Route
                     exact
-                    path="/roulette"
+                    path="/european_roulette_simple"
                     render={props => (
                         <RoulettePage
                         {...props}

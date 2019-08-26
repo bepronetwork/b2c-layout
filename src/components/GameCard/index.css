@@ -1,6 +1,49 @@
 @import "../../styles/all.css";
 
+.close-cross {
+  fill: $casper;
+}
 
+.close-cross:hover {
+  fill: $baby-powder;
+}
+
+.arrow {
+  fill: $casper;
+}
+
+.coins,
+.logout {
+  fill: $casper;
+}
+
+.rotate.casper {
+  fill: $casper;
+}
+.rotate.pickled-bluewood {
+  fill: $background-table-1-outer;
+}
+
+.undo.casper,
+.sound.casper {
+    fill: $casper;
+}
+.undo.pickled-bluewood,
+.sound.pickled-bluewood{
+    fill: $background-table-1-outer;
+}
+
+.dice-icon{
+    width: $games-dice-size;
+}
+
+.roulette-icon{
+    width: $games-roulette-size;
+}
+
+.coinflip-icon{
+    width: $games-coinflip-size;
+}
 
 .root {
   text-align: center;
