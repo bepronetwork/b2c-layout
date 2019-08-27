@@ -3,6 +3,7 @@ import { casino } from "./interfaces";
 import Contract from "./models/Contract";
 import ERC20TokenContract from "./ERC20TokenContract";
 import { Numbers } from "./lib";
+import { fromSmartContractTimeToMinutes } from "../helpers";
 
 let self;
 
@@ -63,6 +64,16 @@ class CasinoContract {
         }catch(err){
             throw err;
         }
+    }
+
+    async getWithdrawalTimeLimit(){
+        return await self.contract.getContract().methods.releaseTime().call();
+    }
+
+
+    async getTimeForWithdrawal(address){
+        let timeNeeded = ( parseInt(await this.getWithdrawalTimeLimit()) + parseInt((await self.contract.getContract().methods.withdrawals(address).call()).timestamp) - (Date.now()/1000) );
+        return parseInt(timeNeeded);
     }
 
     async getMaxWithdrawal(){
