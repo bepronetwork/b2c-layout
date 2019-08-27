@@ -1,3 +1,5 @@
+import moment from 'moment';
+
 function dateToHourAndMinute(date){
     date = new Date(date);
     let hours = date.getHours();
@@ -18,4 +20,11 @@ function dateToHourAndMinute(date){
 }
 
 
-export { dateToHourAndMinute }
+function fromSmartContractTimeToMinutes(time){
+    return moment().startOf('day')
+    .seconds(time)
+    .format('H:mm.ss');
+}
+
+
+export { dateToHourAndMinute, fromSmartContractTimeToMinutes }
