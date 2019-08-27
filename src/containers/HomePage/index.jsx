@@ -56,7 +56,7 @@ export default class HomePage extends Component {
                         <div className='row' style={{margin : 0}}>
                             {appInfo.games.map( (item) => this.renderGame(item))}
                         </div>
-                    </div>
+                    </div> 
                     <LastBets/>
                     <Footer/>
                 </div>

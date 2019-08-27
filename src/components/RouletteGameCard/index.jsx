@@ -43,14 +43,22 @@ class RouletteGameCard extends Component {
     };
 
     componentDidMount(){
-        this.projectData(this.props)
+        this.projectData(this.props);
     }
 
     componentWillReceiveProps(props){
         this.projectData(props);
     }
+
     
     projectData = async (props) => {
+        const { bet } = props;
+        if(bet == false){
+            this.setPopularNumbers(props);
+        }
+    }
+
+    setPopularNumbers = async (props) => {
         let popularNumbers = await getPopularNumbers({size : 15});
         var gamePopularNumbers = find(popularNumbers, { game: props.game._id });
         if(gamePopularNumbers){
@@ -59,7 +67,7 @@ class RouletteGameCard extends Component {
             })    
         }
     }
-
+    
     handleAnimationEnd = () => {
         const { onResultAnimation, bet } = this.props;
         if (document.documentElement.clientWidth > mobileBreakpoint && bet){

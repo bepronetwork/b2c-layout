@@ -1,4 +1,5 @@
 import moment from 'moment';
+import Cache from '../cache/cache';
 
 function dateToHourAndMinute(date){
     date = new Date(date);
@@ -26,5 +27,8 @@ function fromSmartContractTimeToMinutes(time){
     .format('H:mm.ss');
 }
 
+function getGames() {
+    return  Cache.getFromCache("appInfo") ? Cache.getFromCache("appInfo").games : [];
+}
 
-export { dateToHourAndMinute, fromSmartContractTimeToMinutes }
+export { dateToHourAndMinute, fromSmartContractTimeToMinutes, getGames }
