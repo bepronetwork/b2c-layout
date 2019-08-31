@@ -223,7 +223,7 @@ let EnhancedTableToolbar = props => {
                             <Typography variant="small-body" id="tableTitle" color={'casper'}>
                                 {time > 0 ?
                                     `Time for Withdraw : ${fromSmartContractTimeToMinutes(time)} hrs`
-                                : `You can Withdraw Now`} 
+                                : `You can Withdraw Now (Give it a minute for the Block to Mine)`} 
                             </Typography>
                         </div>
                     </Col>
