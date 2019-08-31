@@ -45,7 +45,7 @@ class TableDefault extends Component {
                                 }else if(field.image){
                                     return (
                                         <th styleName='th-row'>
-                                            <img styleName='image-icon' src={row[field.value]}/>
+                                            <img styleName='image-icon' src={row[field.value].image_url}/>
                                         </th>
                                     )
                                 }else{

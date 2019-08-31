@@ -173,7 +173,6 @@ export default class User {
                 },
                 this.bearerToken
             );
-            console.log(res);
             await processResponse(res);
             return res;
         } catch (err) {
@@ -182,6 +181,17 @@ export default class User {
             throw err;
         }
     };
+
+    getTimeForWithdrawal = async () => {
+        try{
+            /* Enable Metamask Auth */
+            await enableMetamask("eth");
+            let accounts = await window.web3.eth.getAccounts();
+            return await this.casinoContract.getTimeForWithdrawal(accounts[0]);
+        }catch(err){
+            throw err;
+        }
+    }
 
     cancelWithdrawAPI = async () => {
         try{

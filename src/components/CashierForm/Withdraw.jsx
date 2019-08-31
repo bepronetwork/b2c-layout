@@ -21,6 +21,7 @@ import store from "../../containers/App/store";
 const defaultProps = {
     amount : 10,
     ticker : 'DAI',
+    time : 0,
     totalAmount : 0,
     withdrawAvailable : 0,
     withdraws : []
@@ -42,8 +43,10 @@ class Withdraw extends Component {
     
     projectData = async (props) => {
         let decentralizeWithdrawAmount = await props.profile.getApprovedWithdraw();
+        let time = await props.profile.getTimeForWithdrawal();
         let user = await getCurrentUser();
         this.setState({...this.state, 
+            time,
             totalAmount : Numbers.toFloat(user.balance),
             withdrawAvailable : Numbers.toFloat(decentralizeWithdrawAmount),
             ticker : 'DAI',    
@@ -113,7 +116,7 @@ class Withdraw extends Component {
 
 
     render() {
-        const { permission, processing, onWithdraw, amount } = this.state;
+        const { permission, processing, onWithdraw, amount, time } = this.state;
         const { ln } = this.props;
         const COPY = CopyText.Withdraw[ln];
 
@@ -235,8 +238,8 @@ class Withdraw extends Component {
                                 <Typography variant="small-body" color="casper" otherStyles={{textAlign : 'center', marginBottom : 10}}>
                                     {COPY.INFO.SIXTH}
                                 </Typography>
-
                                 <WithdrawsTable
+                                    time={time}
                                     ln={this.props.ln}
                                     withdraw={this.withdrawTokens} 
                                     currency={this.props.profile.getAppCurrencyTicker()} data={this.state.withdraws}

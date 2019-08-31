@@ -24,7 +24,8 @@ import { Button, Typography } from "components";
 import "./index.css";
 import { etherscanLinkID } from '../../../lib/api/apiConfig';
 import { CopyText } from '../../../copy';
-
+import { Row, Col } from 'reactstrap';
+import { fromSmartContractTimeToMinutes } from '../../../lib/helpers';
 let counter = 0;
 
 
@@ -79,34 +80,38 @@ const rows = [
         id: 'amount',
         label: 'Amount',
         numeric: true,
-        align : 'center'
+        align : 'center',
+        size: 'small'
     },
     {
         id: 'confirmed',
         label: 'Status',
         numeric: false,
-        align : 'center'
-
+        align : 'center',
+        size: 'small'
     },
     {
         id: 'withdraw',
         label: 'Withdraw',
         numeric: false,
-        align : 'center'
+        align : 'center',
+        size: 'small'
 
     },
     {
         id: 'transactionHash',
         label: 'Tx Hash',
         numeric: false,
-        align : 'center'
+        align : 'center',
+        size: 'small'
 
     },
     {
         id: 'creation_date',
         label: 'Creation Date',
         numeric: false,
-        align : 'center'
+        align : 'center',
+        size: 'small'
 
     }
 ];
@@ -129,6 +134,7 @@ class EnhancedTableHead extends React.Component {
                         align={row.align ? row.align : row.numeric ? 'right' : 'left'}
                         padding={row.disablePadding ? 'none' : 'default'}
                         sortDirection={orderBy === row.id ? order : false}
+                        size={row.size}
                     >
                         <Tooltip
                         title="Sort"
@@ -140,7 +146,7 @@ class EnhancedTableHead extends React.Component {
                             direction={order}
                             onClick={this.createSortHandler(row.id)}
                         >
-                            <Typography variant={'body'} color='casper'>
+                            <Typography variant={'small-body'} color='casper'>
                                 {row.label}
                             </Typography>
                         </TableSortLabel>
@@ -192,7 +198,7 @@ const toolbarStyles = theme => ({
 });
 
 let EnhancedTableToolbar = props => {
-    const { numSelected, classes } = props;
+    const { numSelected, classes, time } = props;
 
         return (
             <Toolbar
@@ -206,9 +212,23 @@ let EnhancedTableToolbar = props => {
                     {numSelected} selected
                 </Typography>
                 ) : (
-                <Typography variant="h4" id="tableTitle" color={'casper'}>
-                    Withdraws
-                </Typography>
+                <Row>
+                    <Col md={3}>
+                        <Typography variant="h4" id="tableTitle" color={'white'}>
+                            Withdraws
+                        </Typography>
+                    </Col>
+                    <Col md={9}>
+                        <div style={{marginTop : 5}}>  
+                            <Typography variant="small-body" id="tableTitle" color={'casper'}>
+                                {time > 0 ?
+                                    `Time for Withdraw : ${fromSmartContractTimeToMinutes(time)} hrs`
+                                : `You can Withdraw Now`} 
+                            </Typography>
+                        </div>
+                    </Col>
+                </Row>
+                
                 )}
             </div>
             <div className={classes.spacer} />
@@ -306,6 +326,7 @@ class WithdrawTable extends React.Component {
         })
     }
 
+    isWithdrawAvailable = () => (this.props.time <= 0);
 
     handleRequestSort = (event, property) => {
         const orderBy = property;
@@ -339,14 +360,14 @@ class WithdrawTable extends React.Component {
     isSelected = id => this.state.selected.indexOf(id) !== -1;
 
     render() {
-        const { classes, ln } = this.props;
+        const { classes, ln, time } = this.props;
         const { data, order, orderBy, selected, rowsPerPage, page } = this.state;
         const emptyRows = rowsPerPage - Math.min(rowsPerPage, data.length - page * rowsPerPage);
         const copy = CopyText.Withdraw[ln];
 
         return (
             <Paper className={classes.root}>
-                    <EnhancedTableToolbar numSelected={selected.length} />
+                    <EnhancedTableToolbar numSelected={selected.length} time={time}  />
                         <div className={classes.tableWrapper}>
                     <Table className={classes.table} aria-labelledby="tableTitle">
                         <EnhancedTableHead
@@ -372,7 +393,7 @@ class WithdrawTable extends React.Component {
                                     key={n.id}
                                     selected={isSelected}
                                 >
-                                    <StyledTableCell align="center">
+                                    <StyledTableCell  style={{width : 20}} align="center">
                                         <Typography variant={'small-body'} color='white'>
                                             {n.amount} {this.props.currency}
                                         </Typography>
@@ -389,6 +410,7 @@ class WithdrawTable extends React.Component {
                                             ?
                                             <button
                                                 styleName='deposit-button'
+                                                disabled={!this.isWithdrawAvailable()}
                                                 onClick={ () => this.props.withdraw(n)}
                                             >
                                                 <Typography color={'white'} variant={'small-body'}>{copy.TABLE.BUTTON_ONE}</Typography>

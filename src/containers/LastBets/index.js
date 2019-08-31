@@ -6,14 +6,13 @@ import { Row, Col } from 'reactstrap';
 import "./index.css";
 import { getLastBets, getBiggestUserWinners, getBiggestBetWinners } from "../../lib/api/app";
 import { Numbers } from "../../lib/ethereum/lib";
-import { dateToHourAndMinute } from "../../lib/helpers";
+import { dateToHourAndMinute, getGames } from "../../lib/helpers";
 import Tabs from "../../components/Tabs";
 import { DropDownField, Typography } from 'components';
 import TableDefault from "./Table";
 import { MenuItem } from '@material-ui/core';
 import _ from 'lodash';
 import { CopyText } from "../../copy";
-import games from "../../config/games";
 
 const views = [10 , 25, 50, 100];
 
@@ -138,7 +137,9 @@ const defaultProps = {
     biggest_win_users : rows.biggest_win_users,
     view        : 'all_bets',
     view_amount : views[1],
-    options : []
+    games : [],
+    options : [],
+    view_game :  getGames()[0] ? getGames()[0].metaName : null
 }
 
 class LastBets extends Component {
@@ -154,7 +155,6 @@ class LastBets extends Component {
     }
 
     componentDidMount(){
-        this.setTimer();
         this.projectData(this.props)
     }
 
@@ -163,12 +163,7 @@ class LastBets extends Component {
     }
 
     setTimer = (options) => {
-        clearInterval(this.timer);
-        this.timer = null;
         this.projectData(this.props, options)
-        this.timer = setInterval( () => {
-            this.projectData(this.props, options)
-        }, 10*1000);
     }
 
     handleTabChange = name => {
@@ -178,17 +173,21 @@ class LastBets extends Component {
     changeViewBets = ({value}) => {
         this.setTimer({view_amount : value})
     }
+
+    changeViewGames = ({value}) => {
+        this.setTimer({view_game : value})
+    }
     
     projectData = async (props, options=null) => {
         let { profile, ln } = props;
-        let { view_amount } = this.state;
-
+        let { view_amount, view_game } = this.state;
+        const games = getGames();
+        
         if(options){
-            view_amount = options.view_amount
+            view_amount = options.view_amount ? options.view_amount : view_amount;
+            view_game = options.view_game ? options.view_game : view_game;
         }
-
         const copy = CopyText.homepage[ln];
-
         let all_bets = await getLastBets({size : view_amount});
         let biggest_winners_bets = await getBiggestBetWinners({size : view_amount});
         let biggest_win_users = await getBiggestUserWinners({size : view_amount});
@@ -199,6 +198,7 @@ class LastBets extends Component {
         }
         this.setState({...this.state, 
             ...options,
+            games : games,
             options : Object.keys(copy.TABLE).map( (key) => {
                 return {
                     value : new String(key).toLowerCase(),
@@ -210,7 +210,7 @@ class LastBets extends Component {
                 titles : copy.TABLE.ALL_BETS.ITEMS,
                 rows : all_bets.map( (bet) =>  {
                     return {
-                        game: (games.find(game => new String(game.name).toLowerCase() == new String(bet.game).toLowerCase())).image,
+                        game: (games.find(game => new String(game.name).toLowerCase() == new String(bet.game).toLowerCase())),
                         id: new String(bet._id).slice(3, 15),
                         username: bet.username,
                         timestamp: dateToHourAndMinute(bet.timestamp),
@@ -219,14 +219,14 @@ class LastBets extends Component {
                         isWon : bet.isWon,
                         payout : `${Numbers.toFloat(bet.winAmount/bet.betAmount)}x`
                     }
-                })
+                }).filter( el => (el.game.metaName == view_game))
             },
             my_bets : {
                 ...this.state.my_bets,
                 titles : copy.TABLE.MY_BETS.ITEMS,
                 rows : my_bets.map( (bet) =>  {
                     return {
-                        game: (games.find(game => new String(game.name).toLowerCase() == new String(bet.game).toLowerCase())).image,
+                        game: (games.find(game => new String(game.name).toLowerCase() == new String(bet.game).toLowerCase())),
                         id: new String(bet._id).slice(3, 15),
                         timestamp: dateToHourAndMinute(bet.timestamp),
                         betAmount: Numbers.toFloat(bet.betAmount),
@@ -234,14 +234,14 @@ class LastBets extends Component {
                         isWon : bet.isWon,
                         payout : `${Numbers.toFloat(bet.winAmount/bet.betAmount)}x`
                     }
-                })
+                }).filter( el => (el.game.metaName == view_game))
             },
             biggest_win_bets  : {
                 ...this.state.biggest_win_bets,
                 titles : copy.TABLE.BIGGEST_WIN_BETS.ITEMS,
                 rows : biggest_winners_bets.map( (bet) =>  {
                     return {
-                        game: (games.find(game => new String(game.name).toLowerCase() == new String(bet.game).toLowerCase())).image,
+                        game: (games.find(game => new String(game.name).toLowerCase() == new String(bet.game).toLowerCase())),
                         id: new String(bet._id).slice(3, 15),
                         username: bet.username,
                         timestamp: dateToHourAndMinute(bet.timestamp),
@@ -250,7 +250,7 @@ class LastBets extends Component {
                         isWon : bet.isWon,
                         payout : `${Numbers.toFloat(bet.winAmount/bet.betAmount)}x`
                     }
-                })
+                }).filter( el => (el.game.metaName == view_game))
             },
             biggest_win_users : {
                 ...this.state.biggest_win_users,
@@ -268,18 +268,38 @@ class LastBets extends Component {
     }
 
     render() {
+        const { games } = this.state;
+
         return (
             <div styleName='container'>
                 <div styleName="last-bets-container">
                     <div styleName="root">
                         <div styleName="container">
                             <Row>
-                                <Col md={11}>
+                                <Col md={10}>
                                     <Tabs
                                         selected={this.state.view}
                                         options={this.state.options}
                                         onSelect={this.handleTabChange}
                                     />
+                                </Col>
+                                <Col md={1}>
+                                    <div styleName='bets-dropdown-game'>
+                                        <DropDownField
+                                            id="view"
+                                            type={'view'}
+                                            onChange={(e) => this.changeViewGames(e)}
+                                            options={views}
+                                            value={this.state.view_game}
+                                            style={{width : '80%'}}
+                                            >
+                                            {games.map(option => (
+                                                <MenuItem key={option} value={option.metaName}>
+                                                    <img src={option.image_url} styleName='image-game-icon'/>
+                                                </MenuItem>
+                                            ))}
+                                        </DropDownField> 
+                                    </div>
                                 </Col>
                                 <Col md={1}>
                                     <div styleName='bets-dropdown'>

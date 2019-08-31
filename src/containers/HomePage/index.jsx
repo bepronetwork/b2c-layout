@@ -5,12 +5,10 @@ import PropTypes from "prop-types";
 import UserContext from "containers/App/UserContext";
 import PlayInvitation from "components/PlayInvitation";
 import { Row, Col} from 'reactstrap';
-
+import games from '../../config/games';
 import "./index.css";
 import LastBets from "../LastBets";
 import Footer from "../Footer";
-import games from "../../config/games";
-
 
 export default class HomePage extends Component {
     static contextType = UserContext;
@@ -26,30 +24,29 @@ export default class HomePage extends Component {
         return <PlayInvitation {...this.props} onLoginRegister={onHandleLoginOrRegister} />;
     };
 
-    isGameAvailable = game => {
-        const appInfo = JSON.parse(localStorage.getItem("appInfo"));
-        if (!appInfo) { return null; }
-        return find(appInfo.games, { name: game });
+    isGameAvailable = metaName => {
+        return find(games, { metaName : metaName });
     };
 
-    renderGame = ({path, title, color, content}) => {
-        let game = this.isGameAvailable(title);
-        if(!game) {return null};
+    renderGame = ({metaName, name, edge, image_url}) => {
+        if(!this.isGameAvailable(metaName)){return null}
         return (
                 <Col md={6} lg={4}>
                     <GameCard
-                        path={path}
-                        title={title}
-                        color={color}
-                        edge={game.edge}
+                        path={metaName}
+                        title={name}
+                        edge={edge}
+                        image_url={image_url}
                     >
-                        {content}
                     </GameCard>
                 </Col>
         )
     }
 
     render() {
+        const appInfo = JSON.parse(localStorage.getItem("appInfo"));
+        if (!appInfo) { return null; }
+
         return (
             <div styleName="root">
                <Caroussel/> 
@@ -57,9 +54,9 @@ export default class HomePage extends Component {
                 <div styleName="container">
                     <div styleName='container-small'>                       
                         <div className='row' style={{margin : 0}}>
-                            {games.map( (item) => this.renderGame(item))}
+                            {appInfo.games.map( (item) => this.renderGame(item))}
                         </div>
-                    </div>
+                    </div> 
                     <LastBets/>
                     <Footer/>
                 </div>
