@@ -45,6 +45,7 @@
     "rc-slider": "^8.6.9",
     "react": "^16.8.6",
     "react-animated-number": "^0.4.4",
+    "react-announcement-bar": "0.0.1",
     "react-dom": "^16.8.6",
     "react-hot-loader": "^4.8.4",
     "react-image-gallery": "^0.8.18",
