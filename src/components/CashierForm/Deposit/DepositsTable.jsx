@@ -62,7 +62,7 @@ const fromDatabasetoTable = (data) => {
         return {
             id :  data._id,
 			amount : Numbers.toFloat(data.amount),
-            confirmed: data.confirmed ? 'Confirmed' : 'Open',
+            confirmed: data.isConfirmed ? 'Confirmed' : 'Open',
             done :  data.confirmed,
             transactionHash : data.transactionHash,
             creation_timestamp : new Date(data.creation_timestamp),
@@ -89,14 +89,6 @@ const rows = [
         numeric: false,
         align : 'center',
         size: 'small'
-    },
-    {
-        id: 'withdraw',
-        label: 'Withdraw',
-        numeric: false,
-        align : 'center',
-        size: 'small'
-
     },
     {
         id: 'transactionHash',
@@ -198,7 +190,7 @@ const toolbarStyles = theme => ({
 });
 
 let EnhancedTableToolbar = props => {
-    const { numSelected, classes, time } = props;
+    const { numSelected, classes } = props;
 
         return (
             <Toolbar
@@ -215,15 +207,13 @@ let EnhancedTableToolbar = props => {
                 <Row>
                     <Col md={3}>
                         <Typography variant="h4" id="tableTitle" color={'white'}>
-                            Withdraws
+                            Deposits
                         </Typography>
                     </Col>
                     <Col md={9}>
-                        <div style={{marginTop : 5}}>  
+                        <div style={{marginTop : 5, marginLeft : 10}}>  
                             <Typography variant="small-body" id="tableTitle" color={'casper'}>
-                                {time > 0 ?
-                                    `Time for Withdraw : ${fromSmartContractTimeToMinutes(time)} hrs`
-                                : `You can Withdraw Now (Give it a minute for the Block to Mine)`} 
+                                Last Deposits
                             </Typography>
                         </div>
                     </Col>
@@ -293,7 +283,7 @@ const StyledTableCell = withStyles(theme => ({
     }
 }))(TableCell);
 
-class WithdrawTable extends React.Component {
+class DepositsTable extends React.Component {
     
     constructor(props){
         super(props)
@@ -325,8 +315,6 @@ class WithdrawTable extends React.Component {
             ticker : 'DAI'
         })
     }
-
-    isWithdrawAvailable = () => (this.props.time <= 0);
 
     handleRequestSort = (event, property) => {
         const orderBy = property;
@@ -360,14 +348,14 @@ class WithdrawTable extends React.Component {
     isSelected = id => this.state.selected.indexOf(id) !== -1;
 
     render() {
-        const { classes, ln, time } = this.props;
+        const { classes, ln } = this.props;
         const { data, order, orderBy, selected, rowsPerPage, page } = this.state;
         const emptyRows = rowsPerPage - Math.min(rowsPerPage, data.length - page * rowsPerPage);
         const copy = CopyText.Withdraw[ln];
 
         return (
             <Paper className={classes.root}>
-                    <EnhancedTableToolbar numSelected={selected.length} time={time}  />
+                    <EnhancedTableToolbar numSelected={selected.length} />
                         <div className={classes.tableWrapper}>
                     <Table className={classes.table} aria-labelledby="tableTitle">
                         <EnhancedTableHead
@@ -399,25 +387,12 @@ class WithdrawTable extends React.Component {
                                         </Typography>
                                     </StyledTableCell>
                                     <StyledTableCell style={{width : 50}} align="center">
-                                    <div styleName={withdrawStatus[n.confirmed.toLowerCase()]}>
+                                        <div styleName={withdrawStatus[n.confirmed.toLowerCase()]}>
                                             <Typography variant={'small-body'} color='white'>
                                                 {n.confirmed}
                                             </Typography>
                                         </div>
                                     </StyledTableCell>
-                                    <StyledTableCell align="center">
-                                        {
-                                            !n.done
-                                            ?
-                                            <button
-                                                styleName='deposit-button'
-                                                disabled={!this.isWithdrawAvailable()}
-                                                onClick={ () => this.props.withdraw(n)}
-                                            >
-                                                <Typography color={'white'} variant={'small-body'}>{copy.TABLE.BUTTON_ONE}</Typography>
-                                            </button>
-                                         : 'Done'}
-                                     </StyledTableCell>
                                      <StyledTableCell align="left">
                                         {n.transactionHash ?
                                             <a href={`${etherscanLinkID}/tx/${n.transactionHash}`} target={'_blank'}>
@@ -469,8 +444,8 @@ class WithdrawTable extends React.Component {
 
 
 
-WithdrawTable.propTypes = {
+DepositsTable.propTypes = {
     classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(WithdrawTable);
+export default withStyles(styles)(DepositsTable);
