@@ -43,24 +43,29 @@ function getTransactionDataERC20(transaction_data_encoded){
 }
 
 function getTransactionDataCasino(transaction_data_encoded, transaction_recipt_encoded){
-    const input = transaction_data_encoded.input;
-    const decodedInput = abiDecoderCasino.decodeMethod(input);
-    if(!decodedInput){return null}
-    const functionName = decodedInput.name;
-    const functionParams = decodedInput.params;
+    try{
+        const input = transaction_data_encoded.input;
+        const decodedInput = abiDecoderCasino.decodeMethod(input);
+        if(!decodedInput){return null}
+        const functionName = decodedInput.name;
+        const functionParams = decodedInput.params;
 
-    let decodedLogs = abiDecoderCasino.decodeLogs(transaction_recipt_encoded.logs);
-    let decodedLogsEventTransfer = decodedLogs[0].events;
-    let tokensTransferedTo = decodedLogsEventTransfer[1].value;
-    /* Response Object */
-    let res = {
-        tokensTransferedTo : tokensTransferedTo,
-        functionName : functionName,
-        from : transaction_data_encoded.from,
-        tokenAmount : functionParams[0].value
+        let decodedLogs = abiDecoderCasino.decodeLogs(transaction_recipt_encoded.logs);
+        let decodedLogsEventTransfer = decodedLogs[0].events;
+        if(!decodedLogsEventTransfer){return null};
+        let tokensTransferedTo = decodedLogsEventTransfer[1].value;
+        /* Response Object */
+        let res = {
+            tokensTransferedTo : tokensTransferedTo,
+            functionName : functionName,
+            from : transaction_data_encoded.from,
+            tokenAmount : functionParams[0].value
+        }
+
+        return res;
+    }catch(err){
+        return null;
     }
-
-    return res;
 }
 
 
