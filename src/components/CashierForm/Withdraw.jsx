@@ -60,7 +60,7 @@ class Withdraw extends Component {
             async () => {
             await this.props.profile.updateUser();
             this.projectData(this.props);
-        }, 1000);
+        }, 10*1000);
     }
 
     askForWithdraw = async () => {

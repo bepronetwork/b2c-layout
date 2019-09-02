@@ -35,6 +35,10 @@ class CasinoContract {
             .send({ from: address })   
             .on('transactionHash', (hash) => {
             })
+            .on('receipt', (receipt) => {
+                console.log(receipt)
+                resolve(receipt)
+            })
             .on('confirmation', (confirmations, receipt) => {
                 resolve(receipt)
             })
@@ -55,6 +59,10 @@ class CasinoContract {
                 self.contract.getContract().methods.deposit(amountWithDecimals)
                 .send({ from: address })
                 .on('transactionHash', (hash) => {
+                })
+                .on('receipt', (receipt) => {
+                    console.log(receipt)
+                    resolve(receipt)
                 })
                 .on('confirmation', (confirmations, receipt) => {
                     resolve(receipt)
@@ -86,9 +94,9 @@ class CasinoContract {
     
     async getApprovedWithdrawAmount(address){
         try{
-            return Numbers.fromBigNumberToInteger(
-                (await self.contract.getContract().methods.withdrawals(address).call()).amount
-                )
+            let res = await self.contract.getContract().methods.withdrawals(address).call();
+            return Numbers.fromBigNumberToInteger(res ? res.amount : 0);
+               
         }catch(err){
             throw err;
         }

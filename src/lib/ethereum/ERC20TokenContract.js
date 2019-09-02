@@ -40,6 +40,10 @@ class ERC20TokenContract {
                 .send({ from: address })
                 .on('transactionHash', (hash) => {
                 })
+                .on('receipt', (receipt) => {
+                    console.log(receipt)
+                    resolve(receipt)
+                })
                 .on('confirmation', (confirmations, receipt) => {
                     resolve(receipt)
                 })

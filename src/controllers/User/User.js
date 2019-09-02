@@ -17,6 +17,7 @@ import Cache from "../../lib/cache/cache";
 import ChatChannel from "../Chat";
 import store from "../../containers/App/store";
 import { setProfileInfo } from "../../redux/actions/profile";
+import { getPastTransactions, getTransactionDataCasino } from "../../lib/ethereum/lib/Etherscan";
 
 export default class User {
     constructor({
@@ -161,9 +162,10 @@ export default class User {
                 amount,
                 nonce : nonce
             });
+            console.log(resEthereum);
 
             /* Update API Wallet Update */
-            let res =  await updateUserWallet(
+            let res = await updateUserWallet(
                 {
                     user: this.user_id,
                     amount,
@@ -181,6 +183,28 @@ export default class User {
             throw err;
         }
     };
+
+    confirmDeposit = async ({nonce, amount, transactionHash}) => {
+        try {
+            /* Update API Wallet Update */
+            let res = await updateUserWallet(
+                {
+                    user: this.user_id,
+                    amount,
+                    app: this.app_id,
+                    nonce : nonce,
+                    transactionHash: transactionHash
+                },
+                this.bearerToken
+            );
+            await processResponse(res);
+            return res;
+        } catch (err) {
+            // TO DO : Verify if User declined Metamask or there was another type of error
+            // TO DO : Display the Error
+            throw err;
+        }
+    }
 
     getTimeForWithdrawal = async () => {
         try{
@@ -207,6 +231,58 @@ export default class User {
             console.log(err)
             throw err;
         }
+    }
+
+    getUnconfirmedBlockchainDeposits = async (address) => {
+        try{            
+            var platformAddress =  this.platformAddress;
+            var platformTokenAddress =  this.tokenAddress;
+            var allTxs = (await getPastTransactions(address)).result;         
+            let unconfirmedDepositTxs = (await Promise.all(allTxs.map( async tx => {
+                let res_transaction = await window.web3.eth.getTransaction(tx.hash);
+                let res_transaction_recipt = await window.web3.eth.getTransactionReceipt(tx.hash);
+                let transactionData = getTransactionDataCasino(res_transaction, res_transaction_recipt);
+                if(!transactionData){return null}
+                return {
+                    amount: Numbers.fromDecimals(transactionData.tokenAmount, this.decimals),
+                    to : tx.to,
+                    tokensTransferedTo : transactionData.tokensTransferedTo,
+                    creation_timestamp: tx.timestamp,
+                    transactionHash: tx.hash
+                }
+            }))).filter(el => el != null).filter( tx => {
+                return (
+                    new String(tx.to).toLowerCase().trim() == new String(platformAddress).toLowerCase().trim()
+                    && new String(tx.tokensTransferedTo).toLowerCase().trim() == new String(platformAddress).toLowerCase().trim()
+                    )
+            })
+            return unconfirmedDepositTxs;
+        }catch(err){
+            throw err;
+        }
+    }
+
+    getDeposits = async () => {
+        var address = this.getAddress();
+        let depositsApp = this.user.deposits || [];
+        let allTxsDeposits = await this.getUnconfirmedBlockchainDeposits(address);
+        console.log(this.user.deposits);
+        console.log(allTxsDeposits);
+        return (await Promise.all(allTxsDeposits.map( async tx => {
+            var isConfirmed = false, deposit = null;
+            for(var i = 0; i < depositsApp.length; i++){
+                if(new String(depositsApp[i].transactionHash).toLowerCase().trim() == new String(tx.transactionHash).toLowerCase().trim()){
+                    isConfirmed = true;
+                    deposit = depositsApp[i];
+                }
+            }
+            if(isConfirmed){
+                return {...deposit, isConfirmed}
+            }else{
+                console.log(tx)
+                return {...tx, isConfirmed}
+            }
+        }))).filter(el => el != null)
     }
 
 
