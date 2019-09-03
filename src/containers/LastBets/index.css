@@ -26,10 +26,6 @@
     margin-top : -20px;
 }
 
-.bets-dropdown-game{
-    margin-top : -30px;
-}
-
 .coin {
   background-color: $tree-poppy;
 
@@ -56,9 +52,24 @@
     grid-auto-columns: 1fr;
 }
 
-.image-game-icon{
-    width : 40px;
+
+.bets-dropdown-game{
+    margin-top : -90px;
 }
+.bets-dropdown-game div {
+    margin-top:1.5rem;
+}
+.image-game-icon{
+    width : 80px;
+    height: auto;
+    position:absolute;
+    top:50%;
+    left:50%;
+    transform:translate(-50%, -50%);
+    padding: 0;
+    margin: 0 auto;
+}
+
 
 .tr-row-odd{
     display: grid;
