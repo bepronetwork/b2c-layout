@@ -98,6 +98,7 @@ export default class User {
     updateDecentralizedStats = async () => {
         this.params.decentralizeWithdrawAmount = await this.__getApprovedWithdraw();
         this.params.timeToWithdraw = await this.__getTimeForWithdrawal();
+        console.log(this.params.timeToWithdraw);
         this.params.deposits = await this.__getDeposits();
     }
 
