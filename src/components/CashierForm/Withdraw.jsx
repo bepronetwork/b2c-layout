@@ -34,7 +34,6 @@ class Withdraw extends Component {
 
     componentDidMount(){
         this.projectData(this.props);
-        this.setTimer();
     }
 
     componentWillReceiveProps(props){
@@ -42,41 +41,32 @@ class Withdraw extends Component {
     }
     
     projectData = async (props) => {
-        let decentralizeWithdrawAmount = await props.profile.getApprovedWithdraw();
-        let time = await props.profile.getTimeForWithdrawal();
-        let user = await getCurrentUser();
+        let user = this.props.profile;
+        let decentralizeWithdrawAmount = user.getApprovedWithdraw();
+        let time = user.getTimeForWithdrawal();
         this.setState({...this.state, 
             time,
-            totalAmount : Numbers.toFloat(user.balance),
+            totalAmount : Numbers.toFloat(user.getBalance()),
             withdrawAvailable : Numbers.toFloat(decentralizeWithdrawAmount),
             ticker : 'DAI',    
-            withdraws : props.profile.getWithdraws()
+            withdraws : user.getWithdraws()
         })
     }
 
-    setTimer = () => {
-        clearTimeout(this.timer);
-        this.timer = setInterval(
-            async () => {
-            await this.props.profile.updateUser();
-            this.projectData(this.props);
-        }, 10*1000);
-    }
-
     askForWithdraw = async () => {
-        const { user, setUser } = this.context;
+        const user = this.props.profile;
         try{
             this.setState({...this.state, onWithdraw : 'processing'});
             /* Create Withdraw */
             let res = await user.askForWithdraw({amount : Numbers.toFloat(this.state.amount)});
-            await store.dispatch(setDepositOrWithdrawResult(res));
             this.setState({...this.state, nonce : res.nonce});
             /* Update User Balance */
-            await updateUserBalance(user, setUser);
+            await user.getAllData();
+            this.projectData(this.props);
             this.setState({...this.state, onWithdraw : null});
         }catch(err){
             console.log(err)
-            await updateUserBalance(user, setUser);
+            await user.getAllData();
             this.projectData(this.props);
             this.setState({...this.state, onWithdraw : null});
         }
@@ -84,17 +74,17 @@ class Withdraw extends Component {
 
     withdrawTokens = async (withdrawObject) => {
         var { nonce, id, amount } = withdrawObject;
-        const { user, setUser } = this.context;
+        const user = this.props.profile;
         try{
             this.setState({...this.state, onWithdraw : 'processing'});
             /* Create Withdraw */
             await user.createWithdraw({amount : Numbers.toFloat(amount), nonce, withdraw_id : id });
             /* Update User Balance */
-            await updateUserBalance(user, setUser);
+            await user.getAllData();
             this.setState({...this.state, onWithdraw : 'completed'});
         }catch(err){
             console.log(err)
-            await updateUserBalance(user, setUser);
+            await user.getAllData();
             this.setState({...this.state, onWithdraw : null});
         }
     }
@@ -108,7 +98,6 @@ class Withdraw extends Component {
             /* Update User Balance */
             this.setState({...this.state, onWithdraw : null});
         }catch(err){
-            await updateUserBalance(user, setUser);
             this.projectData(this.props);
             this.setState({...this.state, onWithdraw : null});
         }

@@ -307,11 +307,11 @@ class DepositsTable extends React.Component {
         this.projectData(props);
     }
 
-    projectData = (props) => {
+    projectData = async (props) => {
         let data = props.data;
-
+        let deposits = this.props.user.getDeposits();
         this.setState({...this.state, 
-            data : fromDatabasetoTable(data),
+            data : fromDatabasetoTable(deposits),
             ticker : 'DAI'
         })
     }

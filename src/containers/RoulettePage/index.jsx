@@ -9,10 +9,11 @@ import Cache from "../../lib/cache/cache";
 import { updateUserBalance } from "lib/api/users";
 import { find } from "lodash";
 import store from "../App/store";
-import { setBetResult } from "../../redux/actions/bet";
 import { Numbers } from "lib/ethereum/lib";
+import { connect } from "react-redux";
+import { compose } from 'lodash/fp';
 
-export default class RoulettePage extends Component {
+class RoulettePage extends Component {
     static contextType = UserContext;
 
     static propTypes = {
@@ -85,9 +86,6 @@ export default class RoulettePage extends Component {
         Cache.setToCache("rouletteHistory", history);
     }
 
-    addBetToRedux = async () => {
-        await store.dispatch(setBetResult(this.state.betObjectResult));
-    }
 
 
     handleBet = async () => {
@@ -125,12 +123,11 @@ export default class RoulettePage extends Component {
 
     handleAnimation = async () => {
         this.setState({ bet: false });
-        const { user, setUser } = this.context;
+        const { profile } = this.props;
         /* Update Info User View */
-        this.addBetToRedux();
         const { isWon, result} = this.state.betObjectResult;
         this.addToHistory({result, won : isWon});
-        await updateUserBalance(user, setUser);
+        await profile.getBalanceData();
     };
 
     getTotalBet = () => {
@@ -199,3 +196,12 @@ export default class RoulettePage extends Component {
         );
     }
 }
+
+function mapStateToProps(state){
+    return {
+        profile: state.profile,
+        ln : state.language
+    };
+}
+
+export default compose(connect(mapStateToProps))(RoulettePage);

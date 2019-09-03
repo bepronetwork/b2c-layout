@@ -58,44 +58,13 @@ class Navbar extends Component {
     
     projectData = async (props) => {
         var user = !_.isEmpty(props.profile) ? props.profile : null ;
-        var bet = !_.isEmpty(props.bet) ? props.bet : null ;
-        var depositOrWithdraw = !_.isEmpty(props.depositOrWithdraw) ? props.depositOrWithdraw : null ;
-
         if(user){
             let userMetamaskAddress = await user.getMetamaskAddress();
             let metamaksAddress = userMetamaskAddress ? userMetamaskAddress: defaultProps.userMetamaskAddress;
-            var __state_add__ = {};
-            // Grant that there are no double updates on Difference and user balance
-            if( (bet && !_.isEmpty(bet) && (bet.id.toLowerCase() != this.state.betIDVerified.toLowerCase())) ) {
-                // Bet Occurred
-                let updatedUser = await user.updateUser();
-                const { id, betAmount, winAmount } = bet;
-                __state_add__ = {
-                    difference : -parseFloat(Math.abs(betAmount)) + parseFloat(Math.abs(winAmount)),
-                    betIDVerified : new String(id).toLowerCase(),
-                    currentBalance : updatedUser.balance
-                }
-            }else if(depositOrWithdraw && (new String(depositOrWithdraw.id).toLowerCase() != this.state.depositOrWithdrawIDVerified.toLowerCase())){
-                // Deposit/Withdraw Occurred
-                let updatedUser = await user.updateUser();
-                const { id, amount } = depositOrWithdraw;
-                __state_add__ = {
-                    difference : -parseFloat(amount),
-                    betIDVerified : new String(id).toLowerCase(),
-                    currentBalance : updatedUser.balance
-                }
-            }
-            else{
-                // Bet hasn´t Occurred
-                __state_add__ = {
-                    difference : null,
-                    currentBalance : user ? user.balance : defaultProps.balance,
-                }
-            }
-
             this.setState({...this.state, 
-                ...__state_add__,
                 user    : user,
+                difference : parseFloat(user.getBalance() - this.state.currentBalance),
+                currentBalance : user.getBalance(),
                 userAddress : user.getAddress() ? AddressConcat(user.getAddress()) : defaultProps.userAddress,
                 userMetamaskAddress : user ? AddressConcat(metamaksAddress) : defaultProps.userMetamaskAddress,
                 isValid : user ? new String(user.getAddress()).toLowerCase() == new String(metamaksAddress).toLowerCase() :  defaultProps.isValid     

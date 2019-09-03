@@ -8,9 +8,10 @@ import diceBet from "lib/api/dice";
 import Cache from "../../lib/cache/cache";
 import { find } from "lodash";
 import store from "../App/store";
-import { setBetResult } from "../../redux/actions/bet";
+import { connect } from "react-redux";
+import { compose } from 'lodash/fp';
 
-export default class DicePage extends Component {
+class DicePage extends Component {
     static contextType = UserContext;
 
     static propTypes = {
@@ -59,8 +60,6 @@ export default class DicePage extends Component {
                 betAmount: amount,
                 user
             });
-            await store.dispatch(setBetResult(res));
-
             this.setState({ 
                 result : res.result, 
                 disableControls : false, 
@@ -74,12 +73,9 @@ export default class DicePage extends Component {
     };
 
     handleAnimation = async () => {
-        const { user, setUser } = this.context;
+        const { profile } = this.props;
         const { betObjectResult } = this.state;
-
-        await updateUserBalance(user, setUser);
-
-
+        await profile.getBalanceData();
         this.setState({ result: null, disableControls: false });
     };
 
@@ -123,3 +119,14 @@ export default class DicePage extends Component {
         );
     }
 }
+
+
+
+function mapStateToProps(state){
+    return {
+        profile: state.profile,
+        ln : state.language
+    };
+}
+
+export default connect(mapStateToProps)(DicePage);
