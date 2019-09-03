@@ -25,11 +25,17 @@ class CasinoContract {
 	}
 
 	async withdrawTokens({ address, amount }) {
+        let timestampWithdraw = await this.getApprovedWithdrawTimeStamp(address);
+        var timestamp = window.web3.eth.getBlock(window.web3.eth.blockNumber).timestamp;
+        var limitTimestamp = await this.getWithdrawalTimeRelease();
+        console.log(timestamp, timestampWithdraw, limitTimestamp);
+        console.log(timestamp >= timestampWithdraw + limitTimestamp);
+
 		let amountWithDecimals = Numbers.toSmartContractDecimals(
             amount,
             self.decimals
         );
-        
+
         return new Promise ( (resolve, reject) => {
             self.contract.getContract().methods.withdraw(amountWithDecimals)
             .send({ from: address })   
@@ -78,9 +84,15 @@ class CasinoContract {
         return await self.contract.getContract().methods.releaseTime().call();
     }
 
+    async isPaused(){
+        return await self.contract.getContract().methods.paused().call();
+    }
+
 
     async getTimeForWithdrawal(address){
-        let timeNeeded = ( parseInt(await this.getWithdrawalTimeLimit()) + parseInt((await self.contract.getContract().methods.withdrawals(address).call()).timestamp) - (Date.now()/1000) );
+        let withdrawal = await self.contract.getContract().methods.withdrawals(address).call();
+        console.log(withdrawal)
+        let timeNeeded = (parseInt(await this.getWithdrawalTimeLimit()) + parseInt(withdrawal.timestamp) - (Date.now()/1000));
         return parseInt(timeNeeded);
     }
 
@@ -96,6 +108,16 @@ class CasinoContract {
         try{
             let res = await self.contract.getContract().methods.withdrawals(address).call();
             return Numbers.fromBigNumberToInteger(res ? res.amount : 0);
+               
+        }catch(err){
+            throw err;
+        }
+    }
+
+    async getApprovedWithdrawTimeStamp(address){
+        try{
+            let res = await self.contract.getContract().methods.withdrawals(address).call();
+            return Numbers.fromBigNumberToInteger(res ? res.timestamp : {timestamp : 0});
                
         }catch(err){
             throw err;

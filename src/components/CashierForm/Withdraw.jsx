@@ -44,6 +44,12 @@ class Withdraw extends Component {
         let user = this.props.profile;
         let decentralizeWithdrawAmount = user.getApprovedWithdraw();
         let time = user.getTimeForWithdrawal();
+        //let timestampWithdraw = await user.casinoContract.getApprovedWithdrawTimeStamp(await user.getMetamaskAddress());
+        //var timestamp = (await window.web3.eth.getBlock("latest")).timestamp;
+        //let limitWithdraw = parseInt(await user.casinoContract.getWithdrawalTimeRelease());
+        //let isPaused = await user.casinoContract.isPaused();
+        //let maxWithdrawal = await user.casinoContract.getMaxWithdrawal();
+
         this.setState({...this.state, 
             time,
             totalAmount : Numbers.toFloat(user.getBalance()),
