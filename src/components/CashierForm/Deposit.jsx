@@ -15,6 +15,7 @@ import DepositsTable from "./Deposit/DepositsTable";
 import { Col, Row } from 'reactstrap';
 import InformationIcon from 'mdi-react/InformationIcon';
 import InformationContainer from "../Information/InformationIcon";
+import { setMessageNotification } from "../../redux/actions/message";
 
 const defaultProps = {
     amount : 10,
@@ -35,7 +36,7 @@ class Deposit extends Component {
     componentWillReceiveProps(props){
         this.projectData(props);
     }
-    
+
     projectData = async (props) => {
         let user = props.profile;
         let decentralizedTokenAmount = await user.getTokenAmount();
@@ -48,6 +49,14 @@ class Deposit extends Component {
     }
 
     depositTokens = async () => {
+        /*Check if max deposit is exceeded */
+        const { ln } = this.props;
+        const copy = CopyText.Deposit;
+        let max = await this.context.user.getMaxDeposit();
+        if(this.state.amount >= max) {
+            return await store.dispatch(setMessageNotification(`${copy[ln].ERROR.FIRST} ${Math.round(max)} ${this.state.ticker}`))
+        }
+
         try{
             const user = this.props.profile;
             this.setState({...this.state, onDeposit : 'processing'});
@@ -61,6 +70,7 @@ class Deposit extends Component {
             console.log(err)
             this.setState({...this.state, onDeposit : 'failure'});
         }
+
     }
 
     confirmDeposit = async (deposit) => {
@@ -82,7 +92,6 @@ class Deposit extends Component {
         const { amount, onDeposit, isAddressValid } = this.state;
         const { ln } = this.props;
         const copy = CopyText.Deposit;
-
         return (
             <div>
                 <div styleName="deposit">
