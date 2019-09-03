@@ -98,6 +98,7 @@ export default class User {
     updateDecentralizedStats = async () => {
         this.params.decentralizeWithdrawAmount = await this.__getApprovedWithdraw();
         this.params.timeToWithdraw = await this.__getTimeForWithdrawal();
+        console.log(this.params.timeToWithdraw);
         this.params.deposits = await this.__getDeposits();
     }
 
@@ -337,7 +338,7 @@ export default class User {
 
     getMaxWithdrawal = async () => {
         try{
-            return await this.casinoContract.getMaxWithdrawal();
+            return Numbers.fromBigNumberToInteger(await this.casinoContract.getMaxWithdrawal(), 36);
         }catch(err){
             throw err;
         }

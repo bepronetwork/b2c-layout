@@ -16,6 +16,7 @@ import { processResponse } from "../../lib/api/apiConfig";
 import WithdrawsTable from "./Withdraw/WithdrawsTable";
 import { CopyText } from "../../copy";
 import { setDepositOrWithdrawResult } from "../../redux/actions/depositOrWithdraw";
+import { setMessageNotification } from "../../redux/actions/message";
 import store from "../../containers/App/store";
 
 const defaultProps = {
@@ -39,11 +40,17 @@ class Withdraw extends Component {
     componentWillReceiveProps(props){
         this.projectData(props);
     }
-    
+
     projectData = async (props) => {
         let user = this.props.profile;
         let decentralizeWithdrawAmount = user.getApprovedWithdraw();
         let time = user.getTimeForWithdrawal();
+        //let timestampWithdraw = await user.casinoContract.getApprovedWithdrawTimeStamp(await user.getMetamaskAddress());
+        //var timestamp = (await window.web3.eth.getBlock("latest")).timestamp;
+        //let limitWithdraw = parseInt(await user.casinoContract.getWithdrawalTimeRelease());
+        //let isPaused = await user.casinoContract.isPaused();
+        //let maxWithdrawal = await user.casinoContract.getMaxWithdrawal();
+
         this.setState({...this.state, 
             time,
             totalAmount : Numbers.toFloat(user.getBalance()),
@@ -52,8 +59,15 @@ class Withdraw extends Component {
             withdraws : user.getWithdraws()
         })
     }
-
     askForWithdraw = async () => {
+        /*Check Withdrawal does not exceed limit */
+        const { ln } = this.props;
+        const copy = CopyText.Deposit;
+        let max = await this.context.user.getMaxWithdrawal();
+        if(this.state.amount >= max) {
+            return await store.dispatch(setMessageNotification(`${copy[ln].ERROR.SECOND} ${Math.round(max)} ${this.state.ticker}`))
+        }
+
         const user = this.props.profile;
         try{
             this.setState({...this.state, onWithdraw : 'processing'});
