@@ -337,7 +337,7 @@ export default class User {
 
     getMaxWithdrawal = async () => {
         try{
-            return await this.casinoContract.getMaxWithdrawal();
+            return Numbers.fromBigNumberToInteger(await this.casinoContract.getMaxWithdrawal(), 36);
         }catch(err){
             throw err;
         }
