@@ -344,6 +344,14 @@ export default class User {
         }
     }
 
+    getMaxDeposit = async () => {
+        try{
+            return Numbers.fromBigNumberToInteger(await this.casinoContract.getMaxDeposit(), 36);
+        }catch(err){
+            throw err;
+        }
+    }
+
     cancelWithdrawals = async () => {
         try{
             /* Cancel Withdraws in API */

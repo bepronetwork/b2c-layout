@@ -19,10 +19,11 @@ const depositCopy = {
                 FIFTH : 'Deposit Completed with Success'
             },
             ERROR : {
+                FIRST: 'Thats too high! Your maximum deposit allowance is ',
                 SECOND: 'Thats too high! Your maximum withdrawal amount is '
             },
         },
-    'ko' : 
+    'ko' :
     {
         TITLE : ' 당신이 가진 ',
         SUB_TITLE:  {
@@ -42,6 +43,7 @@ const depositCopy = {
             FIFTH : '성공적으로 예금 완료'
         },
         ERROR : {
+            FIRST: '너무 높습니다! 최대 예금 수당은 ',
             SECOND: '너무 높습니다! 최대 인출 금액은 '
         },
     },
@@ -65,6 +67,7 @@ const depositCopy = {
                 FIFTH : '存款成功'
             },
             ERROR : {
+                FIRST: '那太高了！您的最高存款准备金是 ',
                 SECOND: '那太高了！您的最高提款金额是 '
             },
         },
@@ -88,6 +91,7 @@ const depositCopy = {
             FIFTH : '入金が正常に完了しました'
         },
         ERROR : {
+            FIRST: '高すぎる！最大入金額は ',
             SECOND: '高すぎる！最大引き出し額は '
         },
     }

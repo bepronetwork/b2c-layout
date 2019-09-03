@@ -98,7 +98,11 @@ class CasinoContract {
 
     async getMaxWithdrawal(){
         return Numbers.fromBigNumberToInteger( await self.contract.getContract().methods.maxWithdrawal().call())
-    }
+		}
+
+		async getMaxDeposit(){
+			return Numbers.fromBigNumberToInteger( await self.contract.getContract().methods.maxDeposit().call())
+		}
 
     async getWithdrawalTimeRelease(){
         return Numbers.fromSmartContractTimeToSeconds(await self.contract.getContract().methods.releaseTime().call());
