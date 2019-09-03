@@ -38,12 +38,10 @@ class Deposit extends Component {
     
     projectData = async (props) => {
         let user = props.profile;
-        let deposits = await user.getDeposits();
         let decentralizedTokenAmount = await user.getTokenAmount();
         const isAddressValid = await user.isValidAddress();
         this.setState({...this.state, 
             tokenAmount : decentralizedTokenAmount,
-            deposits,
             ticker : user.getAppCurrencyTicker(),    
             isAddressValid
         })
@@ -51,14 +49,13 @@ class Deposit extends Component {
 
     depositTokens = async () => {
         try{
-            const { user, setUser } = this.context;
+            const user = this.props.profile;
             this.setState({...this.state, onDeposit : 'processing'});
             /* Create Deposit Framework */
             let res = await user.createDeposit({amount : Numbers.toFloat(this.state.amount)});
             let { message } = res.data;
-            await store.dispatch(setDepositOrWithdrawResult(message));
             /* Update user Data */
-            await updateUserBalance(user, setUser);
+            await user.getAllData();
             this.setState({...this.state, onDeposit : 'completed'});
         }catch(err){
             console.log(err)
@@ -209,6 +206,7 @@ class Deposit extends Component {
                     <div styleName="deposit">
                         <div styleName='withdraws-table'>
                             <DepositsTable
+                                user={this.props.profile}
                                 ln={this.props.ln}
                                 confirmDeposit={this.confirmDeposit} 
                                 currency={this.props.profile.getAppCurrencyTicker()} data={this.state.deposits}

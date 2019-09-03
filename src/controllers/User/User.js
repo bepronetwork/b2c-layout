@@ -40,6 +40,11 @@ export default class User {
         this.address = user.address;
         this.user = user;
         this.app = Cache.getFromCache("appInfo");
+        this.params = {
+            timeToWithdraw : 0,
+            deposits : [],
+            decentralizeWithdrawAmount : 0
+        }
         this.__init__();
     }
 
@@ -52,22 +57,48 @@ export default class User {
             this.setupCasinoContract();
             await this.setupChat();
             this.connectMetamask();
-            this.updateUserState();
+            this.getAllData();
         }catch(err){
             console.log(err)
         }
+    }
+
+    getBalance = () => {
+        return this.user.balance;
     }
 
     getChat = () => {
         return this.chat;
     }
 
+    getDeposits = () => this.params.deposits;
+
+    getTimeForWithdrawal = () => this.params.timeToWithdraw;
+
+    getApprovedWithdraw = () => this.params.decentralizeWithdrawAmount;
+
     getID = () => this.id;
     
     isValidAddress = async () => {
         let userMetamaskAddress = await this.getMetamaskAddress();
         return new String(this.getAddress()).toLowerCase() == new String(userMetamaskAddress).toLowerCase();
+    }
 
+    getAllData = async () => {
+        await this.updateUser();
+        await this.updateDecentralizedStats();
+        await this.updateUserState();
+    }
+
+    getBalanceData = async () => {
+        await this.updateUser();
+        await this.updateUserState();
+    }
+
+    updateDecentralizedStats = async () => {
+        this.params.decentralizeWithdrawAmount = await this.__getApprovedWithdraw();
+        this.params.timeToWithdraw = await this.__getTimeForWithdrawal();
+        this.params.deposits = await this.__getDeposits();
     }
 
     updateUserState = async () => {
@@ -206,7 +237,7 @@ export default class User {
         }
     }
 
-    getTimeForWithdrawal = async () => {
+    __getTimeForWithdrawal = async () => {
         try{
             /* Enable Metamask Auth */
             await enableMetamask("eth");
@@ -262,12 +293,10 @@ export default class User {
         }
     }
 
-    getDeposits = async () => {
+    __getDeposits = async () => {
         var address = this.getAddress();
         let depositsApp = this.user.deposits || [];
         let allTxsDeposits = await this.getUnconfirmedBlockchainDeposits(address);
-        console.log(this.user.deposits);
-        console.log(allTxsDeposits);
         return (await Promise.all(allTxsDeposits.map( async tx => {
             var isConfirmed = false, deposit = null;
             for(var i = 0; i < depositsApp.length; i++){
@@ -286,7 +315,7 @@ export default class User {
     }
 
 
-    getApprovedWithdraw = async () => {
+    __getApprovedWithdraw = async () => {
         try{
             /* Enable Metamask Auth */
             await enableMetamask("eth");
