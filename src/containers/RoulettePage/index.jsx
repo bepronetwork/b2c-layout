@@ -46,11 +46,11 @@ class RoulettePage extends Component {
 
     isAddChipDisabled = () => {
         const { selectedChip } = this.state;
-        const { user } = this.context;
+        const user = this.props.profile;
 
         if (!user) return true;
 
-        return this.getTotalBet() + selectedChip > user.balance;
+        return this.getTotalBet() + selectedChip > user.getBalance();
     };
 
     handleAddChipToBoard = cell => {
@@ -155,6 +155,7 @@ class RoulettePage extends Component {
 
     renderGameOptions = () => {
         const { bet } = this.state;
+        const { profile } = this.props;
 
         return (
             <RouletteGameOptions
@@ -162,6 +163,7 @@ class RoulettePage extends Component {
                 onChangeChip={this.handleChangeChip}
                 totalBet={this.getTotalBet()}
                 game={this.state.game}
+                profile={profile}
                 doubleDownBet={this.doubleDownBet}
                 disableControls={bet}
             />
@@ -170,6 +172,7 @@ class RoulettePage extends Component {
 
     renderGameCard = () => {
         const { result, betHistory, bet } = this.state;
+        const { profile } = this.props;
 
         return (
             <RouletteGameCard
@@ -177,6 +180,7 @@ class RoulettePage extends Component {
                 onAddChip={this.handleAddChipToBoard}
                 betHistory={betHistory}
                 onClear={this.handleClear}
+                profile={profile}
                 game={this.state.game}
                 onUndo={this.handleUndo}
                 bet={bet}

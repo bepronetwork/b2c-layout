@@ -17,6 +17,7 @@ export const etherscanLinkID = `https://${ethNetwork}.etherscan.io`;
 
 
 export async function processResponse(response){
+    console.log(response)
     try{
         if(parseInt(response.data.status) != 200){
             let { message } = response.data;

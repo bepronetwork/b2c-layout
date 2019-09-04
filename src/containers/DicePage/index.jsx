@@ -23,7 +23,9 @@ class DicePage extends Component {
         disableControls: false,
         rollNumber: 50,
         rollType: "over",
+        bet : {},
         game_name : 'Linear Dice',
+        animating : false,
         game : {
             edge : 0
         }
@@ -63,6 +65,8 @@ class DicePage extends Component {
             this.setState({ 
                 result : res.result, 
                 disableControls : false, 
+                bet : res,
+                animating : true,
                 betObjectResult : res 
             });
             return res;
@@ -76,15 +80,17 @@ class DicePage extends Component {
         const { profile } = this.props;
         const { betObjectResult } = this.state;
         await profile.getBalanceData();
-        this.setState({ result: null, disableControls: false });
+        this.setState({ result: null, animating : false, disableControls: false });
     };
 
     getOptions = () => {
         const { disableControls, rollType, rollNumber } = this.state;
+        const { profile } = this.props;
 
         return (
             <DiceGameOptions
                 disableControls={disableControls}
+                profile={profile}
                 onBet={this.handleBet}
                 game={this.state.game}
                 onChangeRollAndRollType={this.handleRollAndRollTypeChange}
@@ -95,14 +101,18 @@ class DicePage extends Component {
     };
 
     getGameCard = () => {
-        const { result, disableControls, rollNumber } = this.state;
+        const { result, disableControls, rollNumber, bet, animating } = this.state;
+        const { profile } = this.props;
 
         return (
             <DiceGameCard
+                profile={profile}
                 onResultAnimation={this.handleAnimation}
                 disableControls={disableControls}
                 result={result}
                 rollNumber={rollNumber}
+                animating={animating}
+                bet={bet}
                 game={this.state.game}
                 onChangeRollAndRollType={this.handleRollAndRollTypeChange}
             />

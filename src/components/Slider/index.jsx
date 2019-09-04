@@ -39,44 +39,46 @@ export default class Slider extends Component {
       value: props.value,
       result: null,
       leftP: 0,
+      bet : {},
       oldLeftP: 0,
       moving: false
     };
   }
 
-  static getDerivedStateFromProps(nextProps, prevState) {
-    if (nextProps.value !== prevState.value) {
-      return { value: nextProps.value };
-    }
+    static getDerivedStateFromProps(nextProps, prevState) {
+        if (nextProps.value !== prevState.value) {
+            return { value: nextProps.value };
+        }
 
-    if (nextProps.result !== prevState.result) {
-      let leftP = (prevState.container.clientWidth * nextProps.result) / 100;
+        if (nextProps.result !== prevState.result) {
+            let leftP = (prevState.container.clientWidth * nextProps.result) / 100;
 
-      leftP -= diamondwidth * 0.5;
+            leftP -= diamondwidth * 0.5;
 
-      let oldLeftP = (prevState.container.clientWidth * prevState.result) / 100;
+            let oldLeftP = (prevState.container.clientWidth * prevState.result) / 100;
 
-      oldLeftP -= diamondwidth * 0.5;
+            oldLeftP -= diamondwidth * 0.5;
+            if (!nextProps.animating && (nextProps.bet.nonce != prevState.bet.nonce)) {
+                return {
+                    result: nextProps.result,
+                    bet : nextProps.bet,
+                    leftP,
+                    oldLeftP
+                };
+            }else{
+                return {
+                    result: nextProps.result,
+                    leftP
+                }
+            }
 
-      if (prevState.result) {
+        }
+
         return {
-          result: nextProps.result,
-          leftP,
-          oldLeftP
+            result: null,
+            leftP: 0
         };
-      }
-
-      return {
-        result: nextProps.result,
-        leftP
-      };
     }
-
-    return {
-      result: null,
-      leftP: 0
-    };
-  }
 
   handleSlide = props => {
     const { value, ...restProps } = props;
@@ -111,6 +113,7 @@ export default class Slider extends Component {
   renderResult = () => {
     const { roll } = this.props;
     const { result, value, leftP, oldLeftP, moving } = this.state;
+    console.log(result, moving)
     if (!result || moving) return null;
 
     const slide = keyframes`

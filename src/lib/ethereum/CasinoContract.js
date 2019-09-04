@@ -91,14 +91,18 @@ class CasinoContract {
 
     async getTimeForWithdrawal(address){
         let withdrawal = await self.contract.getContract().methods.withdrawals(address).call();
-        console.log(withdrawal)
+        if(!withdrawal){return 0};
         let timeNeeded = (parseInt(await this.getWithdrawalTimeLimit()) + parseInt(withdrawal.timestamp) - (Date.now()/1000));
         return parseInt(timeNeeded);
     }
 
     async getMaxWithdrawal(){
         return Numbers.fromBigNumberToInteger( await self.contract.getContract().methods.maxWithdrawal().call())
-    }
+		}
+
+		async getMaxDeposit(){
+			return Numbers.fromBigNumberToInteger( await self.contract.getContract().methods.maxDeposit().call())
+		}
 
     async getWithdrawalTimeRelease(){
         return Numbers.fromSmartContractTimeToSeconds(await self.contract.getContract().methods.releaseTime().call());

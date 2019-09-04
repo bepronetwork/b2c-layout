@@ -72,12 +72,14 @@ export default class FlipGameOptions extends Component {
     };
 
     handleMultiply = value => {
-        const { user } = this.context;
+        const user = this.props.profile;
         const { betAmount } = this.state;
+        let balance = user.getBalance();
+
         let newAmount = betAmount;
 
         if (value === "max") {
-        newAmount = user.balance;
+        newAmount = balance;
         }
 
         if (value === "2") {
@@ -88,19 +90,19 @@ export default class FlipGameOptions extends Component {
         newAmount = newAmount === 0.01 ? 0 : newAmount * 0.5;
         }
 
-        if (newAmount > user.balance) {
-        newAmount = user.balance;
+        if (newAmount > balance) {
+        newAmount = balance;
         }
 
         this.setState({ betAmount : newAmount });
     };
 
     isBetValid = () => {
-        const { user } = this.context;
+        const { profile } = this.props;
         const { disableControls } = this.props;
         const { betAmount } = this.state;
         return (
-        (user && betAmount > 0 && user.balance >= betAmount && !disableControls) || !user);
+        (profile && betAmount > 0 && profile.getBalance() >= betAmount && !disableControls) || !profile);
     };
 
     handleBet = async () => {
@@ -261,7 +263,7 @@ export default class FlipGameOptions extends Component {
     render() {
         const { type, betAmount, side, isAutoBetting } = this.state;
         const { isCoinSpinning, onBetTrigger } = this.props;
-        const { user } = this.context;
+        const user = this.props.profile;
 
         return (
         <div styleName="root">
@@ -287,7 +289,7 @@ export default class FlipGameOptions extends Component {
                 name="amount"
                 step={0.01}
                 icon="bitcoin"
-                max={user ? user.balance : null}
+                max={user ? user.getBalance() : null}
                 precision={2}
                 value={betAmount}
                 onChange={this.handleBetAmountChange}

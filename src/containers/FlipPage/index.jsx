@@ -111,10 +111,12 @@ class FlipPage extends Component {
 
     getOptions = () => {
         const { disableControls } = this.state;
+        const { profile } = this.props;
 
         return (
             <FlipGameOptions
                 onBet={this.onBet}
+                profile={profile}
                 game={this.state.game}
                 onBetTrigger={this.state.onBet}
                 isCoinSpinning={this.state.isCoinSpinning}
@@ -125,11 +127,13 @@ class FlipPage extends Component {
 
     getGameCard = () => {
         const { flipResult, hasWon } = this.state;
+        const { profile } = this.props;
 
         return (
             <FlipGameCard
                 updateBalance={this.handleUpdateBalance}
                 flipResult={flipResult}
+                profile={profile}
                 onBetTrigger={this.state.onBet}
                 handleAnimationEnd={this.handleAnimationEnd}
                 handleAnimationStart={this.handleAnimationStart}

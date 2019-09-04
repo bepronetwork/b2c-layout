@@ -122,6 +122,7 @@ export default class User {
 
     getMyBets = async ({size}) => {
         try{
+            if(!this.user_id){return []}
             let res = await getMyBets({               
                 user: this.user_id,
                 size
@@ -338,7 +339,15 @@ export default class User {
 
     getMaxWithdrawal = async () => {
         try{
-            return await this.casinoContract.getMaxWithdrawal();
+            return Numbers.fromBigNumberToInteger(await this.casinoContract.getMaxWithdrawal(), 36);
+        }catch(err){
+            throw err;
+        }
+    }
+
+    getMaxDeposit = async () => {
+        try{
+            return Numbers.fromBigNumberToInteger(await this.casinoContract.getMaxDeposit(), 36);
         }catch(err){
             throw err;
         }
@@ -379,11 +388,11 @@ export default class User {
             await enableMetamask("eth");
             let accounts = await window.web3.eth.getAccounts();
             var nonce = getNonce();
+            var userBalance = this.getBalance();
             res = {...res, nonce};
-            let user = await getCurrentUser()
             // Get Signature
             let { signature } = await CryptographySingleton.getUserSignature({
-                address : accounts[0], winBalance :  Numbers.toFloat(user.balance), nonce, decimals : this.decimals,
+                address : accounts[0], winBalance :  Numbers.toFloat(userBalance), nonce, decimals : this.decimals,
                 category : codes.Withdraw
             });
 
@@ -399,7 +408,7 @@ export default class User {
                         signature,
                         address     : accounts[0],
                         tokenAmount : Numbers.toFloat(amount),
-                        newBalance  : Numbers.toFloat(user.balance),
+                        newBalance  : Numbers.toFloat(userBalance),
                         nonce
                     },
                     this.bearerToken

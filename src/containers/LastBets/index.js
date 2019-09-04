@@ -139,7 +139,7 @@ const defaultProps = {
     view_amount : views[1],
     games : [],
     options : [],
-    view_game :  getGames()[0] ? getGames()[0].metaName : null
+    view_game :  (getGames() && getGames()[0]) ? getGames()[0].metaName : null
 }
 
 class LastBets extends Component {
