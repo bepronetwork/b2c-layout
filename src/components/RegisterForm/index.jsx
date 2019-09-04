@@ -2,8 +2,9 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { Button, Typography, InputText } from "components";
 import "./index.css";
-
-export default class RegisterForm extends Component {
+import { connect } from "react-redux";
+import { compose } from 'lodash/fp';
+class RegisterForm extends Component {
     static propTypes = {
         onSubmit: PropTypes.func.isRequired,
         error: PropTypes.number
@@ -23,16 +24,32 @@ export default class RegisterForm extends Component {
     };
 
     componentDidMount(){
+        this.getMetamaskInfo();
         this.updateAddress();
+    }
+
+    getMetamaskInfo(){
+        if(window.ethereum){
+            window.ethereum.on('accountsChanged', (accounts) => {
+                // Time to reload your interface with accounts[0]!
+                this.updateAddress(accounts[0]);
+            })
+            
+            window.ethereum.on('networkChanged', (netId) =>  {
+                console.log(netId);
+            })
+        }  
     }
 
     componentWillReceiveProps(){
         this.updateAddress();
     }
 
-    updateAddress = async () => {
-        let accounts = await window.web3.eth.getAccounts();
-        this.setState({...this.state, address : accounts[0]});
+    updateAddress = async (address=null) => {
+        if(!address){
+            address = (await window.web3.eth.getAccounts())[0];
+        }
+        this.setState({...this.state, address : address});
     }
 
     handleSubmit = event => {
@@ -117,9 +134,10 @@ export default class RegisterForm extends Component {
             <div styleName="address">
             <InputText
                 name="address"
-                label="Address"
+                label="Ethereum Address"
                 onChange={this.onChange}
                 value={address}
+                placeHolder={'0x23cab324ba2a24... '}
             />
             </div>
 
@@ -146,3 +164,13 @@ export default class RegisterForm extends Component {
         );
     }
 }
+
+
+function mapStateToProps(state){
+    return {
+        profile: state.profile,
+        ln : state.language
+    };
+}
+
+export default compose(connect(mapStateToProps))(RegisterForm);

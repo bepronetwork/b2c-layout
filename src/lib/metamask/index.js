@@ -18,6 +18,8 @@ async function enableMetamask(currency) {
     }
 }
 
+
+
 function addressConcat(string){
     return  `${string.substring(0, 6)}...${string.substring(string.length - 2)}`;
 }

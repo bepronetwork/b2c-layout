@@ -64,7 +64,6 @@ export default class App extends Component {
             this.startWallet();
             await this.loginAccount();
         }catch(err){
-            console.log(err)
             this.startChatNoLogged();
         }
         this.start();
@@ -140,7 +139,6 @@ export default class App extends Component {
 
             if (response.status !== 200) {
                 this.setState({ error: response.status });
-                throw new Error("Login Didn´t Work")
             }
 
             let user = await this.updateUser(response);
@@ -149,7 +147,6 @@ export default class App extends Component {
             this.setState({ registerLoginModalOpen: null, error: null });
             return response;
         } catch (error) {
-            console.log(error)
             return handleError(error);
         }
     };
@@ -160,7 +157,6 @@ export default class App extends Component {
             if (response.status !== 200) { return this.setState({ error: response }); }
             this.handleLogin({username : form.username, password : form.password});
         } catch (error) {
-            console.log(error);
             return handleError(error);
         }
     };

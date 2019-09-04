@@ -91,7 +91,7 @@ class CasinoContract {
 
     async getTimeForWithdrawal(address){
         let withdrawal = await self.contract.getContract().methods.withdrawals(address).call();
-        console.log(withdrawal)
+        if(!withdrawal){return 0};
         let timeNeeded = (parseInt(await this.getWithdrawalTimeLimit()) + parseInt(withdrawal.timestamp) - (Date.now()/1000));
         return parseInt(timeNeeded);
     }

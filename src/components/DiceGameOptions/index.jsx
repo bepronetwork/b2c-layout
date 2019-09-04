@@ -106,7 +106,6 @@ export default class DiceGameOptions extends Component {
             try{
                 setTimeout( async () => {
                     let res = await onBet({ amount });
-                    console.log(res);
                     resolve(res)
                 },2*1000)
             }catch(err){
@@ -117,16 +116,17 @@ export default class DiceGameOptions extends Component {
         })
     }
 
-    handleBet = async () => {
+    handleBet = async (callback) => {
         const { onBet } = this.props;
         const { amount, type, bets, profitStop, lossStop, onWin, onLoss} = this.state;
+        var res;
 
         if (this.isBetValid()) {
             // to be completed with the other options
             this.setState({ sound: true });
             switch(type){
                 case 'manual' : {
-                    await onBet({ amount });
+                    res = await onBet({ amount });
                     break;
                 };
                 case 'auto' : {
@@ -146,7 +146,6 @@ export default class DiceGameOptions extends Component {
                             lastBet = betAmount;
                             if(onWin && wasWon){ betAmount += Numbers.toFloat(betAmount*onWin/100) }; 
                             if(onLoss && !wasWon){ betAmount += Numbers.toFloat(betAmount*onLoss/100) }; 
-                        
                         }
                             
                     }
@@ -295,12 +294,13 @@ export default class DiceGameOptions extends Component {
 
 
     handleMultiply = value => {
-        const { user } = this.context;
+        const { profile } = this.props;
         const { amount } = this.state;
         let newAmount = amount;
+        let balance = profile.getBalance();
 
         if (value === "max") {
-        newAmount = user.balance;
+        newAmount = balance;
         }
 
         if (value === "2") {
@@ -311,8 +311,8 @@ export default class DiceGameOptions extends Component {
         newAmount = newAmount === 0.01 ? 0 : newAmount * 0.5;
         }
 
-        if (newAmount > user.balance) {
-        newAmount = user.balance;
+        if (newAmount > balance) {
+        newAmount = balance;
         }
 
         this.setState({ amount: newAmount });
@@ -320,7 +320,7 @@ export default class DiceGameOptions extends Component {
 
     render() {
         const { type, amount, isAutoBetting } = this.state;
-        const { user } = this.context;
+        const user = this.props.profile;
         return (
         <div styleName="root">
             {this.renderSound()}
@@ -344,7 +344,7 @@ export default class DiceGameOptions extends Component {
                 <InputNumber
                     name="amount"
                     value={amount}
-                    max={user ? user.balance : null}
+                    max={user ? user.getBalance() : null}
                     step={0.01}
                     icon="bitcoin"
                     precision={2}

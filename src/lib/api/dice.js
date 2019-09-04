@@ -19,12 +19,13 @@ export default async function bet({ rollNumber, rollType, betAmount, user }) {
         }); 
 
         await processResponse(response);
-        const { winAmount, betAmount : amountBetted, _id : id } = response.data.message;
+        const { winAmount, betAmount : amountBetted, _id : id, nonce } = response.data.message;
         const { index } = response.data.message.outcomeResultSpace;
 
         return {
             result : rollType === "over" ? 100 - index : index,
             winAmount, 
+            nonce,
             betAmount : amountBetted,
             id
         };

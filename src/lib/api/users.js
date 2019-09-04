@@ -22,7 +22,7 @@ export async function register({ username, password, email, address }) {
         });
 
         if (response.data.data.status !== 200) {
-        return response.data.data;
+            return response.data.data;
         }
 
         const { status, message } = response.data.data;

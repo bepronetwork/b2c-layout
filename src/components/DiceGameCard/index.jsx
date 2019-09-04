@@ -44,19 +44,17 @@ export default class DiceGameCard extends Component {
         };
     }
 
-      componentDidMount(){
+    componentDidMount(){
         this.projectData(this.props);
-        setInterval( () => {
+        setTimeout(() => {
             this.getBets(this.props);
-        }, 34*1000)
-        setTimeout( () => {
-            this.getBets(this.props);
-        }, 1*1000)
+        }, 2000);
       
     }
 
     componentWillReceiveProps(props){
         this.projectData(props);
+        //this.getBets(props);
     }
 
     async getBets(props){
@@ -64,7 +62,7 @@ export default class DiceGameCard extends Component {
         var gamePopularNumbers = find(res_popularNumbers, { game: props.game._id });
         if(gamePopularNumbers){
             this.setState({...this.state,
-                popularNumbers : gamePopularNumbers.numbers.sort((a, b) => b.resultAmount - a.resultAmount)   
+                popularNumbers : gamePopularNumbers.numbers.sort((a, b) => b.resultAmount - a.resultAmount)
             })    
         }
     }
@@ -229,7 +227,7 @@ export default class DiceGameCard extends Component {
 
     render() {
         let { rollType, chance, payout, popularNumbers } = this.state;
-        const { result, disableControls, onResultAnimation, rollNumber } = this.props;
+        const { result, disableControls, onResultAnimation, rollNumber, bet, animating } = this.props;
         let winEdge = (100-(this.state.edge))/100;
         payout = payout * winEdge;
         return (
@@ -240,7 +238,9 @@ export default class DiceGameCard extends Component {
                 <div styleName="slider-container">
                 <Slider
                     onChange={this.handleSlider}
+                    animating={animating}
                     roll={rollType}
+                    bet={bet}
                     value={rollNumber}
                     result={result}
                     disableControls={disableControls}
