@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { find } from "lodash";
-import { GameCard, CoinFlip, Roulette, Caroussel } from "components";
+import { GameCard, CoinFlip, Roulette, Caroussel, Partners } from "components";
 import PropTypes from "prop-types";
 import UserContext from "containers/App/UserContext";
 import PlayInvitation from "components/PlayInvitation";
@@ -9,7 +9,7 @@ import games from '../../config/games';
 import "./index.css";
 import LastBets from "../LastBets";
 import Footer from "../Footer";
-
+// import Partners from '../../components/Partners/Partners';
 export default class HomePage extends Component {
     static contextType = UserContext;
 
@@ -50,6 +50,7 @@ export default class HomePage extends Component {
         return (
             <div styleName="root">
                <Caroussel/> 
+               <Partners/>
                 {/* this.renderPlayNow() */}
                 <div styleName="container">
                     <div styleName='container-small'>                       

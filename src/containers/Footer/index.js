@@ -91,14 +91,7 @@ const footer = {
                 {
                     type : 'link',
                     text : 'Telegram',
-                    href : '#',
-                    size : "small-body",
-                    color : 'casper',
-                },
-                {
-                    type : 'link',
-                    text : 'KakaoTalk',
-                    href : '#',
+                    href : 'https://t.me/tkn_com',
                     size : "small-body",
                     color : 'casper',
                 },
