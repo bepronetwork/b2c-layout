@@ -1,6 +1,21 @@
 @import "../../styles/all.css";
 
 .container {
-  padding:6rem 4rem;
+  display: flex;
+  justify-content: space-around;
+  margin: 3rem 6rem;
 }
 
+.partner-img {
+  height: 5rem;
+  width: auto;
+}
+
+@media (max-width: 676px) {
+  .partner-img {
+    height: 3rem;
+  }
+  .container {
+  margin: 1rem 3rem;
+  }
+}

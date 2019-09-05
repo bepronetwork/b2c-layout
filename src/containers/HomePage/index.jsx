@@ -9,7 +9,6 @@ import games from '../../config/games';
 import "./index.css";
 import LastBets from "../LastBets";
 import Footer from "../Footer";
-// import Partners from '../../components/Partners/Partners';
 export default class HomePage extends Component {
     static contextType = UserContext;
 
@@ -50,7 +49,6 @@ export default class HomePage extends Component {
         return (
             <div styleName="root">
                <Caroussel/> 
-               <Partners/>
                 {/* this.renderPlayNow() */}
                 <div styleName="container">
                     <div styleName='container-small'>                       
@@ -59,6 +57,7 @@ export default class HomePage extends Component {
                         </div>
                     </div> 
                     <LastBets/>
+                    <Partners/>
                     <Footer/>
                 </div>
             </div>
