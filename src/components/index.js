@@ -41,6 +41,7 @@ import Roulette from "components/Icons/Roulette";
 import LanguagePicker from "components/LanguagePicker";
 import Caroussel from "components/Caroussel";
 import AccountInfoModal from "components/AccountInfoModal";
+import Partners from "components/Partners";
 
 export { Caroussel };
 export { LanguagePicker };
@@ -85,3 +86,4 @@ export { ToggleButton };
 export { Typography };
 export { UndoIcon };
 export { UserMenu };
+export { Partners };
