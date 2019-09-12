@@ -1,0 +1,75 @@
+@import "../../styles/all.css";
+
+.root {
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  height: 100px;
+}
+
+.box{
+    box-shadow: rgba(25, 25, 25, 0.75) 0px 0px 10px;
+    display: flex;
+    -webkit-box-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    margin : 5px;
+    align-items: center;
+    font-weight: 600;
+    width: 130px;
+    position: relative;
+    cursor: help;
+    text-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px;
+    border-radius: 6px;
+    background: rgb(53, 68, 82);
+    padding: 1em 0.5em;
+    overflow: hidden;
+}
+
+
+.box::before{
+    content: "";
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    left: 0px;
+    top: 0px;
+    transform: translateY(calc(100% - 6px));
+    transition-duration: 600ms;
+    transition-timing-function: ease-out;
+    transition-property: transform;
+}
+
+.container-blocks{
+    position: relative;
+    width: 100%;
+    display: grid;
+    display: flex;
+    gap: 1em 1em;
+}
+
+
+.multiplier-0::before{
+    background: $dark-purple;
+}
+
+.multiplier-2::before{
+    background: $blue-ribbon;
+}
+
+.multiplier-3::before{
+    background: $orange;
+}
+
+.multiplier-5::before{
+    background: $green;
+}
+
+.multiplier-10::before{
+    background: $olive;
+}
+
+.no-transform::before{
+    transform: translateY(0px);
+}
+

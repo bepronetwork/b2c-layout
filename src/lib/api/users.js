@@ -1,6 +1,6 @@
 import axios from "axios";
 import handleError from "./handleError";
-import { apiUrl, appId, processResponse } from "./apiConfig";
+import { apiUrl, appId, apiUrlWithdraw, processResponse } from "./apiConfig";
 
 // Create an instance using the config defaults provided by the library
 // At this point the timeout config value is `0` as is the default for the library
@@ -12,7 +12,7 @@ instance.defaults.timeout = SEC*1000;
 
 export async function register({ username, password, email, address }) {
     try {
-        const response = await axios.post(`${apiUrl}/users/register`, {
+        const response = await axios.post(`${apiUrl}/api/users/register`, {
             username,
             email,
             password,
@@ -40,7 +40,7 @@ export async function register({ username, password, email, address }) {
 
 export async function login({ username, password }) {
     try {
-        const response = await axios.post(`${apiUrl}/users/login`, {
+        const response = await axios.post(`${apiUrl}/api/users/login`, {
             username,
             password,
             app : appId
@@ -76,7 +76,7 @@ export async function getCurrentUser() {
 export async function updateUserBalance(user, setUser) {
 
     try {
-        const res = await fetch(`${apiUrl}/users/summary`, {
+        const res = await fetch(`${apiUrl}/api/users/summary`, {
             method : 'POST',
             timeout: 1000*1000,
             headers : addSecurityHeader({bearerToken : user.bearerToken, payload : user.id}),
@@ -112,7 +112,7 @@ export async function logout() {
 
 export async function requestWithdraw(params, bearerToken, payload) {
     try{
-        let res = await fetch(`${apiUrl}/users/requestWithdraw`, {
+        let res = await fetch(`${apiUrlWithdraw}/api/users/requestWithdraw`, {
             method : 'POST',
             timeout: 1000*1000,
             headers : addSecurityHeader({bearerToken, payload :  payload || params.user}),
@@ -133,7 +133,7 @@ export async function requestWithdraw(params, bearerToken, payload) {
 
 export async function cancelWithdraw(params, bearerToken, payload) {
     try{
-        let res = await fetch(`${apiUrl}/users/cancelWithdraw`, {
+        let res = await fetch(`${apiUrl}/api/users/cancelWithdraw`, {
             method : 'POST',
             headers : addSecurityHeader({bearerToken, payload :  payload || params.user}),
             body : JSON.stringify(params)})
@@ -153,7 +153,7 @@ export async function cancelWithdraw(params, bearerToken, payload) {
 
 export async function finalizeWithdraw(params, bearerToken, payload) {
     try{
-        let res = await fetch(`${apiUrl}/users/finalizeWithdraw`, {
+        let res = await fetch(`${apiUrl}/api/users/finalizeWithdraw`, {
             method : 'POST',
             timeout: 1000*1000,
             headers : addSecurityHeader({bearerToken, payload :  payload || params.user}),
@@ -174,7 +174,7 @@ export async function finalizeWithdraw(params, bearerToken, payload) {
 
 export async function createBet(params, bearerToken, payload) {
     try{        
-        let res = await fetch(`${apiUrl}/app/games/bet/place`, {
+        let res = await fetch(`${apiUrl}/api/app/games/bet/place`, {
             method : 'POST',
             timeout: 1000*1000,
             headers : addSecurityHeader({bearerToken, payload :  payload || params.user}),
@@ -198,7 +198,7 @@ export async function createBet(params, bearerToken, payload) {
 
 export async function getMyBets(params, bearerToken, payload) {
     try{
-        let res = await fetch(`${apiUrl}/users/bets`, {
+        let res = await fetch(`${apiUrl}/api/users/bets`, {
             method : 'POST',
             headers : addSecurityHeader({bearerToken, payload :  payload || params.user}),
             body : JSON.stringify(params)})
@@ -218,7 +218,7 @@ export async function getMyBets(params, bearerToken, payload) {
 
 
 export async function updateUserWallet(params, bearerToken, payload) {
-    let res = await fetch(`${apiUrl}/users/updateWallet`, {
+    let res = await fetch(`${apiUrl}/api/users/updateWallet`, {
         method : 'POST',
         timeout: 1000*1000,
         headers : addSecurityHeader({bearerToken, payload :  payload || params.user}),

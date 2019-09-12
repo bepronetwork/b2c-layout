@@ -116,7 +116,7 @@ class Navbar extends Component {
                         {user ? 
                             <Row>
                                 <Col xs={2} md={1} lg={2}/>
-                                <Col xs={4} md={3} lg={3}>
+                                <Col xs={2} md={3} lg={3}>
                                     <div styleName="coin">
                                         <AnimationNumber number={this.state.currentBalance}/>
                                         <div styleName="icon">
