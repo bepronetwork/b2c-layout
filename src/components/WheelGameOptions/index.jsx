@@ -15,8 +15,11 @@ import Dice from "components/Icons/Dice";
 import delay from 'delay';
 import "./index.css";
 import { Numbers } from "../../lib/ethereum/lib";
+import _ from 'lodash';
+import { CopyText } from "../../copy";
+import { connect } from "react-redux";
 
-export default class WheelGameOptions extends Component {
+class WheelGameOptions extends Component {
     static contextType = UserContext;
 
     static propTypes = {
@@ -129,29 +132,6 @@ export default class WheelGameOptions extends Component {
                     res = await onBet({ amount });
                     break;
                 };
-                case 'auto' : {
-                    this.setState({isAutoBetting : true})
-                    var totalProfit = 0, totalLoss = 0, lastBet = 0, wasWon = 0;
-                    var betAmount = amount;
-                    for( var i = 0; i < bets ; i++){
-                        if(
-                            (profitStop == 0  || totalProfit <= profitStop) && // Stop Profit
-                            (lossStop == 0 || totalLoss <= lossStop) // Stop Loss
-                        ){
-                            await delay(1.5*1000);
-                            let { winAmount } = await this.betAction({amount : betAmount});
-                            totalProfit += (winAmount-betAmount);
-                            totalLoss += (winAmount == 0) ? -Math.abs(betAmount) : 0;
-                            wasWon = (winAmount != 0);
-                            lastBet = betAmount;
-                            if(onWin && wasWon){ betAmount += Numbers.toFloat(betAmount*onWin/100) }; 
-                            if(onLoss && !wasWon){ betAmount += Numbers.toFloat(betAmount*onLoss/100) }; 
-                        }
-                            
-                    }
-                    this.setState({isAutoBetting : false})
-                    break;
-                }
             }
         }
         return true;
@@ -301,15 +281,26 @@ export default class WheelGameOptions extends Component {
 
     render() {
         const { type, amount, isAutoBetting } = this.state;
+        const { ln } = this.props;
+
         const user = this.props.profile;
+        let balance;
+        const copy = CopyText.shared[ln];
+
+        if (!user || _.isEmpty(user)){
+            balance = 0;
+        }else{
+            balance = user.getBalance();
+        }
+
         return (
         <div styleName="root">
             {this.renderSound()}
             <div styleName="toggle">
             <ToggleButton
                 config={{
-                    left: { value: "manual", title: "Manual" },
-                    right: { value: "auto", title: "Auto"}
+                    left: { value: "manual", title: copy.MANUAL_NAME},
+                    right: { value: "auto", title: copy.AUTO_NAME, disabled : true}
                 }}
                 selected={type}
                 size="full"
@@ -325,7 +316,7 @@ export default class WheelGameOptions extends Component {
                 <InputNumber
                     name="amount"
                     value={amount}
-                    max={user ? user.getBalance() : null}
+                    max={user ? balance : null}
                     step={0.01}
                     icon="bitcoin"
                     precision={2}
@@ -356,3 +347,12 @@ export default class WheelGameOptions extends Component {
         );
     }
 }
+
+
+function mapStateToProps(state){
+    return {
+        ln : state.language
+    };
+}
+
+export default connect(mapStateToProps)(WheelGameOptions);

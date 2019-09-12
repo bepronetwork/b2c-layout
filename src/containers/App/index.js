@@ -134,18 +134,20 @@ export default class App extends Component {
     }
 
     handleLogin = async form => {
+        console.log(form)
         try {
             const response = await login(form);
             Cache.setToCache('Authentication', form)
 
-            if (response.status !== 200) {
+            if (response.status != 200) {
                 this.setState({ error: response.status });
+            }else{
+                let user = await this.updateUser(response);
+                await user.updateUser();
+
+                this.setState({ registerLoginModalOpen: null, error: null });
             }
 
-            let user = await this.updateUser(response);
-            await user.updateUser();
-
-            this.setState({ registerLoginModalOpen: null, error: null });
             return response;
         } catch (error) {
             return handleError(error);
@@ -210,13 +212,12 @@ export default class App extends Component {
     };
 
     handleLogout = async () => {
-        await logout();
-        await store.dispatch(setProfileInfo(null));
         Cache.setToCache('user', null);
         Cache.setToCache('Authentication', null);
         localStorage.removeItem("diceHistory");
         localStorage.removeItem("rouletteHistory");
         localStorage.removeItem("flipHistory");
+        await store.dispatch(setProfileInfo(null));
         this.setState({ user: null });
     };
 

@@ -3,7 +3,6 @@ import PropTypes from "prop-types";
 import {
   Typography,
 } from "components";
-import classNames from "classnames";
 import { connect } from "react-redux";
 import "./index.css";
 import { CopyText } from "../../copy";

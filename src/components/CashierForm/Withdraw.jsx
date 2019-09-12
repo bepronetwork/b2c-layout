@@ -50,6 +50,7 @@ class Withdraw extends Component {
         //let limitWithdraw = parseInt(await user.casinoContract.getWithdrawalTimeRelease());
         //let isPaused = await user.casinoContract.isPaused();
         //let maxWithdrawal = await user.casinoContract.getMaxWithdrawal();
+        if (!user || _.isEmpty(user)) return true;
 
         this.setState({...this.state, 
             time,

@@ -15,6 +15,8 @@ import Dice from "components/Icons/Dice";
 import delay from 'delay';
 import "./index.css";
 import { Numbers } from "../../lib/ethereum/lib";
+import _ from 'lodash';
+import { isUserSet } from "../../lib/helpers";
 
 export default class DiceGameOptions extends Component {
     static contextType = UserContext;
@@ -117,7 +119,7 @@ export default class DiceGameOptions extends Component {
     }
 
     handleBet = async (callback) => {
-        const { onBet } = this.props;
+        const { onBet, profile } = this.props;
         const { amount, type, bets, profitStop, lossStop, onWin, onLoss} = this.state;
         var res;
 
@@ -130,6 +132,7 @@ export default class DiceGameOptions extends Component {
                     break;
                 };
                 case 'auto' : {
+                    if(!isUserSet(profile)){return null};
                     this.setState({isAutoBetting : true})
                     var totalProfit = 0, totalLoss = 0, lastBet = 0, wasWon = 0;
                     var betAmount = amount;
@@ -344,7 +347,7 @@ export default class DiceGameOptions extends Component {
                 <InputNumber
                     name="amount"
                     value={amount}
-                    max={user ? user.getBalance() : null}
+                    max={(user && !_.isEmpty(user)) ? user.getBalance() : null}
                     step={0.01}
                     icon="bitcoin"
                     precision={2}

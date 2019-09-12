@@ -12,6 +12,7 @@ import store from "../App/store";
 import { Numbers } from "lib/ethereum/lib";
 import { connect } from "react-redux";
 import { compose } from 'lodash/fp';
+import _ from 'lodash';
 
 class RoulettePage extends Component {
     static contextType = UserContext;
@@ -47,8 +48,7 @@ class RoulettePage extends Component {
     isAddChipDisabled = () => {
         const { selectedChip } = this.state;
         const user = this.props.profile;
-
-        if (!user) return true;
+        if (!user || _.isEmpty(user)) return true;
 
         return this.getTotalBet() + selectedChip > user.getBalance();
     };

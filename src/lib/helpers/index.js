@@ -1,5 +1,6 @@
 import moment from 'moment';
 import Cache from '../cache/cache';
+import _ from 'lodash';
 
 function dateToHourAndMinute(date){
     date = new Date(date);
@@ -31,4 +32,13 @@ function getGames() {
     return  Cache.getFromCache("appInfo") ? Cache.getFromCache("appInfo").games : [];
 }
 
-export { dateToHourAndMinute, fromSmartContractTimeToMinutes, getGames }
+
+function isUserSet(profile){
+    if(!profile || _.isEmpty(profile)){
+        return false;
+    }else{
+        return true;
+    }
+}
+
+export { dateToHourAndMinute, fromSmartContractTimeToMinutes, getGames, isUserSet }
