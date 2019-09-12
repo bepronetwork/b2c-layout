@@ -13,7 +13,41 @@ let anim = null;
 let endAnim = null;
 
 const ANIMATION_INTERVAL = 20;
+const TOTAL_ANIMATION_TIME = 4*1000;
 
+const WHEEL_SPACES_END = [
+    22,
+    21,
+    20,
+    19,
+    18,
+    17,
+    16,
+    15,
+    14,
+    13,
+    12,
+    11,
+    10,
+    9,
+    8,
+    7,
+    6,
+    5,
+    4,
+    3,
+    2,
+    1,
+    0,
+    29,
+    20,
+    28,
+    27,
+    26,
+    25,
+    24,
+    23,
+]
 export default class Wheel extends Component {
     static propTypes = {
         result: PropTypes.number,
@@ -39,9 +73,10 @@ export default class Wheel extends Component {
         this.arc = Math.PI / 15;
         this.spinTimeout = null;
         this.acc = 0;
-        this.spinArcStart = 10;
+        this.spinArcStart = 0;
         this.spinTime = 0;
         this.spinTimeTotal = 0;
+        this.offset = 0;
         this.current_user_status = {};
         this.spinMovement = null;
         this.spin_results = null;
@@ -100,15 +135,18 @@ export default class Wheel extends Component {
 
     spin() {
         const { result } = this.props;
-        let SPINS = parseInt(Math.floor(Math.random() * (10 - 4 + 1)) + 4);
-        this.desiredSpin = 260;
-        this.totalSpin = SPINS+this.desiredSpin;
-        this.spinMovement = 20; //+ intervalAngle*result;
-        this.spinAngleStart = this.totalSpin + this.spinMovement;
+        const ONE_ARC_ANGLE = 12/49.5;
+        const ONE_SPIN = 360/49.5;
+
+        let SPINS =  3*ONE_SPIN; // Represents the AMount of 49.5 Angules
+        this.desiredSpin = 360;
+        this.spinAngleStart = SPINS + WHEEL_SPACES_END[result]*ONE_ARC_ANGLE - this.offset*ONE_ARC_ANGLE;
+
+        this.offset = WHEEL_SPACES_END[result];
         this.spinTime = 0;
         this.acc = 0;
         /* miliseconds of Spin Time */
-        this.spinTimeTotal = SPINS*20*360/this.desiredSpin;//Math.floor(Math.random() * 4) * Math.floor(Math.random() * 6) + Math.floor(Math.random() * 8) * Math.floor(Math.random() * 2000) + 2000;
+        this.spinTimeTotal = TOTAL_ANIMATION_TIME;
         this.rotateWheel();
     }
 
@@ -120,7 +158,6 @@ export default class Wheel extends Component {
         }
         var spinAngle = this.spinAngleStart - this.easeOut(this.spinTime, 0, this.spinAngleStart, this.spinTimeTotal);
         this.acc = this.acc + spinAngle;
-        console.log(parseInt(this.acc));
         this.startAngle += (spinAngle * Math.PI / 180);
         this.drawSpinnerWheel(this.props);
         this.spinTimeout = setTimeout(() => this.rotateWheel(), ANIMATION_INTERVAL);

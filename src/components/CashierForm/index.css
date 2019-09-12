@@ -13,6 +13,7 @@
     display: block;
     overflow-x: auto !important;
   }
+
 }
 
 .tabs {
@@ -20,8 +21,7 @@
 }
 
 .deposit {
-    height: 250px;
-
+    height: auto;
     text-align: center;
 }
 
@@ -48,9 +48,13 @@
 
 
 .withdraws-table{
-    max-width: 70%;
+    max-width: 90%;
     margin: auto;
     position: relative;
+    @include Breakpoint-mobileOnly {
+        max-width: 100%;
+        width: 100% !important;
+    }
 }
 
 .input-box{
