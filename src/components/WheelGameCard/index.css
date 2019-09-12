@@ -17,6 +17,7 @@
   background-color: $background-main-table;
 
   @include Breakpoint-mobileOnly {
+    display : block;
     grid-template-columns: auto auto;
     grid-template-areas: "Result Board" "LastBets Board" "ChipControls ChipControls";
   }
@@ -138,9 +139,14 @@
 .wheel {
     margin-top : 60px;
     grid-area: Wheel / Wheel / Wheel / Wheel;
+
+
     @include Breakpoint-mobileOnly {
-        display: none;
+        width: 200px;
+        margin-left: 40%;
+        margin-top: 20%;
     }
+ 
 }
 
 @keyframes rotation {
@@ -162,7 +168,8 @@
   max-width: 750px;
 
   @include Breakpoint-mobileOnly {
-    margin-top : 30px;
+    margin-top : 0px;
+
   }
 
 }

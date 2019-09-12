@@ -24,6 +24,10 @@
     background: rgb(53, 68, 82);
     padding: 1em 0.5em;
     overflow: hidden;
+
+    @include Breakpoint-mobileOnly {
+        width : 70px;
+    }
 }
 
 
@@ -46,6 +50,10 @@
     display: grid;
     display: flex;
     gap: 1em 1em;
+
+    @include Breakpoint-mobileOnly {
+        margin-top : 0px;
+    }
 }
 
 

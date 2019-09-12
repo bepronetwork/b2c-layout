@@ -93,7 +93,7 @@ class WheelGameCard extends Component {
     
     handleAnimationEnd = () => {
         const { onResultAnimation, bet } = this.props;
-        if (document.documentElement.clientWidth > mobileBreakpoint && bet){
+        if (bet){
             onResultAnimation();
         }
     };
@@ -243,7 +243,6 @@ class WheelGameCard extends Component {
                 />
             </div>
             <div styleName="board">
-            <div styleName={blockStyles} />
                 <WheelBox options={options} game={this.props.game} result={result} inResultAnimation={inResultAnimation} game={game}/>
             </div>
             {this.renderClearUndo()}

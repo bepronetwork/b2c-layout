@@ -68,10 +68,7 @@ canvas {
     margin : auto;
     display: block;
     position: relative;
-    @include Breakpoint-mobileOnly {
-        height: 140px;
-        margin-top : 500%
-    }
+   
 }
 
 
@@ -94,6 +91,10 @@ canvas {
       font-size: $font-size-h2;
       font-weight: 600;
       line-height: $line-height-h2;
+    }
+
+    @include Breakpoint-mobileOnly {
+        padding-top: 20% !important;
     }
   }
   
