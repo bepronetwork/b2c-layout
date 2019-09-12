@@ -57,19 +57,24 @@ class Navbar extends Component {
     }
     
     projectData = async (props) => {
-        var user = !_.isEmpty(props.profile) ? props.profile : null ;
-        if(user){
-            let userMetamaskAddress = await user.getMetamaskAddress();
-            let metamaksAddress = userMetamaskAddress ? userMetamaskAddress: defaultProps.userMetamaskAddress;
-            this.setState({...this.state, 
-                user    : user,
-                difference : parseFloat(user.getBalance() - this.state.currentBalance),
-                currentBalance : user.getBalance(),
-                userAddress : user.getAddress() ? AddressConcat(user.getAddress()) : defaultProps.userAddress,
-                userMetamaskAddress : user ? AddressConcat(metamaksAddress) : defaultProps.userMetamaskAddress,
-                isValid : user ? new String(user.getAddress()).toLowerCase() == new String(metamaksAddress).toLowerCase() :  defaultProps.isValid     
-            })
-        }else{
+        try{
+            var user = !_.isEmpty(props.profile) ? props.profile : null ;
+            if(user){
+                let userMetamaskAddress = await user.getMetamaskAddress();
+                let metamaksAddress = userMetamaskAddress ? userMetamaskAddress: defaultProps.userMetamaskAddress;
+                this.setState({...this.state, 
+                    user    : user,
+                    difference : parseFloat(user.getBalance() - this.state.currentBalance),
+                    currentBalance : user.getBalance(),
+                    userAddress : user.getAddress() ? AddressConcat(user.getAddress()) : defaultProps.userAddress,
+                    userMetamaskAddress : user ? AddressConcat(metamaksAddress) : defaultProps.userMetamaskAddress,
+                    isValid : user ? new String(user.getAddress()).toLowerCase() == new String(metamaksAddress).toLowerCase() :  defaultProps.isValid     
+                })
+            }else{
+                this.setState({user : null})
+            }
+        }catch(err){
+            console.log(err)
             this.setState({user : null})
         }
         

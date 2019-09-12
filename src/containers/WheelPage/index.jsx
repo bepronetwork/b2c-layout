@@ -94,7 +94,7 @@ class WheelPage extends React.Component {
         const { selectedChip } = this.state;
         const user = this.props.profile;
 
-        if (!user) return true;
+        if (!user || _.isEmpty(user)) return true;
 
         return this.getTotalBet() + selectedChip > user.getBalance();
     };

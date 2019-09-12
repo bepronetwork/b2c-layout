@@ -15,6 +15,8 @@ import Dice from "components/Icons/Dice";
 import delay from 'delay';
 import "./index.css";
 import { Numbers } from "../../lib/ethereum/lib";
+import _ from 'lodash';
+import { isUserSet } from "../../lib/helpers";
 
 export default class FlipGameOptions extends Component {
     static contextType = UserContext;
@@ -74,6 +76,8 @@ export default class FlipGameOptions extends Component {
     handleMultiply = value => {
         const user = this.props.profile;
         const { betAmount } = this.state;
+        if (!user || _.isEmpty(user)) return true;
+
         let balance = user.getBalance();
 
         let newAmount = betAmount;
@@ -106,10 +110,10 @@ export default class FlipGameOptions extends Component {
     };
 
     handleBet = async () => {
-        const { onBet } = this.props;
+        const { onBet, profile } = this.props;
         const { type, bets, profitStop, lossStop, onWin, onLoss, side} = this.state;
         var betAmount = this.state.betAmount;
-
+        
         if (this.isBetValid()) {
             // to be completed with the other options
             this.setState({ sound: true });
@@ -119,6 +123,7 @@ export default class FlipGameOptions extends Component {
                     break;
                 };
                 case 'auto' : {
+                    if(!isUserSet(profile)){return null};
                     this.setState({isAutoBetting : true})
                     var totalProfit = 0, totalLoss = 0, lastBet = 0, wasWon = 0;
                     for( var i = 0; i < bets ; i++){
@@ -289,7 +294,7 @@ export default class FlipGameOptions extends Component {
                 name="amount"
                 step={0.01}
                 icon="bitcoin"
-                max={user ? user.getBalance() : null}
+                max={(user && !_.isEmpty(user)) ? user.getBalance() : null}
                 precision={2}
                 value={betAmount}
                 onChange={this.handleBetAmountChange}
