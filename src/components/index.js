@@ -42,8 +42,12 @@ import LanguagePicker from "components/LanguagePicker";
 import Caroussel from "components/Caroussel";
 import AccountInfoModal from "components/AccountInfoModal";
 import Partners from "components/Partners";
+import WheelGameCard from "./WheelGameCard";
+import WheelGameOptions from "./WheelGameOptions";
 
 export { Caroussel };
+export { WheelGameCard };
+export { WheelGameOptions };
 export { LanguagePicker };
 export { Roulette };
 export { CoinFlip };

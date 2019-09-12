@@ -62,7 +62,8 @@ class Deposit extends Component {
             this.setState({...this.state, onDeposit : 'processing'});
             /* Create Deposit Framework */
             let res = await user.createDeposit({amount : Numbers.toFloat(this.state.amount)});
-            let { message } = res.data;
+            let { message, status } = res.data;
+            if(status != 200){throw message};
             /* Update user Data */
             await user.getAllData();
             this.setState({...this.state, onDeposit : 'completed'});
@@ -75,15 +76,18 @@ class Deposit extends Component {
 
     confirmDeposit = async (deposit) => {
         try{
-            const { setUser } = this.context;
             const user = this.props.profile;
             /* Create Deposit Framework */
+            this.setState({...this.state, onDeposit : 'processing'});
             let res = await user.confirmDeposit(deposit);
-            let { message } = res.data;
-            await store.dispatch(setDepositOrWithdrawResult(message));
+            let { message, status } = res.data;
+            if(status != 200){throw message};
             /* Update user Data */
-            await updateUserBalance(user, setUser);
+            /* Update user Data */
+            await user.getAllData();            
+            this.setState({...this.state, onDeposit : 'completed'});
         }catch(err){
+            this.setState({...this.state, onDeposit : 'failure'});
             console.log(err)
         }
     }

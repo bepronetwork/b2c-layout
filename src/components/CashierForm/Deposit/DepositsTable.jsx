@@ -62,8 +62,9 @@ const fromDatabasetoTable = (data) => {
         return {
             id :  data._id,
 			amount : Numbers.toFloat(data.amount),
-            confirmed: data.isConfirmed ? 'Confirmed' : 'Open',
+            confirmed: data.isConfirmed ? 'Confirmed' : 'Confirm',
             done :  data.confirmed,
+            isConfirmed : data.isConfirmed,
             transactionHash : data.transactionHash,
             creation_timestamp : new Date(data.creation_timestamp),
             creation_date : new Date(data.creation_timestamp).toDateString(),
@@ -351,7 +352,7 @@ class DepositsTable extends React.Component {
         const { classes, ln } = this.props;
         const { data, order, orderBy, selected, rowsPerPage, page } = this.state;
         const emptyRows = rowsPerPage - Math.min(rowsPerPage, data.length - page * rowsPerPage);
-        const copy = CopyText.Withdraw[ln];
+        const copy = CopyText.Deposit[ln];
 
         return (
             <Paper className={classes.root}>
@@ -387,12 +388,20 @@ class DepositsTable extends React.Component {
                                         </Typography>
                                     </StyledTableCell>
                                     <StyledTableCell style={{width : 50}} align="center">
-                                        <div styleName={withdrawStatus[n.confirmed.toLowerCase()]}>
-                                            <Typography variant={'small-body'} color='white'>
-                                                {n.confirmed}
-                                            </Typography>
-                                        </div>
-                                    </StyledTableCell>
+                                        {!n.isConfirmed ? 
+                                            <button styleName='deposit-button'
+                                                onClick={ () => this.props.confirmDeposit(n)}
+                                            >
+                                                <Typography color={'white'} variant={'small-body'}>{copy.BUTTON_CONFIRMATION}</Typography>
+                                            </button>
+                                        : 
+                                            <div styleName={withdrawStatus[n.confirmed.toLowerCase()]}>
+                                                <Typography variant={'small-body'} color='white'>
+                                                    {n.confirmed}
+                                                </Typography>
+                                            </div>
+                                        }
+                                        </StyledTableCell>
                                      <StyledTableCell align="left">
                                         {n.transactionHash ?
                                             <a href={`${etherscanLinkID}/tx/${n.transactionHash}`} target={'_blank'}>

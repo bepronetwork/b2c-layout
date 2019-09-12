@@ -31,6 +31,7 @@ import ChatPage from "../Chat";
 import { CopyText } from "../../copy";
 import { setMessageNotification } from "../../redux/actions/message";
 import ChatChannelUnlogged from "../../controllers/Chat/ChatUnlogged";
+import WheelPage from "../WheelPage";
 
 const history = createBrowserHistory();
 
@@ -326,6 +327,18 @@ export default class App extends Component {
                     path="/european_roulette_simple"
                     render={props => (
                         <RoulettePage
+                        {...props}
+                        onHandleLoginOrRegister={this.handleLoginOrRegisterOpen}
+                        />
+                    )}
+                    />
+                ) : null}
+                {this.isGameAvailable("wheel_simple") ? (
+                    <Route
+                    exact
+                    path="/wheel_simple"
+                    render={props => (
+                        <WheelPage
                         {...props}
                         onHandleLoginOrRegister={this.handleLoginOrRegisterOpen}
                         />

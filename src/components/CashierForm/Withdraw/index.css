@@ -8,7 +8,9 @@
 }
 
 .grey-box{
+    background-color: $grey;
     border-radius: 20px;
+    border-radius: 5px;
     width: max-content;
     padding: 5px 10px;
 }

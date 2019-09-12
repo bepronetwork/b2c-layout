@@ -1,10 +1,10 @@
 import axios from "axios";
 import handleError from "./handleError";
-import { apiUrl, appId } from "./apiConfig";
+import { apiUrl, apiUrlWithdraw, appId } from "./apiConfig";
 
 export default async function getAppInfo() {
     try {
-        const response = await axios.post(`${apiUrl}/app/get`, {
+        const response = await axios.post(`${apiUrl}/api/app/get`, {
         app: appId
         });
 
@@ -17,7 +17,7 @@ export default async function getAppInfo() {
 
 async function getGames(){
     try {
-        const response = await axios.post(`${apiUrl}/app/games/getAll`, {
+        const response = await axios.post(`${apiUrl}/api/app/games/getAll`, {
             app: appId
         });
 
@@ -30,7 +30,7 @@ async function getGames(){
 
 async function getLastBets({size}) {
     try {
-        const response = await axios.post(`${apiUrl}/app/lastBets`, {
+        const response = await axios.post(`${apiUrl}/api/app/lastBets`, {
             app: appId,
             size
         });
@@ -43,7 +43,7 @@ async function getLastBets({size}) {
 
 async function getBiggestBetWinners({size}) {
     try {
-        const response = await axios.post(`${apiUrl}/app/biggestBetWinners`, {
+        const response = await axios.post(`${apiUrl}/api/app/biggestBetWinners`, {
             app: appId,
             size
         });
@@ -56,7 +56,7 @@ async function getBiggestBetWinners({size}) {
 
 async function getBiggestUserWinners({size}) {
     try {
-        const response = await axios.post(`${apiUrl}/app/biggestUserWinners`, {
+        const response = await axios.post(`${apiUrl}/api/app/biggestUserWinners`, {
             app: appId,
             size
         });
@@ -68,7 +68,7 @@ async function getBiggestUserWinners({size}) {
 
 async function getPopularNumbers({size}) {
     try {
-        const response = await axios.post(`${apiUrl}/app/popularNumbers`, {
+        const response = await axios.post(`${apiUrl}/api/app/popularNumbers`, {
             app: appId,
             size
         });
