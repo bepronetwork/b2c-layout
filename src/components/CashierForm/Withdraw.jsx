@@ -6,11 +6,12 @@ import { compose } from 'lodash/fp';
 import { promptMetamask } from 'lib/metamask';
 import { 
     MetamaskPrompt, HorizontalStepper, AmountWithdrawForm, CurrencyWithdrawForm, 
-    WithdrawForm, WithdrawConfirmForm, TradeFormDexWithdraw
+    WithdrawForm, WithdrawConfirmForm, TradeFormDexWithdraw, InformationBox
 } from 'components';
 import { getMetamaskAccount } from "../../lib/metamask";
 import { MIN_WITHDRAWAL } from "../../lib/api/apiConfig";
 import { Numbers } from 'lib/ethereum/lib';
+import info from 'assets/info.png';
 
 const defaultProps = {
     amount : 10,
@@ -63,12 +64,12 @@ class Withdraw extends Component {
         const { hasMetamask, maxWithdrawal, userBalance, allowedAmount, isValidAddress } = this.state;
         const { currency, nextStep, amount, tx, isConfirmed } = withdraw;
         if(!hasMetamask){return (<MetamaskPrompt hasMetamask={hasMetamask}/>)}
-        console.log(amount, userBalance)
 
         return (
             <div styleName='root'>
                  <div styleName="deposit">
                     <div styleName="title">
+                        <InformationBox type={'info'} message={'If you left open withdraws please finish the process at the "Profile" Tab under "CashierForm"'} image={info}/>
                         <HorizontalStepper 
                             nextStep={nextStep}
                             alertCondition={!isValidAddress}

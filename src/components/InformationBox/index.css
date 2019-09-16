@@ -10,15 +10,16 @@
 
   padding: $spacing-20;
 
-  background: $background-table-1;
+  background: $background-table-2;
 }
 
 .container-root{
     display: flex;
-    width : 300px;
-    height: 100px;
+    width : 370px;
+    height: auto;
     margin : 10px auto;
     padding : $spacing-20;
+    border : 1px solid $white;
     background: $black;
     border-radius : $border-radius;
     opacity : 1;
@@ -35,7 +36,7 @@
 }
 
 .text-description{
-    margin-top : 10px;
+    margin-top : 5px;
 }
 
 .payment-image{
@@ -44,7 +45,6 @@
 }
 
 .container-text{
-    width: 150px;
     text-align: left;
 }
 
@@ -58,6 +58,10 @@
     &:hover{
         opacity : 1 !important;
     }
+}
+
+.text-message{
+    margin-top : 5px;
 }
 
 .alert{
@@ -74,4 +78,15 @@
     width: 30px;
     margin-top: 15px;
     margin-left : 10px;
+}
+
+
+.close-button{
+    background: transparent;
+    position: absolute;
+    margin-top: -6px;
+    z-index: 100;
+    width: 20px;
+    margin-left: 300px;
+    height: 20px;
 }

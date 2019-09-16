@@ -78,12 +78,28 @@ class DepositConfirmForm extends React.Component{
                         </Col>
                         <Col xs={5} md={6}>
                             <div styleName={'container-text'}>
-                                <Typography variant={'body'} color={'white'}>
-                                    Transaction
-                                </Typography>
+                                {!completed ?
+                                     <div>
+                                        <Typography variant={'small-body'} color={'white'}>
+                                            {`Please Wait`}
+                                        </Typography>
+                                        <Typography variant={'x-small-body'} color={'white'}>
+                                            {`${confirmations}/${CONFIRMATIONS_NEEDED} confirmations done`}
+                                        </Typography>
+                                    </div>
+                                    :
+                                    <div>
+                                        <Typography variant={'small-body'} color={'green'}>
+                                            {`Click and finalize your deposit`}
+                                        </Typography>
+                                        <Typography variant={'x-small-body'} color={'white'}>
+                                            {`Your deposit was confirmed with success`}
+                                        </Typography>
+                                    </div>
+                                }
                                 <div styleName='text-description '>
                                     <Typography variant={'x-small-body'} color={'casper'}>
-                                        {AddressConcat(tx)}
+                                        Transaction {AddressConcat(tx)}
                                     </Typography>
                                 </div>
                             </div>

@@ -70,7 +70,7 @@ class WheelGameOptions extends Component {
         const soundConfig = localStorage.getItem("sound");
 
         if (!sound || soundConfig !== "on") {
-        return null;
+            return null;
         }
 
         return (

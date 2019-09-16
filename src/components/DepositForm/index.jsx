@@ -84,14 +84,14 @@ class DepositForm extends Component {
                     onLoading={onLoading.hasAllowed}
                     disabled={!updated}
                     loadingMessage={'Metamask should prompt, click on it and Approve the Transaction'}
-                    completed={hasAllowed || isDeposited} id={'allowance'} image={allow} description={'Allow Deposit'} title={'Allow Deposit'}
+                    completed={(hasAllowed || isDeposited)} id={'allowance'} image={allow} description={'Allow Deposit to the Platform Smart-Contract'} title={'1) Allow'}
                 />
                 <ActionBox 
                     onClick={this.depositTokens}
                     onLoading={onLoading.hasDeposited}
                     disabled={!updated || !hasAllowed}
                     loadingMessage={'Metamask should prompt, click on it and Approve the Transfer'}
-                    completed={hasDeposited || isDeposited} id={'deposit'} image={deposit} description={'Deposit'} title={'Deposit'}
+                    completed={(hasDeposited || isDeposited)} id={'deposit'} image={deposit} description={'Deposit your Tokens'} title={'2) Deposit'}
                 />
                 {/* <ProgressBar/> */}
             </div>
