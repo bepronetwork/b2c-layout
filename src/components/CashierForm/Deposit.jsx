@@ -54,7 +54,6 @@ class Deposit extends Component {
     render() {
         const { deposit } = this.props;
         const { hasMetamask, ownedDAI, isValidAddress } = this.state;
-        console.log(ownedDAI)
         const { currency, nextStep, amount, tx, isConfirmed } = deposit;
 
         if(!hasMetamask){return (<MetamaskPrompt hasMetamask={hasMetamask}/>)}
