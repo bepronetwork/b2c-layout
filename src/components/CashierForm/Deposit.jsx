@@ -4,9 +4,10 @@ import "./index.css";
 import { connect } from "react-redux";
 import { compose } from 'lodash/fp';
 import { promptMetamask } from 'lib/metamask';
-import { MetamaskPrompt, DepositConfirmForm, AmountDepositForm, CurrencyDepositForm, HorizontalStepper, DepositForm } from 'components';
+import { MetamaskPrompt, DepositConfirmForm, AmountDepositForm, CurrencyDepositForm, HorizontalStepper, DepositForm, InformationBox } from 'components';
 import { TradeFormDexDeposit } from "../TradeForms/Dex";
 import { getMetamaskAccount } from "../../lib/metamask";
+import info from 'assets/info.png';
 
 const defaultProps = {
     amount : 10,
@@ -62,6 +63,7 @@ class Deposit extends Component {
             <div styleName='root'>
                 <div styleName="deposit">
                     <div styleName="title">
+                        <InformationBox type={'info'} message={'If you left open deposits please finish the process at the "Profile" Tab under "CashierForm"'} image={info}/>
                         <HorizontalStepper 
                             nextStep={nextStep}
                             alertCondition={!isValidAddress}

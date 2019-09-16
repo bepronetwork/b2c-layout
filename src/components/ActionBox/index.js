@@ -22,7 +22,6 @@ class ActionBox extends React.Component{
         const { 
             id, image, description, title, completed, onLoading, loadingMessage, disabled, alertMessage, alertCondition
         } = this.props;
-
         return (
             <button disabled={completed || onLoading || disabled} onClick={this.onClick}
                 styleName={`container-root ${completed ? 'picked' : ''} ${(completed || onLoading || disabled) ? 'nohover' : ''} ${onLoading ? 'onLoading' : ''}${alertCondition ? 'alert' : ''}`}>

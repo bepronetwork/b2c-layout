@@ -19,6 +19,7 @@ class TradeFormDexDeposit extends React.Component{
         super(props);
         this.state = { 
             hasTraded : false,
+            hasEnoughEth : true,
             onLoading : {
                 hasTraded : false,
                 //hasWrapped : false,
@@ -136,10 +137,11 @@ class TradeFormDexDeposit extends React.Component{
                     completed={isTokenUnlocked} id={'unlockWETH'} image={allow} description={'Allow Trade'} title={'Unlock WETH'}
                 /> */}
                 <ActionBox 
-                    alertCondition={!hasEnoughEth}
+                    alertMessage={'You don´t have enough Ethereum'}
+                    alertCondition={!hasEnoughEth && !hasEnoughDAI}
                     onClick={this.trade}
                     onLoading={onLoading.hasTraded}
-                    disabled={!updated}
+                    disabled={!updated || !hasEnoughEth}
                     loadingMessage={'Metamask should prompt, click on it and Approve the Transfer'}
                     completed={hasEnoughDAI} id={'tradeETH-DAI'} image={exchange} description={'Allow Trade'} title={'Trade'}
                 />
