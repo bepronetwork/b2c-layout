@@ -37,3 +37,14 @@
         opacity : 1 !important;
     }
 }
+
+
+.text-info-deposit{
+    margin-top : 12px;
+    text-align: left;
+    background-color: $background-table-1;
+    border-radius : $border-radius;
+    padding : $spacing-8 $spacing-12;
+    width : fit-content;
+}
+

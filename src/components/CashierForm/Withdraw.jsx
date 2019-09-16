@@ -9,6 +9,8 @@ import {
     WithdrawForm, WithdrawConfirmForm, TradeFormDexWithdraw
 } from 'components';
 import { getMetamaskAccount } from "../../lib/metamask";
+import { MIN_WITHDRAWAL } from "../../lib/api/apiConfig";
+import { Numbers } from 'lib/ethereum/lib';
 
 const defaultProps = {
     amount : 10,
@@ -60,9 +62,8 @@ class Withdraw extends Component {
         const { withdraw } = this.props;
         const { hasMetamask, maxWithdrawal, userBalance, allowedAmount, isValidAddress } = this.state;
         const { currency, nextStep, amount, tx, isConfirmed } = withdraw;
-        console.log(currency);
         if(!hasMetamask){return (<MetamaskPrompt hasMetamask={hasMetamask}/>)}
-
+        console.log(amount, userBalance)
 
         return (
             <div styleName='root'>
@@ -76,7 +77,7 @@ class Withdraw extends Component {
                                 {
                                     label : "Amount",
                                     title : 'How much you want to withdraw?',
-                                    condition : (  (amount >= 0.01) && ( ((amount <= userBalance) && (amount <= maxWithdrawal)) || (allowedAmount >= amount)) ),
+                                    condition : (  (amount >= 0.01) && ( ((amount <= Numbers.toFloat(userBalance)) && (amount <= maxWithdrawal) && (amount >= MIN_WITHDRAWAL)) || (allowedAmount >= amount)) ),
                                     content : <AmountWithdrawForm/>
                                 },
                          

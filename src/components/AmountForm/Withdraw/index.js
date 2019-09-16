@@ -8,6 +8,7 @@ import { Col, Row } from 'reactstrap';
 import dollar from 'assets/dollar.png';
 import store from "../../../containers/App/store";
 import { setWithdrawInfo } from "../../../redux/actions/withdraw";
+import { MIN_WITHDRAWAL } from "../../../lib/api/apiConfig";
 
 const defaultProps = {
     ticker : 'DAI',
@@ -38,7 +39,8 @@ class AmountWithdrawForm extends Component {
             ticker : profile.getAppCurrencyTicker(),   
             amount : withdraw.amount,
             maxWithdrawal,
-            balance
+            balance,
+            ticker : profile.getAppCurrencyTicker()
         })
     }
 
@@ -56,7 +58,7 @@ class AmountWithdrawForm extends Component {
     }
 
     render() {
-        const { amount, balance, maxWithdrawal } = this.state;
+        const { amount, balance, maxWithdrawal, ticker } = this.state;
         let maxWithdrawInput = Math.min(balance, maxWithdrawal);
 
         return (
@@ -66,7 +68,7 @@ class AmountWithdrawForm extends Component {
                         <Col md={10}>
                             <InputNumber
                                 name="amount"
-                                min={0.1}
+                                min={MIN_WITHDRAWAL}
                                 max={maxWithdrawInput}
                                 precision={2}
                                 title=""
@@ -79,6 +81,9 @@ class AmountWithdrawForm extends Component {
                             <img src={dollar} styleName='dollar-image'/>
                         </Col>
                     </Row>
+                    <div styleName='text-info-deposit'>
+                        <Typography variant={'x-small-body'} color={'white'}>{`Minimum Withdrawal is ${MIN_WITHDRAWAL} ${ticker}`}</Typography>
+                    </div>
                 </div>
                 <Row>
                     <Col md={4}>
