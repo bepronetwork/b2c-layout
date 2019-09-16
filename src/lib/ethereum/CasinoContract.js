@@ -3,12 +3,12 @@ import { casino } from "./interfaces";
 import Contract from "./models/Contract";
 import ERC20TokenContract from "./ERC20TokenContract";
 import { Numbers } from "./lib";
-import { fromSmartContractTimeToMinutes } from "../helpers";
 
 let self;
 
 class CasinoContract {
 	constructor({ contractAddress, tokenAddress, decimals }) {
+        this.decimals = decimals;
 		self = {
 		contract: new Contract({
 			web3: window.web3,
@@ -25,12 +25,10 @@ class CasinoContract {
 	}
 
 	async withdrawTokens({ address, amount }) {
-        let timestampWithdraw = await this.getApprovedWithdrawTimeStamp(address);
-        var timestamp = window.web3.eth.getBlock(window.web3.eth.blockNumber).timestamp;
-        var limitTimestamp = await this.getWithdrawalTimeRelease();
-        console.log(timestamp, timestampWithdraw, limitTimestamp);
-        console.log(timestamp >= timestampWithdraw + limitTimestamp);
-
+        
+        let timestampWithdraw = await this.getTimeForWithdrawal(address);
+        if(timestampWithdraw > 0){throw new Error("Time for Withdraw hans´t passed")}
+        
 		let amountWithDecimals = Numbers.toSmartContractDecimals(
             amount,
             self.decimals
@@ -42,7 +40,6 @@ class CasinoContract {
             .on('transactionHash', (hash) => {
             })
             .on('receipt', (receipt) => {
-                console.log(receipt)
                 resolve(receipt)
             })
             .on('confirmation', (confirmations, receipt) => {
@@ -50,75 +47,73 @@ class CasinoContract {
             })
             .on('error', () => {reject("Transaction Error")})
         });
-	}
-
-	async depositTokens({ address, amount, nonce}) {
-		try {
-            /* Allow Transfer from Smart-Contract */
-            await this.allowWithdrawalFromContract({ address, amount });
-            let amountWithDecimals = Numbers.toSmartContractDecimals(
-                amount,
-                self.decimals
-            );
-
-            return new Promise ( (resolve, reject) => {
-                self.contract.getContract().methods.deposit(amountWithDecimals)
-                .send({ from: address })
-                .on('transactionHash', (hash) => {
-                })
-                .on('receipt', (receipt) => {
-                    console.log(receipt)
-                    resolve(receipt)
-                })
-                .on('confirmation', (confirmations, receipt) => {
-                    resolve(receipt)
-                })
-                .on('error', () => {reject("Transaction Error")})
-            });
-        }catch(err){
-            throw err;
-        }
     }
 
     async getWithdrawalTimeLimit(){
+        
+
         return await self.contract.getContract().methods.releaseTime().call();
     }
 
     async isPaused(){
+        
+
         return await self.contract.getContract().methods.paused().call();
     }
 
 
     async getTimeForWithdrawal(address){
-        let withdrawal = await self.contract.getContract().methods.withdrawals(address).call();
-        if(!withdrawal){return 0};
-        let timeNeeded = (parseInt(await this.getWithdrawalTimeLimit()) + parseInt(withdrawal.timestamp) - (Date.now()/1000));
-        return parseInt(timeNeeded);
+        try{
+            let withdrawal = await self.contract.getContract().methods.withdrawals(address).call();
+            if(!withdrawal){return 0};
+            let timeNeeded = (parseInt(await this.getWithdrawalTimeLimit()) + parseInt(withdrawal.timestamp) - (Date.now()/1000));
+            return parseInt(timeNeeded);
+        }catch(err){
+            return 0;
+        }
     }
 
     async getMaxWithdrawal(){
-        return Numbers.fromBigNumberToInteger( await self.contract.getContract().methods.maxWithdrawal().call())
-		}
+        return Numbers.fromDecimals(await self.contract.getContract().methods.maxWithdrawal().call(), this.decimals);
+	}
 
-		async getMaxDeposit(){
-			return Numbers.fromBigNumberToInteger( await self.contract.getContract().methods.maxDeposit().call())
-		}
+    async getMaxDeposit(){
+        return Numbers.fromDecimals( await self.contract.getContract().methods.maxDeposit().call(), this.decimals);
+    }
 
     async getWithdrawalTimeRelease(){
+        
+
         return Numbers.fromSmartContractTimeToSeconds(await self.contract.getContract().methods.releaseTime().call());
+    }
+
+    async getAllowedDepositAmountForApp(address){
+        
+
+        try{
+            let amount = await self.erc20TokenContract.getAllowedAmount(
+                address, self.contract.getAddress()
+            );
+            return parseInt(amount);
+        }catch(err){
+            return 0;
+        }
     }
     
     async getApprovedWithdrawAmount(address){
+        
+
         try{
             let res = await self.contract.getContract().methods.withdrawals(address).call();
             return Numbers.fromBigNumberToInteger(res ? res.amount : 0);
-               
         }catch(err){
             throw err;
         }
     }
 
     async getApprovedWithdrawTimeStamp(address){
+        
+
         try{
             let res = await self.contract.getContract().methods.withdrawals(address).call();
             return Numbers.fromBigNumberToInteger(res ? res.timestamp : {timestamp : 0});
@@ -129,6 +124,8 @@ class CasinoContract {
     }
  
 	async allowWithdrawalFromContract({ address, amount }) {
+        
+
 		try {
             await self.erc20TokenContract.allowWithdrawalFromContract({
                 address,
@@ -142,7 +139,30 @@ class CasinoContract {
 		}
 	}
 
+
+	async depositTokens({address, amount}) {
+		try {
+            let amountWithDecimals = Numbers.toSmartContractDecimals(
+                amount,
+                self.decimals
+            );
+    
+            return new Promise ( (resolve, reject) => {
+                self.contract.getContract().methods.deposit(amountWithDecimals)
+                .send({ from: address })
+                .on('confirmation', async (confirmations, receipt) => {
+                    resolve(receipt);
+                })
+                .on('error', () => {reject("Transaction Error")})
+            });
+        }catch(err){
+            throw err;
+        }
+    }
+
 	async getBankRoll() {
+        
+
 		try {
 		let res = await self.contract
 			.getContract()
@@ -156,10 +176,14 @@ class CasinoContract {
 	}
 
 	fromIntToFloatEthereum(int) {
+        
+
 		return Math.round(int * 100);
 	}
 
 	async getHouseTokenAmount() {
+        
+
 		try {
 		let playersTokenAmount = await this.getAllPlayersTokenAmount();
 		let houseAmount = await this.getSmartContractLiquidity();
@@ -170,6 +194,8 @@ class CasinoContract {
 	}
 
 	async getAllPlayersTokenAmount() {
+        
+
 		try {
 		return Numbers.fromBigNumberToInteger(
 			await self.contract
@@ -183,6 +209,8 @@ class CasinoContract {
 	}
 
 	async getSmartContractLiquidity() {
+        
+
 		try {
 		return Numbers.fromBigNumberToInteger(
 			await self.erc20TokenContract.getTokenAmount(this.getAddress())
@@ -202,22 +230,6 @@ class CasinoContract {
         return self.erc20TokenContract;
     }
 
-	async depositFunds({ amount, nonce }) {
-		try {
-		await this.allowWithdrawalFromContract({ amount });
-		let amountWithDecimals = Numbers.toSmartContractDecimals(
-			amount,
-			self.decimals
-		);
-		let data = self.contract
-			.getContract()
-			.methods.deposit(self.account.getAddress(), amountWithDecimals, nonce)
-			.encodeABI();
-		return await self.contract.send(self.account.getAccount(), data);
-		} catch (err) {
-		console.log(err);
-		}
-	}
 }
 
 export default CasinoContract;

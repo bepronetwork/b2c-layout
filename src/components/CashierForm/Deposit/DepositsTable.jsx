@@ -206,18 +206,9 @@ let EnhancedTableToolbar = props => {
                 </Typography>
                 ) : (
                 <Row>
-                    <Col md={3}>
-                        <Typography variant="h4" id="tableTitle" color={'white'}>
-                            Deposits
-                        </Typography>
-                    </Col>
-                    <Col md={9}>
-                        <div style={{marginTop : 5, marginLeft : 10}}>  
-                            <Typography variant="small-body" id="tableTitle" color={'casper'}>
-                                Last Deposits
-                            </Typography>
-                        </div>
-                    </Col>
+                    <Typography variant="h4" id="tableTitle" color={'white'}>
+                        Deposits
+                    </Typography>
                 </Row>
                 
                 )}
@@ -299,7 +290,6 @@ class DepositsTable extends React.Component {
         };
     }
 
-
     componentDidMount(){
         this.projectData(this.props)
     }
@@ -309,8 +299,8 @@ class DepositsTable extends React.Component {
     }
 
     projectData = async (props) => {
-        let data = props.data;
-        let deposits = this.props.user.getDeposits();
+        const { profile } = props;
+        let deposits = await profile.getDepositsAsync();
         this.setState({...this.state, 
             data : fromDatabasetoTable(deposits),
             ticker : 'DAI'

@@ -6,7 +6,7 @@ import { Numbers } from "./lib";
 let self;
 
 class ERC20TokenContract {
-    constructor(params) {
+    constructor(params) {        
         self = {
         contract: new Contract({
             web3: window.web3,
@@ -26,7 +26,16 @@ class ERC20TokenContract {
     }
 
     async getTokenAmount(address) {
+        if(!address){return 0}
         return await self.contract.getContract().methods.balanceOf(address).call();
+    }
+
+    async getAllowedAmount(address, spender){
+        try{
+            return await self.contract.getContract().methods.allowance(address, spender).call();
+        }catch(err){
+            throw err;
+        }
     }
 
     async allowWithdrawalFromContract({address, platformAddress, amount, decimals}) {
@@ -41,7 +50,6 @@ class ERC20TokenContract {
                 .on('transactionHash', (hash) => {
                 })
                 .on('receipt', (receipt) => {
-                    console.log(receipt)
                     resolve(receipt)
                 })
                 .on('confirmation', (confirmations, receipt) => {
@@ -54,20 +62,22 @@ class ERC20TokenContract {
         }
     }
 
-  async sendTokens({ address, to, amount, decimals }) {
-    let amountWithDecimals = Numbers.toSmartContractDecimals(amount, decimals);
-    var myContract = new window.web3.eth.Contract(
-        ierc20.abi,
-        self.contractAddress
-    );
-    return await myContract.methods
-      .transfer(to, amountWithDecimals)
-      .send({ from: address });
-  }
+    async sendTokens({ address, to, amount, decimals }) {
+        
 
-  getABI() {
-    return self.contract;
-  }
-}
+        let amountWithDecimals = Numbers.toSmartContractDecimals(amount, decimals);
+        var myContract = new window.web3.eth.Contract(
+            ierc20.abi,
+            self.contractAddress
+        );
+        return await myContract.methods
+        .transfer(to, amountWithDecimals)
+        .send({ from: address });
+    }
+
+    getABI() {
+        return self.contract;
+    }
+    }
 
 export default ERC20TokenContract;

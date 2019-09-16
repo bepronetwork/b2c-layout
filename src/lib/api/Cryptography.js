@@ -2,7 +2,6 @@ import SHA512 from "crypto-js/hmac-sha512";
 import SHA512_HASH from "crypto-js/sha512";
 import randomstring from "randomstring";
 import randomHex from "randomhex";
-import Web3 from "web3";
 import { Numbers } from "../ethereum/lib";
 
 class Cryptography {

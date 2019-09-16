@@ -15,8 +15,15 @@ export const sendbirdChannelID = process.env.REACT_APP_SENDBIRD_CHANNEL_ID;
 
 export const ethNetwork = process.env.REACT_APP_ETH_NETWORK;
 
+export const INFURA_API = process.env.REACT_APP_INFURA_API;
+
 export const etherscanLinkID = `https://${ethNetwork}.etherscan.io`;
 
+export const CONFIRMATIONS_NEEDED = 7;
+
+export const SLIPPAGE_ETH_TRADE = 0.001;
+
+export const SLIPPAGE_ETH_PERCENTAGE = 0.05;
 
 export async function processResponse(response){
     try{

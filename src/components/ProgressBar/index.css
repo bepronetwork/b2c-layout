@@ -1,0 +1,15 @@
+@import '../../../node_modules/rc-progress/assets/index.css';
+
+.circular{
+    width : 70px;
+    height: 70px;
+    margin : 0px auto;
+
+}
+
+.line{
+    width : 300px;
+    height: 5px;
+    margin : auto;
+    margin-top : 30%;
+}

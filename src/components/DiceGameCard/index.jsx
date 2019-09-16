@@ -46,9 +46,7 @@ export default class DiceGameCard extends Component {
 
     componentDidMount(){
         this.projectData(this.props);
-        setTimeout(() => {
-            this.getBets(this.props);
-        }, 2000);
+        this.getBets(this.props);
       
     }
 

@@ -108,7 +108,7 @@
 }
 
 .mercury {
-  color: $mercury;
+  color: $orange;
 }
 
 .casper {
@@ -126,3 +126,4 @@
 .grey{
     color : $grey;
 }
+

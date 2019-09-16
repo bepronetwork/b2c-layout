@@ -79,7 +79,7 @@
 .disabled .content,
 .disabled:hover .content,
 .disabled:focus .content {
-  background-color: color($green alpha(50%));
+  background-color: color($black alpha(50%));
   color: white;
   cursor: default;
 }
