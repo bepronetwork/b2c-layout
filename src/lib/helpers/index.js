@@ -25,7 +25,7 @@ function dateToHourAndMinute(date){
 function fromSmartContractTimeToMinutes(time){
     return moment().startOf('day')
     .seconds(time)
-    .format('H:mm.ss');
+    .format('mm.ss');
 }
 
 function getGames() {
@@ -41,4 +41,9 @@ function isUserSet(profile){
     }
 }
 
-export { dateToHourAndMinute, fromSmartContractTimeToMinutes, getGames, isUserSet }
+function getMinutesfromSeconds(seconds){
+    return Math.floor(seconds / 60);
+}
+
+
+export { dateToHourAndMinute, fromSmartContractTimeToMinutes, getGames, isUserSet, getMinutesfromSeconds }

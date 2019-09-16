@@ -1,0 +1,39 @@
+
+@import "../../../styles/all.css";
+
+.root {
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  height: calc(100% - $spacing-20 - $spacing-20);
+  padding: $spacing-20;
+  background: $background-table-1;
+}
+
+.container-root{
+    display: flex;
+    width : 100px;
+    text-align: center;
+    height: auto;
+    margin : 10px auto;
+    padding : $spacing-20;
+    background: $black;
+    border-radius : $border-radius;
+    opacity : 1;
+    transition: all 0.2s ease-in;
+
+    &:hover{
+        opacity : 0.4;
+    }
+}
+.dollar-image{
+    width : 50px;
+}
+
+
+.no-hover{
+
+    &:hover{
+        opacity : 1 !important;
+    }
+}

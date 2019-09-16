@@ -1,6 +1,8 @@
 import React, { Component } from "react";
-import { Typography } from 'components';
+import { Typography, TabedContainer, DepositTab, WithdrawTab } from 'components';
 import { connect } from "react-redux";
+import MoneyIcon from 'mdi-react/MoneyIcon';
+import ExitToAppIcon from 'mdi-react/ExitToAppIcon';
 
 import "./index.css";
 import ReactMati from 'react-mati';
@@ -16,15 +18,30 @@ class AccountInfoModal extends Component {
     render() {
         const { profile } = this.props;
         const id = profile.getID();
+
         return (
             <div styleName="root" style={{ overflowY: 'auto', overflowX : 'hidden'}}>
                 <Typography variant={'h4'} color={'white'}>
-                    User Summary
+                    My Zone
                 </Typography>
                 <hr></hr>
-                <Typography variant={'body'} color={'casper'}>
-                    User Verification Soon...
-                </Typography>
+                <TabedContainer 
+                    items={
+                        [
+                            {
+                                title : 'Deposits',
+                                container : <DepositTab/>,
+                                icon : <MoneyIcon size={20}/>
+                            },
+                            {
+                                title : 'Withdraws',
+                                container : <WithdrawTab/>,
+                                icon : <ExitToAppIcon size={20}/>
+
+                            }
+                        ]
+                    }
+                />
                 {/* <div styleName='mati-kyc-setup'>
                     <ReactMati clientId={'5d3ebd1ec2ca36001b912f42'} metadata={{ userId: id }} />}
                 </div> */
@@ -34,7 +51,6 @@ class AccountInfoModal extends Component {
         );
     }
 }
-
 
 function mapStateToProps(state){
     return {

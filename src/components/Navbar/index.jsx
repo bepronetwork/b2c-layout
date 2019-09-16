@@ -5,6 +5,7 @@ import { Button, SubtleButton, Typography, UserMenu, AnimationNumber, LanguagePi
 import UserContext from "containers/App/UserContext";
 import Bitcoin from "components/Icons/Bitcoin";
 import { Numbers } from "../../lib/ethereum/lib";
+import { getMetamaskAccount } from 'lib/metamask';
 import logo from "assets/logo.png";
 import { connect } from "react-redux";
 import { compose } from 'lodash/fp'
@@ -58,13 +59,15 @@ class Navbar extends Component {
     
     projectData = async (props) => {
         try{
-            var user = !_.isEmpty(props.profile) ? props.profile : null ;
+            var user = !_.isEmpty(props.profile) ? props.profile : null;
+
             if(user){
-                let userMetamaskAddress = await user.getMetamaskAddress();
-                let metamaksAddress = userMetamaskAddress ? userMetamaskAddress: defaultProps.userMetamaskAddress;
+                let userMetamaskAddress = await getMetamaskAccount();
+                let metamaksAddress = userMetamaskAddress ? userMetamaskAddress : defaultProps.userMetamaskAddress;
+                let difference = parseFloat(user.getBalance() - this.state.currentBalance);
                 this.setState({...this.state, 
                     user    : user,
-                    difference : parseFloat(user.getBalance() - this.state.currentBalance),
+                    difference : (difference != 0) ? difference : this.state.difference,
                     currentBalance : user.getBalance(),
                     userAddress : user.getAddress() ? AddressConcat(user.getAddress()) : defaultProps.userAddress,
                     userMetamaskAddress : user ? AddressConcat(metamaksAddress) : defaultProps.userMetamaskAddress,
@@ -183,9 +186,7 @@ class Navbar extends Component {
 
 function mapStateToProps(state){
     return {
-        profile: state.profile,
-        bet : state.bet,
-        depositOrWithdraw : state.depositOrWithdraw
+        profile: state.profile
     };
 }
 

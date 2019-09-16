@@ -1,0 +1,23 @@
+@import "../../styles/all.css";
+
+.metamask-modal-layer{
+    width: 100%;
+    position: relative;
+    height: auto;
+    padding : 50px 20px;
+    z-index: 1;
+    background-color: $modal-background;
+    height: -webkit-fill-available;
+}
+
+.metamask-logo{
+    width: 100px;
+    display: block;
+    position: relative;
+    margin: 60px auto;
+}
+
+.metamask-text{
+    text-align: center;
+    padding : 20px;
+}

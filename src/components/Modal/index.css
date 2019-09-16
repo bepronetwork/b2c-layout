@@ -46,7 +46,7 @@ $icon-index: calc($root-index + 1);
 
 .content {
   position: relative;
-  height: inherit;
+  height: auto;
   width: 800px;
   z-index : 100;
 

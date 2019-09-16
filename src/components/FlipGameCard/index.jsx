@@ -47,9 +47,6 @@ export default class FlipGameCard extends Component {
 
     componentDidMount(){
         this.projectData(this.props);
-        setInterval( () => {
-            this.getBets(this.props);
-        }, 34*1000)
         setTimeout( () => {
             this.getBets(this.props);
         }, 1*1000)
