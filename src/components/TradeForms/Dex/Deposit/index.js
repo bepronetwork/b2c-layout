@@ -107,11 +107,11 @@ class TradeFormDexDeposit extends React.Component{
             /* Create Deposit Framework */
             let res = await RadarRelaySingleton.submitMarketOrder({bids : [bid], amount : parseFloat(deposit.amount).toFixed(6), side : 'BUY', isDirectETH : true});
             if(!res){throw new Error("Error on Transaction")};
-            setInterval( () =>{
+            setInterval( async () =>{
                 this.projectData(this.props);
                 this.onLoading('hasTraded', false);
-            }, 3000);
-            await store.dispatch(setDepositInfo({key : 'hasTraded', value : true}))
+                await store.dispatch(setDepositInfo({key : 'hasTraded', value : true}))
+            }, 3*1000);
         }catch(err){
             this.onLoading('hasTraded', false);
         }
