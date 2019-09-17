@@ -56,24 +56,29 @@
     }
 }
 
+.multiplier-0{}
+.multiplier-1{}
+.multiplier-2{}
+.multiplier-3{}
+.multiplier-4{}
 
 .multiplier-0::before{
     background: $dark-purple;
 }
 
-.multiplier-2::before{
+.multiplier-1::before{
     background: $blue-ribbon;
 }
 
-.multiplier-3::before{
+.multiplier-2::before{
     background: $orange;
 }
 
-.multiplier-5::before{
+.multiplier-3::before{
     background: $green;
 }
 
-.multiplier-10::before{
+.multiplier-4::before{
     background: $olive;
 }
 

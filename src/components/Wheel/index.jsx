@@ -93,9 +93,9 @@ export default class Wheel extends Component {
 
 
     drawSpinnerWheel(props) {
-        this.colors = props.colors;
+        this.options = props.options;
         var canvas = document.getElementById("canvas");
-        
+        if(this.options.length < 1){return null}
         if (canvas.getContext) {
             var outsideRadius = 500;
             var textRadius = 1;
@@ -109,7 +109,14 @@ export default class Wheel extends Component {
             for (var i = 0; i < 30; i++) {
                
                 var angle = this.startAngle + i * this.arc;
-                this.wheel.fillStyle = this.colors[i];
+                let place = this.options.find(opt => {
+                    let placing = opt.placings.find( placing => {
+                        return placing == i
+                    })
+                    if(placing != null){return opt}
+                });
+                
+                this.wheel.fillStyle = place.color;
                 this.wheel.beginPath();
                 this.wheel.arc(500, 500, outsideRadius, angle, angle + this.arc, false);
                 this.wheel.arc(500, 500, insideRadius, angle + this.arc, angle, true);
@@ -218,7 +225,7 @@ export default class Wheel extends Component {
     };
 
     renderResult = () => {
-        const { result, rotating, game, inResultAnimation, colors} = this.props;
+        const { result, rotating, game, inResultAnimation, options} = this.props;
         if(!result || !game.resultSpace || inResultAnimation){return null}
 
         const resultStyles = classNames("result", {
@@ -226,11 +233,14 @@ export default class Wheel extends Component {
         picked:
             result && result !== 0 && !rotating
         });
+
+        let multiplier = game.resultSpace[result].multiplier;
+        let colorMultiplier = options.find(opt => opt.multiplier == multiplier).index;
         
         return (
             <div styleName="result-container">
                 <div styleName={resultStyles} onTransitionEnd={this.handleAnimationEnd}>
-                <h6 styleName={`multiplier-${new String(parseInt(game.resultSpace[result].multiplier))}`}>{game.resultSpace[result].multiplier}x</h6>
+                <h6 styleName={`multiplier-${new String(colorMultiplier).toString()}`}>{game.resultSpace[result].multiplier}x</h6>
                 </div>
             </div>
         );

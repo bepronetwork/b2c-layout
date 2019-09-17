@@ -12,15 +12,24 @@ import { connect } from "react-redux";
 import { compose } from 'lodash/fp';
 import _ from "lodash";
 
-    
-const colorsType = {
-    '0'     : '#17162d',
-    '2.5'   : '#0a5cea',
-    '3.3'   : '#f7931a',
-    '5'     : '#6cc16f',
-    '10'    : '#997c00'
-}
 
+const resultSpaceColors = [
+    {
+        "color" : '#17162d'
+    },
+    {        
+        "color" : '#0a5cea'
+    },
+    {
+        "color" : '#f7931a'
+    },
+    {
+        "color" : '#6cc16f'
+    },
+    {
+        "color" : '#997c00'
+    }    
+]
 
 class WheelPage extends React.Component {
     static contextType = UserContext;
@@ -40,7 +49,6 @@ class WheelPage extends React.Component {
                 edge : 0
             },
             options : [],
-            colors : [],
             betObjectResult : {},
             bet: false
         }
@@ -65,27 +73,37 @@ class WheelPage extends React.Component {
         if(!game.resultSpace){return}
 
         let options = [];
-        let colors = [];
+        let indexOptions = 0;
+
         for(var i = 0; i < game.resultSpace.length; i++){
-            let newItem = game.resultSpace[i];
-            let item = options.find( item => item.multiplier == newItem.multiplier);
-            if(!item){
+            let resultSpace = game.resultSpace[i];
+            let optExists = options.find( opt => opt.multiplier == resultSpace.multiplier);
+            if(!optExists){
+                let color = resultSpaceColors[indexOptions].color;
                 // Does not exist
                 options.push({
-                    probability : newItem.probability,
-                    multiplier : newItem.multiplier,
-                    amount : game.resultSpace.length,
-                    color : colorsType[newItem.multiplier]
+                    index : indexOptions,
+                    probability : resultSpace.probability,
+                    multiplier : resultSpace.multiplier,
+                    amount : 1,
+                    start : i,
+                    placings : [i],
+                    color : color
                 })
+                indexOptions = indexOptions + 1;
             }else{
-                // Exist, do nothing
+                optExists.placings.push(i)
+                // Exit update
+                options[optExists.index] = {
+                    ...optExists,
+                    amount : optExists.amount + 1,
+                    placings : optExists.placings,
+                    probability : optExists.probability + resultSpace.probability
+                }
             }
-            colors.push(colorsType[newItem.multiplier])
         }
-
         this.setState({...this.state, 
             options,
-            colors,
             game
         })
     }
@@ -226,7 +244,7 @@ class WheelPage extends React.Component {
     };
 
     renderGameCard = () => {
-        const { result, betHistory, bet, inResultAnimation, onAnimation, options, colors } = this.state;
+        const { result, betHistory, bet, inResultAnimation, onAnimation, options } = this.state;
         const { profile } = this.props;
 
         return (
@@ -235,7 +253,6 @@ class WheelPage extends React.Component {
                 betHistory={betHistory}
                 onClear={this.handleClear}
                 options={options}
-                colors={colors}
                 profile={profile}
                 inResultAnimation={inResultAnimation}
                 game={this.state.game}
