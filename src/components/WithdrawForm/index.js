@@ -106,16 +106,16 @@ class WithdrawForm extends Component {
                     onLoading={onLoading.hasAllowed && !hasAllowed && !hasWithdrawed}
                     disabled={!updated || hasAllowed}
                     loadingMessage={'A Croupier is giving you allowance, just wait'}
-                    completed={hasAllowed || hasWithdrawed} id={'allowance'} image={approval} description={'Allow Withdraw'} title={'Allow Withdraw'}
+                    completed={hasAllowed || hasWithdrawed} id={'allowance'} image={approval} title={'Ask for Withdraw'} description={'A croupier is giving you approval, should take a less than a minute'}
                 />
                 <ActionBox 
-                    alertMessage={`Time For Withdraw ${fromSmartContractTimeToMinutes(timeForWithdraw)} m`} 
+                    alertMessage={`Waiting Time For Withdraw ${fromSmartContractTimeToMinutes(timeForWithdraw)} m`} 
                     alertCondition={updated && (timeForWithdraw >= 0)}
                     onClick={this.withdrawTokens}
                     onLoading={onLoading.hasWithdrawed}
                     disabled={canWithdraw}
                     loadingMessage={'Metamask should prompt, click on it and Approve the Transfer'}
-                    completed={hasWithdrawed} id={'withdraw'} image={withdraw} description={'Withdraw'} title={'Withdraw'}
+                    completed={hasWithdrawed} id={'withdraw'} image={withdraw} title={'Withdraw'} description={'After the timing is completed, click to withdraw'}
                 />
                 {/* <ProgressBar/> */}
             </div>

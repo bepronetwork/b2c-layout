@@ -1,6 +1,6 @@
 import React from "react";
 import { Row, Col } from 'reactstrap';
-import { Typography, Checkbox } from 'components';
+import { Typography, Checkbox, InformationBox } from 'components';
 import { connect } from "react-redux";
 import './index.css';
 import loading from 'assets/loading.gif';
@@ -11,6 +11,7 @@ import { ProgressBarCircular } from "../ProgressBar";
 import { setDepositInfo } from "../../redux/actions/deposit";
 import { CONFIRMATIONS_NEEDED } from 'lib/api/apiConfig';
 import store from "../../containers/App/store";
+import info from 'assets/info.png';
 
 class DepositConfirmForm extends React.Component{
     constructor(props){
@@ -66,6 +67,7 @@ class DepositConfirmForm extends React.Component{
 
         return (
             <div styleName='root'>
+                <InformationBox type={'info'} message={'This is final step for you to start playing! \n Deposits need to be confirmed for you to get the money deposited' } image={info} />
                 <button disabled={disabled} onClick={this.onConfirm} styleName={`tx-box ${confirmed ? 'picked' : ''} ${disabled ? 'nohover' : ''} ${(onLoading || !completed) ? 'onLoading' : ''}`}>
                     <Row>
                         <Col xs={3} md={3}>
@@ -90,10 +92,10 @@ class DepositConfirmForm extends React.Component{
                                     :
                                     <div>
                                         <Typography variant={'small-body'} color={'green'}>
-                                            {`Click and finalize your deposit`}
+                                            {`Click and Confirm your deposit!`}
                                         </Typography>
                                         <Typography variant={'x-small-body'} color={'white'}>
-                                            {`Your deposit was confirmed with success`}
+                                            {`Your transaction was confirmed with success`}
                                         </Typography>
                                     </div>
                                 }

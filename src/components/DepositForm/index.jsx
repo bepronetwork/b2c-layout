@@ -30,7 +30,7 @@ class DepositForm extends Component {
     projectData = async (props) => {
         const { profile, deposit } = props;
         let allowedAmount = await profile.getAmountAllowedForDepositByPlatform();
-        let hasAllowed = (Numbers.toFloat(allowedAmount) >= Numbers.toFloat(deposit.amount));
+        let hasAllowed = ((Numbers.toFloat(allowedAmount) >= Numbers.toFloat(deposit.amount)) || this.state.hasAllowed);
         let hasDeposited = false;
         this.setState({...this.state, 
             hasAllowed,
@@ -52,8 +52,10 @@ class DepositForm extends Component {
             let res = await profile.allowDeposit({amount : Numbers.toFloat(deposit.amount)});
             if(!res){throw new Error("Error on Transaction")};
             this.setState({...this.state, hasAllowed : true})
-            this.projectData(this.props);
-            this.onLoading('hasAllowed', false);
+            setTimeout( () => {
+                this.projectData(this.props);
+                this.onLoading('hasAllowed', false);
+            }, 2*1000)
         }catch(err){
             this.onLoading('hasAllowed', false);
         }

@@ -238,3 +238,12 @@
 .icon-red{
     color : $red;
 }
+
+.button-deposit{
+    margin : 0px;
+
+    @include Breakpoint-mobileOnly {
+        display : none;
+    }
+
+}

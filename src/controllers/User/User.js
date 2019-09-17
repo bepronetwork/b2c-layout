@@ -214,7 +214,7 @@ export default class User {
         try {
             await promptMetamask();
             let address = await getMetamaskAccount();
-            const resEthereum = await this.casinoContract.allowWithdrawalFromContract({
+            const resEthereum = await this.casinoContract.allowDepositToContract({
                 address,
                 amount
             });
