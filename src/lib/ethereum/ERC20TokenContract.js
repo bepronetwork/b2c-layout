@@ -2,6 +2,7 @@ import { ierc20 } from "./interfaces";
 
 import Contract from "./models/Contract";
 import { Numbers } from "./lib";
+import { getTransactionOptions } from "./lib/Ethereum";
 
 let self;
 
@@ -38,15 +39,18 @@ class ERC20TokenContract {
         }
     }
 
-    async allowWithdrawalFromContract({address, platformAddress, amount, decimals}) {
+    async allowDepositToContract({address, platformAddress, amount, decimals}) {
         try {
+            let opt = await getTransactionOptions('fast')
+
             let amountWithDecimals = Numbers.toSmartContractDecimals(
                 amount,
                 decimals
             );
+
             return new Promise ( (resolve, reject) => {
                 self.contract.getContract().methods.approve(platformAddress, amountWithDecimals)
-                .send({ from: address })
+                .send({ from: address, gasPrice : opt.gasPrice.toString(), gas : opt.gas})
                 .on('transactionHash', (hash) => {
                 })
                 .on('receipt', (receipt) => {
@@ -55,9 +59,10 @@ class ERC20TokenContract {
                 .on('confirmation', (confirmations, receipt) => {
                     resolve(receipt)
                 })
-                .on('error', () => {reject("Transaction Error")})
+                .on('error', (err) => {console.log(err); reject("Transaction Error")})
             });
         } catch (err) {
+            console.log(err);
             throw err;
         }
     }

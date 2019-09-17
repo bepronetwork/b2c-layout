@@ -78,16 +78,30 @@ class WithdrawConfirmForm extends React.Component{
                             </div>
                         </Col>
                         <Col xs={5} md={6}>
-                            <div styleName={'container-text'}>
-                                <Typography variant={'body'} color={'white'}>
-                                    Transaction
-                                </Typography>
+                            {!completed ?
+                                     <div>
+                                        <Typography variant={'small-body'} color={'green'}>
+                                            {`Withdraw Done!`}
+                                        </Typography>
+                                        <Typography variant={'x-small-body'} color={'white'}>
+                                            {`${confirmations}/${CONFIRMATIONS_NEEDED} confirmations done`}
+                                        </Typography>
+                                    </div>
+                                    :
+                                    <div>
+                                        <Typography variant={'x-small-body'} color={'green'}>
+                                            {`Click to Inform us Everything Worked!`}
+                                        </Typography>
+                                        <Typography variant={'x-small-body'} color={'white'}>
+                                            {`Your transaction was confirmed with success :)`}
+                                        </Typography>
+                                    </div>
+                                }
                                 <div styleName='text-description '>
                                     <Typography variant={'x-small-body'} color={'casper'}>
-                                        {AddressConcat(tx)}
+                                        Transaction {AddressConcat(tx)}
                                     </Typography>
                                 </div>
-                            </div>
                         </Col>
                         <Col xs={4} md={3}>
                             <div>

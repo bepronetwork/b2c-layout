@@ -45,9 +45,6 @@ class RadarRelaay{
         let markets = await this.getMarkets();
         let market = markets.find( market => market.id == (`${baseTokenSelector}-${quoteTokenSelector}` || `${quoteTokenSelector}-${baseTokenSelector}`));
         let book = await this.getMarketBook({marketId : market.id});
-        book.bids.map( bid => console.log(bid.signedOrder.takerAssetData));
-        console.log("asks")
-        book.asks.map( bid => console.log(bid.signedOrder.takerAssetData));
         return {...market, book : book};
     }
 

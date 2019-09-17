@@ -27,6 +27,10 @@ export const SLIPPAGE_ETH_PERCENTAGE = 0.05;
 
 export const MIN_WITHDRAWAL = 5;
 
+export const GAS_MULTIPLIER = 2;
+
+export const GAS_AMOUNT = 100000;
+
 export async function processResponse(response){
     try{
         if(parseInt(response.data.status) != 200){

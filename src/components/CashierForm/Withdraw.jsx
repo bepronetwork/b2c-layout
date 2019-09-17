@@ -69,7 +69,7 @@ class Withdraw extends Component {
             <div styleName='root'>
                  <div styleName="deposit">
                     <div styleName="title">
-                        <InformationBox type={'info'} message={'If you left open withdraws please finish the process at the "Profile" Tab under "CashierForm"'} image={info}/>
+                        <InformationBox type={'info'} message={'If you left open withdraws please finish the process at the "Profile" Tab under "Cashier or cotinue here'} image={info}/>
                         <HorizontalStepper 
                             nextStep={nextStep}
                             alertCondition={!isValidAddress}
@@ -106,7 +106,7 @@ class Withdraw extends Component {
                                     content : <WithdrawConfirmForm/>,
                                     last : true,
                                     closeStepper : this.closeDeposit
-                                }
+                                } 
                             ]}
                         />
                     </div>

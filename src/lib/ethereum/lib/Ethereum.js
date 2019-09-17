@@ -1,8 +1,9 @@
 import ERC20TokenContract from "../ERC20TokenContract";
 import { getMetamaskAccount } from "../../metamask";
 import { Numbers } from ".";
+import { GAS_MULTIPLIER, GAS_AMOUNT } from "../../api/apiConfig";
 
-const FAST_GAS_PRICE_MULTIPLIER = 1.3;
+const FAST_GAS_PRICE_MULTIPLIER = GAS_MULTIPLIER;
 
 export function getERC20Contract({tokenAddress}){
     return new ERC20TokenContract({
@@ -26,16 +27,23 @@ export async function getETHBalance({address}){
 export async function getTransactionOptions(velocity){
 
     let medianGasPrice = await window.web3.eth.getGasPrice();
-    let gasPrice;
+    let gasPrice, gasAmount;
 
     switch(velocity){
         case 'fast' : {
-            gasPrice = new String(parseInt(medianGasPrice)*FAST_GAS_PRICE_MULTIPLIER); 
+            gasPrice = new String(parseInt(medianGasPrice)*FAST_GAS_PRICE_MULTIPLIER);
+            gasAmount = GAS_AMOUNT; 
+            break;
+        };
+        case 'medium' : {
+            gasPrice = new String(parseInt(medianGasPrice)*1.3);
+            gasAmount = GAS_AMOUNT; 
             break;
         };
     }
     let options = {
         gasPrice,
+        gas : gasAmount,
         shouldValidate: true,
     };
 

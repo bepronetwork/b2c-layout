@@ -3,6 +3,7 @@ import { casino } from "./interfaces";
 import Contract from "./models/Contract";
 import ERC20TokenContract from "./ERC20TokenContract";
 import { Numbers } from "./lib";
+import { getTransactionOptions } from "./lib/Ethereum";
 
 let self;
 
@@ -28,7 +29,8 @@ class CasinoContract {
         
         let timestampWithdraw = await this.getTimeForWithdrawal(address);
         if(timestampWithdraw > 0){throw new Error("Time for Withdraw hans´t passed")}
-        
+        let opt = await getTransactionOptions('fast')
+
 		let amountWithDecimals = Numbers.toSmartContractDecimals(
             amount,
             self.decimals
@@ -36,7 +38,7 @@ class CasinoContract {
 
         return new Promise ( (resolve, reject) => {
             self.contract.getContract().methods.withdraw(amountWithDecimals)
-            .send({ from: address })   
+            .send({ from: address, gasPrice : new String(opt.gasPrice).toString(), gas : opt.gas })   
             .on('transactionHash', (hash) => {
             })
             .on('receipt', (receipt) => {
@@ -123,11 +125,9 @@ class CasinoContract {
         }
     }
  
-	async allowWithdrawalFromContract({ address, amount }) {
-        
-
+	async allowDepositToContract({ address, amount }) {
 		try {
-            await self.erc20TokenContract.allowWithdrawalFromContract({
+            await self.erc20TokenContract.allowDepositToContract({
                 address,
                 amount,
                 decimals: self.decimals,
@@ -142,14 +142,15 @@ class CasinoContract {
 
 	async depositTokens({address, amount}) {
 		try {
+            let opt = await getTransactionOptions('fast')
+
             let amountWithDecimals = Numbers.toSmartContractDecimals(
                 amount,
                 self.decimals
             );
-    
             return new Promise ( (resolve, reject) => {
                 self.contract.getContract().methods.deposit(amountWithDecimals)
-                .send({ from: address })
+                .send({ from: address, gasPrice : new String(opt.gasPrice).toString(), gas : opt.gas })
                 .on('confirmation', async (confirmations, receipt) => {
                     resolve(receipt);
                 })

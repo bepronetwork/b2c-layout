@@ -123,24 +123,36 @@ class Navbar extends Component {
                     <Col xs={8} md={8}>
                         {user ? 
                             <Row>
-                                <Col xs={2} md={1} lg={2}/>
-                                <Col xs={2} md={3} lg={3}>
-                                    <div styleName="coin">
-                                        <AnimationNumber number={this.state.currentBalance}/>
-                                        <div styleName="icon">
-                                            <CoinSign />
-                                        </div>
-                                        {difference ? (
-                                            <div
-                                            key={currentBalance}
-                                            styleName={difference > 0 ? "diff-won" : "diff-lost"}
-                                            >
-                                                <Typography variant="small-body">
-                                                    {Numbers.toFloat(Math.abs(difference))}
-                                                </Typography>
+                                <Col xs={2} md={1} lg={1}/>
+                                <Col xs={2} md={4} lg={4}>
+                                    <Row>
+                                        <Col xs={6} md={6} lg={6}>
+                                            <div styleName="coin">
+                                                <AnimationNumber number={this.state.currentBalance}/>
+                                                <div styleName="icon">
+                                                    <CoinSign />
+                                                </div>
+                                                {difference ? (
+                                                    <div
+                                                    key={currentBalance}
+                                                    styleName={difference > 0 ? "diff-won" : "diff-lost"}
+                                                    >
+                                                        <Typography variant="small-body">
+                                                            {Numbers.toFloat(Math.abs(difference))}
+                                                        </Typography>
+                                                    </div>
+                                                ) : null}
                                             </div>
-                                        ) : null}
-                                    </div>
+                                        </Col>
+                                        <Col xs={6} md={6} lg={6}>
+                                            <div styleName='button-deposit'>
+                                                <Button onClick={onCashier} size={'x-small'} theme={'default'}>
+                                                    <Typography color={'white'} variant={'small-body'}>Deposit</Typography>
+                                                </Button>
+                                            </div>
+                                        </Col>
+                                    </Row>
+                                    
                                 </Col>
                                 <Col xs={1} md={6} lg={4}>
                                     <div styleName='address-box'>
