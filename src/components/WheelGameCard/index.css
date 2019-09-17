@@ -266,18 +266,18 @@
     background: $dark-purple;
 }
 
-.multiplier-2{
+.multiplier-1{
     background: $blue-ribbon;
 }
 
-.multiplier-3{
+.multiplier-2{
     background: $orange;
 }
 
-.multiplier-5{
+.multiplier-3{
     background: $green;
 }
 
-.multiplier-10{
+.multiplier-4{
     background: $olive;
 }

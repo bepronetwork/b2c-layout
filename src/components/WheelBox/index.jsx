@@ -16,7 +16,7 @@ class WheelBox extends Component {
         }
     }
 
-    renderContainer = ({multiplier}) => {
+    renderContainer = ({multiplier, index}) => {
         const { result, inResultAnimation, game } = this.props;
         if(!game.resultSpace){return}
         let multiplierResult = null;
@@ -26,7 +26,7 @@ class WheelBox extends Component {
         const wasSet = (multiplier == multiplierResult) && !inResultAnimation;
 
         return (
-            <div styleName={`box multiplier-${new String(parseInt(multiplier))} ${wasSet ? 'no-transform' : ''}`}>
+            <div styleName={`box multiplier-${new String(index).toString()} ${wasSet ? 'no-transform' : ''}`}>
                 <div style={{zIndex : 10}}>
                     <Typography weight="small-body" color="white">
                         {Numbers.toFloat(multiplier)}x
@@ -43,7 +43,7 @@ class WheelBox extends Component {
             <div styleName="root">
                 <div styleName='container-blocks'>
                     {options.map( opt => {
-                        return this.renderContainer({multiplier : opt.multiplier})
+                        return this.renderContainer({multiplier : opt.multiplier, index : opt.index})
                     })}
                 </div>
             </div>

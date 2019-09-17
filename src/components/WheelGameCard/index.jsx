@@ -16,29 +16,6 @@ import Wheel from "../Wheel";
 import WheelBox from "../WheelBox";
 const mobileBreakpoint = 768;
 
-const resultSpaceMultiplier = {
-    "0" : {
-        "start" : 0,
-        "end"   : 14
-    },
-    "2.5" : {
-        "start" : 15,
-        "end"   : 20
-    },
-    "3.3" : {
-        "start" : 21,
-        "end"   : 25
-    },
-    "5" : {
-        "start" : 26,
-        "end"   : 28
-    },
-    "10" : {
-        "start" : 29,
-        "end"   : 29
-    },
-     
-}
 class WheelGameCard extends Component {
     redColors = [1, 3, 5, 7, 9, 12, 14, 18, 16, 21, 23, 27, 25, 30, 32, 36, 34];
 
@@ -163,11 +140,10 @@ class WheelGameCard extends Component {
         const totalAmount = popularNumbers.reduce( (acc, item) => {
             return acc+item.resultAmount;
         }, 0);
-
-        let popularSpaces = Object.keys(resultSpaceMultiplier).map( rSkey => {
-            let rS = resultSpaceMultiplier[rSkey];
+        
+        let popularSpaces = options.map( opt => {
             let resultAmount = popularNumbers.reduce( (acc, item) => {
-                if((rS.start <= item.key) && (item.key <= rS.end)){
+                if(opt.placings.find( placing => placing == item.key)){
                     return acc+1;
                 }else{
                     return acc;
@@ -176,7 +152,8 @@ class WheelGameCard extends Component {
 
             return {
                 resultAmount,
-                multiplier : rSkey
+                multiplier : opt.multiplier,
+                index : opt.index
             }
         }).filter(el => el != null);
 
@@ -187,7 +164,7 @@ class WheelGameCard extends Component {
                         {
                             return(
                                 <div styleName='popular-number-row'>
-                                    <div styleName={`popular-number-container multiplier-${new String(parseInt(item.multiplier))}`}>
+                                    <div styleName={`popular-number-container multiplier-${new String(parseInt(item.index))}`}>
                                         <Typography variant={'small-body'} color={'white'}>
                                             {item.multiplier}
                                         </Typography>       
@@ -235,7 +212,6 @@ class WheelGameCard extends Component {
                     inResultAnimation={inResultAnimation}
                     result={result}
                     game={game}
-                    resultSpaceMultiplier={resultSpaceMultiplier}
                     options={options}
                     rotating={rotating}
                     stopAnimation={this.handleAnimationEnd}
