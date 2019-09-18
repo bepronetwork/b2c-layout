@@ -263,29 +263,29 @@
 }
 
 .multiplier-0{
-    color: $wheel-variation-1-color-1;
+    background-color: $wheel-variation-1-color-1;
 }
 
 .multiplier-1{
-    color: $wheel-variation-1-color-2;
+    background-color:$wheel-variation-1-color-2;
 }
 
 .multiplier-2{
-    color: $wheel-variation-1-color-3;
+    background-color: $wheel-variation-1-color-3;
 }
 
 .multiplier-3{
-    color: $wheel-variation-1-color-4;
+    background-color: $wheel-variation-1-color-4;
 }
 
 .multiplier-4{
-    color: $wheel-variation-1-color-5;
+    background-color: $wheel-variation-1-color-5;
 }
 
 .multiplier-5{
-    color: $wheel-variation-1-color-6;
+    background-color: $wheel-variation-1-color-6;
 }
 
 .multiplier-6{
-    color: $wheel-variation-1-color-7;
+    background-color: $wheel-variation-1-color-7;
 }
