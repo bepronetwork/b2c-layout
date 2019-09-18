@@ -303,7 +303,8 @@ class DepositsTable extends React.Component {
         let deposits = await profile.getDepositsAsync();
         this.setState({...this.state, 
             data : fromDatabasetoTable(deposits),
-            ticker : 'DAI'
+            ticker : 'DAI',
+            updated : true
         })
     }
 
@@ -340,9 +341,16 @@ class DepositsTable extends React.Component {
 
     render() {
         const { classes, ln } = this.props;
-        const { data, order, orderBy, selected, rowsPerPage, page } = this.state;
+        const { data, order, orderBy, selected, rowsPerPage, page, updated } = this.state;
         const emptyRows = rowsPerPage - Math.min(rowsPerPage, data.length - page * rowsPerPage);
         const copy = CopyText.Deposit[ln];
+        if(!updated){return (
+            <div>
+                <Typography color={'white'} variant={'body'}>Getting the Last Deposits...</Typography>
+                <Typography color={'casper'} variant={'small-body'}>Should take less than a minute</Typography>
+            </div>
+            )
+        }
 
         return (
             <Paper className={classes.root}>

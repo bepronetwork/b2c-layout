@@ -40,7 +40,6 @@ const WHEEL_SPACES_END = [
     1,
     0,
     29,
-    20,
     28,
     27,
     26,
@@ -48,6 +47,40 @@ const WHEEL_SPACES_END = [
     24,
     23,
 ]
+
+const WHEEL_SPACES_END_CLASSIC = [
+    22,
+    21,
+    20,
+    19,
+    18,
+    17,
+    16,
+    15,
+    14,
+    13,
+    12,
+    11,
+    10,
+    9,
+    8,
+    7,
+    6,
+    5,
+    4,
+    3,
+    2,
+    1,
+    0,
+    29,
+    28,
+    27,
+    26,
+    25,
+    24,
+    23,
+]
+
 export default class Wheel extends Component {
     static propTypes = {
         result: PropTypes.number,
@@ -100,7 +133,6 @@ export default class Wheel extends Component {
             var outsideRadius = 500;
             var textRadius = 1;
             var insideRadius = 450;
-
             this.wheel = canvas.getContext("2d");
             this.wheel.clearRect(0, 0, 1000, 1000);
     
@@ -148,7 +180,6 @@ export default class Wheel extends Component {
         let SPINS =  3*ONE_SPIN; // Represents the AMount of 49.5 Angules
         this.desiredSpin = 360;
         this.spinAngleStart = SPINS + WHEEL_SPACES_END[result]*ONE_ARC_ANGLE - this.offset*ONE_ARC_ANGLE;
-
         this.offset = WHEEL_SPACES_END[result];
         this.spinTime = 0;
         this.acc = 0;
@@ -236,11 +267,12 @@ export default class Wheel extends Component {
 
         let multiplier = game.resultSpace[result].multiplier;
         let colorMultiplier = options.find(opt => opt.multiplier == multiplier).index;
-        
+        let styleName = `multiplier-${new String(colorMultiplier).toString().trim()}`;
+
         return (
             <div styleName="result-container">
                 <div styleName={resultStyles} onTransitionEnd={this.handleAnimationEnd}>
-                <h6 styleName={`multiplier-${new String(colorMultiplier).toString()}`}>{game.resultSpace[result].multiplier}x</h6>
+                <h6 styleName={styleName}>{game.resultSpace[result].multiplier}x</h6>
                 </div>
             </div>
         );

@@ -36,6 +36,7 @@ import WheelPage from "../WheelPage";
 import { connect } from 'react-redux';
 import _ from 'lodash';
 import { setStartLoadingProcessDispatcher } from "../../lib/redux";
+import WheelVariation1 from "../WheelVariation1";
 const history = createBrowserHistory();
 
 class App extends Component {
@@ -225,7 +226,6 @@ class App extends Component {
 
     renderLoginRegisterModal = () => {
         const { registerLoginModalOpen, error } = this.state;
-        console.log(error);
         return registerLoginModalOpen ? (
             <Modal onClose={this.handleRegisterLoginModalClose}>
                 <div styleName="modal">
@@ -343,6 +343,20 @@ class App extends Component {
                     render={props => (
                         <WheelPage
                         {...props}
+                        game={this.isGameAvailable("wheel_simple")}
+                        onHandleLoginOrRegister={this.handleLoginOrRegisterOpen}
+                        />
+                    )}
+                    />
+                ) : null}
+                    {this.isGameAvailable("wheel_variation_1") ? (
+                    <Route
+                    exact
+                    path="/wheel_variation_1"
+                    render={props => (
+                        <WheelVariation1
+                        {...props}
+                        game={this.isGameAvailable("wheel_variation_1")}
                         onHandleLoginOrRegister={this.handleLoginOrRegisterOpen}
                         />
                     )}

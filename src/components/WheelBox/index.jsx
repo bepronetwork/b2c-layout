@@ -24,9 +24,10 @@ class WheelBox extends Component {
             multiplierResult = game.resultSpace[result].multiplier;
         }
         const wasSet = (multiplier == multiplierResult) && !inResultAnimation;
+        let styleName = `multiplier-${new String(index).toString().trim()}`;
 
         return (
-            <div styleName={`box multiplier-${new String(index).toString()} ${wasSet ? 'no-transform' : ''}`}>
+            <div styleName={`box ${styleName} ${wasSet ? 'no-transform' : ''}`}>
                 <div style={{zIndex : 10}}>
                     <Typography weight="small-body" color="white">
                         {Numbers.toFloat(multiplier)}x
