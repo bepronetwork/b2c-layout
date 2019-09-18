@@ -4,6 +4,7 @@
 @import "./googlefonts.css";
 @import "./breakpoints.css";
 @import "./components.css";
+@import "./games/index.css";
 
 /* width */
 ::-webkit-scrollbar {
@@ -76,3 +77,4 @@ button{
 .mdi-icon{
     color : $white !important;
 }
+

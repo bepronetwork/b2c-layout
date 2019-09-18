@@ -51,13 +51,10 @@ class ERC20TokenContract {
             return new Promise ( (resolve, reject) => {
                 self.contract.getContract().methods.approve(platformAddress, amountWithDecimals)
                 .send({ from: address, gasPrice : opt.gasPrice.toString(), gas : opt.gas})
-                .on('transactionHash', (hash) => {
-                })
-                .on('receipt', (receipt) => {
-                    resolve(receipt)
-                })
                 .on('confirmation', (confirmations, receipt) => {
-                    resolve(receipt)
+                    if(confirmations > 1){
+                        resolve(receipt)
+                    }
                 })
                 .on('error', (err) => {console.log(err); reject("Transaction Error")})
             });

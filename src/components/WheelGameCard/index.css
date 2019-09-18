@@ -263,21 +263,29 @@
 }
 
 .multiplier-0{
-    background: $dark-purple;
+    color: $wheel-variation-1-color-1;
 }
 
 .multiplier-1{
-    background: $blue-ribbon;
+    color: $wheel-variation-1-color-2;
 }
 
 .multiplier-2{
-    background: $orange;
+    color: $wheel-variation-1-color-3;
 }
 
 .multiplier-3{
-    background: $green;
+    color: $wheel-variation-1-color-4;
 }
 
 .multiplier-4{
-    background: $olive;
+    color: $wheel-variation-1-color-5;
+}
+
+.multiplier-5{
+    color: $wheel-variation-1-color-6;
+}
+
+.multiplier-6{
+    color: $wheel-variation-1-color-7;
 }

@@ -11,4 +11,6 @@ export default [{
     metaName : 'plinko_simple',  
 },{
     metaName : 'wheel_simple',  
+},{
+    metaName : 'wheel_variation_1',  
 }];

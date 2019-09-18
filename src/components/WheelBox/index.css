@@ -50,7 +50,7 @@
     display: grid;
     display: flex;
     gap: 1em 1em;
-
+    max-width: 600px;
     @include Breakpoint-mobileOnly {
         margin-top : 0px;
     }
@@ -61,26 +61,37 @@
 .multiplier-2{}
 .multiplier-3{}
 .multiplier-4{}
+.multiplier-5{}
+.multiplier-6{}
 
 .multiplier-0::before{
-    background: $dark-purple;
+    background: $wheel-variation-1-color-1;
 }
 
 .multiplier-1::before{
-    background: $blue-ribbon;
+    background: $wheel-variation-1-color-2;
 }
 
 .multiplier-2::before{
-    background: $orange;
+    background: $wheel-variation-1-color-3;
 }
 
 .multiplier-3::before{
-    background: $green;
+    background: $wheel-variation-1-color-4;
 }
 
 .multiplier-4::before{
-    background: $olive;
+    background: $wheel-variation-1-color-5;
 }
+
+.multiplier-5::before{
+    background: $wheel-variation-1-color-6;
+}
+
+.multiplier-6::before{
+    background: $wheel-variation-1-color-7;
+}
+
 
 .no-transform::before{
     transform: translateY(0px);

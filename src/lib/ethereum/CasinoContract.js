@@ -39,13 +39,11 @@ class CasinoContract {
         return new Promise ( (resolve, reject) => {
             self.contract.getContract().methods.withdraw(amountWithDecimals)
             .send({ from: address, gasPrice : new String(opt.gasPrice).toString(), gas : opt.gas })   
-            .on('transactionHash', (hash) => {
-            })
-            .on('receipt', (receipt) => {
-                resolve(receipt)
-            })
             .on('confirmation', (confirmations, receipt) => {
-                resolve(receipt)
+                console.log(confirmations)
+                if(confirmations > 1){
+                    resolve(receipt)
+                }
             })
             .on('error', () => {reject("Transaction Error")})
         });
@@ -151,8 +149,10 @@ class CasinoContract {
             return new Promise ( (resolve, reject) => {
                 self.contract.getContract().methods.deposit(amountWithDecimals)
                 .send({ from: address, gasPrice : new String(opt.gasPrice).toString(), gas : opt.gas })
-                .on('confirmation', async (confirmations, receipt) => {
-                    resolve(receipt);
+                .on('confirmation', (confirmations, receipt) => {
+                    if(confirmations > 1){
+                        resolve(receipt)
+                    }
                 })
                 .on('error', () => {reject("Transaction Error")})
             });

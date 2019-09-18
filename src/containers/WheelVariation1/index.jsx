@@ -35,8 +35,7 @@ const resultSpaceColors = [
         "color" : '#ff2247'
     }
 ]
-
-class WheelPage extends React.Component {
+class WheelVariationOne extends React.Component {
     static contextType = UserContext;
 
     static propTypes = {
@@ -49,7 +48,6 @@ class WheelPage extends React.Component {
             result: null,
             selectedChip: 0.01,
             betHistory: [],
-            game_name : 'Wheel',
             game : {
                 edge : 0
             },
@@ -68,11 +66,7 @@ class WheelPage extends React.Component {
     }
 
     projectData = (props) => {
-        const appInfo = Cache.getFromCache("appInfo");
-        let game = null
-        if(appInfo){
-            game = find(appInfo.games, { name: this.state.game_name });
-        }
+        let game = props.game;
 
         if(_.isEmpty(game)){return}
         if(!game.resultSpace){return}
@@ -289,4 +283,4 @@ function mapStateToProps(state){
     };
 }
 
-export default compose(connect(mapStateToProps))(WheelPage);
+export default compose(connect(mapStateToProps))(WheelVariationOne);
