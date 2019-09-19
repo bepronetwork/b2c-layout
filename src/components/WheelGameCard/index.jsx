@@ -134,7 +134,6 @@ class WheelGameCard extends Component {
 
     renderPopularNumbers = ({popularNumbers}) => {
         const { game, options } = this.props;
-
         if(!popularNumbers){return null}
         
         const totalAmount = popularNumbers.reduce( (acc, item) => {

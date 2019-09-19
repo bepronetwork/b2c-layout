@@ -12,6 +12,7 @@ import { connect } from "react-redux";
 import { compose } from 'lodash/fp';
 import _ from "lodash";
 
+
 const resultSpaceColors = [
     {
         "color" : '#253742'
@@ -20,19 +21,19 @@ const resultSpaceColors = [
         "color" : '#97a2c3'
     },
     {
-        "color" : '#997c00'
-    },
-    {
-        "color" : '#1ec723'
-    },
-    {
-        "color" : '#f7931a'
-    },
-    {
         "color" : '#8854f8'
     },
     {
-        "color" : '#ff2247'
+        "color" : '#3e5ba5'
+    },
+    {
+        "color" : '#538e7b'
+    },
+    {
+        "color" : '#1ab598'
+    },
+    {
+        "color" : '#b7e24f'
     }
 ]
 

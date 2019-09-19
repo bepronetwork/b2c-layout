@@ -6,80 +6,13 @@ import ballSound from "assets/ball-stop-sound.mp3";
 import pointer from "assets/wheel-pointer.png";
 import classNames from "classnames";
 import "./index.css";
+import { WHEEL_SIMPLE, WHEEL_CLASSIC } from "./types";
 
-const intervalAngle = 12;
-const mobileBreakpoint = 768;
 let anim = null;
 let endAnim = null;
-
+const TOTAL_SPACES = 30;
 const ANIMATION_INTERVAL = 20;
 const TOTAL_ANIMATION_TIME = 4*1000;
-
-const WHEEL_SPACES_END = [
-    22,
-    21,
-    20,
-    19,
-    18,
-    17,
-    16,
-    15,
-    14,
-    13,
-    12,
-    11,
-    10,
-    9,
-    8,
-    7,
-    6,
-    5,
-    4,
-    3,
-    2,
-    1,
-    0,
-    29,
-    28,
-    27,
-    26,
-    25,
-    24,
-    23,
-]
-
-const WHEEL_SPACES_END_CLASSIC = [
-    22,
-    21,
-    20,
-    19,
-    18,
-    17,
-    16,
-    15,
-    14,
-    13,
-    12,
-    11,
-    10,
-    9,
-    8,
-    7,
-    6,
-    5,
-    4,
-    3,
-    2,
-    1,
-    0,
-    29,
-    28,
-    27,
-    26,
-    25,
-    24,
-    23,
-]
 
 export default class Wheel extends Component {
     static propTypes = {
@@ -102,12 +35,14 @@ export default class Wheel extends Component {
     }
 
     componentDidMount() { 
+      
         this.startAngle = 0;
-        this.arc = Math.PI / 15;
+        this.arc = Math.PI / (TOTAL_SPACES/2);
         this.spinTimeout = null;
         this.acc = 0;
         this.spinArcStart = 0;
         this.spinTime = 0;
+        this.isFirstRotation = true;
         this.spinTimeTotal = 0;
         this.offset = 0;
         this.current_user_status = {};
@@ -120,67 +55,61 @@ export default class Wheel extends Component {
         this.drawSpinnerWheel(this.props);
     }
 
+    componentDidUpdate(prevProps) {
+        const { result, bet } = this.props;
+
+        if (!bet) {
+            return;
+        }
+
+        if (result !== prevProps.result) {
+            this.spin();
+        }
+    }
+
     componentWillReceiveProps(props){
+        
         this.drawSpinnerWheel(props);
     }
 
 
     drawSpinnerWheel(props) {
-        this.options = props.options;
-        var canvas = document.getElementById("canvas");
-        if(this.options.length < 1){return null}
-        if (canvas.getContext) {
-            var outsideRadius = 500;
-            var textRadius = 1;
-            var insideRadius = 450;
-            this.wheel = canvas.getContext("2d");
-            this.wheel.clearRect(0, 0, 1000, 1000);
-    
-            this.wheel.lineWidth = 5;
-
-            for (var i = 0; i < 30; i++) {
-               
-                var angle = this.startAngle + i * this.arc;
-                let place = this.options.find(opt => {
-                    let placing = opt.placings.find( placing => {
-                        return placing == i
-                    })
-                    if(placing != null){return opt}
-                });
-                
-                this.wheel.fillStyle = place.color;
-                this.wheel.beginPath();
-                this.wheel.arc(500, 500, outsideRadius, angle, angle + this.arc, false);
-                this.wheel.arc(500, 500, insideRadius, angle + this.arc, angle, true);
-                this.wheel.stroke();
-                this.wheel.fill();
-
-                this.wheel.save();
-                this.wheel.shadowBlur = 0;
-                this.wheel.shadowColor = "rgb(220,220,220)";
-                this.wheel.fillStyle = "green";
-                //this.wheel.translate(500 + Math.cos(angle + this.arc / 2) * textRadius, 500 + Math.sin(angle + this.arc / 2) * textRadius);
-                //this.wheel.rotate(angle * Math.PI/180);
-                this.wheel.restore();
+        const { options, game } = props;
+        const { metaName } = game;
+        switch(metaName){
+            case 'wheel_variation_1' : {
+                this.wheel_draw = WHEEL_CLASSIC.DRAW;
+                this.initialRotation = WHEEL_CLASSIC.INITIAL_OFFSET_ROTATION;
+                this.classicDraw(options);
+                break;
             }
-
-            //Arrow
-            this.wheel.beginPath();
-            this.wheel.fill();
+            case 'wheel_simple' : {
+                this.wheel_draw = WHEEL_SIMPLE.DRAW;
+                this.initialRotation = WHEEL_SIMPLE.INITIAL_OFFSET_ROTATION;
+                this.simpleDraw(options);
+                break;
+            }
         }
+       
     }
 
+    
 
+    /**
+     *
+     * @method Draw Methods
+     * @memberof Wheel
+     */
 
     spin() {
-        const { result } = this.props;
+        let { result } = this.props;
         const ONE_ARC_ANGLE = 12/49.5;
         const ONE_SPIN = 360/49.5;
-
         let SPINS =  3*ONE_SPIN; // Represents the AMount of 49.5 Angules
         this.desiredSpin = 360;
-        this.spinAngleStart = SPINS + WHEEL_SPACES_END[result]*ONE_ARC_ANGLE - this.offset*ONE_ARC_ANGLE;
-        this.offset = WHEEL_SPACES_END[result];
+        let indexPlace = this.wheel_draw.findIndex( (e, i) => e == result);
+        this.spinAngleStart = -SPINS - indexPlace*ONE_ARC_ANGLE + this.offset*ONE_ARC_ANGLE;
+        this.offset = indexPlace;
         this.spinTime = 0;
         this.acc = 0;
         /* miliseconds of Spin Time */
@@ -217,20 +146,108 @@ export default class Wheel extends Component {
         return b + c * (tc + -3 * ts + 3 * t);
     }
 
+   
 
-    /** */
+    /** DRAW TYPES */
 
-    componentDidUpdate(prevProps) {
-        const { result, bet } = this.props;
+    /**
+     *
+     * @type Draws  
+     * @memberof Wheel
+     */
 
-        if (!bet) {
-            return;
-        }
+    classicDraw(options){
+        var canvas = document.getElementById("canvas");
+        if(options.length < 1){return null}
+        if (canvas.getContext) {
+            var outsideRadius = 500;
+            var insideRadius = 450;
+            this.wheel = canvas.getContext("2d");
+            this.wheel.clearRect(0, 0, 1000, 1000);
+            
+            this.wheel.lineWidth = 5;
+            for (var i = 0; i < TOTAL_SPACES; i++) {    
+                let placeWheel = this.wheel_draw[i];
+                var angle;
+                if(this.isFirstRotation){
+                    angle = this.startAngle + i * this.arc + this.initialRotation*this.arc;
+                }else{
+                    angle = this.startAngle + i * this.arc;
+                }
 
-        if (result !== prevProps.result) {
-            this.spin();
+                let place = options.find(opt => {
+                    let placing = opt.placings.find( placing => {
+                        return placing == placeWheel;
+                    })
+                    if(placing != null){return opt}
+                });
+                this.wheel.fillStyle = place.color;
+                this.wheel.beginPath();
+                this.wheel.arc(500, 500, outsideRadius, angle, angle + this.arc, false);
+                this.wheel.arc(500, 500, insideRadius, angle + this.arc, angle, true);
+                this.wheel.stroke();
+                this.wheel.fill();
+
+                this.wheel.save();
+                this.wheel.shadowBlur = 0;
+                this.wheel.shadowColor = "rgb(220,220,220)";
+                this.wheel.fillStyle = "green";
+                this.wheel.restore();
+            }
+
+            this.wheel.beginPath();
+            this.wheel.fill();
         }
     }
+
+
+    simpleDraw(options){
+        var canvas = document.getElementById("canvas");
+
+        if(options.length < 1){return null}
+
+        if (canvas.getContext) {
+            var outsideRadius = 500;
+            var insideRadius = 450;
+            this.wheel = canvas.getContext("2d");
+            this.wheel.clearRect(0, 0, 1000, 1000);
+
+            this.wheel.lineWidth = 5;
+            
+            for (var i = 0; i < 30; i++) {
+                var angle = this.startAngle + i * this.arc;
+                let place = options.find(opt => {
+                    let placing = opt.placings.find( placing => {
+                        return placing == i
+                    })
+                    if(placing != null){return opt}
+                });
+
+                this.wheel.fillStyle = place.color;
+                this.wheel.beginPath();
+                this.wheel.arc(500, 500, outsideRadius, angle, angle + this.arc, false);
+                this.wheel.arc(500, 500, insideRadius, angle + this.arc, angle, true);
+                this.wheel.stroke();
+                this.wheel.fill();
+
+                this.wheel.save();
+                this.wheel.shadowBlur = 0;
+                this.wheel.shadowColor = "rgb(220,220,220)";
+                this.wheel.fillStyle = "green";
+                this.wheel.restore();
+            }
+
+            this.wheel.beginPath();
+            this.wheel.fill();
+        }
+    }
+
+
+    /**
+     *
+     * @type Renders  
+     * @memberof Wheel
+     */
 
     renderSound = () => {
         const soundConfig = localStorage.getItem("sound");
@@ -301,3 +318,7 @@ export default class Wheel extends Component {
         );
     }
 }
+
+
+
+

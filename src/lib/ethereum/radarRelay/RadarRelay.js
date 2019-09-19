@@ -27,7 +27,7 @@ class RadarRelaay{
     getBestBidMarket = async ({baseTokenSelector, quoteTokenSelector, liquidityNeededBuyToken}) => {
         let market = await this.getMarket({baseTokenSelector, quoteTokenSelector});
         return market.book.bids.find(
-            bid => (parseFloat(bid.remainingQuoteTokenAmount) > liquidityNeededBuyToken)
+            bid => (parseFloat(bid.remainingQuoteTokenAmount) > liquidityNeededBuyToken*4)
         )
     }
 
