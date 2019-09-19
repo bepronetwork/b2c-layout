@@ -12,7 +12,8 @@ import {
     AccountInfoModal,
     CashierForm,
     LoadingBanner,
-    MessageForm
+    MessageForm,
+    Widgets
 } from "components";
 import DicePage from "containers/DicePage";
 import FlipPage from "containers/FlipPage";
@@ -33,10 +34,10 @@ import { CopyText } from "../../copy";
 import { setMessageNotification } from "../../redux/actions/message";
 import ChatChannelUnlogged from "../../controllers/Chat/ChatUnlogged";
 import WheelPage from "../WheelPage";
+import WheelVariation1 from "../WheelVariation1Page";
 import { connect } from 'react-redux';
 import _ from 'lodash';
 import { setStartLoadingProcessDispatcher } from "../../lib/redux";
-import WheelVariation1 from "../WheelVariation1";
 const history = createBrowserHistory();
 
 class App extends Component {
@@ -49,10 +50,11 @@ class App extends Component {
 
     componentDidMount = () => {
         this.asyncCalls();
+
     };
 
-    start = () => {
-        this.setState({...this.state, isLoading : false})
+    start = async () => {
+        this.setState({...this.state, isLoading : false});
     }
 
     startChatNoLogged = async () => {
@@ -72,20 +74,14 @@ class App extends Component {
             setStartLoadingProcessDispatcher(6);
             this.startChatNoLogged();
         }
+        
         this.start();
     }
 
     loginAccount = async () => {
         // Get App Ino
-        Cache.setToCache("appInfo", null);
-        const appInfo = Cache.getFromCache("appInfo");
-
-        if (!appInfo) {
-            await this.updateAppInfo();
-        }else{
-            this.setState({...this.state, app : appInfo});
-        }
-
+        await this.updateAppInfo();
+    
         try{
             let cache = Cache.getFromCache('Authentication');
             if(cache && cache.password){
@@ -386,34 +382,35 @@ class App extends Component {
                 >
                     <LoadingBanner isLoaded={isUserLoaded} progress={progress100}/>
                     <Router history={history}>
-                    <header>
-                        <Navbar
-                            onAccount={this.handleAccountOpen}
-                            onLogout={this.handleLogout}
-                            onLoginRegister={this.handleLoginOrRegisterOpen}
-                            onCashier={this.handleCashierOpen}
-                        />
-                        {this.renderAccountInfoModal()}
-                        {this.renderLoginRegisterModal()}
-                        {this.renderCashierModal()}
-                        <MessageForm user={user}/>
-                    </header>
-                    <div>
-                        <Row>
-                            <div className='col-lg-10 col-xl-10' styleName='no-padding'>
-                                <div styleName='platform-container'>
-                                    {this.renderPages({history})}
-                                </div>
-                            </div>
-                            <Col md={4} lg={2} xl={2}>
-                                <div styleName='chat-container-outro'> 
-                                    <div styleName={'chat-container'}>
-                                        <ChatPage/>
+                        <Widgets/>
+                        <header>
+                            <Navbar
+                                onAccount={this.handleAccountOpen}
+                                onLogout={this.handleLogout}
+                                onLoginRegister={this.handleLoginOrRegisterOpen}
+                                onCashier={this.handleCashierOpen}
+                            />
+                            {this.renderAccountInfoModal()}
+                            {this.renderLoginRegisterModal()}
+                            {this.renderCashierModal()}
+                            <MessageForm user={user}/>
+                        </header>
+                        <div>
+                            <Row>
+                                <div className='col-lg-10 col-xl-10' styleName='no-padding'>
+                                    <div styleName='platform-container'>
+                                        {this.renderPages({history})}
                                     </div>
                                 </div>
-                            </Col>
-                        </Row>
-                    </div>
+                                <Col md={4} lg={2} xl={2}>
+                                    <div styleName='chat-container-outro'> 
+                                        <div styleName={'chat-container'}>
+                                            <ChatPage/>
+                                        </div>
+                                    </div>
+                                </Col>
+                            </Row>
+                        </div>
                     </Router>
                 </UserContext.Provider>
         );

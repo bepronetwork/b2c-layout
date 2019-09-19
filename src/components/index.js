@@ -62,7 +62,11 @@ import DepositTab from './DepositTab';
 import WithdrawTab from './WithdrawTab';
 import InformationBox from './InformationBox';
 import TradeFormDexWithdraw from './TradeForms/Dex/Withdraw';
+import Media from './Media';
+import Widgets from './Widgets';
 
+export { Widgets };
+export { Media };
 export { TradeFormDexWithdraw };
 export { InformationBox };
 export { WithdrawTab };

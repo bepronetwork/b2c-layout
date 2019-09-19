@@ -24,7 +24,7 @@ function AddressConcat(string){
 }
 
 const text = {
-    false : 'Address not valid',
+    false : 'Address not valid!',
     true : 'You are running in your address'
 }
 
@@ -69,6 +69,7 @@ class Navbar extends Component {
                     user    : user,
                     difference : (difference != 0) ? difference : this.state.difference,
                     currentBalance : user.getBalance(),
+                    userFullAddress : user.getAddress(),
                     userAddress : user.getAddress() ? AddressConcat(user.getAddress()) : defaultProps.userAddress,
                     userMetamaskAddress : user ? AddressConcat(metamaksAddress) : defaultProps.userMetamaskAddress,
                     isValid : user ? new String(user.getAddress()).toLowerCase() == new String(metamaksAddress).toLowerCase() :  defaultProps.isValid     
@@ -112,7 +113,8 @@ class Navbar extends Component {
 
     render() {
         let { onLogout, onCashier, onAccount } = this.props;
-        let { currentBalance, difference, user } = this.state;
+        let { currentBalance, difference, user, userAddress, userMetamaskAddress, isValid, userFullAddress } = this.state;
+        let infoText = !isValid ? (text[isValid] + ` Your User Address is : ${userFullAddress}`) : text[isValid] ;
         return (
                 <Row styleName="root">
                     <Col xs={3} md={2}>
@@ -157,16 +159,16 @@ class Navbar extends Component {
                                 <Col xs={1} md={6} lg={4}>
                                     <div styleName='address-box'>
                                         <Typography color="white">
-                                            <Tooltip title={text[this.state.isValid]}>
-                                                <IconButton aria-label={text[this.state.isValid]}>
-                                                    {this.state.isValid ? 
+                                            <Tooltip title={infoText}>
+                                                <IconButton aria-label={infoText}>
+                                                    {isValid ? 
                                                         <CheckCircleIcon styleName={'icon-green'} size={20}/>
                                                         :
                                                         <AlertCircleIcon styleName={'icon-red'}  size={20}/>
                                                     }
                                                 </IconButton>
                                             </Tooltip>
-                                            {this.state.userMetamaskAddress}
+                                            {userMetamaskAddress}
                                         </Typography>
                                     </div>
                                 </Col>

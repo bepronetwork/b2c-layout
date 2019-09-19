@@ -7,6 +7,7 @@
     width: 22%;
     height: -webkit-fill-available !important;
     right: 0;
+    z-index: 10;
     background-color: $chat-container-color;
 }
 

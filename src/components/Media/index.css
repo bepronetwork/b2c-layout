@@ -1,0 +1,26 @@
+@import "../../styles/all.css";
+
+.container {
+  display: flex;
+  justify-content: space-around;
+  margin: 3rem 6rem;
+  text-align: left;
+}
+
+.partner-img {
+    height: 40px;
+    width: auto;
+}
+
+@media (max-width: 676px) {
+    .partner-img {
+        height: 20px;
+    }
+    .container {
+        margin: 1rem 3rem;
+    }
+}
+
+.img-partner-full{
+    width: 100%
+}
