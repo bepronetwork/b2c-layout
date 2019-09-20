@@ -2,7 +2,6 @@ import { combineReducers, createStore } from 'redux';
 import {
     messageReducer,
     profileReducer,
-    depositOrWithdrawReducer,
     chatReducer,
     languageReducer,
     startLoadingProgressReducer,
@@ -20,7 +19,6 @@ const reducer = combineReducers({
     withdraw : withdrawReducer,
     language : languageReducer,
     startLoadingProgress : startLoadingProgressReducer,
-    depositOrWithdraw : depositOrWithdrawReducer,
     bet : betReducer
 });
 const store = createStore(reducer);

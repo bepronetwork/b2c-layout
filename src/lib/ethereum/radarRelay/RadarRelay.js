@@ -25,7 +25,7 @@ class RadarRelaay{
     }   
 
     getBestBidMarket = async ({baseTokenSelector, quoteTokenSelector, liquidityNeededBuyToken}) => {
-        let market = await this.getMarket({baseTokenSelector, quoteTokenSelector});
+        let market = await this.getMarket({ baseTokenSelector, quoteTokenSelector });
         return market.book.bids.find(
             bid => (parseFloat(bid.remainingQuoteTokenAmount) > liquidityNeededBuyToken*4)
         )
@@ -41,6 +41,7 @@ class RadarRelaay{
         )
     }
 
+    
     getMarket = async ({baseTokenSelector, quoteTokenSelector}) => {
         let markets = await this.getMarkets();
         let market = markets.find( market => market.id == (`${baseTokenSelector}-${quoteTokenSelector}` || `${quoteTokenSelector}-${baseTokenSelector}`));
@@ -68,7 +69,7 @@ class RadarRelaay{
             const assetData = assetDataUtils.encodeERC20AssetData(tokenAddress);
             const balanceAndAllowance = await this.contractWrappers.orderValidator.getBalanceAndAllowanceAsync(account, assetData);
             const { allowance } = balanceAndAllowance;
-            const isUnlocked = parseInt(allowance) > 0;
+            const isUnlocked = parseFloat(allowance) > amount;
             return isUnlocked;
         } catch (err) {
             console.log(err);
@@ -82,11 +83,17 @@ class RadarRelaay{
             if (!amount || amount === '0') {
                 throw new Error("Amount Not Valid")
             }    
+
+            let options = getTransactionOptions('fast');
+
             const account = await getMetamaskAccount();
+
             let tx = await this.contractWrappers.erc20Token.setUnlimitedProxyAllowanceAsync(
                 tokenAddress,
-                account
+                account,
+                options
             );
+
             let res = await this.web3Wrapper.awaitTransactionSuccessAsync(tx);
             console.log(res);
             return res;
@@ -131,7 +138,6 @@ class RadarRelaay{
             let tx;
             let orders = bids.map( bid => bid.signedOrder);
             const isBuy = (side == 'BUY');
-            console.log(orders[0])
             if(isDirectETH){
                 ethAmount = new BigNumber(
                     parseFloat(window.web3.utils.toWei(
@@ -143,7 +149,6 @@ class RadarRelaay{
                 amount = new BigNumber(amount*10**18);
             }
 
-            console.log(window.web3.utils.fromWei(new String(ethAmount).toString()), amount)
                 
             if (isBuy && isDirectETH) {
                 tx = await this.contractWrappers.forwarder.marketBuyOrdersWithEthAsync(
@@ -157,7 +162,6 @@ class RadarRelaay{
                     await getTransactionOptions('fast')
                 );
             } else if (!isBuy && isDirectETH) {
-                console.log("aqui")
                 tx = await this.contractWrappers.forwarder.marketSellOrdersWithEthAsync(
                     orders,
                     account,

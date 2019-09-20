@@ -67,7 +67,7 @@ class DepositConfirmForm extends React.Component{
 
         return (
             <div styleName='root'>
-                <InformationBox type={'info'} message={'This is final step for you to start playing! \n Deposits need to be confirmed for you to get the money deposited' } image={info} />
+                {/* <InformationBox type={'info'} message={'This is final step for you to start playing! \n Deposits need to be confirmed for you to get the money deposited' } image={info} /> */}
                 <button disabled={disabled} onClick={this.onConfirm} styleName={`tx-box ${confirmed ? 'picked' : ''} ${disabled ? 'nohover' : ''} ${(onLoading || !completed) ? 'onLoading' : ''}`}>
                     <Row>
                         <Col xs={3} md={3}>

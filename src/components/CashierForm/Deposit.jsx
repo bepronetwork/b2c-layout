@@ -63,8 +63,9 @@ class Deposit extends Component {
             <div styleName='root'>
                 <div styleName="deposit">
                     <div styleName="title">
-                        <InformationBox type={'info'} message={'If you left open deposits please finish the process at the "Profile" Tab under "Cashier" or continue here'} image={info}/>
+                        {/*<InformationBox type={'info'} message={'If you left open deposits please finish the process at the "Profile" Tab under "Cashier" or continue here'} image={info}/> */}
                         <HorizontalStepper 
+                            showStepper={false}
                             nextStep={nextStep}
                             alertCondition={!isValidAddress}
                             alertMessage={`This address is not set with this user, please change to your address`}

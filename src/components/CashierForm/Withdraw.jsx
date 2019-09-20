@@ -69,8 +69,9 @@ class Withdraw extends Component {
             <div styleName='root'>
                  <div styleName="deposit">
                     <div styleName="title">
-                        <InformationBox type={'info'} message={'If you left open withdraws please finish the process at the "Profile" Tab under "Cashier or cotinue here'} image={info}/>
+                        {/*<InformationBox type={'info'} message={'If you left open withdraws please finish the process at the "Profile" Tab under "Cashier or cotinue here'} image={info}/> */}
                         <HorizontalStepper 
+                            showStepper={false}
                             nextStep={nextStep}
                             alertCondition={!isValidAddress}
                             alertMessage={`This address is not set with this user, please change to your address`}
@@ -78,21 +79,14 @@ class Withdraw extends Component {
                                 {
                                     label : "Amount",
                                     title : 'How much you want to withdraw?',
-                                    condition : (  (amount >= 0.01) && ( ((amount <= Numbers.toFloat(userBalance)) && (amount <= maxWithdrawal) && (amount >= MIN_WITHDRAWAL)) || (allowedAmount >= amount)) ),
+                                    condition : (  (amount >= 0.01)  && ( ((amount <= Numbers.toFloat(userBalance)) && (amount <= maxWithdrawal) && (amount >= MIN_WITHDRAWAL)) || (allowedAmount >= amount))),
                                     content : <AmountWithdrawForm/>
                                 },
-                         
                                 {
                                     label : "Choose",
                                     title : 'Choose the Currency you want to withdraw to',
                                     condition : (currency != ''),
                                     content : <CurrencyWithdrawForm/>
-                                },
-                                {
-                                    label : "Withdraw",
-                                    title : 'Withdraw',
-                                    condition : (tx && tx != ''),
-                                    content : <WithdrawForm/>
                                 },
                                 /*{
                                     label : "Trade",
@@ -100,6 +94,13 @@ class Withdraw extends Component {
                                     pass : (new String(currency).toLowerCase() == 'dai'),
                                     content : <TradeFormDexWithdraw/>
                                 },*/
+                                {
+                                    label : "Withdraw",
+                                    title : 'Withdraw',
+                                    condition : (tx && tx != ''),
+                                    content : <WithdrawForm/>
+                                },
+                             
                                 {
                                     label : "Confirm",
                                     condition : isConfirmed,

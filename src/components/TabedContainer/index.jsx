@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import _ from 'lodash';
 import { Tab, Nav } from 'react-bootstrap';
 import { Typography } from 'components';
-
+import './index.css';
 class TabedContainer extends React.Component{
 
     constructor(props){
@@ -14,24 +14,27 @@ class TabedContainer extends React.Component{
 
     render = () => {
 
-        const { items} = this.props;
+        const { items, tabTopContent} = this.props;
 
         return (
             <Container className="dashboard">
                 <Tab.Container id="left-tabs-example" defaultActiveKey="item-0">
                     <Row>
                         <Col sm={3}>
+                            {tabTopContent}
                             <Nav variant="pills" className="flex-column">
                                 {items.map( (item, index) => {
                                     return (
                                         <Nav.Item>
                                             <Nav.Link eventKey={`item-${index}`}>
                                                 <Row>
-                                                    <Col sm={3}>
+                                                    <Col xs={2} md={2}>
                                                         {item.icon}
                                                     </Col>
-                                                    <Col sm={9}>
-                                                        <Typography variant={'small-body'} color={'white'}>{item.title}</Typography>
+                                                    <Col xs={10} md={10}>
+                                                        <div styleName='text-tab'>
+                                                            <Typography variant={'small-body'} color={'white'}>{item.title}</Typography>
+                                                        </div>
                                                     </Col>
                                                 </Row>
                                             </Nav.Link>
