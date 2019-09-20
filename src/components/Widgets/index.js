@@ -22,7 +22,7 @@ class Widgets extends React.Component{
 
     projectData(props){
         const { profile } = props;
-        const cacheCustomization = Cache.getFromCache('customization');
+        let cacheCustomization = Cache.getFromCache('customization');
         if(!cacheCustomization){
             cacheCustomization = {}
         };
