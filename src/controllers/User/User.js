@@ -90,6 +90,8 @@ export default class User {
     getApprovedWithdrawAsync = async () => await this.__getApprovedWithdraw();
 
     getID = () => this.id;
+
+    getUsername = () => this.username;
     
     isValidAddress = async () => {
         let userMetamaskAddress = await getMetamaskAccount();
@@ -443,7 +445,11 @@ export default class User {
 
     getAppCurrencyTicker = () => {
         return this.app.currencyTicker;
-    }   
+    } 
+      
+    getAppTokenAddress = () => {
+        return this.tokenAddress;
+    }
 
     createWithdraw = async ({ amount }) => {
         try {

@@ -152,7 +152,7 @@ ColorlibStepIcon.propTypes = {
 
 const HorizontalStepper = (props) => {
     
-    const { steps, nextStep, alertCondition, alertMessage } = props;
+    const { steps, nextStep, alertCondition, alertMessage, showStepper } = props;
     const classes = useStyles();
     const [activeStep, setActiveStep] = React.useState(0);
     let step = steps[activeStep];
@@ -184,17 +184,19 @@ const HorizontalStepper = (props) => {
     return (
         <div className={classes.root}>
             <div styleName='stepper-root'>
-                <Stepper alternativeLabel activeStep={activeStep} connector={<QontoConnector />}>
-                    {steps.map( ({label}) => (
-                        <Step key={label}>
-                            <StepLabel className={classes.stepLabel} StepIconComponent={QontoStepIcon}>
-                                <Typography 
-                                    variant={'small-body'} color={'casper'}>{label}
-                                </Typography>
-                            </StepLabel>
-                        </Step>
-                    ))}
-                </Stepper>
+                {showStepper ?
+                    <Stepper alternativeLabel activeStep={activeStep} connector={<QontoConnector />}>
+                        {steps.map( ({label}) => (
+                            <Step key={label}>
+                                <StepLabel className={classes.stepLabel} StepIconComponent={QontoStepIcon}>
+                                    <Typography 
+                                        variant={'small-body'} color={'casper'}>{label}
+                                    </Typography>
+                                </StepLabel>
+                            </Step>
+                        ))}
+                    </Stepper>
+                : null}
             </div>
             <div styleName='container-title'>
                 <Typography variant={'body'} color={'white'}>

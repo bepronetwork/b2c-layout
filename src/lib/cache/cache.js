@@ -17,6 +17,18 @@ class cache{
         let result = localStorage.getItem(type);
         return result ? JSON.parse(result) : null;
     }
+
+    handleCustomizationToggleBinary = ({objectName, key}) => {
+        let customization = this.getFromCache(objectName);
+        
+        if(!customization){
+            customization = {};
+        }
+        let isSet = customization[key];
+        customization = {...customization, [key] : isSet ? false : true};
+
+        this.setToCache(objectName, customization);
+    }
 }
 
 let Cache = new cache();

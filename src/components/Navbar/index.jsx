@@ -35,7 +35,6 @@ const defaultProps = {
     userMetamaskAddress : 'N/A',
     isValid : false,
     currentBalance : 0,
-    depositOrWithdrawIDVerified : '',
     betIDVerified : '',
 };
 
@@ -112,7 +111,7 @@ class Navbar extends Component {
     }
 
     render() {
-        let { onLogout, onCashier, onAccount } = this.props;
+        let { onLogout, onCashier, onAccount, history } = this.props;
         let { currentBalance, difference, user, userAddress, userMetamaskAddress, isValid, userFullAddress } = this.state;
         let infoText = !isValid ? (text[isValid] + ` Your User Address is : ${userFullAddress}`) : text[isValid] ;
         return (
@@ -176,7 +175,7 @@ class Navbar extends Component {
                                     <div styleName="buttons-1">
                                         <div styleName='user-menu'>
                                             <UserMenu
-                                                onAccount={onAccount}
+                                                onAccount={() => onAccount({history})}
                                                 onLogout={onLogout}
                                                 onCashier={onCashier}
                                                 username={user.username}

@@ -8,8 +8,10 @@ class BackgroundMusic extends React.Component{
 
     // This sound file may not work due to cross-origin setting
     render () {
+        const { mute } = this.props;
         return (
             <ReactHowler
+                mute={mute}
                 src='https://storage.googleapis.com/background-music-betprotocol/background-music.mp3'
                 playing={true}
                 loop={true}

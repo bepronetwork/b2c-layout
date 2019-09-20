@@ -9,15 +9,18 @@ import {
     Tabs,
     LoginForm,
     RegisterForm,
-    AccountInfoModal,
     CashierForm,
     LoadingBanner,
     MessageForm,
     Widgets
 } from "components";
+
 import DicePage from "containers/DicePage";
 import FlipPage from "containers/FlipPage";
 import RoulettePage from "containers/RoulettePage";
+import WheelPage from "../WheelPage";
+import WheelVariation1 from "../WheelVariation1Page";
+
 import { login, logout, register } from "lib/api/users";
 import getAppInfo from "lib/api/app";
 import handleError from "lib/api/handleError";
@@ -33,11 +36,12 @@ import ChatPage from "../Chat";
 import { CopyText } from "../../copy";
 import { setMessageNotification } from "../../redux/actions/message";
 import ChatChannelUnlogged from "../../controllers/Chat/ChatUnlogged";
-import WheelPage from "../WheelPage";
-import WheelVariation1 from "../WheelVariation1Page";
+
 import { connect } from 'react-redux';
 import _ from 'lodash';
 import { setStartLoadingProcessDispatcher } from "../../lib/redux";
+import AccountPage from "../AccountPage";
+import NavigationBar from "../../components/NavigationBar";
 const history = createBrowserHistory();
 
 class App extends Component {
@@ -66,10 +70,16 @@ class App extends Component {
         }
     }
 
+    closeStaticLoading = () => {
+        document.getElementById("loading").style.display = "none";
+        document.getElementById("back").style.display = "none";
+    }
+
 	asyncCalls = async () => {
         try{
             this.startWallet();
             await this.loginAccount();
+            this.closeStaticLoading();
         }catch(err){
             setStartLoadingProcessDispatcher(6);
             this.startChatNoLogged();
@@ -131,8 +141,8 @@ class App extends Component {
         this.setState({ cashierOpen: true });
     };
 
-    handleAccountOpen = () => {
-        this.setState({ accountInfoOpen: true });
+    handleAccountOpen = ({history}) => {
+        history.push('/account');
     }
 
     handleLogin = async form => {
@@ -259,17 +269,6 @@ class App extends Component {
         ) : null;
     };
 
-    renderAccountInfoModal = () => {
-        const { accountInfoOpen } = this.state;
-
-        return accountInfoOpen ? (
-            <Modal onClose={this.handleAccountModalClose}>
-                <AccountInfoModal />
-            </Modal>
-        ) : null;
-    };
-
-
     updateAppInfo = async () => {
         let app = await getAppInfo();
         Cache.setToCache("appInfo", app);
@@ -283,19 +282,9 @@ class App extends Component {
     };
 
 
-    renderPages = ({history}) => {
+    renderGamePages = ({history}) => {
         return (
-            <Switch history={history}>
-                <Route
-                    exact
-                    path="/"
-                    render={props => (
-                    <HomePage
-                        {...props}
-                        onHandleLoginOrRegister={this.handleLoginOrRegisterOpen}
-                    />
-                    )}
-                />
+            <>
                 {this.isGameAvailable("linear_dice_simple") ? (
                     <Route
                     exact
@@ -351,14 +340,14 @@ class App extends Component {
                     path="/wheel_variation_1"
                     render={props => (
                         <WheelVariation1
-                        {...props}
-                        game={this.isGameAvailable("wheel_variation_1")}
-                        onHandleLoginOrRegister={this.handleLoginOrRegisterOpen}
+                            {...props}
+                           å game={this.isGameAvailable("wheel_variation_1")}
+                            onHandleLoginOrRegister={this.handleLoginOrRegisterOpen}
                         />
                     )}
                     />
                 ) : null}
-            </Switch>
+            </>
         )
     }
 
@@ -385,21 +374,41 @@ class App extends Component {
                         <Widgets/>
                         <header>
                             <Navbar
+                                history={history}
                                 onAccount={this.handleAccountOpen}
                                 onLogout={this.handleLogout}
                                 onLoginRegister={this.handleLoginOrRegisterOpen}
                                 onCashier={this.handleCashierOpen}
                             />
-                            {this.renderAccountInfoModal()}
                             {this.renderLoginRegisterModal()}
                             {this.renderCashierModal()}
                             <MessageForm user={user}/>
                         </header>
                         <div>
+                            <NavigationBar history={history}/>
                             <Row>
                                 <div className='col-lg-10 col-xl-10' styleName='no-padding'>
                                     <div styleName='platform-container'>
-                                        {this.renderPages({history})}
+                                    <Switch history={history}>
+                                        <Route
+                                            exact
+                                            path="/"
+                                            render={props => (
+                                                <HomePage
+                                                    {...props}
+                                                    onHandleLoginOrRegister={this.handleLoginOrRegisterOpen}
+                                                />
+                                        
+                                            )}
+                                        />
+                                        <Route
+                                            exact
+                                            path="/account"
+                                            render={props => <AccountPage {...props} />}
+                                        />
+
+                                        {this.renderGamePages({history})}
+                                    </Switch>
                                     </div>
                                 </div>
                                 <Col md={4} lg={2} xl={2}>

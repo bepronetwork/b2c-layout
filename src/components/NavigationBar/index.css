@@ -1,0 +1,35 @@
+@import "../../styles/all.css";
+
+.root {
+    position: relative;
+    background-color : $navigation-bar-background;
+    height : 60px;
+    margin-top : 50px;
+    box-shadow : $box-shadow;
+    padding : 0 $spacing-64;
+
+    
+}
+
+.navigation-step{
+    margin: auto $spacing-20;
+    display: block;
+    position: relative;
+    height: auto;
+    width: 150px;
+    transition: all 0.2s ease-in;
+
+    img{
+        width : 20px;
+    }
+
+    .text{
+        margin-top : 3px;
+    }
+
+    &:hover{
+        opacity : 0.4;
+        background-color : $navigation-bar-item;
+    }
+
+}

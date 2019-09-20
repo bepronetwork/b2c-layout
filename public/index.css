@@ -1,6 +1,6 @@
 
 #back{
-    z-index: -20;
+    z-index: -30;
     background-color: #17182c;
     position: absolute;
     width: 100%;
@@ -386,9 +386,26 @@ ul, li {
 
 
 .nav-link.active{
-    background-color : #393984 !important;
+    background-color : #7e84be !important;
 }
 
 a{
     color : none !important;
+}
+
+a > .mdi-icon{
+    color : white !important;
+}
+
+.nav-link{
+    color : white !important;
+}
+
+.nav-item{
+    height: 40px;
+    border-radius: 0;
+}
+
+.MuiPaper-root{
+    border : none;
 }

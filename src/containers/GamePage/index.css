@@ -20,10 +20,9 @@
     max-width : 1020px;
     margin-left : 2%;
     grid-template-columns: repeat(3, 290px);
-    margin-top : 80px;
+    margin-top : $spacing-28;
     @include Breakpoint-tabletOnly {
         margin: 0 auto;
-        margin-top : 80px;
     }
 
     @include Breakpoint-mobileOnly {

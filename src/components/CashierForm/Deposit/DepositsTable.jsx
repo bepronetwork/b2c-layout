@@ -199,20 +199,6 @@ let EnhancedTableToolbar = props => {
                 [classes.highlight]: numSelected > 0,
             })}
             >
-            <div className={classes.title}>
-                {numSelected > 0 ? (
-                <Typography color="white" variant="small-body">
-                    {numSelected} selected
-                </Typography>
-                ) : (
-                <Row>
-                    <Typography variant="h4" id="tableTitle" color={'white'}>
-                        Deposits
-                    </Typography>
-                </Row>
-                
-                )}
-            </div>
             <div className={classes.spacer} />
             <div className={classes.actions}>
               

@@ -1,3 +1,5 @@
+@import "./components.css";
+
 $spacing-4: 4px;
 $spacing-8: 8px;
 $spacing-12: 12px;
@@ -49,3 +51,6 @@ $games-dice-size : 220px;
 $games-roulette-size : 220px;
 $games-coinflip-size : 220px;
 
+
+$box-shadow : 1px 10px 100px 10px $dark-table-color;
+$box-shadow-light : 1px 10px 10px 1px $dark-table-color;

@@ -14,11 +14,11 @@ class Checkbox extends React.Component{
     }
 
     render(){
-        const { id, isSet } = this.props;
+        const { id, isSet, onClick } = this.props;
 
         return (
             <li styleName="tg-list-item">
-                <input checked={isSet} styleName="tgl tgl-flat" id={id} type="checkbox"/>
+                <input onClick={onClick} checked={isSet} styleName="tgl tgl-flat" id={id} type="checkbox"/>
                 <label styleName="tgl-btn" for={id}></label>
             </li>
         )
