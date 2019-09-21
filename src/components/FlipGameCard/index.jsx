@@ -150,7 +150,7 @@ export default class FlipGameCard extends Component {
                                         </Typography>       
                                     </div>
                                     <div styleName='popular-number-container-amount'>
-                                        <AnimationNumber number={item.resultAmount/totalAmount} variant={'small-body'} color={'white'} span={'%'}/>
+                                        <AnimationNumber number={Numbers.toFloat(item.resultAmount/totalAmount*100)} variant={'small-body'} color={'white'} span={'%'}/>
                                     </div>
                                 </div>
                             )

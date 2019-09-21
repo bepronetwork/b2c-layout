@@ -7,7 +7,7 @@ import CloseCircleIcon from 'mdi-react/CloseCircleIcon';
 
 const copy = {
     'alert' : {
-        title : 'Don´t Procceed!'
+        title : 'You can´t Procceed!'
     },
     'info' : {
         title : 'Information'

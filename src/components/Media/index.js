@@ -15,8 +15,8 @@ class Media extends Component {
 
     render() {
         return (
-            <div>
-                <Typography variant='body' color='white'> 
+            <div styleName='media-section'>
+                <Typography variant='h3' color='white' weight='bold'> 
                     Media Coverage 
                 </Typography>
                 <div styleName='container'>

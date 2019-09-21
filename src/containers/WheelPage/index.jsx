@@ -163,7 +163,7 @@ class WheelPage extends React.Component {
         try{
             var { user } = this.context;
             var { onHandleLoginOrRegister } = this.props;
-            var { betHistory } = this.state;
+            var { betHistory, game } = this.state;
             
             if (!user) return onHandleLoginOrRegister("register");
             
@@ -171,7 +171,8 @@ class WheelPage extends React.Component {
 
             const res = await wheelBet({
                 amount,
-                user
+                user,
+                game_id : game._id
             });
             const { isWon, result } = res;
 

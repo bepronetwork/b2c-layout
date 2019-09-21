@@ -14,6 +14,7 @@ import AnimationNumber from "../AnimationNumber";
 import cells from "../RouletteBoard/cells";
 import Wheel from "../Wheel";
 import WheelBox from "../WheelBox";
+import { Numbers } from "../../lib/ethereum/lib";
 const mobileBreakpoint = 768;
 
 class WheelGameCard extends Component {
@@ -133,29 +134,26 @@ class WheelGameCard extends Component {
     };
 
     renderPopularNumbers = ({popularNumbers}) => {
-        const { game, options } = this.props;
+        const { options } = this.props;
         if(!popularNumbers){return null}
-        
+
         const totalAmount = popularNumbers.reduce( (acc, item) => {
             return acc+item.resultAmount;
         }, 0);
-        
         let popularSpaces = options.map( opt => {
             let resultAmount = popularNumbers.reduce( (acc, item) => {
                 if(opt.placings.find( placing => placing == item.key)){
-                    return acc+1;
+                    return acc+item.resultAmount;
                 }else{
                     return acc;
                 }
             }, 0);
-
             return {
                 resultAmount,
                 multiplier : opt.multiplier,
                 index : opt.index
             }
-        }).filter(el => el != null);
-
+        }).filter(el => el != null).sort((a, b) => b.resultAmount - a.resultAmount ) ;
         return(
             <div styleName='outer-popular-numbers'>
                 <div styleName='inner-popular-numbers'>
@@ -169,7 +167,7 @@ class WheelGameCard extends Component {
                                         </Typography>       
                                     </div>
                                     <div styleName='popular-number-container-amount'>
-                                        <AnimationNumber number={item.resultAmount/totalAmount} variant={'small-body'} color={'white'} span={'%'}/>
+                                        <AnimationNumber number={Numbers.toFloat(item.resultAmount/totalAmount*100)} variant={'small-body'} color={'white'} span={'%'}/>
                                     </div>
                                 </div>
                             )

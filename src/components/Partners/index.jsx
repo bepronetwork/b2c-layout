@@ -14,8 +14,8 @@ class Partners extends Component {
   render() {
 
     return (
-        <div>
-            <Typography variant='body' color='white'> 
+        <div styleName='partners-section'>
+            <Typography variant='h3' color='white' weight='bold'> 
                 Partners 
             </Typography>
             <div styleName='container'>

@@ -341,7 +341,7 @@ class App extends Component {
                     render={props => (
                         <WheelVariation1
                             {...props}
-                           å game={this.isGameAvailable("wheel_variation_1")}
+                            game={this.isGameAvailable("wheel_variation_1")}
                             onHandleLoginOrRegister={this.handleLoginOrRegisterOpen}
                         />
                     )}

@@ -24,3 +24,7 @@
 .img-partner-full{
     width: 100%
 }
+
+.media-section{
+    margin : $spacing-52 auto;
+}

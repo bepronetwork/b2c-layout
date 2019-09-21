@@ -20,3 +20,7 @@
   margin: 1rem 3rem;
   }
 }
+
+.partners-section{
+    margin : $spacing-52 auto;
+}

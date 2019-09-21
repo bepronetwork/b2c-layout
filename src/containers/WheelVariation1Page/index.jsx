@@ -35,6 +35,7 @@ const resultSpaceColors = [
         "color" : '#b7e24f'
     }
 ]
+
 class WheelVariationOne extends React.Component {
     static contextType = UserContext;
 
@@ -156,15 +157,16 @@ class WheelVariationOne extends React.Component {
         try{
             var { user } = this.context;
             var { onHandleLoginOrRegister } = this.props;
-            var { betHistory } = this.state;
-            
+            var { betHistory, game } = this.state;
+            console.log(game)
             if (!user) return onHandleLoginOrRegister("register");
             
             this.setState({ bet: true });
 
             const res = await wheelBet({
                 amount,
-                user
+                user,
+                game_id : game._id
             });
             const { isWon, result } = res;
 

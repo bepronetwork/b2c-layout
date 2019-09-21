@@ -6,6 +6,7 @@ import { find } from "lodash";
 
 import "./index.css";
 import { getPopularNumbers } from "../../lib/api/app";
+import { Numbers } from "../../lib/ethereum/lib";
 
 const minPayout = 1.0102;
 const maxPayout = 49.5;
@@ -198,7 +199,7 @@ export default class DiceGameCard extends Component {
         if(!popularNumbers || (popularNumbers && popularNumbers.length < 1)){return null}
         const totalAmount = popularNumbers.reduce( (acc, item) => {
             return acc+item.resultAmount;
-        }, 0)
+        }, 0);
         return(
             <div styleName='outer-popular-numbers'>
                 <div styleName='inner-popular-numbers'>
@@ -212,7 +213,7 @@ export default class DiceGameCard extends Component {
                                         </Typography>       
                                     </div>
                                     <div styleName='popular-number-container-amount'>
-                                        <AnimationNumber number={item.resultAmount/totalAmount} variant={'small-body'} color={'white'} span={'%'}/>
+                                        <AnimationNumber number={Numbers.toFloat(item.resultAmount/totalAmount*100)} variant={'small-body'} color={'white'} span={'%'}/>
                                     </div>
                                 </div>
                             )
