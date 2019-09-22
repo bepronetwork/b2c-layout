@@ -76,7 +76,7 @@ class WithdrawForm extends Component {
             this.onLoading('hasAllowed', false);
         }
     }
-
+ 
     withdrawTokens = async () => {
         try{
             this.onLoading('hasWithdrawed');
@@ -86,8 +86,10 @@ class WithdrawForm extends Component {
             if(!res){throw new Error("Error on Transaction")};
             /* Set Transaction */
             await store.dispatch(setWithdrawInfo({key : 'tx', value : res.transactionHash}));
-            this.setState({...this.state, hasWithdrawed : true})
-            this.onLoading('hasWithdrawed', false);
+            this.setState({...this.state, hasWithdrawed : true});
+            setTimeout( () => {
+                this.onLoading('hasWithdrawed', false);
+            }, 1*1000)
         }catch(err){
             console.log(err)
             this.onLoading('hasWithdrawed', false);

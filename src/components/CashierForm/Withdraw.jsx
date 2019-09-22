@@ -98,16 +98,18 @@ class Withdraw extends Component {
                                     label : "Withdraw",
                                     title : 'Withdraw',
                                     condition : (tx && tx != ''),
-                                    content : <WithdrawForm/>
+                                    content : <WithdrawForm/>,
+                                    last : true,
+                                    closeStepper : this.closeDeposit
                                 },
                              
-                                {
+                                /*{
                                     label : "Confirm",
                                     condition : isConfirmed,
                                     content : <WithdrawConfirmForm/>,
                                     last : true,
                                     closeStepper : this.closeDeposit
-                                } 
+                                }*/
                             ]}
                         />
                     </div>

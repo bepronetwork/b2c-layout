@@ -93,12 +93,13 @@ class Deposit extends Component {
                                     label : "Deposit",
                                     title : 'Deposit your Tokens',
                                     condition : (tx && tx != ''),
+                                    pass : (tx && tx != ''),
                                     content : <DepositForm/>
                                 },
                                 {
                                     label : "Confirm",
                                     condition : (isConfirmed),
-                                    content : <DepositConfirmForm/>,
+                                    content : <DepositConfirmForm onClose={this.closeDeposit}/>,
                                     last : true,
                                     closeStepper : this.closeDeposit
                                 }
