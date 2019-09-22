@@ -70,3 +70,9 @@
   box-shadow: inset 0 0 15px color($red alpha(50%));
 }
 
+
+
+.footer-info{
+    text-align: left;
+    margin-top : 20px;
+}

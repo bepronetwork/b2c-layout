@@ -18,7 +18,8 @@ class DepositConfirmForm extends React.Component{
         super(props);
         this.state = { 
             confirmation : 0,
-            onLoading : false
+            onLoading : false,
+            isConfirming : false
         }
     }
 
@@ -26,6 +27,7 @@ class DepositConfirmForm extends React.Component{
         this.projectData(this.props);
         setInterval( () => {
             this.projectData(this.props);
+
         }, 1*1000)
     }   
 
@@ -34,19 +36,28 @@ class DepositConfirmForm extends React.Component{
         // Get Transaction Confirmations
         let tx = await getTransactionData(deposit.tx);
         if(!tx){return null}
-        this.setState({...this.state, confirmations : tx.confirmations})
+        const confirmations = tx.confirmations;
+        const progress = parseInt(confirmations/CONFIRMATIONS_NEEDED*100);
+        const completed = (progress >= 100);
+        // Auto Click
+        if(completed && !this.state.confirmed && !this.isConfirming){
+            this.isConfirming = true;
+            this.onConfirm();
+        }
+        this.setState({...this.state, confirmations, completed, progress})
     }
 
     onConfirm = async () => {
         try{
             this.setState({...this.state, onLoading : true});
-            const { deposit, profile } = this.props;
+            const { deposit, profile, onClose } = this.props;
             /* Create Deposit Confirm API */
             let res = await profile.confirmDeposit({amount : Numbers.toFloat(deposit.amount), transactionHash : deposit.tx});
             if(!res){throw new Error("Error on Transaction")};
             await profile.getAllData();
-            await store.dispatch(setDepositInfo({key : 'isConfirmed', value : true}));
             this.setState({...this.state, onLoading : false, confirmed : true});
+            if(onClose){onClose();}
+            await store.dispatch(setDepositInfo({key : 'isConfirmed', value : true}));
         }catch(err){
             this.setState({...this.state, onLoading : false});
         }
@@ -59,10 +70,8 @@ class DepositConfirmForm extends React.Component{
         } = this.props;
 
         const { tx } = deposit;
-        const { confirmations, onLoading, confirmed } = this.state;
+        const { confirmations, onLoading, confirmed, progress, completed } = this.state;
 
-        let progress = parseInt(confirmations/CONFIRMATIONS_NEEDED*100);
-        let completed = (progress >= 100);
         let disabled = (!completed || onLoading || confirmed);
 
         return (
