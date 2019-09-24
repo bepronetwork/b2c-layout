@@ -71,7 +71,7 @@ const footer = {
                 {
                     type : 'link',
                     text : 'Terms of Service',
-                    href : '#',
+                    href : 'https://storage.googleapis.com/tkn-betprotocol/terms-of-service.pdf',
                     size : "small-body",
                     color : 'casper',
                 }
@@ -104,6 +104,13 @@ const footer = {
                     type : 'link',
                     text : 'Discord',
                     href : '#',
+                    size : "small-body",
+                    color : 'casper',
+                },
+                {
+                    type : 'link',
+                    text : 'Safe Gambling',
+                    href : 'https://www.begambleaware.org/',
                     size : "small-body",
                     color : 'casper',
                 }

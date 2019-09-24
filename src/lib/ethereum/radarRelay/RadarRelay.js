@@ -149,7 +149,6 @@ class RadarRelaay{
                 amount = new BigNumber(amount*10**18);
             }
 
-                
             if (isBuy && isDirectETH) {
                 tx = await this.contractWrappers.forwarder.marketBuyOrdersWithEthAsync(
                     orders,
@@ -161,15 +160,6 @@ class RadarRelaay{
                     '0x801Ecff29a16C81f6F139A250D38526d60F4A301',
                     await getTransactionOptions('fast')
                 );
-            } else if (!isBuy && isDirectETH) {
-                tx = await this.contractWrappers.forwarder.marketSellOrdersWithEthAsync(
-                    orders,
-                    account,
-                    ethAmount,
-                    [],
-                    0,
-                    '0x801Ecff29a16C81f6F139A250D38526d60F4A301',
-                    await getTransactionOptions('fast'));
             } else {
                 if (isBuy) {
                     tx = await this.contractWrappers.exchange.marketBuyOrdersAsync(
