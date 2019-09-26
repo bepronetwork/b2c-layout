@@ -355,26 +355,22 @@ input[type=number] {
       line-height: .8em; } }
 
 .image-gallery-index {
-  background: rgba(0, 0, 0, 0.4);
-  color: #fff;
-  line-height: 1;
-  padding: 10px 20px;
-  position: absolute;
-  right: 0;
-  top: 0;
-  z-index: 4; }
-  @media (max-width: 768px) {
-    .image-gallery-index {
-      font-size: .8em;
-      padding: 5px 10px; } }
-
-
-
-
-.MuiPaper-root{
-    background-color : transparent !important;
-    background : transparent !important;
+    background: rgba(0, 0, 0, 0.4);
+    color: #fff;
+    line-height: 1;
+    padding: 10px 20px;
+    position: absolute;
+    right: 0;
+    top: 0;
+    z-index: 4; 
 }
+@media (max-width: 768px) {
+    .image-gallery-index {
+        font-size: .8em;
+        padding: 5px 10px; 
+    } 
+}
+
 
 .MuiStepLabel-label.MuiStepLabel-alternativeLabel{
     color : white !important;
