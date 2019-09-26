@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import UserContext from "containers/App/UserContext";
 import { Row, Col} from 'reactstrap';
-import { Typography } from 'components';
+import { Typography, LanguagePicker } from 'components';
 import logo from "assets/logo.png";
 
 import "./index.css";
@@ -125,13 +125,11 @@ export default class Footer extends Component {
         return (
             <div styleName="container">
                 <div styleName="footer">
-                    
                     <Row>
                         {footer.tabs.map( tab =>  {
                             return(
                                 <Col md={tab.col}>
                                     <div styleName={tab.align}>
-
                                         {/* Title */}
                                         {tab.title ? 
                                             <div styleName='title'>
@@ -165,6 +163,9 @@ export default class Footer extends Component {
                             )}
                         )}
                     </Row>
+                    <div styleName='footer-language-picker'>
+                        <LanguagePicker/>
+                    </div>
                     <div styleName='footer-info'>
                         <Typography
                             weight={footer.info.size}

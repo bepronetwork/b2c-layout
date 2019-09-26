@@ -4,27 +4,8 @@
 
 }
 .root {
-    position: fixed;
-    top: 0;
-    z-index: 20;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-
-    width: 100%;
     height: $navbar-height;
     padding-top : $padding-height-navbar;
-    padding-left : $padding-width-navbar;
-    padding-right : $padding-width-navbar;
-
-    background-color: $background-top-bar-theme;
-    box-shadow : 1px 1px 100px 1px #0000006b;
-
-    @include Breakpoint-mobileOnly {
-        display: none;
-
-    }
-
 }
 
 
@@ -33,16 +14,15 @@
   display: flex;
   flex-direction: row;
   align-items: center;
+  width: 190px;
+  margin-top: -10px;
 
   @include Breakpoint-tabletAndAbove {
-    width: $content-width-desktop;
-
     padding: 0 $spacing-20;
     margin: 0 auto;
   }
 
   @include Breakpoint-mobileOnly {
-    width: 100%;
     padding: 0 $spacing-8;
     margin: 0 auto;
   }

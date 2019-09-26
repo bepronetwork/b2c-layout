@@ -259,3 +259,18 @@
     }
 
 }
+
+.navbar-language{
+    position: fixed;
+    top: -15px;
+    z-index: 20;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    @include Breakpoint-mobileOnly {
+        display: none;
+
+    }
+
+}
