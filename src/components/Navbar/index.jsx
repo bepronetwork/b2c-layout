@@ -190,7 +190,9 @@ class Navbar extends Component {
                     }
                     </Col>
                     <Col xs={0} md={2}>
-                        <LanguagePicker/>
+                        <div styleName='navbar-language'>
+                            <LanguagePicker/>
+                        </div>
                     </Col>
                 </Row>
         );

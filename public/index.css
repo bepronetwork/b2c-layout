@@ -408,4 +408,5 @@ a > .mdi-icon{
 
 .MuiPaper-root{
     border : none;
+    background-color : #ccc !important;
 }

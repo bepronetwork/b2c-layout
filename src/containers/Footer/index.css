@@ -76,3 +76,14 @@
     text-align: left;
     margin-top : 20px;
 }
+
+.footer-language-picker{
+    text-align: left;
+    position: relative;
+    display: none;
+    width: 200px;
+
+    @include Breakpoint-mobileOnly {
+        display : block;
+    }
+}
