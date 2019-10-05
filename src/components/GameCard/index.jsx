@@ -40,7 +40,7 @@ class GameCard extends Component {
     };
 
     render() {
-        const { title, edge, path, image_url, ln } = this.props;
+        const { title, edge, path, image_url, tableLimit, ln } = this.props;
         const copy = CopyText.shared[ln];
         const imageStyles = "image-container dice-background-color"
         return (
@@ -58,7 +58,13 @@ class GameCard extends Component {
                     </Typography>
                     </div>
                     <Typography variant="small-body" color="white">
-                        {edge >= 0 ? `${edge}% ${copy.EDGE_NAME}` : ""}
+                        {edge >= 0 ? `${edge}% ${copy.EDGE_NAME}` : ""} 
+                        <span>
+                            <Typography variant="x-small-body" color="grey">Min: 0.01</Typography>
+                        </span>
+                        <span>
+                            <Typography variant="x-small-body" color="grey">Max: {tableLimit}</Typography>
+                        </span>
                     </Typography>
                 </div>
                 </Link>
