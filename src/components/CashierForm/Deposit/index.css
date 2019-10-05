@@ -10,7 +10,9 @@
 .grey-box{
     border-radius: 20px;
     width: max-content;
+    border-radius: 5px;
     padding: 5px 10px;
+    background-color: $grey;
 }
 
 
@@ -19,13 +21,6 @@
     border-radius: 5px;
     width: max-content;
     text-align : center;
-    padding: 5px 10px;
-}
-
-.orange-box{
-    background-color:orange;
-    border-radius: 20px;
-    width: max-content;
     padding: 5px 10px;
 }
 

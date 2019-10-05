@@ -9,13 +9,18 @@ import {
     Tabs,
     LoginForm,
     RegisterForm,
-    AccountInfoModal,
     CashierForm,
-    MessageForm
+    LoadingBanner,
+    MessageForm,
+    Widgets
 } from "components";
+
 import DicePage from "containers/DicePage";
 import FlipPage from "containers/FlipPage";
 import RoulettePage from "containers/RoulettePage";
+import WheelPage from "../WheelPage";
+import WheelVariation1 from "../WheelVariation1Page";
+
 import { login, logout, register } from "lib/api/users";
 import getAppInfo from "lib/api/app";
 import handleError from "lib/api/handleError";
@@ -32,9 +37,14 @@ import { CopyText } from "../../copy";
 import { setMessageNotification } from "../../redux/actions/message";
 import ChatChannelUnlogged from "../../controllers/Chat/ChatUnlogged";
 
+import { connect } from 'react-redux';
+import _ from 'lodash';
+import { setStartLoadingProcessDispatcher } from "../../lib/redux";
+import AccountPage from "../AccountPage";
+import NavigationBar from "../../components/NavigationBar";
 const history = createBrowserHistory();
 
-export default class App extends Component {
+class App extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -44,10 +54,11 @@ export default class App extends Component {
 
     componentDidMount = () => {
         this.asyncCalls();
+
     };
 
-    start = () => {
-        this.setState({...this.state, isLoading : false})
+    start = async () => {
+        this.setState({...this.state, isLoading : false});
     }
 
     startChatNoLogged = async () => {
@@ -59,34 +70,36 @@ export default class App extends Component {
         }
     }
 
+    closeStaticLoading = () => {
+        document.getElementById("loading").style.display = "none";
+        document.getElementById("back").style.display = "none";
+    }
+
 	asyncCalls = async () => {
         try{
             this.startWallet();
             await this.loginAccount();
+            this.closeStaticLoading();
         }catch(err){
+            setStartLoadingProcessDispatcher(6);
             this.startChatNoLogged();
         }
+        
         this.start();
     }
 
     loginAccount = async () => {
         // Get App Ino
-        Cache.setToCache("appInfo", null);
-        const appInfo = Cache.getFromCache("appInfo");
-
-        if (!appInfo) {
-            await this.updateAppInfo();
-        }else{
-            this.setState({...this.state, app : appInfo});
-        }
-
+        await this.updateAppInfo();
+    
         try{
             let cache = Cache.getFromCache('Authentication');
             if(cache && cache.password){
-                await this.handleLogin({
+                let res = await this.handleLogin({
                     username : cache.username, 
                     password : cache.password
                 });
+                if(!res || (res.status != 200)){throw new Error('Login didn´t work')}
             }else{
                 throw new Error('Login didn´t work')
             }
@@ -128,26 +141,25 @@ export default class App extends Component {
         this.setState({ cashierOpen: true });
     };
 
-    handleAccountOpen = () => {
-        this.setState({ accountInfoOpen: true });
+    handleAccountOpen = ({history}) => {
+        history.push('/account');
     }
 
     handleLogin = async form => {
         try {
-            const response = await login(form);
-            Cache.setToCache('Authentication', form)
-
-            if (response.status !== 200) {
+            const response = await login(form);       
+            Cache.setToCache('Authentication', form);
+            if (response.status != 200) {
                 this.setState({ error: response.status });
+            }else{
+                let user = await this.updateUser(response);
+                await user.updateUser();
+                this.setState({ registerLoginModalOpen: null, error: null });
             }
-
-            let user = await this.updateUser(response);
-            await user.updateUser();
-
-            this.setState({ registerLoginModalOpen: null, error: null });
             return response;
         } catch (error) {
-            return handleError(error);
+            handleError(error);
+            return false;
         }
     };
 
@@ -198,7 +210,6 @@ export default class App extends Component {
             userId: user.id,
             user : user
         })
-
         await store.dispatch(setProfileInfo(userObject));
         Cache.setToCache('user', userObject)
         
@@ -209,19 +220,18 @@ export default class App extends Component {
     };
 
     handleLogout = async () => {
-        await logout();
-        await store.dispatch(setProfileInfo(null));
         Cache.setToCache('user', null);
         Cache.setToCache('Authentication', null);
         localStorage.removeItem("diceHistory");
         localStorage.removeItem("rouletteHistory");
         localStorage.removeItem("flipHistory");
+        await store.dispatch(setProfileInfo(null));
         this.setState({ user: null });
+        window.location.reload();
     };
 
     renderLoginRegisterModal = () => {
         const { registerLoginModalOpen, error } = this.state;
-
         return registerLoginModalOpen ? (
             <Modal onClose={this.handleRegisterLoginModalClose}>
                 <div styleName="modal">
@@ -254,21 +264,10 @@ export default class App extends Component {
 
         return cashierOpen ? (
             <Modal onClose={this.handleCashierModalClose}>
-                <CashierForm />
+                <CashierForm onClose={this.handleCashierModalClose} />
             </Modal>
         ) : null;
     };
-
-    renderAccountInfoModal = () => {
-        const { accountInfoOpen } = this.state;
-
-        return accountInfoOpen ? (
-            <Modal onClose={this.handleAccountModalClose}>
-                <AccountInfoModal />
-            </Modal>
-        ) : null;
-    };
-
 
     updateAppInfo = async () => {
         let app = await getAppInfo();
@@ -283,19 +282,9 @@ export default class App extends Component {
     };
 
 
-    renderPages = ({history}) => {
+    renderGamePages = ({history}) => {
         return (
-            <Switch history={history}>
-                <Route
-                    exact
-                    path="/"
-                    render={props => (
-                    <HomePage
-                        {...props}
-                        onHandleLoginOrRegister={this.handleLoginOrRegisterOpen}
-                    />
-                    )}
-                />
+            <>
                 {this.isGameAvailable("linear_dice_simple") ? (
                     <Route
                     exact
@@ -332,16 +321,47 @@ export default class App extends Component {
                     )}
                     />
                 ) : null}
-            </Switch>
+                {this.isGameAvailable("wheel_simple") ? (
+                    <Route
+                    exact
+                    path="/wheel_simple"
+                    render={props => (
+                        <WheelPage
+                        {...props}
+                        game={this.isGameAvailable("wheel_simple")}
+                        onHandleLoginOrRegister={this.handleLoginOrRegisterOpen}
+                        />
+                    )}
+                    />
+                ) : null}
+                    {this.isGameAvailable("wheel_variation_1") ? (
+                    <Route
+                    exact
+                    path="/wheel_variation_1"
+                    render={props => (
+                        <WheelVariation1
+                            {...props}
+                            game={this.isGameAvailable("wheel_variation_1")}
+                            onHandleLoginOrRegister={this.handleLoginOrRegisterOpen}
+                        />
+                    )}
+                    />
+                ) : null}
+            </>
         )
     }
 
     render() {
         const { user, app, isLoading } = this.state;
-        if (!app) return null;
+        const { profile, startLoadingProgress } = this.props;
 
-        if(isLoading){ return(null)}
+        if (!app || isLoading) {return null};
+        const { progress, confirmations } = startLoadingProgress;
 
+        let progress100 = parseInt(progress/confirmations*100);
+        let isUserLoaded = (confirmations == progress);
+        
+        
         return (
                 <UserContext.Provider
                     value={{
@@ -349,38 +369,69 @@ export default class App extends Component {
                         setUser: (() => {})
                     }}
                 >
+                    <LoadingBanner isLoaded={isUserLoaded} progress={progress100}/>
                     <Router history={history}>
-                    <header>
-                        <Navbar
-                            user={user}
-                            onAccount={this.handleAccountOpen}
-                            onLogout={this.handleLogout}
-                            onLoginRegister={this.handleLoginOrRegisterOpen}
-                            onCashier={this.handleCashierOpen}
-                        />
-                        {this.renderAccountInfoModal()}
-                        {this.renderLoginRegisterModal()}
-                        {this.renderCashierModal()}
-                        <MessageForm user={user}/>
-                    </header>
-                    <div>
-                        <Row>
-                            <div className='col-lg-10 col-xl-10' styleName='no-padding'>
-                                <div styleName='platform-container'>
-                                    {this.renderPages({history})}
-                                </div>
-                            </div>
-                            <Col md={4} lg={2} xl={2}>
-                                <div styleName='chat-container-outro'> 
-                                    <div styleName={'chat-container'}>
-                                        <ChatPage/>
+                        <Widgets/>
+                        <header>
+                            <Navbar
+                                history={history}
+                                onAccount={this.handleAccountOpen}
+                                onLogout={this.handleLogout}
+                                onLoginRegister={this.handleLoginOrRegisterOpen}
+                                onCashier={this.handleCashierOpen}
+                            />
+                            {this.renderLoginRegisterModal()}
+                            {this.renderCashierModal()}
+                            <MessageForm user={user}/>
+                        </header>
+                        <div>
+                            <NavigationBar history={history}/>
+                            <Row>
+                                <div className='col-lg-10 col-xl-10' styleName='no-padding'>
+                                    <div styleName='platform-container'>
+                                    <Switch history={history}>
+                                        <Route
+                                            exact
+                                            path="/"
+                                            render={props => (
+                                                <HomePage
+                                                    {...props}
+                                                    onHandleLoginOrRegister={this.handleLoginOrRegisterOpen}
+                                                />
+                                        
+                                            )}
+                                        />
+                                        <Route
+                                            exact
+                                            path="/account"
+                                            render={props => <AccountPage {...props} />}
+                                        />
+
+                                        {this.renderGamePages({history})}
+                                    </Switch>
                                     </div>
                                 </div>
-                            </Col>
-                        </Row>
-                    </div>
+                                <Col md={4} lg={2} xl={2}>
+                                    <div styleName='chat-container-outro'> 
+                                        <div styleName={'chat-container'}>
+                                            <ChatPage/>
+                                        </div>
+                                    </div>
+                                </Col>
+                            </Row>
+                        </div>
                     </Router>
                 </UserContext.Provider>
         );
     }
 }
+
+
+function mapStateToProps(state){
+    return {
+        profile : state.profile,
+        startLoadingProgress : state.startLoadingProgress
+    };
+}
+
+export default connect(mapStateToProps)(App);

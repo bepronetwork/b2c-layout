@@ -1,0 +1,70 @@
+@import "../../styles/all.css";
+
+.root {
+    position: relative;
+    display: block;
+    width: 100%;
+    height: inherit;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: $spacing-52 $spacing-20;
+
+  @include Breakpoint-mobileOnly {
+    width: 320px;
+    padding : $spacing-52 0;
+    margin: auto;
+    position: relative;
+    display: block;
+    overflow-x: auto !important;
+  }
+
+}
+
+.tabs {
+    width: 100%;
+}
+
+.deposit {
+    height: auto;
+    text-align: center;
+}
+
+.title {
+  text-align: center;
+
+  a {
+    text-decoration: none;
+  }
+}
+
+.title:hover {
+  h4 {
+    color: $casper;
+  }
+}
+
+.button {
+  margin-top: $spacing-52;
+  margin-bottom: $spacing-36;
+}
+
+
+.withdraws-table{
+    max-width: 90%;
+    margin: auto;
+    position: relative;
+    @include Breakpoint-mobileOnly {
+        max-width: 100%;
+        width: 100% !important;
+    }
+}
+
+.input-box{
+    max-width: 200px;
+    margin: 20px auto;
+}
+
+.icon-white{
+    color : $white;
+}

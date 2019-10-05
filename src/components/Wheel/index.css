@@ -1,0 +1,147 @@
+@import "../../styles/all.css";
+
+.container {
+  width: 270px;
+  height: 270px;
+  margin: 0 auto;
+  background-repeat: no-repeat;
+  
+  background-size: contain;
+}
+
+.root{
+    position: relative;
+    display: block;
+    margin : auto;
+}
+
+#spin {
+    cursor: pointer;
+}
+
+#container {
+    height: 100vh;
+    overflow: hidden;
+    text-align: center;
+}
+
+#timer {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    margin: auto;
+    margin-top: -50px;
+    height: 100px;
+    font-size: 80px;
+    font-weight: 100;
+    font-family: 'Alfa Slab One', cursive;
+    color: #ecf0f1;
+    text-shadow: 3px 3px 0 rgba(0,0,0,0.2);
+}
+
+canvas {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    width: 100%;
+}
+
+.wheel-pointer{
+    width: 30px;
+    margin: auto;
+    position: relative;
+    display: block;
+    top: -20px;
+    z-index: 23;
+}
+
+
+.result-container {
+    grid-area: Result / Result / Result / Result;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin : auto;
+    display: block;
+    position: relative;
+   
+}
+
+
+
+.result {
+    align-items: center;
+    justify-content: center;
+    width: 70px;
+    height: 70px;
+    padding-top: 80px;
+    opacity: 0;
+    text-align: center;
+    margin: auto;
+    display: grid;
+    border-radius: 70px;
+    position: relative;
+
+    h6 {
+      font-family: $font-family;
+      font-size: $font-size-h2;
+      font-weight: 600;
+      line-height: $line-height-h2;
+    }
+
+    @include Breakpoint-mobileOnly {
+        padding-top: 20% !important;
+    }
+  }
+  
+  .result.picked {
+    opacity: 1;
+  
+    transition: all 100ms linear;
+  }
+  
+  .result.red {
+    opacity: 1;
+
+    transition: all 100ms linear;
+  }
+  
+  .result.green {
+  
+    opacity: 1;
+
+    transition: all 100ms linear;
+  }
+
+
+.multiplier-0{
+    color: $wheel-variation-1-color-1;
+}
+
+.multiplier-1{
+    color: $wheel-variation-1-color-2;
+}
+
+.multiplier-2{
+    color: $wheel-variation-1-color-3;
+}
+
+.multiplier-3{
+    color: $wheel-variation-1-color-4;
+}
+
+.multiplier-4{
+    color: $wheel-variation-1-color-5;
+}
+
+.multiplier-5{
+    color: $wheel-variation-1-color-6;
+}
+
+.multiplier-6{
+    color: $wheel-variation-1-color-7;
+}

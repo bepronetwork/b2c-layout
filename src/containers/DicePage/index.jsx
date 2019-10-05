@@ -10,6 +10,7 @@ import { find } from "lodash";
 import store from "../App/store";
 import { connect } from "react-redux";
 import { compose } from 'lodash/fp';
+import _ from "lodash";
 
 class DicePage extends Component {
     static contextType = UserContext;
@@ -54,7 +55,7 @@ class DicePage extends Component {
             const { onHandleLoginOrRegister } = this.props;
             const { rollNumber, rollType } = this.state;
             this.setState({ disableControls: true });
-            if (!user) return onHandleLoginOrRegister("register");
+            if (!user || _.isEmpty(user)) return onHandleLoginOrRegister("register");
 
             const res = await diceBet({
                 rollNumber,

@@ -34,3 +34,7 @@ $footer-background : $secondary-background-color;
 $popular-numbers-container : $primary-background-color;
 $flipcoin-color-tails : $orange;
 $flipcoin-color-head : $red;
+$widget-container-background-color : $primary-background-color;
+$widget-container-border-color : $secondary-background-color;
+$navigation-bar-background : $dark-table-color;
+$navigation-bar-item : $dark-background-color;

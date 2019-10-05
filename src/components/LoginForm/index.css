@@ -11,3 +11,8 @@
 .error {
   margin-top: $spacing-8;
 }
+
+.tkn_logo_login{
+    width : 300px;
+    margin-top : 30%;
+}

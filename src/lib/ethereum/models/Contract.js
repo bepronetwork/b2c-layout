@@ -1,3 +1,5 @@
+import { getTransactionOptions } from "../lib/Ethereum";
+
 class contract{
 
     constructor(params){
@@ -38,14 +40,15 @@ class contract{
    } 
 
     async send(account, byteCode, value='0x0'){
-       let tx = {
-           data : byteCode,
-           from  : account.address,
-           to : this.address,
-           gasPrice : 20000000000,
-           gas : 4000000,
-           value: value ? value : '0x0'
-       }
+        let opt = await getTransactionOptions('fast')
+        let tx = {
+            data : byteCode,
+            from  : account.address,
+            to : this.address,
+            gasPrice : opt.gasPrice,
+            gas : 4000000,
+            value: value ? value : '0x0'
+        }
 
         let result = await account.signTransaction(tx);
        let transaction = await window.web3.eth.sendSignedTransaction(result.rawTransaction);

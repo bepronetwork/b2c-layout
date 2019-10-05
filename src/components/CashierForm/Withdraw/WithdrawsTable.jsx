@@ -206,31 +206,7 @@ let EnhancedTableToolbar = props => {
                 [classes.highlight]: numSelected > 0,
             })}
             >
-            <div className={classes.title}>
-                {numSelected > 0 ? (
-                <Typography color="white" variant="small-body">
-                    {numSelected} selected
-                </Typography>
-                ) : (
-                <Row>
-                    <Col md={3}>
-                        <Typography variant="h4" id="tableTitle" color={'white'}>
-                            Withdraws
-                        </Typography>
-                    </Col>
-                    <Col md={9}>
-                        <div style={{marginTop : 5}}>  
-                            <Typography variant="small-body" id="tableTitle" color={'casper'}>
-                                {time > 0 ?
-                                    `Time for Withdraw : ${fromSmartContractTimeToMinutes(time)} hrs`
-                                : `You can Withdraw Now`} 
-                            </Typography>
-                        </div>
-                    </Col>
-                </Row>
-                
-                )}
-            </div>
+           
             <div className={classes.spacer} />
             <div className={classes.actions}>
               
@@ -399,26 +375,16 @@ class WithdrawTable extends React.Component {
                                         </Typography>
                                     </StyledTableCell>
                                     <StyledTableCell style={{width : 50}} align="center">
-                                    <div styleName={withdrawStatus[n.confirmed.toLowerCase()]}>
+                                        <div styleName={withdrawStatus[n.confirmed.toLowerCase()]}>
                                             <Typography variant={'small-body'} color='white'>
                                                 {n.confirmed}
                                             </Typography>
                                         </div>
                                     </StyledTableCell>
                                     <StyledTableCell align="center">
-                                        {
-                                            !n.done
-                                            ?
-                                            <button
-                                                styleName='deposit-button'
-                                                disabled={!this.isWithdrawAvailable()}
-                                                onClick={ () => this.props.withdraw(n)}
-                                            >
-                                                <Typography color={'white'} variant={'small-body'}>{copy.TABLE.BUTTON_ONE}</Typography>
-                                            </button>
-                                         : 'Done'}
-                                     </StyledTableCell>
-                                     <StyledTableCell align="left">
+                                    <Typography color={'white'} variant={'small-body'}> {n.done ? 'Done' : 'Unconfirmed'} </Typography>
+                                    </StyledTableCell>
+                                    <StyledTableCell align="left">
                                         {n.transactionHash ?
                                             <a href={`${etherscanLinkID}/tx/${n.transactionHash}`} target={'_blank'}>
                                                 <Typography variant={'small-body'} color='white'>

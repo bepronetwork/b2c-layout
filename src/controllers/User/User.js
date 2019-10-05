@@ -1,4 +1,4 @@
-import { enableMetamask, getMetamaksAccount, getNonce } from "lib/metamask";
+import { enableMetamask, getMetamaskAccount, getNonce, promptMetamask } from "lib/metamask";
 import CasinoContract from "lib/ethereum/CasinoContract";
 import {
   updateUserWallet,
@@ -18,6 +18,7 @@ import ChatChannel from "../Chat";
 import store from "../../containers/App/store";
 import { setProfileInfo } from "../../redux/actions/profile";
 import { getPastTransactions, getTransactionDataCasino } from "../../lib/ethereum/lib/Etherscan";
+import { setStartLoadingProcessDispatcher } from "../../lib/redux";
 
 export default class User {
     constructor({
@@ -39,6 +40,7 @@ export default class User {
         this.username = user.username;
         this.address = user.address;
         this.user = user;
+        this.isLoaded = false;
         this.app = Cache.getFromCache("appInfo");
         this.params = {
             timeToWithdraw : 0,
@@ -54,39 +56,54 @@ export default class User {
 
     __init__ = async () =>  {
         try{
+            setStartLoadingProcessDispatcher(1);
             this.setupCasinoContract();
+            setStartLoadingProcessDispatcher(2);
             await this.setupChat();
-            this.connectMetamask();
-            this.getAllData();
+            setStartLoadingProcessDispatcher(3);
+            await this.connectMetamask();
+            setStartLoadingProcessDispatcher(4);
+            await this.getAllData();
         }catch(err){
             console.log(err)
         }
     }
 
-    getBalance = () => {
-        return this.user.balance;
-    }
+    hasLoaded = () => this.isLoaded;
 
-    getChat = () => {
-        return this.chat;
-    }
+    getBalance = () => this.user.balance;
+    
+    getBalanceAsync = async () => Numbers.toFloat((await this.updateUser()).balance);
+
+    getChat = () =>  this.chat;
 
     getDeposits = () => this.params.deposits;
+    
+    getDepositsAsync = async () => await this.__getDeposits();
 
     getTimeForWithdrawal = () => this.params.timeToWithdraw;
 
+    getTimeForWithdrawalAsync = async () => await this.__getTimeForWithdrawal();
+    
     getApprovedWithdraw = () => this.params.decentralizeWithdrawAmount;
+    
+    getApprovedWithdrawAsync = async () => await this.__getApprovedWithdraw();
 
     getID = () => this.id;
+
+    getUsername = () => this.username;
     
     isValidAddress = async () => {
-        let userMetamaskAddress = await this.getMetamaskAddress();
+        let userMetamaskAddress = await getMetamaskAccount();
         return new String(this.getAddress()).toLowerCase() == new String(userMetamaskAddress).toLowerCase();
     }
 
     getAllData = async () => {
         await this.updateUser();
+        setStartLoadingProcessDispatcher(5);
         await this.updateDecentralizedStats();
+        setStartLoadingProcessDispatcher(6);
+        this.isLoaded = true;
         await this.updateUserState();
     }
 
@@ -96,10 +113,19 @@ export default class User {
     }
 
     updateDecentralizedStats = async () => {
-        this.params.decentralizeWithdrawAmount = await this.__getApprovedWithdraw();
-        this.params.timeToWithdraw = await this.__getTimeForWithdrawal();
-        console.log(this.params.timeToWithdraw);
-        this.params.deposits = await this.__getDeposits();
+        let userMetamaskAddress = await getMetamaskAccount();
+        if(userMetamaskAddress){
+            let arrayOfPromises = [
+                this.__getApprovedWithdraw(),
+                this.__getTimeForWithdrawal(),
+                //this.__getDeposits()
+            ]
+            let res = await Promise.all(arrayOfPromises);
+            this.params.decentralizeWithdrawAmount = res[0];
+            this.params.timeToWithdraw = res[1];
+            //this.params.deposits = res[2];
+        }
+
     }
 
     updateUserState = async () => {
@@ -164,7 +190,10 @@ export default class User {
             this.user = user;
             return user;
         }
+    }
 
+    getContract = () => {
+        return this.casinoContract;
     }
 
     setupCasinoContract() {
@@ -178,47 +207,44 @@ export default class User {
     }
 
     getTokenAmount = async () => {
-        let accounts = await window.web3.eth.getAccounts();
-        let amount = Numbers.toFloat(Numbers.fromDecimals(await this.casinoContract.getERC20Token().getTokenAmount(accounts[0]), this.decimals))
+        let address = await getMetamaskAccount();
+        let amount = Numbers.toFloat(Numbers.fromDecimals(await this.casinoContract.getERC20Token().getTokenAmount(address), this.decimals))
         return amount;
     }
 
-    createDeposit = async ({ amount }) => {
+    allowDeposit = async ({ amount }) => {
         try {
-            /* Enable Metamask Auth */
-            await enableMetamask("eth");
-            let accounts = await window.web3.eth.getAccounts();
-            const nonce = getNonce();
-            /* Deposit Tokens */
-            const resEthereum = await this.casinoContract.depositTokens({
-                address : accounts[0],
-                amount,
-                nonce : nonce
+            await promptMetamask();
+            let address = await getMetamaskAccount();
+            const resEthereum = await this.casinoContract.allowDepositToContract({
+                address,
+                amount
             });
-            console.log(resEthereum);
-
-            /* Update API Wallet Update */
-            let res = await updateUserWallet(
-                {
-                    user: this.user_id,
-                    amount,
-                    app: this.app_id,
-                    nonce : nonce,
-                    transactionHash: resEthereum.transactionHash
-                },
-                this.bearerToken
-            );
-            await processResponse(res);
-            return res;
-        } catch (err) {
-            // TO DO : Verify if User declined Metamask or there was another type of error
-            // TO DO : Display the Error
+            return resEthereum;
+        }catch (err) {
             throw err;
         }
     };
 
-    confirmDeposit = async ({nonce, amount, transactionHash}) => {
+    depositTokens = async ({ amount }) => {
         try {
+            await promptMetamask();
+            let address = await getMetamaskAccount();
+            const resEthereum = await this.casinoContract.depositTokens({
+                address,
+                amount
+            });
+            return resEthereum;
+        }catch (err) {
+            throw err;
+        }
+    };
+
+
+
+    confirmDeposit = async ({ amount, transactionHash }) => {
+        try {
+            const nonce = getNonce();
             /* Update API Wallet Update */
             let res = await updateUserWallet(
                 {
@@ -233,18 +259,14 @@ export default class User {
             await processResponse(res);
             return res;
         } catch (err) {
-            // TO DO : Verify if User declined Metamask or there was another type of error
-            // TO DO : Display the Error
             throw err;
         }
-    }
+    };
 
     __getTimeForWithdrawal = async () => {
         try{
-            /* Enable Metamask Auth */
-            await enableMetamask("eth");
-            let accounts = await window.web3.eth.getAccounts();
-            return await this.casinoContract.getTimeForWithdrawal(accounts[0]);
+            let address = await getMetamaskAccount();
+            return await this.casinoContract.getTimeForWithdrawal(address);
         }catch(err){
             throw err;
         }
@@ -310,7 +332,6 @@ export default class User {
             if(isConfirmed){
                 return {...deposit, isConfirmed}
             }else{
-                console.log(tx)
                 return {...tx, isConfirmed}
             }
         }))).filter(el => el != null)
@@ -319,10 +340,18 @@ export default class User {
 
     __getApprovedWithdraw = async () => {
         try{
-            /* Enable Metamask Auth */
-            await enableMetamask("eth");
-            let accounts = await window.web3.eth.getAccounts();
-            let decimalAmount = await this.casinoContract.getApprovedWithdrawAmount(accounts[0]);
+            let address = await getMetamaskAccount();
+            let decimalAmount = await this.casinoContract.getApprovedWithdrawAmount(address);
+            return Numbers.fromDecimals(decimalAmount, this.decimals);
+        }catch(err){
+            throw err;
+        }
+    }
+
+    getAmountAllowedForDepositByPlatform = async () => {
+        try{
+            let address = await getMetamaskAccount()
+            let decimalAmount = await this.casinoContract.getAllowedDepositAmountForApp(address);
             return Numbers.fromDecimals(decimalAmount, this.decimals);
         }catch(err){
             throw err;
@@ -373,53 +402,42 @@ export default class User {
     }
 
     getMetamaskAddress = async () => {
-        if(this.metamaskAddress){return this.metamaskAddress};
-        
-        /* Enable Metamask Auth */
-        await enableMetamask("eth");
-        let accounts = await window.web3.eth.getAccounts();
-        return accounts[0];
+        return await getMetamaskAccount();
     }
 
     askForWithdraw = async ({amount}) => {
         try {
-            var res;
-            /* Enable Metamask Auth */
-            await enableMetamask("eth");
-            let accounts = await window.web3.eth.getAccounts();
+            let metamaskAddress = await getMetamaskAccount();
             var nonce = getNonce();
-            var userBalance = this.getBalance();
-            res = {...res, nonce};
-            // Get Signature
-            let { signature } = await CryptographySingleton.getUserSignature({
-                address : accounts[0], winBalance :  Numbers.toFloat(userBalance), nonce, decimals : this.decimals,
-                category : codes.Withdraw
-            });
+            var res = { };
+            let timeout = false;
 
-
-            
-            var res_with;
             try{
                 /* Ask Permission to Withdraw */
-                res_with = await requestWithdraw(
+                res = await requestWithdraw(
                     {
                         app: this.app_id,
                         user: this.user_id,
-                        signature,
-                        address     : accounts[0],
+                        address     : metamaskAddress,
                         tokenAmount : Numbers.toFloat(amount),
-                        newBalance  : Numbers.toFloat(userBalance),
                         nonce
                     },
                     this.bearerToken
                 );
+
             }catch(err){
                 //Timeout Error - But Worked
-                return res;
+                timeout = true;
             }
-
-            return await processResponse(res_with);
-
+            
+            // Get Withdraw
+            let withdraws = await this.getWithdrawsAsync();
+            let withdraw = withdraws[withdraws.length-1];
+            // Process Ask Withdraw API Call since can have errors
+            if(!timeout){
+                res = await processResponse(res);
+            }
+            return {...res, withdraw};
         } catch (err) {
             throw err;
         }
@@ -427,53 +445,57 @@ export default class User {
 
     getAppCurrencyTicker = () => {
         return this.app.currencyTicker;
-    }   
+    } 
+      
+    getAppTokenAddress = () => {
+        return this.tokenAddress;
+    }
 
-    createWithdraw = async ({ amount, nonce, withdraw_id }) => {
+    createWithdraw = async ({ amount }) => {
         try {
-            /* Enable Metamask Auth */
-            await enableMetamask("eth");
-            let accounts = await window.web3.eth.getAccounts();
-
-            let user = await getCurrentUser()
-
-            // Get Signature
-            let { signature } = await CryptographySingleton.getUserSignature({
-                address : accounts[0], winBalance :  Numbers.toFloat(user.balance), nonce, decimals : this.decimals,
-                category : codes.Withdraw
-            });
+            let address = await getMetamaskAccount();
             /* Run Withdraw Function */
-            const resEthereum = await this.casinoContract.withdrawTokens({
-                address : accounts[0],
-                amount,
-                nonce
+            const res = await this.casinoContract.withdrawTokens({
+                address,
+                amount
             });
-
-            /* Finalize Withdraw to API */
-            let res_fin = await finalizeWithdraw(
-                {
-                    app: this.app_id,
-                    withdraw_id : withdraw_id,
-                    user: this.user_id,
-                    address : accounts[0],
-                    tokenAmount: amount,
-                    signature : signature,
-                    transactionHash: resEthereum.transactionHash,
-                    nonce
-                },
-                this.bearerToken
-            );
-
-            await processResponse(res_fin);
-
+            return res;
         } catch (err) {
             throw err;
         }
     };
 
+    finalizeWithdraw = async ({withdraw_id, tx}) => {
+        try {
+            /* Finalize Withdraw to API */
+
+            return await finalizeWithdraw(
+                {
+                    app: this.app_id,
+                    withdraw_id : withdraw_id,
+                    user: this.user_id,
+                    transactionHash: tx
+                },
+                this.bearerToken
+            );
+        }catch(err){
+            throw err;
+        }
+    }
     getWithdraws = () => {
         return this.user.withdraws || [];
     }
+
+    getWithdrawsAsync = async () => {
+        let user = await this.updateUser();
+        return user.withdraws;
+    }
+
+    getOneNotConfirmedWithdrawForAmountAsync  = async () => {
+        let withdraws = await this.getWithdrawsAsync();
+        return withdraws.find(withdraw => !withdraw.confirmed);
+    }
+
 
 
     createBet = async ({ result, gameId }) => {

@@ -1,89 +1,92 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { Button, Typography, InputText } from "components";
+import tkn_logo from 'assets/logo.png';
 import "./index.css";
 
 export default class LoginForm extends Component {
-  static propTypes = {
-    onSubmit: PropTypes.func.isRequired,
-    error: PropTypes.number
-  };
+    static propTypes = {
+        onSubmit: PropTypes.func.isRequired,
+        error: PropTypes.number
+    };
 
-  static defaultProps = {
-    error: null
-  };
+    static defaultProps = {
+        error: null
+    };
 
-  state = {
-    username: "",
-    password: ""
-  };
+    state = {
+        username: "",
+        password: ""
+    };
 
-  handleSubmit = event => {
-    event.preventDefault();
+    handleSubmit = event => {
+        event.preventDefault();
 
-    const { onSubmit } = this.props;
+        const { onSubmit } = this.props;
 
-    if (onSubmit && this.formIsValid()) onSubmit(this.state);
-  };
+        if (onSubmit && this.formIsValid()) onSubmit(this.state);
+    };
 
-  onUsernameChange = event => {
-    this.setState({ username: event.target.value });
-  };
+    onUsernameChange = event => {
+        this.setState({ username: event.target.value });
+    };
 
-  onPasswordChange = event => {
-    this.setState({ password: event.target.value });
-  };
+    onPasswordChange = event => {
+        this.setState({ password: event.target.value });
+    };
 
-  formIsValid = () => {
-    const { username, password } = this.state;
+    formIsValid = () => {
+        const { username, password } = this.state;
 
-    return username !== "" && password !== "";
-  };
+        return username !== "" && password !== "";
+    };
 
-  render() {
-    const { username, password } = this.state;
+    render() {
+        const { username, password } = this.state;
 
-    const { error } = this.props;
+        const { error } = this.props;
 
-    return (
-      <form onSubmit={this.handleSubmit}>
-        <div styleName="username">
-          <InputText
-            name="username"
-            label="Username"
-            onChange={this.onUsernameChange}
-            value={username}
-          />
-        </div>
-        <InputText
-          name="password"
-          label="Password"
-          type="password"
-          onChange={this.onPasswordChange}
-          value={password}
-        />
+        return (
+            <form onSubmit={this.handleSubmit}>
+                <img src={tkn_logo} styleName="tkn_logo_login"/>
 
-        <div styleName="error">
-          {error ? (
-            <Typography color="red" variant="small-body" weight="semi-bold">
-              {error === 4
-                ? "User not found"
-                : `Please provide a valid password`}
-            </Typography>
-          ) : null}
-        </div>
+                <div styleName="username">
+                    <InputText
+                        name="username"
+                        label="Username"
+                        onChange={this.onUsernameChange}
+                        value={username}
+                    />
+                </div>
+                <InputText
+                    name="password"
+                    label="Password"
+                    type="password"
+                    onChange={this.onPasswordChange}
+                    value={password}
+                />
 
-        <div styleName="button">
-          <Button
-            size="medium"
-            theme="primary"
-            disabled={!this.formIsValid()}
-            type="submit"
-          >
-            <Typography color="white">Sign In</Typography>
-          </Button>
-        </div>
-      </form>
-    );
-  }
+                <div styleName="error">
+                {error ? (
+                    <Typography color="red" variant="small-body" weight="semi-bold">
+                    {error === 4
+                        ? "User not found"
+                        : `Please provide a valid password`}
+                    </Typography>
+                ) : null}
+                </div>
+
+                <div styleName="button">
+                <Button
+                    size="medium"
+                    theme="primary"
+                    disabled={!this.formIsValid()}
+                    type="submit"
+                >
+                    <Typography color="white">Sign In</Typography>
+                </Button>
+                </div>
+            </form>
+            );
+    }
 }

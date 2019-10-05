@@ -11,8 +11,7 @@ $icon-index: calc($root-index + 1);
   position: fixed;
   top: 0;
   left: 0;
-  z-index: $root-index;
-
+  z-index : 100;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -24,6 +23,8 @@ $icon-index: calc($root-index + 1);
   @include Breakpoint-mobileOnly {
     height: 110%;
   }
+  padding-top: 70px;
+  padding-bottom: 100px;
 }
 
 .icon {
@@ -45,9 +46,11 @@ $icon-index: calc($root-index + 1);
 
 .content {
   position: relative;
-
+  height: auto;
   width: 800px;
+  z-index : 100;
 
+  overflow-y: scroll;
   background-color: $modal-background;
 
   border-radius: $spacing-4;

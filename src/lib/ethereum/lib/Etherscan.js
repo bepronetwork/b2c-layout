@@ -20,7 +20,17 @@ async function getPastTransactions(address){
         throw err;
     }
 }
-
+async function getTransactionData(tx){
+    try{
+        let recipt = await window.web3.eth.getTransaction(tx);
+        let currentBlock = await window.web3.eth.getBlockNumber();
+        let confirmations = (currentBlock - recipt.blockNumber);
+        return {...recipt, confirmations};
+    }catch(err){
+        return null
+    }
+    
+}
 
 function getTransactionDataERC20(transaction_data_encoded){
     const input = transaction_data_encoded.input;
@@ -72,5 +82,6 @@ function getTransactionDataCasino(transaction_data_encoded, transaction_recipt_e
 export {
     getPastTransactions,
     getTransactionDataERC20,
-    getTransactionDataCasino
+    getTransactionDataCasino,
+    getTransactionData
 }

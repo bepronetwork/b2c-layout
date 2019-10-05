@@ -45,7 +45,12 @@ class ChatPage extends React.Component {
     }
 
     scrollToBottom = () => {
-        this.messagesEnd.scrollIntoView({ behavior: "smooth" });
+        const { index, selected } = this.props
+        if (index === selected) {
+            setTimeout(() => {
+                this.messagesEnd.scrollIntoView({ behavior: "smooth" });
+            }, 500)
+        }
     }
 
     projectData = async (props) => {
@@ -57,11 +62,11 @@ class ChatPage extends React.Component {
                 name : props.chat.name,
                 open :  props.chat.open
             });
-
-            if((currentMessages.length > 0) 
+            if(((currentMessages.length > 0) 
             &&  (props.chat.messages.length > 0) 
-            &&  (props.chat.messages[props.chat.messages.length-1].id != currentMessages[currentMessages.length-1].id)){
-                console.log("Scolling")
+            &&  (props.chat.messages[props.chat.messages.length-1].id != currentMessages[currentMessages.length-1].id))
+            || (currentMessages.length == 0))
+            {
                 this.scrollToBottom();
             }
         }

@@ -1,0 +1,17 @@
+@import "../../styles/all.css";
+
+
+.widgets-container{
+    width: 60px;
+    height: 20%;
+    top: 0%;
+    border-radius: 5px;
+    margin: auto;
+    left: -10px;
+    display: block;
+    box-shadow: 2px 10px 100px 50px $widget-container-border-color;
+    position: fixed;
+    bottom: 0px;
+    z-index: 2;
+    background-color: $widget-container-background-color;
+}

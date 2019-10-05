@@ -62,8 +62,9 @@ const fromDatabasetoTable = (data) => {
         return {
             id :  data._id,
 			amount : Numbers.toFloat(data.amount),
-            confirmed: data.isConfirmed ? 'Confirmed' : 'Open',
+            confirmed: data.isConfirmed ? 'Confirmed' : 'Confirm',
             done :  data.confirmed,
+            isConfirmed : data.isConfirmed,
             transactionHash : data.transactionHash,
             creation_timestamp : new Date(data.creation_timestamp),
             creation_date : new Date(data.creation_timestamp).toDateString(),
@@ -198,29 +199,6 @@ let EnhancedTableToolbar = props => {
                 [classes.highlight]: numSelected > 0,
             })}
             >
-            <div className={classes.title}>
-                {numSelected > 0 ? (
-                <Typography color="white" variant="small-body">
-                    {numSelected} selected
-                </Typography>
-                ) : (
-                <Row>
-                    <Col md={3}>
-                        <Typography variant="h4" id="tableTitle" color={'white'}>
-                            Deposits
-                        </Typography>
-                    </Col>
-                    <Col md={9}>
-                        <div style={{marginTop : 5, marginLeft : 10}}>  
-                            <Typography variant="small-body" id="tableTitle" color={'casper'}>
-                                Last Deposits
-                            </Typography>
-                        </div>
-                    </Col>
-                </Row>
-                
-                )}
-            </div>
             <div className={classes.spacer} />
             <div className={classes.actions}>
               
@@ -298,7 +276,6 @@ class DepositsTable extends React.Component {
         };
     }
 
-
     componentDidMount(){
         this.projectData(this.props)
     }
@@ -308,11 +285,12 @@ class DepositsTable extends React.Component {
     }
 
     projectData = async (props) => {
-        let data = props.data;
-        let deposits = this.props.user.getDeposits();
+        const { profile } = props;
+        let deposits = await profile.getDepositsAsync();
         this.setState({...this.state, 
             data : fromDatabasetoTable(deposits),
-            ticker : 'DAI'
+            ticker : 'DAI',
+            updated : true
         })
     }
 
@@ -349,9 +327,16 @@ class DepositsTable extends React.Component {
 
     render() {
         const { classes, ln } = this.props;
-        const { data, order, orderBy, selected, rowsPerPage, page } = this.state;
+        const { data, order, orderBy, selected, rowsPerPage, page, updated } = this.state;
         const emptyRows = rowsPerPage - Math.min(rowsPerPage, data.length - page * rowsPerPage);
-        const copy = CopyText.Withdraw[ln];
+        const copy = CopyText.Deposit[ln];
+        if(!updated){return (
+            <div>
+                <Typography color={'white'} variant={'body'}>Getting the Last Deposits...</Typography>
+                <Typography color={'casper'} variant={'small-body'}>Should take less than a minute</Typography>
+            </div>
+            )
+        }
 
         return (
             <Paper className={classes.root}>
@@ -387,12 +372,20 @@ class DepositsTable extends React.Component {
                                         </Typography>
                                     </StyledTableCell>
                                     <StyledTableCell style={{width : 50}} align="center">
-                                        <div styleName={withdrawStatus[n.confirmed.toLowerCase()]}>
-                                            <Typography variant={'small-body'} color='white'>
-                                                {n.confirmed}
-                                            </Typography>
-                                        </div>
-                                    </StyledTableCell>
+                                        {!n.isConfirmed ? 
+                                            <button styleName='deposit-button'
+                                                onClick={ () => this.props.confirmDeposit(n)}
+                                            >
+                                                <Typography color={'white'} variant={'small-body'}>{copy.BUTTON_CONFIRMATION}</Typography>
+                                            </button>
+                                        : 
+                                            <div styleName={withdrawStatus[n.confirmed.toLowerCase()]}>
+                                                <Typography variant={'small-body'} color='white'>
+                                                    {n.confirmed}
+                                                </Typography>
+                                            </div>
+                                        }
+                                        </StyledTableCell>
                                      <StyledTableCell align="left">
                                         {n.transactionHash ?
                                             <a href={`${etherscanLinkID}/tx/${n.transactionHash}`} target={'_blank'}>

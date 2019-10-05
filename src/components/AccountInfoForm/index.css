@@ -1,0 +1,101 @@
+@import "../../styles/all.css";
+
+.root {
+  display: flex;
+  flex-direction: column;
+
+  box-sizing: border-box;
+
+  height: calc(100% - $spacing-20 - $spacing-20);
+
+  padding: $spacing-20;
+
+  background: $background-table-1;
+}
+
+.container-root{
+    display: flex;
+    width : 370px;
+    height: auto;
+    margin : 10px auto;
+    padding : $spacing-20;
+    background: $black;
+    border-radius : $border-radius;
+    opacity : 1;
+    transition: all 0.2s ease-in;
+
+    &:hover{
+        opacity : 0.4;
+    }
+
+    @include Breakpoint-mobileOnly {
+        width : 250px;
+    }
+}
+
+.text-description{
+    margin-top : 10px;
+}
+
+.payment-image{
+    width: 40px;
+    margin-top: 15px;
+}
+
+.container-text{
+    width: 150px;
+    text-align: left;
+}
+
+.container-image{
+    width : 50px;
+}
+
+.nohover{
+    cursor: pointer !important;
+
+    &:hover{
+        opacity : 1 !important;
+    }
+}
+
+.alert{
+    border : 1px solid $red;
+    box-shadow : 1px 10px 100px 10px $black;
+}
+
+.onLoading{
+    border : 1px solid $orange;
+    box-shadow : 1px 10px 100px 10px $black;
+}
+
+.loading-gif{
+    width: 30px;
+    margin-top: 15px;
+    margin-left : 10px;
+}
+
+.address-box{
+    text-align: left;
+}
+
+.box-account{
+    margin: $spacing-12 auto;
+    padding: $spacing-20;
+    background: $background-color-theme;
+    border-radius: $border-radius;
+    box-shadow: $box-shadow;
+}
+
+.avatar-user{
+    width: 90px;
+    height: 90px;
+    margin: auto;
+    position: relative;
+    overflow: hidden;
+    border-radius: $border-radius;
+}
+
+.username-box{
+    margin : $spacing-20 auto;
+}

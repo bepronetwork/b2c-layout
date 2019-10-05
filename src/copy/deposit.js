@@ -10,6 +10,7 @@ const depositCopy = {
                     SECOND : 'Tokens'
                 }
             },
+            BUTTON_CONFIRMATION : 'Confirm',
             BUTTON_ONE : 'Deposit',
             INFO : {
                 FIRST : 'Don´t close the Window!',

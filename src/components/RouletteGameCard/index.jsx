@@ -14,6 +14,7 @@ import { getPopularNumbers } from "../../lib/api/app";
 import AnimationNumber from "../AnimationNumber";
 import cells from "../RouletteBoard/cells";
 import Cache from "../../lib/cache/cache";
+import { Numbers } from "../../lib/ethereum/lib";
 
 const mobileBreakpoint = 768;
 
@@ -160,7 +161,7 @@ class RouletteGameCard extends Component {
                                         </Typography>       
                                     </div>
                                     <div styleName='popular-number-container-amount'>
-                                        <AnimationNumber number={item.resultAmount/totalAmount} variant={'small-body'} color={'white'} span={'%'}/>
+                                        <AnimationNumber number={Numbers.toFloat(item.resultAmount/totalAmount*100)} variant={'small-body'} color={'white'} span={'%'}/>
                                     </div>
                                 </div>
                             )

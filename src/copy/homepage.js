@@ -16,7 +16,7 @@ const homepageCopy = {
                     TITLE : 'All Bets',
                     ITEMS : [
                         'Game',
-                        'Bet ID',
+                        'Bet Id',
                         'User',
                         'Time',
                         'Bet',
@@ -28,7 +28,7 @@ const homepageCopy = {
                     TITLE : 'My Bets', 
                     ITEMS : [
                         'Game',
-                        'Bet ID',
+                        'Bet Id',
                         'Time',
                         'Bet',
                         'Payout',
@@ -39,7 +39,7 @@ const homepageCopy = {
                     TITLE : 'Biggest Wins', 
                     ITEMS : [
                         'Game',
-                        'Bet ID',
+                        'Bet Id',
                         'User',
                         'Time',
                         'Bet',

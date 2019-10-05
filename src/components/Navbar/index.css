@@ -52,8 +52,6 @@
       }
 }
 
-
-
 .content {
   display: flex;
   flex-direction: row;
@@ -63,26 +61,47 @@
 
 .coin {
     position: relative;
-    width: fit-content;
+    width: max-content;
     margin: auto;
     margin-top : -5px;
     display: flex;
     flex-direction: row;
     align-items: center;
     margin-left: auto;
+    height: 40px;
     padding: 5px 10px !important;
     background-color: $background-main-table;
     border-radius: $spacing-4;
     cursor: default;
 
+    @include Breakpoint-mobileOnly {
+        margin-top: 0px !important;
+        height: 30px;
+        width: fit-content;
+        margin: auto;
+        position: relative;
+        margin-right: auto;
+    }
+
     *:first-child {
         margin-right: $spacing-4;
+        line-height: 0px;
+    }
+
+    img{
+        @include Breakpoint-mobileOnly {
+            margin-top : 9px;
+        }
     }
 
   .icon {
         margin-top : -4px;
         width: $spacing-16;
         height: $spacing-16;
+
+        @include Breakpoint-mobileOnly {
+            margin-top: -20px !important;
+        }
   }
 
   .diff-won {
@@ -230,4 +249,28 @@
 
 .icon-red{
     color : $red;
+}
+
+.button-deposit{
+    margin : 0px;
+
+    @include Breakpoint-mobileOnly {
+        display : none;
+    }
+
+}
+
+.navbar-language{
+    position: fixed;
+    top: -15px;
+    z-index: 20;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    @include Breakpoint-mobileOnly {
+        display: none;
+
+    }
+
 }

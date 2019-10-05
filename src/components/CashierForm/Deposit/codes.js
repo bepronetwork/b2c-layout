@@ -1,10 +1,10 @@
 const withdrawStatus = {
-    'confirmed' : 'green-box',
-    'open' : 'grey-box',
+    'confirmed' : 'grey-box',
+    'confirm' : 'green-box',
 }
 
 
-const withdrawStatusArray = ['Confirmed', 'Open']
+const withdrawStatusArray = ['Confirmed', 'Confirm']
 
 export default withdrawStatus;
 

@@ -4,6 +4,7 @@
 @import "./googlefonts.css";
 @import "./breakpoints.css";
 @import "./components.css";
+@import "./games/index.css";
 
 /* width */
 ::-webkit-scrollbar {
@@ -61,5 +62,19 @@ button{
         margin-top : 0px !important;
     }
     
+}
+
+
+.MuiPaper-root{
+    background-color : transparent !important;
+    background : transparent !important;
+}
+
+.nav-link.active{
+    background-color : $background-color-theme !important;
+}
+
+.mdi-icon{
+    color : $white !important;
 }
 

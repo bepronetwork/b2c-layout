@@ -5,6 +5,7 @@ import { Button, SubtleButton, Typography, UserMenu, AnimationNumber, LanguagePi
 import UserContext from "containers/App/UserContext";
 import Bitcoin from "components/Icons/Bitcoin";
 import { Numbers } from "../../lib/ethereum/lib";
+import { getMetamaskAccount } from 'lib/metamask';
 import logo from "assets/logo.png";
 import { connect } from "react-redux";
 import { compose } from 'lodash/fp'
@@ -23,7 +24,7 @@ function AddressConcat(string){
 }
 
 const text = {
-    false : 'Address not valid',
+    false : 'Address not valid!',
     true : 'You are running in your address'
 }
 
@@ -34,7 +35,6 @@ const defaultProps = {
     userMetamaskAddress : 'N/A',
     isValid : false,
     currentBalance : 0,
-    depositOrWithdrawIDVerified : '',
     betIDVerified : '',
 };
 
@@ -57,19 +57,27 @@ class Navbar extends Component {
     }
     
     projectData = async (props) => {
-        var user = !_.isEmpty(props.profile) ? props.profile : null ;
-        if(user){
-            let userMetamaskAddress = await user.getMetamaskAddress();
-            let metamaksAddress = userMetamaskAddress ? userMetamaskAddress: defaultProps.userMetamaskAddress;
-            this.setState({...this.state, 
-                user    : user,
-                difference : parseFloat(user.getBalance() - this.state.currentBalance),
-                currentBalance : user.getBalance(),
-                userAddress : user.getAddress() ? AddressConcat(user.getAddress()) : defaultProps.userAddress,
-                userMetamaskAddress : user ? AddressConcat(metamaksAddress) : defaultProps.userMetamaskAddress,
-                isValid : user ? new String(user.getAddress()).toLowerCase() == new String(metamaksAddress).toLowerCase() :  defaultProps.isValid     
-            })
-        }else{
+        try{
+            var user = !_.isEmpty(props.profile) ? props.profile : null;
+
+            if(user){
+                let userMetamaskAddress = await getMetamaskAccount();
+                let metamaksAddress = userMetamaskAddress ? userMetamaskAddress : defaultProps.userMetamaskAddress;
+                let difference = parseFloat(user.getBalance() - this.state.currentBalance);
+                this.setState({...this.state, 
+                    user    : user,
+                    difference : (difference != 0) ? difference : this.state.difference,
+                    currentBalance : user.getBalance(),
+                    userFullAddress : user.getAddress(),
+                    userAddress : user.getAddress() ? AddressConcat(user.getAddress()) : defaultProps.userAddress,
+                    userMetamaskAddress : user ? AddressConcat(metamaksAddress) : defaultProps.userMetamaskAddress,
+                    isValid : user ? new String(user.getAddress()).toLowerCase() == new String(metamaksAddress).toLowerCase() :  defaultProps.isValid     
+                })
+            }else{
+                this.setState({user : null})
+            }
+        }catch(err){
+            console.log(err)
             this.setState({user : null})
         }
         
@@ -103,8 +111,9 @@ class Navbar extends Component {
     }
 
     render() {
-        let { onLogout, onCashier, onAccount } = this.props;
-        let { currentBalance, difference, user } = this.state;
+        let { onLogout, onCashier, onAccount, history } = this.props;
+        let { currentBalance, difference, user, userAddress, userMetamaskAddress, isValid, userFullAddress } = this.state;
+        let infoText = !isValid ? (text[isValid] + ` Your User Address is : ${userFullAddress}`) : text[isValid] ;
         return (
                 <Row styleName="root">
                     <Col xs={3} md={2}>
@@ -115,38 +124,50 @@ class Navbar extends Component {
                     <Col xs={8} md={8}>
                         {user ? 
                             <Row>
-                                <Col xs={2} md={1} lg={2}/>
-                                <Col xs={4} md={3} lg={3}>
-                                    <div styleName="coin">
-                                        <AnimationNumber number={this.state.currentBalance}/>
-                                        <div styleName="icon">
-                                            <CoinSign />
-                                        </div>
-                                        {difference ? (
-                                            <div
-                                            key={currentBalance}
-                                            styleName={difference > 0 ? "diff-won" : "diff-lost"}
-                                            >
-                                                <Typography variant="small-body">
-                                                    {Numbers.toFloat(Math.abs(difference))}
-                                                </Typography>
+                                <Col xs={2} md={1} lg={1}/>
+                                <Col xs={2} md={4} lg={4}>
+                                    <Row>
+                                        <Col xs={6} md={6} lg={6}>
+                                            <div styleName="coin">
+                                                <AnimationNumber number={this.state.currentBalance}/>
+                                                <div styleName="icon">
+                                                    <CoinSign />
+                                                </div>
+                                                {difference ? (
+                                                    <div
+                                                    key={currentBalance}
+                                                    styleName={difference > 0 ? "diff-won" : "diff-lost"}
+                                                    >
+                                                        <Typography variant="small-body">
+                                                            {Numbers.toFloat(Math.abs(difference))}
+                                                        </Typography>
+                                                    </div>
+                                                ) : null}
                                             </div>
-                                        ) : null}
-                                    </div>
+                                        </Col>
+                                        <Col xs={6} md={6} lg={6}>
+                                            <div styleName='button-deposit'>
+                                                <Button onClick={onCashier} size={'x-small'} theme={'default'}>
+                                                    <Typography color={'white'} variant={'small-body'}>Deposit</Typography>
+                                                </Button>
+                                            </div>
+                                        </Col>
+                                    </Row>
+                                    
                                 </Col>
                                 <Col xs={1} md={6} lg={4}>
                                     <div styleName='address-box'>
                                         <Typography color="white">
-                                            <Tooltip title={text[this.state.isValid]}>
-                                                <IconButton aria-label={text[this.state.isValid]}>
-                                                    {this.state.isValid ? 
+                                            <Tooltip title={infoText}>
+                                                <IconButton aria-label={infoText}>
+                                                    {isValid ? 
                                                         <CheckCircleIcon styleName={'icon-green'} size={20}/>
                                                         :
                                                         <AlertCircleIcon styleName={'icon-red'}  size={20}/>
                                                     }
                                                 </IconButton>
                                             </Tooltip>
-                                            {this.state.userMetamaskAddress}
+                                            {userMetamaskAddress}
                                         </Typography>
                                     </div>
                                 </Col>
@@ -154,7 +175,7 @@ class Navbar extends Component {
                                     <div styleName="buttons-1">
                                         <div styleName='user-menu'>
                                             <UserMenu
-                                                onAccount={onAccount}
+                                                onAccount={() => onAccount({history})}
                                                 onLogout={onLogout}
                                                 onCashier={onCashier}
                                                 username={user.username}
@@ -169,7 +190,9 @@ class Navbar extends Component {
                     }
                     </Col>
                     <Col xs={0} md={2}>
-                        <LanguagePicker/>
+                        <div styleName='navbar-language'>
+                            <LanguagePicker/>
+                        </div>
                     </Col>
                 </Row>
         );
@@ -178,9 +201,7 @@ class Navbar extends Component {
 
 function mapStateToProps(state){
     return {
-        profile: state.profile,
-        bet : state.bet,
-        depositOrWithdraw : state.depositOrWithdraw
+        profile: state.profile
     };
 }
 
