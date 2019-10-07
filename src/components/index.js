@@ -40,7 +40,6 @@ import CoinFlip from "components/Icons/CoinFlip";
 import Roulette from "components/Icons/Roulette";
 import LanguagePicker from "components/LanguagePicker";
 import Caroussel from "components/Caroussel";
-import AccountInfoModal from "components/AccountInfoModal";
 import AnnouncementTab from 'components/AnnouncementTab';
 import Partners from "components/Partners";
 import WheelGameCard from "./WheelGameCard";
