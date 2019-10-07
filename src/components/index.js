@@ -67,7 +67,13 @@ import AccountInfoForm from './AccountInfoForm';
 import SettingsTab from './SettingsTab';
 import ToggleForm from './ToggleForm';
 import NavigationBar from './NavigationBar';
+import AffiliatesTab from './AffiliatesTab';
+import DataContainer from './DataContainer';
+import AffiliateLinkContainer from './AffiliateLinkContainer';
 
+export { AffiliateLinkContainer };
+export { DataContainer };
+export { AffiliatesTab };
 export { NavigationBar };
 export { ToggleForm };
 export { SettingsTab };

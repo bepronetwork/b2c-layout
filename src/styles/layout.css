@@ -53,4 +53,4 @@ $games-coinflip-size : 220px;
 
 
 $box-shadow : 1px 10px 100px 10px $dark-table-color;
-$box-shadow-light : 1px 10px 10px 1px $dark-table-color;
+$box-shadow-light : 1px 10px 100px 1px $dark-table-color;

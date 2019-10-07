@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 
 import "./index.css";
 import DepositsTable from "../CashierForm/Deposit/DepositsTable";
+import { isUserSet } from "../../lib/helpers";
 
 class DepositTab extends Component {
 
@@ -40,6 +41,7 @@ class DepositTab extends Component {
 
     render() {
         const { profile, ln } = this.props;
+        if(!isUserSet(profile)){return}
         const id = profile.getID();
 
         return (

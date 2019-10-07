@@ -65,11 +65,6 @@ button{
 }
 
 
-.MuiPaper-root{
-    background-color : transparent !important;
-    background : transparent !important;
-}
-
 .nav-link.active{
     background-color : $background-color-theme !important;
 }

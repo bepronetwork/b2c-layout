@@ -1,6 +1,6 @@
 
 #back{
-    z-index: -30;
+    z-index: 0;
     background-color: #17182c;
     position: absolute;
     width: 100%;
@@ -403,6 +403,11 @@ a > .mdi-icon{
 }
 
 .MuiPaper-root{
+    border : none;
+    background-color : transparent !important;
+}
+
+.MuiMenu-paper{
     border : none;
     background-color : #ccc !important;
 }

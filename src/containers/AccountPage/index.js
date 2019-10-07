@@ -1,11 +1,12 @@
 import React, { Component } from "react";
 import { Row, Col} from 'reactstrap';
 import "./index.css";
-import { Typography, TabedContainer, DepositTab, WithdrawTab, AccountInfoForm, SettingsTab} from 'components';
+import { Typography, TabedContainer, DepositTab, WithdrawTab, AccountInfoForm, SettingsTab, AffiliatesTab} from 'components';
 import { connect } from "react-redux";
 import MoneyIcon from 'mdi-react/MoneyIcon';
 import ExitToAppIcon from 'mdi-react/ExitToAppIcon';
 import SettingsIcon from 'mdi-react/SettingsIcon';
+import GiftIcon from 'mdi-react/GiftIcon';
 
 class AccountPage extends Component {
 
@@ -37,7 +38,12 @@ class AccountPage extends Component {
                                     title : 'Withdraws',
                                     container : <WithdrawTab/>,
                                     icon : <ExitToAppIcon size={20}/>
-                                }
+                                },
+                                {
+                                    title : 'Affiliate',
+                                    container : <AffiliatesTab/>,
+                                    icon : <GiftIcon size={20}/>
+                                },
                             ]
                         }
                     />

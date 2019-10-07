@@ -36,12 +36,14 @@ import ChatPage from "../Chat";
 import { CopyText } from "../../copy";
 import { setMessageNotification } from "../../redux/actions/message";
 import ChatChannelUnlogged from "../../controllers/Chat/ChatUnlogged";
+import queryString from 'query-string'
 
 import { connect } from 'react-redux';
 import _ from 'lodash';
 import { setStartLoadingProcessDispatcher } from "../../lib/redux";
 import AccountPage from "../AccountPage";
 import NavigationBar from "../../components/NavigationBar";
+import { getQueryVariable } from "../../lib/helpers";
 const history = createBrowserHistory();
 
 class App extends Component {
@@ -54,8 +56,14 @@ class App extends Component {
 
     componentDidMount = () => {
         this.asyncCalls();
+        this.getQueryParams();
 
     };
+
+    getQueryParams = () => {
+        const ref = getQueryVariable('ref');
+        Cache.setToCache('affiliate', ref);
+    }
 
     start = async () => {
         this.setState({...this.state, isLoading : false});
@@ -228,6 +236,7 @@ class App extends Component {
         await store.dispatch(setProfileInfo(null));
         this.setState({ user: null });
         window.location.reload();
+        window.location.href = '/'
     };
 
     renderLoginRegisterModal = () => {
