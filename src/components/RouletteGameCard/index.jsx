@@ -19,7 +19,7 @@ import { Numbers } from "../../lib/ethereum/lib";
 const mobileBreakpoint = 768;
 
 class RouletteGameCard extends Component {
-    redColors = [1, 3, 5, 7, 9, 12, 14, 18, 16, 21, 23, 27, 25, 30, 32, 36, 34];
+    redColors = [1, 3, 5, 7, 9, 12, 14, 16, 18, 19, 21, 23, 25, 27, 30, 32, 34, 36];
 
     static propTypes = {
         result: PropTypes.number,
