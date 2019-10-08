@@ -4,6 +4,7 @@ import { Button, Typography, InputText } from "components";
 import "./index.css";
 import { connect } from "react-redux";
 import { compose } from 'lodash/fp';
+import Cache from "../../lib/cache/cache";
 class RegisterForm extends Component {
     static propTypes = {
         onSubmit: PropTypes.func.isRequired,
@@ -31,7 +32,6 @@ class RegisterForm extends Component {
     getMetamaskInfo(){
         if(window.ethereum){
             window.ethereum.on('accountsChanged', (accounts) => {
-                // Time to reload your interface with accounts[0]!
                 this.updateAddress(accounts[0]);
             })
             
@@ -46,7 +46,7 @@ class RegisterForm extends Component {
     }
 
     updateAddress = async (address=null) => {
-        if(!address){
+        if(!address && window.web3 && window.web3.eth){
             address = (await window.web3.eth.getAccounts())[0];
         }
         this.setState({...this.state, address : address});
@@ -55,7 +55,9 @@ class RegisterForm extends Component {
     handleSubmit = event => {
         event.preventDefault();
         const { onSubmit } = this.props;
-        if (onSubmit && this.formIsValid()) onSubmit(this.state);
+        const affiliateLink = Cache.getFromCache('affiliate');
+        let data = {...this.state, affiliateLink : affiliateLink}
+        if (onSubmit && this.formIsValid()) onSubmit(data);
     };
 
     formIsValid = () => {

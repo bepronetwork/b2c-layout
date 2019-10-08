@@ -10,7 +10,7 @@ let SEC = 200;
 // Now all requests using this instance will wait 2.5 seconds before timing out
 instance.defaults.timeout = SEC*1000;
 
-export async function register({ username, password, email, address }) {
+export async function register({ username, password, email, address, affiliateLink}) {
     try {
         const response = await axios.post(`${apiUrl}/api/users/register`, {
             username,
@@ -18,7 +18,8 @@ export async function register({ username, password, email, address }) {
             password,
             name: username,
             app: appId,
-            address: address 
+            address: address,
+            affiliateLink
         });
 
         if (response.data.data.status !== 200) {
@@ -58,7 +59,8 @@ export async function login({ username, password }) {
             bearerToken : message.bearerToken,
             username    : message.username,
             withdraws   : message.withdraws,
-            deposits    : message.deposits
+            deposits    : message.deposits,
+            ...message
         };
     } catch (error) {
         return handleError(error);

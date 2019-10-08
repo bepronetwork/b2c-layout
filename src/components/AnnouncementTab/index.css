@@ -1,0 +1,13 @@
+@import "../../styles/all.css";
+
+.container {
+  padding: 1.5rem 1rem;
+  z-index: 30;
+  text-align: center;
+  width: 100%;
+  margin : 0;
+}
+.announcement-text {
+  font-size : $font-size-body;
+  font-family : $font-family;
+}

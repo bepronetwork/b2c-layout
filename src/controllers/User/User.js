@@ -28,6 +28,7 @@ export default class User {
         appId,
         user
     }) {
+        console.log(user);
         // Logged
         this.id = user.id;
         this.user_id = user.id;
@@ -440,6 +441,14 @@ export default class User {
             return {...res, withdraw};
         } catch (err) {
             throw err;
+        }
+    }
+    getAffiliateInfo = () => {
+        return {
+            id : this.user.affiliateId,
+            wallet : this.user.wallet.affiliateBalance,
+            userAmount : this.user.affiliateInfo.affiliatedLinks.length,
+            percentageOnLevelOne : this.user.affilateLinkInfo.affiliateStructure.percentageOnLoss
         }
     }
 

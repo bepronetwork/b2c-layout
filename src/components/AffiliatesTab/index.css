@@ -1,0 +1,34 @@
+@import "../../styles/all.css";
+
+.root {
+    position: relative;
+    display: block;
+    width: 100%;
+    height: inherit;
+    min-height: 400px;
+    display: block;
+    padding: $spacing-52 $spacing-20;
+    overflow-y : auto;
+    overflow-x : hidden;
+    overflow: initial;
+
+  @include Breakpoint-mobileOnly {
+    width: 320px;
+    padding : $spacing-52 0;
+    margin: auto;
+    position: relative;
+    display: block;
+    overflow-x: auto !important;
+  }
+
+}
+
+
+.title {
+  text-align: center;
+
+  a {
+    text-decoration: none;
+  }
+}
+

@@ -6,6 +6,7 @@ $dark-table-color : #05040c;
 $text-primary-color : white;
 $text-secondary-color : #858bc7;
 $background-shadow : black;
+$light-background : #7e84be;
 
 
 /* COLORS SETUP */
@@ -38,3 +39,4 @@ $widget-container-background-color : $primary-background-color;
 $widget-container-border-color : $secondary-background-color;
 $navigation-bar-background : $dark-table-color;
 $navigation-bar-item : $dark-background-color;
+$data-container-color : $primary-background-color;

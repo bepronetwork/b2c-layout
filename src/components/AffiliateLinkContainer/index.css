@@ -1,0 +1,97 @@
+@import "../../styles/all.css";
+
+.root {
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    background: $data-container-color;
+    box-shadow : $box-shadow-light;
+    overflow: hidden;
+    margin : $spacing-52 $spacing-12;
+    text-align : left;
+    position: relative;
+    height: auto;
+    padding: $spacing-52 $spacing-52;
+}
+
+
+.picked{
+    border : 1px solid $green;
+    box-shadow : 1px 10px 100px 10px $black;
+}
+
+.text-description{
+    margin-bottom : $spacing-20;
+}
+
+.text-container{
+    background: $background-table-2;
+    width : auto;
+    text-align : left;
+    height: auto;
+    border-radius: $border-radius;
+}
+
+.link-text-container{
+    width : auto;
+    padding: $spacing-20 $spacing-20;
+    text-align : left;
+    overflow: hidden;
+    height: auto;
+    border-radius: $border-radius;
+}
+
+.subtitle-text{
+    margin-top : 10px;
+}
+
+.affiliate-image{
+    width : 400px;
+    position: absolute;
+    opacity : 0.1;
+    top : 0;
+    left : 0;
+    z-index: 0;
+}
+
+.data-image{
+    width: 30px;
+    margin-left: -10px;
+    margin-top: 15px;
+}
+.content{
+    z-index: 1;
+    width: inherit;
+    height: 100%;
+    display: block;
+    position: relative;
+}
+.container-text{
+    text-align: left;
+}
+
+.container-image{
+    width : 50px;
+}
+
+.nohover{
+    cursor: pointer !important;
+
+    &:hover{
+        opacity : 1 !important;
+    }
+}
+
+.text-message{
+    margin-top : 5px;
+}
+
+.text-copy-container{
+    border : none;
+    padding: $spacing-20 $spacing-20;
+    border-radius :  0 $border-radius $border-radius 0;
+    background-color: $light-background;
+    width : inherit;
+    height : 100%;
+    text-align : center;
+}
