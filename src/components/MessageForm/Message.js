@@ -27,7 +27,6 @@ class Message extends Component {
         let hasMessage = !_.isEmpty(this.props.message);
         if(!hasMessage){return null};
         let messageArray = _.isArray(this.props.message) ? this.props.message : [this.props.message];
-        console.log(messageArray);
         
         return (
             <Modal>

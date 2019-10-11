@@ -12,7 +12,8 @@ import {
     CashierForm,
     LoadingBanner,
     MessageForm,
-    Widgets
+    Widgets,
+    AffiliateWithdrawForm
 } from "components";
 
 import DicePage from "containers/DicePage";
@@ -35,7 +36,6 @@ import Cache from "../../lib/cache/cache";
 import ChatPage from "../Chat";
 import { CopyText } from "../../copy";
 import { setMessageNotification } from "../../redux/actions/message";
-import ChatChannelUnlogged from "../../controllers/Chat/ChatUnlogged";
 import queryString from 'query-string'
 
 import { connect } from 'react-redux';
@@ -44,6 +44,7 @@ import { setStartLoadingProcessDispatcher } from "../../lib/redux";
 import AccountPage from "../AccountPage";
 import NavigationBar from "../../components/NavigationBar";
 import { getQueryVariable } from "../../lib/helpers";
+import ChatChannel from "../../controllers/Chat";
 const history = createBrowserHistory();
 
 class App extends Component {
@@ -69,14 +70,6 @@ class App extends Component {
         this.setState({...this.state, isLoading : false});
     }
 
-    startChatNoLogged = async () => {
-        try{
-            this.chat = new ChatChannelUnlogged({id : null, name : null});
-            await this.chat.__initNotLogged__();
-        }catch(err){
-            console.log(err)
-        }
-    }
 
     closeStaticLoading = () => {
         document.getElementById("loading").style.display = "none";
@@ -89,8 +82,11 @@ class App extends Component {
             await this.loginAccount();
             this.closeStaticLoading();
         }catch(err){
+            let app = await getAppInfo();
+            const { publicKey } = app.integrations.chat;
+            this.chat = new ChatChannel({publicKey});
+            this.chat.__init__();
             setStartLoadingProcessDispatcher(6);
-            this.startChatNoLogged();
         }
         
         this.start();
@@ -204,16 +200,18 @@ class App extends Component {
         
         /* Destory Unlogged Chat Instance */
         if(this.chat){
-            await this.chat.__kill__();
+            await this.chat.kill();
             this.chat = null;
         }
 
         const appInfo = this.state.app;
 
         let userObject = new User({
+            app : appInfo,
             platformAddress: appInfo.platformAddress,
             tokenAddress: appInfo.platformTokenAddress,
             decimals: appInfo.decimals,
+            integrations : appInfo.integrations,
             appId: appInfo.id,
             userId: user.id,
             user : user
@@ -362,7 +360,7 @@ class App extends Component {
 
     render() {
         const { user, app, isLoading } = this.state;
-        const { profile, startLoadingProgress } = this.props;
+        const { profile, startLoadingProgress, modal } = this.props;
 
         if (!app || isLoading) {return null};
         const { progress, confirmations } = startLoadingProgress;
@@ -391,6 +389,7 @@ class App extends Component {
                             />
                             {this.renderLoginRegisterModal()}
                             {this.renderCashierModal()}
+                            <AffiliateWithdrawForm/>
                             <MessageForm user={user}/>
                         </header>
                         <div>
@@ -439,7 +438,8 @@ class App extends Component {
 function mapStateToProps(state){
     return {
         profile : state.profile,
-        startLoadingProgress : state.startLoadingProgress
+        startLoadingProgress : state.startLoadingProgress,
+        modal : state.modal
     };
 }
 

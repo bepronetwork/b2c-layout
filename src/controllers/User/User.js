@@ -5,6 +5,7 @@ import {
   requestWithdraw,
   finalizeWithdraw,
   cancelWithdraw,
+  requestWithdrawAffiliate,
   createBet,
   getMyBets
 } from "lib/api/users";
@@ -26,9 +27,9 @@ export default class User {
         tokenAddress,
         decimals,
         appId,
-        user
+        user,
+        app
     }) {
-        console.log(user);
         // Logged
         this.id = user.id;
         this.user_id = user.id;
@@ -39,6 +40,7 @@ export default class User {
         this.bearerToken = user.bearerToken;
         this.balance  = user.balance;
         this.username = user.username;
+        this.integrations = app.integrations;
         this.address = user.address;
         this.user = user;
         this.isLoaded = false;
@@ -162,11 +164,14 @@ export default class User {
     }
 
     setupChat = async () => {
-        let chat = new ChatChannel({id : this.id, name : this.username});
-        await chat.__init__();
-        let ObjectChat = chat;
-        ObjectChat.cc.transportManager.client = null;
-        this.chat = ObjectChat;
+        this.chat = new ChatChannel({
+            id : this.id, 
+            name : this.username,
+            publicKey : this.integrations.chat.publicKey,
+            token : this.user.integrations.chat.token
+
+        });
+        await this.chat.__init__();
     }
 
     getMessages = () => {
@@ -209,6 +214,7 @@ export default class User {
 
     getTokenAmount = async () => {
         let address = await getMetamaskAccount();
+        if(!address){ address = '0x' }
         let amount = Numbers.toFloat(Numbers.fromDecimals(await this.casinoContract.getERC20Token().getTokenAmount(address), this.decimals))
         return amount;
     }
@@ -217,6 +223,7 @@ export default class User {
         try {
             await promptMetamask();
             let address = await getMetamaskAccount();
+            if(!address){ address = '0x' }
             const resEthereum = await this.casinoContract.allowDepositToContract({
                 address,
                 amount
@@ -231,6 +238,7 @@ export default class User {
         try {
             await promptMetamask();
             let address = await getMetamaskAccount();
+            if(!address){ address = '0x' }
             const resEthereum = await this.casinoContract.depositTokens({
                 address,
                 amount
@@ -267,6 +275,7 @@ export default class User {
     __getTimeForWithdrawal = async () => {
         try{
             let address = await getMetamaskAccount();
+            if(!address){ address = '0x' }
             return await this.casinoContract.getTimeForWithdrawal(address);
         }catch(err){
             throw err;
@@ -293,8 +302,9 @@ export default class User {
         try{            
             var platformAddress =  this.platformAddress;
             var platformTokenAddress =  this.tokenAddress;
-            var allTxs = (await getPastTransactions(address)).result;         
-            let unconfirmedDepositTxs = (await Promise.all(allTxs.map( async tx => {
+            var allTxs = (await getPastTransactions(address)).result;
+            let testedTxs = allTxs.slice(0, 20);  
+            let unconfirmedDepositTxs = (await Promise.all(testedTxs.map( async tx => {
                 let res_transaction = await window.web3.eth.getTransaction(tx.hash);
                 let res_transaction_recipt = await window.web3.eth.getTransactionReceipt(tx.hash);
                 let transactionData = getTransactionDataCasino(res_transaction, res_transaction_recipt);
@@ -342,6 +352,7 @@ export default class User {
     __getApprovedWithdraw = async () => {
         try{
             let address = await getMetamaskAccount();
+            if(!address){ return 0 }
             let decimalAmount = await this.casinoContract.getApprovedWithdrawAmount(address);
             return Numbers.fromDecimals(decimalAmount, this.decimals);
         }catch(err){
@@ -352,6 +363,7 @@ export default class User {
     getAmountAllowedForDepositByPlatform = async () => {
         try{
             let address = await getMetamaskAccount()
+            if(!address){ return 0 }
             let decimalAmount = await this.casinoContract.getAllowedDepositAmountForApp(address);
             return Numbers.fromDecimals(decimalAmount, this.decimals);
         }catch(err){
@@ -443,6 +455,45 @@ export default class User {
             throw err;
         }
     }
+
+    askForWithdrawAffiliate = async ({amount}) => {
+        try {
+            let metamaskAddress = await getMetamaskAccount();
+            var nonce = getNonce();
+            var res = { };
+            let timeout = false;
+
+            try{
+                /* Ask Permission to Withdraw */
+                res = await requestWithdrawAffiliate(
+                    {
+                        app: this.app_id,
+                        user: this.user_id,
+                        address     : metamaskAddress,
+                        tokenAmount : Numbers.toFloat(amount),
+                        nonce
+                    },
+                    this.bearerToken
+                );
+
+            }catch(err){
+                //Timeout Error - But Worked
+                timeout = true;
+            }
+            console.log(res);
+            // Get Withdraw
+            let withdraws = await this.getWithdrawsAsync();
+            let withdraw = withdraws[withdraws.length-1];
+            // Process Ask Withdraw API Call since can have errors
+            if(!timeout){
+                res = await processResponse(res);
+            }
+            return {...res, withdraw};
+        } catch (err) {
+            throw err;
+        }
+    }
+
     getAffiliateInfo = () => {
         return {
             id : this.user.affiliateId,

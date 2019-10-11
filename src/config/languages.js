@@ -8,25 +8,25 @@ const languages = [
         name : 'English',
         image : english,
         nick : 'en',
-        channel_id : '5d1cf3328ec73e0001b66a7d'
+        channel_id : 'english'
     },
     {
         name : 'Chinese',
         nick : 'ch',
         image : chinese,
-        channel_id : '5d1d260c8ec73e00015a7c60'
+        channel_id : 'chinese'
     },
     {
         name : 'Korean',
         nick : 'ko',
         image : korea,
-        channel_id : '5d1d26118ec73e000139d420'
+        channel_id : 'korea'
     },
     {
         name : 'Japanese',
         nick : 'jp',
         image : japan,
-        channel_id : '5d2a2a1b5137b70001e8defc'
+        channel_id : 'japanese'
     } 
 ]
 

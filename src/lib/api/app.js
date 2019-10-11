@@ -5,7 +5,7 @@ import { apiUrl, apiUrlWithdraw, appId } from "./apiConfig";
 export default async function getAppInfo() {
     try {
         const response = await axios.post(`${apiUrl}/api/app/get`, {
-        app: appId
+            app: appId
         });
 
         return response.data.data.message;

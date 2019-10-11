@@ -101,8 +101,6 @@ class CasinoContract {
     }
     
     async getApprovedWithdrawAmount(address){
-        
-
         try{
             let res = await self.contract.getContract().methods.withdrawals(address).call();
             return Numbers.fromBigNumberToInteger(res ? res.amount : 0);
