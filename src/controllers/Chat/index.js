@@ -1,20 +1,26 @@
 import store from '../../containers/App/store';
 import { setChatInfo } from '../../redux/actions/chat';
-import ChatCamp from 'chatcamp';
+import { StreamChat,  } from 'stream-chat';
 import languages from '../../config/languages';
-
-const APP_ID = '6551851573570433024';
+import http from 'http';
 
  class ChatChannel{
-    constructor({id, name}){
+    constructor({id, name, token, publicKey}){
         this.id = id;
         this.channel_id = languages[0].channel_id;
-        this.name = name;
-        this.cc = new ChatCamp({ appId: APP_ID });
+        this.username = name;
+        this.cc = new StreamChat(publicKey, {
+            timeout: 3000,
+            httpAgent: new http.Agent({ keepAlive: 3000 }),
+            httpsAgent: new http.Agent({ keepAlive: 3000 }),
+        });
+        this.publicKey = publicKey;
+        this.token = token;
         this.messages = [];
         this.channelListener = {};
         this.participants = 0;
         this.open = true;
+        this.isGuest = !this.token ? true : false;
         this.user = null;
         this.chatName = '';
         this.isWorking = true;
@@ -23,14 +29,17 @@ const APP_ID = '6551851573570433024';
     __init__ = async () => {
         try{
             this.user = await this.connectUser();
-            await this.updateUser();
             this.channel = await this.enterChannel();
             this.setTimer()
         }catch(err){
-            this.isWorking = false;
             console.log(err)
+            this.isWorking = false;
             // Nothing
         }
+    }
+
+    kill = async  () => {
+
     }
 
     getMessages = () => {
@@ -42,6 +51,7 @@ const APP_ID = '6551851573570433024';
         this.channel_id = channel_id;
         clearInterval(this.timer);
         this.channel = await this.enterChannel();
+        await this.listenChannelUpdates();
         this.setTimer();
     }
 
@@ -59,74 +69,50 @@ const APP_ID = '6551851573570433024';
     setTimer = () => {
         clearInterval(this.timer);
         this.timer = null;
-        this.timer = setInterval( () => {
-            this.listenChannelUpdates();
-        }, 1000) /* each 1 sec */
+        this.listenChannelUpdates();
     }
 
     enterChannel = async () => {
-        return new Promise( (resolve, reject) => {
-            this.cc.OpenChannel.get(this.channel_id, async (error, openChannel) => {
-                if(error){reject(error)}
-                this.open = openChannel.isActive;
-                this.chatName = openChannel.name;
-                this.participants = openChannel.participantsCount;
-                openChannel.join( (error) => {
-                    if(!error){
-                }});
-                await this.updateReduxState()
-                resolve(openChannel); 
-            })
-        })  
+        this.conversation = this.cc.channel('livestream', this.channel_id);
     }
 
     listenChannelUpdates = async () => {
         // Get Messages
-        let previousMessageListQuery = this.channel.createPreviousMessageListQuery();
-        previousMessageListQuery.setLimit(30);
-        previousMessageListQuery.setSortBy('INSERTED_AT');
-
-        previousMessageListQuery.load( async (error, messages) => {
-            let messagesSorted = messages.sort((a, b) => a.insertedAt - b.insertedAt )
-            if (error) { return;}
-            this.messages = messagesSorted;
+            const conversationState = await this.conversation.watch();
+            this.open = true;
+            this.chatName = conversationState.channel.id;
+            this.participants = conversationState.watcher_count;
+            this.messages = conversationState.messages;
             await this.updateReduxState();
-        });
 
+            this.conversation.on('message.new', async event => {
+                this.participants = event.watcher_count;
+                this.messages.push(event.message);
+
+                await this.updateReduxState();
+            });
+      
     }
 
     connectUser = async () => {
-        return new Promise( (resolve, reject) => {
-            this.cc.connect(this.id, (error, user) => {
-                if (error) { reject(error); }
-                resolve(user); 
-            });
-        });
-    }
-
-    updateUser = async () => {
-        try{
-            return new Promise( (resolve, reject) => {
-                this.cc.updateUserDisplayName(this.name, (error, user) => {
-                    if (error) { reject(error); }
-                    resolve(user); 
-                });
-            });
-        }catch(err){
-            console.log(err);
+        if(!this.isGuest){
+            await this.cc.setUser(
+                {
+                    id: this.username
+                },   
+                this.token
+            )
+        }else{
+            await this.cc.setGuestUser({ id: 'test' });
         }
+      
     }
-   
 
     sendMessage = async ({message, data}) => {
         try{
-            return new Promise( (resolve, reject) => {
-                this.channel.sendMessage(message, (message, error) => {
-                    if (error) { reject(error); }
-                    this.listenChannelUpdates();
-                    resolve(message);
-                });
-            })
+            return await this.conversation.sendMessage({
+                text: message
+            });
         }catch(err){
             console.log(err)
         }

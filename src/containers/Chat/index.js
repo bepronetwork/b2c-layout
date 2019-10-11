@@ -80,15 +80,12 @@ class ChatPage extends React.Component {
         try{
             await this.props.profile.sendMessage({message : this.state.message});
             this.projectData(this.props);
-
         }catch(err){
-            console.log(err)
-            this.setState({...this.state, message : ''})
         }
+        this.setState({...this.state, message : ''})
     }
 
     createMessageBox = ({username, message, id, time}) => {
-        
         return(
             <div styleName='message-box' key={id}>
                 <div style={{float : 'left', marginRight : 10}}>
@@ -134,7 +131,7 @@ class ChatPage extends React.Component {
                     <div styleName="container">
                         <div ref={el => { this.el = el; }} styleName="text-container">
                             {this.state.messages.map((item) => {
-                                return this.createMessageBox({username : item.user ? item.user.displayName : 'none', message : item.text, id : item.id, time : new Date(item.insertedAt*1000)})
+                                return this.createMessageBox({username : item.user.id, message : item.text, id : item.id, time : new Date(item.created_at*1000)})
                             })}
                             <div style={{ float:"left", clear: "both" }}
                                 ref={(el) => { this.messagesEnd = el; }}>

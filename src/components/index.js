@@ -71,7 +71,9 @@ import NavigationBar from './NavigationBar';
 import AffiliatesTab from './AffiliatesTab';
 import DataContainer from './DataContainer';
 import AffiliateLinkContainer from './AffiliateLinkContainer';
+import AffiliateWithdrawForm from './AffiliateWithdrawForm';
 
+export { AffiliateWithdrawForm };
 export { AffiliateLinkContainer };
 export { DataContainer };
 export { AffiliatesTab };

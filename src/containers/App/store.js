@@ -7,7 +7,8 @@ import {
     startLoadingProgressReducer,
     depositReducer,
     betReducer,
-    withdrawReducer
+    withdrawReducer,
+    modalReducer
 } from '../../redux/reducers/index';
 
 
@@ -19,7 +20,8 @@ const reducer = combineReducers({
     withdraw : withdrawReducer,
     language : languageReducer,
     startLoadingProgress : startLoadingProgressReducer,
-    bet : betReducer
+    bet : betReducer,
+    modal : modalReducer
 });
 const store = createStore(reducer);
 

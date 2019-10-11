@@ -15,18 +15,18 @@ class DataContainer extends React.Component{
 
     render(){
         const { 
-            message, image, title
+            message, image, title, button
         } = this.props;
 
         return (
             <div styleName={`container-root`}>
                 <Row>
-                    <Col xs={3} md={3}>
+                    <Col xs={2} md={2}>
                         <div styleName='container-image'>
                             <img src={image} styleName='data-image'/>
                         </div>
                     </Col>
-                    <Col xs={9} md={9}>
+                    <Col xs={6} md={6}>
                         <div styleName={'container-text'}>
                             <Typography variant={'small-body'} color={`white`}>
                                {title}
@@ -36,6 +36,11 @@ class DataContainer extends React.Component{
                                     {message}
                                 </Typography>
                             </div>
+                        </div>
+                    </Col>
+                    <Col xs={4} md={4}>
+                        <div styleName='container-but'>
+                            {button}
                         </div>
                     </Col>
                 </Row>

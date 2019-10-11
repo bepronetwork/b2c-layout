@@ -37,6 +37,10 @@
     box-shadow : 1px 10px 100px 10px $black;
 }
 
+.container-but{
+    margin-top : $spacing-8
+}
+
 .text-description{
     margin-top : $spacing-20;
 }
@@ -47,10 +51,15 @@
     margin-top: 15px;
 }
 
+.containern{
+    position: relative;
+}
+
 .container-text{
     text-align: left;
     margin-left: $spacing-20;
 }
+
 
 .container-image{
     width : 50px;

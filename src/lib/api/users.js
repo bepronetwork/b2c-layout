@@ -11,16 +11,24 @@ let SEC = 200;
 instance.defaults.timeout = SEC*1000;
 
 export async function register({ username, password, email, address, affiliateLink}) {
+    console.log(affiliateLink)
+    const postData = {
+        username,
+        email,
+        password,
+        name: username,
+        app: appId,
+        address: address,
+        affiliateLink : (affiliateLink) ? new String(affiliateLink).toString() : ''
+    }
+    if(postData.affiliateLink == false){
+        delete postData.affiliateLink;
+    }
+
+    console.log(postData)
+
     try {
-        const response = await axios.post(`${apiUrl}/api/users/register`, {
-            username,
-            email,
-            password,
-            name: username,
-            app: appId,
-            address: address,
-            affiliateLink
-        });
+        const response = await axios.post(`${apiUrl}/api/users/register`, postData);
 
         if (response.data.data.status !== 200) {
             return response.data.data;
@@ -115,6 +123,27 @@ export async function logout() {
 export async function requestWithdraw(params, bearerToken, payload) {
     try{
         let res = await fetch(`${apiUrlWithdraw}/api/users/requestWithdraw`, {
+            method : 'POST',
+            timeout: 1000*1000,
+            headers : addSecurityHeader({bearerToken, payload :  payload || params.user}),
+            body : JSON.stringify(params)})
+        return res.json();
+    }catch(err){
+        throw err;
+    }
+}
+
+/**
+ *
+ * @param {*} params
+ * @param {*} bearerToken
+ * @name Request Withdraw Affiliates
+ * @use Once User Wants to Withdraw Decentralized
+ */
+
+export async function requestWithdrawAffiliate(params, bearerToken, payload) {
+    try{
+        let res = await fetch(`${apiUrlWithdraw}/api/users/affiliate/requestWithdraw`, {
             method : 'POST',
             timeout: 1000*1000,
             headers : addSecurityHeader({bearerToken, payload :  payload || params.user}),

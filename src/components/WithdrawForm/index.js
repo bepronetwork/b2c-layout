@@ -8,6 +8,7 @@ import withdraw from 'assets/withdraw.png';
 import { ActionBox } from 'components';
 import { setWithdrawInfo } from "../../redux/actions/withdraw";
 import { fromSmartContractTimeToMinutes } from '../../lib/helpers';
+import { setModal } from '../../redux/actions/modal';
 
 const THIRTY_SECONDS = 60;
 
@@ -68,11 +69,20 @@ class WithdrawForm extends Component {
         try{
             this.onLoading('hasAllowed');
             const { withdraw, profile } = this.props;
-            /* Create Withdraw Framework */
-            let res = await profile.askForWithdraw({amount : Numbers.toFloat(withdraw.amount)});
+            const { isAffiliate } = withdraw;
+            var res;
+            if(isAffiliate){
+                /* Create Withdraw Framework */
+                res = await profile.askForWithdrawAffiliate({amount : Numbers.toFloat(withdraw.amount)});
+            }else{
+                /* Create Withdraw Framework */
+                res = await profile.askForWithdraw({amount : Numbers.toFloat(withdraw.amount)});
+            }
+         
             await this.setWithdrawInfoInRedux({id : res.withdraw._id});
             if(!res){throw new Error("Error on Transaction")};
         }catch(err){
+            console.log(err);
             this.onLoading('hasAllowed', false);
         }
     }
@@ -81,11 +91,16 @@ class WithdrawForm extends Component {
         try{
             this.onLoading('hasWithdrawed');
             const { withdraw, profile } = this.props;
+            const { isAffiliate } = withdraw;
             /* Create Withdraw Framework */
             let res = await profile.createWithdraw({amount : Numbers.toFloat(withdraw.amount)});
             if(!res){throw new Error("Error on Transaction")};
             /* Set Transaction */
             await store.dispatch(setWithdrawInfo({key : 'tx', value : res.transactionHash}));
+            if(isAffiliate){
+                await store.dispatch(setModal({key : 'AffiliateWithdrawForm', value : false}));
+            }
+            await profile.getAllData();
             this.setState({...this.state, hasWithdrawed : true});
             setTimeout( () => {
                 this.onLoading('hasWithdrawed', false);
@@ -100,7 +115,6 @@ class WithdrawForm extends Component {
         const { hasAllowed, hasWithdrawed, onLoading, updated, timeForWithdraw } = this.state;
 
         const canWithdraw = (!updated || !hasAllowed || (timeForWithdraw >= 0));
-        
         return (
             <div>
                 <ActionBox 
