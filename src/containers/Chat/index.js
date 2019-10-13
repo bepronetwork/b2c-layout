@@ -55,20 +55,14 @@ class ChatPage extends React.Component {
 
     projectData = async (props) => {
         if(props.chat.messages.length > 0){
-            let currentMessages = this.state.messages;
             this.setState({...this.state,
                 participants : props.chat.participants,
                 messages :  props.chat.messages,
                 name : props.chat.name,
                 open :  props.chat.open
             });
-            if(((currentMessages.length > 0) 
-            &&  (props.chat.messages.length > 0) 
-            &&  (props.chat.messages[props.chat.messages.length-1].id != currentMessages[currentMessages.length-1].id))
-            || (currentMessages.length == 0))
-            {
-                this.scrollToBottom();
-            }
+
+            this.scrollToBottom();
         }
     }
 
