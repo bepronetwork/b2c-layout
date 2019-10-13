@@ -56,4 +56,8 @@ function getQueryVariable(variable)
          return(false);
 }
 
-export { dateToHourAndMinute, fromSmartContractTimeToMinutes, getGames, isUserSet, getMinutesfromSeconds, getQueryVariable }
+
+function getAppCustomization(){
+    return  Cache.getFromCache("appInfo") ? Cache.getFromCache("appInfo").customization : {};
+}
+export { dateToHourAndMinute, getAppCustomization, fromSmartContractTimeToMinutes, getGames, isUserSet, getMinutesfromSeconds, getQueryVariable }

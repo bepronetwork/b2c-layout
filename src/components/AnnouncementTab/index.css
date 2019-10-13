@@ -1,13 +1,19 @@
 @import "../../styles/all.css";
 
 .container {
-  padding: 1.5rem 1rem;
-  z-index: 30;
-  text-align: center;
-  width: 100%;
-  margin : 0;
+    position: relative;
+    height: auto;
+    text-align: left;
+    padding: $spacing-12 $spacing-52;
+    z-index: 1;
 }
+
 .announcement-text {
-  font-size : $font-size-body;
-  font-family : $font-family;
+    font-size : $font-size-small-body;
+    font-family : $font-family;
+
+    @include Breakpoint-mobileOnly {
+        font-size : $font-size-small-body-mobile;
+        border-radius : 0 $border-radius $border-radius 0;
+    }
 }

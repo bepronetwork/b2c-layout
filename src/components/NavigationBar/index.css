@@ -4,7 +4,6 @@
     position: relative;
     background-color : $navigation-bar-background;
     height : 60px;
-    margin-top : 50px;
     box-shadow : $box-shadow;
     padding : 0 $spacing-64;
 

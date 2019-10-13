@@ -95,6 +95,8 @@ export default class User {
     getID = () => this.id;
 
     getUsername = () => this.username;
+
+    getAppCustomization = () => this.app.customization;
     
     isValidAddress = async () => {
         let userMetamaskAddress = await getMetamaskAccount();

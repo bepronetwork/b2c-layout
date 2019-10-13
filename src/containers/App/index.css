@@ -57,6 +57,10 @@
     }
 }
 
+.top-bars{
+    margin-top: 60px;
+}
+
 .modal {
   display: flex;
   flex-direction: column;
