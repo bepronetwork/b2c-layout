@@ -43,8 +43,9 @@ import _ from 'lodash';
 import { setStartLoadingProcessDispatcher } from "../../lib/redux";
 import AccountPage from "../AccountPage";
 import NavigationBar from "../../components/NavigationBar";
-import { getQueryVariable } from "../../lib/helpers";
+import { getQueryVariable, getAppCustomization } from "../../lib/helpers";
 import ChatChannel from "../../controllers/Chat";
+import AnnouncementTab from "../../components/AnnouncementTab";
 const history = createBrowserHistory();
 
 class App extends Component {
@@ -367,7 +368,7 @@ class App extends Component {
 
         let progress100 = parseInt(progress/confirmations*100);
         let isUserLoaded = (confirmations == progress);
-        
+        const { topBar } = getAppCustomization();
         
         return (
                 <UserContext.Provider
@@ -393,7 +394,10 @@ class App extends Component {
                             <MessageForm user={user}/>
                         </header>
                         <div>
-                            <NavigationBar history={history}/>
+                            <div styleName='top-bars'>
+                                <AnnouncementTab topBar={topBar}/>
+                                <NavigationBar history={history}/>
+                            </div>
                             <Row>
                                 <div className='col-lg-10 col-xl-10' styleName='no-padding'>
                                     <div styleName='platform-container'>

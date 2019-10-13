@@ -1,27 +1,26 @@
 import React, { Component } from 'react'
-import PropTypes from "prop-types";
+import { Typography } from 'components';
 
 import './index.css';
 
-export default class AnnouncementTab extends Component {
-  static propTypes = {
-    active: PropTypes.bool.isRequired,
-    announcementText: PropTypes.string.isRequired,
-    backgroundColor: PropTypes.string.isRequired,
-    textColor: PropTypes.string.isRequired
-  };
-  render() {
-    const style = {
-      background: this.props.backgroundColor,
-      color: this.props.textColor
+class AnnouncementTab extends Component {
+
+    constructor(props){
+        super(props);
     }
-    return (
-      this.props.active?
-        <div styleName='container' style={style}>
-          <h3 styleName='announcement-text' >{this.props.announcementText}</h3>
-        </div>
-        :
-        <div />
-    )
-  }
+
+    render() {
+        const { topBar } = this.props;
+        if(!topBar ){ return null};
+
+        const { backgroundColor, textColor, text, isActive } = topBar;
+        if(!isActive){return null};
+        return (
+            <div styleName='container' style={{backgroundColor : backgroundColor}}>
+                <h6 styleName='announcement-text' style={{color : textColor}}> {text}</h6>
+            </div>
+        )
+    }
 }
+
+export default AnnouncementTab;
