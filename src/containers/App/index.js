@@ -11,7 +11,7 @@ import {
     RegisterForm,
     CashierForm,
     LoadingBanner,
-    MessageForm,
+    NotificationForm,
     Widgets,
     AffiliateWithdrawForm
 } from "components";
@@ -390,7 +390,7 @@ class App extends Component {
                             {this.renderLoginRegisterModal()}
                             {this.renderCashierModal()}
                             <AffiliateWithdrawForm/>
-                            <MessageForm user={user}/>
+                            <NotificationForm user={user}/>
                         </header>
                         <div>
                             <NavigationBar history={history}/>
