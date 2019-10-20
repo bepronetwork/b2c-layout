@@ -5,7 +5,7 @@ import { Typography } from "components";
 import AlertCircleIcon from 'mdi-react/AlertCircleIcon';
 import CheckCircleIcon from 'mdi-react/CheckCircleIcon';
 import CloseCircleIcon from 'mdi-react/CloseCircleIcon';
-import { setMessageNotification, DELETE_MESSAGE } from "../../redux/actions/message";
+import { setMessageNotification } from "../../redux/actions/message";
 import classNames from "classnames";
 import _ from 'lodash';
 import "./index.css";
