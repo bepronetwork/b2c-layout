@@ -72,6 +72,7 @@ import AffiliatesTab from './AffiliatesTab';
 import DataContainer from './DataContainer';
 import AffiliateLinkContainer from './AffiliateLinkContainer';
 import AffiliateWithdrawForm from './AffiliateWithdrawForm';
+import NotificationForm from "./NotificationForm";
 
 export { AffiliateWithdrawForm };
 export { AffiliateLinkContainer };
@@ -147,3 +148,4 @@ export { UndoIcon };
 export { UserMenu };
 export { AnnouncementTab };
 export { Partners };
+export { NotificationForm };
