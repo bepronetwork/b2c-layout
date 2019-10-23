@@ -42,7 +42,7 @@ class TableDefault extends Component {
                                         
                                     )
                                 }else if(field.image){
-                                    const imageStyles = classNames("th-row", "th-row-img");
+                                    const imageStyles = classNames("th-row", "th-row-image");
                                     return (
                                         <th styleName={imageStyles}>
                                             <img styleName='image-icon' src={row[field.value].image_url}/>

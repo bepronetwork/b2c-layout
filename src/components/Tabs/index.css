@@ -23,7 +23,3 @@
 
   border-radius: 1px;
 }
-
-.tab:not(:last-child) {
-  padding-right: $spacing-20;
-}

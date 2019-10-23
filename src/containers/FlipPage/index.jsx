@@ -160,6 +160,7 @@ class FlipPage extends Component {
                 options={this.getOptions()}
                 game={this.getGameCard()}
                 history="flipHistory"
+                gameMetaName={this.state.game.metaName}
             />
         );
     }

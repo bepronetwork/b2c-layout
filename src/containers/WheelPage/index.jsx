@@ -279,6 +279,7 @@ class WheelPage extends React.Component {
                 options={this.renderGameOptions()}
                 game={this.renderGameCard()}
                 history="wheelHistory"
+                gameMetaName={this.state.game.metaName}
             />
         );
     }
