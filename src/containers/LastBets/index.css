@@ -13,11 +13,7 @@
     }
 
     @include Breakpoint-mobileOnly {
-        width: 100%;
-
-        max-width: $content-width-mobile;
-        padding: calc($navbar-height + $spacing-36) 0 0 0;
-        margin: 0 auto;
+        display: none;
     }
 }
 
