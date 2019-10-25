@@ -1,0 +1,23 @@
+@import "../../../styles/all.css";
+
+.root {
+  text-align: center;
+  margin-top : 50px;
+}
+
+.container {
+    @include Breakpoint-tabletAndAbove {
+        max-width: $content-width-desktop;
+        margin: 0 auto;
+        margin-right: -17px;
+        margin-left: 3px;
+    }
+
+    @include Breakpoint-mobileOnly {
+        display: none;
+    }
+}
+
+.bets-dropdown{
+    margin-top : -20px;
+}

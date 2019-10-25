@@ -2,7 +2,9 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { ButtonIcon, History } from "components";
 import UserContext from "containers/App/UserContext";
+import LastBets from "../LastBets/GamePage";
 import { Row, Col } from 'reactstrap';
+import _ from 'lodash';
 import "./index.css";
 
 export default class GamePage extends Component {
@@ -11,13 +13,15 @@ export default class GamePage extends Component {
     static propTypes = {
         options: PropTypes.node,
         game: PropTypes.node,
-        history: PropTypes.oneOf(["diceHistory", "rouletteHistory", "flipHistory"])
+        history: PropTypes.oneOf(["diceHistory", "rouletteHistory", "flipHistory"]),
+        gameMetaName: PropTypes.string
     };
 
     static defaultProps = {
         options: null,
         game: null,
-        history: ""
+        history: "",
+        gameMetaName: null
     };
 
     constructor(props) {
@@ -55,8 +59,10 @@ export default class GamePage extends Component {
     };
 
     render() {
-        const { options, game } = this.props;
+        const { options, game, gameMetaName } = this.props;
         const { soundMode } = this.state;
+
+        if (_.isEmpty(gameMetaName)) return null;
 
         return (
             <div styleName='main-container'>
@@ -84,6 +90,7 @@ export default class GamePage extends Component {
                         </Row>
                     </div>
                 </div>
+                <LastBets gameMetaName={gameMetaName} />
             </div>
         );
     }
