@@ -7,7 +7,7 @@ import PlayInvitation from "components/PlayInvitation";
 import { Row, Col} from 'reactstrap';
 import games from '../../config/games';
 import "./index.css";
-import LastBets from "../LastBets";
+import LastBets from "../LastBets/HomePage";
 import Footer from "../Footer";
 export default class HomePage extends Component {
     static contextType = UserContext;

@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { ButtonIcon, History } from "components";
 import UserContext from "containers/App/UserContext";
-import LastBetsGame from "../LastBetsGame";
+import LastBets from "../LastBets/GamePage";
 import { Row, Col } from 'reactstrap';
 import _ from 'lodash';
 import "./index.css";
@@ -90,7 +90,7 @@ export default class GamePage extends Component {
                         </Row>
                     </div>
                 </div>
-                <LastBetsGame gameMetaName={gameMetaName} />
+                <LastBets gameMetaName={gameMetaName} />
             </div>
         );
     }
