@@ -196,6 +196,7 @@ class RoulettePage extends Component {
                 options={this.renderGameOptions()}
                 game={this.renderGameCard()}
                 history="rouletteHistory"
+                gameMetaName={this.state.game.metaName}
             />
         );
     }

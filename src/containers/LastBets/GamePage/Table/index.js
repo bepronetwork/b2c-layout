@@ -2,10 +2,9 @@ import React, { Component } from "react";
 import {Typography } from "components";
 import PropTypes from "prop-types";
 import UserContext from "containers/App/UserContext";
+import classNames from "classnames";
 
 import "./index.css";
-
-function isOdd(num) { return num % 2;}
 
 class TableDefault extends Component {
     static contextType = UserContext;
@@ -26,14 +25,14 @@ class TableDefault extends Component {
                     <tr styleName='tr-row'>
                         {titles.map( text => 
                             <th styleName='th-row'>
-                                <Typography variant='small-body' color="white"> {text} </Typography>
+                                <Typography variant='small-body' color="casper" weight="bold"> {text} </Typography>
                             </th>
                         )}
                     </tr>
                 </thead>
                 <tbody>
                     {rows.map( (row, index) => 
-                        <tr styleName={isOdd(index) ? 'tr-row' : 'tr-row-odd'}>
+                        <tr styleName='tr-row'>
                             {fields.map( (field) => {
                                 if(field.dependentColor){
                                     return (
@@ -43,9 +42,11 @@ class TableDefault extends Component {
                                         
                                     )
                                 }else if(field.image){
+                                    const imageStyles = classNames("th-row", "th-row-image");
                                     return (
-                                        <th styleName='th-row'>
+                                        <th styleName={imageStyles}>
                                             <img styleName='image-icon' src={row[field.value].image_url}/>
+                                            <Typography variant='x-small-body' color={"grey"}> {row[field.value].name} </Typography>
                                         </th>
                                     )
                                 }else{
