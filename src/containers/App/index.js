@@ -281,6 +281,17 @@ class App extends Component {
 
     updateAppInfo = async () => {
         let app = await getAppInfo();
+        let plinko = {_id:"5d98ac6e4470590bcc57a09c",
+                        description:"Plinko",
+                        edge:3,
+                        image_url:"https://storage.googleapis.com/betprotocol-game-images/001-dices.png",
+                        isClosed:false,
+                        metaName:"plinko_simple",
+                        name:"Plinko",
+                        resultSpace: [],
+                        tableLimit:30
+                    }
+        app.games.push(plinko);
         Cache.setToCache("appInfo", app);
         this.setState({...this.state, app})
     };

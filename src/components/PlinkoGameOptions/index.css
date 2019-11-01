@@ -30,7 +30,6 @@
 }
 
 .amount {
-  order: 1;
   margin-top: $spacing-20;
 }
 
@@ -46,10 +45,6 @@
 
     margin-top: $spacing-20;
   }
-}
-
-.amount-title {
-  margin-bottom: $spacing-4;
 }
 
 .amount-container {

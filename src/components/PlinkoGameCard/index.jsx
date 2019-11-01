@@ -1,295 +1,305 @@
 import React, { Component } from "react";
+import { World, Engine, Render, Events, Body, Bodies } from 'matter-js';
+import Particle from './particle';
+import Plinko from './plinko';
+import VerticalWall from './wall';
+import {PARTICLE} from './bodies';
 import PropTypes from "prop-types";
 import { InputNumber, Slider, ButtonIcon, Typography, AnimationNumber } from "components";
 import { startCase } from "lodash";
+import { Row, Col } from 'reactstrap';
 import { find } from "lodash";
 
-import "./index.css";
 import { getPopularNumbers } from "../../lib/api/app";
 import { Numbers } from "../../lib/ethereum/lib";
+import "./index.css";
 
-const minPayout = 1.0102;
-const maxPayout = 49.5;
-const middlePayout = 2;
-const middleRoll = 50;
-
-
-const defaultState = {
-    rollType: "over",
-    chance: Number("49.5000"),
-    payout: Number("2.0000"),
-    edge : 0,
-    popularNumbers : []
-}
-
+const MS_IN_SECOND = 2000;
+const FPS = 60;
 
 export default class PlinkoGameCard extends Component {
-    static propTypes = {
-        result: PropTypes.number,
-        disableControls: PropTypes.bool,
-        onResultAnimation: PropTypes.func.isRequired,
-        onChangeRollAndRollType: PropTypes.func.isRequired
-    };
-
-    static defaultProps = {
-        result: null,
-        disableControls: false
-    };
-
     constructor(props) {
         super(props);
-
         this.state = {
-            ...defaultState,
-            result: props.result
-        };
-    }
-
-    componentDidMount(){
-        this.projectData(this.props);
-        this.getBets(this.props);
-      
-    }
-
-    componentWillReceiveProps(props){
-        this.projectData(props);
-        //this.getBets(props);
-    }
-
-    async getBets(props){
-        let res_popularNumbers = await getPopularNumbers({size : 15});
-        var gamePopularNumbers = find(res_popularNumbers, { game: props.game._id });
-        if(gamePopularNumbers){
-            this.setState({...this.state,
-                popularNumbers : gamePopularNumbers.numbers.sort((a, b) => b.resultAmount - a.resultAmount)
-            })    
+          ROWS: 16,
+          betdisabeled:false,
+          betrowdisabeled:false,
+          plinkoradius:5,
+          particleradius:7,
+          noofautobets:'0',
+          footer: {
+            a8: ['1', '2', '3', '4', '5', '6', '7', '8', '9'],
+            a9: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10'],
+            a10: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11'],
+            a11: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12'],
+            a12: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13'],
+            a13: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14'],
+            a14: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15'],
+            a15: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16'],
+            a16: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17'],
+          },
+          ROW_ADJUSTMENT: 0.9,
+          COL_ADJUSTMENT: 0.8,
+          CANVAS_WIDTH: 760,
+          CANVAS_HEIGHT: 570,
+          CANVAS_COLOR: '',
+          TIMESTEP: MS_IN_SECOND / FPS,
+          PARTICLE: PARTICLE
         }
-    }
-
-    projectData(props){
-        let result = null;
-        let nextProps = props;
-        let prevState = this.state;
-        const { rollNumber } = this.props;
-        if (nextProps.result && nextProps.result !== prevState.result) {
-            let history = localStorage.getItem("plinkoHistory");
-            const win = !!(
-                (nextProps.result >= rollNumber && prevState.rollType === "over") ||
-                (nextProps.result < rollNumber && prevState.rollType === "under")
-            );
-
-            history = history ? JSON.parse(history) : [];
-            history.unshift({ value: nextProps.result, win });
-            localStorage.setItem("plinkoHistory", JSON.stringify(history));
-            result = nextProps.result;
-            this.setState({...this.state, 
-                result
-            });
-        }else{
+    
+      }
+      handleNoOFAutoBets = (e) =>{
+          this.setState({
+            noofautobets:e.target.value
+          })
+         
+      }
+      createCanvas = () => {
+        this.engine = Engine.create(document.getElementById('techvr'));
+        this.engine.world.gravity.y = 1.5;
+        this.engine.render.canvas.height = this.state.CANVAS_HEIGHT;
+        this.engine.render.canvas.width = this.state.CANVAS_WIDTH;
+        this.engine.render.options.wireframes = false;
+        this.engine.render.options.background = this.state.CANVAS_COLOR;
+        Engine.run(this.engine);
+      }
+      dropChips = (e) => {
+        if (e === 'manualbet' && !this.state.betdisabeled) {
+          this._createParticle()
+          this.setState({
+            betdisabeled:true
+          },()=>{
+           setTimeout(() => {
             this.setState({
-                edge : props.game.edge
-            });
-            // Nothing
+              betdisabeled:false
+            })
+           }, 1000);
+          })
         }
-    }
-
-    handlePayout = payout => {
-        const { onChangeRollAndRollType } = this.props;
-        const { rollType } = this.state;
-
-        let newRoll = 0;
-
-        if (payout === middlePayout) {
-        newRoll = middleRoll;
-        } else {
-        newRoll =
-            rollType === "over"
-            ? (middleRoll * middlePayout - 100 * payout) / (payout * -1)
-            : (middleRoll * middlePayout) / payout;
+        if (e === 'autobet' && !this.state.betdisabeled) {
+        if(this.state.noofautobets !== '0' && this.state.noofautobets !==0){
+         let ctr = setInterval(() => {
+            this.setState({
+              betdisabeled:true,
+              noofautobets:this.state.noofautobets - 1
+          },()=>{
+            this._createParticle()
+            if(this.state.noofautobets === 0){
+              this.setState({
+                betdisabeled:false,
+              },()=>{
+                clearInterval(ctr)
+              })
+             
+            }
+          })
+          }, 1000);
+          
+        }else{
+          this._createParticle()
+             this.setState({
+            betdisabeled:true
+          },()=>{
+           setTimeout(() => {
+            this.setState({
+              betdisabeled:false
+            })
+           }, 1000);
+          })
         }
-
-        this.setState({
-            payout,
-            chance: rollType === "over" ? 100 - newRoll : newRoll
-        });
-
-        onChangeRollAndRollType(newRoll, rollType);
-    };
-
-    handleChance = value => {
-        const { onChangeRollAndRollType } = this.props;
-        const { rollType } = this.state;
-
-        const newRoll = rollType === "over" ? 100 - value : value;
-
-        const payout = this.getPayout(newRoll);
-
-        this.setState({
-            chance: value,
-            payout
-        });
-
-        onChangeRollAndRollType(newRoll, rollType);
-    };
-
-    handleRoll = () => {
-        const { onChangeRollAndRollType, rollNumber } = this.props;
-        const { rollType } = this.state;
-
-        const newRollType = rollType === "over" ? "under" : "over";
-        const newRoll = 100 - rollNumber;
-
-        this.setState({
-            rollType: newRollType,
-            chance: rollType === "over" ? newRoll : rollNumber
-        });
-
-        onChangeRollAndRollType(newRoll, newRollType);
-    };
-
-    getPayout = roll => {
-        const { rollType } = this.state;
-        let payout = 0;
-
-        if (roll === middleRoll) {
-        payout = middlePayout;
-        } else {
-        payout =
-            rollType === "over"
-            ? (middleRoll * middlePayout) / (100 - roll)
-            : (middleRoll * middlePayout) / roll;
+      
         }
-
-        return payout;
-    };
-
-    handleSlider = value => {
-        const { onChangeRollAndRollType } = this.props;
-        const { rollType } = this.state;
-        const payout = this.getPayout(value);
-        let chance = rollType === "over" ? 100 - value : value;        
+      }
+      changeRows = (e) => {
+        
+          document.getElementById('techvr').innerHTML = '';
+          World.remove(this.engine.world, "composite")
+          Render.stop(this.render);
+          Engine.clear(this.engine);
+          Events.off(this.engine, 'collisionStart', this.onCollisionStart);
+          this.setState({
+            ROWS: e
+          },()=>{
+            this.createCanvas()
+            this.init(this.state.ROWS,this.state.plinkoradius);})
+          
+         
+       
+      }
+    
+    
+    
+      componentDidMount() {
+        this.createCanvas()
+        this.init(this.state.ROWS,this.state.plinkoradius);
+    
+      }
+      init(ROWS,r) {
+        this.particles = {};
+        this.plinkos = {};
+        this.lastParticleId = 0;
+        this.walls={};
+        this.isRunning = false;
+        this.createEnvironment(ROWS,r);
+    
+      }
+    
+    
+    
+    
+      _createParticle = () => {
+        const id = this.lastParticleId++ % 255;
+        const x = Math.floor(Math.random() * (400 - 350 + 1)) + 350;
+        const y = 18;
+        const r = this.state.particleradius;
+        let particle = new Particle({ id, x, y, r});
+        particle.recentlyDropped = true;
+        this.particles[String(id)] = particle;
+        particle.addToEngine(this.engine.world);
         this.setState({
-            chance: chance,
-            payout
-        });
-
-        onChangeRollAndRollType(value, rollType);
-    };
-
-    getPayoutStep = () => {
-        const { rollType } = this.state;
-        const { rollNumber } = this.props;
-
-        if (rollType === "over") {
-        if (rollNumber < 50) return 0.1;
-
-        if (rollNumber < 75) return 0.5;
-
-        return 2;
+          betrowdisabeled:true
+        },()=>{
+          Engine.update(this.engine, this.state.TIMESTEP);    
+        })
+     
+        let checkParticleStatus = setInterval(() => {
+          this.engine.world.bodies.forEach(dt => {
+            if (dt.label === 'particle' && dt.position.y > this.state.CANVAS_HEIGHT - 5 - this.state.particleradius) {
+              const particle = dt.parentObject
+              let newARr = []
+              let count = 0;
+              let arr = this.engine.world.bodies.filter(el => el.label === "plinko")
+              for (let i = arr.length - 1; i >= 0; i--) {
+                count = count + 1
+    
+                if (count <= this.state.ROWS + 2) {
+                  newARr.push(arr[i])
+                }
+              }
+              let index = null
+            
+              newARr.reverse().filter((el, i) => {
+             
+                if (el.position.x > particle.body.position.x) {
+                  if (index === null) {
+                    index = i
+                    return el
+                  }
+                }
+              if(index !== null){
+                let pgd = `peg${index}`
+                this.setState({
+                  [pgd]:true
+                },()=>{
+                  setTimeout(() => {
+                  this.setState({
+                    [pgd]:false
+                  })
+                  }, 100);
+                })
+              }
+             
+              })
+           
+            
+    
+              World.remove(this.engine.world, particle.body)
+              let checkParticle = this.engine.world.bodies.filter(el => el.label === 'particle')
+              setTimeout(() => {
+                if (checkParticle.length === 0) {
+                  clearInterval(checkParticleStatus)
+                  this.setState({
+                  betrowdisabeled:false
+                  })
+                }
+              }, 10);
+            }
+          })
+    
+        }, this.state.TIMESTEP);
+      }
+    
+    
+      onCollisionStart = (event) => {
+        const pairs = event.pairs;
+    
+        for (let i = 0; i < pairs.length; i++) {
+          const pair = pairs[i];
+          const bodyA = pair.bodyA;
+          const bodyB = pair.bodyB;
+    
+          if (bodyA.label === 'plinko' && bodyB.label === 'particle') {
+          }
+    
+          if (bodyA.label === 'plinko') {
+            
+            bodyA.render.lineWidth = 15
+            setTimeout(() => {
+              bodyA.render.lineWidth = 0
+            }, 90);
+          }
+    
+    
         }
-
-        if (rollNumber < 25) return 2;
-
-        if (rollNumber < 50) return 0.5;
-
-        return 0.1;
-    };
-
-    renderPopularNumbers = ({popularNumbers}) => {
-        if(!popularNumbers || (popularNumbers && popularNumbers.length < 1)){return null}
-        const totalAmount = popularNumbers.reduce( (acc, item) => {
-            return acc+item.resultAmount;
-        }, 0);
-        return(
-            <div styleName='outer-popular-numbers'>
-                <div styleName='inner-popular-numbers'>
-                    {popularNumbers.map( item => 
-                        {
-                            return(
-                                <div styleName='popular-number-row'>
-                                    <div styleName={`popular-number-container blue-square`}>
-                                        <Typography variant={'small-body'} color={'white'}>
-                                            {item.key}    
-                                        </Typography>       
-                                    </div>
-                                    <div styleName='popular-number-container-amount'>
-                                        <AnimationNumber number={Numbers.toFloat(item.resultAmount/totalAmount*100)} variant={'small-body'} color={'white'} span={'%'}/>
-                                    </div>
-                                </div>
-                            )
-                        }
-                    )}
-                </div>
-            </div>
-        )
-    }
-
-    render() {
-        let { rollType, chance, payout, popularNumbers } = this.state;
-        const { result, disableControls, onResultAnimation, rollNumber, bet, animating } = this.props;
-        let winEdge = (100-(this.state.edge))/100;
-        payout = payout * winEdge;
+      }
+      _createPlinkos = (ROWS,r) => {
+        let ROW_SPACING = this.state.CANVAS_HEIGHT / ROWS * this.state.ROW_ADJUSTMENT;
+        let COL_SPACING = this.state.CANVAS_WIDTH / (ROWS + 2) * this.state.COL_ADJUSTMENT;
+        this.setState({ COL_SPACING,particleradius:COL_SPACING/4.4 })
+        const VERTICAL_MARGIN = ROW_SPACING * 1.5;
+        const HORIZONTAL_OFFSET = COL_SPACING / 2;
+        let id = 0;
+        let row = 2
+        for (row; row < ROWS + 2; row++) {
+          let differ = ((((ROWS + 2) - row) * HORIZONTAL_OFFSET) + this.state.COL_ADJUSTMENT * 90)+4
+    
+          for (let col = 0; col <= row; col++) {
+            let x = (col * COL_SPACING) + differ;
+            let y = VERTICAL_MARGIN + ROWS + ((row - 2) * ROW_SPACING);
+            const plinko = new Plinko({ id, x, y, r });
+            this.plinkos[id] = plinko;
+            plinko.addToEngine(this.engine.world);  
+            id++;
+          }
+        }
+      }
+      _createWalls=()=> {
+     
+        const leftWall = new VerticalWall({x: 210, y: 310});
+        const rightWall = new VerticalWall({x: 555, y: 310});
+        [leftWall, rightWall].forEach(wall => wall.addToEngine(this.engine.world));
+        this.engine.world.bodies.filter(el => el.label === "wall").forEach((dt,i) => {
+          dt.render.opacity = 0
+       if(dt.position.x < 250){
+        Body.rotate( dt.parent, 0.48);
+       }else{
+        Body.rotate( dt.parent, -0.48);
+       }
+         
+        })
+      }
+      createEnvironment(ROWS,r) {
+        this._createPlinkos(ROWS,r);
+        this._createWalls();
+        Events.on(this.engine, 'collisionStart', this.onCollisionStart);
+      }
+      render() {
+    
         return (
-        <div styleName="root">
-            <div styleName="container">
-            {this.renderPopularNumbers({popularNumbers})}
-            <div styleName="slider">
-                <div styleName="slider-container">
-                <Slider
-                    onChange={this.handleSlider}
-                    animating={animating}
-                    roll={rollType}
-                    bet={bet}
-                    value={rollNumber}
-                    result={result}
-                    disableControls={disableControls}
-                    onResultAnimation={onResultAnimation}
-                />
-                <ButtonIcon
-                    onClick={this.handleRoll}
-                    icon="rotate"
-                    label="Reverse roll"
-                    rollType={rollType}
-                />
+          <Row>
+            <Col className="main_section" span={18} push={6} gutter={16}>
+              <div className="canvas-container">
+                <div id="techvr" />
+                <div className={`pegs rows${this.state.ROWS}`}>
+                  <div className="pegs_wrapper" >
+                    {this.state.footer[`a${this.state.ROWS}`].map((el, i) => {
+                      return <div className={`peg peg${i + 1}`} style={{top:this.state[`peg${i+1}`] ? '10px' : '0px'}}><span className="pegtext">{el}</span></div>
+                    })}
+                  </div>
                 </div>
-            </div>
-            <div styleName="values">
-                <div styleName="values-container">
-                <InputNumber
-                    name="payout"
-                    min={minPayout}
-                    max={maxPayout}
-                    precision={4}
-                    step={this.getPayoutStep()}
-                    title="Payout"
-                    onChange={this.handlePayout}
-                    icon="cross"
-                    value={payout}
-                />
-                <InputNumber
-                    name="roll"
-                    icon="rotate"
-                    title={`Roll ${startCase(rollType)}`}
-                    precision={2}
-                    disabled
-                    step={0.5}
-                    value={rollNumber}
-                />
-                <InputNumber
-                    name="chance"
-                    precision={4}
-                    min={2}
-                    max={98}
-                    unit="%"
-                    title="Win Chance"
-                    onChange={this.handleChance}
-                    value={chance}
-                    step="any"
-                />
-                </div>
-            </div>
-            </div>
-        </div>
-        );
-    }
+              </div>
+            </Col>
+          </Row>
+        )
+      }
 }

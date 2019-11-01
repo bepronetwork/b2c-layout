@@ -114,3 +114,210 @@ $with-without-padding: calc(100% - $spacing-20 - $spacing-20);
     position : relative;
 }
 
+
+.pegs {
+  height: 2em;
+  width: 100%;
+  display: flex;
+  -webkit-box-pack: center;
+  justify-content: center;
+  margin-top: -5px;
+}
+
+.pegs_wrapper {
+  display: grid;
+  height: 100%;
+  position: relative;
+  gap: 1% 1%;
+  width: 75%;
+}
+
+.peg1{
+  position: relative;
+  cursor: help;
+  text-align: center;
+  box-shadow: rgb(153, 0, 38) 0px 0.2em 0px 0px;
+  animation-duration: 300ms !important;
+  border-radius: 0.3em;
+  background: rgb(255, 0, 63);
+}
+.peg2{
+  position: relative;
+  cursor: help;
+  text-align: center;
+  box-shadow: rgb(177, 0, 24) 0px 0.2em 0px 0px;
+  animation-duration: 300ms !important;
+  border-radius: 0.3em;
+  background: rgb(255, 24, 55);
+}
+.peg3{
+  position: relative;
+  cursor: help;
+  text-align: center;
+  box-shadow: rgb(200, 1, 0) 0px 0.2em 0px 0px;
+  animation-duration: 300ms !important;
+  border-radius: 0.3em;
+  background: rgb(255, 48, 47);
+}
+.peg4{
+  position: relative;
+  cursor: help;
+  text-align: center;
+  box-shadow: rgb(192, 29, 0) 0px 0.2em 0px 0px;
+  animation-duration: 300ms !important;
+  border-radius: 0.3em;
+  background: rgb(255, 72, 39);
+}
+.peg5{
+  position: relative;
+  cursor: help;
+  text-align: center;
+  box-shadow: rgb(185, 53, 0) 0px 0.2em 0px 0px;
+  animation-duration: 300ms !important;
+  border-radius: 0.3em;
+  background: rgb(255, 96, 32);
+}
+.peg6{
+  position: relative;
+  cursor: help;
+  text-align: center;
+  box-shadow: rgb(177, 74, 0) 0px 0.2em 0px 0px;
+  animation-duration: 300ms !important;
+  border-radius: 0.3em;
+  background: rgb(255, 120, 24);
+}
+.peg7{
+  position: relative;
+  cursor: help;
+  text-align: center;
+  box-shadow: rgb(169, 91, 0) 0px 0.2em 0px 0px;
+  animation-duration: 300ms !important;
+  border-radius: 0.3em;
+  background: rgb(255, 144, 16);
+}
+.peg8{
+  position: relative;
+  cursor: help;
+  text-align: center;
+  box-shadow: rgb(161, 104, 0) 0px 0.2em 0px 0px;
+  animation-duration: 300ms !important;
+  border-radius: 0.3em;
+  background: rgb(255, 168, 8);
+}
+.peg9{
+  position: relative;
+  cursor: help;
+  text-align: center;
+  box-shadow: rgb(153, 115, 0) 0px 0.2em 0px 0px;
+  animation-duration: 300ms !important;
+  border-radius: 0.3em;
+  background: rgb(255, 192, 0);
+}
+.peg10{
+  position: relative;
+  cursor: help;
+  text-align: center;
+  box-shadow: rgb(161, 104, 0) 0px 0.2em 0px 0px;
+  animation-duration: 300ms !important;
+  border-radius: 0.3em;
+  background: rgb(255, 168, 8);
+}
+.peg11{
+  position: relative;
+  cursor: help;
+  text-align: center;
+  box-shadow: rgb(169, 91, 0) 0px 0.2em 0px 0px;
+  animation-duration: 300ms !important;
+  border-radius: 0.3em;
+  background: rgb(255, 144, 16);
+}
+.peg12{
+  position: relative;
+  cursor: help;
+  text-align: center;
+  box-shadow: rgb(177, 74, 0) 0px 0.2em 0px 0px;
+  animation-duration: 300ms !important;
+  border-radius: 0.3em;
+  background: rgb(255, 120, 24);
+}
+.peg13{
+  position: relative;
+  cursor: help;
+  text-align: center;
+  box-shadow: rgb(185, 53, 0) 0px 0.2em 0px 0px;
+  animation-duration: 300ms !important;
+  border-radius: 0.3em;
+  background: rgb(255, 96, 32);
+}
+.peg14{
+  position: relative;
+  cursor: help;
+  text-align: center;
+  box-shadow: rgb(192, 29, 0) 0px 0.2em 0px 0px;
+  animation-duration: 300ms !important;
+  border-radius: 0.3em;
+  background: rgb(255, 72, 39);
+}
+.peg15{
+  position: relative;
+  cursor: help;
+  text-align: center;
+  box-shadow: rgb(200, 1, 0) 0px 0.2em 0px 0px;
+  animation-duration: 300ms !important;
+  border-radius: 0.3em;
+  background: rgb(255, 48, 47);
+}
+.peg16{
+  position: relative;
+  cursor: help;
+  text-align: center;
+  box-shadow: rgb(177, 0, 24) 0px 0.2em 0px 0px;
+  animation-duration: 300ms !important;
+  border-radius: 0.3em;
+  background: rgb(255, 24, 55);
+}
+.peg17{
+  position: relative;
+  cursor: help;
+  text-align: center;
+  box-shadow: rgb(153, 0, 38) 0px 0.2em 0px 0px;
+  animation-duration: 300ms !important;
+  border-radius: 0.3em;
+  background: rgb(255, 0, 63);
+}
+.pegtext{
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  bottom: 0px;
+  right: 0px;
+  display: flex;
+  -webkit-box-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  justify-content: center;
+  font-weight: 700;
+}
+.peg {
+  grid-row: 1 / auto;
+  font-size: 7px;
+}
+
+.canvas-container {
+  max-width: 750px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.pegs.rows8 .pegs_wrapper {
+  width: 71%;
+  gap: 1% 2%;
+}
+.pegs.rows9 .pegs_wrapper {
+  width: 72%;
+}
+
+
+.ant-btn.bet-btn{
+  max-width: 350px!important;
+}
