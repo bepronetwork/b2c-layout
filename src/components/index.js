@@ -73,7 +73,9 @@ import DataContainer from './DataContainer';
 import AffiliateLinkContainer from './AffiliateLinkContainer';
 import AffiliateWithdrawForm from './AffiliateWithdrawForm';
 import NotificationForm from "./NotificationForm";
+import TextContainer from './TextContainer';
 
+export { TextContainer };
 export { AffiliateWithdrawForm };
 export { AffiliateLinkContainer };
 export { DataContainer };

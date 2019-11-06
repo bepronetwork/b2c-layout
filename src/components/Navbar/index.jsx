@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
-import { Button, SubtleButton, Typography, UserMenu, AnimationNumber, LanguagePicker } from "components";
+import { Button, SubtleButton, Typography, UserMenu, AnimationNumber, LanguagePicker, TextContainer } from "components";
 import UserContext from "containers/App/UserContext";
 import Bitcoin from "components/Icons/Bitcoin";
 import { Numbers } from "../../lib/ethereum/lib";
@@ -17,6 +17,7 @@ import  CheckCircleIcon from 'mdi-react/CheckCircleIcon';
 import { Col, Row } from 'reactstrap';
 import Tooltip from '@material-ui/core/Tooltip';
 import IconButton from '@material-ui/core/IconButton';
+import { etherscanLinkID } from "../../lib/api/apiConfig";
 
 
 function AddressConcat(string){
@@ -157,18 +158,21 @@ class Navbar extends Component {
                                 </Col>
                                 <Col xs={1} md={6} lg={4}>
                                     <div styleName='address-box'>
-                                        <Typography color="white">
-                                            <Tooltip title={infoText}>
-                                                <IconButton aria-label={infoText}>
-                                                    {isValid ? 
-                                                        <CheckCircleIcon styleName={'icon-green'} size={20}/>
-                                                        :
-                                                        <AlertCircleIcon styleName={'icon-red'}  size={20}/>
-                                                    }
-                                                </IconButton>
-                                            </Tooltip>
-                                            {userMetamaskAddress}
-                                        </Typography>
+                                        <Tooltip title={infoText}>
+                                            <IconButton aria-label={infoText}>
+                                                {isValid ? 
+                                                    <CheckCircleIcon styleName={'icon-green'} size={20}/>
+                                                    :
+                                                    <AlertCircleIcon styleName={'icon-red'}  size={20}/>
+                                                }
+                                            </IconButton>
+                                        </Tooltip>
+                                        <TextContainer 
+                                            text={userMetamaskAddress}
+                                            size={'small-body'}
+                                            color={'white'}
+                                            link={`${etherscanLinkID}/address/${userFullAddress}`}
+                                        />
                                     </div>
                                 </Col>
                                 <Col xs={2} md={2} lg={2}>
