@@ -111,7 +111,9 @@ class LastBets extends Component {
     }
 
     componentWillReceiveProps(props){
-        this.projectData(props);
+        if(props !== this.props) {
+            this.projectData(props);
+        }
     }
 
     setTimer = (options) => {
