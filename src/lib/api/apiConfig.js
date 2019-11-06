@@ -17,7 +17,7 @@ export const ethNetwork = process.env.REACT_APP_ETH_NETWORK;
 
 export const INFURA_API = process.env.REACT_APP_INFURA_API;
 
-export const etherscanLinkID = `https://${ethNetwork}.etherscan.io`;
+export const etherscanLinkID =  (ethNetwork.toLowerCase() == 'mainnet') ? `https://etherscan.io` : `https://${ethNetwork}.etherscan.io`;
 
 export const CONFIRMATIONS_NEEDED = 7;
 
