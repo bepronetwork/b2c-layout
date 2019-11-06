@@ -1,0 +1,12 @@
+@import "../../styles/all.css";
+
+.text-container {
+    background-color: $text-container-color;
+    border-radius: $border-radius;
+    padding : $spacing-4 $spacing-8;
+    height: fit-content;
+    width: inherit;
+    position: relative;
+    display: block;
+    margin-top : 10px;
+}
