@@ -46,6 +46,7 @@ import NavigationBar from "../../components/NavigationBar";
 import { getQueryVariable, getAppCustomization } from "../../lib/helpers";
 import ChatChannel from "../../controllers/Chat";
 import AnnouncementTab from "../../components/AnnouncementTab";
+import UnavailablePage from "../UnavailablePage";
 const history = createBrowserHistory();
 
 class App extends Component {
