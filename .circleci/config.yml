@@ -19,7 +19,7 @@ jobs: # a collection of steps
           name: Define Environment Variable at Runtime
           command: |
             echo 'export SKIP_PREFLIGHT_CHECK=true' >> $BASH_ENV
-            echo 'export NODE_PATH=/src' >> $BASH_ENV
+            echo 'export NODE_PATH=src/' >> $BASH_ENV
             echo 'export NODE_OPTIONS=--max-old-space-size=2596' >> $BASH_ENV
             echo 'export REACT_APP_ETH_NETWORK=rinkeby' >> $BASH_ENV
             echo 'export REACT_APP_PRODUCTION=false' >> $BASH_ENV
