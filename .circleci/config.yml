@@ -15,16 +15,6 @@ jobs: # a collection of steps
       - run:
           name: install-npm-wee
           command: npm install
-      - run:
-          name: Define Environment Variable at Runtime
-          command: |
-            echo 'export SKIP_PREFLIGHT_CHECK=true' >> $BASH_ENV
-            echo 'export NODE_PATH=/src' >> $BASH_ENV
-            echo 'export NODE_OPTIONS=--max-old-space-size=2596' >> $BASH_ENV
-            source $BASH_ENV
-      - run: # run build
-          name: build
-          command: npm run build
       - save_cache: # special step to save the dependency cache
           key: dependency-cache-{{ checksum "package.json" }}
           paths:
