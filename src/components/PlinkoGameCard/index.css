@@ -121,7 +121,7 @@ $with-without-padding: calc(100% - $spacing-20 - $spacing-20);
   display: flex;
   -webkit-box-pack: center;
   justify-content: center;
-  margin-top: -5px;
+  margin-top: 610px;
 }
 
 .pegs_wrapper {
@@ -129,7 +129,7 @@ $with-without-padding: calc(100% - $spacing-20 - $spacing-20);
   height: 100%;
   position: relative;
   gap: 1% 1%;
-  width: 75%;
+  width: 79%;
 }
 
 .peg1{
@@ -222,69 +222,7 @@ $with-without-padding: calc(100% - $spacing-20 - $spacing-20);
   border-radius: 0.3em;
   background: rgb(255, 168, 8);
 }
-.peg11{
-  position: relative;
-  cursor: help;
-  text-align: center;
-  box-shadow: rgb(169, 91, 0) 0px 0.2em 0px 0px;
-  animation-duration: 300ms !important;
-  border-radius: 0.3em;
-  background: rgb(255, 144, 16);
-}
-.peg12{
-  position: relative;
-  cursor: help;
-  text-align: center;
-  box-shadow: rgb(177, 74, 0) 0px 0.2em 0px 0px;
-  animation-duration: 300ms !important;
-  border-radius: 0.3em;
-  background: rgb(255, 120, 24);
-}
-.peg13{
-  position: relative;
-  cursor: help;
-  text-align: center;
-  box-shadow: rgb(185, 53, 0) 0px 0.2em 0px 0px;
-  animation-duration: 300ms !important;
-  border-radius: 0.3em;
-  background: rgb(255, 96, 32);
-}
-.peg14{
-  position: relative;
-  cursor: help;
-  text-align: center;
-  box-shadow: rgb(192, 29, 0) 0px 0.2em 0px 0px;
-  animation-duration: 300ms !important;
-  border-radius: 0.3em;
-  background: rgb(255, 72, 39);
-}
-.peg15{
-  position: relative;
-  cursor: help;
-  text-align: center;
-  box-shadow: rgb(200, 1, 0) 0px 0.2em 0px 0px;
-  animation-duration: 300ms !important;
-  border-radius: 0.3em;
-  background: rgb(255, 48, 47);
-}
-.peg16{
-  position: relative;
-  cursor: help;
-  text-align: center;
-  box-shadow: rgb(177, 0, 24) 0px 0.2em 0px 0px;
-  animation-duration: 300ms !important;
-  border-radius: 0.3em;
-  background: rgb(255, 24, 55);
-}
-.peg17{
-  position: relative;
-  cursor: help;
-  text-align: center;
-  box-shadow: rgb(153, 0, 38) 0px 0.2em 0px 0px;
-  animation-duration: 300ms !important;
-  border-radius: 0.3em;
-  background: rgb(255, 0, 63);
-}
+
 .pegtext{
   position: absolute;
   top: 0px;
@@ -300,7 +238,7 @@ $with-without-padding: calc(100% - $spacing-20 - $spacing-20);
 }
 .peg {
   grid-row: 1 / auto;
-  font-size: 7px;
+  font-size: 10px;
 }
 
 .canvas-container {
@@ -314,7 +252,7 @@ $with-without-padding: calc(100% - $spacing-20 - $spacing-20);
   gap: 1% 2%;
 }
 .pegs.rows9 .pegs_wrapper {
-  width: 72%;
+  width: 78%;
 }
 
 

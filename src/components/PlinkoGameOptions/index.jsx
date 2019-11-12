@@ -7,21 +7,19 @@ import {
   Button,
   Typography,
   MultiplyMaxButton,
-  DropDownGameOptionsField
+  OnWinLoss
 } from "components";
 import betSound from "assets/bet-sound.mp3";
 import Sound from "react-sound";
 import Plinko from "components/Icons/Plinko";
 import { isUserSet } from "../../lib/helpers";
+import { Numbers } from "../../lib/ethereum/lib";
+import delay from 'delay';
 import _ from 'lodash';
 import "./index.css";
 
 
 export default class PlinkoGameOptions extends Component {
-
-    riskOptions = ["Low", "Medium", "High"];
-
-    rowsOptions = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16];
 
     static contextType = UserContext;
 
@@ -136,9 +134,24 @@ export default class PlinkoGameOptions extends Component {
                 case 'auto' : {
                     if(!isUserSet(profile)){return null};
                     this.setState({isAutoBetting : true})
-
-                    //TODO: auto bet algorithm
-
+                    var totalProfit = 0, totalLoss = 0, lastBet = 0, wasWon = 0;
+                    var betAmount = amount;
+                    for( var i = 0; i < bets ; i++){
+                        if(
+                            (profitStop == 0  || totalProfit <= profitStop) && // Stop Profit
+                            (lossStop == 0 || totalLoss <= lossStop) // Stop Loss
+                        ){
+                            await delay(1.5*1000);
+                            let { winAmount } = await this.betAction({amount : betAmount});
+                            totalProfit += (winAmount-betAmount);
+                            totalLoss += (winAmount == 0) ? -Math.abs(betAmount) : 0;
+                            wasWon = (winAmount != 0);
+                            lastBet = betAmount;
+                            if(onWin && wasWon){ betAmount += Numbers.toFloat(betAmount*onWin/100) }; 
+                            if(onLoss && !wasWon){ betAmount += Numbers.toFloat(betAmount*onLoss/100) }; 
+                        }
+                            
+                    }
                     this.setState({isAutoBetting : false})
                     break;
                 }
@@ -153,15 +166,62 @@ export default class PlinkoGameOptions extends Component {
         });
     };
 
+    handleOnWin = value => {
+        this.setState({ onWin: value });
+    };
+
+    handleOnLoss = value => {
+        this.setState({ onLoss: value });
+    };
+
     handleBets = value => {
         this.setState({ bets: value });
     };
 
+    handleStopOnProfit = value => {
+        this.setState({ profitStop: value });
+    };
+
+    handleStopOnLoss = value => {
+        this.setState({ lossStop: value });
+    };
+
+    getPayout = () => {
+   
+        let payout = 1;
+
+        let winEdge = (100-(this.state.edge))/100;
+
+        payout = payout * winEdge;
+
+        return Numbers.toFloat(payout);
+    };
+
+    renderManual = () => {
+        const { amount } = this.state;
+        
+   
+        return (
+            <div>
+                <div styleName="element">
+                <InputNumber
+                    name="win-profit"
+                    title="Profit on Win"
+                    icon="bitcoin"
+                    precision={2}
+                    disabled
+                    value={Numbers.toFloat(amount * (this.getPayout() - 1))}
+                />
+                </div>
+            </div>
+        );
+    };
+
     renderAuto = () => {
-        const { bets } = this.state;
+        const { bets, profitStop, lossStop, onWin, onLoss } = this.state;
 
         return (
-        <div>
+            <div>
             <div styleName="element">
             <InputNumber
                 name="bets"
@@ -169,6 +229,38 @@ export default class PlinkoGameOptions extends Component {
                 title="Number of Bets"
                 value={bets}
                 onChange={this.handleBets}
+            />
+            </div>
+            <div styleName="element">
+            <OnWinLoss value={onWin} title="On Win" onChange={this.handleOnWin} />
+            </div>
+            <div styleName="element">
+            <OnWinLoss
+                value={onLoss}
+                title="On Loss"
+                onChange={this.handleOnLoss}
+            />
+            </div>
+            <div styleName="element">
+            <InputNumber
+                name="profit"
+                step={0.01}
+                title="Stop on Profit"
+                icon="bitcoin"
+                precision={2}
+                value={profitStop}
+                onChange={this.handleStopOnProfit}
+            />
+            </div>
+            <div styleName="element">
+            <InputNumber
+                name="loss"
+                step={0.01}
+                precision={2}
+                title="Stop on Loss"
+                icon="bitcoin"
+                value={lossStop}
+                onChange={this.handleStopOnLoss}
             />
             </div>
         </div>
@@ -235,14 +327,8 @@ export default class PlinkoGameOptions extends Component {
                     <MultiplyMaxButton onSelect={this.handleMultiply} />
                 </div>
             </div>
-            <div styleName="element">
-                <DropDownGameOptionsField title="Risk" options={this.riskOptions}/>
-            </div>
-            <div styleName="element">
-                <DropDownGameOptionsField title="Rows" options={this.rowsOptions}/>
-            </div>
             <div styleName="content">
-            {type === "auto" ? this.renderAuto() : null}
+            {type === "auto" ? this.renderAuto() : this.renderManual()}
             </div>
          
             <div styleName="button">

@@ -563,6 +563,11 @@ export default class User {
     createBet = async ({ result, gameId }) => {
         try {
             const nonce = getNonce();
+            //init remove mock to plinko
+            if(gameId == "5d98ac6e4470590bcc57a09c") {
+                gameId = "5d98ac6e4470590bcc57a08a";
+            }
+            //finish remove mock to plinko
 
             /* Create Bet API Setup */
             let res = await createBet(

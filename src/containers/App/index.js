@@ -283,12 +283,21 @@ class App extends Component {
         let app = await getAppInfo();
         let plinko = {_id:"5d98ac6e4470590bcc57a09c",
                         description:"Plinko",
-                        edge:3,
+                        edge:10,
                         image_url:"https://storage.googleapis.com/betprotocol-game-images/001-dices.png",
                         isClosed:false,
                         metaName:"plinko_simple",
                         name:"Plinko",
-                        resultSpace: [],
+                        resultSpace: [{_id: "5d98ac6e4470590bcc57a026", formType: "1", probability: 0.01, color: "red"},
+                                      {_id: "5d98ac6e4470590bcc57a027", formType: "2", probability: 0.01, color: "red"},
+                                      {_id: "5d98ac6e4470590bcc57a028", formType: "3", probability: 0.01, color: "red"},
+                                      {_id: "5d98ac6e4470590bcc57a029", formType: "4", probability: 0.01, color: "red"},
+                                      {_id: "5d98ac6e4470590bcc57a02a", formType: "5", probability: 0.01, color: "red"},
+                                      {_id: "5d98ac6e4470590bcc57a02b", formType: "6", probability: 0.01, color: "red"},
+                                      {_id: "5d98ac6e4470590bcc57a02c", formType: "7", probability: 0.01, color: "red"},
+                                      {_id: "5d98ac6e4470590bcc57a02d", formType: "8", probability: 0.01, color: "red"},
+                                      {_id: "5d98ac6e4470590bcc57a02e", formType: "9", probability: 0.01, color: "red"},
+                                      {_id: "5d98ac6e4470590bcc57a02f", formType: "10", probability: 0.01, color: "red"}],
                         tableLimit:30
                     }
         app.games.push(plinko);

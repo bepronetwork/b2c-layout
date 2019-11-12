@@ -31,6 +31,10 @@ class PlinkoPage extends Component {
             edge : 0
         }
     };
+    
+    triggerChildGameCard(){
+        this.refs.childGameCard._createParticle();
+    }
 
     componentDidMount(){
         this.getGame();
@@ -63,6 +67,7 @@ class PlinkoPage extends Component {
                 betAmount: amount,
                 user
             });
+            this.triggerChildGameCard();
             this.setState({ 
                 result : res.result, 
                 disableControls : false, 
@@ -116,6 +121,7 @@ class PlinkoPage extends Component {
                 bet={bet}
                 game={this.state.game}
                 onChangeRollAndRollType={this.handleRollAndRollTypeChange}
+                ref="childGameCard"
             />
         );
     };
