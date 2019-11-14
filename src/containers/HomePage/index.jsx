@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { find } from "lodash";
-import { GameCard, CoinFlip, Roulette, Caroussel, Partners, Media } from "components";
+import { GameCard, CoinFlip, Roulette, Caroussel, Media } from "components";
 import PropTypes from "prop-types";
 import UserContext from "containers/App/UserContext";
 import PlayInvitation from "components/PlayInvitation";
@@ -58,7 +58,6 @@ export default class HomePage extends Component {
                         </div>
                     </div> 
                     <LastBets/>
-                    <Partners/>
                     <Media/>
                     <Footer/>
                 </div>
