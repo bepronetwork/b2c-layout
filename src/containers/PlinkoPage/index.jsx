@@ -22,8 +22,6 @@ class PlinkoPage extends Component {
     state = {
         result: null,
         disableControls: false,
-        rollNumber: 50,
-        rollType: "over",
         bet : {},
         game_name : 'Plinko',
         animating : false,
@@ -48,16 +46,10 @@ class PlinkoPage extends Component {
         }
     };
 
-
-    handleRollAndRollTypeChange = (rollNumber, rollType=this.state.rollType) => {
-        this.setState({ rollNumber, rollType });
-    };
-
     handleBet = async ({ amount }) => {
         try{
             const { user } = this.context;
             const { onHandleLoginOrRegister } = this.props;
-            const { rollNumber, rollType } = this.state;
             this.setState({ disableControls: true });
             if (!user || _.isEmpty(user)) return onHandleLoginOrRegister("register");
 
@@ -88,7 +80,7 @@ class PlinkoPage extends Component {
     };
 
     getOptions = () => {
-        const { disableControls, rollType, rollNumber } = this.state;
+        const { disableControls } = this.state;
         const { profile } = this.props;
 
         return (
@@ -97,15 +89,12 @@ class PlinkoPage extends Component {
                 profile={profile}
                 onBet={this.handleBet}
                 game={this.state.game}
-                onChangeRollAndRollType={this.handleRollAndRollTypeChange}
-                rollType={rollType}
-                rollNumber={rollNumber}
             />
         );
     };
 
     getGameCard = () => {
-        const { result, disableControls, rollNumber, bet, animating } = this.state;
+        const { result, disableControls, bet, animating } = this.state;
         const { profile } = this.props;
 
         return (
@@ -114,12 +103,11 @@ class PlinkoPage extends Component {
                 onResultAnimation={this.handleAnimation}
                 disableControls={disableControls}
                 result={result}
-                rollNumber={rollNumber}
                 animating={animating}
                 bet={bet}
                 game={this.state.game}
-                onChangeRollAndRollType={this.handleRollAndRollTypeChange}
                 ref="childGameCard"
+                resultado={result}
             />
         );
     };
