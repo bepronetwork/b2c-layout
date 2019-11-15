@@ -62,8 +62,6 @@ class PlinkoPage extends Component {
             if (!user || _.isEmpty(user)) return onHandleLoginOrRegister("register");
 
             const res = await plinkoBet({
-                rollNumber,
-                rollType,
                 betAmount: amount,
                 user
             });

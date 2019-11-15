@@ -9,6 +9,9 @@ import "./index.css";
 
 const MS_IN_SECOND = 2000;
 const FPS = 60;
+const BOXES  = [{x: 370, y: 62}, {x: 404, y: 32}, {x: 419, y: 42}, {x: 418, y: 52}, {x: 411, y: 42},
+                {x: 362, y: 52}, {x: 370, y: 62}, {x: 407, y: 62}, {x: 359, y: 22}, {x: 387, y: 32}];
+
 
 export default class PlinkoGameCard extends Component {
     constructor(props) {
@@ -17,9 +20,7 @@ export default class PlinkoGameCard extends Component {
             ROWS: 9,
             plinkoradius:5,
             particleradius:7,
-            footer: {
-                a9: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10']
-            },
+            footer: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10'],
             ROW_ADJUSTMENT: 0.9,
             COL_ADJUSTMENT: 0.8,
             CANVAS_WIDTH: 760,
@@ -60,64 +61,73 @@ export default class PlinkoGameCard extends Component {
     _createParticle = () => {
         const result = this.props.result;
         const id = this.lastParticleId++ % 255;
-        const x = Math.floor(Math.random() * (400 - 350 + 1)) + 350;
-        const y = 18;
+        let box = {};
+        BOXES.filter( (o, index) => {
+            if(index == result)
+                box = BOXES[index];
+        })
+        const x = box.x;
+        const y = box.y;
         const r = this.state.particleradius;
-        let particle = new Particle({ id, x, y, r});
-        particle.recentlyDropped = true;
-        this.particles[String(id)] = particle;
-        particle.addToEngine(this.engine.world);
-        Engine.update(this.engine, this.state.TIMESTEP);    
-     
-        let checkParticleStatus = setInterval(() => {
-            this.engine.world.bodies.forEach(dt => {
-                if (dt.label === 'particle' && dt.position.y > this.state.CANVAS_HEIGHT - 5 - this.state.particleradius) {
-                    const particle = dt.parentObject
-                    let newARr = []
-                    let count = 0;
-                    let arr = this.engine.world.bodies.filter(el => el.label === "plinko")
-                    for (let i = arr.length - 1; i >= 0; i--) {
-                        count = count + 1
-            
-                        if (count <= this.state.ROWS + 2) {
-                            newARr.push(arr[i])
-                        }
-                    }
-                    let index = null
-                    
-                    newARr.reverse().filter((el, i) => {
-                    
-                        if (el.position.x > particle.body.position.x) {
-                            if (index === null) {
-                                index = i
-                                return el
+
+        if(!this.engine.world.bodies.filter(el => el.label === "particle").length) {
+            let particle = new Particle({ id, x, y, r});
+            particle.recentlyDropped = true;
+            this.particles[String(id)] = particle;
+            particle.addToEngine(this.engine.world);
+            Engine.update(this.engine, this.state.TIMESTEP);    
+        
+            let checkParticleStatus = setInterval(() => {
+                this.engine.world.bodies.forEach(dt => {
+                    if (dt.label === 'particle' && dt.position.y > this.state.CANVAS_HEIGHT - 5 - this.state.particleradius) {
+                        const particle = dt.parentObject
+                        let newARr = []
+                        let count = 0;
+                        let arr = this.engine.world.bodies.filter(el => el.label === "plinko")
+                        for (let i = arr.length - 1; i >= 0; i--) {
+                            count = count + 1
+                
+                            if (count <= this.state.ROWS + 2) {
+                                newARr.push(arr[i])
                             }
                         }
-                    if(index !== null){
-                        let pgd = `peg${index}`
-                        this.setState({
-                            [pgd]:true
-                        },()=>{
-                                setTimeout(() => {
+                        let index = null
+                        
+                        newARr.reverse().filter((el, i) => {
+                        
+                            if (el.position.x > particle.body.position.x) {
+                                if (index === null) {
+                                    index = i
+                                    return el
+                                }
+                            }
+
+                            if(index !== null){
+                                let pgd = `peg${index}`
                                 this.setState({
-                                    [pgd]:false
+                                    [pgd]:true
+                                },()=>{
+                                        setTimeout(() => {
+                                        this.setState({
+                                            [pgd]:false
+                                        })
+                                    }, 100);
                                 })
-                            }, 100);
+                            }
                         })
+
+                        World.remove(this.engine.world, particle.body)
+                        let checkParticle = this.engine.world.bodies.filter(el => el.label === 'particle')
+                        setTimeout(() => {
+                            if (checkParticle.length === 0) {
+                                clearInterval(checkParticleStatus)
+                            }
+                        }, 10);
                     }
                 })
-
-                World.remove(this.engine.world, particle.body)
-                let checkParticle = this.engine.world.bodies.filter(el => el.label === 'particle')
-                setTimeout(() => {
-                    if (checkParticle.length === 0) {
-                    clearInterval(checkParticleStatus)
-                    }
-                }, 10);
-                }
-            })
-    
-        }, this.state.TIMESTEP);
+        
+            }, this.state.TIMESTEP);
+        }
     }
     
     
@@ -139,7 +149,6 @@ export default class PlinkoGameCard extends Component {
                 bodyA.render.lineWidth = 0
             }, 90);
           }
-
         }
     }
     _createPlinkos = (ROWS,r) => {
@@ -192,7 +201,7 @@ export default class PlinkoGameCard extends Component {
                     <div id="techvr" />
                     <div styleName={`pegs rows${this.state.ROWS}`}>
                         <div styleName="pegs_wrapper" >
-                            {this.state.footer[`a${this.state.ROWS}`].map((el, i) => {
+                            {this.state.footer.map((el, i) => {
                             return <div styleName={`peg peg${i + 1}`} style={{top:this.state[`peg${i+1}`] ? '10px' : '0px'}}><span styleName="pegtext">{el}</span></div>
                             })}
                         </div>

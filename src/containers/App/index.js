@@ -281,6 +281,8 @@ class App extends Component {
 
     updateAppInfo = async () => {
         let app = await getAppInfo();
+        /*
+        //init remove mock to plinko
         let plinko = {_id:"5d98ac6e4470590bcc57a09c",
                         description:"Plinko",
                         edge:10,
@@ -288,19 +290,21 @@ class App extends Component {
                         isClosed:false,
                         metaName:"plinko_simple",
                         name:"Plinko",
-                        resultSpace: [{_id: "5d98ac6e4470590bcc57a026", formType: "1", probability: 0.01, color: "red"},
-                                      {_id: "5d98ac6e4470590bcc57a027", formType: "2", probability: 0.01, color: "red"},
-                                      {_id: "5d98ac6e4470590bcc57a028", formType: "3", probability: 0.01, color: "red"},
-                                      {_id: "5d98ac6e4470590bcc57a029", formType: "4", probability: 0.01, color: "red"},
-                                      {_id: "5d98ac6e4470590bcc57a02a", formType: "5", probability: 0.01, color: "red"},
-                                      {_id: "5d98ac6e4470590bcc57a02b", formType: "6", probability: 0.01, color: "red"},
-                                      {_id: "5d98ac6e4470590bcc57a02c", formType: "7", probability: 0.01, color: "red"},
-                                      {_id: "5d98ac6e4470590bcc57a02d", formType: "8", probability: 0.01, color: "red"},
-                                      {_id: "5d98ac6e4470590bcc57a02e", formType: "9", probability: 0.01, color: "red"},
-                                      {_id: "5d98ac6e4470590bcc57a02f", formType: "10", probability: 0.01, color: "red"}],
+                        resultSpace: [{formType: "1",    probability: 0.4,     multiplier: 0.1,    amount: 12  },
+                                      {formType: "2",    probability: 0.267,   multiplier: 0.6,    amount: 8   },
+                                      {formType: "3",    probability: 0.133,   multiplier: 1,      amount: 4   },
+                                      {formType: "4",    probability: 0.067,   multiplier: 1.5,    amount: 2   },
+                                      {formType: "5",    probability: 0.067,   multiplier: 2,      amount: 2   },
+                                      {formType: "6",    probability: 0.033,   multiplier: 3,      amount: 1   },
+                                      {formType: "7",    probability: 0.033,   multiplier: 10,     amount: 1   },
+                                      {formType: "8",    probability: 0.133,   multiplier: 1,      amount: 4   },
+                                      {formType: "9",    probability: 0.267,   multiplier: 0.6,    amount: 8   },
+                                      {formType: "10",   probability: 0.4,     multiplier: 0.1,    amount: 12  }],
                         tableLimit:30
                     }
         app.games.push(plinko);
+        //finish remove mock to plinko
+        */
         Cache.setToCache("appInfo", app);
         this.setState({...this.state, app})
     };
