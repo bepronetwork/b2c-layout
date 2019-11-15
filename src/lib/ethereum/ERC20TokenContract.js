@@ -43,10 +43,7 @@ class ERC20TokenContract {
         try {
             let opt = await getTransactionOptions('fast')
 
-            let amountWithDecimals = Numbers.toSmartContractDecimals(
-                amount,
-                decimals
-            );
+            let amountWithDecimals = Numbers.toSmartContractDecimals(amount, decimals);
 
             return new Promise ( (resolve, reject) => {
                 self.contract.getContract().methods.approve(platformAddress, amountWithDecimals)
@@ -64,22 +61,28 @@ class ERC20TokenContract {
         }
     }
 
-    async sendTokens({ address, to, amount, decimals }) {
-        
+    async sendTokens({address, to, amount, decimals }) {
+        let opt = await getTransactionOptions('fast')
 
         let amountWithDecimals = Numbers.toSmartContractDecimals(amount, decimals);
-        var myContract = new window.web3.eth.Contract(
-            ierc20.abi,
-            self.contractAddress
-        );
-        return await myContract.methods
-        .transfer(to, amountWithDecimals)
-        .send({ from: address });
+
+        return new Promise ( (resolve, reject) => {
+            self.contract.getContract().methods.transfer(to, amountWithDecimals)
+            .send({ from: address, gasPrice : opt.gasPrice.toString(), gas : opt.gas})
+            .on('confirmation', (confirmations, receipt) => {
+                if(confirmations > 1){
+                    resolve(receipt)
+                }
+            })
+            .on('error', (err) => {console.log(err); reject("Transaction Error")})
+        });
+
     }
 
     getABI() {
         return self.contract;
     }
-    }
+}
+
 
 export default ERC20TokenContract;

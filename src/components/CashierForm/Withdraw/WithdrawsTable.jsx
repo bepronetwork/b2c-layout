@@ -79,40 +79,29 @@ const rows = [
     {
         id: 'amount',
         label: 'Amount',
-        numeric: true,
-        align : 'center',
-        size: 'small'
+        numeric: false
     },
     {
         id: 'confirmed',
         label: 'Status',
-        numeric: false,
-        align : 'center',
-        size: 'small'
+        numeric: false
     },
     {
         id: 'withdraw',
         label: 'Withdraw',
-        numeric: false,
-        align : 'center',
-        size: 'small'
+        numeric: false
 
     },
     {
         id: 'transactionHash',
         label: 'Tx Hash',
-        numeric: false,
-        align : 'center',
-        size: 'small'
+        numeric: false
 
     },
     {
         id: 'creation_date',
         label: 'Creation Date',
-        numeric: false,
-        align : 'center',
-        size: 'small'
-
+        numeric: false
     }
 ];
 
@@ -369,19 +358,19 @@ class WithdrawTable extends React.Component {
                                     key={n.id}
                                     selected={isSelected}
                                 >
-                                    <StyledTableCell  style={{width : 20}} align="center">
+                                    <StyledTableCell  style={{width : 20}} align="left">
                                         <Typography variant={'small-body'} color='white'>
                                             {n.amount} {this.props.currency}
                                         </Typography>
                                     </StyledTableCell>
-                                    <StyledTableCell style={{width : 50}} align="center">
+                                    <StyledTableCell style={{width : 50}} align="left">
                                         <div styleName={withdrawStatus[n.confirmed.toLowerCase()]}>
                                             <Typography variant={'small-body'} color='white'>
                                                 {n.confirmed}
                                             </Typography>
                                         </div>
                                     </StyledTableCell>
-                                    <StyledTableCell align="center">
+                                    <StyledTableCell align="left">
                                     <Typography color={'white'} variant={'small-body'}> {n.done ? 'Done' : 'Unconfirmed'} </Typography>
                                     </StyledTableCell>
                                     <StyledTableCell align="left">
