@@ -9,8 +9,8 @@ import "./index.css";
 
 const MS_IN_SECOND = 2000;
 const FPS = 60;
-const BOXES  = [{x: 370, y: 62}, {x: 404, y: 32}, {x: 419, y: 42}, {x: 418, y: 52}, {x: 411, y: 42},
-                {x: 362, y: 52}, {x: 370, y: 62}, {x: 407, y: 62}, {x: 359, y: 22}, {x: 387, y: 32}];
+const BOXES  = [{x: 370, y: 62}, {x: 418, y: 42}, {x: 419, y: 42}, {x: 418, y: 52}, {x: 411, y: 42},
+                {x: 362, y: 52}, {x: 370, y: 62}, {x: 407, y: 62}, {x: 419, y: 42}, {x: 387, y: 32}];
 
 
 export default class PlinkoGameCard extends Component {
@@ -58,8 +58,8 @@ export default class PlinkoGameCard extends Component {
     
     }
 
-    _createParticle = () => {
-        const result = this.props.result;
+    _createParticle = (result) => {
+        console.log(result);
         const id = this.lastParticleId++ % 255;
         let box = {};
         BOXES.filter( (o, index) => {
