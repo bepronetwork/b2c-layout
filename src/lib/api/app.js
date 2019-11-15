@@ -79,7 +79,6 @@ async function getPopularNumbers({size}) {
 }
   
   
-
 export { 
     getLastBets, 
     getGames, 

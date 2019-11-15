@@ -11,7 +11,7 @@ import {
     RegisterForm,
     CashierForm,
     LoadingBanner,
-    MessageForm,
+    NotificationForm,
     Widgets,
     AffiliateWithdrawForm
 } from "components";
@@ -47,6 +47,7 @@ import NavigationBar from "../../components/NavigationBar";
 import { getQueryVariable, getAppCustomization } from "../../lib/helpers";
 import ChatChannel from "../../controllers/Chat";
 import AnnouncementTab from "../../components/AnnouncementTab";
+import UnavailablePage from "../UnavailablePage";
 const history = createBrowserHistory();
 
 class App extends Component {
@@ -429,7 +430,7 @@ class App extends Component {
                             {this.renderLoginRegisterModal()}
                             {this.renderCashierModal()}
                             <AffiliateWithdrawForm/>
-                            <MessageForm user={user}/>
+                            <NotificationForm user={user}/>
                         </header>
                         <div>
                             <div styleName='top-bars'>

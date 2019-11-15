@@ -126,6 +126,7 @@ class DicePage extends Component {
                 game={this.getGameCard()}
                 options={this.getOptions()}
                 history="diceHistory"
+                gameMetaName={this.state.game.metaName}
             />
         );
     }

@@ -46,6 +46,8 @@ class LanguagePicker extends React.Component {
     }
 
     render() {
+        console.log(this.state.language.channel_id)
+
         return (
             <div styleName="root">
                 <div styleName="container">          

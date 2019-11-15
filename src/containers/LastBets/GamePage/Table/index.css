@@ -1,0 +1,48 @@
+@import "../../../../styles/all.css";
+
+.table-row {
+    width: 100%;
+    text-align: center;
+}
+
+.th-row {
+    grid-row: 1 / auto;
+    margin-top : 30px;
+}
+
+.image-icon {
+    width : 60px;
+    margin-top : -20px;
+}
+
+.tr-row {
+    display: grid;
+    grid-template-rows: 80px;
+    grid-auto-columns: 1fr;
+    background-color: $table-odd-background;
+    border-radius: $table-odd-border-radius;
+    margin-top: 10px;
+}
+
+.th-row-image {
+    margin-top: 25px;
+}
+
+.table-head .tr-row .th-row {
+    margin-top: 12px;
+}
+
+.table-head .tr-row{
+    grid-template-rows: 40px;
+    margin-top: 0;
+    background-color: $dark-night;
+}
+
+.table-head {
+}
+
+.th-row-tab {
+    grid-row: 1 / auto;
+    margin-top : 15px;
+    width : 75px;
+}
