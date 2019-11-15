@@ -38,20 +38,9 @@ class Withdraw extends Component {
     
     async projectData(props){
         const { profile } = props;
-        try{
-            await promptMetamask();
-            let userAddress = profile.getAddress();
-            let address = await getMetamaskAccount();
-            let isValidAddress = new String(userAddress).toLowerCase() == new String(address).toLowerCase();
-            let allowedAmount = await profile.getApprovedWithdrawAsync();
-            let userBalance = profile.getBalance();
-            let ownedDAI = parseFloat(await profile.getTokenAmount());
-            let maxWithdrawal = await profile.getContract().getMaxWithdrawal();
-            this.setState({...this.state, hasMetamask : true, ownedDAI, userBalance, maxWithdrawal, allowedAmount, isValidAddress});
-        }catch(err){
-            // Metamask is Closed or not Installed
-            this.setState({...this.state, hasMetamask : false})
-        }
+        let userBalance = profile.getBalance();
+        let maxWithdrawal = await profile.getContract().getMaxWithdrawal();
+        this.setState({...this.state, userBalance, maxWithdrawal});
     }
 
     closeDeposit = () => {
@@ -61,9 +50,8 @@ class Withdraw extends Component {
 
     render() {
         const { withdraw } = this.props;
-        const { hasMetamask, maxWithdrawal, userBalance, allowedAmount, isValidAddress } = this.state;
-        const { currency, nextStep, amount, tx, isConfirmed } = withdraw;
-        if(!hasMetamask){return (<MetamaskPrompt hasMetamask={hasMetamask}/>)}
+        const { maxWithdrawal, userBalance } = this.state;
+        const { currency, nextStep, amount, tx, _id } = withdraw;
 
         return (
             <div styleName='root'>
@@ -73,13 +61,13 @@ class Withdraw extends Component {
                         <HorizontalStepper 
                             showStepper={false}
                             nextStep={nextStep}
-                            alertCondition={!isValidAddress}
+                            //alertCondition={!isValidAddress}
                             alertMessage={`This address is not set with this user, please change to your address`}
                             steps={[
                                 {
                                     label : "Amount",
                                     title : 'How much you want to withdraw?',
-                                    condition : (  (amount >= 0.01)  && ( ((amount <= Numbers.toFloat(userBalance)) && (amount <= maxWithdrawal) && (amount >= MIN_WITHDRAWAL)) || (allowedAmount >= amount))),
+                                    condition : (  (amount >= 0.01)  && ( ((amount <= Numbers.toFloat(userBalance)) && (amount <= maxWithdrawal) && (amount >= MIN_WITHDRAWAL)))),
                                     content : <AmountWithdrawForm/>
                                 },
                                 {
@@ -97,8 +85,8 @@ class Withdraw extends Component {
                                 {
                                     label : "Withdraw",
                                     title : 'Withdraw',
-                                    condition : (tx && tx != ''),
-                                    content : <WithdrawForm/>,
+                                    condition : (_id && (_id != ('' || null))),
+                                    content : <WithdrawForm closeStepper={this.closeDeposit}/>,
                                     last : true,
                                     closeStepper : this.closeDeposit
                                 },

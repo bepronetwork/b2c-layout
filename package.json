@@ -9,7 +9,6 @@
     "start": "node --max-old-space-size=4096 bin/www.js",
     "dev": "craco start",
     "build": "craco build",
-    "heroku-postbuild": "craco build --prod",
     "test": "craco test --no-watch",
     "eject": "react-scripts eject",
     "lint": "eslint --ext js,jsx src",

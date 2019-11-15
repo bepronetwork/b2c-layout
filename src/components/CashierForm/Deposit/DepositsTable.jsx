@@ -62,9 +62,9 @@ const fromDatabasetoTable = (data) => {
         return {
             id :  data._id,
 			amount : Numbers.toFloat(data.amount),
-            confirmed: data.isConfirmed ? 'Confirmed' : 'Confirm',
+            confirmed: data.transactionHash ? 'Confirmed' : 'Confirm',
             done :  data.confirmed,
-            isConfirmed : data.isConfirmed,
+            isConfirmed : data.transactionHash ? true : false,
             transactionHash : data.transactionHash,
             creation_timestamp : new Date(data.creation_timestamp),
             creation_date : new Date(data.creation_timestamp).toDateString(),
@@ -80,31 +80,22 @@ const rows = [
     {
         id: 'amount',
         label: 'Amount',
-        numeric: true,
-        align : 'center',
-        size: 'small'
     },
     {
         id: 'confirmed',
         label: 'Status',
-        numeric: false,
-        align : 'center',
-        size: 'small'
+        numeric: false
     },
     {
         id: 'transactionHash',
         label: 'Tx Hash',
-        numeric: false,
-        align : 'center',
-        size: 'small'
+        numeric: false
 
     },
     {
         id: 'creation_date',
         label: 'Creation Date',
-        numeric: false,
-        align : 'center',
-        size: 'small'
+        numeric: false
 
     }
 ];
@@ -286,7 +277,9 @@ class DepositsTable extends React.Component {
 
     projectData = async (props) => {
         const { profile } = props;
-        let deposits = await profile.getDepositsAsync();
+        let deposits = profile.getDeposits();
+        console.log(deposits)
+
         this.setState({...this.state, 
             data : fromDatabasetoTable(deposits),
             ticker : 'DAI',
@@ -330,6 +323,7 @@ class DepositsTable extends React.Component {
         const { data, order, orderBy, selected, rowsPerPage, page, updated } = this.state;
         const emptyRows = rowsPerPage - Math.min(rowsPerPage, data.length - page * rowsPerPage);
         const copy = CopyText.Deposit[ln];
+        
         if(!updated){return (
             <div>
                 <Typography color={'white'} variant={'body'}>Getting the Last Deposits...</Typography>
@@ -366,24 +360,25 @@ class DepositsTable extends React.Component {
                                     key={n.id}
                                     selected={isSelected}
                                 >
-                                    <StyledTableCell  style={{width : 20}} align="center">
+                                    <StyledTableCell  style={{width : 20}} align="left">
                                         <Typography variant={'small-body'} color='white'>
                                             {n.amount} {this.props.currency}
                                         </Typography>
                                     </StyledTableCell>
-                                    <StyledTableCell style={{width : 50}} align="center">
-                                        {!n.isConfirmed ? 
+                                    <StyledTableCell style={{width : 50}} align="left">
+                                        {(n.isConfirmed) ? 
+                                           <div styleName={withdrawStatus[n.confirmed.toLowerCase()]}>
+                                                <Typography variant={'small-body'} color='white'>
+                                                    {n.confirmed}
+                                                </Typography>
+                                            </div>
+                                        : 
                                             <button styleName='deposit-button'
                                                 onClick={ () => this.props.confirmDeposit(n)}
                                             >
                                                 <Typography color={'white'} variant={'small-body'}>{copy.BUTTON_CONFIRMATION}</Typography>
                                             </button>
-                                        : 
-                                            <div styleName={withdrawStatus[n.confirmed.toLowerCase()]}>
-                                                <Typography variant={'small-body'} color='white'>
-                                                    {n.confirmed}
-                                                </Typography>
-                                            </div>
+                                            
                                         }
                                         </StyledTableCell>
                                      <StyledTableCell align="left">
