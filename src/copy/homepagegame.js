@@ -60,7 +60,7 @@ const homepagegameCopy = {
     'ch' : 
         {
             TABLE : {
-                MY_BETS : {
+                ALL_BETS : {
                     TITLE : '我的投注', 
                     ITEMS : [
                         '游戏',

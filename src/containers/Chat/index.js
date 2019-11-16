@@ -172,7 +172,7 @@ class ChatPage extends React.Component {
                                         </Col>
                                         <Col sm={4} lg={3}>
                                             <div styleName={'users-box'}>
-                                                <Typography weight="body" color="casper">
+                                                <Typography variant="small-body" color="casper">
                                                     {this.state.participants} <UsersGroupIcon size={25}/>
                                                 </Typography>
                                             </div>
@@ -183,7 +183,7 @@ class ChatPage extends React.Component {
                                                 type="submit"
                                                 styleName="button"
                                             >
-                                                <Typography weight="small-body" color="white">
+                                                <Typography variant="small-body" color="white">
                                                     Send
                                                 </Typography>
                                             </button>

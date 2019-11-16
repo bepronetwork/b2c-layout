@@ -19,7 +19,6 @@ const AnimationNumber = ({number, variant='h4', color='white', span=null}) => {
                 )}
                 duration={300}
                 value={number}
-                component="text"
             formatValue={n => Numbers.toFloat(n)}/>
             <span style={{marginLeft : 4, fontSize : 18, opacity : 0.4}}>{span}</span>
         </Typography>

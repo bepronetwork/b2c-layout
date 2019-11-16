@@ -6,9 +6,9 @@
 }
 
 .container {
+    margin-top: $spacing-88;
     @include Breakpoint-tabletAndAbove {
         max-width: $content-width-desktop;
-        margin: 0 auto;
         margin-right: -17px;
         margin-left: 3px;
     }

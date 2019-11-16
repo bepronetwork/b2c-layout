@@ -13,7 +13,7 @@ export default class GamePage extends Component {
     static propTypes = {
         options: PropTypes.node,
         game: PropTypes.node,
-        history: PropTypes.oneOf(["diceHistory", "rouletteHistory", "flipHistory", "plinkoHistory"])
+        history: PropTypes.oneOf(["diceHistory", "rouletteHistory", "flipHistory", "plinko_variation_1History"])
     };
 
     static defaultProps = {

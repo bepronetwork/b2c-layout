@@ -4,10 +4,17 @@ $values-height: 92px;
 $with-without-padding: calc(100% - $spacing-20 - $spacing-20);
 
 .root {
-  height: inherit;
-  padding: $spacing-20;
-  background-color: $background-main-table;
-}
+    display: grid;
+    grid-template-rows: 1fr $values-height;
+  
+    height: inherit;
+    min-width: 400px;
+  
+    padding: $spacing-20;
+  
+    background-color: $background-main-table;
+  }
+  
 
 .container {
   display: grid;
@@ -119,9 +126,10 @@ $with-without-padding: calc(100% - $spacing-20 - $spacing-20);
   height: 2em;
   width: 100%;
   display: flex;
+  margin: auto 0;
   -webkit-box-pack: center;
   justify-content: center;
-  margin-top: 610px;
+  margin-top: 480px;
 }
 
 .pegs_wrapper {

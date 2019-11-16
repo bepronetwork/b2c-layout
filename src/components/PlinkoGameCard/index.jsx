@@ -6,6 +6,7 @@ import VerticalWall from './Components/wall';
 import {PARTICLE} from './Components/bodies';
 import { Row, Col } from 'reactstrap';
 import "./index.css";
+import Typography from "../Typography";
 
 const MS_IN_SECOND = 2000;
 const FPS = 60;
@@ -13,7 +14,7 @@ const BOXES  = [{x: 370, y: 62}, {x: 418, y: 42}, {x: 419, y: 42}, {x: 418, y: 5
                 {x: 362, y: 52}, {x: 370, y: 62}, {x: 407, y: 62}, {x: 419, y: 42}, {x: 387, y: 32}];
 
 
-export default class PlinkoGameCard extends Component {
+class PlinkoGameCard extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -24,7 +25,7 @@ export default class PlinkoGameCard extends Component {
             ROW_ADJUSTMENT: 0.9,
             COL_ADJUSTMENT: 0.8,
             CANVAS_WIDTH: 760,
-            CANVAS_HEIGHT: 570,
+            CANVAS_HEIGHT: 440,
             CANVAS_COLOR: '',
             TIMESTEP: MS_IN_SECOND / FPS,
             PARTICLE: PARTICLE
@@ -59,7 +60,6 @@ export default class PlinkoGameCard extends Component {
     }
 
     _createParticle = (result) => {
-        console.log(result);
         const id = this.lastParticleId++ % 255;
         let box = {};
         BOXES.filter( (o, index) => {
@@ -195,20 +195,29 @@ export default class PlinkoGameCard extends Component {
       
     render() {
         return (
-            <Row>
-                <Col span={18} push={6} gutter={16}>
-                <div styleName="canvas-container">
-                    <div id="techvr" />
-                    <div styleName={`pegs rows${this.state.ROWS}`}>
-                        <div styleName="pegs_wrapper" >
-                            {this.state.footer.map((el, i) => {
-                            return <div styleName={`peg peg${i + 1}`} style={{top:this.state[`peg${i+1}`] ? '10px' : '0px'}}><span styleName="pegtext">{el}</span></div>
-                            })}
+            <div styleName="root">
+                <Row>
+                    <Col span={18} push={6} gutter={16}>
+                    <div styleName="canvas-container">
+                        <div id="techvr" />
+                        <div styleName={`pegs rows${this.state.ROWS}`}>
+                            <div styleName="pegs_wrapper" >
+                                {this.state.footer.map((el, i) => {
+                                    return (
+                                        <div styleName={`peg peg${i + 1}`} style={{top:this.state[`peg${i+1}`] ? '10px' : '0px', paddingTop : 8}}>
+                                            <Typography variant={'small-body'} >{el}</Typography>
+                                        </div>
+                                    )
+                                })}
+                            </div>
                         </div>
                     </div>
-                </div>
-                </Col>
-            </Row>
+                    </Col>
+                </Row>
+            </div>
         )
       }
 }
+
+
+export default PlinkoGameCard;

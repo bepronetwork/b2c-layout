@@ -4,7 +4,7 @@
   "private": true,
   "engines": {
     "node": "12.13.0"
-},
+  },
   "scripts": {
     "start": "node --max-old-space-size=4096 bin/www.js",
     "dev": "craco start",

@@ -8,7 +8,7 @@ export default [{
 },{
     metaName : 'baccarat_simple',  
 },{
-    metaName : 'plinko_simple',  
+    metaName : 'plinko_variation_1',  
 },{
     metaName : 'wheel_simple',  
 },{

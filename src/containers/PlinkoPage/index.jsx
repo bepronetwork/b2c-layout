@@ -23,7 +23,7 @@ class PlinkoPage extends Component {
         result: null,
         disableControls: false,
         bet : {},
-        game_name : 'Plinko',
+        game_name : 'plinko_variation_1',
         animating : false,
         game : {
             edge : 0
@@ -41,13 +41,14 @@ class PlinkoPage extends Component {
     getGame = () => {
         const appInfo = Cache.getFromCache("appInfo");
         if(appInfo){
-            let game = find(appInfo.games, { name: this.state.game_name });
+            let game = find(appInfo.games, { metaName: this.state.game_name });
             this.setState({...this.state, game});
         }
     };
 
     handleBet = async ({ amount }) => {
         try{
+            console.log(amount)
             const { user } = this.context;
             const { onHandleLoginOrRegister } = this.props;
             this.setState({ disableControls: true });
@@ -57,6 +58,7 @@ class PlinkoPage extends Component {
                 betAmount: amount,
                 user
             });
+            console.log(res);
             this.triggerChildGameCard(res.result);
             this.setState({ 
                 result : res.result, 
@@ -67,6 +69,7 @@ class PlinkoPage extends Component {
             });
             return res;
         }catch(err){
+            console.log(err)
             return this.setState({ result : 0, disableControls : false });
 
         }
@@ -96,7 +99,6 @@ class PlinkoPage extends Component {
     getGameCard = () => {
         const { result, disableControls, bet, animating } = this.state;
         const { profile } = this.props;
-
         return (
             <PlinkoGameCard
                 profile={profile}
@@ -116,7 +118,8 @@ class PlinkoPage extends Component {
             <GamePage
                 game={this.getGameCard()}
                 options={this.getOptions()}
-                history="plinkoHistory"
+                history="plinko_variation_1History"
+                gameMetaName={this.state.game.metaName}
             />
         );
     }
