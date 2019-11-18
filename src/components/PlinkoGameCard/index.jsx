@@ -33,6 +33,21 @@ class PlinkoGameCard extends React.Component {
     
     }
 
+    init(ROWS,r) {
+        this.particles = {};
+        this.plinkos = {};
+        this.lastParticleId = 0;
+        this.walls={};
+        this.isRunning = false;
+        this.createEnvironment(ROWS,r);
+    }
+
+    componentDidMount() {
+        this.createCanvas()
+        this.init(this.state.ROWS,this.state.plinkoradius);
+    
+    }
+
     createCanvas = () => {
         this.engine = Engine.create(document.getElementById('techvr'));
         this.engine.world.gravity.y = 1.5;
@@ -43,21 +58,7 @@ class PlinkoGameCard extends React.Component {
         Engine.run(this.engine);
     }
 
-    componentDidMount() {
-        this.createCanvas()
-        this.init(this.state.ROWS,this.state.plinkoradius);
-    
-    }
 
-    init(ROWS,r) {
-        this.particles = {};
-        this.plinkos = {};
-        this.lastParticleId = 0;
-        this.walls={};
-        this.isRunning = false;
-        this.createEnvironment(ROWS,r);
-    
-    }
 
     _createParticle = (result) => {
         const id = this.lastParticleId++ % 255;
@@ -103,14 +104,15 @@ class PlinkoGameCard extends React.Component {
                             }
 
                             if(index !== null){
-                                let pgd = `peg${index}`
+                                // End of Animation
+                                let pgd = `peg${index}`;
                                 this.setState({
                                     [pgd]:true
                                 },()=>{
                                         setTimeout(() => {
-                                        this.setState({
-                                            [pgd]:false
-                                        })
+                                            this.setState({
+                                                [pgd]:false
+                                            })
                                     }, 100);
                                 })
                             }
@@ -120,6 +122,7 @@ class PlinkoGameCard extends React.Component {
                         let checkParticle = this.engine.world.bodies.filter(el => el.label === 'particle')
                         setTimeout(() => {
                             if (checkParticle.length === 0) {
+                                this.props.onResultAnimation();
                                 clearInterval(checkParticleStatus)
                             }
                         }, 10);
@@ -187,6 +190,7 @@ class PlinkoGameCard extends React.Component {
             }
         })
     }
+
     createEnvironment(ROWS,r) {
         this._createPlinkos(ROWS,r);
         this._createWalls();
@@ -195,6 +199,7 @@ class PlinkoGameCard extends React.Component {
       
     render() {
         const { game } = this.state;
+
         return (
             <div styleName="root">
                 <Row>
@@ -212,9 +217,10 @@ class PlinkoGameCard extends React.Component {
                                     }else{
                                         className = 'peg1'
                                     };
+                                    const hasAnimationClass = this.state[`peg${i+1}`] ? 'peg-animated' : '';
 
                                     return (
-                                        <div styleName={`peg ${className}`} style={{top:this.state[`peg${i+1}`] ? '5px' : '0px', paddingTop : 7}}>
+                                        <div styleName={`peg ${className} ${hasAnimationClass}`} >
                                             <Typography variant={'small-body'} color={'pickled-bluewood'} >{el.multiplier}x</Typography>
                                         </div>
                                     )

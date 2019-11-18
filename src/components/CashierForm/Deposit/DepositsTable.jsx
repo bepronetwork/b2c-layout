@@ -278,7 +278,6 @@ class DepositsTable extends React.Component {
     projectData = async (props) => {
         const { profile } = props;
         let deposits = profile.getDeposits();
-        console.log(deposits)
 
         this.setState({...this.state, 
             data : fromDatabasetoTable(deposits),

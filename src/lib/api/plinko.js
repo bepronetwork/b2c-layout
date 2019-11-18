@@ -16,7 +16,6 @@ export default async function bet({ betAmount, user }) {
                 value: parseFloat(parseFloat(betAmount/gameResultSpaceLength).toFixed(4))
             };
         });
-        console.log(result)
         const response = await user.createBet({
             amount: betAmount,
             result,
@@ -24,12 +23,13 @@ export default async function bet({ betAmount, user }) {
         }); 
 
         await processResponse(response);
-        const { winAmount, betAmount : amountBetted, _id : id, nonce } = response.data.message;
+        const { winAmount, betAmount : amountBetted, _id : id, nonce, isWon } = response.data.message;
         const { index } = response.data.message.outcomeResultSpace;
 
         return {
             result : index,
             winAmount, 
+            isWon,
             nonce,
             betAmount : amountBetted,
             id

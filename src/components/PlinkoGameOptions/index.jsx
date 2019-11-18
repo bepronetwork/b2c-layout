@@ -104,14 +104,11 @@ export default class PlinkoGameOptions extends Component {
 
     betAction = ({amount}) => {
         const { onBet } = this.props;
-        return new Promise( (resolve, reject) => {
+        return new Promise( async (resolve, reject) => {
             try{
-                setTimeout( async () => {
-                    let res = await onBet({ amount });
-                    resolve(res)
-                },2*1000)
+                let res = await onBet({ amount });
+                resolve(res)
             }catch(err){
-                console.log(err)
                 reject(err)
             }
 
@@ -203,16 +200,7 @@ export default class PlinkoGameOptions extends Component {
    
         return (
             <div>
-                <div styleName="element">
-                <InputNumber
-                    name="win-profit"
-                    title="Profit on Win"
-                    icon="bitcoin"
-                    precision={2}
-                    disabled
-                    value={Numbers.toFloat(amount * (this.getPayout() - 1))}
-                />
-                </div>
+                
             </div>
         );
     };
@@ -302,7 +290,7 @@ export default class PlinkoGameOptions extends Component {
             <ToggleButton
                 config={{
                     left: { value: "manual", title: "Manual" },
-                    right: { value: "auto", title: "Auto"}
+                    right: { value: "auto", title: "Auto", disabled : true}
                 }}
                 selected={type}
                 size="full"

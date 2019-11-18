@@ -129,7 +129,7 @@ $with-without-padding: calc(100% - $spacing-20 - $spacing-20);
   margin: auto 0;
   -webkit-box-pack: center;
   justify-content: center;
-  margin-top: 480px;
+  margin-top: 65%;
 }
 
 .pegs_wrapper {
@@ -139,6 +139,7 @@ $with-without-padding: calc(100% - $spacing-20 - $spacing-20);
   gap: 1% 1%;
   width: 79%;
 }
+
 
 .peg1{
   position: relative;
@@ -245,11 +246,25 @@ $with-without-padding: calc(100% - $spacing-20 - $spacing-20);
   font-weight: 700;
 }
 .peg {
-  grid-row: 1 / auto;
-  font-size: 10px;
-  width: 50px;
-  margin: auto;
-  height: 30px;
+    grid-row: 1 / auto;
+    font-size: 10px;
+    width: 50px;
+    transition: all 300ms linear;
+    margin: auto;
+    height: 30px;
+    padding-top : 7px;
+    @include Breakpoint-mobileOnly {
+        order: 0;
+        width: 30px;
+        padding-top : 4px;
+        height: 20px;
+    }
+}
+
+.peg-animated{
+    height: 50px;
+    top : 5px;
+
 }
 
 .canvas-container {
