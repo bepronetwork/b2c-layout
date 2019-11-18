@@ -18,10 +18,10 @@ class PlinkoGameCard extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            ROWS: 9,
-            plinkoradius:5,
+            ROWS : props.game.resultSpace.length-1,
+            game : props.game,
+            plinkoradius : 5,
             particleradius:7,
-            footer: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10'],
             ROW_ADJUSTMENT: 0.9,
             COL_ADJUSTMENT: 0.8,
             CANVAS_WIDTH: 760,
@@ -194,18 +194,28 @@ class PlinkoGameCard extends React.Component {
     }
       
     render() {
+        const { game } = this.state;
         return (
             <div styleName="root">
                 <Row>
                     <Col span={18} push={6} gutter={16}>
                     <div styleName="canvas-container">
                         <div id="techvr" />
-                        <div styleName={`pegs rows${this.state.ROWS}`}>
+                        <div styleName={`pegs rows${game.resultSpace.length-1}`}>
                             <div styleName="pegs_wrapper" >
-                                {this.state.footer.map((el, i) => {
+                                {game.resultSpace.map((el, i) => {
+                                    let className;
+                                    if(el.multiplier < 1){
+                                        className = 'peg10'
+                                    }else if(el.multiplier < 2){
+                                        className = 'peg7'
+                                    }else{
+                                        className = 'peg1'
+                                    };
+
                                     return (
-                                        <div styleName={`peg peg${i + 1}`} style={{top:this.state[`peg${i+1}`] ? '10px' : '0px', paddingTop : 8}}>
-                                            <Typography variant={'small-body'} >{el}</Typography>
+                                        <div styleName={`peg ${className}`} style={{top:this.state[`peg${i+1}`] ? '5px' : '0px', paddingTop : 7}}>
+                                            <Typography variant={'small-body'} color={'pickled-bluewood'} >{el.multiplier}x</Typography>
                                         </div>
                                     )
                                 })}

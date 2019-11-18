@@ -247,6 +247,9 @@ $with-without-padding: calc(100% - $spacing-20 - $spacing-20);
 .peg {
   grid-row: 1 / auto;
   font-size: 10px;
+  width: 50px;
+  margin: auto;
+  height: 30px;
 }
 
 .canvas-container {

@@ -3,10 +3,12 @@
 .root {
   text-align: center;
   margin-top : 50px;
+  width: 100%;
+  margin: auto;
 }
 
 .container {
-    margin-top: $spacing-88;
+    margin-top: 120px;
     @include Breakpoint-tabletAndAbove {
         max-width: $content-width-desktop;
         margin-right: -17px;

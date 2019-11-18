@@ -69,7 +69,6 @@ class PlinkoPage extends Component {
             });
             return res;
         }catch(err){
-            console.log(err)
             return this.setState({ result : 0, disableControls : false });
 
         }
