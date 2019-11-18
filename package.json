@@ -4,12 +4,11 @@
   "private": true,
   "engines": {
     "node": "12.13.0"
-},
+  },
   "scripts": {
     "start": "node --max-old-space-size=4096 bin/www.js",
     "dev": "craco start",
     "build": "craco build",
-    "heroku-postbuild": "craco build --prod",
     "test": "craco test --no-watch",
     "eject": "react-scripts eject",
     "lint": "eslint --ext js,jsx src",
@@ -45,8 +44,10 @@
     "konva": "^3.2.6",
     "localforage": "^1.7.3",
     "lodash": "^4.17.11",
+    "matter-js": "^0.14.2",
     "mdi-react": "^5.6.0",
     "moment": "^2.24.0",
+    "moment-timezone": "^0.5.27",
     "node-lame": "^1.2.0",
     "postcss-calc": "^7.0.1",
     "postcss-color-function": "^4.1.0",
@@ -79,6 +80,7 @@
     "react-testing-library": "^6.1.2",
     "reactstrap": "^8.0.0",
     "redux": "^4.0.1",
+    "shortid": "^2.2.15",
     "stream-chat": "^1.1.5",
     "style-loader": "^0.23.1",
     "styled-components": "^4.2.0",

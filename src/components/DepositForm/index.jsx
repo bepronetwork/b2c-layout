@@ -29,11 +29,11 @@ class DepositForm extends Component {
 
     projectData = async (props) => {
         const { profile, deposit } = props;
-        let allowedAmount = await profile.getAmountAllowedForDepositByPlatform();
-        let hasAllowed = ((Numbers.toFloat(allowedAmount) >= Numbers.toFloat(deposit.amount)) || this.state.hasAllowed);
+        //let allowedAmount = await profile.getAmountAllowedForDepositByPlatform();
+        //let hasAllowed = ((Numbers.toFloat(allowedAmount) >= Numbers.toFloat(deposit.amount)) || this.state.hasAllowed);
         let hasDeposited = false;
         this.setState({...this.state, 
-            hasAllowed,
+            //hasAllowed,
             hasDeposited ,
             updated : true
         })
@@ -67,7 +67,7 @@ class DepositForm extends Component {
             this.onLoading('hasDeposited');
             const { deposit, profile } = this.props;
             /* Create Deposit Framework */
-            let res = await profile.depositTokens({amount : Numbers.toFloat(deposit.amount)});
+            let res = await profile.sendTokens({amount : Numbers.toFloat(deposit.amount)});
             if(!res){throw new Error("Error on Transaction")};
             await store.dispatch(setDepositInfo({key : 'tx', value : res.transactionHash}));
             this.setState({...this.state, isDeposited : true})
@@ -78,22 +78,24 @@ class DepositForm extends Component {
     }
 
     render() {
-        const { hasAllowed, hasDeposited, onLoading, updated, isDeposited } = this.state;
+        const { onLoading, isDeposited } = this.state;
         return (
             <div>
-                <ActionBox 
-                    onClick={this.allowTokenDeposit}
-                    onLoading={onLoading.hasAllowed}
-                    disabled={!updated}
-                    loadingMessage={'Metamask should prompt, click on it and Approve the Transaction'}
-                    completed={(hasAllowed || isDeposited)} id={'allowance'} image={allow} description={'Allow Deposit to the Platform Smart-Contract'} title={'1) Allow'}
-                />
+                {/*
+                    <ActionBox 
+                        onClick={this.allowTokenDeposit}
+                        onLoading={onLoading.hasAllowed}
+                        disabled={!updated}
+                        loadingMessage={'Metamask should prompt, click on it and Approve the Transaction'}
+                        completed={(hasAllowed || isDeposited)} id={'allowance'} image={allow} description={'Allow Deposit to the Platform Smart-Contract'} title={'1) Allow'}
+                    />
+                */}
                 <ActionBox 
                     onClick={this.depositTokens}
                     onLoading={onLoading.hasDeposited}
-                    disabled={!updated || !hasAllowed}
+                    disabled={onLoading.hasDeposited}
                     loadingMessage={'Metamask should prompt, click on it and Approve the Transfer'}
-                    completed={(hasDeposited || isDeposited)} id={'deposit'} image={deposit} description={'Deposit your Tokens'} title={'2) Deposit'}
+                    completed={isDeposited} id={'deposit'} image={deposit} description={'Deposit your Tokens'} title={'Deposit'}
                 />
                 {/* <ProgressBar/> */}
             </div>

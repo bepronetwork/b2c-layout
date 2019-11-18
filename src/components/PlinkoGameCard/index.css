@@ -1,0 +1,287 @@
+@import "../../styles/all.css";
+
+$values-height: 92px;
+$with-without-padding: calc(100% - $spacing-20 - $spacing-20);
+
+.root {
+    display: grid;
+    grid-template-rows: 1fr $values-height;
+  
+    height: inherit;
+    min-width: 400px;
+  
+    padding: $spacing-20;
+  
+    background-color: $background-main-table;
+  }
+  
+
+.container {
+  display: grid;
+  grid-template-columns: 100%;
+  grid-template-rows: calc(100% - $values-height) $values-height;
+
+  width: 100%;
+  height: 100%;
+}
+
+.slider {
+  display: flex;
+  align-items: center;
+
+  width: 100%;
+}
+
+.slider-container {
+  width: 96%;
+  margin: 0 auto;
+}
+
+.values {
+  width: calc(100% - $spacing-16 - $spacing-16);
+  padding: $spacing-16;
+  margin: auto;
+  background-color: $background-table-1-outer;
+
+  border-radius: $spacing-4;
+}
+
+.values-container {
+  display: grid;
+
+  grid-column-gap: $spacing-20;
+  grid-template-columns:
+    calc($with-without-padding / 3) calc($with-without-padding / 3)
+    calc($with-without-padding / 3);
+
+  width: 100%;
+}
+
+
+.popular-number-container{
+    padding : 10px;
+    width: 40px;
+    margin-bottom : 5px;
+    text-align: center;
+    display: inline-block;
+    border-radius : 4px;
+}
+
+.popular-number-container-amount{
+    padding : 10px;
+    padding-top : 5px;
+    width: 40px;
+    text-align: center;
+    display : inline-flex;
+    border-radius : 4px;
+}
+
+.popular-number-row{
+    margin-left : -30px;
+}
+
+
+.green-square{
+    background-color : $green;
+}
+
+.blue-square{
+    background-color : $roulette-blue-color;
+}
+
+.red-square{
+    background-color : $red;
+}
+
+.outer-popular-numbers{
+    width : 120px;
+    border : 2px solid $dark-table-color;
+    height: 30%;
+    background-color : $popular-numbers-container;
+    left : 10px;
+    border-radius : 5px;
+    text-align: center;
+    top : 10px;
+    overflow-y : auto;
+    overflow-x : hidden;
+    position : absolute;
+
+    @include Breakpoint-mobileOnly {
+        margin-top: -50px !important;
+    }
+}
+
+.inner-popular-numbers{
+    width : 100%;
+    height: auto;
+    overflow-y: hidden;
+    margin : 10px;
+    text-align: center;
+    overflow-x: hidden;
+    position : relative;
+}
+
+
+.pegs {
+  height: 2em;
+  width: 100%;
+  display: flex;
+  margin: auto 0;
+  -webkit-box-pack: center;
+  justify-content: center;
+  margin-top: 65%;
+}
+
+.pegs_wrapper {
+  display: grid;
+  height: 100%;
+  position: relative;
+  gap: 1% 1%;
+  width: 79%;
+}
+
+
+.peg1{
+  position: relative;
+  cursor: help;
+  text-align: center;
+  box-shadow: rgb(153, 0, 38) 0px 0.2em 0px 0px;
+  animation-duration: 300ms !important;
+  border-radius: 0.3em;
+  background: rgb(255, 0, 63);
+}
+.peg2{
+  position: relative;
+  cursor: help;
+  text-align: center;
+  box-shadow: rgb(177, 0, 24) 0px 0.2em 0px 0px;
+  animation-duration: 300ms !important;
+  border-radius: 0.3em;
+  background: rgb(255, 24, 55);
+}
+.peg3{
+  position: relative;
+  cursor: help;
+  text-align: center;
+  box-shadow: rgb(200, 1, 0) 0px 0.2em 0px 0px;
+  animation-duration: 300ms !important;
+  border-radius: 0.3em;
+  background: rgb(255, 48, 47);
+}
+.peg4{
+  position: relative;
+  cursor: help;
+  text-align: center;
+  box-shadow: rgb(192, 29, 0) 0px 0.2em 0px 0px;
+  animation-duration: 300ms !important;
+  border-radius: 0.3em;
+  background: rgb(255, 72, 39);
+}
+.peg5{
+  position: relative;
+  cursor: help;
+  text-align: center;
+  box-shadow: rgb(185, 53, 0) 0px 0.2em 0px 0px;
+  animation-duration: 300ms !important;
+  border-radius: 0.3em;
+  background: rgb(255, 96, 32);
+}
+.peg6{
+  position: relative;
+  cursor: help;
+  text-align: center;
+  box-shadow: rgb(177, 74, 0) 0px 0.2em 0px 0px;
+  animation-duration: 300ms !important;
+  border-radius: 0.3em;
+  background: rgb(255, 120, 24);
+}
+.peg7{
+  position: relative;
+  cursor: help;
+  text-align: center;
+  box-shadow: rgb(169, 91, 0) 0px 0.2em 0px 0px;
+  animation-duration: 300ms !important;
+  border-radius: 0.3em;
+  background: rgb(255, 144, 16);
+}
+.peg8{
+  position: relative;
+  cursor: help;
+  text-align: center;
+  box-shadow: rgb(161, 104, 0) 0px 0.2em 0px 0px;
+  animation-duration: 300ms !important;
+  border-radius: 0.3em;
+  background: rgb(255, 168, 8);
+}
+.peg9{
+  position: relative;
+  cursor: help;
+  text-align: center;
+  box-shadow: rgb(153, 115, 0) 0px 0.2em 0px 0px;
+  animation-duration: 300ms !important;
+  border-radius: 0.3em;
+  background: rgb(255, 192, 0);
+}
+.peg10{
+  position: relative;
+  cursor: help;
+  text-align: center;
+  box-shadow: rgb(161, 104, 0) 0px 0.2em 0px 0px;
+  animation-duration: 300ms !important;
+  border-radius: 0.3em;
+  background: rgb(255, 168, 8);
+}
+
+.pegtext{
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  bottom: 0px;
+  right: 0px;
+  display: flex;
+  -webkit-box-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  justify-content: center;
+  font-weight: 700;
+}
+.peg {
+    grid-row: 1 / auto;
+    font-size: 10px;
+    width: 50px;
+    transition: all 300ms linear;
+    margin: auto;
+    height: 30px;
+    padding-top : 7px;
+    @include Breakpoint-mobileOnly {
+        order: 0;
+        width: 30px;
+        padding-top : 4px;
+        height: 20px;
+    }
+}
+
+.peg-animated{
+    height: 50px;
+    top : 5px;
+
+}
+
+.canvas-container {
+  max-width: 750px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.pegs.rows8 .pegs_wrapper {
+  width: 71%;
+  gap: 1% 2%;
+}
+.pegs.rows9 .pegs_wrapper {
+  width: 78%;
+}
+
+
+.ant-btn.bet-btn{
+  max-width: 350px!important;
+}

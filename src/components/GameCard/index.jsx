@@ -53,19 +53,21 @@ class GameCard extends Component {
                 </div>
                 <div styleName="labels">
                     <div styleName="title">
-                    <Typography variant="h4" weight="semi-bold" color="white">
+                    <Typography variant="body" weight="semi-bold" color="white">
                         {title}
                     </Typography>
                     </div>
-                    <Typography variant="small-body" color="white">
-                        {edge >= 0 ? `${edge}% ${copy.EDGE_NAME}` : ""} 
-                        <span>
-                            <Typography variant="x-small-body" color="grey">Min: 0.01</Typography>
-                        </span>
-                        <span>
-                            <Typography variant="x-small-body" color="grey">Max: {tableLimit}</Typography>
-                        </span>
-                    </Typography>
+                    <div styleName='info-holder'>
+                        <Typography variant="small-body" color="white">
+                            {edge >= 0 ? `${edge}% ${copy.EDGE_NAME}` : ""} 
+                            <span>
+                                <Typography variant="x-small-body" color="grey">Min: 0.01</Typography>
+                            </span>
+                            <span>
+                                <Typography variant="x-small-body" color="grey">Max: {tableLimit}</Typography>
+                            </span>
+                        </Typography>
+                    </div>
                 </div>
                 </Link>
             </div>

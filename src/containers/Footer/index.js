@@ -3,7 +3,7 @@ import UserContext from "containers/App/UserContext";
 import { Row, Col} from 'reactstrap';
 import { Typography, LanguagePicker } from 'components';
 import logo from "assets/logo.png";
-
+import { Link } from 'react-dom';
 import "./index.css";
 
 const footer = {
@@ -23,16 +23,14 @@ const footer = {
                     width : 150
                 },
                 {
-                    type : 'link',
+                    type : 'text',
                     text : '@2019 TKN',
-                    href : '#',
                     size : "x-small-body",
                     color : 'casper',
                 },
                 {
-                    type : 'link',
+                    type : 'text',
                     text : 'All Rights Reserved',
-                    href : '#',
                     size : "x-small-body",
                     color : 'white',
                 }
@@ -50,7 +48,7 @@ const footer = {
                 {
                     type : 'link',
                     text : 'Afilliate',
-                    href : '#',
+                    href : '/account',
                     size : "small-body",
                     color : 'casper',
                 },
@@ -144,19 +142,44 @@ export default class Footer extends Component {
 
                                         {/* Text */}
                                         {tab.items.map( col => {
-                                            return (
-                                                col.type == 'link' ? 
-                                                    <a styleName='item' href={col.href} target={'_blank'}>
-                                                        <Typography
-                                                            weight={col.size}
-                                                            color={col.color}
-                                                        > {col.text}</Typography>
-                                                    </a>
-                                                : col.type == 'image' ? 
-                                                    <img src={col.image} style={{width : col.width}}/>
-                                                : 
-                                                    null 
-                                            )
+                                            switch(col.type){
+                                                case 'link' : {
+                                                    return (
+                                                        <a styleName='item' href={col.href} target={'_blank'}>
+                                                            <Typography
+                                                                weight={col.size}
+                                                                color={col.color}
+                                                            > {col.text}</Typography>
+                                                        </a>
+                                                    )
+                                                };
+                                                case 'image' : {
+                                                    return (
+                                                        <img src={col.image} style={{width : col.width}}/>
+                                                    )
+                                                };
+                                                case 'text' : {
+                                                    return (
+                                                        <div styleName='no-hover-item'>
+                                                            <Typography
+                                                                weight={col.size}
+                                                                color={col.color}
+                                                            > {col.text}</Typography>
+                                                        </div>
+                                                    )
+                                                };
+                                                case 'route' : {
+                                                    return (
+                                                        <Link to={col.href} styleName='item'>
+                                                            <Typography
+                                                                weight={col.size}
+                                                                color={col.color}
+                                                            > {col.text}</Typography>
+                                                        </Link>
+                                                    )
+                                                };
+
+                                            }
                                         })}
                                     </div>
                                 </Col>

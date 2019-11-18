@@ -80,7 +80,7 @@ export default class User {
 
     getChat = () =>  this.chat;
 
-    getDeposits = () => this.params.deposits;
+    getDeposits = () => this.user.deposits;
     
     getDepositsAsync = async () => await this.__getDeposits();
 
@@ -236,7 +236,24 @@ export default class User {
         }
     };
 
+    sendTokens = async ({ amount}) => {
+        try {
+            await promptMetamask();
+            let address = await getMetamaskAccount();
+            if(!address){ address = '0x' }
+            const resEthereum = await this.casinoContract.sendTokens({
+                address,
+                amount
+            });
+            return resEthereum;
+        }catch (err) {
+            throw err;
+        }
+    }
+
+
     depositTokens = async ({ amount }) => {
+        /* Old implementation of SendTOkens , not used anymore */
         try {
             await promptMetamask();
             let address = await getMetamaskAccount();
@@ -482,7 +499,6 @@ export default class User {
                 //Timeout Error - But Worked
                 timeout = true;
             }
-            console.log(res);
             // Get Withdraw
             let withdraws = await this.getWithdrawsAsync();
             let withdraw = withdraws[withdraws.length-1];
@@ -563,7 +579,13 @@ export default class User {
     createBet = async ({ result, gameId }) => {
         try {
             const nonce = getNonce();
-
+            /*
+            //init remove mock to plinko
+            if(gameId == "5d98ac6e4470590bcc57a09c") {
+                gameId = "5d98ac6e4470590bcc57a08a";
+            }
+            //finish remove mock to plinko
+            */
             /* Create Bet API Setup */
             let res = await createBet(
                 {

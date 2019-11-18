@@ -38,21 +38,31 @@
 
 .text-container{
     height: $top-chat-message-percentage;
-    background-color: $text-container-interior-color;
     padding : 10px;
     overflow : auto;
 }
 
+.info-message-container{
+    height: auto;
+    padding-top : $spacing-8;
+    width: 100%;
+}
+
+.info{
+    height: $spacing-12;
+}
+
 .message-box{
-    padding : 10px;
+    padding : $spacing-8;
     width: 100%;
     margin : 10px auto;
+    background-color: $text-container-interior-color;
     border-radius : $border-radius-messsage-box;
-    background-color: $chat-message-container-color;
 }
 
 .message-container{
     padding : 10px;
+    border-radius : $border-radius-messsage-box;
     height: $bot-chat-message-percentage;
     background-color:$chat-container-color;
 }

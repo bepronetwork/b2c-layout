@@ -16,6 +16,7 @@ import {
     AffiliateWithdrawForm
 } from "components";
 
+import PlinkoPage from "containers/PlinkoPage";
 import DicePage from "containers/DicePage";
 import FlipPage from "containers/FlipPage";
 import RoulettePage from "containers/RoulettePage";
@@ -233,6 +234,7 @@ class App extends Component {
         localStorage.removeItem("diceHistory");
         localStorage.removeItem("rouletteHistory");
         localStorage.removeItem("flipHistory");
+        localStorage.removeItem("plinko_variation_1History");
         await store.dispatch(setProfileInfo(null));
         this.setState({ user: null });
         window.location.reload();
@@ -352,6 +354,18 @@ class App extends Component {
                             {...props}
                             game={this.isGameAvailable("wheel_variation_1")}
                             onHandleLoginOrRegister={this.handleLoginOrRegisterOpen}
+                        />
+                    )}
+                    />
+                ) : null}
+                    {this.isGameAvailable("plinko_variation_1") ? (
+                    <Route
+                    exact
+                    path="/plinko_variation_1"
+                    render={props => (
+                        <PlinkoPage
+                        {...props}
+                        onHandleLoginOrRegister={this.handleLoginOrRegisterOpen}
                         />
                     )}
                     />

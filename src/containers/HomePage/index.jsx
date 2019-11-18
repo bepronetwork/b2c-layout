@@ -58,7 +58,7 @@ export default class HomePage extends Component {
                         </div>
                     </div> 
                     <LastBets/>
-                    <Media/>
+                    {/* <Media/> */}
                     <Footer/>
                 </div>
             </div>

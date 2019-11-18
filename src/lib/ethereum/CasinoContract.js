@@ -133,7 +133,20 @@ class CasinoContract {
 		} catch (err) {
 		    throw err;
 		}
-	}
+    }
+    
+    async sendTokens({address, amount}){
+        try {
+            return await this.getERC20Token().sendTokens({
+                address : address,
+                to : this.getAddress(),
+                amount : amount,
+                decimals : self.decimals
+            })
+        }catch(err){
+            throw err;
+        }
+    }
 
 
 	async depositTokens({address, amount}) {

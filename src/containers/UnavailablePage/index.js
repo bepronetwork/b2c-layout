@@ -22,7 +22,6 @@ export default class UnavailablePage extends Component {
 
     projectData = async () => {
         let data = await this.getGeoInfo();
-        console.log(data)
     }
 
     getGeoInfo = async () => {
@@ -44,7 +43,6 @@ export default class UnavailablePage extends Component {
         const { countryName, countryCode } = this.state;
         if (!app) { return null; }
         if(this.isAvailable()){return null}
-        console.log(countryName, countryCode)
         return (
             <div styleName="root">
                 <div styleName="container">

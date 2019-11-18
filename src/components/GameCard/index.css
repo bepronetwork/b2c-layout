@@ -50,6 +50,10 @@
   margin : 20px;
 }
 
+.info-holder{
+    text-align: right;
+}
+
 .button {
   display: inline-block;
 

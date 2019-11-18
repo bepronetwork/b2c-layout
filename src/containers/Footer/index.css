@@ -64,6 +64,13 @@
     opacity : 0.6 !important;  
 }
 
+.no-hover-item{
+    margin : $spacing-8;
+    margin-left : 0;
+    display : block;
+    position : relative;
+}
+
 .coin {
   background-color: $tree-poppy;
   border-radius: 50%;

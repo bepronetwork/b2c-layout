@@ -27,8 +27,7 @@ class CarousselContainer extends Component {
         const { banners } = getAppCustomization();
         const images = banners.ids.map( id => {
             return {
-                srcSet: id,
-                sizes : 200
+                srcSet: id
             }
         })
         this.setState({images : images})
@@ -38,14 +37,17 @@ class CarousselContainer extends Component {
         const { images } = this.state;
 
         return (
-            <ImageGallery 
-                showNav={false} 
-                showFullscreenButton={false} 
-                showPlayButton={false}
-                showThumbnails={false}
-                showBullets={true} 
-                showPlayButton={false} items={images} 
-            />
+            <div styleName='banners'>
+                <ImageGallery 
+                    showNav={false} 
+                    showFullscreenButton={false} 
+                    showThumbnails={false}
+                    showBullets={true} 
+                    autoPlay={true}
+                    showPlayButton={false} 
+                    items={images} 
+                />
+            </div>
         );
       }
     

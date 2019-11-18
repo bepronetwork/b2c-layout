@@ -9,6 +9,8 @@ import { ActionBox } from 'components';
 import { setWithdrawInfo } from "../../redux/actions/withdraw";
 import { fromSmartContractTimeToMinutes } from '../../lib/helpers';
 import { setModal } from '../../redux/actions/modal';
+import { setMessageNotification } from '../../redux/actions/message';
+import { generatePseudoRandom256BitNumber } from '@0x/utils';
 
 const THIRTY_SECONDS = 60;
 
@@ -16,14 +18,16 @@ class WithdrawForm extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            hasAllowed : false,
-            hasWithdrawed : false,
+            //hasAllowed : false,
+            //hasWithdrawed : false,
+            wasRegistered : false,
             onLoading : {
-                hasAllowed : false,
-                hasWithdrawed : false
+                wasRegistered : false,
+                //hasAllowed : false,
+                //hasWithdrawed : false
             },
             updated : false,
-            timeForWithdraw : 0
+            //timeForWithdraw : 0
         };
         
     }
@@ -37,25 +41,28 @@ class WithdrawForm extends Component {
     }
 
 
+    
+    
     setWithdrawInfoInRedux = async ({id}) => {
         await store.dispatch(setWithdrawInfo({key : 'id', value : id}));
     }
+    
 
     projectData = async (props) => {
         const { profile, withdraw } = props;
-        let allowedAmount = await profile.getApprovedWithdrawAsync();
-        let openWithdraw = await profile.getOneNotConfirmedWithdrawForAmountAsync({amount : withdraw.amount});
-        if(openWithdraw && !withdraw.id && openWithdraw._id){
-            this.setWithdrawInfoInRedux({id : openWithdraw._id})
-        };
-        let timeForWithdraw = (await profile.getTimeForWithdrawalAsync())+THIRTY_SECONDS;
-        let hasAllowed = (Numbers.toFloat(allowedAmount) >= Numbers.toFloat(withdraw.amount));
-        let hasWithdrawed = (withdraw.tx != '' && withdraw.tx != null);
+        //let allowedAmount = await profile.getApprovedWithdrawAsync();
+        //let openWithdraw = await profile.getOneNotConfirmedWithdrawForAmountAsync({amount : withdraw.amount});
+        //if(openWithdraw && !withdraw.id && openWithdraw._id){
+        //    this.setWithdrawInfoInRedux({id : openWithdraw._id})
+        //};
+        //let timeForWithdraw = (await profile.getTimeForWithdrawalAsync())+THIRTY_SECONDS;
+        //let hasAllowed = (Numbers.toFloat(allowedAmount) >= Numbers.toFloat(withdraw.amount));
+        //let hasWithdrawed = (withdraw.tx != '' && withdraw.tx != null);
        
         this.setState({...this.state, 
-            hasAllowed,
-            hasWithdrawed,
-            timeForWithdraw,
+            //hasAllowed,
+            //hasWithdrawed,
+            //timeForWithdraw,
             updated : true
         })
     }
@@ -67,8 +74,8 @@ class WithdrawForm extends Component {
 
     askForWithdraw = async () => {
         try{
-            this.onLoading('hasAllowed');
-            const { withdraw, profile } = this.props;
+            this.onLoading('wasRegistered');
+            const { withdraw, profile, closeStepper } = this.props;
             const { isAffiliate } = withdraw;
             var res;
             if(isAffiliate){
@@ -78,24 +85,28 @@ class WithdrawForm extends Component {
                 /* Create Withdraw Framework */
                 res = await profile.askForWithdraw({amount : Numbers.toFloat(withdraw.amount)});
             }
-         
+
+            console.log(res);
+            await store.dispatch( setMessageNotification(
+                'Withdraw was Queued, you can see it in the Withdraws Tab',                
+            ));
+           
+            this.setState({...this.state, wasRegistered : true})
             await this.setWithdrawInfoInRedux({id : res.withdraw._id});
-            if(!res){throw new Error("Error on Transaction")};
+            closeStepper();
         }catch(err){
             console.log(err);
-            this.onLoading('hasAllowed', false);
+            this.onLoading('wasRegistered', false);
         }
     }
  
-    withdrawTokens = async () => {
+    /* withdrawTokens = async () => {
         try{
             this.onLoading('hasWithdrawed');
             const { withdraw, profile } = this.props;
             const { isAffiliate } = withdraw;
-            /* Create Withdraw Framework */
             let res = await profile.createWithdraw({amount : Numbers.toFloat(withdraw.amount)});
             if(!res){throw new Error("Error on Transaction")};
-            /* Set Transaction */
             await store.dispatch(setWithdrawInfo({key : 'tx', value : res.transactionHash}));
             if(isAffiliate){
                 await store.dispatch(setModal({key : 'AffiliateWithdrawForm', value : false}));
@@ -109,30 +120,32 @@ class WithdrawForm extends Component {
             console.log(err)
             this.onLoading('hasWithdrawed', false);
         }
-    }
+    }*/
 
     render() {
-        const { hasAllowed, hasWithdrawed, onLoading, updated, timeForWithdraw } = this.state;
-
-        const canWithdraw = (!updated || !hasAllowed || (timeForWithdraw >= 0));
+        const { /* hasAllowed, */ onLoading, updated, wasRegistered } = this.state;
+        //const canWithdraw = (!updated || !hasAllowed || (timeForWithdraw >= 0));
+        
         return (
             <div>
                 <ActionBox 
                     onClick={this.askForWithdraw}
-                    onLoading={onLoading.hasAllowed && !hasAllowed && !hasWithdrawed}
-                    disabled={!updated || hasAllowed}
-                    loadingMessage={'A Croupier is giving you allowance, just wait'}
-                    completed={hasAllowed || hasWithdrawed} id={'allowance'} image={approval} title={'Ask for Withdraw'} description={'A croupier is giving you approval, should take a less than a minute'}
+                    onLoading={onLoading.wasRegistered}
+                    disabled={!updated || wasRegistered}
+                    loadingMessage={'Withdraw to Your Registered Address'}
+                    completed={wasRegistered} id={'allowance'} image={approval} title={'Ask for Withdraw'} description={'Your Withdraw shall be completed in a few hours'}
                 />
-                <ActionBox 
-                    alertMessage={`Waiting Time For Withdraw ${fromSmartContractTimeToMinutes(timeForWithdraw)} m`} 
-                    alertCondition={updated && (timeForWithdraw >= 0)}
-                    onClick={this.withdrawTokens}
-                    onLoading={onLoading.hasWithdrawed}
-                    disabled={canWithdraw}
-                    loadingMessage={'Metamask should prompt, click on it and Approve the Transfer'}
-                    completed={hasWithdrawed} id={'withdraw'} image={withdraw} title={'Withdraw'} description={'After the timing is completed, click to withdraw'}
-                />
+                {/*
+                    <ActionBox 
+                        alertMessage={`Waiting Time For Withdraw ${fromSmartContractTimeToMinutes(timeForWithdraw)} m`} 
+                        alertCondition={updated && (timeForWithdraw >= 0)}
+                        onClick={this.withdrawTokens}
+                        onLoading={onLoading.hasWithdrawed}
+                        disabled={canWithdraw}
+                        loadingMessage={'Metamask should prompt, click on it and Approve the Transfer'}
+                        completed={hasWithdrawed} id={'withdraw'} image={withdraw} title={'Withdraw'} description={'After the timing is completed, click to withdraw'}
+                    />
+                */}
                 {/* <ProgressBar/> */}
             </div>
         );

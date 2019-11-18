@@ -2,7 +2,9 @@
 
 .root {
   text-align: center;
-  margin-top :  130px;
+  margin : auto;
+  margin-top : $spacing-88;
+  width: 95%;
 }
 
 .container {
