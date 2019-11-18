@@ -38,14 +38,16 @@ class CarousselContainer extends Component {
         const { images } = this.state;
 
         return (
-            <ImageGallery 
-                showNav={false} 
-                showFullscreenButton={false} 
-                showPlayButton={false}
-                showThumbnails={false}
-                showBullets={true} 
-                showPlayButton={false} items={images} 
-            />
+            <div styleName='banners'>
+                <ImageGallery 
+                    showNav={false} 
+                    showFullscreenButton={false} 
+                    showPlayButton={false}
+                    showThumbnails={false}
+                    showBullets={true} 
+                    showPlayButton={false} items={images} 
+                />
+            </div>
         );
       }
     

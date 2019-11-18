@@ -1,0 +1,9 @@
+@import "../../styles/all.css";
+.banners{
+    height: 400px;
+    overflow: hidden;
+
+    @include Breakpoint-mobileOnly {
+        height: 200px;
+    }
+}
