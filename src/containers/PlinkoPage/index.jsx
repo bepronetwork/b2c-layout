@@ -48,25 +48,25 @@ class PlinkoPage extends Component {
 
     handleBet = async ({ amount }) => {
         try{
-            console.log(amount)
             const { user } = this.context;
             const { onHandleLoginOrRegister } = this.props;
             this.setState({ disableControls: true });
             if (!user || _.isEmpty(user)) return onHandleLoginOrRegister("register");
-
+ 
             const res = await plinkoBet({
                 betAmount: amount,
                 user
             });
-            console.log(res);
             this.triggerChildGameCard(res.result);
             this.setState({ 
                 result : res.result, 
-                disableControls : false, 
+                disableControls : true, 
+                isWon : res.isWon,
                 bet : res,
                 animating : true,
                 betObjectResult : res 
             });
+            
             return res;
         }catch(err){
             return this.setState({ result : 0, disableControls : false });
@@ -74,11 +74,21 @@ class PlinkoPage extends Component {
         }
     };
 
+    addToHistory = () => {
+        var { result, isWon, game } = this.state;
+        let history = localStorage.getItem("plinko_variation_1History");
+        const { resultSpace } = game;
+        history = history ? JSON.parse(history) : [];
+        let value = resultSpace.find( r => r.formType == result);
+        history.unshift({ value : `${value.multiplier}x`, win : value.multiplier >= 1  });
+        localStorage.setItem("plinko_variation_1History", JSON.stringify(history));
+    }
+
     handleAnimation = async () => {
         const { profile } = this.props;
-        const { betObjectResult } = this.state;
+        this.addToHistory();
         await profile.getBalanceData();
-        this.setState({ result: null, animating : false, disableControls: false });
+        return this.setState({ result : 0, disableControls : false });
     };
 
     getOptions = () => {
@@ -96,7 +106,7 @@ class PlinkoPage extends Component {
     };
 
     getGameCard = () => {
-        const { result, disableControls, bet, animating } = this.state;
+        const { result, disableControls, bet, animating, isWon } = this.state;
         const { profile } = this.props;
         return (
             <PlinkoGameCard
@@ -106,6 +116,7 @@ class PlinkoPage extends Component {
                 result={result}
                 animating={animating}
                 bet={bet}
+                isWon={isWon}
                 game={this.state.game}
                 ref="childGameCard"
             />

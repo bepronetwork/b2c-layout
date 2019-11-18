@@ -11,7 +11,6 @@ let SEC = 200;
 instance.defaults.timeout = SEC*1000;
 
 export async function register({ username, password, email, address, affiliateLink}) {
-    console.log(affiliateLink)
     const postData = {
         username,
         email,
@@ -24,8 +23,6 @@ export async function register({ username, password, email, address, affiliateLi
     if(postData.affiliateLink == false){
         delete postData.affiliateLink;
     }
-
-    console.log(postData)
 
     try {
         const response = await axios.post(`${apiUrl}/api/users/register`, postData);

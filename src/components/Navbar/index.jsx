@@ -65,6 +65,8 @@ class Navbar extends Component {
                 let userMetamaskAddress = await getMetamaskAccount();
                 let metamaksAddress = userMetamaskAddress ? userMetamaskAddress : defaultProps.userMetamaskAddress;
                 let difference = parseFloat(user.getBalance() - this.state.currentBalance);
+                // To not exist failed animation of difference and number animation
+                if(difference == 0){return}
                 this.setState({...this.state, 
                     user    : user,
                     difference : (difference != 0) ? difference : this.state.difference,
