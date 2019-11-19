@@ -257,7 +257,7 @@ export default class Wheel extends Component {
         }
 
         return (
-        <Sound volume={100} url={rouletteSound} playStatus="PLAYING" autoLoad />
+            <Sound volume={100} url={rouletteSound} playStatus="PLAYING" autoLoad />
         );
     };
 

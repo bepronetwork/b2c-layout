@@ -69,11 +69,11 @@ class Navbar extends Component {
                 var opts = {};
                 if(difference != 0){
                     opts.difference = difference;
+                    opts.currentBalance = user.getBalance();
                 }
                 
-                this.setState({...this.state, 
+                this.setState({
                     ...opts,
-                    currentBalance : user.getBalance(),
                     user    : user,
                     userFullAddress : user.getAddress(),
                     userAddress : user.getAddress() ? AddressConcat(user.getAddress()) : defaultProps.userAddress,
@@ -117,10 +117,11 @@ class Navbar extends Component {
         )
     }
 
+
     render() {
         let { onLogout, onCashier, onAccount, history } = this.props;
         let { currentBalance, difference, user, userAddress, userMetamaskAddress, isValid, userFullAddress } = this.state;
-        let infoText = !isValid ? (text[isValid] + ` Your User Address is : ${userFullAddress}`) : text[isValid] ;
+        let infoText = !isValid ? (text[isValid] + ` Your User Address is : ${userFullAddress}`) : text[isValid];
         return (
                 <Row styleName="root">
                     <Col xs={3} md={2}>
