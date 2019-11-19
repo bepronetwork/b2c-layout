@@ -67,11 +67,13 @@ class Navbar extends Component {
                 let difference = parseFloat(user.getBalance() - this.state.currentBalance);
                 // To not exist failed animation of difference and number animation
                 var opts = {};
-                opts.currentBalance = user.getBalance();
-                opts.difference = difference;
+                if(difference != 0){
+                    opts.difference = difference;
+                }
                 
                 this.setState({...this.state, 
                     ...opts,
+                    currentBalance : user.getBalance(),
                     user    : user,
                     userFullAddress : user.getAddress(),
                     userAddress : user.getAddress() ? AddressConcat(user.getAddress()) : defaultProps.userAddress,
