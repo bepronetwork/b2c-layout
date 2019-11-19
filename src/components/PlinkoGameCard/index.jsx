@@ -1,18 +1,18 @@
 import React, { Component } from "react";
-import { World, Engine, Render, Events, Body, Bodies } from 'matter-js';
+import { World, Engine, Events, Body, Bodies } from 'matter-js';
 import Particle from './Components/particle';
 import Plinko from './Components/plinko';
 import VerticalWall from './Components/wall';
 import {PARTICLE} from './Components/bodies';
 import { Row, Col } from 'reactstrap';
+import {PEG0, PEG1, PEG2, PEG3, PEG4, PEG5, PEG6, PEG7, PEG8, PEG9} from './Components/bars';
+import loseSound from "assets/lose-sound.mp3";
+import Sound from "react-sound";
 import "./index.css";
 import Typography from "../Typography";
 
 const MS_IN_SECOND = 2000;
 const FPS = 60;
-const BOXES  = [{x: 370, y: 62}, {x: 418, y: 42}, {x: 419, y: 42}, {x: 418, y: 52}, {x: 411, y: 42},
-                {x: 362, y: 52}, {x: 370, y: 62}, {x: 407, y: 62}, {x: 419, y: 42}, {x: 387, y: 32}];
-
 
 class PlinkoGameCard extends React.Component {
     constructor(props) {
@@ -43,14 +43,20 @@ class PlinkoGameCard extends React.Component {
     }
 
     componentDidMount() {
+        this.projectData(this.props);
         this.createCanvas()
         this.init(this.state.ROWS,this.state.plinkoradius);
     
     }
 
+    componentWillReceiveProps(props){
+        this.projectData(props);
+    }
+
     createCanvas = () => {
+
         this.engine = Engine.create(document.getElementById('techvr'));
-        this.engine.world.gravity.y = 1.5;
+        this.engine.world.gravity.y = 1;
         this.engine.render.canvas.height = this.state.CANVAS_HEIGHT;
         this.engine.render.canvas.width = this.state.CANVAS_WIDTH;
         this.engine.render.options.wireframes = false;
@@ -58,17 +64,83 @@ class PlinkoGameCard extends React.Component {
         Engine.run(this.engine);
     }
 
+    createBallPath(result) {
+        switch(result){
+            case 0 : {
+                this.createBars(PEG0);
+                break;
+            };
+            case 1 : {
+                this.createBars(PEG1);
+                break;
+            };
+            case 2 : {
+                this.createBars(PEG2);
+                break;
+            };
+            case 3 : {
+                this.createBars(PEG3);
+                break;
+            };
+            case 4 : {
+                this.createBars(PEG4);
+                break;
+            };
+            case 5 : {
+                this.createBars(PEG5);
+                break;
+            };
+            case 6 : {
+                this.createBars(PEG6);
+                break;
+            };
+            case 7 : {
+                this.createBars(PEG7);
+                break;
+            };
+            case 8 : {
+                this.createBars(PEG8);
+                break;
+            };
+            case 9 : {
+                this.createBars(PEG9);
+                break;
+            };
+        }
+    }
 
+    createBars(pegBars) {
+        pegBars.map((el) => {
+            this.createBar(el.x, el.y, el.w, el.a, 'bar');
+        })
+    }
+
+    createBar(x, y, w, angle, label) {
+        const r = this.state.particleradius;
+
+        let body = Bodies.rectangle(x, y, 2, w, { 
+            isStatic: true,
+            label: label
+        });
+
+        body.render.opacity = 0;
+        Body.setAngle(body, angle);
+
+        World.add(this.engine.world, body);
+
+        return body;
+    }
 
     _createParticle = (result) => {
-        const id = this.lastParticleId++ % 255;
-        let box = {};
-        BOXES.filter( (o, index) => {
-            if(index == result)
-                box = BOXES[index];
-        })
-        const x = box.x;
-        const y = box.y;
+        this.engine.world.bodies.filter(el => el.label === "bar").map((el, i) => {
+            World.remove(this.engine.world, el);
+        });
+
+        this.createBallPath(result);
+
+        const id = this.lastParticleaId++ % 255;
+        const x = (result < 8) ? 345 : 400;
+        const y = 62;
         const r = this.state.particleradius;
 
         if(!this.engine.world.bodies.filter(el => el.label === "particle").length) {
@@ -143,6 +215,7 @@ class PlinkoGameCard extends React.Component {
           const bodyB = pair.bodyB;
     
           if (bodyA.label === 'plinko' && bodyB.label === 'particle') {
+            this.renderCollisionSound();
           }
     
           if (bodyA.label === 'plinko') {
@@ -155,6 +228,7 @@ class PlinkoGameCard extends React.Component {
         }
     }
     _createPlinkos = (ROWS,r) => {
+ 
         let ROW_SPACING = this.state.CANVAS_HEIGHT / ROWS * this.state.ROW_ADJUSTMENT;
         let COL_SPACING = this.state.CANVAS_WIDTH / (ROWS + 2) * this.state.COL_ADJUSTMENT;
         this.setState({ COL_SPACING,particleradius:COL_SPACING/4.4 })
@@ -177,16 +251,16 @@ class PlinkoGameCard extends React.Component {
     }
 
     _createWalls=()=> {
-        const leftWall = new VerticalWall({x: 210, y: 310});
-        const rightWall = new VerticalWall({x: 555, y: 310});
+        const leftWall = new VerticalWall({x: 178, y: 310});
+        const rightWall = new VerticalWall({x: 582, y: 310});
         [leftWall, rightWall].forEach(wall => wall.addToEngine(this.engine.world));
         this.engine.world.bodies.filter(el => el.label === "wall").forEach((dt,i) => {
             dt.render.opacity = 0
             if(dt.position.x < 250){
-                Body.rotate( dt.parent, 0.48);
+                Body.rotate( dt.parent, 0.56);
             }
             else{
-                Body.rotate( dt.parent, -0.48);
+                Body.rotate( dt.parent, -0.56);
             }
         })
     }
@@ -195,6 +269,34 @@ class PlinkoGameCard extends React.Component {
         this._createPlinkos(ROWS,r);
         this._createWalls();
         Events.on(this.engine, 'collisionStart', this.onCollisionStart);
+    }
+
+    renderCollisionSound = () => {
+        return (
+            <Sound volume={100} url={loseSound} playStatus="PLAYING" autoLoad />
+        );
+    };
+
+    projectData(props){
+        let result = null;
+        let nextProps = props;
+        let prevState = this.state;
+        const { rollNumber } = this.props;
+        if (nextProps.result && nextProps.result !== prevState.result) {
+            let history = localStorage.getItem("plinkoHistory");
+
+            history = history ? JSON.parse(history) : [];
+            history.unshift({ value: nextProps.result });
+            localStorage.setItem("plinkoHistory", JSON.stringify(history));
+            result = nextProps.result;
+            this.setState({...this.state, 
+                result
+            });
+        }else{
+            this.setState({
+                edge : props.game.edge
+            });
+        }
     }
       
     render() {
