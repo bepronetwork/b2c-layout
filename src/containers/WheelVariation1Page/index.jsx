@@ -145,10 +145,10 @@ class WheelVariationOne extends React.Component {
 
     addToHistory = ({result, won}) => {
         let multiplier = this.state.game.resultSpace[result].multiplier;
-        let history = Cache.getFromCache("wheelHistory");
+        let history = Cache.getFromCache("wheel_variation_1History");
         history = history ? history : [];
-        history.unshift({ value: multiplier, win : won });
-        Cache.setToCache("wheelHistory", history);
+        history.unshift({ value: `${multiplier}x`, win : won });
+        Cache.setToCache("wheel_variation_1History", history);
     }
 
 
@@ -272,7 +272,7 @@ class WheelVariationOne extends React.Component {
             <GamePage
                 options={this.renderGameOptions()}
                 game={this.renderGameCard()}
-                history="wheelHistory"
+                history="wheel_variation_1History"
                 gameMetaName={this.state.game.metaName}
             />
         );

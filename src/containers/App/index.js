@@ -235,6 +235,8 @@ class App extends Component {
         localStorage.removeItem("rouletteHistory");
         localStorage.removeItem("flipHistory");
         localStorage.removeItem("plinko_variation_1History");
+        localStorage.removeItem("wheelHistory");
+        localStorage.removeItem("wheel_variation_1History");
         await store.dispatch(setProfileInfo(null));
         this.setState({ user: null });
         window.location.reload();
