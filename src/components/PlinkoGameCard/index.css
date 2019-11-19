@@ -145,91 +145,91 @@ $with-without-padding: calc(100% - $spacing-20 - $spacing-20);
   position: relative;
   cursor: help;
   text-align: center;
-  box-shadow: $wheel-variation-1-color-3 0px 0.2em 0px 0px;
+  box-shadow: rgb(153, 0, 38) 0px 0.2em 0px 0px;
   animation-duration: 300ms !important;
   border-radius: 0.3em;
-  background: $wheel-variation-1-color-3;
+  background: rgb(255, 0, 63);
 }
 .peg2{
   position: relative;
   cursor: help;
   text-align: center;
-  box-shadow: $wheel-variation-1-color-4 0px 0.2em 0px 0px;
+  box-shadow: rgb(177, 0, 24) 0px 0.2em 0px 0px;
   animation-duration: 300ms !important;
   border-radius: 0.3em;
-  background: $wheel-variation-1-color-4;
+  background: rgb(255, 24, 55);
 }
 .peg3{
   position: relative;
   cursor: help;
   text-align: center;
-  box-shadow: $wheel-variation-1-color-5 0px 0.2em 0px 0px;
+  box-shadow: rgb(200, 1, 0) 0px 0.2em 0px 0px;
   animation-duration: 300ms !important;
   border-radius: 0.3em;
-  background: $wheel-variation-1-color-5;
+  background: rgb(255, 48, 47);
 }
 .peg4{
   position: relative;
   cursor: help;
   text-align: center;
-  box-shadow: $wheel-variation-1-color-6 0px 0.2em 0px 0px;
+  box-shadow: rgb(192, 29, 0) 0px 0.2em 0px 0px;
   animation-duration: 300ms !important;
   border-radius: 0.3em;
-  background: $wheel-variation-1-color-6;
+  background: rgb(255, 72, 39);
 }
 .peg5{
   position: relative;
   cursor: help;
   text-align: center;
-  box-shadow: $wheel-variation-1-color-7 0px 0.2em 0px 0px;
+  box-shadow: rgb(185, 53, 0) 0px 0.2em 0px 0px;
   animation-duration: 300ms !important;
   border-radius: 0.3em;
-  background: $wheel-variation-1-color-7;
+  background: rgb(255, 96, 32);
 }
 .peg6{
   position: relative;
   cursor: help;
   text-align: center;
-  box-shadow: $wheel-variation-1-color-7 0px 0.2em 0px 0px;
+  box-shadow: rgb(177, 74, 0) 0px 0.2em 0px 0px;
   animation-duration: 300ms !important;
   border-radius: 0.3em;
-  background: $wheel-variation-1-color-7;
+  background: rgb(255, 120, 24);
 }
 .peg7{
   position: relative;
   cursor: help;
   text-align: center;
-  box-shadow: $wheel-variation-1-color-6 0px 0.2em 0px 0px;
+  box-shadow: rgb(169, 91, 0) 0px 0.2em 0px 0px;
   animation-duration: 300ms !important;
   border-radius: 0.3em;
-  background: $wheel-variation-1-color-6;
+  background: rgb(255, 144, 16);
 }
 .peg8{
   position: relative;
   cursor: help;
   text-align: center;
-  box-shadow: $wheel-variation-1-color-5 0px 0.2em 0px 0px;
+  box-shadow: rgb(161, 104, 0) 0px 0.2em 0px 0px;
   animation-duration: 300ms !important;
   border-radius: 0.3em;
-  background: $wheel-variation-1-color-5;
+  background: rgb(255, 168, 8);
 }
 .peg9{
   position: relative;
   cursor: help;
   text-align: center;
-  box-shadow: $wheel-variation-1-color-4 0px 0.2em 0px 0px;
+  box-shadow: rgb(153, 115, 0) 0px 0.2em 0px 0px;
   animation-duration: 300ms !important;
   border-radius: 0.3em;
-  background: $wheel-variation-1-color-4;
+  background: rgb(255, 192, 0);
 }
 .peg10{
   position: relative;
   cursor: help;
   text-align: center;
-  box-shadow: $wheel-variation-1-color-3 0px 0.2em 0px 0px;
+  box-shadow: rgb(161, 104, 0) 0px 0.2em 0px 0px;
   animation-duration: 300ms !important;
   border-radius: 0.3em;
-  background: $wheel-variation-1-color-3;
+  background: rgb(255, 168, 8);
 }
 
 .pegtext{

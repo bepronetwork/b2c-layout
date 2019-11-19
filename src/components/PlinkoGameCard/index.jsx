@@ -5,7 +5,7 @@ import Plinko from './Components/plinko';
 import VerticalWall from './Components/wall';
 import {PARTICLE} from './Components/bodies';
 import { Row, Col } from 'reactstrap';
-import {PEG1, PEG2, PEG3, PEG4, PEG5, PEG6, PEG7, PEG8, PEG9, PEG10} from './Components/bars';
+import {PEG0, PEG1, PEG2, PEG3, PEG4, PEG5, PEG6, PEG7, PEG8, PEG9} from './Components/bars';
 import loseSound from "assets/lose-sound.mp3";
 import Sound from "react-sound";
 import "./index.css";
@@ -66,6 +66,10 @@ class PlinkoGameCard extends React.Component {
 
     createBallPath(result) {
         switch(result){
+            case 0 : {
+                this.createBars(PEG0);
+                break;
+            };
             case 1 : {
                 this.createBars(PEG1);
                 break;
@@ -102,10 +106,6 @@ class PlinkoGameCard extends React.Component {
                 this.createBars(PEG9);
                 break;
             };
-            case 10 : {
-                this.createBars(PEG10);
-                break;
-            };
         }
     }
 
@@ -139,7 +139,7 @@ class PlinkoGameCard extends React.Component {
         this.createBallPath(result);
 
         const id = this.lastParticleaId++ % 255;
-        const x = (result < 9) ? 365 : 400;
+        const x = (result < 8) ? 345 : 400;
         const y = 62;
         const r = this.state.particleradius;
 
@@ -251,16 +251,16 @@ class PlinkoGameCard extends React.Component {
     }
 
     _createWalls=()=> {
-        const leftWall = new VerticalWall({x: 210, y: 310});
-        const rightWall = new VerticalWall({x: 555, y: 310});
+        const leftWall = new VerticalWall({x: 178, y: 310});
+        const rightWall = new VerticalWall({x: 582, y: 310});
         [leftWall, rightWall].forEach(wall => wall.addToEngine(this.engine.world));
         this.engine.world.bodies.filter(el => el.label === "wall").forEach((dt,i) => {
             dt.render.opacity = 0
             if(dt.position.x < 250){
-                Body.rotate( dt.parent, 0.48);
+                Body.rotate( dt.parent, 0.56);
             }
             else{
-                Body.rotate( dt.parent, -0.48);
+                Body.rotate( dt.parent, -0.56);
             }
         })
     }
