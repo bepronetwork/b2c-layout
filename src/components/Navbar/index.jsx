@@ -66,11 +66,13 @@ class Navbar extends Component {
                 let metamaksAddress = userMetamaskAddress ? userMetamaskAddress : defaultProps.userMetamaskAddress;
                 let difference = parseFloat(user.getBalance() - this.state.currentBalance);
                 // To not exist failed animation of difference and number animation
-                if(difference == 0){return}
+                var opts = {};
+                opts.currentBalance = user.getBalance();
+                opts.difference = difference;
+                
                 this.setState({...this.state, 
+                    ...opts,
                     user    : user,
-                    difference : (difference != 0) ? difference : this.state.difference,
-                    currentBalance : user.getBalance(),
                     userFullAddress : user.getAddress(),
                     userAddress : user.getAddress() ? AddressConcat(user.getAddress()) : defaultProps.userAddress,
                     userMetamaskAddress : user ? AddressConcat(metamaksAddress) : defaultProps.userMetamaskAddress,
