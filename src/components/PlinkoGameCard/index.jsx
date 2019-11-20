@@ -43,14 +43,9 @@ class PlinkoGameCard extends React.Component {
     }
 
     componentDidMount() {
-        this.projectData(this.props);
         this.createCanvas()
         this.init(this.state.ROWS,this.state.plinkoradius);
     
-    }
-
-    componentWillReceiveProps(props){
-        this.projectData(props);
     }
 
     createCanvas = () => {
@@ -139,8 +134,8 @@ class PlinkoGameCard extends React.Component {
         this.createBallPath(result);
 
         const id = this.lastParticleaId++ % 255;
-        const x = (result < 8) ? 345 : 400;
-        const y = 62;
+        const x = Math.floor(Math.random() * (404 - 350 + 1)) + 350;
+        const y = 22;
         const r = this.state.particleradius;
 
         if(!this.engine.world.bodies.filter(el => el.label === "particle").length) {
@@ -276,28 +271,6 @@ class PlinkoGameCard extends React.Component {
             <Sound volume={100} url={loseSound} playStatus="PLAYING" autoLoad />
         );
     };
-
-    projectData(props){
-        let result = null;
-        let nextProps = props;
-        let prevState = this.state;
-        const { rollNumber } = this.props;
-        if (nextProps.result && nextProps.result !== prevState.result) {
-            let history = localStorage.getItem("plinkoHistory");
-
-            history = history ? JSON.parse(history) : [];
-            history.unshift({ value: nextProps.result });
-            localStorage.setItem("plinkoHistory", JSON.stringify(history));
-            result = nextProps.result;
-            this.setState({...this.state, 
-                result
-            });
-        }else{
-            this.setState({
-                edge : props.game.edge
-            });
-        }
-    }
       
     render() {
         const { game } = this.state;
