@@ -110,7 +110,7 @@ class EnhancedTableHead extends React.Component {
 
         return (
             <TableHead>
-                <TableRow>
+                <TableRow style={{backgroundColor : '#0a031b'}}>
                 {rows.map(
                     row => (
                     <StyledTableCell
@@ -119,6 +119,7 @@ class EnhancedTableHead extends React.Component {
                         padding={row.disablePadding ? 'none' : 'default'}
                         sortDirection={orderBy === row.id ? order : false}
                         size={row.size}
+                        style={{borderBottom: '10px solid #17162d', paddingLeft: 50, paddingTop: 7, paddingBottom: 7, paddingRight: 0}}
                     >
                         <Tooltip
                         title="Sort"
@@ -130,7 +131,7 @@ class EnhancedTableHead extends React.Component {
                             direction={order}
                             onClick={this.createSortHandler(row.id)}
                         >
-                            <Typography variant={'small-body'} color='casper'>
+                            <Typography variant={'small-body'} color='casper' weight='bold'>
                                 {row.label}
                             </Typography>
                         </TableSortLabel>
@@ -332,10 +333,9 @@ class DepositsTable extends React.Component {
         }
 
         return (
-            <Paper className={classes.root}>
-                    <EnhancedTableToolbar numSelected={selected.length} />
-                        <div className={classes.tableWrapper}>
-                    <Table className={classes.table} aria-labelledby="tableTitle">
+            <div>
+                <div>
+                    <Table className={classes.table} aria-labelledby="tableTitle" style={{marginTop: '10px'}}>
                         <EnhancedTableHead
                             numSelected={selected.length}
                             order={order}
@@ -353,18 +353,18 @@ class DepositsTable extends React.Component {
                                 <TableRow
                                     hover
                                     role="checkbox"
-                                    style={{padding : 0, color : 'white'}}
+                                    style={{padding : 0, color : 'white', backgroundColor : '#0f0e1d'}}
                                     aria-checked={isSelected}
                                     tabIndex={-1}
                                     key={n.id}
                                     selected={isSelected}
                                 >
-                                    <StyledTableCell  style={{width : 20}} align="left">
+                                    <StyledTableCell  style={{width: 175, borderBottom: '10px solid #17162d', paddingLeft: 50}} align="left">
                                         <Typography variant={'small-body'} color='white'>
                                             {n.amount} {this.props.currency}
                                         </Typography>
                                     </StyledTableCell>
-                                    <StyledTableCell style={{width : 50}} align="left">
+                                    <StyledTableCell style={{width: 175, borderBottom: '10px solid #17162d', paddingLeft: 30}} align="left">
                                         {(n.isConfirmed) ? 
                                            <div styleName={withdrawStatus[n.confirmed.toLowerCase()]}>
                                                 <Typography variant={'small-body'} color='white'>
@@ -380,7 +380,7 @@ class DepositsTable extends React.Component {
                                             
                                         }
                                         </StyledTableCell>
-                                     <StyledTableCell align="left">
+                                     <StyledTableCell style={{width: 175, borderBottom: '10px solid #17162d', paddingLeft: 36}} align="left">
                                         {n.transactionHash ?
                                             <a href={`${etherscanLinkID}/tx/${n.transactionHash}`} target={'_blank'}>
                                                 <Typography variant={'small-body'} color='white'>
@@ -392,7 +392,7 @@ class DepositsTable extends React.Component {
                                         }
 
                                     </StyledTableCell>
-                                    <StyledTableCell align="left">
+                                    <StyledTableCell style={{borderBottom: '10px solid #17162d', paddingLeft: 44}} align="left">
                                         <Typography variant={'small-body'} color='white'>
                                             {n.creation_date}
                                         </Typography>
@@ -402,7 +402,7 @@ class DepositsTable extends React.Component {
                         })}
                         {emptyRows > 0 && (
                             <TableRow style={{ height: 49 * emptyRows }}>
-                            <TableCell colSpan={6} />
+                                <TableCell colSpan={6} style={{borderBottom: '1px solid rgb(10, 3, 27)'}}/>
                             </TableRow>
                         )}
                         </TableBody>
@@ -424,7 +424,7 @@ class DepositsTable extends React.Component {
                     onChangePage={this.handleChangePage}
                     onChangeRowsPerPage={this.handleChangeRowsPerPage}
                 />
-            </Paper>
+            </div>
         );
     }
 }
