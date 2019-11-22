@@ -9,6 +9,10 @@
   background-size: contain;
 }
 
+.containerSimple {
+    height: 80px;
+}
+
 .root{
     position: relative;
     display: block;
@@ -68,7 +72,10 @@ canvas {
     margin : auto;
     display: block;
     position: relative;
-   
+}
+
+.resultContainerSimple {
+    padding-top: 180px;
 }
 
 
