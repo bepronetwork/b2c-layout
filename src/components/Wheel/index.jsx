@@ -311,6 +311,14 @@ export default class Wheel extends Component {
         });
         return (
             <div  styleName="root" >
+                <div>
+                    <div styleName={'outer-circle'}></div>
+                    <div styleName={'inner-circle'}></div>
+                    <div styleName={'outer-star'}></div>
+                    <div styleName={'inner-star'}></div>
+                    <div styleName={'star'}></div>
+                </div>
+                
                 <img src={pointer} styleName={'wheel-pointer'}/>
                 {this.renderResult()}
                 <div
