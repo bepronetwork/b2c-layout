@@ -31,21 +31,7 @@
     z-index: 10;
     margin-left: -12px;
     margin-top: -12px;
-}
-
-.inner-circle {
-    opacity: 0.4;
-    font-size: 8em;
-    display: inline-block;
-    width: 1.96em;
-    box-sizing: content-box;
-    height: 1.96em;
-    border: 0.04em solid $black;
-    position: absolute;
-    border-radius: 1.4em;
-    z-index: 10;
-    margin-left: 5px;
-    margin-top: 5px;
+    filter: drop-shadow(0px 4px 2px rgba(0,0,0,0.5));
 }
 
 .outer-star {
@@ -58,19 +44,7 @@
     z-index: 10;
     margin-left: 101px;
     margin-top: 102px;
-}
-
-.inner-star {
-    font-size: 16em;
-    display: inline-block;
-    box-sizing: content-box;
-    border: 0.149em solid $black;
-    position: absolute;
-    border-radius: 1.1em;
-    z-index: 9;
-    margin-left: 96px;
-    margin-top: 98px;
-    opacity: 0.4;
+    filter: drop-shadow(0px 4px 2px rgba(0,0,0,0.5));
 }
 
 .star {
@@ -96,6 +70,29 @@
     background: $dark-purple;
     -webkit-transform: rotate(135deg);
     transform: rotate(135deg);
+}
+
+@media (max-width: 676px) {
+    .outer-circle {
+        width: 1.5em;
+        height: 1.5em;
+        border: 0.1em solid #393984;
+    }
+    .outer-star {
+        margin-left: 76px;
+        margin-top: 76px;
+        font-size: 10em;
+    }
+    .star {
+        width: 24px;
+        height: 24px;
+        margin-left: 88px;
+        margin-top: 88px;
+    }
+    .star:before {
+        height: 24px;
+        width: 24px;
+    }
 }
 
 #spin {
