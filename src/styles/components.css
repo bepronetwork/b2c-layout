@@ -1,17 +1,28 @@
-$primary-background-color : $dark-purple;
+@import "./serverVariables.css";
+
+$primary-background-color : $backgroundColor;
+$secondary-background-color : $primaryColor;
+$light-table-color : $secondaryColor;
+$dark-table-color : $thirdColor;
+$text-primary-color : $forthColor;
+$text-secondary-color : $fifthColor;
+$background-shadow : $sixthColor;
+$light-background : $seventhColor;
+
+/* 
+$primary-background-color : #17162d;
 $secondary-background-color : #0f0e1d;
-$dark-background-color : $dark-purple;
 $light-table-color : #393984;
 $dark-table-color : #05040c;
 $text-primary-color : white;
 $text-secondary-color : #858bc7;
 $background-shadow : black;
 $light-background : #7e84be;
-
+*/
 
 /* COLORS SETUP */
 
-$dice-background-color: $secondary-background-color;
+$dice-background-color : $secondary-background-color;
 $roulette-background-color: $secondary-background-color;
 $coinflip-background-color: $secondary-background-color;
 $text-container-interior-color: $secondary-background-color;
@@ -27,7 +38,7 @@ $modal-background : $secondary-background-color;
 $roulette-blue-color : $dark-table-color;
 $chat-container-color : $primary-background-color;
 $chat-message-container-color : $primary-background-color;
-$scroll-bar-color : $dark-background-color;
+$scroll-bar-color : $primary-background-color;
 $button-hover-color : $text-secondary-color;
 $table-odd-background : $secondary-background-color;
 $table-odd-border-radius : 0px;
@@ -38,6 +49,6 @@ $flipcoin-color-head : $red;
 $widget-container-background-color : $primary-background-color;
 $widget-container-border-color : $secondary-background-color;
 $navigation-bar-background : $dark-table-color;
-$navigation-bar-item : $dark-background-color;
+$navigation-bar-item : $primary-background-color;
 $data-container-color : $primary-background-color;
 $text-container-color : $light-table-color;

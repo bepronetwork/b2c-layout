@@ -1,7 +1,7 @@
-import english  from "assets/languages/english.png";
-import chinese  from "assets/languages/chinese.png";
-import korea   from "assets/languages/korea.png";
-import japan   from "assets/languages/japan.png";
+import english  from "../assets/languages/english.png";
+import chinese  from "../assets/languages/chinese.png";
+import korea   from "../assets/languages/korea.png";
+import japan   from "../assets/languages/japan.png";
 
 const languages = [
     {
