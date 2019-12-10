@@ -164,7 +164,7 @@ export default class Wheel extends Component {
         if(options.length < 1){return null}
         if (canvas.getContext) {
             var outsideRadius = 500;
-            var insideRadius = 450;
+            var insideRadius = 0;
             this.wheel = canvas.getContext("2d");
             this.wheel.clearRect(0, 0, 1000, 1000);
             
@@ -311,13 +311,11 @@ export default class Wheel extends Component {
         });
         return (
             <div  styleName="root" >
-                {metaName === 'wheel_simple' &&
-                    <div>
-                        <div styleName={'outer-circle'}></div>
-                        <div styleName={'outer-star'}></div>
-                        <div styleName={'star'}></div>
-                    </div>
-                }
+                <div>
+                    <div styleName={'outer-circle'}></div>
+                    <div styleName={'outer-star'}></div>
+                    <div styleName={'star'}></div>
+                </div>
                 <img src={pointer} styleName={'wheel-pointer'}/>
                 {this.renderResult()}
                 <div
