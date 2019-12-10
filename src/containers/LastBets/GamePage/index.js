@@ -49,6 +49,35 @@ const rows = {
         ],
         rows : []
     },
+    my_bets : {
+        titles : [],
+        fields : [
+            {
+                value : 'game',
+                image : true
+            },
+            {
+                value : 'id'
+            },
+            {
+                value : 'timestamp'
+            },
+            {
+                value : 'betAmount'
+            },
+            {
+                value : 'winAmount',
+                dependentColor : true,
+                condition : 'isWon'
+            },
+            {
+                value : 'payout',
+                dependentColor : true,
+                condition : 'isWon'
+            }
+        ],
+        rows : []
+    },
     biggest_win_bets : {
         titles : [],
         fields : [
@@ -86,6 +115,7 @@ const rows = {
 
 const defaultProps = {
     all_bets    : rows.all_bets,
+    my_bets     : rows.my_bets,
     biggest_win_bets : rows.biggest_win_bets,
     view        : 'all_bets',
     view_amount : views[1],
@@ -129,7 +159,7 @@ class LastBets extends Component {
     }
     
     projectData = async (props, options=null) => {
-        let { ln, gameMetaName } = props;
+        let { profile, ln, gameMetaName } = props;
         let { view_amount } = this.state;
         const games = getGames();
         
@@ -139,7 +169,11 @@ class LastBets extends Component {
         const copy = CopyText.homepagegame[ln];
         let all_bets = await getLastBets({size : view_amount});
         let biggest_winners_bets = await getBiggestBetWinners({size : view_amount});
+        let my_bets = [];
 
+        if(profile && !_.isEmpty(profile)){
+            my_bets = await profile.getMyBets({size : view_amount});
+        }
         this.setState({...this.state, 
             ...options,
             games : games,
@@ -157,6 +191,21 @@ class LastBets extends Component {
                         game: (games.find(game => new String(game.name).toLowerCase() == new String(bet.game).toLowerCase())),
                         id: new String(bet._id).slice(3, 15),
                         username: bet.username,
+                        timestamp: dateToHourAndMinute(bet.timestamp),
+                        betAmount: Numbers.toFloat(bet.betAmount),
+                        winAmount: Numbers.toFloat(bet.winAmount),
+                        isWon : bet.isWon,
+                        payout : `${Numbers.toFloat(bet.winAmount/bet.betAmount)}x`
+                    }
+                }).filter( el => (el.game.metaName == gameMetaName))
+            },
+            my_bets : {
+                ...this.state.my_bets,
+                titles : copy.TABLE.MY_BETS.ITEMS,
+                rows : my_bets.map( (bet) =>  {
+                    return {
+                        game: (games.find(game => new String(game.name).toLowerCase() == new String(bet.game).toLowerCase())),
+                        id: new String(bet._id).slice(3, 15),
                         timestamp: dateToHourAndMinute(bet.timestamp),
                         betAmount: Numbers.toFloat(bet.betAmount),
                         winAmount: Numbers.toFloat(bet.winAmount),
@@ -238,6 +287,7 @@ class LastBets extends Component {
 
 function mapStateToProps(state){
     return {
+        profile: state.profile,
         ln : state.language
     };
 }
