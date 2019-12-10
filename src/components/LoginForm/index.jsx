@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { Button, Typography, InputText } from "components";
-import tkn_logo from 'assets/logo.png';
 import "./index.css";
+import { getAppCustomization } from "../../lib/helpers";
 
 export default class LoginForm extends Component {
     static propTypes = {
@@ -43,12 +43,12 @@ export default class LoginForm extends Component {
 
     render() {
         const { username, password } = this.state;
-
         const { error } = this.props;
+        const { logo } = getAppCustomization();
 
         return (
             <form onSubmit={this.handleSubmit}>
-                <img src={tkn_logo} styleName="tkn_logo_login"/>
+                <img src={logo.id} styleName="tkn_logo_login"/>
 
                 <div styleName="username">
                     <InputText

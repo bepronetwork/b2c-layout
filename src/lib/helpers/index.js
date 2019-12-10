@@ -1,8 +1,11 @@
 import Cache from '../cache/cache';
 import _ from 'lodash';
 import moment from 'moment-timezone';
-//import 'moment/locale/pt-br';
+import getAppInfo from "../api/app";
+import store from '../../containers/App/store';
+import { setMessageNotification } from '../../redux/actions/message';
 
+//import 'moment/locale/pt-br';
 
 function dateToHourAndMinute(date){
     return moment(new Date(date)).fromNow();
@@ -48,6 +51,10 @@ function getAppCustomization(){
     return  Cache.getFromCache("appInfo") ? Cache.getFromCache("appInfo").customization : {};
 }
 
+function getApp(){
+    return  Cache.getFromCache("appInfo") ? Cache.getFromCache("appInfo") : {};
+}
+
 async function getGeo(){
     return new Promise( (resolve, reject) => {
         if (!navigator.geolocation){
@@ -78,8 +85,22 @@ async function getGeo(){
             })
         }, error);
     })
-   
 }
+
+async function processResponse(response){
+    try{
+        if(parseInt(response.data.status) != 200){
+            let { message } = response.data;
+            if(!message){message = 'Technical Issues'}
+            throw new Error(message)
+        }
+        return response.data.message
+    }catch(err){
+        await store.dispatch(setMessageNotification(new String(err.message).toString()));
+        throw err;
+    }
+}
+
 
   
 
@@ -87,5 +108,7 @@ export {
     dateToHourAndMinute, getAppCustomization, 
     fromSmartContractTimeToMinutes, getGames, 
     isUserSet, getMinutesfromSeconds, 
-    getQueryVariable,  getGeo
+    getQueryVariable,  getGeo,
+    getApp,
+    processResponse
 }

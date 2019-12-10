@@ -1,6 +1,6 @@
 import { find, map, range } from "lodash";
 import handleError from "./handleError";
-import { processResponse } from "./apiConfig";
+import { processResponse } from "../helpers";
 
 
 export default async function bet({ betAmount, user }) {

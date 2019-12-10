@@ -4,8 +4,11 @@ import { Typography } from 'components';
 import { connect } from "react-redux";
 import './index.css';
 import affiliate from 'assets/affiliate-background.png';
+import { getApp } from "../../lib/helpers";
+const info = getApp();
 
-const URL_REF = 'https://tkn.com?ref='
+const URL_REF = `https://${info.name}.com?ref=`
+
 class AffiliateLinkContainer extends React.Component{
     constructor(props){
         super(props);
@@ -32,13 +35,14 @@ class AffiliateLinkContainer extends React.Component{
             percentageOnLevelOne
         } = this.props;
 
+
         return (
             <div styleName={`root`}>
                 <img src={affiliate} styleName='affiliate-image'/>
                 <div styleName='content'>
                     <div styleName={'text-description'}>
                         <Typography variant={'body'} color={`white`}>
-                            Share and take a profit in TKN affiliate program!
+                            Share and take a profit in {info.name} affiliate program!
                         </Typography>
                         <div styleName='subtitle-text'>
                             <Typography variant={'x-small-body'} color={`grey`}>
