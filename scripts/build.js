@@ -63,6 +63,15 @@ async function generateFavIcon(){
     fs.writeFileSync("public/logo.ico", blob, 'base64');
 }
 
+
+async function generateLogo(){
+    /* Get Logo */
+    const { id } =  appInfo.customization.logo;
+    let blob = await image2base64(id) // you can also to use url
+    /* If Exists Save */
+    fs.writeFileSync("public/logo.png", blob, 'base64');
+}
+
 async function setColors(){
     /* Get app Info */
     const { colors } =  appInfo.customization;
@@ -78,6 +87,8 @@ async function setColors(){
     await setColors();
     /* Set Platform Favicon */
     await generateFavIcon();
+    /* Set Platform Icon */
+    await generateLogo();
 
 })();
 
