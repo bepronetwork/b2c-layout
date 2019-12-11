@@ -8,10 +8,6 @@ export const apiUrl = process.env.REACT_APP_API_MASTER;
 
 export const apiUrlWithdraw = process.env.REACT_APP_API_WITHDRAW;
 
-export const sendbirdAppID = process.env.REACT_APP_SENDBIRD_APP_ID;
-
-export const sendbirdChannelID = process.env.REACT_APP_SENDBIRD_CHANNEL_ID;
-
 export const ethNetwork = process.env.REACT_APP_ETH_NETWORK;
 
 export const INFURA_API = process.env.REACT_APP_INFURA_API;
