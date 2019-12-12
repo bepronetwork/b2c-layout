@@ -26,7 +26,8 @@ const homepagegameCopy = {
                         'Profit'
                     ]
                 }
-            }
+            },
+            RULES : 'Rules'
         },
     'ko' : 
         {
@@ -55,7 +56,8 @@ const homepagegameCopy = {
                         '이윤'
                     ]
                 }
-            }
+            },
+            RULES : '규칙'
         },
     'ch' : 
         {
@@ -84,7 +86,8 @@ const homepagegameCopy = {
                         '盈利'
                     ]
                 }
-            }
+            },
+            RULES : '游戏规则'
         },
     'jp' : 
         {
@@ -113,7 +116,8 @@ const homepagegameCopy = {
                         '利益'
                     ]
                 }
-            }
+            },
+            RULES : '規則'
         }
 }
 

@@ -221,7 +221,7 @@ class LastBets extends Component {
                         isWon : bet.isWon,
                         payout : `${Numbers.toFloat(bet.winAmount/bet.betAmount)}x`
                     }
-                }).filter( el => (el.game.metaName == view_game))
+                })
             },
             my_bets : {
                 ...this.state.my_bets,
@@ -236,7 +236,7 @@ class LastBets extends Component {
                         isWon : bet.isWon,
                         payout : `${Numbers.toFloat(bet.winAmount/bet.betAmount)}x`
                     }
-                }).filter( el => (el.game.metaName == view_game))
+                })
             },
             biggest_win_bets  : {
                 ...this.state.biggest_win_bets,
@@ -252,7 +252,7 @@ class LastBets extends Component {
                         isWon : bet.isWon,
                         payout : `${Numbers.toFloat(bet.winAmount/bet.betAmount)}x`
                     }
-                }).filter( el => (el.game.metaName == view_game))
+                })
             },
             biggest_win_users : {
                 ...this.state.biggest_win_users,

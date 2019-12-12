@@ -1,13 +1,16 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import { ButtonIcon, History } from "components";
+import { ButtonIcon, History, Modal, Tabs, Button, Typography } from "components";
 import UserContext from "containers/App/UserContext";
 import LastBets from "../LastBets/GamePage";
+import Actions from "./Actions"
 import { Row, Col } from 'reactstrap';
+import { CopyText } from "../../copy";
+import { connect } from "react-redux";
 import _ from 'lodash';
 import "./index.css";
 
-export default class GamePage extends Component {
+class GamePage extends Component {
     static contextType = UserContext;
 
     static propTypes = {
@@ -29,7 +32,8 @@ export default class GamePage extends Component {
         const sound = localStorage.getItem("sound");
 
         this.state = {
-            soundMode: sound || "off"
+            soundMode: sound || "off",
+            actionsOpen: false
         };
     }
 
@@ -57,14 +61,37 @@ export default class GamePage extends Component {
         );
     };
 
+    renderActions = (rulesTitle) => {
+        const { actionsOpen } = this.state;
+        const { game } = this.props;
+        let rules = {title: rulesTitle, content: game.rules};
+
+        return actionsOpen ? (
+            <Modal onClose={this.handleActionsModalClose}>
+                <Actions rules={rules}/>
+            </Modal>
+        ) : null;
+    };
+
+    handleActionsModalOpen = () => {
+        this.setState({ actionsOpen: true });
+    };
+
+    handleActionsModalClose = () => {
+        this.setState({ actionsOpen: false });
+    };
+
     render() {
-        const { options, game, gameMetaName } = this.props;
+        const { ln, options, game, gameMetaName } = this.props;
         const { soundMode } = this.state;
+        const copy = CopyText.homepagegame[ln];
+        const rulesTitle = copy.RULES;
 
         if (_.isEmpty(gameMetaName)) return null;
 
         return (
             <div styleName='main-container'>
+                {this.renderActions(rulesTitle)}
                 <div styleName="root">
                     <div styleName="container">
                         <Row styleName="game-page-container">
@@ -89,8 +116,22 @@ export default class GamePage extends Component {
                         </Row>
                     </div>
                 </div>
+                <div styleName="actions">
+                    <Button size={'x-small'} theme={'action'} onClick={this.handleActionsModalOpen}>
+                        <Typography color={'white'} variant={'small-body'}>{rulesTitle}</Typography>
+                    </Button>
+                </div>
                 <LastBets gameMetaName={gameMetaName} />
             </div>
         );
     }
 }
+
+function mapStateToProps(state){
+    return {
+        ln : state.language,
+        modal : state.modal
+    };
+}
+
+export default connect(mapStateToProps)(GamePage);

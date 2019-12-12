@@ -110,3 +110,15 @@
     margin: 0 0 0 auto;
   }
 }
+
+.actions {
+  margin-top: 20px;
+  margin-left: 8px;
+  @include Breakpoint-mobileOnly {
+    display: none;
+  }
+}
+
+.tabs {
+  width: 100%;
+}

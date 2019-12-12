@@ -8,7 +8,7 @@ import "./index.css";
 export default class Button extends Component {
   static propTypes = {
     onClick: PropTypes.func,
-    theme: PropTypes.oneOf(["default", "primary"]),
+    theme: PropTypes.oneOf(["default", "primary", "action"]),
     type: PropTypes.oneOf(["button", "submit"]),
     fullWidth: PropTypes.bool,
     disabled: PropTypes.bool,
