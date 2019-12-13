@@ -4,12 +4,11 @@ import { FlipGameCard, FlipGameOptions } from "components";
 import GamePage from "containers/GamePage";
 import UserContext from "containers/App/UserContext";
 import coinFlipBet from "lib/api/coinFlip";
-import { updateUserBalance } from "lib/api/users";
 import Cache from "../../lib/cache/cache";
 import { find } from "lodash";
-import store from "../App/store";
 import { connect } from "react-redux";
 import { compose } from 'lodash/fp';
+import { setWonPopupMessageDispatcher } from "../../lib/redux";
 
 const defaultState = {
     edge : 0,
@@ -51,9 +50,10 @@ class FlipPage extends Component {
 
     handleUpdateBalance = async () => {
         const { profile } = this.props;
-        const { betObjectResult } = this.state;
+        const { result, hasWon, winAmount } = this.state.betObjectResult;
+        setWonPopupMessageDispatcher(winAmount);
         await profile.getBalanceData();
-        this.addToHistory({result : `${betObjectResult.result} `, won : betObjectResult.hasWon})
+        this.addToHistory({result : `${result} `, won : hasWon})
     };
 
     handleEnableControls = () => {

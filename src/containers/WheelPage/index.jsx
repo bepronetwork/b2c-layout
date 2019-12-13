@@ -4,6 +4,7 @@ import { WheelGameOptions, WheelGameCard } from "components";
 import GamePage from "containers/GamePage";
 import { reduce } from "lodash";
 import UserContext from "containers/App/UserContext";
+import { setWonPopupMessageDispatcher } from "../../lib/redux";
 import wheelBet from "lib/api/wheel";
 import Cache from "../../lib/cache/cache";
 import { find } from "lodash";
@@ -204,7 +205,8 @@ class WheelPage extends React.Component {
         this.setState({ bet: false, disableControls : false, inResultAnimation : false });
         const { profile } = this.props;
         /* Update Info User View */
-        const { isWon, result} = this.state.betObjectResult;
+        const { isWon, result, winAmount } = this.state.betObjectResult;
+        setWonPopupMessageDispatcher(winAmount);
         this.addToHistory({result, won : isWon});
         await profile.getBalanceData();
     };

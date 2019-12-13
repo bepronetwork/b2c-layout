@@ -1,15 +1,13 @@
 import React, { Component } from "react";
 import { PlinkoGameCard, PlinkoGameOptions } from "components";
-import { updateUserBalance } from "lib/api/users";
 import PropTypes from "prop-types";
 import UserContext from "containers/App/UserContext";
 import GamePage from "containers/GamePage";
 import plinkoBet from "lib/api/plinko";
 import Cache from "../../lib/cache/cache";
+import { setWonPopupMessageDispatcher } from "../../lib/redux";
 import { find } from "lodash";
-import store from "../App/store";
 import { connect } from "react-redux";
-import { compose } from 'lodash/fp';
 import _ from "lodash";
 
 class PlinkoPage extends Component {
@@ -86,6 +84,8 @@ class PlinkoPage extends Component {
 
     handleAnimation = async () => {
         const { profile } = this.props;
+        const { winAmount } = this.state.betObjectResult;
+        setWonPopupMessageDispatcher(winAmount);
         this.addToHistory();
         await profile.getBalanceData();
         return this.setState({ result : 0, disableControls : false });

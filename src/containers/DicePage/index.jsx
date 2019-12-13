@@ -1,15 +1,13 @@
 import React, { Component } from "react";
 import { DiceGameCard, DiceGameOptions } from "components";
-import { updateUserBalance } from "lib/api/users";
+import { setWonPopupMessageDispatcher } from "../../lib/redux";
 import PropTypes from "prop-types";
 import UserContext from "containers/App/UserContext";
 import GamePage from "containers/GamePage";
 import diceBet from "lib/api/dice";
 import Cache from "../../lib/cache/cache";
 import { find } from "lodash";
-import store from "../App/store";
 import { connect } from "react-redux";
-import { compose } from 'lodash/fp';
 import _ from "lodash";
 
 class DicePage extends Component {
@@ -79,7 +77,8 @@ class DicePage extends Component {
 
     handleAnimation = async () => {
         const { profile } = this.props;
-        const { betObjectResult } = this.state;
+        const { winAmount } = this.state.betObjectResult;
+        setWonPopupMessageDispatcher(winAmount);
         await profile.getBalanceData();
         this.setState({ result: null, animating : false, disableControls: false });
     };

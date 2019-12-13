@@ -1,6 +1,7 @@
 import { combineReducers, createStore } from 'redux';
 import {
     messageReducer,
+    popupReducer,
     profileReducer,
     chatReducer,
     languageReducer,
@@ -15,6 +16,7 @@ import {
 const reducer = combineReducers({
     profile  : profileReducer,
     message : messageReducer,
+    popup : popupReducer,
     chat : chatReducer,
     deposit : depositReducer,
     withdraw : withdrawReducer,
