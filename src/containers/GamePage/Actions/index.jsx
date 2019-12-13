@@ -23,17 +23,15 @@ export default class Actions extends Component {
                 ]}
             />
             </div>
-            <div styleName="root" style={{ overflowY: 'auto', overflowX : 'hidden'}}>
-                <div styleName="rule">
-                    <h1>
-                        <img styleName="image-icon" src={game.image_url}/> 
-                        <Typography variant='x-small-body' color={"grey"}> {game.name} </Typography>
-                    </h1>
-                    <div styleName="content">
-                        <Typography color={'grey'} variant={'small-body'}>
-                            {game.rules}
-                        </Typography>
-                    </div>
+            <div styleName="rule">
+                <h1>
+                    <img styleName="image-icon" src={game.image_url}/> 
+                    <Typography variant='x-small-body' color={"grey"}> {game.name} </Typography>
+                </h1>
+                <div styleName="content">
+                    <Typography color={'grey'} variant={'small-body'}>
+                        {game.rules}
+                    </Typography>
                 </div>
             </div>
         </div>

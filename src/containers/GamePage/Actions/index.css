@@ -34,6 +34,7 @@
   grid-auto-columns: minmax(0px, 1fr);
   justify-items: center;
   gap: 2em 2em;
+  padding-top: 16px;
 }
 
 .content {
