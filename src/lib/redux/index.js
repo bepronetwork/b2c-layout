@@ -8,6 +8,6 @@ export async function setStartLoadingProcessDispatcher(step){
 
 export async function setWonPopupMessageDispatcher(winAmount){
     if (winAmount > 30) {
-        await store.dispatch(setMessagePopup(new String("You won " + winAmount + "!").toString()));
+        await store.dispatch(setMessagePopup(new String("You won " + winAmount.toFixed(2) + "!").toString()));
     }
 }
