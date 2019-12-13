@@ -9,7 +9,7 @@ export default class Actions extends Component {
     }
 
     render() {
-        const { rules } = this.props;
+        const { rulesLabel, game } = this.props;
 
         return (
         <div styleName="root" style={{ overflowY: 'auto', overflowX : 'hidden'}}>
@@ -18,15 +18,21 @@ export default class Actions extends Component {
                 options={[
                 {
                     value: "rules",
-                    label: rules.title
+                    label: rulesLabel
                 }
                 ]}
             />
             </div>
-            <div styleName="root" style={{ overflowY: 'auto', overflowX : 'hidden'}}>
-                <Typography color={'white'} variant={'small-body'}>
-                    {rules.content}
-                </Typography>
+            <div styleName="rule">
+                <h1>
+                    <img styleName="image-icon" src={game.image_url}/> 
+                    <Typography variant='x-small-body' color={"grey"}> {game.name} </Typography>
+                </h1>
+                <div styleName="content">
+                    <Typography color={'grey'} variant={'small-body'}>
+                        {game.rules}
+                    </Typography>
+                </div>
             </div>
         </div>
         );

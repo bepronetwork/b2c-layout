@@ -4,9 +4,11 @@ import { ButtonIcon, History, Modal, Tabs, Button, Typography } from "components
 import UserContext from "containers/App/UserContext";
 import LastBets from "../LastBets/GamePage";
 import Actions from "./Actions"
+import Cache from "../../lib/cache/cache";
 import { Row, Col } from 'reactstrap';
 import { CopyText } from "../../copy";
 import { connect } from "react-redux";
+import { find } from "lodash";
 import _ from 'lodash';
 import "./index.css";
 
@@ -29,11 +31,16 @@ class GamePage extends Component {
     constructor(props) {
         super(props);
 
+        const { ln } = this.props;
         const sound = localStorage.getItem("sound");
+        const copy = CopyText.homepagegame[ln];
+        const rulesLabel = copy.RULES;
 
         this.state = {
             soundMode: sound || "off",
-            actionsOpen: false
+            actionsOpen: false,
+            gameInfo: null,
+            rulesLabel: rulesLabel
         };
     }
 
@@ -61,14 +68,12 @@ class GamePage extends Component {
         );
     };
 
-    renderActions = (rulesTitle) => {
-        const { actionsOpen } = this.state;
-        const { game } = this.props;
-        let rules = {title: rulesTitle, content: game.rules};
+    renderActions = () => {
+        const { actionsOpen, gameInfo, rulesLabel } = this.state;
 
         return actionsOpen ? (
             <Modal onClose={this.handleActionsModalClose}>
-                <Actions rules={rules}/>
+                <Actions rulesLabel={rulesLabel} game={gameInfo}/>
             </Modal>
         ) : null;
     };
@@ -81,17 +86,34 @@ class GamePage extends Component {
         this.setState({ actionsOpen: false });
     };
 
+    getGame = () => {
+        const { gameMetaName } = this.props;
+        if (!_.isEmpty(gameMetaName)) {
+            const appInfo = Cache.getFromCache("appInfo");
+            if(appInfo){
+                let gameInfo = find(appInfo.games, { metaName: gameMetaName });
+                this.setState({...this.state, gameInfo});
+            }
+        }
+    };
+
+    componentDidUpdate(prevProps) {
+        const { gameMetaName } = this.props;
+
+        if (gameMetaName !== prevProps.gameMetaName) {
+            this.getGame();
+        }
+    }
+
     render() {
-        const { ln, options, game, gameMetaName } = this.props;
-        const { soundMode } = this.state;
-        const copy = CopyText.homepagegame[ln];
-        const rulesTitle = copy.RULES;
+        const { options, game, gameMetaName } = this.props;
+        const { soundMode, rulesLabel } = this.state;
 
         if (_.isEmpty(gameMetaName)) return null;
 
         return (
             <div styleName='main-container'>
-                {this.renderActions(rulesTitle)}
+                {this.renderActions()}
                 <div styleName="root">
                     <div styleName="container">
                         <Row styleName="game-page-container">
@@ -118,7 +140,7 @@ class GamePage extends Component {
                 </div>
                 <div styleName="actions">
                     <Button size={'x-small'} theme={'action'} onClick={this.handleActionsModalOpen}>
-                        <Typography color={'white'} variant={'small-body'}>{rulesTitle}</Typography>
+                        <Typography color={'white'} variant={'small-body'}>{rulesLabel}</Typography>
                     </Button>
                 </div>
                 <LastBets gameMetaName={gameMetaName} />
