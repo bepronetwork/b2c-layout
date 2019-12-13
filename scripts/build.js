@@ -76,8 +76,9 @@ async function setColors(){
     /* Get app Info */
     const { colors } =  appInfo.customization;
     const objectServerInfo = ServerTOJSONMapper({key : 'colors', value : colors});
-    fs.writeFile("src/styles/serverVariables.css", JSONtoSASS(objectServerInfo));
-    
+    fs.writeFile("src/styles/serverVariables.css", JSONtoSASS(objectServerInfo), () => {
+        console.log("done")
+    });
 }
 
 (async () => {
