@@ -75,6 +75,7 @@ import DataContainer from './DataContainer';
 import AffiliateLinkContainer from './AffiliateLinkContainer';
 import AffiliateWithdrawForm from './AffiliateWithdrawForm';
 import NotificationForm from "./NotificationForm";
+import PopupForm from "./PopupForm";
 import TextContainer from './TextContainer';
 
 export { TextContainer };
@@ -155,3 +156,4 @@ export { UserMenu };
 export { AnnouncementTab };
 export { Partners };
 export { NotificationForm };
+export { PopupForm };

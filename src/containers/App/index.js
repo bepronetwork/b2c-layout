@@ -13,7 +13,8 @@ import {
     LoadingBanner,
     NotificationForm,
     Widgets,
-    AffiliateWithdrawForm
+    AffiliateWithdrawForm,
+    PopupForm
 } from "components";
 
 import PlinkoPage from "containers/PlinkoPage";
@@ -453,6 +454,7 @@ class App extends Component {
                                     </div>
                                 </Col>
                             </Row>
+                            <PopupForm user={user}/>
                         </div>
                     </Router>
                 </UserContext.Provider>
