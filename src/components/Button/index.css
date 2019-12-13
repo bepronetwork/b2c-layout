@@ -51,6 +51,14 @@
   }
 }
 
+.action {
+  .content {
+    background-color: $light-table-color;
+
+    transition: background-color 0.2s ease-out, color 0.2s ease-out;
+  }
+}
+
 .default:hover {
   @include Breakpoint-desktopOnly {
     .content {
@@ -68,6 +76,15 @@
 }
 
 .primary:hover {
+  @include Breakpoint-desktopOnly {
+    .content {
+      background-color: $button-hover-color;
+      transition: background-color 0.2s ease-in;
+    }
+  }
+}
+
+.action:hover {
   @include Breakpoint-desktopOnly {
     .content {
       background-color: $button-hover-color;

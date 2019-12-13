@@ -1,17 +1,17 @@
 
 #back{
     z-index: 0;
-    background-color: #17182c;
+    background-color: transparent;
     position: absolute;
     width: 100%;
     height: -webkit-fill-available;
 }
 #loading{
-    background: url('gif.gif') no-repeat;
+    background: url('logo.png') no-repeat;
     width : 400px;
     z-index : -20;
     height: 300px;
-    background-color : #16162d;
+    background-color : transparent;
     position: fixed;
     margin-left: -200px;
     top: 50%;

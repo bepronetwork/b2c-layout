@@ -13,13 +13,13 @@ import CryptographySingleton from "lib/api/Cryptography";
 import { Numbers } from "../../lib/ethereum/lib";
 import { getCurrentUser, login } from 'lib/api/users';
 import codes from 'lib/config/codes';
-import { processResponse } from "../../lib/api/apiConfig";
 import Cache from "../../lib/cache/cache";
 import ChatChannel from "../Chat";
 import store from "../../containers/App/store";
 import { setProfileInfo } from "../../redux/actions/profile";
 import { getPastTransactions, getTransactionDataCasino } from "../../lib/ethereum/lib/Etherscan";
 import { setStartLoadingProcessDispatcher } from "../../lib/redux";
+import { processResponse } from "../../lib/helpers";
 
 export default class User {
     constructor({

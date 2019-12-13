@@ -44,7 +44,7 @@ import _ from 'lodash';
 import { setStartLoadingProcessDispatcher } from "../../lib/redux";
 import AccountPage from "../AccountPage";
 import NavigationBar from "../../components/NavigationBar";
-import { getQueryVariable, getAppCustomization } from "../../lib/helpers";
+import { getQueryVariable, getAppCustomization, getApp } from "../../lib/helpers";
 import ChatChannel from "../../controllers/Chat";
 import AnnouncementTab from "../../components/AnnouncementTab";
 import UnavailablePage from "../UnavailablePage";
@@ -61,7 +61,6 @@ class App extends Component {
     componentDidMount = () => {
         this.asyncCalls();
         this.getQueryParams();
-
     };
 
     getQueryParams = () => {
@@ -81,6 +80,12 @@ class App extends Component {
 
 	asyncCalls = async () => {
         try{
+            /* Get App Info */
+            await this.updateAppInfo();
+            /* Set App Title */
+            let info = getApp();
+            document.title = `${info.name} - ${info.description}`;
+            /* Get Platform Wallet */
             this.startWallet();
             await this.loginAccount();
             this.closeStaticLoading();

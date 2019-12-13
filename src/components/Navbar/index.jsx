@@ -3,12 +3,9 @@ import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import { Button, SubtleButton, Typography, UserMenu, AnimationNumber, LanguagePicker, TextContainer } from "components";
 import UserContext from "containers/App/UserContext";
-import Bitcoin from "components/Icons/Bitcoin";
 import { Numbers } from "../../lib/ethereum/lib";
 import { getMetamaskAccount } from 'lib/metamask';
-import logo from "assets/logo.png";
 import { connect } from "react-redux";
-import { compose } from 'lodash/fp'
 import _ from 'lodash';
 import "./index.css";
 import CoinSign from "../Icons/CoinSign";
@@ -18,6 +15,7 @@ import { Col, Row } from 'reactstrap';
 import Tooltip from '@material-ui/core/Tooltip';
 import IconButton from '@material-ui/core/IconButton';
 import { etherscanLinkID } from "../../lib/api/apiConfig";
+import { getAppCustomization } from "../../lib/helpers";
 
 
 function AddressConcat(string){
@@ -122,11 +120,12 @@ class Navbar extends Component {
         let { onLogout, onCashier, onAccount, history } = this.props;
         let { currentBalance, difference, user, userAddress, userMetamaskAddress, isValid, userFullAddress } = this.state;
         let infoText = !isValid ? (text[isValid] + ` Your User Address is : ${userFullAddress}`) : text[isValid];
+        const { logo } = getAppCustomization();
         return (
                 <Row styleName="root">
                     <Col xs={3} md={2}>
                         <Link className='logo-image' to="/">
-                            <img styleName="image" alt="bet protocol logo" src={logo} />
+                            <img styleName="image" alt="bet protocol logo" src={logo.id} />
                         </Link>
                     </Col>
                     <Col xs={8} md={8}>

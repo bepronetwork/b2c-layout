@@ -14,6 +14,17 @@ const homepagegameCopy = {
                         'Profit'
                     ]
                 },
+                MY_BETS : {
+                    TITLE : 'Latests Bets', 
+                    ITEMS : [
+                        'Game',
+                        'Bet Id',
+                        'Time',
+                        'Bet',
+                        'Payout',
+                        'Profit'
+                    ]
+                },
                 BIGGEST_WIN_BETS : {
                     TITLE : 'Biggest Wins', 
                     ITEMS : [
@@ -26,13 +37,26 @@ const homepagegameCopy = {
                         'Profit'
                     ]
                 }
-            }
+            },
+            RULES : 'Rules'
         },
     'ko' : 
         {
             TABLE : {
                 ALL_BETS : {
                     TITLE : '모든 베팅' ,
+                    ITEMS : [
+                        '게임',
+                        '베트 ID',
+                        '사용자',
+                        '시간',
+                        '베트',
+                        '페이아웃',
+                        '이윤'
+                    ]
+                },
+                MY_BETS : {
+                    TITLE : '내 베팅', 
                     ITEMS : [
                         '게임',
                         '베트 ID',
@@ -55,12 +79,25 @@ const homepagegameCopy = {
                         '이윤'
                     ]
                 }
-            }
+            },
+            RULES : '규칙'
         },
     'ch' : 
         {
             TABLE : {
                 ALL_BETS : {
+                    TITLE : '我的投注', 
+                    ITEMS : [
+                        '游戏',
+                        '赌博 ID',
+                        '用户',
+                        '时间',
+                        '下注',
+                        '花费',
+                        '盈利'
+                    ]
+                },
+                MY_BETS : {
                     TITLE : '我的投注', 
                     ITEMS : [
                         '游戏',
@@ -84,13 +121,26 @@ const homepagegameCopy = {
                         '盈利'
                     ]
                 }
-            }
+            },
+            RULES : '游戏规则'
         },
     'jp' : 
         {
             TABLE : {
                 ALL_BETS : {
                     TITLE : 'すべての賭け' ,
+                    ITEMS : [
+                        'ゲーム',
+                        'ベットID',
+                        'ユーザー',
+                        '時間',
+                        'ベット',
+                        'ペイアウト',
+                        '利益'
+                    ]
+                },
+                MY_BETS : {
+                    TITLE : '私の賭け', 
                     ITEMS : [
                         'ゲーム',
                         'ベットID',
@@ -113,7 +163,8 @@ const homepagegameCopy = {
                         '利益'
                     ]
                 }
-            }
+            },
+            RULES : '規則'
         }
 }
 

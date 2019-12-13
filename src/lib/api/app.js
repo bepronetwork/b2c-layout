@@ -1,6 +1,6 @@
 import axios from "axios";
 import handleError from "./handleError";
-import { apiUrl, apiUrlWithdraw, appId } from "./apiConfig";
+import { apiUrl, appId } from "./apiConfig";
 
 export default async function getAppInfo() {
     try {
