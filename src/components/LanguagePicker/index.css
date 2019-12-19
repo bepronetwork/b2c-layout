@@ -220,7 +220,7 @@
 }
 
 .option-text{
-    font-family: 'Ubuntu Mono', sans-serif;
+    font-family: $font-family;
     display: inline;
     margin-left : 5px;
     position: relative;

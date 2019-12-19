@@ -24,6 +24,10 @@
   width : 60px;
 }
 
+.rule-h1 {
+  text-align: center;
+}
+
 .tabs {
     width: 100%;
 }
