@@ -110,7 +110,7 @@ class EnhancedTableHead extends React.Component {
 
         return (
             <TableHead>
-                <TableRow style={{backgroundColor : '#05040c'}}>
+                <TableRow style={{backgroundColor : '#0a031b'}}>
                 {rows.map(
                     row => (
                     <StyledTableCell
@@ -353,7 +353,7 @@ class DepositsTable extends React.Component {
                                 <TableRow
                                     hover
                                     role="checkbox"
-                                    style={{padding : 0, color : 'white', backgroundColor : '#05040c'}}
+                                    style={{padding : 0, color : 'white', backgroundColor : '#0f0e1d'}}
                                     aria-checked={isSelected}
                                     tabIndex={-1}
                                     key={n.id}
