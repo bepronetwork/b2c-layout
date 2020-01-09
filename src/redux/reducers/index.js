@@ -9,6 +9,7 @@ import depositReducer from './depositReducer';
 import startLoadingProgressReducer from './startLoadingProgressReducer';
 import withdrawReducer from './withdrawReducer';
 import modalReducer from './modalReducer';
+import set2FAReducer from './set2FAReducer';
 
 export {
     profileReducer,
@@ -20,5 +21,6 @@ export {
     languageReducer,
     chatReducer,
     depositReducer,
-    betReducer
+    betReducer,
+    set2FAReducer
 };

@@ -73,6 +73,35 @@ export async function login({ username, password }) {
     }
 }
 
+export async function login2FA({ username, password, token }) {
+    try {
+        const response = await axios.post(`${apiUrl}/api/users/login/2fa`, {
+            username,
+            password,
+            "2fa_token": token,
+            app : appId
+        });
+
+        if (response.data.data.status !== 200) {
+        return response.data.data;
+        }
+        const { status, message } = response.data.data;
+        return {
+            address : message.address,
+            status,
+            balance: message.wallet.playBalance,
+            id  : message.id,
+            bearerToken : message.bearerToken,
+            username    : message.username,
+            withdraws   : message.withdraws,
+            deposits    : message.deposits,
+            ...message
+        };
+    } catch (error) {
+        return handleError(error);
+    }
+}
+
 export async function getCurrentUser() {
     try {
         return JSON.parse(localStorage.getItem("user"));
@@ -263,4 +292,25 @@ function addSecurityHeader({bearerToken, payload}) {
         'authorization': `Bearer ${bearerToken}`,
         'payload'       : JSON.stringify({id : payload})
   };
+}
+
+/**
+ *
+ * @param {*} params
+ * @param {*} bearerToken
+ * @name Set 2FA
+ * @use Once User Wants to set 2FA
+ */
+
+export async function set2FA(params, bearerToken, payload) {
+    try{
+        let res = await fetch(`${apiUrl}/api/users/2fa/set`, {
+            method : 'POST',
+            timeout: 1000*1000,
+            headers : addSecurityHeader({bearerToken, payload :  payload || params.user}),
+            body : JSON.stringify(params)})
+        return res.json();
+    }catch(err){
+        throw err;
+    }
 }

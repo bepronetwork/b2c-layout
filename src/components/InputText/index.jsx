@@ -16,7 +16,8 @@ export default class InputText extends Component {
     type: PropTypes.oneOf(["text", "password"]),
     placeholder: PropTypes.string,
     disabled: PropTypes.bool,
-    icon: PropTypes.oneOf(["copy"])
+    icon: PropTypes.oneOf(["copy"]),
+    maxlength: PropTypes.number
   };
 
   static defaultProps = {
@@ -27,7 +28,8 @@ export default class InputText extends Component {
     type: "text",
     placeholder: "",
     disabled: false,
-    icon: null
+    icon: null,
+    maxlength: ""
   };
 
   state = {
@@ -87,7 +89,8 @@ export default class InputText extends Component {
       defaultValue,
       disabled,
       type,
-      icon
+      icon,
+      maxlength
     } = this.props;
     const { value } = this.state;
 
@@ -119,6 +122,7 @@ export default class InputText extends Component {
                 type={type}
                 value={currentValue}
                 disabled={disabled}
+                maxlength={maxlength}
               />
             </div>
             {this.icon}

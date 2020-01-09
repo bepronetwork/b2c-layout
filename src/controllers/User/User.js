@@ -7,7 +7,8 @@ import {
   cancelWithdraw,
   requestWithdrawAffiliate,
   createBet,
-  getMyBets
+  getMyBets,
+  set2FA
 } from "lib/api/users";
 import CryptographySingleton from "lib/api/Cryptography";
 import { Numbers } from "../../lib/ethereum/lib";
@@ -603,5 +604,19 @@ export default class User {
 
     setMessage = (message) => {
         this.message = message;
+    }
+
+    set2FA = async ({token, secret}) => {
+        try{
+            let res = await set2FA({               
+                '2fa_secret' : secret,
+                '2fa_token' : token,
+                user: this.user_id
+            },
+            this.bearerToken);
+            return res;
+        } catch(err){
+            throw err;
+        }
     }
 }

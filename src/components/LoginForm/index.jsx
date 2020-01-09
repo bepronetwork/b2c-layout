@@ -7,16 +7,19 @@ import { getAppCustomization } from "../../lib/helpers";
 export default class LoginForm extends Component {
     static propTypes = {
         onSubmit: PropTypes.func.isRequired,
-        error: PropTypes.number
+        error: PropTypes.number,
+        has2FA: PropTypes.bool
     };
 
     static defaultProps = {
-        error: null
+        error: null,
+        has2FA: false
     };
 
     state = {
         username: "",
-        password: ""
+        password: "",
+        token: ""
     };
 
     handleSubmit = event => {
@@ -25,6 +28,10 @@ export default class LoginForm extends Component {
         const { onSubmit } = this.props;
 
         if (onSubmit && this.formIsValid()) onSubmit(this.state);
+    };
+
+    on2FATokenChange = event => {
+        this.setState({ token: event.target.value });
     };
 
     onUsernameChange = event => {
@@ -36,26 +43,25 @@ export default class LoginForm extends Component {
     };
 
     formIsValid = () => {
-        const { username, password } = this.state;
+        const { username, password, token } = this.state;
+        const { has2FA } = this.props;
 
-        return username !== "" && password !== "";
+        return (username !== "" && password !== "" && !has2FA) || (token.length === 6 && has2FA); 
     };
 
-    render() {
+    renderStageOne() {
         const { username, password } = this.state;
-        const { error } = this.props;
-        const { logo } = getAppCustomization();
+        const { has2FA } = this.props;
 
         return (
-            <form onSubmit={this.handleSubmit}>
-                <img src={logo.id} styleName="tkn_logo_login"/>
-
+            <div styleName={has2FA ? "disabled" : null}>
                 <div styleName="username">
                     <InputText
                         name="username"
                         label="Username"
                         onChange={this.onUsernameChange}
                         value={username}
+                        disabled={has2FA}
                     />
                 </div>
                 <InputText
@@ -64,14 +70,60 @@ export default class LoginForm extends Component {
                     type="password"
                     onChange={this.onPasswordChange}
                     value={password}
+                    disabled={has2FA}
                 />
+            </div>
+        );
+    }
+
+    renderStageTwo() {
+        const { has2FA } = this.props;
+        const { token } = this.state;
+
+        if (!has2FA) { return null };
+
+        return (
+            <div>
+                <div styleName="token2FA">
+                    <InputText
+                        name="token2fa"
+                        label="Your 2FA Code"
+                        onChange={this.on2FATokenChange}
+                        value={token}
+                        maxlength="6"
+                        placeholder="6 digit code"
+                    />
+                </div>
+                <div styleName="token2FA-info">
+                    <Typography color={'grey'} variant={'small-body'}>
+                        Insert the 6 digit from your 2FA Key Management App
+                    </Typography>
+                </div>
+            </div>
+        );
+    }
+
+    render() {
+        const { error, has2FA } = this.props;
+        const { logo } = getAppCustomization();
+
+        return (
+            <form onSubmit={this.handleSubmit}>
+                <img src={logo.id} styleName="tkn_logo_login"/>
+                
+                {this.renderStageOne()}
+                
+                {has2FA ? this.renderStageTwo() : null}
 
                 <div styleName="error">
-                {error ? (
+                {error && error !== 37 ? (
                     <Typography color="red" variant="small-body" weight="semi-bold">
                     {error === 4
                         ? "User not found"
-                        : `Please provide a valid password`}
+                        : 
+                        error === 36 
+                            ? "2FA Key is Wrong"
+                            : `Please provide a valid password`}
                     </Typography>
                 ) : null}
                 </div>
@@ -87,6 +139,6 @@ export default class LoginForm extends Component {
                 </Button>
                 </div>
             </form>
-            );
+        );
     }
 }

@@ -77,7 +77,9 @@ import AffiliateWithdrawForm from './AffiliateWithdrawForm';
 import NotificationForm from "./NotificationForm";
 import PopupForm from "./PopupForm";
 import TextContainer from './TextContainer';
+import Authentication2FAModal from './Authentication2FAModal';
 
+export { Authentication2FAModal };
 export { TextContainer };
 export { AffiliateWithdrawForm };
 export { AffiliateLinkContainer };
