@@ -1,4 +1,4 @@
-import { enableMetamask, getMetamaskAccount, getNonce, promptMetamask } from "lib/metamask";
+import { getMetamaskAccount, getNonce, promptMetamask } from "lib/metamask";
 import CasinoContract from "lib/ethereum/CasinoContract";
 import {
   updateUserWallet,
@@ -8,12 +8,10 @@ import {
   requestWithdrawAffiliate,
   createBet,
   getMyBets,
-  set2FA
+  set2FA,
+  userAuth
 } from "lib/api/users";
-import CryptographySingleton from "lib/api/Cryptography";
 import { Numbers } from "../../lib/ethereum/lib";
-import { getCurrentUser, login } from 'lib/api/users';
-import codes from 'lib/config/codes';
 import Cache from "../../lib/cache/cache";
 import ChatChannel from "../Chat";
 import store from "../../containers/App/store";
@@ -190,15 +188,12 @@ export default class User {
     }
 
     updateUser = async () => {
-        let cache = Cache.getFromCache('Authentication');
-        if(cache){
-            let user = await login({
-                username : cache.username, 
-                password : cache.password
-            });
-            this.user = user;
-            return user;
-        }
+        let user = await userAuth({
+            user: this.user_id
+        }, this.bearerToken);
+
+        this.user = user;
+        return user;
     }
 
     getContract = () => {

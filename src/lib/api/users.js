@@ -1,7 +1,6 @@
 import axios from "axios";
 import handleError from "./handleError";
 import { apiUrl, appId, apiUrlWithdraw } from "./apiConfig";
-import { processResponse } from "../helpers";
 
 // Create an instance using the config defaults provided by the library
 // At this point the timeout config value is `0` as is the default for the library
@@ -313,4 +312,42 @@ export async function set2FA(params, bearerToken, payload) {
     }catch(err){
         throw err;
     }
+}
+
+/**
+ *
+ * @param {*} params
+ * @param {*} bearerToken
+ * @name User Auth
+ * @use Get User authentication info
+ */
+
+export async function userAuth(params, bearerToken, payload) {
+    try{
+        let res = await fetch(`${apiUrl}/api/users/auth`, {
+            method : 'POST',
+            headers : addSecurityHeader({bearerToken, payload :  payload || params.user}),
+            body : JSON.stringify(params)})
+
+        let response = await res.json();
+
+        const { message, status } = response.data;
+
+        return {
+            address : message.address,
+            status,
+            balance: message.wallet.playBalance,
+            id  : message.id,
+            bearerToken : message.bearerToken,
+            username    : message.username,
+            withdraws   : message.withdraws,
+            deposits    : message.deposits,
+            ...message
+        };
+
+        return null;
+
+    } catch (error) {
+        return handleError(error);
+    } 
 }
