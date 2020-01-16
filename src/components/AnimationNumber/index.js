@@ -7,6 +7,7 @@ import "./index.css";
 
 const defaultProps = {
     number : 0,
+    decimals : 2,
     variant : 'h4',
     color :'white',
     span : null 
@@ -28,13 +29,14 @@ class AnimationNumber extends React.Component{
     }
     
     projectData = async (props) => {
-        const { number, color, variant, span } = props;
+        const { number, color, variant, span, decimals } = props;
         if(this.state.number == props.number){return null};
         this.setState({
            number : number ? number : defaultProps.number,
            color : color ? color : defaultProps.color,
            variant : variant ? variant : defaultProps.variant,
-           span : span ? span : defaultProps.span
+           span : span ? span : defaultProps.span,
+           decimals : decimals ? decimals : defaultProps.decimals,
        })
         
     }
@@ -44,8 +46,7 @@ class AnimationNumber extends React.Component{
     }
 
     render = () => {
-        const { number, variant='h4', color='white', span=null } = this.state;
-        console.log(number)
+        const { number, variant='h4', color='white', span=null, decimals } = this.state;
         return (
             <Typography variant={variant} color={color}>
                 <AnimatedNumber 
@@ -59,7 +60,7 @@ class AnimationNumber extends React.Component{
                     )}
                     duration={500}
                     value={number}
-                formatValue={n => Numbers.toFloat(n)}/>
+                formatValue={n => parseFloat(n).toFixed(decimals)}/>
                 <span style={{marginLeft : 4, fontSize : 18, opacity : 0.4}}>{span}</span>
             </Typography>
         );

@@ -156,7 +156,7 @@ class ChatPage extends React.Component {
 
                                         </Col>
                                         <Col sm={2}>
-                                            <div style={{marginTop : -18}}>
+                                            <div>
                                                 <DropDownField
                                                     id="language"
                                                     type={'language'}

@@ -9,12 +9,14 @@ import {
     depositReducer,
     betReducer,
     withdrawReducer,
-    modalReducer
+    modalReducer,
+    currencyReducer
 } from '../../redux/reducers/index';
 
 
 const reducer = combineReducers({
     profile  : profileReducer,
+    currency : currencyReducer,
     message : messageReducer,
     popup : popupReducer,
     chat : chatReducer,

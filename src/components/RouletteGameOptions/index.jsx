@@ -182,7 +182,7 @@ class RouletteGameOptions extends Component {
                     name="amount"
                     disabled
                     icon="bitcoin"
-                    precision={2}
+                    precision={6}
                     value={totalBet}
                     title={copy.TOTAL_BET_NAME}
                 />

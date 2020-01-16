@@ -4,6 +4,7 @@ import Contract from "./models/Contract";
 import ERC20TokenContract from "./ERC20TokenContract";
 import { Numbers } from "./lib";
 import { getTransactionOptions } from "./lib/Ethereum";
+import { getMetamaskAccount } from "../metamask";
 
 let self;
 
@@ -103,7 +104,7 @@ class CasinoContract {
     async getApprovedWithdrawAmount(address){
         try{
             let res = await self.contract.getContract().methods.withdrawals(address).call();
-            return Numbers.fromBigNumberToInteger(res ? res.amount : 0);
+            return Numbers.fromDecimals(res ? res.amount : 0, this.decimals);
         }catch(err){
             throw err;
         }
@@ -114,7 +115,7 @@ class CasinoContract {
 
         try{
             let res = await self.contract.getContract().methods.withdrawals(address).call();
-            return Numbers.fromBigNumberToInteger(res ? res.timestamp : {timestamp : 0});
+            return Numbers.fromDecimals(res ? res.timestamp : {timestamp : 0}, this.decimals);
                
         }catch(err){
             throw err;
@@ -172,16 +173,19 @@ class CasinoContract {
         }
     }
 
-	async getBankRoll() {
-        
+    async getBalance(){
+        const addr = await getMetamaskAccount();
+        return  Numbers.fromDecimals(await self.erc20TokenContract.getTokenAmount(addr), this.decimals);
+    }
 
+	async getBankRoll() {
 		try {
-		let res = await self.contract
-			.getContract()
-			.methods.bankroll()
-			.call();
-		let number = window.web3.utils.hexToNumber(res._hex);
-		return Numbers.fromBigNumberToInteger(number);
+            let res = await self.contract
+                .getContract()
+                .methods.bankroll()
+                .call();
+            let number = window.web3.utils.hexToNumber(res._hex);
+		return Numbers.fromDecimals(number, this.decimals);
 		} catch (err) {
 		throw err;
 		}
@@ -209,12 +213,12 @@ class CasinoContract {
         
 
 		try {
-		return Numbers.fromBigNumberToInteger(
+		return Numbers.fromDecimals(
 			await self.contract
 			.getContract()
 			.methods.totalPlayerBalance()
 			.call()
-		);
+        , this.decimals);
 		} catch (err) {
 		return "N/A";
 		}
@@ -224,9 +228,9 @@ class CasinoContract {
         
 
 		try {
-		return Numbers.fromBigNumberToInteger(
+		return Numbers.fromDecimals(
 			await self.erc20TokenContract.getTokenAmount(this.getAddress())
-		);
+        , this.decimals);
 		} catch (err) {
 		return "N/A";
 		}

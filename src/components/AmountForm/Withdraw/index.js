@@ -5,15 +5,13 @@ import { connect } from "react-redux";
 import { compose } from 'lodash/fp';
 import { InputNumber,  Typography } from 'components';
 import { Col, Row } from 'reactstrap';
-import dollar from 'assets/dollar.png';
 import store from "../../../containers/App/store";
 import { setWithdrawInfo } from "../../../redux/actions/withdraw";
-import { MIN_WITHDRAWAL } from "../../../lib/api/apiConfig";
 
 const defaultProps = {
-    ticker : 'DAI',
-    maxWithdrawal : 0,
-    balance : 0
+    ticker : 'N/A',
+    balance : 0,
+    amount : 0
 }
 
 class AmountWithdrawForm extends Component {
@@ -33,14 +31,14 @@ class AmountWithdrawForm extends Component {
 
     async projectData(props){
         const { withdraw, profile } = props;
-        let balance = await profile.getBalanceAsync();
-        let maxWithdrawal = await profile.getContract().getMaxWithdrawal();
+        const { currency } = withdraw;
+
+        let balance = profile.getBalance(currency);
+
         this.setState({...this.state, 
-            ticker : profile.getAppCurrencyTicker(),   
+            ticker : currency.ticker,
             amount : withdraw.amount,
-            maxWithdrawal,
-            balance,
-            ticker : profile.getAppCurrencyTicker()
+            balance
         })
     }
 
@@ -49,17 +47,17 @@ class AmountWithdrawForm extends Component {
         await store.dispatch(setWithdrawInfo({key : "amount", value : parseFloat(amount)}));
     }
 
-    renderAmountWithdrawButton({disabled, amount, onChangeAmount}){
+    renderAmountWithdrawButton({disabled, amount, onChangeAmount, ticker}){
         return (
             <button disabled={disabled} onClick={() => onChangeAmount(amount)}  styleName={`container-root ${disabled ? 'no-hover' : ''}`}>
-                <Typography color={'white'} variant={'small-body'}>{`${amount} $`}</Typography>
+                <Typography color={'white'} variant={'small-body'}>{`${amount} ${ticker}`}</Typography>
             </button>
         )
     }
 
     render() {
-        const { amount, balance, maxWithdrawal, ticker } = this.state;
-        let maxWithdrawInput = Math.min(balance, maxWithdrawal);
+        const { amount, balance, ticker } = this.state;
+        const MIN_WITHDRAWAL = 0.00001;
 
         return (
             <div>
@@ -69,8 +67,7 @@ class AmountWithdrawForm extends Component {
                             <InputNumber
                                 name="amount"
                                 min={MIN_WITHDRAWAL}
-                                max={maxWithdrawInput}
-                                precision={2}
+                                precision={6}
                                 title=""
                                 onChange={(amount) => this.onChangeAmount(amount)}
                                 icon="cross"
@@ -78,7 +75,7 @@ class AmountWithdrawForm extends Component {
                             />
                         </Col>
                         <Col md={2}>
-                            <img src={dollar} styleName='dollar-image'/>
+                            <Typography variant={'x-small-body'} color={'white'}>{`${ticker}`}</Typography>
                         </Col>
                     </Row>
                     <div styleName='text-info-deposit'>
@@ -87,13 +84,13 @@ class AmountWithdrawForm extends Component {
                 </div>
                 <Row>
                     <Col md={4}>
-                        {this.renderAmountWithdrawButton({disabled : (maxWithdrawInput < 10),amount :'10.00', onChangeAmount : this.onChangeAmount})}
+                        {this.renderAmountWithdrawButton({disabled : (balance < 0.1),amount :'0.1', onChangeAmount : this.onChangeAmount, ticker})}
                     </Col>
                     <Col md={4}>
-                        {this.renderAmountWithdrawButton({disabled : (maxWithdrawInput < 20),amount :'20.00', onChangeAmount : this.onChangeAmount})}
+                        {this.renderAmountWithdrawButton({disabled : (balance < 10),amount :'10', onChangeAmount : this.onChangeAmount, ticker})}
                     </Col>
                     <Col md={4}>
-                        {this.renderAmountWithdrawButton({disabled : (maxWithdrawInput < 30),amount :'30.00', onChangeAmount : this.onChangeAmount})}
+                        {this.renderAmountWithdrawButton({disabled : (balance < 1000),amount :'100', onChangeAmount : this.onChangeAmount, ticker})}
                     </Col>
                 </Row>
             </div>
