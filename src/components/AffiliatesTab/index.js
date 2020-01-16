@@ -7,11 +7,15 @@ import wallet from 'assets/wallet.png';
 import users from 'assets/users-white.png';
 import store from "../../containers/App/store";
 import { setModal } from "../../redux/actions/modal";
-import { Numbers } from "../../lib/ethereum/lib";
 
 
 const defaultState = {
-    isWithdrawing : false
+    isWithdrawing : false,
+    ticker : 'N/A',
+    percentageOnLevelOne : 0,
+    userAmount : 0,
+    affiliateBalance : 0,
+    id : ''
 }
 
 class AffiliatesTab extends Component {
@@ -30,7 +34,16 @@ class AffiliatesTab extends Component {
     }
 
     projectData = async (props) => {
-
+        const { profile, currency } = props;
+        const { id, wallet, userAmount, percentageOnLevelOne } = profile.getAffiliateInfo(currency);
+        if(!wallet){return}
+        this.setState({
+            ticker : currency.ticker,
+            percentageOnLevelOne,
+            userAmount,
+            affiliateBalance : wallet.playBalance,
+            id
+        })
     }
 
     withdrawAffiliate = async () => {
@@ -39,19 +52,17 @@ class AffiliatesTab extends Component {
 
     render() {
         const { profile, ln } = this.props;
-        const { isWithdrawing } = this.state;
-        const { id, wallet : walletBalance, userAmount, percentageOnLevelOne } = profile.getAffiliateInfo();
-        const ticker = profile.getAppCurrencyTicker();
+        const { isWithdrawing, affiliateBalance, id, percentageOnLevelOne, userAmount, ticker } = this.state;
 
         return (
             <div styleName='root'>
                 <Row>
                     <Col lg={6}>
-                        <DataContainer title={'Wallet'} message={`${Numbers.toFloat(walletBalance)} ${ticker}`} image={wallet} button={
+                        <DataContainer title={'Wallet'} message={`${parseFloat(affiliateBalance)} ${ticker}`} image={wallet} button={
                              <Button
                                 theme="default"
                                 size={'x-small'}
-                                disabled={ (walletBalance < 0) || isWithdrawing}
+                                disabled={ (affiliateBalance < 0) || isWithdrawing}
                                 onClick={this.withdrawAffiliate}
                             >
                                 <Typography color={'white'} variant={'small-body'}> Withdraw </Typography>
@@ -75,7 +86,8 @@ class AffiliatesTab extends Component {
 function mapStateToProps(state){
     return {
         profile: state.profile,
-        ln : state.language
+        ln : state.language,
+        currency : state.currency
     };
 }
 

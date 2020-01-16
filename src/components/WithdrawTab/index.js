@@ -34,10 +34,7 @@ class WithdrawTab extends Component {
         const { profile } = props;
         if (!profile || _.isEmpty(profile)) return true;
 
-        let time = await profile.getTimeForWithdrawalAsync();
-
         this.setState({...this.state, 
-            time,
             ticker : profile.getAppCurrencyTicker(),    
             withdraws : profile.getWithdraws()
         })

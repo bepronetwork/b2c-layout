@@ -124,7 +124,7 @@ class EnhancedTableHead extends React.Component {
                         padding={row.disablePadding ? 'none' : 'default'}
                         sortDirection={orderBy === row.id ? order : false}
                         size={row.size}
-                        style={{borderBottom: '10px solid #17162d', paddingLeft: 40, paddingTop: 7, paddingBottom: 7, paddingRight: 0}}
+                        style={{borderBottom: '10px solid #192c38', paddingLeft: 40, paddingTop: 7, paddingBottom: 7, paddingRight: 0}}
                     >
                         <Tooltip
                         title="Sort"
@@ -358,22 +358,22 @@ class WithdrawTable extends React.Component {
                                     key={n.id}
                                     selected={isSelected}
                                 >
-                                    <StyledTableCell  style={{width: 130, borderBottom: '10px solid #17162d', paddingLeft: 40}} align="left">
+                                    <StyledTableCell  style={{width: 130, borderBottom: '10px solid #192c38', paddingLeft: 40}} align="left">
                                         <Typography variant={'small-body'} color='white'>
                                             {n.amount} {this.props.currency}
                                         </Typography>
                                     </StyledTableCell>
-                                    <StyledTableCell style={{width: 130, borderBottom: '10px solid #17162d', paddingLeft: 20}} align="left">
+                                    <StyledTableCell style={{width: 130, borderBottom: '10px solid #192c38', paddingLeft: 20}} align="left">
                                         <div styleName={withdrawStatus[n.confirmed.toLowerCase()]}>
                                             <Typography variant={'small-body'} color='white'>
                                                 {n.confirmed}
                                             </Typography>
                                         </div>
                                     </StyledTableCell>
-                                    <StyledTableCell style={{width: 130, borderBottom: '10px solid #17162d', paddingLeft: 30}} align="left">
+                                    <StyledTableCell style={{width: 130, borderBottom: '10px solid #192c38', paddingLeft: 30}} align="left">
                                         <Typography color={'white'} variant={'small-body'}> {n.done ? 'Done' : 'Unconfirmed'} </Typography>
                                     </StyledTableCell>
-                                    <StyledTableCell style={{width: 130, borderBottom: '10px solid #17162d', paddingLeft: 30}} align="left">
+                                    <StyledTableCell style={{width: 130, borderBottom: '10px solid #192c38', paddingLeft: 30}} align="left">
                                         {n.transactionHash ?
                                             <a href={`${etherscanLinkID}/tx/${n.transactionHash}`} target={'_blank'}>
                                                 <Typography variant={'small-body'} color='white'>
@@ -385,7 +385,7 @@ class WithdrawTable extends React.Component {
                                         }
 
                                     </StyledTableCell>
-                                    <StyledTableCell style={{borderBottom: '10px solid #17162d', paddingLeft: 30}} align="left">
+                                    <StyledTableCell style={{borderBottom: '10px solid #192c38', paddingLeft: 30}} align="left">
                                         <Typography variant={'small-body'} color='white'>
                                             {n.creation_date}
                                         </Typography>
@@ -395,7 +395,7 @@ class WithdrawTable extends React.Component {
                         })}
                         {emptyRows > 0 && (
                             <TableRow style={{ height: 49 * emptyRows }}>
-                                <TableCell colSpan={6} style={{borderBottom: '1px solid rgb(10, 3, 27)'}}/>
+                                <TableCell colSpan={6} style={{borderBottom: '1px solid #192c38'}}/>
                             </TableRow>
                         )}
                         </TableBody>

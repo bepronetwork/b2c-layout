@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Tabs, Typography } from "components";
+import { escapedNewLineToLineBreakTag } from '../../../utils/br';
 
 import "./index.css";
 
@@ -24,13 +25,13 @@ export default class Actions extends Component {
             />
             </div>
             <div styleName="rule">
-                <h1>
+                <h1 styleName="rule-h1">
                     <img styleName="image-icon" src={game.image_url}/> 
                     <Typography variant='x-small-body' color={"grey"}> {game.name} </Typography>
                 </h1>
                 <div styleName="content">
                     <Typography color={'grey'} variant={'small-body'}>
-                        {game.rules}
+                        {escapedNewLineToLineBreakTag(game.rules)}
                     </Typography>
                 </div>
             </div>

@@ -7,7 +7,6 @@ import { map } from "lodash";
 import { connect } from "react-redux";
 import _ from 'lodash';
 import "./index.css";
-import invitation from 'assets/invitation.png';
 import { Row, Col } from 'reactstrap';
 import { CopyText } from "../../copy";
 
@@ -48,7 +47,6 @@ class PlayInvitation extends Component {
                 <Row>
                     <Col md={6}>
                         <div styleName="invitation">
-                        <img src={invitation} styleName='invitation-cards'/>
                         {/* <InvitationCards /> */}
                         <div styleName="play-button">
                             <Button onClick={this.handleClick} theme="primary">

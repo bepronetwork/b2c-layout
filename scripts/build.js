@@ -11,7 +11,6 @@ async function getAppInfo() {
         const response = await axios.post(`${apiUrl}/api/app/get`, {
             app: appId
         });
-
         return response.data.data.message;
     } catch (error) {
         console.log(error)

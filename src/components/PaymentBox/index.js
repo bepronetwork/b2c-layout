@@ -20,11 +20,11 @@ class PaymentBox extends React.Component{
     }
 
     render(){
-        const { 
-            image, type, time, description, id, picked, disabled, alertMessage, alertCondition, info
+        var { 
+            image, type, time, description, id, picked, isPicked,  disabled, alertMessage, alertCondition, info
         } = this.props;
 
-        let isPicked = (picked == id)
+        isPicked = isPicked ? isPicked : (picked == id);
 
         return (
             <button disabled={disabled} onClick={this.onClick} styleName={`container-root ${isPicked ? 'picked' : ''} ${alertCondition ? 'alert' : ''} ${info ? 'alert' : ''}`}>

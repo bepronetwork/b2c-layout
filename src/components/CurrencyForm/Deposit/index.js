@@ -1,19 +1,17 @@
 import React from "react";
 import { connect } from "react-redux";
 import PaymentBox from "../../PaymentBox";
-import currencies from "../../../config/currencies";
-import { getMetamaskAccount } from "../../../lib/metamask";
-import { getETHBalance } from "../../../lib/ethereum/lib/Ethereum";
 import { setDepositInfo } from "../../../redux/actions/deposit";
 import store from "../../../containers/App/store";
+import { getApp } from "../../../lib/helpers";
+import { getContract } from "../../../lib/ethereum/lib/Ethereum";
 
 class CurrencyDepositForm extends React.Component{
     constructor(props){
         super(props);
         this.state = {
-            ownedDAI : 0,
-            ownedETH : 0,
-            updated : false
+            updated : false,
+            currencies : [],
         }
     }
 
@@ -26,43 +24,44 @@ class CurrencyDepositForm extends React.Component{
     }
 
     projectData = async (props) => {
-        const { profile } = props;
-        let address = await getMetamaskAccount();
-        let ownedETH = await getETHBalance({address});
-        let ownedDAI = parseFloat(await profile.getTokenAmount());
+        let currencies = getApp().currencies;
+        currencies = await Promise.all(currencies.map( async c => {
+            let contract = await getContract({currency : c, bank_address : c.bank_address});
+            let holdingToken = await contract.getBalance({});
+
+            return {
+                ...c,
+                ownership : holdingToken,
+                alertCondition : (holdingToken <= 0)
+            }
+        }))
+
         this.setState({...this.state,
-            ownedETH,
-            ownedDAI,
-            updated : true
+            currencies
         })
     }
-    changeCurrency = async (id) => {
-        await store.dispatch(setDepositInfo({key : "currency", value : id}));
+    changeCurrency = async (c) => {
+        await store.dispatch(setDepositInfo({key : "currency", value : c}));
     }
 
     render(){
-        const { currency } = this.props.deposit;
-        const { updated, ownedDAI, ownedETH } = this.state;
-
-        const alertConditions = {
-            dai : ownedDAI <= 0,
-            eth : ownedETH <= 0
-        }
+        const { currencies } = this.state;
+        const { deposit } = this.props;
 
         return (
             <div>
-                <PaymentBox 
-                    onClick={this.changeCurrency}
-                    alertMessage={'You Don´t Own Enough Any Ethereum'} picked={currency} 
-                    alertCondition={updated && alertConditions.eth} disabled={!updated || alertConditions.eth} id={"eth"}  
-                    image={currencies.ethereum} type={'Ethereum'} 
-                    description={'Native Currency of Ethereum'} time={'2-3 minutes'} />
-                <PaymentBox 
-                    onClick={this.changeCurrency}
-                    alertMessage={'You Don´t Own Enough Any DAI'} picked={currency} 
-                    alertCondition={updated && alertConditions.dai} disabled={!updated || alertConditions.dai}  id={"dai"} 
-                    image={currencies.dai} type={'DAI'} 
-                    description={'A Stable ERC20 Token that equals $1=1 DAI'} time={'1-2 minutes'} />
+                {currencies.map( c => {
+                    return (
+                        <PaymentBox 
+                            onClick={ () => this.changeCurrency(c)}
+                            isPicked={new String(deposit.currency._id).toString() == new String(c._id).toString()}
+                            alertMessage={`You Don´t Own Enough Any ${c.ticker}`} 
+                            alertCondition={c.alertCondition} disabled={c.alertCondition} id={`${c.ticker}`}  
+                            image={c.image} type={`${c.name}`} 
+                            description={'Token'} time={'5-10 seconds'} 
+                        />
+                    )
+                })}
             </div>
         )
     }

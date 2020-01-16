@@ -20,6 +20,8 @@ import { setProfileInfo } from "../../redux/actions/profile";
 import { getPastTransactions, getTransactionDataCasino } from "../../lib/ethereum/lib/Etherscan";
 import { setStartLoadingProcessDispatcher } from "../../lib/redux";
 import { processResponse } from "../../lib/helpers";
+import { getContract } from "../../lib/ethereum/lib/Ethereum";
+import _ from 'lodash';
 
 export default class User {
     constructor({
@@ -60,7 +62,6 @@ export default class User {
     __init__ = async () =>  {
         try{
             setStartLoadingProcessDispatcher(1);
-            this.setupCasinoContract();
             setStartLoadingProcessDispatcher(2);
             await this.setupChat();
             setStartLoadingProcessDispatcher(3);
@@ -74,7 +75,13 @@ export default class User {
 
     hasLoaded = () => this.isLoaded;
 
-    getBalance = () => this.user.balance;
+    getBalance = (currency) => {
+        const state = store.getState();
+        currency = currency ? currency : state.currency;
+        if(_.isEmpty(currency)){ return 0;}
+        return this.getWallet({currency}).playBalance;
+    };
+    getWallet = ({currency}) => {return this.user.wallet.find( w => new String(w.currency._id).toString().toLowerCase() == new String(currency._id).toString().toLowerCase())};
     
     getBalanceAsync = async () => Numbers.toFloat((await this.updateUser()).balance);
 
@@ -85,8 +92,6 @@ export default class User {
     getDepositsAsync = async () => await this.__getDeposits();
 
     getTimeForWithdrawal = () => this.params.timeToWithdraw;
-
-    getTimeForWithdrawalAsync = async () => await this.__getTimeForWithdrawal();
     
     getApprovedWithdraw = () => this.params.decentralizeWithdrawAmount;
     
@@ -105,8 +110,6 @@ export default class User {
 
     getAllData = async () => {
         await this.updateUser();
-        setStartLoadingProcessDispatcher(5);
-        await this.updateDecentralizedStats();
         setStartLoadingProcessDispatcher(6);
         this.isLoaded = true;
         await this.updateUserState();
@@ -115,22 +118,6 @@ export default class User {
     getBalanceData = async () => {
         await this.updateUser();
         await this.updateUserState();
-    }
-
-    updateDecentralizedStats = async () => {
-        let userMetamaskAddress = await getMetamaskAccount();
-        if(userMetamaskAddress){
-            let arrayOfPromises = [
-                this.__getApprovedWithdraw(),
-                this.__getTimeForWithdrawal(),
-                //this.__getDeposits()
-            ]
-            let res = await Promise.all(arrayOfPromises);
-            this.params.decentralizeWithdrawAmount = res[0];
-            this.params.timeToWithdraw = res[1];
-            //this.params.deposits = res[2];
-        }
-
     }
 
     updateUserState = async () => {
@@ -153,12 +140,22 @@ export default class User {
 
     getMyBets = async ({size}) => {
         try{
+            // grab current state
+            const state = store.getState();
+            const { currency } = state;
+
             if(!this.user_id){return []}
-            let res = await getMyBets({               
-                user: this.user_id,
-                size
-            }, this.bearerToken);
-            return await processResponse(res);
+            if(currency && currency._id){
+                let res = await getMyBets({         
+                    currency : currency._id,      
+                    user: this.user_id,
+                    size
+                }, this.bearerToken);
+                return await processResponse(res);
+            }else{
+                return [];
+            }
+      
         }catch(err){
             console.log(err)
             throw err;
@@ -236,12 +233,13 @@ export default class User {
         }
     };
 
-    sendTokens = async ({ amount}) => {
+    sendTokens = async ({ amount, currency}) => {
         try {
             await promptMetamask();
             let address = await getMetamaskAccount();
+            let contract = await getContract({currency, bank_address : currency.bank_address});
             if(!address){ address = '0x' }
-            const resEthereum = await this.casinoContract.sendTokens({
+            const resEthereum = await contract.sendTokens({
                 address,
                 amount
             });
@@ -270,7 +268,7 @@ export default class User {
 
 
 
-    confirmDeposit = async ({ amount, transactionHash }) => {
+    confirmDeposit = async ({ amount, transactionHash, currency }) => {
         try {
             const nonce = getNonce();
             /* Update API Wallet Update */
@@ -280,7 +278,8 @@ export default class User {
                     amount,
                     app: this.app_id,
                     nonce : nonce,
-                    transactionHash: transactionHash
+                    transactionHash: transactionHash,
+                    currency : currency._id
                 },
                 this.bearerToken
             );
@@ -437,7 +436,7 @@ export default class User {
         return await getMetamaskAccount();
     }
 
-    askForWithdraw = async ({amount}) => {
+    askForWithdraw = async ({amount, currency}) => {
         try {
             let metamaskAddress = await getMetamaskAccount();
             var nonce = getNonce();
@@ -451,7 +450,8 @@ export default class User {
                         app: this.app_id,
                         user: this.user_id,
                         address     : metamaskAddress,
-                        tokenAmount : Numbers.toFloat(amount),
+                        tokenAmount : parseFloat(amount),
+                        currency : currency._id,
                         nonce
                     },
                     this.bearerToken
@@ -475,7 +475,7 @@ export default class User {
         }
     }
 
-    askForWithdrawAffiliate = async ({amount}) => {
+    askForWithdrawAffiliate = async ({amount, currency}) => {
         try {
             let metamaskAddress = await getMetamaskAccount();
             var nonce = getNonce();
@@ -489,7 +489,8 @@ export default class User {
                         app: this.app_id,
                         user: this.user_id,
                         address     : metamaskAddress,
-                        tokenAmount : Numbers.toFloat(amount),
+                        tokenAmount : parseFloat(amount),
+                        currency : currency._id,
                         nonce
                     },
                     this.bearerToken
@@ -512,10 +513,16 @@ export default class User {
         }
     }
 
-    getAffiliateInfo = () => {
+    getAffiliateInfo = (currency) => {
+        const state = store.getState();
+        currency = currency ? currency : state.currency;
+        if(_.isEmpty(currency)){ return 0;}
+        console.log(this.user)
+        let wallet = this.user.affiliateInfo.wallet.find( w => new String(w.currency._id).toString().toLowerCase() == new String(currency._id).toString().toLowerCase());
+        
         return {
             id : this.user.affiliateId,
-            wallet : this.user.wallet.affiliateBalance,
+            wallet,
             userAmount : this.user.affiliateInfo.affiliatedLinks.length,
             percentageOnLevelOne : this.user.affilateLinkInfo.affiliateStructure.percentageOnLoss
         }
@@ -579,9 +586,13 @@ export default class User {
     createBet = async ({ result, gameId }) => {
         try {
             const nonce = getNonce();
+            // grab current state
+            const state = store.getState();
+            const { currency } = state;
             /* Create Bet API Setup */
             let res = await createBet(
                 {
+                    currency : currency._id,
                     user: this.user_id,
                     app: this.app_id,
                     game: gameId,
