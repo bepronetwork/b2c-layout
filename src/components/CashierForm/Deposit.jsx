@@ -5,18 +5,13 @@ import { connect } from "react-redux";
 import { compose } from 'lodash/fp';
 import { promptMetamask } from 'lib/metamask';
 import { MetamaskPrompt, DepositConfirmForm, AmountDepositForm, CurrencyDepositForm, HorizontalStepper, DepositForm, InformationBox } from 'components';
-import { TradeFormDexDeposit } from "../TradeForms/Dex";
 import { getMetamaskAccount } from "../../lib/metamask";
-import info from 'assets/info.png';
 
 const defaultProps = {
-    amount : 10,
-    ticker : 'DAI',
-    isAddressValid : true,
+    amount : 1,
+    ticker : 'N/A',
     deposits : [],
-    hasMetamask : true,
-    ownedDAI : 0,
-    isValidAddress : true
+    hasMetamask : true
 }
 
 class Deposit extends Component {
@@ -31,16 +26,10 @@ class Deposit extends Component {
         this.projectData(props);
     }
     
-    async projectData(props){
-        const { profile } = props;
-       
+    async projectData(props){       
         try{
             await promptMetamask();
-            let userAddress = profile.getAddress();
-            let address = await getMetamaskAccount();
-            let isValidAddress = new String(userAddress).toLowerCase() == new String(address).toLowerCase();
-            let ownedDAI = parseFloat(await profile.getTokenAmount());
-            this.setState({...this.state, hasMetamask : true, ownedDAI, isValidAddress})
+            this.setState({...this.state, hasMetamask : true})
         }catch(err){
             // Metamask is Closed or not Installed
             this.setState({...this.state, hasMetamask : false})
@@ -54,7 +43,7 @@ class Deposit extends Component {
 
     render() {
         const { deposit } = this.props;
-        const { hasMetamask, ownedDAI, isValidAddress } = this.state;
+        const { hasMetamask } = this.state;
         const { currency, nextStep, amount, tx, isConfirmed } = deposit;
 
         if(!hasMetamask){return (<MetamaskPrompt hasMetamask={hasMetamask}/>)}
@@ -67,7 +56,6 @@ class Deposit extends Component {
                         <HorizontalStepper 
                             showStepper={false}
                             nextStep={nextStep}
-                            alertCondition={!isValidAddress}
                             alertMessage={`This address is not set with this user, please change to your address`}
                             steps={[
                                 {
@@ -81,13 +69,6 @@ class Deposit extends Component {
                                     title : 'How much you want to deposit?',
                                     condition : (amount >= 0.1),
                                     content : <AmountDepositForm/>
-                                },
-                                {
-                                    label : "Trade",
-                                    title : 'Trade your tokens seamlessly',
-                                    condition : (parseFloat(ownedDAI) >= parseFloat(deposit.amount)),
-                                    pass : (new String(currency).toLowerCase() == 'dai'),
-                                    content : <TradeFormDexDeposit/>
                                 },
                                 {
                                     label : "Deposit",
@@ -118,7 +99,8 @@ function mapStateToProps(state){
     return {
         deposit : state.deposit,
         profile : state.profile,
-        ln : state.language
+        ln : state.language,
+        currency : state.currency
     };
 }
 

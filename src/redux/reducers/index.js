@@ -9,12 +9,14 @@ import depositReducer from './depositReducer';
 import startLoadingProgressReducer from './startLoadingProgressReducer';
 import withdrawReducer from './withdrawReducer';
 import modalReducer from './modalReducer';
+import currencyReducer from './currencyReducer';
 
 export {
     profileReducer,
     messageReducer,
     popupReducer,
     modalReducer,
+    currencyReducer,
     withdrawReducer,
     startLoadingProgressReducer,
     languageReducer,

@@ -12,16 +12,15 @@ import { getMetamaskAccount } from "../../lib/metamask";
 import { MIN_WITHDRAWAL } from "../../lib/api/apiConfig";
 import { Numbers } from 'lib/ethereum/lib';
 import info from 'assets/info.png';
+import _ from 'lodash';
 
 const defaultProps = {
-    amount : 10,
-    ticker : 'DAI',
-    isAddressValid : true,
+    amount : 1,
+    ticker : 'N/A',
     deposits : [],
     hasMetamask : true,
-    ownedDAI : 0,
-    isValidAddress : true,
-    mounted : false
+    mounted : false,
+    address : '0x'
 }
 
 class Withdraw extends Component {
@@ -37,10 +36,11 @@ class Withdraw extends Component {
     }
     
     async projectData(props){
-        const { profile } = props;
-        let userBalance = profile.getBalance();
-        let maxWithdrawal = await profile.getContract().getMaxWithdrawal();
-        this.setState({...this.state, userBalance, maxWithdrawal});
+        const { profile, withdraw } = props;
+        const address = await getMetamaskAccount();
+        const { currency } = withdraw;
+        let userBalance = profile.getBalance(currency);
+        this.setState({...this.state, userBalance, address});
     }
 
     closeDeposit = () => {
@@ -50,38 +50,30 @@ class Withdraw extends Component {
 
     render() {
         const { withdraw } = this.props;
-        const { maxWithdrawal, userBalance } = this.state;
+        const { userBalance, address } = this.state;
         const { currency, nextStep, amount, tx, _id } = withdraw;
 
         return (
             <div styleName='root'>
                  <div styleName="deposit">
                     <div styleName="title">
-                        {/*<InformationBox type={'info'} message={'If you left open withdraws please finish the process at the "Profile" Tab under "Cashier or cotinue here'} image={info}/> */}
+                        <InformationBox type={'info'} message={`This withdraw will be made to the current address you are using via the installed wallet ${address}`} image={info}/>
                         <HorizontalStepper 
                             showStepper={false}
                             nextStep={nextStep}
-                            //alertCondition={!isValidAddress}
-                            alertMessage={`This address is not set with this user, please change to your address`}
                             steps={[
-                                {
-                                    label : "Amount",
-                                    title : 'How much you want to withdraw?',
-                                    condition : (  (amount >= 0.01)  && ( ((amount <= Numbers.toFloat(userBalance)) && (amount <= maxWithdrawal) && (amount >= MIN_WITHDRAWAL)))),
-                                    content : <AmountWithdrawForm/>
-                                },
                                 {
                                     label : "Choose",
                                     title : 'Choose the Currency you want to withdraw to',
-                                    condition : (currency != ''),
+                                    condition : (!_.isEmpty(currency)),
                                     content : <CurrencyWithdrawForm/>
                                 },
-                                /*{
-                                    label : "Trade",
-                                    title : 'Trade your tokens seamlessly',
-                                    pass : (new String(currency).toLowerCase() == 'dai'),
-                                    content : <TradeFormDexWithdraw/>
-                                },*/
+                                {
+                                    label : "Amount",
+                                    title : 'How much you want to withdraw?',
+                                    condition : ( (amount >= 0.0001)  && (amount <= parseFloat(userBalance)) ),
+                                    content : <AmountWithdrawForm/>
+                                },
                                 {
                                     label : "Withdraw",
                                     title : 'Withdraw',
@@ -89,15 +81,7 @@ class Withdraw extends Component {
                                     content : <WithdrawForm closeStepper={this.closeDeposit}/>,
                                     last : true,
                                     closeStepper : this.closeDeposit
-                                },
-                             
-                                /*{
-                                    label : "Confirm",
-                                    condition : isConfirmed,
-                                    content : <WithdrawConfirmForm/>,
-                                    last : true,
-                                    closeStepper : this.closeDeposit
-                                }*/
+                                }
                             ]}
                         />
                     </div>

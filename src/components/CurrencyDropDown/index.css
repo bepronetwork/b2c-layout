@@ -4,21 +4,8 @@
 
 }
 .root {
-    position: fixed;
-    top: 0;
-    z-index: 20;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    margin : 0;
-    width: 100%;
     height: $navbar-height;
     padding-top : $padding-height-navbar;
-    padding-left : $padding-width-navbar;
-    padding-right : $padding-width-navbar;
-
-    background-color: $background-top-bar-theme;
-    box-shadow : 1px 1px 100px 1px #0000006b;
 }
 
 
@@ -27,16 +14,15 @@
   display: flex;
   flex-direction: row;
   align-items: center;
+  width: 190px;
+  margin-top: -10px;
 
   @include Breakpoint-tabletAndAbove {
-    width: $content-width-desktop;
-
     padding: 0 $spacing-20;
     margin: 0 auto;
   }
 
   @include Breakpoint-mobileOnly {
-    width: 100%;
     padding: 0 $spacing-8;
     margin: 0 auto;
   }
@@ -52,6 +38,8 @@
       }
 }
 
+
+
 .content {
   display: flex;
   flex-direction: row;
@@ -61,61 +49,57 @@
 
 .coin {
     position: relative;
+    width: fit-content;
     margin: auto;
+    margin-top : -5px;
     display: flex;
+    flex-direction: row;
     align-items: center;
     margin-left: auto;
-    height: 35px;
-    width : 150px;
-    padding: 5px !important;
+    padding: 5px 10px !important;
     background-color: $background-main-table;
     border-radius: $spacing-4;
     cursor: default;
 
-    @include Breakpoint-mobileOnly {
-        margin-top: 0px !important;
-        height: 30px;
-        width: fit-content;
-        margin: auto;
-        position: relative;
-        margin-right: auto;
+    *:first-child {
+        margin-right: $spacing-4;
     }
 
-    .icon {
-            margin-top : -4px;
-            width: $spacing-16;
-            height: $spacing-16;
+  .icon {
+        margin-top : -4px;
+        width: $spacing-16;
+        height: $spacing-16;
+  }
 
-            @include Breakpoint-mobileOnly {
-                margin-top: -20px !important;
-            }
+  .diff-won {
+    position: absolute;
+    top: 60%;
+    left: 10%;
+    * {
+      color: $green;
+      opacity: 0;
+
+      animation: won-animation 1s running;
     }
+  }
 
-    .diff-won {
-        position: absolute;
-        top: 60%;
-        left: 10%;
-        * {
-        color: $green;
-        opacity: 0;
+  .diff-lost {
+    position: absolute;
+    top: 60%;
+    left: 10%;
+    * {
+      color: $red;
+      opacity: 0;
 
-        animation: won-animation 1s running;
-        }
+      animation: lost-animation 1s running;
     }
-
-    .diff-lost {
-        position: absolute;
-        top: 60%;
-        left: 10%;
-        * {
-        color: $red;
-        opacity: 0;
-
-        animation: lost-animation 1s running;
-        }
-    }
+  }
 }
 
+
+.menu-color{
+    background-color: red;
+}
 
 .diff-won {
     position: absolute;
@@ -217,6 +201,11 @@
     position: relative;
 }
 
+.image-coin{
+    width: 20px;
+    float: left;
+}
+
 
 .logo-image{
     text-align: center;
@@ -224,10 +213,30 @@
     position: relative;
     display: flex;
     margin: auto;
+    width: 10px;
+    margin-right: 10px;
+    margin-left: 20px;
+    display: inline;
+}
+
+.currency-box-top{
+    margin-top : 4px;
+}
+
+.option-text{
+    font-family: $font-family;
+    display: inline;
+    float: left;
+    position: relative;
+    font-size : 12px;
+    margin-left : 10px;
+    margin-top : 0px;
+    color : $text-secondary-color;
 }
 
 .user-menu{
     margin-top : 10px;
+    
 }
 
 .icon-green{
@@ -236,28 +245,4 @@
 
 .icon-red{
     color : $red;
-}
-
-.button-deposit{
-    margin : 0px;
-
-    @include Breakpoint-mobileOnly {
-        display : none;
-    }
-
-}
-
-.navbar-language{
-    position: fixed;
-    top: 0px;
-    z-index: 20;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-
-    @include Breakpoint-mobileOnly {
-        display: none;
-
-    }
-
 }

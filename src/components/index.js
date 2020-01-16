@@ -77,8 +77,10 @@ import AffiliateWithdrawForm from './AffiliateWithdrawForm';
 import NotificationForm from "./NotificationForm";
 import PopupForm from "./PopupForm";
 import TextContainer from './TextContainer';
+import CurrencyDropDown from './CurrencyDropDown';
 
 export { TextContainer };
+export { CurrencyDropDown };
 export { AffiliateWithdrawForm };
 export { AffiliateLinkContainer };
 export { DataContainer };

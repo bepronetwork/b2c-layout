@@ -2,6 +2,8 @@ import ERC20TokenContract from "../ERC20TokenContract";
 import { getMetamaskAccount } from "../../metamask";
 import { Numbers } from ".";
 import { GAS_MULTIPLIER, GAS_AMOUNT } from "../../api/apiConfig";
+import CasinoContractETH from "../CasinoContractETH";
+import CasinoContract from '../CasinoContract';
 
 const FAST_GAS_PRICE_MULTIPLIER = GAS_MULTIPLIER;
 
@@ -19,6 +21,7 @@ export async function getERC20TokenAmount({tokenAddress}){
     return await Numbers.fromDecimals(await erc20.getTokenAmount(addr), 18);
 }
 export async function getETHBalance({address}){
+    if(!address){address = await getMetamaskAccount();}
     if(!address){return 0}
     let wei = await window.web3.eth.getBalance(address);
     return window.web3.utils.fromWei(wei, 'ether')
@@ -49,3 +52,30 @@ export async function getTransactionOptions(velocity){
 
     return options;
 };
+
+export async function getContract({currency, bank_address}){
+
+    let metamaskAddress = await getMetamaskAccount();
+
+    switch(new String(currency.ticker).toLowerCase()){
+        case 'eth' : {
+            return new CasinoContractETH({
+                ownerAddress  : metamaskAddress,
+                decimals : currency.decimals,
+                contractAddress : bank_address,
+                authorizedAddress : metamaskAddress
+            })
+        };
+        default : {
+            return new CasinoContract({
+                tokenAddress : currency.address, 
+                ownerAddress  : metamaskAddress,
+                contractAddress : bank_address,
+                decimals : currency.decimals,
+                authorizedAddress : metamaskAddress
+            })
+        }
+    }
+  
+
+}
