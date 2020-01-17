@@ -22,7 +22,7 @@ async function enableMetamask(currency) {
 var metamaskAddress = null;
 
 
-function addressConcat(string){
+function addressConcat(string=''){
     return  `${string.substring(0, 6)}...${string.substring(string.length - 2)}`;
 }
 
