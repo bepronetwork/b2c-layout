@@ -50,8 +50,6 @@ class TradeFormDexDeposit extends React.Component{
         let hasEnoughEth = (ownedETH >= neededETH);
         let hasTraded = (ownedDAI >= parseFloat(deposit.amount));
 
-        //let wrappedETH = parseFloat(await getERC20TokenAmount({tokenAddress : ethereum_info.weth_address}));
-        //let isTokenUnlocked = await RadarRelaySingleton.isTokenUnlocked({tokenAddress : ethereum_info.weth_address, amount : neededETH});
 
         this.setState({...this.state, 
             hasEnoughEth,
@@ -61,9 +59,6 @@ class TradeFormDexDeposit extends React.Component{
             hasEnoughDAI,
             ownedDAI,
             updated : true
-            //wrappedETH,
-            //hasWrapped,
-            //isTokenUnlocked,
         })
     }
 

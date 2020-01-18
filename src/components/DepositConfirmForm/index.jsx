@@ -52,7 +52,7 @@ class DepositConfirmForm extends React.Component{
             this.setState({...this.state, onLoading : true});
             const { deposit, profile, onClose } = this.props;
             /* Create Deposit Confirm API */
-            let res = await profile.confirmDeposit({amount : Numbers.toFloat(deposit.amount), transactionHash : deposit.tx});
+            let res = await profile.confirmDeposit({amount : parseFloat(deposit.amount), transactionHash : deposit.tx, currency : deposit.currency});
             if(!res){throw new Error("Error on Transaction")};
             await profile.getAllData();
             this.setState({...this.state, onLoading : false, confirmed : true});

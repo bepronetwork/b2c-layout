@@ -7,29 +7,28 @@
 
 .th-row {
     grid-row: 1 / auto;
-    margin-top : 30px;
+    margin-top : $spacing-28;
 }
 
 .image-icon {
     width : 60px;
-    margin-top : -20px;
 }
 
 .tr-row {
     display: grid;
-    grid-template-rows: 80px;
+    grid-template-rows: 74px;
     grid-auto-columns: 1fr;
     background-color: $table-odd-background;
     border-radius: $table-odd-border-radius;
-    margin-top: 10px;
+    margin-top: $spacing-8;
 }
 
 .th-row-image {
-    margin-top: 25px;
+    margin-top: 0;
 }
 
 .table-head .tr-row .th-row {
-    margin-top: 12px;
+    margin-top: $spacing-12;
 }
 
 .table-head .tr-row{
@@ -43,6 +42,6 @@
 
 .th-row-tab {
     grid-row: 1 / auto;
-    margin-top : 15px;
+    margin-top : $spacing-16;
     width : 75px;
 }

@@ -29,11 +29,8 @@ class DepositForm extends Component {
 
     projectData = async (props) => {
         const { profile, deposit } = props;
-        //let allowedAmount = await profile.getAmountAllowedForDepositByPlatform();
-        //let hasAllowed = ((Numbers.toFloat(allowedAmount) >= Numbers.toFloat(deposit.amount)) || this.state.hasAllowed);
         let hasDeposited = false;
         this.setState({...this.state, 
-            //hasAllowed,
             hasDeposited ,
             updated : true
         })
@@ -44,30 +41,12 @@ class DepositForm extends Component {
         this.setState({...this.state,  onLoading : {...this.state.onLoading, [key] : on}});
     }
 
-    allowTokenDeposit = async () => {
-        try{
-            this.onLoading('hasAllowed');
-            const { deposit, profile } = this.props;
-            /* Create Deposit Framework */
-            let res = await profile.allowDeposit({amount : Numbers.toFloat(deposit.amount)});
-            if(!res){throw new Error("Error on Transaction")};
-            this.setState({...this.state, hasAllowed : true})
-            setTimeout( () => {
-                this.projectData(this.props);
-                this.onLoading('hasAllowed', false);
-            }, 2*1000)
-        }catch(err){
-            this.onLoading('hasAllowed', false);
-        }
-    }
-
     depositTokens = async () => {
         try{
-            const { nextStep } = this.props;
             this.onLoading('hasDeposited');
             const { deposit, profile } = this.props;
             /* Create Deposit Framework */
-            let res = await profile.sendTokens({amount : Numbers.toFloat(deposit.amount)});
+            let res = await profile.sendTokens({amount : parseFloat(deposit.amount), currency : deposit.currency});
             if(!res){throw new Error("Error on Transaction")};
             await store.dispatch(setDepositInfo({key : 'tx', value : res.transactionHash}));
             this.setState({...this.state, isDeposited : true})
@@ -81,23 +60,13 @@ class DepositForm extends Component {
         const { onLoading, isDeposited } = this.state;
         return (
             <div>
-                {/*
-                    <ActionBox 
-                        onClick={this.allowTokenDeposit}
-                        onLoading={onLoading.hasAllowed}
-                        disabled={!updated}
-                        loadingMessage={'Metamask should prompt, click on it and Approve the Transaction'}
-                        completed={(hasAllowed || isDeposited)} id={'allowance'} image={allow} description={'Allow Deposit to the Platform Smart-Contract'} title={'1) Allow'}
-                    />
-                */}
                 <ActionBox 
                     onClick={this.depositTokens}
                     onLoading={onLoading.hasDeposited}
                     disabled={onLoading.hasDeposited}
                     loadingMessage={'Metamask should prompt, click on it and Approve the Transfer'}
-                    completed={isDeposited} id={'deposit'} image={deposit} description={'Deposit your Tokens'} title={'Deposit'}
+                    completed={isDeposited} id={'deposit'} image={deposit} description={'Deposit your Currency'} title={'Deposit'}
                 />
-                {/* <ProgressBar/> */}
             </div>
         );
     }

@@ -16,17 +16,12 @@ import Tooltip from '@material-ui/core/Tooltip';
 import IconButton from '@material-ui/core/IconButton';
 import { etherscanLinkID } from "../../lib/api/apiConfig";
 import { getAppCustomization } from "../../lib/helpers";
+import CurrencyDropDown from "../CurrencyDropDown";
 
 
 function AddressConcat(string){
     return  `${string.substring(0, 6)}...${string.substring(string.length - 2)}`;
 }
-
-const text = {
-    false : 'Address not valid!',
-    true : 'You are running in your address'
-}
-
 
 const defaultProps = {
     user: null,
@@ -118,8 +113,7 @@ class Navbar extends Component {
 
     render() {
         let { onLogout, onCashier, onAccount, history } = this.props;
-        let { currentBalance, difference, user, userAddress, userMetamaskAddress, isValid, userFullAddress } = this.state;
-        let infoText = !isValid ? (text[isValid] + ` Your User Address is : ${userFullAddress}`) : text[isValid];
+        let { currentBalance, difference, user } = this.state;
         const { logo } = getAppCustomization();
         return (
                 <Row styleName="root">
@@ -136,17 +130,14 @@ class Navbar extends Component {
                                     <Row>
                                         <Col xs={6} md={6} lg={6}>
                                             <div styleName="coin">
-                                                <AnimationNumber number={this.state.currentBalance}/>
-                                                <div styleName="icon">
-                                                    <CoinSign />
-                                                </div>
+                                                <CurrencyDropDown/>
                                                 {difference ? (
                                                     <div
                                                     key={currentBalance}
                                                     styleName={difference > 0 ? "diff-won" : "diff-lost"}
                                                     >
                                                         <Typography variant="small-body">
-                                                            {Numbers.toFloat(Math.abs(difference))}
+                                                            {parseFloat(Math.abs(difference))}
                                                         </Typography>
                                                     </div>
                                                 ) : null}
@@ -163,23 +154,7 @@ class Navbar extends Component {
                                     
                                 </Col>
                                 <Col xs={1} md={6} lg={4}>
-                                    <div styleName='address-box'>
-                                        <Tooltip title={infoText}>
-                                            <IconButton aria-label={infoText}>
-                                                {isValid ? 
-                                                    <CheckCircleIcon styleName={'icon-green'} size={20}/>
-                                                    :
-                                                    <AlertCircleIcon styleName={'icon-red'}  size={20}/>
-                                                }
-                                            </IconButton>
-                                        </Tooltip>
-                                        <TextContainer 
-                                            text={userMetamaskAddress}
-                                            size={'small-body'}
-                                            color={'white'}
-                                            link={`${etherscanLinkID}/address/${userFullAddress}`}
-                                        />
-                                    </div>
+                                  
                                 </Col>
                                 <Col xs={2} md={2} lg={2}>
                                     <div styleName="buttons-1">

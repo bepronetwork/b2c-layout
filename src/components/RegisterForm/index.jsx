@@ -21,7 +21,6 @@ class RegisterForm extends Component {
         confirmPassword: "",
         email: "",
         emailValid: false,
-        address: ""
     };
 
     componentDidMount(){
@@ -96,7 +95,7 @@ class RegisterForm extends Component {
 
     render() {
         const { error } = this.props;
-        const { username, password, confirmPassword, email, address } = this.state;
+        const { username, password, confirmPassword, email } = this.state;
 
         return (
         <form onSubmit={this.handleSubmit}>
@@ -132,16 +131,6 @@ class RegisterForm extends Component {
             onChange={this.onEmailChange}
             value={email}
             />
-
-            <div styleName="address">
-            <InputText
-                name="address"
-                label="Ethereum Address"
-                onChange={this.onChange}
-                value={address}
-                placeHolder={'0x23cab324ba2a24... '}
-            />
-            </div>
 
             <div styleName="error">
             {error ? (
