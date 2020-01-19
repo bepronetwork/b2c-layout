@@ -77,8 +77,10 @@ import AffiliateWithdrawForm from './AffiliateWithdrawForm';
 import NotificationForm from "./NotificationForm";
 import PopupForm from "./PopupForm";
 import TextContainer from './TextContainer';
+import Authentication2FAModal from './Authentication2FAModal';
 import CurrencyDropDown from './CurrencyDropDown';
 
+export { Authentication2FAModal };
 export { TextContainer };
 export { CurrencyDropDown };
 export { AffiliateWithdrawForm };

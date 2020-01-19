@@ -10,6 +10,7 @@ import {
     betReducer,
     withdrawReducer,
     modalReducer,
+    set2FAReducer,
     currencyReducer
 } from '../../redux/reducers/index';
 
@@ -25,7 +26,8 @@ const reducer = combineReducers({
     language : languageReducer,
     startLoadingProgress : startLoadingProgressReducer,
     bet : betReducer,
-    modal : modalReducer
+    modal : modalReducer,
+    set2FA : set2FAReducer
 });
 const store = createStore(reducer);
 

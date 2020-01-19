@@ -14,6 +14,7 @@ import {
     NotificationForm,
     Widgets,
     AffiliateWithdrawForm,
+    Authentication2FAModal,
     PopupForm
 } from "components";
 
@@ -24,7 +25,7 @@ import RoulettePage from "containers/RoulettePage";
 import WheelPage from "../WheelPage";
 import WheelVariation1 from "../WheelVariation1Page";
 
-import { login, logout, register } from "lib/api/users";
+import { login, login2FA, logout, register } from "lib/api/users";
 import getAppInfo from "lib/api/app";
 import handleError from "lib/api/handleError";
 import User from "controllers/User/User";
@@ -55,7 +56,8 @@ class App extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            isLoading : true
+            isLoading : true,
+            has2FA : false
         }
     }
 
@@ -127,11 +129,12 @@ class App extends Component {
         registerLoginModalOpen: null,
         cashierOpen: null,
         error: null,
-        isLoading : true
+        isLoading : true,
+        has2FA : false
     };
 
     handleRegisterLoginModalClose = () => {
-        this.setState({ registerLoginModalOpen: null, error: null });
+        this.setState({ registerLoginModalOpen: null, error: null, has2FA: false });
     };
 
     handleCashierModalClose = () => {
@@ -147,7 +150,7 @@ class App extends Component {
     };
 
     handleLoginOrRegisterOpen = tab => {
-        this.setState({ registerLoginModalOpen: tab });
+        this.setState({ registerLoginModalOpen: tab, has2FA: false, error: null });
     };
 
     handleCashierOpen = () => {
@@ -160,14 +163,35 @@ class App extends Component {
 
     handleLogin = async form => {
         try {
-            const response = await login(form);       
+            const response = await login(form);    
             Cache.setToCache('Authentication', form);
             if (response.status != 200) {
-                this.setState({ error: response.status });
+                let has2FA = (response.status === 37) ? true : false;
+                this.setState({ error: response.status, has2FA });
             }else{
                 let user = await this.updateUser(response);
                 await user.updateUser();
-                this.setState({ registerLoginModalOpen: null, error: null });
+                this.setState({ registerLoginModalOpen: null, error: null});
+            }
+            return response;
+        } catch (error) {
+            handleError(error);
+            return false;
+        }
+    };
+
+    handleLogin2FA = async form => {
+        try {
+            
+            const response = await login2FA(form);
+            Cache.setToCache('Authentication', form);
+            if (response.status != 200) {
+                let has2FA = (response.status === 36) ? true : false;
+                this.setState({ error: response.status, has2FA });
+            }else{
+                let user = await this.updateUser(response);
+                await user.updateUser();
+                this.setState({ registerLoginModalOpen: null, error: null, has2FA: false });
             }
             return response;
         } catch (error) {
@@ -250,7 +274,7 @@ class App extends Component {
     };
 
     renderLoginRegisterModal = () => {
-        const { registerLoginModalOpen, error } = this.state;
+        const { registerLoginModalOpen, error, has2FA} = this.state;
         return registerLoginModalOpen ? (
             <Modal onClose={this.handleRegisterLoginModalClose}>
                 <div styleName="modal">
@@ -269,7 +293,7 @@ class App extends Component {
                 </div>
 
                 {registerLoginModalOpen === "login" ? (
-                    <LoginForm onSubmit={this.handleLogin} error={error} />
+                    <LoginForm onSubmit={has2FA ? this.handleLogin2FA : this.handleLogin} error={error} has2FA={has2FA}/>
                 ) : (
                     <RegisterForm onSubmit={this.handleRegister} error={error} />
                 )}
@@ -413,6 +437,7 @@ class App extends Component {
                             />
                             {this.renderLoginRegisterModal()}
                             {this.renderCashierModal()}
+                            <Authentication2FAModal/>
                             <AffiliateWithdrawForm/>
                             <NotificationForm user={user}/>
                         </header>

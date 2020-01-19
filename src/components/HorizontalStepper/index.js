@@ -14,6 +14,7 @@ import { Typography, Button, InformationBox } from 'components';
 import { Col, Row } from 'reactstrap';
 import store from '../../containers/App/store';
 import { setDepositInfo } from '../../redux/actions/deposit';
+import _ from 'lodash';
 import './index.css';
 import allow from 'assets/allow.png';
 
@@ -152,11 +153,11 @@ ColorlibStepIcon.propTypes = {
 
 const HorizontalStepper = (props) => {
     
-    const { steps, nextStep, alertCondition, alertMessage, showStepper } = props;
+    const { steps, nextStep, alertCondition, alertIcon, alertMessage, showStepper } = props;
     const classes = useStyles();
     const [activeStep, setActiveStep] = React.useState(0);
     let step = steps[activeStep];
-    const { pass, title, content, condition, last, closeStepper } = step;
+    const { pass, title, content, condition, first, last, closeStepper } = step;
     if(pass){handleNext();}
     if(nextStep && (activeStep+1 < steps.length)){
         handleNext();
@@ -199,11 +200,11 @@ const HorizontalStepper = (props) => {
                 : null}
             </div>
             <div styleName='container-title'>
-                <Typography variant={'body'} color={'white'}>
+                <Typography variant={'small-body'} color={'white'}>
                     {title}
                 </Typography>
             </div>
-            {alertCondition ? <InformationBox message={alertMessage} image={allow}/> : content}
+            {alertCondition ? <InformationBox message={alertMessage} image={!_.isEmpty(alertIcon) ? alertIcon : allow}/> : content}
             <div>
                 {activeStep === steps.length ? (
                 <div>
@@ -218,7 +219,7 @@ const HorizontalStepper = (props) => {
                 <div styleName='buttons'>
                     {
                         last 
-                        ?  
+                        ?  (
                         <Button
                             variant="contained"
                             disabled={!condition}
@@ -226,31 +227,55 @@ const HorizontalStepper = (props) => {
                             onClick={closeStepper}
                             className={classes.button}
                         >
-                        <Typography  variant={'small-body'} color={'white'}>{'Close'} </Typography>
-                    </Button>       
-                        : 
-                        <Row>
-                            <Col md={6}>   
-                                <div styleName='button-stepper'>
-                                    <Button disabled={activeStep === 0} onClick={handleBack} className={classes.button}>
-                                        <Typography variant={'small-body'} color={'white'}> {'Back'} </Typography>
-                                    </Button>
-                                </div>
-                            </Col>
-                            <Col md={6}>   
-                                <div styleName='button-stepper'>
-                                    <Button
-                                        variant="contained"
-                                        disabled={!condition}
-                                        color="primary"
-                                        onClick={handleNext}
-                                        className={classes.button}
-                                    >
-                                        <Typography  variant={'small-body'} color={'white'}>{'Next'} </Typography>
-                                    </Button>      
-                                </div>               
-                            </Col>
-                        </Row>
+                            <Typography  variant={'small-body'} color={'white'}>{'Close'} </Typography>
+                        </Button>       
+                        ) : (
+                        <div>
+                            {
+                                !first
+                                ? (
+                                <Row>
+                                    <Col md={6}>   
+                                        <div styleName='button-stepper'>
+                                            <Button disabled={activeStep === 0} onClick={handleBack} className={classes.button}>
+                                                <Typography variant={'small-body'} color={'white'}> {'Back'} </Typography>
+                                            </Button>
+                                        </div>
+                                    </Col>
+                                    <Col md={6}>   
+                                        <div styleName='button-stepper'>
+                                            <Button
+                                                variant="contained"
+                                                disabled={!condition}
+                                                color="primary"
+                                                onClick={handleNext}
+                                                className={classes.button}
+                                            >
+                                                <Typography  variant={'small-body'} color={'white'}>{'Next'} </Typography>
+                                            </Button>      
+                                        </div>               
+                                    </Col>
+                                </Row>
+                                ) : (
+                                <Row>
+                                    <Col md={12}>   
+                                        <div styleName='button-stepper'>
+                                            <Button
+                                                variant="contained"
+                                                disabled={!condition}
+                                                color="primary"
+                                                onClick={handleNext}
+                                                className={classes.button}
+                                            >
+                                                <Typography  variant={'small-body'} color={'white'}>{'Next'} </Typography>
+                                            </Button>      
+                                        </div>               
+                                    </Col>
+                                </Row>
+                                )
+                            }
+                        </div>
+                        )
                     }
                 </div>
                 )}
