@@ -39,6 +39,7 @@ import Cache from "../../lib/cache/cache";
 import ChatPage from "../Chat";
 import { CopyText } from "../../copy";
 import { setMessageNotification } from "../../redux/actions/message";
+import { setCurrencyView } from "../../redux/actions/currency";
 import queryString from 'query-string'
 
 import { connect } from 'react-redux';
@@ -172,6 +173,11 @@ class App extends Component {
                 let user = await this.updateUser(response);
                 await user.updateUser();
                 this.setState({ registerLoginModalOpen: null, error: null});
+            }
+            /* Set currency */
+            if(response.wallet && response.wallet.length > 0 && response.wallet[0].currency) {
+                let currency = response.wallet[0].currency;
+                await store.dispatch(setCurrencyView(currency));
             }
             return response;
         } catch (error) {
@@ -492,7 +498,8 @@ function mapStateToProps(state){
     return {
         profile : state.profile,
         startLoadingProgress : state.startLoadingProgress,
-        modal : state.modal
+        modal : state.modal,
+        currency : state.currency
     };
 }
 
