@@ -129,7 +129,6 @@ $with-without-padding: calc(100% - $spacing-20 - $spacing-20);
   margin: auto 0;
   -webkit-box-pack: center;
   justify-content: center;
-  margin-top: 65%;
 }
 
 .pegs_wrapper {

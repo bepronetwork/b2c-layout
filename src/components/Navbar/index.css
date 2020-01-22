@@ -116,6 +116,9 @@
     }
 }
 
+.no-coin{
+    padding-top: $spacing-8;
+}
 
 .diff-won {
     position: absolute;
