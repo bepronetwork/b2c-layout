@@ -17,7 +17,13 @@ class AnimationNumber extends React.Component{
 
     constructor(props) {
         super(props);
-        this.state = defaultProps;
+        this.state = {
+            number : props.number ? props.number : defaultProps.number,
+            color : props.color ? props.color : defaultProps.color,
+            variant : props.variant ? props.variant : defaultProps.variant,
+            span : props.span ? props.span : defaultProps.span,
+            decimals : props.decimals ? props.decimals : defaultProps.decimals,
+        }
     }
 
     componentDidMount(){

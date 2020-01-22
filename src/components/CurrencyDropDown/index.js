@@ -65,6 +65,8 @@ class CurrencyDropDown extends React.Component {
 
     render() {
         const { currencies, currency } = this.state;
+        if (_.isEmpty(currency)) return null;
+
         return (
             <div styleName="root">
                 <div styleName="container">          
