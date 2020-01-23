@@ -1,0 +1,45 @@
+@import "../../styles/all.css";
+
+.root {
+    position: relative;
+    display: block;
+    width: 100%;
+    height: inherit;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: $spacing-52 $spacing-20;
+
+  @include Breakpoint-mobileOnly {
+    width: 320px;
+    padding : $spacing-52 0;
+    margin: auto;
+    position: relative;
+    display: block;
+    overflow-x: auto !important;
+  }
+
+}
+
+.content {
+    text-align: center;
+}
+
+.qrcode {
+  padding: $spacing-16;
+  background-color: $white;
+  width: 166px;
+  margin: 0 auto;
+}
+
+.qrcode canvas {
+  position: unset;
+  top: auto;
+  bottom: auto;
+  left: auto;
+  right: auto;
+}
+
+.token2FA {
+  margin: $spacing-52 0;
+}

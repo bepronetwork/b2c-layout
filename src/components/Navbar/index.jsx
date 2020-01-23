@@ -15,7 +15,7 @@ import { Col, Row } from 'reactstrap';
 import Tooltip from '@material-ui/core/Tooltip';
 import IconButton from '@material-ui/core/IconButton';
 import { etherscanLinkID } from "../../lib/api/apiConfig";
-import { getAppCustomization } from "../../lib/helpers";
+import { getAppCustomization, getApp } from "../../lib/helpers";
 import CurrencyDropDown from "../CurrencyDropDown";
 
 
@@ -114,6 +114,7 @@ class Navbar extends Component {
     render() {
         let { onLogout, onCashier, onAccount, history } = this.props;
         let { currentBalance, difference, user } = this.state;
+        var currencies = getApp().currencies;
         const { logo } = getAppCustomization();
         return (
                 <Row styleName="root">
@@ -129,19 +130,27 @@ class Navbar extends Component {
                                 <Col xs={2} md={4} lg={4}>
                                     <Row>
                                         <Col xs={6} md={6} lg={6}>
-                                            <div styleName="coin">
-                                                <CurrencyDropDown/>
-                                                {difference ? (
-                                                    <div
-                                                    key={currentBalance}
-                                                    styleName={difference > 0 ? "diff-won" : "diff-lost"}
-                                                    >
-                                                        <Typography variant="small-body">
-                                                            {parseFloat(Math.abs(difference))}
-                                                        </Typography>
-                                                    </div>
-                                                ) : null}
-                                            </div>
+                                            {(!currencies || _.isEmpty(currencies) || currencies.length < 0) ?
+                                                <div styleName="no-coin">
+                                                    <Typography variant="x-small-body" color="grey">
+                                                        no currencies available
+                                                    </Typography>
+                                                </div>
+                                            :
+                                                <div styleName="coin">
+                                                    <CurrencyDropDown/>
+                                                    {difference ? (
+                                                        <div
+                                                        key={currentBalance}
+                                                        styleName={difference > 0 ? "diff-won" : "diff-lost"}
+                                                        >
+                                                            <Typography variant="small-body">
+                                                                {parseFloat(Math.abs(difference))}
+                                                            </Typography>
+                                                        </div>
+                                                    ) : null}
+                                                </div>
+                                            }
                                         </Col>
                                         <Col xs={6} md={6} lg={6}>
                                             <div styleName='button-deposit'>

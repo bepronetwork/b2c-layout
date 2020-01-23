@@ -4,6 +4,19 @@
   margin: $spacing-28 0 $spacing-16 0;
 }
 
+.token2FA {
+  margin: $spacing-20 0;
+}
+
+.token2FA-info {
+  width: 300px;
+  margin-bottom: $spacing-36;
+}
+
+.container {
+  margin: 50px;
+}
+
 .button {
   margin-top: $spacing-20;
 }
@@ -15,4 +28,8 @@
 .tkn_logo_login{
     width : 300px;
     margin-top : 30%;
+}
+
+.disabled {
+  opacity : 0.5;
 }
