@@ -14,25 +14,25 @@ import _ from "lodash";
 
 const resultSpaceColors = [
     {
-        "color" : '#253742'
+        "color" : '#000000'
     },
     {        
-        "color" : '#97a2c3'
+        "color" : '#17162d'
     },
     {
-        "color" : '#8854f8'
+        "color" : '#00b050'
     },
     {
-        "color" : '#3e5ba5'
+        "color" : '#ffc100'
     },
     {
-        "color" : '#538e7b'
+        "color" : '#ff0000'
     },
     {
-        "color" : '#1ab598'
+        "color" : '#ff8d00'
     },
     {
-        "color" : '#b7e24f'
+        "color" : '#92d050'
     }
 ]
 
