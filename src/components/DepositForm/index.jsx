@@ -1,26 +1,12 @@
 import React, { Component } from 'react';
 import './index.css';
-import { Numbers } from '../../lib/ethereum/lib';
-import store from '../../containers/App/store';
 import { connect } from "react-redux";
-import { setDepositInfo } from '../../redux/actions/deposit';
-import allow from 'assets/allow.png';
-import deposit from 'assets/deposit.png';
-import { ActionBox } from 'components';
+import  QRCode from 'qrcode.react';
+import { Typography } from 'components';
 
 class DepositForm extends Component {
     constructor(props) {
-        super(props);
-        this.state = {
-            hasAllowed : false,
-            hasDeposited : false,
-            onLoading : {
-                hasAllowed : false,
-                hasDeposited : false
-            },
-            updated : false
-        };
-        
+        super(props); 
     }
 
     componentDidMount(){
@@ -28,45 +14,58 @@ class DepositForm extends Component {
     }
 
     projectData = async (props) => {
-        const { profile, deposit } = props;
-        let hasDeposited = false;
-        this.setState({...this.state, 
-            hasDeposited ,
-            updated : true
-        })
+        this.setState({...this.state})
     }
 
-    onLoading = (key, on=true) => {
-        /* Set Loading */
-        this.setState({...this.state,  onLoading : {...this.state.onLoading, [key] : on}});
-    }
-
-    depositTokens = async () => {
-        try{
-            this.onLoading('hasDeposited');
-            const { deposit, profile } = this.props;
-            /* Create Deposit Framework */
-            let res = await profile.sendTokens({amount : parseFloat(deposit.amount), currency : deposit.currency});
-            if(!res){throw new Error("Error on Transaction")};
-            await store.dispatch(setDepositInfo({key : 'tx', value : res.transactionHash}));
-            this.setState({...this.state, isDeposited : true})
-            this.onLoading('hasDeposited', false);
-        }catch(err){
-            this.onLoading('hasDeposited', false);
-        }
-    }
+    copyToClipboard = (e) => {
+        const { deposit } = this.props;
+        var textField = document.createElement('textarea')
+        textField.innerText = deposit.currency.address;
+        document.body.appendChild(textField)
+        textField.select()
+        document.execCommand('copy')
+        textField.remove()
+    };
 
     render() {
-        const { onLoading, isDeposited } = this.state;
+        const { deposit } = this.props;
         return (
             <div>
-                <ActionBox 
-                    onClick={this.depositTokens}
-                    onLoading={onLoading.hasDeposited}
-                    disabled={onLoading.hasDeposited}
-                    loadingMessage={'Metamask should prompt, click on it and Approve the Transfer'}
-                    completed={isDeposited} id={'deposit'} image={deposit} description={'Deposit your Currency'} title={'Deposit'}
-                />
+                <div styleName="currency">
+                    <div styleName="logo">
+                        <img src={deposit.currency.image} styleName="logo-img"/>
+                    </div>
+                    <div styleName="cur-name">
+                        <Typography variant={'body'} color={`white`}>
+                            {deposit.currency.ticker}
+                        </Typography>
+                    </div>
+                </div>
+                <div styleName="info">
+                    <Typography variant={'x-small-body'} color={`white`}>
+                        Scan the QR code and transfer {deposit.currency.ticker} to it, 
+                        only deposit {deposit.currency.ticker} in this address. 
+                        <br/><br/>
+                        We are not responsible for any mistake. 
+                    </Typography>
+                </div>
+                <div styleName="qrcode">
+                    <QRCode value={deposit.currency.address} />
+                </div>
+                <div styleName="address">
+                    <div styleName='link-text-container'>
+                        <Typography variant={'x-small-body'} color={`casper`}>
+                            {deposit.currency.address}
+                        </Typography>
+                    </div>
+                    <div>
+                        <button onClick={this.copyToClipboard} styleName='text-copy-container'>
+                            <Typography variant={'small-body'} color={'white'}>
+                                Copy
+                            </Typography>
+                        </button>
+                    </div>
+                </div>
             </div>
         );
     }

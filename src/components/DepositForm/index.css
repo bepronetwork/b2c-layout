@@ -1,0 +1,69 @@
+@import "../../styles/all.css";
+
+.qrcode {
+    padding: $spacing-16;
+    background-color: $white;
+    width: 166px;
+    margin: 0 auto;
+}
+  
+.qrcode canvas {
+    position: unset;
+    top: auto;
+    bottom: auto;
+    left: auto;
+    right: auto;
+}
+
+.address {
+    margin: $spacing-36 $spacing-12;
+    display: flex;
+}
+
+.currency {
+    display: flex;
+}
+
+.currency > div {
+    flex: 1;
+}
+
+.logo-img {
+    width: $spacing-36;
+}
+
+.logo {
+    text-align: right
+}
+
+.info {
+    margin: $spacing-20 $spacing-52;
+    text-align: justify;
+    width: 300px;
+}
+
+.cur-name {
+    margin-top: $spacing-8;
+    text-align: left;
+    margin-left: $spacing-12;
+}
+
+.text-copy-container{
+    border : none;
+    padding: $spacing-12 $spacing-20;
+    border-radius :  0 $border-radius $border-radius 0;
+    background-color: $light-background;
+    width : inherit;
+    height : 100%;
+    text-align : center;
+}
+
+.link-text-container{
+    width : auto;
+    padding: $spacing-12 $spacing-20;
+    text-align : left;
+    overflow: hidden;
+    height: auto;
+    border-radius : $border-radius 0 0  $border-radius;
+    background-color : $white;
+}

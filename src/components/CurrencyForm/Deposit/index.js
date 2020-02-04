@@ -31,8 +31,7 @@ class CurrencyDepositForm extends React.Component{
 
             return {
                 ...c,
-                ownership : holdingToken,
-                alertCondition : (holdingToken <= 0)
+                ownership : holdingToken
             }
         }))
 
@@ -55,10 +54,9 @@ class CurrencyDepositForm extends React.Component{
                         <PaymentBox 
                             onClick={ () => this.changeCurrency(c)}
                             isPicked={new String(deposit.currency._id).toString() == new String(c._id).toString()}
-                            alertMessage={`You Don´t Own Enough Any ${c.ticker}`} 
-                            alertCondition={c.alertCondition} disabled={c.alertCondition} id={`${c.ticker}`}  
+                            id={`${c.ticker}`}  
                             image={c.image} type={`${c.name}`} 
-                            description={'Token'} time={'5-10 seconds'} 
+                            description={'Token'}
                         />
                     )
                 })}

@@ -134,7 +134,7 @@ ColorlibStepIcon.propTypes = {
 
     const useStyles = makeStyles(theme => ({
     root: {
-        width: '90%',
+        width: '100%',
         margin : 'auto',
         backgroundColor : 'transparent',
 
@@ -220,15 +220,30 @@ const HorizontalStepper = (props) => {
                     {
                         last 
                         ?  (
-                        <Button
-                            variant="contained"
-                            disabled={!condition}
-                            color="primary"
-                            onClick={closeStepper}
-                            className={classes.button}
-                        >
-                            <Typography  variant={'small-body'} color={'white'}>{'Close'} </Typography>
-                        </Button>       
+                        <div>
+                            <Row>
+                                <Col md={6}>   
+                                    <div styleName='button-stepper'>
+                                        <Button disabled={activeStep === 0} onClick={handleBack} className={classes.button}>
+                                            <Typography variant={'small-body'} color={'white'}> {'Back'} </Typography>
+                                        </Button>
+                                    </div>
+                                </Col>
+                                <Col md={6}>
+                                    <div styleName='button-stepper'>
+                                        <Button
+                                            variant="contained"
+                                            disabled={!condition}
+                                            color="primary"
+                                            onClick={closeStepper}
+                                            className={classes.button}
+                                        >
+                                            <Typography  variant={'small-body'} color={'white'}>{'Close'} </Typography>
+                                        </Button>
+                                    </div>
+                                </Col>
+                            </Row> 
+                        </div>    
                         ) : (
                         <div>
                             {
