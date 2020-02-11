@@ -4,7 +4,6 @@ import PaymentBox from "../../PaymentBox";
 import { setDepositInfo } from "../../../redux/actions/deposit";
 import store from "../../../containers/App/store";
 import { getApp } from "../../../lib/helpers";
-import { getContract } from "../../../lib/ethereum/lib/Ethereum";
 
 class CurrencyDepositForm extends React.Component{
     constructor(props){
@@ -25,15 +24,6 @@ class CurrencyDepositForm extends React.Component{
 
     projectData = async (props) => {
         let currencies = getApp().currencies;
-        currencies = await Promise.all(currencies.map( async c => {
-            let contract = await getContract({currency : c, bank_address : c.bank_address});
-            let holdingToken = await contract.getBalance({});
-
-            return {
-                ...c,
-                ownership : holdingToken
-            }
-        }))
 
         this.setState({...this.state,
             currencies

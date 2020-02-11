@@ -32,6 +32,14 @@
     width: $spacing-36;
 }
 
+.building-img {
+    width: $spacing-160;
+}
+
+.building-info {
+    margin: $spacing-52 0;
+}
+
 .logo {
     text-align: right
 }
@@ -66,4 +74,9 @@
     height: auto;
     border-radius : $border-radius 0 0  $border-radius;
     background-color : $white;
+}
+
+.loading-gif{
+    width: 30px;
+    margin: $spacing-64 $spacing-12;
 }

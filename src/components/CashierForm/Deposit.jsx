@@ -51,6 +51,7 @@ class Deposit extends Component {
                                     condition : (currency != ''),
                                     content : <DepositForm/>,
                                     last : true,
+                                    showCloseButton : false,
                                     closeStepper : this.closeDeposit
                                 }
                             ]}
