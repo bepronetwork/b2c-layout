@@ -40,6 +40,7 @@ import ChatPage from "../Chat";
 import { CopyText } from "../../copy";
 import { setMessageNotification } from "../../redux/actions/message";
 import { setCurrencyView } from "../../redux/actions/currency";
+import { setWithdrawInfo } from "../../redux/actions/withdraw";
 import queryString from 'query-string'
 
 import { connect } from 'react-redux';
@@ -139,7 +140,9 @@ class App extends Component {
         this.setState({ registerLoginModalOpen: null, error: null, has2FA: false });
     };
 
-    handleCashierModalClose = () => {
+    handleCashierModalClose = async () => {
+        await store.dispatch(setWithdrawInfo({key : "toAddress", value : null}));
+        await store.dispatch(setWithdrawInfo({key : "amount", value : null}));
         this.setState({ cashierOpen: null });
     };
 
