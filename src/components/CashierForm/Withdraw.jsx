@@ -63,6 +63,7 @@ class Withdraw extends Component {
                                     label : "Amount",
                                     title : 'How much you want to withdraw?',
                                     condition : ( (amount >= 0.0001)  && (amount <= parseFloat(userBalance) && toAddress) ),
+                                    nextButtonLabel : "Submit",
                                     content : <AmountWithdrawForm/>
                                 },
                                 {
@@ -71,6 +72,7 @@ class Withdraw extends Component {
                                     condition : (_id && (_id != ('' || null))),
                                     content : <WithdrawForm closeStepper={this.closeDeposit}/>,
                                     last : true,
+                                    showCloseButton : false,
                                     closeStepper : this.closeDeposit
                                 }
                             ]}

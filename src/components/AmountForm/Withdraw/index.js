@@ -17,7 +17,6 @@ const defaultProps = {
     balance : 0,
     amount : 0,
     addressInitialized: false,
-    address: null,
     isLoaded: false,
     toAddress: null
 }
@@ -44,7 +43,7 @@ class AmountWithdrawForm extends Component {
         if (!addressInitialized) {
             let response = await profile.getCurrencyAddress({ currency_id: withdraw.currency._id });
             if(_.isEmpty(response.message)) {
-                this.setState({ addressInitialized: true, address: response.address });
+                this.setState({ addressInitialized: true });
             }
         }
 
@@ -86,7 +85,7 @@ class AmountWithdrawForm extends Component {
     }
 
     render() {
-        const { amount, balance, ticker, addressInitialized, address, isLoaded, toAddress } = this.state;
+        const { amount, balance, ticker, addressInitialized, isLoaded, toAddress } = this.state;
         const MIN_WITHDRAWAL = 0.00001;
 
         if(!isLoaded){
@@ -102,7 +101,6 @@ class AmountWithdrawForm extends Component {
                 {addressInitialized 
                 ?
                 <div>
-                    <InformationBox type={'info'} message={`This withdraw will be made to the current address you are using via the installed wallet ${address}`} image={info}/>
                     <div style={{marginBottom : 20}}>
                         <Row>
                             <Col md={12}>
@@ -131,7 +129,9 @@ class AmountWithdrawForm extends Component {
                                 />
                             </Col>
                             <Col md={2}>
-                                <Typography variant={'x-small-body'} color={'white'}>{`${ticker}`}</Typography>
+                                <div style={{marginTop: 10, textAlign: "left"}}>
+                                    <Typography variant={'body'} color={'white'}>{`${ticker}`}</Typography>
+                                </div>
                             </Col>
                         </Row>
                         <div styleName='text-info-deposit'>

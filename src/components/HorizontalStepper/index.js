@@ -157,7 +157,7 @@ const HorizontalStepper = (props) => {
     const classes = useStyles();
     const [activeStep, setActiveStep] = React.useState(0);
     let step = steps[activeStep];
-    const { pass, title, content, condition, first, last, closeStepper, showCloseButton = true } = step;
+    const { pass, title, content, condition, first, last, closeStepper, showCloseButton = true, nextButtonLabel } = step;
     if(pass){handleNext();}
     if(nextStep && (activeStep+1 < steps.length)){
         handleNext();
@@ -273,7 +273,7 @@ const HorizontalStepper = (props) => {
                                                 onClick={handleNext}
                                                 className={classes.button}
                                             >
-                                                <Typography  variant={'small-body'} color={'white'}>{'Next'} </Typography>
+                                                <Typography  variant={'small-body'} color={'white'}>{nextButtonLabel ? nextButtonLabel : 'Next'} </Typography>
                                             </Button>      
                                         </div>               
                                     </Col>
@@ -289,7 +289,7 @@ const HorizontalStepper = (props) => {
                                                 onClick={handleNext}
                                                 className={classes.button}
                                             >
-                                                <Typography  variant={'small-body'} color={'white'}>{'Next'} </Typography>
+                                                <Typography  variant={'small-body'} color={'white'}>{nextButtonLabel ? nextButtonLabel : 'Next'} </Typography>
                                             </Button>      
                                         </div>               
                                     </Col>
