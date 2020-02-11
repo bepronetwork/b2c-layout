@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import './index.css';
-import { Numbers } from 'lib/ethereum/lib';
 import store from 'containers/App/store';
 import { connect } from "react-redux";
 import approval from 'assets/approval.png';
@@ -51,13 +50,12 @@ class WithdrawForm extends Component {
             var res;
             if(isAffiliate){
                 /* Create Withdraw Framework */
-                res = await profile.askForWithdrawAffiliate({amount : parseFloat(withdraw.amount), currency});
+                res = await profile.askForWithdrawAffiliate({amount : parseFloat(withdraw.amount), currency, address : withdraw.toAddress});
             }else{
                 /* Create Withdraw Framework */
-                res = await profile.askForWithdraw({amount : parseFloat(withdraw.amount), currency});
+                res = await profile.askForWithdraw({amount : parseFloat(withdraw.amount), currency, address : withdraw.toAddress});
             }
 
-            console.log(res);
             await store.dispatch( setMessageNotification(
                 'Withdraw was Queued, you can see it in the Withdraws Tab',                
             ));

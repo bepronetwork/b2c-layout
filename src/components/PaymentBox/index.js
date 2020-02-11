@@ -13,7 +13,7 @@ class PaymentBox extends React.Component{
     }
 
     onClick = () => {
-        const { id, onClick } = this.props;
+        const { id, onClick, isPicked } = this.props;
         if(onClick){
             onClick(id)
         }
@@ -21,13 +21,13 @@ class PaymentBox extends React.Component{
 
     render(){
         var { 
-            image, type, time, description, id, picked, isPicked,  disabled, alertMessage, alertCondition, info
+            image, type, description, id, picked, isPicked, info
         } = this.props;
 
         isPicked = isPicked ? isPicked : (picked == id);
 
         return (
-            <button disabled={disabled} onClick={this.onClick} styleName={`container-root ${isPicked ? 'picked' : ''} ${alertCondition ? 'alert' : ''} ${info ? 'alert' : ''}`}>
+            <button onClick={this.onClick} styleName={`container-root`}>
                 <Row>
                     <Col xs={3} md={3}>
                         <div styleName='container-image'>
@@ -39,21 +39,11 @@ class PaymentBox extends React.Component{
                             <Typography variant={'body'} color={'white'}>
                                 {type}
                             </Typography>
-                            <Typography variant={'x-small-body'} color={'green'}>
-                                {time}
-                            </Typography>
                             <div styleName='text-description'>
                                 <Typography variant={'x-small-body'} color={'casper'}>
                                     {description}
                                 </Typography>
                             </div>
-                            {alertCondition ? 
-                                <div styleName='text-description'>
-                                    <Typography variant={'x-small-body'} color={'red'}>
-                                        {alertMessage}
-                                    </Typography>
-                                </div>
-                            : null}
                             {info ? 
                                 <div styleName='text-description'>
                                     <Typography variant={'x-small-body'} color={'mercury'}>

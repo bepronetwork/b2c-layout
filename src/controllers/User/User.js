@@ -1,5 +1,4 @@
-import { getMetamaskAccount, getNonce, promptMetamask } from "lib/metamask";
-import CasinoContract from "lib/ethereum/CasinoContract";
+import { getMetamaskAccount, getNonce } from "lib/metamask";
 import {
   updateUserWallet,
   requestWithdraw,
@@ -9,7 +8,8 @@ import {
   createBet,
   getMyBets,
   set2FA,
-  userAuth
+  userAuth,
+  getCurrencyAddress
 } from "lib/api/users";
 import { Numbers } from "../../lib/ethereum/lib";
 import Cache from "../../lib/cache/cache";
@@ -19,7 +19,6 @@ import { setProfileInfo } from "../../redux/actions/profile";
 import { getPastTransactions, getTransactionDataCasino } from "../../lib/ethereum/lib/Etherscan";
 import { setStartLoadingProcessDispatcher } from "../../lib/redux";
 import { processResponse } from "../../lib/helpers";
-import { getContract } from "../../lib/ethereum/lib/Ethereum";
 import _ from 'lodash';
 
 export default class User {
@@ -64,7 +63,6 @@ export default class User {
             setStartLoadingProcessDispatcher(2);
             await this.setupChat();
             setStartLoadingProcessDispatcher(3);
-            await this.connectMetamask();
             setStartLoadingProcessDispatcher(4);
             await this.getAllData();
         }catch(err){
@@ -101,11 +99,6 @@ export default class User {
     getUsername = () => this.username;
 
     getAppCustomization = () => this.app.customization;
-    
-    isValidAddress = async () => {
-        let userMetamaskAddress = await getMetamaskAccount();
-        return new String(this.getAddress()).toLowerCase() == new String(userMetamaskAddress).toLowerCase();
-    }
 
     getAllData = async () => {
         await this.updateUser();
@@ -122,19 +115,6 @@ export default class User {
     updateUserState = async () => {
         /* Add Everything to the Redux State */  
         await store.dispatch(setProfileInfo(this));
-    }
-
-    connectMetamask = () => {
-        if(window.ethereum){
-            window.ethereum.on('accountsChanged', (accounts) => {
-                // Time to reload your interface with accounts[0]!
-                this.setMetamaskAddress(accounts[0]);
-            })
-            
-            window.ethereum.on('networkChanged', (netId) =>  {
-                console.log(netId);
-            })
-        }  
     }
 
     getMyBets = async ({size}) => {
@@ -197,72 +177,12 @@ export default class User {
         return this.casinoContract;
     }
 
-    setupCasinoContract() {
-        /* Create Casino Instance */
-        this.casinoContract = new CasinoContract({
-            web3: window.web3,
-            contractAddress: this.platformAddress,
-            tokenAddress: this.tokenAddress,
-            decimals: this.decimals
-        });
-    }
-
     getTokenAmount = async () => {
         let address = await getMetamaskAccount();
         if(!address){ address = '0x' }
         let amount = Numbers.toFloat(Numbers.fromDecimals(await this.casinoContract.getERC20Token().getTokenAmount(address), this.decimals))
         return amount;
     }
-
-    allowDeposit = async ({ amount }) => {
-        try {
-            await promptMetamask();
-            let address = await getMetamaskAccount();
-            if(!address){ address = '0x' }
-            const resEthereum = await this.casinoContract.allowDepositToContract({
-                address,
-                amount
-            });
-            return resEthereum;
-        }catch (err) {
-            throw err;
-        }
-    };
-
-    sendTokens = async ({ amount, currency}) => {
-        try {
-            await promptMetamask();
-            let address = await getMetamaskAccount();
-            let contract = await getContract({currency, bank_address : currency.bank_address});
-            if(!address){ address = '0x' }
-            const resEthereum = await contract.sendTokens({
-                address,
-                amount
-            });
-            return resEthereum;
-        }catch (err) {
-            throw err;
-        }
-    }
-
-
-    depositTokens = async ({ amount }) => {
-        /* Old implementation of SendTOkens , not used anymore */
-        try {
-            await promptMetamask();
-            let address = await getMetamaskAccount();
-            if(!address){ address = '0x' }
-            const resEthereum = await this.casinoContract.depositTokens({
-                address,
-                amount
-            });
-            return resEthereum;
-        }catch (err) {
-            throw err;
-        }
-    };
-
-
 
     confirmDeposit = async ({ amount, transactionHash, currency }) => {
         try {
@@ -285,16 +205,6 @@ export default class User {
             throw err;
         }
     };
-
-    __getTimeForWithdrawal = async () => {
-        try{
-            let address = await getMetamaskAccount();
-            if(!address){ address = '0x' }
-            return await this.casinoContract.getTimeForWithdrawal(address);
-        }catch(err){
-            throw err;
-        }
-    }
 
     cancelWithdrawAPI = async () => {
         try{
@@ -374,25 +284,6 @@ export default class User {
         }
     }
 
-    getAmountAllowedForDepositByPlatform = async () => {
-        try{
-            let address = await getMetamaskAccount()
-            if(!address){ return 0 }
-            let decimalAmount = await this.casinoContract.getAllowedDepositAmountForApp(address);
-            return Numbers.fromDecimals(decimalAmount, this.decimals);
-        }catch(err){
-            throw err;
-        }
-    }
-
-    getWithdrawalTimeRelease = async () => {
-        try{
-            return await this.casinoContract.getWithdrawalTimeRelease();
-        }catch(err){
-            throw err;
-        }
-    }
-
     getMaxWithdrawal = async () => {
         try{
             return Numbers.fromBigNumberToInteger(await this.casinoContract.getMaxWithdrawal(), 36);
@@ -423,18 +314,8 @@ export default class User {
         return this.user.address;
     }
 
-    setMetamaskAddress = (address) => {
-        this.metamaskAddress = address;
-        this.updateUserState();
-    }
-
-    getMetamaskAddress = async () => {
-        return await getMetamaskAccount();
-    }
-
-    askForWithdraw = async ({amount, currency}) => {
+    askForWithdraw = async ({amount, currency, address}) => {
         try {
-            let metamaskAddress = await getMetamaskAccount();
             var nonce = getNonce();
             var res = { };
             let timeout = false;
@@ -445,7 +326,7 @@ export default class User {
                     {
                         app: this.app_id,
                         user: this.user_id,
-                        address     : metamaskAddress,
+                        address,
                         tokenAmount : parseFloat(amount),
                         currency : currency._id,
                         nonce
@@ -471,9 +352,8 @@ export default class User {
         }
     }
 
-    askForWithdrawAffiliate = async ({amount, currency}) => {
+    askForWithdrawAffiliate = async ({amount, currency, address}) => {
         try {
-            let metamaskAddress = await getMetamaskAccount();
             var nonce = getNonce();
             var res = { };
             let timeout = false;
@@ -484,7 +364,7 @@ export default class User {
                     {
                         app: this.app_id,
                         user: this.user_id,
-                        address     : metamaskAddress,
+                        address,
                         tokenAmount : parseFloat(amount),
                         currency : currency._id,
                         nonce
@@ -531,20 +411,6 @@ export default class User {
     getAppTokenAddress = () => {
         return this.tokenAddress;
     }
-
-    createWithdraw = async ({ amount }) => {
-        try {
-            let address = await getMetamaskAccount();
-            /* Run Withdraw Function */
-            const res = await this.casinoContract.withdrawTokens({
-                address,
-                amount
-            });
-            return res;
-        } catch (err) {
-            throw err;
-        }
-    };
 
     finalizeWithdraw = async ({withdraw_id, tx}) => {
         try {
@@ -622,6 +488,26 @@ export default class User {
             this.bearerToken);
             return res;
         } catch(err){
+            throw err;
+        }
+    }
+
+    getCurrencyAddress = async ({currency_id}) => {
+        try {
+            if(!this.user_id){return []}
+            if(currency_id){
+                let res = await getCurrencyAddress({         
+                    currency : currency_id,      
+                    id: this.user_id,
+                    app: this.app_id
+                }, this.bearerToken);
+                return await processResponse(res);
+            }else{
+                return [];
+            }
+      
+        }catch(err){
+            console.log(err)
             throw err;
         }
     }

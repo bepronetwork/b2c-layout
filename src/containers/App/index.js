@@ -40,6 +40,7 @@ import ChatPage from "../Chat";
 import { CopyText } from "../../copy";
 import { setMessageNotification } from "../../redux/actions/message";
 import { setCurrencyView } from "../../redux/actions/currency";
+import { setWithdrawInfo } from "../../redux/actions/withdraw";
 import queryString from 'query-string'
 
 import { connect } from 'react-redux';
@@ -51,6 +52,7 @@ import { getQueryVariable, getAppCustomization, getApp } from "../../lib/helpers
 import ChatChannel from "../../controllers/Chat";
 import AnnouncementTab from "../../components/AnnouncementTab";
 import UnavailablePage from "../UnavailablePage";
+import { getCurrencyAddress } from "../../lib/api/users";
 const history = createBrowserHistory();
 
 class App extends Component {
@@ -138,7 +140,9 @@ class App extends Component {
         this.setState({ registerLoginModalOpen: null, error: null, has2FA: false });
     };
 
-    handleCashierModalClose = () => {
+    handleCashierModalClose = async () => {
+        await store.dispatch(setWithdrawInfo({key : "toAddress", value : null}));
+        await store.dispatch(setWithdrawInfo({key : "amount", value : null}));
         this.setState({ cashierOpen: null });
     };
 
@@ -210,7 +214,17 @@ class App extends Component {
         try {
             const response = await register(form);
             if (response.status !== 200) { return this.setState({ error: response }); }
-            this.handleLogin({username : form.username, password : form.password});
+
+            await this.handleLogin({username : form.username, password : form.password});
+            const { user, app } = this.state;
+            if (user) {
+                const currencies = app.currencies;
+                const bearerToken = user.bearerToken;
+                Promise.all(currencies.map( async c => {
+                    let currency = c._id;
+                    getCurrencyAddress({ currency, id : response.id, app : app.id }, bearerToken);
+                }));
+            }
         } catch (error) {
             return handleError(error);
         }

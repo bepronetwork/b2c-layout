@@ -3,24 +3,17 @@ import React, { Component } from "react";
 import "./index.css";
 import { connect } from "react-redux";
 import { compose } from 'lodash/fp';
-import { promptMetamask } from 'lib/metamask';
 import { 
-    MetamaskPrompt, HorizontalStepper, AmountWithdrawForm, CurrencyWithdrawForm, 
-    WithdrawForm, WithdrawConfirmForm, TradeFormDexWithdraw, InformationBox
+    HorizontalStepper, AmountWithdrawForm, CurrencyWithdrawForm, 
+    WithdrawForm
 } from 'components';
-import { getMetamaskAccount } from "../../lib/metamask";
-import { MIN_WITHDRAWAL } from "../../lib/api/apiConfig";
-import { Numbers } from 'lib/ethereum/lib';
-import info from 'assets/info.png';
 import _ from 'lodash';
 
 const defaultProps = {
     amount : 1,
     ticker : 'N/A',
     deposits : [],
-    hasMetamask : true,
-    mounted : false,
-    address : '0x'
+    mounted : false
 }
 
 class Withdraw extends Component {
@@ -37,10 +30,9 @@ class Withdraw extends Component {
     
     async projectData(props){
         const { profile, withdraw } = props;
-        const address = await getMetamaskAccount();
         const { currency } = withdraw;
         let userBalance = profile.getBalance(currency);
-        this.setState({...this.state, userBalance, address});
+        this.setState({...this.state, userBalance});
     }
 
     closeDeposit = () => {
@@ -50,14 +42,13 @@ class Withdraw extends Component {
 
     render() {
         const { withdraw } = this.props;
-        const { userBalance, address } = this.state;
-        const { currency, nextStep, amount, tx, _id } = withdraw;
+        const { userBalance } = this.state;
+        const { currency, nextStep, amount, tx, _id, toAddress } = withdraw;
 
         return (
             <div styleName='root'>
                  <div styleName="deposit">
                     <div styleName="title">
-                        <InformationBox type={'info'} message={`This withdraw will be made to the current address you are using via the installed wallet ${address}`} image={info}/>
                         <HorizontalStepper 
                             showStepper={false}
                             nextStep={nextStep}
@@ -71,7 +62,8 @@ class Withdraw extends Component {
                                 {
                                     label : "Amount",
                                     title : 'How much you want to withdraw?',
-                                    condition : ( (amount >= 0.0001)  && (amount <= parseFloat(userBalance)) ),
+                                    condition : ( (amount >= 0.0001)  && (amount <= parseFloat(userBalance) && toAddress) ),
+                                    nextButtonLabel : "Submit",
                                     content : <AmountWithdrawForm/>
                                 },
                                 {
@@ -80,6 +72,7 @@ class Withdraw extends Component {
                                     condition : (_id && (_id != ('' || null))),
                                     content : <WithdrawForm closeStepper={this.closeDeposit}/>,
                                     last : true,
+                                    showCloseButton : false,
                                     closeStepper : this.closeDeposit
                                 }
                             ]}

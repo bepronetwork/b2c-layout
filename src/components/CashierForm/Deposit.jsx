@@ -3,20 +3,10 @@ import React, { Component } from "react";
 import "./index.css";
 import { connect } from "react-redux";
 import { compose } from 'lodash/fp';
-import { promptMetamask } from 'lib/metamask';
-import { MetamaskPrompt, DepositConfirmForm, AmountDepositForm, CurrencyDepositForm, HorizontalStepper, DepositForm, InformationBox } from 'components';
-import { getMetamaskAccount } from "../../lib/metamask";
+import { CurrencyDepositForm, HorizontalStepper, DepositForm } from 'components';
 
-const defaultProps = {
-    amount : 1,
-    ticker : 'N/A',
-    deposits : [],
-    hasMetamask : true
-}
 
 class Deposit extends Component {
-
-    state = { ...defaultProps };
 
     componentDidMount(){
         this.projectData(this.props)
@@ -27,13 +17,7 @@ class Deposit extends Component {
     }
     
     async projectData(props){       
-        try{
-            await promptMetamask();
-            this.setState({...this.state, hasMetamask : true})
-        }catch(err){
-            // Metamask is Closed or not Installed
-            this.setState({...this.state, hasMetamask : false})
-        }
+        this.setState({...this.state})
     }
 
     closeDeposit = () => {
@@ -43,10 +27,7 @@ class Deposit extends Component {
 
     render() {
         const { deposit } = this.props;
-        const { hasMetamask } = this.state;
-        const { currency, nextStep, amount, tx, isConfirmed } = deposit;
-
-        if(!hasMetamask){return (<MetamaskPrompt hasMetamask={hasMetamask}/>)}
+        const { currency, nextStep } = deposit;
 
         return (
             <div styleName='root'>
@@ -60,28 +41,17 @@ class Deposit extends Component {
                             steps={[
                                 {
                                     label : "Choose",
-                                    title : 'Pick the Currency you have',
+                                    title : 'Pick the Currency to deposit',
                                     condition : (currency != ''),
                                     content : <CurrencyDepositForm/>
                                 },
                                 {
-                                    label : "Amount",
-                                    title : 'How much you want to deposit?',
-                                    condition : (amount >= 0.1),
-                                    content : <AmountDepositForm/>
-                                },
-                                {
                                     label : "Deposit",
-                                    title : 'Deposit your Tokens',
-                                    condition : (tx && tx != ''),
-                                    pass : (tx && tx != ''),
-                                    content : <DepositForm/>
-                                },
-                                {
-                                    label : "Confirm",
-                                    condition : (isConfirmed),
-                                    content : <DepositConfirmForm onClose={this.closeDeposit}/>,
+                                    title : 'Deposit to token',
+                                    condition : (currency != ''),
+                                    content : <DepositForm/>,
                                     last : true,
+                                    showCloseButton : false,
                                     closeStepper : this.closeDeposit
                                 }
                             ]}
@@ -99,8 +69,7 @@ function mapStateToProps(state){
     return {
         deposit : state.deposit,
         profile : state.profile,
-        ln : state.language,
-        currency : state.currency
+        ln : state.language
     };
 }
 

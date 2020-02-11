@@ -24,20 +24,7 @@ class RegisterForm extends Component {
     };
 
     componentDidMount(){
-        this.getMetamaskInfo();
         this.updateAddress();
-    }
-
-    getMetamaskInfo(){
-        if(window.ethereum){
-            window.ethereum.on('accountsChanged', (accounts) => {
-                this.updateAddress(accounts[0]);
-            })
-            
-            window.ethereum.on('networkChanged', (netId) =>  {
-                console.log(netId);
-            })
-        }  
     }
 
     componentWillReceiveProps(){
