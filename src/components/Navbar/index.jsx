@@ -131,7 +131,7 @@ class Navbar extends Component {
                                                 </div>
                                             :
                                                 <div styleName="coin">
-                                                    <CurrencyDropDown/>
+                                                    <CurrencyDropDown currentBalance={currentBalance}/>
                                                     {difference ? (
                                                         <div
                                                         key={currentBalance}
