@@ -13,7 +13,7 @@ export default async function bet({ betAmount, user }) {
         const result = new Array(gameResultSpaceLength).fill(0).map( (value, index) => {
             return { 
                 place: index, 
-                value: parseFloat(parseFloat(betAmount/gameResultSpaceLength).toFixed(4))
+                value: parseFloat(parseFloat(betAmount/gameResultSpaceLength))
             };
         });
         const response = await user.createBet({

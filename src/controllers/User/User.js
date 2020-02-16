@@ -1,4 +1,4 @@
-import { getMetamaskAccount, getNonce } from "lib/metamask";
+import { getNonce } from "lib/metamask";
 import {
   updateUserWallet,
   requestWithdraw,
@@ -16,7 +16,6 @@ import Cache from "../../lib/cache/cache";
 import ChatChannel from "../Chat";
 import store from "../../containers/App/store";
 import { setProfileInfo } from "../../redux/actions/profile";
-import { getPastTransactions, getTransactionDataCasino } from "../../lib/ethereum/lib/Etherscan";
 import { setStartLoadingProcessDispatcher } from "../../lib/redux";
 import { processResponse } from "../../lib/helpers";
 import _ from 'lodash';
@@ -86,8 +85,6 @@ export default class User {
 
     getDeposits = () => this.user.deposits;
     
-    getDepositsAsync = async () => await this.__getDeposits();
-
     getTimeForWithdrawal = () => this.params.timeToWithdraw;
     
     getApprovedWithdraw = () => this.params.decentralizeWithdrawAmount;
@@ -178,10 +175,7 @@ export default class User {
     }
 
     getTokenAmount = async () => {
-        let address = await getMetamaskAccount();
-        if(!address){ address = '0x' }
-        let amount = Numbers.toFloat(Numbers.fromDecimals(await this.casinoContract.getERC20Token().getTokenAmount(address), this.decimals))
-        return amount;
+        return 0;
     }
 
     confirmDeposit = async ({ amount, transactionHash, currency }) => {
@@ -222,66 +216,8 @@ export default class User {
         }
     }
 
-    getUnconfirmedBlockchainDeposits = async (address) => {
-        try{            
-            var platformAddress =  this.platformAddress;
-            var platformTokenAddress =  this.tokenAddress;
-            var allTxs = (await getPastTransactions(address)).result;
-            let testedTxs = allTxs.slice(0, 20);  
-            let unconfirmedDepositTxs = (await Promise.all(testedTxs.map( async tx => {
-                let res_transaction = await window.web3.eth.getTransaction(tx.hash);
-                let res_transaction_recipt = await window.web3.eth.getTransactionReceipt(tx.hash);
-                let transactionData = getTransactionDataCasino(res_transaction, res_transaction_recipt);
-                if(!transactionData){return null}
-                return {
-                    amount: Numbers.fromDecimals(transactionData.tokenAmount, this.decimals),
-                    to : tx.to,
-                    tokensTransferedTo : transactionData.tokensTransferedTo,
-                    creation_timestamp: tx.timestamp,
-                    transactionHash: tx.hash
-                }
-            }))).filter(el => el != null).filter( tx => {
-                return (
-                    new String(tx.to).toLowerCase().trim() == new String(platformAddress).toLowerCase().trim()
-                    && new String(tx.tokensTransferedTo).toLowerCase().trim() == new String(platformAddress).toLowerCase().trim()
-                    )
-            })
-            return unconfirmedDepositTxs;
-        }catch(err){
-            throw err;
-        }
-    }
-
-    __getDeposits = async () => {
-        var address = this.getAddress();
-        let depositsApp = this.user.deposits || [];
-        let allTxsDeposits = await this.getUnconfirmedBlockchainDeposits(address);
-        return (await Promise.all(allTxsDeposits.map( async tx => {
-            var isConfirmed = false, deposit = null;
-            for(var i = 0; i < depositsApp.length; i++){
-                if(new String(depositsApp[i].transactionHash).toLowerCase().trim() == new String(tx.transactionHash).toLowerCase().trim()){
-                    isConfirmed = true;
-                    deposit = depositsApp[i];
-                }
-            }
-            if(isConfirmed){
-                return {...deposit, isConfirmed}
-            }else{
-                return {...tx, isConfirmed}
-            }
-        }))).filter(el => el != null)
-    }
-
-
     __getApprovedWithdraw = async () => {
-        try{
-            let address = await getMetamaskAccount();
-            if(!address){ return 0 }
-            let decimalAmount = await this.casinoContract.getApprovedWithdrawAmount(address);
-            return Numbers.fromDecimals(decimalAmount, this.decimals);
-        }catch(err){
-            throw err;
-        }
+        return 0;
     }
 
     getMaxWithdrawal = async () => {

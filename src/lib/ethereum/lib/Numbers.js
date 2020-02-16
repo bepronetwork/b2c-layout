@@ -20,7 +20,7 @@ Number.prototype.noExponents= function(){
 
 class NumbersObject {
     toFloat(number) {
-        return parseFloat(parseFloat(number).toFixed(2));
+        return parseFloat(parseFloat(number));
     }
 
     toMoney(number) {

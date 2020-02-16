@@ -1,0 +1,24 @@
+{
+    TITLE : ' You have ',
+    SUB_TITLE:  {
+        FIRST : 'Tokens in Your Decentralized Wallet Available to Deposit',
+        SECOND : 'Click to Trade your ETH or Tokens to',
+        THIRD : {
+            FIRST : 'You have currently 0',
+            SECOND : 'Tokens'
+        }
+    },
+    BUTTON_CONFIRMATION : 'Confirm',
+    BUTTON_ONE : 'Deposit',
+    INFO : {
+        FIRST : 'Don´t close the Window!',
+        SECOND : 'There are 2 Actions Taking Place',
+        THIRD : '1 - Allowing Deposit',
+        FORTH : '2 - Creating Deposit',
+        FIFTH : 'Deposit Completed with Success'
+    },
+    ERROR : {
+        FIRST: 'Thats too high! Your maximum deposit allowance is ',
+        SECOND: 'Thats too high! Your maximum withdrawal amount is '
+    },
+},
