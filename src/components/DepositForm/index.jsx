@@ -52,9 +52,9 @@ class DepositForm extends Component {
     }
 
     copyToClipboard = (e) => {
-        const { deposit } = this.props;
+        const { address } = this.state;
         var textField = document.createElement('textarea')
-        textField.innerText = deposit.currency.address;
+        textField.innerText = address;
         document.body.appendChild(textField)
         textField.select()
         document.execCommand('copy')
