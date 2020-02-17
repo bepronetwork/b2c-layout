@@ -4,7 +4,6 @@ import { Link } from "react-router-dom";
 import { Button, SubtleButton, Typography, UserMenu, AnimationNumber, LanguagePicker, TextContainer } from "components";
 import UserContext from "containers/App/UserContext";
 import { Numbers } from "../../lib/ethereum/lib";
-import { getMetamaskAccount } from 'lib/metamask';
 import { connect } from "react-redux";
 import _ from 'lodash';
 import "./index.css";
@@ -26,8 +25,6 @@ function AddressConcat(string){
 const defaultProps = {
     user: null,
     userAddress : 'N/A',
-    userMetamaskAddress : 'N/A',
-    isValid : false,
     currentBalance : 0,
     betIDVerified : '',
 };
@@ -55,8 +52,6 @@ class Navbar extends Component {
             var user = !_.isEmpty(props.profile) ? props.profile : null;
 
             if(user){
-                let userMetamaskAddress = await getMetamaskAccount();
-                let metamaksAddress = userMetamaskAddress ? userMetamaskAddress : defaultProps.userMetamaskAddress;
                 let difference = parseFloat(user.getBalance() - this.state.currentBalance);
                 // To not exist failed animation of difference and number animation
                 var opts = {};
@@ -69,9 +64,7 @@ class Navbar extends Component {
                     ...opts,
                     user    : user,
                     userFullAddress : user.getAddress(),
-                    userAddress : user.getAddress() ? AddressConcat(user.getAddress()) : defaultProps.userAddress,
-                    userMetamaskAddress : user ? AddressConcat(metamaksAddress) : defaultProps.userMetamaskAddress,
-                    isValid : user ? new String(user.getAddress()).toLowerCase() == new String(metamaksAddress).toLowerCase() :  defaultProps.isValid     
+                    userAddress : user.getAddress() ? AddressConcat(user.getAddress()) : defaultProps.userAddress  
                 })
             }else{
                 this.setState({user : null})
@@ -138,7 +131,7 @@ class Navbar extends Component {
                                                 </div>
                                             :
                                                 <div styleName="coin">
-                                                    <CurrencyDropDown/>
+                                                    <CurrencyDropDown currentBalance={currentBalance}/>
                                                     {difference ? (
                                                         <div
                                                         key={currentBalance}

@@ -48,3 +48,16 @@
     width : fit-content;
 }
 
+.building-img {
+    width: $spacing-160;
+}
+
+.building-info {
+    margin: $spacing-52 0;
+}
+
+.loading-gif{
+    width: 30px;
+    margin: $spacing-64 $spacing-12;
+}
+

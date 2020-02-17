@@ -84,7 +84,7 @@ class CurrencyDropDown extends React.Component {
                                 <div styleName={'currency-box-top'}>
                                     <img src={option.image} styleName='image-coin'/> 
                                     <p styleName='option-text'>  
-                                        <AnimationNumber variant={'small-body'} decimals={4} number={option.balance}/>
+                                        <AnimationNumber variant={'small-body'} decimals={4} number={option.balance.toFixed(6)}/>
                                     </p>
                                 </div>
                             </MenuItem>

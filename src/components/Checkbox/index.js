@@ -19,7 +19,7 @@ class Checkbox extends React.Component{
         return (
             <li styleName="tg-list-item">
                 <input onClick={onClick} checked={isSet} styleName="tgl tgl-flat" id={id} type="checkbox"/>
-                <label styleName="tgl-btn" for={id}></label>
+                <label styleName="tgl-btn" htmlFor={id}></label>
             </li>
         )
     }

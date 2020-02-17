@@ -40,12 +40,6 @@
     box-shadow : 1px 10px 100px 10px $black;
 }
 
-.alert{
-    border : 1px solid $red;
-    box-shadow : 1px 10px 100px 10px $black;
-}
-
-
 .info{
     border : 1px solid $orange;
     box-shadow : 1px 10px 100px 10px $black;
@@ -57,12 +51,13 @@
 
 .payment-image{
     width: 40px;
-    margin-top: 15px;
+    margin-top: 8px;
 }
 
 .container-text{
     width: 150px;
     text-align: left;
+    margin-top: 6px;
 }
 
 .container-image{

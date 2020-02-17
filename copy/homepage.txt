@@ -1,0 +1,40 @@
+ {
+    TABLE : {
+        ALL_BETS : {
+            TITLE : 'Latests Wins',
+            ITEMS : [
+                'Game',
+                'Bet Id',
+                'User',
+                'Time',
+                'Bet',
+                'Payout',
+                'Profit'
+            ]
+        },
+        MY_BETS : {
+            TITLE : 'Latests Bets', 
+            ITEMS : [
+                'Game',
+                'Bet Id',
+                'Time',
+                'Bet',
+                'Payout',
+                'Profit'
+            ]
+        },
+        BIGGEST_WIN_BETS : {
+            TITLE : 'Biggest Wins', 
+            ITEMS : [
+                'Game',
+                'Bet Id',
+                'User',
+                'Time',
+                'Bet',
+                'Payout',
+                'Profit'
+            ]
+        }
+    },
+    RULES : 'Rules'
+}

@@ -351,3 +351,24 @@ export async function userAuth(params, bearerToken, payload) {
         return handleError(error);
     } 
 }
+
+
+/**
+ *
+ * @param {*} params
+ * @param {*} bearerToken
+ * @name Get Currency Address
+ * @use Get Address by Currency
+ */
+
+export async function getCurrencyAddress(params, bearerToken, payload) {
+    try{
+        let res = await fetch(`${apiUrl}/api/app/address/get`, {
+            method : 'POST',
+            headers : addSecurityHeader({bearerToken, payload :  payload || params.id}),
+            body : JSON.stringify(params)})
+        return res.json();
+    }catch(err){
+        throw err;
+    }    
+}

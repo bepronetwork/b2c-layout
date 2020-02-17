@@ -66,7 +66,7 @@ class AnimationNumber extends React.Component{
                     )}
                     duration={500}
                     value={number}
-                formatValue={n => parseFloat(n).toFixed(decimals)}/>
+                formatValue={n => parseFloat(n)}/>
                 <span style={{marginLeft : 4, fontSize : 18, opacity : 0.4}}>{span}</span>
             </Typography>
         );

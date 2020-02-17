@@ -35,6 +35,7 @@ class AccountInfoForm extends React.Component{
 
     projectData = (props) => {
         const { profile } = props;
+        
         if(!isUserSet(profile)){return null}
         const id = profile.getID();
         const username = profile.getUsername();
