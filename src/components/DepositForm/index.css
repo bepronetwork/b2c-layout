@@ -5,6 +5,7 @@
     background-color: $white;
     width: 166px;
     margin: 0 auto;
+    border-radius: 4px;
 }
   
 .qrcode canvas {
@@ -48,6 +49,13 @@
     margin: $spacing-20 $spacing-52;
     text-align: justify;
     width: 300px;
+    background-color: $dark-blue;
+    border-radius: 5px;
+    padding: $spacing-20;
+
+    @include Breakpoint-mobileOnly {
+        margin: $spacing-20 $spacing-12;
+    }
 }
 
 .cur-name {

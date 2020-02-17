@@ -18,6 +18,7 @@ import { Numbers } from "../../lib/ethereum/lib";
 import _ from 'lodash';
 import { CopyText } from "../../copy";
 import { connect } from "react-redux";
+import { formatCurrency } from "../../utils/numberFormatation";
 
 class WheelGameOptions extends Component {
     static contextType = UserContext;
@@ -247,7 +248,7 @@ class WheelGameOptions extends Component {
                     icon="bitcoin"
                     precision={2}
                     disabled
-                    value={Numbers.toFloat(amount * (this.getPayout() - 1))}
+                    value={formatCurrency(Numbers.toFloat(amount * (this.getPayout() - 1)))}
                 />
                 </div>
             </div>

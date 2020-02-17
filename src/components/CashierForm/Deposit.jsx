@@ -47,7 +47,7 @@ class Deposit extends Component {
                                 },
                                 {
                                     label : "Deposit",
-                                    title : 'Deposit to token',
+                                    title : 'Deposit',
                                     condition : (currency != ''),
                                     content : <DepositForm/>,
                                     last : true,

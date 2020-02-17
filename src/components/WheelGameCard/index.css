@@ -73,7 +73,7 @@
 .outer-popular-numbers{
     width : 120px;
     border : 2px solid $dark-table-color;
-    height: 40%;
+    height: 38%;
     background-color : $popular-numbers-container;
     left : 10px;
     border-radius : 5px;
@@ -82,6 +82,10 @@
     overflow-y : auto;
     overflow-x : hidden;
     position : absolute;
+
+    @include Breakpoint-mobileOnly {
+      height: 54%;
+    }
 }
 
 .inner-popular-numbers{

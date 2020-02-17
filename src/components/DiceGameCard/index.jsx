@@ -7,6 +7,7 @@ import { find } from "lodash";
 import "./index.css";
 import { getPopularNumbers } from "../../lib/api/app";
 import { Numbers } from "../../lib/ethereum/lib";
+import { formatPercentage } from "../../utils/numberFormatation";
 
 const minPayout = 1.0102;
 const maxPayout = 49.5;
@@ -213,7 +214,7 @@ export default class DiceGameCard extends Component {
                                         </Typography>       
                                     </div>
                                     <div styleName='popular-number-container-amount'>
-                                        <AnimationNumber number={Numbers.toFloat(item.resultAmount/totalAmount*100)} variant={'small-body'} color={'white'} span={'%'}/>
+                                        <AnimationNumber number={formatPercentage(Numbers.toFloat(item.resultAmount/totalAmount*100))} variant={'small-body'} color={'white'} span={'%'}/>
                                     </div>
                                 </div>
                             )

@@ -5,6 +5,10 @@
   flex-direction: column;
   box-sizing: border-box;
   height: 100px;
+
+  @include Breakpoint-mobileOnly {
+    height: 50px;
+  }
 }
 
 .box{

@@ -15,6 +15,7 @@ import AnimationNumber from "../AnimationNumber";
 import cells from "../RouletteBoard/cells";
 import Cache from "../../lib/cache/cache";
 import { Numbers } from "../../lib/ethereum/lib";
+import { formatPercentage } from "../../utils/numberFormatation";
 
 const mobileBreakpoint = 768;
 
@@ -161,7 +162,7 @@ class RouletteGameCard extends Component {
                                         </Typography>       
                                     </div>
                                     <div styleName='popular-number-container-amount'>
-                                        <AnimationNumber number={Numbers.toFloat(item.resultAmount/totalAmount*100)} variant={'small-body'} color={'white'} span={'%'}/>
+                                        <AnimationNumber number={formatPercentage(Numbers.toFloat(item.resultAmount/totalAmount*100))} variant={'small-body'} color={'white'} span={'%'}/>
                                     </div>
                                 </div>
                             )

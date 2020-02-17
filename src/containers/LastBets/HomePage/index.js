@@ -13,6 +13,7 @@ import TableDefault from "./Table";
 import { MenuItem } from '@material-ui/core';
 import _ from 'lodash';
 import { CopyText } from "../../../copy";
+import { formatCurrency } from "../../../utils/numberFormatation";
 
 const views = [10 , 25, 50, 100];
 
@@ -216,10 +217,10 @@ class LastBets extends Component {
                         id: new String(bet._id).slice(3, 15),
                         username: bet.username,
                         timestamp: dateToHourAndMinute(bet.timestamp),
-                        betAmount: Numbers.toFloat(bet.betAmount),
-                        winAmount: Numbers.toFloat(bet.winAmount),
+                        betAmount: formatCurrency(Numbers.toFloat(bet.betAmount)),
+                        winAmount: formatCurrency(Numbers.toFloat(bet.winAmount)),
                         isWon : bet.isWon,
-                        payout : `${Numbers.toFloat(bet.winAmount/bet.betAmount)}x`
+                        payout : `${formatCurrency(Numbers.toFloat(bet.winAmount/bet.betAmount))}x`
                     }
                 })
             },
@@ -231,10 +232,10 @@ class LastBets extends Component {
                         game: (games.find(game => new String(game.name).toLowerCase() == new String(bet.game).toLowerCase())),
                         id: new String(bet._id).slice(3, 15),
                         timestamp: dateToHourAndMinute(bet.timestamp),
-                        betAmount: Numbers.toFloat(bet.betAmount),
-                        winAmount: Numbers.toFloat(bet.winAmount),
+                        betAmount: formatCurrency(Numbers.toFloat(bet.betAmount)),
+                        winAmount: formatCurrency(Numbers.toFloat(bet.winAmount)),
                         isWon : bet.isWon,
-                        payout : `${Numbers.toFloat(bet.winAmount/bet.betAmount)}x`
+                        payout : `${formatCurrency(Numbers.toFloat(bet.winAmount/bet.betAmount))}x`
                     }
                 })
             },
@@ -247,10 +248,10 @@ class LastBets extends Component {
                         id: new String(bet._id).slice(3, 15),
                         username: bet.username,
                         timestamp: dateToHourAndMinute(bet.timestamp),
-                        betAmount: Numbers.toFloat(bet.betAmount),
-                        winAmount: Numbers.toFloat(bet.winAmount),
+                        betAmount: formatCurrency(Numbers.toFloat(bet.betAmount)),
+                        winAmount: formatCurrency(Numbers.toFloat(bet.winAmount)),
                         isWon : bet.isWon,
-                        payout : `${Numbers.toFloat(bet.winAmount/bet.betAmount)}x`
+                        payout : `${formatCurrency(Numbers.toFloat(bet.winAmount/bet.betAmount))}x`
                     }
                 })
             },
@@ -261,7 +262,7 @@ class LastBets extends Component {
                     return {
                         position : `${index+1}º`,
                         username: bet._id,
-                        winAmount: Numbers.toFloat(bet.winAmount),
+                        winAmount: formatCurrency(Numbers.toFloat(bet.winAmount)),
                         isWon : (index < 3),
                     }
                 })
