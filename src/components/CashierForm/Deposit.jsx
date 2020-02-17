@@ -41,13 +41,13 @@ class Deposit extends Component {
                             steps={[
                                 {
                                     label : "Choose",
-                                    title : 'Pick the Currency to deposit',
+                                    title : 'Pick the Currency to Deposit',
                                     condition : (currency != ''),
                                     content : <CurrencyDepositForm/>
                                 },
                                 {
                                     label : "Deposit",
-                                    title : 'Deposit to token',
+                                    title : 'Deposit',
                                     condition : (currency != ''),
                                     content : <DepositForm/>,
                                     last : true,
