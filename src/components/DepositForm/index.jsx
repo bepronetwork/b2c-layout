@@ -93,7 +93,7 @@ class DepositForm extends Component {
                                 Scan the QR code and transfer {deposit.currency.ticker} to it, 
                                 only deposit {deposit.currency.ticker} in this address. 
                                 <br/><br/>
-                                We are not responsible for any mistake. 
+                                Neve send other currencies, we are not responsible for any mistake. 
                             </Typography>
                         </div>
                         <div styleName="qrcode">
@@ -119,7 +119,7 @@ class DepositForm extends Component {
                             <img src={building} styleName="building-img"/>
                             <div styleName="building-info">
                                 <Typography variant={'small-body'} color={`white`}>
-                                    Your Deposit Address is being created, wait a few minutes.
+                                    Your Deposit Address is being generated, please wait a few minutes.
                                 </Typography>
                             </div>
                     </div>
