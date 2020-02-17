@@ -7,7 +7,9 @@ import affiliate from 'assets/affiliate-background.png';
 import { getApp } from "../../lib/helpers";
 const info = getApp();
 
-const URL_REF = `https://${info.name}.com?ref=`
+const arr = window.location.href.split("/");
+const url = arr[0] + "//" + arr[2];
+const URL_REF = url + `?ref=`;
 
 class AffiliateLinkContainer extends React.Component{
     constructor(props){
