@@ -89,7 +89,7 @@ $with-without-padding: calc(100% - $spacing-20 - $spacing-20);
 .outer-popular-numbers{
     width : 120px;
     border : 2px solid $dark-table-color;
-    height: 30%;
+    height: 32%;
     background-color : $popular-numbers-container;
     left : 10px;
     border-radius : 5px;

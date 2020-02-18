@@ -36,6 +36,8 @@ class CarousselContainer extends Component {
     render() {
         const { images } = this.state;
 
+        if(_.isEmpty(images)) { return null; }
+
         return (
             <div styleName='banners'>
                 <ImageGallery 

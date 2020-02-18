@@ -43,7 +43,8 @@ class PlinkoGameCard extends React.Component {
     }
 
     componentDidMount() {
-        this.createCanvas()
+        this.createCanvas();
+        document.getElementById("plinkoCanvas").style.width="100%";
         this.init(this.state.ROWS,this.state.plinkoradius);
     
     }
@@ -54,6 +55,7 @@ class PlinkoGameCard extends React.Component {
         this.engine.world.gravity.y = 1;
         this.engine.render.canvas.height = this.state.CANVAS_HEIGHT;
         this.engine.render.canvas.width = this.state.CANVAS_WIDTH;
+        this.engine.render.canvas.id = 'plinkoCanvas';
         this.engine.render.options.wireframes = false;
         this.engine.render.options.background = this.state.CANVAS_COLOR;
         Engine.run(this.engine);

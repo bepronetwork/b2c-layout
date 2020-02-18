@@ -91,8 +91,6 @@ class App extends Component {
             /* Set App Title */
             let info = getApp();
             document.title = `${info.name} - ${info.description}`;
-            /* Get Platform Wallet */
-            this.startWallet();
             await this.loginAccount();
             this.closeStaticLoading();
         }catch(err){
@@ -229,25 +227,6 @@ class App extends Component {
             return handleError(error);
         }
     };
-    
-    startWallet = async () => {
-        // Modern dapp browsers...
-        if (window.ethereum) {
-            window.web3 = new Web3(window.ethereum);
-        }
-        // Legacy dapp browsers...
-        else if (window.web3) {
-            window.web3 = new Web3(new Web3.providers.HttpProvider('https://ropsten.infura.io/'));
-            // Acccounts always exposed
-        }
-        // Non-dapp browsers...
-        else {
-            window.web3 = new Web3(new Web3.providers.HttpProvider('https://ropsten.infura.io/'));
-            await store.dispatch(setMessageNotification(CopyText.Errors.en.NON_ETHEREUM_BROWSER_ENTRY));
-        }        
-
-    }
-
 
     updateUser = async user => {
         
@@ -467,7 +446,7 @@ class App extends Component {
                                 <NavigationBar history={history}/>
                             </div>
                             <Row>
-                                <div className='col-lg-10 col-xl-10' styleName='no-padding'>
+                                <div className='col-12 col-md-10 col-lg-10' styleName='no-padding'>
                                     <div styleName='platform-container'>
                                     <Switch history={history}>
                                         <Route
@@ -491,7 +470,7 @@ class App extends Component {
                                     </Switch>
                                     </div>
                                 </div>
-                                <Col md={4} lg={2} xl={2}>
+                                <Col xs={0} md={2} lg={2}>
                                     <div styleName='chat-container-outro'> 
                                         <div styleName={'chat-container'}>
                                             <ChatPage/>

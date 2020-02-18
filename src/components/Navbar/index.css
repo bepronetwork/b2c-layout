@@ -19,6 +19,10 @@
 
     background-color: $background-top-bar-theme;
     box-shadow : 1px 1px 100px 1px #0000006b;
+
+    @include Breakpoint-mobileOnly {
+        padding-left : 40px;
+    }
 }
 
 
@@ -43,12 +47,14 @@
 }
 
 .image {
-    width: 120px;
+    /*width: 120px;*/
+    height: 40px;
 
     @include Breakpoint-mobileOnly {
-        width: 100px;
-        margin-left: -15px;
-        margin-top: 5px;
+        /*width: 100px;*/
+        margin-left: -35px;
+        height: 30px;
+        /*margin-top: 5px;*/
       }
 }
 
@@ -60,25 +66,25 @@
 }
 
 .coin {
-    position: relative;
+    position: fixed;
     margin: auto;
     display: flex;
     align-items: center;
-    margin-left: auto;
-    height: 35px;
+    height: 30px;
     width : 150px;
     padding: 5px !important;
-    background-color: $background-main-table;
     border-radius: $spacing-4;
     cursor: default;
+    top: 16px;
+
+    @include Breakpoint-tabletOnly {
+        top: 26px;
+    }
 
     @include Breakpoint-mobileOnly {
         margin-top: 0px !important;
-        height: 30px;
-        width: fit-content;
-        margin: auto;
-        position: relative;
-        margin-right: auto;
+        width: 110px;
+        top: 16px;
     }
 
     .icon {
@@ -178,11 +184,7 @@
     margin-top : -15px;
 
     @include Breakpoint-mobileOnly {
-        margin-top : -5px !important;
-    }
-
-    @include Breakpoint-tabletOnly {
-        margin-top : 0px !important;
+        margin-top : -8px !important;
     }
     
     .login {
@@ -199,7 +201,7 @@
     text-align: center;
     width: fit-content;
     position: relative;
-    margin-top : -5px;
+    top: -8px;
     
     .login {
         margin-right: $spacing-8;
@@ -230,7 +232,7 @@
 }
 
 .user-menu{
-    margin-top : 10px;
+    margin-top : 5px;
 }
 
 .icon-green{
@@ -242,25 +244,26 @@
 }
 
 .button-deposit{
-    margin : 0px;
+    margin-top: -10px;
 
     @include Breakpoint-mobileOnly {
         display : none;
+        margin-top: 0px;
     }
 
 }
 
 .navbar-language{
     position: fixed;
-    top: 0px;
+    top: 0;
     z-index: 20;
     display: flex;
     flex-direction: row;
     align-items: center;
 
     @include Breakpoint-mobileOnly {
-        display: none;
-
+        /*display: none;*/
+        padding-left: 18px;
     }
 
 }

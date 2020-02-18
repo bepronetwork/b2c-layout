@@ -280,7 +280,7 @@ export default class Wheel extends Component {
         const { metaName } = this.state;
         const containerStyles = classNames("result-container",
             {
-                resultContainerSimple: metaName === 'wheel_simple'
+                resultContainerSimple: metaName === 'wheel_simple' || metaName === 'wheel_variation_1'
             }
         )
         if(!result || !game.resultSpace || inResultAnimation){return <div styleName={containerStyles}/>}
@@ -307,7 +307,7 @@ export default class Wheel extends Component {
     render() {
         const metaName = this.state.metaName;
         const styles = classNames("container", {
-            containerSimple: metaName === 'wheel_simple'
+            containerSimple: metaName === 'wheel_simple' || metaName === 'wheel_variation_1'
         });
         return (
             <div  styleName="root" >

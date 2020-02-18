@@ -17,6 +17,7 @@ import "./index.css";
 import { Numbers } from "../../lib/ethereum/lib";
 import _ from 'lodash';
 import { isUserSet } from "../../lib/helpers";
+import { formatCurrency } from "../../utils/numberFormatation";
 
 export default class FlipGameOptions extends Component {
     static contextType = UserContext;
@@ -235,7 +236,7 @@ export default class FlipGameOptions extends Component {
                 icon="bitcoin"
                 precision={2}
                 disabled
-                value={winAmount}
+                value={formatCurrency(winAmount)}
             />
             </div>
         </div>

@@ -14,17 +14,17 @@
   display: flex;
   flex-direction: row;
   align-items: center;
-  width: 190px;
+  width: 160px;
   margin-top: -10px;
 
   @include Breakpoint-tabletAndAbove {
-    padding: 0 $spacing-20;
     margin: 0 auto;
   }
 
   @include Breakpoint-mobileOnly {
     padding: 0 $spacing-8;
     margin: 0 auto;
+    width: 150px;
   }
 }
 

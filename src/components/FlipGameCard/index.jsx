@@ -15,6 +15,7 @@ import { find } from 'lodash';
 import "./index.css";
 import { Numbers } from "../../lib/ethereum/lib";
 import { getPopularNumbers } from "../../lib/api/app";
+import { formatPercentage } from "../../utils/numberFormatation";
 
 const defaultState = {
     payout : 2,
@@ -150,7 +151,7 @@ export default class FlipGameCard extends Component {
                                         </Typography>       
                                     </div>
                                     <div styleName='popular-number-container-amount'>
-                                        <AnimationNumber number={Numbers.toFloat(item.resultAmount/totalAmount*100)} variant={'small-body'} color={'white'} span={'%'}/>
+                                        <AnimationNumber number={formatPercentage(Numbers.toFloat(item.resultAmount/totalAmount*100))} variant={'small-body'} color={'white'} span={'%'}/>
                                     </div>
                                 </div>
                             )

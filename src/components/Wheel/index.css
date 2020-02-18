@@ -2,7 +2,6 @@
 
 .container {
   width: 270px;
-  height: 270px;
   margin: 0 auto;
   background-repeat: no-repeat;
   
@@ -11,6 +10,10 @@
 
 .containerSimple {
     height: 80px;
+
+    @include Breakpoint-mobileOnly {
+        height: 40px;
+    }
 }
 
 .root{
@@ -152,6 +155,10 @@
 
 .resultContainerSimple {
     padding-top: 180px;
+
+    @include Breakpoint-mobileOnly {
+        padding-top: 140px;
+    }
 }
 
 

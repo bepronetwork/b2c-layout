@@ -1,5 +1,6 @@
 import { find, map, range } from "lodash";
 import { processResponse } from "../helpers";
+import { formatCurrency } from "../../utils/numberFormatation";
 
 export default async function bet({ amount, user, game_id }) {
     try {
@@ -8,7 +9,7 @@ export default async function bet({ amount, user, game_id }) {
         const result = new Array(30).fill(0).map( (value, index) => {
             return { 
                 place: index, 
-                value: parseFloat(parseFloat(amount/30).toFixed(8))
+                value: formatCurrency(parseFloat(amount/30))
             };
         });
 

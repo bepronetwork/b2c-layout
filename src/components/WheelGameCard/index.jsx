@@ -15,6 +15,7 @@ import cells from "../RouletteBoard/cells";
 import Wheel from "../Wheel";
 import WheelBox from "../WheelBox";
 import { Numbers } from "../../lib/ethereum/lib";
+import { formatPercentage } from "../../utils/numberFormatation";
 const mobileBreakpoint = 768;
 
 class WheelGameCard extends Component {
@@ -167,7 +168,7 @@ class WheelGameCard extends Component {
                                         </Typography>       
                                     </div>
                                     <div styleName='popular-number-container-amount'>
-                                        <AnimationNumber number={Numbers.toFloat(item.resultAmount/totalAmount*100)} variant={'small-body'} color={'white'} span={'%'}/>
+                                        <AnimationNumber number={formatPercentage(Numbers.toFloat(item.resultAmount/totalAmount*100))} variant={'small-body'} color={'white'} span={'%'}/>
                                     </div>
                                 </div>
                             )
@@ -218,7 +219,6 @@ class WheelGameCard extends Component {
             <div styleName="board">
                 <WheelBox options={options} game={this.props.game} result={result} inResultAnimation={inResultAnimation} game={game}/>
             </div>
-            {this.renderClearUndo()}
         </div>
         );
     }
