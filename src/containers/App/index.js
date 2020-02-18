@@ -91,8 +91,6 @@ class App extends Component {
             /* Set App Title */
             let info = getApp();
             document.title = `${info.name} - ${info.description}`;
-            /* Get Platform Wallet */
-            this.startWallet();
             await this.loginAccount();
             this.closeStaticLoading();
         }catch(err){
@@ -229,25 +227,6 @@ class App extends Component {
             return handleError(error);
         }
     };
-    
-    startWallet = async () => {
-        // Modern dapp browsers...
-        if (window.ethereum) {
-            window.web3 = new Web3(window.ethereum);
-        }
-        // Legacy dapp browsers...
-        else if (window.web3) {
-            window.web3 = new Web3(new Web3.providers.HttpProvider('https://ropsten.infura.io/'));
-            // Acccounts always exposed
-        }
-        // Non-dapp browsers...
-        else {
-            window.web3 = new Web3(new Web3.providers.HttpProvider('https://ropsten.infura.io/'));
-            await store.dispatch(setMessageNotification(CopyText.Errors.en.NON_ETHEREUM_BROWSER_ENTRY));
-        }        
-
-    }
-
 
     updateUser = async user => {
         
