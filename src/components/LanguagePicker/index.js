@@ -61,9 +61,6 @@ class LanguagePicker extends React.Component {
                         {languages.map(option => (
                             <MenuItem key={option.channel_id} value={option.channel_id}>
                                 <img src={option.image} styleName='image-language'/> 
-                                <p styleName='option-text'>  
-                                    {` ${option.name}`}
-                                </p>
                             </MenuItem>
                         ))}
                     </DropDownField> 

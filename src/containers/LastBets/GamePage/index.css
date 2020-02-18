@@ -9,9 +9,13 @@
 
 .container {
     margin-top: 80px;
+
+    @include Breakpoint-tabletOnly {
+        margin-top: 20px;
+    }
+
     @include Breakpoint-tabletAndAbove {
         max-width: $content-width-desktop;
-        margin-right: -17px;
         margin-left: 3px;
     }
 
@@ -21,5 +25,10 @@
 }
 
 .bets-dropdown{
-    margin-top : -20px;
+    margin-top : -2px;
+
+    @include Breakpoint-tabletOnly {
+        margin-top: 18px;
+    }
+
 }

@@ -7,7 +7,7 @@
     height: -webkit-fill-available;
 }
 #loading{
-    background: url('logo.png') no-repeat;
+    /*background: url('logo.png') no-repeat;*/
     width : 400px;
     z-index : -20;
     height: 300px;

@@ -46,10 +46,10 @@
 }
 
 .info {
-    margin: $spacing-20 $spacing-52;
+    margin: $spacing-20 0;
     text-align: justify;
-    width: 300px;
-    background-color: $dark-blue;
+    width: 384px;
+    background-color: $mirage;
     border-radius: 5px;
     padding: $spacing-20;
 

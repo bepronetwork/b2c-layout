@@ -4,7 +4,6 @@
   display: flex;
   flex-direction: column;
   box-sizing: border-box;
-  height: 100px;
 
   @include Breakpoint-mobileOnly {
     height: 50px;
@@ -55,6 +54,11 @@
     display: flex;
     gap: 1em 1em;
     max-width: 600px;
+
+    @include Breakpoint-tabletOnly {
+        max-width: 500px;
+    }
+
     @include Breakpoint-mobileOnly {
         margin-top : 0px;
     }

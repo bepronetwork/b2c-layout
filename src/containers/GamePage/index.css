@@ -60,6 +60,10 @@
 
 .game-page-container{
     height: -webkit-fill-available;
+
+    @include Breakpoint-tabletOnly {
+      height: 100%;
+  }
 }
 
 .options-container {
@@ -103,6 +107,10 @@
   padding-top: $spacing-8;
   padding-right: $spacing-8;
 
+  @include Breakpoint-tabletOnly {
+    padding-right: $spacing-64;
+  }
+
   button {
     margin: 0 0 0 auto;
   }
@@ -111,6 +119,11 @@
 .actions {
   margin-top: 20px;
   margin-left: 8px;
+
+  @include Breakpoint-tabletOnly {
+    margin-left: 28px;
+  }
+
   @include Breakpoint-mobileOnly {
     display: none;
   }
