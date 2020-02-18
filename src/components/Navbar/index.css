@@ -100,24 +100,32 @@
     .diff-won {
         position: absolute;
         top: 60%;
-        left: 10%;
+        left: 30%;
         * {
         color: $green;
         opacity: 0;
 
         animation: won-animation 1s running;
         }
+
+        @include Breakpoint-mobileOnly {
+            left: 50%;
+        }
     }
 
     .diff-lost {
         position: absolute;
         top: 60%;
-        left: 10%;
+        left: 30%;
         * {
         color: $red;
         opacity: 0;
 
         animation: lost-animation 1s running;
+        }
+
+        @include Breakpoint-mobileOnly {
+            left: 50%;
         }
     }
 }
