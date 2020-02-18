@@ -1,7 +1,6 @@
 import Cache from '../cache/cache';
 import _ from 'lodash';
 import moment from 'moment-timezone';
-import getAppInfo from "../api/app";
 import store from '../../containers/App/store';
 import { setMessageNotification } from '../../redux/actions/message';
 
