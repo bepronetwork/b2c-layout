@@ -5,6 +5,7 @@ import { connect } from "react-redux";
 import './index.css';
 import affiliate from 'assets/affiliate-background.png';
 import { getApp } from "../../lib/helpers";
+import { CopyText } from '../../copy';
 const info = getApp();
 
 const URL_REF = `https://${info.name}.com?ref=`
@@ -32,9 +33,11 @@ class AffiliateLinkContainer extends React.Component{
     render(){
         const { 
             link,
-            percentageOnLevelOne
+            percentageOnLevelOne,
+            ln
         } = this.props;
 
+        const copy = CopyText.affiliateLinkContainer[ln];
 
         return (
             <div styleName={`root`}>
@@ -42,11 +45,11 @@ class AffiliateLinkContainer extends React.Component{
                 <div styleName='content'>
                     <div styleName={'text-description'}>
                         <Typography variant={'body'} color={`white`}>
-                            Share and take a profit in {info.name} affiliate program!
+                            {copy.TYPOGRAPHY.TEXT[0](info.name)}
                         </Typography>
                         <div styleName='subtitle-text'>
                             <Typography variant={'x-small-body'} color={`grey`}>
-                                Get at least {percentageOnLevelOne*100}% whenever the house wins for each user registered with this link
+                                {copy.TYPOGRAPHY.TEXT[1](percentageOnLevelOne*100)}
                             </Typography>
                         </div>
                     </div>
@@ -63,7 +66,7 @@ class AffiliateLinkContainer extends React.Component{
                             <Col xs={12} md={3}>
                                 <button onClick={this.copyToClipboard} styleName='text-copy-container'>
                                     <Typography variant={'small-body'} color={'white'}>
-                                        Copy
+                                        {copy.TYPOGRAPHY.TEXT[2]}
                                     </Typography>
                                 </button>
                             </Col>

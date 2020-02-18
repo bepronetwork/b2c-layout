@@ -11,6 +11,8 @@ import { MIN_WITHDRAWAL } from "../../lib/api/apiConfig";
 import { Numbers } from 'lib/ethereum/lib';
 import store from "../../containers/App/store";
 import { setWithdrawInfo } from "../../redux/actions/withdraw";
+import {CopyText} from '../../copy'
+
 
 const defaultProps = {
     amount : 10,
@@ -59,8 +61,9 @@ class Withdraw extends Component {
     }
 
     render() {
-        const { withdraw } = this.props;
+        const { withdraw, ln } = this.props;
         const { currency, nextStep, tx } = withdraw;
+        const copy = CopyText.affiliateWithdrawForm[ln];
 
         return (
             <div styleName='root'>
@@ -71,14 +74,14 @@ class Withdraw extends Component {
                             nextStep={nextStep}
                             steps={[
                                 {
-                                    label : "Choose",
-                                    title : 'Choose the Currency you want to withdraw to',
+                                    label : copy.HORIZONTAL_STEPPER.STEPS[0].LABEL,
+                                    title : copy.HORIZONTAL_STEPPER.STEPS[0].TITLE,
                                     condition : (currency != ''),
                                     content : <CurrencyWithdrawForm/>
                                 },
                                 {
-                                    label : "Withdraw",
-                                    title : 'Withdraw',
+                                    label : copy.HORIZONTAL_STEPPER.STEPS[1].LABEL,
+                                    title : copy.HORIZONTAL_STEPPER.STEPS[1].TITLE,
                                     condition : (tx && tx != ''),
                                     content : <WithdrawForm/>,
                                     last : true,
