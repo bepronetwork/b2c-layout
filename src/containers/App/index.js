@@ -467,7 +467,7 @@ class App extends Component {
                                 <NavigationBar history={history}/>
                             </div>
                             <Row>
-                                <div className='col-lg-10 col-md-10 col-xl-10' styleName='no-padding'>
+                                <div className='col-12 col-md-10 col-lg-10' styleName='no-padding'>
                                     <div styleName='platform-container'>
                                     <Switch history={history}>
                                         <Route
@@ -491,7 +491,7 @@ class App extends Component {
                                     </Switch>
                                     </div>
                                 </div>
-                                <Col lg={2} md={2} xl={2}>
+                                <Col xs={0} md={2} lg={2}>
                                     <div styleName='chat-container-outro'> 
                                         <div styleName={'chat-container'}>
                                             <ChatPage/>

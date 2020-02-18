@@ -240,7 +240,7 @@ class LastBets extends Component {
                 <div styleName="root">
                     <div styleName="container">
                         <Row>
-                            <Col md={11}>
+                            <Col xs={10} md={11}>
                                 <Tabs
                                     selected={this.state.view}
                                     options={this.state.options}
@@ -248,7 +248,7 @@ class LastBets extends Component {
                                     spacing="60"
                                 />
                             </Col>
-                            <Col md={1}>
+                            <Col xs={2} md={1}>
                                 <div styleName='bets-dropdown'>
                                     <DropDownField
                                         id="view"

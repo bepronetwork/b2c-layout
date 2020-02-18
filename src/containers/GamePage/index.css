@@ -63,7 +63,11 @@
 
     @include Breakpoint-tabletOnly {
       height: 100%;
-  }
+    }
+
+    @include Breakpoint-mobileOnly {
+      height: 100%;
+    }
 }
 
 .options-container {
@@ -125,7 +129,7 @@
   }
 
   @include Breakpoint-mobileOnly {
-    display: none;
+    margin-top: 0px;
   }
 }
 

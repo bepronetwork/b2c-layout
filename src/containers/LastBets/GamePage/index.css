@@ -5,6 +5,10 @@
   margin-top : 50px;
   width: 100%;
   margin: auto;
+
+  @include Breakpoint-mobileOnly {
+    width: 450px;
+}
 }
 
 .container {
@@ -20,7 +24,7 @@
     }
 
     @include Breakpoint-mobileOnly {
-        display: none;
+        margin-top: 20px;
     }
 }
 

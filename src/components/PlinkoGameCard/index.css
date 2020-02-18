@@ -1,6 +1,6 @@
 @import "../../styles/all.css";
 
-$values-height: 92px;
+$values-height: 22px;
 $with-without-padding: calc(100% - $spacing-20 - $spacing-20);
 
 .root {
