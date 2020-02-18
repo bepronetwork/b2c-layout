@@ -55,6 +55,7 @@
 
     @include Breakpoint-mobileOnly {
         margin: $spacing-20 $spacing-12;
+        width: 300px;
     }
 }
 

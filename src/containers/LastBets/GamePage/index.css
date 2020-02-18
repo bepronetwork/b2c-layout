@@ -32,7 +32,11 @@
     margin-top : -2px;
 
     @include Breakpoint-tabletOnly {
-        margin-top: 18px;
+        margin-top: -6px;
+    }
+
+    @include Breakpoint-mobileOnly {
+        margin-top: 6px;
     }
 
 }

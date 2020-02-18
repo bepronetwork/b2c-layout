@@ -16,6 +16,7 @@ import IconButton from '@material-ui/core/IconButton';
 import { etherscanLinkID } from "../../lib/api/apiConfig";
 import { getAppCustomization, getApp } from "../../lib/helpers";
 import CurrencyDropDown from "../CurrencyDropDown";
+import { formatCurrency } from "../../utils/numberFormatation";
 
 
 function AddressConcat(string){
@@ -52,7 +53,7 @@ class Navbar extends Component {
             var user = !_.isEmpty(props.profile) ? props.profile : null;
 
             if(user){
-                let difference = parseFloat(user.getBalance() - this.state.currentBalance);
+                let difference = formatCurrency(user.getBalance() - this.state.currentBalance);
                 // To not exist failed animation of difference and number animation
                 var opts = {};
                 if(difference != 0){

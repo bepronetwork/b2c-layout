@@ -114,6 +114,7 @@ class AmountWithdrawForm extends Component {
                                         value={toAddress}
                                         placeholder="Address"
                                         weight="regular"
+                                        type="slim"
                                     />
                                 </div>
                             </Col>

@@ -93,7 +93,7 @@ class DepositForm extends Component {
                                 Scan the QR code and transfer {deposit.currency.ticker} to it, 
                                 only deposit {deposit.currency.ticker} in this address. 
                                 <br/><br/>
-                                Neve send other currencies, we are not responsible for any mistake. 
+                                Never send other currencies, we are not responsible for any mistake. 
                             </Typography>
                         </div>
                         <div styleName="qrcode">
