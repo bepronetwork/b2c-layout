@@ -7,10 +7,11 @@ import { InputNumber,  Typography, InformationBox, InputText } from 'components'
 import { Col, Row } from 'reactstrap';
 import store from "../../../containers/App/store";
 import { setWithdrawInfo } from "../../../redux/actions/withdraw";
-import info from 'assets/info.png';
 import building from 'assets/blockchain.png';
 import loading from 'assets/loading.gif';
 import _ from 'lodash';
+import {CopyText} from '../../../copy';
+
 
 const defaultProps = {
     ticker : 'N/A',
@@ -18,7 +19,8 @@ const defaultProps = {
     amount : 0,
     addressInitialized: false,
     isLoaded: false,
-    toAddress: null
+    toAddress: null,
+    maxWithdraw: 0
 }
 
 class AmountWithdrawForm extends Component {
@@ -57,11 +59,14 @@ class AmountWithdrawForm extends Component {
         this.getCurrencyAddress();
         let balance = profile.getBalance(currency);
 
+        const w = profile.getWallet({currency});
+
         this.setState({...this.state, 
             ticker : currency.ticker,
             amount : withdraw.amount,
             toAddress : withdraw.toAddress,
-            balance
+            balance,
+            maxWithdraw : w.max_withdraw
         })
     }
 
@@ -85,8 +90,9 @@ class AmountWithdrawForm extends Component {
     }
 
     render() {
-        const { amount, balance, ticker, addressInitialized, isLoaded, toAddress } = this.state;
-        const MIN_WITHDRAWAL = 0.00001;
+        const { amount, maxWithdraw, ticker, addressInitialized, isLoaded, toAddress } = this.state;
+        const {ln} = this.props;
+        const copy = CopyText.amountForm[ln].WITHDRAW;
 
         if(!isLoaded){
             return (
@@ -120,7 +126,7 @@ class AmountWithdrawForm extends Component {
                             <Col md={10}>
                                 <InputNumber
                                     name="amount"
-                                    min={MIN_WITHDRAWAL}
+                                    min={0.00001}
                                     precision={6}
                                     title=""
                                     onChange={(amount) => this.onChangeAmount(amount)}
@@ -135,27 +141,16 @@ class AmountWithdrawForm extends Component {
                             </Col>
                         </Row>
                         <div styleName='text-info-deposit'>
-                            <Typography variant={'x-small-body'} color={'white'}>{`Minimum Withdrawal is ${MIN_WITHDRAWAL} ${ticker}`}</Typography>
+                            <Typography variant={'x-small-body'} color={'white'}> {copy.TYPOGRAPHY[0].TEXT([maxWithdraw, ticker])} </Typography>
                         </div>
                     </div>
-                    <Row>
-                        <Col md={4}>
-                            {this.renderAmountWithdrawButton({disabled : (balance < 0.1),amount :'0.1', onChangeAmount : this.onChangeAmount, ticker})}
-                        </Col>
-                        <Col md={4}>
-                            {this.renderAmountWithdrawButton({disabled : (balance < 10),amount :'10', onChangeAmount : this.onChangeAmount, ticker})}
-                        </Col>
-                        <Col md={4}>
-                            {this.renderAmountWithdrawButton({disabled : (balance < 1000),amount :'100', onChangeAmount : this.onChangeAmount, ticker})}
-                        </Col>
-                    </Row>
                 </div>
                 :
                 <div>
                         <img src={building} styleName="building-img"/>
                         <div styleName="building-info">
                             <Typography variant={'small-body'} color={`white`}>
-                                Your Address is being created, wait a few minutes.
+                                {copy.TYPOGRAPHY[1].TEXT}
                             </Typography>
                         </div>
                 </div>

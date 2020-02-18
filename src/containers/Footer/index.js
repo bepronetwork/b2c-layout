@@ -5,13 +5,17 @@ import { Link } from 'react-dom';
 import { connect } from "react-redux";
 import "./index.css";
 import { getAppCustomization, getApp } from "../../lib/helpers";
+import { CopyText } from '../../copy';
 
 const footerStaticOutput = ({supportLinks, communityLinks}) => {
+    const { ln } = this.props;
+    const copy = CopyText.homePageFooter[ln].INFO;
+
     const { logo } = getAppCustomization();
     const info = getApp();
     return {
         info : {
-            text : `If you reside in a location where lottery, gambling, or betting over the internet is illegal, please do not click on anything related to these activities on this site. You must be 21 years of age to click on any gambling related items even if it is legal to do so in your location. Recognising that the laws and regulations involving online gaming are different everywhere, players are advised to check with the laws that exist within their own jurisdiction or region to ascertain the legality of the activities which are covered. The games provided by ${info.name} are based on blockchain, fair, and transparency. When you start playing these games, please take note that online gambling and lottery is an entertainment vehicle and that it carries with it a certain degree of financial risk. Players should be aware of these risks and govern themselves accordingly.`,
+            text : copy.text,
             size : "x-small-body",
             color : 'grey',
         },
@@ -27,13 +31,13 @@ const footerStaticOutput = ({supportLinks, communityLinks}) => {
                     },
                     {
                         type : 'text',
-                        text : `@2019 ${info.name}`,
+                        text : copy.DATE_AND_NAME(info.name),
                         size : "x-small-body",
                         color : 'casper',
                     },
                     {
                         type : 'text',
-                        text : 'All Rights Reserved',
+                        text : copy.RIGHTS,
                         size : "x-small-body",
                         color : 'white',
                     }
@@ -44,7 +48,7 @@ const footerStaticOutput = ({supportLinks, communityLinks}) => {
                 align : 'left',
                 title : {
                     color : 'white',
-                    text : 'Support',
+                    text : copy.SUPPORT,
                     size : "body"
                 },
                 items : supportLinks.map( s => {
@@ -62,7 +66,7 @@ const footerStaticOutput = ({supportLinks, communityLinks}) => {
                 align : 'left',
                 title : {
                     color : 'white',
-                    text : 'Community',
+                    text : copy.COMMUNITY,
                     size : "body"
                 },
                 items : communityLinks.map( s => {
@@ -191,7 +195,7 @@ class Footer extends Component {
 
 
 
-function mapStateToProps(state){
+function mapStateToProps(state) {
     return {
         profile: state.profile,
         ln : state.language
@@ -199,4 +203,3 @@ function mapStateToProps(state){
 }
 
 export default connect(mapStateToProps)(Footer);
-
