@@ -89,7 +89,7 @@ class App extends Component {
             await this.loginAccount();
             this.closeStaticLoading();
         }catch(err){
-            console.log("2");
+            console.log(err);
             let app = await getAppInfo();
             const { publicKey } = app.integrations.chat;
             this.chat = new ChatChannel({publicKey});
