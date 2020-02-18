@@ -24,18 +24,9 @@ class RegisterForm extends Component {
     };
 
     componentDidMount(){
-        this.updateAddress();
     }
 
     componentWillReceiveProps(){
-        this.updateAddress();
-    }
-
-    updateAddress = async (address=null) => {
-        if(!address && window.web3 && window.web3.eth){
-            address = (await window.web3.eth.getAccounts())[0];
-        }
-        this.setState({...this.state, address : address});
     }
 
     handleSubmit = event => {

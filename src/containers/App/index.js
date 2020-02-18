@@ -32,7 +32,6 @@ import User from "controllers/User/User";
 import UserContext from "./UserContext";
 import { Row, Col } from 'reactstrap';
 import "./index.css";
-import Web3 from "web3";
 import { setProfileInfo } from "../../redux/actions/profile";
 import store from "./store";
 import Cache from "../../lib/cache/cache";
@@ -51,7 +50,6 @@ import NavigationBar from "../../components/NavigationBar";
 import { getQueryVariable, getAppCustomization, getApp } from "../../lib/helpers";
 import ChatChannel from "../../controllers/Chat";
 import AnnouncementTab from "../../components/AnnouncementTab";
-import UnavailablePage from "../UnavailablePage";
 import { getCurrencyAddress } from "../../lib/api/users";
 const history = createBrowserHistory();
 
@@ -88,12 +86,10 @@ class App extends Component {
         try{
             /* Get App Info */
             await this.updateAppInfo();
-            /* Set App Title */
-            let info = getApp();
-            document.title = `${info.name} - ${info.description}`;
             await this.loginAccount();
             this.closeStaticLoading();
         }catch(err){
+            console.log("2");
             let app = await getAppInfo();
             const { publicKey } = app.integrations.chat;
             this.chat = new ChatChannel({publicKey});
@@ -105,9 +101,7 @@ class App extends Component {
     }
 
     loginAccount = async () => {
-        // Get App Ino
-        await this.updateAppInfo();
-    
+        // Get App Ino    
         try{
             let cache = Cache.getFromCache('Authentication');
             if(cache && cache.password){

@@ -170,9 +170,6 @@ export default class User {
         return user;
     }
 
-    getContract = () => {
-        return this.casinoContract;
-    }
 
     getTokenAmount = async () => {
         return 0;
@@ -220,21 +217,6 @@ export default class User {
         return 0;
     }
 
-    getMaxWithdrawal = async () => {
-        try{
-            return Numbers.fromBigNumberToInteger(await this.casinoContract.getMaxWithdrawal(), 36);
-        }catch(err){
-            throw err;
-        }
-    }
-
-    getMaxDeposit = async () => {
-        try{
-            return Numbers.fromBigNumberToInteger(await this.casinoContract.getMaxDeposit(), 36);
-        }catch(err){
-            throw err;
-        }
-    }
 
     cancelWithdrawals = async () => {
         try{
