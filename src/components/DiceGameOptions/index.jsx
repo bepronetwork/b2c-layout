@@ -17,7 +17,6 @@ import "./index.css";
 import { Numbers } from "../../lib/ethereum/lib";
 import _ from 'lodash';
 import { isUserSet } from "../../lib/helpers";
-import { formatCurrency } from "../../utils/numberFormatation";
 
 export default class DiceGameOptions extends Component {
     static contextType = UserContext;
@@ -271,7 +270,7 @@ export default class DiceGameOptions extends Component {
                     icon="bitcoin"
                     precision={2}
                     disabled
-                    value={formatCurrency(Numbers.toFloat(amount * (this.getPayout() - 1)))}
+                    value={Numbers.toFloat(amount * (this.getPayout() - 1))}
                 />
                 </div>
             </div>

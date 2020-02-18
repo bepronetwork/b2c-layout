@@ -40,10 +40,11 @@ class ChipValue extends Component {
     
     projectData = async (props) => {
         let user = props.profile;
-        console.log("updated")
+        
         if(!user || _.isEmpty(user)){return null}
+
         let balance = parseFloat(user.getBalance());
-        console.log(balance);
+
         this.setState({...this.state, 
             balance : balance,
         })

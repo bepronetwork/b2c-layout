@@ -31,7 +31,8 @@ export default class Wheel extends Component {
     constructor(props){
         super(props);
         this.state = {
-            ballStop: false
+            ballStop: false,
+            metaName: props.game ? props.game.metaName : null
         }
       
     }
@@ -78,7 +79,7 @@ export default class Wheel extends Component {
     drawSpinnerWheel(props) {
         const { options, game } = props;
         const { metaName } = game;
-        this.state.metaName = metaName;
+        
         switch(metaName){
             case 'wheel_variation_1' : {
                 this.wheel_draw = WHEEL_CLASSIC.DRAW;
