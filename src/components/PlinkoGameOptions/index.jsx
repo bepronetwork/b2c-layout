@@ -259,6 +259,9 @@ export default class PlinkoGameOptions extends Component {
         const { profile } = this.props;
         const { amount } = this.state;
         let newAmount = amount;
+
+        if(_.isEmpty(profile)) { return null };
+        
         let balance = profile.getBalance();
 
         if (value === "max") {
