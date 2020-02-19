@@ -30,6 +30,13 @@
     width : 50px;
 }
 
+.box {
+    margin-bottom: $spacing-20;
+    background-color: $mirage;
+    padding: $spacing-20;
+    border-radius: 5px;
+}
+
 
 .no-hover{
 
