@@ -7,6 +7,7 @@ import MoneyIcon from 'mdi-react/MoneyIcon';
 import ExitToAppIcon from 'mdi-react/ExitToAppIcon';
 import SettingsIcon from 'mdi-react/SettingsIcon';
 import GiftIcon from 'mdi-react/GiftIcon';
+import { CopyText } from '../../copy';
 
 class AccountPage extends Component {
 
@@ -16,6 +17,9 @@ class AccountPage extends Component {
     }
 
     render() {
+        const {ln} = this.props;
+        const copy = CopyText.homepage[ln];
+
         return (
             <div styleName='main-container'>
                 <div styleName="root">
@@ -25,22 +29,22 @@ class AccountPage extends Component {
                         items={
                             [
                                 {
-                                    title : 'Settings',
+                                    title : copy.CONTAINERS.ACCOUNT.TITLE[0],
                                     container : <SettingsTab/>,
                                     icon : <SettingsIcon size={20}/>
                                 },
                                 {
-                                    title : 'Deposits',
+                                    title : copy.CONTAINERS.ACCOUNT.TITLE[1],
                                     container : <DepositTab/>,
                                     icon : <MoneyIcon size={20}/>
                                 },
                                 {
-                                    title : 'Withdraws',
+                                    title : copy.CONTAINERS.ACCOUNT.TITLE[2],
                                     container : <WithdrawTab/>,
                                     icon : <ExitToAppIcon size={20}/>
                                 },
                                 {
-                                    title : 'Affiliate',
+                                    title : copy.CONTAINERS.ACCOUNT.TITLE[3],
                                     container : <AffiliatesTab/>,
                                     icon : <GiftIcon size={20}/>
                                 },
@@ -58,9 +62,10 @@ class AccountPage extends Component {
 }
 
 
-function mapStateToProps(state){
+function mapStateToProps(state) {
     return {
-        profile: state.profile
+        profile: state.profile,
+        ln: state.language
     };
 }
 
