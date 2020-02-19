@@ -1,10 +1,12 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import Typography from "../Typography";
+import { CopyText } from '../../copy';
+import { connect } from "react-redux";
 
 import "./index.css";
 
-export default class MultiplyMaxButton extends Component {
+class MultiplyMaxButton extends Component {
   static propTypes = {
     onSelect: PropTypes.func.isRequired
   };
@@ -16,6 +18,8 @@ export default class MultiplyMaxButton extends Component {
   };
 
   render() {
+    const {ln} = this.props;
+const copy = CopyText.multiplyMaxButtonIndex[ln];
     return (
       <div styleName="root">
         <div styleName="container">
@@ -55,7 +59,7 @@ export default class MultiplyMaxButton extends Component {
                 variant="small-body"
                 color="casper"
               >
-                max
+                {copy.INDEX.TYPOGRAPHY.TEXT[0]}
               </Typography>
             </div>
           </button>
@@ -64,3 +68,13 @@ export default class MultiplyMaxButton extends Component {
     );
   }
 }
+
+function mapStateToProps(state){
+  return {
+      profile : state.profile,
+      ln: state.language
+  };
+}
+
+
+export default connect(mapStateToProps)(MultiplyMaxButton);

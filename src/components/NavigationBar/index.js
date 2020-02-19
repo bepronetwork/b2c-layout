@@ -6,6 +6,7 @@ import { Typography } from 'components';
 import { Col, Row } from 'reactstrap';
 import casino from 'assets/casino.png';
 import { Link } from "react-router-dom";
+import { CopyText } from '../../copy';
 
 class NavigationBar extends Component {
     constructor(props) {
@@ -26,6 +27,8 @@ class NavigationBar extends Component {
     projectData = async (props) => {}
 
     render() {
+        const {ln} = this.props;
+        const copy = CopyText.navigationBarIndex[ln];
         return (
             <Row styleName="root">
                 <Link to='/' styleName='navigation-step'>
@@ -36,7 +39,7 @@ class NavigationBar extends Component {
                         <Col xs={10}>
                             <div styleName='text'>
                                 <Typography variant={'small-body'} color={'white'}>
-                                    Casino
+                                    {copy.INDEX.TYPOGRAPHY.TEXT[0]}
                                 </Typography>
                             </div>
                         </Col>
@@ -49,7 +52,8 @@ class NavigationBar extends Component {
 
 function mapStateToProps(state){
     return {
-        profile: state.profile
+        profile: state.profile,
+        ln: state.language
     };
 }
 

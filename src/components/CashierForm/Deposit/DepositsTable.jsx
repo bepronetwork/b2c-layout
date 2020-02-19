@@ -75,7 +75,7 @@ const fromDatabasetoTable = (data) => {
     return res;
 }
 
-
+//ffffffffff
 const rows = [
     {
         id: 'amount',
@@ -107,7 +107,8 @@ class EnhancedTableHead extends React.Component {
 
     render() {
         const { onSelectAllClick, order, orderBy, numSelected, rowCount } = this.props;
-
+        const {ln} = this.props;
+        const copy = CopyText.cashierFormDepositsTable[ln];
         return (
             <TableHead>
                 <TableRow style={{backgroundColor : '#0a031b'}}>
@@ -122,7 +123,7 @@ class EnhancedTableHead extends React.Component {
                         style={{borderBottom: '10px solid #192c38', paddingLeft: 50, paddingTop: 7, paddingBottom: 7, paddingRight: 0}}
                     >
                         <Tooltip
-                        title="Sort"
+                        title={copy.DEPOSITSTABLE.TOOLTIP.TITLE[0]}
                         placement={row.numeric ? 'bottom-end' : 'bottom-start'}
                         enterDelay={300}
                         >
@@ -326,8 +327,8 @@ class DepositsTable extends React.Component {
         
         if(!updated){return (
             <div>
-                <Typography color={'white'} variant={'body'}>Getting the Last Deposits...</Typography>
-                <Typography color={'casper'} variant={'small-body'}>Should take less than a minute</Typography>
+                <Typography color={'white'} variant={'body'}> {copy.DEPOSITSTABLE.TYPOGRAPHY.TEXT[0]} </Typography>
+                <Typography color={'casper'} variant={'small-body'}> {copy.DEPOSITSTABLE.TYPOGRAPHY.TEXT[1]} </Typography>
             </div>
             )
         }

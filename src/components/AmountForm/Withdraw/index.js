@@ -10,6 +10,7 @@ import { setWithdrawInfo } from "../../../redux/actions/withdraw";
 import building from 'assets/blockchain.png';
 import loading from 'assets/loading.gif';
 import _ from 'lodash';
+import { CopyText } from '../../../copy';
 
 const defaultProps = {
     ticker : 'N/A',
@@ -89,6 +90,8 @@ class AmountWithdrawForm extends Component {
 
     render() {
         const { amount, maxWithdraw, ticker, addressInitialized, isLoaded, toAddress } = this.state;
+        const {ln} = this.props;
+        const copy = CopyText.amountFormIndex[ln];
 
         if(!isLoaded){
             return (
@@ -112,7 +115,7 @@ class AmountWithdrawForm extends Component {
                                         onChange={(toAddress) => this.onToAddressChange(toAddress)}
                                         onChange={this.onToAddressChange}
                                         value={toAddress}
-                                        placeholder="Address"
+                                        placeholder={copy.INDEX.INPUT_TEXT.PLACEHOLDER[0]}
                                         weight="regular"
                                         type="slim"
                                     />
@@ -138,7 +141,9 @@ class AmountWithdrawForm extends Component {
                             </Col>
                         </Row>
                         <div styleName='text-info-deposit'>
-                            <Typography variant={'x-small-body'} color={'white'}>{`Maximum Withdrawal is ${maxWithdraw} ${ticker}`}</Typography>
+                            <Typography variant={'x-small-body'} color={'white'}>
+                                {copy.INDEX.TYPOGRAPHY.FUNC_TEXT[1]([maxWithdraw, ticker]) }
+                            </Typography> //ffffffffff
                         </div>
                     </div>
                 </div>
@@ -147,7 +152,7 @@ class AmountWithdrawForm extends Component {
                         <img src={building} styleName="building-img"/>
                         <div styleName="building-info">
                             <Typography variant={'small-body'} color={`white`}>
-                                Your Address is being created, wait a few minutes.
+                                {copy.INDEX.TYPOGRAPHY.TEXT[0]}
                             </Typography>
                         </div>
                 </div>

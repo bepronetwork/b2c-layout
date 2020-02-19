@@ -7,7 +7,7 @@ import wallet from 'assets/wallet.png';
 import users from 'assets/users-white.png';
 import store from "../../containers/App/store";
 import { setModal } from "../../redux/actions/modal";
-
+import { CopyText } from '../../copy';
 
 const defaultState = {
     isWithdrawing : false,
@@ -53,19 +53,21 @@ class AffiliatesTab extends Component {
     render() {
         const { profile, ln } = this.props;
         const { isWithdrawing, affiliateBalance, id, percentageOnLevelOne, userAmount, ticker } = this.state;
+        // const { ln } = this.props;
+        const copy = CopyText.affiliatesTabIndex[ln];
 
         return (
             <div styleName='root'>
                 <Row>
                     <Col lg={6}>
-                        <DataContainer title={'Wallet'} message={`${parseFloat(affiliateBalance)} ${ticker}`} image={wallet} button={
+                        <DataContainer title={copy.INDEX.DATA_CONTAINER.TITLE[0]} message={`${parseFloat(affiliateBalance)} ${ticker}`} image={wallet} button={
                              <Button
                                 theme="default"
                                 size={'x-small'}
                                 disabled={ (affiliateBalance < 0) || isWithdrawing}
                                 onClick={this.withdrawAffiliate}
                             >
-                                <Typography color={'white'} variant={'small-body'}> Withdraw </Typography>
+                                <Typography color={'white'} variant={'small-body'}> {copy.INDEX.TYPOGRAPHY.TEXT[0]} </Typography>
                             </Button>
                         }/>
                     </Col>

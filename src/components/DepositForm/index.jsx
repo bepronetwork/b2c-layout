@@ -6,6 +6,7 @@ import { Typography } from 'components';
 import building from 'assets/blockchain.png';
 import loading from 'assets/loading.gif';
 import _ from 'lodash';
+import { CopyText } from '../../copy';
 
 class DepositForm extends Component {
 
@@ -64,6 +65,8 @@ class DepositForm extends Component {
     render() {
         const { deposit } = this.props;
         const { addressInitialized, address, isLoaded } = this.state;
+        const {ln} = this.props;
+const copy = CopyText.depositFormIndex[ln];
 
         if(!isLoaded){
             return (
@@ -90,10 +93,9 @@ class DepositForm extends Component {
                         </div>
                         <div styleName="info">
                             <Typography variant={'x-small-body'} color={`white`}>
-                                Scan the QR code and transfer {deposit.currency.ticker} to it, 
-                                only deposit {deposit.currency.ticker} in this address. 
+                                {copy.INDEX.TYPOGRAPHY.FUNC_TEXT[0]([deposit.currency.ticker, deposit.currency.ticker])} //ffffffffff
                                 <br/><br/>
-                                Never send other currencies, we are not responsible for any mistake. 
+                                {copy.INDEX.TYPOGRAPHY.TEXT[0]}
                             </Typography>
                         </div>
                         <div styleName="qrcode">
@@ -108,7 +110,7 @@ class DepositForm extends Component {
                             <div>
                                 <button onClick={this.copyToClipboard} styleName='text-copy-container'>
                                     <Typography variant={'small-body'} color={'white'}>
-                                        Copy
+                                        {copy.INDEX.TYPOGRAPHY.TEXT[1]}
                                     </Typography>
                                 </button>
                             </div>
@@ -119,7 +121,7 @@ class DepositForm extends Component {
                             <img src={building} styleName="building-img"/>
                             <div styleName="building-info">
                                 <Typography variant={'small-body'} color={`white`}>
-                                    Your Deposit Address is being generated, please wait a few minutes.
+                                    {copy.INDEX.TYPOGRAPHY.TEXT[2]}
                                 </Typography>
                             </div>
                     </div>

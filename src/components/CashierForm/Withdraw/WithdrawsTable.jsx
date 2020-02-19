@@ -74,7 +74,7 @@ const fromDatabasetoTable = (data) => {
     return res;
 }
 
-
+//ffffffffff
 const rows = [
     {
         id: 'amount',
@@ -112,7 +112,8 @@ class EnhancedTableHead extends React.Component {
 
     render() {
         const { onSelectAllClick, order, orderBy, numSelected, rowCount } = this.props;
-
+        const {ln} = this.props;
+        const copy = CopyText.cashierFormWithdrawsTable[ln];
         return (
             <TableHead>
                 <TableRow style={{backgroundColor : '#0a031b'}}>
@@ -127,7 +128,7 @@ class EnhancedTableHead extends React.Component {
                         style={{borderBottom: '10px solid #192c38', paddingLeft: 40, paddingTop: 7, paddingBottom: 7, paddingRight: 0}}
                     >
                         <Tooltip
-                        title="Sort"
+                        title={copy.WITHDRAWSTABLE.TOOLTIP.TITLE[0]}
                         placement={row.numeric ? 'bottom-end' : 'bottom-start'}
                         enterDelay={300}
                         >
@@ -409,10 +410,10 @@ class WithdrawTable extends React.Component {
                     rowsPerPage={rowsPerPage}
                     page={page}
                     backIconButtonProps={{
-                        'aria-label': 'Previous Page',
+                        'aria-label': 'Previous Page', //ffffffffff
                     }}
                     nextIconButtonProps={{
-                        'aria-label': 'Next Page',
+                        'aria-label': 'Next Page', //ffffffffff
                     }}
                     onChangePage={this.handleChangePage}
                     onChangeRowsPerPage={this.handleChangeRowsPerPage}

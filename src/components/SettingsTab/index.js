@@ -7,6 +7,7 @@ import { set2FA } from "../../redux/actions/set2FA";
 import _ from 'lodash';
 import "./index.css";
 import Cache from "../../lib/cache/cache";
+import { CopyText } from '../../copy';
 
 class SettingsTab extends Component {
 
@@ -54,10 +55,12 @@ class SettingsTab extends Component {
 
     render() {
         const { backgroundMusic, has2FA } = this.state;
+        const {ln} = this.props;
+const copy = CopyText.settingsTabIndex[ln];
         return (
             <div>
-                <ToggleForm onClick={this.handleBackgroundMusicToggle} title={'Background Music'} isSet={backgroundMusic} id={'background-music'}/>
-                <ToggleForm onClick={this.handle2FAAuthenticationToggle} title={'2FA Authentication'} isSet={has2FA} id={'2fa-authentication'}/>
+                <ToggleForm onClick={this.handleBackgroundMusicToggle} title={copy.INDEX.TOGGLE_FORM.TITLE[0]} isSet={backgroundMusic} id={'background-music'}/>
+                <ToggleForm onClick={this.handle2FAAuthenticationToggle} title={copy.INDEX.TOGGLE_FORM.TITLE[1]} isSet={has2FA} id={'2fa-authentication'}/>
             </div>
         );
     }
@@ -66,7 +69,8 @@ class SettingsTab extends Component {
 function mapStateToProps(state){
     return {
         profile: state.profile,
-        set2FA : state.set2FA
+        set2FA : state.set2FA,
+        ln: state.language
     };
 }
 

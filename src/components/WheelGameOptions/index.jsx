@@ -165,6 +165,8 @@ class WheelGameOptions extends Component {
 
     renderAuto = () => {
         const { bets, profitStop, lossStop, onWin, onLoss } = this.state;
+        const {ln} = this.props;
+const copy = CopyText.wheelGameOptionsIndex[ln];
 
         return (
         <div>
@@ -172,18 +174,18 @@ class WheelGameOptions extends Component {
             <InputNumber
                 name="bets"
                 min={1}
-                title="Number of Bets"
+                title={copy.INDEX.INPUT_NUMBER.TITLE[0]}
                 value={bets}
                 onChange={this.handleBets}
             />
             </div>
             <div styleName="element">
-            <OnWinLoss value={onWin} title="On Win" onChange={this.handleOnWin} />
+            <OnWinLoss value={onWin} title={copy.INDEX.ON_WIN_LOSS.TITLE[0]} onChange={this.handleOnWin} />
             </div>
             <div styleName="element">
             <OnWinLoss
                 value={onLoss}
-                title="On Loss"
+                title={copy.INDEX.ON_WIN_LOSS.TITLE[1]}
                 onChange={this.handleOnLoss}
             />
             </div>
@@ -191,7 +193,7 @@ class WheelGameOptions extends Component {
             <InputNumber
                 name="profit"
                 step={0.01}
-                title="Stop on Profit"
+                title={copy.INDEX.INPUT_NUMBER.TITLE[1]}
                 icon="bitcoin"
                 precision={2}
                 value={profitStop}
@@ -236,14 +238,15 @@ class WheelGameOptions extends Component {
 
     renderManual = () => {
         const { amount } = this.state;
-        
+        const {ln} = this.props;
+const copy = CopyText.wheelGameOptionsIndex[ln];
    
         return (
             <div>
                 <div styleName="element">
                 <InputNumber
                     name="win-profit"
-                    title="Profit on Win"
+                    title={copy.INDEX.INPUT_NUMBER.TITLE[2]}
                     icon="bitcoin"
                     precision={2}
                     disabled
@@ -289,6 +292,7 @@ class WheelGameOptions extends Component {
         const user = this.props.profile;
         let balance;
         const copy = CopyText.shared[ln];
+        const copy2 = CopyText.wheelGameOptionsIndex[ln];
 
         if (!user || _.isEmpty(user)){
             balance = 0;
@@ -313,7 +317,7 @@ class WheelGameOptions extends Component {
             </div>
             <div styleName="amount">
             <Typography variant="small-body" weight="semi-bold" color="casper">
-                Bet Amount
+                {copy2.INDEX.TYPOGRAPHY.TEXT[0]}
             </Typography>
             <div styleName="amount-container">
                 <InputNumber
@@ -342,7 +346,7 @@ class WheelGameOptions extends Component {
                 animation={<Dice />}
             >
                 <Typography weight="semi-bold" color="pickled-bluewood">
-                    {type === "manual" ? "Bet" : "Start AutoBet"  }
+                    {type === "manual" ?  copy2.INDEX.TYPOGRAPHY.TEXT[1] : copy2.INDEX.TYPOGRAPHY.TEXT[2]}
                 </Typography>
             </Button>
             </div>

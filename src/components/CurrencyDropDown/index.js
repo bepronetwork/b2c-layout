@@ -12,6 +12,7 @@ import { formatCurrency } from '../../utils/numberFormatation';
 import "./index.css"
 import { setCurrencyView } from "../../redux/actions/currency";
 import { getApp } from "../../lib/helpers";
+import { CopyText } from '../../copy';
 
 const defaultProps = {
     currencies : [],

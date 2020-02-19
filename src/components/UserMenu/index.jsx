@@ -7,10 +7,12 @@ import Coins from "components/Icons/Coins";
 import Account from "components/Icons/Account";
 import Logout from "components/Icons/Logout";
 import { map } from "lodash";
+import { CopyText } from '../../copy';
+import { connect } from "react-redux";
 
 import "./index.css";
 
-export default class UserMenu extends Component {
+class UserMenu extends Component {
     
     static propTypes = {
         username: PropTypes.string.isRequired,
@@ -38,23 +40,25 @@ export default class UserMenu extends Component {
 
     getOptions = () => {
         const { onLogout, onCashier, onAccount } = this.props;
+        const {ln} = this.props;
+const copy = CopyText.userMenuIndex[ln];
 
         return [
         {
             value: "cashier",
-            label: "Cashier",
+            label: copy.INDEX.TYPOGRAPHY.TEXT[0],
             icon: <Coins/>,
             action: onCashier
         },
         {
             value: "account",
-            label: "Account",
+            label: copy.INDEX.TYPOGRAPHY.TEXT[1],
             icon: <Account/>,
             action: onAccount
         },
         { 
             value: "logout", 
-            label: "Logout", 
+            label: copy.INDEX.TYPOGRAPHY.TEXT[2], 
             icon: <Logout/>, 
             action: onLogout 
         }
@@ -141,3 +145,13 @@ export default class UserMenu extends Component {
         );
     }
 }
+
+function mapStateToProps(state){
+    return {
+        profile : state.profile,
+        ln: state.language
+    };
+}
+
+
+export default connect(mapStateToProps)(UserMenu);
