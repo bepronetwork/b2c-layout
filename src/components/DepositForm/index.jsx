@@ -16,7 +16,8 @@ class DepositForm extends Component {
         this.state = {
             addressInitialized: false,
             address: null,
-            isLoaded: false
+            isLoaded: false,
+            copied: false
         }
     }
 
@@ -53,17 +54,19 @@ class DepositForm extends Component {
 
     copyToClipboard = (e) => {
         const { address } = this.state;
-        var textField = document.createElement('textarea')
+        var textField = document.createElement('textarea');
         textField.innerText = address;
-        document.body.appendChild(textField)
-        textField.select()
-        document.execCommand('copy')
-        textField.remove()
+        document.body.appendChild(textField);
+        textField.select();
+        document.execCommand('copy');
+        textField.remove();
+
+        this.setState({ copied: true })
     };
 
     render() {
         const { deposit } = this.props;
-        const { addressInitialized, address, isLoaded } = this.state;
+        const { addressInitialized, address, isLoaded, copied } = this.state;
 
         if(!isLoaded){
             return (
@@ -78,26 +81,28 @@ class DepositForm extends Component {
                 {addressInitialized 
                 ?
                     <div>
-                        <div styleName="currency">
-                            <div styleName="logo">
-                                <img src={deposit.currency.image} styleName="logo-img"/>
+                        <div styleName="info">
+                            <div styleName="currency">
+                                <div styleName="logo">
+                                    <img src={deposit.currency.image} styleName="logo-img"/>
+                                </div>
+                                <div styleName="cur-name">
+                                    <Typography variant={'body'} color={`white`}>
+                                        {deposit.currency.ticker}
+                                    </Typography>
+                                </div>
                             </div>
-                            <div styleName="cur-name">
-                                <Typography variant={'body'} color={`white`}>
-                                    {deposit.currency.ticker}
+                            <div>
+                                <Typography variant={'x-small-body'} color={`white`}>
+                                    Scan the QR code and transfer {deposit.currency.ticker} to it, 
+                                    only deposit {deposit.currency.ticker} in this address. 
+                                    <br/><br/>
+                                    Never send other currencies, we are not responsible for any mistake. 
                                 </Typography>
                             </div>
-                        </div>
-                        <div styleName="info">
-                            <Typography variant={'x-small-body'} color={`white`}>
-                                Scan the QR code and transfer {deposit.currency.ticker} to it, 
-                                only deposit {deposit.currency.ticker} in this address. 
-                                <br/><br/>
-                                Never send other currencies, we are not responsible for any mistake. 
-                            </Typography>
-                        </div>
-                        <div styleName="qrcode">
-                            <QRCode value={address} />
+                            <div styleName="qrcode">
+                                <QRCode value={address} />
+                            </div>
                         </div>
                         <div styleName="address">
                             <div styleName='link-text-container'>
@@ -106,6 +111,13 @@ class DepositForm extends Component {
                                 </Typography>
                             </div>
                             <div>
+                                {copied ? (
+                                    <div styleName="copied">
+                                        <Typography variant="small-body" color={'white'}>
+                                            Copied
+                                        </Typography>
+                                    </div>
+                                ) : null}
                                 <button onClick={this.copyToClipboard} styleName='text-copy-container'>
                                     <Typography variant={'small-body'} color={'white'}>
                                         Copy

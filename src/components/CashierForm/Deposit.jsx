@@ -47,7 +47,7 @@ class Deposit extends Component {
                                 },
                                 {
                                     label : "Deposit",
-                                    title : 'Deposit',
+                                    title : 'Deposit ' + currency.ticker,
                                     condition : (currency != ''),
                                     content : <DepositForm/>,
                                     last : true,

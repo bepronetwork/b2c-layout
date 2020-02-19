@@ -7,7 +7,10 @@
 .container-title{
     margin-top : 10px;
     margin-bottom : 30px;
-    text-align: left;
+    background-color: $backgroundColor;
+    border-radius: 4px;
+    text-align: center;
+    padding: 14px;
 }
 
 .stepper-root{
