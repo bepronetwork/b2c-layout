@@ -12,9 +12,6 @@
     outline: none;
   }
 
-  @include Breakpoint-mobileOnly {
-    margin-left : 20px;
-}
 }
 
 .triangle {

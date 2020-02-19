@@ -35,7 +35,7 @@
   @include Breakpoint-tabletAndAbove {
     width: $content-width-desktop;
 
-    padding: 0 $spacing-20;
+    padding: 0 $spacing-12;
     margin: 0 auto;
   }
 

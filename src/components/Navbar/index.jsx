@@ -110,17 +110,17 @@ class Navbar extends Component {
         const { logo } = getAppCustomization();
         return (
                 <Row styleName="root">
-                    <Col xs={3} md={3} lg={2}>
+                    <Col xs={2} md={3} lg={2}>
                         <Link className='logo-image' to="/">
                             <img styleName="image" alt="bet protocol logo" src={logo.id} />
                         </Link>
                     </Col>
-                    <Col xs={7} md={8} lg={9}>
+                    <Col xs={8} md={8} lg={9}>
                         {user ? 
                             <Row>
                                 <Col xs={7} md={8} lg={6}>
                                     <Row>
-                                        <Col xs={6} md={6} lg={4}>
+                                        <Col xs={6} md={6} lg={6}>
                                             {(!currencies || _.isEmpty(currencies) || currencies.length < 0) ?
                                                 <div styleName="no-coin">
                                                     <Typography variant="x-small-body" color="grey">
@@ -142,13 +142,6 @@ class Navbar extends Component {
                                                     ) : null}
                                                 </div>
                                             }
-                                        </Col>
-                                        <Col xs={0} md={6} lg={8}>
-                                            <div styleName='button-deposit'>
-                                                <Button onClick={onCashier} size={'x-small'} theme={'default'}>
-                                                    <Typography color={'white'} variant={'small-body'}>Deposit</Typography>
-                                                </Button>
-                                            </div>
                                         </Col>
                                     </Row>
                                     
