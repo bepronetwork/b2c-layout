@@ -70,7 +70,7 @@ async function generateNavBarName(){
 
 async function generateFavIcon(){
     /* Get Logo */
-    const { id } =  appInfo.customization.logo;
+    const { id } =  appInfo.customization.topIcon;
     let blob = await image2base64(id) // you can also to use url
     /* If Exists Save */
     fs.writeFileSync("public/logo.ico", blob, 'base64');
