@@ -28,7 +28,7 @@ class Deposit extends Component {
         const { deposit } = this.props;
         const { currency, nextStep } = deposit;
         const {ln} = this.props;
-const copy = CopyText.cashierFormDeposit[ln];
+        const copy = CopyText.cashierFormDeposit[ln];
 
         return (
             <div styleName='root'>
