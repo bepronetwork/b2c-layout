@@ -23,6 +23,11 @@ $with-without-padding: calc(100% - $spacing-20 - $spacing-20);
   align-items: center;
 
   width: 100%;
+
+  @include Breakpoint-mobileOnly {
+    padding-top: 200px;
+  }
+
 }
 
 .slider-container {
@@ -100,7 +105,7 @@ $with-without-padding: calc(100% - $spacing-20 - $spacing-20);
     position : absolute;
 
     @include Breakpoint-mobileOnly {
-        margin-top: -50px !important;
+      height: 45%;
     }
 }
 

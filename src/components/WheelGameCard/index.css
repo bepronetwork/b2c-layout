@@ -33,16 +33,15 @@
 }
 
 .popular-number-container-amount{
-    padding : 10px;
+    padding : 10px 0px 10px 10px;
     padding-top : 5px;
-    width: 40px;
     text-align: center;
     display : inline-flex;
     border-radius : 4px;
 }
 
 .popular-number-row{
-    margin-left : -30px;
+    text-align: left;
 }
 
 .result-container {
@@ -71,9 +70,7 @@
 }
 
 .outer-popular-numbers{
-    width : 120px;
     border : 2px solid $dark-table-color;
-    height: 38%;
     background-color : $popular-numbers-container;
     left : 10px;
     border-radius : 5px;
@@ -82,20 +79,15 @@
     overflow-y : auto;
     overflow-x : hidden;
     position : absolute;
-
-    @include Breakpoint-mobileOnly {
-      height: 54%;
-    }
 }
 
 .inner-popular-numbers{
-    width : 100%;
     height: auto;
     overflow-y: hidden;
-    margin : 10px;
     text-align: center;
     overflow-x: hidden;
     position : relative;
+    padding: 10px;
 }
 
 .result {
