@@ -36,12 +36,12 @@ class UnavailablePage extends Component {
             })
             .catch(reject)
         });
-       
     };
 
     render() {
-        const { app } = this.props;
+        const { app, ln } = this.props;
         const { countryName, countryCode } = this.state;
+        const copy = CopyText.homePageUnavailable[ln];
         if (!app) { return null; }
         if(this.isAvailable()){return null}
 
@@ -51,7 +51,11 @@ class UnavailablePage extends Component {
         return (
             <div styleName="root">
                 <div styleName="container">
+<<<<<<< HEAD
                     <Typography variant={'h2'} color={'white'}> {copy.CONTAINERS.UNAVAILABLE.TYPOGRAPHY[0]} </Typography>
+=======
+                    <Typography variant={'h2'} color={'white'}> {copy.TEXT} </Typography>
+>>>>>>> d4401dd52d36b5369975f2fc89cb4e032a134ed4
                 </div>
             </div>
         );
