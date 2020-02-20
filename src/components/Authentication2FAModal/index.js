@@ -107,7 +107,7 @@ const copy = CopyText.authentication2FAModalIndex[ln];
             <Modal onClose={this.onClose}>
                 <div styleName="root" style={{ overflowY: 'auto', overflowX : 'hidden'}}>
                     <div >
-                        <Typography variant='h4' color={"grey"}> copy.INDEX.TYPOGRAPHY.TEXT[0]</Typography>
+                        <Typography variant='h4' color={"grey"}> {copy.INDEX.TYPOGRAPHY.TEXT[0]}</Typography>
                     </div>
                     <div styleName='root'>
                         <div styleName="content">
