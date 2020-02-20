@@ -10,12 +10,7 @@ import { setWithdrawInfo } from "../../../redux/actions/withdraw";
 import building from 'assets/blockchain.png';
 import loading from 'assets/loading.gif';
 import _ from 'lodash';
-<<<<<<< HEAD
 import { CopyText } from '../../../copy';
-=======
-import {CopyText} from '../../../copy';
-
->>>>>>> d4401dd52d36b5369975f2fc89cb4e032a134ed4
 
 const defaultProps = {
     ticker : 'N/A',
@@ -96,11 +91,7 @@ class AmountWithdrawForm extends Component {
     render() {
         const { amount, maxWithdraw, ticker, addressInitialized, isLoaded, toAddress } = this.state;
         const {ln} = this.props;
-<<<<<<< HEAD
         const copy = CopyText.amountFormIndex[ln];
-=======
-        const copy = CopyText.amountForm[ln].WITHDRAW;
->>>>>>> d4401dd52d36b5369975f2fc89cb4e032a134ed4
 
         if(!isLoaded){
             return (
@@ -150,13 +141,9 @@ class AmountWithdrawForm extends Component {
                             </Col>
                         </Row>
                         <div styleName='text-info-deposit'>
-<<<<<<< HEAD
                             <Typography variant={'x-small-body'} color={'white'}>
                                 {copy.INDEX.TYPOGRAPHY.FUNC_TEXT[1]([maxWithdraw, ticker]) }
                             </Typography>
-=======
-                            <Typography variant={'x-small-body'} color={'white'}> {copy.TYPOGRAPHY[0].TEXT([maxWithdraw, ticker])} </Typography>
->>>>>>> d4401dd52d36b5369975f2fc89cb4e032a134ed4
                         </div>
                     </div>
                 </div>
@@ -165,11 +152,7 @@ class AmountWithdrawForm extends Component {
                         <img src={building} styleName="building-img"/>
                         <div styleName="building-info">
                             <Typography variant={'small-body'} color={`white`}>
-<<<<<<< HEAD
                                 {copy.INDEX.TYPOGRAPHY.TEXT[0]}
-=======
-                                {copy.TYPOGRAPHY[1].TEXT}
->>>>>>> d4401dd52d36b5369975f2fc89cb4e032a134ed4
                             </Typography>
                         </div>
                 </div>

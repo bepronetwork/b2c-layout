@@ -11,12 +11,7 @@ import { MIN_WITHDRAWAL } from "../../lib/api/apiConfig";
 import { Numbers } from 'lib/ethereum/lib';
 import store from "../../containers/App/store";
 import { setWithdrawInfo } from "../../redux/actions/withdraw";
-<<<<<<< HEAD
 import { CopyText } from '../../copy';
-=======
-import {CopyText} from '../../copy'
-
->>>>>>> d4401dd52d36b5369975f2fc89cb4e032a134ed4
 
 const defaultProps = {
     amount : 10,
@@ -65,14 +60,10 @@ class Withdraw extends Component {
     }
 
     render() {
-        const { withdraw, ln } = this.props;
+        const { withdraw } = this.props;
         const { currency, nextStep, tx } = withdraw;
-<<<<<<< HEAD
         const {ln} = this.props;
 const copy = CopyText.affiliateWithdrawFormWithdraw[ln];
-=======
-        const copy = CopyText.affiliateWithdrawForm[ln];
->>>>>>> d4401dd52d36b5369975f2fc89cb4e032a134ed4
 
         return (
             <div styleName='root'>
@@ -83,24 +74,14 @@ const copy = CopyText.affiliateWithdrawFormWithdraw[ln];
                             nextStep={nextStep}
                             steps={[
                                 {
-<<<<<<< HEAD
                                     label : copy.WITHDRAW.HORIZONTAL_STEPPER.LABEL[0],
                                     title : copy.WITHDRAW.HORIZONTAL_STEPPER.TITLE[0],
-=======
-                                    label : copy.HORIZONTAL_STEPPER.STEPS[0].LABEL,
-                                    title : copy.HORIZONTAL_STEPPER.STEPS[0].TITLE,
->>>>>>> d4401dd52d36b5369975f2fc89cb4e032a134ed4
                                     condition : (currency != ''),
                                     content : <CurrencyWithdrawForm/>
                                 },
                                 {
-<<<<<<< HEAD
                                     label : copy.WITHDRAW.HORIZONTAL_STEPPER.LABEL[1],
                                     title : copy.WITHDRAW.HORIZONTAL_STEPPER.TITLE[1],
-=======
-                                    label : copy.HORIZONTAL_STEPPER.STEPS[1].LABEL,
-                                    title : copy.HORIZONTAL_STEPPER.STEPS[1].TITLE,
->>>>>>> d4401dd52d36b5369975f2fc89cb4e032a134ed4
                                     condition : (tx && tx != ''),
                                     content : <WithdrawForm/>,
                                     last : true,

@@ -6,10 +6,7 @@ import './index.css';
 import affiliate from 'assets/affiliate-background.png';
 import { getApp } from "../../lib/helpers";
 import { CopyText } from '../../copy';
-<<<<<<< HEAD
 
-=======
->>>>>>> d4401dd52d36b5369975f2fc89cb4e032a134ed4
 const info = getApp();
 
 const arr = window.location.href.split("/");
@@ -39,16 +36,10 @@ class AffiliateLinkContainer extends React.Component{
     render(){
         const { 
             link,
-            percentageOnLevelOne,
-            ln
+            percentageOnLevelOne
         } = this.props;
-<<<<<<< HEAD
         const {ln} = this.props;
         const copy = CopyText.affiliateLinkContainerIndex[ln];
-=======
-
-        const copy = CopyText.affiliateLinkContainer[ln];
->>>>>>> d4401dd52d36b5369975f2fc89cb4e032a134ed4
 
         return (
             <div styleName={`root`}>
@@ -56,19 +47,11 @@ class AffiliateLinkContainer extends React.Component{
                 <div styleName='content'>
                     <div styleName={'text-description'}>
                         <Typography variant={'body'} color={`white`}>
-<<<<<<< HEAD
                             {copy.INDEX.TYPOGRAPHY.FUNC_TEXT[0](info.name)}
                         </Typography>
                         <div styleName='subtitle-text'>
                             <Typography variant={'x-small-body'} color={`grey`}>
                             {copy.INDEX.TYPOGRAPHY.FUNC_TEXT[1](percentageOnLevelOne*100)}
-=======
-                            {copy.TYPOGRAPHY.TEXT[0](info.name)}
-                        </Typography>
-                        <div styleName='subtitle-text'>
-                            <Typography variant={'x-small-body'} color={`grey`}>
-                                {copy.TYPOGRAPHY.TEXT[1](percentageOnLevelOne*100)}
->>>>>>> d4401dd52d36b5369975f2fc89cb4e032a134ed4
                             </Typography>
                         </div>
                     </div>
@@ -85,11 +68,7 @@ class AffiliateLinkContainer extends React.Component{
                             <Col xs={12} md={3}>
                                 <button onClick={this.copyToClipboard} styleName='text-copy-container'>
                                     <Typography variant={'small-body'} color={'white'}>
-<<<<<<< HEAD
                                         {copy.INDEX.TYPOGRAPHY.TEXT[0]}
-=======
-                                        {copy.TYPOGRAPHY.TEXT[2]}
->>>>>>> d4401dd52d36b5369975f2fc89cb4e032a134ed4
                                     </Typography>
                                 </button>
                             </Col>

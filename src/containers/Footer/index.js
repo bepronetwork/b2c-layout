@@ -5,18 +5,9 @@ import { Link } from 'react-dom';
 import { connect } from "react-redux";
 import "./index.css";
 import { getAppCustomization, getApp } from "../../lib/helpers";
-<<<<<<< HEAD
 import {CopyText} from "../../copy";
 
 const footerStaticOutput = ({props, supportLinks, communityLinks}) => {
-=======
-import { CopyText } from '../../copy';
-
-const footerStaticOutput = ({supportLinks, communityLinks}) => {
-    const { ln } = this.props;
-    const copy = CopyText.homePageFooter[ln].INFO;
-
->>>>>>> d4401dd52d36b5369975f2fc89cb4e032a134ed4
     const { logo } = getAppCustomization();
     const info = getApp();
     const {ln} = props;
@@ -24,11 +15,7 @@ const footerStaticOutput = ({supportLinks, communityLinks}) => {
 
     return {
         info : {
-<<<<<<< HEAD
             text : copy.CONTAINERS.FOOTER.INFO.TEXT[0](info.name),
-=======
-            text : copy.text,
->>>>>>> d4401dd52d36b5369975f2fc89cb4e032a134ed4
             size : "x-small-body",
             color : 'grey',
         },
@@ -44,13 +31,13 @@ const footerStaticOutput = ({supportLinks, communityLinks}) => {
                     },
                     {
                         type : 'text',
-                        text : copy.DATE_AND_NAME(info.name),
+                        text : `@2019 ${info.name}`,
                         size : "x-small-body",
                         color : 'casper',
                     },
                     {
                         type : 'text',
-                        text : copy.RIGHTS,
+                        text : 'All Rights Reserved',
                         size : "x-small-body",
                         color : 'white',
                     }
@@ -61,7 +48,7 @@ const footerStaticOutput = ({supportLinks, communityLinks}) => {
                 align : 'left',
                 title : {
                     color : 'white',
-                    text : copy.SUPPORT,
+                    text : 'Support',
                     size : "body"
                 },
                 items : supportLinks.map( s => {
@@ -79,7 +66,7 @@ const footerStaticOutput = ({supportLinks, communityLinks}) => {
                 align : 'left',
                 title : {
                     color : 'white',
-                    text : copy.COMMUNITY,
+                    text : 'Community',
                     size : "body"
                 },
                 items : communityLinks.map( s => {
@@ -209,7 +196,7 @@ class Footer extends Component {
 
 
 
-function mapStateToProps(state) {
+function mapStateToProps(state){
     return {
         profile: state.profile,
         ln : state.language
@@ -217,3 +204,4 @@ function mapStateToProps(state) {
 }
 
 export default connect(mapStateToProps)(Footer);
+
