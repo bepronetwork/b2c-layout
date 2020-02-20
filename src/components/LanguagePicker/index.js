@@ -1,9 +1,7 @@
 import React, { Component } from "react";
-import {  Typography, InputText,  DropDownField } from "components";
+import {  DropDownField } from "components";
 import { connect } from "react-redux";
 import _ from 'lodash';
-import UsersGroupIcon from 'mdi-react/UsersGroupIcon';
-import { Row, Col } from 'reactstrap';
 import "./index.css";
 import { MenuItem } from '@material-ui/core';
 import languages from "../../config/languages";
