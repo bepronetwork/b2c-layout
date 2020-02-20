@@ -1,6 +1,6 @@
 const homepageCopy = {
     'en' : 
-        {   
+        {
             CONTAINERS : {
                 UNAVAILABLE: {
                     TYPOGRAPHY: [
@@ -90,8 +90,41 @@ const homepageCopy = {
                 }
             }
         },
-    'ko' : 
+    'ko' :
         {
+            CONTAINERS : {
+                UNAVAILABLE: {
+                    TYPOGRAPHY: [
+                        'Not Translated'
+                    ]
+                },
+                ACCOUNT: {
+                    TITLE: [
+                        'Not Translated',
+                        'Not Translated',
+                        'Not Translated',
+                        'Not Translated',
+                    ]
+                },
+                APP: {
+                    MODAL: [
+                        'Not Translated',
+                        'Not Translated'
+                    ]
+                },
+                CHAT: {
+                    TYPOGRAPHY: [
+                        '입력'
+                    ]
+                },
+                FOOTER: {
+                    INFO: {
+                        TEXT: [
+                           (param)=> { return `Not Translated` }
+                        ]
+                    }
+                }
+            },
             BUTTON_HOME : {
                 FIRST : '지금 플레이',
                 SECOND : ' 시작!'
@@ -150,8 +183,41 @@ const homepageCopy = {
                 }
             }
         },
-    'ch' : 
+    'ch' :
         {
+            CONTAINERS : {
+                UNAVAILABLE: {
+                    TYPOGRAPHY: [
+                        'Not Translated'
+                    ]
+                },
+                ACCOUNT: {
+                    TITLE: [
+                        'Not Translated',
+                        'Not Translated',
+                        'Not Translated',
+                        'Not Translated',
+                    ]
+                },
+                APP: {
+                    MODAL: [
+                        'Not Translated',
+                        'Not Translated'
+                    ]
+                },
+                CHAT: {
+                    TYPOGRAPHY: [
+                        '输入'
+                    ]
+                },
+                FOOTER: {
+                    INFO: {
+                        TEXT: [
+                           (param)=> { return `Not Translated` }
+                        ]
+                    }
+                }
+            },
             BUTTON_HOME : {
                 FIRST : '现在开始游戏',
                 SECOND : ' 出发!'
@@ -212,6 +278,39 @@ const homepageCopy = {
         },
     'jp' : 
         {
+            CONTAINERS : {
+                UNAVAILABLE: {
+                    TYPOGRAPHY: [
+                        'Not Translated'
+                    ]
+                },
+                ACCOUNT: {
+                    TITLE: [
+                        'Not Translated',
+                        'Not Translated',
+                        'Not Translated',
+                        'Not Translated',
+                    ]
+                },
+                APP: {
+                    MODAL: [
+                        'Not Translated',
+                        'Not Translated'
+                    ]
+                },
+                CHAT: {
+                    TYPOGRAPHY: [
+                        'Not Translated'
+                    ]
+                },
+                FOOTER: {
+                    INFO: {
+                        TEXT: [
+                           (param)=> { return `Not Translated` }
+                        ]
+                    }
+                }
+            },
             BUTTON_HOME : {
                 FIRST : '今すぐプレイ',
                 SECOND : 'GO!'
