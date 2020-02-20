@@ -2,13 +2,15 @@ import React, { Component } from "react";
 import { Tabs } from "components";
 import Deposit from "./Deposit";
 import Withdraw from "./Withdraw";
+import { connect } from "react-redux";
 
 import "./index.css";
+import { CopyText } from '../../copy';
 
-export default class DepositWithdrawForm extends Component {
+class DepositWithdrawForm extends Component {
     constructor(props) {
         super(props);
-
+        // this.props = props;
         this.state = {
         tab: "deposit"
         };
@@ -21,6 +23,8 @@ export default class DepositWithdrawForm extends Component {
     render() {
         const { onClose } = this.props;
         const { tab } = this.state;
+        const {ln} = this.props;
+const copy = CopyText.cashierFormIndex[ln];
 
         return (
         <div styleName="root" style={{ overflowY: 'auto', overflowX : 'hidden'}}>
@@ -30,9 +34,9 @@ export default class DepositWithdrawForm extends Component {
                 options={[
                 {
                     value: "deposit",
-                    label: "Deposit"
+                    label: copy.INDEX.TABS.LABEL[0]
                 },
-                { value: "withdraw", label: "Withdraw" }
+                { value: "withdraw", label: copy.INDEX.TABS.LABEL[1] }
                 ]}
                 onSelect={this.handleTabChange}
             />
@@ -42,3 +46,14 @@ export default class DepositWithdrawForm extends Component {
         );
     }
 }
+
+
+function mapStateToProps(state){
+    return {
+        profile : state.profile,
+        ln: state.language
+    };
+}
+
+
+export default connect(mapStateToProps)(DepositWithdrawForm);

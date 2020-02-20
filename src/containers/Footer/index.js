@@ -5,13 +5,17 @@ import { Link } from 'react-dom';
 import { connect } from "react-redux";
 import "./index.css";
 import { getAppCustomization, getApp } from "../../lib/helpers";
+import {CopyText} from "../../copy";
 
-const footerStaticOutput = ({supportLinks, communityLinks}) => {
+const footerStaticOutput = ({props, supportLinks, communityLinks}) => {
     const { logo } = getAppCustomization();
     const info = getApp();
+    const {ln} = props;
+    const copy = CopyText.homepage[ln];
+
     return {
         info : {
-            text : `If you reside in a location where lottery, gambling, or betting over the internet is illegal, please do not click on anything related to these activities on this site. You must be 21 years of age to click on any gambling related items even if it is legal to do so in your location. Recognising that the laws and regulations involving online gaming are different everywhere, players are advised to check with the laws that exist within their own jurisdiction or region to ascertain the legality of the activities which are covered. The games provided by ${info.name} are based on blockchain, fair, and transparency. When you start playing these games, please take note that online gambling and lottery is an entertainment vehicle and that it carries with it a certain degree of financial risk. Players should be aware of these risks and govern themselves accordingly.`,
+            text : copy.CONTAINERS.FOOTER.INFO.TEXT[0](info.name),
             size : "x-small-body",
             color : 'grey',
         },
@@ -105,7 +109,8 @@ class Footer extends Component {
 
     render() {
         const { supportLinks, communityLinks } = this.state;
-        let footerInfo = footerStaticOutput({supportLinks, communityLinks});
+        const props = this.props;
+        let footerInfo = footerStaticOutput({props, supportLinks, communityLinks});
 
         return (
             <div styleName="container">

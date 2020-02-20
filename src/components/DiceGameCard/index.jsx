@@ -3,11 +3,13 @@ import PropTypes from "prop-types";
 import { InputNumber, Slider, ButtonIcon, Typography, AnimationNumber } from "components";
 import { startCase } from "lodash";
 import { find } from "lodash";
+import { connect } from "react-redux";
 
 import "./index.css";
 import { getPopularNumbers } from "../../lib/api/app";
 import { Numbers } from "../../lib/ethereum/lib";
 import { formatPercentage } from "../../utils/numberFormatation";
+import { CopyText } from '../../copy';
 
 const minPayout = 1.0102;
 const maxPayout = 49.5;
@@ -24,7 +26,7 @@ const defaultState = {
 }
 
 
-export default class DiceGameCard extends Component {
+class DiceGameCard extends Component {
     static propTypes = {
         result: PropTypes.number,
         disableControls: PropTypes.bool,
@@ -230,6 +232,8 @@ export default class DiceGameCard extends Component {
         const { result, disableControls, onResultAnimation, rollNumber, bet, animating } = this.props;
         let winEdge = (100-(this.state.edge))/100;
         payout = payout * winEdge;
+        const {ln} = this.props;
+const copy = CopyText.diceGameCardIndex[ln];
         return (
         <div styleName="root">
             <div styleName="container">
@@ -249,7 +253,7 @@ export default class DiceGameCard extends Component {
                 <ButtonIcon
                     onClick={this.handleRoll}
                     icon="rotate"
-                    label="Reverse roll"
+                    label={copy.INDEX.BUTTON_ICON.LABEL[0]}
                     rollType={rollType}
                 />
                 </div>
@@ -262,7 +266,7 @@ export default class DiceGameCard extends Component {
                     max={maxPayout}
                     precision={4}
                     step={this.getPayoutStep()}
-                    title="Payout"
+                    title={copy.INDEX.INPUT_NUMBER.TITLE[0]}
                     onChange={this.handlePayout}
                     icon="cross"
                     value={payout}
@@ -282,7 +286,7 @@ export default class DiceGameCard extends Component {
                     min={2}
                     max={98}
                     unit="%"
-                    title="Win Chance"
+                    title={copy.INDEX.INPUT_NUMBER.TITLE[1]}
                     onChange={this.handleChance}
                     value={chance}
                     step="any"
@@ -294,3 +298,14 @@ export default class DiceGameCard extends Component {
         );
     }
 }
+
+
+function mapStateToProps(state){
+    return {
+        profile : state.profile,
+        ln: state.language
+    };
+}
+
+
+export default connect(mapStateToProps)(DiceGameCard);

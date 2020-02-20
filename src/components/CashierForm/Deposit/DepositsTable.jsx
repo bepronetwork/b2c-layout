@@ -1,5 +1,6 @@
 
-
+import { connect } from "react-redux";
+import { compose } from 'lodash/fp';
 import React from 'react';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
@@ -27,7 +28,7 @@ import { CopyText } from '../../../copy';
 import { Row, Col } from 'reactstrap';
 import { fromSmartContractTimeToMinutes } from '../../../lib/helpers';
 let counter = 0;
-
+let globalProps = null;
 
 function desc(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
@@ -75,7 +76,6 @@ const fromDatabasetoTable = (data) => {
     return res;
 }
 
-
 const rows = [
     {
         id: 'amount',
@@ -107,7 +107,8 @@ class EnhancedTableHead extends React.Component {
 
     render() {
         const { onSelectAllClick, order, orderBy, numSelected, rowCount } = this.props;
-
+        const {ln} = globalProps;
+        const copy = CopyText.cashierFormDepositsTable[ln];
         return (
             <TableHead>
                 <TableRow style={{backgroundColor : '#0a031b'}}>
@@ -122,7 +123,7 @@ class EnhancedTableHead extends React.Component {
                         style={{borderBottom: '1px solid #192c38', paddingLeft: 50, paddingTop: 7, paddingBottom: 7, paddingRight: 0}}
                     >
                         <Tooltip
-                        title="Sort"
+                        title={copy.DEPOSITSTABLE.TOOLTIP.TITLE[0]}
                         placement={row.numeric ? 'bottom-end' : 'bottom-start'}
                         enterDelay={300}
                         >
@@ -266,6 +267,7 @@ class DepositsTable extends React.Component {
             rowsPerPage: 5,
             ...defaultProps
         };
+        globalProps = props;
     }
 
     componentDidMount(){
@@ -322,12 +324,12 @@ class DepositsTable extends React.Component {
         const { classes, ln } = this.props;
         const { data, order, orderBy, selected, rowsPerPage, page, updated } = this.state;
         const emptyRows = rowsPerPage - Math.min(rowsPerPage, data.length - page * rowsPerPage);
-        const copy = CopyText.Deposit[ln];
+        const copy = CopyText.cashierFormDepositsTable[ln];
         
         if(!updated){return (
             <div>
-                <Typography color={'white'} variant={'body'}>Getting the Last Deposits...</Typography>
-                <Typography color={'casper'} variant={'small-body'}>Should take less than a minute</Typography>
+                <Typography color={'white'} variant={'body'}> {copy.DEPOSITSTABLE.TYPOGRAPHY.TEXT[0]} </Typography>
+                <Typography color={'casper'} variant={'small-body'}> {copy.DEPOSITSTABLE.TYPOGRAPHY.TEXT[1]} </Typography>
             </div>
             )
         }
@@ -435,4 +437,14 @@ DepositsTable.propTypes = {
     classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(DepositsTable);
+function mapStateToProps(state){
+    return {
+        deposit : state.deposit,
+        profile : state.profile,
+        ln : state.language
+    };
+}
+
+// export default withStyles(styles)(  compose(connect(mapStateToProps))(DepositsTable) );
+export default compose(connect(mapStateToProps))( withStyles(styles)(DepositsTable) );
+// export default withStyles(styles)(DepositsTable);

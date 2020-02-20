@@ -4,6 +4,7 @@ import PaymentBox from "../../PaymentBox";
 import { setDepositInfo } from "../../../redux/actions/deposit";
 import store from "../../../containers/App/store";
 import { getApp } from "../../../lib/helpers";
+import { CopyText } from '../../../copy';
 
 class CurrencyDepositForm extends React.Component{
     constructor(props){
@@ -36,6 +37,8 @@ class CurrencyDepositForm extends React.Component{
     render(){
         const { currencies } = this.state;
         const { deposit } = this.props;
+        const {ln} = this.props;
+const copy = CopyText.currencyFormIndex[ln];
 
         return (
             <div>
@@ -46,7 +49,7 @@ class CurrencyDepositForm extends React.Component{
                             isPicked={new String(deposit.currency._id).toString() == new String(c._id).toString()}
                             id={`${c.ticker}`}  
                             image={c.image} type={`${c.name}`} 
-                            description={'Token'}
+                            description={copy.INDEX.PAYMENTBOX.DESCRIPTION[0]}
                         />
                     )
                 })}
@@ -58,7 +61,8 @@ class CurrencyDepositForm extends React.Component{
 function mapStateToProps(state){
     return {
         deposit : state.deposit,
-        profile : state.profile
+        profile : state.profile,
+        ln: state.language
     };
 }
 

@@ -8,6 +8,7 @@ import { setMessageNotification, SET_MESSAGE_INFO } from "../../redux/actions/me
 import { connect } from "react-redux";
 import { compose } from 'lodash/fp'
 import _ from 'lodash';
+import { CopyText } from '../../copy';
 
 class Message extends Component {
 
@@ -27,6 +28,8 @@ class Message extends Component {
         let hasMessage = !_.isEmpty(this.props.message);
         if(!hasMessage){return null};
         let messageArray = _.isArray(this.props.message) ? this.props.message : [this.props.message];
+        const {ln} = this.props;
+const copy = CopyText.messageFormMessage[ln];
         
         return (
             <Modal>
@@ -46,7 +49,7 @@ class Message extends Component {
                                 variant="small-body"
                                 onClick={this.closeWindow}
                             >
-                                <Typography>Close</Typography>
+                                <Typography>{copy.MESSAGE.TYPOGRAPHY.TEXT[0]}</Typography>
                             </Button>
                         </div>
                     </div> 

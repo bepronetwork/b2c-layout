@@ -4,6 +4,7 @@ import PaymentBox from "../../PaymentBox";
 import store from "../../../containers/App/store";
 import { setWithdrawInfo } from "../../../redux/actions/withdraw";
 import { getApp } from "../../../lib/helpers";
+import { CopyText } from '../../../copy';
 
 class CurrencyWithdrawForm extends React.Component{
     constructor(props){
@@ -36,6 +37,8 @@ class CurrencyWithdrawForm extends React.Component{
     render(){
         const { currencies } = this.state;
         const { withdraw } = this.props;
+        const {ln} = this.props;
+const copy = CopyText.currencyFormIndex[ln];
 
         return (
             <div>
@@ -46,7 +49,7 @@ class CurrencyWithdrawForm extends React.Component{
                             isPicked={new String(withdraw.currency._id).toString() == new String(c._id).toString()}
                             id={`${c.ticker}`}  
                             image={c.image} type={`${c.name}`} 
-                            description={'Token'} time={'fast withdraw'} id={`${c.ticker}`}
+                            description={copy.INDEX.PAYMENTBOX.DESCRIPTION[0]} time={'fast withdraw'} id={`${c.ticker}`}
                         />
                     )
                 })}
@@ -58,7 +61,8 @@ class CurrencyWithdrawForm extends React.Component{
 function mapStateToProps(state){
     return {
         withdraw : state.withdraw,
-        profile : state.profile
+        profile : state.profile,
+        ln: state.language
     };
 }
 

@@ -1,5 +1,4 @@
-
-
+import { compose } from 'lodash/fp';
 import React from 'react';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
@@ -26,7 +25,10 @@ import { etherscanLinkID } from '../../../lib/api/apiConfig';
 import { CopyText } from '../../../copy';
 import { Row, Col } from 'reactstrap';
 import { fromSmartContractTimeToMinutes } from '../../../lib/helpers';
+import { connect } from "react-redux";
+
 let counter = 0;
+let propsGlobal = null;
 
 
 function desc(a, b, orderBy) {
@@ -74,7 +76,6 @@ const fromDatabasetoTable = (data) => {
     return res;
 }
 
-
 const rows = [
     {
         id: 'amount',
@@ -112,7 +113,9 @@ class EnhancedTableHead extends React.Component {
 
     render() {
         const { onSelectAllClick, order, orderBy, numSelected, rowCount } = this.props;
-
+        const {ln} = propsGlobal;
+        console.log(ln)
+        const copy = CopyText.cashierFormWithdrawsTable[ln];
         return (
             <TableHead>
                 <TableRow style={{backgroundColor : '#0a031b'}}>
@@ -127,7 +130,7 @@ class EnhancedTableHead extends React.Component {
                         style={{borderBottom: '1px solid #192c38', paddingLeft: 40, paddingTop: 7, paddingBottom: 7, paddingRight: 0}}
                     >
                         <Tooltip
-                        title="Sort"
+                        title={copy.WITHDRAWSTABLE.TOOLTIP.TITLE[0]}
                         placement={row.numeric ? 'bottom-end' : 'bottom-start'}
                         enterDelay={300}
                         >
@@ -272,6 +275,7 @@ class WithdrawTable extends React.Component {
             rowsPerPage: 5,
             ...defaultProps
         };
+        propsGlobal = props;
     }
 
 
@@ -428,4 +432,14 @@ WithdrawTable.propTypes = {
     classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(WithdrawTable);
+function mapStateToProps(state){
+    return {
+        deposit : state.deposit,
+        profile : state.profile,
+        ln : state.language
+    };
+}
+
+export default compose(connect(mapStateToProps))( withStyles(styles)(WithdrawTable) );
+
+// export default withStyles(styles)(  compose(connect(mapStateToProps))(WithdrawTable) );

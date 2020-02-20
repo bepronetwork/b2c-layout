@@ -267,6 +267,10 @@ class App extends Component {
     };
 
     renderLoginRegisterModal = () => {
+
+        const {ln} = this.props;
+        const copy = CopyText.homepage[ln];
+
         const { registerLoginModalOpen, error, has2FA} = this.state;
         return registerLoginModalOpen ? (
             <Modal onClose={this.handleRegisterLoginModalClose}>
@@ -277,9 +281,9 @@ class App extends Component {
                     options={[
                         {
                         value: "register",
-                        label: "Register"
+                        label: copy.CONTAINERS.APP.MODAL[0]
                         },
-                        { value: "login", label: "Login" }
+                        { value: "login", label: copy.CONTAINERS.APP.MODAL[1] }
                     ]}
                     onSelect={this.handleTabChange}
                     />
@@ -486,7 +490,8 @@ function mapStateToProps(state){
         profile : state.profile,
         startLoadingProgress : state.startLoadingProgress,
         modal : state.modal,
-        currency : state.currency
+        currency : state.currency,
+        ln: state.language
     };
 }
 

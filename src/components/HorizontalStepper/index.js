@@ -17,6 +17,9 @@ import { setDepositInfo } from '../../redux/actions/deposit';
 import _ from 'lodash';
 import './index.css';
 import allow from 'assets/allow.png';
+import { CopyText } from '../../copy';
+import { connect } from "react-redux";
+
 
 const QontoConnector = withStyles({
   alternativeLabel: {
@@ -158,6 +161,10 @@ const HorizontalStepper = (props) => {
     const [activeStep, setActiveStep] = React.useState(0);
     let step = steps[activeStep];
     const { pass, title, content, condition, first, last, closeStepper, showCloseButton = true, nextButtonLabel } = step;
+    const {ln} = props;
+
+    const copy = CopyText.horizontalStepperIndex[ln];
+
     if(pass){handleNext();}
     if(nextStep && (activeStep+1 < steps.length)){
         handleNext();
@@ -209,10 +216,10 @@ const HorizontalStepper = (props) => {
                 {activeStep === steps.length ? (
                 <div>
                     <Typography className={classes.instructions}>
-                        All steps completed - you&apos;re finished
+                        {copy.INDEX.TYPOGRAPHY.TEXT[0]}
                     </Typography>
                     <Button onClick={handleReset} className={classes.button}>
-                        Reset
+                        {copy.INDEX.BUTTON.TEXT[0]}
                     </Button>
                 </div>
                 ) : (
@@ -225,7 +232,7 @@ const HorizontalStepper = (props) => {
                                 <Col md={showCloseButton ? 6 : 12}>   
                                     <div styleName='button-stepper'>
                                         <Button disabled={activeStep === 0} onClick={handleBack} className={classes.button}>
-                                            <Typography variant={'small-body'} color={'white'}> {'Back'} </Typography>
+                                            <Typography variant={'small-body'} color={'white'}> {copy.INDEX.TYPOGRAPHY.TEXT[1]}  </Typography>
                                         </Button>
                                     </div>
                                 </Col>
@@ -241,7 +248,7 @@ const HorizontalStepper = (props) => {
                                                     onClick={closeStepper}
                                                     className={classes.button}
                                                 >
-                                                    <Typography  variant={'small-body'} color={'white'}>{'Close'} </Typography>
+                                                    <Typography  variant={'small-body'} color={'white'}> {copy.INDEX.TYPOGRAPHY.TEXT[2]} </Typography>
                                                 </Button>
                                             </div>
                                         </Col>
@@ -260,7 +267,7 @@ const HorizontalStepper = (props) => {
                                     <Col md={6}>   
                                         <div styleName='button-stepper'>
                                             <Button disabled={activeStep === 0} onClick={handleBack} className={classes.button}>
-                                                <Typography variant={'small-body'} color={'white'}> {'Back'} </Typography>
+                                                <Typography variant={'small-body'} color={'white'}> {copy.INDEX.TYPOGRAPHY.TEXT[3]} </Typography>
                                             </Button>
                                         </div>
                                     </Col>
@@ -273,7 +280,7 @@ const HorizontalStepper = (props) => {
                                                 onClick={handleNext}
                                                 className={classes.button}
                                             >
-                                                <Typography  variant={'small-body'} color={'white'}>{nextButtonLabel ? nextButtonLabel : 'Next'} </Typography>
+                                                <Typography  variant={'small-body'} color={'white'}>{nextButtonLabel ? nextButtonLabel : copy.INDEX.TYPOGRAPHY.TEXT[4]} </Typography>
                                             </Button>      
                                         </div>               
                                     </Col>
@@ -289,7 +296,7 @@ const HorizontalStepper = (props) => {
                                                 onClick={handleNext}
                                                 className={classes.button}
                                             >
-                                                <Typography  variant={'small-body'} color={'white'}>{nextButtonLabel ? nextButtonLabel : 'Next'} </Typography>
+                                                <Typography  variant={'small-body'} color={'white'}>{nextButtonLabel ? nextButtonLabel : copy.INDEX.TYPOGRAPHY.TEXT[5]} </Typography>
                                             </Button>      
                                         </div>               
                                     </Col>
@@ -307,5 +314,12 @@ const HorizontalStepper = (props) => {
 
 }
 
+function mapStateToProps(state){
+    return {
+        profile : state.profile,
+        ln: state.language
+    };
+}
 
-export default HorizontalStepper;
+
+export default connect(mapStateToProps)(HorizontalStepper);

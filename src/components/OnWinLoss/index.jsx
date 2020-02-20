@@ -2,10 +2,12 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 
 import { Typography, ToggleButton, InputNumber } from "components";
+import { CopyText } from '../../copy';
+import { connect } from "react-redux";
 
 import "./index.css";
 
-export default class OnWinLoss extends Component {
+class OnWinLoss extends Component {
     static propTypes = {
         title: PropTypes.string.isRequired,
         onChange: PropTypes.func.isRequired,
@@ -48,6 +50,8 @@ export default class OnWinLoss extends Component {
     render() {
         const { title } = this.props;
         const { side, value } = this.state;
+        const {ln} = this.props;
+const copy = CopyText.onWinLossIndex[ln];
 
         return (
             <div>
@@ -57,8 +61,8 @@ export default class OnWinLoss extends Component {
                 <div styleName="container">
                     <ToggleButton
                         config={{
-                        left: { value: "reset", title: "Reset" },
-                        right: { value: "increase", title: "Increase by " }
+                        left: { value: "reset", title: copy.INDEX.TOGGLE_BUTTON.TITLE[0] },
+                        right: { value: "increase", title: copy.INDEX.TOGGLE_BUTTON.TITLE[1]  }
                         }}
                         variant='x-small-body'
                         selected={side}
@@ -82,3 +86,12 @@ export default class OnWinLoss extends Component {
         );
     }
 }
+
+function mapStateToProps(state){
+    return {
+        profile : state.profile,
+        ln: state.language
+    };
+}
+
+export default connect(mapStateToProps)(OnWinLoss);

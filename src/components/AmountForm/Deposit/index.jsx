@@ -58,6 +58,8 @@ class AmountDepositForm extends Component {
         const { deposit } = this.props;
         const { currency } = deposit;
 
+        const {ln} = this.props;
+        const copy = CopyText.amountFormIndex[ln];
         return (
             <div>
                 <div style={{marginBottom : 20}}>
@@ -78,7 +80,9 @@ class AmountDepositForm extends Component {
                         </Col>
                     </Row>
                     <div styleName='text-info-deposit'>
-                            <Typography variant={'x-small-body'} color={'white'}>{`You only have ${currency.ownership} ${currency.ticker}`}</Typography>
+                            <Typography variant={'x-small-body'} color={'white'}>
+                                {copy.INDEX.TYPOGRAPHY.FUNC_TEXT[0]([currency.ownership, currency.ticker]) }
+                            </Typography>
                     </div>
                 </div>
                 <Row>

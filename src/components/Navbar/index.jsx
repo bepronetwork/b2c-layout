@@ -17,7 +17,7 @@ import { etherscanLinkID } from "../../lib/api/apiConfig";
 import { getAppCustomization, getApp } from "../../lib/helpers";
 import CurrencyDropDown from "../CurrencyDropDown";
 import { formatCurrency } from "../../utils/numberFormatation";
-
+import { CopyText } from '../../copy';
 
 function AddressConcat(string){
     return  `${string.substring(0, 6)}...${string.substring(string.length - 2)}`;
@@ -84,17 +84,20 @@ class Navbar extends Component {
 
 
     renderLoginOrRegister = () => {
+        const {ln} = this.props;
+        const copy = CopyText.navbarIndex[ln];
+
         return(
             <Row>
                 <Col>
                     <div styleName='buttons'>
                         <div styleName="login">
                             <SubtleButton onClick={this.handleClick} name="login">
-                            Login
+                            {copy.INDEX.SUBTLE_BUTTON.TEXT[0]}
                             </SubtleButton>
                         </div>
                         <Button size="x-small" onClick={this.handleClick} name="register">
-                            <Typography color="white">Register</Typography>
+                            <Typography color="white">{copy.INDEX.TYPOGRAPHY.TEXT[0]}</Typography>
                         </Button>
                     </div>
                 </Col>
@@ -108,6 +111,9 @@ class Navbar extends Component {
         let { currentBalance, difference, user } = this.state;
         var currencies = getApp().currencies;
         const { logo } = getAppCustomization();
+        const {ln} = this.props;
+const copy = CopyText.navbarIndex[ln]; 
+
         return (
                 <Row styleName="root">
                     <Col xs={3} md={3} lg={2}>
@@ -124,7 +130,7 @@ class Navbar extends Component {
                                             {(!currencies || _.isEmpty(currencies) || currencies.length < 0) ?
                                                 <div styleName="no-coin">
                                                     <Typography variant="x-small-body" color="grey">
-                                                        no currencies available
+                                                        {copy.INDEX.TYPOGRAPHY.TEXT[1]}
                                                     </Typography>
                                                 </div>
                                             :
@@ -146,7 +152,7 @@ class Navbar extends Component {
                                         <Col xs={0} md={6} lg={8}>
                                             <div styleName='button-deposit'>
                                                 <Button onClick={onCashier} size={'x-small'} theme={'default'}>
-                                                    <Typography color={'white'} variant={'small-body'}>Deposit</Typography>
+                                                    <Typography color={'white'} variant={'small-body'}>{copy.INDEX.TYPOGRAPHY.TEXT[2]}</Typography>
                                                 </Button>
                                             </div>
                                         </Col>
@@ -181,7 +187,8 @@ class Navbar extends Component {
 
 function mapStateToProps(state){
     return {
-        profile: state.profile
+        profile: state.profile,
+        ln: state.language
     };
 }
 

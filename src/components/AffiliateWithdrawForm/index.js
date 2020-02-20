@@ -6,6 +6,7 @@ import { connect } from "react-redux";
 import "./index.css";
 import store from "../../containers/App/store";
 import { setModal } from "../../redux/actions/modal";
+import { CopyText } from '../../copy';
 
 class AffiliateWithdrawForm extends Component {
     constructor(props) {
@@ -27,6 +28,8 @@ class AffiliateWithdrawForm extends Component {
     render() {
         const { modal } = this.props;
         const { tab } = this.state;
+        const {ln} = this.props;
+const copy = CopyText.affiliateWithdrawFormIndex[ln];
         if(!modal.AffiliateWithdrawForm){ return null };
 
         return (
@@ -36,7 +39,7 @@ class AffiliateWithdrawForm extends Component {
                     <Tabs
                         selected={tab}
                         options={[
-                        { value: "withdraw", label: "Withdraw" }
+                        { value: "withdraw", label: copy.INDEX.TABS.LABEL[0] }
                         ]}
                         onSelect={this.handleTabChange}
                     />
@@ -52,7 +55,8 @@ class AffiliateWithdrawForm extends Component {
 function mapStateToProps(state){
     return {
         profile : state.profile,
-        modal : state.modal
+        modal : state.modal,
+        ln: state.language
     };
 }
 
