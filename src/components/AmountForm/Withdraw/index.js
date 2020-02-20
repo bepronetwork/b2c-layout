@@ -106,7 +106,7 @@ class AmountWithdrawForm extends Component {
                 {addressInitialized 
                 ?
                 <div>
-                    <div style={{marginBottom : 20}}>
+                    <div styleName="box">
                         <Row>
                             <Col md={12}>
                                 <div style={{marginBottom : 20, marginTop : 10}}>

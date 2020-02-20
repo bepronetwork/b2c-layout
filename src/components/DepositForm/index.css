@@ -4,7 +4,7 @@
     padding: $spacing-16;
     background-color: $white;
     width: 166px;
-    margin: 0 auto;
+    margin: $spacing-20 auto;
     border-radius: 4px;
 }
   
@@ -17,12 +17,17 @@
 }
 
 .address {
-    margin: $spacing-36 $spacing-12;
     display: flex;
+
+    @include Breakpoint-mobileOnly {
+        width: 300px;
+        margin-left: $spacing-12;
+    }
 }
 
 .currency {
     display: flex;
+    margin-bottom: $spacing-20;
 }
 
 .currency > div {
@@ -46,7 +51,7 @@
 }
 
 .info {
-    margin: $spacing-20 0;
+    margin-top: $spacing-20;
     text-align: justify;
     width: 384px;
     background-color: $mirage;
@@ -54,7 +59,7 @@
     padding: $spacing-20;
 
     @include Breakpoint-mobileOnly {
-        margin: $spacing-20 $spacing-12;
+        margin: $spacing-20 $spacing-12 0 $spacing-12;
         width: 300px;
     }
 }
@@ -67,8 +72,8 @@
 
 .text-copy-container{
     border : none;
-    padding: $spacing-12 $spacing-20;
-    border-radius :  0 $border-radius $border-radius 0;
+    padding: $spacing-12 24px;
+    border-radius :  0 0 $border-radius 0;
     background-color: $light-background;
     width : inherit;
     height : 100%;
@@ -76,12 +81,12 @@
 }
 
 .link-text-container{
-    width : auto;
-    padding: $spacing-12 $spacing-20;
+    width : 303px;
+    padding: 14px $spacing-20;
     text-align : left;
     overflow: hidden;
     height: auto;
-    border-radius : $border-radius 0 0  $border-radius;
+    border-radius : 0 0 0  $border-radius;
     background-color : $white;
 }
 
@@ -89,3 +94,24 @@
     width: 30px;
     margin: $spacing-64 $spacing-12;
 }
+
+.copied {
+    position: absolute;
+
+    * {
+      opacity: 0;
+      animation: copied-animation 1s running;
+    }
+}
+
+@keyframes copied-animation {
+    0% {
+      opacity: 0;
+      transform: translateY(80%);
+    }
+  
+    50% {
+      opacity: 1;
+      transform: translateY(50%) scale(1.2);
+    }
+  }

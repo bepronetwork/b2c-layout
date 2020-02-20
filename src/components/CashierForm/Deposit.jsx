@@ -48,7 +48,7 @@ const copy = CopyText.cashierFormDeposit[ln];
                                 },
                                 {
                                     label : copy.DEPOSIT.HORIZONTAL_STEPPER.LABEL[1],
-                                    title : copy.DEPOSIT.HORIZONTAL_STEPPER.TITLE[1],
+                                    title : copy.DEPOSIT.HORIZONTAL_STEPPER.TITLE[1] + currency.ticker,
                                     condition : (currency != ''),
                                     content : <DepositForm/>,
                                     last : true,
