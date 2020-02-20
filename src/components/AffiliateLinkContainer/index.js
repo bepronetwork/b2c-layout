@@ -47,12 +47,11 @@ class AffiliateLinkContainer extends React.Component{
                 <div styleName='content'>
                     <div styleName={'text-description'}>
                         <Typography variant={'body'} color={`white`}>
-                            {copy.INDEX.TYPOGRAPHY.FUNC_TEXT[0](info.name)} //ffffffffff
+                            {copy.INDEX.TYPOGRAPHY.FUNC_TEXT[0](info.name)}
                         </Typography>
                         <div styleName='subtitle-text'>
                             <Typography variant={'x-small-body'} color={`grey`}>
                             {copy.INDEX.TYPOGRAPHY.FUNC_TEXT[1](percentageOnLevelOne*100)}
-                            //ffffffffff
                             </Typography>
                         </div>
                     </div>

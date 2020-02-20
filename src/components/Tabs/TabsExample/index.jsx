@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import Tabs from "..";
 
-//ffffffffff
 const options = [
   {
     value: "register",

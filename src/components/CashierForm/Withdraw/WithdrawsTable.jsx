@@ -74,7 +74,6 @@ const fromDatabasetoTable = (data) => {
     return res;
 }
 
-//ffffffffff
 const rows = [
     {
         id: 'amount',
@@ -410,10 +409,10 @@ class WithdrawTable extends React.Component {
                     rowsPerPage={rowsPerPage}
                     page={page}
                     backIconButtonProps={{
-                        'aria-label': 'Previous Page', //ffffffffff
+                        'aria-label': 'Previous Page',
                     }}
                     nextIconButtonProps={{
-                        'aria-label': 'Next Page', //ffffffffff
+                        'aria-label': 'Next Page',
                     }}
                     onChangePage={this.handleChangePage}
                     onChangeRowsPerPage={this.handleChangeRowsPerPage}

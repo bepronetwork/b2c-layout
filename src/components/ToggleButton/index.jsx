@@ -99,7 +99,7 @@ export default class ToggleButton extends Component {
                     </Typography>
                 : 
                     <Typography weight="body" color="casper" variant="small-body">
-                         {right.title} soon  //ffffffffff
+                         {right.title} soon
                     </Typography>
                 }
             </button>

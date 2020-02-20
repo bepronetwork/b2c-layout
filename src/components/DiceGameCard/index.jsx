@@ -274,7 +274,7 @@ const copy = CopyText.diceGameCardIndex[ln];
                 <InputNumber
                     name="roll"
                     icon="rotate"
-                    title={`Roll ${startCase(rollType)}`}//ffffffffff
+                    title={`Roll ${startCase(rollType)}`}
                     precision={2}
                     disabled
                     step={0.5}

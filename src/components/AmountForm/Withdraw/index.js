@@ -143,7 +143,7 @@ class AmountWithdrawForm extends Component {
                         <div styleName='text-info-deposit'>
                             <Typography variant={'x-small-body'} color={'white'}>
                                 {copy.INDEX.TYPOGRAPHY.FUNC_TEXT[1]([maxWithdraw, ticker]) }
-                            </Typography> //ffffffffff
+                            </Typography>
                         </div>
                     </div>
                 </div>

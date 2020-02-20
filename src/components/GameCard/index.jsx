@@ -61,10 +61,10 @@ class GameCard extends Component {
                             <Typography variant="small-body" color="white">
                                 {edge >= 0 ? `${edge}% ${copy.EDGE_NAME}` : ""} 
                                 <span>
-                                    <Typography variant="x-small-body" color="grey">Min: 0.01</Typography> //ffffffffff
+                                    <Typography variant="x-small-body" color="grey">Min: 0.01</Typography>
                                 </span>
                                 <span>
-                                    <Typography variant="x-small-body" color="grey">Max: {tableLimit}</Typography> //ffffffffff
+                                    <Typography variant="x-small-body" color="grey">Max: {tableLimit}</Typography>
                                 </span>
                             </Typography>
                         </div>

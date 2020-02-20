@@ -82,7 +82,7 @@ class AmountDepositForm extends Component {
                     <div styleName='text-info-deposit'>
                             <Typography variant={'x-small-body'} color={'white'}>
                                 {copy.INDEX.TYPOGRAPHY.FUNC_TEXT[0]([currency.ownership, currency.ticker]) }
-                            </Typography> //ffffffffff
+                            </Typography>
                     </div>
                 </div>
                 <Row>

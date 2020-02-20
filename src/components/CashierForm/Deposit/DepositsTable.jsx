@@ -75,7 +75,6 @@ const fromDatabasetoTable = (data) => {
     return res;
 }
 
-//ffffffffff
 const rows = [
     {
         id: 'amount',

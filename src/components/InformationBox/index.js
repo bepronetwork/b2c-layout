@@ -5,7 +5,6 @@ import { connect } from "react-redux";
 import './index.css';
 import CloseCircleIcon from 'mdi-react/CloseCircleIcon';
 
-//ffffffffff
 const copy = {
     'alert' : {
         title : 'You can´t Procceed!'

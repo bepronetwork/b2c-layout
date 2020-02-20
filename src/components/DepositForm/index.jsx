@@ -93,7 +93,7 @@ const copy = CopyText.depositFormIndex[ln];
                         </div>
                         <div styleName="info">
                             <Typography variant={'x-small-body'} color={`white`}>
-                                {copy.INDEX.TYPOGRAPHY.FUNC_TEXT[0]([deposit.currency.ticker, deposit.currency.ticker])} //ffffffffff
+                                {copy.INDEX.TYPOGRAPHY.FUNC_TEXT[0]([deposit.currency.ticker, deposit.currency.ticker])}
                                 <br/><br/>
                                 {copy.INDEX.TYPOGRAPHY.TEXT[0]}
                             </Typography>
