@@ -100,14 +100,14 @@ const copy = CopyText.authentication2FAModalIndex[ln];
         const { modal } = this.props;
         const { auth_2fa, error } = this.state;
         const {ln} = this.props;
-const copy = CopyText.authentication2FAModalIndex[ln];
+        const copy = CopyText.authentication2FAModalIndex[ln];
 
         if(!modal.Authentication2FAModal){ return null };
         return (    
             <Modal onClose={this.onClose}>
                 <div styleName="root" style={{ overflowY: 'auto', overflowX : 'hidden'}}>
                     <div >
-                        <Typography variant='h4' color={"grey"}> 2FA Authentication </Typography>
+                        <Typography variant='h4' color={"grey"}> copy.INDEX.TYPOGRAPHY.TEXT[0]</Typography>
                     </div>
                     <div styleName='root'>
                         <div styleName="content">
