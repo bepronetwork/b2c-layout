@@ -7,10 +7,10 @@ import "./index.css";
 import { getAppCustomization, getApp } from "../../lib/helpers";
 import {CopyText} from "../../copy";
 
-const footerStaticOutput = ({supportLinks, communityLinks}) => {
+const footerStaticOutput = ({props, supportLinks, communityLinks}) => {
     const { logo } = getAppCustomization();
     const info = getApp();
-    const {ln} = this.props;
+    const {ln} = props;
     const copy = CopyText.homepage[ln];
 
     return {
@@ -109,7 +109,8 @@ class Footer extends Component {
 
     render() {
         const { supportLinks, communityLinks } = this.state;
-        let footerInfo = footerStaticOutput({supportLinks, communityLinks});
+        const props = this.props;
+        let footerInfo = footerStaticOutput({props, supportLinks, communityLinks});
 
         return (
             <div styleName="container">
