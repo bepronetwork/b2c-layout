@@ -25,27 +25,6 @@
     }
 }
 
-
-
-.container {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-
-  @include Breakpoint-tabletAndAbove {
-    width: $content-width-desktop;
-
-    padding: 0 $spacing-20;
-    margin: 0 auto;
-  }
-
-  @include Breakpoint-mobileOnly {
-    width: 100%;
-    padding: 0 $spacing-8;
-    margin: 0 auto;
-  }
-}
-
 .image {
     /*width: 120px;*/
     height: 40px;
@@ -58,27 +37,23 @@
       }
 }
 
-.content {
-  display: flex;
-  flex-direction: row;
-
-  width: 100%;
-}
-
 .coin {
     position: fixed;
     margin: auto;
     display: flex;
     align-items: center;
     height: 30px;
-    width : 150px;
+    width : 146px;
     padding: 5px !important;
     border-radius: $spacing-4;
     cursor: default;
     top: 16px;
+    padding-left: 10px !important;
+    background-color: $mirage;
 
     @include Breakpoint-tabletOnly {
-        top: 26px;
+        width : 142px;
+        padding-top: $spacing-20 !important;
     }
 
     @include Breakpoint-mobileOnly {
@@ -132,30 +107,6 @@
 
 .no-coin{
     padding-top: $spacing-8;
-}
-
-.diff-won {
-    position: absolute;
-    top: 60%;
-    left: 10%;
-    * {
-      color: $green;
-      opacity: 0;
-
-      animation: won-animation 1s running;
-    }
-}
-
-.diff-lost {
-    position: absolute;
-    top: 60%;
-    left: 10%;
-    * {
-        color: $red;
-        opacity: 0;
-
-        animation: lost-animation 1s running;
-}
 }
 
 @keyframes lost-animation {
@@ -221,16 +172,6 @@
     width : 30px;
 }
 
-.address-box{
-    margin: auto;
-    margin-top : -6px !important;
-    display: flex;
-    text-align: center;
-    width: fit-content;
-    position: relative;
-}
-
-
 .logo-image{
     text-align: center;
     width: fit-content;
@@ -268,6 +209,7 @@
     display: flex;
     flex-direction: row;
     align-items: center;
+    padding-top: 4px;
 
     @include Breakpoint-mobileOnly {
         /*display: none;*/
