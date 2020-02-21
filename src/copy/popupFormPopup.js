@@ -1,8 +1,18 @@
 
-    const popupFormPopupCopy = {
-        'en' : {"POPUP":{}},
-        'ko' : {"POPUP":{}},
-        'ch' : {"POPUP":{}},
-        'jp' : {"POPUP":{}}
-    }
+    const popupFormPopupCopy =
+    {
+  "en": {
+    "POPUP": {}
+  },
+  "ko": {
+    "POPUP": {}
+  },
+  "ch": {
+    "POPUP": {}
+  },
+  "jp": {
+    "POPUP": {}
+  }
+}
     export default popupFormPopupCopy;
+    
