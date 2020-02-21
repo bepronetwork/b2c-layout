@@ -43,6 +43,9 @@
     color : $text-secondary-color;
 
     @include Breakpoint-mobileOnly {
-      margin-top : 2px;
+      padding-top: 4px;
+      padding-left: 20px;
+      float: none;
+      display: block;
   }
 }

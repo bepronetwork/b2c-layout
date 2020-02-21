@@ -57,8 +57,8 @@
     }
 
     @include Breakpoint-mobileOnly {
-        margin-top: 0px !important;
-        width: 110px;
+        padding: 0px !important;
+        width: 116px;
         top: 16px;
     }
 
