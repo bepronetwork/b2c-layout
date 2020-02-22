@@ -97,19 +97,11 @@ class DepositForm extends Component {
                             </div>
                             <div>
                                 <Typography variant={'x-small-body'} color={`white`}>
-                                    Scan the QR code and transfer {deposit.currency.ticker} to it, 
-                                    only deposit {deposit.currency.ticker} in this address. 
+                                    {copy.INDEX.TYPOGRAPHY.FUNC_TEXT[0]([deposit.currency.ticker, deposit.currency.ticker])}
                                     <br/><br/>
-                                    Never send other currencies, we are not responsible for any mistake. 
+                                    {copy.INDEX.TYPOGRAPHY.TEXT[0]}
                                 </Typography>
                             </div>
-                        </div>
-                        <div styleName="info">
-                            <Typography variant={'x-small-body'} color={`white`}>
-                                {copy.INDEX.TYPOGRAPHY.FUNC_TEXT[0]([deposit.currency.ticker, deposit.currency.ticker])}
-                                <br/><br/>
-                                {copy.INDEX.TYPOGRAPHY.TEXT[0]}
-                            </Typography>
                         </div>
                         <div styleName="qrcode">
                             <QRCode value={address} />

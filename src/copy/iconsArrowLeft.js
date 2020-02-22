@@ -1,8 +1,18 @@
 
-    const iconsArrowLeftCopy = {
-        'en' : {"ARROWLEFT":{}},
-        'ko' : {"ARROWLEFT":{}},
-        'ch' : {"ARROWLEFT":{}},
-        'jp' : {"ARROWLEFT":{}}
-    }
+    const iconsArrowLeftCopy =
+    {
+  "en": {
+    "ARROWLEFT": {}
+  },
+  "ko": {
+    "ARROWLEFT": {}
+  },
+  "ch": {
+    "ARROWLEFT": {}
+  },
+  "jp": {
+    "ARROWLEFT": {}
+  }
+}
     export default iconsArrowLeftCopy;
+    

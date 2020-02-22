@@ -1,8 +1,18 @@
 
-    const currencyDropDownIndexCopy = {
-        'en' : {"INDEX":{}},
-        'ko' : {"INDEX":{}},
-        'ch' : {"INDEX":{}},
-        'jp' : {"INDEX":{}}
-    }
+    const currencyDropDownIndexCopy =
+    {
+  "en": {
+    "INDEX": {}
+  },
+  "ko": {
+    "INDEX": {}
+  },
+  "ch": {
+    "INDEX": {}
+  },
+  "jp": {
+    "INDEX": {}
+  }
+}
     export default currencyDropDownIndexCopy;
+    
