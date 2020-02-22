@@ -106,6 +106,7 @@ $with-without-padding: calc(100% - $spacing-20 - $spacing-20);
 
     @include Breakpoint-mobileOnly {
       height: 45%;
+      display: none;
     }
 }
 

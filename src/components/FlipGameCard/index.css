@@ -204,6 +204,10 @@ $values-height: 92px;
   overflow-y : auto;
   overflow-x : hidden;
   position : absolute;
+
+  @include Breakpoint-mobileOnly {
+    display: none;
+  }
 }
 
 .inner-popular-numbers{

@@ -108,6 +108,7 @@ $with-without-padding: calc(100% - $spacing-20 - $spacing-20);
 
     @include Breakpoint-mobileOnly {
         margin-top: -50px !important;
+        display: none;
     }
 }
 
