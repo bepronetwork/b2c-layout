@@ -105,6 +105,10 @@
   width: 100%;
 
   overflow: hidden;
+
+  @include Breakpoint-mobileOnly {
+    display: none;
+  }
 }
 
 .sound {
