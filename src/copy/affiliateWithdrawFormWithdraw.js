@@ -1,8 +1,61 @@
 
-    const affiliateWithdrawFormWithdrawCopy = {
-        'en' : {"WITHDRAW":{"HORIZONTAL_STEPPER":{"LABEL":["Choose","Withdraw"],"TITLE":["Choose the Currency you want to withdraw to","Withdraw"]}}},
-        'ko' : {"WITHDRAW":{"HORIZONTAL_STEPPER":{"LABEL":["Not Translated","출금"],"TITLE":["Not Translated","출금"]}}},
-        'ch' : {"WITHDRAW":{"HORIZONTAL_STEPPER":{"LABEL":["Not Translated","提币"],"TITLE":["Not Translated","提币"]}}},
-        'jp' : {"WITHDRAW":{"HORIZONTAL_STEPPER":{"LABEL":["Not Translated","Not Translated"],"TITLE":["Not Translated","Not Translated"]}}}
+    const affiliateWithdrawFormWithdrawCopy =
+    {
+  "en": {
+    "WITHDRAW": {
+      "HORIZONTAL_STEPPER": {
+        "LABEL": [
+          "Choose",
+          "Withdraw"
+        ],
+        "TITLE": [
+          "Choose the Currency you want to withdraw to",
+          "Withdraw"
+        ]
+      }
     }
+  },
+  "ko": {
+    "WITHDRAW": {
+      "HORIZONTAL_STEPPER": {
+        "LABEL": [
+          "선택",
+          "출금"
+        ],
+        "TITLE": [
+          "출금 할 토큰을 선택하세요.",
+          "출금"
+        ]
+      }
+    }
+  },
+  "ch": {
+    "WITHDRAW": {
+      "HORIZONTAL_STEPPER": {
+        "LABEL": [
+          "选择",
+          "提币"
+        ],
+        "TITLE": [
+          "选择您要提取的货币",
+          "提币"
+        ]
+      }
+    }
+  },
+  "jp": {
+    "WITHDRAW": {
+      "HORIZONTAL_STEPPER": {
+        "LABEL": [
+          "Choose",
+          "Withdraw"
+        ],
+        "TITLE": [
+          "Choose the Currency you want to withdraw to",
+          "Withdraw"
+        ]
+      }
+    }
+  }
+}
     export default affiliateWithdrawFormWithdrawCopy;

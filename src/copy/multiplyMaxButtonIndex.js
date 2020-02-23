@@ -1,8 +1,42 @@
 
-    const multiplyMaxButtonIndexCopy = {
-        'en' : {"INDEX":{"TYPOGRAPHY":{"TEXT":["max"]}}},
-        'ko' : {"INDEX":{"TYPOGRAPHY":{"TEXT":["Not Translated"]}}},
-        'ch' : {"INDEX":{"TYPOGRAPHY":{"TEXT":["Not Translated"]}}},
-        'jp' : {"INDEX":{"TYPOGRAPHY":{"TEXT":["Not Translated"]}}}
+    const multiplyMaxButtonIndexCopy =
+    {
+  "en": {
+    "INDEX": {
+      "TYPOGRAPHY": {
+        "TEXT": [
+          "max"
+        ]
+      }
     }
+  },
+  "ko": {
+    "INDEX": {
+      "TYPOGRAPHY": {
+        "TEXT": [
+          "max"
+        ]
+      }
+    }
+  },
+  "ch": {
+    "INDEX": {
+      "TYPOGRAPHY": {
+        "TEXT": [
+          "max"
+        ]
+      }
+    }
+  },
+  "jp": {
+    "INDEX": {
+      "TYPOGRAPHY": {
+        "TEXT": [
+          "max"
+        ]
+      }
+    }
+  }
+}
     export default multiplyMaxButtonIndexCopy;
+    

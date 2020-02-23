@@ -1,8 +1,18 @@
 
-    const plinkoGameCardWallCopy = {
-        'en' : {"WALL":{}},
-        'ko' : {"WALL":{}},
-        'ch' : {"WALL":{}},
-        'jp' : {"WALL":{}}
-    }
+    const plinkoGameCardWallCopy =
+    {
+  "en": {
+    "WALL": {}
+  },
+  "ko": {
+    "WALL": {}
+  },
+  "ch": {
+    "WALL": {}
+  },
+  "jp": {
+    "WALL": {}
+  }
+}
     export default plinkoGameCardWallCopy;
+    

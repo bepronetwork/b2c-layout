@@ -69,7 +69,7 @@ async function generateNavBarName(){
 }
 
 async function generateFavIcon(){
-    /* Get Logo */
+    /* Get Favicon */
     const { id } =  appInfo.customization.topIcon;
     let blob = await image2base64(id) // you can also to use url
     /* If Exists Save */
@@ -83,6 +83,14 @@ async function generateLogo(){
     let blob = await image2base64(id) // you can also to use url
     /* If Exists Save */
     fs.writeFileSync("public/logo.png", blob, 'base64');
+}
+
+async function generateLogo(){
+    /* Get Loading Gif */
+    const { id } =  appInfo.customization.loadingGif;
+    let blob = await image2base64(id) // you can also to use url
+    /* If Exists Save */
+    fs.writeFileSync("public/loading.gif", blob, 'base64');
 }
 
 async function setColors(){
