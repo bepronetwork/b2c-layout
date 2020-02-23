@@ -95,13 +95,11 @@ class DepositForm extends Component {
                                     </Typography>
                                 </div>
                             </div>
-                            <div>
-                                <Typography variant={'x-small-body'} color={`white`}>
-                                    {copy.INDEX.TYPOGRAPHY.FUNC_TEXT[0]([deposit.currency.ticker, deposit.currency.ticker])}
-                                    <br/><br/>
-                                    {copy.INDEX.TYPOGRAPHY.TEXT[0]}
-                                </Typography>
-                            </div>
+                            <Typography variant={'x-small-body'} color={`white`}>
+                                {copy.INDEX.TYPOGRAPHY.FUNC_TEXT[0]([deposit.currency.ticker, deposit.currency.ticker])}
+                                <br/><br/>
+                                {copy.INDEX.TYPOGRAPHY.TEXT[0]}
+                            </Typography>
                         </div>
                         <div styleName="qrcode">
                             <QRCode value={address} />

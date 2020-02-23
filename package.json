@@ -65,6 +65,7 @@
     "postcss-simple-vars": "^5.0.2",
     "precss": "^4.0.0",
     "prop-types": "^15.7.2",
+    "pusher-js": "^5.1.1",
     "qrcode.react": "^1.0.0",
     "query-string": "^6.8.3",
     "randomhex": "^0.1.5",

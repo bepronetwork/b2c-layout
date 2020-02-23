@@ -43,12 +43,8 @@ class Withdraw extends Component {
     async projectData(props){
         const { profile } = props;
         try{
-            let allowedAmount = await profile.getApprovedWithdrawAsync();
             const { wallet : userBalance } = profile.getAffiliateInfo();
-            let ownedDAI = parseFloat(await profile.getTokenAmount());
-            let maxWithdrawal = await profile.getContract().getMaxWithdrawal();  
-
-            this.setState({...this.state, ownedDAI, userBalance, maxWithdrawal, allowedAmount});
+            this.setState({...this.state, userBalance});
         }catch(err){
             this.setState({...this.state})
         }
@@ -63,7 +59,7 @@ class Withdraw extends Component {
         const { withdraw } = this.props;
         const { currency, nextStep, tx } = withdraw;
         const {ln} = this.props;
-const copy = CopyText.affiliateWithdrawFormWithdraw[ln];
+        const copy = CopyText.affiliateWithdrawFormWithdraw[ln];
 
         return (
             <div styleName='root'>
