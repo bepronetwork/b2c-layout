@@ -13,6 +13,10 @@ $with-without-padding: calc(100% - $spacing-20 - $spacing-20);
     padding: $spacing-20;
   
     background-color: $background-main-table;
+
+    @include Breakpoint-mobileOnly {
+      padding: 0;
+    }
   }
   
 

@@ -25,7 +25,7 @@ $values-height: 92px;
   justify-content: center;
 
   @include Breakpoint-mobileOnly {
-    margin-top : 50px;
+    
   }
 
 }

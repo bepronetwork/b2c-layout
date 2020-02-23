@@ -51,6 +51,7 @@
     height: 100%;
     max-width: 350px;
     margin: 0 auto;
+    box-shadow: unset;
   }
 }
 
@@ -119,8 +120,20 @@
     padding-right: $spacing-64;
   }
 
+  @include Breakpoint-mobileOnly {
+    padding: $spacing-8;
+  }
+
+
+
   button {
     margin: 0 0 0 auto;
+
+    div {
+      @include Breakpoint-mobileOnly {
+        margin-top: 0;
+      }
+    }
   }
 }
 
