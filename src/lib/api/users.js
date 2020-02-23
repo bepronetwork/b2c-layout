@@ -101,6 +101,23 @@ export async function login2FA({ username, password, token }) {
     }
 }
 
+export async function askResetPassword(username_or_email) {
+    try {
+        const response = await axios.post(`${apiUrl}/api/users/password/reset/ask`, {
+            username_or_email
+        });
+
+        if (response.data.data.status !== 200) {
+            return response.data.data;
+        }
+        
+        return response;
+
+    } catch (error) {
+        return handleError(error);
+    }
+}
+
 export async function getCurrentUser() {
     try {
         return JSON.parse(localStorage.getItem("user"));

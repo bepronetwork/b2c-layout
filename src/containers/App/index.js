@@ -3,6 +3,7 @@ import { Router, Switch, Route } from "react-router-dom";
 import { createBrowserHistory } from "history";
 import { find } from "lodash";
 import HomePage from "containers/HomePage";
+import ResetPassword from "containers/ResetPassword";
 import {
     Navbar,
     Modal,
@@ -290,7 +291,7 @@ class App extends Component {
                 </div>
 
                 {registerLoginModalOpen === "login" ? (
-                    <LoginForm onSubmit={has2FA ? this.handleLogin2FA : this.handleLogin} error={error} has2FA={has2FA}/>
+                    <LoginForm onSubmit={has2FA ? this.handleLogin2FA : this.handleLogin} error={error} has2FA={has2FA} onClose={this.handleRegisterLoginModalClose}/>
                 ) : (
                     <RegisterForm onSubmit={this.handleRegister} error={error} />
                 )}
@@ -465,6 +466,17 @@ class App extends Component {
                                         />
 
                                         {this.renderGamePages({history})}
+
+                                        <Route
+                                            exact
+                                            path="/password/reset"
+                                            render={props => (
+                                                <ResetPassword
+                                                    {...props}
+                                                />
+                                        
+                                            )}
+                                        /> 
                                     </Switch>
                                     </div>
                                 </div>

@@ -22,7 +22,7 @@
 }
 
 .error {
-  margin-top: $spacing-8;
+  margin: $spacing-8;
 }
 
 .tkn_logo_login{
@@ -32,4 +32,42 @@
 
 .disabled {
   opacity : 0.5;
+}
+
+.forgot {
+  margin-top: $spacing-20;
+  width: 100%;
+  text-align: center;
+}
+
+.reset-password {
+  margin: $spacing-36 0;
+  background-color: $mirage;
+  padding: $spacing-20;
+  border-radius: 4px;
+  width: 450px;
+
+  @include Breakpoint-mobileOnly {
+    width : 100%;
+  }
+}
+
+.reset-password-title {
+  display: flex;
+  padding: $spacing-12;
+}
+
+.reset-password-left {
+  flex: 0 0 35%;
+  text-align: center;
+}
+
+.reset-password-right {
+  flex: 1;
+  margin: auto;
+  text-align: left;
+}
+
+.box {
+  text-align: center;
 }
