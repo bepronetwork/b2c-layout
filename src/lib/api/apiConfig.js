@@ -16,3 +16,4 @@ export const etherscanLinkID =  (ethNetwork.toLowerCase() == 'mainnet') ? `https
 
 export const MIN_WITHDRAWAL = 0.001;
 
+export const PUSHER_API_KEY = process.env.REACT_APP_PUSHER_APP_KEY;
