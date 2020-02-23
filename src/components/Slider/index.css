@@ -24,6 +24,10 @@ $handle: 32px;
   border: solid $spacing-12 $background-table-1-outer;
 
   border-radius: $spacing-28;
+
+  @include Breakpoint-mobileOnly {
+    width: 100%;
+  }
 }
 
 .slider-container {

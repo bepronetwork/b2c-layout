@@ -175,7 +175,6 @@
   max-width: 750px;
 
   @include Breakpoint-mobileOnly {
-    margin-top : 30px;
     grid-area: unset;
     left: 10%;
   }
