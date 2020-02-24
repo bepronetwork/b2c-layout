@@ -3,6 +3,7 @@ import { Router, Switch, Route } from "react-router-dom";
 import { createBrowserHistory } from "history";
 import { find } from "lodash";
 import HomePage from "containers/HomePage";
+import ResetPassword from "containers/ResetPassword";
 import {
     Navbar,
     Modal,
@@ -125,11 +126,18 @@ class App extends Component {
         cashierOpen: null,
         error: null,
         isLoading : true,
-        has2FA : false
+        has2FA : false,
+        resetPasswordOpen : null,
+        resetPasswordParams : null,
+        resetPasswordMode : null
     };
 
     handleRegisterLoginModalClose = () => {
         this.setState({ registerLoginModalOpen: null, error: null, has2FA: false });
+    };
+
+    handleResetPasswordModalClose = async () => {
+        this.setState({ resetPasswordOpen: null });
     };
 
     handleCashierModalClose = async () => {
@@ -148,6 +156,10 @@ class App extends Component {
 
     handleLoginOrRegisterOpen = tab => {
         this.setState({ registerLoginModalOpen: tab, has2FA: false, error: null });
+    };
+
+    handleResetPasswordOpen = ({params, mode}) => {
+        this.setState({ resetPasswordOpen: true, resetPasswordParams : params, resetPasswordMode : mode });
     };
 
     handleCashierOpen = () => {
@@ -290,10 +302,32 @@ class App extends Component {
                 </div>
 
                 {registerLoginModalOpen === "login" ? (
-                    <LoginForm onSubmit={has2FA ? this.handleLogin2FA : this.handleLogin} error={error} has2FA={has2FA}/>
+                    <LoginForm onSubmit={has2FA ? this.handleLogin2FA : this.handleLogin} error={error} has2FA={has2FA} onClose={this.handleRegisterLoginModalClose} onHandleResetPassword={this.handleResetPasswordOpen}/>
                 ) : (
                     <RegisterForm onSubmit={this.handleRegister} error={error} />
                 )}
+                </div>
+            </Modal>
+        ) : null;
+    };
+
+    renderResetPasswordModal = () => {
+        const {ln} = this.props;
+        const copy = CopyText.homepage[ln];
+        const { resetPasswordOpen, resetPasswordParams, resetPasswordMode } = this.state;
+
+        return resetPasswordOpen ? (
+            <Modal onClose={this.handleResetPasswordModalClose}>
+                <div styleName="modal">
+                    <div styleName="tabs">
+                        <Tabs
+                        selected='login'
+                        options={[
+                            { value: "login", label: copy.CONTAINERS.APP.MODAL[1] }
+                        ]}
+                        />
+                    </div>
+                    <ResetPassword params={resetPasswordParams} mode={resetPasswordMode}/>
                 </div>
             </Modal>
         ) : null;
@@ -433,6 +467,7 @@ class App extends Component {
                                 onCashier={this.handleCashierOpen}
                             />
                             {this.renderLoginRegisterModal()}
+                            {this.renderResetPasswordModal()}
                             {this.renderCashierModal()}
                             <Authentication2FAModal/>
                             <AffiliateWithdrawForm/>
@@ -464,7 +499,22 @@ class App extends Component {
                                             render={props => <AccountPage {...props} />}
                                         />
 
+                                        <Route
+                                            exact
+                                            path="/password/reset"
+                                            render={props => (
+                                                <HomePage
+                                                    {...props}
+                                                    onHandleResetPassword={this.handleResetPasswordOpen}
+                                                />
+                                        
+                                            )}
+                                        /> 
+
+                                        {/* New routes need to be add here, before renderGamePages */}
+
                                         {this.renderGamePages({history})}
+
                                     </Switch>
                                     </div>
                                 </div>

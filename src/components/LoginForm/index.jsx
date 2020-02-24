@@ -5,11 +5,14 @@ import "./index.css";
 import { getAppCustomization } from "../../lib/helpers";
 import { CopyText } from '../../copy';
 import { connect } from "react-redux";
+
 class LoginForm extends Component {
     static propTypes = {
         onSubmit: PropTypes.func.isRequired,
         error: PropTypes.number,
-        has2FA: PropTypes.bool
+        has2FA: PropTypes.bool,
+        error: PropTypes.string,
+        onClose: PropTypes.func
     };
 
     static defaultProps = {
@@ -31,6 +34,12 @@ class LoginForm extends Component {
         if (onSubmit && this.formIsValid()) onSubmit(this.state);
     };
 
+    resetPasswordClick = () => {
+        const { onClose, onHandleResetPassword } = this.props;
+        onClose();
+        onHandleResetPassword({ mode: "reset" });
+    };
+
     on2FATokenChange = event => {
         this.setState({ token: event.target.value });
     };
@@ -41,6 +50,10 @@ class LoginForm extends Component {
 
     onPasswordChange = event => {
         this.setState({ password: event.target.value });
+    };
+
+    onUserChange = event => {
+        this.setState({ username_or_email: event.target.value });
     };
 
     formIsValid = () => {
@@ -54,7 +67,7 @@ class LoginForm extends Component {
         const { username, password } = this.state;
         const { has2FA } = this.props;
         const {ln} = this.props;
-const copy = CopyText.loginFormIndex[ln];
+        const copy = CopyText.loginFormIndex[ln];
 
         return (
             <div styleName={has2FA ? "disabled" : null}>
@@ -83,7 +96,7 @@ const copy = CopyText.loginFormIndex[ln];
         const { has2FA } = this.props;
         const { token } = this.state;
         const {ln} = this.props;
-const copy = CopyText.loginFormIndex[ln];
+        const copy = CopyText.loginFormIndex[ln];
 
         if (!has2FA) { return null };
 
@@ -108,11 +121,31 @@ const copy = CopyText.loginFormIndex[ln];
         );
     }
 
+    renderError(error) {
+        const {ln} = this.props;
+        const copy = CopyText.loginFormIndex[ln];
+
+        return (
+            <div styleName="error">
+                {error && error !== 37 ? (
+                    <Typography color="red" variant="small-body" weight="semi-bold">
+                    {error === 4 || error === 55
+                        ? copy.INDEX.TYPOGRAPHY.TEXT[1]
+                        : 
+                        error === 36 
+                            ? copy.INDEX.TYPOGRAPHY.TEXT[2]
+                            : copy.INDEX.TYPOGRAPHY.TEXT[3]}
+                    </Typography>
+                ) : null}
+            </div>
+        )
+    }
+
     render() {
         const { error, has2FA } = this.props;
         const { logo } = getAppCustomization();
         const {ln} = this.props;
-const copy = CopyText.loginFormIndex[ln];
+        const copy = CopyText.loginFormIndex[ln];
 
         return (
             <form onSubmit={this.handleSubmit}>
@@ -144,6 +177,14 @@ const copy = CopyText.loginFormIndex[ln];
                 >
                     <Typography color="white">{copy.INDEX.TYPOGRAPHY.TEXT[4]}</Typography>
                 </Button>
+                </div>
+
+                <div styleName="forgot">
+                    <a href="#" onClick={this.resetPasswordClick}>
+                        <Typography color="casper" variant="small-body">
+                            {copy.INDEX.TYPOGRAPHY.TEXT[5]}
+                        </Typography>
+                    </a>
                 </div>
             </form>
         );

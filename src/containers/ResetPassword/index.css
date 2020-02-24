@@ -1,0 +1,66 @@
+@import "../../styles/all.css";
+
+.root {
+  text-align: center;
+}
+
+.container {
+  justify-content: center;
+
+  grid-column-gap: $spacing-28;
+  grid-row-gap: $spacing-28;
+
+  grid-template-columns: repeat(3, 290px);
+
+  @include Breakpoint-tabletOnly {
+    grid-template-columns: 1fr;
+  }
+
+  @include Breakpoint-mobileOnly {
+    grid-template-columns: 1fr;
+  }
+}
+
+.error {
+  margin: $spacing-8;
+}
+
+.container-small{
+    margin-top : 40px;
+}
+
+.username {
+  margin: $spacing-28 0 $spacing-16 0;
+}
+
+.reset-password {
+  margin: $spacing-28 0;
+  background-color: $mirage;
+  padding: $spacing-4 $spacing-20 $spacing-20 $spacing-20;
+  border-radius: 4px;
+  width: 450px;
+
+  @include Breakpoint-mobileOnly {
+    width : 100%;
+  }
+}
+
+.reset-password-title {
+  display: flex;
+  padding: $spacing-12;
+}
+
+.reset-password-left {
+  flex: 0 0 35%;
+  text-align: center;
+}
+
+.reset-password-right {
+  flex: 1;
+  margin: auto;
+  text-align: left;
+}
+
+.box {
+  text-align: center;
+}

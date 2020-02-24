@@ -7,7 +7,9 @@
         "LABEL": [
           "Username",
           "Password",
-          "Your 2FA Code"
+          "Your 2FA Code",
+          "User",
+          "Confirm Password"
         ],
         "PLACEHOLDER": [
           "6 digit code"
@@ -19,7 +21,11 @@
           "User not found",
           "2FA Key is Wrong",
           "Please provide a valid password",
-          "Sign In"
+          "Sign In",
+          "Forgot your password?",
+          "Reset E-mail Password",
+          "Reset Password",
+          "Send"
         ]
       }
     }
@@ -30,7 +36,9 @@
         "LABEL": [
           "사용자명",
           "비밀번호",
-          "2FA 코드"
+          "2FA 코드",
+          "User",
+          "Confirm Password"
         ],
         "PLACEHOLDER": [
           "6 자리 코드"
@@ -42,7 +50,11 @@
           "사용자를 찾을 수 없습니다",
           "2FA 키가 잘못되었습니다",
           "유효한 비밀번호를 입력해 주세요.",
-          "등록"
+          "등록",
+          "Forgot your password?",
+          "Reset E-mail Password",
+          "Reset Password",
+          "Send"
         ]
       }
     }
@@ -53,7 +65,9 @@
         "LABEL": [
           "用户名",
           "密码",
-          "2FA代码"
+          "2FA代码",
+          "User",
+          "Confirm Password"
         ],
         "PLACEHOLDER": [
           "6位代码"
@@ -65,7 +79,11 @@
           "找不到用户",
           "2FA密钥错误",
           "请提供一个有效的密码",
-          "注册"
+          "注册",
+          "Forgot your password?",
+          "Reset E-mail Password",
+          "Reset Password",
+          "Send"
         ]
       }
     }
@@ -76,7 +94,9 @@
         "LABEL": [
           "Username",
           "Password",
-          "Your 2FA Code"
+          "Your 2FA Code",
+          "User",
+          "Confirm Password"
         ],
         "PLACEHOLDER": [
           "6 digit code"
@@ -88,7 +108,11 @@
           "User not found",
           "2FA Key is Wrong",
           "Please provide a valid password",
-          "Sign In"
+          "Sign In",
+          "Forgot your password?",
+          "Reset E-mail Password",
+          "Reset Password",
+          "Send"
         ]
       }
     }
