@@ -137,7 +137,7 @@ class App extends Component {
     };
 
     handleResetPasswordModalClose = async () => {
-        this.setState({ resetPasswordOpen: null });
+        this.setState({ resetPasswordOpen: null, resetPasswordParams: null, resetPasswordMode: null });
     };
 
     handleCashierModalClose = async () => {
@@ -327,7 +327,7 @@ class App extends Component {
                         ]}
                         />
                     </div>
-                    <ResetPassword params={resetPasswordParams} mode={resetPasswordMode}/>
+                    <ResetPassword params={resetPasswordParams} mode={resetPasswordMode} onClose={this.handleResetPasswordModalClose}/>
                 </div>
             </Modal>
         ) : null;
