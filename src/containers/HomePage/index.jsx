@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import queryString from 'query-string'
 import { find } from "lodash";
 import { GameCard, CoinFlip, Roulette, Caroussel, Media } from "components";
 import PropTypes from "prop-types";
@@ -13,7 +14,15 @@ export default class HomePage extends Component {
     static contextType = UserContext;
 
     static propTypes = {
-        onHandleLoginOrRegister: PropTypes.func.isRequired
+        onHandleLoginOrRegister: PropTypes.func.isRequired,
+        onHandleResetPassword: PropTypes.func
+    };
+
+    componentDidMount = () => {
+        const { onHandleResetPassword } = this.props;
+        const params = queryString.parse(this.props.location.search);
+
+        if (onHandleResetPassword) return onHandleResetPassword({ params, mode : "new"});
     };
 
     renderPlayNow = () => {

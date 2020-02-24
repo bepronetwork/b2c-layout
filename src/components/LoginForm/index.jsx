@@ -5,31 +5,25 @@ import "./index.css";
 import { getAppCustomization } from "../../lib/helpers";
 import { CopyText } from '../../copy';
 import { connect } from "react-redux";
-import { askResetPassword } from "../../lib/api/users";
-import email from 'assets/email.png';
-import handleError from "../../lib/api/handleError";
+
 class LoginForm extends Component {
     static propTypes = {
         onSubmit: PropTypes.func.isRequired,
         error: PropTypes.number,
         has2FA: PropTypes.bool,
-        showResetPasswordBox: PropTypes.bool,
         error: PropTypes.string,
         onClose: PropTypes.func
     };
 
     static defaultProps = {
         error: null,
-        has2FA: false,
-        showResetPasswordBox: false
+        has2FA: false
     };
 
     state = {
         username: "",
         password: "",
-        token: "",
-        username_or_email: "",
-        resetError: ""
+        token: ""
     };
 
     handleSubmit = event => {
@@ -40,28 +34,10 @@ class LoginForm extends Component {
         if (onSubmit && this.formIsValid()) onSubmit(this.state);
     };
 
-    handleResetPassword = async () => {
-        const { username_or_email } = this.state;
-        const { onClose } = this.props;
-        
-        try {
-            const response = await askResetPassword(username_or_email); 
-
-            if (response.status) {
-                this.setState({ resetError: response.status });
-            }
-            else {
-                onClose();
-            }
-            
-        } catch (error) {
-            handleError(error);
-            return false;
-        }
-    };
-
     resetPasswordClick = () => {
-        this.setState({ showResetPasswordBox : true });
+        const { onClose, onHandleResetPassword } = this.props;
+        onClose();
+        onHandleResetPassword({ mode: "reset" });
     };
 
     on2FATokenChange = event => {
@@ -145,37 +121,6 @@ class LoginForm extends Component {
         );
     }
 
-    renderResetPassword() {
-        const { username_or_email } = this.state;
-        const {ln} = this.props;
-        const copy = CopyText.loginFormIndex[ln];
-
-        return (
-            <div>
-                <div styleName="reset-password">
-                    <div styleName="reset-password-title">
-                        <div styleName="reset-password-left">
-                            <img src={email} width="30"/>
-                        </div>
-                        <div styleName="reset-password-right">
-                            <Typography color="white" variant="small-body">
-                                {copy.INDEX.TYPOGRAPHY.TEXT[6]}
-                            </Typography>
-                        </div>
-                    </div>
-                    <div styleName="username">
-                        <InputText
-                            name="username_or_email"
-                            label= {copy.INDEX.INPUT_TEXT.LABEL[3]}
-                            onChange={this.onUserChange}
-                            value={username_or_email}
-                        />
-                    </div>
-                </div>
-            </div>
-        );
-    }
-
     renderError(error) {
         const {ln} = this.props;
         const copy = CopyText.loginFormIndex[ln];
@@ -198,55 +143,50 @@ class LoginForm extends Component {
 
     render() {
         const { error, has2FA } = this.props;
-        const { showResetPasswordBox, resetError } = this.state;
         const { logo } = getAppCustomization();
         const {ln} = this.props;
         const copy = CopyText.loginFormIndex[ln];
 
         return (
-            <div>
-                {showResetPasswordBox 
-                    ?
-                    <div styleName="box">
-                        {this.renderResetPassword()}
+            <form onSubmit={this.handleSubmit}>
+                <img src={logo.id} styleName="tkn_logo_login"/>
+                
+                {this.renderStageOne()}
+                
+                {has2FA ? this.renderStageTwo() : null}
 
-                        {this.renderError(resetError)}
+                <div styleName="error">
+                {error && error !== 37 ? (
+                    <Typography color="red" variant="small-body" weight="semi-bold">
+                    {error === 4
+                        ? copy.INDEX.TYPOGRAPHY.TEXT[1]
+                        : 
+                        error === 36 
+                            ? copy.INDEX.TYPOGRAPHY.TEXT[2]
+                            : copy.INDEX.TYPOGRAPHY.TEXT[3]}
+                    </Typography>
+                ) : null}
+                </div>
 
-                        <Button
-                            size="medium"
-                            theme="primary"
-                            onClick={this.handleResetPassword.bind(this)}>
-                            <Typography color="white">{copy.INDEX.TYPOGRAPHY.TEXT[7]}</Typography>
-                        </Button>
-                    </div>
-                    :
-                    <form onSubmit={showResetPasswordBox ? this.handleResetPassword : this.handleSubmit}>
-                        <img src={logo.id} styleName="tkn_logo_login"/>
+                <div styleName="button">
+                <Button
+                    size="medium"
+                    theme="primary"
+                    disabled={!this.formIsValid()}
+                    type="submit"
+                >
+                    <Typography color="white">{copy.INDEX.TYPOGRAPHY.TEXT[4]}</Typography>
+                </Button>
+                </div>
 
-                        {this.renderStageOne()}
-                        
-                        {has2FA ? this.renderStageTwo() : null}
-
-                        {this.renderError(error)}
-
-                        <Button
-                            size="medium"
-                            theme="primary"
-                            disabled={!this.formIsValid()}
-                            type="submit">
-                            <Typography color="white">{copy.INDEX.TYPOGRAPHY.TEXT[4]}</Typography>
-                        </Button>
-
-                        <div styleName="forgot">
-                            <a href="#" onClick={this.resetPasswordClick}>
-                                <Typography color="casper" variant="small-body">
-                                    {copy.INDEX.TYPOGRAPHY.TEXT[5]}
-                                </Typography>
-                            </a>
-                        </div>
-                    </form>
-                }
-            </div>
+                <div styleName="forgot">
+                    <a href="#" onClick={this.resetPasswordClick}>
+                        <Typography color="casper" variant="small-body">
+                            {copy.INDEX.TYPOGRAPHY.TEXT[5]}
+                        </Typography>
+                    </a>
+                </div>
+            </form>
         );
     }
 }

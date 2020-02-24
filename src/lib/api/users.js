@@ -118,6 +118,25 @@ export async function askResetPassword(username_or_email) {
     }
 }
 
+export async function setNewPassword(user_id, token, password) {
+    try {
+        const response = await axios.post(`${apiUrl}/api/users/password/reset/set`, {
+            user_id,
+            token,
+            password
+        });
+
+        if (response.data.data.status !== 200) {
+            return response.data.data;
+        }
+        
+        return response;
+
+    } catch (error) {
+        return handleError(error);
+    }
+}
+
 export async function getCurrentUser() {
     try {
         return JSON.parse(localStorage.getItem("user"));

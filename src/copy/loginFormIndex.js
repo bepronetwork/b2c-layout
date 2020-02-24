@@ -8,7 +8,8 @@
           "Username",
           "Password",
           "Your 2FA Code",
-          "Username or E-mail"
+          "User",
+          "Confirm Password"
         ],
         "PLACEHOLDER": [
           "6 digit code"
@@ -23,7 +24,8 @@
           "Sign In",
           "Forgot your password?",
           "Reset E-mail Password",
-          "Reset Password"
+          "Reset Password",
+          "Send"
         ]
       }
     }
@@ -35,7 +37,8 @@
           "사용자명",
           "비밀번호",
           "2FA 코드",
-          "Username or E-mail"
+          "User",
+          "Confirm Password"
         ],
         "PLACEHOLDER": [
           "6 자리 코드"
@@ -50,7 +53,8 @@
           "등록",
           "Forgot your password?",
           "Reset E-mail Password",
-          "Reset Password"
+          "Reset Password",
+          "Send"
         ]
       }
     }
@@ -62,7 +66,8 @@
           "用户名",
           "密码",
           "2FA代码",
-          "Username or E-mail"
+          "User",
+          "Confirm Password"
         ],
         "PLACEHOLDER": [
           "6位代码"
@@ -77,7 +82,8 @@
           "注册",
           "Forgot your password?",
           "Reset E-mail Password",
-          "Reset Password"
+          "Reset Password",
+          "Send"
         ]
       }
     }
@@ -89,7 +95,8 @@
           "Username",
           "Password",
           "Your 2FA Code",
-          "Username or E-mail"
+          "User",
+          "Confirm Password"
         ],
         "PLACEHOLDER": [
           "6 digit code"
@@ -104,7 +111,8 @@
           "Sign In",
           "Forgot your password?",
           "Reset E-mail Password",
-          "Reset Password"
+          "Reset Password",
+          "Send"
         ]
       }
     }

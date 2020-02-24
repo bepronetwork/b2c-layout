@@ -21,14 +21,46 @@
   }
 }
 
-.coin {
-  background-color: $tree-poppy;
-
-  border-radius: 50%;
-
-  box-shadow: inset 0 0 15px color($red alpha(50%));
+.error {
+  margin: $spacing-8;
 }
 
 .container-small{
     margin-top : 40px;
+}
+
+.username {
+  margin: $spacing-28 0 $spacing-16 0;
+}
+
+.reset-password {
+  margin: $spacing-28 0;
+  background-color: $mirage;
+  padding: $spacing-4 $spacing-20 $spacing-20 $spacing-20;
+  border-radius: 4px;
+  width: 450px;
+
+  @include Breakpoint-mobileOnly {
+    width : 100%;
+  }
+}
+
+.reset-password-title {
+  display: flex;
+  padding: $spacing-12;
+}
+
+.reset-password-left {
+  flex: 0 0 35%;
+  text-align: center;
+}
+
+.reset-password-right {
+  flex: 1;
+  margin: auto;
+  text-align: left;
+}
+
+.box {
+  text-align: center;
 }
