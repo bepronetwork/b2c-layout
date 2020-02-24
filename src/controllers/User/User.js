@@ -71,9 +71,12 @@ export default class User {
             console.log(err)
         }
     }
+    getPusherAPIKey = () => {
+        return this.integrations ? this.integrations.pusher.key : '';
+    }
 
     listenAppPrivateChannel = () => {
-        this.pusher = new Pusher(PUSHER_API_KEY, 
+        this.pusher = new Pusher(this.getPusherAPIKey(), 
         { 
             cluster : 'eu',
             forceTLS: true,
