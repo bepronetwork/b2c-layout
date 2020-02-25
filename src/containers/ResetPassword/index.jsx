@@ -142,17 +142,19 @@ class ResetPassword extends Component {
                                             <div styleName="username">
                                                 <InputText
                                                     name="password"
+                                                    type="password"
                                                     label= {copy.INDEX.INPUT_TEXT.LABEL[1]}
                                                     onChange={this.onPasswordChange}
                                                     value={password}
                                                 />
                                             </div>
                                             <div styleName="username">
-                                            <InputText
-                                            name="confirmPassword"
-                                            label= {copy.INDEX.INPUT_TEXT.LABEL[4]}
-                                            onChange={this.onConfirmPasswordChange}
-                                            value={confirmPassword}
+                                                <InputText
+                                                    name="confirmPassword"
+                                                    type="password"
+                                                    label= {copy.INDEX.INPUT_TEXT.LABEL[4]}
+                                                    onChange={this.onConfirmPasswordChange}
+                                                    value={confirmPassword}
                                                 />
                                         </div>
                                         </div>
