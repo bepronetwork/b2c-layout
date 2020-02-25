@@ -73,6 +73,10 @@
   border-radius: $spacing-12;
 
   transition: margin 100ms linear;
+
+  @include Breakpoint-mobileOnly {
+    width: 430px;
+  }
 }
 
 .image-container:hover {

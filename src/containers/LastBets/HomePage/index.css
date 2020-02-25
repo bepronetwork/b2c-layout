@@ -20,10 +20,23 @@
 }
 
 .bets-dropdown{
-    margin-top : -20px;
+    margin-top : -2px;
+
+    @include Breakpoint-tabletOnly {
+        margin-top: 10px;
+    }
+
+    @include Breakpoint-mobileOnly {
+        margin-top: 6px;
+    }
 }
 
 .bets-dropdown-game{
-    margin-top : -20px;
+    margin-top : -2px;
     width: 180px;
+
+    @include Breakpoint-tabletOnly {
+        margin-top: 10px;
+        width: 120px;
+    }
 }

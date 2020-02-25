@@ -10,6 +10,7 @@ import { set2FA } from "../../redux/actions/set2FA";
 import info from 'assets/info.png';
 import _ from 'lodash';
 import "./index.css";
+import { CopyText } from '../../copy';
 
 class Authentication2FAModal extends Component {
     constructor(props) {
@@ -37,11 +38,13 @@ class Authentication2FAModal extends Component {
         const { profile } = this.props;
         const { auth_2fa } = this.state;
         const secret = auth_2fa.secret;
+        const {ln} = this.props;
+const copy = CopyText.authentication2FAModalIndex[ln];
 
         try {
             let verified = Security2FASingleton.isVerifiedToken2FA( { secret, token } );
             if (!verified) { 
-                const error = "Token is Wrong";
+                const error = copy.INDEX.ERROR.ERROR[0];
                 this.setState({...this.state,
                     error
                 }) 
@@ -56,7 +59,7 @@ class Authentication2FAModal extends Component {
                 await store.dispatch(set2FA({isActive : true}));
             }
             else {
-                const error = "Token is Wrong";
+                const error = copy.INDEX.ERROR.ERROR[1];
                 this.setState({...this.state,
                     error
                 }) 
@@ -96,12 +99,15 @@ class Authentication2FAModal extends Component {
     render() {
         const { modal } = this.props;
         const { auth_2fa, error } = this.state;
+        const {ln} = this.props;
+        const copy = CopyText.authentication2FAModalIndex[ln];
+
         if(!modal.Authentication2FAModal){ return null };
         return (    
             <Modal onClose={this.onClose}>
                 <div styleName="root" style={{ overflowY: 'auto', overflowX : 'hidden'}}>
                     <div >
-                        <Typography variant='h4' color={"grey"}> 2FA Authentication </Typography>
+                        <Typography variant='h4' color={"grey"}> {copy.INDEX.TYPOGRAPHY.TEXT[0]}</Typography>
                     </div>
                     <div styleName='root'>
                         <div styleName="content">
@@ -112,15 +118,15 @@ class Authentication2FAModal extends Component {
                                 showStepper={false}
                                 steps={[
                                     {
-                                        label : "Scan",
-                                        title : 'Install Google Authenticator and Scan the Below QR Code',
+                                        label : copy.INDEX.HORIZONTAL_STEPPER.LABEL[0],
+                                        title : copy.INDEX.HORIZONTAL_STEPPER.TITLE[0],
                                         first : true,
                                         condition : true,
                                         content : <div styleName="qrcode"><QRCode value={auth_2fa.uri} /></div>
                                     },
                                     {
-                                        label : "Code",
-                                        title : 'Insert the Code that Appears in the Auth App',
+                                        label : copy.INDEX.HORIZONTAL_STEPPER.LABEL[1],
+                                        title : copy.INDEX.HORIZONTAL_STEPPER.TITLE[1],
                                         condition : true,
                                         content : <div styleName="token2FA"><Input2FA secret={`secret`} confirm={this.set2FAAuthenticator}/></div>,
                                         last : true,
@@ -141,7 +147,8 @@ function mapStateToProps(state){
     return {
         profile : state.profile,
         modal : state.modal,
-        set2FA : state.set2FA
+        set2FA : state.set2FA,
+        ln: state.language
     };
 }
 

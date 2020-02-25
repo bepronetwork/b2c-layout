@@ -8,6 +8,7 @@ import {
     WithdrawForm
 } from 'components';
 import _ from 'lodash';
+import { CopyText } from '../../copy';
 
 const defaultProps = {
     amount : 1,
@@ -44,6 +45,8 @@ class Withdraw extends Component {
         const { withdraw } = this.props;
         const { userBalance } = this.state;
         const { currency, nextStep, amount, tx, _id, toAddress } = withdraw;
+        const {ln} = this.props;
+const copy = CopyText.cashierFormWithdraw[ln];
 
         return (
             <div styleName='root'>
@@ -54,21 +57,21 @@ class Withdraw extends Component {
                             nextStep={nextStep}
                             steps={[
                                 {
-                                    label : "Choose",
-                                    title : 'Choose the Currency you want to withdraw to',
+                                    label : copy.WITHDRAW.HORIZONTAL_STEPPER.LABEL[0],
+                                    title : copy.WITHDRAW.HORIZONTAL_STEPPER.TITLE[0],
                                     condition : (!_.isEmpty(currency)),
                                     content : <CurrencyWithdrawForm/>
                                 },
                                 {
-                                    label : "Amount",
-                                    title : 'How much you want to withdraw?',
+                                    label : copy.WITHDRAW.HORIZONTAL_STEPPER.LABEL[1],
+                                    title : copy.WITHDRAW.HORIZONTAL_STEPPER.TITLE[1],
                                     condition : ( (amount >= 0.0001)  && (amount <= parseFloat(userBalance) && toAddress) ),
                                     nextButtonLabel : "Submit",
                                     content : <AmountWithdrawForm/>
                                 },
                                 {
-                                    label : "Withdraw",
-                                    title : 'Withdraw',
+                                    label : copy.WITHDRAW.HORIZONTAL_STEPPER.LABEL[2],
+                                    title : copy.WITHDRAW.HORIZONTAL_STEPPER.TITLE[2],
                                     condition : (_id && (_id != ('' || null))),
                                     content : <WithdrawForm closeStepper={this.closeDeposit}/>,
                                     last : true,

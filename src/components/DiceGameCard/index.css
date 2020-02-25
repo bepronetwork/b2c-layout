@@ -23,6 +23,11 @@ $with-without-padding: calc(100% - $spacing-20 - $spacing-20);
   align-items: center;
 
   width: 100%;
+
+  @include Breakpoint-mobileOnly {
+    margin: auto;
+  }
+
 }
 
 .slider-container {
@@ -89,7 +94,7 @@ $with-without-padding: calc(100% - $spacing-20 - $spacing-20);
 .outer-popular-numbers{
     width : 120px;
     border : 2px solid $dark-table-color;
-    height: 30%;
+    height: 32%;
     background-color : $popular-numbers-container;
     left : 10px;
     border-radius : 5px;
@@ -100,7 +105,8 @@ $with-without-padding: calc(100% - $spacing-20 - $spacing-20);
     position : absolute;
 
     @include Breakpoint-mobileOnly {
-        margin-top: -50px !important;
+      height: 45%;
+      display: none;
     }
 }
 

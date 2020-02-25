@@ -6,6 +6,8 @@ import { compose } from 'lodash/fp'
 import _ from 'lodash';
 
 import "./index.css";
+import {CopyText} from "../../copy";
+
 
 class PopupForm extends Component {
     constructor(props) {
@@ -26,7 +28,8 @@ class PopupForm extends Component {
         let hasNotification = !_.isEmpty(this.props.popup);
         if(!hasNotification){return null};
         let notificationArray = _.isArray(this.props.popup) ? this.props.popup : [this.props.popup];
-
+        const {ln} = this.props;
+const copy = CopyText.popupFormIndex[ln];
         return (
             <div styleName="popup-container">
                 <div styleName="popup-wrapper">

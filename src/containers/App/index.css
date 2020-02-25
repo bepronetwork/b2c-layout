@@ -59,6 +59,11 @@
 
 .top-bars{
     margin-top: 60px;
+
+    @include Breakpoint-mobileOnly {
+        width: 460px;
+
+    }
 }
 
 .modal {

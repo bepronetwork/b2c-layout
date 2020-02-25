@@ -124,6 +124,7 @@ class ChatPage extends React.Component {
     render() {
         const { ln } = this.props;
         const copy = CopyText.shared[ln];
+        const copy2 = CopyText.homepage[ln];
         return (
             <div styleName="root">
                     <div styleName="container">
@@ -188,7 +189,7 @@ class ChatPage extends React.Component {
                                                 styleName="button"
                                             >
                                                 <Typography variant="small-body" color="white">
-                                                    Send
+                                                    {copy2.CONTAINERS.CHAT.TYPOGRAPHY[0]}
                                                 </Typography>
                                             </button>
                                         </Col>

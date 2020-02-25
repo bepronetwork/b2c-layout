@@ -1,5 +1,4 @@
-
-
+import { compose } from 'lodash/fp';
 import React from 'react';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
@@ -26,7 +25,10 @@ import { etherscanLinkID } from '../../../lib/api/apiConfig';
 import { CopyText } from '../../../copy';
 import { Row, Col } from 'reactstrap';
 import { fromSmartContractTimeToMinutes } from '../../../lib/helpers';
+import { connect } from "react-redux";
+
 let counter = 0;
+let propsGlobal = null;
 
 
 function desc(a, b, orderBy) {
@@ -74,7 +76,6 @@ const fromDatabasetoTable = (data) => {
     return res;
 }
 
-
 const rows = [
     {
         id: 'amount',
@@ -112,7 +113,9 @@ class EnhancedTableHead extends React.Component {
 
     render() {
         const { onSelectAllClick, order, orderBy, numSelected, rowCount } = this.props;
-
+        const {ln} = propsGlobal;
+        console.log(ln)
+        const copy = CopyText.cashierFormWithdrawsTable[ln];
         return (
             <TableHead>
                 <TableRow style={{backgroundColor : '#0a031b'}}>
@@ -124,10 +127,10 @@ class EnhancedTableHead extends React.Component {
                         padding={row.disablePadding ? 'none' : 'default'}
                         sortDirection={orderBy === row.id ? order : false}
                         size={row.size}
-                        style={{borderBottom: '10px solid #192c38', paddingLeft: 40, paddingTop: 7, paddingBottom: 7, paddingRight: 0}}
+                        style={{borderBottom: '1px solid #192c38', paddingLeft: 40, paddingTop: 7, paddingBottom: 7, paddingRight: 0}}
                     >
                         <Tooltip
-                        title="Sort"
+                        title={copy.WITHDRAWSTABLE.TOOLTIP.TITLE[0]}
                         placement={row.numeric ? 'bottom-end' : 'bottom-start'}
                         enterDelay={300}
                         >
@@ -272,6 +275,7 @@ class WithdrawTable extends React.Component {
             rowsPerPage: 5,
             ...defaultProps
         };
+        propsGlobal = props;
     }
 
 
@@ -358,22 +362,22 @@ class WithdrawTable extends React.Component {
                                     key={n.id}
                                     selected={isSelected}
                                 >
-                                    <StyledTableCell  style={{width: 130, borderBottom: '10px solid #192c38', paddingLeft: 40}} align="left">
+                                    <StyledTableCell  style={{width: 130, borderBottom: '1px solid #192c38', paddingLeft: 40}} align="left">
                                         <Typography variant={'small-body'} color='white'>
                                             {n.amount} {this.props.currency}
                                         </Typography>
                                     </StyledTableCell>
-                                    <StyledTableCell style={{width: 130, borderBottom: '10px solid #192c38', paddingLeft: 20}} align="left">
+                                    <StyledTableCell style={{width: 130, borderBottom: '1px solid #192c38', paddingLeft: 20}} align="left">
                                         <div styleName={withdrawStatus[n.confirmed.toLowerCase()]}>
                                             <Typography variant={'small-body'} color='white'>
                                                 {n.confirmed}
                                             </Typography>
                                         </div>
                                     </StyledTableCell>
-                                    <StyledTableCell style={{width: 130, borderBottom: '10px solid #192c38', paddingLeft: 30}} align="left">
+                                    <StyledTableCell style={{width: 130, borderBottom: '1px solid #192c38', paddingLeft: 30}} align="left">
                                         <Typography color={'white'} variant={'small-body'}> {n.done ? 'Done' : 'Unconfirmed'} </Typography>
                                     </StyledTableCell>
-                                    <StyledTableCell style={{width: 130, borderBottom: '10px solid #192c38', paddingLeft: 30}} align="left">
+                                    <StyledTableCell style={{width: 130, borderBottom: '1px solid #192c38', paddingLeft: 30}} align="left">
                                         {n.transactionHash ?
                                             <a href={`${etherscanLinkID}/tx/${n.transactionHash}`} target={'_blank'}>
                                                 <Typography variant={'small-body'} color='white'>
@@ -385,7 +389,7 @@ class WithdrawTable extends React.Component {
                                         }
 
                                     </StyledTableCell>
-                                    <StyledTableCell style={{borderBottom: '10px solid #192c38', paddingLeft: 30}} align="left">
+                                    <StyledTableCell style={{borderBottom: '1px solid #192c38', paddingLeft: 30}} align="left">
                                         <Typography variant={'small-body'} color='white'>
                                             {n.creation_date}
                                         </Typography>
@@ -428,4 +432,14 @@ WithdrawTable.propTypes = {
     classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(WithdrawTable);
+function mapStateToProps(state){
+    return {
+        deposit : state.deposit,
+        profile : state.profile,
+        ln : state.language
+    };
+}
+
+export default compose(connect(mapStateToProps))( withStyles(styles)(WithdrawTable) );
+
+// export default withStyles(styles)(  compose(connect(mapStateToProps))(WithdrawTable) );

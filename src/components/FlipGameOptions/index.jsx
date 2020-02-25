@@ -17,8 +17,12 @@ import "./index.css";
 import { Numbers } from "../../lib/ethereum/lib";
 import _ from 'lodash';
 import { isUserSet } from "../../lib/helpers";
+import { formatCurrency } from "../../utils/numberFormatation";
+import { CopyText } from '../../copy';
 
-export default class FlipGameOptions extends Component {
+import { connect } from "react-redux";
+
+class FlipGameOptions extends Component {
     static contextType = UserContext;
 
     static propTypes = {
@@ -174,25 +178,26 @@ export default class FlipGameOptions extends Component {
 
     renderAuto = () => {
         const { bets, profitStop, lossStop, onWin, onLoss } = this.state;
-
+        const {ln} = this.props;
+const copy = CopyText.flipGameOptionsIndex[ln];
         return (
         <div>
             <div styleName="element">
                 <InputNumber
                     name="bets"
                     min={1}
-                    title="Number of Bets"
+                    title={copy.INDEX.INPUT_NUMBER.TITLE[0]}
                     value={bets}
                     onChange={this.handleBets}
                 />
             </div>
             <div styleName="element">
-                <OnWinLoss value={onWin} title="On Win" onChange={this.handleOnWin} />
+                <OnWinLoss value={onWin} title={copy.INDEX.ON_WIN_LOSS.TITLE[0]} onChange={this.handleOnWin} />
             </div>
             <div styleName="element">
                 <OnWinLoss
                     value={onLoss}
-                    title="On Loss"
+                    title={copy.INDEX.ON_WIN_LOSS.TITLE[1]}
                     onChange={this.handleOnLoss}
                 />
             </div>
@@ -200,7 +205,7 @@ export default class FlipGameOptions extends Component {
                 <InputNumber
                     name="profit"
                     step={0.01}
-                    title="Stop on Profit"
+                    title={copy.INDEX.INPUT_NUMBER.TITLE[1]}
                     icon="bitcoin"
                     precision={2}
                     value={profitStop}
@@ -212,7 +217,7 @@ export default class FlipGameOptions extends Component {
                     name="loss"
                     step={0.01}
                     precision={2}
-                    title="Stop on Loss"
+                    title={copy.INDEX.INPUT_NUMBER.TITLE[2]}
                     icon="bitcoin"
                     value={lossStop}
                     onChange={this.handleStopOnLoss}
@@ -226,16 +231,18 @@ export default class FlipGameOptions extends Component {
         const { betAmount } = this.state;
         let winEdge = (100-(this.state.edge))/100;
         let winAmount = betAmount * winEdge;
+        const {ln} = this.props;
+const copy = CopyText.flipGameOptionsIndex[ln];
         return (
         <div>
             <div styleName="element">
             <InputNumber
                 name="win-profit"
-                title="Profit on Win"
+                title={copy.INDEX.INPUT_NUMBER.TITLE[3]}
                 icon="bitcoin"
                 precision={2}
                 disabled
-                value={winAmount}
+                value={formatCurrency(winAmount)}
             />
             </div>
         </div>
@@ -269,6 +276,8 @@ export default class FlipGameOptions extends Component {
         const { type, betAmount, side, isAutoBetting } = this.state;
         const { isCoinSpinning, onBetTrigger } = this.props;
         const user = this.props.profile;
+        const {ln} = this.props;
+const copy = CopyText.flipGameOptionsIndex[ln];
 
         return (
         <div styleName="root">
@@ -276,8 +285,8 @@ export default class FlipGameOptions extends Component {
             <div styleName="toggle">
             <ToggleButton
                 config={{
-                left: { value: "manual", title: "Manual" },
-                right: { value: "auto", title: "Auto"}
+                left: { value: "manual", title: copy.INDEX.TOGGLE_BUTTON.TITLE[0] },
+                right: { value: "auto", title: copy.INDEX.TOGGLE_BUTTON.TITLE[1]}
                 }}
                 selected={type}
                 size="full"
@@ -287,7 +296,7 @@ export default class FlipGameOptions extends Component {
             </div>
             <div styleName="amount">
             <Typography variant="small-body" weight="semi-bold" color="casper">
-                Bet Amount
+                {copy.INDEX.TYPOGRAPHY.TEXT[0]}
             </Typography>
             <div styleName="amount-container">
                 <InputNumber
@@ -309,7 +318,7 @@ export default class FlipGameOptions extends Component {
             <div styleName="side">
             <div styleName="label">
                 <Typography variant="small-body" weight="semi-bold" color="casper">
-                Choose Side
+                    {copy.INDEX.TYPOGRAPHY.TEXT[1]}
                 </Typography>
             </div>
             <ToggleButton
@@ -332,7 +341,7 @@ export default class FlipGameOptions extends Component {
                 animation={<Dice />}
             >
                 <Typography weight="semi-bold" color="pickled-bluewood">
-                {type === "manual" ? "Bet" : "Start AutoBet"}
+                {type === "manual" ? copy.INDEX.TYPOGRAPHY.TEXT[2] : copy.INDEX.TYPOGRAPHY.TEXT[3]}
                 </Typography>
             </Button>
             </div>
@@ -340,3 +349,13 @@ export default class FlipGameOptions extends Component {
         );
     }
 }
+
+
+function mapStateToProps(state){
+    return {
+        profile : state.profile,
+        ln: state.language
+    };
+}
+
+export default connect(mapStateToProps)(FlipGameOptions);

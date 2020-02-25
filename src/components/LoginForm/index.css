@@ -22,7 +22,7 @@
 }
 
 .error {
-  margin-top: $spacing-8;
+  margin: $spacing-8;
 }
 
 .tkn_logo_login{
@@ -32,4 +32,10 @@
 
 .disabled {
   opacity : 0.5;
+}
+
+.forgot {
+  margin-top: $spacing-20;
+  width: 100%;
+  text-align: center;
 }

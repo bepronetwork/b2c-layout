@@ -8,10 +8,11 @@ import "./index.css";
 import { MenuItem } from '@material-ui/core';
 import languages from "../../config/languages";
 import PropTypes from "prop-types";
-
+import { formatCurrency } from '../../utils/numberFormatation';
 import "./index.css"
 import { setCurrencyView } from "../../redux/actions/currency";
 import { getApp } from "../../lib/helpers";
+import { CopyText } from '../../copy';
 
 const defaultProps = {
     currencies : [],
@@ -84,7 +85,7 @@ class CurrencyDropDown extends React.Component {
                                 <div styleName={'currency-box-top'}>
                                     <img src={option.image} styleName='image-coin'/> 
                                     <p styleName='option-text'>  
-                                        <AnimationNumber variant={'small-body'} decimals={4} number={option.balance.toFixed(6)}/>
+                                        <AnimationNumber variant={'small-body'} decimals={6} number={formatCurrency(option.balance)}/>
                                     </p>
                                 </div>
                             </MenuItem>

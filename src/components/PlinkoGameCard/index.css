@@ -1,6 +1,6 @@
 @import "../../styles/all.css";
 
-$values-height: 92px;
+$values-height: 22px;
 $with-without-padding: calc(100% - $spacing-20 - $spacing-20);
 
 .root {
@@ -13,6 +13,10 @@ $with-without-padding: calc(100% - $spacing-20 - $spacing-20);
     padding: $spacing-20;
   
     background-color: $background-main-table;
+
+    @include Breakpoint-mobileOnly {
+      padding: 0;
+    }
   }
   
 
@@ -108,6 +112,7 @@ $with-without-padding: calc(100% - $spacing-20 - $spacing-20);
 
     @include Breakpoint-mobileOnly {
         margin-top: -50px !important;
+        display: none;
     }
 }
 
@@ -129,6 +134,11 @@ $with-without-padding: calc(100% - $spacing-20 - $spacing-20);
   margin: auto 0;
   -webkit-box-pack: center;
   justify-content: center;
+
+  @include Breakpoint-tabletOnly {
+    width: 340px;
+    padding-left: 44px;
+  }
 }
 
 .pegs_wrapper {
@@ -252,6 +262,11 @@ $with-without-padding: calc(100% - $spacing-20 - $spacing-20);
     margin: auto;
     height: 30px;
     padding-top : 7px;
+
+    @include Breakpoint-tabletOnly {
+      width: 42px;
+    }
+
     @include Breakpoint-mobileOnly {
         order: 0;
         width: 30px;

@@ -3,12 +3,16 @@ import PropTypes from "prop-types";
 import { Button, Typography, InputText } from "components";
 import "./index.css";
 import { getAppCustomization } from "../../lib/helpers";
+import { CopyText } from '../../copy';
+import { connect } from "react-redux";
 
-export default class LoginForm extends Component {
+class LoginForm extends Component {
     static propTypes = {
         onSubmit: PropTypes.func.isRequired,
         error: PropTypes.number,
-        has2FA: PropTypes.bool
+        has2FA: PropTypes.bool,
+        error: PropTypes.string,
+        onClose: PropTypes.func
     };
 
     static defaultProps = {
@@ -30,6 +34,12 @@ export default class LoginForm extends Component {
         if (onSubmit && this.formIsValid()) onSubmit(this.state);
     };
 
+    resetPasswordClick = () => {
+        const { onClose, onHandleResetPassword } = this.props;
+        onClose();
+        onHandleResetPassword({ mode: "reset" });
+    };
+
     on2FATokenChange = event => {
         this.setState({ token: event.target.value });
     };
@@ -42,6 +52,10 @@ export default class LoginForm extends Component {
         this.setState({ password: event.target.value });
     };
 
+    onUserChange = event => {
+        this.setState({ username_or_email: event.target.value });
+    };
+
     formIsValid = () => {
         const { username, password, token } = this.state;
         const { has2FA } = this.props;
@@ -52,13 +66,15 @@ export default class LoginForm extends Component {
     renderStageOne() {
         const { username, password } = this.state;
         const { has2FA } = this.props;
+        const {ln} = this.props;
+        const copy = CopyText.loginFormIndex[ln];
 
         return (
             <div styleName={has2FA ? "disabled" : null}>
                 <div styleName="username">
                     <InputText
                         name="username"
-                        label="Username"
+                        label= {copy.INDEX.INPUT_TEXT.LABEL[0]}
                         onChange={this.onUsernameChange}
                         value={username}
                         disabled={has2FA}
@@ -66,7 +82,7 @@ export default class LoginForm extends Component {
                 </div>
                 <InputText
                     name="password"
-                    label="Password"
+                    label= {copy.INDEX.INPUT_TEXT.LABEL[1]}
                     type="password"
                     onChange={this.onPasswordChange}
                     value={password}
@@ -79,6 +95,8 @@ export default class LoginForm extends Component {
     renderStageTwo() {
         const { has2FA } = this.props;
         const { token } = this.state;
+        const {ln} = this.props;
+        const copy = CopyText.loginFormIndex[ln];
 
         if (!has2FA) { return null };
 
@@ -87,25 +105,47 @@ export default class LoginForm extends Component {
                 <div styleName="token2FA">
                     <InputText
                         name="token2fa"
-                        label="Your 2FA Code"
+                        label={copy.INDEX.INPUT_TEXT.LABEL[2]}
                         onChange={this.on2FATokenChange}
                         value={token}
                         maxlength="6"
-                        placeholder="6 digit code"
+                        placeholder={copy.INDEX.INPUT_TEXT.PLACEHOLDER[0]}
                     />
                 </div>
                 <div styleName="token2FA-info">
                     <Typography color={'grey'} variant={'small-body'}>
-                        Insert the 6 digit from your 2FA Key Management App
+                        {copy.INDEX.TYPOGRAPHY.TEXT[0]}
                     </Typography>
                 </div>
             </div>
         );
     }
 
+    renderError(error) {
+        const {ln} = this.props;
+        const copy = CopyText.loginFormIndex[ln];
+
+        return (
+            <div styleName="error">
+                {error && error !== 37 ? (
+                    <Typography color="red" variant="small-body" weight="semi-bold">
+                    {error === 4 || error === 55
+                        ? copy.INDEX.TYPOGRAPHY.TEXT[1]
+                        : 
+                        error === 36 
+                            ? copy.INDEX.TYPOGRAPHY.TEXT[2]
+                            : copy.INDEX.TYPOGRAPHY.TEXT[3]}
+                    </Typography>
+                ) : null}
+            </div>
+        )
+    }
+
     render() {
         const { error, has2FA } = this.props;
         const { logo } = getAppCustomization();
+        const {ln} = this.props;
+        const copy = CopyText.loginFormIndex[ln];
 
         return (
             <form onSubmit={this.handleSubmit}>
@@ -119,11 +159,11 @@ export default class LoginForm extends Component {
                 {error && error !== 37 ? (
                     <Typography color="red" variant="small-body" weight="semi-bold">
                     {error === 4
-                        ? "User not found"
+                        ? copy.INDEX.TYPOGRAPHY.TEXT[1]
                         : 
                         error === 36 
-                            ? "2FA Key is Wrong"
-                            : `Please provide a valid password`}
+                            ? copy.INDEX.TYPOGRAPHY.TEXT[2]
+                            : copy.INDEX.TYPOGRAPHY.TEXT[3]}
                     </Typography>
                 ) : null}
                 </div>
@@ -135,10 +175,27 @@ export default class LoginForm extends Component {
                     disabled={!this.formIsValid()}
                     type="submit"
                 >
-                    <Typography color="white">Sign In</Typography>
+                    <Typography color="white">{copy.INDEX.TYPOGRAPHY.TEXT[4]}</Typography>
                 </Button>
+                </div>
+
+                <div styleName="forgot">
+                    <a href="#" onClick={this.resetPasswordClick}>
+                        <Typography color="casper" variant="small-body">
+                            {copy.INDEX.TYPOGRAPHY.TEXT[5]}
+                        </Typography>
+                    </a>
                 </div>
             </form>
         );
     }
 }
+
+function mapStateToProps(state){
+    return {
+        profile : state.profile,
+        ln: state.language
+    };
+}
+
+export default connect(mapStateToProps)(LoginForm);

@@ -17,9 +17,10 @@ import { Numbers } from "../../lib/ethereum/lib";
 import delay from 'delay';
 import _ from 'lodash';
 import "./index.css";
+import { CopyText } from '../../copy';
+import { connect } from "react-redux";
 
-
-export default class PlinkoGameOptions extends Component {
+class PlinkoGameOptions extends Component {
 
     static contextType = UserContext;
 
@@ -207,25 +208,26 @@ export default class PlinkoGameOptions extends Component {
 
     renderAuto = () => {
         const { bets, profitStop, lossStop, onWin, onLoss } = this.state;
-
+        const {ln} = this.props;
+const copy = CopyText.plinkoGameOptionsIndex[ln];
         return (
             <div>
             <div styleName="element">
             <InputNumber
                 name="bets"
                 min={1}
-                title="Number of Bets"
+                title={copy.INDEX.INPUT_NUMBER.TITLE[0]}
                 value={bets}
                 onChange={this.handleBets}
             />
             </div>
             <div styleName="element">
-            <OnWinLoss value={onWin} title="On Win" onChange={this.handleOnWin} />
+            <OnWinLoss value={onWin} title={copy.INDEX.ON_WIN_LOSS.TITLE[0]} onChange={this.handleOnWin} />
             </div>
             <div styleName="element">
             <OnWinLoss
                 value={onLoss}
-                title="On Loss"
+                title={copy.INDEX.ON_WIN_LOSS.TITLE[1]}
                 onChange={this.handleOnLoss}
             />
             </div>
@@ -233,7 +235,7 @@ export default class PlinkoGameOptions extends Component {
             <InputNumber
                 name="profit"
                 step={0.01}
-                title="Stop on Profit"
+                title={copy.INDEX.INPUT_NUMBER.TITLE[1]}
                 icon="bitcoin"
                 precision={2}
                 value={profitStop}
@@ -245,7 +247,7 @@ export default class PlinkoGameOptions extends Component {
                 name="loss"
                 step={0.01}
                 precision={2}
-                title="Stop on Loss"
+                title={copy.INDEX.INPUT_NUMBER.TITLE[2]}
                 icon="bitcoin"
                 value={lossStop}
                 onChange={this.handleStopOnLoss}
@@ -259,6 +261,9 @@ export default class PlinkoGameOptions extends Component {
         const { profile } = this.props;
         const { amount } = this.state;
         let newAmount = amount;
+
+        if(_.isEmpty(profile)) { return null };
+        
         let balance = profile.getBalance();
 
         if (value === "max") {
@@ -283,14 +288,17 @@ export default class PlinkoGameOptions extends Component {
     render() {
         const { type, amount, isAutoBetting } = this.state;
         const user = this.props.profile;
+        const {ln} = this.props;
+const copy = CopyText.plinkoGameOptionsIndex[ln];
+
         return (
         <div styleName="root">
             {this.renderSound()}
             <div styleName="toggle">
             <ToggleButton
                 config={{
-                    left: { value: "manual", title: "Manual" },
-                    right: { value: "auto", title: "Auto", disabled : true}
+                    left: { value: "manual", title: copy.INDEX.TOGGLE_BUTTON.TITLE[0]},
+                    right: { value: "auto", title: copy.INDEX.TOGGLE_BUTTON.TITLE[1], disabled : true}
                 }}
                 selected={type}
                 size="full"
@@ -300,7 +308,7 @@ export default class PlinkoGameOptions extends Component {
             </div>
             <div styleName="amount">
                 <Typography variant="small-body" weight="semi-bold" color="casper">
-                    Bet Amount
+                    {copy.INDEX.TYPOGRAPHY.TEXT[0]}
                 </Typography>
                 <div styleName="amount-container">
                     <InputNumber
@@ -328,7 +336,7 @@ export default class PlinkoGameOptions extends Component {
                 animation={<Plinko />}
             >
                 <Typography weight="semi-bold" color="pickled-bluewood">
-                    {type === "manual" ? "Bet" : "Start AutoBet"  }
+                    {type === "manual" ? copy.INDEX.TYPOGRAPHY.TEXT[1]: copy.INDEX.TYPOGRAPHY.TEXT[2]  }
                 </Typography>
             </Button>
             </div>
@@ -336,3 +344,12 @@ export default class PlinkoGameOptions extends Component {
         );
     }
 }
+
+function mapStateToProps(state){
+    return {
+        profile : state.profile,
+        ln: state.language
+    };
+}
+
+export default connect(mapStateToProps)(PlinkoGameOptions);

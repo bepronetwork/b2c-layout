@@ -53,7 +53,8 @@
 
     @include Breakpoint-mobileOnly {
         height: 140px;
-        margin-top : 500%
+        margin-top : 500%;
+        display: none;
     }
 }
 
@@ -72,7 +73,7 @@
 .outer-popular-numbers{
     width : 120px;
     border : 2px solid $dark-table-color;
-    height: 40%;
+    height: 42%;
     background-color : $popular-numbers-container;
     left : 10px;
     border-radius : 5px;
@@ -81,6 +82,11 @@
     overflow-y : auto;
     overflow-x : hidden;
     position : absolute;
+
+    @include Breakpoint-mobileOnly {
+      height: 47%;
+      display: none;
+    }
 }
 
 .inner-popular-numbers{
@@ -169,7 +175,8 @@
   max-width: 750px;
 
   @include Breakpoint-mobileOnly {
-    margin-top : 30px;
+    grid-area: unset;
+    left: 10%;
   }
 
 }

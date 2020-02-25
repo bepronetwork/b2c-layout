@@ -3,6 +3,7 @@ import { Router, Switch, Route } from "react-router-dom";
 import { createBrowserHistory } from "history";
 import { find } from "lodash";
 import HomePage from "containers/HomePage";
+import ResetPassword from "containers/ResetPassword";
 import {
     Navbar,
     Modal,
@@ -32,7 +33,6 @@ import User from "controllers/User/User";
 import UserContext from "./UserContext";
 import { Row, Col } from 'reactstrap';
 import "./index.css";
-import Web3 from "web3";
 import { setProfileInfo } from "../../redux/actions/profile";
 import store from "./store";
 import Cache from "../../lib/cache/cache";
@@ -51,7 +51,6 @@ import NavigationBar from "../../components/NavigationBar";
 import { getQueryVariable, getAppCustomization, getApp } from "../../lib/helpers";
 import ChatChannel from "../../controllers/Chat";
 import AnnouncementTab from "../../components/AnnouncementTab";
-import UnavailablePage from "../UnavailablePage";
 import { getCurrencyAddress } from "../../lib/api/users";
 const history = createBrowserHistory();
 
@@ -88,14 +87,10 @@ class App extends Component {
         try{
             /* Get App Info */
             await this.updateAppInfo();
-            /* Set App Title */
-            let info = getApp();
-            document.title = `${info.name} - ${info.description}`;
-            /* Get Platform Wallet */
-            this.startWallet();
             await this.loginAccount();
             this.closeStaticLoading();
         }catch(err){
+            console.log(err);
             let app = await getAppInfo();
             const { publicKey } = app.integrations.chat;
             this.chat = new ChatChannel({publicKey});
@@ -107,9 +102,7 @@ class App extends Component {
     }
 
     loginAccount = async () => {
-        // Get App Ino
-        await this.updateAppInfo();
-    
+        // Get App Ino    
         try{
             let cache = Cache.getFromCache('Authentication');
             if(cache && cache.password){
@@ -133,11 +126,18 @@ class App extends Component {
         cashierOpen: null,
         error: null,
         isLoading : true,
-        has2FA : false
+        has2FA : false,
+        resetPasswordOpen : null,
+        resetPasswordParams : null,
+        resetPasswordMode : null
     };
 
     handleRegisterLoginModalClose = () => {
         this.setState({ registerLoginModalOpen: null, error: null, has2FA: false });
+    };
+
+    handleResetPasswordModalClose = async () => {
+        this.setState({ resetPasswordOpen: null, resetPasswordParams: null, resetPasswordMode: null });
     };
 
     handleCashierModalClose = async () => {
@@ -156,6 +156,10 @@ class App extends Component {
 
     handleLoginOrRegisterOpen = tab => {
         this.setState({ registerLoginModalOpen: tab, has2FA: false, error: null });
+    };
+
+    handleResetPasswordOpen = ({params, mode}) => {
+        this.setState({ resetPasswordOpen: true, resetPasswordParams : params, resetPasswordMode : mode });
     };
 
     handleCashierOpen = () => {
@@ -229,25 +233,6 @@ class App extends Component {
             return handleError(error);
         }
     };
-    
-    startWallet = async () => {
-        // Modern dapp browsers...
-        if (window.ethereum) {
-            window.web3 = new Web3(window.ethereum);
-        }
-        // Legacy dapp browsers...
-        else if (window.web3) {
-            window.web3 = new Web3(new Web3.providers.HttpProvider('https://ropsten.infura.io/'));
-            // Acccounts always exposed
-        }
-        // Non-dapp browsers...
-        else {
-            window.web3 = new Web3(new Web3.providers.HttpProvider('https://ropsten.infura.io/'));
-            await store.dispatch(setMessageNotification(CopyText.Errors.en.NON_ETHEREUM_BROWSER_ENTRY));
-        }        
-
-    }
-
 
     updateUser = async user => {
         
@@ -294,6 +279,10 @@ class App extends Component {
     };
 
     renderLoginRegisterModal = () => {
+
+        const {ln} = this.props;
+        const copy = CopyText.homepage[ln];
+
         const { registerLoginModalOpen, error, has2FA} = this.state;
         return registerLoginModalOpen ? (
             <Modal onClose={this.handleRegisterLoginModalClose}>
@@ -304,19 +293,41 @@ class App extends Component {
                     options={[
                         {
                         value: "register",
-                        label: "Register"
+                        label: copy.CONTAINERS.APP.MODAL[0]
                         },
-                        { value: "login", label: "Login" }
+                        { value: "login", label: copy.CONTAINERS.APP.MODAL[1] }
                     ]}
                     onSelect={this.handleTabChange}
                     />
                 </div>
 
                 {registerLoginModalOpen === "login" ? (
-                    <LoginForm onSubmit={has2FA ? this.handleLogin2FA : this.handleLogin} error={error} has2FA={has2FA}/>
+                    <LoginForm onSubmit={has2FA ? this.handleLogin2FA : this.handleLogin} error={error} has2FA={has2FA} onClose={this.handleRegisterLoginModalClose} onHandleResetPassword={this.handleResetPasswordOpen}/>
                 ) : (
                     <RegisterForm onSubmit={this.handleRegister} error={error} />
                 )}
+                </div>
+            </Modal>
+        ) : null;
+    };
+
+    renderResetPasswordModal = () => {
+        const {ln} = this.props;
+        const copy = CopyText.homepage[ln];
+        const { resetPasswordOpen, resetPasswordParams, resetPasswordMode } = this.state;
+
+        return resetPasswordOpen ? (
+            <Modal onClose={this.handleResetPasswordModalClose}>
+                <div styleName="modal">
+                    <div styleName="tabs">
+                        <Tabs
+                        selected='login'
+                        options={[
+                            { value: "login", label: copy.CONTAINERS.APP.MODAL[1] }
+                        ]}
+                        />
+                    </div>
+                    <ResetPassword params={resetPasswordParams} mode={resetPasswordMode} onClose={this.handleResetPasswordModalClose}/>
                 </div>
             </Modal>
         ) : null;
@@ -456,6 +467,7 @@ class App extends Component {
                                 onCashier={this.handleCashierOpen}
                             />
                             {this.renderLoginRegisterModal()}
+                            {this.renderResetPasswordModal()}
                             {this.renderCashierModal()}
                             <Authentication2FAModal/>
                             <AffiliateWithdrawForm/>
@@ -467,7 +479,7 @@ class App extends Component {
                                 <NavigationBar history={history}/>
                             </div>
                             <Row>
-                                <div className='col-lg-10 col-xl-10' styleName='no-padding'>
+                                <div className='col-12 col-md-10 col-lg-10' styleName='no-padding'>
                                     <div styleName='platform-container'>
                                     <Switch history={history}>
                                         <Route
@@ -487,11 +499,26 @@ class App extends Component {
                                             render={props => <AccountPage {...props} />}
                                         />
 
+                                        <Route
+                                            exact
+                                            path="/password/reset"
+                                            render={props => (
+                                                <HomePage
+                                                    {...props}
+                                                    onHandleResetPassword={this.handleResetPasswordOpen}
+                                                />
+                                        
+                                            )}
+                                        /> 
+
+                                        {/* New routes need to be add here, before renderGamePages */}
+
                                         {this.renderGamePages({history})}
+
                                     </Switch>
                                     </div>
                                 </div>
-                                <Col md={4} lg={2} xl={2}>
+                                <Col xs={0} md={2} lg={2}>
                                     <div styleName='chat-container-outro'> 
                                         <div styleName={'chat-container'}>
                                             <ChatPage/>
@@ -513,7 +540,8 @@ function mapStateToProps(state){
         profile : state.profile,
         startLoadingProgress : state.startLoadingProgress,
         modal : state.modal,
-        currency : state.currency
+        currency : state.currency,
+        ln: state.language
     };
 }
 

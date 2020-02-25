@@ -11,6 +11,7 @@ import { MIN_WITHDRAWAL } from "../../lib/api/apiConfig";
 import { Numbers } from 'lib/ethereum/lib';
 import store from "../../containers/App/store";
 import { setWithdrawInfo } from "../../redux/actions/withdraw";
+import { CopyText } from '../../copy';
 
 const defaultProps = {
     amount : 10,
@@ -42,12 +43,8 @@ class Withdraw extends Component {
     async projectData(props){
         const { profile } = props;
         try{
-            let allowedAmount = await profile.getApprovedWithdrawAsync();
             const { wallet : userBalance } = profile.getAffiliateInfo();
-            let ownedDAI = parseFloat(await profile.getTokenAmount());
-            let maxWithdrawal = await profile.getContract().getMaxWithdrawal();  
-
-            this.setState({...this.state, ownedDAI, userBalance, maxWithdrawal, allowedAmount});
+            this.setState({...this.state, userBalance});
         }catch(err){
             this.setState({...this.state})
         }
@@ -61,6 +58,8 @@ class Withdraw extends Component {
     render() {
         const { withdraw } = this.props;
         const { currency, nextStep, tx } = withdraw;
+        const {ln} = this.props;
+        const copy = CopyText.affiliateWithdrawFormWithdraw[ln];
 
         return (
             <div styleName='root'>
@@ -71,14 +70,14 @@ class Withdraw extends Component {
                             nextStep={nextStep}
                             steps={[
                                 {
-                                    label : "Choose",
-                                    title : 'Choose the Currency you want to withdraw to',
+                                    label : copy.WITHDRAW.HORIZONTAL_STEPPER.LABEL[0],
+                                    title : copy.WITHDRAW.HORIZONTAL_STEPPER.TITLE[0],
                                     condition : (currency != ''),
                                     content : <CurrencyWithdrawForm/>
                                 },
                                 {
-                                    label : "Withdraw",
-                                    title : 'Withdraw',
+                                    label : copy.WITHDRAW.HORIZONTAL_STEPPER.LABEL[1],
+                                    title : copy.WITHDRAW.HORIZONTAL_STEPPER.TITLE[1],
                                     condition : (tx && tx != ''),
                                     content : <WithdrawForm/>,
                                     last : true,

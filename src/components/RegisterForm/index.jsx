@@ -5,6 +5,7 @@ import "./index.css";
 import { connect } from "react-redux";
 import { compose } from 'lodash/fp';
 import Cache from "../../lib/cache/cache";
+import { CopyText } from '../../copy';
 class RegisterForm extends Component {
     static propTypes = {
         onSubmit: PropTypes.func.isRequired,
@@ -24,18 +25,9 @@ class RegisterForm extends Component {
     };
 
     componentDidMount(){
-        this.updateAddress();
     }
 
     componentWillReceiveProps(){
-        this.updateAddress();
-    }
-
-    updateAddress = async (address=null) => {
-        if(!address && window.web3 && window.web3.eth){
-            address = (await window.web3.eth.getAccounts())[0];
-        }
-        this.setState({...this.state, address : address});
     }
 
     handleSubmit = event => {
@@ -83,13 +75,15 @@ class RegisterForm extends Component {
     render() {
         const { error } = this.props;
         const { username, password, confirmPassword, email } = this.state;
+        const {ln} = this.props;
+const copy = CopyText.registerFormIndex[ln];
 
         return (
         <form onSubmit={this.handleSubmit}>
             <div styleName="username">
             <InputText
                 name="username"
-                label="Username"
+                label={copy.INDEX.INPUT_TEXT.LABEL[0]}
                 onChange={this.onChange}
                 value={username}
             />
@@ -98,7 +92,7 @@ class RegisterForm extends Component {
             <InputText
                 name="password"
                 type="password"
-                label="Password"
+                label={copy.INDEX.INPUT_TEXT.LABEL[1]}
                 onChange={this.onChange}
                 value={password}
             />
@@ -106,7 +100,7 @@ class RegisterForm extends Component {
             <div styleName="password">
             <InputText
                 name="confirmPassword"
-                label="Confirm Password"
+                label= {copy.INDEX.INPUT_TEXT.LABEL[2]}
                 type="password"
                 onChange={this.onChange}
                 value={confirmPassword}
@@ -114,7 +108,7 @@ class RegisterForm extends Component {
             </div>
             <InputText
             name="email"
-            label="Email"
+            label={copy.INDEX.INPUT_TEXT.LABEL[3]}
             onChange={this.onEmailChange}
             value={email}
             />
@@ -135,7 +129,7 @@ class RegisterForm extends Component {
                 disabled={!this.formIsValid()}
                 type="submit"
             >
-                <Typography color="white">Register</Typography>
+                <Typography color="white">{copy.INDEX.TYPOGRAPHY.TEXT[0]}</Typography>
             </Button>
             </div>
         </form>

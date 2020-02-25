@@ -51,6 +51,7 @@
     height: 100%;
     max-width: 350px;
     margin: 0 auto;
+    box-shadow: unset;
   }
 }
 
@@ -60,6 +61,14 @@
 
 .game-page-container{
     height: -webkit-fill-available;
+
+    @include Breakpoint-tabletOnly {
+      height: 100%;
+    }
+
+    @include Breakpoint-mobileOnly {
+      height: 100%;
+    }
 }
 
 .options-container {
@@ -97,22 +106,47 @@
   width: 100%;
 
   overflow: hidden;
+
+  @include Breakpoint-mobileOnly {
+    display: none;
+  }
 }
 
 .sound {
   padding-top: $spacing-8;
   padding-right: $spacing-8;
 
+  @include Breakpoint-tabletOnly {
+    padding-right: $spacing-64;
+  }
+
+  @include Breakpoint-mobileOnly {
+    padding: $spacing-8;
+  }
+
+
+
   button {
     margin: 0 0 0 auto;
+
+    div {
+      @include Breakpoint-mobileOnly {
+        margin-top: 0;
+      }
+    }
   }
 }
 
 .actions {
   margin-top: 20px;
   margin-left: 8px;
+
+  @include Breakpoint-tabletOnly {
+    margin-left: 28px;
+  }
+
   @include Breakpoint-mobileOnly {
-    display: none;
+    margin-top: 0px;
   }
 }
 

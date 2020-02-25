@@ -6,6 +6,7 @@ import { Typography } from 'components';
 import building from 'assets/blockchain.png';
 import loading from 'assets/loading.gif';
 import _ from 'lodash';
+import { CopyText } from '../../copy';
 
 class DepositForm extends Component {
 
@@ -16,7 +17,8 @@ class DepositForm extends Component {
         this.state = {
             addressInitialized: false,
             address: null,
-            isLoaded: false
+            isLoaded: false,
+            copied: false
         }
     }
 
@@ -53,17 +55,21 @@ class DepositForm extends Component {
 
     copyToClipboard = (e) => {
         const { address } = this.state;
-        var textField = document.createElement('textarea')
+        var textField = document.createElement('textarea');
         textField.innerText = address;
-        document.body.appendChild(textField)
-        textField.select()
-        document.execCommand('copy')
-        textField.remove()
+        document.body.appendChild(textField);
+        textField.select();
+        document.execCommand('copy');
+        textField.remove();
+
+        this.setState({ copied: true })
     };
 
     render() {
         const { deposit } = this.props;
-        const { addressInitialized, address, isLoaded } = this.state;
+        const { addressInitialized, address, isLoaded, copied } = this.state;
+        const {ln} = this.props;
+        const copy = CopyText.depositFormIndex[ln];
 
         if(!isLoaded){
             return (
@@ -78,22 +84,21 @@ class DepositForm extends Component {
                 {addressInitialized 
                 ?
                     <div>
-                        <div styleName="currency">
-                            <div styleName="logo">
-                                <img src={deposit.currency.image} styleName="logo-img"/>
-                            </div>
-                            <div styleName="cur-name">
-                                <Typography variant={'body'} color={`white`}>
-                                    {deposit.currency.ticker}
-                                </Typography>
-                            </div>
-                        </div>
                         <div styleName="info">
+                            <div styleName="currency">
+                                <div styleName="logo">
+                                    <img src={deposit.currency.image} styleName="logo-img"/>
+                                </div>
+                                <div styleName="cur-name">
+                                    <Typography variant={'body'} color={`white`}>
+                                        {deposit.currency.ticker}
+                                    </Typography>
+                                </div>
+                            </div>
                             <Typography variant={'x-small-body'} color={`white`}>
-                                Scan the QR code and transfer {deposit.currency.ticker} to it, 
-                                only deposit {deposit.currency.ticker} in this address. 
+                                {copy.INDEX.TYPOGRAPHY.FUNC_TEXT[0]([deposit.currency.ticker, deposit.currency.ticker])}
                                 <br/><br/>
-                                Neve send other currencies, we are not responsible for any mistake. 
+                                {copy.INDEX.TYPOGRAPHY.TEXT[0]}
                             </Typography>
                         </div>
                         <div styleName="qrcode">
@@ -106,9 +111,16 @@ class DepositForm extends Component {
                                 </Typography>
                             </div>
                             <div>
+                                {copied ? (
+                                    <div styleName="copied">
+                                        <Typography variant="small-body" color={'white'}>
+                                            Copied
+                                        </Typography>
+                                    </div>
+                                ) : null}
                                 <button onClick={this.copyToClipboard} styleName='text-copy-container'>
                                     <Typography variant={'small-body'} color={'white'}>
-                                        Copy
+                                        {copy.INDEX.TYPOGRAPHY.TEXT[1]}
                                     </Typography>
                                 </button>
                             </div>
@@ -119,7 +131,7 @@ class DepositForm extends Component {
                             <img src={building} styleName="building-img"/>
                             <div styleName="building-info">
                                 <Typography variant={'small-body'} color={`white`}>
-                                    Your Deposit Address is being generated, please wait a few minutes.
+                                    {copy.INDEX.TYPOGRAPHY.TEXT[2]}
                                 </Typography>
                             </div>
                     </div>

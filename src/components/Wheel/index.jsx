@@ -31,7 +31,8 @@ export default class Wheel extends Component {
     constructor(props){
         super(props);
         this.state = {
-            ballStop: false
+            ballStop: false,
+            metaName: props.game ? props.game.metaName : null
         }
       
     }
@@ -78,7 +79,7 @@ export default class Wheel extends Component {
     drawSpinnerWheel(props) {
         const { options, game } = props;
         const { metaName } = game;
-        this.state.metaName = metaName;
+        
         switch(metaName){
             case 'wheel_variation_1' : {
                 this.wheel_draw = WHEEL_CLASSIC.DRAW;
@@ -280,7 +281,7 @@ export default class Wheel extends Component {
         const { metaName } = this.state;
         const containerStyles = classNames("result-container",
             {
-                resultContainerSimple: metaName === 'wheel_simple'
+                resultContainerSimple: metaName === 'wheel_simple' || metaName === 'wheel_variation_1'
             }
         )
         if(!result || !game.resultSpace || inResultAnimation){return <div styleName={containerStyles}/>}
@@ -307,7 +308,7 @@ export default class Wheel extends Component {
     render() {
         const metaName = this.state.metaName;
         const styles = classNames("container", {
-            containerSimple: metaName === 'wheel_simple'
+            containerSimple: metaName === 'wheel_simple' || metaName === 'wheel_variation_1'
         });
         return (
             <div  styleName="root" >

@@ -15,6 +15,9 @@ import { find } from 'lodash';
 import "./index.css";
 import { Numbers } from "../../lib/ethereum/lib";
 import { getPopularNumbers } from "../../lib/api/app";
+import { formatPercentage } from "../../utils/numberFormatation";
+import { CopyText } from '../../copy';
+import { connect } from "react-redux";
 
 const defaultState = {
     payout : 2,
@@ -25,7 +28,7 @@ const defaultState = {
     edge : 0
 }
 
-export default class FlipGameCard extends Component {
+class FlipGameCard extends Component {
     static contextType = UserContext;
 
     static propTypes = {
@@ -150,7 +153,7 @@ export default class FlipGameCard extends Component {
                                         </Typography>       
                                     </div>
                                     <div styleName='popular-number-container-amount'>
-                                        <AnimationNumber number={Numbers.toFloat(item.resultAmount/totalAmount*100)} variant={'small-body'} color={'white'} span={'%'}/>
+                                        <AnimationNumber number={formatPercentage(Numbers.toFloat(item.resultAmount/totalAmount*100))} variant={'small-body'} color={'white'} span={'%'}/>
                                     </div>
                                 </div>
                             )
@@ -167,6 +170,8 @@ export default class FlipGameCard extends Component {
         const coinStyles = classNames( "coin", flipResult ? { [flipResult]: true } : null);
         let winEdge = (100-(this.state.edge))/100;
         let payout = this.state.payout * winEdge;
+        const {ln} = this.props;
+const copy = CopyText.flipGameCardIndex[ln];
 
         return (
             <div styleName="root">
@@ -195,7 +200,7 @@ export default class FlipGameCard extends Component {
                 <div styleName="values">
                     <InputNumber
                         name="payout"
-                        title="Payout"
+                        title={copy.INDEX.INPUT_NUMBER.TITLE[0]}
                         icon="cross"
                         value={Numbers.toFloat(payout)}
                         disabled
@@ -204,7 +209,7 @@ export default class FlipGameCard extends Component {
                     <InputNumber
                         name="chance"
                         unit="%"
-                        title="Win Chance"
+                        title={copy.INDEX.INPUT_NUMBER.TITLE[1]}
                         disabled
                         value={Numbers.toFloat(this.state.win_chance)}
                     />
@@ -213,3 +218,13 @@ export default class FlipGameCard extends Component {
         );
     }
 }
+
+
+function mapStateToProps(state){
+    return {
+        profile : state.profile,
+        ln: state.language
+    };
+}
+
+export default connect(mapStateToProps)(FlipGameCard);

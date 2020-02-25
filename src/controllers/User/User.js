@@ -19,6 +19,9 @@ import { setProfileInfo } from "../../redux/actions/profile";
 import { setStartLoadingProcessDispatcher } from "../../lib/redux";
 import { processResponse } from "../../lib/helpers";
 import _ from 'lodash';
+import Pusher from 'pusher-js';
+import { apiUrl, PUSHER_API_KEY } from "../../lib/api/apiConfig";
+import { setMessageNotification } from "../../redux/actions/message";
 
 export default class User {
     constructor({
@@ -45,9 +48,7 @@ export default class User {
         this.isLoaded = false;
         this.app = Cache.getFromCache("appInfo");
         this.params = {
-            timeToWithdraw : 0,
             deposits : [],
-            decentralizeWithdrawAmount : 0
         }
         this.__init__();
     }
@@ -59,14 +60,39 @@ export default class User {
     __init__ = async () =>  {
         try{
             setStartLoadingProcessDispatcher(1);
-            setStartLoadingProcessDispatcher(2);
             await this.setupChat();
-            setStartLoadingProcessDispatcher(3);
-            setStartLoadingProcessDispatcher(4);
+            setStartLoadingProcessDispatcher(2);
             await this.getAllData();
+            setStartLoadingProcessDispatcher(3);
+            this.listenAppPrivateChannel();
+            setStartLoadingProcessDispatcher(6);
+
         }catch(err){
             console.log(err)
         }
+    }
+    getPusherAPIKey = () => {
+        return this.integrations ? this.integrations.pusher.key : '';
+    }
+
+    listenAppPrivateChannel = () => {
+        this.pusher = new Pusher(this.getPusherAPIKey(), 
+        { 
+            cluster : 'eu',
+            forceTLS: true,
+            authEndpoint: `${apiUrl}/api/users/pusher/auth`,
+        }); 
+        this.channel = this.pusher.subscribe(`private-${this.id}`);
+
+        /* Listen to Deposits */
+        this.channel.bind('deposit', async (data) => {
+            await store.dispatch(setMessageNotification(data.message));
+            this.getAllData();
+        });
+        /* Listen to Withdraws */
+        this.channel.bind('withdraw', (data) => {
+
+        });
     }
 
     hasLoaded = () => this.isLoaded;
@@ -84,13 +110,7 @@ export default class User {
     getChat = () =>  this.chat;
 
     getDeposits = () => this.user.deposits;
-    
-    getTimeForWithdrawal = () => this.params.timeToWithdraw;
-    
-    getApprovedWithdraw = () => this.params.decentralizeWithdrawAmount;
-    
-    getApprovedWithdrawAsync = async () => await this.__getApprovedWithdraw();
-
+            
     getID = () => this.id;
 
     getUsername = () => this.username;
@@ -170,9 +190,6 @@ export default class User {
         return user;
     }
 
-    getContract = () => {
-        return this.casinoContract;
-    }
 
     getTokenAmount = async () => {
         return 0;
@@ -199,52 +216,6 @@ export default class User {
             throw err;
         }
     };
-
-    cancelWithdrawAPI = async () => {
-        try{
-            /* Cancel Withdraw Response */
-            let res = await cancelWithdraw({               
-                app: this.app_id,
-                user: this.user_id
-            },
-            this.bearerToken);
-            await processResponse(res);
-            return true;
-        }catch(err){
-            console.log(err)
-            throw err;
-        }
-    }
-
-    __getApprovedWithdraw = async () => {
-        return 0;
-    }
-
-    getMaxWithdrawal = async () => {
-        try{
-            return Numbers.fromBigNumberToInteger(await this.casinoContract.getMaxWithdrawal(), 36);
-        }catch(err){
-            throw err;
-        }
-    }
-
-    getMaxDeposit = async () => {
-        try{
-            return Numbers.fromBigNumberToInteger(await this.casinoContract.getMaxDeposit(), 36);
-        }catch(err){
-            throw err;
-        }
-    }
-
-    cancelWithdrawals = async () => {
-        try{
-            /* Cancel Withdraws in API */
-            await this.cancelWithdrawAPI();
-            return true;
-        }catch(err){
-            throw err;
-        }
-    }
 
     getAddress =  () => {
         return this.user.address;
@@ -373,13 +344,6 @@ export default class User {
         let user = await this.updateUser();
         return user.withdraws;
     }
-
-    getOneNotConfirmedWithdrawForAmountAsync  = async () => {
-        let withdraws = await this.getWithdrawsAsync();
-        return withdraws.find(withdraw => !withdraw.confirmed);
-    }
-
-
 
     createBet = async ({ result, gameId }) => {
         try {

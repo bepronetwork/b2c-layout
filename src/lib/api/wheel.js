@@ -8,7 +8,7 @@ export default async function bet({ amount, user, game_id }) {
         const result = new Array(30).fill(0).map( (value, index) => {
             return { 
                 place: index, 
-                value: parseFloat(parseFloat(amount/30).toFixed(8))
+                value: parseFloat(amount/30)
             };
         });
 

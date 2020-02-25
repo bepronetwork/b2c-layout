@@ -4,8 +4,7 @@ import "./index.css";
 import { connect } from "react-redux";
 import { compose } from 'lodash/fp';
 import { CurrencyDepositForm, HorizontalStepper, DepositForm } from 'components';
-
-
+import { CopyText } from '../../copy';
 class Deposit extends Component {
 
     componentDidMount(){
@@ -28,6 +27,8 @@ class Deposit extends Component {
     render() {
         const { deposit } = this.props;
         const { currency, nextStep } = deposit;
+        const {ln} = this.props;
+        const copy = CopyText.cashierFormDeposit[ln];
 
         return (
             <div styleName='root'>
@@ -37,17 +38,17 @@ class Deposit extends Component {
                         <HorizontalStepper 
                             showStepper={false}
                             nextStep={nextStep}
-                            alertMessage={`This address is not set with this user, please change to your address`}
+                            alertMessage={ copy.DEPOSIT.HORIZONTAL_STEPPER.ALERT_MESSAGE[0]}
                             steps={[
                                 {
-                                    label : "Choose",
-                                    title : 'Pick the Currency to Deposit',
+                                    label : copy.DEPOSIT.HORIZONTAL_STEPPER.LABEL[0],
+                                    title : copy.DEPOSIT.HORIZONTAL_STEPPER.TITLE[0],
                                     condition : (currency != ''),
                                     content : <CurrencyDepositForm/>
                                 },
                                 {
-                                    label : "Deposit",
-                                    title : 'Deposit',
+                                    label : copy.DEPOSIT.HORIZONTAL_STEPPER.LABEL[1],
+                                    title : `${copy.DEPOSIT.HORIZONTAL_STEPPER.TITLE[1]} ${currency.ticker}`,
                                     condition : (currency != ''),
                                     content : <DepositForm/>,
                                     last : true,

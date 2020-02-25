@@ -6,6 +6,7 @@ import approval from 'assets/approval.png';
 import { ActionBox } from 'components';
 import { setWithdrawInfo } from "../../redux/actions/withdraw";
 import { setMessageNotification } from '../../redux/actions/message';
+import { CopyText } from '../../copy';
 
 const THIRTY_SECONDS = 60;
 
@@ -71,7 +72,8 @@ class WithdrawForm extends Component {
 
     render() {
         const { onLoading, updated, wasRegistered } = this.state;
-        
+        const {ln} = this.props;
+const copy = CopyText.withdrawFormIndex[ln];
         return (
             <div>
                 <ActionBox 
@@ -79,7 +81,7 @@ class WithdrawForm extends Component {
                     onLoading={onLoading.wasRegistered}
                     disabled={!updated || wasRegistered}
                     loadingMessage={'Withdraw'}
-                    completed={wasRegistered} id={'allowance'} image={approval} title={'Withdraw Amount'} description={'Your Withdraw shall be completed in a few hours'}
+                    completed={wasRegistered} id={'allowance'} image={approval} title={copy.INDEX.ACTION_BOX.TITLE[0]} description={copy.INDEX.ACTION_BOX.DESCRIPTION[0]}
                 />
             </div>
         );

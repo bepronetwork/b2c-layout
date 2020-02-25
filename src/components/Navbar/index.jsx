@@ -16,7 +16,8 @@ import IconButton from '@material-ui/core/IconButton';
 import { etherscanLinkID } from "../../lib/api/apiConfig";
 import { getAppCustomization, getApp } from "../../lib/helpers";
 import CurrencyDropDown from "../CurrencyDropDown";
-
+import { formatCurrency } from "../../utils/numberFormatation";
+import { CopyText } from '../../copy';
 
 function AddressConcat(string){
     return  `${string.substring(0, 6)}...${string.substring(string.length - 2)}`;
@@ -52,7 +53,7 @@ class Navbar extends Component {
             var user = !_.isEmpty(props.profile) ? props.profile : null;
 
             if(user){
-                let difference = parseFloat(user.getBalance() - this.state.currentBalance);
+                let difference = formatCurrency(user.getBalance() - this.state.currentBalance);
                 // To not exist failed animation of difference and number animation
                 var opts = {};
                 if(difference != 0){
@@ -83,22 +84,23 @@ class Navbar extends Component {
 
 
     renderLoginOrRegister = () => {
+        const {ln} = this.props;
+        const copy = CopyText.navbarIndex[ln];
+
         return(
             <Row>
-                <Col xs={5} md={8}/>
-                <Col xs={5} md={4}>
+                <Col>
                     <div styleName='buttons'>
                         <div styleName="login">
                             <SubtleButton onClick={this.handleClick} name="login">
-                            Login
+                            {copy.INDEX.SUBTLE_BUTTON.TEXT[0]}
                             </SubtleButton>
                         </div>
                         <Button size="x-small" onClick={this.handleClick} name="register">
-                            <Typography color="white">Register</Typography>
+                            <Typography color="white">{copy.INDEX.TYPOGRAPHY.TEXT[0]}</Typography>
                         </Button>
                     </div>
                 </Col>
-                <Col md={1}/>
             </Row>
         )
     }
@@ -109,24 +111,26 @@ class Navbar extends Component {
         let { currentBalance, difference, user } = this.state;
         var currencies = getApp().currencies;
         const { logo } = getAppCustomization();
+        const {ln} = this.props;
+const copy = CopyText.navbarIndex[ln]; 
+
         return (
                 <Row styleName="root">
-                    <Col xs={3} md={2}>
+                    <Col xs={3} md={3} lg={2}>
                         <Link className='logo-image' to="/">
                             <img styleName="image" alt="bet protocol logo" src={logo.id} />
                         </Link>
                     </Col>
-                    <Col xs={8} md={8}>
+                    <Col xs={7} md={8} lg={9}>
                         {user ? 
                             <Row>
-                                <Col xs={2} md={1} lg={1}/>
-                                <Col xs={2} md={4} lg={4}>
+                                <Col xs={7} md={8} lg={6}>
                                     <Row>
-                                        <Col xs={6} md={6} lg={6}>
+                                        <Col xs={6} md={6} lg={4}>
                                             {(!currencies || _.isEmpty(currencies) || currencies.length < 0) ?
                                                 <div styleName="no-coin">
                                                     <Typography variant="x-small-body" color="grey">
-                                                        no currencies available
+                                                        {copy.INDEX.TYPOGRAPHY.TEXT[1]}
                                                     </Typography>
                                                 </div>
                                             :
@@ -145,20 +149,17 @@ class Navbar extends Component {
                                                 </div>
                                             }
                                         </Col>
-                                        <Col xs={6} md={6} lg={6}>
+                                        <Col xs={0} md={6} lg={8}>
                                             <div styleName='button-deposit'>
                                                 <Button onClick={onCashier} size={'x-small'} theme={'default'}>
-                                                    <Typography color={'white'} variant={'small-body'}>Deposit</Typography>
+                                                    <Typography color={'white'} variant={'small-body'}>{copy.INDEX.TYPOGRAPHY.TEXT[2]}</Typography>
                                                 </Button>
                                             </div>
                                         </Col>
                                     </Row>
                                     
                                 </Col>
-                                <Col xs={1} md={6} lg={4}>
-                                  
-                                </Col>
-                                <Col xs={2} md={2} lg={2}>
+                                <Col xs={5} md={4} lg={6}>
                                     <div styleName="buttons-1">
                                         <div styleName='user-menu'>
                                             <UserMenu
@@ -170,13 +171,11 @@ class Navbar extends Component {
                                         </div>
                                     </div>
                                 </Col>
-                                <Col xs={1} md={0} lg={1}/>
-
                             </Row>
                         :  this.renderLoginOrRegister()
                     }
                     </Col>
-                    <Col xs={0} md={2}>
+                    <Col xs={2} md={1} lg={1}>
                         <div styleName='navbar-language'>
                             <LanguagePicker/>
                         </div>
@@ -188,7 +187,8 @@ class Navbar extends Component {
 
 function mapStateToProps(state){
     return {
-        profile: state.profile
+        profile: state.profile,
+        ln: state.language
     };
 }
 
