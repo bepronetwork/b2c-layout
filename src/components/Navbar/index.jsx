@@ -126,7 +126,7 @@ const copy = CopyText.navbarIndex[ln];
                             <Row>
                                 <Col xs={7} md={8} lg={6}>
                                     <Row>
-                                        <Col xs={6} md={6} lg={4}>
+                                        <Col xs={6} md={6} lg={6}>
                                             {(!currencies || _.isEmpty(currencies) || currencies.length < 0) ?
                                                 <div styleName="no-coin">
                                                     <Typography variant="x-small-body" color="grey">
@@ -149,7 +149,7 @@ const copy = CopyText.navbarIndex[ln];
                                                 </div>
                                             }
                                         </Col>
-                                        <Col xs={0} md={6} lg={8}>
+                                        <Col xs={0} md={6} lg={6}>
                                             <div styleName='button-deposit'>
                                                 <Button onClick={onCashier} size={'x-small'} theme={'default'}>
                                                     <Typography color={'white'} variant={'small-body'}>{copy.INDEX.TYPOGRAPHY.TEXT[2]}</Typography>

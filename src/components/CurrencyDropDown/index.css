@@ -10,7 +10,6 @@
   flex-direction: row;
   align-items: center;
   width: 160px;
-  margin-top: -10px;
 
   @include Breakpoint-tabletAndAbove {
     margin: 0 auto;

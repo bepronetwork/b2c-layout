@@ -12,13 +12,21 @@ class TabedContainer extends React.Component{
         this.state = {};
     }
 
+    isCurrentPath(element) {
+        return this.includes(element.title.toLowerCase()); 
+    }
+
     render = () => {
 
         const { items, tabTopContent} = this.props;
+        const pathName = this.props.location.pathname.toLowerCase();
+
+        let mainIndex = items.findIndex(this.isCurrentPath, pathName);
+        mainIndex = mainIndex > 0 ? mainIndex : 0;
 
         return (
             <Container className="dashboard">
-                <Tab.Container id="left-tabs-example" defaultActiveKey="item-0">
+                <Tab.Container id="left-tabs-example" defaultActiveKey={`item-${mainIndex}`}>
                     <Row>
                         <Col sm={3}>
                             {tabTopContent}

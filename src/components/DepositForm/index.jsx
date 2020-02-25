@@ -3,6 +3,7 @@ import './index.css';
 import { connect } from "react-redux";
 import  QRCode from 'qrcode.react';
 import { Typography } from 'components';
+import classNames from "classnames";
 import building from 'assets/blockchain.png';
 import loading from 'assets/loading.gif';
 import _ from 'lodash';
@@ -70,6 +71,7 @@ class DepositForm extends Component {
         const { addressInitialized, address, isLoaded, copied } = this.state;
         const {ln} = this.props;
         const copy = CopyText.depositFormIndex[ln];
+        const addressStyles = classNames("address", {"ad-copied": copied});
 
         if(!isLoaded){
             return (
@@ -100,24 +102,24 @@ class DepositForm extends Component {
                                 <br/><br/>
                                 {copy.INDEX.TYPOGRAPHY.TEXT[0]}
                             </Typography>
+                            <div styleName="qrcode">
+                                <QRCode value={address} />
+                            </div>
+                            {copied ? (
+                                <div styleName="copied">
+                                    <Typography variant="small-body" color={'white'}>
+                                        Copied
+                                    </Typography>
+                                </div>
+                            ) : null}
                         </div>
-                        <div styleName="qrcode">
-                            <QRCode value={address} />
-                        </div>
-                        <div styleName="address">
+                        <div styleName={addressStyles}>
                             <div styleName='link-text-container'>
                                 <Typography variant={'x-small-body'} color={`casper`}>
                                     {address}
                                 </Typography>
                             </div>
                             <div>
-                                {copied ? (
-                                    <div styleName="copied">
-                                        <Typography variant="small-body" color={'white'}>
-                                            Copied
-                                        </Typography>
-                                    </div>
-                                ) : null}
                                 <button onClick={this.copyToClipboard} styleName='text-copy-container'>
                                     <Typography variant={'small-body'} color={'white'}>
                                         {copy.INDEX.TYPOGRAPHY.TEXT[1]}
