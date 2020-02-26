@@ -91,7 +91,7 @@ class App extends Component {
             this.closeStaticLoading();
         }catch(err){
             console.log(err);
-            let app = await getAppInfo();
+            const app = Cache.getFromCache("appInfo");
             const { publicKey } = app.integrations.chat;
             this.chat = new ChatChannel({publicKey});
             this.chat.__init__();
