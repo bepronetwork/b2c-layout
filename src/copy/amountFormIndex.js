@@ -28,11 +28,11 @@
       },
       "TYPOGRAPHY": {
         "TEXT": [
-          "Your Address is being created, wait a few minutes."
+          "귀하의 주소가 작성 중입니다. 몇 분 정도 기다리십시오."
         ],
         "FUNC_TEXT": [
           (params)=>{ return `You only have ${params[0]} ${params[1]}`},
-          (params)=>{ return  `Maximum Withdrawal is ${params[0]} ${params[1]}`}
+          (params)=>{ return  `최대 인출은 ${params[0]} ${params[1]}`}
         ]
       }
     }
@@ -46,11 +46,11 @@
       },
       "TYPOGRAPHY": {
         "TEXT": [
-          "Your Address is being created, wait a few minutes."
+          "您的地址正在创建中，请等待几分钟。"
         ],
         "FUNC_TEXT": [
           (params)=>{ return `You only have ${params[0]} ${params[1]}`},
-          (params)=>{ return  `Maximum Withdrawal is ${params[0]} ${params[1]}`}
+          (params)=>{ return  `最高提现现为 ${params[0]} ${params[1]}`}
         ]
       }
     }
