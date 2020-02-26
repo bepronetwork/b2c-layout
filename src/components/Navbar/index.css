@@ -53,7 +53,6 @@
 
     @include Breakpoint-tabletOnly {
         width : 142px;
-        padding-top: $spacing-20 !important;
     }
 
     @include Breakpoint-mobileOnly {

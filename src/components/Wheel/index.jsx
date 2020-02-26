@@ -165,7 +165,7 @@ export default class Wheel extends Component {
         if(options.length < 1){return null}
         if (canvas.getContext) {
             var outsideRadius = 500;
-            var insideRadius = 0;
+            var insideRadius = 420;
             this.wheel = canvas.getContext("2d");
             this.wheel.clearRect(0, 0, 1000, 1000);
             
@@ -212,7 +212,7 @@ export default class Wheel extends Component {
 
         if (canvas.getContext) {
             var outsideRadius = 500;
-            var insideRadius = 0;
+            var insideRadius = 420;
             this.wheel = canvas.getContext("2d");
             this.wheel.clearRect(0, 0, 1000, 1000);
 

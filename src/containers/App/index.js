@@ -91,7 +91,7 @@ class App extends Component {
             this.closeStaticLoading();
         }catch(err){
             console.log(err);
-            let app = await getAppInfo();
+            const app = Cache.getFromCache("appInfo");
             const { publicKey } = app.integrations.chat;
             this.chat = new ChatChannel({publicKey});
             this.chat.__init__();
@@ -493,10 +493,29 @@ class App extends Component {
                                         
                                             )}
                                         />
+
                                         <Route
-                                            exact
                                             path="/account"
-                                            render={props => <AccountPage {...props} />}
+                                            render={({ match: { url }}) => (
+                                                <>
+                                                    <Route 
+                                                        exact
+                                                        path={`${url}/`} 
+                                                        render={props => <AccountPage {...props} />} />
+                                                    <Route 
+                                                        path={`${url}/settings`} 
+                                                        render={props => <AccountPage {...props} />} />
+                                                    <Route 
+                                                        path={`${url}/deposits`} 
+                                                        render={props => <AccountPage {...props} />} />
+                                                    <Route 
+                                                        path={`${url}/withdraws`} 
+                                                        render={props => <AccountPage {...props} />} />
+                                                    <Route 
+                                                        path={`${url}/affiliate`} 
+                                                        render={props => <AccountPage {...props} />} />
+                                                </>
+                                            )}
                                         />
 
                                         <Route
