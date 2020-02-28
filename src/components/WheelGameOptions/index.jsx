@@ -239,7 +239,7 @@ const copy = CopyText.wheelGameOptionsIndex[ln];
     renderManual = () => {
         const { amount } = this.state;
         const {ln} = this.props;
-const copy = CopyText.wheelGameOptionsIndex[ln];
+        const copy = CopyText.wheelGameOptionsIndex[ln];
    
         return (
             <div>

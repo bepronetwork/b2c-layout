@@ -29,22 +29,22 @@ class AffiliateWithdrawForm extends Component {
         const { modal } = this.props;
         const { tab } = this.state;
         const {ln} = this.props;
-const copy = CopyText.affiliateWithdrawFormIndex[ln];
+        const copy = CopyText.affiliateWithdrawFormIndex[ln];
         if(!modal.AffiliateWithdrawForm){ return null };
 
         return (
             <Modal onClose={this.onClose}>
                 <div styleName="root" style={{ overflowY: 'auto', overflowX : 'hidden'}}>
                     <div styleName="tabs">
-                    <Tabs
-                        selected={tab}
-                        options={[
-                        { value: "withdraw", label: copy.INDEX.TABS.LABEL[0] }
-                        ]}
-                        onSelect={this.handleTabChange}
-                    />
+                        <Tabs
+                            selected={tab}
+                            options={[
+                            { value: "withdraw", label: copy.INDEX.TABS.LABEL[0] }
+                            ]}
+                            onSelect={this.handleTabChange}
+                        />
                     </div>
-                        <Withdraw onClose={this.onClose}/>
+                    <Withdraw onClose={this.onClose}/>
                 </div>
             </Modal>
         );

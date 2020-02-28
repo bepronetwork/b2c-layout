@@ -24,7 +24,7 @@ class DepositWithdrawForm extends Component {
         const { onClose } = this.props;
         const { tab } = this.state;
         const {ln} = this.props;
-const copy = CopyText.cashierFormIndex[ln];
+        const copy = CopyText.cashierFormIndex[ln];
 
         return (
         <div styleName="root" style={{ overflowY: 'auto', overflowX : 'hidden'}}>

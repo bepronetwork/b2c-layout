@@ -2,7 +2,7 @@ import React from 'react';
 import AnimatedNumber from 'react-animated-number';
 import { Numbers } from '../../lib/ethereum/lib';
 import { Typography } from 'components';
-
+import { formatCurrency } from '../../utils/numberFormatation';
 import "./index.css";
 
 const defaultProps = {
@@ -10,7 +10,8 @@ const defaultProps = {
     decimals : 2,
     variant : 'h4',
     color :'white',
-    span : null 
+    span : null,
+    isCurrency: false
 }
 
 class AnimationNumber extends React.Component{
@@ -23,6 +24,7 @@ class AnimationNumber extends React.Component{
             variant : props.variant ? props.variant : defaultProps.variant,
             span : props.span ? props.span : defaultProps.span,
             decimals : props.decimals ? props.decimals : defaultProps.decimals,
+            isCurrency : props.isCurrency ? props.isCurrency : defaultProps.isCurrency
         }
     }
 
@@ -35,7 +37,7 @@ class AnimationNumber extends React.Component{
     }
     
     projectData = async (props) => {
-        const { number, color, variant, span, decimals } = props;
+        const { number, color, variant, span, decimals, isCurrency } = props;
         if(this.state.number == props.number){return null};
         this.setState({
            number : number ? number : defaultProps.number,
@@ -43,6 +45,7 @@ class AnimationNumber extends React.Component{
            variant : variant ? variant : defaultProps.variant,
            span : span ? span : defaultProps.span,
            decimals : decimals ? decimals : defaultProps.decimals,
+           isCurrency : isCurrency ? isCurrency : defaultProps.isCurrency
        })
         
     }
@@ -52,7 +55,7 @@ class AnimationNumber extends React.Component{
     }
 
     render = () => {
-        const { number, variant='h4', color='white', span=null, decimals } = this.state;
+        const { number, variant='h4', color='white', span=null, decimals, isCurrency } = this.state;
         return (
             <Typography variant={variant} color={color}>
                 <AnimatedNumber 
@@ -66,7 +69,7 @@ class AnimationNumber extends React.Component{
                     )}
                     duration={500}
                     value={number}
-                formatValue={n => n}/>
+                    formatValue={n => isCurrency ? formatCurrency(n) : n}/>
                 <span style={{marginLeft : 4, fontSize : 18, opacity : 0.4}}>{span}</span>
             </Typography>
         );

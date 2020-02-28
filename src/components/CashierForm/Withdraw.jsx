@@ -46,7 +46,7 @@ class Withdraw extends Component {
         const { userBalance } = this.state;
         const { currency, nextStep, amount, tx, _id, toAddress } = withdraw;
         const {ln} = this.props;
-const copy = CopyText.cashierFormWithdraw[ln];
+        const copy = CopyText.cashierFormWithdraw[ln];
 
         return (
             <div styleName='root'>

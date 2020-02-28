@@ -5,6 +5,7 @@ import "./index.css";
 import { getAppCustomization } from "../../lib/helpers";
 import { CopyText } from '../../copy';
 import { connect } from "react-redux";
+import loading from 'assets/loading-circle.gif';
 
 class LoginForm extends Component {
     static propTypes = {
@@ -23,15 +24,22 @@ class LoginForm extends Component {
     state = {
         username: "",
         password: "",
-        token: ""
+        token: "",
+        isLoading: false
     };
 
-    handleSubmit = event => {
+    handleSubmit = async event => {
+
+        this.setState({...this.state, isLoading : true });
+        
         event.preventDefault();
 
         const { onSubmit } = this.props;
+        if (onSubmit && this.formIsValid()) {
+            await onSubmit(this.state);
+        }
 
-        if (onSubmit && this.formIsValid()) onSubmit(this.state);
+        this.setState({...this.state, isLoading : false});
     };
 
     resetPasswordClick = () => {
@@ -143,6 +151,7 @@ class LoginForm extends Component {
 
     render() {
         const { error, has2FA } = this.props;
+        const { isLoading } = this.state;
         const { logo } = getAppCustomization();
         const {ln} = this.props;
         const copy = CopyText.loginFormIndex[ln];
@@ -169,14 +178,19 @@ class LoginForm extends Component {
                 </div>
 
                 <div styleName="button">
-                <Button
-                    size="medium"
-                    theme="primary"
-                    disabled={!this.formIsValid()}
-                    type="submit"
-                >
-                    <Typography color="white">{copy.INDEX.TYPOGRAPHY.TEXT[4]}</Typography>
-                </Button>
+                    <Button
+                        size="medium"
+                        theme="primary"
+                        disabled={!this.formIsValid() || isLoading}
+                        type="submit"
+                    >
+                        {isLoading 
+                            ?
+                                <img src={loading} />
+                            :
+                                <Typography color="white">{copy.INDEX.TYPOGRAPHY.TEXT[4]}</Typography>
+                        }
+                    </Button>
                 </div>
 
                 <div styleName="forgot">

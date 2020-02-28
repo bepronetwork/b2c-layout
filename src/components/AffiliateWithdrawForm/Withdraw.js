@@ -44,7 +44,7 @@ class Withdraw extends Component {
         const { profile } = props;
         try{
             const { wallet : userBalance } = profile.getAffiliateInfo();
-            this.setState({...this.state, userBalance});
+            this.setState({...this.state, userBalance : userBalance ? userBalance.playBalance : null});
         }catch(err){
             this.setState({...this.state})
         }
@@ -57,7 +57,8 @@ class Withdraw extends Component {
 
     render() {
         const { withdraw } = this.props;
-        const { currency, nextStep, tx } = withdraw;
+        const { userBalance } = this.state;
+        const { currency, nextStep, tx, amount, _id, toAddress } = withdraw;
         const {ln} = this.props;
         const copy = CopyText.affiliateWithdrawFormWithdraw[ln];
 
@@ -78,9 +79,17 @@ class Withdraw extends Component {
                                 {
                                     label : copy.WITHDRAW.HORIZONTAL_STEPPER.LABEL[1],
                                     title : copy.WITHDRAW.HORIZONTAL_STEPPER.TITLE[1],
-                                    condition : (tx && tx != ''),
+                                    condition : ( (amount >= 0.0001)  && (amount <= parseFloat(userBalance) && toAddress) ),
+                                    nextButtonLabel : "Submit",
+                                    content : <AmountWithdrawForm/>
+                                },
+                                {
+                                    label : copy.WITHDRAW.HORIZONTAL_STEPPER.LABEL[1],
+                                    title : copy.WITHDRAW.HORIZONTAL_STEPPER.TITLE[1],
+                                    condition : (_id && (_id != ('' || null))),
                                     content : <WithdrawForm/>,
                                     last : true,
+                                    showCloseButton : false,
                                     closeStepper : this.closeDeposit
                                 }
                             ]}

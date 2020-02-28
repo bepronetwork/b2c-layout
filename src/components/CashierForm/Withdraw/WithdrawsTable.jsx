@@ -114,7 +114,6 @@ class EnhancedTableHead extends React.Component {
     render() {
         const { onSelectAllClick, order, orderBy, numSelected, rowCount } = this.props;
         const {ln} = propsGlobal;
-        console.log(ln)
         const copy = CopyText.cashierFormWithdrawsTable[ln];
         return (
             <TableHead>
