@@ -4,7 +4,7 @@
   display: grid;
   align-content: space-between;
   justify-items: center;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: 0.5fr 2fr 0.5fr;
   grid-template-areas: "Result Wheel LastBets" "Board Board Board" "ChipControls ChipControls ChipControls";
   box-sizing: border-box;
   height: 100%;
@@ -15,8 +15,16 @@
   padding: $spacing-36;
 
   background-color: $background-main-table;
+}
 
-  @include Breakpoint-mobileOnly {
+@media screen and (max-width: 1023px) and (min-width: 768px) {
+  .root {
+      height: auto;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .root {
     display : block;
     grid-template-columns: auto auto;
     grid-template-areas: "Result Board" "LastBets Board" "ChipControls ChipControls";
@@ -25,7 +33,7 @@
 
 .popular-number-container{
     padding : 10px;
-    width: 40px;
+    width: 44px;
     margin-bottom : 5px;
     text-align: center;
     display: inline-block;
@@ -72,10 +80,10 @@
 .outer-popular-numbers{
     border : 2px solid $dark-table-color;
     background-color : $popular-numbers-container;
-    left : 10px;
+    left : 20px;
     border-radius : 5px;
     text-align: center;
-    top : 10px;
+    top : 20px;
     overflow-y : auto;
     overflow-x : hidden;
     position : absolute;
@@ -138,11 +146,12 @@
 
 .wheel {
     margin-top : 60px;
+    width: 100%;
     grid-area: Wheel / Wheel / Wheel / Wheel;
 
 
     @include Breakpoint-mobileOnly {
-        width: 200px;
+        width: 336px;
         margin: auto;
     }
  
@@ -159,7 +168,7 @@
 
 .board {
   position: relative;
-
+  padding-top: 180px;
   grid-area: Board / Board / Board / Board;
   display: flex;
   justify-content: center;
@@ -168,7 +177,7 @@
 
   @include Breakpoint-mobileOnly {
     margin-top : 0px;
-
+    padding-top: 40px;
   }
 
 }

@@ -6,6 +6,8 @@ import { connect } from "react-redux";
 import { compose } from 'lodash/fp';
 import Cache from "../../lib/cache/cache";
 import { CopyText } from '../../copy';
+import loading from 'assets/loading-circle.gif';
+
 class RegisterForm extends Component {
     static propTypes = {
         onSubmit: PropTypes.func.isRequired,
@@ -22,6 +24,7 @@ class RegisterForm extends Component {
         confirmPassword: "",
         email: "",
         emailValid: false,
+        isLoading: false
     };
 
     componentDidMount(){
@@ -30,12 +33,18 @@ class RegisterForm extends Component {
     componentWillReceiveProps(){
     }
 
-    handleSubmit = event => {
+    handleSubmit = async event => {
+        this.setState({...this.state, isLoading : true });
+
         event.preventDefault();
         const { onSubmit } = this.props;
         const affiliateLink = Cache.getFromCache('affiliate');
         let data = {...this.state, affiliateLink : affiliateLink}
-        if (onSubmit && this.formIsValid()) onSubmit(data);
+        if (onSubmit && this.formIsValid()) {
+            await onSubmit(data);
+        }
+
+        this.setState({...this.state, isLoading : false});
     };
 
     formIsValid = () => {
@@ -74,9 +83,9 @@ class RegisterForm extends Component {
 
     render() {
         const { error } = this.props;
-        const { username, password, confirmPassword, email } = this.state;
+        const { username, password, confirmPassword, email, isLoading } = this.state;
         const {ln} = this.props;
-const copy = CopyText.registerFormIndex[ln];
+        const copy = CopyText.registerFormIndex[ln];
 
         return (
         <form onSubmit={this.handleSubmit}>
@@ -126,10 +135,15 @@ const copy = CopyText.registerFormIndex[ln];
                 size="medium"
                 theme="primary"
                 onClick={this.handleSubmit}
-                disabled={!this.formIsValid()}
+                disabled={!this.formIsValid() || isLoading}
                 type="submit"
             >
-                <Typography color="white">{copy.INDEX.TYPOGRAPHY.TEXT[0]}</Typography>
+                {isLoading 
+                    ?
+                        <img src={loading} />
+                    :
+                        <Typography color="white">{copy.INDEX.TYPOGRAPHY.TEXT[0]}</Typography>
+                }
             </Button>
             </div>
         </form>

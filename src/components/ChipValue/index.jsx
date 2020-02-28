@@ -24,7 +24,7 @@ class ChipValue extends Component {
     };
 
     state = {
-        coin: 0.01,
+        coin: 0.001,
         coinsPosition: 0,
         balance : 0
     };
@@ -122,6 +122,13 @@ class ChipValue extends Component {
                 }}
                 ref={this.handlerContainerRef}
                 >
+                <Coin
+                    onSelect={this.handleCoin}
+                    disabled={this.getDisabled(0.001)}
+                    selected={coin === 0.001}
+                    value={0.001}
+                    label="0001"
+                />
                 <Coin
                     onSelect={this.handleCoin}
                     disabled={this.getDisabled(0.01)}

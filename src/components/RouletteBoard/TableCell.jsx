@@ -66,7 +66,11 @@ export default class TableCell extends Component {
       return [`${this.getRoundChipValue(chipSelected, 1, 2)}`, "01"];
     }
 
-    return [`${this.getRoundChipValue(chipSelected, 1, 2)}`, "001"];
+    if (chipSelected >= 0.01) {
+      return [`${this.getRoundChipValue(chipSelected, 1, 2)}`, "001"];
+    }
+
+    return [`${this.getRoundChipValue(chipSelected, 1, 3)}`, "0001"];
   };
 
   render() {

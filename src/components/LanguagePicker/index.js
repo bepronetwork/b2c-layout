@@ -45,7 +45,6 @@ class LanguagePicker extends React.Component {
 
     render() {
         const ln = defaultProps.language.nick;
-        console.log(ln);
         const copy = CopyText.languagePickerIndex[ln];
         return (
             <div styleName="root">

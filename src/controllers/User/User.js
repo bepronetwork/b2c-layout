@@ -301,7 +301,7 @@ export default class User {
         const state = store.getState();
         currency = currency ? currency : state.currency;
         if(_.isEmpty(currency)){ return 0;}
-        console.log(this.user)
+
         let wallet = this.user.affiliateInfo.wallet.find( w => new String(w.currency._id).toString().toLowerCase() == new String(currency._id).toString().toLowerCase());
         
         return {

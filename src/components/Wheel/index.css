@@ -23,80 +23,67 @@
 }
 
 .outer-circle {
-    font-size: 8em;
+    font-size: 13.4em;
     display: inline-block;
     width: 2em;
     box-sizing: content-box;
     height: 2em;
-    border: 0.1em solid $backgroundColor;
+    border: 0.08em solid rgb(53, 68, 82);
     position: absolute;
     border-radius: 1.4em;
     z-index: 10;
-    margin-left: -7px;
-    margin-top: -7px;
+    margin-left: -11px;
+    margin-top: -12px;
     filter: drop-shadow(0px 4px 2px rgba(0,0,0,0.5));
 }
 
-.outer-star {
-    font-size: 14em;
-    display: inline-block;
-    box-sizing: content-box;
-    border: 0.15em solid $backgroundColor;
-    position: absolute;
-    border-radius: 1.1em;
-    z-index: 10;
-    margin-left: 101px;
-    margin-top: 102px;
-    filter: drop-shadow(0px 4px 2px rgba(0,0,0,0.5));
-}
-
-.star {
-    background: $thirdColor;
-    width: 36px;
-    height: 36px;
-    position: absolute;
-    text-align: center;
-    -webkit-transform: rotate(20deg);
-    transform: rotate(20deg);
-    margin-left: 116px;
-    margin-top: 118px;
-    z-index: 10;
-}
-
-.star:before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 36px;
-    width: 36px;
-    background: $thirdColor;
-    -webkit-transform: rotate(135deg);
-    transform: rotate(135deg);
-}
-
-@media (max-width: 676px) {
+@media screen and (max-width: 1267px) and (min-width: 1024px) {
+    .outer-circle {
+        width: 1.6em;
+        height: 1.6em;
+        margin-top: -14px;
+    }
+  }
+  
+  @media screen and (max-width: 1023px) and (min-width: 768px) {
+    .outer-circle {
+        width: 1.6em;
+        height: 1.6em;
+        margin-top: -10px;
+    }
+  }
+  
+  @media screen and (max-width: 767px) {
     .outer-circle {
         width: 1.5em;
         height: 1.5em;
-        border: 0.1em solid $backgroundColor;
-        margin-left: -9px;
-        margin-top: -9px;
+        margin-top: -10px;
     }
-    .outer-star {
-        margin-left: 72px;
-        margin-top: 72px;
-        font-size: 10em;
+  }
+
+.circle {
+    display: inline-block;
+    position: absolute;
+    z-index: 10;
+    margin-left: 136px;
+    margin-top: 136px;
+    border-radius:100%;
+    border: 1px solid rgb(53, 68, 82);
+    width:170px;
+    height:170px;
+
+    @include Breakpoint-tabletOnly {
+        margin-left: 100px;
+        margin-top: 100px;
+        width: 150px;
+        height: 150px;
     }
-    .star {
-        width: 24px;
-        height: 24px;
-        margin-left: 84px;
-        margin-top: 84px;
-    }
-    .star:before {
-        height: 24px;
-        width: 24px;
+
+    @include Breakpoint-mobileOnly {
+        margin-left: 93px;
+        margin-top: 93px;
+        width: 150px;
+        height: 150px;
     }
 }
 
@@ -139,7 +126,7 @@
     margin: auto;
     position: relative;
     display: block;
-    top: -14px;
+    top: -18px;
     z-index: 13;
     filter: drop-shadow(0px 4px 2px rgba(0,0,0,0.5));
 }
@@ -156,10 +143,16 @@
 }
 
 .resultContainerSimple {
-    padding-top: 180px;
+    height: 70px;
+    margin-top: 160px;
+
+    @include Breakpoint-tabletOnly {
+        margin-top: 110px;
+    }
 
     @include Breakpoint-mobileOnly {
-        padding-top: 140px;
+        margin-top: 40px;
+        margin-bottom: 180px;
     }
 }
 
@@ -169,8 +162,7 @@
     align-items: center;
     justify-content: center;
     width: 70px;
-    height: 70px;
-    padding-top: 80px;
+
     opacity: 0;
     text-align: center;
     margin: auto;

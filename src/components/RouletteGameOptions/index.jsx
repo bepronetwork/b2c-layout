@@ -66,7 +66,7 @@ class RouletteGameOptions extends Component {
     renderAuto = () => {
         const { bets, profitStop, lossStop, onWin, onLoss } = this.state;
         const {ln} = this.props;
-const copy = CopyText.rouletteGameOptionsIndex[ln];
+        const copy = CopyText.rouletteGameOptionsIndex[ln];
         return (
         <div>
             <div styleName="element">

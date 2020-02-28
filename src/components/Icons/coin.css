@@ -1,5 +1,6 @@
 @import "../../styles/all.css";
 
+$coin-color-0001: #ffd833;
 $coin-color-001: #ffce00;
 $coin-color-01: #fec30c;
 $coin-color-1: #feb918;
@@ -12,6 +13,11 @@ $coin-color-10k: #fc7820;
   border-radius: 50%;
 
   fill: white;
+}
+
+.coin0001 {
+  background-color: $coin-color-0001;
+  box-shadow: color($coin-color-0001 alpha(70%)) 0px 3px 0px 0px;
 }
 
 .coin001 {
