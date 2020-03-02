@@ -21,7 +21,6 @@ import { Numbers, AddressConcat } from '../../../lib/ethereum/lib';
 import withdrawStatus from './codes';
 import { Button, Typography } from "components";
 import "./index.css";
-import { etherscanLinkID } from '../../../lib/api/apiConfig';
 import { CopyText } from '../../../copy';
 import { Row, Col } from 'reactstrap';
 import { fromSmartContractTimeToMinutes } from '../../../lib/helpers';
@@ -70,7 +69,8 @@ const fromDatabasetoTable = (data) => {
             creation_timestamp : new Date(data.creation_timestamp),
             creation_date : new Date(data.creation_timestamp).toDateString(),
             address: data.address,
-            nonce : data.nonce
+            nonce : data.nonce,
+            link_url : data.link_url
 		}
     })
     return res;
@@ -378,7 +378,7 @@ class WithdrawTable extends React.Component {
                                     </StyledTableCell>
                                     <StyledTableCell style={{width: 130, borderBottom: '1px solid #192c38', paddingLeft: 30}} align="left">
                                         {n.transactionHash ?
-                                            <a href={`${etherscanLinkID}/tx/${n.transactionHash}`} target={'_blank'}>
+                                            <a href={n.link_url} target={'_blank'}>
                                                 <Typography variant={'small-body'} color='white'>
                                                     {AddressConcat(n.transactionHash)}
                                                 </Typography>
