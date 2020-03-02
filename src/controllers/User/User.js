@@ -20,7 +20,7 @@ import { setStartLoadingProcessDispatcher } from "../../lib/redux";
 import { processResponse } from "../../lib/helpers";
 import _ from 'lodash';
 import Pusher from 'pusher-js';
-import { apiUrl, PUSHER_API_KEY } from "../../lib/api/apiConfig";
+import { apiUrl } from "../../lib/api/apiConfig";
 import { setMessageNotification } from "../../redux/actions/message";
 
 export default class User {
