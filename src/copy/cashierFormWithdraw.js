@@ -4,6 +4,9 @@
   "en": {
     "WITHDRAW": {
       "HORIZONTAL_STEPPER": {
+        "BUTTON_LABEL": [
+          "Submit"
+        ],
         "LABEL": [
           "Choose",
           "Amount",
@@ -20,6 +23,9 @@
   "ko": {
     "WITHDRAW": {
       "HORIZONTAL_STEPPER": {
+        "BUTTON_LABEL": [
+          "제출하다"
+        ],
         "LABEL": [
           "선택",
           "금액",
@@ -36,6 +42,9 @@
   "ch": {
     "WITHDRAW": {
       "HORIZONTAL_STEPPER": {
+        "BUTTON_LABEL": [
+          "提交"
+        ],
         "LABEL": [
           "选择",
           "金额",
@@ -52,6 +61,9 @@
   "jp": {
     "WITHDRAW": {
       "HORIZONTAL_STEPPER": {
+        "BUTTON_LABEL": [
+          "Submit"
+        ],
         "LABEL": [
           "Choose",
           "Amount",

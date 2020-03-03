@@ -17,22 +17,22 @@ const resultSpaceColors = [
         "color" : '#000000'
     },
     {        
-        "color" : '#17162d'
+        "color" : '#406c82'
     },
     {
-        "color" : '#00b050'
+        "color" : '#00e403'
     },
     {
-        "color" : '#ffc100'
+        "color" : '#d5e8f2'
     },
     {
-        "color" : '#ff0000'
+        "color" : '#fde905'
     },
     {
-        "color" : '#ff8d00'
+        "color" : '#7f46fd'
     },
     {
-        "color" : '#92d050'
+        "color" : '#fca32f'
     }
 ]
 
@@ -158,7 +158,7 @@ class WheelVariationOne extends React.Component {
             var { user } = this.context;
             var { onHandleLoginOrRegister } = this.props;
             var { betHistory, game } = this.state;
-            console.log(game)
+
             if (!user) return onHandleLoginOrRegister("register");
             
             this.setState({ bet: true });

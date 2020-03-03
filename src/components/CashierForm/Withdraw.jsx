@@ -46,7 +46,7 @@ class Withdraw extends Component {
         const { userBalance } = this.state;
         const { currency, nextStep, amount, tx, _id, toAddress } = withdraw;
         const {ln} = this.props;
-const copy = CopyText.cashierFormWithdraw[ln];
+        const copy = CopyText.cashierFormWithdraw[ln];
 
         return (
             <div styleName='root'>
@@ -66,7 +66,7 @@ const copy = CopyText.cashierFormWithdraw[ln];
                                     label : copy.WITHDRAW.HORIZONTAL_STEPPER.LABEL[1],
                                     title : copy.WITHDRAW.HORIZONTAL_STEPPER.TITLE[1],
                                     condition : ( (amount >= 0.0001)  && (amount <= parseFloat(userBalance) && toAddress) ),
-                                    nextButtonLabel : "Submit",
+                                    nextButtonLabel : copy.WITHDRAW.HORIZONTAL_STEPPER.BUTTON_LABEL[0],
                                     content : <AmountWithdrawForm/>
                                 },
                                 {

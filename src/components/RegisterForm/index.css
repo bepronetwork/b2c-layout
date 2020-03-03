@@ -12,6 +12,10 @@
   margin-top: $spacing-20;
 }
 
+.button > button > div > img {
+  width: $spacing-28;
+}
+
 .error {
   margin-top: $spacing-8;
 }

@@ -165,7 +165,7 @@ export default class Wheel extends Component {
         if(options.length < 1){return null}
         if (canvas.getContext) {
             var outsideRadius = 500;
-            var insideRadius = 420;
+            var insideRadius = 442;
             this.wheel = canvas.getContext("2d");
             this.wheel.clearRect(0, 0, 1000, 1000);
             
@@ -212,7 +212,7 @@ export default class Wheel extends Component {
 
         if (canvas.getContext) {
             var outsideRadius = 500;
-            var insideRadius = 420;
+            var insideRadius = 442;
             this.wheel = canvas.getContext("2d");
             this.wheel.clearRect(0, 0, 1000, 1000);
 
@@ -306,23 +306,14 @@ export default class Wheel extends Component {
     };
 
     render() {
-        const metaName = this.state.metaName;
-        const styles = classNames("container", {
-            containerSimple: metaName === 'wheel_simple' || metaName === 'wheel_variation_1'
-        });
         return (
             <div  styleName="root" >
                 <div>
                     <div styleName={'outer-circle'}></div>
-                    <div styleName={'outer-star'}></div>
-                    <div styleName={'star'}></div>
+                    <div styleName={'circle'}></div>
                 </div>
                 <img src={pointer} styleName={'wheel-pointer'}/>
                 {this.renderResult()}
-                <div
-                    styleName={styles}
-                    id="container"
-                />
                 {/* Canvas */}
                     <span 
                         ref={el => {this.el = el;}} 

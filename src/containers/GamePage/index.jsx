@@ -8,6 +8,7 @@ import Cache from "../../lib/cache/cache";
 import { Row, Col } from 'reactstrap';
 import { CopyText } from "../../copy";
 import { connect } from "react-redux";
+import classNames from "classnames";
 import { find } from "lodash";
 import _ from 'lodash';
 import "./index.css";
@@ -111,26 +112,37 @@ class GamePage extends Component {
 
         if (_.isEmpty(gameMetaName)) return null;
 
+        const styles = classNames("container",
+            {
+                containerWheel: gameMetaName === 'wheel_simple' || gameMetaName === 'wheel_variation_1',
+                containerDice: gameMetaName === 'linear_dice_simple',
+                containerRoulette: gameMetaName === 'european_roulette_simple',
+                containerFlip: gameMetaName === 'coinflip_simple',
+                containerPlinko: gameMetaName === 'plinko_variation_1'
+            }
+        )
+
         return (
             <div styleName='main-container'>
                 {this.renderActions()}
                 <div styleName="root">
-                    <div styleName="container">
+                    <div styleName={styles}>
                         <Row styleName="game-page-container">
                             <Col lg={{ size: 9, order: 2}} styleName='no-padding'>
                                 <div styleName="game-container">
                                     {game}
                                     {this.renderHistory()}
+                                    <div styleName="sound">
+                                        <ButtonIcon
+                                            iconAtLeft
+                                            icon="sound"
+                                            label="Sound"
+                                            onClick={this.handleSounds}
+                                            soundMode={soundMode}
+                                        />
+                                    </div>
                                 </div>
-                                <div styleName="sound">
-                                    <ButtonIcon
-                                        iconAtLeft
-                                        icon="sound"
-                                        label="Sound"
-                                        onClick={this.handleSounds}
-                                        soundMode={soundMode}
-                                    />
-                                </div>
+
                             </Col>
                             <Col lg={{ size: 3, order: 1}} styleName='no-padding'>
                                 <div styleName="options-container">{options}</div>

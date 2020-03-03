@@ -22,7 +22,7 @@ class RoulettePage extends Component {
 
     state = {
         result: null,
-        selectedChip: 0.01,
+        selectedChip: 0.001,
         betHistory: [],
         game_name : 'Roulette',
         game : {

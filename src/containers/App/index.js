@@ -172,6 +172,7 @@ class App extends Component {
 
     handleLogin = async form => {
         try {
+            this.setState({ error: null });
             const response = await login(form);    
             Cache.setToCache('Authentication', form);
             if (response.status != 200) {
@@ -196,7 +197,7 @@ class App extends Component {
 
     handleLogin2FA = async form => {
         try {
-            
+            this.setState({ error: null });
             const response = await login2FA(form);
             Cache.setToCache('Authentication', form);
             if (response.status != 200) {
@@ -207,6 +208,11 @@ class App extends Component {
                 await user.updateUser();
                 this.setState({ registerLoginModalOpen: null, error: null, has2FA: false });
             }
+            /* Set currency */
+            if(response.wallet && response.wallet.length > 0 && response.wallet[0].currency) {
+                let currency = response.wallet[0].currency;
+                await store.dispatch(setCurrencyView(currency));
+            }
             return response;
         } catch (error) {
             handleError(error);
@@ -216,6 +222,7 @@ class App extends Component {
 
     handleRegister = async form => {
         try {
+            this.setState({ error: null });
             const response = await register(form);
             if (response.status !== 200) { return this.setState({ error: response }); }
 

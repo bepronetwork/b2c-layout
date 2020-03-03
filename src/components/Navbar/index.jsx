@@ -13,7 +13,6 @@ import  CheckCircleIcon from 'mdi-react/CheckCircleIcon';
 import { Col, Row } from 'reactstrap';
 import Tooltip from '@material-ui/core/Tooltip';
 import IconButton from '@material-ui/core/IconButton';
-import { etherscanLinkID } from "../../lib/api/apiConfig";
 import { getAppCustomization, getApp } from "../../lib/helpers";
 import CurrencyDropDown from "../CurrencyDropDown";
 import { formatCurrency } from "../../utils/numberFormatation";
