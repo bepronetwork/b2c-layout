@@ -106,6 +106,10 @@ class GamePage extends Component {
         }
     }
 
+    componentDidMount() {
+        window.scrollTo(0, 0)
+    }
+
     render() {
         const { options, game, gameMetaName } = this.props;
         const { soundMode, rulesLabel } = this.state;
