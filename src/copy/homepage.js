@@ -99,7 +99,8 @@
           "Win Amount"
         ]
       }
-    }
+    },
+    "TABLE_FILTER": "All Games"
   },
   "ko": {
     "CONTAINERS": {
@@ -191,7 +192,8 @@
           "승리 금액"
         ]
       }
-    }
+    },
+    "TABLE_FILTER": "All Games"
   },
   "ch": {
     "CONTAINERS": {
@@ -284,7 +286,8 @@
           "赢金额"
         ]
       }
-    }
+    },
+    "TABLE_FILTER": "All Games"
   },
   "jp": {
     "CONTAINERS": {
@@ -385,7 +388,8 @@
           "勝利額"
         ]
       }
-    }
+    },
+    "TABLE_FILTER": "All Games"
   }
 }
     export default homepageCopy;
