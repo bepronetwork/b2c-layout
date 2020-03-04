@@ -5,7 +5,8 @@
     "INDEX": {
       "DATA_CONTAINER": {
         "TITLE": [
-          "Wallet"
+          "Wallet",
+          "Affiliates"
         ]
       },
       "TYPOGRAPHY": {
@@ -19,7 +20,8 @@
     "INDEX": {
       "DATA_CONTAINER": {
         "TITLE": [
-          "지갑"
+          "지갑",
+          "제휴사"
         ]
       },
       "TYPOGRAPHY": {
@@ -33,7 +35,8 @@
     "INDEX": {
       "DATA_CONTAINER": {
         "TITLE": [
-          "钱包"
+          "钱包",
+          "会员关系"
         ]
       },
       "TYPOGRAPHY": {
@@ -47,7 +50,8 @@
     "INDEX": {
       "DATA_CONTAINER": {
         "TITLE": [
-          "Wallet"
+          "Wallet",
+          "Affiliates"
         ]
       },
       "TYPOGRAPHY": {
