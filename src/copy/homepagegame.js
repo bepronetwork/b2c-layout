@@ -2,6 +2,7 @@
     const homepagegameCopy =
     {
   "en": {
+    "SOUND": "Sound",
     "TABLE": {
       "ALL_BETS": {
         "TITLE": "Latests Wins",
@@ -42,88 +43,91 @@
     "RULES": "Rules"
   },
   "ko": {
+    "SOUND": "소리",
     "TABLE": {
       "ALL_BETS": {
-        "TITLE": "모든 베팅",
+        "TITLE": "최근 승리",
         "ITEMS": [
           "게임",
-          "베트 ID",
+          "내기 ID",
           "사용자",
           "시간",
-          "베트",
+          "내기",
           "페이아웃",
-          "이윤"
+          "이익"
         ]
       },
       "MY_BETS": {
-        "TITLE": "내 베팅",
+        "TITLE": "최신 비트",
         "ITEMS": [
           "게임",
-          "베트 ID",
+          "내기 ID",
           "사용자",
           "시간",
-          "베트",
+          "내기",
           "페이아웃",
-          "이윤"
+          "이익"
         ]
       },
       "BIGGEST_WIN_BETS": {
-        "TITLE": "가장 큰 우승",
+        "TITLE": "가장 큰 승리",
         "ITEMS": [
           "게임",
-          "베트 ID",
+          "내기 ID",
           "사용자",
           "시간",
-          "베트",
+          "내기",
           "페이아웃",
-          "이윤"
+          "이익"
         ]
       }
     },
     "RULES": "규칙"
   },
   "ch": {
+    "SOUND": "声音",
     "TABLE": {
       "ALL_BETS": {
-        "TITLE": "我的投注",
+        "TITLE": "最新胜利",
         "ITEMS": [
           "游戏",
-          "赌博 ID",
+          "打赌 ID",
           "用户",
           "时间",
-          "下注",
+          "打赌",
           "花费",
-          "盈利"
+          "利润"
         ]
       },
       "MY_BETS": {
-        "TITLE": "我的投注",
+        "TITLE": "最新节拍",
         "ITEMS": [
           "游戏",
-          "赌博 ID",
+          "打赌 ID",
           "用户",
           "时间",
-          "下注",
+          "打赌",
           "花费",
-          "盈利"
+          "利润"
         ]
       },
       "BIGGEST_WIN_BETS": {
         "TITLE": "最大的胜利",
         "ITEMS": [
           "游戏",
-          "赌博 ID",
+          "打赌 ID",
           "用户",
           "时间",
-          "下注",
+          "打赌",
           "花费",
-          "盈利"
+          "利润"
         ]
       }
     },
     "RULES": "游戏规则"
   },
   "jp": {
+    "SOUND": "Sound",
     "TABLE": {
       "ALL_BETS": {
         "TITLE": "すべての賭け",
@@ -165,5 +169,4 @@
     "RULES": "規則"
   }
 }
-    export default homepagegameCopy;
-    
+export default homepagegameCopy;

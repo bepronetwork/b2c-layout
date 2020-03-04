@@ -72,7 +72,7 @@ class AffiliatesTab extends Component {
                         }/>
                     </Col>
                     <Col lg={6}>
-                        <DataContainer title={'Affiliates'} message={userAmount} image={users} />
+                        <DataContainer title={copy.INDEX.DATA_CONTAINER.TITLE[1]} message={userAmount} image={users} />
                     </Col>
                 </Row>
                 <Row>

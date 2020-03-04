@@ -114,6 +114,10 @@ class GamePage extends Component {
         const { options, game, gameMetaName } = this.props;
         const { soundMode, rulesLabel } = this.state;
 
+        const { ln } = this.props;
+        const copy = CopyText.homepagegame[ln];
+
+
         if (_.isEmpty(gameMetaName)) return null;
 
         const containerStyles = classNames("container",
@@ -160,7 +164,7 @@ class GamePage extends Component {
                                         <ButtonIcon
                                             iconAtLeft
                                             icon="sound"
-                                            label="Sound"
+                                            label={copy.SOUND}
                                             onClick={this.handleSounds}
                                             soundMode={soundMode}
                                         />
