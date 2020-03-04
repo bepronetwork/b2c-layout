@@ -140,7 +140,7 @@ const defaultProps = {
     view_amount : views[1],
     games : [],
     options : [],
-    view_game :  (getGames() && getGames()[0]) ? getGames()[0].metaName : null
+    view_game : 'all_games'
 }
 
 class LastBets extends Component {
@@ -222,7 +222,7 @@ class LastBets extends Component {
                         isWon : bet.isWon,
                         payout : `${formatCurrency(Numbers.toFloat(bet.winAmount/bet.betAmount))}x`
                     }
-                })
+                }).filter( el => (view_game == 'all_games' || el.game.metaName == view_game))
             },
             my_bets : {
                 ...this.state.my_bets,
@@ -237,7 +237,7 @@ class LastBets extends Component {
                         isWon : bet.isWon,
                         payout : `${formatCurrency(Numbers.toFloat(bet.winAmount/bet.betAmount))}x`
                     }
-                })
+                }).filter( el => (view_game == 'all_games' || el.game.metaName == view_game))
             },
             biggest_win_bets  : {
                 ...this.state.biggest_win_bets,
@@ -253,7 +253,7 @@ class LastBets extends Component {
                         isWon : bet.isWon,
                         payout : `${formatCurrency(Numbers.toFloat(bet.winAmount/bet.betAmount))}x`
                     }
-                })
+                }).filter( el => (view_game == 'all_games' || el.game.metaName == view_game))
             },
             biggest_win_users : {
                 ...this.state.biggest_win_users,
@@ -271,7 +271,9 @@ class LastBets extends Component {
     }
 
     render() {
+        const { ln } = this.props;
         const { games } = this.state;
+        const copy = CopyText.homepage[ln];
 
         return (
             <div styleName='container'>
@@ -297,6 +299,11 @@ class LastBets extends Component {
                                             value={this.state.view_game}
                                             style={{width : '80%'}}
                                             >
+                                                <MenuItem value="all_games">
+                                                    <Typography variant="body" color="casper">
+                                                        {`${copy.TABLE_FILTER}`}
+                                                    </Typography>
+                                                </MenuItem>
                                             {games.map(option => (
                                                 <MenuItem key={option} value={option.metaName}>
                                                     <Typography variant="body" color="casper">

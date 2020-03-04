@@ -11,6 +11,7 @@ import info from 'assets/info.png';
 import _ from 'lodash';
 import "./index.css";
 import { CopyText } from '../../copy';
+import { getApp } from "../../lib/helpers";
 
 class Authentication2FAModal extends Component {
     constructor(props) {
@@ -39,7 +40,7 @@ class Authentication2FAModal extends Component {
         const { auth_2fa } = this.state;
         const secret = auth_2fa.secret;
         const {ln} = this.props;
-const copy = CopyText.authentication2FAModalIndex[ln];
+        const copy = CopyText.authentication2FAModalIndex[ln];
 
         try {
             let verified = Security2FASingleton.isVerifiedToken2FA( { secret, token } );
@@ -85,7 +86,8 @@ const copy = CopyText.authentication2FAModalIndex[ln];
         let auth_2fa = this.state.auth_2fa;
 
         if(_.isEmpty(auth_2fa)){
-            let res = Security2FASingleton.generateSecret2FA({name : 'BetProtocol', account_id : profile.user_id});
+            const secret2FAName = getApp().name + ":" + profile.getUsername();
+            let res = Security2FASingleton.generateSecret2FA({name : secret2FAName, account_id : profile.user_id});
             auth_2fa = {
                 uri : decodeURIComponent(res.uri),
                 secret : res.secret

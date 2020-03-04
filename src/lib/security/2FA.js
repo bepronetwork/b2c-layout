@@ -2,9 +2,9 @@ var twoFactor = require('node-2fa');
 
 class Security2FA {
 
-    generateSecret2FA({name='BetProtocol', account_id}){
+    generateSecret2FA({name, account_id}){
         try{
-            return twoFactor.generateSecret({name: name, account: account_id});
+            return twoFactor.generateSecret({name, account: account_id});
         }catch(error){
             throw error;
         }

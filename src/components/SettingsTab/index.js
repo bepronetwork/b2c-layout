@@ -56,7 +56,7 @@ class SettingsTab extends Component {
     render() {
         const { backgroundMusic, has2FA } = this.state;
         const {ln} = this.props;
-const copy = CopyText.settingsTabIndex[ln];
+        const copy = CopyText.settingsTabIndex[ln];
         return (
             <div>
                 <ToggleForm onClick={this.handleBackgroundMusicToggle} title={copy.INDEX.TOGGLE_FORM.TITLE[0]} isSet={backgroundMusic} id={'background-music'}/>
