@@ -21,6 +21,8 @@ export default class Coin extends Component {
       [`coin${toLower(value)}`]: true
     });
 
+    console.log(rootStyles)
+
     return (
       <svg
         styleName={rootStyles}
