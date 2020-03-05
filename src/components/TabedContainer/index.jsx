@@ -1,5 +1,6 @@
 import React from 'react';
 import { Col, Container, Row } from 'reactstrap';
+import { Link } from 'react-router-dom'
 import { connect } from "react-redux";
 import _ from 'lodash';
 import { Tab, Nav } from 'react-bootstrap';
@@ -34,7 +35,7 @@ class TabedContainer extends React.Component{
                                 {items.map( (item, index) => {
                                     return (
                                         <Nav.Item>
-                                            <Nav.Link eventKey={`item-${index}`}>
+                                            <Nav.Link as={Link} to={"/account/"+item.title.toLowerCase()} eventKey={`item-${index}`}>
                                                 <Row>
                                                     <Col xs={2} md={2}>
                                                         {item.icon}
