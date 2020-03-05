@@ -23,6 +23,12 @@
     background-color : inherit;
 }
 
+@media screen and (max-width: 767px) {
+  #root{
+    width : 450px;
+  }
+}
+
 /* Turn off number input spinners */
 
 input::-webkit-outer-spin-button,
