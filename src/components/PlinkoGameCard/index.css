@@ -147,6 +147,7 @@ $with-without-padding: calc(100% - $spacing-20 - $spacing-20);
   position: relative;
   gap: 1% 1%;
   width: 79%;
+  padding: 0 20px;
 }
 
 
@@ -257,7 +258,7 @@ $with-without-padding: calc(100% - $spacing-20 - $spacing-20);
 .peg {
     grid-row: 1 / auto;
     font-size: 10px;
-    width: 50px;
+    width: 46px;
     transition: all 300ms linear;
     margin: auto;
     height: 30px;
