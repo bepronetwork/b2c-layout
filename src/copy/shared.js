@@ -18,7 +18,7 @@
   },
   "ko": {
     "CHIP_INFO": "칩 가치",
-    "EDGE_NAME": "에지",
+    "EDGE_NAME": "회비",
     "PLACEHOLDER_CHAT": "메시지 입력",
     "CLEAR_NAME": "클리어",
     "UNDO_NAME": "취소",
@@ -33,7 +33,7 @@
   },
   "ch": {
     "CHIP_INFO": "筹码价值",
-    "EDGE_NAME": "预期收益",
+    "EDGE_NAME": "费用",
     "PLACEHOLDER_CHAT": "输入你的消息",
     "DOUBLE_DOWN_NAME": "Double Down",
     "CLEAR_NAME": "清空",

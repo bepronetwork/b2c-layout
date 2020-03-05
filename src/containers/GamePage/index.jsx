@@ -106,13 +106,21 @@ class GamePage extends Component {
         }
     }
 
+    componentDidMount() {
+        window.scrollTo(0, 0)
+    }
+
     render() {
         const { options, game, gameMetaName } = this.props;
         const { soundMode, rulesLabel } = this.state;
 
+        const { ln } = this.props;
+        const copy = CopyText.homepagegame[ln];
+
+
         if (_.isEmpty(gameMetaName)) return null;
 
-        const styles = classNames("container",
+        const containerStyles = classNames("container",
             {
                 containerWheel: gameMetaName === 'wheel_simple' || gameMetaName === 'wheel_variation_1',
                 containerDice: gameMetaName === 'linear_dice_simple',
@@ -122,21 +130,41 @@ class GamePage extends Component {
             }
         )
 
+        const gameContainerStyles = classNames(
+            {
+                gameContainerWheel: gameMetaName === 'wheel_simple' || gameMetaName === 'wheel_variation_1',
+                gameContainerDice: gameMetaName === 'linear_dice_simple',
+                gameContainerRoulette: gameMetaName === 'european_roulette_simple',
+                gameContainerFlip: gameMetaName === 'coinflip_simple',
+                gameContainerPlinko: gameMetaName === 'plinko_variation_1'
+            }
+        )
+
+        const optionsContainerStyles = classNames("options-container",
+            {
+                optionsContainerWheel: gameMetaName === 'wheel_simple' || gameMetaName === 'wheel_variation_1',
+                optionsContainerDice: gameMetaName === 'linear_dice_simple',
+                optionsContainerRoulette: gameMetaName === 'european_roulette_simple',
+                optionsContainerFlip: gameMetaName === 'coinflip_simple',
+                optionsContainerPlinko: gameMetaName === 'plinko_variation_1'
+            }
+        )
+
         return (
             <div styleName='main-container'>
                 {this.renderActions()}
                 <div styleName="root">
-                    <div styleName={styles}>
+                    <div styleName={containerStyles}>
                         <Row styleName="game-page-container">
                             <Col lg={{ size: 9, order: 2}} styleName='no-padding'>
-                                <div styleName="game-container">
+                                <div styleName={gameContainerStyles}>
                                     {game}
                                     {this.renderHistory()}
                                     <div styleName="sound">
                                         <ButtonIcon
                                             iconAtLeft
                                             icon="sound"
-                                            label="Sound"
+                                            label={copy.SOUND}
                                             onClick={this.handleSounds}
                                             soundMode={soundMode}
                                         />
@@ -145,7 +173,7 @@ class GamePage extends Component {
 
                             </Col>
                             <Col lg={{ size: 3, order: 1}} styleName='no-padding'>
-                                <div styleName="options-container">{options}</div>
+                                <div styleName={optionsContainerStyles}>{options}</div>
                             </Col>
                         </Row>
                     </div>

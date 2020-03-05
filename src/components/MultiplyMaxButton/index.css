@@ -11,8 +11,7 @@
   display: grid;
   align-items: center;
   grid-template-columns: 33% 33% 33%;
-
-  height: 100%;
+  padding-top: 10px;
 }
 
 .button {

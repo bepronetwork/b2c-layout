@@ -15,10 +15,10 @@ const affiliateLinkContainerCopy = {
         INDEX: {
             TYPOGRAPHY: {
                 FUNC_TEXT : [
-                (param) => `${param} 제휴 프로그램을 공유하고 이익을 창출해 보세요!`,
+                (param) => `${param}% 제휴 프로그램에서 공유하고 이익을 얻으십시오!`,
                 (param) => `하우스가 이길 때마다 ${param}%이상 수익 이 링크에 등록된 사용자`,
             ],
-            TEXT: `복사`
+            TEXT: `부`
         }
       }
   },
@@ -26,7 +26,7 @@ const affiliateLinkContainerCopy = {
       INDEX: {
         TYPOGRAPHY: {
             FUNC_TEXT : [
-              (param) => `分享${param}合作计划并从中获利！`,
+              (param) => `分享并从${param}％的会员计划中获利！`,
               (param) => `每当房屋获胜时至少获得${param}％ 使用此链接注册的用户`
           ],
           TEXT: ['复制']
