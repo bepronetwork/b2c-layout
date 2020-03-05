@@ -25,6 +25,9 @@ class TabedContainer extends React.Component{
         let mainIndex = items.findIndex(this.isCurrentPath, pathName);
         mainIndex = mainIndex > 0 ? mainIndex : 0;
 
+        const path = pathName.split('/');
+        const parent = mainIndex > 0 ? path[path.length-2] : path[path.length-1];
+
         return (
             <Container className="dashboard">
                 <Tab.Container id="left-tabs-example" defaultActiveKey={`item-${mainIndex}`}>
@@ -35,7 +38,7 @@ class TabedContainer extends React.Component{
                                 {items.map( (item, index) => {
                                     return (
                                         <Nav.Item>
-                                            <Nav.Link as={Link} to={"/account/"+item.title.toLowerCase()} eventKey={`item-${index}`}>
+                                            <Nav.Link as={Link} to={"/"+parent+"/"+item.title.toLowerCase()} eventKey={`item-${index}`}>
                                                 <Row>
                                                     <Col xs={2} md={2}>
                                                         {item.icon}
