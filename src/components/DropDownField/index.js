@@ -41,7 +41,7 @@ class DropDownField extends React.Component{
             <TextField
                 disabled={this.props.disabled}
                 id={this.props.id} 
-                style={{width : '80%', height : 60, marginTop : 20}} 
+                style={{width : '80%', height : this.props.height ? this.props.height : 60, marginTop : 20}} 
                 className={this.props.className} 
                 select
                 margin="normal"
