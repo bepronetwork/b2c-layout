@@ -286,21 +286,13 @@ export default class Wheel extends Component {
         )
         if(!result || !game.resultSpace || inResultAnimation){return <div styleName={containerStyles}/>}
 
-        const resultStyles = classNames("result", {
-        green: result === 0 && !rotating,
-        picked:
-            result && result !== 0 && !rotating
-        });
-
         let multiplier = game.resultSpace[result].multiplier;
         let colorMultiplier = options.find(opt => opt.multiplier == multiplier).index;
         let styleName = `multiplier-${new String(colorMultiplier).toString().trim()}`;
 
         return (
             <div styleName={containerStyles}>
-                <div styleName={resultStyles} onTransitionEnd={this.handleAnimationEnd}>
                 <h6 styleName={styleName}>{game.resultSpace[result].multiplier}x</h6>
-                </div>
             </div>
         );
     };
@@ -309,11 +301,13 @@ export default class Wheel extends Component {
         return (
             <div  styleName="root" >
                 <div>
-                    <div styleName={'outer-circle'}></div>
-                    <div styleName={'circle'}></div>
+                    <div styleName={'outer-circle'}>
+                        <img src={pointer} styleName={'wheel-pointer'}/>
+                        <div styleName={'circle'}>
+                            {this.renderResult()}
+                        </div>
+                    </div>
                 </div>
-                <img src={pointer} styleName={'wheel-pointer'}/>
-                {this.renderResult()}
                 {/* Canvas */}
                     <span 
                         ref={el => {this.el = el;}} 
