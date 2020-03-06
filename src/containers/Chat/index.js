@@ -176,14 +176,14 @@ class ChatPage extends React.Component {
                                                 </DropDownField> 
                                             </div>
                                         </Col>
-                                        <Col sm={6} md={6} lg={3}>
+                                        <Col sm={6} md={4} lg={3}>
                                             <div styleName={'users-box'}>
                                                 <Typography variant="small-body" color="casper">
                                                     {this.state.participants} <UsersGroupIcon size={25}/>
                                                 </Typography>
                                             </div>
                                         </Col>
-                                        <Col sm={6} md={6} lg={4}>
+                                        <Col sm={6} md={8} lg={4}>
                                             <button
                                                 disabled={this.state.message.length < 1}
                                                 type="submit"
