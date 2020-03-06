@@ -30,12 +30,12 @@ class CarousselContainer extends Component {
         const { banners } = getAppCustomization();
         const images = banners.ids.map( id => {
             return {
-                srcSet: id
+                srcSet: id.image_url
             }
         });
         const links = banners.ids.map( id => {
             return {
-                srcSet: id
+                url: id.link_url
             }
         });
         this.setState({images, links})
@@ -45,7 +45,9 @@ class CarousselContainer extends Component {
         const { links } = this.state;
         var link = links[gallery.getCurrentIndex()];
 
-        window.open(link.srcSet, "_blank");
+        if(link.url) {
+            window.open(link.url, "_blank");
+        }
     }
 
     _onMouseOver() {
