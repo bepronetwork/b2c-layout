@@ -36,7 +36,7 @@ export default class HomePage extends Component {
         return find(games, { metaName : metaName });
     };
 
-    renderGame = ({metaName, name, edge, image_url, tableLimit}) => {
+    renderGame = ({metaName, name, edge, image_url, tableLimit, background_url}) => {
         if(!this.isGameAvailable(metaName)){return null}
         return (
                 <Col md={6} lg={4}>
@@ -46,6 +46,7 @@ export default class HomePage extends Component {
                         edge={edge}
                         image_url={image_url}
                         tableLimit={tableLimit}
+                        background_url={background_url}
                     >
                     </GameCard>
                 </Col>
