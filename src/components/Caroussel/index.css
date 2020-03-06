@@ -1,6 +1,8 @@
 @import "../../styles/all.css";
 
 .banners{
+    cursor: pointer;
+    
     @include Breakpoint-mobileOnly {
         width: 490px;
     }
