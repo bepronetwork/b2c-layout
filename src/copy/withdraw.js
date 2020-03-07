@@ -36,7 +36,7 @@
       "COMPLETED": "인출 가능한 토큰"
     },
     "TABLE": {
-      "BUTTON_ONE": "인출"
+      "BUTTON_ONE": "출금"
     }
   },
   "ch": {
