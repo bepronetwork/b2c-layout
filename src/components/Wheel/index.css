@@ -23,68 +23,50 @@
 }
 
 .outer-circle {
-    font-size: 13.4em;
-    display: inline-block;
-    width: 2em;
-    box-sizing: content-box;
-    height: 2em;
-    border: 0.08em solid rgb(53, 68, 82);
-    position: absolute;
-    border-radius: 1.4em;
+    width: 464px;
+    height: 464px;
+    border: 20px solid rgb(53, 68, 82);
+    position: relative;
+    border-radius: 232px;
     z-index: 10;
-    margin-left: -11px;
-    margin-top: -12px;
+    left: -12px;
+    top: -12px;
     filter: drop-shadow(0px 4px 2px rgba(0,0,0,0.5));
 }
 
 @media screen and (max-width: 1267px) and (min-width: 1024px) {
     .outer-circle {
-        width: 1.6em;
-        height: 1.6em;
-        margin-top: -14px;
+        width: 376px;
+        height: 376px;
     }
   }
   
   @media screen and (max-width: 1023px) and (min-width: 768px) {
     .outer-circle {
-        width: 1.6em;
-        height: 1.6em;
-        margin-top: -10px;
+        width: 384px;
+        height: 384px;
     }
   }
   
   @media screen and (max-width: 767px) {
     .outer-circle {
-        width: 1.5em;
-        height: 1.5em;
-        margin-top: -10px;
+        width: 370px;
+        height: 370px;
+        left: -16px;
+        top: -18px;
     }
   }
 
 .circle {
-    display: inline-block;
+    width: 44%;
+    height: 44%;
+    left: 50%;
+    top: 50%;
     position: absolute;
+    transform: translate(-50%, -50%);
     z-index: 10;
-    margin-left: 136px;
-    margin-top: 136px;
     border-radius:100%;
     border: 1px solid rgb(53, 68, 82);
-    width:170px;
-    height:170px;
-
-    @include Breakpoint-tabletOnly {
-        margin-left: 100px;
-        margin-top: 100px;
-        width: 150px;
-        height: 150px;
-    }
-
-    @include Breakpoint-mobileOnly {
-        margin-left: 93px;
-        margin-top: 93px;
-        width: 150px;
-        height: 150px;
-    }
 }
 
 #spin {
@@ -118,15 +100,37 @@
     bottom: 0;
     left: 0;
     right: 0;
-    width: 100%;
+    width: 440px;
+    height: 440px;
 }
+
+  @media screen and (max-width: 1267px) and (min-width: 1024px) {
+    .root > span > canvas {
+        width: 352px;
+        height: 352px;
+    }
+  }
+  
+  @media screen and (max-width: 1023px) and (min-width: 768px) {
+    .root > span > canvas {
+        width: 358px;
+        height: 358px;
+    }
+  }
+  
+  @media screen and (max-width: 767px) {
+    .root > span > canvas {
+        width: 336px;
+        height: 336px;
+    }
+  }
 
 .wheel-pointer{
     width: 36px;
     margin: auto;
     position: relative;
     display: block;
-    top: -18px;
+    top: -24px;
     z-index: 13;
     filter: drop-shadow(0px 4px 2px rgba(0,0,0,0.5));
 }
@@ -143,44 +147,19 @@
 }
 
 .resultContainerSimple {
-    height: 70px;
-    margin-top: 160px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 
-    @include Breakpoint-tabletOnly {
-        margin-top: 110px;
-    }
-
-    @include Breakpoint-mobileOnly {
-        margin-top: 40px;
-        margin-bottom: 180px;
-    }
-}
-
-
-
-.result {
-    align-items: center;
-    justify-content: center;
-    width: 70px;
-
-    opacity: 0;
-    text-align: center;
-    margin: auto;
-    display: grid;
-    border-radius: 70px;
-    position: relative;
 
     h6 {
-      font-family: $font-family;
-      font-size: $font-size-h2;
-      font-weight: 600;
-      line-height: $line-height-h2;
+        font-family: $font-family;
+        font-size: $font-size-h2;
+        font-weight: 600;
+        line-height: $line-height-h2;
     }
-
-    @include Breakpoint-mobileOnly {
-        padding-top: 20% !important;
-    }
-  }
+}
   
   .result.picked {
     opacity: 1;
