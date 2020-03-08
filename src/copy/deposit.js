@@ -58,7 +58,7 @@
         "SECOND": "代币"
       }
     },
-    "BUTTON_ONE": "存款",
+    "BUTTON_ONE": "充币",
     "INFO": {
       "FIRST": "请不要关闭窗口!",
       "SECOND": "有两个操作正在进行",

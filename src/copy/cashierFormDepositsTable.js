@@ -2,6 +2,14 @@
     const cashierFormDepositsTableCopy =
     {
   "en": {
+    "ROW": {
+      "LABEL": [
+        "Amount",
+        "Status",
+        "Tx Hash",
+        "Creation Date"
+      ]
+    },
     "DEPOSITSTABLE": {
       "TOOLTIP": {
         "TITLE": [
@@ -17,6 +25,14 @@
     }
   },
   "ko": {
+    "ROW": {
+      "LABEL": [
+        "금액",
+        "상태",
+        "Tx 해시시",
+        "생성일"
+      ]
+    },
     "DEPOSITSTABLE": {
       "TOOLTIP": {
         "TITLE": [
@@ -32,6 +48,14 @@
     }
   },
   "ch": {
+    "ROW": {
+      "LABEL": [
+        "金额",
+        "状态",
+        "Tx 杂凑",
+        "创建日期"
+      ]
+    },
     "DEPOSITSTABLE": {
       "TOOLTIP": {
         "TITLE": [
@@ -47,6 +71,14 @@
     }
   },
   "jp": {
+    "ROW": {
+      "LABEL": [
+        "Amount",
+        "Status",
+        "Tx Hash",
+        "Creation Date"
+      ]
+    },
     "DEPOSITSTABLE": {
       "TOOLTIP": {
         "TITLE": [
@@ -62,5 +94,4 @@
     }
   }
 }
-    export default cashierFormDepositsTableCopy;
-    
+export default cashierFormDepositsTableCopy;

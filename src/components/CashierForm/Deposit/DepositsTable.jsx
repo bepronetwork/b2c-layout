@@ -76,30 +76,6 @@ const fromDatabasetoTable = (data) => {
     return res;
 }
 
-const rows = [
-    {
-        id: 'amount',
-        label: 'Amount',
-    },
-    {
-        id: 'confirmed',
-        label: 'Status',
-        numeric: false
-    },
-    {
-        id: 'transactionHash',
-        label: 'Tx Hash',
-        numeric: false
-
-    },
-    {
-        id: 'creation_date',
-        label: 'Creation Date',
-        numeric: false
-
-    }
-];
-
 class EnhancedTableHead extends React.Component {
     createSortHandler = property => event => {
         this.props.onRequestSort(event, property);
@@ -109,6 +85,31 @@ class EnhancedTableHead extends React.Component {
         const { onSelectAllClick, order, orderBy, numSelected, rowCount } = this.props;
         const {ln} = globalProps;
         const copy = CopyText.cashierFormDepositsTable[ln];
+        
+        const rows = [
+            {
+                id: 'amount',
+                label: copy.ROW.LABEL[0],
+            },
+            {
+                id: 'confirmed',
+                label: copy.ROW.LABEL[1],
+                numeric: false
+            },
+            {
+                id: 'transactionHash',
+                label: copy.ROW.LABEL[2],
+                numeric: false
+        
+            },
+            {
+                id: 'creation_date',
+                label: copy.ROW.LABEL[3],
+                numeric: false
+        
+            }
+        ];
+
         return (
             <TableHead>
                 <TableRow style={{backgroundColor : '#0a031b'}}>
