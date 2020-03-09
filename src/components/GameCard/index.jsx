@@ -46,27 +46,29 @@ class GameCard extends Component {
         return (
             <div styleName="root">
                 <Link to={path} styleName="button">
-                <div styleName={imageStyles}>
-                    <div styleName="icon">
-                        <img src={image_url} styleName='coinflip-icon'/>
+                    <div styleName={imageStyles}>
+                        <div styleName="icon">
+                            <img src={image_url} styleName='coinflip-icon'/>
+                        </div>
                     </div>
-                </div>
-                <div styleName="labels">
-                    <div styleName="title">
-                    <Typography variant="h4" weight="semi-bold" color="white">
-                        {title}
-                    </Typography>
+                    <div styleName="labels">
+                        <div styleName="title">
+                        <Typography variant="body" weight="semi-bold" color="white">
+                            {title}
+                        </Typography>
+                        </div>
+                        <div styleName='info-holder'>
+                            <Typography variant="small-body" color="white">
+                                {edge >= 0 ? `${edge}% ${copy.EDGE_NAME}` : ""} 
+                                <span>
+                                    <Typography variant="x-small-body" color="grey">Min: 0.01</Typography>
+                                </span>
+                                <span>
+                                    <Typography variant="x-small-body" color="grey">Max: {tableLimit}</Typography>
+                                </span>
+                            </Typography>
+                        </div>
                     </div>
-                    <Typography variant="small-body" color="white">
-                        {edge >= 0 ? `${edge}% ${copy.EDGE_NAME}` : ""} 
-                        <span>
-                            <Typography variant="x-small-body" color="grey">Min: 0.01</Typography>
-                        </span>
-                        <span>
-                            <Typography variant="x-small-body" color="grey">Max: {tableLimit}</Typography>
-                        </span>
-                    </Typography>
-                </div>
                 </Link>
             </div>
         );

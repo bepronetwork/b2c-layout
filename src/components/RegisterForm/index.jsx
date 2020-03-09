@@ -5,6 +5,9 @@ import "./index.css";
 import { connect } from "react-redux";
 import { compose } from 'lodash/fp';
 import Cache from "../../lib/cache/cache";
+import { CopyText } from '../../copy';
+import loading from 'assets/loading-circle.gif';
+
 class RegisterForm extends Component {
     static propTypes = {
         onSubmit: PropTypes.func.isRequired,
@@ -21,43 +24,27 @@ class RegisterForm extends Component {
         confirmPassword: "",
         email: "",
         emailValid: false,
-        address: ""
+        isLoading: false
     };
 
     componentDidMount(){
-        this.getMetamaskInfo();
-        this.updateAddress();
-    }
-
-    getMetamaskInfo(){
-        if(window.ethereum){
-            window.ethereum.on('accountsChanged', (accounts) => {
-                this.updateAddress(accounts[0]);
-            })
-            
-            window.ethereum.on('networkChanged', (netId) =>  {
-                console.log(netId);
-            })
-        }  
     }
 
     componentWillReceiveProps(){
-        this.updateAddress();
     }
 
-    updateAddress = async (address=null) => {
-        if(!address && window.web3 && window.web3.eth){
-            address = (await window.web3.eth.getAccounts())[0];
-        }
-        this.setState({...this.state, address : address});
-    }
+    handleSubmit = async event => {
+        this.setState({...this.state, isLoading : true });
 
-    handleSubmit = event => {
         event.preventDefault();
         const { onSubmit } = this.props;
         const affiliateLink = Cache.getFromCache('affiliate');
         let data = {...this.state, affiliateLink : affiliateLink}
-        if (onSubmit && this.formIsValid()) onSubmit(data);
+        if (onSubmit && this.formIsValid()) {
+            await onSubmit(data);
+        }
+
+        this.setState({...this.state, isLoading : false});
     };
 
     formIsValid = () => {
@@ -96,14 +83,16 @@ class RegisterForm extends Component {
 
     render() {
         const { error } = this.props;
-        const { username, password, confirmPassword, email, address } = this.state;
+        const { username, password, confirmPassword, email, isLoading } = this.state;
+        const {ln} = this.props;
+        const copy = CopyText.registerFormIndex[ln];
 
         return (
         <form onSubmit={this.handleSubmit}>
             <div styleName="username">
             <InputText
                 name="username"
-                label="Username"
+                label={copy.INDEX.INPUT_TEXT.LABEL[0]}
                 onChange={this.onChange}
                 value={username}
             />
@@ -112,7 +101,7 @@ class RegisterForm extends Component {
             <InputText
                 name="password"
                 type="password"
-                label="Password"
+                label={copy.INDEX.INPUT_TEXT.LABEL[1]}
                 onChange={this.onChange}
                 value={password}
             />
@@ -120,7 +109,7 @@ class RegisterForm extends Component {
             <div styleName="password">
             <InputText
                 name="confirmPassword"
-                label="Confirm Password"
+                label= {copy.INDEX.INPUT_TEXT.LABEL[2]}
                 type="password"
                 onChange={this.onChange}
                 value={confirmPassword}
@@ -128,20 +117,10 @@ class RegisterForm extends Component {
             </div>
             <InputText
             name="email"
-            label="Email"
+            label={copy.INDEX.INPUT_TEXT.LABEL[3]}
             onChange={this.onEmailChange}
             value={email}
             />
-
-            <div styleName="address">
-            <InputText
-                name="address"
-                label="Ethereum Address"
-                onChange={this.onChange}
-                value={address}
-                placeHolder={'0x23cab324ba2a24... '}
-            />
-            </div>
 
             <div styleName="error">
             {error ? (
@@ -156,10 +135,15 @@ class RegisterForm extends Component {
                 size="medium"
                 theme="primary"
                 onClick={this.handleSubmit}
-                disabled={!this.formIsValid()}
+                disabled={!this.formIsValid() || isLoading}
                 type="submit"
             >
-                <Typography color="white">Register</Typography>
+                {isLoading 
+                    ?
+                        <img src={loading} />
+                    :
+                        <Typography color="white">{copy.INDEX.TYPOGRAPHY.TEXT[0]}</Typography>
+                }
             </Button>
             </div>
         </form>

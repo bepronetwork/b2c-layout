@@ -173,7 +173,7 @@ export default class InputNumber extends Component {
     });
 
     const parsedValue =
-      precision > 0 ? Number(value).toFixed(precision) : value;
+      precision > 0 ? Number(value) : value;
 
     return (
       <div styleName="root">

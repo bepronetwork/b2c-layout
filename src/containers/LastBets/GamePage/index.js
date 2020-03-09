@@ -10,6 +10,7 @@ import Tabs from "../../../components/Tabs";
 import { DropDownField, Typography } from 'components';
 import TableDefault from "./Table";
 import { MenuItem } from '@material-ui/core';
+import { formatCurrency } from '../../../utils/numberFormatation';
 import _ from 'lodash';
 import { CopyText } from "../../../copy";
 import "./index.css";
@@ -29,6 +30,35 @@ const rows = {
             },
             {
                 value : 'username'
+            },
+            {
+                value : 'timestamp'
+            },
+            {
+                value : 'betAmount'
+            },
+            {
+                value : 'winAmount',
+                dependentColor : true,
+                condition : 'isWon'
+            },
+            {
+                value : 'payout',
+                dependentColor : true,
+                condition : 'isWon'
+            }
+        ],
+        rows : []
+    },
+    my_bets : {
+        titles : [],
+        fields : [
+            {
+                value : 'game',
+                image : true
+            },
+            {
+                value : 'id'
             },
             {
                 value : 'timestamp'
@@ -86,6 +116,7 @@ const rows = {
 
 const defaultProps = {
     all_bets    : rows.all_bets,
+    my_bets     : rows.my_bets,
     biggest_win_bets : rows.biggest_win_bets,
     view        : 'all_bets',
     view_amount : views[1],
@@ -129,7 +160,7 @@ class LastBets extends Component {
     }
     
     projectData = async (props, options=null) => {
-        let { ln, gameMetaName } = props;
+        let { profile, ln, gameMetaName } = props;
         let { view_amount } = this.state;
         const games = getGames();
         
@@ -139,7 +170,11 @@ class LastBets extends Component {
         const copy = CopyText.homepagegame[ln];
         let all_bets = await getLastBets({size : view_amount});
         let biggest_winners_bets = await getBiggestBetWinners({size : view_amount});
+        let my_bets = [];
 
+        if(profile && !_.isEmpty(profile)){
+            my_bets = await profile.getMyBets({size : view_amount});
+        }
         this.setState({...this.state, 
             ...options,
             games : games,
@@ -158,10 +193,25 @@ class LastBets extends Component {
                         id: new String(bet._id).slice(3, 15),
                         username: bet.username,
                         timestamp: dateToHourAndMinute(bet.timestamp),
-                        betAmount: Numbers.toFloat(bet.betAmount),
-                        winAmount: Numbers.toFloat(bet.winAmount),
+                        betAmount: formatCurrency(Numbers.toFloat(bet.betAmount)),
+                        winAmount: formatCurrency(Numbers.toFloat(bet.winAmount)),
                         isWon : bet.isWon,
-                        payout : `${Numbers.toFloat(bet.winAmount/bet.betAmount)}x`
+                        payout : `${formatCurrency(Numbers.toFloat(bet.winAmount/bet.betAmount))}x`
+                    }
+                }).filter( el => (el.game.metaName == gameMetaName))
+            },
+            my_bets : {
+                ...this.state.my_bets,
+                titles : copy.TABLE.MY_BETS.ITEMS,
+                rows : my_bets.map( (bet) =>  {
+                    return {
+                        game: (games.find(game => new String(game.name).toLowerCase() == new String(bet.game).toLowerCase())),
+                        id: new String(bet._id).slice(3, 15),
+                        timestamp: dateToHourAndMinute(bet.timestamp),
+                        betAmount: formatCurrency(Numbers.toFloat(bet.betAmount)),
+                        winAmount: formatCurrency(Numbers.toFloat(bet.winAmount)),
+                        isWon : bet.isWon,
+                        payout : `${formatCurrency(Numbers.toFloat(bet.winAmount/bet.betAmount))}x`
                     }
                 }).filter( el => (el.game.metaName == gameMetaName))
             },
@@ -174,10 +224,10 @@ class LastBets extends Component {
                         id: new String(bet._id).slice(3, 15),
                         username: bet.username,
                         timestamp: dateToHourAndMinute(bet.timestamp),
-                        betAmount: Numbers.toFloat(bet.betAmount),
-                        winAmount: Numbers.toFloat(bet.winAmount),
+                        betAmount: formatCurrency(Numbers.toFloat(bet.betAmount)),
+                        winAmount: formatCurrency(Numbers.toFloat(bet.winAmount)),
                         isWon : bet.isWon,
-                        payout : `${Numbers.toFloat(bet.winAmount/bet.betAmount)}x`
+                        payout : `${formatCurrency(Numbers.toFloat(bet.winAmount/bet.betAmount))}x`
                     }
                 }).filter( el => (el.game.metaName == gameMetaName))
             }
@@ -187,49 +237,47 @@ class LastBets extends Component {
     render() {
         return (
             <div styleName='container'>
-                <div>
-                    <div styleName="root">
-                        <div styleName="container">
-                            <Row>
-                                <Col md={11}>
-                                    <Tabs
-                                        selected={this.state.view}
-                                        options={this.state.options}
-                                        onSelect={this.handleTabChange}
-                                        spacing="60"
-                                    />
-                                </Col>
-                                <Col md={1}>
-                                    <div styleName='bets-dropdown'>
-                                        <DropDownField
-                                            id="view"
-                                            type={'view'}
-                                            onChange={this.changeViewBets}
-                                            options={views}
-                                            value={this.state.view_amount}
-                                            style={{width : '80%'}}
-                                            >
-                                            {views.map(option => (
-                                                <MenuItem key={option} value={option}>
-                                                    <Typography
-                                                        variant="body"
-                                                        color="casper"
-                                                    >
-                                                        {`${option}`}
-                                                    </Typography>
-                                                </MenuItem>
-                                            ))}
-                                        </DropDownField> 
-                                    </div>
-                                </Col>
-                            </Row>
-                        
-                            <TableDefault
-                                rows={this.state[this.state.view].rows}
-                                titles={this.state[this.state.view].titles}
-                                fields={this.state[this.state.view].fields}
-                            />                    
-                        </div>
+                <div styleName="root">
+                    <div styleName="container">
+                        <Row>
+                            <Col xs={10} md={10}>
+                                <Tabs
+                                    selected={this.state.view}
+                                    options={this.state.options}
+                                    onSelect={this.handleTabChange}
+                                    spacing="60"
+                                />
+                            </Col>
+                            <Col xs={2} md={2}>
+                                <div styleName='bets-dropdown'>
+                                    <DropDownField
+                                        id="view"
+                                        type={'view'}
+                                        onChange={this.changeViewBets}
+                                        options={views}
+                                        value={this.state.view_amount}
+                                        style={{width : '80%'}}
+                                        >
+                                        {views.map(option => (
+                                            <MenuItem key={option} value={option}>
+                                                <Typography
+                                                    variant="body"
+                                                    color="casper"
+                                                >
+                                                    {`${option}`}
+                                                </Typography>
+                                            </MenuItem>
+                                        ))}
+                                    </DropDownField> 
+                                </div>
+                            </Col>
+                        </Row>
+                    
+                        <TableDefault
+                            rows={this.state[this.state.view].rows}
+                            titles={this.state[this.state.view].titles}
+                            fields={this.state[this.state.view].fields}
+                        />                    
                     </div>
                 </div>
             </div>
@@ -240,6 +288,7 @@ class LastBets extends Component {
 
 function mapStateToProps(state){
     return {
+        profile: state.profile,
         ln : state.language
     };
 }

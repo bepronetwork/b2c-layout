@@ -1,24 +1,18 @@
 @import "../../styles/all.css";
 
-.address-text{
-
-}
 .root {
     height: $navbar-height;
     padding-top : $padding-height-navbar;
 }
 
-
-
 .container {
   display: flex;
   flex-direction: row;
   align-items: center;
-  width: 190px;
-  margin-top: -10px;
-
+  width: 80px;
+  
   @include Breakpoint-tabletAndAbove {
-    padding: 0 $spacing-20;
+    padding: 0 $spacing-12;
     margin: 0 auto;
   }
 
@@ -28,214 +22,6 @@
   }
 }
 
-.image {
-    width: 120px;
-
-    @include Breakpoint-mobileOnly {
-        width: 100px;
-        margin-left: -15px;
-        margin-top: 5px;
-      }
-}
-
-
-
-.content {
-  display: flex;
-  flex-direction: row;
-
-  width: 100%;
-}
-
-.coin {
-    position: relative;
-    width: fit-content;
-    margin: auto;
-    margin-top : -5px;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    margin-left: auto;
-    padding: 5px 10px !important;
-    background-color: $background-main-table;
-    border-radius: $spacing-4;
-    cursor: default;
-
-    *:first-child {
-        margin-right: $spacing-4;
-    }
-
-  .icon {
-        margin-top : -4px;
-        width: $spacing-16;
-        height: $spacing-16;
-  }
-
-  .diff-won {
-    position: absolute;
-    top: 60%;
-    left: 10%;
-    * {
-      color: $green;
-      opacity: 0;
-
-      animation: won-animation 1s running;
-    }
-  }
-
-  .diff-lost {
-    position: absolute;
-    top: 60%;
-    left: 10%;
-    * {
-      color: $red;
-      opacity: 0;
-
-      animation: lost-animation 1s running;
-    }
-  }
-}
-
-
-.menu-color{
-    background-color: red;
-}
-
-.diff-won {
-    position: absolute;
-    top: 60%;
-    left: 10%;
-    * {
-      color: $green;
-      opacity: 0;
-
-      animation: won-animation 1s running;
-    }
-}
-
-.diff-lost {
-    position: absolute;
-    top: 60%;
-    left: 10%;
-    * {
-        color: $red;
-        opacity: 0;
-
-        animation: lost-animation 1s running;
-}
-}
-
-@keyframes lost-animation {
-  50% {
-    opacity: 1;
-  }
-  100% {
-    transform: translateY(100%) scale(0.8);
-  }
-}
-
-@keyframes won-animation {
-  0% {
-    opacity: 0;
-
-    transform: translateY(80%);
-  }
-
-  50% {
-    opacity: 1;
-
-    transform: translateY(50%) scale(1.2);
-  }
-}
-
-.buttons {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    margin: auto;
-    text-align: center;
-    width: fit-content;
-    position: relative;
-    margin-top : -15px;
-
-    @include Breakpoint-mobileOnly {
-        margin-top : -5px !important;
-    }
-
-    @include Breakpoint-tabletOnly {
-        margin-top : 0px !important;
-    }
-    
-    .login {
-        margin-right: $spacing-8;
-    }
-}
-
-
-.buttons-1 {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    margin: auto;
-    text-align: center;
-    width: fit-content;
-    position: relative;
-    margin-top : -5px;
-    
-    .login {
-        margin-right: $spacing-8;
-    }
-}
-
-
-.small-icon{
-    width : 30px;
-}
-
-.address-box{
-    margin: auto;
-    margin-top : -6px !important;
-    display: flex;
-    text-align: center;
-    width: fit-content;
-    position: relative;
-}
-
 .image-language{
-    width: 10px;
-    margin-right : 5px;
-}
-
-
-.logo-image{
-    text-align: center;
-    width: fit-content;
-    position: relative;
-    display: flex;
-    margin: auto;
-    width: 10px;
-    margin-right: 10px;
-    margin-left: 20px;
-    display: inline;
-}
-
-.option-text{
-    font-family: 'Ubuntu Mono', sans-serif;
-    display: inline;
-    margin-left : 5px;
-    position: relative;
-    color : $text-secondary-color;
-}
-
-.user-menu{
-    margin-top : 10px;
-    
-}
-
-.icon-green{
-    color : $green;
-}
-
-.icon-red{
-    color : $red;
+    width: 20px;
 }

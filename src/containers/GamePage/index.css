@@ -18,16 +18,13 @@
     grid-column-gap: $spacing-28;
     grid-row-gap: $spacing-28;
     max-width : 1020px;
-    margin-left : 2%;
+    padding-left : 2%;
     grid-template-columns: repeat(3, 290px);
-    margin-top : $spacing-28;
-    @include Breakpoint-tabletOnly {
-        margin: 0 auto;
-    }
+    padding-top : $spacing-28;
+    margin: 0 auto;
 
     @include Breakpoint-mobileOnly {
-        margin: 0 auto;
-        margin-top : 100px;
+        padding-top : 10px;
         padding: 30px;
     }
 }
@@ -42,20 +39,398 @@
     width: 100%;
 
     min-width: 450px;
-    min-height: 42vw;
 
     border-radius: $spacing-12;
 
     box-shadow: color($background-shadow alpha(75%)) 0px 0px 10px;
 
   @include Breakpoint-mobileOnly {
+    min-height: 42vw;
     grid-template-columns: 100%;
     width: 100%;
     height: 100%;
     max-width: 350px;
     margin: 0 auto;
+    box-shadow: unset;
   }
 }
+
+/****** wheel ******/
+  .gameContainerWheel {
+    position: relative;
+
+    display: block;
+    height: 700px;
+    width: 100%;
+  }
+
+      @media screen and (max-width: 1267px) and (min-width: 1024px) {
+        .gameContainerWheel {
+            height: 600px;
+        }
+      }
+
+      @media screen and (max-width: 1023px) and (min-width: 768px) {
+        .gameContainerWheel {
+            height: 660px;
+        }
+      }
+
+      @media screen and (max-width: 767px) {
+        .gameContainerWheel {
+          order: 1;
+          min-height: 300px;
+          height: 500px;
+        }
+      }
+
+  .containerWheel {
+    height: 700px;
+  }
+
+      @media screen and (max-width: 1267px) and (min-width: 1024px) {
+        .containerWheel {
+            height: 600px;
+        }
+      }
+
+      @media screen and (max-width: 1023px) and (min-width: 768px) {
+        .containerWheel {
+            height: 880px;
+        }
+      }
+
+      @media screen and (max-width: 767px) {
+        .containerWheel {
+            height: 760px;
+        }
+      }
+
+  .optionsContainerWheel {
+    height: 700px;
+  }
+
+      @media screen and (max-width: 1267px) and (min-width: 1024px) {
+        .optionsContainerWheel {
+            height: 600px;
+        }
+      }
+
+      @media screen and (max-width: 1023px) and (min-width: 768px) {
+        .optionsContainerWheel {
+            height: 240px;
+        }
+      }
+
+      @media screen and (max-width: 767px) {
+        .optionsContainerWheel {
+            margin-top: 38px;
+            height: 240px;
+        }
+      }
+
+/****** dice ******/
+  .gameContainerDice {
+    position: relative;
+
+    display: block;
+    height: 700px;
+    width: 100%;
+  }
+
+      @media screen and (max-width: 1267px) and (min-width: 1024px) {
+        .gameContainerDice {
+            height: 540px;
+        }
+      }
+
+      @media screen and (max-width: 1023px) and (min-width: 768px) {
+        .gameContainerDice {
+            height: 440px;
+        }
+      }
+
+      @media screen and (max-width: 767px) {
+        .gameContainerDice {
+          order: 1;
+          min-height: 300px;
+          height: 320px;
+        }
+      }
+
+  .containerDice {
+    height: 700px;
+  }
+
+      @media screen and (max-width: 1267px) and (min-width: 1024px) {
+        .containerDice {
+            height: 540px;
+        }
+      }
+
+      @media screen and (max-width: 1023px) and (min-width: 768px) {
+        .containerDice {
+            height: 860px;
+        }
+      }
+
+      @media screen and (max-width: 767px) {
+        .containerDice {
+            height: 710px;
+        }
+      }
+
+  .optionsContainerDice {
+    height: 700px;
+  }
+
+      @media screen and (max-width: 1267px) and (min-width: 1024px) {
+        .optionsContainerDice {
+            height: 540px;
+        }
+      }
+
+      @media screen and (max-width: 1023px) and (min-width: 768px) {
+        .optionsContainerDice {
+            height: 400px;
+            margin-top: 46px;
+        }
+      }
+
+      @media screen and (max-width: 767px) {
+        .optionsContainerDice {
+            margin-top: 38px;
+            height: 370px;
+        }
+      }
+
+  /****** roulette ******/
+
+  .gameContainerRoulette {
+    position: relative;
+
+    display: block;
+    height: 700px;
+    width: 100%;
+  }
+
+      @media screen and (max-width: 1267px) and (min-width: 1024px) {
+        .gameContainerRoulette {
+            height: 700px;
+        }
+      }
+
+      @media screen and (max-width: 1023px) and (min-width: 768px) {
+        .gameContainerRoulette {
+            height: 700px;
+        }
+      }
+
+      @media screen and (max-width: 767px) {
+        .gameContainerRoulette {
+          order: 1;
+          min-height: 300px;
+          height: 920px;
+        }
+      }
+
+  .containerRoulette {
+    height: 700px;
+  }
+
+      @media screen and (max-width: 1267px) and (min-width: 1024px) {
+        .containerRoulette {
+            height: 700px;
+        }
+      }
+
+      @media screen and (max-width: 1023px) and (min-width: 768px) {
+        .containerRoulette {
+            height: 1100px;
+        }
+      }
+
+      @media screen and (max-width: 767px) {
+        .containerRoulette {
+            height: 1290px;
+        }
+      }
+
+  .optionsContainerRoulette {
+    height: 700px;
+  }
+
+      @media screen and (max-width: 1267px) and (min-width: 1024px) {
+        .optionsContainerRoulette {
+            height: 700px;
+        }
+      }
+
+      @media screen and (max-width: 1023px) and (min-width: 768px) {
+        .optionsContainerRoulette {
+            height: 370px;
+            margin-top: 50px;
+        }
+      }
+
+      @media screen and (max-width: 767px) {
+        .optionsContainerRoulette {
+            margin-top: 38px;
+            height: 350px;
+        }
+      }
+
+/****** flip ******/
+
+.gameContainerFlip {
+  position: relative;
+
+  display: block;
+  height: 500px;
+  width: 100%;
+}
+
+    @media screen and (max-width: 1267px) and (min-width: 1024px) {
+      .gameContainerFlip {
+          height: 440px;
+      }
+    }
+
+    @media screen and (max-width: 1023px) and (min-width: 768px) {
+      .gameContainerFlip {
+          height: 400px;
+      }
+    }
+
+    @media screen and (max-width: 767px) {
+      .gameContainerFlip {
+        order: 1;
+        min-height: 300px;
+        height: 320px;
+      }
+    }
+
+  .containerFlip {
+    height: 500px;
+  }
+
+      @media screen and (max-width: 1267px) and (min-width: 1024px) {
+        .containerFlip {
+            height: 440px;
+        }
+      }
+
+      @media screen and (max-width: 1023px) and (min-width: 768px) {
+        .containerFlip {
+            height: 820px;
+        }
+      }
+
+      @media screen and (max-width: 767px) {
+        .containerFlip {
+            height: 710px;
+        }
+      }
+
+  .optionsContainerFlip {
+    height: 500px;
+  }
+
+      @media screen and (max-width: 1267px) and (min-width: 1024px) {
+        .optionsContainerFlip {
+            height: 440px;
+        }
+      }
+
+      @media screen and (max-width: 1023px) and (min-width: 768px) {
+        .optionsContainerFlip {
+           height: 400px;
+           margin-top: 46px;
+        }
+      }
+
+      @media screen and (max-width: 767px) {
+        .optionsContainerFlip {
+            margin-top: 38px;
+            height: 370px;
+        }
+      }
+
+  /****** plinko ******/
+
+  .gameContainerPlinko {
+    position: relative;
+  
+    display: block;
+    height: 560px;
+    width: 100%;
+  }
+
+      @media screen and (max-width: 1267px) and (min-width: 1024px) {
+        .gameContainerPlinko {
+            height: 460px;
+        }
+      }
+  
+      @media screen and (max-width: 1023px) and (min-width: 768px) {
+        .gameContainerPlinko {
+            height: 460px;
+        }
+      }
+  
+      @media screen and (max-width: 767px) {
+        .gameContainerPlinko {
+          order: 1;
+          min-height: 300px;
+          height: 320px;
+        }
+      }
+
+  .containerPlinko {
+    height: 560px;
+  }
+
+      @media screen and (max-width: 1267px) and (min-width: 1024px) {
+        .containerPlinko {
+            height: 460px;
+        }
+      }
+
+      @media screen and (max-width: 1023px) and (min-width: 768px) {
+        .containerPlinko {
+          height: 720px;
+        }
+      }
+
+      @media screen and (max-width: 767px) {
+        .containerPlinko {
+            height: 560px;
+        }
+      }
+
+  .optionsContainerPlinko {
+    height: 560px;
+  }
+
+      @media screen and (max-width: 1267px) and (min-width: 1024px) {
+        .optionsContainerPlinko {
+            height: 460px;
+        }
+      }
+
+      @media screen and (max-width: 1023px) and (min-width: 768px) {
+        .optionsContainerPlinko {
+          height: 240px;
+          margin-top: 46px;
+        }
+      }
+
+      @media screen and (max-width: 767px) {
+        .optionsContainerPlinko {
+            margin-top: 38px;
+            height: 220px;
+        }
+      }
 
 .no-padding{
     padding : 0;
@@ -65,28 +440,26 @@
     height: -webkit-fill-available;
 }
 
+@media screen and (max-width: 1267px) and (min-width: 1024px) {
+  .game-page-container {
+      height: 100%;
+  }
+}
+
+
+
+@media screen and (max-width: 767px) {
+  .game-page-container {
+    height: auto;
+  }
+}
+
 .options-container {
-    height: 100%;
     background-color: $background-table-1-outer;
     padding : 10px;
   @include Breakpoint-mobileOnly {
     order: 2;
     width: 100%;
-  }
-}
-
-.game-container {
-  position: relative;
-
-  display: block;
-
-  width: 100%;
-  height: 100%;
-
-  @include Breakpoint-mobileOnly {
-    order: 1;
-
-    min-height: 300px;
   }
 }
 
@@ -100,13 +473,51 @@
   width: 100%;
 
   overflow: hidden;
+
+  @include Breakpoint-mobileOnly {
+    display: none;
+  }
 }
 
 .sound {
   padding-top: $spacing-8;
   padding-right: $spacing-8;
 
+  @include Breakpoint-tabletOnly {
+    padding-right: $spacing-52;
+    padding-bottom: $spacing-16;
+  }
+
+  @include Breakpoint-mobileOnly {
+    padding: $spacing-8;
+  }
+
+
+
   button {
     margin: 0 0 0 auto;
+
+    div {
+      @include Breakpoint-mobileOnly {
+        margin-top: 0;
+      }
+    }
   }
+}
+
+.actions {
+  margin-top: 20px;
+  margin-left: 8px;
+
+  @include Breakpoint-tabletOnly {
+    margin-left: 28px;
+  }
+
+  @include Breakpoint-mobileOnly {
+    margin-top: 0px;
+  }
+}
+
+.tabs {
+  width: 100%;
 }

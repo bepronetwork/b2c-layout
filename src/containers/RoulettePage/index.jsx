@@ -6,9 +6,8 @@ import { reduce } from "lodash";
 import UserContext from "containers/App/UserContext";
 import rouletteBet from "lib/api/roulette";
 import Cache from "../../lib/cache/cache";
-import { updateUserBalance } from "lib/api/users";
+import { setWonPopupMessageDispatcher } from "../../lib/redux";
 import { find } from "lodash";
-import store from "../App/store";
 import { Numbers } from "lib/ethereum/lib";
 import { connect } from "react-redux";
 import { compose } from 'lodash/fp';
@@ -23,7 +22,7 @@ class RoulettePage extends Component {
 
     state = {
         result: null,
-        selectedChip: 0.01,
+        selectedChip: 0.001,
         betHistory: [],
         game_name : 'Roulette',
         game : {
@@ -125,7 +124,8 @@ class RoulettePage extends Component {
         this.setState({ bet: false });
         const { profile } = this.props;
         /* Update Info User View */
-        const { isWon, result} = this.state.betObjectResult;
+        const { isWon, result, winAmount } = this.state.betObjectResult;
+        setWonPopupMessageDispatcher(winAmount);
         this.addToHistory({result, won : isWon});
         await profile.getBalanceData();
     };

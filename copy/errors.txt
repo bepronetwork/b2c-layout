@@ -1,0 +1,3 @@
+{
+    CHAT_USER_NOT_LOGGED : ['Please Log In before using the chat']
+},

@@ -34,7 +34,7 @@
 .popular-number-container-amount{
     padding : 10px;
     padding-top : 5px;
-    width: 40px;
+    width: 20px;
     text-align: center;
     display : inline-flex;
     border-radius : 4px;
@@ -53,7 +53,8 @@
 
     @include Breakpoint-mobileOnly {
         height: 140px;
-        margin-top : 500%
+        margin-top : 500%;
+        display: none;
     }
 }
 
@@ -70,24 +71,29 @@
 }
 
 .outer-popular-numbers{
-    width : 120px;
+    width : 100px;
     border : 2px solid $dark-table-color;
-    height: 40%;
+    height: 42%;
     background-color : $popular-numbers-container;
-    left : 10px;
+    left : 20px;
     border-radius : 5px;
     text-align: center;
-    top : 10px;
+    top : 20px;
     overflow-y : auto;
     overflow-x : hidden;
     position : absolute;
+
+    @include Breakpoint-mobileOnly {
+      height: 47%;
+      display: none;
+    }
 }
 
 .inner-popular-numbers{
     width : 100%;
     height: auto;
     overflow-y: hidden;
-    margin : 10px;
+    margin : 6px;
     text-align: center;
     overflow-x: hidden;
     position : relative;
@@ -99,6 +105,7 @@
   justify-content: center;
   width: 70px;
   height: 70px;
+  border: 2px solid #fff;
 
   border-radius: 6px;
   opacity: 0;
@@ -116,14 +123,14 @@
 .result.picked {
   background-color: $background-table-1;
   opacity: 1;
-
+  z-index: 1;
   transition: all 100ms linear;
 }
 
 .result.red {
   background-color: $red;
   opacity: 1;
-
+  z-index: 1;
   transition: all 100ms linear;
 }
 
@@ -131,7 +138,7 @@
   background-color: $japanese-laurel;
 
   opacity: 1;
-
+  z-index: 1;
   transition: all 100ms linear;
 }
 
@@ -169,7 +176,8 @@
   max-width: 750px;
 
   @include Breakpoint-mobileOnly {
-    margin-top : 30px;
+    grid-area: unset;
+    left: 10%;
   }
 
 }

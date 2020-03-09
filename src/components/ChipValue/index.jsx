@@ -4,7 +4,6 @@ import ArrowLeft from "components/Icons/ArrowLeft";
 import ArrowRight from "components/Icons/ArrowRight";
 import { Typography, BitcoinIcon, Dollar } from "components";
 import UserContext from "containers/App/UserContext";
-import { get } from "lodash";
 import { connect } from "react-redux";
 import { Numbers } from "../../lib/ethereum/lib";
 import Coin from "./CoinButton";
@@ -25,7 +24,7 @@ class ChipValue extends Component {
     };
 
     state = {
-        coin: 0.01,
+        coin: 0.001,
         coinsPosition: 0,
         balance : 0
     };
@@ -41,8 +40,11 @@ class ChipValue extends Component {
     
     projectData = async (props) => {
         let user = props.profile;
+        
         if(!user || _.isEmpty(user)){return null}
-        let balance = Numbers.toFloat(user.getBalance());
+
+        let balance = parseFloat(user.getBalance());
+
         this.setState({...this.state, 
             balance : balance,
         })
@@ -122,6 +124,13 @@ class ChipValue extends Component {
                 >
                 <Coin
                     onSelect={this.handleCoin}
+                    disabled={this.getDisabled(0.001)}
+                    selected={coin === 0.001}
+                    value={0.001}
+                    label="0001"
+                />
+                <Coin
+                    onSelect={this.handleCoin}
                     disabled={this.getDisabled(0.01)}
                     selected={coin === 0.01}
                     value={0.01}
@@ -189,7 +198,8 @@ class ChipValue extends Component {
 function mapStateToProps(state){
     return {
         ln : state.language,
-        profile : state.profile
+        profile : state.profile,
+        currency : state.currency
     };
 }
 

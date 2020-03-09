@@ -18,18 +18,21 @@ export default class Wheel extends Component {
     static propTypes = {
         result: PropTypes.number,
         bet: PropTypes.bool,
-        onAnimation: PropTypes.func.isRequired
+        onAnimation: PropTypes.func.isRequired,
+        metaName: PropTypes.string
     };
 
     static defaultProps = {
         result: null,
-        bet: false
+        bet: false,
+        metaName: null
     };
 
     constructor(props){
         super(props);
         this.state = {
-            ballStop: false
+            ballStop: false,
+            metaName: props.game ? props.game.metaName : null
         }
       
     }
@@ -76,6 +79,7 @@ export default class Wheel extends Component {
     drawSpinnerWheel(props) {
         const { options, game } = props;
         const { metaName } = game;
+        
         switch(metaName){
             case 'wheel_variation_1' : {
                 this.wheel_draw = WHEEL_CLASSIC.DRAW;
@@ -161,7 +165,7 @@ export default class Wheel extends Component {
         if(options.length < 1){return null}
         if (canvas.getContext) {
             var outsideRadius = 500;
-            var insideRadius = 450;
+            var insideRadius = 442;
             this.wheel = canvas.getContext("2d");
             this.wheel.clearRect(0, 0, 1000, 1000);
             
@@ -208,7 +212,7 @@ export default class Wheel extends Component {
 
         if (canvas.getContext) {
             var outsideRadius = 500;
-            var insideRadius = 450;
+            var insideRadius = 442;
             this.wheel = canvas.getContext("2d");
             this.wheel.clearRect(0, 0, 1000, 1000);
 
@@ -257,7 +261,7 @@ export default class Wheel extends Component {
         }
 
         return (
-        <Sound volume={100} url={rouletteSound} playStatus="PLAYING" autoLoad />
+            <Sound volume={100} url={rouletteSound} playStatus="PLAYING" autoLoad />
         );
     };
 
@@ -274,7 +278,13 @@ export default class Wheel extends Component {
 
     renderResult = () => {
         const { result, rotating, game, inResultAnimation, options} = this.props;
-        if(!result || !game.resultSpace || inResultAnimation){return null}
+        const { metaName } = this.state;
+        const containerStyles = classNames("result-container",
+            {
+                resultContainerSimple: metaName === 'wheel_simple' || metaName === 'wheel_variation_1'
+            }
+        )
+        if(!result || !game.resultSpace || inResultAnimation){return <div styleName={containerStyles}/>}
 
         const resultStyles = classNames("result", {
         green: result === 0 && !rotating,
@@ -287,7 +297,7 @@ export default class Wheel extends Component {
         let styleName = `multiplier-${new String(colorMultiplier).toString().trim()}`;
 
         return (
-            <div styleName="result-container">
+            <div styleName={containerStyles}>
                 <div styleName={resultStyles} onTransitionEnd={this.handleAnimationEnd}>
                 <h6 styleName={styleName}>{game.resultSpace[result].multiplier}x</h6>
                 </div>
@@ -298,12 +308,12 @@ export default class Wheel extends Component {
     render() {
         return (
             <div  styleName="root" >
+                <div>
+                    <div styleName={'outer-circle'}></div>
+                    <div styleName={'circle'}></div>
+                </div>
                 <img src={pointer} styleName={'wheel-pointer'}/>
                 {this.renderResult()}
-                <div
-                    styleName="container"
-                    id="container"
-                />
                 {/* Canvas */}
                     <span 
                         ref={el => {this.el = el;}} 

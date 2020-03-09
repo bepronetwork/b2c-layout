@@ -1,15 +1,11 @@
 import React from "react";
 import { connect } from "react-redux";
 import { Typography } from "components";
-import { Row, Col } from 'reactstrap';
-import { AddressConcat } from "../../lib/ethereum/lib";
-import ExitToAppIcon from "mdi-react/ExitToAppIcon";
-import Avatar, { Cache, ConfigProvider } from 'react-avatar';
-import './index.css';
+import Avatar, { Cache } from 'react-avatar';
 import { isUserSet } from "../../lib/helpers";
+import './index.css';
 
 const defaultState = {
-    address : '',
     username : ''
 }
 const cache = new Cache({
@@ -35,25 +31,24 @@ class AccountInfoForm extends React.Component{
 
     projectData = (props) => {
         const { profile } = props;
+        
         if(!isUserSet(profile)){return null}
         const id = profile.getID();
         const username = profile.getUsername();
-        const address = profile.getAddress();
         const avatar = null;
 
         this.setState({...this.state,
             id,
             username,
-            address,
             avatar
         })
     }
 
     render(){
         const { 
-            id, address, username, avatar
+            username, avatar
         } = this.state;
-        
+
         return (
             <div styleName='box-account'>
                 <div styleName='avatar-user'>
@@ -64,21 +59,6 @@ class AccountInfoForm extends React.Component{
                         @{username}
                     </Typography>
                 </div>
-                <div styleName='address-box'>
-                    <Row>
-                        <Col sm={3}>
-                            <ExitToAppIcon color={'white'} size={20}/>
-                        </Col>
-                        <Col sm={9}>
-                            <Typography variant={'small-body'} color={'white'}>
-                                {AddressConcat(address)}
-                            </Typography>
-                            <Typography variant={'x-small-body'} color={'grey'}>
-                                Address
-                            </Typography>
-                        </Col>
-                    </Row>
-                </div>
             </div>
         )
     }
@@ -86,7 +66,8 @@ class AccountInfoForm extends React.Component{
 
 function mapStateToProps(state){
     return {
-        profile : state.profile
+        profile : state.profile,
+        ln: state.language
     };
 }
 

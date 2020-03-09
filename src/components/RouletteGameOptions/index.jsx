@@ -65,23 +65,24 @@ class RouletteGameOptions extends Component {
 
     renderAuto = () => {
         const { bets, profitStop, lossStop, onWin, onLoss } = this.state;
-
+        const {ln} = this.props;
+        const copy = CopyText.rouletteGameOptionsIndex[ln];
         return (
         <div>
             <div styleName="element">
             <InputNumber
                 name="bets"
-                title="Number of Bets"
+                title={copy.INDEX.INPUT_NUMBER.TITLE[0]}
                 value={bets}
                 onChange={this.handleBets}
             />
             </div>
             <div styleName="element">
-            <OnWinLoss title="On Win" value={onWin} onChange={this.handleOnWin} />
+            <OnWinLoss title={copy.INDEX.ON_WIN_LOSS.TITLE[0]} value={onWin} onChange={this.handleOnWin} />
             </div>
             <div styleName="element">
             <OnWinLoss
-                title="On Loss"
+                title={copy.INDEX.ON_WIN_LOSS.TITLE[1]}
                 value={onLoss}
                 onChange={this.handleOnLoss}
             />
@@ -90,7 +91,7 @@ class RouletteGameOptions extends Component {
             <InputNumber
                 name="profit"
                 step={0.01}
-                title="Stop on Profit"
+                title={copy.INDEX.INPUT_NUMBER.TITLE[1]}
                 icon="bitcoin"
                 precision={2}
                 value={profitStop}
@@ -102,7 +103,7 @@ class RouletteGameOptions extends Component {
                 name="loss"
                 step={0.01}
                 precision={2}
-                title="Stop on Loss"
+                title={copy.INDEX.INPUT_NUMBER.TITLE[2]}
                 icon="bitcoin"
                 value={lossStop}
                 onChange={this.handleStopOnLoss}
@@ -182,7 +183,7 @@ class RouletteGameOptions extends Component {
                     name="amount"
                     disabled
                     icon="bitcoin"
-                    precision={2}
+                    precision={6}
                     value={totalBet}
                     title={copy.TOTAL_BET_NAME}
                 />

@@ -1,5 +1,4 @@
-
-
+import { compose } from 'lodash/fp';
 import React from 'react';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
@@ -22,11 +21,13 @@ import { Numbers, AddressConcat } from '../../../lib/ethereum/lib';
 import withdrawStatus from './codes';
 import { Button, Typography } from "components";
 import "./index.css";
-import { etherscanLinkID } from '../../../lib/api/apiConfig';
 import { CopyText } from '../../../copy';
 import { Row, Col } from 'reactstrap';
 import { fromSmartContractTimeToMinutes } from '../../../lib/helpers';
+import { connect } from "react-redux";
+
 let counter = 0;
+let propsGlobal = null;
 
 
 function desc(a, b, orderBy) {
@@ -68,53 +69,12 @@ const fromDatabasetoTable = (data) => {
             creation_timestamp : new Date(data.creation_timestamp),
             creation_date : new Date(data.creation_timestamp).toDateString(),
             address: data.address,
-            nonce : data.nonce
+            nonce : data.nonce,
+            link_url : data.link_url
 		}
     })
     return res;
 }
-
-
-const rows = [
-    {
-        id: 'amount',
-        label: 'Amount',
-        numeric: true,
-        align : 'center',
-        size: 'small'
-    },
-    {
-        id: 'confirmed',
-        label: 'Status',
-        numeric: false,
-        align : 'center',
-        size: 'small'
-    },
-    {
-        id: 'withdraw',
-        label: 'Withdraw',
-        numeric: false,
-        align : 'center',
-        size: 'small'
-
-    },
-    {
-        id: 'transactionHash',
-        label: 'Tx Hash',
-        numeric: false,
-        align : 'center',
-        size: 'small'
-
-    },
-    {
-        id: 'creation_date',
-        label: 'Creation Date',
-        numeric: false,
-        align : 'center',
-        size: 'small'
-
-    }
-];
 
 class EnhancedTableHead extends React.Component {
     createSortHandler = property => event => {
@@ -123,10 +83,42 @@ class EnhancedTableHead extends React.Component {
 
     render() {
         const { onSelectAllClick, order, orderBy, numSelected, rowCount } = this.props;
+        const {ln} = propsGlobal;
+        const copy = CopyText.cashierFormWithdrawsTable[ln];
+
+        const rows = [
+            {
+                id: 'amount',
+                label: copy.ROW.LABEL[0],
+                numeric: false
+            },
+            {
+                id: 'confirmed',
+                label: copy.ROW.LABEL[1],
+                numeric: false
+            },
+            {
+                id: 'withdraw',
+                label: copy.ROW.LABEL[2],
+                numeric: false
+
+            },
+            {
+                id: 'transactionHash',
+                label: copy.ROW.LABEL[3],
+                numeric: false
+
+            },
+            {
+                id: 'creation_date',
+                label: copy.ROW.LABEL[4],
+                numeric: false
+            }
+        ];
 
         return (
             <TableHead>
-                <TableRow>
+                <TableRow style={{backgroundColor : '#0a031b'}}>
                 {rows.map(
                     row => (
                     <StyledTableCell
@@ -135,9 +127,10 @@ class EnhancedTableHead extends React.Component {
                         padding={row.disablePadding ? 'none' : 'default'}
                         sortDirection={orderBy === row.id ? order : false}
                         size={row.size}
+                        style={{borderBottom: '1px solid #192c38', paddingLeft: 40, paddingTop: 7, paddingBottom: 7, paddingRight: 0}}
                     >
                         <Tooltip
-                        title="Sort"
+                        title={copy.WITHDRAWSTABLE.TOOLTIP.TITLE[0]}
                         placement={row.numeric ? 'bottom-end' : 'bottom-start'}
                         enterDelay={300}
                         >
@@ -146,7 +139,7 @@ class EnhancedTableHead extends React.Component {
                             direction={order}
                             onClick={this.createSortHandler(row.id)}
                         >
-                            <Typography variant={'small-body'} color='casper'>
+                            <Typography variant={'small-body'} color='casper' weight='bold'>
                                 {row.label}
                             </Typography>
                         </TableSortLabel>
@@ -282,6 +275,7 @@ class WithdrawTable extends React.Component {
             rowsPerPage: 5,
             ...defaultProps
         };
+        propsGlobal = props;
     }
 
 
@@ -342,10 +336,9 @@ class WithdrawTable extends React.Component {
         const copy = CopyText.Withdraw[ln];
 
         return (
-            <Paper className={classes.root}>
-                    <EnhancedTableToolbar numSelected={selected.length} time={time}  />
-                        <div className={classes.tableWrapper}>
-                    <Table className={classes.table} aria-labelledby="tableTitle">
+            <div>
+                <div>
+                    <Table className={classes.table} aria-labelledby="tableTitle" style={{marginTop: '10px'}}>
                         <EnhancedTableHead
                             numSelected={selected.length}
                             order={order}
@@ -363,30 +356,30 @@ class WithdrawTable extends React.Component {
                                 <TableRow
                                     hover
                                     role="checkbox"
-                                    style={{padding : 0, color : 'white'}}
+                                    style={{padding : 0, color : 'white', backgroundColor : '#0f0e1d'}}
                                     aria-checked={isSelected}
                                     tabIndex={-1}
                                     key={n.id}
                                     selected={isSelected}
                                 >
-                                    <StyledTableCell  style={{width : 20}} align="center">
+                                    <StyledTableCell  style={{width: 130, borderBottom: '1px solid #192c38', paddingLeft: 40}} align="left">
                                         <Typography variant={'small-body'} color='white'>
                                             {n.amount} {this.props.currency}
                                         </Typography>
                                     </StyledTableCell>
-                                    <StyledTableCell style={{width : 50}} align="center">
+                                    <StyledTableCell style={{width: 130, borderBottom: '1px solid #192c38', paddingLeft: 20}} align="left">
                                         <div styleName={withdrawStatus[n.confirmed.toLowerCase()]}>
                                             <Typography variant={'small-body'} color='white'>
                                                 {n.confirmed}
                                             </Typography>
                                         </div>
                                     </StyledTableCell>
-                                    <StyledTableCell align="center">
-                                    <Typography color={'white'} variant={'small-body'}> {n.done ? 'Done' : 'Unconfirmed'} </Typography>
+                                    <StyledTableCell style={{width: 130, borderBottom: '1px solid #192c38', paddingLeft: 30}} align="left">
+                                        <Typography color={'white'} variant={'small-body'}> {n.done ? 'Done' : 'Unconfirmed'} </Typography>
                                     </StyledTableCell>
-                                    <StyledTableCell align="left">
+                                    <StyledTableCell style={{width: 130, borderBottom: '1px solid #192c38', paddingLeft: 30}} align="left">
                                         {n.transactionHash ?
-                                            <a href={`${etherscanLinkID}/tx/${n.transactionHash}`} target={'_blank'}>
+                                            <a href={n.link_url} target={'_blank'}>
                                                 <Typography variant={'small-body'} color='white'>
                                                     {AddressConcat(n.transactionHash)}
                                                 </Typography>
@@ -396,7 +389,7 @@ class WithdrawTable extends React.Component {
                                         }
 
                                     </StyledTableCell>
-                                    <StyledTableCell align="left">
+                                    <StyledTableCell style={{borderBottom: '1px solid #192c38', paddingLeft: 30}} align="left">
                                         <Typography variant={'small-body'} color='white'>
                                             {n.creation_date}
                                         </Typography>
@@ -406,7 +399,7 @@ class WithdrawTable extends React.Component {
                         })}
                         {emptyRows > 0 && (
                             <TableRow style={{ height: 49 * emptyRows }}>
-                            <TableCell colSpan={6} />
+                                <TableCell colSpan={6} style={{borderBottom: '1px solid #192c38'}}/>
                             </TableRow>
                         )}
                         </TableBody>
@@ -428,7 +421,7 @@ class WithdrawTable extends React.Component {
                     onChangePage={this.handleChangePage}
                     onChangeRowsPerPage={this.handleChangeRowsPerPage}
                 />
-            </Paper>
+            </div>
         );
     }
 }
@@ -439,4 +432,14 @@ WithdrawTable.propTypes = {
     classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(WithdrawTable);
+function mapStateToProps(state){
+    return {
+        deposit : state.deposit,
+        profile : state.profile,
+        ln : state.language
+    };
+}
+
+export default compose(connect(mapStateToProps))( withStyles(styles)(WithdrawTable) );
+
+// export default withStyles(styles)(  compose(connect(mapStateToProps))(WithdrawTable) );

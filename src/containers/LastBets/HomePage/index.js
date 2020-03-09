@@ -13,6 +13,7 @@ import TableDefault from "./Table";
 import { MenuItem } from '@material-ui/core';
 import _ from 'lodash';
 import { CopyText } from "../../../copy";
+import { formatCurrency } from "../../../utils/numberFormatation";
 
 const views = [10 , 25, 50, 100];
 
@@ -139,7 +140,7 @@ const defaultProps = {
     view_amount : views[1],
     games : [],
     options : [],
-    view_game :  (getGames() && getGames()[0]) ? getGames()[0].metaName : null
+    view_game : 'all_games'
 }
 
 class LastBets extends Component {
@@ -216,12 +217,12 @@ class LastBets extends Component {
                         id: new String(bet._id).slice(3, 15),
                         username: bet.username,
                         timestamp: dateToHourAndMinute(bet.timestamp),
-                        betAmount: Numbers.toFloat(bet.betAmount),
-                        winAmount: Numbers.toFloat(bet.winAmount),
+                        betAmount: formatCurrency(Numbers.toFloat(bet.betAmount)),
+                        winAmount: formatCurrency(Numbers.toFloat(bet.winAmount)),
                         isWon : bet.isWon,
-                        payout : `${Numbers.toFloat(bet.winAmount/bet.betAmount)}x`
+                        payout : `${formatCurrency(Numbers.toFloat(bet.winAmount/bet.betAmount))}x`
                     }
-                }).filter( el => (el.game.metaName == view_game))
+                }).filter( el => (view_game == 'all_games' || el.game.metaName == view_game))
             },
             my_bets : {
                 ...this.state.my_bets,
@@ -231,12 +232,12 @@ class LastBets extends Component {
                         game: (games.find(game => new String(game.name).toLowerCase() == new String(bet.game).toLowerCase())),
                         id: new String(bet._id).slice(3, 15),
                         timestamp: dateToHourAndMinute(bet.timestamp),
-                        betAmount: Numbers.toFloat(bet.betAmount),
-                        winAmount: Numbers.toFloat(bet.winAmount),
+                        betAmount: formatCurrency(Numbers.toFloat(bet.betAmount)),
+                        winAmount: formatCurrency(Numbers.toFloat(bet.winAmount)),
                         isWon : bet.isWon,
-                        payout : `${Numbers.toFloat(bet.winAmount/bet.betAmount)}x`
+                        payout : `${formatCurrency(Numbers.toFloat(bet.winAmount/bet.betAmount))}x`
                     }
-                }).filter( el => (el.game.metaName == view_game))
+                }).filter( el => (view_game == 'all_games' || el.game.metaName == view_game))
             },
             biggest_win_bets  : {
                 ...this.state.biggest_win_bets,
@@ -247,12 +248,12 @@ class LastBets extends Component {
                         id: new String(bet._id).slice(3, 15),
                         username: bet.username,
                         timestamp: dateToHourAndMinute(bet.timestamp),
-                        betAmount: Numbers.toFloat(bet.betAmount),
-                        winAmount: Numbers.toFloat(bet.winAmount),
+                        betAmount: formatCurrency(Numbers.toFloat(bet.betAmount)),
+                        winAmount: formatCurrency(Numbers.toFloat(bet.winAmount)),
                         isWon : bet.isWon,
-                        payout : `${Numbers.toFloat(bet.winAmount/bet.betAmount)}x`
+                        payout : `${formatCurrency(Numbers.toFloat(bet.winAmount/bet.betAmount))}x`
                     }
-                }).filter( el => (el.game.metaName == view_game))
+                }).filter( el => (view_game == 'all_games' || el.game.metaName == view_game))
             },
             biggest_win_users : {
                 ...this.state.biggest_win_users,
@@ -261,7 +262,7 @@ class LastBets extends Component {
                     return {
                         position : `${index+1}º`,
                         username: bet._id,
-                        winAmount: Numbers.toFloat(bet.winAmount),
+                        winAmount: formatCurrency(Numbers.toFloat(bet.winAmount)),
                         isWon : (index < 3),
                     }
                 })
@@ -270,7 +271,9 @@ class LastBets extends Component {
     }
 
     render() {
+        const { ln } = this.props;
         const { games } = this.state;
+        const copy = CopyText.homepage[ln];
 
         return (
             <div styleName='container'>
@@ -296,6 +299,11 @@ class LastBets extends Component {
                                             value={this.state.view_game}
                                             style={{width : '80%'}}
                                             >
+                                                <MenuItem value="all_games">
+                                                    <Typography variant="body" color="casper">
+                                                        {`${copy.TABLE_FILTER}`}
+                                                    </Typography>
+                                                </MenuItem>
                                             {games.map(option => (
                                                 <MenuItem key={option} value={option.metaName}>
                                                     <Typography variant="body" color="casper">

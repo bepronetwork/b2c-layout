@@ -3,24 +3,17 @@ import React, { Component } from "react";
 import "./index.css";
 import { connect } from "react-redux";
 import { compose } from 'lodash/fp';
-import { promptMetamask } from 'lib/metamask';
 import { 
-    MetamaskPrompt, HorizontalStepper, AmountWithdrawForm, CurrencyWithdrawForm, 
-    WithdrawForm, WithdrawConfirmForm, TradeFormDexWithdraw, InformationBox
+    HorizontalStepper, AmountWithdrawForm, CurrencyWithdrawForm, 
+    WithdrawForm
 } from 'components';
-import { getMetamaskAccount } from "../../lib/metamask";
-import { MIN_WITHDRAWAL } from "../../lib/api/apiConfig";
-import { Numbers } from 'lib/ethereum/lib';
-import info from 'assets/info.png';
+import _ from 'lodash';
+import { CopyText } from '../../copy';
 
 const defaultProps = {
-    amount : 10,
-    ticker : 'DAI',
-    isAddressValid : true,
+    amount : 1,
+    ticker : 'N/A',
     deposits : [],
-    hasMetamask : true,
-    ownedDAI : 0,
-    isValidAddress : true,
     mounted : false
 }
 
@@ -37,21 +30,10 @@ class Withdraw extends Component {
     }
     
     async projectData(props){
-        const { profile } = props;
-        try{
-            await promptMetamask();
-            let userAddress = profile.getAddress();
-            let address = await getMetamaskAccount();
-            let isValidAddress = new String(userAddress).toLowerCase() == new String(address).toLowerCase();
-            let allowedAmount = await profile.getApprovedWithdrawAsync();
-            let userBalance = profile.getBalance();
-            let ownedDAI = parseFloat(await profile.getTokenAmount());
-            let maxWithdrawal = await profile.getContract().getMaxWithdrawal();
-            this.setState({...this.state, hasMetamask : true, ownedDAI, userBalance, maxWithdrawal, allowedAmount, isValidAddress});
-        }catch(err){
-            // Metamask is Closed or not Installed
-            this.setState({...this.state, hasMetamask : false})
-        }
+        const { profile, withdraw } = props;
+        const { currency } = withdraw;
+        let userBalance = profile.getBalance(currency);
+        this.setState({...this.state, userBalance});
     }
 
     closeDeposit = () => {
@@ -61,55 +43,41 @@ class Withdraw extends Component {
 
     render() {
         const { withdraw } = this.props;
-        const { hasMetamask, maxWithdrawal, userBalance, allowedAmount, isValidAddress } = this.state;
-        const { currency, nextStep, amount, tx, isConfirmed } = withdraw;
-        if(!hasMetamask){return (<MetamaskPrompt hasMetamask={hasMetamask}/>)}
+        const { userBalance } = this.state;
+        const { currency, nextStep, amount, tx, _id, toAddress } = withdraw;
+        const {ln} = this.props;
+        const copy = CopyText.cashierFormWithdraw[ln];
 
         return (
             <div styleName='root'>
                  <div styleName="deposit">
                     <div styleName="title">
-                        {/*<InformationBox type={'info'} message={'If you left open withdraws please finish the process at the "Profile" Tab under "Cashier or cotinue here'} image={info}/> */}
                         <HorizontalStepper 
                             showStepper={false}
                             nextStep={nextStep}
-                            alertCondition={!isValidAddress}
-                            alertMessage={`This address is not set with this user, please change to your address`}
                             steps={[
                                 {
-                                    label : "Amount",
-                                    title : 'How much you want to withdraw?',
-                                    condition : (  (amount >= 0.01)  && ( ((amount <= Numbers.toFloat(userBalance)) && (amount <= maxWithdrawal) && (amount >= MIN_WITHDRAWAL)) || (allowedAmount >= amount))),
+                                    label : copy.WITHDRAW.HORIZONTAL_STEPPER.LABEL[0],
+                                    title : copy.WITHDRAW.HORIZONTAL_STEPPER.TITLE[0],
+                                    condition : (!_.isEmpty(currency)),
+                                    content : <CurrencyWithdrawForm/>
+                                },
+                                {
+                                    label : copy.WITHDRAW.HORIZONTAL_STEPPER.LABEL[1],
+                                    title : copy.WITHDRAW.HORIZONTAL_STEPPER.TITLE[1],
+                                    condition : ( (amount >= 0.0001)  && (amount <= parseFloat(userBalance) && toAddress) ),
+                                    nextButtonLabel : copy.WITHDRAW.HORIZONTAL_STEPPER.BUTTON_LABEL[0],
                                     content : <AmountWithdrawForm/>
                                 },
                                 {
-                                    label : "Choose",
-                                    title : 'Choose the Currency you want to withdraw to',
-                                    condition : (currency != ''),
-                                    content : <CurrencyWithdrawForm/>
-                                },
-                                /*{
-                                    label : "Trade",
-                                    title : 'Trade your tokens seamlessly',
-                                    pass : (new String(currency).toLowerCase() == 'dai'),
-                                    content : <TradeFormDexWithdraw/>
-                                },*/
-                                {
-                                    label : "Withdraw",
-                                    title : 'Withdraw',
-                                    condition : (tx && tx != ''),
-                                    content : <WithdrawForm/>,
+                                    label : copy.WITHDRAW.HORIZONTAL_STEPPER.LABEL[2],
+                                    title : copy.WITHDRAW.HORIZONTAL_STEPPER.TITLE[2],
+                                    condition : (_id && (_id != ('' || null))),
+                                    content : <WithdrawForm closeStepper={this.closeDeposit}/>,
                                     last : true,
+                                    showCloseButton : false,
                                     closeStepper : this.closeDeposit
-                                },
-                             
-                                /*{
-                                    label : "Confirm",
-                                    condition : isConfirmed,
-                                    content : <WithdrawConfirmForm/>,
-                                    last : true,
-                                    closeStepper : this.closeDeposit
-                                }*/
+                                }
                             ]}
                         />
                     </div>

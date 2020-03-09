@@ -42,4 +42,12 @@
 
   border: 1px solid $dodger-blue;
   border-radius: 1px;
+
+  @include Breakpoint-tabletOnly {
+    top: 24px;
+  }
+
+  @include Breakpoint-mobileOnly {
+    top: 32px;
+  }
 }

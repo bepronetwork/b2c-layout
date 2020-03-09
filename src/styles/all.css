@@ -51,12 +51,7 @@ button{
 
     .address-box{
         display: none !important;
-    }
-    
-    .user-menu{
-        margin-top : 10px !important;
-        margin-left : 30px !important;
-    }   
+    } 
 
     .coin{
         margin-top : 0px !important;
@@ -72,4 +67,5 @@ button{
 .mdi-icon{
     color : $white !important;
 }
+
 

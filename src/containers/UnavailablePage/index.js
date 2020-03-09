@@ -1,9 +1,10 @@
 import React, { Component } from "react";
 import "./index.css";
-import { Typography } from 'components'; 
+import { Typography } from 'components';
 import axios from 'axios';
+import { CopyText } from '../../copy';
 
-export default class UnavailablePage extends Component {
+class UnavailablePage extends Component {
 
     constructor(props){
         super(props);
@@ -22,7 +23,6 @@ export default class UnavailablePage extends Component {
 
     projectData = async () => {
         let data = await this.getGeoInfo();
-        console.log(data)
     }
 
     getGeoInfo = async () => {
@@ -44,13 +44,26 @@ export default class UnavailablePage extends Component {
         const { countryName, countryCode } = this.state;
         if (!app) { return null; }
         if(this.isAvailable()){return null}
-        console.log(countryName, countryCode)
+
+        const {ln} = this.props;
+        const copy = CopyText.homepage[ln];
+
         return (
             <div styleName="root">
                 <div styleName="container">
-                    <Typography variant={'h2'} color={'white'}> Seems like we for now not available at your geography  </Typography>
+                    <Typography variant={'h2'} color={'white'}> {copy.CONTAINERS.UNAVAILABLE.TYPOGRAPHY[0]} </Typography>
                 </div>
             </div>
         );
     }
 }
+
+
+function mapStateToProps(state){
+    return {
+        profile : state.profile,
+        ln: state.language
+    };
+}
+
+export default connect(mapStateToProps)(UnavailablePage);

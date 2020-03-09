@@ -1,0 +1,126 @@
+@import "../../styles/all.css";
+
+.qrcode {
+    padding: $spacing-16;
+    background-color: $white;
+    width: 166px;
+    margin: $spacing-20 auto;
+    border-radius: 4px;
+}
+  
+.qrcode canvas {
+    position: unset;
+    top: auto;
+    bottom: auto;
+    left: auto;
+    right: auto;
+}
+
+.address {
+    display: flex;
+
+    @include Breakpoint-mobileOnly {
+        width: 300px;
+        margin-left: $spacing-12;
+    }
+}
+
+.ad-copied {
+    opacity: 0.6;
+}
+
+.currency {
+    display: flex;
+    margin-bottom: $spacing-20;
+}
+
+.currency > div {
+    flex: 1;
+}
+
+.logo-img {
+    width: $spacing-36;
+}
+
+.building-img {
+    width: $spacing-160;
+}
+
+.building-info {
+    margin: $spacing-52 0;
+}
+
+.logo {
+    text-align: right
+}
+
+.info {
+    margin-top: $spacing-20;
+    text-align: justify;
+    width: 384px;
+    background-color: $mirage;
+    border-radius: 5px;
+    padding: $spacing-20;
+
+    @include Breakpoint-mobileOnly {
+        margin: $spacing-20 $spacing-12 0 $spacing-12;
+        width: 300px;
+    }
+}
+
+.cur-name {
+    margin-top: $spacing-8;
+    text-align: left;
+    margin-left: $spacing-12;
+}
+
+.text-copy-container{
+    border : none;
+    padding: $spacing-12 24px;
+    border-radius :  0 0 $border-radius 0;
+    background-color: $light-background;
+    width : inherit;
+    height : 100%;
+    text-align : center;
+}
+
+.link-text-container{
+    width : 303px;
+    padding: 14px $spacing-20;
+    text-align : left;
+    overflow: hidden;
+    height: auto;
+    border-radius : 0 0 0  $border-radius;
+    background-color : $white;
+}
+
+.loading-gif{
+    width: 30px;
+    margin: $spacing-64 $spacing-12;
+}
+
+.copied {
+    position: absolute;
+    margin-left: 20%;
+
+    @include Breakpoint-mobileOnly {
+        margin-left: 35%;
+    }
+
+    * {
+      opacity: 0;
+      animation: copied-animation 1s running;
+    }
+}
+
+@keyframes copied-animation {
+    0% {
+      opacity: 0;
+      transform: translateY(80%);
+    }
+  
+    50% {
+      opacity: 1;
+      transform: translateY(50%) scale(1.2);
+    }
+  }

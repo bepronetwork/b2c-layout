@@ -4,6 +4,7 @@ import { WheelGameOptions, WheelGameCard } from "components";
 import GamePage from "containers/GamePage";
 import { reduce } from "lodash";
 import UserContext from "containers/App/UserContext";
+import { setWonPopupMessageDispatcher } from "../../lib/redux";
 import wheelBet from "lib/api/wheel";
 import Cache from "../../lib/cache/cache";
 import { find } from "lodash";
@@ -15,25 +16,25 @@ import _ from "lodash";
 
 const resultSpaceColors = [
     {
-        "color" : '#253742'
+        "color" : '#000000'
     },
     {        
-        "color" : '#97a2c3'
+        "color" : '#406c82'
     },
     {
-        "color" : '#8854f8'
+        "color" : '#00e403'
     },
     {
-        "color" : '#3e5ba5'
+        "color" : '#d5e8f2'
     },
     {
-        "color" : '#538e7b'
+        "color" : '#fde905'
     },
     {
-        "color" : '#1ab598'
+        "color" : '#7f46fd'
     },
     {
-        "color" : '#b7e24f'
+        "color" : '#fca32f'
     }
 ]
 
@@ -153,7 +154,7 @@ class WheelPage extends React.Component {
         let multiplier = this.state.game.resultSpace[result].multiplier;
         let history = Cache.getFromCache("wheelHistory");
         history = history ? history : [];
-        history.unshift({ value: multiplier, win : won });
+        history.unshift({ value: `${multiplier}x`, win : won });
         Cache.setToCache("wheelHistory", history);
     }
 
@@ -204,7 +205,8 @@ class WheelPage extends React.Component {
         this.setState({ bet: false, disableControls : false, inResultAnimation : false });
         const { profile } = this.props;
         /* Update Info User View */
-        const { isWon, result} = this.state.betObjectResult;
+        const { isWon, result, winAmount } = this.state.betObjectResult;
+        setWonPopupMessageDispatcher(winAmount);
         this.addToHistory({result, won : isWon});
         await profile.getBalanceData();
     };

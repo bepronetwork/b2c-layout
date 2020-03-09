@@ -5,6 +5,8 @@ import Typography from "../../Typography";
 
 import "./index.css";
 
+const tabletBreakpoint = 1267;
+
 export default class Tab extends Component {
   static propTypes = {
     label: PropTypes.string.isRequired,
@@ -24,6 +26,13 @@ export default class Tab extends Component {
     onClick(name);
   };
 
+  isMobileOrTablet = () => {
+    if (document.documentElement.clientWidth < tabletBreakpoint){
+        return true;
+    }
+    return false;
+  };
+
   render() {
     const { selected, label } = this.props;
     const classes = classNames("root", {
@@ -32,7 +41,7 @@ export default class Tab extends Component {
 
     return (
       <button styleName={classes} onClick={this.handleClick} type="button">
-        <Typography variant="body" color="white">
+        <Typography variant={this.isMobileOrTablet() ? 'small-body' : 'body'} color="white">
           {label}
         </Typography>
         {selected ? <div styleName="selected-underline" /> : null}

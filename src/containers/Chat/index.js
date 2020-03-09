@@ -81,24 +81,28 @@ class ChatPage extends React.Component {
 
     createMessageBox = ({username, message, id, time}) => {
         return(
-            <div styleName='message-box' key={id}>
-                <div style={{float : 'left', marginRight : 10}}>
-                    <Typography variant="small-body" color="casper"> 
-                        {username} 
-                    </Typography>
-                  
-                </div> 
-                <div style={{marginLeft : 10}}>
-                    <Typography variant="small-body" color="white">
-                        {message}
-                    </Typography>
-                </div>
-                <div>
-                    <Typography variant="x-small-body" color="grey"> 
-                        {dateToHourAndMinute(time)} 
-                    </Typography>
+            <div>
+                <div styleName='message-box' key={id}> 
+                    <div styleName='info'>
+                        <div style={{float : 'left', marginRight : 8}}>
+                            <Typography variant="x-small-body" color="casper"> 
+                                @{username} 
+                            </Typography>
+                        </div> 
+                        <div style={{float : 'left', marginRight : 8}}>
+                            <Typography variant="x-small-body" color="grey"> 
+                                {dateToHourAndMinute(time)} 
+                            </Typography>
+                        </div>
+                    </div>
+                    <div styleName={'info-message-container'}>
+                        <Typography variant="small-body" color="white">
+                            {message}
+                        </Typography>
+                    </div>
                 </div>
             </div>
+            
         )
     }
 
@@ -120,12 +124,13 @@ class ChatPage extends React.Component {
     render() {
         const { ln } = this.props;
         const copy = CopyText.shared[ln];
+        const copy2 = CopyText.homepage[ln];
         return (
             <div styleName="root">
                     <div styleName="container">
                         <div ref={el => { this.el = el; }} styleName="text-container">
                             {this.state.messages.map((item) => {
-                                return this.createMessageBox({username : item.user.id, message : item.text, id : item.id, time : new Date(item.created_at*1000)})
+                                return this.createMessageBox({username : item.user.id, message : item.text, id : item.id, time : new Date(item.created_at)})
                             })}
                             <div style={{ float:"left", clear: "both" }}
                                 ref={(el) => { this.messagesEnd = el; }}>
@@ -152,7 +157,7 @@ class ChatPage extends React.Component {
 
                                         </Col>
                                         <Col sm={2}>
-                                            <div style={{marginTop : -18}}>
+                                            <div>
                                                 <DropDownField
                                                     id="language"
                                                     type={'language'}
@@ -172,7 +177,7 @@ class ChatPage extends React.Component {
                                         </Col>
                                         <Col sm={4} lg={3}>
                                             <div styleName={'users-box'}>
-                                                <Typography weight="body" color="casper">
+                                                <Typography variant="small-body" color="casper">
                                                     {this.state.participants} <UsersGroupIcon size={25}/>
                                                 </Typography>
                                             </div>
@@ -183,8 +188,8 @@ class ChatPage extends React.Component {
                                                 type="submit"
                                                 styleName="button"
                                             >
-                                                <Typography weight="small-body" color="white">
-                                                    Send
+                                                <Typography variant="small-body" color="white">
+                                                    {copy2.CONTAINERS.CHAT.TYPOGRAPHY[0]}
                                                 </Typography>
                                             </button>
                                         </Col>

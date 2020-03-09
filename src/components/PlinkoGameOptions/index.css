@@ -1,0 +1,55 @@
+@import "../../styles/all.css";
+
+.root {
+  display: flex;
+  flex-direction: column;
+
+  box-sizing: border-box;
+
+  height: calc(100% - $spacing-20 - $spacing-20);
+
+  padding: $spacing-20;
+
+  background: $background-table-1;
+}
+
+.button {
+  order: 4;
+
+  margin-top: $spacing-20;
+
+  @include Breakpoint-mobileOnly {
+    order: 0;
+
+    margin-top: 0;
+  }
+}
+
+.element {
+  margin-top: $spacing-20;
+}
+
+.amount {
+  margin-top: $spacing-20;
+}
+
+.content {
+  order: 2;
+}
+
+.toggle {
+  order: 0;
+
+  @include Breakpoint-mobileOnly {
+    order: 4;
+
+    margin-top: $spacing-20;
+  }
+}
+
+.amount-container {
+  display: grid;
+  grid-template-columns: 57% 43%;
+
+  margin-top: $spacing-4;
+}

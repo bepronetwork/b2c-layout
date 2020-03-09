@@ -1,101 +1,143 @@
 import React, { Component } from 'react';
 import './index.css';
-import { Numbers } from '../../lib/ethereum/lib';
-import store from '../../containers/App/store';
 import { connect } from "react-redux";
-import { setDepositInfo } from '../../redux/actions/deposit';
-import allow from 'assets/allow.png';
-import deposit from 'assets/deposit.png';
-import { ActionBox } from 'components';
+import  QRCode from 'qrcode.react';
+import { Typography } from 'components';
+import classNames from "classnames";
+import building from 'assets/blockchain.png';
+import loading from 'assets/loading.gif';
+import _ from 'lodash';
+import { CopyText } from '../../copy';
 
 class DepositForm extends Component {
+
+    intervalID = 0;
+
     constructor(props) {
-        super(props);
+        super(props); 
         this.state = {
-            hasAllowed : false,
-            hasDeposited : false,
-            onLoading : {
-                hasAllowed : false,
-                hasDeposited : false
-            },
-            updated : false
-        };
-        
+            addressInitialized: false,
+            address: null,
+            isLoaded: false,
+            copied: false
+        }
     }
 
     componentDidMount(){
         this.projectData(this.props)
     }
 
+    componentWillUnmount() {
+        clearInterval(this.intervalID);
+    }
+
+    getCurrencyAddress = async () => {
+        const { profile, deposit } = this.props;
+
+        let response = await profile.getCurrencyAddress({ currency_id: deposit.currency._id });
+        if(_.isEmpty(response.message)) {
+            this.setState({ addressInitialized: true, address: response.address });
+            clearInterval(this.intervalID);
+        }
+
+        this.setState({ isLoaded: true });
+    }
+
     projectData = async (props) => {
-        const { profile, deposit } = props;
-        let allowedAmount = await profile.getAmountAllowedForDepositByPlatform();
-        let hasAllowed = ((Numbers.toFloat(allowedAmount) >= Numbers.toFloat(deposit.amount)) || this.state.hasAllowed);
-        let hasDeposited = false;
-        this.setState({...this.state, 
-            hasAllowed,
-            hasDeposited ,
-            updated : true
-        })
+
+        this.getCurrencyAddress();
+
+        this.intervalID = setInterval( async () => {
+            this.getCurrencyAddress();
+        }, 2*10000)
+
+        this.setState({...this.state})
     }
 
-    onLoading = (key, on=true) => {
-        /* Set Loading */
-        this.setState({...this.state,  onLoading : {...this.state.onLoading, [key] : on}});
-    }
+    copyToClipboard = (e) => {
+        const { address } = this.state;
+        var textField = document.createElement('textarea');
+        textField.innerText = address;
+        document.body.appendChild(textField);
+        textField.select();
+        document.execCommand('copy');
+        textField.remove();
 
-    allowTokenDeposit = async () => {
-        try{
-            this.onLoading('hasAllowed');
-            const { deposit, profile } = this.props;
-            /* Create Deposit Framework */
-            let res = await profile.allowDeposit({amount : Numbers.toFloat(deposit.amount)});
-            if(!res){throw new Error("Error on Transaction")};
-            this.setState({...this.state, hasAllowed : true})
-            setTimeout( () => {
-                this.projectData(this.props);
-                this.onLoading('hasAllowed', false);
-            }, 2*1000)
-        }catch(err){
-            this.onLoading('hasAllowed', false);
-        }
-    }
-
-    depositTokens = async () => {
-        try{
-            const { nextStep } = this.props;
-            this.onLoading('hasDeposited');
-            const { deposit, profile } = this.props;
-            /* Create Deposit Framework */
-            let res = await profile.depositTokens({amount : Numbers.toFloat(deposit.amount)});
-            if(!res){throw new Error("Error on Transaction")};
-            await store.dispatch(setDepositInfo({key : 'tx', value : res.transactionHash}));
-            this.setState({...this.state, isDeposited : true})
-            this.onLoading('hasDeposited', false);
-        }catch(err){
-            this.onLoading('hasDeposited', false);
-        }
-    }
+        this.setState({ copied: true })
+    };
 
     render() {
-        const { hasAllowed, hasDeposited, onLoading, updated, isDeposited } = this.state;
+        const { deposit } = this.props;
+        const { addressInitialized, address, isLoaded, copied } = this.state;
+        const {ln} = this.props;
+        const copy = CopyText.depositFormIndex[ln];
+        const addressStyles = classNames("address", {"ad-copied": copied});
+
+        if(!isLoaded){
+            return (
+                <div>
+                    <img src={loading} styleName='loading-gif'/>
+                </div>
+            )
+        }
+
         return (
             <div>
-                <ActionBox 
-                    onClick={this.allowTokenDeposit}
-                    onLoading={onLoading.hasAllowed}
-                    disabled={!updated}
-                    loadingMessage={'Metamask should prompt, click on it and Approve the Transaction'}
-                    completed={(hasAllowed || isDeposited)} id={'allowance'} image={allow} description={'Allow Deposit to the Platform Smart-Contract'} title={'1) Allow'}
-                />
-                <ActionBox 
-                    onClick={this.depositTokens}
-                    onLoading={onLoading.hasDeposited}
-                    disabled={!updated || !hasAllowed}
-                    loadingMessage={'Metamask should prompt, click on it and Approve the Transfer'}
-                    completed={(hasDeposited || isDeposited)} id={'deposit'} image={deposit} description={'Deposit your Tokens'} title={'2) Deposit'}
-                />
-                {/* <ProgressBar/> */}
+                {addressInitialized 
+                ?
+                    <div>
+                        <div styleName="info">
+                            <div styleName="currency">
+                                <div styleName="logo">
+                                    <img src={deposit.currency.image} styleName="logo-img"/>
+                                </div>
+                                <div styleName="cur-name">
+                                    <Typography variant={'body'} color={`white`}>
+                                        {deposit.currency.ticker}
+                                    </Typography>
+                                </div>
+                            </div>
+                            <Typography variant={'x-small-body'} color={`white`}>
+                                {copy.INDEX.TYPOGRAPHY.FUNC_TEXT[0]([deposit.currency.ticker, deposit.currency.ticker])}
+                                <br/><br/>
+                                {copy.INDEX.TYPOGRAPHY.TEXT[0]}
+                            </Typography>
+                            <div styleName="qrcode">
+                                <QRCode value={address} />
+                            </div>
+                            {copied ? (
+                                <div styleName="copied">
+                                    <Typography variant="small-body" color={'white'}>
+                                        Copied
+                                    </Typography>
+                                </div>
+                            ) : null}
+                        </div>
+                        <div styleName={addressStyles}>
+                            <div styleName='link-text-container'>
+                                <Typography variant={'x-small-body'} color={`casper`}>
+                                    {address}
+                                </Typography>
+                            </div>
+                            <div>
+                                <button onClick={this.copyToClipboard} styleName='text-copy-container'>
+                                    <Typography variant={'small-body'} color={'white'}>
+                                        {copy.INDEX.TYPOGRAPHY.TEXT[1]}
+                                    </Typography>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                :
+                    <div>
+                            <img src={building} styleName="building-img"/>
+                            <div styleName="building-info">
+                                <Typography variant={'small-body'} color={`white`}>
+                                    {copy.INDEX.TYPOGRAPHY.TEXT[2]}
+                                </Typography>
+                            </div>
+                    </div>
+                }
             </div>
         );
     }

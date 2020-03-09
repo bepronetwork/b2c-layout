@@ -5,6 +5,11 @@
     padding : $spacing-36;
     margin-top : $spacing-36;
     background-color : $footer-background;
+
+    @include Breakpoint-mobileOnly {
+        width: 490px;
+
+    }
 }
 
 
@@ -62,6 +67,13 @@
 
 .item:hover{
     opacity : 0.6 !important;  
+}
+
+.no-hover-item{
+    margin : $spacing-8;
+    margin-left : 0;
+    display : block;
+    position : relative;
 }
 
 .coin {

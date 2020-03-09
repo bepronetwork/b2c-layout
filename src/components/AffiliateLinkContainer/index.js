@@ -4,8 +4,15 @@ import { Typography } from 'components';
 import { connect } from "react-redux";
 import './index.css';
 import affiliate from 'assets/affiliate-background.png';
+import { getApp } from "../../lib/helpers";
+import { CopyText } from '../../copy';
 
-const URL_REF = 'https://tkn.com?ref='
+const info = getApp();
+
+const arr = window.location.href.split("/");
+const url = arr[0] + "//" + arr[2];
+const URL_REF = url + `?ref=`;
+
 class AffiliateLinkContainer extends React.Component{
     constructor(props){
         super(props);
@@ -31,6 +38,8 @@ class AffiliateLinkContainer extends React.Component{
             link,
             percentageOnLevelOne
         } = this.props;
+        const {ln} = this.props;
+        const copy = CopyText.affiliateLinkContainerIndex[ln];
 
         return (
             <div styleName={`root`}>
@@ -38,11 +47,11 @@ class AffiliateLinkContainer extends React.Component{
                 <div styleName='content'>
                     <div styleName={'text-description'}>
                         <Typography variant={'body'} color={`white`}>
-                            Share and take a profit in TKN affiliate program!
+                            {copy.INDEX.TYPOGRAPHY.FUNC_TEXT[0](info.name)}
                         </Typography>
                         <div styleName='subtitle-text'>
                             <Typography variant={'x-small-body'} color={`grey`}>
-                                Get at least {percentageOnLevelOne*100}% whenever the house wins for each user registered with this link
+                            {copy.INDEX.TYPOGRAPHY.FUNC_TEXT[1](percentageOnLevelOne*100)}
                             </Typography>
                         </div>
                     </div>
@@ -59,7 +68,7 @@ class AffiliateLinkContainer extends React.Component{
                             <Col xs={12} md={3}>
                                 <button onClick={this.copyToClipboard} styleName='text-copy-container'>
                                     <Typography variant={'small-body'} color={'white'}>
-                                        Copy
+                                        {copy.INDEX.TYPOGRAPHY.TEXT[0]}
                                     </Typography>
                                 </button>
                             </Col>
@@ -74,7 +83,8 @@ class AffiliateLinkContainer extends React.Component{
 
 function mapStateToProps(state){
     return {
-        profile : state.profile
+        profile : state.profile,
+        ln: state.language
     };
 }
 

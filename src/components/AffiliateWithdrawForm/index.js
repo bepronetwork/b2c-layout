@@ -6,6 +6,7 @@ import { connect } from "react-redux";
 import "./index.css";
 import store from "../../containers/App/store";
 import { setModal } from "../../redux/actions/modal";
+import { CopyText } from '../../copy';
 
 class AffiliateWithdrawForm extends Component {
     constructor(props) {
@@ -27,21 +28,23 @@ class AffiliateWithdrawForm extends Component {
     render() {
         const { modal } = this.props;
         const { tab } = this.state;
+        const {ln} = this.props;
+        const copy = CopyText.affiliateWithdrawFormIndex[ln];
         if(!modal.AffiliateWithdrawForm){ return null };
 
         return (
             <Modal onClose={this.onClose}>
                 <div styleName="root" style={{ overflowY: 'auto', overflowX : 'hidden'}}>
                     <div styleName="tabs">
-                    <Tabs
-                        selected={tab}
-                        options={[
-                        { value: "withdraw", label: "Withdraw" }
-                        ]}
-                        onSelect={this.handleTabChange}
-                    />
+                        <Tabs
+                            selected={tab}
+                            options={[
+                            { value: "withdraw", label: copy.INDEX.TABS.LABEL[0] }
+                            ]}
+                            onSelect={this.handleTabChange}
+                        />
                     </div>
-                        <Withdraw onClose={this.onClose}/>
+                    <Withdraw onClose={this.onClose}/>
                 </div>
             </Modal>
         );
@@ -52,7 +55,8 @@ class AffiliateWithdrawForm extends Component {
 function mapStateToProps(state){
     return {
         profile : state.profile,
-        modal : state.modal
+        modal : state.modal,
+        ln: state.language
     };
 }
 

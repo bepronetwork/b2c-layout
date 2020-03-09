@@ -3,25 +3,9 @@ import React, { Component } from "react";
 import "./index.css";
 import { connect } from "react-redux";
 import { compose } from 'lodash/fp';
-import { promptMetamask } from 'lib/metamask';
-import { MetamaskPrompt, DepositConfirmForm, AmountDepositForm, CurrencyDepositForm, HorizontalStepper, DepositForm, InformationBox } from 'components';
-import { TradeFormDexDeposit } from "../TradeForms/Dex";
-import { getMetamaskAccount } from "../../lib/metamask";
-import info from 'assets/info.png';
-
-const defaultProps = {
-    amount : 10,
-    ticker : 'DAI',
-    isAddressValid : true,
-    deposits : [],
-    hasMetamask : true,
-    ownedDAI : 0,
-    isValidAddress : true
-}
-
+import { CurrencyDepositForm, HorizontalStepper, DepositForm } from 'components';
+import { CopyText } from '../../copy';
 class Deposit extends Component {
-
-    state = { ...defaultProps };
 
     componentDidMount(){
         this.projectData(this.props)
@@ -31,20 +15,8 @@ class Deposit extends Component {
         this.projectData(props);
     }
     
-    async projectData(props){
-        const { profile } = props;
-       
-        try{
-            await promptMetamask();
-            let userAddress = profile.getAddress();
-            let address = await getMetamaskAccount();
-            let isValidAddress = new String(userAddress).toLowerCase() == new String(address).toLowerCase();
-            let ownedDAI = parseFloat(await profile.getTokenAmount());
-            this.setState({...this.state, hasMetamask : true, ownedDAI, isValidAddress})
-        }catch(err){
-            // Metamask is Closed or not Installed
-            this.setState({...this.state, hasMetamask : false})
-        }
+    async projectData(props){       
+        this.setState({...this.state})
     }
 
     closeDeposit = () => {
@@ -54,10 +26,9 @@ class Deposit extends Component {
 
     render() {
         const { deposit } = this.props;
-        const { hasMetamask, ownedDAI, isValidAddress } = this.state;
-        const { currency, nextStep, amount, tx, isConfirmed } = deposit;
-
-        if(!hasMetamask){return (<MetamaskPrompt hasMetamask={hasMetamask}/>)}
+        const { currency, nextStep } = deposit;
+        const {ln} = this.props;
+        const copy = CopyText.cashierFormDeposit[ln];
 
         return (
             <div styleName='root'>
@@ -67,40 +38,21 @@ class Deposit extends Component {
                         <HorizontalStepper 
                             showStepper={false}
                             nextStep={nextStep}
-                            alertCondition={!isValidAddress}
-                            alertMessage={`This address is not set with this user, please change to your address`}
+                            alertMessage={ copy.DEPOSIT.HORIZONTAL_STEPPER.ALERT_MESSAGE[0]}
                             steps={[
                                 {
-                                    label : "Choose",
-                                    title : 'Pick the Currency you have',
+                                    label : copy.DEPOSIT.HORIZONTAL_STEPPER.LABEL[0],
+                                    title : copy.DEPOSIT.HORIZONTAL_STEPPER.TITLE[0],
                                     condition : (currency != ''),
                                     content : <CurrencyDepositForm/>
                                 },
                                 {
-                                    label : "Amount",
-                                    title : 'How much you want to deposit?',
-                                    condition : (amount >= 0.1),
-                                    content : <AmountDepositForm/>
-                                },
-                                {
-                                    label : "Trade",
-                                    title : 'Trade your tokens seamlessly',
-                                    condition : (parseFloat(ownedDAI) >= parseFloat(deposit.amount)),
-                                    pass : (new String(currency).toLowerCase() == 'dai'),
-                                    content : <TradeFormDexDeposit/>
-                                },
-                                {
-                                    label : "Deposit",
-                                    title : 'Deposit your Tokens',
-                                    condition : (tx && tx != ''),
-                                    pass : (tx && tx != ''),
-                                    content : <DepositForm/>
-                                },
-                                {
-                                    label : "Confirm",
-                                    condition : (isConfirmed),
-                                    content : <DepositConfirmForm onClose={this.closeDeposit}/>,
+                                    label : copy.DEPOSIT.HORIZONTAL_STEPPER.LABEL[1],
+                                    title : `${copy.DEPOSIT.HORIZONTAL_STEPPER.TITLE[1]} ${currency.ticker}`,
+                                    condition : (currency != ''),
+                                    content : <DepositForm/>,
                                     last : true,
+                                    showCloseButton : false,
                                     closeStepper : this.closeDeposit
                                 }
                             ]}

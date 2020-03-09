@@ -3,21 +3,40 @@
 .root {
   text-align: center;
   margin-top : 50px;
+  width: 100%;
+  margin: auto;
+
+  @include Breakpoint-mobileOnly {
+    width: 450px;
+}
 }
 
 .container {
+    margin-top: 80px;
+
+    @include Breakpoint-tabletOnly {
+        margin-top: 20px;
+    }
+
     @include Breakpoint-tabletAndAbove {
         max-width: $content-width-desktop;
-        margin: 0 auto;
-        margin-right: -17px;
         margin-left: 3px;
     }
 
     @include Breakpoint-mobileOnly {
-        display: none;
+        margin-top: 20px;
     }
 }
 
 .bets-dropdown{
-    margin-top : -20px;
+    margin-top : -2px;
+
+    @include Breakpoint-tabletOnly {
+        margin-top: -6px;
+    }
+
+    @include Breakpoint-mobileOnly {
+        margin-top: 6px;
+    }
+
 }

@@ -12,7 +12,7 @@ const betWidth = "52px";
 export default class History extends Component {
   static propTypes = {
     // eslint-disable-next-line react/no-unused-prop-types
-    game: PropTypes.oneOf(["diceHistory", "rouletteHistory", "flipHistory"])
+    game: PropTypes.oneOf(["diceHistory", "rouletteHistory", "flipHistory", "plinko_variation_1History", "wheelHistory", "wheel_variation_1History"])
       .isRequired
   };
 
@@ -59,7 +59,7 @@ export default class History extends Component {
       this.animeTimeout = setTimeout(() => {
         clearTimeout(this.animeTimeout);
         this.setState({ bets: betsStorage, anime: false });
-      }, 2000);
+      }, 1000);
     }
   }
 

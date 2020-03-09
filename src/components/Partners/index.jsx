@@ -8,15 +8,19 @@ import image_4 from 'assets/partners/waterfront.png';
 
 import { Typography } from 'components';
 import "./index.css";
+import { CopyText } from '../../copy';
+import { connect } from "react-redux";
 
 
 class Partners extends Component {
   render() {
+    const {ln} = this.props;
+const copy = CopyText.partnersIndex[ln];
 
     return (
         <div styleName='partners-section'>
             <Typography variant='h3' color='white' weight='bold'> 
-                Partners 
+              {copy.INDEX.TYPOGRAPHY.TEXT[0]}
             </Typography>
             <div styleName='container'>
                 <img styleName='partner-img' src={image_1}/>
@@ -30,5 +34,11 @@ class Partners extends Component {
 }
 
 
+function mapStateToProps(state){
+  return {
+      profile : state.profile,
+      ln: state.language
+  };
+}
 
-export default Partners;
+export default connect(mapStateToProps)(Partners);

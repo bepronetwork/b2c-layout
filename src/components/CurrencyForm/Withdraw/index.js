@@ -1,15 +1,16 @@
 import React from "react";
 import { connect } from "react-redux";
 import PaymentBox from "../../PaymentBox";
-import currencies from "../../../config/currencies";
 import store from "../../../containers/App/store";
 import { setWithdrawInfo } from "../../../redux/actions/withdraw";
+import { getApp } from "../../../lib/helpers";
+import { CopyText } from '../../../copy';
 
 class CurrencyWithdrawForm extends React.Component{
     constructor(props){
         super(props);
         this.state = {
-           
+            currencies : []
         }
     }
 
@@ -22,33 +23,36 @@ class CurrencyWithdrawForm extends React.Component{
     }
 
     projectData = async (props) => {
+        let currencies = getApp().currencies;
 
+        this.setState({...this.state,
+            currencies
+        })
     }
 
-    changeCurrency = async (id) => {
-        await store.dispatch(setWithdrawInfo({key : "currency", value : id}));
+    changeCurrency = async (c) => {
+        await store.dispatch(setWithdrawInfo({key : "currency", value : c}));
     }
 
     render(){
-        const { currency } = this.props.withdraw;
-
+        const { currencies } = this.state;
+        const { withdraw } = this.props;
+        const {ln} = this.props;
+const copy = CopyText.currencyFormIndex[ln];
 
         return (
             <div>
-                <PaymentBox 
-                    onClick={this.changeCurrency}
-                    picked={currency} 
-                    id={"withdraw-eth"}  
-                    disabled={true}
-                    image={currencies.ethereum} type={'Ethereum'} 
-                    info={'Soon'}
-                    description={'Native Currency of Ethereum'} time={'3-5 minutes'} />
-                <PaymentBox 
-                    onClick={this.changeCurrency}
-                    picked={currency} 
-                    id={"withdraw-dai"} 
-                    image={currencies.dai} type={'DAI'} 
-                    description={'A Stable ERC20 Token that equals $1=1 DAI'} time={'2-3 minutes'} />
+                {currencies.map( c => {
+                    return (
+                        <PaymentBox 
+                            onClick={ () => this.changeCurrency(c)}
+                            isPicked={new String(withdraw.currency._id).toString() == new String(c._id).toString()}
+                            id={`${c.ticker}`}  
+                            image={c.image} type={`${c.name}`} 
+                            description={copy.INDEX.PAYMENTBOX.DESCRIPTION[0]} time={'fast withdraw'} id={`${c.ticker}`}
+                        />
+                    )
+                })}
             </div>
         )
     }
@@ -57,7 +61,8 @@ class CurrencyWithdrawForm extends React.Component{
 function mapStateToProps(state){
     return {
         withdraw : state.withdraw,
-        profile : state.profile
+        profile : state.profile,
+        ln: state.language
     };
 }
 

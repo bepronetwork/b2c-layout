@@ -1,0 +1,50 @@
+@import "../../styles/all.css";
+
+.root {
+    height: $navbar-height;
+    padding-top : $padding-height-navbar;
+}
+
+.container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 160px;
+
+  @include Breakpoint-tabletAndAbove {
+    margin: 0 auto;
+  }
+
+  @include Breakpoint-mobileOnly {
+    padding: 0 $spacing-8;
+    margin: 0 auto;
+    width: 150px;
+  }
+}
+
+.image-coin{
+    width: 20px;
+    float: left;
+}
+
+.currency-box-top{
+    margin-top : 4px;
+}
+
+.option-text{
+    font-family: $font-family;
+    display: inline;
+    float: left;
+    position: relative;
+    font-size : 12px;
+    margin-left : 10px;
+    margin-top : 0px;
+    color : $text-secondary-color;
+
+    @include Breakpoint-mobileOnly {
+      padding-top: 4px;
+      padding-left: 20px;
+      float: none;
+      display: block;
+  }
+}

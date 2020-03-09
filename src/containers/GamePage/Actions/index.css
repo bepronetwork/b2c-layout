@@ -1,0 +1,49 @@
+@import "../../../styles/all.css";
+
+.root {
+    position: relative;
+    display: block;
+    width: 100%;
+    height: inherit;
+    display: flex;
+    flex-direction: column;
+    padding: $spacing-28 $spacing-20;
+
+  @include Breakpoint-mobileOnly {
+    width: 320px;
+    padding : $spacing-28 0;
+    margin: auto;
+    position: relative;
+    display: block;
+    overflow-x: auto !important;
+  }
+
+}
+
+.image-icon {
+  width : 60px;
+}
+
+.rule-h1 {
+  text-align: center;
+}
+
+.tabs {
+    width: 100%;
+}
+
+.rule {
+  width: 100%;
+  display: grid;
+  grid-auto-columns: minmax(0px, 1fr);
+  justify-items: center;
+  gap: 2em 2em;
+  padding-top: 16px;
+}
+
+.content {
+  width: 100%;
+  background: $dark-table-color;
+  padding: 1.8em;
+  border-radius: 0.3em;
+}

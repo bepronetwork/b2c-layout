@@ -1,22 +1,19 @@
 
 #back{
     z-index: 0;
-    background-color: #17182c;
+    background-color: transparent;
     position: absolute;
     width: 100%;
     height: -webkit-fill-available;
 }
 #loading{
-    background: url('gif.gif') no-repeat;
-    width : 400px;
+    background: url('loading.gif') no-repeat;
+    background-position: center;
+    width : 100%;
     z-index : -20;
-    height: 300px;
-    background-color : #16162d;
+    height: 100%;
+    background-color : transparent;
     position: fixed;
-    margin-left: -200px;
-    top: 50%;
-    left: 50%;
-    margin-top: -50px;
 }
 
 #root{
@@ -409,5 +406,9 @@ a > .mdi-icon{
 
 .MuiMenu-paper{
     border : none;
-    background-color : #ccc !important;
+    background-color : #15222d !important;
+}
+
+.MuiFormControl-marginNormal{
+    margin-top : 0px !important;
 }

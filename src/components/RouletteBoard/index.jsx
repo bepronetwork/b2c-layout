@@ -3,11 +3,12 @@ import PropTypes from "prop-types";
 import Sound from "react-sound";
 import coinSound from "assets/coin-board-sound.mp3";
 import TableCell from "./TableCell";
+import { connect } from "react-redux";
 
 import "./index.css";
 import { CopyText } from "../../copy";
 
-export default class RouletteBoard extends Component {
+class RouletteBoard extends Component {
   static propTypes = {
     result: PropTypes.number,
     onAddChip: PropTypes.func.isRequired,
@@ -1029,3 +1030,12 @@ export default class RouletteBoard extends Component {
     );
   }
 }
+
+function mapStateToProps(state){
+  return {
+      profile : state.profile,
+      ln: state.language
+  };
+}
+
+export default connect(mapStateToProps)(RouletteBoard);

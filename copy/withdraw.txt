@@ -1,0 +1,17 @@
+TITLE : {
+FIRST : ' You have ',
+SECOND : ' Deposited in the App',
+},
+BUTTON_ONE:  'Ask for Withdraw',
+INFO : {
+FIRST : ' Don´t close the Window',
+SECOND : 'Please Wait..',
+THIRD : 'Withdraw Succeeded',
+FORTH : ' You have ',
+FIFTH : ' Available for Withdraw',
+SIXTH : 'Please Click "Withdraw" below on the withdrawal entry',
+COMPLETED : 'Tokens Available to Withdraw'
+},
+TABLE : {
+BUTTON_ONE:  'Withdraw'
+}

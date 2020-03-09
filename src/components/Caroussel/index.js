@@ -6,6 +6,8 @@ import _ from 'lodash';
 import "./index.css";
 import { getAppCustomization } from "../../lib/helpers";
 
+var gallery = null;
+
 class CarousselContainer extends Component {
 
     constructor(props) {
@@ -27,25 +29,44 @@ class CarousselContainer extends Component {
         const { banners } = getAppCustomization();
         const images = banners.ids.map( id => {
             return {
-                srcSet: id,
-                sizes : 200
+                srcSet: id
             }
         })
         this.setState({images : images})
     }
 
+    _onMouseOver() {
+        gallery.pause();
+    }
+
+    _onMouseLeave() {
+        gallery.play();
+    }
+
+    galleryRef = element => {
+        gallery = element;
+    };
+
     render() {
         const { images } = this.state;
 
+        if(_.isEmpty(images)) { return null; }
+
         return (
-            <ImageGallery 
-                showNav={false} 
-                showFullscreenButton={false} 
-                showPlayButton={false}
-                showThumbnails={false}
-                showBullets={true} 
-                showPlayButton={false} items={images} 
-            />
+            <div styleName='banners'>
+                <ImageGallery 
+                    ref={this.galleryRef}
+                    showNav={false} 
+                    showFullscreenButton={false} 
+                    showThumbnails={false}
+                    showBullets={true} 
+                    autoPlay={true}
+                    showPlayButton={false} 
+                    items={images} 
+                    onMouseOver={this._onMouseOver}
+                    onMouseLeave={this._onMouseLeave}
+                />
+            </div>
         );
       }
     

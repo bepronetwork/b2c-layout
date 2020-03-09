@@ -1,24 +1,13 @@
-import moment from 'moment';
 import Cache from '../cache/cache';
 import _ from 'lodash';
+import moment from 'moment-timezone';
+import store from '../../containers/App/store';
+import { setMessageNotification } from '../../redux/actions/message';
+
+//import 'moment/locale/pt-br';
 
 function dateToHourAndMinute(date){
-    date = new Date(date);
-    let hours = date.getHours();
-    let minutes = date.getMinutes() < 10 ? '0' + date.getMinutes() : date.getMinutes();
-    let ret = '';
-
-    if((hours > 12)){
-        ret = `${hours-12}:${minutes} PM`;
-    }else if(hours == 0){
-        ret = `${12}:${minutes} AM`;
-    }
-    else if(hours == 12){
-        ret = `${12}:${minutes} PM`;
-    }else{
-        ret = `${hours}:${minutes} AM`;
-    }
-    return ret;
+    return moment(new Date(date)).fromNow();
 }
 
 
@@ -29,7 +18,7 @@ function fromSmartContractTimeToMinutes(time){
 }
 
 function getGames() {
-    return  Cache.getFromCache("appInfo") ? Cache.getFromCache("appInfo").games : [];
+    return Cache.getFromCache("appInfo") ? Cache.getFromCache("appInfo").games : [];
 }
 
 
@@ -60,4 +49,65 @@ function getQueryVariable(variable)
 function getAppCustomization(){
     return  Cache.getFromCache("appInfo") ? Cache.getFromCache("appInfo").customization : {};
 }
-export { dateToHourAndMinute, getAppCustomization, fromSmartContractTimeToMinutes, getGames, isUserSet, getMinutesfromSeconds, getQueryVariable }
+
+function getApp(){
+    return  Cache.getFromCache("appInfo") ? Cache.getFromCache("appInfo") : {};
+}
+
+async function getGeo(){
+    return new Promise( (resolve, reject) => {
+        if (!navigator.geolocation){
+            console.log("Geolocation is not supported by your browser");
+            return;
+        }
+        alert("c")
+
+        function error() {
+            alert("hh")
+            console.log("Unable to retrieve your location");
+        }
+    
+        navigator.geolocation.getCurrentPosition( (position)  => {
+            var latitude  = position.coords.latitude;
+            var longitude = position.coords.longitude;
+            fetch(`https://maps.googleapis.com/maps/api/geocode/json?
+                latlng=${latitude},${longitude}&key=${'AIzaSyBPbFrvt8RmLg6TqXtk_9E1YRs1YK4iBvM'}`)
+            .then( res => res.json())
+            .then(response => {
+                alert("a")
+                resolve(response);
+                console.log("User's Location Info: ", response)
+            })
+            .catch(status => {
+                reject(status)
+                console.log('Request failed.  Returned status of', status)
+            })
+        }, error);
+    })
+}
+
+async function processResponse(response){
+    try{
+        if(parseInt(response.data.status) != 200){
+            let { message } = response.data;
+            if(!message){message = 'Technical Issues'}
+            throw new Error(message)
+        }
+        return response.data.message
+    }catch(err){
+        await store.dispatch(setMessageNotification(new String(err.message).toString()));
+        throw err;
+    }
+}
+
+
+  
+
+export { 
+    dateToHourAndMinute, getAppCustomization, 
+    fromSmartContractTimeToMinutes, getGames, 
+    isUserSet, getMinutesfromSeconds, 
+    getQueryVariable,  getGeo,
+    getApp,
+    processResponse
+}

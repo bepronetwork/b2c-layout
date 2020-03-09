@@ -1,6 +1,6 @@
 import axios from "axios";
 import handleError from "./handleError";
-import { apiUrl, appId, apiUrlWithdraw, processResponse } from "./apiConfig";
+import { apiUrl, appId, apiUrlWithdraw } from "./apiConfig";
 
 // Create an instance using the config defaults provided by the library
 // At this point the timeout config value is `0` as is the default for the library
@@ -11,7 +11,6 @@ let SEC = 200;
 instance.defaults.timeout = SEC*1000;
 
 export async function register({ username, password, email, address, affiliateLink}) {
-    console.log(affiliateLink)
     const postData = {
         username,
         email,
@@ -24,8 +23,6 @@ export async function register({ username, password, email, address, affiliateLi
     if(postData.affiliateLink == false){
         delete postData.affiliateLink;
     }
-
-    console.log(postData)
 
     try {
         const response = await axios.post(`${apiUrl}/api/users/register`, postData);
@@ -70,6 +67,71 @@ export async function login({ username, password }) {
             deposits    : message.deposits,
             ...message
         };
+    } catch (error) {
+        return handleError(error);
+    }
+}
+
+export async function login2FA({ username, password, token }) {
+    try {
+        const response = await axios.post(`${apiUrl}/api/users/login/2fa`, {
+            username,
+            password,
+            "2fa_token": token,
+            app : appId
+        });
+
+        if (response.data.data.status !== 200) {
+        return response.data.data;
+        }
+        const { status, message } = response.data.data;
+        return {
+            address : message.address,
+            status,
+            balance: message.wallet.playBalance,
+            id  : message.id,
+            bearerToken : message.bearerToken,
+            username    : message.username,
+            withdraws   : message.withdraws,
+            deposits    : message.deposits,
+            ...message
+        };
+    } catch (error) {
+        return handleError(error);
+    }
+}
+
+export async function askResetPassword(username_or_email) {
+    try {
+        const response = await axios.post(`${apiUrl}/api/users/password/reset/ask`, {
+            username_or_email
+        });
+
+        if (response.data.data.status !== 200) {
+            return response.data.data;
+        }
+        
+        return response;
+
+    } catch (error) {
+        return handleError(error);
+    }
+}
+
+export async function setNewPassword(user_id, token, password) {
+    try {
+        const response = await axios.post(`${apiUrl}/api/users/password/reset/set`, {
+            user_id,
+            token,
+            password
+        });
+
+        if (response.data.data.status !== 200) {
+            return response.data.data;
+        }
+        
+        return response;
+
     } catch (error) {
         return handleError(error);
     }
@@ -265,4 +327,84 @@ function addSecurityHeader({bearerToken, payload}) {
         'authorization': `Bearer ${bearerToken}`,
         'payload'       : JSON.stringify({id : payload})
   };
+}
+
+/**
+ *
+ * @param {*} params
+ * @param {*} bearerToken
+ * @name Set 2FA
+ * @use Once User Wants to set 2FA
+ */
+
+export async function set2FA(params, bearerToken, payload) {
+    try{
+        let res = await fetch(`${apiUrl}/api/users/2fa/set`, {
+            method : 'POST',
+            timeout: 1000*1000,
+            headers : addSecurityHeader({bearerToken, payload :  payload || params.user}),
+            body : JSON.stringify(params)})
+        return res.json();
+    }catch(err){
+        throw err;
+    }
+}
+
+/**
+ *
+ * @param {*} params
+ * @param {*} bearerToken
+ * @name User Auth
+ * @use Get User authentication info
+ */
+
+export async function userAuth(params, bearerToken, payload) {
+    try{
+        let res = await fetch(`${apiUrl}/api/users/auth`, {
+            method : 'POST',
+            headers : addSecurityHeader({bearerToken, payload :  payload || params.user}),
+            body : JSON.stringify(params)})
+
+        let response = await res.json();
+
+        const { message, status } = response.data;
+
+        return {
+            address : message.address,
+            status,
+            balance: message.wallet.playBalance,
+            id  : message.id,
+            bearerToken : message.bearerToken,
+            username    : message.username,
+            withdraws   : message.withdraws,
+            deposits    : message.deposits,
+            ...message
+        };
+
+        return null;
+
+    } catch (error) {
+        return handleError(error);
+    } 
+}
+
+
+/**
+ *
+ * @param {*} params
+ * @param {*} bearerToken
+ * @name Get Currency Address
+ * @use Get Address by Currency
+ */
+
+export async function getCurrencyAddress(params, bearerToken, payload) {
+    try{
+        let res = await fetch(`${apiUrl}/api/app/address/get`, {
+            method : 'POST',
+            headers : addSecurityHeader({bearerToken, payload :  payload || params.id}),
+            body : JSON.stringify(params)})
+        return res.json();
+    }catch(err){
+        throw err;
+    }    
 }

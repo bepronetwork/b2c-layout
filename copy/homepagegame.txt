@@ -1,0 +1,57 @@
+ {
+    BUTTON_HOME : {
+        FIRST : 'Play Now',
+        SECOND : ' Go!'
+    },
+    TITLE: "The Original Crypto Casino",
+    LABELS: [
+        "Hybrid Control of the Platform built in Ethereum",
+        "Fast Deposits & Withdrawals, completely decentralized",
+        "Provably Fair Bets and with the speed of a Centralized Betting App"
+    ],
+    TABLE : {
+        ALL_BETS : {
+            TITLE : 'All Bets',
+            ITEMS : [
+                'Game',
+                'Bet Id',
+                'User',
+                'Time',
+                'Bet',
+                'Payout',
+                'Profit'
+            ]
+        },
+        MY_BETS : {
+            TITLE : 'My Bets', 
+            ITEMS : [
+                'Game',
+                'Bet Id',
+                'Time',
+                'Bet',
+                'Payout',
+                'Profit'
+            ]
+        },
+        BIGGEST_WIN_BETS : {
+            TITLE : 'Biggest Wins', 
+            ITEMS : [
+                'Game',
+                'Bet Id',
+                'User',
+                'Time',
+                'Bet',
+                'Payout',
+                'Profit'
+            ]
+        },
+        BIGGEST_WIN_USERS : {
+            TITLE : 'LeaderBoard', 
+            ITEMS : [
+                'Position',
+                'User',
+                'Win Amount'
+            ]
+        }
+    }
+},

@@ -2,6 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import './index.css';
 import { ProgressBarLinear } from "../ProgressBar";
+import { getAppCustomization } from "../../lib/helpers";
 
 class LoadingBanner extends React.Component{
     constructor(props){
@@ -27,10 +28,13 @@ class LoadingBanner extends React.Component{
         const { 
             isLoaded, progress
         } = this.props;
+        const { logo } = getAppCustomization();
+
         if(isLoaded){return null}
         return (
 
             <div styleName='back-loading-banner'>
+                <img src={logo.id} styleName={'image-loading'}/>
                 <div id="loading">
                     <ProgressBarLinear progress={progress}/>
                 </div>

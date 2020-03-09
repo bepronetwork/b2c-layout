@@ -11,8 +11,7 @@ import store from "../../../containers/App/store";
 import { setDepositInfo } from "../../../redux/actions/deposit";
 
 const defaultProps = {
-    ticker : 'DAI',
-    isDAIDeposit : false,
+    ticker : 'N/A',
     maxDeposit : 0,
     ownedDAI : 0
 }
@@ -35,15 +34,9 @@ class AmountDepositForm extends Component {
     async projectData(props){
         const { deposit, profile } = props;
 
-        let ownedDAI = parseFloat(await profile.getTokenAmount());
-        let isDAIDeposit = (new String(deposit.currency).toLowerCase() == 'dai');
-        let maxDeposit = await profile.getContract().getMaxDeposit();
         this.setState({...this.state, 
-            ticker : profile.getAppCurrencyTicker(),   
-            amount : deposit.amount,
-            isDAIDeposit,
-            ownedDAI,
-            maxDeposit
+            ticker : deposit.currency.ticker,   
+            amount : deposit.amount
         })
     }
 
@@ -52,18 +45,21 @@ class AmountDepositForm extends Component {
         await store.dispatch(setDepositInfo({key : "amount", value : parseFloat(amount)}));
     }
 
-    renderAmountDepositButton({disabled, amount, onChangeAmount}){
+    renderAmountDepositButton({disabled, amount, onChangeAmount, ticker}){
         return (
             <button disabled={disabled} onClick={() => onChangeAmount(amount)} styleName={`container-root ${disabled ? 'no-hover' : ''}`}>
-                <Typography color={'white'} variant={'small-body'}>{`${amount} $`}</Typography>
+                <Typography color={'white'} variant={'small-body'}>{`${amount} ${ticker}`}</Typography>
             </button>
         )
     }
 
     render() {
-        const { amount, ownedDAI, isDAIDeposit, maxDeposit, ticker } = this.state;
-        let maxInputDeposit = isDAIDeposit ? Math.min(ownedDAI, maxDeposit) : maxDeposit;
+        const { amount, ticker } = this.state;
+        const { deposit } = this.props;
+        const { currency } = deposit;
 
+        const {ln} = this.props;
+        const copy = CopyText.amountFormIndex[ln];
         return (
             <div>
                 <div style={{marginBottom : 20}}>
@@ -71,35 +67,33 @@ class AmountDepositForm extends Component {
                         <Col md={10}>
                             <InputNumber
                                 name="amount"
-                                min={0.1}
-                                max={maxInputDeposit}
-                                precision={2}
+                                min={0.00001}
+                                precision={6}
                                 title=""
                                 onChange={(amount) => this.onChangeAmount(amount)}
                                 icon="cross"
                                 value={amount}
                             />
-                           
                         </Col>
                         <Col md={2}>
                             <img src={dollar} styleName='dollar-image'/>
                         </Col>
                     </Row>
-                    {isDAIDeposit ? 
-                        <div styleName='text-info-deposit'>
-                                <Typography variant={'x-small-body'} color={'white'}>{`You only have ${ownedDAI} ${ticker}`}</Typography>
-                        </div>
-                    : null }
+                    <div styleName='text-info-deposit'>
+                            <Typography variant={'x-small-body'} color={'white'}>
+                                {copy.INDEX.TYPOGRAPHY.FUNC_TEXT[0]([currency.ownership, currency.ticker]) }
+                            </Typography>
+                    </div>
                 </div>
                 <Row>
                     <Col md={4}>
-                        {this.renderAmountDepositButton({disabled : (maxInputDeposit < 10), amount :'10.00', onChangeAmount : this.onChangeAmount})}
+                        {this.renderAmountDepositButton({amount :'0.1', onChangeAmount : this.onChangeAmount, ticker})}
                     </Col>
                     <Col md={4}>
-                        {this.renderAmountDepositButton({disabled : (maxInputDeposit < 25),amount :'25.00', onChangeAmount : this.onChangeAmount})}
+                        {this.renderAmountDepositButton({amount :'25', onChangeAmount : this.onChangeAmount, ticker})}
                     </Col>
                     <Col md={4}>
-                        {this.renderAmountDepositButton({disabled : (maxInputDeposit < 50) ,amount :'50.00', onChangeAmount : this.onChangeAmount})}
+                        {this.renderAmountDepositButton({amount :'50', onChangeAmount : this.onChangeAmount, ticker})}
                     </Col>
                 </Row>
             </div>
