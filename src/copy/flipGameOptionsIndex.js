@@ -20,7 +20,9 @@
       "TOGGLE_BUTTON": {
         "TITLE": [
           "Manual",
-          "Auto"
+          "Auto",
+          "Heads",
+          "Tails"
         ]
       },
       "TYPOGRAPHY": {
@@ -52,7 +54,9 @@
       "TOGGLE_BUTTON": {
         "TITLE": [
           "수동",
-          "자동"
+          "자동",
+          "헤드",
+          "꼬리"
         ]
       },
       "TYPOGRAPHY": {
@@ -84,7 +88,9 @@
       "TOGGLE_BUTTON": {
         "TITLE": [
           "手动",
-          "自动"
+          "自动",
+          "头",
+          "尾巴"
         ]
       },
       "TYPOGRAPHY": {
@@ -116,7 +122,9 @@
       "TOGGLE_BUTTON": {
         "TITLE": [
           "Manual",
-          "Auto"
+          "Auto",
+          "Heads",
+          "Tails"
         ]
       },
       "TYPOGRAPHY": {

@@ -323,8 +323,8 @@ const copy = CopyText.flipGameOptionsIndex[ln];
             </div>
             <ToggleButton
                 config={{
-                left: { value: "heads", title: "Heads", color: "red" },
-                right: { value: "tails", title: "Tails", color: "tree-poppy" }
+                left: { value: "heads", title: copy.INDEX.TOGGLE_BUTTON.TITLE[2], color: "red" },
+                right: { value: "tails", title: copy.INDEX.TOGGLE_BUTTON.TITLE[3], color: "tree-poppy" }
                 }}
                 selected={side}
                 differentBorders

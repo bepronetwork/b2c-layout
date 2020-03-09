@@ -2,6 +2,15 @@
     const cashierFormWithdrawsTableCopy =
     {
   "en": {
+    "ROW": {
+      "LABEL": [
+        "Amount",
+        "Status",
+        "Withdraw",
+        "Tx Hash",
+        "Creation Date"
+      ]
+    },
     "WITHDRAWSTABLE": {
       "TOOLTIP": {
         "TITLE": [
@@ -11,6 +20,15 @@
     }
   },
   "ko": {
+    "ROW": {
+      "LABEL": [
+        "금액",
+        "상태",
+        "빼다",
+        "Tx 해시시",
+        "생성일"
+      ]
+    },
     "WITHDRAWSTABLE": {
       "TOOLTIP": {
         "TITLE": [
@@ -20,6 +38,15 @@
     }
   },
   "ch": {
+    "ROW": {
+      "LABEL": [
+        "金额",
+        "状态",
+        "提币",
+        "Tx 杂凑",
+        "创建日期"
+      ]
+    },
     "WITHDRAWSTABLE": {
       "TOOLTIP": {
         "TITLE": [
@@ -29,6 +56,15 @@
     }
   },
   "jp": {
+    "ROW": {
+      "LABEL": [
+        "Amount",
+        "Status",
+        "Withdraw",
+        "Tx Hash",
+        "Creation Date"
+      ]
+    },
     "WITHDRAWSTABLE": {
       "TOOLTIP": {
         "TITLE": [
