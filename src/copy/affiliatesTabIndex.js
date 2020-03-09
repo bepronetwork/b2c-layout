@@ -6,7 +6,7 @@
       "DATA_CONTAINER": {
         "TITLE": [
           "Wallet",
-          "Affiliates"
+          "Referral"
         ]
       },
       "TYPOGRAPHY": {
@@ -21,7 +21,7 @@
       "DATA_CONTAINER": {
         "TITLE": [
           "지갑",
-          "제휴사"
+          "추천인 수"
         ]
       },
       "TYPOGRAPHY": {
@@ -51,7 +51,7 @@
       "DATA_CONTAINER": {
         "TITLE": [
           "Wallet",
-          "Affiliates"
+          "Referral"
         ]
       },
       "TYPOGRAPHY": {
