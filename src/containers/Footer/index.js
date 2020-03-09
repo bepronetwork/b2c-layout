@@ -48,7 +48,7 @@ const footerStaticOutput = ({props, supportLinks, communityLinks}) => {
                 align : 'left',
                 title : {
                     color : 'white',
-                    text : 'Support',
+                    text : copy.CONTAINERS.FOOTER.INFO.SUPPORT,
                     size : "body"
                 },
                 items : supportLinks.map( s => {
@@ -66,7 +66,7 @@ const footerStaticOutput = ({props, supportLinks, communityLinks}) => {
                 align : 'left',
                 title : {
                     color : 'white',
-                    text : 'Community',
+                    text : copy.CONTAINERS.FOOTER.INFO.COMMUNITY,
                     size : "body"
                 },
                 items : communityLinks.map( s => {
