@@ -32,7 +32,7 @@
     "AUTO_NAME": "자동"
   },
   "ch": {
-    "CHIP_INFO": "筹码价值",
+    "CHIP_INFO": "筹码值",
     "EDGE_NAME": "庄家优势",
     "PLACEHOLDER_CHAT": "输入你的消息",
     "DOUBLE_DOWN_NAME": "加倍下注",
