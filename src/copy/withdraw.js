@@ -17,7 +17,8 @@
       "COMPLETED": "Tokens Available to Withdraw"
     },
     "TABLE": {
-      "BUTTON_ONE": "Withdraw"
+      "BUTTON_ONE": "Withdraw",
+      "PAGE":"Rows per page"
     }
   },
   "ko": {
@@ -36,7 +37,8 @@
       "COMPLETED": "인출 가능한 토큰"
     },
     "TABLE": {
-      "BUTTON_ONE": "출금"
+      "BUTTON_ONE": "출금",
+      "PAGE":"페이지당 행"
     }
   },
   "ch": {
@@ -55,7 +57,8 @@
       "COMPLETED": "代币可撤回"
     },
     "TABLE": {
-      "BUTTON_ONE": "撤回"
+      "BUTTON_ONE": "撤回",
+      "PAGE":"Rows per page"
     }
   },
   "jp": {
@@ -74,7 +77,8 @@
       "COMPLETED": "トークン出金可能です"
     },
     "TABLE": {
-      "BUTTON_ONE": "出金"
+      "BUTTON_ONE": "出金",
+      "PAGE":"Rows per page"
     }
   }
 }
