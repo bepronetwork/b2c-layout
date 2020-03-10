@@ -55,8 +55,8 @@
         "TITLE": [
           "수동",
           "자동",
-          "헤드",
-          "꼬리"
+          "Heads",
+          "Tails"
         ]
       },
       "TYPOGRAPHY": {
