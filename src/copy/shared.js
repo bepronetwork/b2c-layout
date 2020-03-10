@@ -25,7 +25,7 @@
     "EVEN_NAME": "짝수",
     "ODD_NAME": "홀수",
     "TOTAL_BET_NAME": "총 베트",
-    "DOUBLE_DOWN_NAME": "두 배로 늘리다",
+    "DOUBLE_DOWN_NAME": "2배 베팅",
     "BET_NAME": "베트",
     "AUTO_BET_NAME": "자동 베트 시작",
     "MANUAL_NAME": "수동",
