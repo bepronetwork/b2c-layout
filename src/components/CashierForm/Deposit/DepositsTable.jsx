@@ -412,6 +412,9 @@ class DepositsTable extends React.Component {
                     </Table>
                 </div>
                 <TablePagination
+                    labelRowsPerPage = {
+                        copy.TABLE.PAGE
+                    }
                     style={{color : 'white'}}
                     rowsPerPageOptions={[5, 10, 25]}
                     component="div"
