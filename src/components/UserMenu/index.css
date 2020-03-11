@@ -45,6 +45,7 @@
   background: $baby-powder;
 
   border-radius: $spacing-4;
+  width: 140px;
 }
 
 .option {
