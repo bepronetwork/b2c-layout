@@ -104,8 +104,12 @@
 .labels {
   display: grid;
   align-items: center;
+  width: 250px;
+  grid-template-columns: 60% 40%;
 
-  grid-template-columns: 1fr 30%;
+  @include Breakpoint-mobileOnly {
+    width: 430px;
+  }
 }
 
 .title {
