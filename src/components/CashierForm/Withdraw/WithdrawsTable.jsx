@@ -85,7 +85,7 @@ class EnhancedTableHead extends React.Component {
         const { onSelectAllClick, order, orderBy, numSelected, rowCount } = this.props;
         const {ln} = propsGlobal;
         const copy = CopyText.cashierFormWithdrawsTable[ln];
-
+ 
         const rows = [
             {
                 id: 'amount',
@@ -101,13 +101,13 @@ class EnhancedTableHead extends React.Component {
                 id: 'withdraw',
                 label: copy.ROW.LABEL[2],
                 numeric: false
-
+        
             },
             {
                 id: 'transactionHash',
                 label: copy.ROW.LABEL[3],
                 numeric: false
-
+        
             },
             {
                 id: 'creation_date',
@@ -115,7 +115,7 @@ class EnhancedTableHead extends React.Component {
                 numeric: false
             }
         ];
-
+ 
         return (
             <TableHead>
                 <TableRow style={{backgroundColor : '#0a031b'}}>
@@ -406,6 +406,9 @@ class WithdrawTable extends React.Component {
                     </Table>
                 </div>
                 <TablePagination
+                    labelRowsPerPage = {
+                        copy.TABLE.PAGE
+                    }
                     style={{color : 'white'}}
                     rowsPerPageOptions={[5, 10, 25]}
                     component="div"

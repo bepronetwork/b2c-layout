@@ -29,21 +29,25 @@ class AccountPage extends Component {
                         items={
                             [
                                 {
+                                    path: "settings",
                                     title : copy.CONTAINERS.ACCOUNT.TITLE[0],
                                     container : <SettingsTab/>,
                                     icon : <SettingsIcon size={20}/>
                                 },
                                 {
+                                    path: "deposits",
                                     title : copy.CONTAINERS.ACCOUNT.TITLE[1],
                                     container : <DepositTab/>,
                                     icon : <MoneyIcon size={20}/>
                                 },
                                 {
+                                    path: "withdraws",
                                     title : copy.CONTAINERS.ACCOUNT.TITLE[2],
                                     container : <WithdrawTab/>,
                                     icon : <ExitToAppIcon size={20}/>
                                 },
                                 {
+                                    path: "affiliate",
                                     title : copy.CONTAINERS.ACCOUNT.TITLE[3],
                                     container : <AffiliatesTab/>,
                                     icon : <GiftIcon size={20}/>

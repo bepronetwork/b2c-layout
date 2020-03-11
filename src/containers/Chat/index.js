@@ -148,7 +148,7 @@ class ChatPage extends React.Component {
                                 <div styleName='container-box'>
                                     <Row>
                                     
-                                        <Col sm={2}>
+                                        <Col sm={6} md={6} lg={2}>
                                             {this.state.open ? 
                                                 <div styleName={'green-light'}/>
                                             :
@@ -156,7 +156,7 @@ class ChatPage extends React.Component {
                                             }
 
                                         </Col>
-                                        <Col sm={2}>
+                                        <Col sm={6} md={6} lg={3}>
                                             <div>
                                                 <DropDownField
                                                     id="language"
@@ -165,6 +165,7 @@ class ChatPage extends React.Component {
                                                     options={languages}
                                                     value={this.state.language.channel_id}
                                                     style={{width : '80%'}}
+                                                    height={30}
                                                     label="Language Name"
                                                     >
                                                     {languages.map(option => (
@@ -175,14 +176,14 @@ class ChatPage extends React.Component {
                                                 </DropDownField> 
                                             </div>
                                         </Col>
-                                        <Col sm={4} lg={3}>
+                                        <Col sm={6} md={4} lg={3}>
                                             <div styleName={'users-box'}>
                                                 <Typography variant="small-body" color="casper">
                                                     {this.state.participants} <UsersGroupIcon size={25}/>
                                                 </Typography>
                                             </div>
                                         </Col>
-                                        <Col sm={4} lg={4}>
+                                        <Col sm={6} md={8} lg={4}>
                                             <button
                                                 disabled={this.state.message.length < 1}
                                                 type="submit"

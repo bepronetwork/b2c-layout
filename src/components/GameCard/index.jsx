@@ -40,13 +40,13 @@ class GameCard extends Component {
     };
 
     render() {
-        const { title, edge, path, image_url, tableLimit, ln } = this.props;
+        const { title, edge, path, image_url, tableLimit, background_url, ln } = this.props;
         const copy = CopyText.shared[ln];
         const imageStyles = "image-container dice-background-color"
         return (
             <div styleName="root">
                 <Link to={path} styleName="button">
-                    <div styleName={imageStyles}>
+                    <div styleName={imageStyles} style={{ backgroundImage: background_url ? 'url('+background_url+')' : 'none'}}>
                         <div styleName="icon">
                             <img src={image_url} styleName='coinflip-icon'/>
                         </div>

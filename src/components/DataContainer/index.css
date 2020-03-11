@@ -26,10 +26,6 @@
     opacity : 1;
     border : none;
     transition: all 0.2s ease-in;
-
-    @include Breakpoint-mobileOnly {
-        width : 200px;
-    }
 }
 
 .picked{
@@ -58,6 +54,7 @@
 .container-text{
     text-align: left;
     margin-left: $spacing-20;
+    width: 150px;
 }
 
 

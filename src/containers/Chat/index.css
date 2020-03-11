@@ -10,7 +10,7 @@
     max-width: 350px;
     margin: 0 auto;
   }
-  height: -webkit-fill-available;
+  height: 100%;
 }
 
 .container {
@@ -40,6 +40,14 @@
     height: $top-chat-message-percentage;
     padding : 10px;
     overflow : auto;
+
+    @include Breakpoint-tabletOnly {
+      height: 70%;
+    }
+
+    @include Breakpoint-mobileOnly {
+      height: 70%;
+    }
 }
 
 .info-message-container{
@@ -65,6 +73,16 @@
     border-radius : $border-radius-messsage-box;
     height: $bot-chat-message-percentage;
     background-color:$chat-container-color;
+
+    @include Breakpoint-tabletOnly {
+      height: 30%;
+      padding: 0 10px;
+    }
+
+    @include Breakpoint-mobileOnly {
+      height: 30%;
+      padding: 0 10px;
+    }
 }
 
 .options-container {
@@ -139,6 +157,10 @@
 
 .container-box{
     margin-top : $spacing-12;
+
+    @include Breakpoint-mobileOnly {
+      margin-top: 0px;
+    }
 }
 
 

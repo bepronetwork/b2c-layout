@@ -2,6 +2,9 @@
     const cashierFormDepositsTableCopy =
     {
   "en": {
+    "TABLE":{
+      "PAGE":"Rows per page"
+    },
     "ROW": {
       "LABEL": [
         "Amount",
@@ -25,11 +28,14 @@
     }
   },
   "ko": {
+    "TABLE":{
+      "PAGE":"페이지당 행"
+    },
     "ROW": {
       "LABEL": [
         "금액",
         "상태",
-        "Tx 해시시",
+        "Tx 해시",
         "생성일"
       ]
     },
@@ -48,6 +54,9 @@
     }
   },
   "ch": {
+    "TABLE":{
+      "PAGE":"Rows per page"
+    },
     "ROW": {
       "LABEL": [
         "金额",
@@ -71,6 +80,9 @@
     }
   },
   "jp": {
+    "TABLE":{
+      "PAGE":"Rows per page"
+    },
     "ROW": {
       "LABEL": [
         "Amount",

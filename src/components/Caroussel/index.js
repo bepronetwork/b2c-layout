@@ -13,7 +13,8 @@ class CarousselContainer extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            images : []
+            images : [],
+            links : []
         }
     }
 
@@ -29,10 +30,24 @@ class CarousselContainer extends Component {
         const { banners } = getAppCustomization();
         const images = banners.ids.map( id => {
             return {
-                srcSet: id
+                srcSet: id.image_url
             }
-        })
-        this.setState({images : images})
+        });
+        const links = banners.ids.map( id => {
+            return {
+                url: id.link_url
+            }
+        });
+        this.setState({images, links})
+    }
+
+    _onImageClick() {
+        const { links } = this.state;
+        var link = links[gallery.getCurrentIndex()];
+
+        if(link.url) {
+            window.open(link.url, "_blank");
+        }
     }
 
     _onMouseOver() {
@@ -65,6 +80,7 @@ class CarousselContainer extends Component {
                     items={images} 
                     onMouseOver={this._onMouseOver}
                     onMouseLeave={this._onMouseLeave}
+                    onClick={this._onImageClick.bind(this)}
                 />
             </div>
         );

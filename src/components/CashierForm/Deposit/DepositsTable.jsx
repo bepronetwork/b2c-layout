@@ -85,7 +85,7 @@ class EnhancedTableHead extends React.Component {
         const { onSelectAllClick, order, orderBy, numSelected, rowCount } = this.props;
         const {ln} = globalProps;
         const copy = CopyText.cashierFormDepositsTable[ln];
-
+        
         const rows = [
             {
                 id: 'amount',
@@ -100,16 +100,15 @@ class EnhancedTableHead extends React.Component {
                 id: 'transactionHash',
                 label: copy.ROW.LABEL[2],
                 numeric: false
-
+        
             },
             {
                 id: 'creation_date',
                 label: copy.ROW.LABEL[3],
                 numeric: false
-
+        
             }
         ];
-
 
         return (
             <TableHead>
@@ -413,6 +412,9 @@ class DepositsTable extends React.Component {
                     </Table>
                 </div>
                 <TablePagination
+                    labelRowsPerPage = {
+                        copy.TABLE.PAGE
+                    }
                     style={{color : 'white'}}
                     rowsPerPageOptions={[5, 10, 25]}
                     component="div"

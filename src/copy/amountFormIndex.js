@@ -32,7 +32,7 @@
         ],
         "FUNC_TEXT": [
           (params)=>{ return `You only have ${params[0]} ${params[1]}`},
-          (params)=>{ return  `최대 출금 가능 금액은 ${params[0]} ${params[1]} 입니다`}
+          (params)=>{ return  `최대 출금 가능 금액은 ${params[0]} ${params[1]} 입니다.`}
         ]
       }
     }
