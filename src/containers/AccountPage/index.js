@@ -47,7 +47,7 @@ class AccountPage extends Component {
                                     icon : <ExitToAppIcon size={20}/>
                                 },
                                 {
-                                    path: "referral",
+                                    path: "affiliate",
                                     title : copy.CONTAINERS.ACCOUNT.TITLE[3],
                                     container : <AffiliatesTab/>,
                                     icon : <GiftIcon size={20}/>
