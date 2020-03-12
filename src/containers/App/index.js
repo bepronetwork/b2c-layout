@@ -553,7 +553,7 @@ class App extends Component {
                                                         path={`${url}/withdraws`} 
                                                         render={props => <AccountPage {...props} />} />
                                                     <Route 
-                                                        path={`${url}/referral`} 
+                                                        path={`${url}/affiliate`} 
                                                         render={props => <AccountPage {...props} />} />
                                                 </>
                                             )}

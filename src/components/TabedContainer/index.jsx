@@ -14,7 +14,7 @@ class TabedContainer extends React.Component{
     }
 
     isCurrentPath(element) {
-        return this.includes(element.title.toLowerCase()); 
+        return this.includes(element.path.toLowerCase()); 
     }
 
     render = () => {
@@ -37,7 +37,7 @@ class TabedContainer extends React.Component{
                                 {items.map( (item, index) => {
                                     return (
                                         <Nav.Item>
-                                            <Nav.Link as={Link} to={"/"+parent+"/"+item.path} eventKey={`item-${index}`}>
+                                            <Nav.Link as={Link} to={"/"+parent+"/"+item.path.toLowerCase()} eventKey={`item-${index}`}>
                                                 <Row>
                                                     <Col xs={2} md={2}>
                                                         {item.icon}
