@@ -18,7 +18,7 @@
   },
   "ko": {
     "CHIP_INFO": "칩 가치",
-    "EDGE_NAME": "하우스엣지",
+    "EDGE_NAME": "하우스 엣지",
     "PLACEHOLDER_CHAT": "메시지 입력",
     "CLEAR_NAME": "클리어",
     "UNDO_NAME": "취소",
