@@ -18,7 +18,6 @@ class TabedContainer extends React.Component{
     }
 
     render = () => {
-
         const { items, tabTopContent} = this.props;
         const pathName = this.props.location.pathname.toLowerCase();
 
@@ -26,7 +25,7 @@ class TabedContainer extends React.Component{
         mainIndex = mainIndex > 0 ? mainIndex : 0;
 
         const path = pathName.split('/');
-        const parent = mainIndex > 0 ? path[path.length-2] : path[path.length-1];
+        const parent = mainIndex > 0 || path.length > 2 ? path[path.length-2] : path[path.length-1];
 
         return (
             <Container className="dashboard">
@@ -38,7 +37,7 @@ class TabedContainer extends React.Component{
                                 {items.map( (item, index) => {
                                     return (
                                         <Nav.Item>
-                                            <Nav.Link as={Link} to={"/account/"+item.path.toLowerCase()} eventKey={`item-${index}`}>
+                                            <Nav.Link as={Link} to={"/"+parent+"/"+item.path} eventKey={`item-${index}`}>
                                                 <Row>
                                                     <Col xs={2} md={2}>
                                                         {item.icon}
