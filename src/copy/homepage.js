@@ -19,7 +19,12 @@
       "APP": {
         "MODAL": [
           "Register",
-          "Login"
+          "Login",
+          "Confirm E-mail"
+        ],
+        "NOTIFICATION": [
+          "Need to confirm your email to make withdrawls",
+          "E-mail confirmation success"
         ]
       },
       "CHAT": {
@@ -126,7 +131,12 @@
       "APP": {
         "MODAL": [
           "등록",
-          "로그인"
+          "로그인",
+          "Confirm E-mail"
+        ],
+        "NOTIFICATION": [
+          "Need to confirm your email to make withdrawls",
+          "E-mail confirmation success"
         ]
       },
       "CHAT": {
@@ -225,7 +235,12 @@
       "APP": {
         "MODAL": [
           "注册",
-          "登入"
+          "登入",
+          "Confirm E-mail"
+        ],
+        "NOTIFICATION": [
+          "Need to confirm your email to make withdrawls",
+          "E-mail confirmation success"
         ]
       },
       "CHAT": {
@@ -325,7 +340,12 @@
       "APP": {
         "MODAL": [
           "Register",
-          "Login"
+          "Login",
+          "Confirm E-mail"
+        ],
+        "NOTIFICATION": [
+          "Need to confirm your email to make withdrawls",
+          "E-mail confirmation success"
         ]
       },
       "CHAT": {
