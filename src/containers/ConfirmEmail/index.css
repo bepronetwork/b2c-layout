@@ -1,0 +1,51 @@
+@import "../../styles/all.css";
+
+.root {
+  text-align: center;
+}
+
+.container {
+  justify-content: center;
+
+  grid-column-gap: $spacing-28;
+  grid-row-gap: $spacing-28;
+
+  grid-template-columns: repeat(3, 290px);
+
+  @include Breakpoint-tabletOnly {
+    grid-template-columns: 1fr;
+  }
+
+  @include Breakpoint-mobileOnly {
+    grid-template-columns: 1fr;
+  }
+}
+
+.error {
+  margin: $spacing-8;
+}
+
+.container-small{
+    margin-top : 40px;
+}
+
+.confirm-title {
+  display: flex;
+  padding: $spacing-12;
+}
+
+.confirm-left {
+  flex: 0 0 35%;
+  text-align: center;
+}
+
+.confirm-right {
+  flex: 1;
+  margin: auto;
+  text-align: left;
+}
+
+.box {
+  text-align: center;
+  width: 350px;
+}

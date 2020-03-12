@@ -137,6 +137,24 @@ export async function setNewPassword(user_id, token, password) {
     }
 }
 
+export async function confirmEmail(app, token) {
+    try {
+        const response = await axios.post(`${apiUrl}/api/users/email/confirm`, {
+            app,
+            token
+        });
+
+        if (response.data.data.status !== 200) {
+            return response.data.data;
+        }
+        
+        return response;
+
+    } catch (error) {
+        return handleError(error);
+    }
+}
+
 export async function getCurrentUser() {
     try {
         return JSON.parse(localStorage.getItem("user"));

@@ -4,6 +4,7 @@ import { createBrowserHistory } from "history";
 import { find } from "lodash";
 import HomePage from "containers/HomePage";
 import ResetPassword from "containers/ResetPassword";
+import ConfirmEmail from "containers/ConfirmEmail";
 import {
     Navbar,
     Modal,
@@ -129,7 +130,9 @@ class App extends Component {
         has2FA : false,
         resetPasswordOpen : null,
         resetPasswordParams : null,
-        resetPasswordMode : null
+        resetPasswordMode : null,
+        confirmEmailOpen: null,
+        confirmEmailParams : null,
     };
 
     handleRegisterLoginModalClose = () => {
@@ -138,6 +141,10 @@ class App extends Component {
 
     handleResetPasswordModalClose = async () => {
         this.setState({ resetPasswordOpen: null, resetPasswordParams: null, resetPasswordMode: null });
+    };
+
+    handleConfirmEmailModalClose = async () => {
+        this.setState({ confirmEmailOpen: null, confirmEmailParams: null });
     };
 
     handleCashierModalClose = async () => {
@@ -160,6 +167,10 @@ class App extends Component {
 
     handleResetPasswordOpen = ({params, mode}) => {
         this.setState({ resetPasswordOpen: true, resetPasswordParams : params, resetPasswordMode : mode });
+    };
+
+    handleConfirmEmailOpen = ({params}) => {
+        this.setState({ confirmEmailOpen: true, confirmEmailParams : params });
     };
 
     handleCashierOpen = () => {
@@ -340,6 +351,28 @@ class App extends Component {
         ) : null;
     };
 
+    renderConfirmEmailModal = () => {
+        const {ln} = this.props;
+        const copy = CopyText.homepage[ln];
+        const { confirmEmailOpen, confirmEmailParams } = this.state;
+
+        return confirmEmailOpen ? (
+            <Modal onClose={this.handleConfirmEmailModalClose}>
+                <div styleName="modal">
+                    <div styleName="tabs">
+                        <Tabs
+                        selected='register'
+                        options={[
+                            { value: "register", label: copy.CONTAINERS.APP.MODAL[2] }
+                        ]}
+                        />
+                    </div>
+                    <ConfirmEmail params={confirmEmailParams} onClose={this.handleConfirmEmailModalClose}/>
+                </div>
+            </Modal>
+        ) : null;
+    };
+
     renderCashierModal = () => {
         const { cashierOpen } = this.state;
 
@@ -475,6 +508,7 @@ class App extends Component {
                             />
                             {this.renderLoginRegisterModal()}
                             {this.renderResetPasswordModal()}
+                            {this.renderConfirmEmailModal()}
                             {this.renderCashierModal()}
                             <Authentication2FAModal/>
                             <AffiliateWithdrawForm/>
@@ -532,6 +566,18 @@ class App extends Component {
                                                 <HomePage
                                                     {...props}
                                                     onHandleResetPassword={this.handleResetPasswordOpen}
+                                                />
+                                        
+                                            )}
+                                        /> 
+
+                                        <Route
+                                            exact
+                                            path="/confirm/:app"
+                                            render={props => (
+                                                <HomePage
+                                                    {...props}
+                                                    onHandleConfirmEmail={this.handleConfirmEmailOpen}
                                                 />
                                         
                                             )}
