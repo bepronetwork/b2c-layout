@@ -3,7 +3,6 @@ import { connect } from "react-redux";
 import { Typography } from "components";
 import { CopyText } from '../../copy';
 import { confirmEmail } from "../../lib/api/users";
-import handleError from "../../lib/api/handleError";
 import "./index.css";
 import _ from "lodash";
 import email from 'assets/email.png';

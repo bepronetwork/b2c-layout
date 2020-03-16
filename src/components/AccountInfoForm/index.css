@@ -99,3 +99,7 @@
 .username-box{
     margin : $spacing-20 auto;
 }
+
+.confirm-email{
+    margin-top : $spacing-20;
+}
