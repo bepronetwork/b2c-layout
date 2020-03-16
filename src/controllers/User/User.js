@@ -9,7 +9,8 @@ import {
   getMyBets,
   set2FA,
   userAuth,
-  getCurrencyAddress
+  getCurrencyAddress,
+  resendConfirmEmail
 } from "lib/api/users";
 import { Numbers } from "../../lib/ethereum/lib";
 import Cache from "../../lib/cache/cache";
@@ -412,4 +413,19 @@ export default class User {
             throw err;
         }
     }
+
+    resendConfirmEmail = async () => {
+        try {
+
+            return await resendConfirmEmail(
+                {
+                    app: this.app_id,
+                    user: this.user_id
+                },
+                this.bearerToken
+            );
+        }catch(err){
+            throw err;
+        }
+    };
 }
