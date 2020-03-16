@@ -1,12 +1,16 @@
 import React from "react";
 import { connect } from "react-redux";
-import { Typography } from "components";
+import { Typography, Button } from "components";
 import Avatar, { Cache } from 'react-avatar';
 import { isUserSet } from "../../lib/helpers";
+import { CopyText } from '../../copy';
+import store from "../../containers/App/store";
+import { setMessageNotification } from "../../redux/actions/message";
 import './index.css';
 
 const defaultState = {
-    username : ''
+    username : '',
+    isConfirmationSent : false
 }
 const cache = new Cache({
     // Keep cached source failures for up to 7 days
@@ -44,10 +48,32 @@ class AccountInfoForm extends React.Component{
         })
     }
 
+    handleResendConfirmEmail = async () => {
+        const { profile, ln } = this.props;
+        const copy = CopyText.homepage[ln];
+
+        try{
+            this.setState({ isConfirmationSent : true });
+            let res = await profile.resendConfirmEmail();
+            let { message, status } = res.data;        
+
+            if(status != 200){
+                store.dispatch(setMessageNotification(message));
+                throw message
+            };
+
+            store.dispatch(setMessageNotification(copy.CONTAINERS.APP.NOTIFICATION[2]));
+            this.setState({ isConfirmationSent : false });
+
+        } catch(err){
+            console.log(err);
+        }
+
+    };
+
     render(){
-        const { 
-            username, avatar
-        } = this.state;
+        const { profile } = this.props;
+        const { username, isConfirmationSent } = this.state;
 
         return (
             <div styleName='box-account'>
@@ -59,6 +85,15 @@ class AccountInfoForm extends React.Component{
                         @{username}
                     </Typography>
                 </div>
+                {!profile.user.email_confirmed ?
+                    <div styleName='confirm-email' onClick={this.handleResendConfirmEmail}>
+                        <Button size={'x-small'} theme={'action'} disabled={isConfirmationSent}>
+                            <Typography color={'white'} variant={'small-body'}>Confirm E-mail</Typography>
+                        </Button>
+                    </div>
+                : 
+                    null
+                }
             </div>
         )
     }

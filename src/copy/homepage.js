@@ -24,7 +24,8 @@
         ],
         "NOTIFICATION": [
           "Need to confirm your email to make withdrawls",
-          "E-mail confirmation success"
+          "E-mail confirmation success",
+          "Confirm e-mail successfully sent, check your e-mail box to validate your account"
         ]
       },
       "CHAT": {
@@ -136,7 +137,8 @@
         ],
         "NOTIFICATION": [
           "Need to confirm your email to make withdrawls",
-          "E-mail confirmation success"
+          "E-mail confirmation success",
+          "Confirm e-mail successfully sent, check your e-mail box to validate your account"
         ]
       },
       "CHAT": {
@@ -240,7 +242,8 @@
         ],
         "NOTIFICATION": [
           "Need to confirm your email to make withdrawls",
-          "E-mail confirmation success"
+          "E-mail confirmation success",
+          "Confirm e-mail successfully sent, check your e-mail box to validate your account"
         ]
       },
       "CHAT": {
@@ -345,7 +348,8 @@
         ],
         "NOTIFICATION": [
           "Need to confirm your email to make withdrawls",
-          "E-mail confirmation success"
+          "E-mail confirmation success",
+          "Confirm e-mail successfully sent, check your e-mail box to validate your account"
         ]
       },
       "CHAT": {

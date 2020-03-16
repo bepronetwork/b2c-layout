@@ -155,6 +155,27 @@ export async function confirmEmail(app, token) {
     }
 }
 
+/**
+ *
+ * @param {*} params
+ * @param {*} bearerToken
+ * @name Resend Email Confirmation
+ * @use Send email to confirm account
+ */
+
+export async function resendConfirmEmail(params, bearerToken, payload) {
+    try{
+        let res = await fetch(`${apiUrl}/api/users/email/resend`, {
+            method : 'POST',
+            timeout: 1000*1000,
+            headers : addSecurityHeader({bearerToken, payload :  payload || params.user}),
+            body : JSON.stringify(params)})
+        return res.json();
+    }catch(err){
+        throw err;
+    }  
+}
+
 export async function getCurrentUser() {
     try {
         return JSON.parse(localStorage.getItem("user"));
