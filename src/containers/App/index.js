@@ -542,19 +542,19 @@ class App extends Component {
                                                     <Route 
                                                         exact
                                                         path={`${url}/`} 
-                                                        render={props => <AccountPage {...props} />} />
+                                                        render={props => <AccountPage {...props} onHandleLoginOrRegister={this.handleLoginOrRegisterOpen}/>} />
                                                     <Route 
                                                         path={`${url}/settings`} 
-                                                        render={props => <AccountPage {...props} />} />
+                                                        render={props => <AccountPage {...props} onHandleLoginOrRegister={this.handleLoginOrRegisterOpen}/>} />
                                                     <Route 
                                                         path={`${url}/deposits`} 
-                                                        render={props => <AccountPage {...props} />} />
+                                                        render={props => <AccountPage {...props} onHandleLoginOrRegister={this.handleLoginOrRegisterOpen}/>} />
                                                     <Route 
                                                         path={`${url}/withdraws`} 
-                                                        render={props => <AccountPage {...props} />} />
+                                                        render={props => <AccountPage {...props} onHandleLoginOrRegister={this.handleLoginOrRegisterOpen}/>} />
                                                     <Route 
                                                         path={`${url}/affiliate`} 
-                                                        render={props => <AccountPage {...props} />} />
+                                                        render={props => <AccountPage {...props} onHandleLoginOrRegister={this.handleLoginOrRegisterOpen}/>} />
                                                 </>
                                             )}
                                         />
