@@ -8,6 +8,7 @@ import ExitToAppIcon from 'mdi-react/ExitToAppIcon';
 import SettingsIcon from 'mdi-react/SettingsIcon';
 import GiftIcon from 'mdi-react/GiftIcon';
 import { CopyText } from '../../copy';
+import _ from "lodash";
 
 class AccountPage extends Component {
 
@@ -16,9 +17,19 @@ class AccountPage extends Component {
         this.state = {}
     }
 
+    componentDidMount(){
+        const {profile, onHandleLoginOrRegister} = this.props;
+
+        if (!profile || _.isEmpty(profile)) {
+            this.props.history.push('/');
+            return onHandleLoginOrRegister("login");
+        }
+    }
+
     render() {
-        const {ln} = this.props;
+        const {ln, profile} = this.props;
         const copy = CopyText.homepage[ln];
+        if (!profile || _.isEmpty(profile)) return null;
 
         return (
             <div styleName='main-container'>
