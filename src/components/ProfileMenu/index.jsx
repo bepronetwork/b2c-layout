@@ -107,7 +107,7 @@ class ProfileMenu extends Component {
             type="button"
         >
             {icon}
-            <Typography color="casper">{label}</Typography>
+            <Typography variant="x-small-body" color="casper">{label}</Typography>
         </button>
         ));
     };
