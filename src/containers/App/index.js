@@ -394,14 +394,6 @@ class App extends Component {
 
     updateAppInfo = async () => {
         let app = await getAppInfo();
-        /* remover */
-        let currencies = [];
-        app.currencies.map( c => {
-            const wallet = app.wallet.find( w => new String(w.currency._id).toString().toLowerCase() == new String(c).toString().toLowerCase());
-            currencies.push(wallet.currency);
-        });
-        app.currencies = currencies;
-        /* remover fim */
         Cache.setToCache("appInfo", app);
         this.setState({...this.state, app})
     };
