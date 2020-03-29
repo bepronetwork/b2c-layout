@@ -31,37 +31,45 @@ class TableDefault extends Component {
                     </tr>
                 </thead>
                 <tbody>
-                    {rows.map( (row, index) => 
-                        <tr styleName='tr-row'>
-                            {fields.map( (field) => {
-                                if(field.dependentColor){
-                                    return (
-                                        <th styleName='th-row'>
-                                            <Typography variant='small-body' color={ row[field.condition] ? 'green' : "grey"}> {row[field.value]} </Typography>
-                                        </th>
-                                        
-                                    )
-                                }else if(field.image){
-                                    const imageStyles = classNames("th-row", "th-row-img");
-                                    return (
-                                        <th styleName={imageStyles}>
-                                            <img styleName='image-icon' src={row[field.value].image_url}/>
-                                            <Typography variant='x-small-body' color={"grey"}> {row[field.value].name} </Typography>
-                                        </th>
-                                    )
-                                }else{
-                                    return (
-                                        // Normal
-                                        <th styleName='th-row'>
-                                            <Typography variant='small-body' color={"white"}> {row[field.value]} </Typography>
-                                        </th>
-                                    )
-                                   
-                                }
-                                
-                            })}
-                        </tr>
-                        )}
+                    {
+                        rows.length ?
+                            rows.map( (row, index) => 
+                            <tr styleName='tr-row'>
+                                {fields.map( (field) => {
+                                    if(field.dependentColor){
+                                        return (
+                                            <th styleName='th-row'>
+                                                <Typography variant='small-body' color={ row[field.condition] ? 'green' : "grey"}> {row[field.value]} </Typography>
+                                            </th>
+                                            
+                                        )
+                                    }else if(field.image){
+                                        const imageStyles = classNames("th-row", "th-row-img");
+                                        return (
+                                            <th styleName={imageStyles}>
+                                                <img styleName='image-icon' src={row[field.value].image_url}/>
+                                                <Typography variant='x-small-body' color={"grey"}> {row[field.value].name} </Typography>
+                                            </th>
+                                        )
+                                    }else{
+                                        return (
+                                            // Normal
+                                            <th styleName='th-row'>
+                                                <Typography variant='small-body' color={"white"}> {row[field.value]} </Typography>
+                                            </th>
+                                        )
+                                    
+                                    }
+                                    
+                                })}
+                            </tr>)
+                        :
+                            <tr styleName='tr-row'>
+                                <th styleName='th-row'>
+                                    <Typography variant='small-body' color={"casper"}> No Information </Typography>
+                                </th>
+                            </tr>
+                    }
                 </tbody>
             </table>
         );

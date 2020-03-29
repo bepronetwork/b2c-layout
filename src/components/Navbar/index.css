@@ -27,14 +27,7 @@
 
 .image {
     /*width: 120px;*/
-    height: 40px;
-
-    @include Breakpoint-mobileOnly {
-        /*width: 100px;*/
-        margin-left: -35px;
-        height: 30px;
-        /*margin-top: 5px;*/
-      }
+    height: 30px;
 }
 
 .coin {
@@ -81,10 +74,6 @@
 
         animation: won-animation 1s running;
         }
-
-        @include Breakpoint-mobileOnly {
-            left: 50%;
-        }
     }
 
     .diff-lost {
@@ -97,15 +86,16 @@
 
         animation: lost-animation 1s running;
         }
-
-        @include Breakpoint-mobileOnly {
-            left: 50%;
-        }
     }
 }
 
 .no-coin{
     padding-top: $spacing-8;
+    float: left;
+
+    @media screen and (max-width: 767px) {
+        padding-top: 0;
+    }
 }
 
 @keyframes lost-animation {
@@ -132,19 +122,10 @@
 }
 
 .buttons {
-    display: flex;
-    flex-direction: row;
+    justify-content: flex-end;
+    display: inline-flex;
     align-items: center;
-    margin: auto;
-    text-align: center;
-    width: fit-content;
-    position: relative;
-    margin-top : -15px;
 
-    @include Breakpoint-mobileOnly {
-        margin-top : -8px !important;
-    }
-    
     .login {
         margin-right: $spacing-8;
     }
@@ -172,11 +153,7 @@
 }
 
 .logo-image{
-    text-align: center;
-    width: fit-content;
-    position: relative;
-    display: flex;
-    margin: auto;
+    padding-right: $spacing-36;
 }
 
 .user-menu{
@@ -192,13 +169,12 @@
 }
 
 .button-deposit{
-    margin-top: -10px;
+    float: left;
+    margin-left: $spacing-52;
 
-    @include Breakpoint-mobileOnly {
-        display : none;
-        margin-top: 0px;
+    @media screen and (max-width: 767px) {
+        display: none;
     }
-
 }
 
 .navbar-language{
@@ -215,4 +191,80 @@
         padding-left: 18px;
     }
 
+}
+
+.top-menu{
+    z-index: 20;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    grid-template-columns: 1fr 1fr auto 1fr 1fr;
+    display: grid;
+    align-items: center;
+    width: 100%;
+    height: $navbar-height;
+    background-color: $background-top-bar-theme;
+    box-shadow : 1px 1px 100px 1px #0000006b;
+    padding-left : $padding-width-navbar;
+    padding-right : $padding-width-navbar;
+
+    @include Breakpoint-mobileOnly {
+        padding-left : calc($padding-width-navbar - 30px);
+        padding-right : calc($padding-width-navbar - 30px);
+    }
+}
+
+.profile{
+    justify-content: flex-end;
+    display: inline-flex;
+    align-items: center;
+}
+
+.language{
+    justify-content: flex-end;
+    display: inline-flex;
+    align-items: center;
+}
+
+.language-container{
+    @media screen and (max-width: 767px) {
+        display: none;
+    }
+}
+
+.casino-sports{
+
+}
+
+.casino-sports-container{
+    @media screen and (max-width: 767px) {
+        display: none;
+    }
+}
+
+.currency{
+    height: 30px;
+    float: left;
+
+    .diff-won{
+        padding-left: 30%;
+        * {
+            color: $green;
+            opacity: 0;
+
+            animation: won-animation 1s running;
+        }
+    }
+
+    .diff-lost{
+        padding-left: 30%;
+        * {
+            color: $red;
+            opacity: 0;
+
+            animation: lost-animation 1s running;
+        }
+    }
 }

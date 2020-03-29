@@ -44,7 +44,7 @@ class PlinkoGameCard extends React.Component {
 
     componentDidMount() {
         this.createCanvas();
-        document.getElementById("plinkoCanvas").style.width="100%";
+        //document.getElementById("plinkoCanvas").style.width="100%";
         this.init(this.state.ROWS,this.state.plinkoradius);
     
     }
@@ -279,7 +279,7 @@ class PlinkoGameCard extends React.Component {
 
         return (
             <div styleName="root">
-                <Row>
+                <Row style={{margin:-10}}>
                     <Col span={18} push={6} gutter={16}>
                     <div styleName="canvas-container">
                         <div id="techvr" />

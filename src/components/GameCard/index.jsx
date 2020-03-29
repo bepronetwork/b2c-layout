@@ -58,14 +58,8 @@ class GameCard extends Component {
                         </Typography>
                         </div>
                         <div styleName='info-holder'>
-                            <Typography variant="small-body" color="white">
+                            <Typography variant="x-small-body" color="grey">
                                 {edge >= 0 ? `${edge}% ${copy.EDGE_NAME}` : ""} 
-                                <span>
-                                    <Typography variant="x-small-body" color="grey">Min: 0.01</Typography>
-                                </span>
-                                <span>
-                                    <Typography variant="x-small-body" color="grey">Max: {tableLimit}</Typography>
-                                </span>
                             </Typography>
                         </div>
                     </div>

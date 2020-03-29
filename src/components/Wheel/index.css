@@ -28,34 +28,28 @@
     border: 20px solid rgb(53, 68, 82);
     position: relative;
     border-radius: 232px;
-    z-index: 10;
+    z-index: 3;
     left: -12px;
     top: -12px;
     filter: drop-shadow(0px 4px 2px rgba(0,0,0,0.5));
-}
 
-@media screen and (max-width: 1267px) and (min-width: 1024px) {
-    .outer-circle {
+    @media screen and (max-width: 1267px) and (min-width: 1024px) {
         width: 376px;
         height: 376px;
     }
-  }
-  
-  @media screen and (max-width: 1023px) and (min-width: 768px) {
-    .outer-circle {
+      
+    @media screen and (max-width: 1023px) and (min-width: 768px) {
         width: 384px;
         height: 384px;
     }
-  }
-  
-  @media screen and (max-width: 767px) {
-    .outer-circle {
-        width: 370px;
-        height: 370px;
-        left: -16px;
+    
+    @media screen and (max-width: 767px) {
+        width: 284px;
+        height: 284px;
+        left: -18px;
         top: -18px;
     }
-  }
+}
 
 .circle {
     width: 44%;
@@ -64,7 +58,7 @@
     top: 50%;
     position: absolute;
     transform: translate(-50%, -50%);
-    z-index: 10;
+    z-index: 3;
     border-radius:100%;
     border: 1px solid rgb(53, 68, 82);
 }
@@ -102,28 +96,22 @@
     right: 0;
     width: 440px;
     height: 440px;
-}
 
-  @media screen and (max-width: 1267px) and (min-width: 1024px) {
-    .root > span > canvas {
+    @media screen and (max-width: 1267px) and (min-width: 1024px) {
         width: 352px;
         height: 352px;
     }
-  }
-  
-  @media screen and (max-width: 1023px) and (min-width: 768px) {
-    .root > span > canvas {
+    
+    @media screen and (max-width: 1023px) and (min-width: 768px) {
         width: 358px;
         height: 358px;
     }
-  }
-  
-  @media screen and (max-width: 767px) {
-    .root > span > canvas {
-        width: 336px;
-        height: 336px;
+    
+    @media screen and (max-width: 767px) {
+        width: 250px;
+        height: 250px;
     }
-  }
+}
 
 .wheel-pointer{
     width: 36px;
@@ -131,7 +119,7 @@
     position: relative;
     display: block;
     top: -24px;
-    z-index: 13;
+    z-index: 4;
     filter: drop-shadow(0px 4px 2px rgba(0,0,0,0.5));
 }
 

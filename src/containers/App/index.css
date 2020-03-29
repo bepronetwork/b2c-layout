@@ -1,24 +1,68 @@
 @import "../../styles/reset.css";
 @import "../../styles/all.css";
 
+.main{
+    width: 100%;
+}
 
-.chat-container{
-    position: fixed;
-    width: 22%;
-    top : 0;
-    height: -webkit-fill-available !important;
-    right: 0;
-    z-index: 10;
-    background-color: $chat-container-color;
+.center{
+    width: 100%;
+    padding-right: $chat-width-desktop;
 
-    @include Breakpoint-mobileOnly {
-        width: 26%;
+    @media screen and (max-width: 1267px) and (min-width: 1024px) {
+      padding-right: $chat-width-tablet-pro;
+    }
+    
+    @media screen and (max-width: 1023px) {
+      padding-right: $chat-width-tablet;
+    }
+  
+    @media screen and (max-width: 767px) {
+      padding-right: 0;
+      padding-bottom: $spacing-36;
     }
 }
 
+.chat-container{
+    height: -webkit-fill-available !important;
+    z-index: 10;
+    background-color: $chat-container-color;
+}
+
 .chat-container-outro{
-    width: 100%;
-    position: relative;
+    position: fixed;
+    top : 0px;
+    right: 0;
+    height: 100%;
+    width: $chat-width-desktop;
+
+    @media screen and (max-width: 1267px) and (min-width: 1024px) {
+      width: $chat-width-tablet-pro;
+      display: inline;
+    }
+    
+    @media screen and (max-width: 1023px) and (min-width: 768px) {
+      width: $chat-width-tablet;
+      display: inline;
+    }
+  
+    @media screen and (max-width: 767px) {
+      width: 100%;
+      z-index: 9;
+      display: none;
+    }
+}
+
+.chatDisplay {
+    display: inline;
+    animation: chat-open-animation 1s running;
+}
+
+@keyframes chat-open-animation {
+    0% {
+      opacity: 0;
+      transform: translateY(80%);
+    }
 }
 
 .container {
@@ -46,28 +90,14 @@
     }
 }
 
-.no-padding{
-    padding: 0 !important;
-}
-
 .platform-container{
     width : 100%;
-    padding-right: 6%;
     left: 0;
-
-    @include Breakpoint-mobileOnly {
-        padding-right: 0%;
-
-    }
 }
 
 .top-bars{
     margin-top: 60px;
-
-    @include Breakpoint-mobileOnly {
-        width: 460px;
-
-    }
+    width: 100%;
 }
 
 .modal {
