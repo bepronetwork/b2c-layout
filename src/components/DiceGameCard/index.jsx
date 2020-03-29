@@ -233,66 +233,66 @@ class DiceGameCard extends Component {
         let winEdge = (100-(this.state.edge))/100;
         payout = payout * winEdge;
         const {ln} = this.props;
-const copy = CopyText.diceGameCardIndex[ln];
+        const copy = CopyText.diceGameCardIndex[ln];
         return (
         <div styleName="root">
             <div styleName="container">
-            {this.renderPopularNumbers({popularNumbers})}
-            <div styleName="slider">
-                <div styleName="slider-container">
-                <Slider
-                    onChange={this.handleSlider}
-                    animating={animating}
-                    roll={rollType}
-                    bet={bet}
-                    value={rollNumber}
-                    result={result}
-                    disableControls={disableControls}
-                    onResultAnimation={onResultAnimation}
-                />
-                <ButtonIcon
-                    onClick={this.handleRoll}
-                    icon="rotate"
-                    label={copy.INDEX.BUTTON_ICON.LABEL[0]}
-                    rollType={rollType}
-                />
+                {this.renderPopularNumbers({popularNumbers})}
+                <div styleName="slider">
+                    <div styleName="slider-container">
+                    <Slider
+                        onChange={this.handleSlider}
+                        animating={animating}
+                        roll={rollType}
+                        bet={bet}
+                        value={rollNumber}
+                        result={result}
+                        disableControls={disableControls}
+                        onResultAnimation={onResultAnimation}
+                    />
+                    <ButtonIcon
+                        onClick={this.handleRoll}
+                        icon="rotate"
+                        label={copy.INDEX.BUTTON_ICON.LABEL[0]}
+                        rollType={rollType}
+                    />
+                    </div>
                 </div>
-            </div>
-            <div styleName="values">
-                <div styleName="values-container">
-                <InputNumber
-                    name="payout"
-                    min={minPayout}
-                    max={maxPayout}
-                    precision={4}
-                    step={this.getPayoutStep()}
-                    title={copy.INDEX.INPUT_NUMBER.TITLE[0]}
-                    onChange={this.handlePayout}
-                    icon="cross"
-                    value={payout}
-                />
-                <InputNumber
-                    name="roll"
-                    icon="rotate"
-                    title={`Roll ${startCase(rollType)}`}
-                    precision={2}
-                    disabled
-                    step={0.5}
-                    value={rollNumber}
-                />
-                <InputNumber
-                    name="chance"
-                    precision={4}
-                    min={2}
-                    max={98}
-                    unit="%"
-                    title={copy.INDEX.INPUT_NUMBER.TITLE[1]}
-                    onChange={this.handleChance}
-                    value={chance}
-                    step="any"
-                />
+                <div styleName="values">
+                    <div styleName="values-container">
+                    <InputNumber
+                        name="payout"
+                        min={minPayout}
+                        max={maxPayout}
+                        precision={4}
+                        step={this.getPayoutStep()}
+                        title={copy.INDEX.INPUT_NUMBER.TITLE[0]}
+                        onChange={this.handlePayout}
+                        icon="cross"
+                        value={payout}
+                    />
+                    <InputNumber
+                        name="roll"
+                        icon="rotate"
+                        title={`Roll ${startCase(rollType)}`}
+                        precision={2}
+                        disabled
+                        step={0.5}
+                        value={rollNumber}
+                    />
+                    <InputNumber
+                        name="chance"
+                        precision={4}
+                        min={2}
+                        max={98}
+                        unit="%"
+                        title={copy.INDEX.INPUT_NUMBER.TITLE[1]}
+                        onChange={this.handleChance}
+                        value={chance}
+                        step="any"
+                    />
+                    </div>
                 </div>
-            </div>
             </div>
         </div>
         );

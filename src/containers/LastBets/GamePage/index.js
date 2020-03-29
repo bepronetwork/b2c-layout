@@ -26,16 +26,10 @@ const rows = {
                 image : true,
             },
             {
-                value : 'id'
-            },
-            {
                 value : 'username'
             },
             {
                 value : 'timestamp'
-            },
-            {
-                value : 'betAmount'
             },
             {
                 value : 'winAmount',
@@ -58,13 +52,7 @@ const rows = {
                 image : true
             },
             {
-                value : 'id'
-            },
-            {
                 value : 'timestamp'
-            },
-            {
-                value : 'betAmount'
             },
             {
                 value : 'winAmount',
@@ -87,16 +75,10 @@ const rows = {
                 image : true
             },
             {
-                value : 'id'
-            },
-            {
                 value : 'username'
             },
             {
                 value : 'timestamp'
-            },
-            {
-                value : 'betAmount'
             },
             {
                 value : 'winAmount',
@@ -239,7 +221,7 @@ class LastBets extends Component {
             <div styleName='container'>
                 <div styleName="root">
                     <div styleName="container">
-                        <Row>
+                        <Row style={{margin:-10}}>
                             <Col xs={10} md={10}>
                                 <Tabs
                                     selected={this.state.view}

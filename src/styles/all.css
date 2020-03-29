@@ -41,9 +41,6 @@ button{
 }
 
 @media only screen and (max-width: 600px) {
-    .chat-container{
-        display: none !important;
-    }
 
     .last-bets-container{
         display: none !important;

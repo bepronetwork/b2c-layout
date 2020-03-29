@@ -19,6 +19,7 @@
   @include Breakpoint-mobileOnly {
     grid-template-columns: auto auto;
     grid-template-areas: "Result Board" "LastBets Board" "ChipControls ChipControls";
+    min-width: 200px;
   }
 }
 

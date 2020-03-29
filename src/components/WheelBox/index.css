@@ -29,7 +29,7 @@
     overflow: hidden;
 
     @include Breakpoint-mobileOnly {
-        width : 50px;
+        width : 40px;
     }
 }
 

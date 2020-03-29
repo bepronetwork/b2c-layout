@@ -5,7 +5,7 @@
     "INDEX": {
       "DROP_DOWN_FIELD": {
         "LABEL": [
-          "Language Name"
+          "Language"
         ]
       }
     }
@@ -32,7 +32,7 @@
     "INDEX": {
       "DROP_DOWN_FIELD": {
         "LABEL": [
-          "Language Name"
+          "Language"
         ]
       }
     }

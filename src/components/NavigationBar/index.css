@@ -1,15 +1,5 @@
 @import "../../styles/all.css";
 
-.root {
-    position: relative;
-    background-color : $navigation-bar-background;
-    height : 60px;
-    box-shadow : $box-shadow;
-    padding : 0 $spacing-64;
-
-    
-}
-
 .navigation-step{
     margin: auto $spacing-20;
     display: block;
@@ -19,11 +9,17 @@
     transition: all 0.2s ease-in;
 
     img{
-        width : 20px;
+        width : $spacing-16;
+    }
+
+    .img{
+        float: left;
     }
 
     .text{
-        margin-top : 3px;
+        margin-top : 0px;
+        float: left;
+        margin-left: $spacing-8;
     }
 
     &:hover{
