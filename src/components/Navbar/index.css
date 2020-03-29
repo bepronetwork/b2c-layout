@@ -200,7 +200,7 @@
     left: 0;
     right: 0;
     width: 100%;
-    grid-template-columns: 1fr 1fr auto 1fr 1fr;
+    grid-template-columns: auto 1fr auto 1fr 1fr;
     display: grid;
     align-items: center;
     width: 100%;
