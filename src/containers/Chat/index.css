@@ -37,16 +37,16 @@
 }
 
 .text-container{
-    height: $top-chat-message-percentage;
+    height: calc(100% - $spacing-120);
     padding : 10px;
     overflow : auto;
 
     @include Breakpoint-tabletOnly {
-      height: 70%;
+      height: calc(100% - ($spacing-120 + $spacing-20));
     }
 
     @include Breakpoint-mobileOnly {
-      height: 70%;
+      height: calc(100% - ($spacing-120 + $spacing-28));
     }
 }
 
@@ -157,10 +157,6 @@
 
 .container-box{
     margin-top : $spacing-12;
-
-    @include Breakpoint-mobileOnly {
-      margin-top: 0px;
-    }
 }
 
 

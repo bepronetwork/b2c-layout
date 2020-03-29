@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import queryString from 'query-string'
 import { find } from "lodash";
-import { GameCard, CoinFlip, Roulette, Caroussel, Media } from "components";
+import { GameCard, Banners } from "components";
 import PropTypes from "prop-types";
 import UserContext from "containers/App/UserContext";
 import PlayInvitation from "components/PlayInvitation";
@@ -55,7 +55,7 @@ class HomePage extends Component {
     renderGame = ({metaName, name, edge, image_url, tableLimit, background_url}) => {
         if(!this.isGameAvailable(metaName)){return null}
         return (
-                <Col md={6} lg={4}>
+                <Col>
                     <GameCard
                         path={metaName}
                         title={name}
@@ -75,13 +75,11 @@ class HomePage extends Component {
 
         return (
             <div styleName="root">
-               <Caroussel/> 
+               <Banners/> 
                 {/* this.renderPlayNow() */}
                 <div styleName="container">
                     <div styleName='container-small'>                       
-                        <div className='row' style={{margin : 0}}>
-                            {appInfo.games.map( (item) => this.renderGame(item))}
-                        </div>
+                        {appInfo.games.map( (item) => this.renderGame(item))}
                     </div> 
                     <LastBets/>
                     {/* <Media/> */}

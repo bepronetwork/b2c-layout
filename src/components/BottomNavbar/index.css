@@ -1,0 +1,61 @@
+@import "../../styles/all.css";
+
+.bottom-menu{
+    position: fixed;
+    z-index: 20;
+    bottom: 0;
+    margin : 0;
+    width: 100%;
+    height: $navbar-height;
+    padding-left : calc($padding-width-navbar - 30px);
+    padding-right : calc($padding-width-navbar - 30px);
+    background-color: $background-top-bar-theme;
+    box-shadow : 1px 1px 100px 1px #0000006b;
+    display: none;
+
+    @include Breakpoint-mobileOnly {
+        display: inline;
+    }
+}
+
+.bottom-menu-list{
+    width: 100%;
+    display: grid;
+    grid-template-rows: 1fr;
+    grid-auto-columns: 1fr;
+    /*gap: 1em 1em;*/
+    height: $navbar-height;
+}
+
+.bottom-menu-list li{
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    grid-row: 1 / auto;
+}
+
+.bottom-menu-list li a{
+    position: relative;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.bottom-menu-list li:hover {
+    background-color: $nepal;
+}
+
+.item{
+    display: inline-flex;
+    position: relative;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 0.3em;
+}
+
+.item img{
+    display: inline-block;
+    height: 1em;
+    stroke-width: 0;
+    margin-bottom: 0.4em;
+}

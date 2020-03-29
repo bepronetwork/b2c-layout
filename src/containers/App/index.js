@@ -6,6 +6,7 @@ import HomePage from "containers/HomePage";
 import ResetPassword from "containers/ResetPassword";
 import ConfirmEmail from "containers/ConfirmEmail";
 import {
+    BottomNavbar,
     Navbar,
     Modal,
     Tabs,
@@ -32,27 +33,25 @@ import getAppInfo from "lib/api/app";
 import handleError from "lib/api/handleError";
 import User from "controllers/User/User";
 import UserContext from "./UserContext";
-import { Row, Col } from 'reactstrap';
 import "./index.css";
 import { setProfileInfo } from "../../redux/actions/profile";
 import store from "./store";
 import Cache from "../../lib/cache/cache";
 import ChatPage from "../Chat";
 import { CopyText } from "../../copy";
-import { setMessageNotification } from "../../redux/actions/message";
 import { setCurrencyView } from "../../redux/actions/currency";
 import { setWithdrawInfo } from "../../redux/actions/withdraw";
-import queryString from 'query-string'
 
 import { connect } from 'react-redux';
 import _ from 'lodash';
 import { setStartLoadingProcessDispatcher } from "../../lib/redux";
 import AccountPage from "../AccountPage";
-import NavigationBar from "../../components/NavigationBar";
-import { getQueryVariable, getAppCustomization, getApp } from "../../lib/helpers";
+import { getQueryVariable, getAppCustomization } from "../../lib/helpers";
 import ChatChannel from "../../controllers/Chat";
 import AnnouncementTab from "../../components/AnnouncementTab";
 import { getCurrencyAddress } from "../../lib/api/users";
+import classNames from "classnames";
+
 const history = createBrowserHistory();
 
 class App extends Component {
@@ -133,6 +132,7 @@ class App extends Component {
         resetPasswordMode : null,
         confirmEmailOpen: null,
         confirmEmailParams : null,
+        chatOpen : false
     };
 
     handleRegisterLoginModalClose = () => {
@@ -176,6 +176,15 @@ class App extends Component {
     handleCashierOpen = () => {
         this.setState({ cashierOpen: true });
     };
+
+    handleChatOpen = (open) => {
+        this.setState({ chatOpen: open });
+    };
+
+    handleHomeOpen = ({history}) => {
+        this.setState({ chatOpen: false });
+        history.push('/');
+    }
 
     handleAccountOpen = ({history}) => {
         history.push('/account');
@@ -478,7 +487,7 @@ class App extends Component {
     }
 
     render() {
-        const { user, app, isLoading } = this.state;
+        const { user, app, isLoading, chatOpen } = this.state;
         const { profile, startLoadingProgress, modal } = this.props;
 
         if (!app || isLoading) {return null};
@@ -487,7 +496,10 @@ class App extends Component {
         let progress100 = parseInt(progress/confirmations*100);
         let isUserLoaded = (confirmations == progress);
         const { topBar } = getAppCustomization();
-        
+        const chatStyles = classNames("chat-container-outro", {
+            chatDisplay: chatOpen
+        });
+
         return (
                 <UserContext.Provider
                     value={{
@@ -517,89 +529,92 @@ class App extends Component {
                         <div>
                             <div styleName='top-bars'>
                                 <AnnouncementTab topBar={topBar}/>
-                                <NavigationBar history={history}/>
                             </div>
-                            <Row>
-                                <div className='col-12 col-md-10 col-lg-10' styleName='no-padding'>
+                            <div styleName='main'>
+                                <div styleName='center'>
                                     <div styleName='platform-container'>
-                                    <Switch history={history}>
-                                        <Route
-                                            exact
-                                            path="/"
-                                            render={props => (
-                                                <HomePage
-                                                    {...props}
-                                                    onHandleLoginOrRegister={this.handleLoginOrRegisterOpen}
-                                                />
-                                        
-                                            )}
-                                        />
+                                        <Switch history={history}>
+                                            <Route
+                                                exact
+                                                path="/"
+                                                render={props => (
+                                                    <HomePage
+                                                        {...props}
+                                                        onHandleLoginOrRegister={this.handleLoginOrRegisterOpen}
+                                                    />
+                                            
+                                                )}
+                                            />
 
-                                        <Route
-                                            path="/account"
-                                            render={({ match: { url }}) => (
-                                                <>
-                                                    <Route 
-                                                        exact
-                                                        path={`${url}/`} 
-                                                        render={props => <AccountPage {...props} onHandleLoginOrRegister={this.handleLoginOrRegisterOpen}/>} />
-                                                    <Route 
-                                                        path={`${url}/settings`} 
-                                                        render={props => <AccountPage {...props} onHandleLoginOrRegister={this.handleLoginOrRegisterOpen}/>} />
-                                                    <Route 
-                                                        path={`${url}/deposits`} 
-                                                        render={props => <AccountPage {...props} onHandleLoginOrRegister={this.handleLoginOrRegisterOpen}/>} />
-                                                    <Route 
-                                                        path={`${url}/withdraws`} 
-                                                        render={props => <AccountPage {...props} onHandleLoginOrRegister={this.handleLoginOrRegisterOpen}/>} />
-                                                    <Route 
-                                                        path={`${url}/affiliate`} 
-                                                        render={props => <AccountPage {...props} onHandleLoginOrRegister={this.handleLoginOrRegisterOpen}/>} />
-                                                </>
-                                            )}
-                                        />
+                                            <Route
+                                                path="/account"
+                                                render={({ match: { url }}) => (
+                                                    <>
+                                                        <Route 
+                                                            exact
+                                                            path={`${url}/`} 
+                                                            render={props => <AccountPage {...props} onHandleLoginOrRegister={this.handleLoginOrRegisterOpen}/>} />
+                                                        <Route 
+                                                            path={`${url}/settings`} 
+                                                            render={props => <AccountPage {...props} onHandleLoginOrRegister={this.handleLoginOrRegisterOpen}/>} />
+                                                        <Route 
+                                                            path={`${url}/deposits`} 
+                                                            render={props => <AccountPage {...props} onHandleLoginOrRegister={this.handleLoginOrRegisterOpen}/>} />
+                                                        <Route 
+                                                            path={`${url}/withdraws`} 
+                                                            render={props => <AccountPage {...props} onHandleLoginOrRegister={this.handleLoginOrRegisterOpen}/>} />
+                                                        <Route 
+                                                            path={`${url}/affiliate`} 
+                                                            render={props => <AccountPage {...props} onHandleLoginOrRegister={this.handleLoginOrRegisterOpen}/>} />
+                                                    </>
+                                                )}
+                                            />
 
-                                        <Route
-                                            exact
-                                            path="/password/reset"
-                                            render={props => (
-                                                <HomePage
-                                                    {...props}
-                                                    onHandleResetPassword={this.handleResetPasswordOpen}
-                                                />
-                                        
-                                            )}
-                                        /> 
+                                            <Route
+                                                exact
+                                                path="/password/reset"
+                                                render={props => (
+                                                    <HomePage
+                                                        {...props}
+                                                        onHandleResetPassword={this.handleResetPasswordOpen}
+                                                    />
+                                            
+                                                )}
+                                            /> 
 
-                                        <Route
-                                            exact
-                                            path="/confirm/:app"
-                                            render={props => (
-                                                <HomePage
-                                                    {...props}
-                                                    onHandleConfirmEmail={this.handleConfirmEmailOpen}
-                                                />
-                                        
-                                            )}
-                                        /> 
+                                            <Route
+                                                exact
+                                                path="/confirm/:app"
+                                                render={props => (
+                                                    <HomePage
+                                                        {...props}
+                                                        onHandleConfirmEmail={this.handleConfirmEmailOpen}
+                                                    />
+                                            
+                                                )}
+                                            /> 
 
-                                        {/* New routes need to be add here, before renderGamePages */}
+                                            {/* New routes need to be add here, before renderGamePages */}
 
-                                        {this.renderGamePages({history})}
+                                            {this.renderGamePages({history})}
 
-                                    </Switch>
+                                        </Switch>
                                     </div>
                                 </div>
-                                <Col xs={0} md={2} lg={2}>
-                                    <div styleName='chat-container-outro'> 
-                                        <div styleName={'chat-container'}>
-                                            <ChatPage/>
-                                        </div>
+                                <div styleName={chatStyles} > 
+                                    <div styleName={'chat-container'}>
+                                        <ChatPage/>
                                     </div>
-                                </Col>
-                            </Row>
+                                </div>
+                            </div>
                             <PopupForm user={user}/>
                         </div>
+                        <BottomNavbar
+                            history={history}
+                            onCashier={this.handleCashierOpen}
+                            onChat={this.handleChatOpen}
+                            onHome={this.handleHomeOpen}
+                        />
                     </Router>
                 </UserContext.Provider>
         );

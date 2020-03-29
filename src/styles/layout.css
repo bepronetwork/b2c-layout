@@ -17,6 +17,9 @@ $padding-top-chat : 70px;
 $top-chat-message-percentage : 85%;
 $bot-chat-message-percentage : 15%;
 $padding-chat-box : 10px;
+$chat-width-desktop : 400px;
+$chat-width-tablet-pro : 300px;
+$chat-width-tablet : 200px;
 $border-radius-messsage-box : 5px;
 $column: 81px;
 $gutter: 20px;
@@ -45,7 +48,6 @@ $border-radius : 5px;
 $light-size : 10px;
 $light-margin-top : 12px;
 
-$games-box-width : 250px;
 $games-box-heigth : 170px;
 $games-dice-size : 220px;
 $games-roulette-size : 220px;

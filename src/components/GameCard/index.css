@@ -47,7 +47,7 @@
 
 .root {
   text-align: center;
-  margin : 20px;
+  margin : $spacing-16 0;
 }
 
 .info-holder{
@@ -60,23 +60,17 @@
   background: none;
 
   text-decoration: none;
+  width: 100%;
 }
 
 .image-container {
   display: flex;
   align-items: center;
-  width: $games-box-width;
+  width: 100%;
   height: $games-box-heigth;
-
   margin: 0 0 $spacing-8 0;
-
   border-radius: $spacing-12;
-
   transition: margin 100ms linear;
-
-  @include Breakpoint-mobileOnly {
-    width: 430px;
-  }
 }
 
 .image-container:hover {
@@ -104,12 +98,9 @@
 .labels {
   display: grid;
   align-items: center;
-  width: 250px;
+  width: 100%;
   grid-template-columns: 60% 40%;
 
-  @include Breakpoint-mobileOnly {
-    width: 430px;
-  }
 }
 
 .title {

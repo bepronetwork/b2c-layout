@@ -34,14 +34,11 @@ class GamePage extends Component {
 
         const { ln } = this.props;
         const sound = localStorage.getItem("sound");
-        const copy = CopyText.homepagegame[ln];
-        const rulesLabel = copy.RULES;
 
         this.state = {
             soundMode: sound || "off",
             actionsOpen: false,
-            gameInfo: null,
-            rulesLabel: rulesLabel
+            gameInfo: null
         };
     }
 
@@ -70,11 +67,11 @@ class GamePage extends Component {
     };
 
     renderActions = () => {
-        const { actionsOpen, gameInfo, rulesLabel } = this.state;
+        const { actionsOpen, gameInfo } = this.state;
 
         return actionsOpen ? (
             <Modal onClose={this.handleActionsModalClose}>
-                <Actions rulesLabel={rulesLabel} game={gameInfo}/>
+                <Actions game={gameInfo}/>
             </Modal>
         ) : null;
     };
@@ -112,11 +109,10 @@ class GamePage extends Component {
 
     render() {
         const { options, game, gameMetaName } = this.props;
-        const { soundMode, rulesLabel } = this.state;
+        const { soundMode } = this.state;
 
         const { ln } = this.props;
         const copy = CopyText.homepagegame[ln];
-
 
         if (_.isEmpty(gameMetaName)) return null;
 
@@ -180,7 +176,7 @@ class GamePage extends Component {
                 </div>
                 <div styleName="actions">
                     <Button size={'x-small'} theme={'action'} onClick={this.handleActionsModalOpen}>
-                        <Typography color={'white'} variant={'small-body'}>{rulesLabel}</Typography>
+                        <Typography color={'white'} variant={'small-body'}>{copy.RULES}</Typography>
                     </Button>
                 </div>
                 <LastBets gameMetaName={gameMetaName} />

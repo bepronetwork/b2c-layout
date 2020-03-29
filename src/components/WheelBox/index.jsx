@@ -28,7 +28,7 @@ class WheelBox extends Component {
 
         return (
             <div styleName={`box ${styleName} ${wasSet ? 'no-transform' : ''}`}>
-                <div style={{zIndex : 10}}>
+                <div style={{zIndex : 5}}>
                     <Typography weight="small-body" color="white">
                         {Numbers.toFloat(multiplier)}x
                     </Typography>

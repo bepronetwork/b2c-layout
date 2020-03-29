@@ -6,10 +6,6 @@
     margin-top : $spacing-36;
     background-color : $footer-background;
 
-    @include Breakpoint-mobileOnly {
-        width: 490px;
-
-    }
 }
 
 
