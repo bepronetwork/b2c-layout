@@ -65,15 +65,15 @@ class Banners extends Component {
                                 <div styleName="image" style={{background: "url("+banner.image_url+") center center / cover no-repeat"}}>
                                     <div styleName="text-image">
                                         <div styleName="fields">
-                                            <Typography color={'white'} variant={'body'}>{banner.title}</Typography>
+                                            <Typography color={'white'} variant={'h3'}>{banner.title}</Typography>
                                         </div>
 
                                         <div styleName="fields">
-                                            <Typography color={'white'} variant={'x-small-body'}>{banner.subtitle}</Typography>
+                                            <Typography color={'white'} variant={'body'}>{banner.subtitle}</Typography>
                                         </div>
                                         
                                         <Button  onClick={() => this.handleClick(banner.link_url)} theme="action" size={'x-small'}>
-                                            <Typography color={'white'} variant={'x-small-body'}>{banner.button_text}</Typography>
+                                            <Typography color={'white'} variant={'body'}>{banner.button_text}</Typography>
                                         </Button>
                                     </div>
                                 </div>
