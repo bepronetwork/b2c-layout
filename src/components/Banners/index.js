@@ -49,33 +49,43 @@ class Banners extends Component {
                     {banners.map(banner => (
                         <Carousel.Item>
                             <div styleName="banner">
-                                <div styleName="text">
-                                    <div styleName="fields">
-                                        <Typography color={'grey'} variant={'h4'}>{banner.title}</Typography>
-                                    </div>
+                                {
+                                    banner.title || banner.subtitle || banner.button_text ?
+                                        <div styleName="text">
+                                            <div styleName="fields">
+                                                <Typography color={'grey'} variant={'h4'}>{banner.title}</Typography>
+                                            </div>
 
-                                    <div styleName="fields">
-                                        <Typography color={'grey'} variant={'small-body'}>{banner.subtitle}</Typography>
-                                    </div>
-                                    
-                                    <Button  onClick={() => this.handleClick(banner.link_url)} theme="action">
-                                        <Typography color={'white'} variant={'small-body'}>{banner.button_text}</Typography>
-                                    </Button>
-                                </div>
+                                            <div styleName="fields">
+                                                <Typography color={'grey'} variant={'small-body'}>{banner.subtitle}</Typography>
+                                            </div>
+                                            
+                                            <Button  onClick={() => this.handleClick(banner.link_url)} theme="action">
+                                                <Typography color={'white'} variant={'small-body'}>{banner.button_text}</Typography>
+                                            </Button>
+                                        </div>
+                                    :
+                                        <div/>
+                                }
                                 <div styleName="image" style={{background: "url("+banner.image_url+") center center / cover no-repeat"}}>
-                                    <div styleName="text-image">
-                                        <div styleName="fields">
-                                            <Typography color={'white'} variant={'h3'}>{banner.title}</Typography>
-                                        </div>
+                                    {
+                                        banner.title || banner.subtitle || banner.button_text ?
+                                            <div styleName="text-image">
+                                                <div styleName="fields">
+                                                    <Typography color={'white'} variant={'h3'}>{banner.title}</Typography>
+                                                </div>
 
-                                        <div styleName="fields">
-                                            <Typography color={'white'} variant={'body'}>{banner.subtitle}</Typography>
-                                        </div>
-                                        
-                                        <Button  onClick={() => this.handleClick(banner.link_url)} theme="action" size={'x-small'}>
-                                            <Typography color={'white'} variant={'body'}>{banner.button_text}</Typography>
-                                        </Button>
-                                    </div>
+                                                <div styleName="fields">
+                                                    <Typography color={'white'} variant={'body'}>{banner.subtitle}</Typography>
+                                                </div>
+                                                
+                                                <Button  onClick={() => this.handleClick(banner.link_url)} theme="action" size={'x-small'}>
+                                                    <Typography color={'white'} variant={'body'}>{banner.button_text}</Typography>
+                                                </Button>
+                                            </div>
+                                        :
+                                            null
+                                    }
                                 </div>
                             </div>
                         </Carousel.Item>
