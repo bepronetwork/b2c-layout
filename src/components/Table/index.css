@@ -1,0 +1,103 @@
+@import "../../styles/all.css";
+
+.table-row {
+    width: 100%;
+}
+
+.table-row > tbody > tr:nth-child(even) {
+    background-color: $primaryColor;
+    border-radius: $border-radius;
+}
+
+.th-row {
+    margin: auto;
+    vertical-align: middle;
+    padding: $spacing-8 $spacing-20;
+}
+
+.th-row-img {
+    padding: 0 $spacing-16;
+}
+
+.image{
+    display: flex;
+
+    @media screen and (max-width: 767px) {
+        display: block;
+        margin-bottom: $spacing-8;
+    }
+}
+
+.image-icon {
+    width : 60px;
+
+    @media screen and (max-width: 767px) {
+        width : 50px;
+    }
+}
+
+.image-name{
+    margin: auto 0;
+
+    @media screen and (max-width: 767px) {
+        text-align: center;
+    }
+}
+
+.tr-row {
+    border-radius: $border-radius;
+    border-top-left-radius: 10px;
+}
+
+.table-head .tr-row{
+    background-color: $dark-night;
+    text-align: center;
+}
+
+.table-head .tr-row .th-row{
+    padding: $spacing-8 $spacing-20;
+}
+
+.table-head .tr-row .th-row:first-child {
+    text-align: left;
+    border-top-left-radius: $spacing-8;
+    border-bottom-left-radius: $spacing-8;
+}
+
+.table-head .tr-row .th-row:last-child {
+    text-align: right;
+    border-top-right-radius: $spacing-8;
+    border-bottom-right-radius: $spacing-8;
+}
+
+.table-head {
+}
+
+.th-row-tab {
+}
+
+.table-row tbody .tr-row{
+    text-align: center;
+}
+
+.table-row tbody .tr-row .th-row:first-child {
+    text-align: left;
+    border-top-left-radius: $spacing-8;
+    border-bottom-left-radius: $spacing-8;
+}
+
+.table-row tbody .tr-row .th-row:last-child {
+    text-align: right;
+    border-top-right-radius: $spacing-8;
+    border-bottom-right-radius: $spacing-8;
+}
+
+.no-info{
+    padding: $spacing-28 0;
+    margin: $spacing-8 0;
+    background-color: $primaryColor;
+    border-radius: $border-radius;
+    opacity: 0.6;
+    text-align: center;
+}
+

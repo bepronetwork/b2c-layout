@@ -46,7 +46,7 @@
             ]
         },
         BIGGEST_WIN_USERS : {
-            TITLE : 'LeaderBoard', 
+            TITLE : 'Leader Board', 
             ITEMS : [
                 'Position',
                 'User',

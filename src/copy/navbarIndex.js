@@ -14,7 +14,8 @@
           "no currencies available",
           "Deposit",
           "Casino",
-          "Chat"
+          "Chat",
+          "Bets"
         ]
       }
     }
@@ -32,7 +33,8 @@
           "사용 가능한 화폐가 없습니다",
           "입금",
           "카지노",
-          "Chat"
+          "Chat",
+          "Bets"
         ]
       }
     }
@@ -50,7 +52,8 @@
           "无可用代币",
           "充币",
           "赌场",
-          "Chat"
+          "Chat",
+          "Bets"
         ]
       }
     }
@@ -68,7 +71,8 @@
           "no currencies available",
           "Deposit",
           "Casino",
-          "Chat"
+          "Chat",
+          "Bets"
         ]
       }
     }

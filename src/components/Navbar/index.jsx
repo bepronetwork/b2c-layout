@@ -149,23 +149,19 @@ class Navbar extends Component {
         let { user } = this.state;
 
         return(
-            <div styleName="profile">
-                <ProfileMenu
-                    onAccount={() => onAccount({history})}
-                    onLogout={onLogout}
-                    onCashier={onCashier}
-                    username={user.username}
-                />
-            </div>
+            <ProfileMenu
+                onAccount={() => onAccount({history})}
+                onLogout={onLogout}
+                onCashier={onCashier}
+                username={user.username}
+            />
         )
     }
 
     renderLanguageSelector = () => {
         return(
-            <div styleName="language">
-                <div styleName="language-container">
-                    <LanguageSelector showLabel={false} expand="bottom"/>
-                </div>
+            <div styleName="language-container">
+                <LanguageSelector showLabel={false} expand="bottom"/>
             </div>
         )
     }
@@ -182,6 +178,21 @@ class Navbar extends Component {
         )
     }
 
+    renderLanguageProfile = () => {
+            let { user } = this.state;
+
+        return(
+            <div styleName="language-profile">
+                {this.renderLanguageSelector()}
+                {user ?
+                    this.renderProfileMenu()
+                :
+                    this.renderLoginOrRegister()
+                }
+            </div>
+        )
+    }
+
     render() {
         let { user } = this.state;
 
@@ -189,9 +200,9 @@ class Navbar extends Component {
                 <div  styleName="top-menu">
                     {this.renderLogo()}
                     {user ?
-                        [ this.renderCasinoSportsSelector(), this.renderCurrencySelector(), this.renderLanguageSelector(), this.renderProfileMenu() ]
+                        [ this.renderCasinoSportsSelector(), this.renderCurrencySelector(), this.renderLanguageProfile() ]
                     :
-                        [ this.renderCasinoSportsSelector(), <div/>, this.renderLanguageSelector(), this.renderLoginOrRegister() ]
+                        [ this.renderCasinoSportsSelector(), <div/>, this.renderLanguageProfile() ]
                     }
                 </div>
         );
