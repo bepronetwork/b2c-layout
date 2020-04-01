@@ -10,9 +10,11 @@ import "./index.css";
 import casinoIcon from 'assets/icons/casino.svg';
 import walletIcon from 'assets/icons/wallet.svg';
 import chatIcon from 'assets/icons/chat.svg';
+import betsIcon from 'assets/icons/table.svg';
 
 const defaultProps = {
-    open : false
+    openChat : false,
+    openBetsList : false
 }
 
 class BottomNavbar extends Component {
@@ -25,11 +27,20 @@ class BottomNavbar extends Component {
 
     openChatClick = () => {
         const { onChat } = this.props;
-        const { open } = this.state;
+        const { openChat } = this.state;
 
-        this.setState({ open : !open });
-        onChat(!open);
+        this.setState({ openChat : !openChat });
+        onChat(!openChat);
     };
+
+    openBetsListClick = () => {
+        const { onBetsList } = this.props;
+        const { openBetsList } = this.state;
+
+        this.setState({ openBetsList : !openBetsList });
+        onBetsList(!openBetsList);
+    };
+
 
     homeClick = () => {
         const { onHome, history } = this.props;
@@ -61,6 +72,16 @@ class BottomNavbar extends Component {
                                 <img src={walletIcon} style={{width : 24}}/>
                                 <Typography variant="x-small-body" color="grey">
                                     {copy.INDEX.TYPOGRAPHY.TEXT[2]}
+                                </Typography>
+                            </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" onClick={this.openBetsListClick}>
+                            <span styleName="item">
+                                <img src={betsIcon} style={{width : 24}}/>
+                                <Typography variant="x-small-body" color="grey">
+                                    {copy.INDEX.TYPOGRAPHY.TEXT[5]}
                                 </Typography>
                             </span>
                         </a>

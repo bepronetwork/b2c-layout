@@ -1,25 +1,13 @@
 @import "../../styles/all.css";
 
-.root {
-    position: relative;
+.tabs{
+    width: 100%;
+    grid-auto-flow: column;
+    display: grid;
+    align-items: center;
+    gap: $spacing-8;
 
-    display: flex;
-    
-    flex-direction: row;
-    margin-left: $spacing-8;
-}
-
-.root:after {
-  content: "";
-
-  position: absolute;
-  right: 0;
-  bottom: -2px;
-  left: calc(- 1 * $spacing-8);
-
-  height: 2px;
-
-  background: $background-table-1-outer;
-
-  border-radius: 1px;
+    @media screen and (max-width: 767px) {
+        gap: $spacing-4;
+    }
 }

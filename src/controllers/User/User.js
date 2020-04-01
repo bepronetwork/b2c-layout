@@ -73,7 +73,6 @@ export default class User {
         }
     }
     getPusherAPIKey = () => {
-        console.log(this.integrations)
         return this.integrations.pusher ? this.integrations.pusher.key : '';
     }
 

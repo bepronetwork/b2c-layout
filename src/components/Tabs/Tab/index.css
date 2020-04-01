@@ -1,53 +1,74 @@
 @import "../../../styles/all.css";
 
-.root {
-  position: relative;
 
-  padding-bottom: $spacing-8;
-
-  background-color: inherit;
-  cursor: pointer;
-
-  outline: none;
-
-  text-align: left;
-  * {
-    cursor: pointer;
-  }
-}
-
-.root:not(.selected) {
+.tab:not(.selected) {
   &:hover {
+    /*background-color: $dodger-blue;*/
     * {
-      color: $mercury;
-      opacity: 0.75;
+      color: $white;
+      opacity: 1;
     }
   }
 }
 
-.selected {
+.tab {
+  border-radius: $border-radius;
+  margin-left: $spacing-8;
+  background-color: $secondaryColor;
+  height: 100%;
+
   * {
     color: $mercury;
     opacity: 0.75;
   }
+
+  button {
+    width: 100%;
+    border-radius: $border-radius;
+    position: relative;
+    padding: $spacing-8;
+    background-color: inherit;
+    cursor: pointer;
+    outline: none;
+    text-align: left;
+
+    * {
+      cursor: pointer;
+    }
+
+    @media screen and (max-width: 767px) {
+      text-align: center;
+    }
+  }
 }
 
-.selected-underline {
-  position: absolute;
-  top: calc($spacing-8 + $spacing-20);
-  left: calc(- 1 * $spacing-8);
-  z-index: 1;
-
-  width: calc(100% + $spacing-16);
-
-  border: 1px solid $dodger-blue;
-  border-radius: 1px;
-
-  @include Breakpoint-tabletOnly {
-    top: 24px;
+.selected{
+  border-bottom: 1px solid $white;
+  
+  * {
+    color: $white;
+    opacity: 1;
   }
+}
 
-  @include Breakpoint-mobileOnly {
-    top: 32px;
+.icon {
+  float: left;
+
+  @media screen and (max-width: 767px) {
+    float: none;
+    margin-bottom: $spacing-8;
   }
+}
+
+.label {
+  float: left;
+  margin-left: $spacing-8;
+
+  @media screen and (max-width: 767px) {
+    margin-left: 0;
+  }
+}
+
+.primaryColor {
+  background-color: $primaryColor;
 }

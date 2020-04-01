@@ -38,6 +38,7 @@ import { setProfileInfo } from "../../redux/actions/profile";
 import store from "./store";
 import Cache from "../../lib/cache/cache";
 import ChatPage from "../Chat";
+import LastBets from "../LastBets/HomePage";
 import { CopyText } from "../../copy";
 import { setCurrencyView } from "../../redux/actions/currency";
 import { setWithdrawInfo } from "../../redux/actions/withdraw";
@@ -59,7 +60,19 @@ class App extends Component {
         super(props);
         this.state = {
             isLoading : true,
-            has2FA : false
+            has2FA : false,
+            registerLoginModalOpen: null,
+            cashierOpen: null,
+            error: null,
+            isLoading : true,
+            has2FA : false,
+            resetPasswordOpen : null,
+            resetPasswordParams : null,
+            resetPasswordMode : null,
+            confirmEmailOpen: null,
+            confirmEmailParams : null,
+            chatOpen : false,
+            betsListOpen : false
         }
     }
 
@@ -121,20 +134,6 @@ class App extends Component {
 
     }
 
-    state = {
-        registerLoginModalOpen: null,
-        cashierOpen: null,
-        error: null,
-        isLoading : true,
-        has2FA : false,
-        resetPasswordOpen : null,
-        resetPasswordParams : null,
-        resetPasswordMode : null,
-        confirmEmailOpen: null,
-        confirmEmailParams : null,
-        chatOpen : false
-    };
-
     handleRegisterLoginModalClose = () => {
         this.setState({ registerLoginModalOpen: null, error: null, has2FA: false });
     };
@@ -178,11 +177,15 @@ class App extends Component {
     };
 
     handleChatOpen = (open) => {
-        this.setState({ chatOpen: open });
+        this.setState({ chatOpen: open, betsListOpen: false });
+    };
+
+    handleBetsListOpen = (open) => {
+        this.setState({ betsListOpen: open, chatOpen: false });
     };
 
     handleHomeOpen = ({history}) => {
-        this.setState({ chatOpen: false });
+        this.setState({ chatOpen: false, betsListOpen : false });
         history.push('/');
     }
 
@@ -393,7 +396,11 @@ class App extends Component {
     };
 
     updateAppInfo = async () => {
+
+
         let app = await getAppInfo();
+
+
         Cache.setToCache("appInfo", app);
         this.setState({...this.state, app})
     };
@@ -487,7 +494,7 @@ class App extends Component {
     }
 
     render() {
-        const { user, app, isLoading, chatOpen } = this.state;
+        const { user, app, isLoading, chatOpen, betsListOpen } = this.state;
         const { profile, startLoadingProgress, modal } = this.props;
 
         if (!app || isLoading) {return null};
@@ -496,8 +503,11 @@ class App extends Component {
         let progress100 = parseInt(progress/confirmations*100);
         let isUserLoaded = (confirmations == progress);
         const { topBar } = getAppCustomization();
-        const chatStyles = classNames("chat-container-outro", {
+        const chatStyles = classNames("chat-container-main", {
             chatDisplay: chatOpen
+        });
+        const betsListStyles = classNames("bets-container-main", {
+            betsListDisplay: betsListOpen
         });
 
         return (
@@ -606,6 +616,11 @@ class App extends Component {
                                         <ChatPage/>
                                     </div>
                                 </div>
+                                <div styleName={betsListStyles} > 
+                                    <div styleName={'bets-container'}>
+                                        <LastBets/>
+                                    </div>
+                                </div>
                             </div>
                             <PopupForm user={user}/>
                         </div>
@@ -614,6 +629,7 @@ class App extends Component {
                             onCashier={this.handleCashierOpen}
                             onChat={this.handleChatOpen}
                             onHome={this.handleHomeOpen}
+                            onBetsList={this.handleBetsListOpen}
                         />
                     </Router>
                 </UserContext.Provider>

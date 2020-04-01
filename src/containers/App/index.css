@@ -29,7 +29,7 @@
     background-color: $chat-container-color;
 }
 
-.chat-container-outro{
+.chat-container-main{
     position: fixed;
     top : 0px;
     right: 0;
@@ -63,6 +63,47 @@
       opacity: 0;
       transform: translateY(80%);
     }
+}
+
+.bets-container{
+  height: -webkit-fill-available !important;
+  z-index: 10;
+  background-color: $chat-container-color;
+  overflow: auto;
+}
+
+.bets-container-main{
+  position: fixed;
+  top : 0px;
+  right: 0;
+  height: 100%;
+  width: $chat-width-desktop;
+  display: none;
+
+  @media screen and (max-width: 1267px) and (min-width: 1024px) {
+    width: $chat-width-tablet-pro;
+  }
+  
+  @media screen and (max-width: 1023px) and (min-width: 768px) {
+    width: $chat-width-tablet;
+  }
+
+  @media screen and (max-width: 767px) {
+    width: 100%;
+    z-index: 9;
+  }
+}
+
+.betsListDisplay {
+  display: inline;
+  animation: bets-open-animation 1s running;
+}
+
+@keyframes bets-open-animation {
+  0% {
+    opacity: 0;
+    transform: translateY(80%);
+  }
 }
 
 .container {
