@@ -14,7 +14,7 @@
 .tab {
   border-radius: $border-radius;
   margin-left: $spacing-8;
-  background-color: $secondaryColor;
+  background-color: $seventhColor;
   height: 100%;
 
   * {
@@ -30,7 +30,6 @@
     background-color: inherit;
     cursor: pointer;
     outline: none;
-    text-align: left;
 
     * {
       cursor: pointer;
@@ -43,7 +42,6 @@
 }
 
 .selected{
-  border-bottom: 1px solid $white;
   
   * {
     color: $white;
@@ -53,19 +51,23 @@
 
 .icon {
   float: left;
+  margin-left: $spacing-8;
 
   @media screen and (max-width: 767px) {
     float: none;
     margin-bottom: $spacing-8;
+    margin-left: 0;
   }
 }
 
 .label {
-  float: left;
+  float: initial;
   margin-left: $spacing-8;
+  width: 100%;
 
   @media screen and (max-width: 767px) {
     margin-left: 0;
+    float: left;
   }
 }
 

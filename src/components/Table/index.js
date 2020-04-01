@@ -48,7 +48,7 @@ class TableDefault extends Component {
                                     return (
                                         <th styleName={imageStyles}>
                                             <div styleName="image">
-                                                <div><img styleName='image-icon' src={row[field.value].image_url}/></div>
+                                                <div styleName="icon"><img styleName='image-icon' src={row[field.value].image_url}/></div>
                                                 <div styleName='image-name'><Typography variant='x-small-body' color={"grey"}> {row[field.value].name} </Typography></div>
                                             </div>
                                         </th>

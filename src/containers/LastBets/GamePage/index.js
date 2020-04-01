@@ -4,7 +4,7 @@ import UserContext from "containers/App/UserContext";
 import { connect } from "react-redux";
 import { getLastBets, getBiggestBetWinners } from "../../../lib/api/app";
 import { Numbers } from "../../../lib/ethereum/lib";
-import { dateToHourAndMinute, getGames } from "../../../lib/helpers";
+import { dateToHourAndMinute, getGames, getApp } from "../../../lib/helpers";
 import Tabs from "../../../components/Tabs";
 import { SelectBox, Table } from 'components';
 import { formatCurrency } from '../../../utils/numberFormatation';
@@ -137,6 +137,7 @@ class LastBets extends Component {
     projectData = async (props, options=null) => {
         let { profile, ln, gameMetaName } = props;
         let { view_amount } = this.state;
+        const currencies = getApp().currencies;
 
         this.setState({...this.state, isLoading : true });
 
@@ -182,13 +183,16 @@ class LastBets extends Component {
                 ...this.state.all_bets,
                 titles : copy.TABLE.ALL_BETS.ITEMS,
                 rows : all_bets.map( (bet) =>  {
+                    const currenncy = (currencies.find(currency => currency._id == bet.currency));
+                    const ticker = currenncy ? currenncy.ticker : "";
+
                     return {
                         game: (games.find(game => new String(game.name).toLowerCase() == new String(bet.game).toLowerCase())),
                         id: new String(bet._id).slice(3, 15),
                         username: bet.username,
                         timestamp: dateToHourAndMinute(bet.timestamp),
-                        betAmount: formatCurrency(Numbers.toFloat(bet.betAmount)),
-                        winAmount: formatCurrency(Numbers.toFloat(bet.winAmount)),
+                        betAmount: formatCurrency(Numbers.toFloat(bet.betAmount))+' '+ticker,
+                        winAmount: formatCurrency(Numbers.toFloat(bet.winAmount))+' '+ticker,
                         isWon : bet.isWon,
                         payout : `${formatCurrency(Numbers.toFloat(bet.winAmount/bet.betAmount))}x`
                     }
@@ -198,12 +202,15 @@ class LastBets extends Component {
                 ...this.state.my_bets,
                 titles : copy.TABLE.MY_BETS.ITEMS,
                 rows : my_bets.map( (bet) =>  {
+                    const currenncy = (currencies.find(currency => currency._id == bet.currency));
+                    const ticker = currenncy ? currenncy.ticker : "";
+
                     return {
                         game: (games.find(game => new String(game.name).toLowerCase() == new String(bet.game).toLowerCase())),
                         id: new String(bet._id).slice(3, 15),
                         timestamp: dateToHourAndMinute(bet.timestamp),
-                        betAmount: formatCurrency(Numbers.toFloat(bet.betAmount)),
-                        winAmount: formatCurrency(Numbers.toFloat(bet.winAmount)),
+                        betAmount: formatCurrency(Numbers.toFloat(bet.betAmount))+' '+ticker,
+                        winAmount: formatCurrency(Numbers.toFloat(bet.winAmount))+' '+ticker,
                         isWon : bet.isWon,
                         payout : `${formatCurrency(Numbers.toFloat(bet.winAmount/bet.betAmount))}x`
                     }
@@ -213,13 +220,16 @@ class LastBets extends Component {
                 ...this.state.biggest_win_bets,
                 titles : copy.TABLE.BIGGEST_WIN_BETS.ITEMS,
                 rows : biggest_winners_bets.map( (bet) =>  {
+                    const currenncy = (currencies.find(currency => currency._id == bet.currency));
+                    const ticker = currenncy ? currenncy.ticker : "";
+
                     return {
                         game: (games.find(game => new String(game.name).toLowerCase() == new String(bet.game).toLowerCase())),
                         id: new String(bet._id).slice(3, 15),
                         username: bet.username,
                         timestamp: dateToHourAndMinute(bet.timestamp),
-                        betAmount: formatCurrency(Numbers.toFloat(bet.betAmount)),
-                        winAmount: formatCurrency(Numbers.toFloat(bet.winAmount)),
+                        betAmount: formatCurrency(Numbers.toFloat(bet.betAmount))+' '+ticker,
+                        winAmount: formatCurrency(Numbers.toFloat(bet.winAmount))+' '+ticker,
                         isWon : bet.isWon,
                         payout : `${formatCurrency(Numbers.toFloat(bet.winAmount/bet.betAmount))}x`
                     }
@@ -240,12 +250,14 @@ class LastBets extends Component {
                         onSelect={this.handleTabChange}
                         color="primary"
                     />
-                    <div styleName='bets-dropdown'>
-                        <SelectBox
-                            onChange={(e) => this.changeViewBets(e)}
-                            options={views}
-                            value={this.state.view_amount}
-                        /> 
+                    <div styleName="filters">
+                        <div styleName='bets-dropdown'>
+                            <SelectBox
+                                onChange={(e) => this.changeViewBets(e)}
+                                options={views}
+                                value={this.state.view_amount}
+                            /> 
+                        </div>
                     </div>
                 </div>
                 {isLoading 
