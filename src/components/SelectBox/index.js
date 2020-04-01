@@ -42,8 +42,10 @@ class SelectBox extends React.Component{
         const isOutsideClick = !this.optionsRef.contains(event.target);
         const isLabelClick = this.labelRef.contains(event.target);
 
-        if (isOutsideClick && !isLabelClick) {
-            this.setState({ open: false });
+        if (!isLabelClick) {
+            setTimeout( () => {
+                this.setState({ open: false });
+            }, 1*200)
         }
     };
 
@@ -60,7 +62,7 @@ class SelectBox extends React.Component{
     };
 
     onChange = (option) => {
-        this.setState({...this.state, value : option});
+        this.setState({...this.state, value : option, open: false});
         this.props.onChange({ option });
     }
 
