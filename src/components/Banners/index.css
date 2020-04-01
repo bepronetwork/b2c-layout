@@ -14,7 +14,7 @@
     position: relative;
     grid-template-columns: 40% 60%;
     height: 300px;
-    border-radius: 0.5em;
+    border-radius: $border-radius;
     background-color: $primaryColor;
     box-shadow: 1px 4px 10px 0px $dark-table-color;
 
@@ -49,16 +49,20 @@
     }
 }
 
+.text-image-show{
+    background: rgba(0, 0, 0, 0);
+}
+
 .fields{
     margin-bottom: $spacing-16;
 }
 
 .image{
     background-position: center center;
-    border-radius: 0px 0.5em 0.5em 0px;
+    border-radius: 0px $border-radius $border-radius 0px;
 
     @media screen and (max-width: 1267px) {
-        border-radius: 0.5em;
+        border-radius: $border-radius;
     }
 }
 

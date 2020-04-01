@@ -12,7 +12,8 @@ export default class Tab extends Component {
     label: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
     onClick: PropTypes.func,
-    selected: PropTypes.bool
+    selected: PropTypes.bool,
+    color: PropTypes.string
   };
 
   static defaultProps = {
@@ -34,18 +35,28 @@ export default class Tab extends Component {
   };
 
   render() {
-    const { selected, label } = this.props;
-    const classes = classNames("root", {
-      selected
+    const { selected, label, icon, color } = this.props;
+    const classes = classNames("tab", {
+      selected,
+      primaryColor: color === "primary"
     });
 
     return (
-      <button styleName={classes} onClick={this.handleClick} type="button">
-        <Typography variant={this.isMobileOrTablet() ? 'small-body' : 'body'} color="white">
-          {label}
-        </Typography>
-        {selected ? <div styleName="selected-underline" /> : null}
-      </button>
+      <div styleName={classes}>
+        <button onClick={this.handleClick} type="button">
+          {
+            icon ?
+              <div styleName="icon"><img src={icon} style={{ width : 16 }}/></div>
+            :
+              null
+          }
+          <div styleName="label">
+            <Typography variant={this.isMobileOrTablet() ? 'x-small-body' : 'small-body'} color="white">
+              {label}
+            </Typography>
+          </div>
+        </button>
+      </div>
     );
   }
 }

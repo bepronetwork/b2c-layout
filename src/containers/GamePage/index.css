@@ -39,7 +39,7 @@
 
     border-radius: $spacing-12;
 
-    box-shadow: color($background-shadow alpha(75%)) 0px 0px 10px;
+    box-shadow: color(#000 alpha(75%)) 0px 0px 10px;
 
     @media screen and (max-width: 1023px) and (min-width: 768px) {
         margin: 0 auto;
