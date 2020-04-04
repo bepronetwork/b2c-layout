@@ -57,15 +57,40 @@ function ServerTOJSONMapper(serverJSON){
 
 /* FUNCTIONS TO BUILD */
 
-async function generateNavBarName(){
+async function generateHeadElements(){
+    /* Get CSS Font Link */
+    const { typography } =  appInfo;
+    var html = html2json(indexHtml);
+    html = generateNavBarName(html);
+
+    if(typography) {
+        const { url, name } = typography;
+        
+        if (url) {
+            const fontLink = '{ "node": "element", "tag": "link", "attr": { "href": "' + url + '", "rel": "stylesheet" } }';
+            var fontLinkObj = JSON.parse(fontLink);
+            html.child[0].child[1].child.push(fontLinkObj);
+        }
+
+        const fontName = name ? "$font-family: " + name + ";" : "";
+
+        fs.writeFile("src/styles/serverFonts.css", fontName, () => {
+            console.log("done");
+        });
+    }
+
+    /* If Exists Save */
+    fs.writeFileSync("public/index.html", json2html(html), 'utf8');
+}
+
+function generateNavBarName(html){
     /* Get NavBar Name */
     const { description, name } = appInfo;
     const navBarName = `${name} - ${description}`;
-    var html = html2json(indexHtml);
     let titleIndex = html.child[0].child[1].child.findIndex( c => c.tag && (c.tag.toLowerCase() == 'title'));
     html.child[0].child[1].child[titleIndex].child[0].text = navBarName;
-    /* If Exists Save */
-    fs.writeFileSync("public/index.html", json2html(html), 'utf8');
+
+    return html;
 }
 
 async function generateFavIcon(){
@@ -105,9 +130,9 @@ async function setColors(){
 (async () => {
     try{
         /* Get App Info */
-        appInfo = await getAppInfo()
-        /* Set Navbar name */
-        await generateNavBarName();
+        appInfo = await getAppInfo();
+        /* Set Head Elements */
+        await generateHeadElements();
         /* Set Platform Colors */
         await setColors();
         /* Set Platform Favicon */
