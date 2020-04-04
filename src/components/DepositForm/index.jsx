@@ -36,7 +36,7 @@ class DepositForm extends Component {
 
         let response = await profile.getCurrencyAddress({ currency_id: deposit.currency._id });
 
-        if(!_.isEmpty(response)) {
+        if(!_.isEmpty(response) && _.isEmpty(response.message)) {
             this.setState({ addressInitialized: true, address: response.address });
             clearInterval(this.intervalID);
         }
