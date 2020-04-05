@@ -4,7 +4,7 @@
     max-width: $content-width-desktop;
     min-width: 300px;
     margin: auto;
-    margin-top: $spacing-20;
+    padding-top: $spacing-20;
 }
 
 .banner{
