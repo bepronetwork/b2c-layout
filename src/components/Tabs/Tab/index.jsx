@@ -12,8 +12,7 @@ export default class Tab extends Component {
     label: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
     onClick: PropTypes.func,
-    selected: PropTypes.bool,
-    color: PropTypes.string
+    selected: PropTypes.bool
   };
 
   static defaultProps = {
@@ -35,10 +34,9 @@ export default class Tab extends Component {
   };
 
   render() {
-    const { selected, label, icon, color } = this.props;
+    const { selected, label, icon } = this.props;
     const classes = classNames("tab", {
-      selected,
-      primaryColor: color === "primary"
+      selected
     });
 
     return (

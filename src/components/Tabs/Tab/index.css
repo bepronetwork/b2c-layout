@@ -12,9 +12,7 @@
 }
 
 .tab {
-  border-radius: $border-radius;
-  margin-left: $spacing-8;
-  background-color: $seventhColor;
+  background-color: $thirdColor;
   height: 100%;
 
   * {
@@ -30,6 +28,7 @@
     background-color: inherit;
     cursor: pointer;
     outline: none;
+    min-height: 50px;
 
     * {
       cursor: pointer;
@@ -42,7 +41,8 @@
 }
 
 .selected{
-  
+  background-color: $backgroundColor;
+
   * {
     color: $white;
     opacity: 1;
@@ -71,6 +71,3 @@
   }
 }
 
-.primaryColor {
-  background-color: $primaryColor;
-}

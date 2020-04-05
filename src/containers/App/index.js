@@ -53,6 +53,8 @@ import AnnouncementTab from "../../components/AnnouncementTab";
 import { getCurrencyAddress } from "../../lib/api/users";
 import classNames from "classnames";
 
+import chatIcon from 'assets/chat.svg';
+
 const history = createBrowserHistory();
 
 class App extends Component {
@@ -71,8 +73,9 @@ class App extends Component {
             resetPasswordMode : null,
             confirmEmailOpen: null,
             confirmEmailParams : null,
-            chatOpen : false,
-            betsListOpen : false
+            chatMobileOpen : false,
+            betsListOpen : false,
+            chatExpand : true
         }
     }
 
@@ -177,15 +180,15 @@ class App extends Component {
     };
 
     handleChatOpen = (open) => {
-        this.setState({ chatOpen: open, betsListOpen: false });
+        this.setState({ chatMobileOpen: open, betsListOpen: false });
     };
 
     handleBetsListOpen = (open) => {
-        this.setState({ betsListOpen: open, chatOpen: false });
+        this.setState({ betsListOpen: open, chatMobileOpen: false });
     };
 
     handleHomeOpen = ({history}) => {
-        this.setState({ chatOpen: false, betsListOpen : false });
+        this.setState({ chatMobileOpen: false, betsListOpen : false });
         history.push('/');
     }
 
@@ -411,6 +414,12 @@ class App extends Component {
         return find(appInfo.games, { metaName: metaName });
     };
 
+    expandChatClick = () => {
+        const { chatExpand } = this.state;
+
+        this.setState({ chatExpand : !chatExpand });
+    };
+
 
     renderGamePages = ({history}) => {
         return (
@@ -494,7 +503,7 @@ class App extends Component {
     }
 
     render() {
-        const { user, app, isLoading, chatOpen, betsListOpen } = this.state;
+        const { user, app, isLoading, chatMobileOpen, betsListOpen, chatExpand } = this.state;
         const { profile, startLoadingProgress, modal } = this.props;
 
         if (!app || isLoading) {return null};
@@ -503,8 +512,12 @@ class App extends Component {
         let progress100 = parseInt(progress/confirmations*100);
         let isUserLoaded = (confirmations == progress);
         const { topBar } = getAppCustomization();
+        const centerStyles = classNames("center", {
+            centerExpand: !chatExpand
+        });
         const chatStyles = classNames("chat-container-main", {
-            chatDisplay: chatOpen
+            chatDisplay: chatMobileOpen,
+            chatExpandDisplay: !chatExpand
         });
         const betsListStyles = classNames("bets-container-main", {
             betsListDisplay: betsListOpen
@@ -541,7 +554,7 @@ class App extends Component {
                                 <AnnouncementTab topBar={topBar}/>
                             </div>
                             <div styleName='main'>
-                                <div styleName='center'>
+                                <div styleName={centerStyles}>
                                     <div styleName='platform-container'>
                                         <Switch history={history}>
                                             <Route
@@ -611,7 +624,14 @@ class App extends Component {
                                         </Switch>
                                     </div>
                                 </div>
-                                <div styleName={chatStyles} > 
+                                <div styleName={chatStyles} >
+                                    <a href="#" onClick={this.expandChatClick}>
+                                        <div styleName="chat-expand">
+                                            <div>
+                                                <img src={chatIcon} style={{width : 30}}/>  
+                                            </div>
+                                        </div> 
+                                    </a>
                                     <div styleName={'chat-container'}>
                                         <ChatPage/>
                                     </div>

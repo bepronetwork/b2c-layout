@@ -303,7 +303,6 @@ class LastBets extends Component {
                         selected={this.state.view}
                         options={this.state.options}
                         onSelect={this.handleTabChange}
-                        color="primary"
                     />
                     <div styleName="filters">
                         <div styleName='bets-dropdown-game'>
