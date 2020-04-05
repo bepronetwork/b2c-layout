@@ -81,7 +81,9 @@ class HomePage extends Component {
                     <div styleName='container-small'>                       
                         {appInfo.games.map( (item) => this.renderGame(item))}
                     </div> 
-                    <LastBets/>
+                    <div styleName="last-bets">
+                        <LastBets/>
+                    </div>
                     {/* <Media/> */}
                     <Footer/>
                 </div>

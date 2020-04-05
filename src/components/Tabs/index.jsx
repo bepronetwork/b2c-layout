@@ -10,8 +10,7 @@ export default class Tabs extends Component {
     static propTypes = {
         options: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
         selected: PropTypes.string.isRequired,
-        onSelect: PropTypes.func.isRequired,
-        color: PropTypes.string
+        onSelect: PropTypes.func.isRequired
     };
 
     handleTabClick = name => {
@@ -21,7 +20,7 @@ export default class Tabs extends Component {
     };
 
     renderTabs = () => {
-        const { options, selected, color } = this.props;
+        const { options, selected } = this.props;
 
         if (!options) {
         return null;
@@ -40,7 +39,6 @@ export default class Tabs extends Component {
                         icon={icon}
                         onClick={this.handleTabClick}
                         selected={selectedTab === value}
-                        color={color}
                     />
             ))
             }

@@ -35,3 +35,9 @@
     grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
     gap: 1.2rem 1.2rem;
 }
+
+.last-bets {
+    @media screen and (max-width: 767px) {
+      display: none;
+    }
+}

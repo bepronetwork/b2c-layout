@@ -23,6 +23,10 @@
     }
 }
 
+.centerExpand{
+  padding-right: 0;
+}
+
 .chat-container{
     height: -webkit-fill-available !important;
     z-index: 10;
@@ -63,6 +67,80 @@
       opacity: 0;
       transform: translateY(80%);
     }
+}
+
+.chat-expand{
+  position: fixed;
+  bottom: $spacing-28;
+  right: calc($chat-width-desktop + $spacing-28);
+  z-index: 12;
+  background-color: $backgroundColor;
+  height: 40px;
+  width: 40px;
+  border-radius: $border-radius;
+  text-align: center;
+  padding-top: 4px;
+  box-shadow: rgba(0, 0, 0) 0px 0px 10px;
+
+
+  @media screen and (max-width: 1267px) and (min-width: 1024px) {
+    right: calc($chat-width-tablet-pro + $spacing-20);
+    bottom: $spacing-20;
+  }
+  
+  @media screen and (max-width: 1023px) and (min-width: 768px) {
+    right: calc($chat-width-tablet + $spacing-20);
+    bottom: $spacing-20;
+  }
+
+  @media screen and (max-width: 767px) {
+    display: none;
+  }
+
+  div {
+    margin: auto;
+
+    img {
+      margin-top: -1px;
+      margin-left: -1px;
+    }
+  }
+}
+
+.chatExpandDisplay {
+  transform: translateX($chat-width-desktop);
+  animation: chat-expand-animation 0.7s running;
+
+  @media screen and (max-width: 1267px) and (min-width: 1024px) {
+    transform: translateX($chat-width-tablet-pro);
+  }
+  
+  @media screen and (max-width: 1023px) and (min-width: 768px) {
+    transform: translateX($chat-width-tablet);
+  }
+
+  @media screen and (max-width: 767px) {
+    transform: translateX(0);
+  }
+}
+
+@keyframes chat-expand-animation {
+  0% {
+    opacity: 0;
+    transform: translateX(20%);
+
+    @media screen and (max-width: 1267px) and (min-width: 1024px) {
+      transform: translateX(20%);
+    }
+    
+    @media screen and (max-width: 1023px) and (min-width: 768px) {
+      transform: translateX(20%);
+    }
+    
+    @media screen and (max-width: 767px) {
+      transform: translateX(0);
+    }
+  }
 }
 
 .bets-container{
