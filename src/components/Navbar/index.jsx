@@ -97,10 +97,11 @@ class Navbar extends Component {
         const { logo } = getAppCustomization();
         
         return(
-            <div>
+            <div styleName="logo">
                 <Link styleName='logo-image' to="/">
                     <img styleName="image" alt="bet protocol logo" src={logo.id} />
                 </Link>
+                {this.renderCasinoSportsSelector()}
             </div>
         )
     }
@@ -200,9 +201,9 @@ class Navbar extends Component {
                 <div  styleName="top-menu">
                     {this.renderLogo()}
                     {user ?
-                        [ this.renderCasinoSportsSelector(), this.renderCurrencySelector(), this.renderLanguageProfile() ]
+                        [ this.renderCurrencySelector(), this.renderLanguageProfile() ]
                     :
-                        [ this.renderCasinoSportsSelector(), <div/>, this.renderLanguageProfile() ]
+                        [ <div/>, this.renderLanguageProfile() ]
                     }
                 </div>
         );
