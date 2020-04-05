@@ -26,7 +26,7 @@ class LoadingBanner extends React.Component{
 
     render(){
         const { 
-            isLoaded, progress
+            isLoaded
         } = this.props;
         const { logo } = getAppCustomization();
 
@@ -34,9 +34,8 @@ class LoadingBanner extends React.Component{
         return (
 
             <div styleName='back-loading-banner'>
-                <img src={logo.id} styleName={'image-loading'}/>
-                <div id="loading">
-                    <ProgressBarLinear progress={progress}/>
+                <div styleName="loading">
+                    <img src={logo.id} styleName={'image-loading'}/>
                 </div>
             </div>
         )
