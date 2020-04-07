@@ -45,3 +45,14 @@
     margin-top : $spacing-16;
     width : 75px;
 }
+
+.addRow {
+    animation: new-row-animation 1s running;
+}
+
+@keyframes new-row-animation {
+    0% {
+        opacity: 1;
+        transform: translateY(-80%);
+    }
+}
