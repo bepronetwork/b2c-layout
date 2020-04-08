@@ -268,6 +268,7 @@ class LastBets extends Component {
                             rows={this.state[this.state.view].rows}
                             titles={this.state[this.state.view].titles}
                             fields={this.state[this.state.view].fields}
+                            showRealTimeLoading={this.state.view == "all_bets" ? true : false}
                         /> 
                 }
             </div>

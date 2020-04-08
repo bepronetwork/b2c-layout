@@ -2,11 +2,13 @@ import React, { Component } from "react";
 import {Typography } from "components";
 import PropTypes from "prop-types";
 import UserContext from "containers/App/UserContext";
+import faker from 'faker';
 import classNames from "classnames";
 
 import "./index.css";
 
 class TableDefault extends Component {
+    intervalID = 0;
     static contextType = UserContext;
 
     static propTypes = {
@@ -15,10 +17,69 @@ class TableDefault extends Component {
     
     constructor(props){
         super(props);
+        this.state = { 
+            rows : [],
+            isLoadingRow : false
+         };
+    }
+
+    componentDidMount(){
+        this.projectData(this.props);
+
+        this.intervalID = setInterval( async () => {
+            this.setState({ isLoadingRow : false });
+            this.addRow();
+        }, 5000);
+    }
+
+    componentWillReceiveProps(props){
+        this.projectData(props);
+    }
+
+    componentWillUnmount() {
+        clearInterval(this.intervalID);
+    }
+
+    projectData = async (props) => {
+        this.setState({ rows : props.rows});
+    }
+
+    addRow() {
+        let { rows } = this.state; 
+        const { showRealTimeLoading } = this.props;
+
+        if(rows.length && showRealTimeLoading) {
+            setTimeout(() => {
+                var row = rows[Math.floor(Math.random() * rows.length)];
+
+                const newRow = {
+                    betAmount: row.betAmount,
+                    game : row.game,
+                    id: row.id,
+                    isWon: row.isWon,
+                    payout: row.payout,
+                    timestamp: "a few seconds ago",
+                    username: faker.internet.userName(),
+                    winAmount: row.winAmount
+                }
+        
+                rows.unshift(newRow);
+                rows.pop();
+        
+                this.setState({ rows, isLoadingRow : true });
+
+            }, 3000);
+        }
     }
     
     render() {
-        let { titles, rows, fields } = this.props;
+        let { isLoadingRow, rows } = this.state; 
+        let { titles, fields } = this.props;
+
+        const rowStyles = classNames("tr-row", {
+            addRow: isLoadingRow
+        });
+
         return (
             <div>
             <table styleName='table-row'>
@@ -34,7 +95,7 @@ class TableDefault extends Component {
                 <tbody>
                     {
                         rows.map( (row, index) => 
-                        <tr styleName='tr-row'>
+                        <tr styleName={rowStyles}>
                             {fields.map( (field) => {
                                 if(field.dependentColor){
                                     return (
