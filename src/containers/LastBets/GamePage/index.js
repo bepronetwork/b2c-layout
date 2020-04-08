@@ -196,7 +196,7 @@ class LastBets extends Component {
                         isWon : bet.isWon,
                         payout : `${formatCurrency(Numbers.toFloat(bet.winAmount/bet.betAmount))}x`
                     }
-                }).filter( el => (el.game.metaName == gameMetaName))
+                }).filter( el => (el.game.metaName == gameMetaName) && el.isWon === true)
             },
             my_bets : {
                 ...this.state.my_bets,
@@ -269,6 +269,7 @@ class LastBets extends Component {
                             titles={this.state[this.state.view].titles}
                             fields={this.state[this.state.view].fields}
                             showRealTimeLoading={this.state.view == "all_bets" ? true : false}
+                            size={this.state.view_amount.value}
                         /> 
                 }
             </div>

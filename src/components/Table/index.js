@@ -46,7 +46,7 @@ class TableDefault extends Component {
 
     addRow() {
         let { rows } = this.state; 
-        const { showRealTimeLoading } = this.props;
+        const { showRealTimeLoading, size } = this.props;
 
         if(rows.length && showRealTimeLoading) {
             setTimeout(() => {
@@ -64,11 +64,14 @@ class TableDefault extends Component {
                 }
         
                 rows.unshift(newRow);
-                rows.pop();
+
+                if(rows.length >= size) {
+                    rows.pop();
+                }
         
                 this.setState({ rows, isLoadingRow : true });
 
-            }, 3000);
+            }, 500);
         }
     }
     
