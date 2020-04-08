@@ -54,15 +54,6 @@ const rows = {
                 image : true
             },
             {
-<<<<<<< HEAD
-=======
-                value : 'timestamp'
-            },
-            {
-                value : 'betAmount'
-            },
-            {
->>>>>>> 4f185013d032787e3a6203ec693dee803eed88ea
                 value : 'winAmount',
                 dependentColor : true,
                 condition : 'isWon'
