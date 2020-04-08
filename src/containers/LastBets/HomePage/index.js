@@ -54,6 +54,15 @@ const rows = {
                 image : true
             },
             {
+<<<<<<< HEAD
+=======
+                value : 'timestamp'
+            },
+            {
+                value : 'betAmount'
+            },
+            {
+>>>>>>> 4f185013d032787e3a6203ec693dee803eed88ea
                 value : 'winAmount',
                 dependentColor : true,
                 condition : 'isWon'
@@ -298,6 +307,7 @@ class LastBets extends Component {
 
         return (
             <div styleName='container'>
+<<<<<<< HEAD
                 <div styleName='lastBets'>
                     <Tabs
                         selected={this.state.view}
@@ -319,6 +329,76 @@ class LastBets extends Component {
                                 options={views}
                                 value={this.state.view_amount}
                             /> 
+=======
+                <div>
+                    <div styleName="root">
+                        <div styleName="container">
+                            <Row>
+                                <Col md={9}>
+                                    <Tabs
+                                        selected={this.state.view}
+                                        options={this.state.options}
+                                        onSelect={this.handleTabChange}
+                                        spacing="60"
+                                    />
+                                </Col>
+                                <Col md={2}>
+                                    <div styleName='bets-dropdown-game'>
+                                        <DropDownField
+                                            id="view"
+                                            type={'view'}
+                                            onChange={(e) => this.changeViewGames(e)}
+                                            options={views}
+                                            value={this.state.view_game}
+                                            style={{width : '80%'}}
+                                            >
+                                                <MenuItem value="all_games">
+                                                    <Typography variant="body" color="casper">
+                                                        {`${copy.TABLE_FILTER}`}
+                                                    </Typography>
+                                                </MenuItem>
+                                            {games.map(option => (
+                                                <MenuItem key={option} value={option.metaName}>
+                                                    <Typography variant="body" color="casper">
+                                                        {`${option.name}`}
+                                                    </Typography>
+                                                </MenuItem>
+                                            ))}
+                                        </DropDownField> 
+                                    </div>
+                                </Col>
+                                <Col md={1}>
+                                    <div styleName='bets-dropdown'>
+                                        <DropDownField
+                                            id="view"
+                                            type={'view'}
+                                            onChange={this.changeViewBets}
+                                            options={views}
+                                            value={this.state.view_amount}
+                                            style={{width : '80%'}}
+                                            >
+                                            {views.map(option => (
+                                                <MenuItem key={option} value={option}>
+                                                    <Typography
+                                                        variant="body"
+                                                        color="casper"
+                                                    >
+                                                        {`${option}`}
+                                                    </Typography>
+                                                </MenuItem>
+                                            ))}
+                                        </DropDownField> 
+                                    </div>
+                                </Col>
+                            </Row>
+                        
+                            <TableDefault
+                                rows={this.state[this.state.view].rows}
+                                titles={this.state[this.state.view].titles}
+                                fields={this.state[this.state.view].fields}
+                                view={this.state.view}
+                            />                    
+>>>>>>> 4f185013d032787e3a6203ec693dee803eed88ea
                         </div>
                     </div>
                 </div>
