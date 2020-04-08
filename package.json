@@ -44,6 +44,7 @@
     "css-to-javascript": "^1.0.2",
     "delay": "^4.3.0",
     "express": "^4.17.1",
+    "faker": "^4.1.0",
     "history": "^4.9.0",
     "howler": "^2.1.2",
     "html2json": "^1.0.2",
