@@ -26,9 +26,6 @@ const rows = {
                 image : true,
             },
             {
-                value : 'id'
-            },
-            {
                 value : 'username'
             },
             {
@@ -58,9 +55,6 @@ const rows = {
                 image : true
             },
             {
-                value : 'id'
-            },
-            {
                 value : 'timestamp'
             },
             {
@@ -85,9 +79,6 @@ const rows = {
             {
                 value : 'game',
                 image : true
-            },
-            {
-                value : 'id'
             },
             {
                 value : 'username'
@@ -343,6 +334,7 @@ class LastBets extends Component {
                                 rows={this.state[this.state.view].rows}
                                 titles={this.state[this.state.view].titles}
                                 fields={this.state[this.state.view].fields}
+                                view={this.state.view}
                             />                    
                         </div>
                     </div>
