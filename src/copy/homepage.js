@@ -19,7 +19,13 @@
       "APP": {
         "MODAL": [
           "Register",
-          "Login"
+          "Login",
+          "Confirm E-mail"
+        ],
+        "NOTIFICATION": [
+          "Need to confirm your email to make withdrawls",
+          "E-mail confirmation success",
+          "Confirm e-mail successfully sent, check your e-mail box to validate your account"
         ]
       },
       "CHAT": {
@@ -41,7 +47,13 @@
                            lottery is an entertainment vehicle and that it carries with it a certain 
                            degree of financial risk. Players should be aware of these risks and 
                            govern themselves accordingly.` }
-          ]
+          ],
+          SUPPORT: 'Support',
+          COMMUNITY: 'Community',
+          AFFILIATE: 'Affiliate',
+          TERMS_OF_SERVICE: 'Terms Of Service',
+          BLOG: 'Blog',
+          TELEGRAM: 'Telegram'
         }
       }
     },
@@ -60,10 +72,7 @@
         "TITLE": "All Bets",
         "ITEMS": [
           "Game",
-          "Bet Id",
           "User",
-          "Time",
-          "Bet",
           "Payout",
           "Profit"
         ]
@@ -72,9 +81,6 @@
         "TITLE": "My Bets",
         "ITEMS": [
           "Game",
-          "Bet Id",
-          "Time",
-          "Bet",
           "Payout",
           "Profit"
         ]
@@ -83,16 +89,13 @@
         "TITLE": "Biggest Wins",
         "ITEMS": [
           "Game",
-          "Bet Id",
           "User",
-          "Time",
-          "Bet",
           "Payout",
           "Profit"
         ]
       },
       "BIGGEST_WIN_USERS": {
-        "TITLE": "LeaderBoard",
+        "TITLE": "Leader Board",
         "ITEMS": [
           "Position",
           "User",
@@ -114,13 +117,19 @@
           "설정",
           "입금",
           "출금",
-          "추천인 수"
+          "추천인 제도"
         ]
       },
       "APP": {
         "MODAL": [
           "등록",
-          "로그인"
+          "로그인",
+          "Confirm E-mail"
+        ],
+        "NOTIFICATION": [
+          "Need to confirm your email to make withdrawls",
+          "E-mail confirmation success",
+          "Confirm e-mail successfully sent, check your e-mail box to validate your account"
         ]
       },
       "CHAT": {
@@ -133,7 +142,13 @@
           "TEXT": [
             (param)=> { return `인터넷 복권, 도박 또는 도박장이 불법인 지역에 거주하는 경우, 이 사이트내에서 위와 관련된 그 어떤 것도 클릭하지 마십시오. 소재지에서 위의 사항들이 합법적인 경우에도 도박 관련 항목을 클릭하려면  사용자의 나이가 21세 이상이어야 합니다. 
                            자신이 속한 관할권 또는 지역 내에 존재하는 온라인 게임과 관련된 법률 및 규정의 합법성 여부를 반드시 확인하시는 것이 좋습니다. ${param}이 제공하는 게임은 공정성 및 투명성을 바탕으로한 블록체인을 기반으로 합니다. 게임을 즐기실 때에는 온라인 도박과 복권 등이 엔터테인먼트 수단이며, 경제적 손실을 가져 올 수 있다는 것을 반드시 염두해 두시길 바랍니다. 사용자는 이러한 위험을 알고, 그에 따라 스스로의 선택에 책임이 따른다는 사실을 숙지 해 주시기 바랍니다.` }
-          ]
+          ],
+          SUPPORT: '서포트',
+          COMMUNITY: '커뮤니티',
+          AFFILIATE: '추천인 제도',
+          TERMS_OF_SERVICE: '서비스 약관',
+          BLOG: '블로그',
+          TELEGRAM: '텔레그램'
         }
       }
     },
@@ -145,43 +160,34 @@
     "LABELS": [
       "이더리움에 장착된 플랫폼의 하이브리드 제어",
       "빠른 예금 및 출금, 완전한 탈중앙화",
-      "입증 가능한 공정 내기 및 빠른 스피드의 탈중앙화 된 베팅 앱"
+      "입증 가능한 공정 베팅 및 빠른 스피드의 탈중앙화 된 베팅 앱"
     ],
     "TABLE": {
       "ALL_BETS": {
-        "TITLE": "최근 승자",
+        "TITLE": "모든 베팅",
         "ITEMS": [
           "게임",
-          "베팅 아이디",
           "사용자",
-          "시간",
-          "내기",
-          "수익",
-          "이익"
+          "페이아웃",
+          "수익"
         ]
       },
       "MY_BETS": {
-        "TITLE": "최근 배팅",
+        "TITLE": "나의 베팅",
         "ITEMS": [
           "게임",
-          "베팅 아이디",
           "사용자",
-          "시간",
-          "내기",
-          "수익",
-          "이익"
+          "페이아웃",
+          "수익"
         ]
       },
       "BIGGEST_WIN_BETS": {
         "TITLE": "최고 수익 달성",
         "ITEMS": [
           "게임",
-          "베팅 아이디",
           "사용자",
-          "시간",
-          "내기",
-          "수익",
-          "이익"
+          "페이아웃",
+          "수익"
         ]
       },
       "BIGGEST_WIN_USERS": {
@@ -204,16 +210,22 @@
       },
       "ACCOUNT": {
         "TITLE": [
-          "设定值",
+          "设置",
           "充币",
           "提币",
-          "会员关系"
+          "推荐人制度"
         ]
       },
       "APP": {
         "MODAL": [
           "注册",
-          "登入"
+          "登入",
+          "Confirm E-mail"
+        ],
+        "NOTIFICATION": [
+          "Need to confirm your email to make withdrawls",
+          "E-mail confirmation success",
+          "Confirm e-mail successfully sent, check your e-mail box to validate your account"
         ]
       },
       "CHAT": {
@@ -227,7 +239,13 @@
             (param)=> { return `如果您居住在彩票，赌博或下注的地方互联网是非法的国家及地区，请不要在本网站上单击与这些活动有关的任何内容。 您必须年满21岁，才能点击与赌博相关的任何物品，即使在您所在的位置这样做是合法的。
                            认识到涉及在线游戏的法律法规各地都有所不同，建议玩家务必遵守法律在他们自己的管辖权或地区内存在的以确定所涵盖活动的合法性。 提供的游戏${param}基于区块链，公平和透明。 你几时开始在玩这些游戏时，请注意，在线赌博和彩票是一种娱乐工具，它带有一定的
                            金融风险程度。 玩家应该意识到这些风险，相应地管理自己。` }
-          ]
+          ],
+          SUPPORT: '支持',
+          COMMUNITY: '社群',
+          AFFILIATE: '推荐人制度',
+          TERMS_OF_SERVICE: '服务条款',
+          BLOG: '博客',
+          TELEGRAM: '电报'
         }
       }
     },
@@ -246,22 +264,16 @@
         "TITLE": "所有投注",
         "ITEMS": [
           "游戏",
-          "赌博ID",
           "用户名",
-          "时间",
-          "下注",
           "花费",
           "盈利"
         ]
       },
       "MY_BETS": {
-        "TITLE": "最新胜利",
+        "TITLE": "我的投注",
         "ITEMS": [
           "游戏",
-          "赌博ID",
           "用户名",
-          "时间",
-          "下注",
           "花费",
           "盈利"
         ]
@@ -270,10 +282,7 @@
         "TITLE": "最大胜利",
         "ITEMS": [
           "游戏",
-          "赌博ID",
           "用户名",
-          "时间",
-          "下注",
           "花费",
           "盈利"
         ]
@@ -307,7 +316,13 @@
       "APP": {
         "MODAL": [
           "Register",
-          "Login"
+          "Login",
+          "Confirm E-mail"
+        ],
+        "NOTIFICATION": [
+          "Need to confirm your email to make withdrawls",
+          "E-mail confirmation success",
+          "Confirm e-mail successfully sent, check your e-mail box to validate your account"
         ]
       },
       "CHAT": {
@@ -329,7 +344,13 @@
               lottery is an entertainment vehicle and that it carries with it a certain 
               degree of financial risk. Players should be aware of these risks and 
               govern themselves accordingly.` }
-          ]
+          ],
+          SUPPORT: 'Support',
+          COMMUNITY: 'Community',
+          AFFILIATE: 'Affiliate',
+          TERMS_OF_SERVICE: 'Terms Of Service',
+          BLOG: 'Blog',
+          TELEGRAM: 'Telegram'
         }
       }
     },
@@ -348,10 +369,7 @@
         "TITLE": "すべての賭け",
         "ITEMS": [
           "ゲーム",
-          "ベットID",
           "ユーザー",
-          "時間",
-          "ベット",
           "ペイアウト",
           "利益"
         ]
@@ -360,10 +378,7 @@
         "TITLE": "私の賭け",
         "ITEMS": [
           "ゲーム",
-          "ベットID",
           "ユーザー",
-          "時間",
-          "ベット",
           "ペイアウト",
           "利益"
         ]
@@ -372,10 +387,7 @@
         "TITLE": "最大の勝利",
         "ITEMS": [
           "ゲーム",
-          "ベットID",
           "ユーザー",
-          "時間",
-          "ベット",
           "ペイアウト",
           "利益"
         ]

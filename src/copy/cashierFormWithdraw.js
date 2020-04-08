@@ -24,7 +24,7 @@
     "WITHDRAW": {
       "HORIZONTAL_STEPPER": {
         "BUTTON_LABEL": [
-          "제출하다"
+          "신청"
         ],
         "LABEL": [
           "선택",

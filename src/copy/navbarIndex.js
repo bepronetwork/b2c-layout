@@ -12,7 +12,10 @@
         "TEXT": [
           "Register",
           "no currencies available",
-          "Deposit"
+          "Deposit",
+          "Casino",
+          "Chat",
+          "Bets"
         ]
       }
     }
@@ -28,7 +31,10 @@
         "TEXT": [
           "등록",
           "사용 가능한 화폐가 없습니다",
-          "입금"
+          "입금",
+          "카지노",
+          "Chat",
+          "Bets"
         ]
       }
     }
@@ -44,7 +50,10 @@
         "TEXT": [
           "注册",
           "无可用代币",
-          "充币"
+          "充币",
+          "赌场",
+          "Chat",
+          "Bets"
         ]
       }
     }
@@ -60,7 +69,10 @@
         "TEXT": [
           "Register",
           "no currencies available",
-          "Deposit"
+          "Deposit",
+          "Casino",
+          "Chat",
+          "Bets"
         ]
       }
     }

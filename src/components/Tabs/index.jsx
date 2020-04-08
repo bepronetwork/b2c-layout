@@ -10,8 +10,7 @@ export default class Tabs extends Component {
     static propTypes = {
         options: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
         selected: PropTypes.string.isRequired,
-        onSelect: PropTypes.func.isRequired,
-        spacing: PropTypes.string
+        onSelect: PropTypes.func.isRequired
     };
 
     handleTabClick = name => {
@@ -21,29 +20,33 @@ export default class Tabs extends Component {
     };
 
     renderTabs = () => {
-        const { options, selected, spacing } = this.props;
+        const { options, selected } = this.props;
 
         if (!options) {
         return null;
         }
 
-        let spacingValue = !_.isEmpty(spacing) ? spacing + "px" : "20px";
 
         const selectedTab = selected || options[0].value;
 
-        return map(options, ({ value, label }) => (
-        <div key={value} style={{"paddingRight" : spacingValue}}>
-            <Tab
-                label={label}
-                name={value}
-                onClick={this.handleTabClick}
-                selected={selectedTab === value}
-            />
+        return (
+            <div styleName="tabs">
+             {   map(options, ({ value, label, icon }) => (
+
+                    <Tab
+                        label={label}
+                        name={value}
+                        icon={icon}
+                        onClick={this.handleTabClick}
+                        selected={selectedTab === value}
+                    />
+            ))
+            }
         </div>
-        ));
+        )
     };
 
     render() {
-        return <div styleName="root">{this.renderTabs()}</div>;
+        return this.renderTabs();
     }
 }

@@ -69,29 +69,29 @@ class CurrencyDropDown extends React.Component {
         if (_.isEmpty(currency)) return null;
 
         return (
-            <div styleName="root">
-                <div styleName="container">          
-                    <DropDownField
-                        id="currency"
-                        type={'currency'}
-                        onChange={this.changeCurrency}
-                        options={currencies}
-                        value={currency ? currency._id : null}
-                        style={{width : '100%'}}
-                        label="Currency"
-                        >
-                        {currencies.map(option => (
-                            <MenuItem key={option._id} value={option._id}>
-                                <div styleName={'currency-box-top'}>
-                                    <img src={option.image} styleName='image-coin'/> 
-                                    <p styleName='option-text'>  
-                                        <AnimationNumber variant={'small-body'} decimals={6} number={formatCurrency(option.balance)} isCurrency={true}/>
-                                    </p>
-                                </div>
-                            </MenuItem>
-                        ))}
-                    </DropDownField> 
-                </div>
+            <div styleName="container">          
+                <DropDownField
+                    id="currency"
+                    type={'currency'}
+                    onChange={this.changeCurrency}
+                    options={currencies}
+                    value={currency ? currency._id : null}
+                    style={{width : '100%'}}
+                    label="Currency"
+                    height={30}
+                    width='100%'
+                    >
+                    {currencies.map(option => (
+                        <MenuItem key={option._id} value={option._id}>
+                            <div styleName={'currency-box-top'}>
+                                <img src={option.image} styleName='image-coin'/> 
+                                <p styleName='option-text'>  
+                                    <AnimationNumber variant={'small-body'} decimals={6} number={formatCurrency(option.balance)} isCurrency={true}/>
+                                </p>
+                            </div>
+                        </MenuItem>
+                    ))}
+                </DropDownField> 
             </div>
         );
     }

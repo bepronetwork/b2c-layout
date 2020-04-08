@@ -156,7 +156,6 @@ $handle: 32px;
     height: $handle;
 
     margin-top: calc(($handle * 0.12) * -1);
-    margin-left: calc($handle * 0.5 * -1);
 
     background-color: $dodger-blue;
     background-image: url("../../assets/lines.svg");

@@ -15,28 +15,44 @@
     }
 
     @include Breakpoint-mobileOnly {
-        display: none;
+
     }
+
+}
+
+.filters{
+    justify-content: flex-end;
+    display: inline-flex;
+    align-items: center;
 }
 
 .bets-dropdown{
-    margin-top : -2px;
-
-    @include Breakpoint-tabletOnly {
-        margin-top: 10px;
-    }
-
-    @include Breakpoint-mobileOnly {
-        margin-top: 6px;
-    }
+    margin: 0 $spacing-12;
 }
 
 .bets-dropdown-game{
-    margin-top : -2px;
-    width: 180px;
+    margin: 0 $spacing-12;
+}
 
-    @include Breakpoint-tabletOnly {
-        margin-top: 10px;
-        width: 120px;
+.lastBets {
+    width: 100%;
+    grid-auto-flow: column;
+    display: grid;
+    align-items: center;
+    gap: $spacing-8;
+    margin: $spacing-88 0 $spacing-28 0;
+
+    @media screen and (max-width: 767px) {
+        gap: $spacing-4;
+    }
+}
+
+
+.loading {
+    width: 100%;
+    text-align: center;
+
+    img {
+        height: $spacing-28;
     }
 }

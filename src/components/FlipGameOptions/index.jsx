@@ -277,7 +277,7 @@ const copy = CopyText.flipGameOptionsIndex[ln];
         const { isCoinSpinning, onBetTrigger } = this.props;
         const user = this.props.profile;
         const {ln} = this.props;
-const copy = CopyText.flipGameOptionsIndex[ln];
+        const copy = CopyText.flipGameOptionsIndex[ln];
 
         return (
         <div styleName="root">

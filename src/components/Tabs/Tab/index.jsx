@@ -34,18 +34,27 @@ export default class Tab extends Component {
   };
 
   render() {
-    const { selected, label } = this.props;
-    const classes = classNames("root", {
+    const { selected, label, icon } = this.props;
+    const classes = classNames("tab", {
       selected
     });
 
     return (
-      <button styleName={classes} onClick={this.handleClick} type="button">
-        <Typography variant={this.isMobileOrTablet() ? 'small-body' : 'body'} color="white">
-          {label}
-        </Typography>
-        {selected ? <div styleName="selected-underline" /> : null}
-      </button>
+      <div styleName={classes}>
+        <button onClick={this.handleClick} type="button">
+          {
+            icon ?
+              <div styleName="icon"><img src={icon} style={{ width : 16 }}/></div>
+            :
+              null
+          }
+          <div styleName="label">
+            <Typography variant={this.isMobileOrTablet() ? 'x-small-body' : 'small-body'} color="white">
+              {label}
+            </Typography>
+          </div>
+        </button>
+      </div>
     );
   }
 }

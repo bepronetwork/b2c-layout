@@ -8,7 +8,7 @@
   grid-template-areas: "Result Wheel LastBets" "Board Board Board" "ChipControls ChipControls ChipControls";
   box-sizing: border-box;
   height: 100%;
-  min-width: 400px;
+  min-width: 300px;
 
   gap: $spacing-16;
 
@@ -145,13 +145,15 @@
 }
 
 .wheel {
+    padding-left: 60px;
     margin-top : 60px;
     width: 100%;
     grid-area: Wheel / Wheel / Wheel / Wheel;
 
 
     @include Breakpoint-mobileOnly {
-        width: 336px;
+        width: 300px;
+        padding-left: $spacing-12;
         margin: auto;
     }
  
@@ -168,7 +170,6 @@
 
 .board {
   position: relative;
-  padding-top: 180px;
   grid-area: Board / Board / Board / Board;
   display: flex;
   justify-content: center;

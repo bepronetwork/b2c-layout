@@ -6,11 +6,11 @@
 
 .container {
   justify-content: center;
-
   grid-column-gap: $spacing-28;
   grid-row-gap: $spacing-28;
-
   grid-template-columns: repeat(3, 290px);
+  max-width: $content-width-desktop;
+  margin: auto;
 
   @include Breakpoint-tabletOnly {
     grid-template-columns: 1fr;
@@ -30,5 +30,14 @@
 }
 
 .container-small{
-    margin-top : 40px;
+    margin: $spacing-36 0 0 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 1.2rem 1.2rem;
+}
+
+.last-bets {
+    @media screen and (max-width: 767px) {
+      display: none;
+    }
 }

@@ -1,22 +1,15 @@
 import React, { Component } from "react";
-import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
-import { Button, SubtleButton, Typography, UserMenu, AnimationNumber, LanguagePicker, TextContainer } from "components";
+import { Button, SubtleButton, Typography, ProfileMenu, LanguageSelector, NavigationBar } from "components";
 import UserContext from "containers/App/UserContext";
-import { Numbers } from "../../lib/ethereum/lib";
 import { connect } from "react-redux";
-import _ from 'lodash';
-import "./index.css";
-import CoinSign from "../Icons/CoinSign";
-import  AlertCircleIcon from 'mdi-react/AlertCircleIcon';
-import  CheckCircleIcon from 'mdi-react/CheckCircleIcon';
-import { Col, Row } from 'reactstrap';
-import Tooltip from '@material-ui/core/Tooltip';
-import IconButton from '@material-ui/core/IconButton';
 import { getAppCustomization, getApp } from "../../lib/helpers";
 import CurrencyDropDown from "../CurrencyDropDown";
 import { formatCurrency } from "../../utils/numberFormatation";
 import { CopyText } from '../../copy';
+import _ from 'lodash';
+import "./index.css";
+
 
 function AddressConcat(string){
     return  `${string.substring(0, 6)}...${string.substring(string.length - 2)}`;
@@ -87,99 +80,132 @@ class Navbar extends Component {
         const copy = CopyText.navbarIndex[ln];
 
         return(
-            <Row>
-                <Col>
-                    <div styleName='buttons'>
-                        <div styleName="login">
-                            <SubtleButton onClick={this.handleClick} name="login">
-                            {copy.INDEX.SUBTLE_BUTTON.TEXT[0]}
-                            </SubtleButton>
-                        </div>
-                        <Button size="x-small" onClick={this.handleClick} name="register">
-                            <Typography color="white">{copy.INDEX.TYPOGRAPHY.TEXT[0]}</Typography>
-                        </Button>
-                    </div>
-                </Col>
-            </Row>
+            <div styleName='buttons'>
+                <div styleName="login">
+                    <SubtleButton onClick={this.handleClick} name="login" variant="x-small-body">
+                    {copy.INDEX.SUBTLE_BUTTON.TEXT[0]}
+                    </SubtleButton>
+                </div>
+                <Button size="x-small" onClick={this.handleClick} name="register">
+                    <Typography color="white" variant="x-small-body">{copy.INDEX.TYPOGRAPHY.TEXT[0]}</Typography>
+                </Button>
+            </div>
         )
     }
 
+    renderLogo = () => {
+        const { logo } = getAppCustomization();
+        
+        return(
+            <div styleName="logo">
+                <Link styleName='logo-image' to="/">
+                    <img styleName="image" alt="bet protocol logo" src={logo.id} />
+                </Link>
+                {this.renderCasinoSportsSelector()}
+            </div>
+        )
+    }
+
+    renderCurrencySelector = () => {
+        let {onCashier } = this.props;
+        let { currentBalance, difference } = this.state;
+        const {ln} = this.props;
+        const copy = CopyText.navbarIndex[ln]; 
+        var currencies = getApp().currencies;
+
+        return(
+            <div>
+                 {(!currencies || _.isEmpty(currencies) || currencies.length < 0) ?
+                    <div styleName="no-coin">
+                        <Typography variant="x-small-body" color="grey">
+                            {copy.INDEX.TYPOGRAPHY.TEXT[1]}
+                        </Typography>
+                    </div>
+                :
+                    <div styleName="currency">
+                        <CurrencyDropDown currentBalance={currentBalance}/>
+                        {difference ? (
+                            <div
+                            key={currentBalance}
+                            styleName={difference > 0 ? "diff-won" : "diff-lost"}
+                            >
+                                <Typography variant="small-body">
+                                    {parseFloat(Math.abs(difference))}
+                                </Typography>
+                            </div>
+                        ) : null}
+                    </div>
+                 }
+                <div styleName='button-deposit'>
+                    <Button onClick={onCashier} size={'x-small'} theme={'default'}>
+                        <Typography color={'white'} variant={'x-small-body'}>{copy.INDEX.TYPOGRAPHY.TEXT[2]}</Typography>
+                    </Button>
+                </div>
+            </div>
+        )
+    }
+
+    renderProfileMenu = () => {
+        let { onLogout, onCashier, onAccount, history } = this.props;
+        let { user } = this.state;
+
+        return(
+            <ProfileMenu
+                onAccount={() => onAccount({history})}
+                onLogout={onLogout}
+                onCashier={onCashier}
+                username={user.username}
+            />
+        )
+    }
+
+    renderLanguageSelector = () => {
+        return(
+            <div styleName="language-container">
+                <LanguageSelector showLabel={false} expand="bottom"/>
+            </div>
+        )
+    }
+
+    renderCasinoSportsSelector = () => {
+        let { history } = this.props;
+
+        return(
+            <div styleName="casino-sports">
+                <div styleName="casino-sports-container">
+                    <NavigationBar history={history}/>
+                </div>
+            </div>
+        )
+    }
+
+    renderLanguageProfile = () => {
+            let { user } = this.state;
+
+        return(
+            <div styleName="language-profile">
+                {this.renderLanguageSelector()}
+                {user ?
+                    this.renderProfileMenu()
+                :
+                    this.renderLoginOrRegister()
+                }
+            </div>
+        )
+    }
 
     render() {
-        let { onLogout, onCashier, onAccount, history } = this.props;
-        let { currentBalance, difference, user } = this.state;
-        var currencies = getApp().currencies;
-        const { logo } = getAppCustomization();
-        const {ln} = this.props;
-const copy = CopyText.navbarIndex[ln]; 
+        let { user } = this.state;
 
         return (
-                <Row styleName="root">
-                    <Col xs={3} md={3} lg={2}>
-                        <Link className='logo-image' to="/">
-                            <img styleName="image" alt="bet protocol logo" src={logo.id} />
-                        </Link>
-                    </Col>
-                    <Col xs={7} md={8} lg={9}>
-                        {user ? 
-                            <Row>
-                                <Col xs={7} md={8} lg={6}>
-                                    <Row>
-                                        <Col xs={6} md={6} lg={6}>
-                                            {(!currencies || _.isEmpty(currencies) || currencies.length < 0) ?
-                                                <div styleName="no-coin">
-                                                    <Typography variant="x-small-body" color="grey">
-                                                        {copy.INDEX.TYPOGRAPHY.TEXT[1]}
-                                                    </Typography>
-                                                </div>
-                                            :
-                                                <div styleName="coin">
-                                                    <CurrencyDropDown currentBalance={currentBalance}/>
-                                                    {difference ? (
-                                                        <div
-                                                        key={currentBalance}
-                                                        styleName={difference > 0 ? "diff-won" : "diff-lost"}
-                                                        >
-                                                            <Typography variant="small-body">
-                                                                {parseFloat(Math.abs(difference))}
-                                                            </Typography>
-                                                        </div>
-                                                    ) : null}
-                                                </div>
-                                            }
-                                        </Col>
-                                        <Col xs={0} md={6} lg={6}>
-                                            <div styleName='button-deposit'>
-                                                <Button onClick={onCashier} size={'x-small'} theme={'default'}>
-                                                    <Typography color={'white'} variant={'small-body'}>{copy.INDEX.TYPOGRAPHY.TEXT[2]}</Typography>
-                                                </Button>
-                                            </div>
-                                        </Col>
-                                    </Row>
-                                    
-                                </Col>
-                                <Col xs={5} md={4} lg={6}>
-                                    <div styleName="buttons-1">
-                                        <div styleName='user-menu'>
-                                            <UserMenu
-                                                onAccount={() => onAccount({history})}
-                                                onLogout={onLogout}
-                                                onCashier={onCashier}
-                                                username={user.username}
-                                            />
-                                        </div>
-                                    </div>
-                                </Col>
-                            </Row>
-                        :  this.renderLoginOrRegister()
+                <div  styleName="top-menu">
+                    {this.renderLogo()}
+                    {user ?
+                        [ this.renderCurrencySelector(), this.renderLanguageProfile() ]
+                    :
+                        [ <div/>, this.renderLanguageProfile() ]
                     }
-                    </Col>
-                    <Col xs={2} md={1} lg={1}>
-                        <div styleName='navbar-language'>
-                            <LanguagePicker/>
-                        </div>
-                    </Col>
-                </Row>
+                </div>
         );
     }
 }

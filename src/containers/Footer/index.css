@@ -5,11 +5,7 @@
     padding : $spacing-36;
     margin-top : $spacing-36;
     background-color : $footer-background;
-
-    @include Breakpoint-mobileOnly {
-        width: 490px;
-
-    }
+    border-radius: $border-radius;
 }
 
 
@@ -33,7 +29,7 @@
     width: 100%;
 
     max-width: $content-width-mobile;
-    padding: calc($navbar-height + $spacing-36) 0 0 0;
+    padding: calc($spacing-36) 0 0 0;
     margin: 0 auto;
 }
 

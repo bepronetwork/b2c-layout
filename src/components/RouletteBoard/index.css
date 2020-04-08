@@ -354,14 +354,9 @@
   justify-content: center;
   box-sizing: border-box;
   height: 100%;
-
   min-width: 30px;
   min-height: 40px;
-
-  @include Breakpoint-mobileOnly {
-    min-width: 7vh;
-    min-height: 6vh;
-  }
+ 
 
   padding: $spacing-4;
 
@@ -374,6 +369,21 @@
 
   svg {
     display: none;
+  }
+
+  @media screen and (max-width: 1267px) and (min-width: 1024px) {
+      min-width: 30px;
+      min-height: 30px;
+  }
+  
+  @media screen and (max-width: 1023px) and (min-width: 768px) {
+      min-width: 36px;
+      min-height: 36px;
+  }
+  
+  @media screen and (max-width: 767px) {
+      min-width: 46px;
+      min-height: 38px;
   }
 }
 
@@ -436,10 +446,6 @@
     height: 90%;
     max-width: 90%;
     max-height: 40px;
-
-    @include Breakpoint-mobileOnly {
-      height: 5vh;
-    }
   }
 
   p {
@@ -448,3 +454,4 @@
     background-color: transparent;
   }
 }
+

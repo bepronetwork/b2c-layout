@@ -9,6 +9,8 @@
   right: 0;
   -ms-flex-direction: column;
   flex-direction: column;
+  width: 100%;
+  max-width: 400px;
 }
 
 .notify-wrapper {
@@ -24,7 +26,6 @@
   position: relative;
   word-wrap: break-word;
   pointer-events: auto;
-  width: 400px;
   border-radius: 5px;
   background: $text-secondary-color;
   padding-left: 30px;

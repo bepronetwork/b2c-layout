@@ -36,7 +36,7 @@
       "DATA_CONTAINER": {
         "TITLE": [
           "钱包",
-          "会员关系"
+          "推荐人数"
         ]
       },
       "TYPOGRAPHY": {

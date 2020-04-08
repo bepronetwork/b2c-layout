@@ -1,6 +1,7 @@
 @import "./colors.css";
 @import "./layout.css";
 @import "./variables.css";
+@import "./serverFonts.css";
 @import "./googlefonts.css";
 @import "./breakpoints.css";
 @import "./components.css";
@@ -41,9 +42,6 @@ button{
 }
 
 @media only screen and (max-width: 600px) {
-    .chat-container{
-        display: none !important;
-    }
 
     .last-bets-container{
         display: none !important;

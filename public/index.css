@@ -21,6 +21,7 @@
     display : block;
     z-index: 100;
     background-color : inherit;
+    width: 100%;
 }
 
 /* Turn off number input spinners */
@@ -411,4 +412,18 @@ a > .mdi-icon{
 
 .MuiFormControl-marginNormal{
     margin-top : 0px !important;
+}
+
+.carousel-control-prev, .carousel-control-next {
+  width: 5%;
+}
+
+.carousel-inner{
+  padding-left: 5%;
+  padding-right: 5%;
+  padding-bottom: 30px;
+}
+
+.carousel-indicators{
+  z-index: 6;
 }

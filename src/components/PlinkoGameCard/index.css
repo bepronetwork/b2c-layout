@@ -16,6 +16,7 @@ $with-without-padding: calc(100% - $spacing-20 - $spacing-20);
 
     @include Breakpoint-mobileOnly {
       padding: 0;
+      min-width: 300px;
     }
   }
   
@@ -129,15 +130,26 @@ $with-without-padding: calc(100% - $spacing-20 - $spacing-20);
 
 .pegs {
   height: 2em;
-  width: 100%;
+  width: 500px;
   display: flex;
   margin: auto 0;
   -webkit-box-pack: center;
   justify-content: center;
+  padding-left: 72px;
 
-  @include Breakpoint-tabletOnly {
-    width: 340px;
-    padding-left: 44px;
+  @media screen and (max-width: 1267px) and (min-width: 1024px) {
+      width: 400px;
+      padding-left: 46px;
+  }
+  
+  @media screen and (max-width: 1023px) and (min-width: 768px) {
+      width: 470px;
+      padding-left: 50px;
+  }
+  
+  @media screen and (max-width: 767px) {
+      width: 240px;
+      padding-left: 40px;
   }
 }
 
@@ -146,9 +158,14 @@ $with-without-padding: calc(100% - $spacing-20 - $spacing-20);
   height: 100%;
   position: relative;
   gap: 1% 1%;
-  width: 79%;
-}
+  width: 100%;
+  padding: 0 20px;
 
+  @media screen and (max-width: 767px) {
+      padding: 0 0;
+      gap: 1px 1px;
+  }
+}
 
 .peg1{
   position: relative;
@@ -254,22 +271,27 @@ $with-without-padding: calc(100% - $spacing-20 - $spacing-20);
   justify-content: center;
   font-weight: 700;
 }
+
 .peg {
     grid-row: 1 / auto;
     font-size: 10px;
-    width: 50px;
+    width: 46px;
     transition: all 300ms linear;
     margin: auto;
     height: 30px;
     padding-top : 7px;
 
-    @include Breakpoint-tabletOnly {
-      width: 42px;
+    @media screen and (max-width: 1267px) and (min-width: 1024px) {
+        width: 32px;
     }
-
-    @include Breakpoint-mobileOnly {
+    
+    @media screen and (max-width: 1023px) and (min-width: 768px) {
+        width: 34px;
+    }
+    
+    @media screen and (max-width: 767px) {
         order: 0;
-        width: 30px;
+        width: 24px;
         padding-top : 4px;
         height: 20px;
     }
@@ -285,6 +307,7 @@ $with-without-padding: calc(100% - $spacing-20 - $spacing-20);
   max-width: 750px;
   margin-left: auto;
   margin-right: auto;
+  margin-top: $spacing-36;
 }
 
 .pegs.rows8 .pegs_wrapper {
@@ -292,10 +315,27 @@ $with-without-padding: calc(100% - $spacing-20 - $spacing-20);
   gap: 1% 2%;
 }
 .pegs.rows9 .pegs_wrapper {
-  width: 78%;
+  width: 100%;
 }
-
 
 .ant-btn.bet-btn{
   max-width: 350px!important;
+}
+
+
+.canvas-container > div > canvas {
+  width: 680px;
+
+  @media screen and (max-width: 1267px) and (min-width: 1024px) {
+      width: 480px;
+  }
+  
+  @media screen and (max-width: 1023px) and (min-width: 768px) {
+      width: 520px;
+  }
+  
+  @media screen and (max-width: 767px) {
+      width: 330px;
+  }
+  
 }

@@ -7,7 +7,6 @@
     height: inherit;
     min-height: 400px;
     display: block;
-    padding: $spacing-52 $spacing-20;
     overflow-y : auto;
     overflow-x : hidden;
     overflow: initial;

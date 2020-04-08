@@ -2,41 +2,53 @@
 
 .root {
   text-align: center;
-  margin-top : 50px;
-  width: 100%;
-  margin: auto;
-
-  @include Breakpoint-mobileOnly {
-    width: 450px;
-}
+  margin : auto;
+  margin-top : $spacing-88;
+  width: 95%;
 }
 
 .container {
-    margin-top: 80px;
-
-    @include Breakpoint-tabletOnly {
-        margin-top: 20px;
-    }
-
     @include Breakpoint-tabletAndAbove {
         max-width: $content-width-desktop;
-        margin-left: 3px;
+
+        margin: 0 auto;
     }
 
-    @include Breakpoint-mobileOnly {
-        margin-top: 20px;
-    }
+}
+
+.filters{
+    justify-content: flex-end;
+    display: inline-flex;
+    align-items: center;
 }
 
 .bets-dropdown{
-    margin-top : -2px;
+    margin: 0 $spacing-12;
+}
 
-    @include Breakpoint-tabletOnly {
-        margin-top: -6px;
+.bets-dropdown-game{
+    margin: 0 $spacing-12;
+}
+
+.lastBets {
+    width: 100%;
+    grid-auto-flow: column;
+    display: grid;
+    align-items: center;
+    gap: $spacing-8;
+    margin: $spacing-88 0 $spacing-28 0;
+
+    @media screen and (max-width: 767px) {
+        gap: $spacing-4;
     }
+}
 
-    @include Breakpoint-mobileOnly {
-        margin-top: 6px;
+
+.loading {
+    width: 100%;
+    text-align: center;
+
+    img {
+        height: $spacing-28;
     }
-
 }

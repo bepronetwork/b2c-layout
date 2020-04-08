@@ -92,6 +92,13 @@
     border-radius :  0 $border-radius $border-radius 0;
     background-color: $light-background;
     width : inherit;
-    height : 100%;
     text-align : center;
+    top: 0;
+    bottom: 0;
+    position: absolute;
+
+    @media screen and (max-width: 767px) {
+        position: initial;
+        border-radius: 0 0 5px 5px;
+    }
 }

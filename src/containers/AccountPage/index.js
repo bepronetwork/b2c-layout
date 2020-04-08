@@ -8,6 +8,7 @@ import ExitToAppIcon from 'mdi-react/ExitToAppIcon';
 import SettingsIcon from 'mdi-react/SettingsIcon';
 import GiftIcon from 'mdi-react/GiftIcon';
 import { CopyText } from '../../copy';
+import _ from "lodash";
 
 class AccountPage extends Component {
 
@@ -16,9 +17,19 @@ class AccountPage extends Component {
         this.state = {}
     }
 
+    componentDidMount(){
+        const {profile, onHandleLoginOrRegister} = this.props;
+
+        if (!profile || _.isEmpty(profile)) {
+            this.props.history.push('/');
+            return onHandleLoginOrRegister("login");
+        }
+    }
+
     render() {
-        const {ln} = this.props;
+        const {ln, profile} = this.props;
         const copy = CopyText.homepage[ln];
+        if (!profile || _.isEmpty(profile)) return null;
 
         return (
             <div styleName='main-container'>
@@ -29,21 +40,25 @@ class AccountPage extends Component {
                         items={
                             [
                                 {
+                                    path: "settings",
                                     title : copy.CONTAINERS.ACCOUNT.TITLE[0],
                                     container : <SettingsTab/>,
                                     icon : <SettingsIcon size={20}/>
                                 },
                                 {
+                                    path: "deposits",
                                     title : copy.CONTAINERS.ACCOUNT.TITLE[1],
                                     container : <DepositTab/>,
                                     icon : <MoneyIcon size={20}/>
                                 },
                                 {
+                                    path: "withdraws",
                                     title : copy.CONTAINERS.ACCOUNT.TITLE[2],
                                     container : <WithdrawTab/>,
                                     icon : <ExitToAppIcon size={20}/>
                                 },
                                 {
+                                    path: "affiliate",
                                     title : copy.CONTAINERS.ACCOUNT.TITLE[3],
                                     container : <AffiliatesTab/>,
                                     icon : <GiftIcon size={20}/>
