@@ -120,11 +120,11 @@ class App extends Component {
 
     automaticLoginFromCache = async () => {
         let reponseUser = Cache.getFromCache('user');
+        let user = await this.updateUser(reponseUser);
 
         if(reponseUser) {
-            let user = await this.updateUser(reponseUser);
             await user.updateUser();
-            
+
             const appInfo = Cache.getFromCache("appInfo");
             this.setDefaultCurrency(appInfo);
         }
