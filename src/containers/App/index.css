@@ -74,13 +74,13 @@
   bottom: $spacing-28;
   right: calc($chat-width-desktop + $spacing-28);
   z-index: 12;
-  background-color: $primaryColor;
-  height: 50px;
-  width: 50px;
-  border-radius: 40px;
+  background-color: #000;
+  height: 40px;
+  width: 40px;
+  border-radius: $border-radius;
   text-align: center;
-  padding-top: 12px;
-  box-shadow: rgba(0, 0, 0, 0.5) 0px 0px 10px;
+  padding-top: 4px;
+  box-shadow: rgba(0, 0, 0) 0px 0px 10px;
 
 
   @media screen and (max-width: 1267px) and (min-width: 1024px) {

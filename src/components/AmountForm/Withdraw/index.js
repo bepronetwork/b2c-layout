@@ -70,8 +70,8 @@ class AmountWithdrawForm extends Component {
     }
 
     onChangeAmount = async (amount) => {
-        this.setState({...this.state, amount});
-        await store.dispatch(setWithdrawInfo({key : "amount", value : amount}));
+        this.setState({...this.state, amount : parseFloat(amount)});
+        await store.dispatch(setWithdrawInfo({key : "amount", value : parseFloat(amount)}));
     }
 
     onToAddressChange = async event => {
@@ -132,7 +132,6 @@ class AmountWithdrawForm extends Component {
                                     onChange={(amount) => this.onChangeAmount(amount)}
                                     icon="cross"
                                     value={amount}
-                                    type="currency"
                                 />
                             </Col>
                             <Col md={2}>
