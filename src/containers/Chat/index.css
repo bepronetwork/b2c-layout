@@ -135,7 +135,7 @@
 
 
 .button{
-    background-color: $blue-ribbon;    
+    background-color: $button-primary-color; 
     margin : auto;
     position: relative;
     display: block;

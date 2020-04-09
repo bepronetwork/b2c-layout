@@ -16,12 +16,12 @@ const languages = [
         image : chinese,
         channel_id : 'chinese'
     },
-    {
+    /*{
         name : 'Korean',
         nick : 'ko',
         image : korea,
         channel_id : 'korea'
-    },
+    }, */
     {
         name : 'Japanese',
         nick : 'jp',

@@ -1,0 +1,6 @@
+@import "../../styles/all.css";
+
+.root {
+    height: 80px;
+    padding-top : $padding-height-navbar;
+}

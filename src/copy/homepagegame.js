@@ -5,7 +5,7 @@
     "SOUND": "Sound",
     "TABLE": {
       "ALL_BETS": {
-        "TITLE": "Latests Wins",
+        "TITLE": "Latest Wins",
         "ITEMS": [
           "Game",
           "User",
@@ -14,7 +14,7 @@
         ]
       },
       "MY_BETS": {
-        "TITLE": "Latests Bets",
+        "TITLE": "Latest Bets",
         "ITEMS": [
           "Game",
           "Payout",
