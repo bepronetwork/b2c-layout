@@ -27,3 +27,9 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 package-lock.json
+/src/styles/serverVariables.css
+/src/styles/serverFonts.css
+/public/loading.gif
+/public/index.html
+/public/logo.ico
+/public/logo.png
