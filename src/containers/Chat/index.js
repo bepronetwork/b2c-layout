@@ -14,6 +14,7 @@ import { setMessageNotification } from "../../redux/actions/message";
 import { CopyText } from "../../copy";
 import store from "../App/store";
 import { dateToHourAndMinute } from "../../lib/helpers";
+import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 
 const sound = localStorage.getItem("sound");
 
@@ -26,7 +27,8 @@ const defaultProps = {
     participants : 0,
     open : true,
     history: "",
-    language : languages[0]
+    language : languages[0],
+    isLoading: true
 }
 
 class ChatPage extends React.Component {
@@ -49,6 +51,9 @@ class ChatPage extends React.Component {
         if (index === selected) {
             setTimeout(() => {
                 this.messagesEnd.scrollIntoView({ behavior: "smooth" });
+                setTimeout(() => {
+                    this.setState({ isLoading : false })
+                }, 3000)
             }, 500)
         }
     }
@@ -59,7 +64,8 @@ class ChatPage extends React.Component {
                 participants : props.chat.participants,
                 messages :  props.chat.messages,
                 name : props.chat.name,
-                open :  props.chat.open
+                open :  props.chat.open,
+                isLoading: true
             });
 
             this.scrollToBottom();
@@ -80,27 +86,41 @@ class ChatPage extends React.Component {
     }
 
     createMessageBox = ({username, message, id, time}) => {
+        const { isLoading } = this.state;
         return(
             <div>
-                <div styleName='message-box' key={id}> 
-                    <div styleName='info'>
-                        <div style={{float : 'left', marginRight : 8}}>
-                            <Typography variant="x-small-body" color="casper"> 
-                                @{username} 
-                            </Typography>
-                        </div> 
-                        <div style={{float : 'left', marginRight : 8}}>
-                            <Typography variant="x-small-body" color="grey"> 
-                                {dateToHourAndMinute(time)} 
+                {isLoading ?
+                    <SkeletonTheme color="#05040c" highlightColor="#17162d">
+                        <div styleName='message-box' key={id} style={{opacity : '0.3'}}> 
+                            <div styleName='info'>
+                                <Skeleton width={100}/>
+                            </div>
+                            <div styleName={'info-message-container'}>
+                                <Skeleton />
+                            </div>
+                        </div>
+                    </SkeletonTheme>
+                :
+                    <div styleName='message-box' key={id}> 
+                        <div styleName='info'>
+                            <div style={{float : 'left', marginRight : 8}}>
+                                <Typography variant="x-small-body" color="casper"> 
+                                    @{username} 
+                                </Typography>
+                            </div> 
+                            <div style={{float : 'left', marginRight : 8}}>
+                                <Typography variant="x-small-body" color="grey"> 
+                                    {dateToHourAndMinute(time)} 
+                                </Typography>
+                            </div>
+                        </div>
+                        <div styleName={'info-message-container'}>
+                            <Typography variant="small-body" color="white">
+                                {message}
                             </Typography>
                         </div>
                     </div>
-                    <div styleName={'info-message-container'}>
-                        <Typography variant="small-body" color="white">
-                            {message}
-                        </Typography>
-                    </div>
-                </div>
+                }
             </div>
             
         )

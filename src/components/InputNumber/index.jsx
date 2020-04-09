@@ -98,9 +98,18 @@ export default class InputNumber extends Component {
   }
 
   handleChange = event => {
-    const { onChange, max } = this.props;
+    const { onChange, max, type } = this.props;
+    let value = event.target.value;
 
-    const value = Number(event.target.value);
+    if (type == "currency") {
+      var regex = /^(\d+(?:[\.\,]\d{0,6})?)$/;
+      if (value && !regex.test(value)) { return "" };
+
+      value = value.replace(",", ".");
+    }
+    else {
+      value = Number(value);
+    }
 
     if (isEmpty(event.target.value) || event.target.value < 0) {
       this.setState({ value: "" });
@@ -162,7 +171,8 @@ export default class InputNumber extends Component {
       step,
       disabled,
       icon,
-      unit
+      unit,
+      type
     } = this.props;
     const { focused, value } = this.state;
 
@@ -190,7 +200,7 @@ export default class InputNumber extends Component {
               onFocus={this.handleFocus}
               onWheel={this.handleWheel}
               styleName="input"
-              type="number"
+              type={type == "currency" ? "text" : "number"}
               value={focused ? value : parsedValue}
               step={step}
               disabled={disabled}
