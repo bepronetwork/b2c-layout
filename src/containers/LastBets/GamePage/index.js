@@ -10,9 +10,9 @@ import { SelectBox, Table } from 'components';
 import { formatCurrency } from '../../../utils/numberFormatation';
 import _ from 'lodash';
 import { CopyText } from "../../../copy";
-import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 import "./index.css";
 
+import loadingIcon from 'assets/loading-circle.gif';
 import awardIcon from 'assets/icons/award.png';
 import medalIcon from 'assets/icons/medal.png';
 import flagIcon from 'assets/icons/flag.png';
@@ -157,8 +157,7 @@ class LastBets extends Component {
         this.setState({...this.state, 
             ...options,
             isLoading : false,
-            gameMetaName,
-            games,
+            games : games,
             options : Object.keys(copy.TABLE).map( (key) => {
 
                 let icon = null;
@@ -195,8 +194,7 @@ class LastBets extends Component {
                         betAmount: formatCurrency(Numbers.toFloat(bet.betAmount))+' '+ticker,
                         winAmount: formatCurrency(Numbers.toFloat(bet.winAmount))+' '+ticker,
                         isWon : bet.isWon,
-                        payout : `${formatCurrency(Numbers.toFloat(bet.winAmount/bet.betAmount))}x`,
-                        ticker
+                        payout : `${formatCurrency(Numbers.toFloat(bet.winAmount/bet.betAmount))}x`
                     }
                 }).filter( el => (el.game.metaName == gameMetaName) && el.isWon === true)
             },
@@ -240,58 +238,40 @@ class LastBets extends Component {
         })
     }
 
-    createSkeletonTabs = () => {
-        let tabs = []
-    
-        for (let i = 0; i < 3; i++) {
-          tabs.push(<div styleName="skeleton-main-item"><div styleName="skeleton-left-item"><Skeleton circle={true} height={30} width={30}/></div><div styleName="skeleton-right-item"><Skeleton height={30}/></div></div>);
-        }
-
-        return tabs
-    }
-
     render() {
-        const { isLoading, gameMetaName, games } = this.state;
+        const { isLoading } = this.state;
 
         return (
             <div styleName='container'>
-                {isLoading ?
-                    <SkeletonTheme color="#05040c" highlightColor="#17162d">
-                        <div styleName='lastBets' style={{opacity : '0.3'}}>
-                            <div styleName='skeleton-tabs'>
-                                {this.createSkeletonTabs()}
-                                <Skeleton width={50}/>
-                            </div>
-                        </div>
-                    </SkeletonTheme>
-                :
-                    <div styleName='lastBets'>
-                        <Tabs
-                            selected={this.state.view}
-                            options={this.state.options}
-                            onSelect={this.handleTabChange}
-                            color="primary"
-                        />
-                        <div styleName="filters">
-                            <div styleName='bets-dropdown'>
-                                <SelectBox
-                                    onChange={(e) => this.changeViewBets(e)}
-                                    options={views}
-                                    value={this.state.view_amount}
-                                /> 
-                            </div>
+                <div styleName='lastBets'>
+                    <Tabs
+                        selected={this.state.view}
+                        options={this.state.options}
+                        onSelect={this.handleTabChange}
+                        color="primary"
+                    />
+                    <div styleName="filters">
+                        <div styleName='bets-dropdown'>
+                            <SelectBox
+                                onChange={(e) => this.changeViewBets(e)}
+                                options={views}
+                                value={this.state.view_amount}
+                            /> 
                         </div>
                     </div>
+                </div>
+                {isLoading 
+                    ?
+                        <div styleName="loading"><img src={loadingIcon} /></div>
+                    :
+                        <Table
+                            rows={this.state[this.state.view].rows}
+                            titles={this.state[this.state.view].titles}
+                            fields={this.state[this.state.view].fields}
+                            showRealTimeLoading={this.state.view == "all_bets" ? true : false}
+                            size={this.state.view_amount.value}
+                        /> 
                 }
-                <Table
-                    rows={this.state[this.state.view].rows}
-                    titles={this.state[this.state.view].titles}
-                    fields={this.state[this.state.view].fields}
-                    showRealTimeLoading={this.state.view == "all_bets" ? true : false}
-                    size={this.state.view_amount.value}
-                    games={games.filter(function(g) { return g.metaName == gameMetaName; }).map(function(g) { return g; })}
-                    isLoading={isLoading}
-                /> 
             </div>
         );
     }
