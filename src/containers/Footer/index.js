@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Row, Col} from 'reactstrap';
-import { Typography, LanguagePicker } from 'components';
+import { Typography, LanguagePicker, LegalBox } from 'components';
 import { Link } from 'react-dom';
 import { connect } from "react-redux";
 import "./index.css";
@@ -10,6 +10,7 @@ import {CopyText} from "../../copy";
 const footerStaticOutput = ({props, supportLinks, communityLinks}) => {
     const { logo } = getAppCustomization();
     const info = getApp();
+    console.log(info);
     const {ln} = props;
     const copy = CopyText.homepage[ln];
 
@@ -23,6 +24,7 @@ const footerStaticOutput = ({props, supportLinks, communityLinks}) => {
             { 
                 col : 4,
                 align : 'left',
+                show : info.name,
                 items : [
                     {
                         type : 'image',
@@ -42,10 +44,17 @@ const footerStaticOutput = ({props, supportLinks, communityLinks}) => {
                         color : 'white',
                     }
                 ]
-            },
+            },    
             { 
                 col : 4,
                 align : 'left',
+                show : info.isValid,
+                return :  <LegalBox licenseID={info.licenseID}/> 
+            },               
+            { 
+                col : 2,
+                align : 'left',
+                show : (supportLinks.length > 0),
                 title : {
                     color : 'white',
                     text : copy.CONTAINERS.FOOTER.INFO.SUPPORT,
@@ -62,8 +71,9 @@ const footerStaticOutput = ({props, supportLinks, communityLinks}) => {
                 })
             },
             { 
-                col : 4,
+                col : 2,
                 align : 'left',
+                show : (communityLinks.length > 0),
                 title : {
                     color : 'white',
                     text : copy.CONTAINERS.FOOTER.INFO.COMMUNITY,
@@ -117,6 +127,19 @@ class Footer extends Component {
                 <div styleName="footer">
                     <Row>
                         {footerInfo.tabs.map( tab =>  {
+                            /* If not Data don´t show */
+                            if(!tab.show){return null}
+
+                            /* If there is an object to return */
+                            if(tab.return){
+                                return(
+                                    <Col md={tab.col}>
+                                        {tab.return}
+                                    </Col>
+                                )
+                            }
+
+                            /* If normal List of links */
                             return(
                                 <Col md={tab.col}>
                                     <div styleName={tab.align}>

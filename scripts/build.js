@@ -62,6 +62,7 @@ async function generateHeadElements(){
     const { typography } =  appInfo;
     var html = html2json(indexHtml);
     html = generateNavBarName(html);
+    html = generateLicenseNumber(html);
 
     if(typography) {
         const { url, name } = typography;
@@ -89,9 +90,20 @@ function generateNavBarName(html){
     const navBarName = `${name} - ${description}`;
     let titleIndex = html.child[0].child[1].child.findIndex( c => c.tag && (c.tag.toLowerCase() == 'title'));
     html.child[0].child[1].child[titleIndex].child[0].text = navBarName;
-
     return html;
 }
+
+function generateLicenseNumber(html){
+    /* Get NavBar Name */
+    const { isValid, licenseID } = appInfo;
+    const src = `https://${licenseID}.curacao-egaming.com/ceg-seal.js`;
+    if(isValid){
+        let titleIndex = html.child[0].child[1].child.findIndex( c => c.tag && (c.tag.toLowerCase() == 'script') && (c.attr && c.attr.id == 'licenseID'));
+        html.child[0].child[1].child[titleIndex].attr.src = src;
+    }
+    return html;
+}
+
 
 async function generateFavIcon(){
     /* Get Favicon */

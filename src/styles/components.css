@@ -40,6 +40,7 @@ $chat-container-color : $primary-background-color;
 $chat-message-container-color : $primary-background-color;
 $scroll-bar-color : $primary-background-color;
 $button-hover-color : $text-secondary-color;
+$button-primary-color : $light-table-color;
 $table-odd-background : $secondary-background-color;
 $table-odd-border-radius : 0px;
 $footer-background : $secondary-background-color;

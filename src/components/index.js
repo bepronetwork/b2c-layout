@@ -81,7 +81,9 @@ import TextContainer from './TextContainer';
 import Authentication2FAModal from './Authentication2FAModal';
 import CurrencyDropDown from './CurrencyDropDown';
 import Table from './Table';
+import LegalBox from './LegalBox';
 
+export { LegalBox };
 export { Authentication2FAModal };
 export { TextContainer };
 export { CurrencyDropDown };
