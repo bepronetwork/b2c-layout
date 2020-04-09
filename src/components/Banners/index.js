@@ -48,7 +48,6 @@ class Banners extends Component {
             <div styleName='banners'>
               <Carousel activeIndex={index} onSelect={this.handleSelect.bind(this)} pause="hover">
                     {banners.map(banner => {
-
                         const styles = classNames("text-image", {"text-image-show": !(banner.title || banner.subtitle || banner.button_text)});
 
                         return (
@@ -66,9 +65,13 @@ class Banners extends Component {
                                                         <Typography color={'grey'} variant={'small-body'}>{banner.subtitle}</Typography>
                                                     </div>
                                                     
-                                                    <Button  onClick={() => this.handleClick(banner.link_url)} theme="action">
-                                                        <Typography color={'white'} variant={'small-body'}>{banner.button_text}</Typography>
-                                                    </Button>
+                                                    {banner.button_text &&  banner.link_url ?
+                                                        <Button  onClick={() => this.handleClick(banner.link_url)} theme="action">
+                                                            <Typography color={'white'} variant={'small-body'}>{banner.button_text}</Typography>
+                                                        </Button>
+                                                    : 
+                                                        null
+                                                    }
                                                 </div>
                                             :
                                                 <div/>
@@ -87,9 +90,13 @@ class Banners extends Component {
                                                             <Typography color={'white'} variant={'body'}>{banner.subtitle}</Typography>
                                                         </div>
                                                         
-                                                        <Button  onClick={() => this.handleClick(banner.link_url)} theme="action" size={'x-small'}>
-                                                            <Typography color={'white'} variant={'body'}>{banner.button_text}</Typography>
-                                                        </Button>
+                                                        {banner.button_text &&  banner.link_url ?
+                                                            <Button  onClick={() => this.handleClick(banner.link_url)} theme="action" size={'x-small'}>
+                                                                <Typography color={'white'} variant={'body'}>{banner.button_text}</Typography>
+                                                            </Button>
+                                                            : 
+                                                            null
+                                                        }
                                                     </div>
                                                 :
                                                     <div/>

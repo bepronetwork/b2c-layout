@@ -53,9 +53,13 @@
     justify-content: center;
 
     @include Breakpoint-mobileOnly {
-        height: 140px;
-        margin-top : 500%;
-        display: none;
+      justify-content: unset;
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 100%;
+      overflow: hidden;
+      padding: $spacing-16;
     }
 }
 
@@ -118,6 +122,11 @@
     font-size: $font-size-h4;
     font-weight: 600;
     line-height: $line-height-h4;
+  }
+
+  @include Breakpoint-mobileOnly {
+    width: 50px;
+    height: 50px;
   }
 }
 

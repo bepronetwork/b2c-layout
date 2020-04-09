@@ -37,8 +37,7 @@ class WheelBox extends Component {
         )
     }
     render() {
-        const { ln, options } = this.props;
-        const copy = CopyText.shared[ln];
+        const { options } = this.props;
 
         return (
             <div styleName="root">

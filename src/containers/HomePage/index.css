@@ -37,6 +37,8 @@
 }
 
 .last-bets {
+    padding: 0 $spacing-20;
+
     @media screen and (max-width: 767px) {
       display: none;
     }

@@ -41,6 +41,11 @@ class BottomNavbar extends Component {
         onBetsList(!openBetsList);
     };
 
+    openDeposit = () => {
+        let { onCashier, onLoginRegister, profile } = this.props;
+        
+        !_.isEmpty(profile) ? onCashier() : onLoginRegister('login');
+    }
 
     homeClick = () => {
         const { onHome, history } = this.props;
@@ -49,7 +54,6 @@ class BottomNavbar extends Component {
 
 
     render() {
-        let { onCashier } = this.props;
         const {ln} = this.props;
         const copy = CopyText.navbarIndex[ln]; 
 
@@ -67,7 +71,7 @@ class BottomNavbar extends Component {
                         </a>
                     </li>
                     <li>
-                        <a href="#" onClick={onCashier}>
+                        <a href="#" onClick={this.openDeposit}>
                             <span styleName="item">
                                 <img src={walletIcon} style={{width : 24}}/>
                                 <Typography variant="x-small-body" color="grey">

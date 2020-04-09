@@ -51,6 +51,7 @@ class TableDefault extends Component {
         if(rows.length && showRealTimeLoading) {
             setTimeout(() => {
                 var row = rows[Math.floor(Math.random() * rows.length)];
+                let fakeUserName = faker.internet.userName();
 
                 const newRow = {
                     betAmount: row.betAmount,
@@ -59,7 +60,7 @@ class TableDefault extends Component {
                     isWon: row.isWon,
                     payout: row.payout,
                     timestamp: "a few seconds ago",
-                    username: faker.internet.userName(),
+                    username: fakeUserName.length > 10 ? fakeUserName.substring(0, 4)+'...'+fakeUserName.substring(fakeUserName.length-3, fakeUserName.length) : fakeUserName,
                     winAmount: row.winAmount
                 }
         
@@ -109,10 +110,11 @@ class TableDefault extends Component {
                                     )
                                 }else if(field.image){
                                     const imageStyles = classNames("th-row", "th-row-img");
+                                    const background = row[field.value].background_url;
                                     return (
                                         <th styleName={imageStyles}>
                                             <div styleName="image">
-                                                <div styleName="icon"><img styleName='image-icon' src={row[field.value].image_url}/></div>
+                                                <div styleName="icon" style={{ background: background ? 'url('+background+') center center / cover no-repeat' : 'none'}}><img styleName='image-icon' src={row[field.value].image_url}/></div>
                                                 <div styleName='image-name'><Typography variant='x-small-body' color={"grey"}> {row[field.value].name} </Typography></div>
                                             </div>
                                         </th>
