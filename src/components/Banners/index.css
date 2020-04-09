@@ -16,7 +16,7 @@
     height: 300px;
     border-radius: $border-radius;
     background-color: $primaryColor;
-    box-shadow: 1px 4px 10px 0px $dark-table-color;
+    box-shadow: 1px 4px 10px 0px #000;
 
     @media screen and (max-width: 1267px) {
         grid-template-columns: 1fr;
@@ -27,6 +27,7 @@
     margin: auto 0;
     text-align: left;
     padding: $spacing-28;
+    border-radius: $border-radius 0px 0px $border-radius;
 
     @media screen and (max-width: 1267px) {
         display: none;
@@ -46,6 +47,7 @@
 
     @media screen and (max-width: 1267px) {
         display: inline;
+        border-radius: $border-radius;
     }
 }
 

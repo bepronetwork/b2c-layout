@@ -103,7 +103,8 @@ class App extends Component {
         try{
             /* Get App Info */
             await this.updateAppInfo();
-            await this.loginAccount();
+            //await this.loginAccount();
+            await this.automaticLoginFromCache();
             this.closeStaticLoading();
         }catch(err){
             console.log(err);
@@ -115,6 +116,25 @@ class App extends Component {
         }
         
         this.start();
+    }
+
+    automaticLoginFromCache = async () => {
+        let reponseUser = Cache.getFromCache('user');
+        let user = await this.updateUser(reponseUser);
+        await user.updateUser();
+
+        if(reponseUser) {
+            const appInfo = Cache.getFromCache("appInfo");
+
+            this.setDefaultCurrency(appInfo);
+        }
+    }
+
+    setDefaultCurrency = async (res) => {
+        if(res && res.wallet && res.wallet.length > 0 && res.wallet[0].currency) {
+            let currency = res.wallet[0].currency;
+            await store.dispatch(setCurrencyView(currency));
+        }
     }
 
     loginAccount = async () => {
@@ -210,10 +230,8 @@ class App extends Component {
                 this.setState({ registerLoginModalOpen: null, error: null});
             }
             /* Set currency */
-            if(response.wallet && response.wallet.length > 0 && response.wallet[0].currency) {
-                let currency = response.wallet[0].currency;
-                await store.dispatch(setCurrencyView(currency));
-            }
+            this.setDefaultCurrency(response);
+
             return response;
         } catch (error) {
             handleError(error);
@@ -650,6 +668,7 @@ class App extends Component {
                             onChat={this.handleChatOpen}
                             onHome={this.handleHomeOpen}
                             onBetsList={this.handleBetsListOpen}
+                            onLoginRegister={this.handleLoginOrRegisterOpen}
                         />
                     </Router>
                 </UserContext.Provider>

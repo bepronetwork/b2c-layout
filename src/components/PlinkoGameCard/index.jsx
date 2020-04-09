@@ -273,6 +273,16 @@ class PlinkoGameCard extends React.Component {
             <Sound volume={100} url={loseSound} playStatus="PLAYING" autoLoad />
         );
     };
+
+    renderResult = () => {
+        const { result } = this.props;
+
+        if(!result || !result.multiplier){return null};
+
+        return (
+            <h6>{result.multiplier}x</h6>
+        );
+    };
       
     render() {
         const { game } = this.state;
@@ -282,7 +292,7 @@ class PlinkoGameCard extends React.Component {
                 <Row style={{margin:-10}}>
                     <Col span={18} push={6} gutter={16}>
                     <div styleName="canvas-container">
-                        <div id="techvr" />
+                        <div id="techvr" styleName="canvas"/>
                         <div styleName={`pegs rows${game.resultSpace.length-1}`}>
                             <div styleName="pegs_wrapper" >
                                 {game.resultSpace.map((el, i) => {
@@ -303,6 +313,9 @@ class PlinkoGameCard extends React.Component {
                                     )
                                 })}
                             </div>
+                        </div>
+                        <div styleName="result">
+                            {this.renderResult()}
                         </div>
                     </div>
                     </Col>
