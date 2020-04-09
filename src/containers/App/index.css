@@ -74,7 +74,7 @@
   bottom: $spacing-28;
   right: calc($chat-width-desktop + $spacing-28);
   z-index: 12;
-  background-color: $backgroundColor;
+  background-color: #000;
   height: 40px;
   width: 40px;
   border-radius: $border-radius;
