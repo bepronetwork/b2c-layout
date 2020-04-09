@@ -10,10 +10,10 @@ import { SelectBox, Table } from 'components';
 import _ from 'lodash';
 import { CopyText } from "../../../copy";
 import { formatCurrency } from "../../../utils/numberFormatation";
+import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 
 import "./index.css";
 
-import loadingIcon from 'assets/loading-circle.gif';
 import awardIcon from 'assets/icons/award.png';
 import medalIcon from 'assets/icons/medal.png';
 import podiumIcon from 'assets/icons/podium.png';
@@ -116,6 +116,7 @@ const defaultProps = {
     biggest_win_users : rows.biggest_win_users,
     view        : 'all_bets',
     view_amount : views[1],
+    gamesOptions : [],
     games : [],
     options : [],
     view_game : allGames,
@@ -195,7 +196,8 @@ class LastBets extends Component {
         this.setState({...this.state, 
             ...options,
             isLoading : false,
-            games : gamesOptions,
+            games,
+            gamesOptions,
             options : Object.keys(copy.TABLE).map( (key) => {
                 let icon = null;
                 const value = new String(key).toLowerCase();
@@ -234,9 +236,10 @@ class LastBets extends Component {
                         betAmount: formatCurrency(Numbers.toFloat(bet.betAmount))+' '+ticker,
                         winAmount: formatCurrency(Numbers.toFloat(bet.winAmount))+' '+ticker,
                         isWon : bet.isWon,
-                        payout : `${formatCurrency(Numbers.toFloat(bet.winAmount/bet.betAmount))}x`
+                        payout : `${formatCurrency(Numbers.toFloat(bet.winAmount/bet.betAmount))}x`,
+                        ticker
                     }
-                }).filter( el => (view_game.value == 'all_games' || el.game.metaName == view_game.value) && el.isWon === true)
+                }).filter( el => (view_game.value == 'all_games' || el.game.metaName == view_game.value))
             },
             my_bets : {
                 ...this.state.my_bets,
@@ -293,47 +296,66 @@ class LastBets extends Component {
         })
     }
 
+    createSkeletonTabs = () => {
+        let tabs = []
+    
+        for (let i = 0; i < 4; i++) {
+          tabs.push(<div styleName="skeleton-main-item"><div styleName="skeleton-left-item"><Skeleton circle={true} height={30} width={30}/></div><div styleName="skeleton-right-item"><Skeleton height={30}/></div></div>);
+        }
+
+        return tabs
+    }
+
     render() {
-        const { games, isLoading } = this.state;
+        const { games, gamesOptions, isLoading } = this.state;
 
         return (
             <div styleName='container'>
-                <div styleName='lastBets'>
-                    <Tabs
-                        selected={this.state.view}
-                        options={this.state.options}
-                        onSelect={this.handleTabChange}
-                    />
-                    <div styleName="filters">
-                        <div styleName='bets-dropdown-game'>
-                            <SelectBox
-                                onChange={(e) => this.changeViewGames(e)}
-                                options={games}
-                                value={this.state.view_game}
-                            /> 
+                {isLoading ?
+                    <SkeletonTheme color="#05040c" highlightColor="#17162d">
+                        <div styleName='lastBets' style={{opacity : '0.3'}}>
+                            <div styleName='skeleton-tabs'>
+                                {this.createSkeletonTabs()}
+                                <Skeleton width={80}/>
+                                <Skeleton width={40}/>
+                            </div>
                         </div>
+                    </SkeletonTheme>
+                :
+                    <div styleName='lastBets'>
+                        <Tabs
+                            selected={this.state.view}
+                            options={this.state.options}
+                            onSelect={this.handleTabChange}
+                        />
+                        <div styleName="filters">
+                            <div styleName='bets-dropdown-game'>
+                                <SelectBox
+                                    onChange={(e) => this.changeViewGames(e)}
+                                    options={gamesOptions}
+                                    value={this.state.view_game}
+                                /> 
+                            </div>
 
-                        <div styleName='bets-dropdown'>
-                            <SelectBox
-                                onChange={(e) => this.changeViewBets(e)}
-                                options={views}
-                                value={this.state.view_amount}
-                            /> 
+                            <div styleName='bets-dropdown'>
+                                <SelectBox
+                                    onChange={(e) => this.changeViewBets(e)}
+                                    options={views}
+                                    value={this.state.view_amount}
+                                /> 
+                            </div>
                         </div>
                     </div>
-                </div>
-                {isLoading 
-                    ?
-                        <div styleName="loading"><img src={loadingIcon} /></div>
-                    :
-                        <Table
-                            rows={this.state[this.state.view].rows}
-                            titles={this.state[this.state.view].titles}
-                            fields={this.state[this.state.view].fields}
-                            showRealTimeLoading={this.state.view == "all_bets" ? true : false}
-                            size={this.state.view_amount.value}
-                        /> 
                 }
+                <Table
+                    rows={this.state[this.state.view].rows}
+                    titles={this.state[this.state.view].titles}
+                    fields={this.state[this.state.view].fields}
+                    showRealTimeLoading={this.state.view == "all_bets" ? true : false}
+                    size={this.state.view_amount.value}
+                    games={games.filter(function(g) { return g.metaName != 'jackpot_auto'; }).map(function(g) { return g; })}
+                    isLoading={isLoading}
+                /> 
             </div>
         );
     }
