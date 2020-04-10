@@ -118,7 +118,6 @@ class AmountWithdrawForm extends Component {
                                         placeholder={copy.INDEX.INPUT_TEXT.PLACEHOLDER[0]}
                                         weight="regular"
                                         type="slim"
-                                        type="currency"
                                     />
                                 </div>
                             </Col>
@@ -133,6 +132,7 @@ class AmountWithdrawForm extends Component {
                                     onChange={(amount) => this.onChangeAmount(amount)}
                                     icon="cross"
                                     value={amount}
+                                    type="currency"
                                 />
                             </Col>
                             <Col md={2}>
