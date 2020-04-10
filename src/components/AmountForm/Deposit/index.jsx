@@ -41,8 +41,8 @@ class AmountDepositForm extends Component {
     }
 
     onChangeAmount = async (amount) => {
-        this.setState({...this.state, amount : parseFloat(amount)});
-        await store.dispatch(setDepositInfo({key : "amount", value : parseFloat(amount)}));
+        this.setState({...this.state, amount});
+        await store.dispatch(setWithdrawInfo({key : "amount", value : amount}));
     }
 
     renderAmountDepositButton({disabled, amount, onChangeAmount, ticker}){
@@ -73,6 +73,7 @@ class AmountDepositForm extends Component {
                                 onChange={(amount) => this.onChangeAmount(amount)}
                                 icon="cross"
                                 value={amount}
+                                type="currency"
                             />
                         </Col>
                         <Col md={2}>

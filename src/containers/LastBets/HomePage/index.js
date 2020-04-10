@@ -298,7 +298,7 @@ class LastBets extends Component {
 
     createSkeletonTabs = () => {
         let tabs = []
-    
+
         for (let i = 0; i < 4; i++) {
           tabs.push(<div styleName="skeleton-main-item"><div styleName="skeleton-left-item"><Skeleton circle={true} height={30} width={30}/></div><div styleName="skeleton-right-item"><Skeleton height={30}/></div></div>);
         }
@@ -332,7 +332,7 @@ class LastBets extends Component {
                             <div styleName='bets-dropdown-game'>
                                 <SelectBox
                                     onChange={(e) => this.changeViewGames(e)}
-                                    options={gamesOptions}
+                                    options={games}
                                     value={this.state.view_game}
                                 /> 
                             </div>

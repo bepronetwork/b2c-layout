@@ -242,7 +242,7 @@ class LastBets extends Component {
 
     createSkeletonTabs = () => {
         let tabs = []
-    
+
         for (let i = 0; i < 3; i++) {
           tabs.push(<div styleName="skeleton-main-item"><div styleName="skeleton-left-item"><Skeleton circle={true} height={30} width={30}/></div><div styleName="skeleton-right-item"><Skeleton height={30}/></div></div>);
         }

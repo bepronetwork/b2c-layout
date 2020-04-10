@@ -1,0 +1,58 @@
+@import "../../../../styles/all.css";
+
+.table-row {
+    width: 100%;
+    text-align: center;
+}
+
+.th-row {
+    grid-row: 1 / auto;
+    margin-top : $spacing-28;
+}
+
+.image-icon {
+    width : 60px;
+}
+
+.tr-row {
+    display: grid;
+    grid-template-rows: 74px;
+    grid-auto-columns: 1fr;
+    background-color: $table-odd-background;
+    border-radius: $table-odd-border-radius;
+    margin-top: $spacing-8;
+}
+
+.th-row-img {
+    margin-top: 0;
+}
+
+.table-head .tr-row .th-row {
+    margin-top: $spacing-12;
+}
+
+.table-head .tr-row{
+    grid-template-rows: 40px;
+    margin-top: 0;
+    background-color: $dark-night;
+}
+
+.table-head {
+}
+
+.th-row-tab {
+    grid-row: 1 / auto;
+    margin-top : $spacing-16;
+    width : 75px;
+}
+
+.addRow {
+    animation: new-row-animation 1s running;
+}
+
+@keyframes new-row-animation {
+    0% {
+        opacity: 1;
+        transform: translateY(-80%);
+    }
+}
