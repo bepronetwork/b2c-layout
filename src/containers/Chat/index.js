@@ -86,6 +86,7 @@ class ChatPage extends React.Component {
     }
 
     createMessageBox = ({username, message, id, time}) => {
+        const { isLoading } = this.state;
         return(
             <div>
                 {isLoading ?
