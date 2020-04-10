@@ -62,8 +62,11 @@
 
 .label {
   float: initial;
-  margin-left: $spacing-8;
   width: 100%;
+
+  @media screen and (max-width: 1023px) {
+    margin-left: $spacing-8;
+  }
 
   @media screen and (max-width: 767px) {
     margin-left: 0;
