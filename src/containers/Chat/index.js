@@ -86,44 +86,40 @@ class ChatPage extends React.Component {
     }
 
     createMessageBox = ({username, message, id, time}) => {
-        const { isLoading } = this.state;
         return(
             <div>
-                {isLoading ?
-                    <SkeletonTheme color="#05040c" highlightColor="#17162d">
-                        <div styleName='message-box' key={id} style={{opacity : '0.3'}}> 
-                            <div styleName='info'>
-                                <Skeleton width={100}/>
-                            </div>
-                            <div styleName={'info-message-container'}>
-                                <Skeleton />
-                            </div>
-                        </div>
-                    </SkeletonTheme>
-                :
-                    <div styleName='message-box' key={id}> 
-                        <div styleName='info'>
-                            <div style={{float : 'left', marginRight : 8}}>
-                                <Typography variant="x-small-body" color="casper"> 
-                                    @{username} 
-                                </Typography>
-                            </div> 
-                            <div style={{float : 'left', marginRight : 8}}>
-                                <Typography variant="x-small-body" color="grey"> 
-                                    {dateToHourAndMinute(time)} 
-                                </Typography>
-                            </div>
-                        </div>
-                        <div styleName={'info-message-container'}>
-                            <Typography variant="small-body" color="white">
-                                {message}
+                <div styleName='message-box' key={id}> 
+                    <div styleName='info'>
+                        <div style={{float : 'left', marginRight : 8}}>
+                            <Typography variant="x-small-body" color="casper"> 
+                                @{username} 
+                            </Typography>
+                        </div> 
+                        <div style={{float : 'left', marginRight : 8}}>
+                            <Typography variant="x-small-body" color="grey"> 
+                                {dateToHourAndMinute(time)} 
                             </Typography>
                         </div>
                     </div>
-                }
+                    <div styleName={'info-message-container'}>
+                        <Typography variant="small-body" color="white">
+                            {message}
+                        </Typography>
+                    </div>
+                </div>
             </div>
             
         )
+    }
+
+    createSkeletonMessages = () => {
+        let messages = []
+    
+        for (let i = 0; i < 150; i++) {
+            messages.push(<SkeletonTheme color="#05040c" highlightColor="#17162d"><div styleName='message-box' key={i} style={{opacity : '0.3'}}><div styleName='info'><Skeleton width={100}/></div><div styleName={'info-message-container'}><Skeleton /></div></div></SkeletonTheme>);
+        }
+
+        return messages;
     }
 
     changeLanguage = async (item) => {
@@ -143,15 +139,20 @@ class ChatPage extends React.Component {
 
     render() {
         const { ln } = this.props;
+        const { isLoading } = this.state;
         const copy = CopyText.shared[ln];
         const copy2 = CopyText.homepage[ln];
         return (
             <div styleName="root">
                     <div styleName="container">
                         <div ref={el => { this.el = el; }} styleName="text-container">
-                            {this.state.messages.map((item) => {
-                                return this.createMessageBox({username : item.user.id, message : item.text, id : item.id, time : new Date(item.created_at)})
-                            })}
+                            {isLoading ?
+                                this.createSkeletonMessages()
+                            :
+                                this.state.messages.map((item) => {
+                                    return this.createMessageBox({username : item.user.id, message : item.text, id : item.id, time : new Date(item.created_at)})
+                                })
+                            }
                             <div style={{ float:"left", clear: "both" }}
                                 ref={(el) => { this.messagesEnd = el; }}>
                             </div>
