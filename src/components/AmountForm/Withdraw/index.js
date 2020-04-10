@@ -70,8 +70,8 @@ class AmountWithdrawForm extends Component {
     }
 
     onChangeAmount = async (amount) => {
-        this.setState({...this.state, amount : parseFloat(amount)});
-        await store.dispatch(setWithdrawInfo({key : "amount", value : parseFloat(amount)}));
+        this.setState({...this.state, amount});
+        await store.dispatch(setWithdrawInfo({key : "amount", value : amount}));
     }
 
     onToAddressChange = async event => {
@@ -118,6 +118,7 @@ class AmountWithdrawForm extends Component {
                                         placeholder={copy.INDEX.INPUT_TEXT.PLACEHOLDER[0]}
                                         weight="regular"
                                         type="slim"
+                                        type="currency"
                                     />
                                 </div>
                             </Col>
