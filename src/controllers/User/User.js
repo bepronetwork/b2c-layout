@@ -43,7 +43,7 @@ export default class User {
         this.bearerToken = user.bearerToken;
         this.balance  = user.balance;
         this.username = user.username;
-        this.integrations = app.integrations;
+        this.integrations = user.integrations ? user.integrations : app.integrations;
         this.address = user.address;
         this.user = user;
         this.isLoaded = false;

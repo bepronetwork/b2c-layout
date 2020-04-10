@@ -121,9 +121,10 @@ class App extends Component {
     automaticLoginFromCache = async () => {
         let reponseUser = Cache.getFromCache('user');
         let user = await this.updateUser(reponseUser);
-        await user.updateUser();
 
         if(reponseUser) {
+            await user.updateUser();
+
             const appInfo = Cache.getFromCache("appInfo");
 
             this.setDefaultCurrency(appInfo);
@@ -300,7 +301,7 @@ class App extends Component {
             platformAddress: appInfo.platformAddress,
             tokenAddress: appInfo.platformTokenAddress,
             decimals: appInfo.decimals,
-            integrations : appInfo.integrations,
+            integrations : user.integrations ? user.integrations : appInfo.integrations,
             appId: appInfo.id,
             userId: user.id,
             user : user

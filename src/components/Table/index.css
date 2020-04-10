@@ -117,3 +117,7 @@
     }
 }
 
+.skeleton-row {
+    margin-top: $spacing-8;
+}
+

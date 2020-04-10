@@ -52,3 +52,28 @@
         height: $spacing-28;
     }
 }
+
+.skeleton-tabs {
+    width: 100%;
+    grid-auto-flow: column;
+    display: grid;
+    align-items: center;
+    gap: $spacing-28;
+}
+
+.skeleton-main-item {
+    position: relative;
+}
+
+.skeleton-left-item {
+    float: left;
+}
+
+.skeleton-right-item {
+    float: left;
+    width: 80%;
+
+    @include Breakpoint-tabletOnly {
+        width: 60%;
+    }
+} 
