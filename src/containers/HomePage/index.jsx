@@ -6,9 +6,7 @@ import PropTypes from "prop-types";
 import UserContext from "containers/App/UserContext";
 import PlayInvitation from "components/PlayInvitation";
 import { Col} from 'reactstrap';
-import { setMessageNotification } from '../../redux/actions/message';
 import games from '../../config/games';
-import store from '../../containers/App/store';
 import LastBets from "../LastBets/HomePage";
 import Footer from "../Footer";
 import { connect } from 'react-redux';
@@ -25,8 +23,8 @@ class HomePage extends Component {
     };
 
     componentDidMount = () => {
-        const { ln, profile, onHandleResetPassword, onHandleConfirmEmail,  match: { params } } = this.props;
-        const copy = CopyText.homepage[ln];
+        const { onHandleResetPassword, onHandleConfirmEmail,  match: { params } } = this.props;
+
         let queryParams = queryString.parse(this.props.location.search);
 
         if (onHandleResetPassword) return onHandleResetPassword({ params : queryParams, mode : "new"});
@@ -34,10 +32,6 @@ class HomePage extends Component {
         if (onHandleConfirmEmail) {
             queryParams = { ...queryParams, app : params.app };
             return onHandleConfirmEmail({ params : queryParams });
-        }
-
-        if(!_.isEmpty(profile) && !profile.user.email_confirmed){
-            store.dispatch(setMessageNotification(copy.CONTAINERS.APP.NOTIFICATION[0]));
         }
     };
 

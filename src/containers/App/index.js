@@ -549,7 +549,6 @@ class App extends Component {
                         setUser: (() => {})
                     }}
                 >
-                    <LoadingBanner isLoaded={isUserLoaded} progress={progress100}/>
                     <Router history={history}>
                         <Widgets/>
                         <header>
