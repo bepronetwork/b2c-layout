@@ -126,6 +126,7 @@ class App extends Component {
             await user.updateUser();
 
             const appInfo = Cache.getFromCache("appInfo");
+
             this.setDefaultCurrency(appInfo);
         }
     }
@@ -300,7 +301,7 @@ class App extends Component {
             platformAddress: appInfo.platformAddress,
             tokenAddress: appInfo.platformTokenAddress,
             decimals: appInfo.decimals,
-            integrations : user.integrations,
+            integrations : user.integrations ? user.integrations : appInfo.integrations,
             appId: appInfo.id,
             userId: user.id,
             user : user

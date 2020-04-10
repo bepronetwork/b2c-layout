@@ -92,7 +92,7 @@ class TableDefault extends Component {
 
     createSkeletonRows = () => {
         let tabs = []
-    
+
         for (let i = 0; i < 5; i++) {
           tabs.push(<div styleName="skeleton-row"><Skeleton height={30} /></div>);
         }
@@ -118,64 +118,65 @@ class TableDefault extends Component {
                     </SkeletonTheme>
                 :
                     <div>
-                    <table styleName='table-row'>
-                        <thead styleName='table-head'>
-                            <tr styleName='tr-row'>
-                                {titles.map( text => 
-                                    <th styleName='th-row'>
-                                        <Typography variant='small-body' color="casper" weight="bold"> {text || <Skeleton />} </Typography>
-                                    </th>
-                                )}
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {
-                                rows.map( (row, index) => 
-                                <tr styleName={rowStyles}>
-                                    {fields.map( (field) => {
-                                        if(field.dependentColor){
-                                            return (
-                                                <th styleName='th-row'>
-                                                    <Typography variant='small-body' color={ row[field.condition] ? 'green' : "grey"}> {row[field.value] || <Skeleton />} </Typography>
-                                                </th>
-                                                
-                                            )
-                                        }else if(field.image){
-                                            const imageStyles = classNames("th-row", "th-row-img");
-                                            const background = row[field.value].background_url;
-                                            return (
-                                                <th styleName={imageStyles}>
-                                                    <div styleName="image">
-                                                        <div styleName="icon" style={{ background: background ? 'url('+background+') center center / cover no-repeat' : 'none'}}><img styleName='image-icon' src={row[field.value].image_url}/></div>
-                                                        <div styleName='image-name'><Typography variant='x-small-body' color={"grey"}> {row[field.value].name || <Skeleton circle={true} /> } </Typography></div>
-                                                    </div>
-                                                </th>
-                                            )
-                                        }else{
-                                            return (
-                                                // Normal
-                                                <th styleName='th-row'>
-                                                    <Typography variant='small-body' color={"white"}> {row[field.value] || <Skeleton />} </Typography>
-                                                </th>
-                                            )
-                                        
-                                        }
-                                        
-                                    })}
-                                </tr>)
-                            }
-                        </tbody>
-                    </table>
-                    {
-                        !rows.length ?
-                            <div styleName="no-info">
-                                <Typography variant='small-body' color={"grey"}> No Information </Typography>
-                            </div>
-                        :
-                            null
-                    }
+                        <table styleName='table-row'>
+                            <thead styleName='table-head'>
+                                <tr styleName='tr-row'>
+                                    {titles.map( text => 
+                                        <th styleName='th-row'>
+                                            <Typography variant='small-body' color="casper" weight="bold"> {text} </Typography>
+                                        </th>
+                                    )}
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {
+                                    rows.map( (row, index) => 
+                                    <tr styleName={rowStyles}>
+                                        {fields.map( (field) => {
+                                            if(field.dependentColor){
+                                                return (
+                                                    <th styleName='th-row'>
+                                                        <Typography variant='small-body' color={ row[field.condition] ? 'green' : "grey"}> {row[field.value]} </Typography>
+                                                    </th>
+                                                    
+                                                )
+                                            }else if(field.image){
+                                                const imageStyles = classNames("th-row", "th-row-img");
+                                                const background = row[field.value].background_url;
+                                                return (
+                                                    <th styleName={imageStyles}>
+                                                        <div styleName="image">
+                                                            <div styleName="icon" style={{ background: background ? 'url('+background+') center center / cover no-repeat' : 'none'}}><img styleName='image-icon' src={row[field.value].image_url}/></div>
+                                                            <div styleName='image-name'><Typography variant='x-small-body' color={"grey"}> {row[field.value].name} </Typography></div>
+                                                        </div>
+                                                    </th>
+                                                )
+                                            }else{
+                                                return (
+                                                    // Normal
+                                                    <th styleName='th-row'>
+                                                        <Typography variant='small-body' color={"white"}> {row[field.value]} </Typography>
+                                                    </th>
+                                                )
+                                            
+                                            }
+                                            
+                                        })}
+                                    </tr>)
+                                }
+                            </tbody>
+                        </table>
+                        {
+                            !rows.length ?
+                                <div styleName="no-info">
+                                    <Typography variant='small-body' color={"grey"}> No Information </Typography>
+                                </div>
+                            :
+                                null
+                        }
+
                     </div>
-            }
+                }
             </div>
         );
     }

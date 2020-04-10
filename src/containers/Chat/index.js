@@ -28,7 +28,7 @@ const defaultProps = {
     open : true,
     history: "",
     language : languages[0],
-    isLoading: true
+    isLoading: false
 }
 
 class ChatPage extends React.Component {
@@ -88,25 +88,38 @@ class ChatPage extends React.Component {
     createMessageBox = ({username, message, id, time}) => {
         return(
             <div>
-                <div styleName='message-box' key={id}> 
-                    <div styleName='info'>
-                        <div style={{float : 'left', marginRight : 8}}>
-                            <Typography variant="x-small-body" color="casper"> 
-                                @{username} 
-                            </Typography>
-                        </div> 
-                        <div style={{float : 'left', marginRight : 8}}>
-                            <Typography variant="x-small-body" color="grey"> 
-                                {dateToHourAndMinute(time)} 
+                {isLoading ?
+                    <SkeletonTheme color="#05040c" highlightColor="#17162d">
+                        <div styleName='message-box' key={id} style={{opacity : '0.3'}}> 
+                            <div styleName='info'>
+                                <Skeleton width={100}/>
+                            </div>
+                            <div styleName={'info-message-container'}>
+                                <Skeleton />
+                            </div>
+                        </div>
+                    </SkeletonTheme>
+                :
+                    <div styleName='message-box' key={id}> 
+                        <div styleName='info'>
+                            <div style={{float : 'left', marginRight : 8}}>
+                                <Typography variant="x-small-body" color="casper"> 
+                                    @{username} 
+                                </Typography>
+                            </div> 
+                            <div style={{float : 'left', marginRight : 8}}>
+                                <Typography variant="x-small-body" color="grey"> 
+                                    {dateToHourAndMinute(time)} 
+                                </Typography>
+                            </div>
+                        </div>
+                        <div styleName={'info-message-container'}>
+                            <Typography variant="small-body" color="white">
+                                {message}
                             </Typography>
                         </div>
                     </div>
-                    <div styleName={'info-message-container'}>
-                        <Typography variant="small-body" color="white">
-                            {message}
-                        </Typography>
-                    </div>
-                </div>
+                }
             </div>
             
         )
