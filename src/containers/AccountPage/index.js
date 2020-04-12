@@ -1,12 +1,12 @@
 import React, { Component } from "react";
-import { Row, Col} from 'reactstrap';
 import "./index.css";
-import { Typography, TabedContainer, DepositTab, WithdrawTab, AccountInfoForm, SettingsTab, AffiliatesTab} from 'components';
+import { TabedContainer, DepositTab, WithdrawTab, AccountInfoForm, SettingsTab, AffiliatesTab} from 'components';
 import { connect } from "react-redux";
 import MoneyIcon from 'mdi-react/MoneyIcon';
 import ExitToAppIcon from 'mdi-react/ExitToAppIcon';
 import SettingsIcon from 'mdi-react/SettingsIcon';
 import GiftIcon from 'mdi-react/GiftIcon';
+import { getApp } from "../../lib/helpers";
 import { CopyText } from '../../copy';
 import _ from "lodash";
 
@@ -31,6 +31,8 @@ class AccountPage extends Component {
         const copy = CopyText.homepage[ln];
         if (!profile || _.isEmpty(profile)) return null;
 
+        const virtual = getApp().virtual;
+
         return (
             <div styleName='main-container'>
                 <div styleName="root">
@@ -47,7 +49,7 @@ class AccountPage extends Component {
                                 },
                                 {
                                     path: "deposits",
-                                    title : copy.CONTAINERS.ACCOUNT.TITLE[1],
+                                    title : virtual ? copy.CONTAINERS.ACCOUNT.TITLE[4] : copy.CONTAINERS.ACCOUNT.TITLE[1],
                                     container : <DepositTab/>,
                                     icon : <MoneyIcon size={20}/>
                                 },
@@ -55,7 +57,8 @@ class AccountPage extends Component {
                                     path: "withdraws",
                                     title : copy.CONTAINERS.ACCOUNT.TITLE[2],
                                     container : <WithdrawTab/>,
-                                    icon : <ExitToAppIcon size={20}/>
+                                    icon : <ExitToAppIcon size={20}/>,
+                                    disabled: virtual
                                 },
                                 {
                                     path: "affiliate",

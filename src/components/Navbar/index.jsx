@@ -112,6 +112,8 @@ class Navbar extends Component {
         const {ln} = this.props;
         const copy = CopyText.navbarIndex[ln]; 
         var currencies = getApp().currencies;
+        const virtual = getApp().virtual;
+        currencies = currencies.filter(c => c.virtual === virtual);
 
         return(
             <div>
@@ -138,7 +140,7 @@ class Navbar extends Component {
                  }
                 <div styleName='button-deposit'>
                     <Button onClick={onCashier} size={'x-small'} theme={'default'}>
-                        <Typography color={'white'} variant={'x-small-body'}>{copy.INDEX.TYPOGRAPHY.TEXT[2]}</Typography>
+                        <Typography color={'white'} variant={'x-small-body'}>{virtual ? copy.INDEX.TYPOGRAPHY.TEXT[6] : copy.INDEX.TYPOGRAPHY.TEXT[2]}</Typography>
                     </Button>
                 </div>
             </div>

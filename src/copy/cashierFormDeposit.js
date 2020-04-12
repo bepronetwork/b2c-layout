@@ -9,11 +9,13 @@
         ],
         "LABEL": [
           "Choose",
-          "Deposit"
+          "Deposit",
+          "Buy"
         ],
         "TITLE": [
           "Pick the Currency to Deposit",
-          "Deposit"
+          "Deposit",
+          "Pick the Currency to Buy"
         ]
       }
     }
@@ -26,11 +28,13 @@
         ],
         "LABEL": [
           "선택",
-          "입금"
+          "입금",
+          "Buy"
         ],
         "TITLE": [
           "입금할 토큰을  선택해 주세요.",
-          "입금"
+          "입금",
+          "Pick the Currency to Buy"
         ]
       }
     }
@@ -43,11 +47,13 @@
         ],
         "LABEL": [
           "选择",
-          "充币"
+          "充币",
+          "Buy"
         ],
         "TITLE": [
           "选择要存款的加密货币",
-          "充币"
+          "充币",
+          "Pick the Currency to Buy"
         ]
       }
     }
@@ -60,11 +66,13 @@
         ],
         "LABEL": [
           "Choose",
-          "Deposit"
+          "Deposit",
+          "Buy"
         ],
         "TITLE": [
           "Pick the Currency to Deposit",
-          "Deposit"
+          "Deposit",
+          "Pick the Currency to Buy"
         ]
       }
     }

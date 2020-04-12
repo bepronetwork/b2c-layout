@@ -68,20 +68,22 @@ class TableDefault extends Component {
                 } while (i < 6);
                 var randomValue = randomArray[Math.floor(Math.random() * randomArray.length)];
 
-                const newRow = {
-                    game : game,
-                    isWon: randomValue.isWon,
-                    payout: randomValue.payout + 'x',
-                    timestamp: "a few seconds ago",
-                    username: fakeUserName.length > 10 ? fakeUserName.substring(0, 4)+'...'+fakeUserName.substring(fakeUserName.length-3, fakeUserName.length) : fakeUserName,
-                    winAmount: randomValue.winAmount + ' ' + ticker,
-                    ticker
-                }
-        
-                rows.unshift(newRow);
-
-                if(rows.length >= size) {
-                    rows.pop();
+                if(game) {
+                    const newRow = {
+                        game : game,
+                        isWon: randomValue.isWon,
+                        payout: randomValue.payout + 'x',
+                        timestamp: "a few seconds ago",
+                        username: fakeUserName.length > 10 ? fakeUserName.substring(0, 4)+'...'+fakeUserName.substring(fakeUserName.length-3, fakeUserName.length) : fakeUserName,
+                        winAmount: randomValue.winAmount + ' ' + ticker,
+                        ticker
+                    }
+            
+                    rows.unshift(newRow);
+    
+                    if(rows.length >= size) {
+                        rows.pop();
+                    }
                 }
         
                 this.setState({ rows, isLoadingRow : true });

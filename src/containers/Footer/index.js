@@ -10,7 +10,6 @@ import {CopyText} from "../../copy";
 const footerStaticOutput = ({props, supportLinks, communityLinks}) => {
     const { logo } = getAppCustomization();
     const info = getApp();
-    console.log(info);
     const {ln} = props;
     const copy = CopyText.homepage[ln];
 
