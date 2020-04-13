@@ -28,7 +28,7 @@
 }
 
 .chat-container{
-    height: -webkit-fill-available !important;
+    height: 100%;
     z-index: 10;
     background-color: $chat-container-color;
 }

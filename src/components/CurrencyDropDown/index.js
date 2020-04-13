@@ -43,7 +43,7 @@ class CurrencyDropDown extends React.Component {
                 const w = profile.getWallet({currency : c});
                 return {
                     ...c,
-                    balance : w.playBalance
+                    balance : _.isEmpty(w) ? 0 : w.playBalance
                 }
             }
         )
