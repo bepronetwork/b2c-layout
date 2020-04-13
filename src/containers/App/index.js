@@ -306,9 +306,9 @@ class App extends Component {
             platformAddress: appInfo.platformAddress,
             tokenAddress: appInfo.platformTokenAddress,
             decimals: appInfo.decimals,
-            integrations : user.integrations ? user.integrations : appInfo.integrations,
+            integrations : user && user.integrations ? user.integrations : appInfo.integrations,
             appId: appInfo.id,
-            userId: user.id,
+            userId: user ? user.id : null,
             user : user
         })
         await store.dispatch(setProfileInfo(userObject));
