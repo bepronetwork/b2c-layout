@@ -124,17 +124,15 @@ class App extends Component {
 
         if(reponseUser) {
             await user.updateUser();
-
-            const appInfo = Cache.getFromCache("appInfo");
-
-            this.setDefaultCurrency(appInfo);
+            this.setDefaultCurrency();
         }
     }
 
-    setDefaultCurrency = async (res) => {
-        if(res && res.wallet) {
-            const virtual = res.virtual;
-            const wallets = res.wallet.filter(w => w.currency.virtual === virtual);
+    setDefaultCurrency = async () => {
+        const appInfo = Cache.getFromCache("appInfo");
+        if(appInfo && appInfo.wallet) {
+            const virtual = appInfo.virtual;
+            const wallets = appInfo.wallet.filter(w => w.currency.virtual === virtual);
 
             if(wallets.length) {
                 const currency = wallets[0].currency;
@@ -236,7 +234,7 @@ class App extends Component {
                 this.setState({ registerLoginModalOpen: null, error: null});
             }
             /* Set currency */
-            this.setDefaultCurrency(response);
+            this.setDefaultCurrency();
 
             return response;
         } catch (error) {
