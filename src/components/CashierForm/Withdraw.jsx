@@ -7,6 +7,8 @@ import {
     HorizontalStepper, AmountWithdrawForm, CurrencyWithdrawForm, 
     WithdrawForm
 } from 'components';
+import store from '../../containers/App/store';
+import { setMessageNotification } from '../../redux/actions/message';
 import _ from 'lodash';
 import { CopyText } from '../../copy';
 
@@ -22,7 +24,14 @@ class Withdraw extends Component {
     state = { ...defaultProps };
 
     componentDidMount(){
-        this.projectData(this.props)
+        const { ln, profile} = this.props;
+        const copy = CopyText.homepage[ln];
+
+        this.projectData(this.props);
+
+        if(!_.isEmpty(profile) && !profile.user.email_confirmed){
+            store.dispatch(setMessageNotification(copy.CONTAINERS.APP.NOTIFICATION[0]));
+        }
     }
 
     componentWillReceiveProps(props){
