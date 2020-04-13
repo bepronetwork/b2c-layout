@@ -3,6 +3,7 @@ import { Tabs } from "components";
 import Deposit from "./Deposit";
 import Withdraw from "./Withdraw";
 import { connect } from "react-redux";
+import { getApp } from "../../lib/helpers";
 
 import "./index.css";
 import { CopyText } from '../../copy';
@@ -25,6 +26,7 @@ class DepositWithdrawForm extends Component {
         const { tab } = this.state;
         const {ln} = this.props;
         const copy = CopyText.cashierFormIndex[ln];
+        const virtual = getApp().virtual;
 
         return (
         <div styleName="root" style={{ overflowY: 'auto', overflowX : 'hidden'}}>
@@ -34,9 +36,13 @@ class DepositWithdrawForm extends Component {
                 options={[
                 {
                     value: "deposit",
-                    label: copy.INDEX.TABS.LABEL[0]
+                    label: virtual ? copy.INDEX.TABS.LABEL[2] : copy.INDEX.TABS.LABEL[0]
                 },
-                { value: "withdraw", label: copy.INDEX.TABS.LABEL[1] }
+                {   
+                    value: "withdraw", 
+                    label: copy.INDEX.TABS.LABEL[1],
+                    disabled: virtual
+                }
                 ]}
                 onSelect={this.handleTabChange}
             />

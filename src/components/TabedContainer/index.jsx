@@ -20,8 +20,9 @@ class TabedContainer extends React.Component{
     render = () => {
         const { items, tabTopContent} = this.props;
         const pathName = this.props.location.pathname.toLowerCase();
+        const filteredItems = items.filter(item => !item.disabled);
 
-        let mainIndex = items.findIndex(this.isCurrentPath, pathName);
+        let mainIndex = filteredItems.findIndex(this.isCurrentPath, pathName);
         mainIndex = mainIndex > 0 ? mainIndex : 0;
 
         const path = pathName.split('/');
@@ -34,7 +35,7 @@ class TabedContainer extends React.Component{
                         <Col sm={3}>
                             {tabTopContent}
                             <Nav variant="pills" className="flex-column">
-                                {items.map( (item, index) => {
+                                {filteredItems.map( (item, index) => {
                                     return (
                                         <Nav.Item>
                                             <Nav.Link as={Link} to={"/"+parent+"/"+item.path.toLowerCase()} eventKey={`item-${index}`}>
@@ -56,7 +57,7 @@ class TabedContainer extends React.Component{
                         </Col>
                         <Col sm={9}>
                             <Tab.Content>
-                                {items.map( (item, index) => {
+                                {filteredItems.map( (item, index) => {
                                     return (
                                         <Tab.Pane eventKey={`item-${index}`}>
                                             {item.container}

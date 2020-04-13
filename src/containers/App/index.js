@@ -132,9 +132,14 @@ class App extends Component {
     }
 
     setDefaultCurrency = async (res) => {
-        if(res && res.wallet && res.wallet.length > 0 && res.wallet[0].currency) {
-            let currency = res.wallet[0].currency;
-            await store.dispatch(setCurrencyView(currency));
+        if(res && res.wallet) {
+            const virtual = res.virtual;
+            const wallets = res.wallet.filter(w => w.currency.virtual === virtual);
+
+            if(wallets.length) {
+                const currency = wallets[0].currency;
+                await store.dispatch(setCurrencyView(currency));
+            }
         }
     }
 

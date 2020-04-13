@@ -5,6 +5,7 @@ import { connect } from "react-redux";
 import { compose } from 'lodash/fp';
 import { CurrencyDepositForm, HorizontalStepper, DepositForm } from 'components';
 import { CopyText } from '../../copy';
+import { getApp } from "../../lib/helpers";
 class Deposit extends Component {
 
     componentDidMount(){
@@ -29,6 +30,7 @@ class Deposit extends Component {
         const { currency, nextStep } = deposit;
         const {ln} = this.props;
         const copy = CopyText.cashierFormDeposit[ln];
+        const virtual = getApp().virtual;
 
         return (
             <div styleName='root'>
@@ -41,14 +43,14 @@ class Deposit extends Component {
                             alertMessage={ copy.DEPOSIT.HORIZONTAL_STEPPER.ALERT_MESSAGE[0]}
                             steps={[
                                 {
-                                    label : copy.DEPOSIT.HORIZONTAL_STEPPER.LABEL[0],
-                                    title : copy.DEPOSIT.HORIZONTAL_STEPPER.TITLE[0],
+                                    label : virtual ? copy.DEPOSIT.HORIZONTAL_STEPPER.LABEL[2] : copy.DEPOSIT.HORIZONTAL_STEPPER.LABEL[0],
+                                    title : virtual ? copy.DEPOSIT.HORIZONTAL_STEPPER.TITLE[2] : copy.DEPOSIT.HORIZONTAL_STEPPER.TITLE[0],
                                     condition : (currency != ''),
                                     content : <CurrencyDepositForm/>
                                 },
                                 {
-                                    label : copy.DEPOSIT.HORIZONTAL_STEPPER.LABEL[1],
-                                    title : `${copy.DEPOSIT.HORIZONTAL_STEPPER.TITLE[1]} ${currency.ticker}`,
+                                    label : virtual ? copy.DEPOSIT.HORIZONTAL_STEPPER.LABEL[2] : copy.DEPOSIT.HORIZONTAL_STEPPER.LABEL[1],
+                                    title : virtual ? copy.DEPOSIT.HORIZONTAL_STEPPER.LABEL[2]+' '+currency.ticker : `${copy.DEPOSIT.HORIZONTAL_STEPPER.TITLE[1]} ${currency.ticker}`,
                                     condition : (currency != ''),
                                     content : <DepositForm/>,
                                     last : true,

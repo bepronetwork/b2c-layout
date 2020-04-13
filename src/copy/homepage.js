@@ -13,7 +13,8 @@
           "Settings",
           "Deposits",
           "Withdraws",
-          "Referral"
+          "Referral",
+          "Buys"
         ]
       },
       "APP": {
@@ -117,7 +118,8 @@
           "설정",
           "입금",
           "출금",
-          "추천인 제도"
+          "추천인 제도",
+          "Buys"
         ]
       },
       "APP": {
@@ -213,7 +215,8 @@
           "设置",
           "充币",
           "提币",
-          "推荐人制度"
+          "推荐人制度",
+          "Buys"
         ]
       },
       "APP": {
@@ -310,7 +313,8 @@
           "Settings",
           "Deposits",
           "Withdraws",
-          "Referral"
+          "Referral",
+          "Buys"
         ]
       },
       "APP": {

@@ -6,7 +6,8 @@
       "TABS": {
         "LABEL": [
           "Deposit",
-          "Withdraw"
+          "Withdraw",
+          "Buy"
         ]
       }
     }
@@ -16,7 +17,8 @@
       "TABS": {
         "LABEL": [
           "입금",
-          "출금"
+          "출금",
+          "Buy"
         ]
       }
     }
@@ -26,7 +28,8 @@
       "TABS": {
         "LABEL": [
           "充币",
-          "提币"
+          "提币",
+          "Buy"
         ]
       }
     }
@@ -36,7 +39,8 @@
       "TABS": {
         "LABEL": [
           "Deposit",
-          "Withdraw"
+          "Withdraw",
+          "Buy"
         ]
       }
     }
