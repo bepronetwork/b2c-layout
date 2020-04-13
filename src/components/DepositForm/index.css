@@ -113,6 +113,11 @@
     }
 }
 
+.price {
+    margin-bottom: $spacing-28;
+    text-align: center;
+}
+
 @keyframes copied-animation {
     0% {
       opacity: 0;
