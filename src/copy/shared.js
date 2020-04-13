@@ -3,7 +3,7 @@
     {
   "en": {
     "CHIP_INFO": "Chip Value",
-    "EDGE_NAME": "Fee",
+    "EDGE_NAME": "Edge",
     "PLACEHOLDER_CHAT": "Type your Message",
     "CLEAR_NAME": "Clear",
     "UNDO_NAME": "Undo",
