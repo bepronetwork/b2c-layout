@@ -44,14 +44,11 @@ class DepositForm extends Component {
 
             if (virtual === true) {
                 const currency = deposit.currency;
+                const virtualCurrency = getApp().currencies.find(c => c.virtual === true);
     
-                if(currency) {
-                    const wallet = getApp().wallet.find(w => w.currency._id === currency._id);
-                    const priceAmount = wallet ? wallet.price.length ? wallet.price[0].amount : null : null;
-                    const priceCurrency = getApp().currencies.find(c => c._id === currency._id);
-                    const priceCurrencyTicker = priceCurrency ? priceCurrency.ticker : null;
-    
-                    price = priceAmount ? priceAmount+' '+priceCurrencyTicker : null;
+                if(currency && virtualCurrency) {
+                    const virtualWallet = getApp().wallet.find(w => w.currency._id === virtualCurrency._id);
+                    price = virtualWallet ? virtualWallet.price.find(p => p.currency === currency._id).amount : null;
                 }
             }
 
@@ -116,10 +113,17 @@ class DepositForm extends Component {
                                     </Typography>
                                 </div>
                             </div>
+                            {price   ?
+                                <div styleName="price">
+                                    <Typography variant={'small-body'} color={`white`} weight={`bold`}>
+                                        {copy.INDEX.TYPOGRAPHY.TEXT[3]} = {price + ' ' + deposit.currency.ticker}
+                                    </Typography>
+                                </div>
+                            :
+                                null    
+                            }
                             <Typography variant={'x-small-body'} color={`white`}>
                                 {copy.INDEX.TYPOGRAPHY.FUNC_TEXT[0]([deposit.currency.ticker, deposit.currency.ticker])}
-                                <br/><br/>
-                                {copy.INDEX.TYPOGRAPHY.TEXT[3]} = {price}
                                 <br/><br/>
                                 {copy.INDEX.TYPOGRAPHY.TEXT[0]}
                             </Typography>
