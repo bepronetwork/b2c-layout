@@ -4,7 +4,7 @@ import UserContext from "containers/App/UserContext";
 import { connect } from "react-redux";
 import { getLastBets, getBiggestBetWinners } from "../../../lib/api/app";
 import { Numbers } from "../../../lib/ethereum/lib";
-import { dateToHourAndMinute, getGames, getApp } from "../../../lib/helpers";
+import { dateToHourAndMinute, getGames, getApp, getSkeletonColors } from "../../../lib/helpers";
 import Tabs from "../../../components/Tabs";
 import { SelectBox, Table } from 'components';
 import { formatCurrency } from '../../../utils/numberFormatation';
@@ -252,11 +252,12 @@ class LastBets extends Component {
 
     render() {
         const { isLoading, gameMetaName, games } = this.state;
+        const { color, highlightColor } = getSkeletonColors();
 
         return (
             <div styleName='container'>
                 {isLoading ?
-                    <SkeletonTheme color="#05040c" highlightColor="#17162d">
+                    <SkeletonTheme color={color} highlightColor={highlightColor}>
                         <div styleName='lastBets' style={{opacity : '0.3'}}>
                             <div styleName='skeleton-tabs'>
                                 {this.createSkeletonTabs()}
