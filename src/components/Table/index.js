@@ -2,11 +2,9 @@ import React, { Component } from "react";
 import {Typography } from "components";
 import PropTypes from "prop-types";
 import UserContext from "containers/App/UserContext";
-import faker from 'faker';
 import classNames from "classnames";
-import { formatCurrency } from "../../utils/numberFormatation";
 import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
-import { getSkeletonColors } from "../../lib/helpers";
+import { getSkeletonColors, loadFakeBets } from "../../lib/helpers";
 
 import "./index.css";
 
@@ -55,41 +53,10 @@ class TableDefault extends Component {
 
         if(showRealTimeLoading) {
             await delay(1000);
-            /* fake random value */
-            var game = games[Math.floor(Math.random() * games.length)];
-            var row = rows[Math.floor(Math.random() * rows.length)];
-            let ticker = row ? row.ticker : 'ETH';
-            let fakeUserName = faker.internet.userName();
-            let randomArray = [];
-            let lostValue = {isWon : false, payout : '0.000000', winAmount : '0.000000'};
-            var i = 0; do { i++; randomArray.push(lostValue) } while (i < 4);
-            var i = 0; do { 
-                i++; 
-                const winValue =  {isWon : true, payout : formatCurrency(Math.random() * (2.000000 - 0.050000) + 0.050000), winAmount : formatCurrency(Math.random() * (2.000000 - 0.050000) + 0.050000)};
-                randomArray.push(winValue) 
-            } while (i < 6);
-            var randomValue = randomArray[Math.floor(Math.random() * randomArray.length)];
-
-            if(game) {
-                const newRow = {
-                    game : game,
-                    isWon: randomValue.isWon,
-                    payout: randomValue.payout + 'x',
-                    timestamp: "a few seconds ago",
-                    username: fakeUserName.length > 10 ? fakeUserName.substring(0, 4)+'...'+fakeUserName.substring(fakeUserName.length-3, fakeUserName.length) : fakeUserName,
-                    winAmount: randomValue.winAmount + ' ' + ticker,
-                    ticker
-                }
-        
-                rows.unshift(newRow);
-
-                if(rows.length >= size) {
-                    rows.pop();
-                }
-            }
+            
+            rows = loadFakeBets(rows, games, size);
     
             this.setState({ rows, isLoadingRow : true });
-
         }
     }
 
