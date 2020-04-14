@@ -1,9 +1,6 @@
 import React, { Component } from "react";
-import PropTypes from "prop-types";
-import { ButtonIcon, History, Typography, InputText, Button, DropDownField } from "components";
-import UserContext from "containers/App/UserContext";
+import { Typography, InputText, DropDownField } from "components";
 import { connect } from "react-redux";
-import { compose } from 'lodash/fp'
 import _ from 'lodash';
 import UsersGroupIcon from 'mdi-react/UsersGroupIcon';
 import { Row, Col } from 'reactstrap';
@@ -13,7 +10,7 @@ import languages from "../../config/languages";
 import { setMessageNotification } from "../../redux/actions/message";
 import { CopyText } from "../../copy";
 import store from "../App/store";
-import { dateToHourAndMinute } from "../../lib/helpers";
+import { dateToHourAndMinute, getSkeletonColors } from "../../lib/helpers";
 import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 
 const sound = localStorage.getItem("sound");
@@ -28,7 +25,7 @@ const defaultProps = {
     open : true,
     history: "",
     language : languages[0],
-    isLoading: false
+    isLoading: true
 }
 
 class ChatPage extends React.Component {
@@ -47,7 +44,7 @@ class ChatPage extends React.Component {
     }
 
     scrollToBottom = () => {
-        const { index, selected } = this.props
+        const { index, selected } = this.props;
         if (index === selected) {
             setTimeout(() => {
                 this.messagesEnd.scrollIntoView({ behavior: "smooth" });
@@ -87,10 +84,12 @@ class ChatPage extends React.Component {
 
     createMessageBox = ({username, message, id, time}) => {
         const { isLoading } = this.state;
+        const { color, highlightColor } = getSkeletonColors();
+
         return(
             <div>
                 {isLoading ?
-                    <SkeletonTheme color="#05040c" highlightColor="#17162d">
+                    <SkeletonTheme color={color} highlightColor={highlightColor}>
                         <div styleName='message-box' key={id} style={{opacity : '0.3'}}> 
                             <div styleName='info'>
                                 <Skeleton width={100}/>
@@ -128,9 +127,10 @@ class ChatPage extends React.Component {
 
     createSkeletonMessages = () => {
         let messages = []
+        const { color, highlightColor } = getSkeletonColors();
     
         for (let i = 0; i < 150; i++) {
-            messages.push(<SkeletonTheme color="#05040c" highlightColor="#17162d"><div styleName='message-box' key={i} style={{opacity : '0.3'}}><div styleName='info'><Skeleton width={100}/></div><div styleName={'info-message-container'}><Skeleton /></div></div></SkeletonTheme>);
+            messages.push(<SkeletonTheme color={color} highlightColor={highlightColor}><div styleName='message-box' key={i} style={{opacity : '0.3'}}><div styleName='info'><Skeleton width={100}/></div><div styleName={'info-message-container'}><Skeleton /></div></div></SkeletonTheme>);
         }
 
         return messages;

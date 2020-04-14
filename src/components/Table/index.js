@@ -6,6 +6,7 @@ import faker from 'faker';
 import classNames from "classnames";
 import { formatCurrency } from "../../utils/numberFormatation";
 import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
+import { getSkeletonColors } from "../../lib/helpers";
 
 import "./index.css";
 
@@ -105,6 +106,7 @@ class TableDefault extends Component {
     render() {
         let { isLoadingRow, rows } = this.state; 
         let { titles, fields, isLoading } = this.props;
+        const { color, highlightColor } = getSkeletonColors();
 
         const rowStyles = classNames("tr-row", {
             addRow: isLoadingRow
@@ -113,7 +115,7 @@ class TableDefault extends Component {
         return (
             <div>
                 {isLoading ?
-                    <SkeletonTheme color="#0f0e1d" highlightColor="#17162d">
+                    <SkeletonTheme color={color} highlightColor={highlightColor}>
                         <div style={{opacity : '0.3'}}> 
                             {this.createSkeletonRows()}
                         </div>

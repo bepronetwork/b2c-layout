@@ -50,6 +50,16 @@ function getAppCustomization(){
     return  Cache.getFromCache("appInfo") ? Cache.getFromCache("appInfo").customization : {};
 }
 
+function getSkeletonColors(){
+    const { colors } = Cache.getFromCache("appInfo") ? Cache.getFromCache("appInfo").customization : {};
+    const skeletonColors = {
+        color : colors.primaryColor ? colors.primaryColor : "#05040c",
+        highlightColor : colors.backgroundColor ? colors.backgroundColor : "#17162d"
+    }
+
+    return skeletonColors;
+}
+
 function getApp(){
     return  Cache.getFromCache("appInfo") ? Cache.getFromCache("appInfo") : {};
 }
@@ -109,5 +119,6 @@ export {
     isUserSet, getMinutesfromSeconds, 
     getQueryVariable,  getGeo,
     getApp,
-    processResponse
+    processResponse,
+    getSkeletonColors
 }
