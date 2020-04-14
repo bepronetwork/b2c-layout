@@ -13,18 +13,13 @@ import TablePagination from '@material-ui/core/TablePagination';
 import TableRow from '@material-ui/core/TableRow';
 import TableSortLabel from '@material-ui/core/TableSortLabel';
 import Toolbar from '@material-ui/core/Toolbar';
-import Paper from '@material-ui/core/Paper';
-import Checkbox from '@material-ui/core/Checkbox';
-import IconButton from '@material-ui/core/IconButton';
 import Tooltip from '@material-ui/core/Tooltip';
 import { lighten } from '@material-ui/core/styles/colorManipulator';
-import FilterListIcon from 'mdi-react/FilterListIcon';
 import { Numbers, AddressConcat } from '../../../lib/ethereum/lib';
 import withdrawStatus from './codes';
-import { Button, Typography } from "components";
+import { Typography } from "components";
 import "./index.css";
 import { CopyText } from '../../../copy';
-import { Row, Col } from 'reactstrap';
 import { getApp } from "../../../lib/helpers";
 let counter = 0;
 let globalProps = null;
@@ -55,13 +50,28 @@ function getSorting(order, orderBy) {
 
 const fromDatabasetoTable = (data) => {
     if(!data){return null}
+    const virtual = getApp().virtual;
     let sortedByTimestamp = data.sort(( a, b) => {
         return new Date(b.creation_timestamp) - new Date(a.creation_timestamp)
     });
 	let res = sortedByTimestamp.map( (data) => {
+        const currency = getApp().currencies.find(c => c._id === data.currency);
+        let ticker = currency.ticker;
+        let amount = data.amount;
+
+        if (virtual === true) {
+            const virtualCurrency = getApp().currencies.find(c => c.virtual === true);
+
+            if(currency && virtualCurrency) {
+                const virtualWallet = getApp().wallet.find(w => w.currency._id === virtualCurrency._id);
+                const price = virtualWallet ? virtualWallet.price.find(p => p.currency === currency._id).amount : 1;
+                ticker = virtualCurrency.ticker;
+                amount = data.amount / price;
+            }
+        }
         return {
             id :  data._id,
-			amount : Numbers.toFloat(data.amount),
+			amount : Numbers.toFloat(amount),
             confirmed: data.transactionHash ? 'Confirmed' : 'Confirm',
             done :  data.confirmed,
             isConfirmed : data.transactionHash ? true : false,
@@ -71,7 +81,7 @@ const fromDatabasetoTable = (data) => {
             address: data.address,
             nonce : data.nonce,
             link_url : data.link_url,
-            ticker : getApp().currencies.find(c => c._id === data.currency).ticker
+            ticker
 		}
     })
     return res;
