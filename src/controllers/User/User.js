@@ -73,7 +73,7 @@ export default class User {
         }
     }
     getPusherAPIKey = () => {
-        return this.integrations.pusher ? this.integrations.pusher.key : '';
+        return this.app.integrations.pusher ? this.app.integrations.pusher.key : '';
     }
 
     listenAppPrivateChannel = () => {
