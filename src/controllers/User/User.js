@@ -138,7 +138,7 @@ export default class User {
         await store.dispatch(setProfileInfo(this));
     }
 
-    getMyBets = async ({size}) => {
+    getMyBets = async ({size, game}) => {
         try{
             // grab current state
             const state = store.getState();
@@ -149,7 +149,8 @@ export default class User {
                 let res = await getMyBets({         
                     currency : currency._id,      
                     user: this.user_id,
-                    size
+                    size,
+                    game
                 }, this.bearerToken);
                 return await processResponse(res);
             }else{
