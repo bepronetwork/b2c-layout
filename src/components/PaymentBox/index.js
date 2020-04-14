@@ -3,13 +3,40 @@ import './index.css';
 import { Row, Col } from 'reactstrap';
 import { Typography, Checkbox } from 'components';
 import { connect } from "react-redux";
+import { getApp } from "../../lib/helpers";
 
 class PaymentBox extends React.Component{
     constructor(props){
         super(props);
         this.state = {
-            checked : false
+            checked : false,
+            price : null,
+            virtualTicker: null,
         }
+    }
+
+    componentDidMount(){
+        this.projectData(this.props)
+    }
+
+    componentWillReceiveProps(props){
+        this.projectData(props);
+    }
+
+    projectData = async (props) => {
+        const { currency } = props;
+        const virtual = getApp().virtual;
+
+        if (virtual === true) {
+            const virtualCurrency = getApp().currencies.find(c => c.virtual === true);
+
+            if(currency && virtualCurrency) {
+                const virtualWallet = getApp().wallet.find(w => w.currency._id === virtualCurrency._id);
+                const price = virtualWallet ? virtualWallet.price.find(p => p.currency === currency._id).amount : null;
+                this.setState({ price, virtualTicker : virtualCurrency.ticker });
+            }
+        }
+
     }
 
     onClick = () => {
@@ -23,6 +50,7 @@ class PaymentBox extends React.Component{
         var { 
             image, type, description, id, picked, isPicked, info
         } = this.props;
+        const { price, virtualTicker } = this.state;
 
         isPicked = isPicked ? isPicked : (picked == id);
 
@@ -41,7 +69,7 @@ class PaymentBox extends React.Component{
                             </Typography>
                             <div styleName='text-description'>
                                 <Typography variant={'x-small-body'} color={'casper'}>
-                                    {description}
+                                    {price ? `1 ${virtualTicker} = ${price} ${id}` : description}
                                 </Typography>
                             </div>
                             {info ? 

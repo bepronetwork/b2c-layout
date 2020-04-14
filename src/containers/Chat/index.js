@@ -14,6 +14,7 @@ import { dateToHourAndMinute, getSkeletonColors } from "../../lib/helpers";
 import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 
 const sound = localStorage.getItem("sound");
+const delay = ms => new Promise(res => setTimeout(res, ms));
 
 const defaultProps = {
     messages : [],
@@ -32,7 +33,10 @@ class ChatPage extends React.Component {
 
     constructor(props) {
         super(props);
-        this.state = {  ...defaultProps };
+        this.state = {   
+            isLoading : props.firstLoading === true ? true : false,
+            ...defaultProps 
+        };
     }
 
     componentDidMount(){
@@ -43,15 +47,16 @@ class ChatPage extends React.Component {
         this.projectData(props);
     }
 
-    scrollToBottom = () => {
+    scrollToBottom = async () =>  {
+        const { isLoading } = this.state;
         const { index, selected } = this.props;
         if (index === selected) {
-            setTimeout(() => {
-                this.messagesEnd.scrollIntoView({ behavior: "smooth" });
-                setTimeout(() => {
-                    this.setState({ isLoading : false })
-                }, 3000)
-            }, 500)
+            await delay(500);
+            this.messagesEnd.scrollIntoView({ behavior: "smooth" });
+            if(isLoading) {
+                await delay(3000);
+                this.setState({ isLoading : false });
+            }
         }
     }
 
@@ -61,8 +66,7 @@ class ChatPage extends React.Component {
                 participants : props.chat.participants,
                 messages :  props.chat.messages,
                 name : props.chat.name,
-                open :  props.chat.open,
-                isLoading: true
+                open :  props.chat.open
             });
 
             this.scrollToBottom();
@@ -84,12 +88,11 @@ class ChatPage extends React.Component {
 
     createMessageBox = ({username, message, id, time}) => {
         const { isLoading } = this.state;
-        const { color, highlightColor } = getSkeletonColors();
 
         return(
             <div>
                 {isLoading ?
-                    <SkeletonTheme color={color} highlightColor={highlightColor}>
+                    <SkeletonTheme color={getSkeletonColors().color} highlightColor={getSkeletonColors().highlightColor}>
                         <div styleName='message-box' key={id} style={{opacity : '0.3'}}> 
                             <div styleName='info'>
                                 <Skeleton width={100}/>
@@ -126,7 +129,7 @@ class ChatPage extends React.Component {
     }
 
     createSkeletonMessages = () => {
-        let messages = []
+        let messages = [];
         const { color, highlightColor } = getSkeletonColors();
     
         for (let i = 0; i < 150; i++) {

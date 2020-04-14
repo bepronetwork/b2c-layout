@@ -51,6 +51,7 @@ class CurrencyDepositForm extends React.Component{
                             id={`${c.ticker}`}  
                             image={c.image} type={`${c.name}`} 
                             description={copy.INDEX.PAYMENTBOX.DESCRIPTION[0]}
+                            currency={c}
                         />
                     )
                 })}

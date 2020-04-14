@@ -252,12 +252,11 @@ class LastBets extends Component {
 
     render() {
         const { isLoading, gameMetaName, games } = this.state;
-        const { color, highlightColor } = getSkeletonColors();
 
         return (
             <div styleName='container'>
                 {isLoading ?
-                    <SkeletonTheme color={color} highlightColor={highlightColor}>
+                    <SkeletonTheme color={ getSkeletonColors().color} highlightColor={ getSkeletonColors().highlightColor}>
                         <div styleName='lastBets' style={{opacity : '0.3'}}>
                             <div styleName='skeleton-tabs'>
                                 {this.createSkeletonTabs()}
