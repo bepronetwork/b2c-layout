@@ -73,7 +73,7 @@ export default class User {
         }
     }
     getPusherAPIKey = () => {
-        return this.integrations.pusher ? this.integrations.pusher.key : '';
+        return this.app.integrations.pusher ? this.app.integrations.pusher.key : '';
     }
 
     listenAppPrivateChannel = () => {
@@ -102,7 +102,10 @@ export default class User {
         const state = store.getState();
         currency = currency ? currency : state.currency;
         if(_.isEmpty(currency)){ return 0;}
-        return this.getWallet({currency}).playBalance;
+
+        const wallet = this.getWallet({currency});
+        if(_.isEmpty(wallet)){ return 0;}
+        return wallet.playBalance;
     };
     getWallet = ({currency}) => {return this.user.wallet.find( w => new String(w.currency._id).toString().toLowerCase() == new String(currency._id).toString().toLowerCase())};
     

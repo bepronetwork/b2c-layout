@@ -120,21 +120,31 @@ class App extends Component {
 
     automaticLoginFromCache = async () => {
         let reponseUser = Cache.getFromCache('user');
-        let user = await this.updateUser(reponseUser);
 
         if(reponseUser) {
+            let user = await this.updateUser(reponseUser);
             await user.updateUser();
-
-            const appInfo = Cache.getFromCache("appInfo");
-
-            this.setDefaultCurrency(appInfo);
+            this.setDefaultCurrency();
+        }
+        else {
+            const app = Cache.getFromCache("appInfo");
+            const { publicKey } = app.integrations.chat;
+            this.chat = new ChatChannel({publicKey});
+            this.chat.__init__();
+            setStartLoadingProcessDispatcher(6);
         }
     }
 
-    setDefaultCurrency = async (res) => {
-        if(res && res.wallet && res.wallet.length > 0 && res.wallet[0].currency) {
-            let currency = res.wallet[0].currency;
-            await store.dispatch(setCurrencyView(currency));
+    setDefaultCurrency = async () => {
+        const appInfo = Cache.getFromCache("appInfo");
+        if(appInfo && appInfo.wallet) {
+            const virtual = appInfo.virtual;
+            const wallets = appInfo.wallet.filter(w => w.currency.virtual === virtual);
+
+            if(wallets.length) {
+                const currency = wallets[0].currency;
+                await store.dispatch(setCurrencyView(currency));
+            }
         }
     }
 
@@ -231,7 +241,7 @@ class App extends Component {
                 this.setState({ registerLoginModalOpen: null, error: null});
             }
             /* Set currency */
-            this.setDefaultCurrency(response);
+            this.setDefaultCurrency();
 
             return response;
         } catch (error) {
@@ -301,9 +311,9 @@ class App extends Component {
             platformAddress: appInfo.platformAddress,
             tokenAddress: appInfo.platformTokenAddress,
             decimals: appInfo.decimals,
-            integrations : user.integrations ? user.integrations : appInfo.integrations,
+            integrations : user && user.integrations ? user.integrations : appInfo.integrations,
             appId: appInfo.id,
-            userId: user.id,
+            userId: user ? user.id : null,
             user : user
         })
         await store.dispatch(setProfileInfo(userObject));
@@ -324,6 +334,9 @@ class App extends Component {
         localStorage.removeItem("plinko_variation_1History");
         localStorage.removeItem("wheelHistory");
         localStorage.removeItem("wheel_variation_1History");
+        localStorage.removeItem("customization");
+        localStorage.removeItem("affiliate");
+        localStorage.removeItem("appInfo");
         await store.dispatch(setProfileInfo(null));
         this.setState({ user: null });
         window.location.reload();
@@ -549,7 +562,6 @@ class App extends Component {
                         setUser: (() => {})
                     }}
                 >
-                    <LoadingBanner isLoaded={isUserLoaded} progress={progress100}/>
                     <Router history={history}>
                         <Widgets/>
                         <header>
@@ -652,7 +664,7 @@ class App extends Component {
                                         </div> 
                                     </a>
                                     <div styleName={'chat-container'}>
-                                        <ChatPage/>
+                                        <ChatPage firstLoading={true}/>
                                     </div>
                                 </div>
                                 <div styleName={betsListStyles} > 

@@ -6,6 +6,7 @@ import { Typography } from 'components';
 import classNames from "classnames";
 import building from 'assets/blockchain.png';
 import loading from 'assets/loading.gif';
+import { getApp } from "../../lib/helpers";
 import _ from 'lodash';
 import { CopyText } from '../../copy';
 
@@ -19,7 +20,9 @@ class DepositForm extends Component {
             addressInitialized: false,
             address: null,
             isLoaded: false,
-            copied: false
+            copied: false,
+            price : null,
+            virtualTicker : null
         }
     }
 
@@ -37,7 +40,22 @@ class DepositForm extends Component {
         let response = await profile.getCurrencyAddress({ currency_id: deposit.currency._id });
 
         if(!_.isEmpty(response) && _.isEmpty(response.message)) {
-            this.setState({ addressInitialized: true, address: response.address });
+            const virtual = getApp().virtual;
+            let price = null;
+            let virtualTicker = null;
+
+            if (virtual === true) {
+                const currency = deposit.currency;
+                const virtualCurrency = getApp().currencies.find(c => c.virtual === true);
+    
+                if(currency && virtualCurrency) {
+                    virtualTicker = virtualCurrency.ticker;
+                    const virtualWallet = getApp().wallet.find(w => w.currency._id === virtualCurrency._id);
+                    price = virtualWallet ? virtualWallet.price.find(p => p.currency === currency._id).amount : null;
+                }
+            }
+
+            this.setState({ addressInitialized: true, address: response.address, price, virtualTicker });
             clearInterval(this.intervalID);
         }
 
@@ -69,7 +87,7 @@ class DepositForm extends Component {
 
     render() {
         const { deposit } = this.props;
-        const { addressInitialized, address, isLoaded, copied } = this.state;
+        const { addressInitialized, address, isLoaded, copied, price, virtualTicker } = this.state;
         const {ln} = this.props;
         const copy = CopyText.depositFormIndex[ln];
         const addressStyles = classNames("address", {"ad-copied": copied});
@@ -98,6 +116,15 @@ class DepositForm extends Component {
                                     </Typography>
                                 </div>
                             </div>
+                            {price   ?
+                                <div styleName="price">
+                                    <Typography variant={'small-body'} color={`white`} weight={`bold`}>
+                                        {`1 ${virtualTicker} = ${price} ${deposit.currency.ticker}`}
+                                    </Typography>
+                                </div>
+                            :
+                                null    
+                            }
                             <Typography variant={'x-small-body'} color={`white`}>
                                 {copy.INDEX.TYPOGRAPHY.FUNC_TEXT[0]([deposit.currency.ticker, deposit.currency.ticker])}
                                 <br/><br/>

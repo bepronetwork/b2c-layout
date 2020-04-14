@@ -4,7 +4,7 @@ import UserContext from "containers/App/UserContext";
 import { connect } from "react-redux";
 import { getLastBets, getBiggestUserWinners, getBiggestBetWinners } from "../../../lib/api/app";
 import { Numbers } from "../../../lib/ethereum/lib";
-import { dateToHourAndMinute, getGames, getApp } from "../../../lib/helpers";
+import { dateToHourAndMinute, getGames, getApp, getSkeletonColors } from "../../../lib/helpers";
 import Tabs from "../../../components/Tabs";
 import { SelectBox, Table } from 'components';
 import _ from 'lodash';
@@ -307,12 +307,12 @@ class LastBets extends Component {
     }
 
     render() {
-        const { games, gamesOptions, isLoading } = this.state;
+        const { games, gamesOptions, isLoading, view_game } = this.state;
 
         return (
             <div styleName='container'>
                 {isLoading ?
-                    <SkeletonTheme color="#05040c" highlightColor="#17162d">
+                    <SkeletonTheme color={ getSkeletonColors().color} highlightColor={ getSkeletonColors().highlightColor}>
                         <div styleName='lastBets' style={{opacity : '0.3'}}>
                             <div styleName='skeleton-tabs'>
                                 {this.createSkeletonTabs()}
@@ -332,7 +332,7 @@ class LastBets extends Component {
                             <div styleName='bets-dropdown-game'>
                                 <SelectBox
                                     onChange={(e) => this.changeViewGames(e)}
-                                    options={games}
+                                    options={gamesOptions}
                                     value={this.state.view_game}
                                 /> 
                             </div>
@@ -353,7 +353,7 @@ class LastBets extends Component {
                     fields={this.state[this.state.view].fields}
                     showRealTimeLoading={this.state.view == "all_bets" ? true : false}
                     size={this.state.view_amount.value}
-                    games={games.filter(function(g) { return g.metaName != 'jackpot_auto'; }).map(function(g) { return g; })}
+                    games={games.filter(function(g) { return view_game.value == 'all_games' || g.metaName == view_game.value; }).map(function(g) { return g; })}
                     isLoading={isLoading}
                 /> 
             </div>

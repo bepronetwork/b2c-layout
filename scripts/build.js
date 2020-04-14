@@ -59,12 +59,13 @@ function ServerTOJSONMapper(serverJSON){
 
 async function generateHeadElements(){
     /* Get CSS Font Link */
-    const { typography } =  appInfo;
+
     var html = html2json(indexHtml);
     html = generateNavBarName(html);
     html = generateLicenseNumber(html);
 
-    if(typography) {
+    if(appInfo.hasOwnProperty('typography')){
+        const { typography } =  appInfo;
         const { url, name } = typography;
         
         if (url) {
@@ -86,7 +87,8 @@ async function generateHeadElements(){
 
 function generateNavBarName(html){
     /* Get NavBar Name */
-    const { description, name } = appInfo;
+    const { name } = appInfo;
+    const description = appInfo.hasOwnProperty('description') ? appInfo.description : null;
     const navBarName = `${name} - ${description}`;
     let titleIndex = html.child[0].child[1].child.findIndex( c => c.tag && (c.tag.toLowerCase() == 'title'));
     html.child[0].child[1].child[titleIndex].child[0].text = navBarName;
@@ -108,26 +110,32 @@ function generateLicenseNumber(html){
 async function generateFavIcon(){
     /* Get Favicon */
     const { id } =  appInfo.customization.topIcon;
-    let blob = await image2base64(id) // you can also to use url
-    /* If Exists Save */
-    fs.writeFileSync("public/logo.ico", blob, 'base64');
+    if (id) {
+        let blob = await image2base64(id) // you can also to use url
+        /* If Exists Save */
+        fs.writeFileSync("public/logo.ico", blob, 'base64');
+    }
 }
 
 
 async function generateLogo(){
     /* Get Logo */
     const { id } =  appInfo.customization.logo;
-    let blob = await image2base64(id) // you can also to use url
-    /* If Exists Save */
-    fs.writeFileSync("public/logo.png", blob, 'base64');
+    if (id) {
+        let blob = await image2base64(id) // you can also to use url
+        /* If Exists Save */
+        fs.writeFileSync("public/logo.png", blob, 'base64');
+    }
 }
 
-async function generateLogo(){
+async function generateLoadingGif(){
     /* Get Loading Gif */
     const { id } =  appInfo.customization.loadingGif;
-    let blob = await image2base64(id) // you can also to use url
-    /* If Exists Save */
-    fs.writeFileSync("public/loading.gif", blob, 'base64');
+    if (id) {
+        let blob = await image2base64(id) // you can also to use url
+        /* If Exists Save */
+        fs.writeFileSync("public/loading.gif", blob, 'base64');
+    }
 }
 
 async function setColors(){
@@ -151,6 +159,8 @@ async function setColors(){
         await generateFavIcon();
         /* Set Platform Logo */
         await generateLogo();
+        /* Set Platform Loading Gif */
+        await generateLoadingGif();
     }catch(err){
         console.log(err);
     }

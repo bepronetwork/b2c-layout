@@ -25,6 +25,7 @@ class CurrencyDepositForm extends React.Component{
 
     projectData = async (props) => {
         let currencies = getApp().currencies;
+        currencies = currencies.filter(c => c.virtual === false);
 
         this.setState({...this.state,
             currencies
@@ -38,7 +39,7 @@ class CurrencyDepositForm extends React.Component{
         const { currencies } = this.state;
         const { deposit } = this.props;
         const {ln} = this.props;
-const copy = CopyText.currencyFormIndex[ln];
+        const copy = CopyText.currencyFormIndex[ln];
 
         return (
             <div>
@@ -50,6 +51,7 @@ const copy = CopyText.currencyFormIndex[ln];
                             id={`${c.ticker}`}  
                             image={c.image} type={`${c.name}`} 
                             description={copy.INDEX.PAYMENTBOX.DESCRIPTION[0]}
+                            currency={c}
                         />
                     )
                 })}

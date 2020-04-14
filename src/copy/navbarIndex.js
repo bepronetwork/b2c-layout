@@ -15,7 +15,8 @@
           "Deposit",
           "Casino",
           "Chat",
-          "Bets"
+          "Bets",
+          "Buy"
         ]
       }
     }
@@ -34,7 +35,8 @@
           "입금",
           "카지노",
           "Chat",
-          "Bets"
+          "Bets",
+          "Buy"
         ]
       }
     }
@@ -53,7 +55,8 @@
           "充币",
           "赌场",
           "Chat",
-          "Bets"
+          "Bets",
+          "Buy"
         ]
       }
     }
@@ -72,7 +75,8 @@
           "Deposit",
           "Casino",
           "Chat",
-          "Bets"
+          "Bets",
+          "Buy"
         ]
       }
     }

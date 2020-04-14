@@ -1,18 +1,14 @@
 import React, { Component } from "react";
-import {  Typography, InputText,  DropDownField, AnimationNumber } from "components";
+import {  DropDownField, AnimationNumber } from "components";
 import { connect } from "react-redux";
 import _ from 'lodash';
-import UsersGroupIcon from 'mdi-react/UsersGroupIcon';
-import { Row, Col } from 'reactstrap';
 import "./index.css";
 import { MenuItem } from '@material-ui/core';
-import languages from "../../config/languages";
 import PropTypes from "prop-types";
 import { formatCurrency } from '../../utils/numberFormatation';
 import "./index.css"
 import { setCurrencyView } from "../../redux/actions/currency";
 import { getApp } from "../../lib/helpers";
-import { CopyText } from '../../copy';
 
 const defaultProps = {
     currencies : [],
@@ -37,13 +33,16 @@ class CurrencyDropDown extends React.Component {
     projectData = async (props) => {
         const { profile, currency } = props;
         var currencies = getApp().currencies;
+        const virtual = getApp().virtual;
+        currencies = currencies.filter(c => c.virtual === virtual);
+        
         if(!currencies || _.isEmpty(currencies) || currencies.length < 0){return}
         currencies = currencies.map( 
             c => {
                 const w = profile.getWallet({currency : c});
                 return {
                     ...c,
-                    balance : w.playBalance
+                    balance : _.isEmpty(w) ? 0 : w.playBalance
                 }
             }
         )

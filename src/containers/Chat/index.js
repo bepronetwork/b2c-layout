@@ -1,9 +1,6 @@
 import React, { Component } from "react";
-import PropTypes from "prop-types";
-import { ButtonIcon, History, Typography, InputText, Button, DropDownField } from "components";
-import UserContext from "containers/App/UserContext";
+import { Typography, InputText, DropDownField } from "components";
 import { connect } from "react-redux";
-import { compose } from 'lodash/fp'
 import _ from 'lodash';
 import UsersGroupIcon from 'mdi-react/UsersGroupIcon';
 import { Row, Col } from 'reactstrap';
@@ -13,10 +10,11 @@ import languages from "../../config/languages";
 import { setMessageNotification } from "../../redux/actions/message";
 import { CopyText } from "../../copy";
 import store from "../App/store";
-import { dateToHourAndMinute } from "../../lib/helpers";
+import { dateToHourAndMinute, getSkeletonColors } from "../../lib/helpers";
 import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 
 const sound = localStorage.getItem("sound");
+const delay = ms => new Promise(res => setTimeout(res, ms));
 
 const defaultProps = {
     messages : [],
@@ -28,14 +26,17 @@ const defaultProps = {
     open : true,
     history: "",
     language : languages[0],
-    isLoading: false
+    isLoading: true
 }
 
 class ChatPage extends React.Component {
 
     constructor(props) {
         super(props);
-        this.state = {  ...defaultProps };
+        this.state = {   
+            isLoading : props.firstLoading === true ? true : false,
+            ...defaultProps 
+        };
     }
 
     componentDidMount(){
@@ -46,15 +47,16 @@ class ChatPage extends React.Component {
         this.projectData(props);
     }
 
-    scrollToBottom = () => {
-        const { index, selected } = this.props
+    scrollToBottom = async () =>  {
+        const { isLoading } = this.state;
+        const { index, selected } = this.props;
         if (index === selected) {
-            setTimeout(() => {
-                this.messagesEnd.scrollIntoView({ behavior: "smooth" });
-                setTimeout(() => {
-                    this.setState({ isLoading : false })
-                }, 3000)
-            }, 500)
+            await delay(500);
+            this.messagesEnd.scrollIntoView({ behavior: "smooth" });
+            if(isLoading) {
+                await delay(3000);
+                this.setState({ isLoading : false });
+            }
         }
     }
 
@@ -64,8 +66,7 @@ class ChatPage extends React.Component {
                 participants : props.chat.participants,
                 messages :  props.chat.messages,
                 name : props.chat.name,
-                open :  props.chat.open,
-                isLoading: true
+                open :  props.chat.open
             });
 
             this.scrollToBottom();
@@ -87,10 +88,11 @@ class ChatPage extends React.Component {
 
     createMessageBox = ({username, message, id, time}) => {
         const { isLoading } = this.state;
+
         return(
             <div>
                 {isLoading ?
-                    <SkeletonTheme color="#05040c" highlightColor="#17162d">
+                    <SkeletonTheme color={getSkeletonColors().color} highlightColor={getSkeletonColors().highlightColor}>
                         <div styleName='message-box' key={id} style={{opacity : '0.3'}}> 
                             <div styleName='info'>
                                 <Skeleton width={100}/>
@@ -127,10 +129,11 @@ class ChatPage extends React.Component {
     }
 
     createSkeletonMessages = () => {
-        let messages = []
+        let messages = [];
+        const { color, highlightColor } = getSkeletonColors();
     
         for (let i = 0; i < 150; i++) {
-            messages.push(<SkeletonTheme color="#05040c" highlightColor="#17162d"><div styleName='message-box' key={i} style={{opacity : '0.3'}}><div styleName='info'><Skeleton width={100}/></div><div styleName={'info-message-container'}><Skeleton /></div></div></SkeletonTheme>);
+            messages.push(<SkeletonTheme color={color} highlightColor={highlightColor}><div styleName='message-box' key={i} style={{opacity : '0.3'}}><div styleName='info'><Skeleton width={100}/></div><div styleName={'info-message-container'}><Skeleton /></div></div></SkeletonTheme>);
         }
 
         return messages;

@@ -25,7 +25,7 @@ import { Button, Typography } from "components";
 import "./index.css";
 import { CopyText } from '../../../copy';
 import { Row, Col } from 'reactstrap';
-import { fromSmartContractTimeToMinutes } from '../../../lib/helpers';
+import { getApp } from "../../../lib/helpers";
 let counter = 0;
 let globalProps = null;
 
@@ -70,7 +70,8 @@ const fromDatabasetoTable = (data) => {
             creation_date : new Date(data.creation_timestamp).toDateString(),
             address: data.address,
             nonce : data.nonce,
-            link_url : data.link_url
+            link_url : data.link_url,
+            ticker : getApp().currencies.find(c => c._id === data.currency).ticker
 		}
     })
     return res;
@@ -364,7 +365,7 @@ class DepositsTable extends React.Component {
                                 >
                                     <StyledTableCell  style={{width: 175, borderBottom: '1px solid #192c38', paddingLeft: 50}} align="left">
                                         <Typography variant={'small-body'} color='white'>
-                                            {n.amount} {this.props.currency}
+                                            {n.amount} {n.ticker}
                                         </Typography>
                                     </StyledTableCell>
                                     <StyledTableCell style={{width: 175, borderBottom: '1px solid #192c38', paddingLeft: 30}} align="left">

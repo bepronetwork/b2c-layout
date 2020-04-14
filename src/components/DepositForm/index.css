@@ -59,7 +59,7 @@
     text-align: justify;
     width: 384px;
     background-color: $mirage;
-    border-radius: 5px;
+    border-radius: $border-radius $border-radius 0 0;
     padding: $spacing-20;
 
     @include Breakpoint-mobileOnly {
@@ -111,6 +111,11 @@
       opacity: 0;
       animation: copied-animation 1s running;
     }
+}
+
+.price {
+    margin-bottom: $spacing-28;
+    text-align: center;
 }
 
 @keyframes copied-animation {

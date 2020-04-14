@@ -30,7 +30,7 @@ const copy = CopyText.multiplyMaxButtonIndex[ln];
             type="button"
           >
             <div styleName="button-container">
-              <Typography weight="semi-bold" variant="body" color="casper">
+              <Typography weight="semi-bold" variant="small-body" color="casper">
                 ½
               </Typography>
             </div>
@@ -42,7 +42,7 @@ const copy = CopyText.multiplyMaxButtonIndex[ln];
             type="button"
           >
             <div styleName="button-container">
-              <Typography weight="semi-bold" variant="body" color="casper">
+              <Typography weight="semi-bold" variant="small-body" color="casper">
                 2×
               </Typography>
             </div>
@@ -56,7 +56,7 @@ const copy = CopyText.multiplyMaxButtonIndex[ln];
             <div styleName="button-container">
               <Typography
                 weight="semi-bold"
-                variant="small-body"
+                variant="x-small-body"
                 color="casper"
               >
                 {copy.INDEX.TYPOGRAPHY.TEXT[0]}

@@ -2,12 +2,13 @@ import React, { Component } from "react";
 import {Typography } from "components";
 import PropTypes from "prop-types";
 import UserContext from "containers/App/UserContext";
-import faker from 'faker';
 import classNames from "classnames";
-import { formatCurrency } from "../../utils/numberFormatation";
 import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
+import { getSkeletonColors, loadFakeBets } from "../../lib/helpers";
 
 import "./index.css";
+
+const delay = ms => new Promise(res => setTimeout(res, ms));
 
 class TableDefault extends Component {
     intervalID = 0;
@@ -31,7 +32,7 @@ class TableDefault extends Component {
         this.intervalID = setInterval( async () => {
             this.setState({ isLoadingRow : false });
             this.addRow();
-        }, 5000);
+        }, 6000);
     }
 
     componentWillReceiveProps(props){
@@ -46,47 +47,16 @@ class TableDefault extends Component {
         this.setState({ rows : props.rows});
     }
 
-    addRow() {
+    addRow = async () =>  {
         let { rows } = this.state; 
         const { showRealTimeLoading, size, games } = this.props;
 
         if(showRealTimeLoading) {
-            setTimeout(() => {
-
-                /* fake random value */
-                var game = games[Math.floor(Math.random() * games.length)];
-                var row = rows[Math.floor(Math.random() * rows.length)];
-                let ticker = row ? row.ticker : 'ETH';
-                let fakeUserName = faker.internet.userName();
-                let randomArray = [];
-                let lostValue = {isWon : false, payout : '0.000000', winAmount : '0.000000'};
-                var i = 0; do { i++; randomArray.push(lostValue) } while (i < 4);
-                var i = 0; do { 
-                    i++; 
-                    const winValue =  {isWon : true, payout : formatCurrency(Math.random() * (2.000000 - 0.050000) + 0.050000), winAmount : formatCurrency(Math.random() * (2.000000 - 0.050000) + 0.050000)};
-                    randomArray.push(winValue) 
-                } while (i < 6);
-                var randomValue = randomArray[Math.floor(Math.random() * randomArray.length)];
-
-                const newRow = {
-                    game : game,
-                    isWon: randomValue.isWon,
-                    payout: randomValue.payout + 'x',
-                    timestamp: "a few seconds ago",
-                    username: fakeUserName.length > 10 ? fakeUserName.substring(0, 4)+'...'+fakeUserName.substring(fakeUserName.length-3, fakeUserName.length) : fakeUserName,
-                    winAmount: randomValue.winAmount + ' ' + ticker,
-                    ticker
-                }
-        
-                rows.unshift(newRow);
-
-                if(rows.length >= size) {
-                    rows.pop();
-                }
-        
-                this.setState({ rows, isLoadingRow : true });
-
-            }, 500);
+            await delay(1000);
+            
+            rows = loadFakeBets(rows, games, size);
+    
+            this.setState({ rows, isLoadingRow : true });
         }
     }
 
@@ -111,7 +81,7 @@ class TableDefault extends Component {
         return (
             <div>
                 {isLoading ?
-                    <SkeletonTheme color="#0f0e1d" highlightColor="#17162d">
+                    <SkeletonTheme color={ getSkeletonColors().color} highlightColor={ getSkeletonColors().highlightColor}>
                         <div style={{opacity : '0.3'}}> 
                             {this.createSkeletonRows()}
                         </div>
@@ -142,7 +112,7 @@ class TableDefault extends Component {
                                                 )
                                             }else if(field.image){
                                                 const imageStyles = classNames("th-row", "th-row-img");
-                                                const background = row[field.value].background_url;
+                                                const background = row[field.value].hasOwnProperty("background_url") ? row[field.value].background_url : null;
                                                 return (
                                                     <th styleName={imageStyles}>
                                                         <div styleName="image">

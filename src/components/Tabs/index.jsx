@@ -21,24 +21,24 @@ export default class Tabs extends Component {
 
     renderTabs = () => {
         const { options, selected } = this.props;
+        const filteredOptions = options.filter(o => !o.disabled);
 
-        if (!options) {
+        if (!filteredOptions) {
         return null;
         }
 
-
-        const selectedTab = selected || options[0].value;
+        const selectedTab = selected || filteredOptions[0].value;
 
         return (
             <div styleName="tabs">
-             {   map(options, ({ value, label, icon }) => (
+             {   filteredOptions.map(option => (
 
                     <Tab
-                        label={label}
-                        name={value}
-                        icon={icon}
+                        label={option.label}
+                        name={option.value}
+                        icon={option.icon}
                         onClick={this.handleTabClick}
-                        selected={selectedTab === value}
+                        selected={selectedTab === option.value}
                     />
             ))
             }
