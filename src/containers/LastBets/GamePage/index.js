@@ -147,13 +147,16 @@ class LastBets extends Component {
             view_amount = options.view_amount ? options.view_amount : view_amount;
         }
         const copy = CopyText.homepagegame[ln];
-        let all_bets = await getLastBets({size : view_amount.value});
-        let biggest_winners_bets = await getBiggestBetWinners({size : view_amount.value});
+        const gameId = games.find(g =>g.metaName === gameMetaName)._id;
+
+        let all_bets = await getLastBets({size : view_amount.value, game : gameId });
+        let biggest_winners_bets = await getBiggestBetWinners({size : view_amount.value, game : gameId });
         let my_bets = [];
 
         if(profile && !_.isEmpty(profile)){
-            my_bets = await profile.getMyBets({size : view_amount.value});
+            my_bets = await profile.getMyBets({size : view_amount.value, game : gameId });
         }
+
         this.setState({...this.state, 
             ...options,
             isLoading : false,
@@ -198,7 +201,7 @@ class LastBets extends Component {
                         payout : `${formatCurrency(Numbers.toFloat(bet.winAmount/bet.betAmount))}x`,
                         ticker
                     }
-                }).filter( el => (el.game.metaName == gameMetaName) && el.isWon === true)
+                }).filter( el => el.isWon === true)
             },
             my_bets : {
                 ...this.state.my_bets,
@@ -216,7 +219,7 @@ class LastBets extends Component {
                         isWon : bet.isWon,
                         payout : `${formatCurrency(Numbers.toFloat(bet.winAmount/bet.betAmount))}x`
                     }
-                }).filter( el => (el.game.metaName == gameMetaName))
+                })
             },
             biggest_win_bets  : {
                 ...this.state.biggest_win_bets,
@@ -235,7 +238,7 @@ class LastBets extends Component {
                         isWon : bet.isWon,
                         payout : `${formatCurrency(Numbers.toFloat(bet.winAmount/bet.betAmount))}x`
                     }
-                }).filter( el => (el.game.metaName == gameMetaName))
+                })
             }
         })
     }
