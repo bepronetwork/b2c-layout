@@ -6,7 +6,7 @@ import faker from 'faker';
 import classNames from "classnames";
 import { formatCurrency } from "../../utils/numberFormatation";
 import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
-import { getSkeletonColors } from "../../lib/helpers";
+import { getSkeletonColors, getApp } from "../../lib/helpers";
 
 import "./index.css";
 
@@ -56,16 +56,25 @@ class TableDefault extends Component {
         if(showRealTimeLoading) {
             await delay(1000);
             /* fake random value */
+            let ticker = row ? row.ticker : 'ETH';
+            const virtual = getApp().virtual;
+            if (virtual === true) {
+                let currencies = getApp().currencies;
+                ticker = currencies.find(c => c.virtual === true).ticker;
+            }
             var game = games[Math.floor(Math.random() * games.length)];
             var row = rows[Math.floor(Math.random() * rows.length)];
-            let ticker = row ? row.ticker : 'ETH';
             let fakeUserName = faker.internet.userName();
             let randomArray = [];
             let lostValue = {isWon : false, payout : '0.000000', winAmount : '0.000000'};
             var i = 0; do { i++; randomArray.push(lostValue) } while (i < 4);
             var i = 0; do { 
                 i++; 
-                const winValue =  {isWon : true, payout : formatCurrency(Math.random() * (2.000000 - 0.050000) + 0.050000), winAmount : formatCurrency(Math.random() * (2.000000 - 0.050000) + 0.050000)};
+                let payout = Math.random() * (2.000000 - 0.050000) + 0.050000;
+                let winAmount = Math.random() * (2.000000 - 0.050000) + 0.050000;
+                payout = virtual === true ? payout * 10 : payout;
+                winAmount = virtual === true ? winAmount * 10 : winAmount;
+                const winValue =  { isWon : true, payout : formatCurrency(payout), winAmount : formatCurrency(winAmount)};
                 randomArray.push(winValue) 
             } while (i < 6);
             var randomValue = randomArray[Math.floor(Math.random() * randomArray.length)];
