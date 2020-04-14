@@ -120,11 +120,18 @@ class App extends Component {
 
     automaticLoginFromCache = async () => {
         let reponseUser = Cache.getFromCache('user');
-        let user = await this.updateUser(reponseUser);
 
         if(reponseUser) {
+            let user = await this.updateUser(reponseUser);
             await user.updateUser();
             this.setDefaultCurrency();
+        }
+        else {
+            const app = Cache.getFromCache("appInfo");
+            const { publicKey } = app.integrations.chat;
+            this.chat = new ChatChannel({publicKey});
+            this.chat.__init__();
+            setStartLoadingProcessDispatcher(6);
         }
     }
 
@@ -327,6 +334,9 @@ class App extends Component {
         localStorage.removeItem("plinko_variation_1History");
         localStorage.removeItem("wheelHistory");
         localStorage.removeItem("wheel_variation_1History");
+        localStorage.removeItem("customization");
+        localStorage.removeItem("affiliate");
+        localStorage.removeItem("appInfo");
         await store.dispatch(setProfileInfo(null));
         this.setState({ user: null });
         window.location.reload();
@@ -654,7 +664,7 @@ class App extends Component {
                                         </div> 
                                     </a>
                                     <div styleName={'chat-container'}>
-                                        <ChatPage/>
+                                        <ChatPage firstLoading={true}/>
                                     </div>
                                 </div>
                                 <div styleName={betsListStyles} > 
