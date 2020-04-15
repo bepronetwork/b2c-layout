@@ -33,10 +33,7 @@ class ChatPage extends React.Component {
 
     constructor(props) {
         super(props);
-        this.state = {   
-            isLoading : props.firstLoading === true ? true : false,
-            ...defaultProps 
-        };
+        this.state = defaultProps;
     }
 
     componentDidMount(){
