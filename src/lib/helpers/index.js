@@ -55,8 +55,8 @@ function getAppCustomization(){
 function getSkeletonColors(){
     const { colors } = Cache.getFromCache("appInfo") ? Cache.getFromCache("appInfo").customization : {};
     const skeletonColors = {
-        color : colors ? colors.primaryColor : "#0f0e1d",
-        highlightColor : colors ? colors.backgroundColor : "#17162d"
+        color : colors ? colors.find(c => c.type === 'primaryColor').hex : "#0f0e1d",
+        highlightColor : colors ? colors.find(c => c.type === 'backgroundColor').hex : "#17162d"
     }
 
     return skeletonColors;

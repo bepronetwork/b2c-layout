@@ -90,7 +90,7 @@ class ChatPage extends React.Component {
             <div>
                 {isLoading ?
                     <SkeletonTheme color={getSkeletonColors().color} highlightColor={getSkeletonColors().highlightColor}>
-                        <div styleName='message-box' key={id} style={{opacity : '0.3'}}> 
+                        <div styleName='message-box' key={id} style={{opacity : '0.5'}}> 
                             <div styleName='info'>
                                 <Skeleton width={100}/>
                             </div>
@@ -130,7 +130,7 @@ class ChatPage extends React.Component {
         const { color, highlightColor } = getSkeletonColors();
     
         for (let i = 0; i < 150; i++) {
-            messages.push(<SkeletonTheme color={color} highlightColor={highlightColor}><div styleName='message-box' key={i} style={{opacity : '0.3'}}><div styleName='info'><Skeleton width={100}/></div><div styleName={'info-message-container'}><Skeleton /></div></div></SkeletonTheme>);
+            messages.push(<SkeletonTheme color={color} highlightColor={highlightColor}><div styleName='message-box' key={i} style={{opacity : '0.5'}}><div styleName='info'><Skeleton width={100}/></div><div styleName={'info-message-container'}><Skeleton /></div></div></SkeletonTheme>);
         }
 
         return messages;

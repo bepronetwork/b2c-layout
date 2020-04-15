@@ -82,7 +82,7 @@ class TableDefault extends Component {
             <div>
                 {isLoading ?
                     <SkeletonTheme color={ getSkeletonColors().color} highlightColor={ getSkeletonColors().highlightColor}>
-                        <div style={{opacity : '0.3'}}> 
+                        <div style={{opacity : '0.5'}}> 
                             {this.createSkeletonRows()}
                         </div>
                     </SkeletonTheme>
