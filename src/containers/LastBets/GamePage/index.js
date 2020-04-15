@@ -262,7 +262,7 @@ class LastBets extends Component {
             <div styleName='container'>
                 {isLoading ?
                     <SkeletonTheme color={ getSkeletonColors().color} highlightColor={ getSkeletonColors().highlightColor}>
-                        <div styleName='lastBets' style={{opacity : '0.3'}}>
+                        <div styleName='lastBets' style={{opacity : '0.5'}}>
                             <div styleName='skeleton-tabs'>
                                 {this.createSkeletonTabs()}
                                 <Skeleton width={50}/>
