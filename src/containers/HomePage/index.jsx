@@ -64,6 +64,7 @@ class HomePage extends Component {
     }
 
     render() {
+        const mobileBreakpoint = 768;
         const appInfo = JSON.parse(localStorage.getItem("appInfo"));
         if (!appInfo) { return null; }
 
@@ -75,9 +76,15 @@ class HomePage extends Component {
                     <div styleName='container-small'>                       
                         {appInfo.games.map( (item) => this.renderGame(item))}
                     </div> 
-                    <div styleName="last-bets">
-                        <LastBets/>
-                    </div>
+                    {
+                        document.documentElement.clientWidth <= mobileBreakpoint
+                        ?
+                            null
+                        :
+                            <div styleName="last-bets">
+                                <LastBets />
+                            </div>
+                    }
                     {/* <Media/> */}
                     <Footer/>
                 </div>

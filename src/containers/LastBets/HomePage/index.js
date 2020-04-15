@@ -120,7 +120,8 @@ const defaultProps = {
     games : [],
     options : [],
     view_game : allGames,
-    isLoading: false
+    isLoading: true,
+    isListLoading : true
 }
 
 class LastBets extends Component {
@@ -154,10 +155,12 @@ class LastBets extends Component {
     };
 
     changeViewBets = ({option}) => {
+        this.setState({...this.state, isListLoading : true })
         this.setTimer({view_amount : option})
     }
 
     changeViewGames = ({option}) => {
+        this.setState({...this.state, isListLoading : true })
         this.setTimer({view_game : option})
     }
     
@@ -165,8 +168,6 @@ class LastBets extends Component {
         let { profile, ln } = props;
         let { view_amount, view_game } = this.state;
         const currencies = getApp().currencies;
-
-        this.setState({...this.state, isLoading : true });
 
         let games = getGames().filter(g => g.metaName != 'jackpot_auto');
         let gamesOptions = [];
@@ -213,6 +214,7 @@ class LastBets extends Component {
         this.setState({...this.state, 
             ...options,
             isLoading : false,
+            isListLoading : false,
             games,
             gamesOptions,
             options : Object.keys(copy.TABLE).map( (key) => {
@@ -246,7 +248,7 @@ class LastBets extends Component {
                     const ticker = currenncy ? currenncy.ticker : "";
 
                     return {
-                        game: (games.find(game => new String(game.name).toLowerCase() == new String(bet.game).toLowerCase())),
+                        game: (games.find(game => game._id === bet.game)),
                         id: new String(bet._id).slice(3, 15),
                         username: bet.username.length > 10 ? bet.username.substring(0, 4)+'...'+bet.username.substring(bet.username.length-3, bet.username.length) : bet.username,
                         timestamp: dateToHourAndMinute(bet.timestamp),
@@ -266,7 +268,7 @@ class LastBets extends Component {
                     const ticker = currenncy ? currenncy.ticker : "";
 
                     return {
-                        game: (games.find(game => new String(game.name).toLowerCase() == new String(bet.game).toLowerCase())),
+                        game: (games.find(game => game._id === bet.game)),
                         id: new String(bet._id).slice(3, 15),
                         timestamp: dateToHourAndMinute(bet.timestamp),
                         betAmount: formatCurrency(Numbers.toFloat(bet.betAmount))+' '+ticker,
@@ -284,7 +286,7 @@ class LastBets extends Component {
                     const ticker = currenncy ? currenncy.ticker : "";
 
                     return {
-                        game: (games.find(game => new String(game.name).toLowerCase() == new String(bet.game).toLowerCase())),
+                        game: (games.find(game => game._id === bet.game)),
                         id: new String(bet._id).slice(3, 15),
                         username: bet.username.length > 10 ? bet.username.substring(0, 4)+'...'+bet.username.substring(bet.username.length-3, bet.username.length) : bet.username,
                         timestamp: dateToHourAndMinute(bet.timestamp),
@@ -324,7 +326,7 @@ class LastBets extends Component {
     }
 
     render() {
-        const { games, gamesOptions, isLoading, view_game } = this.state;
+        const { games, gamesOptions, isLoading, isListLoading, view_game } = this.state;
 
         return (
             <div styleName='container'>
@@ -371,7 +373,7 @@ class LastBets extends Component {
                     showRealTimeLoading={this.state.view == "all_bets" ? true : false}
                     size={this.state.view_amount.value}
                     games={games.filter(function(g) { return view_game.value == 'all_games' || g.metaName == view_game.value; }).map(function(g) { return g; })}
-                    isLoading={isLoading}
+                    isLoading={isListLoading}
                 /> 
             </div>
         );
