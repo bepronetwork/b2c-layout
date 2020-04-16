@@ -32,9 +32,8 @@ class CurrencyDropDown extends React.Component {
 
     projectData = async (props) => {
         const { profile, currency } = props;
-        var currencies = getApp().currencies;
         const virtual = getApp().virtual;
-        currencies = currencies.filter(c => c.virtual === virtual);
+        var currencies = getApp().currencies.filter(c => c.virtual === virtual);
         
         if(!currencies || _.isEmpty(currencies) || currencies.length < 0){return}
         currencies = currencies.map( 
@@ -42,7 +41,8 @@ class CurrencyDropDown extends React.Component {
                 const w = profile.getWallet({currency : c});
                 return {
                     ...c,
-                    balance : _.isEmpty(w) ? 0 : w.playBalance
+                    balance : _.isEmpty(w) ? 0 : w.playBalance,
+                    walletImage : _.isEmpty(w) ? null : w.image
                 }
             }
         )
@@ -83,7 +83,7 @@ class CurrencyDropDown extends React.Component {
                     {currencies.map(option => (
                         <MenuItem key={option._id} value={option._id}>
                             <div styleName={'currency-box-top'}>
-                                <img src={option.image} styleName='image-coin'/> 
+                                <img src={option.walletImage ? option.walletImage : option.image} styleName='image-coin'/> 
                                 <p styleName='option-text'>  
                                     <AnimationNumber variant={'small-body'} decimals={6} number={formatCurrency(option.balance)} isCurrency={true}/>
                                 </p>

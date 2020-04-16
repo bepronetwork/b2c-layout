@@ -22,7 +22,8 @@ class DepositForm extends Component {
             isLoaded: false,
             copied: false,
             price : null,
-            virtualTicker : null
+            virtualTicker : null,
+            walletImage : null
         }
     }
 
@@ -40,22 +41,20 @@ class DepositForm extends Component {
         let response = await profile.getCurrencyAddress({ currency_id: deposit.currency._id });
 
         if(!_.isEmpty(response) && _.isEmpty(response.message)) {
-            const virtual = getApp().virtual;
-            let price = null;
-            let virtualTicker = null;
+            const walletImage = getApp().wallet.find(w => w.currency._id === deposit.currency._id).image;
 
-            if (virtual === true) {
-                const currency = deposit.currency;
+            if (getApp().virtual === true) {
                 const virtualCurrency = getApp().currencies.find(c => c.virtual === true);
     
-                if(currency && virtualCurrency) {
-                    virtualTicker = virtualCurrency.ticker;
+                if(deposit.currency && virtualCurrency) {
                     const virtualWallet = getApp().wallet.find(w => w.currency._id === virtualCurrency._id);
-                    price = virtualWallet ? virtualWallet.price.find(p => p.currency === currency._id).amount : null;
+                    const price = virtualWallet ? virtualWallet.price.find(p => p.currency === deposit.currency._id).amount : null;
+
+                    this.setState({ price, virtualTicker : virtualCurrency.ticker });
                 }
             }
 
-            this.setState({ addressInitialized: true, address: response.address, price, virtualTicker });
+            this.setState({ addressInitialized: true, address: response.address, walletImage });
             clearInterval(this.intervalID);
         }
 
@@ -87,7 +86,7 @@ class DepositForm extends Component {
 
     render() {
         const { deposit } = this.props;
-        const { addressInitialized, address, isLoaded, copied, price, virtualTicker } = this.state;
+        const { addressInitialized, address, isLoaded, copied, price, virtualTicker, walletImage } = this.state;
         const {ln} = this.props;
         const copy = CopyText.depositFormIndex[ln];
         const addressStyles = classNames("address", {"ad-copied": copied});
@@ -108,7 +107,7 @@ class DepositForm extends Component {
                         <div styleName="info">
                             <div styleName="currency">
                                 <div styleName="logo">
-                                    <img src={deposit.currency.image} styleName="logo-img"/>
+                                    <img src={walletImage ? walletImage : deposit.currency.image} styleName="logo-img"/>
                                 </div>
                                 <div styleName="cur-name">
                                     <Typography variant={'body'} color={`white`}>
