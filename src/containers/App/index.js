@@ -56,7 +56,7 @@ import classNames from "classnames";
 import chatIcon from 'assets/chat.svg';
 
 const history = createBrowserHistory();
-
+const delay = ms => new Promise(res => setTimeout(res, ms));
 class App extends Component {
     constructor(props) {
         super(props);
@@ -66,7 +66,6 @@ class App extends Component {
             registerLoginModalOpen: null,
             cashierOpen: null,
             error: null,
-            isLoading : true,
             has2FA : false,
             resetPasswordOpen : null,
             resetPasswordParams : null,
@@ -105,6 +104,7 @@ class App extends Component {
             await this.updateAppInfo();
             //await this.loginAccount();
             await this.automaticLoginFromCache();
+            await delay(1000);
             this.closeStaticLoading();
         }catch(err){
             console.log(err);
@@ -124,7 +124,7 @@ class App extends Component {
         if(reponseUser) {
             let user = await this.updateUser(reponseUser);
             await user.updateUser();
-            this.setDefaultCurrency();
+            await this.setDefaultCurrency();
         }
         else {
             const app = Cache.getFromCache("appInfo");
@@ -537,6 +537,7 @@ class App extends Component {
     render() {
         const { user, app, isLoading, chatMobileOpen, betsListOpen, chatExpand } = this.state;
         const { profile, startLoadingProgress, modal } = this.props;
+        const mobileBreakpoint = 768;
 
         if (!app || isLoading) {return null};
         const { progress, confirmations } = startLoadingProgress;
@@ -664,14 +665,20 @@ class App extends Component {
                                         </div> 
                                     </a>
                                     <div styleName={'chat-container'}>
-                                        <ChatPage firstLoading={true}/>
+                                        <ChatPage/>
                                     </div>
                                 </div>
-                                <div styleName={betsListStyles} > 
-                                    <div styleName={'bets-container'}>
-                                        <LastBets/>
-                                    </div>
-                                </div>
+                                {
+                                    document.documentElement.clientWidth <= mobileBreakpoint 
+                                    ?
+                                        <div styleName={betsListStyles} > 
+                                            <div styleName={'bets-container'}>
+                                                <LastBets/>
+                                            </div>
+                                        </div>
+                                    :
+                                        null
+                                }
                             </div>
                             <PopupForm user={user}/>
                         </div>

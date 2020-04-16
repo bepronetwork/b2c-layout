@@ -31,7 +31,9 @@ class SettingsTab extends Component {
         const { profile, set2FA } = props;
         let { isActive } = set2FA;
         let cacheCustomization = Cache.getFromCache('customization');
-        this.setState({...this.state, ...cacheCustomization, has2FA : profile.user.security['2fa_set'] || isActive})
+        let has2FA = profile.user.hasOwnProperty('security') ? profile.user.security.hasOwnProperty('2fa_set') ? profile.user.security['2fa_set'] : false : false;
+
+        this.setState({...this.state, ...cacheCustomization, has2FA : has2FA || isActive})
     }
 
     handleBackgroundMusicToggle = async () => {

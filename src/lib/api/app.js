@@ -28,11 +28,12 @@ async function getGames(){
 }
 
 
-async function getLastBets({size}) {
+async function getLastBets({size, game}) {
     try {
         const response = await axios.post(`${apiUrl}/api/app/lastBets`, {
             app: appId,
-            size
+            size,
+            game
         });
     
         return response.data.data.message;
@@ -41,11 +42,12 @@ async function getLastBets({size}) {
     }
 }
 
-async function getBiggestBetWinners({size}) {
+async function getBiggestBetWinners({size, game}) {
     try {
         const response = await axios.post(`${apiUrl}/api/app/biggestBetWinners`, {
             app: appId,
-            size
+            size,
+            game
         });
     
         return response.data.data.message;
@@ -54,11 +56,12 @@ async function getBiggestBetWinners({size}) {
     }
 }
 
-async function getBiggestUserWinners({size}) {
+async function getBiggestUserWinners({size, game}) {
     try {
         const response = await axios.post(`${apiUrl}/api/app/biggestUserWinners`, {
             app: appId,
-            size
+            size,
+            game
         });
         return response.data.data.message;
     } catch (error) {

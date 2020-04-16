@@ -120,7 +120,8 @@ const defaultProps = {
     games : [],
     options : [],
     view_game : allGames,
-    isLoading: false
+    isLoading: true,
+    isListLoading : true
 }
 
 class LastBets extends Component {
@@ -154,10 +155,12 @@ class LastBets extends Component {
     };
 
     changeViewBets = ({option}) => {
+        this.setState({...this.state, isListLoading : true })
         this.setTimer({view_amount : option})
     }
 
     changeViewGames = ({option}) => {
+        this.setState({...this.state, isListLoading : true })
         this.setTimer({view_game : option})
     }
     
@@ -166,9 +169,7 @@ class LastBets extends Component {
         let { view_amount, view_game } = this.state;
         const currencies = getApp().currencies;
 
-        this.setState({...this.state, isLoading : true });
-
-        let games = getGames();
+        let games = getGames().filter(g => g.metaName != 'jackpot_auto');
         let gamesOptions = [];
         gamesOptions.push(allGames);
 
@@ -185,17 +186,35 @@ class LastBets extends Component {
             view_game = options.view_game ? options.view_game : view_game;
         }
         const copy = CopyText.homepage[ln];
-        let all_bets = await getLastBets({size : view_amount.value});
-        let biggest_winners_bets = await getBiggestBetWinners({size : view_amount.value});
-        let biggest_win_users = await getBiggestUserWinners({size : view_amount.value});
+        let all_bets = [];
+        let biggest_winners_bets = [];
+        let biggest_win_users = [];
         let my_bets = [];
 
-        if(profile && !_.isEmpty(profile)){
-            my_bets = await profile.getMyBets({size : view_amount.value});
+        if(view_game.value != "all_games") {
+            const gameId = games.find(g =>g.metaName === view_game.value)._id;
+
+            all_bets = await getLastBets({size : view_amount.value, game : gameId});
+            biggest_winners_bets = await getBiggestBetWinners({size : view_amount.value, game : gameId });
+            biggest_win_users = await getBiggestUserWinners({size : view_amount.value, game : gameId });
+
+            if(profile && !_.isEmpty(profile)){
+                my_bets = await profile.getMyBets({size : view_amount.value, game : gameId});
+            }
+        }
+        else {
+            all_bets = await getLastBets({size : view_amount.value});
+            biggest_winners_bets = await getBiggestBetWinners({size : view_amount.value});
+            biggest_win_users = await getBiggestUserWinners({size : view_amount.value});
+
+            if(profile && !_.isEmpty(profile)){
+                my_bets = await profile.getMyBets({size : view_amount.value});
+            }
         }
         this.setState({...this.state, 
             ...options,
             isLoading : false,
+            isListLoading : false,
             games,
             gamesOptions,
             options : Object.keys(copy.TABLE).map( (key) => {
@@ -229,7 +248,7 @@ class LastBets extends Component {
                     const ticker = currenncy ? currenncy.ticker : "";
 
                     return {
-                        game: (games.find(game => new String(game.name).toLowerCase() == new String(bet.game).toLowerCase())),
+                        game: (games.find(game => game._id === bet.game)),
                         id: new String(bet._id).slice(3, 15),
                         username: bet.username.length > 10 ? bet.username.substring(0, 4)+'...'+bet.username.substring(bet.username.length-3, bet.username.length) : bet.username,
                         timestamp: dateToHourAndMinute(bet.timestamp),
@@ -239,7 +258,7 @@ class LastBets extends Component {
                         payout : `${formatCurrency(Numbers.toFloat(bet.winAmount/bet.betAmount))}x`,
                         ticker
                     }
-                }).filter( el => (view_game.value == 'all_games' || el.game.metaName == view_game.value))
+                })
             },
             my_bets : {
                 ...this.state.my_bets,
@@ -249,7 +268,7 @@ class LastBets extends Component {
                     const ticker = currenncy ? currenncy.ticker : "";
 
                     return {
-                        game: (games.find(game => new String(game.name).toLowerCase() == new String(bet.game).toLowerCase())),
+                        game: (games.find(game => game._id === bet.game)),
                         id: new String(bet._id).slice(3, 15),
                         timestamp: dateToHourAndMinute(bet.timestamp),
                         betAmount: formatCurrency(Numbers.toFloat(bet.betAmount))+' '+ticker,
@@ -257,7 +276,7 @@ class LastBets extends Component {
                         isWon : bet.isWon,
                         payout : `${formatCurrency(Numbers.toFloat(bet.winAmount/bet.betAmount))}x`
                     }
-                }).filter( el => (view_game.value == 'all_games' || el.game.metaName == view_game.value))
+                })
             },
             biggest_win_bets  : {
                 ...this.state.biggest_win_bets,
@@ -267,7 +286,7 @@ class LastBets extends Component {
                     const ticker = currenncy ? currenncy.ticker : "";
 
                     return {
-                        game: (games.find(game => new String(game.name).toLowerCase() == new String(bet.game).toLowerCase())),
+                        game: (games.find(game => game._id === bet.game)),
                         id: new String(bet._id).slice(3, 15),
                         username: bet.username.length > 10 ? bet.username.substring(0, 4)+'...'+bet.username.substring(bet.username.length-3, bet.username.length) : bet.username,
                         timestamp: dateToHourAndMinute(bet.timestamp),
@@ -276,7 +295,7 @@ class LastBets extends Component {
                         isWon : bet.isWon,
                         payout : `${formatCurrency(Numbers.toFloat(bet.winAmount/bet.betAmount))}x`
                     }
-                }).filter( el => (view_game.value == 'all_games' || el.game.metaName == view_game.value))
+                })
             },
             biggest_win_users : {
                 ...this.state.biggest_win_users,
@@ -307,13 +326,13 @@ class LastBets extends Component {
     }
 
     render() {
-        const { games, gamesOptions, isLoading, view_game } = this.state;
+        const { games, gamesOptions, isLoading, isListLoading, view_game } = this.state;
 
         return (
             <div styleName='container'>
                 {isLoading ?
                     <SkeletonTheme color={ getSkeletonColors().color} highlightColor={ getSkeletonColors().highlightColor}>
-                        <div styleName='lastBets' style={{opacity : '0.3'}}>
+                        <div styleName='lastBets' style={{opacity : '0.5'}}>
                             <div styleName='skeleton-tabs'>
                                 {this.createSkeletonTabs()}
                                 <Skeleton width={80}/>
@@ -354,7 +373,7 @@ class LastBets extends Component {
                     showRealTimeLoading={this.state.view == "all_bets" ? true : false}
                     size={this.state.view_amount.value}
                     games={games.filter(function(g) { return view_game.value == 'all_games' || g.metaName == view_game.value; }).map(function(g) { return g; })}
-                    isLoading={isLoading}
+                    isLoading={isListLoading}
                 /> 
             </div>
         );

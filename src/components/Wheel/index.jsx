@@ -2,17 +2,17 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import Sound from "react-sound";
 import rouletteSound from "assets/roulette-sound.mp3";
-import ballSound from "assets/ball-stop-sound.mp3";
+import ballSound from "assets/coin-board-sound.mp3";
 import pointer from "assets/wheel-pointer.png";
 import classNames from "classnames";
 import "./index.css";
 import { WHEEL_SIMPLE, WHEEL_CLASSIC } from "./types";
 
-let anim = null;
 let endAnim = null;
 const TOTAL_SPACES = 30;
 const ANIMATION_INTERVAL = 20;
 const TOTAL_ANIMATION_TIME = 4*1000;
+let volume = 100
 
 export default class Wheel extends Component {
     static propTypes = {
@@ -22,17 +22,12 @@ export default class Wheel extends Component {
         metaName: PropTypes.string
     };
 
-    static defaultProps = {
-        result: null,
-        bet: false,
-        metaName: null
-    };
-
     constructor(props){
         super(props);
         this.state = {
             ballStop: false,
-            metaName: props.game ? props.game.metaName : null
+            metaName: props.game ? props.game.metaName : null,
+            anim: false
         }
       
     }
@@ -122,6 +117,7 @@ export default class Wheel extends Component {
     }
 
     rotateWheel() {
+        this.setState({ anim : true });
         this.spinTime += ANIMATION_INTERVAL;
         if (this.spinTime >= this.spinTimeTotal) {
             this.stopRotateWheel();
@@ -135,6 +131,7 @@ export default class Wheel extends Component {
     }
 
     stopRotateWheel() {
+        this.setState({ anim : false, ballStop : true });
         const { stopAnimation } = this.props;
         clearTimeout(this.spinTimeout);
         this.wheel.save();
@@ -254,25 +251,27 @@ export default class Wheel extends Component {
      */
 
     renderSound = () => {
+        const { anim } = this.state;
         const soundConfig = localStorage.getItem("sound");
 
-        if (soundConfig !== "on" || !anim || !anim.isRunning()) {
+        if (soundConfig !== "on" || !anim) {
         return null;
         }
 
+        volume = volume - 0.8;
         return (
-            <Sound volume={100} url={rouletteSound} playStatus="PLAYING" autoLoad />
+            <Sound volume={volume} url={rouletteSound} playStatus="PLAYING" autoLoad />
         );
     };
 
     renderBallStopSound = () => {
         const soundConfig = localStorage.getItem("sound");
-        const { ballStop } = this.state;
+        const { ballStop, anim } = this.state;
 
-        if (soundConfig !== "on" || !endAnim || !ballStop) {
+        if (soundConfig !== "on" || anim || !ballStop) {
         return null;
         }
-
+        volume = 100;
         return <Sound volume={100} url={ballSound} playStatus="PLAYING" autoLoad />;
     };
 

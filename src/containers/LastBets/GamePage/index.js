@@ -97,7 +97,9 @@ const defaultProps = {
     view_amount : views[1],
     games : [],
     options : [],
-    gameMetaName : null
+    gameMetaName : null,
+    isLoading: true,
+    isListLoading : true
 }
 
 class LastBets extends Component {
@@ -131,6 +133,7 @@ class LastBets extends Component {
     };
 
     changeViewBets = ({option}) => {
+        this.setState({...this.state, isListLoading : true })
         this.setTimer({view_amount : option})
     }
     
@@ -139,24 +142,26 @@ class LastBets extends Component {
         let { view_amount } = this.state;
         const currencies = getApp().currencies;
 
-        this.setState({...this.state, isLoading : true });
-
         const games = getGames();
         
         if(options){
             view_amount = options.view_amount ? options.view_amount : view_amount;
         }
         const copy = CopyText.homepagegame[ln];
-        let all_bets = await getLastBets({size : view_amount.value});
-        let biggest_winners_bets = await getBiggestBetWinners({size : view_amount.value});
+        const gameId = games.find(g =>g.metaName === gameMetaName)._id;
+
+        let all_bets = await getLastBets({size : view_amount.value, game : gameId });
+        let biggest_winners_bets = await getBiggestBetWinners({size : view_amount.value, game : gameId });
         let my_bets = [];
 
         if(profile && !_.isEmpty(profile)){
-            my_bets = await profile.getMyBets({size : view_amount.value});
+            my_bets = await profile.getMyBets({size : view_amount.value, game : gameId });
         }
+
         this.setState({...this.state, 
             ...options,
             isLoading : false,
+            isListLoading : false,
             gameMetaName,
             games,
             options : Object.keys(copy.TABLE).map( (key) => {
@@ -188,7 +193,7 @@ class LastBets extends Component {
                     const ticker = currenncy ? currenncy.ticker : "";
 
                     return {
-                        game: (games.find(game => new String(game.name).toLowerCase() == new String(bet.game).toLowerCase())),
+                        game: (games.find(game => game._id === bet.game)),
                         id: new String(bet._id).slice(3, 15),
                         username: bet.username.length > 10 ? bet.username.substring(0, 4)+'...'+bet.username.substring(bet.username.length-3, bet.username.length) : bet.username,
                         timestamp: dateToHourAndMinute(bet.timestamp),
@@ -198,7 +203,7 @@ class LastBets extends Component {
                         payout : `${formatCurrency(Numbers.toFloat(bet.winAmount/bet.betAmount))}x`,
                         ticker
                     }
-                }).filter( el => (el.game.metaName == gameMetaName) && el.isWon === true)
+                }).filter( el => el.isWon === true)
             },
             my_bets : {
                 ...this.state.my_bets,
@@ -208,7 +213,7 @@ class LastBets extends Component {
                     const ticker = currenncy ? currenncy.ticker : "";
 
                     return {
-                        game: (games.find(game => new String(game.name).toLowerCase() == new String(bet.game).toLowerCase())),
+                        game: (games.find(game => game._id === bet.game)),
                         id: new String(bet._id).slice(3, 15),
                         timestamp: dateToHourAndMinute(bet.timestamp),
                         betAmount: formatCurrency(Numbers.toFloat(bet.betAmount))+' '+ticker,
@@ -216,7 +221,7 @@ class LastBets extends Component {
                         isWon : bet.isWon,
                         payout : `${formatCurrency(Numbers.toFloat(bet.winAmount/bet.betAmount))}x`
                     }
-                }).filter( el => (el.game.metaName == gameMetaName))
+                })
             },
             biggest_win_bets  : {
                 ...this.state.biggest_win_bets,
@@ -226,7 +231,7 @@ class LastBets extends Component {
                     const ticker = currenncy ? currenncy.ticker : "";
 
                     return {
-                        game: (games.find(game => new String(game.name).toLowerCase() == new String(bet.game).toLowerCase())),
+                        game: (games.find(game => game._id === bet.game)),
                         id: new String(bet._id).slice(3, 15),
                         username: bet.username.length > 10 ? bet.username.substring(0, 4)+'...'+bet.username.substring(bet.username.length-3, bet.username.length) : bet.username,
                         timestamp: dateToHourAndMinute(bet.timestamp),
@@ -235,7 +240,7 @@ class LastBets extends Component {
                         isWon : bet.isWon,
                         payout : `${formatCurrency(Numbers.toFloat(bet.winAmount/bet.betAmount))}x`
                     }
-                }).filter( el => (el.game.metaName == gameMetaName))
+                })
             }
         })
     }
@@ -251,13 +256,13 @@ class LastBets extends Component {
     }
 
     render() {
-        const { isLoading, gameMetaName, games } = this.state;
+        const { isLoading, isListLoading, gameMetaName, games } = this.state;
 
         return (
             <div styleName='container'>
                 {isLoading ?
                     <SkeletonTheme color={ getSkeletonColors().color} highlightColor={ getSkeletonColors().highlightColor}>
-                        <div styleName='lastBets' style={{opacity : '0.3'}}>
+                        <div styleName='lastBets' style={{opacity : '0.5'}}>
                             <div styleName='skeleton-tabs'>
                                 {this.createSkeletonTabs()}
                                 <Skeleton width={50}/>
@@ -290,7 +295,7 @@ class LastBets extends Component {
                     showRealTimeLoading={this.state.view == "all_bets" ? true : false}
                     size={this.state.view_amount.value}
                     games={games.filter(function(g) { return g.metaName == gameMetaName; }).map(function(g) { return g; })}
-                    isLoading={isLoading}
+                    isLoading={isListLoading}
                 /> 
             </div>
         );
