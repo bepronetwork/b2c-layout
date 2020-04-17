@@ -7,7 +7,7 @@
 }
 
 .b {
-    fill: #0b69e8;
+    fill: $seventhColor; /*#0b69e8;*/
 }
 
 .c {
@@ -16,7 +16,7 @@
 }
 
 .d {
-    fill: #f18fe8;
+    fill: $heightColor; /*#f18fe8;*/
 }
 
 .e {
