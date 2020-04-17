@@ -1,13 +1,12 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { DataContainer, AffiliateLinkContainer, Button, Typography } from 'components';
+import { DataContainer, AffiliateLinkContainer, Button, Typography, AffiliateIcon, WalletIcon } from 'components';
 import { Row, Col } from 'reactstrap';
 import "./index.css";
-import wallet from 'assets/wallet.png';
-import users from 'assets/users-white.png';
 import store from "../../containers/App/store";
 import { setModal } from "../../redux/actions/modal";
 import { CopyText } from '../../copy';
+import { getApp } from "../../lib/helpers";
 
 const defaultState = {
     isWithdrawing : false,
@@ -59,20 +58,24 @@ class AffiliatesTab extends Component {
         return (
             <div styleName='root'>
                 <Row>
+                    {getApp().virtual !== true ?
+                        <Col lg={6}>
+                            <DataContainer title={copy.INDEX.DATA_CONTAINER.TITLE[0]} message={`${parseFloat(affiliateBalance)} ${ticker}`} image={<WalletIcon/>} button={
+                                    <Button
+                                    theme="default"
+                                    size={'x-small'}
+                                    disabled={ (affiliateBalance < 0) || isWithdrawing}
+                                    onClick={this.withdrawAffiliate}
+                                >
+                                    <Typography color={'white'} variant={'small-body'}> {copy.INDEX.TYPOGRAPHY.TEXT[0]} </Typography>
+                                </Button>
+                            }/>
+                        </Col>
+                    :
+                        null
+                    }
                     <Col lg={6}>
-                        <DataContainer title={copy.INDEX.DATA_CONTAINER.TITLE[0]} message={`${parseFloat(affiliateBalance)} ${ticker}`} image={wallet} button={
-                             <Button
-                                theme="default"
-                                size={'x-small'}
-                                disabled={ (affiliateBalance < 0) || isWithdrawing}
-                                onClick={this.withdrawAffiliate}
-                            >
-                                <Typography color={'white'} variant={'small-body'}> {copy.INDEX.TYPOGRAPHY.TEXT[0]} </Typography>
-                            </Button>
-                        }/>
-                    </Col>
-                    <Col lg={6}>
-                        <DataContainer title={copy.INDEX.DATA_CONTAINER.TITLE[1]} message={userAmount} image={users} />
+                        <DataContainer title={copy.INDEX.DATA_CONTAINER.TITLE[1]} message={userAmount} image={<AffiliateIcon/>} />
                     </Col>
                 </Row>
                 <Row>

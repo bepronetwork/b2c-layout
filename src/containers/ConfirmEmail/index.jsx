@@ -1,11 +1,11 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { Typography } from "components";
+import { Typography, EmailIcon } from "components";
 import { CopyText } from '../../copy';
 import { confirmEmail } from "../../lib/api/users";
 import "./index.css";
 import _ from "lodash";
-import email from 'assets/email.png';
+
 class ConfirmEmail extends Component {
 
     constructor(props) {
@@ -60,7 +60,7 @@ class ConfirmEmail extends Component {
                             <div styleName="box">
                                 <div styleName="confirm-title">
                                     <div styleName="confirm-left">
-                                        <img src={email} width="30"/>
+                                        <EmailIcon/>
                                     </div>
                                     <div styleName="confirm-right">
                                         <Typography color="white" variant="small-body">

@@ -6,18 +6,13 @@ import { getLastBets, getBiggestUserWinners, getBiggestBetWinners } from "../../
 import { Numbers } from "../../../lib/ethereum/lib";
 import { dateToHourAndMinute, getGames, getApp, getSkeletonColors } from "../../../lib/helpers";
 import Tabs from "../../../components/Tabs";
-import { SelectBox, Table } from 'components';
+import { SelectBox, Table, CheckIcon, RewardIcon, TrophyIcon, AffiliateIcon } from 'components';
 import _ from 'lodash';
 import { CopyText } from "../../../copy";
 import { formatCurrency } from "../../../utils/numberFormatation";
 import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 
 import "./index.css";
-
-import awardIcon from 'assets/icons/award.png';
-import medalIcon from 'assets/icons/medal.png';
-import podiumIcon from 'assets/icons/podium.png';
-import flagIcon from 'assets/icons/flag.png';
 
 const views = [{ text : 10, value : 10 }, { text : 25, value : 25 }, { text : 50, value : 50 }, { text : 100, value : 100 }];
 const allGames =  { text : 'All Games', value : 'all_games' };
@@ -222,16 +217,16 @@ class LastBets extends Component {
                 const value = new String(key).toLowerCase();
 
                 if(value === "all_bets"){
-                    icon = medalIcon;
+                    icon = <CheckIcon/>;
                 }
                 else if(value === "my_bets"){
-                    icon = flagIcon;
+                    icon = <RewardIcon/>;
                 }
                 else if(value === "biggest_win_bets"){
-                    icon = awardIcon;
+                    icon = <TrophyIcon/>;
                 }
                 else if(value === "biggest_win_users"){
-                    icon = podiumIcon;
+                    icon = <AffiliateIcon/>;
                 }
 
                 return {

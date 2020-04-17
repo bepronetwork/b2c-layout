@@ -160,9 +160,14 @@
 
 .users-box{
     margin: 6px auto;
-    position: relative;
-    display: block;
+    display: flex;
     width : max-content;
+    align-items: center;
+
+    .users-icon{
+      width: 28px;
+      margin-left: $spacing-8;
+    }
 }
 
 .green-light{

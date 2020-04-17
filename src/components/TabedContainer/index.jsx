@@ -39,16 +39,14 @@ class TabedContainer extends React.Component{
                                     return (
                                         <Nav.Item>
                                             <Nav.Link as={Link} to={"/"+parent+"/"+item.path.toLowerCase()} eventKey={`item-${index}`}>
-                                                <Row>
-                                                    <Col xs={2} md={2}>
+                                                <div styleName="row">
+                                                    <div styleName="icon">
                                                         {item.icon}
-                                                    </Col>
-                                                    <Col xs={10} md={10}>
-                                                        <div styleName='text-tab'>
-                                                            <Typography variant={'small-body'} color={'white'}>{item.title}</Typography>
-                                                        </div>
-                                                    </Col>
-                                                </Row>
+                                                    </div>
+                                                    <div styleName='text-tab'>
+                                                        <Typography variant={'small-body'} color={'white'}>{item.title}</Typography>
+                                                    </div>
+                                                </div>
                                             </Nav.Link>
                                         </Nav.Item>
                                     )

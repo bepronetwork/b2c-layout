@@ -1,18 +1,15 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import Typography from "components/Typography";
 import ArrowDown from "components/Icons/ArrowDown";
 import ArrowUp from "components/Icons/ArrowUp";
-import Coins from "components/Icons/Coins";
-import Account from "components/Icons/Account";
-import Logout from "components/Icons/Logout";
+import { 
+    Typography, UserIcon, LogoutIcon, CashierIcon
+} from "components";
 import { map } from "lodash";
 import { CopyText } from '../../copy';
 import { connect } from "react-redux";
 
 import "./index.css";
-
-import profileIcon from 'assets/avatars/profile.svg';
 
 class ProfileMenu extends Component {
     
@@ -49,19 +46,19 @@ class ProfileMenu extends Component {
         {
             value: "cashier",
             label: copy.INDEX.TYPOGRAPHY.TEXT[0],
-            icon: <Coins/>,
+            icon: <CashierIcon/>,
             action: onCashier
         },
         {
             value: "account",
             label: copy.INDEX.TYPOGRAPHY.TEXT[1],
-            icon: <Account/>,
+            icon: <UserIcon/>,
             action: onAccount
         },
         { 
             value: "logout", 
             label: copy.INDEX.TYPOGRAPHY.TEXT[2], 
-            icon: <Logout/>, 
+            icon: <LogoutIcon/>, 
             action: onLogout 
         }
         ];
@@ -88,7 +85,9 @@ class ProfileMenu extends Component {
 
         return (
             <div styleName="label">
-                <img src={profileIcon} style={{width : 20}}/>
+                <div styleName="user-icon">
+                    <UserIcon/>
+                </div>
                 <span>
                     <Typography color="white" variant={'x-small-body'}>{username}</Typography>
                 </span>
@@ -106,7 +105,9 @@ class ProfileMenu extends Component {
             onClick={action}
             type="button"
         >
-            {icon}
+            <div styleName="user-icon">
+                {icon}
+            </div>
             <Typography variant="x-small-body" color="casper">{label}</Typography>
         </button>
         ));

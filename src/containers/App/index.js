@@ -13,7 +13,7 @@ import {
     LoginForm,
     RegisterForm,
     CashierForm,
-    LoadingBanner,
+    ChatIcon,
     NotificationForm,
     Widgets,
     AffiliateWithdrawForm,
@@ -52,8 +52,6 @@ import ChatChannel from "../../controllers/Chat";
 import AnnouncementTab from "../../components/AnnouncementTab";
 import { getCurrencyAddress } from "../../lib/api/users";
 import classNames from "classnames";
-
-import chatIcon from 'assets/chat.svg';
 
 const history = createBrowserHistory();
 const delay = ms => new Promise(res => setTimeout(res, ms));
@@ -660,7 +658,7 @@ class App extends Component {
                                     <a href="#" onClick={this.expandChatClick}>
                                         <div styleName="chat-expand">
                                             <div>
-                                                <img src={chatIcon} style={{width : 30}}/>  
+                                                <ChatIcon/> 
                                             </div>
                                         </div> 
                                     </a>

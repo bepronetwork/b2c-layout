@@ -1,0 +1,32 @@
+@import "../../../styles/all.css";
+
+
+.a {
+    fill:  #000; /*#084eaa*/
+    fill-opacity: 0.3;
+}
+
+.b {
+    fill: #0b69e8;
+}
+
+.c {
+    fill: #000; /*#d54bac;*/
+    fill-opacity: 0.3;
+}
+
+.d {
+    fill: #f18fe8;
+}
+
+.e {
+    fill: #000;
+}
+
+.f {
+    fill: #fff;
+}
+
+.g {
+    fill: none;
+}

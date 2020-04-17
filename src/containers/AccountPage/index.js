@@ -1,11 +1,10 @@
 import React, { Component } from "react";
 import "./index.css";
-import { TabedContainer, DepositTab, WithdrawTab, AccountInfoForm, SettingsTab, AffiliatesTab} from 'components';
+import { 
+        TabedContainer, DepositTab, WithdrawTab, AccountInfoForm, SettingsTab, AffiliatesTab,
+        SettingsIcon, DepositsIcon, WithdrawIcon, RefferalIcon
+       } from 'components';
 import { connect } from "react-redux";
-import MoneyIcon from 'mdi-react/MoneyIcon';
-import ExitToAppIcon from 'mdi-react/ExitToAppIcon';
-import SettingsIcon from 'mdi-react/SettingsIcon';
-import GiftIcon from 'mdi-react/GiftIcon';
 import { getApp } from "../../lib/helpers";
 import { CopyText } from '../../copy';
 import _ from "lodash";
@@ -45,26 +44,26 @@ class AccountPage extends Component {
                                     path: "settings",
                                     title : copy.CONTAINERS.ACCOUNT.TITLE[0],
                                     container : <SettingsTab/>,
-                                    icon : <SettingsIcon size={20}/>
+                                    icon : <SettingsIcon />
                                 },
                                 {
                                     path: "deposits",
                                     title : virtual ? copy.CONTAINERS.ACCOUNT.TITLE[4] : copy.CONTAINERS.ACCOUNT.TITLE[1],
                                     container : <DepositTab/>,
-                                    icon : <MoneyIcon size={20}/>
+                                    icon : <DepositsIcon />
                                 },
                                 {
                                     path: "withdraws",
                                     title : copy.CONTAINERS.ACCOUNT.TITLE[2],
                                     container : <WithdrawTab/>,
-                                    icon : <ExitToAppIcon size={20}/>,
+                                    icon : <WithdrawIcon />,
                                     disabled: virtual
                                 },
                                 {
                                     path: "affiliate",
                                     title : copy.CONTAINERS.ACCOUNT.TITLE[3],
                                     container : <AffiliatesTab/>,
-                                    icon : <GiftIcon size={20}/>
+                                    icon : <RefferalIcon />
                                 },
                             ]
                         }
