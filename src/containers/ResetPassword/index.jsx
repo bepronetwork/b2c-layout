@@ -1,13 +1,13 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 
-import { Button, Typography, InputText } from "components";
+import { Button, Typography, InputText, EmailIcon } from "components";
 import { CopyText } from '../../copy';
 import { askResetPassword, setNewPassword } from "../../lib/api/users";
 import handleError from "../../lib/api/handleError";
 import "./index.css";
 import _ from "lodash";
-import email from 'assets/email.png';
+
 class ResetPassword extends Component {
 
     constructor(props) {
@@ -126,7 +126,7 @@ class ResetPassword extends Component {
                             <div styleName="box">
                                 <div styleName="reset-password-title">
                                     <div styleName="reset-password-left">
-                                        <img src={email} width="30"/>
+                                        <EmailIcon/>
                                     </div>
                                     <div styleName="reset-password-right">
                                         <Typography color="white" variant="small-body">

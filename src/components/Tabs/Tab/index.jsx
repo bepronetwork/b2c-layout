@@ -44,7 +44,7 @@ export default class Tab extends Component {
         <button onClick={this.handleClick} type="button">
           {
             icon ?
-              <div styleName="icon"><img src={icon} style={{ width : 16 }}/></div>
+              <div styleName="icon">{icon}</div>
             :
               null
           }

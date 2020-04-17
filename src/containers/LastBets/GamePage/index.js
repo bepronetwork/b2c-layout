@@ -6,16 +6,13 @@ import { getLastBets, getBiggestBetWinners } from "../../../lib/api/app";
 import { Numbers } from "../../../lib/ethereum/lib";
 import { dateToHourAndMinute, getGames, getApp, getSkeletonColors } from "../../../lib/helpers";
 import Tabs from "../../../components/Tabs";
-import { SelectBox, Table } from 'components';
+import { SelectBox, Table, CheckIcon, RewardIcon, TrophyIcon } from 'components';
 import { formatCurrency } from '../../../utils/numberFormatation';
 import _ from 'lodash';
 import { CopyText } from "../../../copy";
 import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 import "./index.css";
 
-import awardIcon from 'assets/icons/award.png';
-import medalIcon from 'assets/icons/medal.png';
-import flagIcon from 'assets/icons/flag.png';
 
 const views = [{ text : 10, value : 10 }, { text : 25, value : 25 }, { text : 50, value : 50 }, { text : 100, value : 100 }];
 
@@ -170,13 +167,13 @@ class LastBets extends Component {
                 const value = new String(key).toLowerCase();
 
                 if(value === "all_bets"){
-                    icon = medalIcon;
+                    icon = <RewardIcon/>;
                 }
                 else if(value === "my_bets"){
-                    icon = flagIcon;
+                    icon = <CheckIcon/>;
                 }
                 else if(value === "biggest_win_bets"){
-                    icon = awardIcon;
+                    icon = <TrophyIcon/>;
                 }
 
                 return {

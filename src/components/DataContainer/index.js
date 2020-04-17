@@ -23,7 +23,7 @@ class DataContainer extends React.Component{
                 <Row>
                     <Col xs={2} md={2}>
                         <div styleName='container-image'>
-                            <img src={image} styleName='data-image'/>
+                            {image}
                         </div>
                     </Col>
                     <Col xs={6} md={6}>

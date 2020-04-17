@@ -35,8 +35,9 @@
 }
 
 .confirm-left {
-  flex: 0 0 35%;
   text-align: center;
+  width: 40px;
+  margin-right: $spacing-16;
 }
 
 .confirm-right {

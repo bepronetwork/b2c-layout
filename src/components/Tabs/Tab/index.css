@@ -14,6 +14,7 @@
 .tab {
   background-color: $thirdColor;
   height: 100%;
+  text-align: center;
 
   * {
     color: $mercury;
@@ -21,20 +22,22 @@
   }
 
   button {
-    width: 100%;
+    width: auto;
     border-radius: $border-radius;
-    position: relative;
     padding: $spacing-8;
     background-color: inherit;
     cursor: pointer;
     outline: none;
     min-height: 40px;
+    display: inline-flex;
+    align-items: center;
 
     * {
       cursor: pointer;
     }
 
     @media screen and (max-width: 767px) {
+      display: block;
       text-align: center;
     }
   }
@@ -50,19 +53,20 @@
 }
 
 .icon {
-  float: left;
-  margin-left: $spacing-8;
+  width: 40px;
+  margin: auto;
+  margin-right: $spacing-16;
 
   @media screen and (max-width: 767px) {
     float: none;
     margin-bottom: $spacing-8;
-    margin-left: 0;
+    margin: auto;
+    width: 30px;
   }
 }
 
 .label {
-  float: initial;
-  width: 100%;
+  margin: auto;
 
   @media screen and (max-width: 1023px) {
     margin-left: $spacing-8;

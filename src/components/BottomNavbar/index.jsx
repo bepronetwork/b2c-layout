@@ -1,16 +1,11 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import { Typography, LanguageSelector } from "components";
+import { Typography, LanguageSelector, BetsIcon, DepositIcon, ChatIcon, CasinoIcon } from "components";
 import UserContext from "containers/App/UserContext";
 import { connect } from "react-redux";
 import { CopyText } from '../../copy';
 import _ from 'lodash';
 import "./index.css";
-
-import casinoIcon from 'assets/icons/casino.svg';
-import walletIcon from 'assets/icons/wallet.svg';
-import chatIcon from 'assets/icons/chat.svg';
-import betsIcon from 'assets/icons/table.svg';
 
 const defaultProps = {
     openChat : false,
@@ -63,7 +58,9 @@ class BottomNavbar extends Component {
                     <li>
                         <a href="#" onClick={this.homeClick}>
                             <span styleName="item">
-                                <img src={casinoIcon} style={{width : 24}}/>
+                                <div styleName="icon">
+                                    <CasinoIcon />
+                                </div>
                                 <Typography variant="x-small-body" color="grey">
                                     {copy.INDEX.TYPOGRAPHY.TEXT[3]}
                                 </Typography>
@@ -73,7 +70,9 @@ class BottomNavbar extends Component {
                     <li>
                         <a href="#" onClick={this.openDeposit}>
                             <span styleName="item">
-                                <img src={walletIcon} style={{width : 24}}/>
+                                <div styleName="icon">
+                                    <DepositIcon />
+                                </div>
                                 <Typography variant="x-small-body" color="grey">
                                     {copy.INDEX.TYPOGRAPHY.TEXT[2]}
                                 </Typography>
@@ -83,7 +82,9 @@ class BottomNavbar extends Component {
                     <li>
                         <a href="#" onClick={this.openBetsListClick}>
                             <span styleName="item">
-                                <img src={betsIcon} style={{width : 24}}/>
+                                <div styleName="icon">
+                                    <BetsIcon/>
+                                </div>
                                 <Typography variant="x-small-body" color="grey">
                                     {copy.INDEX.TYPOGRAPHY.TEXT[5]}
                                 </Typography>
@@ -93,7 +94,9 @@ class BottomNavbar extends Component {
                     <li>
                         <a href="#" onClick={this.openChatClick}>
                             <span styleName="item">
-                                <img src={chatIcon} style={{width : 24}}/>
+                                <div styleName="icon">
+                                    <ChatIcon />
+                                </div>
                                 <Typography variant="x-small-body" color="grey">
                                     {copy.INDEX.TYPOGRAPHY.TEXT[4]}
                                 </Typography>

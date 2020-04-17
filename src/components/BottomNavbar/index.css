@@ -52,7 +52,10 @@
     position: relative;
     flex-direction: column;
     align-items: center;
-    padding-top: 0.3em;
+
+    .icon {
+        width: 28px;
+    }
 }
 
 .item img{

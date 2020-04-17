@@ -1,13 +1,8 @@
 import React, { Component } from "react";
-import { Typography, ActionBox } from 'components';
 import { connect } from "react-redux";
 import _ from 'lodash';
 import "./index.css";
 import WithdrawsTable from "../CashierForm/Withdraw/WithdrawsTable";
-import { Numbers } from "../../lib/ethereum/lib";
-import allow from 'assets/allow.png';
-import { Row, Col } from 'reactstrap';
-import { fromSmartContractTimeToMinutes } from "../../lib/helpers";
 
 class WithdrawTab extends Component {
 

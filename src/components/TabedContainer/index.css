@@ -1,5 +1,14 @@
 
 .text-tab{
     text-align: left;
-    margin-top : 1px;
+}
+
+.row {
+    display: flex;
+    align-items: center;
+}
+
+.icon {
+    width: 30px;
+    margin-right: 20px;
 }

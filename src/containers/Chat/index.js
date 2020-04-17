@@ -1,8 +1,7 @@
 import React, { Component } from "react";
-import { Typography, InputText, DropDownField } from "components";
+import { Typography, InputText, DropDownField, UsersIcon } from "components";
 import { connect } from "react-redux";
 import _ from 'lodash';
-import UsersGroupIcon from 'mdi-react/UsersGroupIcon';
 import { Row, Col } from 'reactstrap';
 import "./index.css";
 import { MenuItem } from '@material-ui/core';
@@ -214,8 +213,11 @@ class ChatPage extends React.Component {
                                         <Col>
                                             <div styleName={'users-box'}>
                                                 <Typography variant="small-body" color="casper">
-                                                    {this.state.participants} <UsersGroupIcon size={25}/>
+                                                    {this.state.participants} 
                                                 </Typography>
+                                                <div styleName="users-icon">
+                                                    <UsersIcon />
+                                                </div>
                                             </div>
                                         </Col>
                                         <Col>

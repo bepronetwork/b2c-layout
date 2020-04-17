@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Tabs } from "components";
+import { Tabs, WithdrawIcon, DepositIcon } from "components";
 import Deposit from "./Deposit";
 import Withdraw from "./Withdraw";
 import { connect } from "react-redux";
@@ -36,12 +36,14 @@ class DepositWithdrawForm extends Component {
                 options={[
                 {
                     value: "deposit",
-                    label: virtual ? copy.INDEX.TABS.LABEL[2] : copy.INDEX.TABS.LABEL[0]
+                    label: virtual ? copy.INDEX.TABS.LABEL[2] : copy.INDEX.TABS.LABEL[0],
+                    icon: <DepositIcon/>
                 },
                 {   
                     value: "withdraw", 
                     label: copy.INDEX.TABS.LABEL[1],
-                    disabled: virtual
+                    disabled: virtual,
+                    icon: <WithdrawIcon/>
                 }
                 ]}
                 onSelect={this.handleTabChange}
