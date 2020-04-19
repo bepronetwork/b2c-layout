@@ -123,7 +123,7 @@ function loadFakeBets(rows, games, size) {
     }
     var game = games[Math.floor(Math.random() * games.length)];
     let fakeUserName = faker.internet.userName();
-    let fakeId = faker.random.uuid().replace("-", "").substring(0, 12);
+    let fakeId = faker.random.uuid().replace(/-/g, '').substring(0, 24);
     let randomArray = [];
     let lostValue = {isWon : false, payout : '0.000000', winAmount : '0.000000'};
     var i = 0; do { i++; randomArray.push(lostValue) } while (i < 4);
