@@ -199,7 +199,7 @@ class LastBets extends Component {
                 rows : all_bets.map( (bet) =>  {
                     return {
                         game: (games.find(game => game._id === bet.game)),
-                        id: new String(bet._id).slice(3, 15),
+                        id: bet._id,
                         username: bet.username.length > 10 ? bet.username.substring(0, 4)+'...'+bet.username.substring(bet.username.length-3, bet.username.length) : bet.username,
                         timestamp: dateToHourAndMinute(bet.timestamp),
                         betAmount: formatCurrency(Numbers.toFloat(bet.betAmount)),
@@ -216,7 +216,7 @@ class LastBets extends Component {
                 rows : my_bets.map( (bet) =>  {
                     return {
                         game: (games.find(game => game._id === bet.game)),
-                        id: new String(bet._id).slice(3, 15),
+                        id: bet._id,
                         timestamp: dateToHourAndMinute(bet.timestamp),
                         betAmount: formatCurrency(Numbers.toFloat(bet.betAmount)),
                         winAmount: formatCurrency(Numbers.toFloat(bet.winAmount)),
@@ -232,7 +232,7 @@ class LastBets extends Component {
                 rows : biggest_winners_bets.map( (bet) =>  {
                     return {
                         game: (games.find(game => game._id === bet.game)),
-                        id: new String(bet._id).slice(3, 15),
+                        id: bet._id,
                         username: bet.username.length > 10 ? bet.username.substring(0, 4)+'...'+bet.username.substring(bet.username.length-3, bet.username.length) : bet.username,
                         timestamp: dateToHourAndMinute(bet.timestamp),
                         betAmount: formatCurrency(Numbers.toFloat(bet.betAmount)),
