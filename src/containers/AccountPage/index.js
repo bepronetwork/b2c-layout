@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import "./index.css";
 import { 
-        TabedContainer, DepositTab, WithdrawTab, AccountInfoForm, SettingsTab, AffiliatesTab,
-        SettingsIcon, DepositsIcon, WithdrawIcon, RefferalIcon
+        TabedContainer, DepositTab, WithdrawTab, BetsTab, AccountInfoForm, SettingsTab, AffiliatesTab,
+        SettingsIcon, DepositsIcon, WithdrawIcon, RefferalIcon, BetsIcon
        } from 'components';
 import { connect } from "react-redux";
 import { getApp } from "../../lib/helpers";
@@ -58,6 +58,12 @@ class AccountPage extends Component {
                                     container : <WithdrawTab/>,
                                     icon : <WithdrawIcon />,
                                     disabled: virtual
+                                },
+                                {
+                                    path: "bets",
+                                    title : copy.CONTAINERS.ACCOUNT.TITLE[5],
+                                    container : <BetsTab/>,
+                                    icon : <BetsIcon />
                                 },
                                 {
                                     path: "affiliate",

@@ -64,6 +64,7 @@ import WithdrawForm from './WithdrawForm';
 import TabedContainer from './TabedContainer';
 import DepositTab from './DepositTab';
 import WithdrawTab from './WithdrawTab';
+import BetsTab from './BetsTab';
 import InformationBox from './InformationBox';
 import Media from './Media';
 import Widgets from './Widgets';
@@ -127,6 +128,7 @@ export { Widgets };
 export { Media };
 export { InformationBox };
 export { WithdrawTab };
+export { BetsTab };
 export { DepositTab }
 export { TabedContainer };
 export { WithdrawForm };

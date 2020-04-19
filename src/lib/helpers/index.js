@@ -114,15 +114,15 @@ async function processResponse(response){
 
 function loadFakeBets(rows, games, size) {
     /* fake random value */
-    let ticker = row ? row.ticker : 'ETH';
-    const virtual = getApp().virtual;
-    if (virtual === true) {
-        let currencies = getApp().currencies;
-        ticker = currencies.find(c => c.virtual === true).ticker;
-    }
     var game = games[Math.floor(Math.random() * games.length)];
     var row = rows[Math.floor(Math.random() * rows.length)];
+    let currency = row ? row.currency : null;
+    const virtual = getApp().virtual;
+    if (virtual === true) {
+        currency = getApp().currencies.find(c => c.virtual === true);
+    }
     let fakeUserName = faker.internet.userName();
+    let fakeId = faker.random.uuid().replace("-", "").substring(0, 12);
     let randomArray = [];
     let lostValue = {isWon : false, payout : '0.000000', winAmount : '0.000000'};
     var i = 0; do { i++; randomArray.push(lostValue) } while (i < 4);
@@ -139,13 +139,14 @@ function loadFakeBets(rows, games, size) {
 
     if(game) {
         const newRow = {
+            id: fakeId,
             game : game,
             isWon: randomValue.isWon,
             payout: randomValue.payout + 'x',
             timestamp: "a few seconds ago",
             username: fakeUserName.length > 10 ? fakeUserName.substring(0, 4)+'...'+fakeUserName.substring(fakeUserName.length-3, fakeUserName.length) : fakeUserName,
-            winAmount: randomValue.winAmount + ' ' + ticker,
-            ticker
+            winAmount: randomValue.winAmount,
+            currency
         }
 
         rows.unshift(newRow);

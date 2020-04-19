@@ -617,6 +617,9 @@ class App extends Component {
                                                             path={`${url}/withdraws`} 
                                                             render={props => <AccountPage {...props} onHandleLoginOrRegister={this.handleLoginOrRegisterOpen}/>} />
                                                         <Route 
+                                                            path={`${url}/bets`} 
+                                                            render={props => <AccountPage {...props} onHandleLoginOrRegister={this.handleLoginOrRegisterOpen}/>} />
+                                                        <Route 
                                                             path={`${url}/affiliate`} 
                                                             render={props => <AccountPage {...props} onHandleLoginOrRegister={this.handleLoginOrRegisterOpen}/>} />
                                                     </>

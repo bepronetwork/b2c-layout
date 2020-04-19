@@ -13,10 +13,26 @@
     margin: auto;
     vertical-align: middle;
     padding: $spacing-8 $spacing-20;
+
+    @media screen and (max-width: 767px) {
+        padding: $spacing-4 $spacing-8;
+    }
 }
 
 .th-row-img {
     padding: 0;
+}
+
+.th-row-currency {
+    display: inline-flex;
+    padding-top: $spacing-20;
+    p {
+        margin-right: $spacing-8;
+    }
+
+    @media screen and (max-width: 767px) {
+        padding-top: 38px;
+    }
 }
 
 .image{
@@ -57,6 +73,7 @@
 .table-head .tr-row{
     background-color: $dark-night;
     text-align: center;
+    height: 42px;
 }
 
 .table-head .tr-row .th-row{

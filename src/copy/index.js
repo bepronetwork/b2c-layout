@@ -132,6 +132,7 @@ import widgetsIndexCopy from './widgetsIndex';
 // import widgetsIndexCopy from './widgetsIndex';
 import withdrawFormIndexCopy from './withdrawFormIndex';
 import withdrawTabIndexCopy from './withdrawTabIndex';
+import betspageCopy from './betspage';
 
 const CopyText = {
     Errors: errorsCopy,
@@ -260,7 +261,8 @@ const CopyText = {
     wheelGameOptionsIndex: wheelGameOptionsIndexCopy,
     widgetsIndex: widgetsIndexCopy,
     withdrawFormIndex: withdrawFormIndexCopy,
-    withdrawTabIndex: withdrawTabIndexCopy
+    withdrawTabIndex: withdrawTabIndexCopy,
+    betspage: betspageCopy,
 }
 
 export { CopyText }
