@@ -258,7 +258,7 @@ class LastBets extends Component {
 
                     return {
                         game: (games.find(game => game._id === bet.game)),
-                        id: new String(bet._id).slice(3, 15),
+                        id: bet._id,
                         username: bet.username.length > 10 ? bet.username.substring(0, 4)+'...'+bet.username.substring(bet.username.length-3, bet.username.length) : bet.username,
                         timestamp: dateToHourAndMinute(bet.timestamp),
                         betAmount: formatCurrency(Numbers.toFloat(bet.betAmount))+' '+ticker,
@@ -278,7 +278,7 @@ class LastBets extends Component {
 
                     return {
                         game: (games.find(game => game._id === bet.game)),
-                        id: new String(bet._id).slice(3, 15),
+                        id: bet._id,
                         timestamp: dateToHourAndMinute(bet.timestamp),
                         betAmount: formatCurrency(Numbers.toFloat(bet.betAmount))+' '+ticker,
                         winAmount: formatCurrency(Numbers.toFloat(bet.winAmount))+' '+ticker,
@@ -296,7 +296,7 @@ class LastBets extends Component {
 
                     return {
                         game: (games.find(game => game._id === bet.game)),
-                        id: new String(bet._id).slice(3, 15),
+                        id: bet._id,
                         username: bet.username.length > 10 ? bet.username.substring(0, 4)+'...'+bet.username.substring(bet.username.length-3, bet.username.length) : bet.username,
                         timestamp: dateToHourAndMinute(bet.timestamp),
                         betAmount: formatCurrency(Numbers.toFloat(bet.betAmount))+' '+ticker,
