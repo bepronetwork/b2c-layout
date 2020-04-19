@@ -28,6 +28,9 @@ const rows = {
                 image : true,
             },
             {
+                value : 'id'
+            },
+            {
                 value : 'username'
             },
             {
@@ -51,6 +54,9 @@ const rows = {
                 image : true
             },
             {
+                value : 'id'
+            },
+            {
                 value : 'winAmount',
                 dependentColor : true,
                 condition : 'isWon'
@@ -69,6 +75,9 @@ const rows = {
             {
                 value : 'game',
                 image : true
+            },
+            {
+                value : 'id'
             },
             {
                 value : 'username'
