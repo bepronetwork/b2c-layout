@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 import UserContext from "containers/App/UserContext";
 import classNames from "classnames";
 import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
-import { getSkeletonColors, loadFakeBets } from "../../lib/helpers";
+import { getSkeletonColors, loadFakeBets, getApp } from "../../lib/helpers";
 
 import "./index.css";
 
@@ -63,11 +63,24 @@ class TableDefault extends Component {
     createSkeletonRows = () => {
         let tabs = []
 
-        for (let i = 0; i < 5; i++) {
+        for (let i = 0; i < 10; i++) {
           tabs.push(<div styleName="skeleton-row"><Skeleton height={30} /></div>);
         }
 
         return tabs
+    }
+
+    getCurrencyImage(isCurrency, currencyId) {
+        if(!isCurrency) return null;
+
+        const currencies = getApp().currencies;
+        const currenncy = (currencies.find(currency => currency._id == currencyId));
+
+        if(!currenncy) return null;
+
+        return (
+            <img src={currenncy.image} width={20} />
+        )
     }
     
     render() {
@@ -103,29 +116,34 @@ class TableDefault extends Component {
                                     rows.map( (row, index) => 
                                     <tr styleName={rowStyles}>
                                         {fields.map( (field) => {
+                                            const styles = classNames("th-row", {
+                                                'th-row-img': field.image,
+                                                'th-row-currency': field.currency
+                                            });
                                             if(field.dependentColor){
                                                 return (
-                                                    <th styleName='th-row'>
+                                                    <th styleName={styles}>
                                                         <Typography variant='small-body' color={ row[field.condition] ? 'green' : "grey"}> {row[field.value]} </Typography>
-                                                    </th>
-                                                    
+                                                        {this.getCurrencyImage(field.currency, row['currency'])}
+                                                    </th>     
                                                 )
                                             }else if(field.image){
-                                                const imageStyles = classNames("th-row", "th-row-img");
                                                 const background = row[field.value].hasOwnProperty("background_url") ? row[field.value].background_url : null;
                                                 return (
-                                                    <th styleName={imageStyles}>
+                                                    <th styleName={styles}>
                                                         <div styleName="image">
                                                             <div styleName="icon" style={{ background: background ? 'url('+background+') center center / cover no-repeat' : 'none'}}><img styleName='image-icon' src={row[field.value].image_url}/></div>
                                                             <div styleName='image-name'><Typography variant='x-small-body' color={"grey"}> {row[field.value].name} </Typography></div>
                                                         </div>
                                                     </th>
                                                 )
-                                            }else{
+                                            }
+                                            else{
                                                 return (
                                                     // Normal
-                                                    <th styleName='th-row'>
+                                                    <th styleName={styles}>
                                                         <Typography variant='small-body' color={"white"}> {row[field.value]} </Typography>
+                                                        {this.getCurrencyImage(field.currency, row['currency'])}
                                                     </th>
                                                 )
                                             
