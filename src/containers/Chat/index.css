@@ -14,17 +14,12 @@
 
 .container {
     grid-template-columns: 310px 1fr;
-    padding : $padding-chat-box;
     box-sizing: border-box;
     height: 100%;
     width: 100%;
 
     position: absolute;
     min-height: 42vw;
-
-    border-radius: $spacing-12;
-
-    box-shadow: color(#000 alpha(75%)) 0px 0px 10px;
 
     @include Breakpoint-mobileOnly {
         grid-template-columns: 100%;
@@ -35,16 +30,17 @@
 }
 
 .text-container{
-    height: calc(100% - $spacing-120);
-    padding : 10px;
+    height: calc(100% - 210px);
     overflow : auto;
+    margin-right: $spacing-8;
 
     @include Breakpoint-tabletOnly {
-      height: calc(100% - ($spacing-120 + $spacing-20));
+      height: calc(100% - (200px + $spacing-20));
     }
 
     @include Breakpoint-mobileOnly {
-      height: calc(100% - ($spacing-120 + $spacing-28));
+      height: calc(100% - 260px);
+      margin-left: $spacing-12;
     }
 }
 
@@ -55,37 +51,64 @@
 }
 
 .info{
-    height: $spacing-12;
+    height: $spacing-20;
+    display: inline-flex;
+    align-items: center;
+}
+
+.message-top {
+    margin-top: calc($navbar-height - 10px);
+    top: 0;
+    padding : $spacing-20 $spacing-8;
+    height: calc($navbar-height + $spacing-12);
+    background-color:$primaryColor;
+    grid-template-columns: auto auto;
+    display: grid;
+    align-items: center;
+
 }
 
 .message-box{
-    padding : $spacing-8;
+    padding : $spacing-12;
     width: 100%;
-    margin : 10px auto;
-    background-color: $text-container-interior-color;
+    margin : $spacing-16 auto;
+    background-color: $primaryColor;
     border-radius : $border-radius-messsage-box;
 }
 
 .message-container{
-    padding : 10px;
+    padding : $spacing-12 $spacing-12 0 0;
     border-radius : $border-radius-messsage-box;
-    height: $bot-chat-message-percentage;
-    background-color:$chat-container-color;
-
-    @include Breakpoint-tabletOnly {
-      height: 30%;
-      padding: 0 10px;
-    }
+    background-color:$backgroundColor;
+    width: 100%;
 
     @include Breakpoint-mobileOnly {
-      height: 30%;
-      padding: 0 10px;
+      padding-left: $spacing-12;
+    }
+}
+
+.message-container > form > div {
+  width: 75%;
+  float: left;
+
+  @include Breakpoint-tabletOnly {
+    width: 70%;
+  }
+}
+
+.message-container > form > div > div {
+    background-color: $backgroundColor;
+    border: 2px solid $backgroundColor-light-8;
+    height: 51px;
+    padding: $spacing-12;
+
+    @include Breakpoint-mobileOnly {
+      padding: $spacing-8;
     }
 }
 
 .options-container {
   height: 100%;
-
   background-color: $background-table-1-outer;
 
   @include Breakpoint-mobileOnly {
@@ -137,19 +160,14 @@
 .button{
     background-color: $button-primary-color; 
     margin : auto;
-    position: relative;
-    display: block;
-    width: 100px;
+    width: 25%;
     padding : 10px;
     border-radius : $border-radius;
-}
+    height: 50px;
 
-
-@media only screen and (max-width: 800px) {
-    .button{
-        width : 50px !important;
+    @include Breakpoint-tabletOnly {
+      width: 30%;
     }
-    
 }
 
 
@@ -159,7 +177,7 @@
 
 
 .users-box{
-    margin: 6px auto;
+    margin: 6px;
     display: flex;
     width : max-content;
     align-items: center;
@@ -175,7 +193,7 @@
     border-radius: $light-size;
     height: $light-size;
     background-color: $green;
-    margin : $light-margin-top auto;
+    margin : $spacing-16 $spacing-20;
 
 }
 
@@ -184,9 +202,55 @@
     border-radius: $light-size;
     height: $light-size;
     background-color: $red;
-    margin : $light-margin-top auto;
+    margin : $spacing-16 $spacing-20;
 }
 
 .image-language{
     width: 20px;
+}
+
+.online {
+    display: inline-flex;
+    margin-left: $spacing-4;
+}
+
+.language {
+    justify-content: flex-end;
+    display: inline-flex;
+    align-items: center;
+    margin-right: $spacing-20;
+}
+
+.avatar {
+  float: left;
+  background-color: $primaryColor-light-5;
+  border-radius: $border-radius;
+  width: $spacing-20;
+  height: $spacing-20;
+  text-align: center;
+  padding-top: $spacing-4;
+  margin-right: $spacing-12;
+}
+
+.go-down{
+  position: fixed;
+  bottom: 114px;
+  right: 40px;
+  z-index: 12;
+  border-radius: $border-radius;
+  background-color: $primaryColor-light-5;
+  opacity: 0.7;
+}
+
+.arrow{
+  height: 40px;
+  width: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  svg {
+    height: 24px;
+    width: 24px;
+  }
 }

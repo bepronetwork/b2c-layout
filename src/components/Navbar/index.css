@@ -174,11 +174,19 @@
 
 .button-deposit{
     float: left;
-    margin-left: $spacing-52;
 
     @media screen and (max-width: 767px) {
         display: none;
     }
+}
+
+.button{
+    background-color: $fifthColor; 
+    margin : auto;
+    position: relative;
+    display: block;
+    padding : $spacing-8 $spacing-20;
+    border-radius : 0 $border-radius $border-radius 0;
 }
 
 .navbar-language{
@@ -209,7 +217,7 @@
     align-items: center;
     width: 100%;
     height: $navbar-height;
-    background-color: $background-top-bar-theme;
+    background-color: $primaryColor;
     box-shadow : 1px 1px 100px 1px #0000006b;
     padding-left : $padding-width-navbar;
     padding-right : $padding-width-navbar;
@@ -257,11 +265,11 @@
 }
 
 .currency{
-    height: 30px;
     float: left;
 
     .diff-won{
-        padding-left: 30%;
+        padding-left: 56px;
+        position: absolute;
         * {
             color: $green;
             opacity: 0;
@@ -271,7 +279,8 @@
     }
 
     .diff-lost{
-        padding-left: 30%;
+        padding-left: 56px;
+        position: absolute;
         * {
             color: $red;
             opacity: 0;
@@ -280,3 +289,37 @@
         }
     }
 }
+
+.currency-selector{
+    display: inline-flex;
+    align-items: center;
+}
+
+.label {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    height: 32px;
+    cursor: pointer;
+    padding: 0 $spacing-8 0 $spacing-8;
+    background-color: $backgroundColor-light-2;
+    border-radius: $border-radius;
+  
+    .user-icon {
+      width: 22px;
+      background-color: $primaryColor-light-2;
+      border-radius: $border-radius;
+    }
+
+    span {
+        margin-left: $spacing-8;
+
+        @media screen and (max-width: 767px) {
+            display: none;
+        }
+    }
+  }
+
+  .profile{
+    border-radius: $spacing-8;
+  }

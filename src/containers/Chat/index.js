@@ -1,10 +1,9 @@
 import React, { Component } from "react";
-import { Typography, InputText, DropDownField, UsersIcon } from "components";
+import { Typography, InputText, UsersIcon, LanguageSelector } from "components";
+import ArrowDown from "components/Icons/ArrowDown";
 import { connect } from "react-redux";
 import _ from 'lodash';
-import { Row, Col } from 'reactstrap';
 import "./index.css";
-import { MenuItem } from '@material-ui/core';
 import languages from "../../config/languages";
 import { setMessageNotification } from "../../redux/actions/message";
 import { CopyText } from "../../copy";
@@ -101,6 +100,11 @@ class ChatPage extends React.Component {
                 :
                     <div styleName='message-box' key={id}> 
                         <div styleName='info'>
+                            <div styleName='avatar'>
+                                <Typography variant="x-small-body" color="grey"> 
+                                    {username.substring(0,1).toUpperCase()} 
+                                </Typography>
+                            </div> 
                             <div style={{float : 'left', marginRight : 8}}>
                                 <Typography variant="x-small-body" color="casper"> 
                                     @{username} 
@@ -137,7 +141,7 @@ class ChatPage extends React.Component {
 
     changeLanguage = async (item) => {
         item = languages.find( a => {
-            if(a.channel_id == item.value){
+            if(a.channel_id == item.channel_id){
                 return a;
             }
         })
@@ -158,6 +162,26 @@ class ChatPage extends React.Component {
         return (
             <div styleName="root">
                     <div styleName="container">
+                        <div styleName="message-top">
+                            <div styleName="online">
+                                {this.state.open ? 
+                                    <div styleName={'green-light'}/>
+                                :
+                                    <div styleName={'red-light'}/>
+                                }
+                                <div styleName={'users-box'}>
+                                    <Typography variant="small-body" color="casper">
+                                        {this.state.participants} 
+                                    </Typography>
+                                    <div styleName="users-icon">
+                                        <UsersIcon />
+                                    </div>
+                                </div>
+                            </div>
+                            <div styleName="language">
+                                <LanguageSelector showLabel={false} expand="bottom" onChange={this.changeLanguage}/>
+                            </div>
+                        </div>
                         <div ref={el => { this.el = el; }} styleName="text-container">
                             {isLoading ?
                                 this.createSkeletonMessages()
@@ -170,6 +194,13 @@ class ChatPage extends React.Component {
                                 ref={(el) => { this.messagesEnd = el; }}>
                             </div>
                         </div>
+                        <div styleName="go-down"> 
+                            <a href="#" onClick={() => this.scrollToBottom()}>
+                                <div styleName="arrow"> 
+                                    <ArrowDown />
+                                </div>
+                            </a>
+                        </div>
                         <div styleName="message-container">
                             <form onSubmit={this.sendMessage}>
                                 <InputText
@@ -179,60 +210,17 @@ class ChatPage extends React.Component {
                                     value={this.state.message}
                                     type={'slim'}
                                 />
-                                <div styleName='container-box'>
-                                    <Row>
-                                    
-                                        <Col>
-                                            {this.state.open ? 
-                                                <div styleName={'green-light'}/>
-                                            :
-                                                <div styleName={'red-light'}/>
-                                            }
+                               
+                                <button
+                                    disabled={this.state.message.length < 1}
+                                    type="submit"
+                                    styleName="button"
+                                >
+                                    <Typography variant="small-body" color="white">
+                                        {copy2.CONTAINERS.CHAT.TYPOGRAPHY[0]}
+                                    </Typography>
+                                </button>
 
-                                        </Col>
-                                        <Col>
-                                            <div>
-                                                <DropDownField
-                                                    id="language"
-                                                    type={'language'}
-                                                    onChange={this.changeLanguage}
-                                                    options={languages}
-                                                    value={this.state.language.channel_id}
-                                                    style={{width : '80%'}}
-                                                    height={30}
-                                                    label="Language Name"
-                                                    >
-                                                    {languages.map(option => (
-                                                        <MenuItem key={option.channel_id} value={option.channel_id}>
-                                                            <img src={option.image} styleName='image-language'/>
-                                                        </MenuItem>
-                                                    ))}
-                                                </DropDownField> 
-                                            </div>
-                                        </Col>
-                                        <Col>
-                                            <div styleName={'users-box'}>
-                                                <Typography variant="small-body" color="casper">
-                                                    {this.state.participants} 
-                                                </Typography>
-                                                <div styleName="users-icon">
-                                                    <UsersIcon />
-                                                </div>
-                                            </div>
-                                        </Col>
-                                        <Col>
-                                            <button
-                                                disabled={this.state.message.length < 1}
-                                                type="submit"
-                                                styleName="button"
-                                            >
-                                                <Typography variant="small-body" color="white">
-                                                    {copy2.CONTAINERS.CHAT.TYPOGRAPHY[0]}
-                                                </Typography>
-                                            </button>
-                                        </Col>
-                                    </Row>
-                                </div>
                             </form>
                         </div>
                     </div>

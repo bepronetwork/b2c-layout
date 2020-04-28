@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Numbers } from "../../lib/ethereum/lib";
 import { dateToHourAndMinute, getGames, getSkeletonColors } from "../../lib/helpers";
-import { SelectBox, Table, RewardIcon } from 'components';
+import { SelectBox, Table, RewardIcon, Tabs } from 'components';
 import { formatCurrency } from "../../utils/numberFormatation";
 import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 import { CopyText } from "../../copy";
@@ -112,11 +112,10 @@ class BetsTab extends Component {
             games,
             gamesOptions,
             options : Object.keys(copy.TABLE).map( (key) => {
-                const value = new String(key).toLowerCase();
                 return {
-                    value,
+                    value : new String(key).toLowerCase(),
                     label : copy.TABLE[key].TITLE,
-                    icon : RewardIcon
+                    icon : <RewardIcon/>
                 }
             }),
             my_bets : {
@@ -125,7 +124,7 @@ class BetsTab extends Component {
                 rows : my_bets.map( (bet) =>  {
                     return {
                         game: (games.find(game => game._id === bet.game)),
-                        id: new String(bet._id).slice(3, 15),
+                        id: bet._id,
                         timestamp: dateToHourAndMinute(bet.timestamp),
                         betAmount: formatCurrency(Numbers.toFloat(bet.betAmount)),
                         winAmount: formatCurrency(Numbers.toFloat(bet.winAmount)),
@@ -153,7 +152,8 @@ class BetsTab extends Component {
     }
 
     render() {
-        const { games, gamesOptions, isLoading, isListLoading, view_game } = this.state;
+        const { onTableDetails } = this.props;
+        const { games, gamesOptions, isLoading, isListLoading, view_game, options, view } = this.state;
 
         return (
             <div styleName='container'>
@@ -172,6 +172,10 @@ class BetsTab extends Component {
                     </SkeletonTheme>
                 :
                     <div styleName='lastBets'>
+                        <Tabs
+                            selected={view}
+                            options={options}
+                        />
                         <div styleName="filters">
                             <div styleName='bets-dropdown-game'>
                                 <SelectBox
@@ -192,13 +196,14 @@ class BetsTab extends Component {
                     </div>
                 }
                 <Table
-                    rows={this.state[this.state.view].rows}
-                    titles={this.state[this.state.view].titles}
-                    fields={this.state[this.state.view].fields}
-                    showRealTimeLoading={this.state.view == "all_bets" ? true : false}
+                    rows={this.state[view].rows}
+                    titles={this.state[view].titles}
+                    fields={this.state[view].fields}
                     size={this.state.view_amount.value}
                     games={games.filter(function(g) { return view_game.value == 'all_games' || g.metaName == view_game.value; }).map(function(g) { return g; })}
                     isLoading={isListLoading}
+                    onTableDetails={onTableDetails ? onTableDetails : null}
+                    hasLinkToDetails={onTableDetails ? true : false}
                 /> 
             </div>
         );

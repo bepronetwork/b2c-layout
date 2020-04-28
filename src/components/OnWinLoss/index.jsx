@@ -67,6 +67,7 @@ const copy = CopyText.onWinLossIndex[ln];
                         variant='x-small-body'
                         selected={side}
                         onSelect={this.handleSelect}
+                        differentBorders
                     />
                 </div>
                 <div styleName="container">

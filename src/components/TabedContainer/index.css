@@ -1,3 +1,4 @@
+@import "../../styles/all.css";
 
 .text-tab{
     text-align: left;
@@ -6,9 +7,41 @@
 .row {
     display: flex;
     align-items: center;
+    height: 64px;
+    padding-left: 15%; 
+}
+
+.active {
+    border-left: 2px solid $secondaryColor;
+    background-color: $primaryColor-dark-3;
 }
 
 .icon {
     width: 30px;
     margin-right: 20px;
+}
+
+.title {
+    height: 64px;
+    background-color: $primaryColor;
+    display: flex;
+    align-items: center;
+    padding-left: 15%;
+    border-radius: $border-radius $border-radius 0 0;
+}
+
+.menu {
+    background-color: $primaryColor-light-3;
+    border-radius: $border-radius;
+}
+
+.page {
+    padding: $spacing-8 $spacing-8 $spacing-28 $spacing-8;
+}
+
+.content{
+    background-color: $primaryColor-light-3;
+    padding: $spacing-28;
+    border-radius: $border-radius;
+    /*box-shadow: color(#000 alpha(75%)) 0px 0px 10px;*/
 }

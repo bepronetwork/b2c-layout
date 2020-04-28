@@ -306,39 +306,40 @@ const copy = CopyText.plinkoGameOptionsIndex[ln];
                 onSelect={this.handleType}
             />
             </div>
-            <div styleName="amount">
-                <Typography variant="small-body" weight="semi-bold" color="casper">
-                    {copy.INDEX.TYPOGRAPHY.TEXT[0]}
-                </Typography>
-                <div styleName="amount-container">
-                    <InputNumber
-                        name="amount"
-                        value={amount}
-                        max={(user && !_.isEmpty(user)) ? user.getBalance() : null}
-                        step={0.01}
-                        icon="bitcoin"
-                        precision={2}
-                        onChange={this.handleBetAmountChange}
-                        />
-                    <MultiplyMaxButton onSelect={this.handleMultiply} />
+            <div styleName="bet-properties">
+                <div styleName="amount">
+                    <Typography variant="small-body" weight="semi-bold" color="casper">
+                        {copy.INDEX.TYPOGRAPHY.TEXT[0]}
+                    </Typography>
+                    <div styleName="amount-container">
+                        <InputNumber
+                            name="amount"
+                            value={amount}
+                            max={(user && !_.isEmpty(user)) ? user.getBalance() : null}
+                            step={0.01}
+                            icon="bitcoin"
+                            precision={2}
+                            onChange={this.handleBetAmountChange}
+                            />
+                        <MultiplyMaxButton onSelect={this.handleMultiply} />
+                    </div>
                 </div>
-            </div>
-            <div styleName="content">
-            {type === "auto" ? this.renderAuto() : this.renderManual()}
-            </div>
-         
-            <div styleName="button">
-            <Button
-                disabled={!this.isBetValid() || this.isInAutoBet()}
-                onClick={this.handleBet}
-                fullWidth
-                theme="primary"
-                animation={<Plinko />}
-            >
-                <Typography weight="semi-bold" color="pickled-bluewood">
-                    {type === "manual" ? copy.INDEX.TYPOGRAPHY.TEXT[1]: copy.INDEX.TYPOGRAPHY.TEXT[2]  }
-                </Typography>
-            </Button>
+                <div styleName="content">
+                    {type === "auto" ? this.renderAuto() : this.renderManual()}
+                </div>
+                <div styleName="button">
+                    <Button
+                        disabled={!this.isBetValid() || this.isInAutoBet()}
+                        onClick={this.handleBet}
+                        fullWidth
+                        theme="primary"
+                        animation={<Plinko />}
+                    >
+                        <Typography weight="semi-bold" color="pickled-bluewood">
+                            {type === "manual" ? copy.INDEX.TYPOGRAPHY.TEXT[1]: copy.INDEX.TYPOGRAPHY.TEXT[2]  }
+                        </Typography>
+                    </Button>
+                </div>
             </div>
         </div>
         );

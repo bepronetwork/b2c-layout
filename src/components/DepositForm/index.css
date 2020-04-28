@@ -4,7 +4,7 @@
     padding: $spacing-16;
     background-color: $white;
     width: 166px;
-    margin: $spacing-20 auto;
+    margin: $spacing-36 auto;
     border-radius: 4px;
 }
   
@@ -29,36 +29,22 @@
     opacity: 0.6;
 }
 
-.currency {
-    display: flex;
-    margin-bottom: $spacing-20;
-}
-
-.currency > div {
-    flex: 1;
-}
-
-.logo-img {
-    width: $spacing-36;
+.building{
+    margin-top: $spacing-52;
 }
 
 .building-img {
-    width: $spacing-160;
+    width: 150px;
 }
 
 .building-info {
     margin: $spacing-52 0;
 }
 
-.logo {
-    text-align: right
-}
-
 .info {
     margin-top: $spacing-20;
     text-align: justify;
-    width: 384px;
-    background-color: $mirage;
+    width: 100%;
     border-radius: $border-radius $border-radius 0 0;
     padding: $spacing-20;
 
@@ -68,16 +54,10 @@
     }
 }
 
-.cur-name {
-    margin-top: $spacing-8;
-    text-align: left;
-    margin-left: $spacing-12;
-}
-
 .text-copy-container{
     border : none;
     padding: $spacing-12 24px;
-    border-radius :  0 0 $border-radius 0;
+    border-radius :  0 $border-radius $border-radius 0;
     background-color: $light-background;
     width : inherit;
     height : 40px;
@@ -85,12 +65,12 @@
 }
 
 .link-text-container{
-    width : 303px;
+    width : 100%;
     padding: 14px $spacing-20;
     text-align : left;
     overflow: hidden;
     height: 40px;
-    border-radius : 0 0 0  $border-radius;
+    border-radius : $border-radius 0 0  $border-radius;
     background-color : $white;
 }
 
@@ -101,7 +81,8 @@
 
 .copied {
     position: absolute;
-    margin-left: 20%;
+    margin-left: 30%;
+    margin-top: -$spacing-20;
 
     @include Breakpoint-mobileOnly {
         margin-left: 35%;

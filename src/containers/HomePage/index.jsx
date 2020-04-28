@@ -47,6 +47,7 @@ class HomePage extends Component {
     };
 
     renderGame = ({metaName, name, edge, image_url, tableLimit, background_url}) => {
+        const { onTableDetails } = this.props;
         if(!this.isGameAvailable(metaName)){return null}
         return (
                 <Col>
@@ -57,6 +58,7 @@ class HomePage extends Component {
                         image_url={image_url}
                         tableLimit={tableLimit}
                         background_url={background_url}
+                        onTableDetails={onTableDetails}
                     >
                     </GameCard>
                 </Col>
@@ -64,6 +66,7 @@ class HomePage extends Component {
     }
 
     render() {
+        const { onTableDetails } = this.props;
         const mobileBreakpoint = 768;
         const appInfo = JSON.parse(localStorage.getItem("appInfo"));
         if (!appInfo) { return null; }
@@ -82,7 +85,7 @@ class HomePage extends Component {
                             null
                         :
                             <div styleName="last-bets">
-                                <LastBets />
+                                <LastBets onTableDetails={onTableDetails} />
                             </div>
                     }
                     {/* <Media/> */}

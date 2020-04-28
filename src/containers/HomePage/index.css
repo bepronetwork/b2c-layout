@@ -30,7 +30,7 @@
 }
 
 .container-small{
-    margin: $spacing-36 0 0 0;
+    margin: $spacing-28 0 0 0;
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
     gap: 1.2rem 1.2rem;

@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import "./index.css";
 import { 
-        TabedContainer, DepositTab, WithdrawTab, BetsTab, AccountInfoForm, SettingsTab, AffiliatesTab,
-        SettingsIcon, DepositsIcon, WithdrawIcon, RefferalIcon, BetsIcon
+        TabedContainer, DepositTab, WithdrawTab, BetsTab, SecurityTab, SettingsTab, AffiliatesTab, AccountTab, WalletTab, WalletIcon,
+        SettingsIcon, DepositsIcon, WithdrawIcon, RefferalIcon, BetsIcon, UserIcon, UsersIcon, ConfirmedIcon
        } from 'components';
 import { connect } from "react-redux";
 import { getApp } from "../../lib/helpers";
@@ -26,9 +26,10 @@ class AccountPage extends Component {
     }
 
     render() {
-        const {ln, profile} = this.props;
+        const {ln, profile, onLogout, onTableDetails} = this.props;
         const copy = CopyText.homepage[ln];
         if (!profile || _.isEmpty(profile)) return null;
+
 
         const virtual = getApp().virtual;
 
@@ -37,14 +38,31 @@ class AccountPage extends Component {
                 <div styleName="root">
                     <hr></hr>
                     <TabedContainer 
-                        tabTopContent={<AccountInfoForm/>}
                         items={
                             [
                                 {
-                                    path: "settings",
-                                    title : copy.CONTAINERS.ACCOUNT.TITLE[0],
-                                    container : <SettingsTab/>,
-                                    icon : <SettingsIcon />
+                                    path: "account",
+                                    title : copy.CONTAINERS.ACCOUNT.TITLE[6],
+                                    container : <AccountTab onLogout={onLogout} />,
+                                    icon : <UserIcon />
+                                },
+                                {
+                                    path: "security",
+                                    title : copy.CONTAINERS.ACCOUNT.TITLE[7],
+                                    container : <SecurityTab/>,
+                                    icon : <ConfirmedIcon />
+                                },
+                                {
+                                    path: "bets",
+                                    title : copy.CONTAINERS.ACCOUNT.TITLE[5],
+                                    container : <BetsTab onTableDetails={onTableDetails} />,
+                                    icon : <BetsIcon />
+                                },
+                                {
+                                    path: "wallet",
+                                    title : copy.CONTAINERS.ACCOUNT.TITLE[8],
+                                    container : <WalletTab/>,
+                                    icon : <WalletIcon />
                                 },
                                 {
                                     path: "deposits",
@@ -60,17 +78,17 @@ class AccountPage extends Component {
                                     disabled: virtual
                                 },
                                 {
-                                    path: "bets",
-                                    title : copy.CONTAINERS.ACCOUNT.TITLE[5],
-                                    container : <BetsTab/>,
-                                    icon : <BetsIcon />
-                                },
-                                {
                                     path: "affiliate",
                                     title : copy.CONTAINERS.ACCOUNT.TITLE[3],
                                     container : <AffiliatesTab/>,
-                                    icon : <RefferalIcon />
+                                    icon : <UsersIcon />
                                 },
+                                {
+                                    path: "preferences",
+                                    title : copy.CONTAINERS.ACCOUNT.TITLE[9],
+                                    container : <SettingsTab/>,
+                                    icon : <SettingsIcon />
+                                }
                             ]
                         }
                         {...this.props}

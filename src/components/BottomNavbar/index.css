@@ -44,7 +44,7 @@
 }
 
 .bottom-menu-list li:hover {
-    background-color: $nepal;
+    background-color: $secondaryColor;
 }
 
 .item{

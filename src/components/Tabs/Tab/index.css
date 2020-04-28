@@ -12,7 +12,6 @@
 }
 
 .tab {
-  background-color: $primaryColor;
   height: 100%;
   text-align: center;
 
@@ -23,7 +22,6 @@
 
   button {
     width: 100%;
-    border-radius: $border-radius;
     padding: $spacing-4;
     background-color: inherit;
     cursor: pointer;
@@ -39,7 +37,7 @@
 }
 
 .selected{
-  background-color: $backgroundColor;
+  border-bottom: 2px solid $secondaryColor;
 
   * {
     color: $white;
@@ -47,8 +45,17 @@
   }
 }
 
+.main{
+  grid-template-columns: auto auto;
+  display: grid;
+  align-items: center;
+  width: 100%;
+}
+
 .icon {
-  margin-left: $spacing-12;
+  justify-content: flex-end;
+  display: inline-flex;
+  margin-right: $spacing-4;
   
   svg {
     width: 36px;
@@ -63,7 +70,7 @@
 }
 
 .label {
-  margin: auto;
+  text-align: left;
 
   @media screen and (max-width: 1023px) {
     margin-left: $spacing-8;

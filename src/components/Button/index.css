@@ -38,14 +38,19 @@
 
 .default {
   .content {
-    background-color: $button-hover-color;
     transition: background-color 0.2s ease-out, color 0.2s ease-out;
+    border: 1px solid $secondaryColor;
+
+    * {
+      color: $secondaryColor;
+    }
   }
+
 }
 
 .primary {
   .content {
-    background-color: $green;
+    background-color: $secondaryColor;
 
     transition: background-color 0.2s ease-out, color 0.2s ease-out;
   }
@@ -97,8 +102,14 @@
 .disabled:hover .content,
 .disabled:focus .content {
   background-color: color($black alpha(50%));
+  border: 1px solid  color($black alpha(50%));
   color: white;
   cursor: default;
+
+  * {
+    color: color($black alpha(50%));
+  }
+  
 }
 
 .fullwidth {

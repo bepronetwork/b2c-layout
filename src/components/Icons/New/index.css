@@ -2,21 +2,19 @@
 
 
 .a {
-    fill:  #000; /*#084eaa*/
-    fill-opacity: 0.3;
+    fill:  $seventhColor-dark-13; /*#084eaa*/
 }
 
 .b {
-    fill: $seventhColor; /*#0b69e8;*/
+    fill: $seventhColor-light-13; /*#0b69e8;*/
 }
 
 .c {
-    fill: #000; /*#d54bac;*/
-    fill-opacity: 0.3;
+    fill: $heightColor-dark-13; /*#d54bac;*/
 }
 
 .d {
-    fill: $heightColor; /*#f18fe8;*/
+    fill: $heightColor-light-13; /*#f18fe8;*/
 }
 
 .e {

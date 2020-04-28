@@ -6,7 +6,6 @@
   cursor: pointer;
   outline: none;
   display: inline-block;
-  margin-top: $spacing-4;
 
   * {
     background-color: transparent;
@@ -27,7 +26,7 @@
 
   border-right: $spacing-4 solid transparent;
 
-  border-bottom: $spacing-4 solid $mirage;
+  border-bottom: $spacing-4 solid $primaryColor-light-3;
 
   border-left: $spacing-4 solid transparent;
 
@@ -50,7 +49,7 @@
 
   margin-top: $spacing-12;
 
-  background: $mirage;
+  background: $primaryColor-light-3;
 
   border-radius: $spacing-4;
   width: 128px;
@@ -85,19 +84,18 @@
 }
 
 .option:hover {
-  background-color: $concrete;
+  background-color: $primaryColor-light-13;
 
   * {
     color: $nepal;
   }
-}*/
+}
 
 .item{
   display: inline-flex;
   position: relative;
   flex-direction: column;
   align-items: center;
-  padding-top: 0.3em;
 }
 
 .item img{
@@ -108,6 +106,6 @@
 }
 
 .item svg{
-  margin-left: 7px;
+  margin-left: 40px;
   margin-top: -20px;
 }

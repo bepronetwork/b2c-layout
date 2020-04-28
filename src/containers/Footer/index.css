@@ -11,31 +11,32 @@
 
 
 .container {
-  justify-content: center;
+    justify-content: center;
 
-  grid-column-gap: $spacing-28;
-  grid-row-gap: $spacing-28;
+    grid-column-gap: $spacing-28;
+    grid-row-gap: $spacing-28;
 
-  grid-template-columns: repeat(3, 290px);
+    grid-template-columns: repeat(3, 290px);
 
-  @include Breakpoint-tabletAndAbove {
-    max-width: $content-width-desktop;
-    padding-top : 10px !important;
-    padding: calc($navbar-height + $spacing-36) $spacing-20 0 $spacing-20;
-    margin: 0 auto;
-}
+    @include Breakpoint-tabletAndAbove {
+        max-width: $content-width-desktop;
+        padding-top : 10px !important;
+        padding: calc($navbar-height + $spacing-36) $spacing-20 0 $spacing-20;
+        margin: 0 auto;
+    }
 
-@include Breakpoint-mobileOnly {
-    width: 100%;
+    @include Breakpoint-mobileOnly {
+        width: 100%;
 
-    max-width: $content-width-mobile;
-    padding: calc($spacing-36) 0 0 0;
-    margin: 0 auto;
-}
+        max-width: $content-width-mobile;
+        padding: calc($spacing-36) 0 0 0;
+        margin: 0 auto;
+    }
 
-  @include Breakpoint-tabletOnly {
-    grid-template-columns: 1fr;
-  }
+    @include Breakpoint-tabletOnly {
+        padding: 0 $spacing-20 0 $spacing-20;
+        grid-template-columns: 1fr;
+    }
 
 }
 

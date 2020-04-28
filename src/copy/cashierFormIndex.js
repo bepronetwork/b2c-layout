@@ -7,7 +7,8 @@
         "LABEL": [
           "Deposit",
           "Withdraw",
-          "Buy"
+          "Buy",
+          "Wallets"
         ]
       }
     }
@@ -18,7 +19,8 @@
         "LABEL": [
           "입금",
           "출금",
-          "Buy"
+          "Buy",
+          "Wallets"
         ]
       }
     }
@@ -29,7 +31,8 @@
         "LABEL": [
           "充币",
           "提币",
-          "Buy"
+          "Buy",
+          "Wallets"
         ]
       }
     }
@@ -40,7 +43,8 @@
         "LABEL": [
           "Deposit",
           "Withdraw",
-          "Buy"
+          "Buy",
+          "Wallets"
         ]
       }
     }

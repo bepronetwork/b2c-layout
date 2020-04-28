@@ -366,7 +366,8 @@
 
 .options-container {
     background-color: $background-table-1-outer;
-    padding : 10px;
+    border-radius: $border-radius 0 0 $border-radius;
+
   @include Breakpoint-mobileOnly {
     order: 2;
     width: 100%;

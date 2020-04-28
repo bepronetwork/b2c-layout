@@ -191,12 +191,14 @@ class RoulettePage extends Component {
     };
 
     render() {
+        const { onTableDetails } = this.props;
         return (
             <GamePage
                 options={this.renderGameOptions()}
                 game={this.renderGameCard()}
                 history="rouletteHistory"
                 gameMetaName={this.state.game.metaName}
+                onTableDetails={onTableDetails}
             />
         );
     }

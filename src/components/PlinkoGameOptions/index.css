@@ -8,9 +8,9 @@
 
   height: calc(100% - $spacing-20 - $spacing-20);
 
-  padding: $spacing-20;
-
   background: $background-table-1;
+
+  border-radius: $border-radius 0 0 0;
 }
 
 .button {
@@ -35,6 +35,7 @@
 
 .content {
   order: 2;
+  margin-bottom: $spacing-36;
 }
 
 .toggle {
@@ -45,6 +46,10 @@
 
     margin-top: $spacing-20;
   }
+
+  div {
+    height: 60px;
+  }
 }
 
 .amount-container {
@@ -52,4 +57,8 @@
   grid-template-columns: 57% 43%;
 
   margin-top: $spacing-4;
+}
+
+.bet-properties{
+  padding: $spacing-20;
 }

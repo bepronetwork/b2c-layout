@@ -96,13 +96,18 @@ class ProfileMenu extends Component {
         );
     }
 
+    onDoAction = async (onAction) => {
+        this.setState({ open : false })
+        onAction();
+    }
+
     renderOptionsLines = () => {
         return map(this.getOptions(), ({ value, label, icon, action }) => (
         <button
             styleName="option"
             key={value}
             id={value}
-            onClick={action}
+            onClick={()=>this.onDoAction(action)}
             type="button"
         >
             <div styleName="user-icon">

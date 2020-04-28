@@ -7,9 +7,7 @@
 .toggle {
   padding: $spacing-8;
 
-  background: $background-table-1-outer-2;
-
-  border-radius: $spacing-4;
+  background: $primaryColor-light-3;
 
   cursor: pointer;
 
@@ -25,19 +23,19 @@
 .toggle-left {
   border-top-right-radius: 0;
   border-bottom-right-radius: 0;
-  border-bottom-left-radius: $spacing-4;
+  border-bottom-left-radius: 0;
   border-top-left-radius: $spacing-4;
 }
 
 .toggle-right {
   border-top-right-radius: $spacing-4;
-  border-bottom-right-radius: $spacing-4;
+  border-bottom-right-radius: 0;
   border-bottom-left-radius: 0;
   border-top-left-radius: 0;
 }
 
 .toggle.selected {
-  background-color: $background-main-table;
+  border-bottom: 1px solid $secondaryColor;
 
   transition: background 300ms linear;
 }

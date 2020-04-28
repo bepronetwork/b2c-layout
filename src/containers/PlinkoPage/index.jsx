@@ -125,12 +125,14 @@ class PlinkoPage extends Component {
     };
 
     render() {
+        const { onTableDetails } = this.props;
         return (
             <GamePage
                 game={this.getGameCard()}
                 options={this.getOptions()}
                 history="plinko_variation_1History"
                 gameMetaName={this.state.game.metaName}
+                onTableDetails={onTableDetails}
             />
         );
     }

@@ -3,7 +3,9 @@ import './index.css';
 import { Row, Col } from 'reactstrap';
 import { Typography, Checkbox } from 'components';
 import { connect } from "react-redux";
+import classNames from 'classnames';
 import { getApp } from "../../lib/helpers";
+import { formatCurrency } from '../../utils/numberFormatation';
 
 class PaymentBox extends React.Component{
     constructor(props){
@@ -24,15 +26,15 @@ class PaymentBox extends React.Component{
     }
 
     projectData = async (props) => {
-        const { currency } = props;
+        const { wallet } = props;
         const virtual = getApp().virtual;
 
         if (virtual === true) {
             const virtualCurrency = getApp().currencies.find(c => c.virtual === true);
 
-            if(currency && virtualCurrency) {
+            if(wallet && virtualCurrency) {
                 const virtualWallet = getApp().wallet.find(w => w.currency._id === virtualCurrency._id);
-                const price = virtualWallet ? virtualWallet.price.find(p => p.currency === currency._id).amount : null;
+                const price = virtualWallet ? virtualWallet.price.find(p => p.currency === wallet.currency._id).amount : null;
                 this.setState({ price, virtualTicker : virtualCurrency.ticker });
             }
         }
@@ -47,43 +49,37 @@ class PaymentBox extends React.Component{
     }
 
     render(){
-        var { 
-            image, type, description, id, picked, isPicked, info
-        } = this.props;
+        let { isPicked, wallet} = this.props;
         const { price, virtualTicker } = this.state;
-
-        isPicked = isPicked ? isPicked : (picked == id);
+        const styles = classNames("container-root", {
+            selected: isPicked
+        });
 
         return (
-            <button onClick={this.onClick} styleName={`container-root`}>
+            <button onClick={this.onClick} styleName={styles}>
                 <Row>
                     <Col xs={3} md={3}>
                         <div styleName='container-image'>
-                            <img src={image} styleName='payment-image'/>
+                            <img src={wallet.image ? wallet.image : wallet.currency.image} styleName='payment-image'/>
                         </div>
                     </Col>
                     <Col xs={5} md={7}>
                         <div styleName={'container-text'}>
-                            <Typography variant={'body'} color={'white'}>
-                                {type}
+                            <Typography variant={'small-body'} color={'white'}>
+                                {`${wallet.currency.name} (${wallet.currency.ticker})`}
                             </Typography>
                             <div styleName='text-description'>
                                 <Typography variant={'x-small-body'} color={'casper'}>
-                                    {price ? `1 ${virtualTicker} = ${price} ${id}` : description}
+                                    {`${formatCurrency(wallet.playBalance)} ${wallet.currency.ticker}`}
                                 </Typography>
                             </div>
-                            {info ? 
+                            {price ? 
                                 <div styleName='text-description'>
                                     <Typography variant={'x-small-body'} color={'mercury'}>
-                                        {info}
+                                        {`1 ${virtualTicker} = ${price} ${wallet.currency.ticker}`}
                                     </Typography>
                                 </div>
                             : null}
-                        </div>
-                    </Col>
-                    <Col xs={4} md={2}>
-                        <div>
-                            <Checkbox isSet={isPicked} id={id}/>
                         </div>
                     </Col>
                 </Row>

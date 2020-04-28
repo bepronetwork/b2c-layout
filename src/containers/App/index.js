@@ -18,7 +18,8 @@ import {
     Widgets,
     AffiliateWithdrawForm,
     Authentication2FAModal,
-    PopupForm
+    PopupForm,
+    DetailsTable
 } from "components";
 
 import PlinkoPage from "containers/PlinkoPage";
@@ -65,6 +66,7 @@ class App extends Component {
             cashierOpen: null,
             error: null,
             has2FA : false,
+            tableDetails : null,
             resetPasswordOpen : null,
             resetPasswordParams : null,
             resetPasswordMode : null,
@@ -72,7 +74,8 @@ class App extends Component {
             confirmEmailParams : null,
             chatMobileOpen : false,
             betsListOpen : false,
-            chatExpand : true
+            chatExpand : true,
+            tableDetailsOpen : null
         }
     }
 
@@ -184,6 +187,10 @@ class App extends Component {
         this.setState({ cashierOpen: null });
     };
 
+    handleTableDetailsModalClose = async () => {
+        this.setState({ tableDetailsOpen: null });
+    };
+    
     handleAccountModalClose = () => {
         this.setState({ accountInfoOpen: null });
     };
@@ -208,6 +215,10 @@ class App extends Component {
         this.setState({ cashierOpen: true });
     };
 
+    handleTableDetailsOpen = (params) => {
+        this.setState({ tableDetailsOpen: true, tableDetails: params });
+    };
+
     handleChatOpen = (open) => {
         this.setState({ chatMobileOpen: open, betsListOpen: false });
     };
@@ -222,7 +233,11 @@ class App extends Component {
     }
 
     handleAccountOpen = ({history}) => {
-        history.push('/account');
+        history.push('/settings');
+    }
+
+    handleWalletOpen = ({history}) => {
+        history.push('/settings/wallet');
     }
 
     handleLogin = async form => {
@@ -428,6 +443,16 @@ class App extends Component {
         ) : null;
     };
 
+    renderTableDetailsModal = () => {
+        const { tableDetailsOpen, tableDetails } = this.state;
+
+        return tableDetailsOpen ? (
+            <Modal onClose={this.handleTableDetailsModalClose}>
+                <DetailsTable onClose={this.handleTableDetailsModalClose} tableDetails={tableDetails} />
+            </Modal>
+        ) : null;
+    };
+
     updateAppInfo = async () => {
 
 
@@ -462,6 +487,7 @@ class App extends Component {
                         <DicePage
                         {...props}
                         onHandleLoginOrRegister={this.handleLoginOrRegisterOpen}
+                        onTableDetails={this.handleTableDetailsOpen}
                         />
                     )}
                     />
@@ -474,6 +500,7 @@ class App extends Component {
                         <FlipPage
                         {...props}
                         onHandleLoginOrRegister={this.handleLoginOrRegisterOpen}
+                        onTableDetails={this.handleTableDetailsOpen}
                         />
                     )}
                     />
@@ -486,6 +513,7 @@ class App extends Component {
                         <RoulettePage
                         {...props}
                         onHandleLoginOrRegister={this.handleLoginOrRegisterOpen}
+                        onTableDetails={this.handleTableDetailsOpen}
                         />
                     )}
                     />
@@ -499,6 +527,7 @@ class App extends Component {
                         {...props}
                         game={this.isGameAvailable("wheel_simple")}
                         onHandleLoginOrRegister={this.handleLoginOrRegisterOpen}
+                        onTableDetails={this.handleTableDetailsOpen}
                         />
                     )}
                     />
@@ -512,6 +541,7 @@ class App extends Component {
                             {...props}
                             game={this.isGameAvailable("wheel_variation_1")}
                             onHandleLoginOrRegister={this.handleLoginOrRegisterOpen}
+                            onTableDetails={this.handleTableDetailsOpen}
                         />
                     )}
                     />
@@ -524,6 +554,7 @@ class App extends Component {
                         <PlinkoPage
                         {...props}
                         onHandleLoginOrRegister={this.handleLoginOrRegisterOpen}
+                        onTableDetails={this.handleTableDetailsOpen}
                         />
                     )}
                     />
@@ -570,11 +601,13 @@ class App extends Component {
                                 onLogout={this.handleLogout}
                                 onLoginRegister={this.handleLoginOrRegisterOpen}
                                 onCashier={this.handleCashierOpen}
+                                onWallet={this.handleWalletOpen}
                             />
                             {this.renderLoginRegisterModal()}
                             {this.renderResetPasswordModal()}
                             {this.renderConfirmEmailModal()}
                             {this.renderCashierModal()}
+                            {this.renderTableDetailsModal()}
                             <Authentication2FAModal/>
                             <AffiliateWithdrawForm/>
                             <NotificationForm user={user}/>
@@ -594,21 +627,31 @@ class App extends Component {
                                                     <HomePage
                                                         {...props}
                                                         onHandleLoginOrRegister={this.handleLoginOrRegisterOpen}
+                                                        onTableDetails={this.handleTableDetailsOpen}
                                                     />
                                             
                                                 )}
                                             />
 
                                             <Route
-                                                path="/account"
+                                                path="/settings"
                                                 render={({ match: { url }}) => (
                                                     <>
                                                         <Route 
                                                             exact
                                                             path={`${url}/`} 
+                                                            render={props => <AccountPage {...props} onHandleLoginOrRegister={this.handleLoginOrRegisterOpen} onLogout={this.handleLogout}/>} />
+                                                        <Route 
+                                                            path={`${url}/account`} 
+                                                            render={props => <AccountPage {...props} onHandleLoginOrRegister={this.handleLoginOrRegisterOpen} onLogout={this.handleLogout}/>} />
+                                                        <Route 
+                                                            path={`${url}/security`} 
                                                             render={props => <AccountPage {...props} onHandleLoginOrRegister={this.handleLoginOrRegisterOpen}/>} />
                                                         <Route 
-                                                            path={`${url}/settings`} 
+                                                            path={`${url}/bets`} 
+                                                            render={props => <AccountPage {...props} onHandleLoginOrRegister={this.handleLoginOrRegisterOpen} onTableDetails={this.handleTableDetailsOpen}/>} />
+                                                        <Route 
+                                                            path={`${url}/wallet`} 
                                                             render={props => <AccountPage {...props} onHandleLoginOrRegister={this.handleLoginOrRegisterOpen}/>} />
                                                         <Route 
                                                             path={`${url}/deposits`} 
@@ -617,10 +660,10 @@ class App extends Component {
                                                             path={`${url}/withdraws`} 
                                                             render={props => <AccountPage {...props} onHandleLoginOrRegister={this.handleLoginOrRegisterOpen}/>} />
                                                         <Route 
-                                                            path={`${url}/bets`} 
+                                                            path={`${url}/affiliate`} 
                                                             render={props => <AccountPage {...props} onHandleLoginOrRegister={this.handleLoginOrRegisterOpen}/>} />
                                                         <Route 
-                                                            path={`${url}/affiliate`} 
+                                                            path={`${url}/preferences`} 
                                                             render={props => <AccountPage {...props} onHandleLoginOrRegister={this.handleLoginOrRegisterOpen}/>} />
                                                     </>
                                                 )}
@@ -633,6 +676,7 @@ class App extends Component {
                                                     <HomePage
                                                         {...props}
                                                         onHandleResetPassword={this.handleResetPasswordOpen}
+                                                        onTableDetails={this.handleTableDetailsOpen}
                                                     />
                                             
                                                 )}
@@ -645,6 +689,7 @@ class App extends Component {
                                                     <HomePage
                                                         {...props}
                                                         onHandleConfirmEmail={this.handleConfirmEmailOpen}
+                                                        onTableDetails={this.handleTableDetailsOpen}
                                                     />
                                             
                                                 )}
@@ -674,7 +719,7 @@ class App extends Component {
                                     ?
                                         <div styleName={betsListStyles} > 
                                             <div styleName={'bets-container'}>
-                                                <LastBets/>
+                                                <LastBets onTableDetails={this.handleTableDetailsOpen} />
                                             </div>
                                         </div>
                                     :
@@ -690,6 +735,7 @@ class App extends Component {
                             onHome={this.handleHomeOpen}
                             onBetsList={this.handleBetsListOpen}
                             onLoginRegister={this.handleLoginOrRegisterOpen}
+                            onWallet={this.handleWalletOpen}
                         />
                     </Router>
                 </UserContext.Provider>

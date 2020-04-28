@@ -2,9 +2,10 @@ import React from 'react';
 import { Col, Container, Row } from 'reactstrap';
 import { Link } from 'react-router-dom'
 import { connect } from "react-redux";
-import _ from 'lodash';
 import { Tab, Nav } from 'react-bootstrap';
 import { Typography } from 'components';
+import classNames from "classnames";
+import _ from 'lodash';
 import './index.css';
 class TabedContainer extends React.Component{
 
@@ -18,7 +19,7 @@ class TabedContainer extends React.Component{
     }
 
     render = () => {
-        const { items, tabTopContent} = this.props;
+        const { items } = this.props;
         const pathName = this.props.location.pathname.toLowerCase();
         const filteredItems = items.filter(item => !item.disabled);
 
@@ -33,18 +34,23 @@ class TabedContainer extends React.Component{
                 <Tab.Container id="left-tabs-example" defaultActiveKey={`item-${mainIndex}`}>
                     <Row>
                         <Col sm={3}>
-                            {tabTopContent}
-                            <Nav variant="pills" className="flex-column">
+                            <div styleName="title">
+                                <Typography variant={'small-body'} color={'white'}>Settings</Typography>
+                            </div>
+                            <Nav variant="pills" className="flex-column" styleName="menu">
                                 {filteredItems.map( (item, index) => {
+                                    const styles = classNames("row", {
+                                        active: mainIndex === index
+                                    });
                                     return (
                                         <Nav.Item>
                                             <Nav.Link as={Link} to={"/"+parent+"/"+item.path.toLowerCase()} eventKey={`item-${index}`}>
-                                                <div styleName="row">
+                                                <div styleName={styles}>
                                                     <div styleName="icon">
                                                         {item.icon}
                                                     </div>
                                                     <div styleName='text-tab'>
-                                                        <Typography variant={'small-body'} color={'white'}>{item.title}</Typography>
+                                                        <Typography variant={'small-body'} color={'casper'}>{item.title}</Typography>
                                                     </div>
                                                 </div>
                                             </Nav.Link>
@@ -58,7 +64,12 @@ class TabedContainer extends React.Component{
                                 {filteredItems.map( (item, index) => {
                                     return (
                                         <Tab.Pane eventKey={`item-${index}`}>
-                                            {item.container}
+                                            <div styleName="content">
+                                                <div styleName="page">
+                                                    <Typography variant={'h4'} color={'white'}>{item.title}</Typography>
+                                                </div>
+                                                {item.container}
+                                            </div>
                                         </Tab.Pane>
                                     )
                                 })} 

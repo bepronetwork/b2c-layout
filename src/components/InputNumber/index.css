@@ -39,7 +39,7 @@
 }
 
 .input-container.with-icon {
-  grid-template-columns: calc(100% - $spacing-16) $spacing-16;
+  grid-template-columns: calc(100% - $spacing-28) $spacing-28;
 }
 
 .input {

@@ -108,6 +108,8 @@ export default class User {
         return wallet.playBalance;
     };
     getWallet = ({currency}) => {return this.user.wallet.find( w => new String(w.currency._id).toString().toLowerCase() == new String(currency._id).toString().toLowerCase())};
+
+    getWallets = () => {return this.user.wallet};
     
     getBalanceAsync = async () => Numbers.toFloat((await this.updateUser()).balance);
 
@@ -188,7 +190,8 @@ export default class User {
 
     updateUser = async () => {
         let user = await userAuth({
-            user: this.user_id
+            user: this.user_id,
+            app: this.app_id
         }, this.bearerToken);
 
         this.user = user;

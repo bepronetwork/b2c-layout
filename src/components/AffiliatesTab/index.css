@@ -10,6 +10,7 @@
     overflow-y : auto;
     overflow-x : hidden;
     overflow: initial;
+    border-radius: $border-radius;
 
   @include Breakpoint-mobileOnly {
     width: 320px;
