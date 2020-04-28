@@ -89,7 +89,7 @@ class SelectBox extends React.Component{
                 onClick={() => this.onChange(option)}
                 type="button"
             >   
-                <Typography variant="small-body" color="casper">{option.text}</Typography>
+                <Typography variant="small-body" color="grey">{option.text}</Typography>
             </button>
         ));
     };

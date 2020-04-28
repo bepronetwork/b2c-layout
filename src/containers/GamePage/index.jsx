@@ -108,7 +108,7 @@ class GamePage extends Component {
     }
 
     render() {
-        const { options, game, gameMetaName } = this.props;
+        const { options, game, gameMetaName, onTableDetails } = this.props;
         const { soundMode } = this.state;
 
         const { ln } = this.props;
@@ -179,7 +179,7 @@ class GamePage extends Component {
                         <Typography color={'white'} variant={'small-body'}>{copy.RULES}</Typography>
                     </Button>
                 </div>
-                <LastBets gameMetaName={gameMetaName} />
+                <LastBets gameMetaName={gameMetaName} onTableDetails={onTableDetails}/>
             </div>
         );
     }

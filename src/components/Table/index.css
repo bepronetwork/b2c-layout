@@ -2,17 +2,13 @@
 
 .table-row {
     width: 100%;
-}
-
-.table-row > tbody > tr:nth-child(even) {
     background-color: $primaryColor;
-    border-radius: $border-radius;
 }
 
 .th-row {
     margin: auto;
     vertical-align: middle;
-    padding: $spacing-8 $spacing-20;
+    padding: $spacing-12 $spacing-20;
 
     @media screen and (max-width: 767px) {
         padding: $spacing-4 $spacing-8;
@@ -28,6 +24,10 @@
     padding-top: $spacing-20;
     p {
         margin-right: $spacing-8;
+    }
+
+    a {
+        display: inline-flex;
     }
 
     @media screen and (max-width: 767px) {
@@ -65,15 +65,10 @@
     }
 }
 
-.tr-row {
-    border-radius: $border-radius;
-    border-top-left-radius: 10px;
-}
-
 .table-head .tr-row{
-    background-color: $dark-night;
     text-align: center;
     height: 42px;
+    border-bottom: 1px solid $primaryColor-light-13;
 }
 
 .table-head .tr-row .th-row{
@@ -82,14 +77,10 @@
 
 .table-head .tr-row .th-row:first-child {
     text-align: left;
-    border-top-left-radius: $spacing-8;
-    border-bottom-left-radius: $spacing-8;
 }
 
 .table-head .tr-row .th-row:last-child {
     text-align: right;
-    border-top-right-radius: $spacing-8;
-    border-bottom-right-radius: $spacing-8;
 }
 
 .table-head {

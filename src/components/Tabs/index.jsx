@@ -10,7 +10,7 @@ export default class Tabs extends Component {
     static propTypes = {
         options: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
         selected: PropTypes.string.isRequired,
-        onSelect: PropTypes.func.isRequired
+        onSelect: PropTypes.func
     };
 
     handleTabClick = name => {
@@ -28,7 +28,6 @@ export default class Tabs extends Component {
         }
 
         const selectedTab = selected || filteredOptions[0].value;
-
         return (
             <div styleName="tabs">
              {   filteredOptions.map(option => (

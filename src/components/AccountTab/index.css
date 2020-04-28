@@ -1,0 +1,29 @@
+@import "../../styles/all.css";
+
+.box {
+    padding: $spacing-36 12%;
+}
+
+.field{
+    grid-template-columns: auto auto;
+    display: grid;
+    margin-bottom: $spacing-20;
+}
+
+.label{
+    text-align: left;
+
+}
+
+.value{
+    justify-content: flex-end;
+    display: inline-flex;
+}
+
+.button{
+    margin-top : $spacing-52;
+
+    button {
+        width: 100%;
+    }
+}

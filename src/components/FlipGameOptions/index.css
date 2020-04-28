@@ -6,9 +6,9 @@
 
   height: calc(100% - $spacing-20 - $spacing-20);
 
-  padding: $spacing-20;
-
   background: $background-table-1;
+
+  border-radius: $border-radius 0 0 0;
 
   * {
     box-sizing: border-box;
@@ -18,7 +18,7 @@
 .button {
   order: 4;
 
-  margin-top: $spacing-20;
+  margin-top: $spacing-36;
 
   @include Breakpoint-mobileOnly {
     order: 0;
@@ -52,12 +52,16 @@
 
     margin-top: $spacing-20;
   }
+
+  div {
+    height: 60px;
+  }
 }
 
 .side {
   order: 4;
 
-  margin-top: $spacing-28;
+  margin-top: $spacing-20;
 
   @include Breakpoint-mobileOnly {
     order: 1;
@@ -99,4 +103,8 @@
 
 .input {
   flex-grow: 1;
+}
+
+.bet-properties{
+  padding: $spacing-20;
 }

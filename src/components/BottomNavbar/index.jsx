@@ -37,9 +37,9 @@ class BottomNavbar extends Component {
     };
 
     openDeposit = () => {
-        let { onCashier, onLoginRegister, profile } = this.props;
+        let { onWallet, onLoginRegister, profile, history } = this.props;
         
-        !_.isEmpty(profile) ? onCashier() : onLoginRegister('login');
+        !_.isEmpty(profile) ? onWallet({history}) : onLoginRegister('login');
     }
 
     homeClick = () => {

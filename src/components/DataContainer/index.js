@@ -26,7 +26,7 @@ class DataContainer extends React.Component{
                             {image}
                         </div>
                     </Col>
-                    <Col xs={6} md={6}>
+                    <Col xs={5} md={5}>
                         <div styleName={'container-text'}>
                             <Typography variant={'small-body'} color={`white`}>
                                {title}
@@ -38,7 +38,7 @@ class DataContainer extends React.Component{
                             </div>
                         </div>
                     </Col>
-                    <Col xs={4} md={4}>
+                    <Col xs={5} md={5}>
                         <div styleName='container-but'>
                             {button}
                         </div>

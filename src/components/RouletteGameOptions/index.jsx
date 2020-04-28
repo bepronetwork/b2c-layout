@@ -177,46 +177,50 @@ class RouletteGameOptions extends Component {
                     onSelect={this.handleType}
                 />
                 </div>
-                <ChipValue onChangeChip={onChangeChip} totalBet={totalBet} />
-                <div styleName="element">
-                <InputNumber
-                    name="amount"
-                    disabled
-                    icon="bitcoin"
-                    precision={6}
-                    value={totalBet}
-                    title={copy.TOTAL_BET_NAME}
-                />
+
+                <div styleName="bet-properties">
+                    <ChipValue onChangeChip={onChangeChip} totalBet={totalBet} />
+                    <div styleName="element">
+                        <InputNumber
+                            name="amount"
+                            disabled
+                            icon="bitcoin"
+                            precision={6}
+                            value={totalBet}
+                            title={copy.TOTAL_BET_NAME}
+                        />
+                    </div>
+                    <div styleName="content">
+                        {type === "manual" ? null : this.renderAuto()}
+                    </div>
+                    <div styleName="button">
+                        <Button
+                            disabled={!this.isBetValid()}
+                            onClick={this.handleBet}
+                            fullWidth
+                            theme="primary"
+                            animation={<Dice />}
+                            >
+                            <Typography weight="semi-bold" color="pickled-bluewood">
+                            {type === "manual" ? copy.BET_NAME : copy.AUTO_BET_NAME}
+                            </Typography>
+                        </Button>
+                    </div>
+                    <div styleName="button">
+                    <Button
+                        disabled={!this.isBetValid()}
+                        onClick={doubleDownBet}
+                        fullWidth
+                        theme="default"
+                        animation={<Dice />}
+                        >
+                        <Typography weight="semi-bold" color="pickled-bluewood">
+                            {copy.DOUBLE_DOWN_NAME}
+                        </Typography>
+                    </Button>
+                    </div>
                 </div>
-                <div styleName="content">
-                {type === "manual" ? null : this.renderAuto()}
-                </div>
-                <div styleName="button">
-                <Button
-                    disabled={!this.isBetValid()}
-                    onClick={this.handleBet}
-                    fullWidth
-                    theme="primary"
-                    animation={<Dice />}
-                    >
-                    <Typography weight="semi-bold" color="pickled-bluewood">
-                    {type === "manual" ? copy.BET_NAME : copy.AUTO_BET_NAME}
-                    </Typography>
-                </Button>
-                </div>
-                <div styleName="button" style={{marginTop : 10}}>
-                <Button
-                    disabled={!this.isBetValid()}
-                    onClick={doubleDownBet}
-                    fullWidth
-                    theme="default"
-                    animation={<Dice />}
-                    >
-                    <Typography weight="semi-bold" color="pickled-bluewood">
-                        {copy.DOUBLE_DOWN_NAME}
-                    </Typography>
-                </Button>
-                </div>
+                
             </div>
         );
     }

@@ -1,25 +1,13 @@
 @import "../../styles/all.css";
 
-.root {
-  display: flex;
-  flex-direction: column;
-
-  box-sizing: border-box;
-
-  height: calc(100% - $spacing-20 - $spacing-20);
-
-  padding: $spacing-20;
-
-  background: $background-table-1;
-}
 
 .container-root{
     display: flex;
-    width : 370px;
+    width : 100%;
     height: auto;
     margin : 10px auto;
     padding : $spacing-20;
-    background: $black;
+    background: $primaryColor-light-2;
     border-radius : $border-radius;
     opacity : 1;
     transition: all 0.2s ease-in;
@@ -34,15 +22,8 @@
     }
 }
 
-
-.picked{
-    border : 1px solid $green;
-    box-shadow : 1px 10px 100px 10px $black;
-}
-
-.info{
-    border : 1px solid $orange;
-    box-shadow : 1px 10px 100px 10px $black;
+.selected {
+    background: $primaryColor-light-8;
 }
 
 .text-description{
@@ -51,7 +32,7 @@
 
 .payment-image{
     width: 40px;
-    margin-top: 8px;
+    margin-top: $spacing-4;
 }
 
 .container-text{

@@ -42,16 +42,15 @@ export default class Tab extends Component {
     return (
       <div styleName={classes}>
         <button onClick={this.handleClick} type="button">
-          {
-            icon ?
-              <div styleName="icon">{icon}</div>
-            :
-              null
-          }
-          <div styleName="label">
-            <Typography variant={this.isMobileOrTablet() ? 'x-small-body' : 'small-body'} color="white">
-              {label}
-            </Typography>
+          <div styleName="main">
+            <div styleName="icon">
+              { icon ? icon : null }
+            </div>
+            <div styleName="label">
+              <Typography variant={this.isMobileOrTablet() ? 'x-small-body' : 'small-body'} color="white">
+                {label}
+              </Typography>
+            </div>
           </div>
         </button>
       </div>

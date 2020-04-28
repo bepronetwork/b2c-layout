@@ -22,8 +22,7 @@ class DepositForm extends Component {
             isLoaded: false,
             copied: false,
             price : null,
-            virtualTicker : null,
-            walletImage : null
+            virtualTicker : null
         }
     }
 
@@ -35,26 +34,27 @@ class DepositForm extends Component {
         clearInterval(this.intervalID);
     }
 
-    getCurrencyAddress = async () => {
-        const { profile, deposit } = this.props;
+    componentWillReceiveProps(props){
+        this.projectData(props);
+    }
 
-        let response = await profile.getCurrencyAddress({ currency_id: deposit.currency._id });
+    getCurrencyAddress = async (wallet) => {
+        const { profile } = this.props;
+
+        let response = await profile.getCurrencyAddress({ currency_id: wallet.currency._id });
 
         if(!_.isEmpty(response) && _.isEmpty(response.message)) {
-            const walletImage = getApp().wallet.find(w => w.currency._id === deposit.currency._id).image;
-
             if (getApp().virtual === true) {
                 const virtualCurrency = getApp().currencies.find(c => c.virtual === true);
     
-                if(deposit.currency && virtualCurrency) {
+                if(wallet.currency && virtualCurrency) {
                     const virtualWallet = getApp().wallet.find(w => w.currency._id === virtualCurrency._id);
-                    const price = virtualWallet ? virtualWallet.price.find(p => p.currency === deposit.currency._id).amount : null;
+                    const price = virtualWallet ? virtualWallet.price.find(p => p.currency === wallet.currency._id).amount : null;
 
                     this.setState({ price, virtualTicker : virtualCurrency.ticker });
                 }
             }
-
-            this.setState({ addressInitialized: true, address: response.address, walletImage });
+            this.setState({ addressInitialized: true, address: response.address });
             clearInterval(this.intervalID);
         }
 
@@ -62,14 +62,15 @@ class DepositForm extends Component {
     }
 
     projectData = async (props) => {
+        const { wallet } = props;
 
-        this.getCurrencyAddress();
+        this.getCurrencyAddress(wallet);
 
         this.intervalID = setInterval( async () => {
-            this.getCurrencyAddress();
+            this.getCurrencyAddress(wallet);
         }, 2*10000)
 
-        this.setState({...this.state})
+        this.setState({...this.state, isLoaded: false, copied: false})
     }
 
     copyToClipboard = (e) => {
@@ -85,8 +86,8 @@ class DepositForm extends Component {
     };
 
     render() {
-        const { deposit } = this.props;
-        const { addressInitialized, address, isLoaded, copied, price, virtualTicker, walletImage } = this.state;
+        const { wallet } = this.props;
+        const { addressInitialized, address, isLoaded, copied, price, virtualTicker } = this.state;
         const {ln} = this.props;
         const copy = CopyText.depositFormIndex[ln];
         const addressStyles = classNames("address", {"ad-copied": copied});
@@ -105,27 +106,17 @@ class DepositForm extends Component {
                 ?
                     <div>
                         <div styleName="info">
-                            <div styleName="currency">
-                                <div styleName="logo">
-                                    <img src={walletImage ? walletImage : deposit.currency.image} styleName="logo-img"/>
-                                </div>
-                                <div styleName="cur-name">
-                                    <Typography variant={'body'} color={`white`}>
-                                        {deposit.currency.ticker}
-                                    </Typography>
-                                </div>
-                            </div>
                             {price   ?
                                 <div styleName="price">
                                     <Typography variant={'small-body'} color={`white`} weight={`bold`}>
-                                        {`1 ${virtualTicker} = ${price} ${deposit.currency.ticker}`}
+                                        {`1 ${virtualTicker} = ${price} ${wallet.currency.ticker}`}
                                     </Typography>
                                 </div>
                             :
                                 null    
                             }
                             <Typography variant={'x-small-body'} color={`white`}>
-                                {copy.INDEX.TYPOGRAPHY.FUNC_TEXT[0]([deposit.currency.ticker, deposit.currency.ticker])}
+                                {copy.INDEX.TYPOGRAPHY.FUNC_TEXT[0]([wallet.currency.ticker, wallet.currency.ticker])}
                                 <br/><br/>
                                 {copy.INDEX.TYPOGRAPHY.TEXT[0]}
                             </Typography>
@@ -139,30 +130,30 @@ class DepositForm extends Component {
                                     </Typography>
                                 </div>
                             ) : null}
-                        </div>
-                        <div styleName={addressStyles}>
-                            <div styleName='link-text-container'>
-                                <Typography variant={'x-small-body'} color={`casper`}>
-                                    {address}
-                                </Typography>
-                            </div>
-                            <div>
-                                <button onClick={this.copyToClipboard} styleName='text-copy-container'>
-                                    <Typography variant={'small-body'} color={'white'}>
-                                        {copy.INDEX.TYPOGRAPHY.TEXT[1]}
+                            <div styleName={addressStyles}>
+                                <div styleName='link-text-container'>
+                                    <Typography variant={'x-small-body'} color={`casper`}>
+                                        {address}
                                     </Typography>
-                                </button>
+                                </div>
+                                <div>
+                                    <button onClick={this.copyToClipboard} styleName='text-copy-container'>
+                                        <Typography variant={'small-body'} color={'white'}>
+                                            {copy.INDEX.TYPOGRAPHY.TEXT[1]}
+                                        </Typography>
+                                    </button>
+                                </div>
                             </div>
                         </div>
                     </div>
                 :
-                    <div>
-                            <img src={building} styleName="building-img"/>
-                            <div styleName="building-info">
-                                <Typography variant={'small-body'} color={`white`}>
-                                    {copy.INDEX.TYPOGRAPHY.TEXT[2]}
-                                </Typography>
-                            </div>
+                    <div styleName="building">
+                        <img src={building} styleName="building-img"/>
+                        <div styleName="building-info">
+                            <Typography variant={'small-body'} color={`white`}>
+                                {copy.INDEX.TYPOGRAPHY.TEXT[2]}
+                            </Typography>
+                        </div>
                     </div>
                 }
             </div>
@@ -173,7 +164,6 @@ class DepositForm extends Component {
 
 function mapStateToProps(state){
     return {
-        deposit : state.deposit,
         profile : state.profile,
         ln : state.language
     };

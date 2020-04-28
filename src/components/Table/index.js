@@ -28,11 +28,14 @@ class TableDefault extends Component {
 
     componentDidMount(){
         this.projectData(this.props);
+        const { showRealTimeLoading } = this.props;
 
-        this.intervalID = setInterval( async () => {
-            this.setState({ isLoadingRow : false });
-            this.addRow();
-        }, 6000);
+        if(showRealTimeLoading) {
+            this.intervalID = setInterval( async () => {
+                this.setState({ isLoadingRow : false });
+                this.addRow();
+            }, 6000);
+        }
     }
 
     componentWillReceiveProps(props){
@@ -49,15 +52,11 @@ class TableDefault extends Component {
 
     addRow = async () =>  {
         let { rows } = this.state; 
-        const { showRealTimeLoading, size, games } = this.props;
+        const { size, games } = this.props;
 
-        if(showRealTimeLoading) {
-            await delay(1000);
-            
-            rows = loadFakeBets(rows, games, size);
-    
-            this.setState({ rows, isLoadingRow : true });
-        }
+        await delay(1000);
+        rows = loadFakeBets(rows, games, size);
+        this.setState({ rows, isLoadingRow : true });
     }
 
     createSkeletonRows = () => {
@@ -79,13 +78,13 @@ class TableDefault extends Component {
         if(!currenncy) return null;
 
         return (
-            <img src={currenncy.image} width={20} />
+            <img src={currenncy.image} width={16} />
         )
     }
-    
+
     render() {
         let { isLoadingRow, rows } = this.state; 
-        let { titles, fields, isLoading } = this.props;
+        let { titles, fields, isLoading, onTableDetails, hasLinkToDetails } = this.props;
 
         const rowStyles = classNames("tr-row", {
             addRow: isLoadingRow
@@ -106,7 +105,7 @@ class TableDefault extends Component {
                                 <tr styleName='tr-row'>
                                     {titles.map( text => 
                                         <th styleName='th-row'>
-                                            <Typography variant='small-body' color="casper" weight="bold"> {text} </Typography>
+                                            <Typography variant='x-small-body' color="grey" weight="bold"> {text} </Typography>
                                         </th>
                                     )}
                                 </tr>
@@ -123,27 +122,67 @@ class TableDefault extends Component {
                                             if(field.dependentColor){
                                                 return (
                                                     <th styleName={styles}>
-                                                        <Typography variant='small-body' color={ row[field.condition] ? 'green' : "grey"}> {row[field.value]} </Typography>
-                                                        {this.getCurrencyImage(field.currency, row['currency'])}
+                                                        {hasLinkToDetails 
+                                                        ?
+                                                            <a href="#" onClick={onTableDetails.bind(this, {titles, fields, row})}>
+                                                                <Typography variant='x-small-body' color={ row[field.condition] ? 'green' : "grey"}> {row[field.value]} </Typography>
+                                                                {this.getCurrencyImage(field.currency, row['currency'])}
+                                                            </a>
+                                                        :
+                                                            <div>
+                                                                <Typography variant='x-small-body' color={ row[field.condition] ? 'green' : "grey"}> {row[field.value]} </Typography>
+                                                                {this.getCurrencyImage(field.currency, row['currency'])}
+                                                            </div>
+                                                        }
                                                     </th>     
                                                 )
                                             }else if(field.image){
                                                 const background = row[field.value].hasOwnProperty("background_url") ? row[field.value].background_url : null;
                                                 return (
                                                     <th styleName={styles}>
-                                                        <div styleName="image">
-                                                            <div styleName="icon" style={{ background: background ? 'url('+background+') center center / cover no-repeat' : 'none'}}><img styleName='image-icon' src={row[field.value].image_url}/></div>
-                                                            <div styleName='image-name'><Typography variant='x-small-body' color={"grey"}> {row[field.value].name} </Typography></div>
-                                                        </div>
+                                                        {hasLinkToDetails 
+                                                        ?
+                                                            <a href="#" onClick={onTableDetails.bind(this, {titles, fields, row})}>
+                                                                <div styleName="image">
+                                                                    <div styleName="icon" style={{ background: background ? 'url('+background+') center center / cover no-repeat' : 'none'}}><img styleName='image-icon' src={row[field.value].image_url}/></div>
+                                                                    <div styleName='image-name'><Typography variant='x-small-body' color={"grey"}> {row[field.value].name} </Typography></div>
+                                                                </div>
+                                                            </a>
+                                                        :
+                                                            <div styleName="image">
+                                                                <div styleName="icon" style={{ background: background ? 'url('+background+') center center / cover no-repeat' : 'none'}}><img styleName='image-icon' src={row[field.value].image_url}/></div>
+                                                                <div styleName='image-name'><Typography variant='x-small-body' color={"grey"}> {row[field.value].name} </Typography></div>
+                                                            </div>
+                                                        }
                                                     </th>
+                                                )
+                                            }else if(field.isLink === true){
+                                                return (
+                                                    <th styleName={styles}>
+                                                        <a href={row[field.linkField]} target={'_blank'}>
+                                                            <Typography variant={'x-small-body'} color='white'>
+                                                                {row[field.value]}
+                                                            </Typography>
+                                                        </a>
+                                                    </th>     
                                                 )
                                             }
                                             else{
                                                 return (
                                                     // Normal
                                                     <th styleName={styles}>
-                                                        <Typography variant='small-body' color={"white"}> {row[field.value]} </Typography>
-                                                        {this.getCurrencyImage(field.currency, row['currency'])}
+                                                        {hasLinkToDetails 
+                                                        ?
+                                                            <a href="#" onClick={onTableDetails.bind(this, {titles, fields, row})}>
+                                                                <Typography variant='x-small-body' color={"white"}> {row[field.value]} </Typography>
+                                                                {this.getCurrencyImage(field.currency, row['currency'])}
+                                                            </a>
+                                                        :
+                                                            <div>
+                                                                <Typography variant='x-small-body' color={"white"}> {row[field.value]} </Typography>
+                                                                {this.getCurrencyImage(field.currency, row['currency'])}
+                                                            </div>
+                                                        }
                                                     </th>
                                                 )
                                             

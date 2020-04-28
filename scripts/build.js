@@ -42,13 +42,27 @@ function ServerTOJSONMapper(serverJSON){
         switch(serverJSON[key]){
             /* Colors */
             case 'colors' : {
-                return Object.keys(serverJSON.value).map( k => {
+                var darkLightColors = [];
+                var serverColors =  Object.keys(serverJSON.value).map( k => {
+                    var hslColorEl = hexToHsl(serverJSON.value[k].hex);
+                    var hslColor = "hsl(" + parseInt(hslColorEl.h) + "," + parseInt(hslColorEl.s) + "%," + parseInt(hslColorEl.l) + "%)";
+                    var fibonacci = [2, 3, 5, 8, 13];
+
+                    fibonacci.map( f => {
+                        var darkColor = { object : 'variable', key : serverJSON.value[k].type+"-dark-"+f, value : hslToLightOrDark(hslColorEl.h, hslColorEl.s, hslColorEl.l, f*-1) };
+                        darkLightColors.push(darkColor);
+    
+                        var lightColor = { object : 'variable', key : serverJSON.value[k].type+"-light-"+f, value : hslToLightOrDark(hslColorEl.h, hslColorEl.s, hslColorEl.l, f) };
+                        darkLightColors.push(lightColor);
+                    });
+
                     return {
                         object : 'variable',
                         key : serverJSON.value[k].type,
-                        value : serverJSON.value[k].hex
+                        value : hslColor
                     }
-                })
+                });
+                return serverColors.concat(darkLightColors);
             }
             /* Add more Types here..*/
         }
@@ -106,6 +120,80 @@ function generateLicenseNumber(html){
     return html;
 }
 
+function hexToHsl(hex) {
+    let r = 0, g = 0, b = 0;
+
+    // 3 digits
+    if (hex.length == 4) {
+      r = "0x" + hex[1] + hex[1];
+      g = "0x" + hex[2] + h[2];
+      b = "0x" + hex[3] + hex[3];
+    // 6 digits
+    } else if (hex.length == 7) {
+      r = "0x" + hex[1] + hex[2];
+      g = "0x" + hex[3] + hex[4];
+      b = "0x" + hex[5] + hex[6];
+    }
+
+    // Make r, g, and b fractions of 1
+    r /= 255;
+    g /= 255;
+    b /= 255;
+  
+    // Find greatest and smallest channel values
+    let cmin = Math.min(r,g,b),
+        cmax = Math.max(r,g,b),
+        delta = cmax - cmin,
+        h = 0,
+        s = 0,
+        l = 0;
+  
+    if (delta == 0)
+      h = 0;
+    // Red is max
+    else if (cmax == r)
+      h = ((g - b) / delta) % 6;
+    // Green is max
+    else if (cmax == g)
+      h = (b - r) / delta + 2;
+    // Blue is max
+    else
+      h = (r - g) / delta + 4;
+  
+    h = Math.round(h * 60);
+      
+    // Make negative hues positive behind 360°
+    if (h < 0)
+        h += 360;
+  
+    // Calculate lightness
+    l = (cmax + cmin) / 2;
+  
+    // Calculate saturation
+    s = delta == 0 ? 0 : delta / (1 - Math.abs(2 * l - 1));
+      
+    // Multiply l and s by 100
+    s = +(s * 100).toFixed(1);
+    l = +(l * 100).toFixed(1);
+
+    var hsl = { "h" : h, "s" : s, "l" : l };
+  
+    return hsl;
+}
+  
+
+function hslToLightOrDark(h, s, l, f) {
+    l = l + f;
+
+    if (l > 100) {
+        l = 100;
+    }
+    else if (l < 0) {
+        l = 0;
+    }
+
+    return "hsl(" + parseInt(h) + "," + parseInt(s) + "%," + parseInt(l) + "%)";
+}
 
 async function generateFavIcon(){
     /* Get Favicon */

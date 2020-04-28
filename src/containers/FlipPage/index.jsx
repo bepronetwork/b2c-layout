@@ -155,12 +155,14 @@ class FlipPage extends Component {
 
 
     render() {
+        const { onTableDetails } = this.props;
         return (
             <GamePage
                 options={this.getOptions()}
                 game={this.getGameCard()}
                 history="flipHistory"
                 gameMetaName={this.state.game.metaName}
+                onTableDetails={onTableDetails}
             />
         );
     }

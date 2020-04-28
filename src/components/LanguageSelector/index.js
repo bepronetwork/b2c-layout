@@ -62,13 +62,26 @@ class LanguageSelector extends Component {
         this.setState({...this.state, language : item, open: !open})
     }
 
+    onDoAction = async (onChange, option) => {
+        this.setState({ open : false })
+
+        if (onChange) {
+            onChange(option);
+        }
+        else {
+            this.changeLanguage(option);
+        }
+    }
+
     renderOptionsLines = () => {
+        const { onChange } = this.props;
+
         return languages.map(option => (
             <button
                 styleName="option"
                 key={option.channel_id}
                 id={option.channel_id}
-                onClick={() => this.changeLanguage(option)}
+                onClick={()=>this.onDoAction(onChange, option)}
                 type="button"
             >   
                 <img src={option.image}/>

@@ -41,8 +41,8 @@
     width: $games-roulette-size;
 }
 
-.coinflip-icon{
-    width: $games-coinflip-size;
+.game-icon{
+    width: 170px;
 }
 
 .root {
@@ -51,7 +51,11 @@
 }
 
 .info-holder{
-    text-align: right;
+    padding: $spacing-4 $spacing-8;
+    border-radius: $border-radius;
+    width: fit-content;
+    background-color: $primaryColor;
+    margin: $spacing-8 $spacing-8 0 0;
 }
 
 .button {
@@ -64,17 +68,15 @@
 }
 
 .image-container {
-  display: flex;
   align-items: center;
   width: 100%;
-  height: $games-box-heigth;
-  margin: 0 0 $spacing-8 0;
+  margin: 0 0 $spacing-4 0;
   border-radius: $spacing-12;
   transition: margin 100ms linear;
 }
 
 .image-container:hover {
-  margin: calc($spacing-4 * -1) 0 $spacing-12 0;
+  margin: calc($spacing-8 * -1) 0 $spacing-8 0;
 
   transition: margin 200ms ease-out;
 }
@@ -96,21 +98,30 @@
 }
 
 .labels {
-  display: grid;
-  align-items: center;
   width: 100%;
-  grid-template-columns: 60% 40%;
+}
 
+.labels-edge {
+  justify-content: flex-end;
+  display: -webkit-inline-box;
+  display: inline-flex;
+  width: 100%;
 }
 
 .title {
-  text-align: left;
+  padding-bottom: $spacing-16;
+  text-transform: uppercase;
+  float: left;
+  background-color: $primaryColor;
+  padding: $spacing-4 $spacing-8;
+  border-radius: $border-radius;
 }
 
 .icon {
   margin: 0 auto;
   transform: scale(1) rotate(0deg);
   transition: transform 800ms linear;
+  padding-bottom: $spacing-16;
 }
 
 .image-container:hover .icon {

@@ -8,7 +8,8 @@
           "Username",
           "Password",
           "Confirm Password",
-          "Email"
+          "Email",
+          "User Id"
         ]
       },
       "TYPOGRAPHY": {
@@ -25,7 +26,8 @@
           "사용자명",
           "비밀번호",
           "비밀번호 확인",
-          "이메일"
+          "이메일",
+          "User Id"
         ]
       },
       "TYPOGRAPHY": {
@@ -42,7 +44,8 @@
           "用户名",
           "密码",
           "确认密码",
-          "邮箱"
+          "邮箱",
+          "User Id"
         ]
       },
       "TYPOGRAPHY": {
@@ -59,7 +62,8 @@
           "Username",
           "Password",
           "Confirm Password",
-          "Email"
+          "Email",
+          "User Id"
         ]
       },
       "TYPOGRAPHY": {
