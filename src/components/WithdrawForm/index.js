@@ -37,12 +37,20 @@ class WithdrawForm extends Component {
         this.projectData(this.props);
     }
 
+    componentWillReceiveProps(props){
+        if(props.wallet._id !== this.props.wallet._id){
+            this.setState({...this.state, isLoaded: false, addressInitialized : false });
+        }
+        this.projectData(props);
+    }
+
     getCurrencyAddress = async () => {
         const { profile, wallet } = this.props;
         const { addressInitialized } = this.state;
 
         if (!addressInitialized) {
             const response = await profile.getCurrencyAddress({ currency_id: wallet.currency._id });
+
             if(_.isEmpty(response.message)) {
                 this.setState({ addressInitialized: true });
             }
@@ -52,19 +60,18 @@ class WithdrawForm extends Component {
     }
 
     async projectData(props){
-        const { wallet } = props;
+        const { wallet, isAffiliate} = props;
         const { currency } = wallet;
 
         this.getCurrencyAddress();
 
-        const appWallet = getApp().wallet.find(w => w.currency._id === currency._id);
+        const appWallet = isAffiliate === true ? wallet : getApp().wallet.find(w => w.currency._id === currency._id);
 
         this.setState({...this.state, 
             ticker : currency.ticker,
             image : wallet.image ? wallet.image : wallet.currency.image,
-            balance : formatCurrency(wallet.playBalance),
-            maxWithdraw : appWallet.max_withdraw,
-            minWithdraw : appWallet.min_withdraw
+            maxWithdraw : formatCurrency(appWallet.max_withdraw > wallet.playBalance ? wallet.playBalance : appWallet.max_withdraw),
+            minWithdraw : formatCurrency(appWallet.min_withdraw > wallet.playBalance ? wallet.playBalance : appWallet.min_withdraw)
         })
     }
 
@@ -79,14 +86,6 @@ class WithdrawForm extends Component {
         this.setState({...this.state, toAddress, disabled: !(amount && toAddress)});
     };
 
-    renderAmountWithdrawButton({disabled, amount, onChangeAmount, ticker}){
-        return (
-            <button disabled={disabled} onClick={() => onChangeAmount(amount)}  styleName={`container-root ${disabled ? 'no-hover' : ''}`}>
-                <Typography color={'white'} variant={'small-body'}>{`${amount} ${ticker}`}</Typography>
-            </button>
-        )
-    }
-
     askForWithdraw = async () => {
         try{
             const { amount, toAddress } = this.state;
@@ -96,7 +95,7 @@ class WithdrawForm extends Component {
             this.setState({...this.state, disabled : true});
 
             var res;
-            if(isAffiliate){
+            if(isAffiliate === true){
                 /* Create Withdraw Framework */
                 res = await profile.askForWithdrawAffiliate({amount : parseFloat(amount), currency, address : toAddress});
             }else{
@@ -117,7 +116,7 @@ class WithdrawForm extends Component {
     }
 
     render() {
-        const { amount, balance, image, maxWithdraw, minWithdraw, ticker, addressInitialized, isLoaded, toAddress, disabled } = this.state;
+        const { amount, image, maxWithdraw, minWithdraw, ticker, addressInitialized, isLoaded, toAddress, disabled } = this.state;
         const {ln} = this.props;
         const copy = CopyText.amountFormIndex[ln];
 
@@ -152,18 +151,30 @@ class WithdrawForm extends Component {
                         </Row>
                         <Row>
                             <Col md={12}>
-                                <InputNumber
-                                    name="amount"
-                                    min={minWithdraw}
-                                    max={balance < maxWithdraw ? balance : maxWithdraw}
-                                    precision={6}
-                                    title=""
-                                    onChange={(amount) => this.onChangeAmount(amount)}
-                                    icon="customized"
-                                    value={amount}
-                                    type="currency"
-                                    custmomizedIcon={image}
-                                />
+                                <div styleName="amount">
+                                    <InputNumber
+                                        name="amount"
+                                        min={minWithdraw}
+                                        max={maxWithdraw}
+                                        precision={6}
+                                        title=""
+                                        onChange={(amount) => this.onChangeAmount(amount)}
+                                        icon="customized"
+                                        value={amount}
+                                        type="currency"
+                                        custmomizedIcon={image}
+                                    />
+                                    <div styleName="min-max" onClick={() => this.onChangeAmount(minWithdraw)}>
+                                        <Typography variant={'x-small-body'} color={'grey'}>
+                                            Min
+                                        </Typography>
+                                    </div>
+                                    <div styleName="min-max" onClick={() => this.onChangeAmount(maxWithdraw)}>
+                                        <Typography variant={'x-small-body'} color={'grey'}>
+                                            Max
+                                        </Typography>
+                                    </div>
+                                </div>
                             </Col>
                         </Row>
                         <div styleName='text-info-deposit'>

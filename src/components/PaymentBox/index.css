@@ -27,18 +27,15 @@
 }
 
 .text-description{
-    margin-top : 10px;
+    margin-top : $spacing-8;
 }
 
 .payment-image{
     width: 40px;
-    margin-top: $spacing-4;
 }
 
 .container-text{
-    width: 150px;
     text-align: left;
-    margin-top: 6px;
 }
 
 .container-image{

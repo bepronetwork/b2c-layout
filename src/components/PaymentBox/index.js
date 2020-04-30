@@ -58,12 +58,12 @@ class PaymentBox extends React.Component{
         return (
             <button onClick={this.onClick} styleName={styles}>
                 <Row>
-                    <Col xs={3} md={3}>
+                    <Col xs={4} md={4}>
                         <div styleName='container-image'>
                             <img src={wallet.image ? wallet.image : wallet.currency.image} styleName='payment-image'/>
                         </div>
                     </Col>
-                    <Col xs={5} md={7}>
+                    <Col xs={8} md={8}>
                         <div styleName={'container-text'}>
                             <Typography variant={'small-body'} color={'white'}>
                                 {`${wallet.currency.name} (${wallet.currency.ticker})`}

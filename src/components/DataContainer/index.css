@@ -1,75 +1,35 @@
 @import "../../styles/all.css";
 
-.root {
-  display: flex;
-  flex-direction: column;
 
-  box-sizing: border-box;
-
-  height: calc(100% - $spacing-20 - $spacing-20);
-
-  padding: $spacing-20;
-
-  background: $background-table-2;
-}
 
 .container-root{
-    display: flex;
     width : 100%;
-    height: 100px;
     margin : 10px auto;
     border-radius: $border-radius;
-    padding : $spacing-20;
-    border : 1px solid $white;
-    background: $data-container-color;
-    box-shadow : $box-shadow-light;
+    padding : $spacing-8 $spacing-20;
+    background: $primaryColor-light-5;
     opacity : 1;
     border : none;
     transition: all 0.2s ease-in;
-}
-
-.picked{
-    border : 1px solid $green;
-    box-shadow : 1px 10px 100px 10px $black;
-}
-
-.container-but{
-    margin-top : $spacing-8
-}
-
-.text-description{
-    margin-top : $spacing-20;
-}
-
-.data-image{
-    width: 30px;
-    margin-left: -10px;
-    margin-top: 15px;
-}
-
-.containern{
-    position: relative;
+    grid-template-columns: auto 1fr auto;
+    display: grid;
+    gap: $spacing-16;
 }
 
 .container-text{
     text-align: left;
-    margin-left: $spacing-20;
-    width: 150px;
+    display: inline-flex;
+    align-items: center;
 }
 
 
 .container-image{
-    width : 50px;
+    width : 36px;
 }
 
-.nohover{
-    cursor: pointer !important;
-
-    &:hover{
-        opacity : 1 !important;
-    }
-}
 
 .text-message{
-    margin-top : 5px;
+    justify-content: flex-end;
+    display: inline-flex;
+    align-items: center;
 }

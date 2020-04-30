@@ -25,11 +25,22 @@ class AccountPage extends Component {
         }
     }
 
+    isCurrentPath(path) {
+        const pathName = this.props.location.pathname.toLowerCase();
+        const pathArr = pathName.split('/');
+
+        return pathArr.some(function(elem) {
+            if (elem.toLowerCase() === path.toLowerCase()) {
+                return true;
+            }
+            return false;
+        });
+    }
+
     render() {
         const {ln, profile, onLogout, onTableDetails} = this.props;
         const copy = CopyText.homepage[ln];
         if (!profile || _.isEmpty(profile)) return null;
-
 
         const virtual = getApp().virtual;
 
@@ -55,32 +66,32 @@ class AccountPage extends Component {
                                 {
                                     path: "bets",
                                     title : copy.CONTAINERS.ACCOUNT.TITLE[5],
-                                    container : <BetsTab onTableDetails={onTableDetails} />,
+                                    container : <BetsTab onTableDetails={onTableDetails} isCurrentPath={this.isCurrentPath("bets")} />,
                                     icon : <BetsIcon />
                                 },
                                 {
                                     path: "wallet",
                                     title : copy.CONTAINERS.ACCOUNT.TITLE[8],
-                                    container : <WalletTab/>,
+                                    container : <WalletTab isCurrentPath={this.isCurrentPath("wallet")} />,
                                     icon : <WalletIcon />
                                 },
                                 {
                                     path: "deposits",
                                     title : virtual ? copy.CONTAINERS.ACCOUNT.TITLE[4] : copy.CONTAINERS.ACCOUNT.TITLE[1],
-                                    container : <DepositTab/>,
+                                    container : <DepositTab isCurrentPath={this.isCurrentPath("deposits")} />,
                                     icon : <DepositsIcon />
                                 },
                                 {
                                     path: "withdraws",
                                     title : copy.CONTAINERS.ACCOUNT.TITLE[2],
-                                    container : <WithdrawTab/>,
+                                    container : <WithdrawTab  isCurrentPath={this.isCurrentPath("withdraws")} />,
                                     icon : <WithdrawIcon />,
                                     disabled: virtual
                                 },
                                 {
                                     path: "affiliate",
                                     title : copy.CONTAINERS.ACCOUNT.TITLE[3],
-                                    container : <AffiliatesTab/>,
+                                    container : <AffiliatesTab isCurrentPath={this.isCurrentPath("affiliate")} />,
                                     icon : <UsersIcon />
                                 },
                                 {

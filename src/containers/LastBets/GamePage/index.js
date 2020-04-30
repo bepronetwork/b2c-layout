@@ -297,7 +297,6 @@ class LastBets extends Component {
                     games={games.filter(function(g) { return g.metaName == gameMetaName; }).map(function(g) { return g; })}
                     isLoading={isListLoading}
                     onTableDetails={onTableDetails ? onTableDetails : null}
-                    hasLinkToDetails={onTableDetails ? true : false}
                 /> 
             </div>
         );

@@ -293,7 +293,8 @@ class DiceGameOptions extends Component {
                     name="roll-number"
                     title={copy.INDEX.INPUT_NUMBER.TITLE[4]}
                     onChange={ e => this.props.onChangeRollAndRollType(e)}
-                    max={97}
+                    max={98}
+                    min={2}
                     step={1}
                     precision={0}
                     value={this.props.rollNumber}

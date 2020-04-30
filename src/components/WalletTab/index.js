@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import { Tabs, DepositForm, WithdrawForm, WithdrawIcon, DepositIcon } from "components";
+import { Tabs, DepositForm, WithdrawForm, DepositTable, WithdrawTable, WithdrawIcon, DepositIcon } from "components";
 import PaymentBox from "../PaymentBox";
 import { CopyText } from '../../copy';
 import { getApp } from "../../lib/helpers";
@@ -21,7 +21,11 @@ class WalletTab extends React.Component{
     }
 
     componentDidMount(){
-        this.projectData(this.props);
+        const { isCurrentPath } = this.props;
+
+        if (isCurrentPath) {
+            this.projectData(this.props);
+        }
     }
 
     componentWillReceiveProps(props){
@@ -53,7 +57,7 @@ class WalletTab extends React.Component{
     }
 
     render(){
-        const { ln } = this.props;
+        const { ln, isCurrentPath } = this.props;
         const { tab, wallets, wallet, virtual } = this.state;
         const copy = CopyText.cashierFormIndex[ln];
 
@@ -95,7 +99,11 @@ class WalletTab extends React.Component{
                                 onSelect={this.handleTabChange}
                             />
                         </div>
-                        {tab === "deposit" ? <DepositForm  wallet={wallet} /> : <WithdrawForm wallet={wallet} />}
+                        {tab === "deposit" ? 
+                            <div><DepositForm  wallet={wallet} /> <DepositTable isCurrentPath={isCurrentPath} /></div> 
+                        : 
+                            <div><WithdrawForm wallet={wallet} /> <WithdrawTable isCurrentPath={isCurrentPath} /></div>
+                        }
                     </Col>
                 </Row>
             </div>

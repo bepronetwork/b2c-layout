@@ -15,35 +15,24 @@ class DataContainer extends React.Component{
 
     render(){
         const { 
-            message, image, title, button
+            message, image, title
         } = this.props;
 
         return (
             <div styleName={`container-root`}>
-                <Row>
-                    <Col xs={2} md={2}>
-                        <div styleName='container-image'>
-                            {image}
-                        </div>
-                    </Col>
-                    <Col xs={5} md={5}>
-                        <div styleName={'container-text'}>
-                            <Typography variant={'small-body'} color={`white`}>
-                               {title}
-                            </Typography>
-                            <div styleName='text-message'>
-                                <Typography variant={'h4'} color={'casper'}>
-                                    {message}
-                                </Typography>
-                            </div>
-                        </div>
-                    </Col>
-                    <Col xs={5} md={5}>
-                        <div styleName='container-but'>
-                            {button}
-                        </div>
-                    </Col>
-                </Row>
+                <div styleName='container-image'>
+                    {image}
+                </div>
+                <div styleName={'container-text'}>
+                    <Typography variant={'small-body'} color={`white`}>
+                        {title}
+                    </Typography>
+                </div>
+                <div styleName='text-message'>
+                    <Typography variant={'small-body'} color={'casper'}>
+                        {message}
+                    </Typography>
+                </div>
             </div>
         )
     }
