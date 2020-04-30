@@ -28,6 +28,18 @@
 
     a {
         display: inline-flex;
+
+        img {
+            margin-top: -2px;
+        } 
+    }
+
+    div {
+        display: inline-flex;
+
+        img {
+            margin-top: -2px;
+        }
     }
 
     @media screen and (max-width: 767px) {

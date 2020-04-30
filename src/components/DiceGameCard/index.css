@@ -7,6 +7,7 @@ $with-without-padding: calc(100% - $spacing-20 - $spacing-20);
   height: inherit;
   padding: $spacing-20;
   background-color: $background-main-table;
+  border-radius: 0 $border-radius $border-radius 0;
 }
 
 .container {

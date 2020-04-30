@@ -84,7 +84,7 @@ class TableDefault extends Component {
 
     render() {
         let { isLoadingRow, rows } = this.state; 
-        let { titles, fields, isLoading, onTableDetails, hasLinkToDetails } = this.props;
+        let { titles, fields, isLoading, onTableDetails } = this.props;
 
         const rowStyles = classNames("tr-row", {
             addRow: isLoadingRow
@@ -122,7 +122,7 @@ class TableDefault extends Component {
                                             if(field.dependentColor){
                                                 return (
                                                     <th styleName={styles}>
-                                                        {hasLinkToDetails 
+                                                        {onTableDetails 
                                                         ?
                                                             <a href="#" onClick={onTableDetails.bind(this, {titles, fields, row})}>
                                                                 <Typography variant='x-small-body' color={ row[field.condition] ? 'green' : "grey"}> {row[field.value]} </Typography>
@@ -140,7 +140,7 @@ class TableDefault extends Component {
                                                 const background = row[field.value].hasOwnProperty("background_url") ? row[field.value].background_url : null;
                                                 return (
                                                     <th styleName={styles}>
-                                                        {hasLinkToDetails 
+                                                        {onTableDetails 
                                                         ?
                                                             <a href="#" onClick={onTableDetails.bind(this, {titles, fields, row})}>
                                                                 <div styleName="image">
@@ -171,7 +171,7 @@ class TableDefault extends Component {
                                                 return (
                                                     // Normal
                                                     <th styleName={styles}>
-                                                        {hasLinkToDetails 
+                                                        {onTableDetails 
                                                         ?
                                                             <a href="#" onClick={onTableDetails.bind(this, {titles, fields, row})}>
                                                                 <Typography variant='x-small-body' color={"white"}> {row[field.value]} </Typography>

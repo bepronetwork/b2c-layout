@@ -1,61 +1,51 @@
 import React, { Component } from "react";
+import { WithdrawIcon, Tabs, SelectBox, Table } from 'components';
 import { connect } from "react-redux";
-import { Numbers } from "../../lib/ethereum/lib";
-import { dateToHourAndMinute, getGames, getSkeletonColors } from "../../lib/helpers";
-import { SelectBox, Table, RewardIcon, Tabs } from 'components';
-import { formatCurrency } from "../../utils/numberFormatation";
 import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
+import { dateToHourAndMinute, isUserSet, getSkeletonColors } from "../../lib/helpers";
+import { formatCurrency } from "../../utils/numberFormatation";
+import { Numbers, AddressConcat } from '../../lib/ethereum/lib';
 import { CopyText } from "../../copy";
 import _ from 'lodash';
 import "./index.css";
 
 const views = [{ text : 10, value : 10 }, { text : 25, value : 25 }, { text : 50, value : 50 }, { text : 100, value : 100 }];
-const allGames =  { text : 'All Games', value : 'all_games' };
 
 const rows = {
-    my_bets : {
+    withdraws : {
         titles : [],
         fields : [
             {
-                value : 'game',
-                image : true
+                value : 'transactionHash',
+                isLink: true,
+                linkField: 'link_url'
             },
             {
-                value : 'id'
+                value : 'creation_timestamp'
             },
             {
-                value : 'timestamp'
-            },
-            {
-                value : 'winAmount',
-                dependentColor : true,
-                condition : 'isWon',
+                value : 'amount',
                 currency: true
             },
             {
-                value : 'payout',
-                dependentColor : true,
-                condition : 'isWon'
+                value: 'done'
+            },
+            {
+                value: 'status'
             }
         ],
         rows : []
     }
 }
-  
 
 const defaultProps = {
-    my_bets     : rows.my_bets,
-    view        : 'my_bets',
+    withdraws     : rows.withdraws,
+    view        : 'withdraws',
     view_amount : views[1],
-    gamesOptions : [],
-    games : [],
-    options : [],
-    view_game : allGames,
     isLoading: true,
     isListLoading : true
 }
-
-class BetsTab extends Component {
+class WithdrawTable extends Component {
 
     constructor(props){
         super(props);
@@ -77,64 +67,42 @@ class BetsTab extends Component {
     }
 
     projectData = async (props, options=null) => {
-        let { profile, ln } = props;
-        let { view_amount, view_game } = this.state;
-        const copy = CopyText.betspage[ln];
-        let my_bets = [];
-
-        let games = getGames().filter(g => g.metaName != 'jackpot_auto');
-        let gamesOptions = [];
-        gamesOptions.push(allGames);
-
-        games.map( (data) => {
-            const n = {
-                value :  data.metaName,
-                text : data.name
-            }
-            gamesOptions.push(n);
-        });
+        const { profile, ln } = props;
+        let { view_amount } = this.state;
+        const copy = CopyText.withdrawspage[ln];
+        let withdraws = [];
 
         if(options){
             view_amount = options.view_amount ? options.view_amount : view_amount;
-            view_game = options.view_game ? options.view_game : view_game;
         }
 
         if(profile && !_.isEmpty(profile)){
-            if(view_game.value != "all_games") {
-                const gameId = games.find(g =>g.metaName === view_game.value)._id;
-                my_bets = await profile.getMyBets({size : view_amount.value, game : gameId});
-            }
-            else {
-                my_bets = await profile.getMyBets({size : view_amount.value});
-            }
+            withdraws = await profile.getWithdraws();
         }
 
         this.setState({...this.state, 
             ...options,
             isLoading : false,
             isListLoading : false,
-            games,
-            gamesOptions,
             options : Object.keys(copy.TABLE).map( (key) => {
                 return {
                     value : new String(key).toLowerCase(),
                     label : copy.TABLE[key].TITLE,
-                    icon : <RewardIcon/>
+                    icon : <WithdrawIcon/>
                 }
             }),
-            my_bets : {
-                ...this.state.my_bets,
-                titles : copy.TABLE.MY_BETS.ITEMS,
-                rows : my_bets.map( (bet) =>  {
+            withdraws : {
+                ...this.state.withdraws,
+                titles : copy.TABLE.WITHDRAWS.ITEMS,
+                rows : withdraws.map( (d) =>  {
                     return {
-                        game: (games.find(game => game._id === bet.game)),
-                        id: bet._id,
-                        timestamp: dateToHourAndMinute(bet.timestamp),
-                        betAmount: formatCurrency(Numbers.toFloat(bet.betAmount)),
-                        winAmount: formatCurrency(Numbers.toFloat(bet.winAmount)),
-                        currency: bet.currency,
-                        isWon : bet.isWon,
-                        payout : `${formatCurrency(Numbers.toFloat(bet.winAmount/bet.betAmount))}x`
+                        amount: formatCurrency(Numbers.toFloat(d.amount)),
+                        transactionHash: d.transactionHash ? AddressConcat(d.transactionHash) : 'N/A',
+                        creation_timestamp: dateToHourAndMinute(d.creation_timestamp),
+                        status: d.confirmed ? 'Confirmed' : 'Open',
+                        currency: d.currency,
+                        link_url: d.link_url,
+                        done: d.confirmed ? 'Done' : 'Unconfirmed'
                     }
                 })
             }
@@ -145,19 +113,15 @@ class BetsTab extends Component {
         this.projectData(this.props, options)
     }
 
-    changeViewBets = ({option}) => {
+    changeView = ({option}) => {
         this.setState({...this.state, isListLoading : true })
         this.setTimer({view_amount : option})
     }
 
-    changeViewGames = ({option}) => {
-        this.setState({...this.state, isListLoading : true })
-        this.setTimer({view_game : option})
-    }
-
     render() {
-        const { onTableDetails } = this.props;
-        const { games, gamesOptions, isLoading, isListLoading, view_game, options, view } = this.state;
+        const { isLoading, isListLoading, options, view } = this.state;
+        const { profile } = this.props;
+        if(!isUserSet(profile)){return}
 
         return (
             <div styleName='container'>
@@ -181,17 +145,9 @@ class BetsTab extends Component {
                             options={options}
                         />
                         <div styleName="filters">
-                            <div styleName='bets-dropdown-game'>
-                                <SelectBox
-                                    onChange={(e) => this.changeViewGames(e)}
-                                    options={gamesOptions}
-                                    value={this.state.view_game}
-                                /> 
-                            </div>
-
                             <div styleName='bets-dropdown'>
                                 <SelectBox
-                                    onChange={(e) => this.changeViewBets(e)}
+                                    onChange={(e) => this.changeView(e)}
                                     options={views}
                                     value={this.state.view_amount}
                                 /> 
@@ -204,9 +160,7 @@ class BetsTab extends Component {
                     titles={this.state[view].titles}
                     fields={this.state[view].fields}
                     size={this.state.view_amount.value}
-                    games={games.filter(function(g) { return view_game.value == 'all_games' || g.metaName == view_game.value; }).map(function(g) { return g; })}
                     isLoading={isListLoading}
-                    onTableDetails={onTableDetails ? onTableDetails : null}
                 /> 
             </div>
         );
@@ -220,4 +174,4 @@ function mapStateToProps(state){
     };
 }
 
-export default connect(mapStateToProps)(BetsTab);
+export default connect(mapStateToProps)(WithdrawTable);

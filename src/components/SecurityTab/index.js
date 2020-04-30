@@ -113,8 +113,29 @@ class SecurityTab extends React.Component{
                             </Button>
                         </div>
                     </div>
-                    : 
-                    null
+                    :
+                    <div styleName="field">
+                        <div styleName='label'>
+                            <Typography variant={'small-body'} color={'casper'}>{copyConfirmEmail.CONTAINERS.APP.MODAL[2]}</Typography>
+                        </div>
+                        <div styleName='value'>
+                            <div styleName="toggle">
+                                <div styleName="toggle-text">
+                                    <Typography variant={'small-body'} color={'white'} weight={'semi-bold'}>{'ON'}</Typography>
+                                </div>
+                                <BootstrapSwitchButton 
+                                    checked={true} 
+                                    id={'2fa-authentication'}  
+                                    onstyle="dark" 
+                                    offstyle="secondary" 
+                                    size="xs" 
+                                    width={10} 
+                                    onlabel=" " 
+                                    offlabel=" "
+                                    disabled={true}/>
+                            </div>
+                        </div>
+                    </div>
                 }
             </div>
         )

@@ -1,31 +1,32 @@
-import React, { Component } from "react";
+import React from "react";
 import { connect } from "react-redux";
-import { DataContainer, AffiliateLinkContainer, Button, Typography, AffiliateIcon, WalletIcon } from 'components';
-import { Row, Col } from 'reactstrap';
-import "./index.css";
-import store from "../../containers/App/store";
-import { setModal } from "../../redux/actions/modal";
+import { AffiliateLinkContainer, DataContainer, WithdrawForm, DepositsIcon, AffiliateIcon } from "components";
+import PaymentBox from "../PaymentBox";
 import { CopyText } from '../../copy';
-import { getApp } from "../../lib/helpers";
+import { Col, Row } from 'reactstrap';
+import _ from 'lodash';
+import './index.css';
 
 const defaultState = {
-    isWithdrawing : false,
-    ticker : 'N/A',
     percentageOnLevelOne : 0,
     userAmount : 0,
-    affiliateBalance : 0,
-    id : ''
+    id : '',
+    wallets : [],
+    wallet : null
 }
 
-class AffiliatesTab extends Component {
-
-    constructor(props) {
+class AffiliatesTab extends React.Component{
+    constructor(props){
         super(props);
         this.state = defaultState;
     }
 
     componentDidMount(){
-        this.projectData(this.props)
+        const { isCurrentPath } = this.props;
+
+        if (isCurrentPath) {
+            this.projectData(this.props);
+        }
     }
 
     componentWillReceiveProps(props){
@@ -33,66 +34,71 @@ class AffiliatesTab extends Component {
     }
 
     projectData = async (props) => {
-        const { profile, currency } = props;
-        const { id, wallet, userAmount, percentageOnLevelOne } = profile.getAffiliateInfo(currency);
-        if(!wallet){return}
-        this.setState({
-            ticker : currency.ticker,
+        const { profile } = this.props;
+        let { wallet } = this.state;
+        const wallets = profile.getAffiliateWallets();
+        const { id, userAmount, percentageOnLevelOne } = profile.getAffiliateInfo();
+
+        if(wallets && !wallet) {
+            wallet = wallets[0];
+        }
+
+        this.setState({...this.state,
+            wallets,
+            wallet,
             percentageOnLevelOne,
             userAmount,
-            affiliateBalance : wallet.playBalance,
             id
-        })
+        });
     }
 
-    withdrawAffiliate = async () => {
-        await store.dispatch(setModal({key : 'AffiliateWithdrawForm', value : true}))
+    changeWallet = async (wallet) => {
+        this.setState({ wallet });
     }
 
-    render() {
-        const { profile, ln } = this.props;
-        const { isWithdrawing, affiliateBalance, id, percentageOnLevelOne, userAmount, ticker } = this.state;
-        // const { ln } = this.props;
+    render(){
+        const { ln } = this.props;
+        const { wallets, wallet, id, percentageOnLevelOne, userAmount } = this.state;
         const copy = CopyText.affiliatesTabIndex[ln];
 
+        if(!wallet) { return null };
+
         return (
-            <div styleName='root'>
+            <div>
                 <Row>
-                    {getApp().virtual !== true ?
-                        <Col lg={6}>
-                            <DataContainer title={copy.INDEX.DATA_CONTAINER.TITLE[0]} message={`${parseFloat(affiliateBalance)} ${ticker}`} image={<WalletIcon/>} button={
-                                    <Button
-                                    theme="default"
-                                    size={'x-small'}
-                                    disabled={ (affiliateBalance < 0) || isWithdrawing}
-                                    onClick={this.withdrawAffiliate}
-                                >
-                                    <Typography color={'white'} variant={'small-body'}> {copy.INDEX.TYPOGRAPHY.TEXT[0]} </Typography>
-                                </Button>
-                            }/>
-                        </Col>
-                    :
-                        null
-                    }
-                    <Col lg={6}>
+                    <Col lg={4}>
+                        <div>
+                            {wallets.map( w => {
+                                return (
+                                    <PaymentBox 
+                                        onClick={() => this.changeWallet(w)}
+                                        isPicked={new String(wallet.currency._id).toString() == new String(w.currency._id).toString()}
+                                        wallet={w}
+                                    />
+                                )
+                            })}
+                        </div>
+                    </Col>
+                    <Col lg={8}>
                         <DataContainer title={copy.INDEX.DATA_CONTAINER.TITLE[1]} message={userAmount} image={<AffiliateIcon/>} />
+                        <DataContainer title={copy.INDEX.DATA_CONTAINER.TITLE[0]} message={`${wallet.playBalance} ${wallet.currency.ticker}`} image={<DepositsIcon/>} />
+                        <WithdrawForm wallet={wallet} isAffiliate={true} />
                     </Col>
                 </Row>
                 <Row>
-                    <Col lg={12}>
+                    <Col>
                         <AffiliateLinkContainer link={id} percentageOnLevelOne={percentageOnLevelOne}/>
                     </Col>
                 </Row>
             </div>
-        );
+        )
     }
 }
 
 function mapStateToProps(state){
     return {
-        profile: state.profile,
-        ln : state.language,
-        currency : state.currency
+        profile : state.profile,
+        ln: state.language
     };
 }
 
