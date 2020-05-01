@@ -1,0 +1,30 @@
+@import "../../../styles/all.css";
+
+
+.a {
+    fill:  $seventhColor-dark-13; /*#084eaa*/
+}
+
+.b {
+    fill: $seventhColor-light-13; /*#0b69e8;*/
+}
+
+.c {
+    fill: $heightColor-dark-13; /*#d54bac;*/
+}
+
+.d {
+    fill: $heightColor-light-13; /*#f18fe8;*/
+}
+
+.e {
+    fill: #000;
+}
+
+.f {
+    fill: #fff;
+}
+
+.g {
+    fill: none;
+}

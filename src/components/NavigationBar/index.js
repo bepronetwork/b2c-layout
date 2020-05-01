@@ -2,8 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import _ from 'lodash';
 import "./index.css";
-import { Typography } from 'components';
-import casino from 'assets/casino.png';
+import { Typography, CasinoIcon } from 'components';
 import { Link } from "react-router-dom";
 import { CopyText } from '../../copy';
 
@@ -31,7 +30,7 @@ class NavigationBar extends Component {
         return (
                 <Link to='/' styleName='navigation-step'>
                     <div styleName='img'>
-                        <img src={casino}/>
+                        <CasinoIcon/>
                     </div>
                     <div styleName='text'>
                         <Typography variant={'small-body'} color={'white'}>

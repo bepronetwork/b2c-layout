@@ -1,10 +1,11 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import Typography from "components/Typography";
+import { 
+    Typography, UserIcon 
+} from "components";
 import ArrowDown from "components/Icons/ArrowDown";
 import ArrowUp from "components/Icons/ArrowUp";
 import Coins from "components/Icons/Coins";
-import Account from "components/Icons/Account";
 import Logout from "components/Icons/Logout";
 import { map } from "lodash";
 import { CopyText } from '../../copy';
@@ -41,7 +42,7 @@ class UserMenu extends Component {
     getOptions = () => {
         const { onLogout, onCashier, onAccount } = this.props;
         const {ln} = this.props;
-const copy = CopyText.userMenuIndex[ln];
+        const copy = CopyText.userMenuIndex[ln];
 
         return [
         {
@@ -53,7 +54,7 @@ const copy = CopyText.userMenuIndex[ln];
         {
             value: "account",
             label: copy.INDEX.TYPOGRAPHY.TEXT[1],
-            icon: <Account/>,
+            icon: <UserIcon/>,
             action: onAccount
         },
         { 

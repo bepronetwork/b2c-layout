@@ -45,7 +45,7 @@
 
   margin-top: $spacing-12;
 
-  background: $mirage;
+  background: $primaryColor-dark-3;
 
   border-radius: $spacing-4;
   width: auto;

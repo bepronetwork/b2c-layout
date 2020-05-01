@@ -12,7 +12,8 @@ export default class Tab extends Component {
     label: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
     onClick: PropTypes.func,
-    selected: PropTypes.bool
+    selected: PropTypes.bool,
+    style: PropTypes.oneOf(["fullBackground", "default"])
   };
 
   static defaultProps = {
@@ -34,24 +35,25 @@ export default class Tab extends Component {
   };
 
   render() {
-    const { selected, label, icon } = this.props;
+    const { selected, label, icon, style } = this.props;
     const classes = classNames("tab", {
-      selected
+      selected,
+      fullBackground : style === "full-background",
+      fullBackgroundSelected : style === "full-background" && selected
     });
 
     return (
       <div styleName={classes}>
         <button onClick={this.handleClick} type="button">
-          {
-            icon ?
-              <div styleName="icon"><img src={icon} style={{ width : 16 }}/></div>
-            :
-              null
-          }
-          <div styleName="label">
-            <Typography variant={this.isMobileOrTablet() ? 'x-small-body' : 'small-body'} color="white">
-              {label}
-            </Typography>
+          <div styleName="main">
+            <div styleName="icon">
+              { icon ? icon : null }
+            </div>
+            <div styleName="label">
+              <Typography variant={this.isMobileOrTablet() ? 'x-small-body' : 'small-body'} color="white">
+                {label}
+              </Typography>
+            </div>
           </div>
         </button>
       </div>

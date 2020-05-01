@@ -1,20 +1,19 @@
 import React, { Component } from "react";
-import { Typography } from 'components';
 import { connect } from "react-redux";
-
-import "./index.css";
-import DepositsTable from "../CashierForm/Deposit/DepositsTable";
 import { isUserSet } from "../../lib/helpers";
+import DepositTable from "../DepositTable";
+import _ from 'lodash';
+import "./index.css";
 
 class DepositTab extends Component {
 
-    constructor(props) {
+    constructor(props){
         super(props);
         this.state = {};
     }
 
     componentDidMount(){
-        this.projectData(this.props)
+        this.projectData(this.props);
     }
 
     componentWillReceiveProps(props){
@@ -22,41 +21,14 @@ class DepositTab extends Component {
     }
 
     projectData = async (props) => {
-
-    }
-
-    confirmDeposit = async (deposit) => {
-        try{
-            const { profile } = this.props;
-            /* Create Deposit Framework */
-            let res = await profile.confirmDeposit(deposit);
-            let { message, status } = res.data;
-            if(status != 200){throw message};
-            /* Update user Data */
-            await profile.getAllData();            
-        }catch(err){
-            console.log(err)
-        }
     }
 
     render() {
-        const { profile, ln } = this.props;
+        const { profile, isCurrentPath } = this.props;
         if(!isUserSet(profile)){return}
-        const id = profile.getID();
 
         return (
-            <div style={{ overflowY: 'auto', overflowX : 'hidden'}}>
-                <div styleName="deposit">
-                    <div styleName='withdraws-table'>
-                        <DepositsTable
-                            profile={profile}
-                            ln={ln}
-                            confirmDeposit={this.confirmDeposit} 
-                            currency={profile.getAppCurrencyTicker()}
-                        />
-                    </div>
-                </div>
-            </div>
+            <DepositTable isCurrentPath={isCurrentPath} />
         );
     }
 }

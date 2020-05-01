@@ -283,67 +283,69 @@ const copy = CopyText.flipGameOptionsIndex[ln];
         <div styleName="root">
             {this.renderSound()}
             <div styleName="toggle">
-            <ToggleButton
-                config={{
-                left: { value: "manual", title: copy.INDEX.TOGGLE_BUTTON.TITLE[0] },
-                right: { value: "auto", title: copy.INDEX.TOGGLE_BUTTON.TITLE[1]}
-                }}
-                selected={type}
-                size="full"
-                differentBorders
-                onSelect={this.handleType}
-            />
-            </div>
-            <div styleName="amount">
-            <Typography variant="small-body" weight="semi-bold" color="casper">
-                {copy.INDEX.TYPOGRAPHY.TEXT[0]}
-            </Typography>
-            <div styleName="amount-container">
-                <InputNumber
-                name="amount"
-                step={0.01}
-                icon="bitcoin"
-                max={(user && !_.isEmpty(user)) ? user.getBalance() : null}
-                precision={2}
-                value={betAmount}
-                onChange={this.handleBetAmountChange}
+                <ToggleButton
+                    config={{
+                    left: { value: "manual", title: copy.INDEX.TOGGLE_BUTTON.TITLE[0] },
+                    right: { value: "auto", title: copy.INDEX.TOGGLE_BUTTON.TITLE[1]}
+                    }}
+                    selected={type}
+                    size="full"
+                    differentBorders
+                    onSelect={this.handleType}
                 />
-                <MultiplyMaxButton onSelect={this.handleMultiply} />
             </div>
-            </div>
-            <div styleName="content">
-            {type === "manual" ? this.renderManual() : this.renderAuto()}
-            </div>
+            <div styleName="bet-properties">
+                <div styleName="amount">
+                    <Typography variant="small-body" weight="semi-bold" color="casper">
+                        {copy.INDEX.TYPOGRAPHY.TEXT[0]}
+                    </Typography>
+                    <div styleName="amount-container">
+                        <InputNumber
+                        name="amount"
+                        step={0.01}
+                        icon="bitcoin"
+                        max={(user && !_.isEmpty(user)) ? user.getBalance() : null}
+                        precision={2}
+                        value={betAmount}
+                        onChange={this.handleBetAmountChange}
+                        />
+                        <MultiplyMaxButton onSelect={this.handleMultiply} />
+                    </div>
+                </div>
+                <div styleName="content">
+                    {type === "manual" ? this.renderManual() : this.renderAuto()}
+                </div>
 
-            <div styleName="side">
-            <div styleName="label">
-                <Typography variant="small-body" weight="semi-bold" color="casper">
-                    {copy.INDEX.TYPOGRAPHY.TEXT[1]}
-                </Typography>
-            </div>
-            <ToggleButton
-                config={{
-                left: { value: "heads", title: copy.INDEX.TOGGLE_BUTTON.TITLE[2], color: "red" },
-                right: { value: "tails", title: copy.INDEX.TOGGLE_BUTTON.TITLE[3], color: "tree-poppy" }
-                }}
-                selected={side}
-                differentBorders
-                onSelect={this.handleSide}
-                size="full"
-            />
-            </div>
-            <div styleName="button">
-            <Button
-                fullWidth
-                theme="primary"
-                disabled={!this.isBetValid()|| onBetTrigger || isCoinSpinning  || isAutoBetting}
-                onClick={this.handleBet}
-                animation={<Dice />}
-            >
-                <Typography weight="semi-bold" color="pickled-bluewood">
-                {type === "manual" ? copy.INDEX.TYPOGRAPHY.TEXT[2] : copy.INDEX.TYPOGRAPHY.TEXT[3]}
-                </Typography>
-            </Button>
+                <div styleName="side">
+                    <div styleName="label">
+                        <Typography variant="small-body" weight="semi-bold" color="casper">
+                            {copy.INDEX.TYPOGRAPHY.TEXT[1]}
+                        </Typography>
+                    </div>
+                    <ToggleButton
+                        config={{
+                        left: { value: "heads", title: copy.INDEX.TOGGLE_BUTTON.TITLE[2], color: "red" },
+                        right: { value: "tails", title: copy.INDEX.TOGGLE_BUTTON.TITLE[3], color: "tree-poppy" }
+                        }}
+                        selected={side}
+                        differentBorders
+                        onSelect={this.handleSide}
+                        size="full"
+                    />
+                </div>
+                <div styleName="button">
+                    <Button
+                        fullWidth
+                        theme="primary"
+                        disabled={!this.isBetValid()|| onBetTrigger || isCoinSpinning  || isAutoBetting}
+                        onClick={this.handleBet}
+                        animation={<Dice />}
+                    >
+                        <Typography weight="semi-bold" color="pickled-bluewood">
+                        {type === "manual" ? copy.INDEX.TYPOGRAPHY.TEXT[2] : copy.INDEX.TYPOGRAPHY.TEXT[3]}
+                        </Typography>
+                    </Button>
+                </div>
             </div>
         </div>
         );

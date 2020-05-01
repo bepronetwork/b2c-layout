@@ -1,10 +1,9 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import { Button, SubtleButton, Typography, ProfileMenu, LanguageSelector, NavigationBar } from "components";
+import { Button, SubtleButton, Typography, ProfileMenu, LanguageSelector, NavigationBar, CurrencySelector, UserIcon} from "components";
 import UserContext from "containers/App/UserContext";
 import { connect } from "react-redux";
 import { getAppCustomization, getApp } from "../../lib/helpers";
-import CurrencyDropDown from "../CurrencyDropDown";
 import { formatCurrency } from "../../utils/numberFormatation";
 import { CopyText } from '../../copy';
 import _ from 'lodash';
@@ -107,16 +106,15 @@ class Navbar extends Component {
     }
 
     renderCurrencySelector = () => {
-        let {onCashier } = this.props;
         let { currentBalance, difference } = this.state;
-        const {ln} = this.props;
+        const { onWallet, history, ln } = this.props;
         const copy = CopyText.navbarIndex[ln]; 
         var currencies = getApp().currencies;
         const virtual = getApp().virtual;
         currencies = currencies.filter(c => c.virtual === virtual);
 
         return(
-            <div>
+            <div styleName="currency-selector">
                  {(!currencies || _.isEmpty(currencies) || currencies.length < 0) ?
                     <div styleName="no-coin">
                         <Typography variant="x-small-body" color="grey">
@@ -125,7 +123,7 @@ class Navbar extends Component {
                     </div>
                 :
                     <div styleName="currency">
-                        <CurrencyDropDown currentBalance={currentBalance}/>
+                        <CurrencySelector currentBalance={currentBalance}/>
                         {difference ? (
                             <div
                             key={currentBalance}
@@ -139,25 +137,30 @@ class Navbar extends Component {
                     </div>
                  }
                 <div styleName='button-deposit'>
-                    <Button onClick={onCashier} size={'x-small'} theme={'default'}>
-                        <Typography color={'white'} variant={'x-small-body'}>{virtual ? copy.INDEX.TYPOGRAPHY.TEXT[6] : copy.INDEX.TYPOGRAPHY.TEXT[2]}</Typography>
-                    </Button>
+                    <button onClick={() => onWallet({history})} type="submit" styleName="button">
+                        <Typography variant="small-body" color="white">
+                            {virtual ? copy.INDEX.TYPOGRAPHY.TEXT[6] : copy.INDEX.TYPOGRAPHY.TEXT[2]}
+                        </Typography>
+                    </button>
                 </div>
             </div>
         )
     }
 
     renderProfileMenu = () => {
-        let { onLogout, onCashier, onAccount, history } = this.props;
-        let { user } = this.state;
+        const { profile, onAccount, history } = this.props;
 
         return(
-            <ProfileMenu
-                onAccount={() => onAccount({history})}
-                onLogout={onLogout}
-                onCashier={onCashier}
-                username={user.username}
-            />
+            <button styleName="profile" onClick={() => onAccount({history})} type="button">
+                <div styleName="label">
+                    <div styleName="user-icon">
+                        <UserIcon/>
+                    </div>
+                    <span>
+                        <Typography color="white" variant={'small-body'}>{profile.getUsername()}</Typography>
+                    </span>
+                </div>
+            </button>
         )
     }
 

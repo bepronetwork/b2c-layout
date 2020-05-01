@@ -2,10 +2,11 @@ import React from "react";
 import { Row, Col } from 'reactstrap';
 import { Typography } from 'components';
 import { connect } from "react-redux";
-import './index.css';
-import affiliate from 'assets/affiliate-background.png';
+import classNames from "classnames";
 import { getApp } from "../../lib/helpers";
 import { CopyText } from '../../copy';
+
+import './index.css';
 
 const info = getApp();
 
@@ -18,19 +19,29 @@ class AffiliateLinkContainer extends React.Component{
         super(props);
         this.state = {
             checked : false,
-            closed : false
+            closed : false,
+            copied: false
         }
     }
 
+    componentDidMount(){
+        this.setState({...this.state, copied: false});
+    }
+
+    componentWillReceiveProps(props){
+        this.setState({...this.state, copied: false});
+    }
 
     copyToClipboard = (e) => {
         const { link } = this.props;
-        var textField = document.createElement('textarea')
+        var textField = document.createElement('textarea');
         textField.innerText = URL_REF + link;
-        document.body.appendChild(textField)
-        textField.select()
-        document.execCommand('copy')
-        textField.remove()
+        document.body.appendChild(textField);
+        textField.select();
+        document.execCommand('copy');
+        textField.remove();
+
+        this.setState({ copied: true })
     };
 
     render(){
@@ -38,12 +49,13 @@ class AffiliateLinkContainer extends React.Component{
             link,
             percentageOnLevelOne
         } = this.props;
+        const { copied } = this.state;
         const {ln} = this.props;
         const copy = CopyText.affiliateLinkContainerIndex[ln];
+        const styles = classNames("link-text-container", {"ad-copied": copied});
 
         return (
             <div styleName={`root`}>
-                <img src={affiliate} styleName='affiliate-image'/>
                 <div styleName='content'>
                     <div styleName={'text-description'}>
                         <Typography variant={'body'} color={`white`}>
@@ -59,7 +71,14 @@ class AffiliateLinkContainer extends React.Component{
                     <div styleName='text-container'>
                         <Row>
                             <Col xs={12} md={9}>
-                                <div styleName='link-text-container'>
+                                {copied ? (
+                                    <div styleName="copied">
+                                        <Typography variant="small-body" color={'white'}>
+                                            Copied
+                                        </Typography>
+                                    </div>
+                                ) : null}
+                                <div styleName={styles}>
                                     <Typography variant={'small-body'} color={`casper`}>
                                         {URL_REF + link}
                                     </Typography>

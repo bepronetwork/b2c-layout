@@ -10,7 +10,7 @@ class CurrencyWithdrawForm extends React.Component{
     constructor(props){
         super(props);
         this.state = {
-            currencies : []
+            wallets : []
         }
     }
 
@@ -23,10 +23,10 @@ class CurrencyWithdrawForm extends React.Component{
     }
 
     projectData = async (props) => {
-        let currencies = getApp().currencies;
+        let wallets = getApp().wallet;
 
         this.setState({...this.state,
-            currencies
+            wallets
         })
     }
 
@@ -35,21 +35,22 @@ class CurrencyWithdrawForm extends React.Component{
     }
 
     render(){
-        const { currencies } = this.state;
+        const { wallets } = this.state;
         const { withdraw } = this.props;
         const {ln} = this.props;
-const copy = CopyText.currencyFormIndex[ln];
+        const copy = CopyText.currencyFormIndex[ln];
 
         return (
             <div>
-                {currencies.map( c => {
+                {wallets.map( w => {
                     return (
                         <PaymentBox 
-                            onClick={ () => this.changeCurrency(c)}
-                            isPicked={new String(withdraw.currency._id).toString() == new String(c._id).toString()}
-                            id={`${c.ticker}`}  
-                            image={c.image} type={`${c.name}`} 
-                            description={copy.INDEX.PAYMENTBOX.DESCRIPTION[0]} time={'fast withdraw'} id={`${c.ticker}`}
+                            onClick={ () => this.changeCurrency(w.currency)}
+                            isPicked={new String(withdraw.currency._id).toString() == new String(w.currency._id).toString()}
+                            id={`${w.currency.ticker}`}  
+                            image={w.image ? w.image : w.currency.image}
+                            type={`${w.currency.name}`} 
+                            description={copy.INDEX.PAYMENTBOX.DESCRIPTION[0]} time={'fast withdraw'} id={`${w.currency.ticker}`}
                         />
                     )
                 })}

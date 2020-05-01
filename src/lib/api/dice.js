@@ -10,7 +10,6 @@ export default async function bet({ rollNumber, rollType, betAmount, user }) {
         const initial = rollType === "over" ? rollNumber : 0;
         const finish = rollType === "under" ? rollNumber : 100;
         const maxRoll = finish - initial;
-        
         const result = map(range(initial, finish), index => {
             return { place: index, value: betAmount / maxRoll };
         });

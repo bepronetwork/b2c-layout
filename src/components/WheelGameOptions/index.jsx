@@ -315,40 +315,40 @@ const copy = CopyText.wheelGameOptionsIndex[ln];
                 onSelect={this.handleType}
             />
             </div>
-            <div styleName="amount">
-            <Typography variant="small-body" weight="semi-bold" color="casper">
-                {copy2.INDEX.TYPOGRAPHY.TEXT[0]}
-            </Typography>
-            <div styleName="amount-container">
-                <InputNumber
-                    name="amount"
-                    value={amount}
-                    max={user ? balance : null}
-                    step={0.01}
-                    icon="bitcoin"
-                    precision={2}
-                    onChange={this.handleBetAmountChange}
-                    />
-                <MultiplyMaxButton onSelect={this.handleMultiply} />
-            </div>
-            </div>
-
-            <div styleName="content">
-            {type === "manual" ? null : this.renderAuto()}
-            </div>
-         
-            <div styleName="button">
-            <Button
-                disabled={!this.isBetValid() || this.isInAutoBet()}
-                onClick={this.handleBet}
-                fullWidth
-                theme="primary"
-                animation={<Dice />}
-            >
-                <Typography weight="semi-bold" color="pickled-bluewood">
-                    {type === "manual" ?  copy2.INDEX.TYPOGRAPHY.TEXT[1] : copy2.INDEX.TYPOGRAPHY.TEXT[2]}
-                </Typography>
-            </Button>
+            <div styleName="bet-properties">
+                <div styleName="amount">
+                    <Typography variant="small-body" weight="semi-bold" color="casper">
+                        {copy2.INDEX.TYPOGRAPHY.TEXT[0]}
+                    </Typography>
+                    <div styleName="amount-container">
+                        <InputNumber
+                            name="amount"
+                            value={amount}
+                            max={user ? balance : null}
+                            step={0.01}
+                            icon="bitcoin"
+                            precision={2}
+                            onChange={this.handleBetAmountChange}
+                            />
+                        <MultiplyMaxButton onSelect={this.handleMultiply} />
+                    </div>
+                </div>
+                <div styleName="content">
+                    {type === "manual" ? null : this.renderAuto()}
+                </div>
+                <div styleName="button">
+                    <Button
+                        disabled={!this.isBetValid() || this.isInAutoBet()}
+                        onClick={this.handleBet}
+                        fullWidth
+                        theme="primary"
+                        animation={<Dice />}
+                    >
+                        <Typography weight="semi-bold" color="pickled-bluewood">
+                            {type === "manual" ?  copy2.INDEX.TYPOGRAPHY.TEXT[1] : copy2.INDEX.TYPOGRAPHY.TEXT[2]}
+                        </Typography>
+                    </Button>
+                </div>
             </div>
         </div>
         );

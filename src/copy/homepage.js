@@ -13,8 +13,13 @@
           "Settings",
           "Deposits",
           "Withdraws",
-          "Referral",
-          "Buys"
+          "Affiliates",
+          "Buys",
+          "My Bets",
+          "Account",
+          "Security",
+          "Wallet",
+          "Preferences"
         ]
       },
       "APP": {
@@ -122,7 +127,12 @@
           "입금",
           "출금",
           "추천인 제도",
-          "Buys"
+          "Buys",
+          "나의 베팅",
+          "Account",
+          "Security",
+          "Wallet",
+          "Preferences"
         ]
       },
       "APP": {
@@ -222,7 +232,12 @@
           "充币",
           "提币",
           "推荐人制度",
-          "Buys"
+          "Buys",
+          "我的投注",
+          "Account",
+          "Security",
+          "Wallet",
+          "Preferences"
         ]
       },
       "APP": {
@@ -323,7 +338,12 @@
           "Deposits",
           "Withdraws",
           "Referral",
-          "Buys"
+          "Buys",
+          "私の賭け",
+          "Account",
+          "Security",
+          "Wallet",
+          "Preferences"
         ]
       },
       "APP": {

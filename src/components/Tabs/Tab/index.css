@@ -12,8 +12,8 @@
 }
 
 .tab {
-  background-color: $thirdColor;
   height: 100%;
+  text-align: center;
 
   * {
     color: $mercury;
@@ -22,26 +22,40 @@
 
   button {
     width: 100%;
-    border-radius: $border-radius;
-    position: relative;
-    padding: $spacing-8;
+    padding: $spacing-4;
     background-color: inherit;
     cursor: pointer;
     outline: none;
     min-height: 40px;
+    display: inline-flex;
+    align-items: center;
 
     * {
       cursor: pointer;
     }
+  }
+}
 
-    @media screen and (max-width: 767px) {
-      text-align: center;
-    }
+.fullBackground {
+  background-color: $primaryColor;
+  border-radius: $border-radius; 
+
+  button {
+    border-radius: $border-radius; 
+  }
+}
+
+.fullBackgroundSelected {
+  background-color: $secondaryColor;
+  border-radius: $border-radius; 
+
+  button {
+    border-radius: $border-radius; 
   }
 }
 
 .selected{
-  background-color: $backgroundColor;
+  border-bottom: 2px solid $secondaryColor;
 
   * {
     color: $white;
@@ -49,20 +63,32 @@
   }
 }
 
+.main{
+  grid-template-columns: auto auto;
+  display: grid;
+  align-items: center;
+  width: 100%;
+}
+
 .icon {
-  float: left;
-  margin-left: $spacing-8;
+  justify-content: flex-end;
+  display: inline-flex;
+  margin-right: $spacing-4;
+  
+  svg {
+    width: 36px;
+  }
 
   @media screen and (max-width: 767px) {
     float: none;
     margin-bottom: $spacing-8;
-    margin-left: 0;
+    margin: auto;
+    width: 30px;
   }
 }
 
 .label {
-  float: initial;
-  width: 100%;
+  text-align: left;
 
   @media screen and (max-width: 1023px) {
     margin-left: $spacing-8;

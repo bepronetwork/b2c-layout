@@ -14,7 +14,9 @@
         ],
         "FUNC_TEXT": [
           (params)=>{ return `You only have ${params[0]} ${params[1]}`},
-          (params)=>{ return  `Maximum Withdrawal is ${params[0]} ${params[1]}`}
+          (params)=>{ return  `Maximum Withdrawal is ${params[0]} ${params[1]}`},
+          (params)=>{ return  `Minimum Withdrawal is ${params[0]} ${params[1]}`}
+          
         ]
       }
     }
@@ -32,7 +34,8 @@
         ],
         "FUNC_TEXT": [
           (params)=>{ return `You only have ${params[0]} ${params[1]}`},
-          (params)=>{ return  `최대 출금 가능 금액은 ${params[0]} ${params[1]} 입니다.`}
+          (params)=>{ return  `최대 출금 가능 금액은 ${params[0]} ${params[1]} 입니다.`},
+          (params)=>{ return  `Minimum Withdrawal is ${params[0]} ${params[1]}`}
         ]
       }
     }
@@ -50,7 +53,8 @@
         ],
         "FUNC_TEXT": [
           (params)=>{ return `You only have ${params[0]} ${params[1]}`},
-          (params)=>{ return  `您的最大提币限额为${params[0]} ${params[1]}`}
+          (params)=>{ return  `您的最大提币限额为${params[0]} ${params[1]}`},
+          (params)=>{ return  `Minimum Withdrawal is ${params[0]} ${params[1]}`}
         ]
       }
     }
@@ -68,7 +72,8 @@
         ],
         "FUNC_TEXT": [
           (params)=>{ return `You only have ${params[0]} ${params[1]}`},
-          (params)=>{ return  `Maximum Withdrawal is ${params[0]} ${params[1]}`}
+          (params)=>{ return  `Maximum Withdrawal is ${params[0]} ${params[1]}`},
+          (params)=>{ return  `Minimum Withdrawal is ${params[0]} ${params[1]}`}
         ]
       }
     }

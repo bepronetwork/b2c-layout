@@ -19,7 +19,7 @@
   width: 0;
   height: 0;
   border-right: $spacing-4 solid transparent;
-  border-bottom: $spacing-4 solid $mirage;
+  border-bottom: $spacing-4 solid $primaryColor-light-3;
   border-left: $spacing-4 solid transparent;
 }
 
@@ -29,7 +29,7 @@
   z-index: 2;
   display: inline-block;
   margin-top: $spacing-12;
-  background: $mirage;
+  background: $primaryColor-light-3;
   border-radius: $border-radius;
   width: 140px;
 }
@@ -39,11 +39,11 @@
   flex-direction: row;
   align-items: center;
   width: 100%;
-  padding: $spacing-8 $spacing-16;
+  padding: $spacing-4 $spacing-12;
   border-radius: $border-radius;
 
   *:first-child {
-    width: $spacing-16;
+    width: 32px;
     margin-right: $spacing-8;
   }
 
@@ -52,7 +52,7 @@
 }
 
 .option:hover {
-  background-color: $concrete;
+  background-color: $primaryColor-light-13;
 
   * {
     color: $nepal;
@@ -66,13 +66,17 @@
   height: $spacing-16;
   cursor: pointer;
 
+  .user-icon {
+    width: 40px;
+    margin-right: 0;
+  }
+
   *:first-child {
     margin-right: $spacing-4;
   }
 }
 
 .label span{
-  margin-left: $spacing-4;
   
   @include Breakpoint-mobileOnly {
     display: none;

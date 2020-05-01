@@ -276,12 +276,14 @@ class WheelPage extends React.Component {
     };
 
     render() {
+        const { onTableDetails } = this.props;
         return (
             <GamePage
                 options={this.renderGameOptions()}
                 game={this.renderGameCard()}
                 history="wheelHistory"
                 gameMetaName={this.state.game.metaName}
+                onTableDetails={onTableDetails}
             />
         );
     }

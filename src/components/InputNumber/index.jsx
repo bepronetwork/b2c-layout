@@ -23,8 +23,9 @@ export default class InputNumber extends Component {
     step: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     value: PropTypes.number,
     precision: PropTypes.number,
-    icon: PropTypes.oneOf(["rotate", "bitcoin", "cross", "infinite"]),
-    disabled: PropTypes.bool
+    icon: PropTypes.oneOf(["rotate", "bitcoin", "cross", "infinite", "customized"]),
+    disabled: PropTypes.bool,
+    custmomizedIcon: PropTypes.string
   };
 
   static defaultProps = {
@@ -37,7 +38,8 @@ export default class InputNumber extends Component {
     title: "",
     icon: null,
     disabled: false,
-    value: 0
+    value: 0,
+    custmomizedIcon: null
   };
 
   inputId = uniqueId();
@@ -60,7 +62,7 @@ export default class InputNumber extends Component {
   }
 
   get unit() {
-    const { unit, icon } = this.props;
+    const { unit, icon, custmomizedIcon } = this.props;
 
     if (!unit && !icon) return null;
 
@@ -83,6 +85,12 @@ export default class InputNumber extends Component {
             return (
             <div styleName="icon">
                 <InfiniteIcon />
+            </div>
+            );
+        case "customized":
+            return (
+            <div styleName="icon">
+                <img src={custmomizedIcon} width={20} />
             </div>
             );
         default:

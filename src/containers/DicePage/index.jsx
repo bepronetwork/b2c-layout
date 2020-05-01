@@ -120,12 +120,14 @@ class DicePage extends Component {
     };
 
     render() {
+        const { onTableDetails } = this.props;
         return (
             <GamePage
                 game={this.getGameCard()}
                 options={this.getOptions()}
                 history="diceHistory"
                 gameMetaName={this.state.game.metaName}
+                onTableDetails={onTableDetails}
             />
         );
     }

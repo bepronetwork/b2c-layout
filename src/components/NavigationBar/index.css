@@ -2,23 +2,17 @@
 
 .navigation-step{
     margin: auto $spacing-20;
-    display: block;
-    position: relative;
+    display: flex;
+    align-items: center;
     height: auto;
     width: 100%;
     transition: all 0.2s ease-in;
 
-    img{
-        width : $spacing-16;
-    }
-
     .img{
-        float: left;
+        width : 28px;
     }
 
     .text{
-        margin-top : 0px;
-        float: left;
         margin-left: $spacing-8;
     }
 

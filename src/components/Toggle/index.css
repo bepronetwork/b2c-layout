@@ -1,0 +1,25 @@
+@import "../../styles/all.css";
+
+
+.toggle{
+    justify-content: flex-end;
+    display: inline-flex;
+    font-family: $font-family;
+    padding: 5px $spacing-28 5px $spacing-28;
+    background-color: $secondaryColor;
+    border-radius: $border-radius;
+
+    div:nth-child(2) {
+        cursor: pointer;
+    }
+}
+
+.toggle-text {
+    padding-right: $spacing-28;
+    margin: auto;
+    width: 50px;
+}
+
+.off {
+    background-color: #343a40;
+}

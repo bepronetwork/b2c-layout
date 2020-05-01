@@ -4,20 +4,15 @@ import UserContext from "containers/App/UserContext";
 import { connect } from "react-redux";
 import { getLastBets, getBiggestUserWinners, getBiggestBetWinners } from "../../../lib/api/app";
 import { Numbers } from "../../../lib/ethereum/lib";
-import { dateToHourAndMinute, getGames, getApp, getSkeletonColors } from "../../../lib/helpers";
+import { dateToHourAndMinute, getGames, getSkeletonColors } from "../../../lib/helpers";
 import Tabs from "../../../components/Tabs";
-import { SelectBox, Table } from 'components';
+import { SelectBox, Table, CheckIcon, RewardIcon, TrophyIcon, AffiliateIcon } from 'components';
 import _ from 'lodash';
 import { CopyText } from "../../../copy";
 import { formatCurrency } from "../../../utils/numberFormatation";
 import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 
 import "./index.css";
-
-import awardIcon from 'assets/icons/award.png';
-import medalIcon from 'assets/icons/medal.png';
-import podiumIcon from 'assets/icons/podium.png';
-import flagIcon from 'assets/icons/flag.png';
 
 const views = [{ text : 10, value : 10 }, { text : 25, value : 25 }, { text : 50, value : 50 }, { text : 100, value : 100 }];
 const allGames =  { text : 'All Games', value : 'all_games' };
@@ -39,7 +34,8 @@ const rows = {
             {
                 value : 'winAmount',
                 dependentColor : true,
-                condition : 'isWon'
+                condition : 'isWon',
+                currency: true
             },
             {
                 value : 'payout',
@@ -62,7 +58,8 @@ const rows = {
             {
                 value : 'winAmount',
                 dependentColor : true,
-                condition : 'isWon'
+                condition : 'isWon',
+                currency: true
             },
             {
                 value : 'payout',
@@ -88,7 +85,8 @@ const rows = {
             {
                 value : 'winAmount',
                 dependentColor : true,
-                condition : 'isWon'
+                condition : 'isWon',
+                currency: true
             },
             {
                 value : 'payout',
@@ -124,7 +122,7 @@ const defaultProps = {
     biggest_win_bets : rows.biggest_win_bets,
     biggest_win_users : rows.biggest_win_users,
     view        : 'all_bets',
-    view_amount : views[1],
+    view_amount : views[0],
     gamesOptions : [],
     games : [],
     options : [],
@@ -137,7 +135,7 @@ class LastBets extends Component {
     static contextType = UserContext;
 
     static propTypes = {
-        onHandleLoginOrRegister: PropTypes.func.isRequired
+        onHandleLoginOrRegister: PropTypes.func
     };
     
     constructor(props){
@@ -174,9 +172,8 @@ class LastBets extends Component {
     }
     
     projectData = async (props, options=null) => {
-        let { profile, ln } = props;
+        let { profile, ln, onTableDetails } = props;
         let { view_amount, view_game } = this.state;
-        const currencies = getApp().currencies;
 
         let games = getGames().filter(g => g.metaName != 'jackpot_auto');
         let gamesOptions = [];
@@ -220,6 +217,19 @@ class LastBets extends Component {
                 my_bets = await profile.getMyBets({size : view_amount.value});
             }
         }
+
+        if(all_bets.length > view_amount.value) {
+            all_bets = all_bets.slice(0, view_amount.value);
+        }
+
+        if(biggest_winners_bets.length > view_amount.value) {
+            biggest_winners_bets = biggest_winners_bets.slice(0, view_amount.value);
+        }
+
+        if(biggest_win_users.length > view_amount.value) {
+            biggest_win_users = biggest_win_users.slice(0, view_amount.value);
+        }
+
         this.setState({...this.state, 
             ...options,
             isLoading : false,
@@ -231,16 +241,16 @@ class LastBets extends Component {
                 const value = new String(key).toLowerCase();
 
                 if(value === "all_bets"){
-                    icon = medalIcon;
+                    icon = <CheckIcon/>;
                 }
                 else if(value === "my_bets"){
-                    icon = flagIcon;
+                    icon = <RewardIcon/>;
                 }
                 else if(value === "biggest_win_bets"){
-                    icon = awardIcon;
+                    icon = <TrophyIcon/>;
                 }
                 else if(value === "biggest_win_users"){
-                    icon = podiumIcon;
+                    icon = <AffiliateIcon/>;
                 }
 
                 return {
@@ -253,19 +263,16 @@ class LastBets extends Component {
                 ...this.state.all_bets,
                 titles : copy.TABLE.ALL_BETS.ITEMS,
                 rows : all_bets.map( (bet) =>  {
-                    const currenncy = (currencies.find(currency => currency._id == bet.currency));
-                    const ticker = currenncy ? currenncy.ticker : "";
-
                     return {
-                        game: (games.find(game => game._id === bet.game)),
+                        game: (games.find(game => game._id === bet.game._id)),
                         id: bet._id,
-                        username: bet.username.length > 10 ? bet.username.substring(0, 4)+'...'+bet.username.substring(bet.username.length-3, bet.username.length) : bet.username,
-                        timestamp: dateToHourAndMinute(bet.timestamp),
-                        betAmount: formatCurrency(Numbers.toFloat(bet.betAmount))+' '+ticker,
-                        winAmount: formatCurrency(Numbers.toFloat(bet.winAmount))+' '+ticker,
-                        isWon : bet.isWon,
-                        payout : `${formatCurrency(Numbers.toFloat(bet.winAmount/bet.betAmount))}x`,
-                        ticker
+                        username: bet.user.username.length > 10 ? bet.user.username.substring(0, 4)+'...'+bet.user.username.substring(bet.user.username.length-3, bet.user.username.length) : bet.user.username,
+                        timestamp: dateToHourAndMinute(bet.bet.timestamp),
+                        betAmount: formatCurrency(Numbers.toFloat(bet.bet.betAmount)),
+                        winAmount: formatCurrency(Numbers.toFloat(bet.bet.winAmount)),
+                        isWon : bet.bet.isWon,
+                        payout : `${formatCurrency(Numbers.toFloat(bet.bet.winAmount/bet.bet.betAmount))}x`,
+                        currency: bet.currency._id
                     }
                 })
             },
@@ -273,17 +280,15 @@ class LastBets extends Component {
                 ...this.state.my_bets,
                 titles : copy.TABLE.MY_BETS.ITEMS,
                 rows : my_bets.map( (bet) =>  {
-                    const currenncy = (currencies.find(currency => currency._id == bet.currency));
-                    const ticker = currenncy ? currenncy.ticker : "";
-
                     return {
                         game: (games.find(game => game._id === bet.game)),
                         id: bet._id,
                         timestamp: dateToHourAndMinute(bet.timestamp),
-                        betAmount: formatCurrency(Numbers.toFloat(bet.betAmount))+' '+ticker,
-                        winAmount: formatCurrency(Numbers.toFloat(bet.winAmount))+' '+ticker,
+                        betAmount: formatCurrency(Numbers.toFloat(bet.betAmount)),
+                        winAmount: formatCurrency(Numbers.toFloat(bet.winAmount)),
                         isWon : bet.isWon,
-                        payout : `${formatCurrency(Numbers.toFloat(bet.winAmount/bet.betAmount))}x`
+                        payout : `${formatCurrency(Numbers.toFloat(bet.winAmount/bet.betAmount))}x`,
+                        currency: bet.currency
                     }
                 })
             },
@@ -291,18 +296,16 @@ class LastBets extends Component {
                 ...this.state.biggest_win_bets,
                 titles : copy.TABLE.BIGGEST_WIN_BETS.ITEMS,
                 rows : biggest_winners_bets.map( (bet) =>  {
-                    const currenncy = (currencies.find(currency => currency._id == bet.currency));
-                    const ticker = currenncy ? currenncy.ticker : "";
-
                     return {
-                        game: (games.find(game => game._id === bet.game)),
+                        game: (games.find(game => game._id === bet.game._id)),
                         id: bet._id,
-                        username: bet.username.length > 10 ? bet.username.substring(0, 4)+'...'+bet.username.substring(bet.username.length-3, bet.username.length) : bet.username,
-                        timestamp: dateToHourAndMinute(bet.timestamp),
-                        betAmount: formatCurrency(Numbers.toFloat(bet.betAmount))+' '+ticker,
-                        winAmount: formatCurrency(Numbers.toFloat(bet.winAmount))+' '+ticker,
-                        isWon : bet.isWon,
-                        payout : `${formatCurrency(Numbers.toFloat(bet.winAmount/bet.betAmount))}x`
+                        username: bet.user.username.length > 10 ? bet.user.username.substring(0, 4)+'...'+bet.user.username.substring(bet.user.username.length-3, bet.user.username.length) : bet.user.username,
+                        timestamp: dateToHourAndMinute(bet.bet.timestamp),
+                        betAmount: formatCurrency(Numbers.toFloat(bet.bet.betAmount)),
+                        winAmount: formatCurrency(Numbers.toFloat(bet.bet.winAmount)),
+                        isWon : bet.bet.isWon,
+                        payout : `${formatCurrency(Numbers.toFloat(bet.bet.winAmount/bet.bet.betAmount))}x`,
+                        currency: bet.currency._id
                     }
                 })
             },
@@ -310,42 +313,29 @@ class LastBets extends Component {
                 ...this.state.biggest_win_users,
                 titles : copy.TABLE.BIGGEST_WIN_USERS.ITEMS,
                 rows : biggest_win_users.map( (bet, index) =>  {
-                    const currenncy = (currencies.find(currency => currency._id == bet.currency));
-                    const ticker = currenncy ? currenncy.ticker : "";
-
                     return {
                         position : `${index+1}º`,
-                        username: bet._id,
-                        winAmount: formatCurrency(Numbers.toFloat(bet.winAmount))+' '+ticker,
+                        username: bet.user.username.length > 10 ? bet.user.username.substring(0, 4)+'...'+bet.user.username.substring(bet.user.username.length-3, bet.user.username.length) : bet.user.username,
+                        winAmount: formatCurrency(Numbers.toFloat(bet.winAmount)),
                         isWon : (index < 3),
+                        currency: bet.currency._id
                     }
                 })
             }
         })
     }
 
-    createSkeletonTabs = () => {
-        let tabs = []
-
-        for (let i = 0; i < 4; i++) {
-          tabs.push(<div styleName="skeleton-main-item"><div styleName="skeleton-left-item"><Skeleton circle={true} height={30} width={30}/></div><div styleName="skeleton-right-item"><Skeleton height={30}/></div></div>);
-        }
-
-        return tabs
-    }
-
     render() {
+        const { onTableDetails } = this.props;
         const { games, gamesOptions, isLoading, isListLoading, view_game } = this.state;
-
+        
         return (
             <div styleName='container'>
                 {isLoading ?
                     <SkeletonTheme color={ getSkeletonColors().color} highlightColor={ getSkeletonColors().highlightColor}>
                         <div styleName='lastBets' style={{opacity : '0.5'}}>
                             <div styleName='skeleton-tabs'>
-                                {this.createSkeletonTabs()}
-                                <Skeleton width={80}/>
-                                <Skeleton width={40}/>
+                                <Skeleton height={40}/>
                             </div>
                         </div>
                     </SkeletonTheme>
@@ -383,6 +373,7 @@ class LastBets extends Component {
                     size={this.state.view_amount.value}
                     games={games.filter(function(g) { return view_game.value == 'all_games' || g.metaName == view_game.value; }).map(function(g) { return g; })}
                     isLoading={isListLoading}
+                    onTableDetails={onTableDetails ? onTableDetails : null}
                 /> 
             </div>
         );

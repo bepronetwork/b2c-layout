@@ -264,7 +264,7 @@ class DiceGameOptions extends Component {
     renderManual = () => {
         const { amount } = this.state;
         const {ln} = this.props;
-const copy = CopyText.diceGameOptionsIndex[ln];
+        const copy = CopyText.diceGameOptionsIndex[ln];
    
         return (
             <div>
@@ -284,7 +284,7 @@ const copy = CopyText.diceGameOptionsIndex[ln];
 
     renderAmountDice = () => {   
         const {ln} = this.props;
-const copy = CopyText.diceGameOptionsIndex[ln];
+        const copy = CopyText.diceGameOptionsIndex[ln];
 
         return (
             <div>
@@ -342,54 +342,57 @@ const copy = CopyText.diceGameOptionsIndex[ln];
         <div styleName="root">
             {this.renderSound()}
             <div styleName="toggle">
-            <ToggleButton
-                config={{
-                    left: { value: "manual", title: copy.INDEX.TOGGLE_BUTTON.TITLE[0]},
-                    right: { value: "auto", title: copy.INDEX.TOGGLE_BUTTON.TITLE[1]}
-                }}
-                selected={type}
-                size="full"
-                differentBorders
-                onSelect={this.handleType}
-            />
+                <ToggleButton
+                    config={{
+                        left: { value: "manual", title: copy.INDEX.TOGGLE_BUTTON.TITLE[0]},
+                        right: { value: "auto", title: copy.INDEX.TOGGLE_BUTTON.TITLE[1]}
+                    }}
+                    selected={type}
+                    size="full"
+                    differentBorders
+                    onSelect={this.handleType}
+                />
             </div>
-            <div styleName="amount">
-            <Typography variant="small-body" weight="semi-bold" color="casper">
-                {copy.INDEX.TYPOGRAPHY.TEXT[0]}
-            </Typography>
-            <div styleName="amount-container">
-                <InputNumber
-                    name="amount"
-                    value={amount}
-                    max={(user && !_.isEmpty(user)) ? user.getBalance() : null}
-                    step={0.01}
-                    icon="bitcoin"
-                    precision={2}
-                    onChange={this.handleBetAmountChange}
-                    />
-                <MultiplyMaxButton onSelect={this.handleMultiply} />
+            <div styleName="bet-properties">
+                <div styleName="amount">
+                    <Typography variant="small-body" weight="semi-bold" color="casper">
+                        {copy.INDEX.TYPOGRAPHY.TEXT[0]}
+                    </Typography>
+                    <div styleName="amount-container">
+                        <InputNumber
+                            name="amount"
+                            value={amount}
+                            max={(user && !_.isEmpty(user)) ? user.getBalance() : null}
+                            step={0.01}
+                            icon="bitcoin"
+                            precision={2}
+                            onChange={this.handleBetAmountChange}
+                            />
+                        <MultiplyMaxButton onSelect={this.handleMultiply} />
+                    </div>
+                </div>
+                <div styleName="content">
+                    {this.renderAmountDice()}
+                </div>
+                <div styleName="content">
+                    {type === "manual" ? this.renderManual() : this.renderAuto()}
+                </div>
+            
+                <div styleName="button">
+                    <Button
+                        disabled={!this.isBetValid() || this.isInAutoBet()}
+                        onClick={this.handleBet}
+                        fullWidth
+                        theme="primary"
+                        animation={<Dice />}
+                    >
+                        <Typography weight="semi-bold" color="pickled-bluewood">
+                            {type === "manual" ? copy.INDEX.TYPOGRAPHY.TEXT[1] : copy.INDEX.TYPOGRAPHY.TEXT[2]}
+                        </Typography>
+                    </Button>
+                </div>
             </div>
-            </div>
-            <div styleName="content">
-                {this.renderAmountDice()}
-            </div>
-            <div styleName="content">
-            {type === "manual" ? this.renderManual() : this.renderAuto()}
-            </div>
-         
-            <div styleName="button">
-            <Button
-                disabled={!this.isBetValid() || this.isInAutoBet()}
-                onClick={this.handleBet}
-                fullWidth
-                theme="primary"
-                animation={<Dice />}
-            >
-                <Typography weight="semi-bold" color="pickled-bluewood">
-                    {type === "manual" ? copy.INDEX.TYPOGRAPHY.TEXT[1] : copy.INDEX.TYPOGRAPHY.TEXT[2]}
-                </Typography>
-            </Button>
-            </div>
+            
         </div>
         );
     }

@@ -114,14 +114,14 @@ async function processResponse(response){
 
 function loadFakeBets(rows, games, size) {
     /* fake random value */
+    var game = games[Math.floor(Math.random() * games.length)];
     var row = rows[Math.floor(Math.random() * rows.length)];
-    let ticker = row ? row.ticker : 'ETH';
+    let currency = row ? row.currency : null;
     const virtual = getApp().virtual;
     if (virtual === true) {
-        let currencies = getApp().currencies;
-        ticker = currencies.find(c => c.virtual === true).ticker;
+        currency = getApp().currencies.find(c => c.virtual === true);
     }
-    var game = games[Math.floor(Math.random() * games.length)];
+
     let fakeUserName = faker.internet.userName();
     let fakeId = faker.random.uuid().replace(/-/g, '').substring(0, 24);
     let randomArray = [];
@@ -146,8 +146,8 @@ function loadFakeBets(rows, games, size) {
             payout: randomValue.payout + 'x',
             timestamp: "a few seconds ago",
             username: fakeUserName.length > 10 ? fakeUserName.substring(0, 4)+'...'+fakeUserName.substring(fakeUserName.length-3, fakeUserName.length) : fakeUserName,
-            winAmount: randomValue.winAmount + ' ' + ticker,
-            ticker
+            winAmount: randomValue.winAmount,
+            currency
         }
 
         rows.unshift(newRow);

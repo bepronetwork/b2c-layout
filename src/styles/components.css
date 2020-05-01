@@ -3,7 +3,7 @@
 $primary-background-color : $backgroundColor;
 $secondary-background-color : $primaryColor;
 $light-table-color : $secondaryColor;
-$dark-table-color : $thirdColor;
+$dark-table-color : $primaryColor-dark-3;
 $text-primary-color : $forthColor;
 $text-secondary-color : $fifthColor;
 $background-shadow : $sixthColor;

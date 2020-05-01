@@ -40,10 +40,13 @@
     display: grid;
     align-items: center;
     gap: $spacing-8;
-    margin: $spacing-88 0 $spacing-28 0;
+    margin: $spacing-28 0 0 0;
+    background-color: $primaryColor-light-2;
+    border-radius: $border-radius $border-radius 0 0;
 
     @media screen and (max-width: 767px) {
         gap: $spacing-4;
+        margin-top: $spacing-64;
     }
 }
 

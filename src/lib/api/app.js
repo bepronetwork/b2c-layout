@@ -35,8 +35,14 @@ async function getLastBets({size, game}) {
             size,
             game
         });
-    
-        return response.data.data.message;
+
+        if(response.data.data.message.hasOwnProperty('lastBets')) {
+            return response.data.data.message.lastBets;
+        }
+        else {
+            return [];
+        }
+        
     } catch (error) {
         return handleError(error);
     }
@@ -49,8 +55,14 @@ async function getBiggestBetWinners({size, game}) {
             size,
             game
         });
-    
-        return response.data.data.message;
+
+        if(response.data.data.message.hasOwnProperty('biggestBetWinner')) {
+            return response.data.data.message.biggestBetWinner;
+        }
+        else {
+            return [];
+        }
+
     } catch (error) {
         return handleError(error);
     }
@@ -63,7 +75,14 @@ async function getBiggestUserWinners({size, game}) {
             size,
             game
         });
-        return response.data.data.message;
+
+        if(response.data.data.message.hasOwnProperty('biggestUserWinner')) {
+            return response.data.data.message.biggestUserWinner;
+        }
+        else {
+            return [];
+        }
+
     } catch (error) {
         return handleError(error);
     }

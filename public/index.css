@@ -378,11 +378,6 @@ ul, li {
     list-style-type: none !important;
 }
 
-
-.nav-link.active{
-    background-color : #7e84be !important;
-}
-
 a{
     color : none !important;
 }
@@ -392,12 +387,20 @@ a > .mdi-icon{
 }
 
 .nav-link{
-    color : white !important;
+    padding: 0;
+    border-radius: 5px;
+}
+
+.nav-link.active{
+  background-color : unset;
 }
 
 .nav-item{
-    height: 40px;
     border-radius: 0;
+}
+
+.nav-pills .nav-link {
+  border-radius: 0;
 }
 
 .MuiPaper-root{

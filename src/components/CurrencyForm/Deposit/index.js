@@ -11,7 +11,7 @@ class CurrencyDepositForm extends React.Component{
         super(props);
         this.state = {
             updated : false,
-            currencies : [],
+            wallets : []
         }
     }
 
@@ -24,11 +24,10 @@ class CurrencyDepositForm extends React.Component{
     }
 
     projectData = async (props) => {
-        let currencies = getApp().currencies;
-        currencies = currencies.filter(c => c.virtual === false);
+        const wallets = getApp().wallet.filter(w => w.currency.virtual === false);
 
         this.setState({...this.state,
-            currencies
+            wallets
         })
     }
     changeCurrency = async (c) => {
@@ -36,22 +35,23 @@ class CurrencyDepositForm extends React.Component{
     }
 
     render(){
-        const { currencies } = this.state;
+        const { wallets } = this.state;
         const { deposit } = this.props;
         const {ln} = this.props;
         const copy = CopyText.currencyFormIndex[ln];
 
         return (
             <div>
-                {currencies.map( c => {
+                {wallets.map( w => {
                     return (
                         <PaymentBox 
-                            onClick={ () => this.changeCurrency(c)}
-                            isPicked={new String(deposit.currency._id).toString() == new String(c._id).toString()}
-                            id={`${c.ticker}`}  
-                            image={c.image} type={`${c.name}`} 
+                            onClick={ () => this.changeCurrency(w.currency)}
+                            isPicked={new String(deposit.currency._id).toString() == new String(w.currency._id).toString()}
+                            id={`${w.currency.ticker}`}
+                            image={w.image ? w.image : w.currency.image}
+                            type={`${w.currency.name}`}
                             description={copy.INDEX.PAYMENTBOX.DESCRIPTION[0]}
-                            currency={c}
+                            currency={w.currency}
                         />
                     )
                 })}
