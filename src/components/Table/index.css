@@ -3,6 +3,7 @@
 .table-row {
     width: 100%;
     background-color: $primaryColor;
+    border-radius: 0 0 $border-radius $border-radius;
 }
 
 .th-row {

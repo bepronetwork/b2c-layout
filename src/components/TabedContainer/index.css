@@ -43,5 +43,6 @@
     background-color: $primaryColor-light-3;
     padding: $spacing-28;
     border-radius: $border-radius;
+    height: 100%;
     /*box-shadow: color(#000 alpha(75%)) 0px 0px 10px;*/
 }

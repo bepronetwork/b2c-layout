@@ -1,7 +1,9 @@
 import React from "react";
 import { connect } from "react-redux";
-import { Tabs, DepositForm, WithdrawForm, DepositTable, WithdrawTable, WithdrawIcon, DepositIcon } from "components";
+import { Tabs, DepositForm, WithdrawForm, WithdrawIcon, DepositIcon } from "components";
 import PaymentBox from "../PaymentBox";
+import DepositList from "./DepositList";
+import WithdrawList from "./WithdrawList";
 import { CopyText } from '../../copy';
 import { getApp } from "../../lib/helpers";
 import { Col, Row } from 'reactstrap';
@@ -86,23 +88,22 @@ class WalletTab extends React.Component{
                                 options={[
                                 {
                                     value: "deposit",
-                                    label: virtual === true ? copy.INDEX.TABS.LABEL[2] : copy.INDEX.TABS.LABEL[0],
-                                    icon: <DepositIcon/>
+                                    label: virtual === true ? copy.INDEX.TABS.LABEL[2] : copy.INDEX.TABS.LABEL[0]
                                 },
                                 {   
                                     value: "withdraw", 
                                     label: copy.INDEX.TABS.LABEL[1],
-                                    disabled: virtual  === true,
-                                    icon: <WithdrawIcon/>
+                                    disabled: virtual  === true
                                 }
                                 ]}
                                 onSelect={this.handleTabChange}
+                                style="full-background"
                             />
                         </div>
                         {tab === "deposit" ? 
-                            <div><DepositForm  wallet={wallet} /> <DepositTable isCurrentPath={isCurrentPath} /></div> 
+                            <div><DepositForm  wallet={wallet} /> <DepositList isCurrentPath={isCurrentPath} /></div> 
                         : 
-                            <div><WithdrawForm wallet={wallet} /> <WithdrawTable isCurrentPath={isCurrentPath} /></div>
+                            <div><WithdrawForm wallet={wallet} /> <WithdrawList isCurrentPath={isCurrentPath} /></div>
                         }
                     </Col>
                 </Row>
