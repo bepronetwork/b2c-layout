@@ -122,7 +122,7 @@ const defaultProps = {
     biggest_win_bets : rows.biggest_win_bets,
     biggest_win_users : rows.biggest_win_users,
     view        : 'all_bets',
-    view_amount : views[1],
+    view_amount : views[0],
     gamesOptions : [],
     games : [],
     options : [],

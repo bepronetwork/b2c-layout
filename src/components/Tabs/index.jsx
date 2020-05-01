@@ -20,7 +20,7 @@ export default class Tabs extends Component {
     };
 
     renderTabs = () => {
-        const { options, selected } = this.props;
+        const { options, selected, style } = this.props;
         const filteredOptions = options.filter(o => !o.disabled);
 
         if (!filteredOptions) {
@@ -38,6 +38,7 @@ export default class Tabs extends Component {
                         icon={option.icon}
                         onClick={this.handleTabClick}
                         selected={selectedTab === option.value}
+                        style={style}
                     />
             ))
             }

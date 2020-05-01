@@ -36,6 +36,24 @@
   }
 }
 
+.fullBackground {
+  background-color: $primaryColor;
+  border-radius: $border-radius; 
+
+  button {
+    border-radius: $border-radius; 
+  }
+}
+
+.fullBackgroundSelected {
+  background-color: $secondaryColor;
+  border-radius: $border-radius; 
+
+  button {
+    border-radius: $border-radius; 
+  }
+}
+
 .selected{
   border-bottom: 2px solid $secondaryColor;
 

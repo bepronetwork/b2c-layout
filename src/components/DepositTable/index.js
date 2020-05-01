@@ -38,7 +38,7 @@ const rows = {
 const defaultProps = {
     deposits     : rows.deposits,
     view        : 'deposits',
-    view_amount : views[1],
+    view_amount : views[0],
     isLoading: true,
     isListLoading : true
 }

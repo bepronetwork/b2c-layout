@@ -268,7 +268,7 @@
     float: left;
 
     .diff-won{
-        padding-left: 56px;
+        padding-left: 40px;
         position: absolute;
         * {
             color: $green;
@@ -279,7 +279,7 @@
     }
 
     .diff-lost{
-        padding-left: 56px;
+        padding-left: 40px;
         position: absolute;
         * {
             color: $red;

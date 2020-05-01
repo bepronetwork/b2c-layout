@@ -46,7 +46,7 @@ const rows = {
 const defaultProps = {
     my_bets     : rows.my_bets,
     view        : 'my_bets',
-    view_amount : views[1],
+    view_amount : views[0],
     gamesOptions : [],
     games : [],
     options : [],

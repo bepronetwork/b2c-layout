@@ -1,7 +1,6 @@
 import React, { Component } from "react";
-import { Typography } from 'components';
+import { Typography, Toggle } from 'components';
 import { connect } from "react-redux";
-import BootstrapSwitchButton from 'bootstrap-switch-button-react'
 import Cache from "../../lib/cache/cache";
 import { CopyText } from '../../copy';
 import _ from 'lodash';
@@ -50,21 +49,7 @@ class SettingsTab extends Component {
                         <Typography variant={'small-body'} color={'casper'}>{copy.INDEX.TOGGLE_FORM.TITLE[0]}</Typography>
                     </div>
                     <div styleName='value'>
-                        <div styleName="toggle">
-                            <div styleName="toggle-text">
-                                <Typography variant={'small-body'} color={'white'} weight={'semi-bold'}>{backgroundMusic === true ? 'ON' : 'OFF'}</Typography>
-                            </div>
-                            <BootstrapSwitchButton 
-                                checked={backgroundMusic} 
-                                id={'background-music'}  
-                                onChange={() => this.handleBackgroundMusicToggle()} 
-                                onstyle="dark" 
-                                offstyle="secondary" 
-                                size="xs" 
-                                width={10} 
-                                onlabel=" " 
-                                offlabel=" "/>
-                        </div>
+                        <Toggle id={'background-music'} checked={backgroundMusic} onChange={() => this.handleBackgroundMusicToggle()} />
                     </div>
                 </div>
             </div>
