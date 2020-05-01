@@ -135,7 +135,7 @@ class ChatPage extends React.Component {
                             </div>
                         </div>
                         <div styleName={'info-message-container'}>
-                            <Typography variant="x-small-body" color="white">
+                            <Typography variant="small-body" color="white">
                                 {message}
                             </Typography>
                         </div>
@@ -187,6 +187,8 @@ class ChatPage extends React.Component {
                                 :
                                     <div styleName={'red-light'}/>
                                 }
+                            </div>
+                            <div styleName="right">
                                 <div styleName={'users-box'}>
                                     <Typography variant="small-body" color="casper">
                                         {this.state.participants} 
@@ -195,9 +197,6 @@ class ChatPage extends React.Component {
                                         <UsersIcon />
                                     </div>
                                 </div>
-                            </div>
-                            <div styleName="language">
-                                <LanguageSelector showLabel={false} expand="bottom" onChange={this.changeLanguage}/>
                             </div>
                         </div>
                         <div ref={el => { this.el = el; }} styleName="text-container" onScroll={this.handleScroll}>

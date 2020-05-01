@@ -32,7 +32,7 @@ const footerStaticOutput = ({props, supportLinks, communityLinks}) => {
                     },
                     {
                         type : 'text',
-                        text : `@2019 ${info.name}`,
+                        text : `@${new Date().getFullYear()} ${info.name}`,
                         size : "x-small-body",
                         color : 'casper',
                     },

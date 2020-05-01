@@ -52,7 +52,6 @@
   background: $primaryColor-light-3;
 
   border-radius: $spacing-4;
-  width: 128px;
 
   bottom: 49px;
 
@@ -102,10 +101,19 @@
   display: inline-block;
   height: 1em;
   stroke-width: 0;
+  margin-top: 0.4em;
   margin-bottom: 0.4em;
 }
 
 .item svg{
-  margin-left: 40px;
-  margin-top: -20px;
+  margin-left: $spacing-12;
+}
+
+.itemHor {
+  display: flex;
+  flex-direction: unset;
+
+  img {
+    margin-right: $spacing-8;
+  }
 }

@@ -1,7 +1,7 @@
 @import "../../styles/all.css";
 
 .box {
-    padding: $spacing-36 12%;
+    padding: $spacing-8 12%;
 }
 
 .field{

@@ -3,7 +3,7 @@
 .footer {
     text-align: center;
     padding : $spacing-36;
-    margin-top : $spacing-36;
+    margin-top : $spacing-16;
     background-color : $footer-background;
     border-radius: $border-radius;
 }
@@ -21,7 +21,7 @@
     @include Breakpoint-tabletAndAbove {
         max-width: $content-width-desktop;
         padding-top : 10px !important;
-        padding: calc($navbar-height + $spacing-36) $spacing-20 0 $spacing-20;
+        padding: calc($navbar-height + $spacing-36) $spacing-8 0 $spacing-8;
         margin: 0 auto;
     }
 

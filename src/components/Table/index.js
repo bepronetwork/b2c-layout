@@ -52,11 +52,13 @@ class TableDefault extends Component {
 
     addRow = async () =>  {
         let { rows } = this.state; 
-        const { size, games } = this.props;
+        const { showRealTimeLoading, size, games } = this.props;
 
-        await delay(1000);
-        rows = loadFakeBets(rows, games, size);
-        this.setState({ rows, isLoadingRow : true });
+        if(showRealTimeLoading) {
+            await delay(1000);
+            rows = loadFakeBets(rows, games, size);
+            this.setState({ rows, isLoadingRow : true });
+        }
     }
 
     createSkeletonRows = () => {
