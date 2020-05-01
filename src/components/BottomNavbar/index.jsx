@@ -104,7 +104,7 @@ class BottomNavbar extends Component {
                         </a>
                     </li>
                     <li>
-                        <LanguageSelector showLabel={true} expand="top" />
+                        <LanguageSelector expand="top" />
                     </li>
                 </ul>
             </div>

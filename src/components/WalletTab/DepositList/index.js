@@ -39,7 +39,7 @@ class DepositList extends Component {
         if(profile && !_.isEmpty(profile)){
             deposits = await profile.getDeposits();
 
-            deposits = deposits > 5 ? deposits.slice(0, 5) : deposits;
+            deposits = deposits.length > 5 ? deposits.slice(0, 5) : deposits;
         }
 
         this.setState({...this.state, 

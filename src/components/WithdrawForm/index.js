@@ -5,6 +5,7 @@ import { InputNumber,  Typography, InputText } from 'components';
 import { Col, Row } from 'reactstrap';
 import { getApp } from "../../lib/helpers";
 import { setMessageNotification } from '../../redux/actions/message';
+import { setWithdrawInfo } from "../../redux/actions/withdraw";
 import store from 'containers/App/store';
 import building from 'assets/blockchain.png';
 import loading from 'assets/loading.gif';
@@ -42,6 +43,10 @@ class WithdrawForm extends Component {
             this.setState({...this.state, isLoaded: false, addressInitialized : false });
         }
         this.projectData(props);
+    }
+
+    setWithdrawInfoInRedux = async ({id}) => {
+        await store.dispatch(setWithdrawInfo({key : 'id', value : id}));
     }
 
     getCurrencyAddress = async () => {

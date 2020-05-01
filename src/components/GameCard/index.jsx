@@ -46,13 +46,6 @@ class GameCard extends Component {
             <div styleName="root">
                 <Link to={path} styleName="button">
                     <div styleName={imageStyles} style={{ background: background_url ? 'url('+background_url+') center center / cover no-repeat' : null}}>
-                        <div styleName="labels-edge">
-                            <div styleName='info-holder'>
-                                <Typography variant="x-small-body" color="grey">
-                                    {edge >= 0 ? `${edge}% ${copy.EDGE_NAME}` : ""} 
-                                </Typography>
-                            </div>
-                        </div>
                         <div styleName="icon">
                             <img src={image_url} styleName='game-icon'/>
                         </div>
@@ -61,6 +54,11 @@ class GameCard extends Component {
                         <div styleName="title">
                             <Typography variant="small-body" weight="semi-bold" color="white">
                                 {title}
+                            </Typography>
+                        </div>
+                        <div styleName='info-holder'>
+                            <Typography variant="x-small-body" color="grey">
+                                {edge >= 0 ? `${edge}% ${copy.EDGE_NAME}` : ""} 
                             </Typography>
                         </div>
                     </div>

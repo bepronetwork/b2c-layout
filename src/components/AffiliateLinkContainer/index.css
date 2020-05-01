@@ -6,11 +6,11 @@
     box-sizing: border-box;
     background: $primaryColor-light-5;
     overflow: hidden;
-    margin : $spacing-36 $spacing-12;
+    margin-bottom : $spacing-20;
     text-align : left;
     position: relative;
     height: auto;
-    padding: $spacing-36 $spacing-36;
+    padding: $spacing-20 $spacing-20;
     border-radius: $border-radius;
 }
 
@@ -34,7 +34,7 @@
 
 .link-text-container{
     width : auto;
-    padding: $spacing-16 $spacing-16;
+    padding: $spacing-12 $spacing-12;
     text-align : left;
     overflow: hidden;
     height: auto;
@@ -88,7 +88,7 @@
 
 .text-copy-container{
     border : none;
-    padding: $spacing-16 $spacing-16;
+    padding: $spacing-12 $spacing-12;
     border-radius :  0 $border-radius $border-radius 0;
     background-color: $secondaryColor;
     width : 100%;
@@ -107,7 +107,7 @@
 
 .copied {
     position: absolute;
-    margin-left: 30%;
+    margin-left: 50%;
     margin-top: -$spacing-20;
 
     @include Breakpoint-mobileOnly {

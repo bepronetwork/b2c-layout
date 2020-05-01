@@ -30,16 +30,20 @@
 }
 
 .container-small{
-    margin: $spacing-28 0 0 0;
+    margin: $spacing-8 0 0 0;
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-    gap: 1.2rem 1.2rem;
 }
 
 .last-bets {
-    padding: 0 $spacing-20;
+    padding: 0 $spacing-8;
 
     @media screen and (max-width: 767px) {
       display: none;
     }
+}
+
+.col {
+  padding-right: $spacing-8;
+  padding-left: $spacing-8;
 }

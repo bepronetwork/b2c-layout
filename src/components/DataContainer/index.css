@@ -4,7 +4,7 @@
 
 .container-root{
     width : 100%;
-    margin : 10px auto;
+    margin-bottom : $spacing-20;
     border-radius: $border-radius;
     padding : $spacing-8 $spacing-20;
     background: $primaryColor-light-5;

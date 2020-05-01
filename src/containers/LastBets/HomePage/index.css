@@ -42,7 +42,7 @@
     gap: $spacing-8;
     margin: $spacing-28 0 0 0;
     background-color: $primaryColor-light-2;
-    border-radius: $border-radius $border-radius 0 0;
+    border-radius: $border-radius;
 
     @media screen and (max-width: 767px) {
         gap: $spacing-4;

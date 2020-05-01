@@ -32,7 +32,7 @@
 
 .menu {
     background-color: $primaryColor-light-3;
-    border-radius: $border-radius;
+    border-radius: 0 0 $border-radius $border-radius;
 }
 
 .page {
