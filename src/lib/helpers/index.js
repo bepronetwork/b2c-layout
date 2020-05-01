@@ -121,6 +121,7 @@ function loadFakeBets(rows, games, size) {
     if (virtual === true) {
         currency = getApp().currencies.find(c => c.virtual === true);
     }
+
     let fakeUserName = faker.internet.userName();
     let fakeId = faker.random.uuid().replace(/-/g, '').substring(0, 24);
     let randomArray = [];

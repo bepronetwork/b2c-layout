@@ -216,6 +216,7 @@ class LastBets extends Component {
                         isWon : bet.bet.isWon,
                         payout : `${formatCurrency(Numbers.toFloat(bet.bet.winAmount/bet.bet.betAmount))}x`,
                         currency: bet.currency._id
+
                     }
                 }).filter( el => el.isWon === true)
             },

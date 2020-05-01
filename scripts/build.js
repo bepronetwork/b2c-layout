@@ -91,7 +91,7 @@ async function generateHeadElements(){
         const fontName = name ? "$font-family: " + name + ";" : "";
 
         fs.writeFile("src/styles/serverFonts.css", fontName, () => {
-            console.log("done");
+            console.log("Server Fonts Css Written");
         });
     }
 
@@ -231,7 +231,7 @@ async function setColors(){
     const { colors } =  appInfo.customization;
     const objectServerInfo = ServerTOJSONMapper({key : 'colors', value : colors});
     fs.writeFile("src/styles/serverVariables.css", JSONtoSASS(objectServerInfo), () => {
-        console.log("done");
+        console.log("Server Colors Css Written");
     });
 }
 

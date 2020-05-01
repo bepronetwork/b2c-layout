@@ -7,6 +7,7 @@ import { InputNumber,  Typography, InformationBox, InputText } from 'components'
 import { Col, Row } from 'reactstrap';
 import store from "../../../containers/App/store";
 import { setWithdrawInfo } from "../../../redux/actions/withdraw";
+import { getApp } from "../../../lib/helpers";
 import building from 'assets/blockchain.png';
 import loading from 'assets/loading.gif';
 import _ from 'lodash';
@@ -58,7 +59,7 @@ class AmountWithdrawForm extends Component {
         this.getCurrencyAddress();
         let balance = profile.getBalance(currency);
 
-        const w = profile.getWallet({currency});
+        const w = getApp().wallet.find(w => w.currency._id === currency._id);
 
         this.setState({...this.state, 
             ticker : currency.ticker,
