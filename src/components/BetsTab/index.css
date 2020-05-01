@@ -42,6 +42,10 @@
     }
 }
 
+.lastBets > div:first-child {
+    width: 150px;
+}
+
 .loading {
     width: 100%;
     text-align: center;
