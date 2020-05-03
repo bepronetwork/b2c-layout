@@ -123,20 +123,17 @@ function getBetOnEachNumber(betHistory) {
             ]);
     });
     let distributedBetOnEachNumber = finalBetOnEachNumber.reduce( (array, el) => {
-        var equalEl = array.find( currentEl => (currentEl.place == el.place));
-        if(equalEl){
-            array.splice( array.indexOf(equalEl, 1), 1);
-            let newEl = {
-                place : el.place,
-                value: parseFloat(el.value) + parseFloat(equalEl.value)
-            }
-            array.push(newEl);
+        var equalElIndex = array.findIndex( currentEl => (currentEl.place == el.place));
+        if(equalElIndex > -1){
+            array[equalElIndex].value +=  parseFloat(el.value);
             return array;
         }else{
             array.push(el);
             return array;
         }
     }, []).filter( el => el != null);
+
+    
     /* eslint-enable no-unused-expressions */
     return distributedBetOnEachNumber;
 }
