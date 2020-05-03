@@ -46,7 +46,7 @@ const rows = {
 const defaultProps = {
     my_bets     : rows.my_bets,
     view        : 'my_bets',
-    view_amount : views[1],
+    view_amount : views[0],
     gamesOptions : [],
     games : [],
     options : [],
@@ -63,7 +63,11 @@ class BetsTab extends Component {
     }
 
     componentDidMount(){
-        this.projectData(this.props)
+        const { isCurrentPath } = this.props;
+
+        if (isCurrentPath) {
+            this.projectData(this.props);
+        }
     }
 
     componentWillReceiveProps(props){
@@ -114,8 +118,7 @@ class BetsTab extends Component {
             options : Object.keys(copy.TABLE).map( (key) => {
                 return {
                     value : new String(key).toLowerCase(),
-                    label : copy.TABLE[key].TITLE,
-                    icon : <RewardIcon/>
+                    label : copy.TABLE[key].TITLE
                 }
             }),
             my_bets : {
@@ -203,7 +206,6 @@ class BetsTab extends Component {
                     games={games.filter(function(g) { return view_game.value == 'all_games' || g.metaName == view_game.value; }).map(function(g) { return g; })}
                     isLoading={isListLoading}
                     onTableDetails={onTableDetails ? onTableDetails : null}
-                    hasLinkToDetails={onTableDetails ? true : false}
                 /> 
             </div>
         );

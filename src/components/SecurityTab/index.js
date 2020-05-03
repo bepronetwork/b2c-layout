@@ -1,12 +1,11 @@
 import React from "react";
 import { connect } from "react-redux";
-import { Typography, Button, ToggleForm, Checkbox } from "components";
+import { Typography, Button, Toggle } from "components";
 import { set2FA } from "../../redux/actions/set2FA";
 import { setModal } from "../../redux/actions/modal";
 import { CopyText } from '../../copy';
 import store from "../../containers/App/store";
 import { setMessageNotification } from "../../redux/actions/message";
-import BootstrapSwitchButton from 'bootstrap-switch-button-react'
 import './index.css';
 
 const defaultState = {
@@ -85,21 +84,7 @@ class SecurityTab extends React.Component{
                         <Typography variant={'small-body'} color={'casper'}>{copy.INDEX.TOGGLE_FORM.TITLE[1]}</Typography>
                     </div>
                     <div styleName='value'>
-                        <div styleName="toggle">
-                            <div styleName="toggle-text">
-                                <Typography variant={'small-body'} color={'white'} weight={'semi-bold'}>{has2FA === true ? 'ON' : 'OFF'}</Typography>
-                            </div>
-                            <BootstrapSwitchButton 
-                                checked={has2FA} 
-                                id={'2fa-authentication'}  
-                                onChange={() => this.handle2FAAuthenticationToggle()} 
-                                onstyle="dark" 
-                                offstyle="secondary" 
-                                size="xs" 
-                                width={10} 
-                                onlabel=" " 
-                                offlabel=" "/>
-                        </div>
+                        <Toggle id={'2fa-authentication'} checked={has2FA} onChange={() => this.handle2FAAuthenticationToggle()} />
                     </div>
                 </div>
                 {profile.user.email_confirmed === false ?
@@ -113,8 +98,15 @@ class SecurityTab extends React.Component{
                             </Button>
                         </div>
                     </div>
-                    : 
-                    null
+                    :
+                    <div styleName="field">
+                        <div styleName='label'>
+                            <Typography variant={'small-body'} color={'casper'}>{copyConfirmEmail.CONTAINERS.APP.MODAL[2]}</Typography>
+                        </div>
+                        <div styleName='value'>
+                            <Toggle id={'confirm-email'} checked={true} disabled={true} />
+                        </div>
+                    </div>
                 }
             </div>
         )

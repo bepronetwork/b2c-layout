@@ -12,7 +12,8 @@ export default class Tab extends Component {
     label: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
     onClick: PropTypes.func,
-    selected: PropTypes.bool
+    selected: PropTypes.bool,
+    style: PropTypes.oneOf(["fullBackground", "default"])
   };
 
   static defaultProps = {
@@ -34,9 +35,11 @@ export default class Tab extends Component {
   };
 
   render() {
-    const { selected, label, icon } = this.props;
+    const { selected, label, icon, style } = this.props;
     const classes = classNames("tab", {
-      selected
+      selected,
+      fullBackground : style === "full-background",
+      fullBackgroundSelected : style === "full-background" && selected
     });
 
     return (

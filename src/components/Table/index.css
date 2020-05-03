@@ -3,13 +3,13 @@
 .table-row {
     width: 100%;
     background-color: $primaryColor;
+    border-radius: $border-radius;
 }
 
 .th-row {
     margin: auto;
     vertical-align: middle;
     padding: $spacing-12 $spacing-20;
-
     @media screen and (max-width: 767px) {
         padding: $spacing-4 $spacing-8;
     }
@@ -28,6 +28,18 @@
 
     a {
         display: inline-flex;
+
+        img {
+            margin-top: -2px;
+        } 
+    }
+
+    div {
+        display: inline-flex;
+
+        img {
+            margin-top: -2px;
+        }
     }
 
     @media screen and (max-width: 767px) {

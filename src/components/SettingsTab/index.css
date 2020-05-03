@@ -1,7 +1,7 @@
 @import "../../styles/all.css";
 
 .box {
-    padding: $spacing-36 12%;
+    padding: $spacing-8 12%;
 }
 
 .field{
@@ -22,18 +22,4 @@
 
 .button{
     margin-top : $spacing-36;
-}
-
-.toggle{
-    justify-content: flex-end;
-    display: inline-flex;
-    font-family: $font-family;
-    padding: 5px $spacing-28 5px $spacing-28;
-    background-color: $secondaryColor;
-    border-radius: $border-radius;
-}
-
-.toggle-text {
-    padding-right: $spacing-28;
-    margin: auto;
 }

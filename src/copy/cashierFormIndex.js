@@ -8,7 +8,9 @@
           "Deposit",
           "Withdraw",
           "Buy",
-          "Wallets"
+          "Wallets",
+          "Latest Deposits",
+          "Latest Withdrawals"
         ]
       }
     }
@@ -20,7 +22,9 @@
           "입금",
           "출금",
           "Buy",
-          "Wallets"
+          "Wallets",
+          "최근 입금",
+          "최근 출금"
         ]
       }
     }
@@ -32,7 +36,9 @@
           "充币",
           "提币",
           "Buy",
-          "Wallets"
+          "Wallets",
+          "最新充币",
+          "最新提币"
         ]
       }
     }
@@ -44,7 +50,9 @@
           "Deposit",
           "Withdraw",
           "Buy",
-          "Wallets"
+          "Wallets",
+          "Latest Deposits",
+          "Latest Withdrawals"
         ]
       }
     }

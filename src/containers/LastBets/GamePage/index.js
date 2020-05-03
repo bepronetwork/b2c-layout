@@ -103,7 +103,7 @@ const defaultProps = {
     my_bets     : rows.my_bets,
     biggest_win_bets : rows.biggest_win_bets,
     view        : 'all_bets',
-    view_amount : views[1],
+    view_amount : views[0],
     games : [],
     options : [],
     gameMetaName : null,
@@ -216,6 +216,7 @@ class LastBets extends Component {
                         isWon : bet.bet.isWon,
                         payout : `${formatCurrency(Numbers.toFloat(bet.bet.winAmount/bet.bet.betAmount))}x`,
                         currency: bet.currency._id
+
                     }
                 }).filter( el => el.isWon === true)
             },
@@ -297,7 +298,6 @@ class LastBets extends Component {
                     games={games.filter(function(g) { return g.metaName == gameMetaName; }).map(function(g) { return g; })}
                     isLoading={isListLoading}
                     onTableDetails={onTableDetails ? onTableDetails : null}
-                    hasLinkToDetails={onTableDetails ? true : false}
                 /> 
             </div>
         );

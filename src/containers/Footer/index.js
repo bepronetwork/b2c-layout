@@ -6,6 +6,7 @@ import { connect } from "react-redux";
 import "./index.css";
 import { getAppCustomization, getApp } from "../../lib/helpers";
 import {CopyText} from "../../copy";
+import logoMadeByBepro from 'assets/media/logo-bepro.png';
 
 const footerStaticOutput = ({props, supportLinks, communityLinks}) => {
     const { logo } = getAppCustomization();
@@ -32,7 +33,7 @@ const footerStaticOutput = ({props, supportLinks, communityLinks}) => {
                     },
                     {
                         type : 'text',
-                        text : `@2019 ${info.name}`,
+                        text : `@${new Date().getFullYear()} ${info.name}`,
                         size : "x-small-body",
                         color : 'casper',
                     },
@@ -204,10 +205,22 @@ class Footer extends Component {
                         <LanguagePicker/>
                     </div>
                     <div styleName='footer-info'>
-                        <Typography
-                            weight={footerInfo.info.size}
-                            color={footerInfo.info.color}
-                        > {footerInfo.info.text}</Typography>
+                        <Row>
+                            <Col md={10}>
+                                <Typography
+                                    weight={footerInfo.info.size}
+                                    color={footerInfo.info.color}
+                                > 
+                                    {footerInfo.info.text}
+                                </Typography>
+                            </Col>
+                            <Col md={2}>
+                                <a href={'https://betprotocol.com'} target={'_blank'}>
+                                    <img src={logoMadeByBepro} styleName='bepro-made-by-logo'/>
+                                </a>
+                            </Col>
+                        </Row>
+                      
                     </div>
                 </div>
             </div>

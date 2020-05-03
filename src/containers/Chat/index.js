@@ -24,7 +24,8 @@ const defaultProps = {
     open : true,
     history: "",
     language : languages[0],
-    isLoading: true
+    isLoading: true,
+    isGoDownVisible: false
 }
 
 class ChatPage extends React.Component {
@@ -50,7 +51,7 @@ class ChatPage extends React.Component {
             this.messagesEnd.scrollIntoView({ behavior: "smooth" });
             if(isLoading) {
                 await delay(3000);
-                this.setState({ isLoading : false });
+                this.setState({ isLoading : false, isGoDownVisible : false });
             }
         }
     }
@@ -67,6 +68,23 @@ class ChatPage extends React.Component {
             this.scrollToBottom();
         }
     }
+
+    handleScroll = async (event) => {
+        const { isGoDownVisible } = this.state;
+
+        if(isGoDownVisible === false && !this.isInViewport(this.messagesEnd)) {
+            this.setState({ isGoDownVisible : true });
+        }
+        else if(isGoDownVisible === true && this.isInViewport(this.messagesEnd)) {
+            this.setState({ isGoDownVisible : false });
+        }
+    }
+
+    isInViewport(element, offset = 0) {
+        if (!element) return false;
+        const top = element.getBoundingClientRect().top;
+        return (top + offset) >= 0 && (top - offset) <= window.innerHeight;
+      }
 
     sendMessage = async (e) => {
         e.preventDefault();
@@ -156,7 +174,7 @@ class ChatPage extends React.Component {
 
     render() {
         const { ln } = this.props;
-        const { isLoading } = this.state;
+        const { isLoading, isGoDownVisible } = this.state;
         const copy = CopyText.shared[ln];
         const copy2 = CopyText.homepage[ln];
         return (
@@ -169,6 +187,8 @@ class ChatPage extends React.Component {
                                 :
                                     <div styleName={'red-light'}/>
                                 }
+                            </div>
+                            <div styleName="right">
                                 <div styleName={'users-box'}>
                                     <Typography variant="small-body" color="casper">
                                         {this.state.participants} 
@@ -178,11 +198,8 @@ class ChatPage extends React.Component {
                                     </div>
                                 </div>
                             </div>
-                            <div styleName="language">
-                                <LanguageSelector showLabel={false} expand="bottom" onChange={this.changeLanguage}/>
-                            </div>
                         </div>
-                        <div ref={el => { this.el = el; }} styleName="text-container">
+                        <div ref={el => { this.el = el; }} styleName="text-container" onScroll={this.handleScroll}>
                             {isLoading ?
                                 this.createSkeletonMessages()
                             :
@@ -194,13 +211,18 @@ class ChatPage extends React.Component {
                                 ref={(el) => { this.messagesEnd = el; }}>
                             </div>
                         </div>
-                        <div styleName="go-down"> 
-                            <a href="#" onClick={() => this.scrollToBottom()}>
-                                <div styleName="arrow"> 
-                                    <ArrowDown />
+                        {isGoDownVisible === true
+                            ?
+                                <div styleName="go-down"> 
+                                    <a href="#" onClick={() => this.scrollToBottom()}>
+                                        <div styleName="arrow"> 
+                                            <ArrowDown />
+                                        </div>
+                                    </a>
                                 </div>
-                            </a>
-                        </div>
+                            :
+                                null
+                        }
                         <div styleName="message-container">
                             <form onSubmit={this.sendMessage}>
                                 <InputText

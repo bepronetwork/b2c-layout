@@ -4,14 +4,14 @@
     display: flex;
     flex-direction: column;
     box-sizing: border-box;
-    background: $data-container-color;
-    box-shadow : $box-shadow-light;
+    background: $primaryColor-light-5;
     overflow: hidden;
-    margin : $spacing-52 $spacing-12;
+    margin-bottom : $spacing-20;
     text-align : left;
     position: relative;
     height: auto;
-    padding: $spacing-52 $spacing-52;
+    padding: $spacing-20 $spacing-20;
+    border-radius: $border-radius;
 }
 
 
@@ -34,7 +34,7 @@
 
 .link-text-container{
     width : auto;
-    padding: $spacing-20 $spacing-20;
+    padding: $spacing-12 $spacing-12;
     text-align : left;
     overflow: hidden;
     height: auto;
@@ -88,17 +88,46 @@
 
 .text-copy-container{
     border : none;
-    padding: $spacing-20 $spacing-20;
+    padding: $spacing-12 $spacing-12;
     border-radius :  0 $border-radius $border-radius 0;
-    background-color: $light-background;
-    width : inherit;
+    background-color: $secondaryColor;
+    width : 100%;
+    height: 100%;
     text-align : center;
-    top: 0;
-    bottom: 0;
-    position: absolute;
 
     @media screen and (max-width: 767px) {
         position: initial;
         border-radius: 0 0 5px 5px;
     }
 }
+
+.ad-copied {
+    opacity: 0.6;
+}
+
+.copied {
+    position: absolute;
+    margin-left: 50%;
+    margin-top: -$spacing-20;
+
+    @include Breakpoint-mobileOnly {
+        margin-left: 35%;
+    }
+
+    * {
+      opacity: 0;
+      animation: copied-animation 1s running;
+    }
+}
+
+@keyframes copied-animation {
+    0% {
+      opacity: 0;
+      transform: translateY(80%);
+    }
+  
+    50% {
+      opacity: 1;
+      transform: translateY(50%) scale(1.2);
+    }
+  }

@@ -50,7 +50,7 @@ class HomePage extends Component {
         const { onTableDetails } = this.props;
         if(!this.isGameAvailable(metaName)){return null}
         return (
-                <Col>
+                <div class={"col"} styleName="col">
                     <GameCard
                         path={metaName}
                         title={name}
@@ -61,7 +61,7 @@ class HomePage extends Component {
                         onTableDetails={onTableDetails}
                     >
                     </GameCard>
-                </Col>
+                </div>
         )
     }
 

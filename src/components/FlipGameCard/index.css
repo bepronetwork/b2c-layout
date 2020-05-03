@@ -12,6 +12,7 @@ $values-height: 92px;
   padding: $spacing-20;
 
   background-color: $background-main-table;
+  border-radius: 0 $border-radius $border-radius 0;
 }
 
 .logo{

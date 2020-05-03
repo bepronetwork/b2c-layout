@@ -1,0 +1,51 @@
+@import "../../../styles/all.css";
+
+
+.container {
+    margin: 0 $spacing-20;
+}
+
+.main{
+    width: 100%;
+    align-items: center;
+    margin: $spacing-28 0 $spacing-28 0 ;
+}
+
+.loading {
+    width: 100%;
+    text-align: center;
+
+    img {
+        height: $spacing-28;
+    }
+}
+
+.row {
+    width: 100%;
+    grid-auto-flow: column;
+    display: grid;
+    align-items: center;
+    gap: $spacing-8;
+    margin: $spacing-8 0;
+    border: 1px solid #fff;
+    border-radius: $border-radius;
+}
+
+.col-1 {
+    display: inline-flex;
+    padding: $spacing-12 $spacing-28;
+}
+
+.col-2 {
+    display: inline-flex;
+    padding: $spacing-12 $spacing-28;
+    justify-content: flex-end;
+
+    p {
+        margin-top: 2px;
+    }
+
+    img {
+        margin-left: $spacing-8;
+    }
+}

@@ -30,16 +30,12 @@
 }
 
 .text-container{
-    height: calc(100% - 210px);
+    height: calc(100% - 180px);
     overflow : auto;
     margin-right: $spacing-8;
 
-    @include Breakpoint-tabletOnly {
-      height: calc(100% - (200px + $spacing-20));
-    }
-
     @include Breakpoint-mobileOnly {
-      height: calc(100% - 260px);
+      height: calc(100% - 240px);
       margin-left: $spacing-12;
     }
 }
@@ -57,11 +53,10 @@
 }
 
 .message-top {
-    margin-top: calc($navbar-height - 10px);
+    margin-top: $navbar-height;
     top: 0;
-    padding : $spacing-20 $spacing-8;
-    height: calc($navbar-height + $spacing-12);
-    background-color:$primaryColor;
+    height: calc($navbar-height - 10);
+    background-color:$primaryColor-dark-2;
     grid-template-columns: auto auto;
     display: grid;
     align-items: center;
@@ -69,9 +64,9 @@
 }
 
 .message-box{
-    padding : $spacing-12;
+    padding : $spacing-8;
     width: 100%;
-    margin : $spacing-16 auto;
+    margin : $spacing-8 auto;
     background-color: $primaryColor;
     border-radius : $border-radius-messsage-box;
 }
@@ -99,8 +94,8 @@
 .message-container > form > div > div {
     background-color: $backgroundColor;
     border: 2px solid $backgroundColor-light-8;
-    height: 51px;
-    padding: $spacing-12;
+    border-radius: $border-radius 0 0 $border-radius ;
+    height: 40px;
 
     @include Breakpoint-mobileOnly {
       padding: $spacing-8;
@@ -162,8 +157,8 @@
     margin : auto;
     width: 25%;
     padding : 10px;
-    border-radius : $border-radius;
-    height: 50px;
+    border-radius : 0 $border-radius $border-radius 0;
+    height: 40px;
 
     @include Breakpoint-tabletOnly {
       width: 30%;
@@ -214,7 +209,7 @@
     margin-left: $spacing-4;
 }
 
-.language {
+.right {
     justify-content: flex-end;
     display: inline-flex;
     align-items: center;

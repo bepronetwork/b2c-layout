@@ -51,6 +51,7 @@ class LanguageSelector extends Component {
     };
 
     changeLanguage = async (item) => {
+        const { profile } = this.props;
         const { open } = this.state;
 
         item = languages.find( a => {
@@ -58,6 +59,8 @@ class LanguageSelector extends Component {
                 return a;
             }
         })
+        
+        profile.getChat().changeLanguage({language : item.name, channel_id : item.channel_id});
         await this.props.dispatch(setLanguageInfo(item));
         this.setState({...this.state, language : item, open: !open})
     }
@@ -116,7 +119,11 @@ class LanguageSelector extends Component {
         const ln = defaultProps.language.nick;
         const copy = CopyText.languagePickerIndex[ln];
         const { language, open } = this.state;
-        const { showLabel } = this.props;
+        const { showArrow } = this.props;
+
+        const styles = classNames("item", {
+            itemHor: showArrow === true
+        });
 
         return (
             <div styleName="root">
@@ -126,15 +133,17 @@ class LanguageSelector extends Component {
                     }}
                     onClick={this.handleLabelClick}
                     type="button">
-                    <span styleName="item">
+                    <span styleName={styles}>
                         <img src={language.image}/>
+                        <Typography variant="x-small-body" color="grey">
+                            {language.name}
+                        </Typography>
                         {
-                            showLabel ?  
-                                <Typography variant="x-small-body" color="grey">
-                                    {copy.INDEX.DROP_DOWN_FIELD.LABEL[0]}
-                                </Typography>
-                        : 
-                            open ? <ArrowUp /> : <ArrowDown />
+                            showArrow === true 
+                            ?  
+                                open ? <ArrowUp /> : <ArrowDown />
+                            : 
+                                null  
                         }
                     </span>
                 </button>
