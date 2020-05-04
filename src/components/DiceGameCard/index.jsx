@@ -18,7 +18,7 @@ const middleRoll = 50;
 
 
 const defaultState = {
-    rollType: "over",
+    rollType: "under",
     chance: Number("49.5000"),
     payout: Number("2.0000"),
     edge : 0,

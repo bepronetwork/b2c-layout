@@ -24,8 +24,9 @@ export default async function bet({ rollNumber, rollType, betAmount, user }) {
         const { winAmount, betAmount : amountBetted, _id : id, nonce } = response.data.message;
         const { key } = response.data.message.outcomeResultSpace;
 
+        console.log(rollType, key)
         return {
-            result : key,
+            result : (rollType == "under") ? parseInt(key) : (100 - parseInt(key)),
             winAmount, 
             nonce,
             betAmount : amountBetted,
