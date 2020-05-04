@@ -38,8 +38,7 @@ class WithdrawList extends Component {
 
         if(profile && !_.isEmpty(profile)){
             withdraws = await profile.getWithdraws();
-
-            withdraws = withdraws > 5 ? withdraws.slice(0, 5) : withdraws;
+            withdraws = withdraws.length > 5 ? withdraws.slice(0, 5) : withdraws;
         }
 
         this.setState({...this.state, 

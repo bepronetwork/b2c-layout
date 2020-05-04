@@ -66,6 +66,11 @@ class AffiliatesTab extends React.Component{
         return (
             <div>
                 <Row>
+                    <Col>
+                        <AffiliateLinkContainer link={id} percentageOnLevelOne={percentageOnLevelOne}/>
+                    </Col>
+                </Row>
+                <Row>
                     <Col lg={4}>
                         <div>
                             {wallets.map( w => {
@@ -83,11 +88,6 @@ class AffiliatesTab extends React.Component{
                         <DataContainer title={copy.INDEX.DATA_CONTAINER.TITLE[1]} message={userAmount} image={<AffiliateIcon/>} />
                         <DataContainer title={copy.INDEX.DATA_CONTAINER.TITLE[0]} message={`${wallet.playBalance} ${wallet.currency.ticker}`} image={<DepositsIcon/>} />
                         <WithdrawForm wallet={wallet} isAffiliate={true} />
-                    </Col>
-                </Row>
-                <Row>
-                    <Col>
-                        <AffiliateLinkContainer link={id} percentageOnLevelOne={percentageOnLevelOne}/>
                     </Col>
                 </Row>
             </div>

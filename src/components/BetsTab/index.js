@@ -118,8 +118,7 @@ class BetsTab extends Component {
             options : Object.keys(copy.TABLE).map( (key) => {
                 return {
                     value : new String(key).toLowerCase(),
-                    label : copy.TABLE[key].TITLE,
-                    icon : <RewardIcon/>
+                    label : copy.TABLE[key].TITLE
                 }
             }),
             my_bets : {

@@ -422,11 +422,15 @@ a > .mdi-icon{
 }
 
 .carousel-inner{
-  padding-left: 5%;
-  padding-right: 5%;
+  margin-right: 5%;
   padding-bottom: 30px;
 }
 
 .carousel-indicators{
   z-index: 6;
+}
+
+.btn {
+  padding: .375rem 1.5rem;
+  border-radius: .15rem;
 }

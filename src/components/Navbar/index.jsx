@@ -167,7 +167,7 @@ class Navbar extends Component {
     renderLanguageSelector = () => {
         return(
             <div styleName="language-container">
-                <LanguageSelector showLabel={false} expand="bottom"/>
+                <LanguageSelector showArrow={true} expand="bottom"/>
             </div>
         )
     }

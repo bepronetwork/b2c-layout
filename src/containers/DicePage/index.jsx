@@ -21,7 +21,7 @@ class DicePage extends Component {
         result: null,
         disableControls: false,
         rollNumber: 50,
-        rollType: "over",
+        rollType: "under",
         bet : {},
         game_name : 'Linear Dice',
         animating : false,

@@ -125,7 +125,7 @@ class WithdrawTable extends Component {
 
         return (
             <div styleName='container'>
-                {isLoading ?
+                {/*isLoading ?
                     <SkeletonTheme color={ getSkeletonColors().color} highlightColor={ getSkeletonColors().highlightColor}>
                         <div styleName='lastBets' style={{opacity : '0.5'}}>
                             <div styleName='filters'>
@@ -154,7 +154,7 @@ class WithdrawTable extends Component {
                             </div>
                         </div>
                     </div>
-                }
+                */}
                 <Table
                     rows={this.state[view].rows}
                     titles={this.state[view].titles}

@@ -10,9 +10,10 @@ export default async function bet({ rollNumber, rollType, betAmount, user }) {
         const initial = rollType === "over" ? rollNumber : 0;
         const finish = rollType === "under" ? rollNumber : 100;
         const maxRoll = finish - initial;
-        const result = map(range(initial, finish), index => {
+        const result = map(range(0, maxRoll), index => {
             return { place: index, value: betAmount / maxRoll };
         });
+
         const response = await user.createBet({
             amount: betAmount,
             result,
@@ -23,8 +24,9 @@ export default async function bet({ rollNumber, rollType, betAmount, user }) {
         const { winAmount, betAmount : amountBetted, _id : id, nonce } = response.data.message;
         const { key } = response.data.message.outcomeResultSpace;
 
+        console.log(rollType, key)
         return {
-            result : key,
+            result : (rollType == "under") ? parseInt(key) : (100 - parseInt(key)),
             winAmount, 
             nonce,
             betAmount : amountBetted,

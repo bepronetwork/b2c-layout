@@ -7,7 +7,7 @@ const affiliateLinkContainerCopy = {
                     (param) => `Share and take a profit in ${param} affiliate program!`,
                     (param) => `Get at least ${param}% whenever the house wins for each user registered with this link`,
                 ],
-                TEXT: ['copy']
+                TEXT: ['Copy']
             }
         }
   },

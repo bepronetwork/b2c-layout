@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom'
 import { connect } from "react-redux";
 import { Tab, Nav } from 'react-bootstrap';
 import { Typography } from 'components';
+import { CopyText } from '../../copy';
 import classNames from "classnames";
 import _ from 'lodash';
 import './index.css';
@@ -19,7 +20,8 @@ class TabedContainer extends React.Component{
     }
 
     render = () => {
-        const { items } = this.props;
+        const { ln, items } = this.props;
+        const copy = CopyText.homepage[ln];
         const pathName = this.props.location.pathname.toLowerCase();
         const filteredItems = items.filter(item => !item.disabled);
 
@@ -35,7 +37,7 @@ class TabedContainer extends React.Component{
                     <Row>
                         <Col sm={3}>
                             <div styleName="title">
-                                <Typography variant={'small-body'} color={'white'}>Settings</Typography>
+                                <Typography variant={'small-body'} color={'white'}>{copy.CONTAINERS.ACCOUNT.TITLE[0]}</Typography>
                             </div>
                             <Nav variant="pills" className="flex-column" styleName="menu">
                                 {filteredItems.map( (item, index) => {
@@ -65,9 +67,9 @@ class TabedContainer extends React.Component{
                                     return (
                                         <Tab.Pane eventKey={`item-${index}`}>
                                             <div styleName="content">
-                                                <div styleName="page">
+                                                {/*<div styleName="page">
                                                     <Typography variant={'h4'} color={'white'}>{item.title}</Typography>
-                                                </div>
+                                                </div>*/}
                                                 {item.container}
                                             </div>
                                         </Tab.Pane>
@@ -87,7 +89,8 @@ class TabedContainer extends React.Component{
 
 function mapStateToProps(state){
     return {
-        profile: state.profile
+        profile: state.profile,
+        ln: state.language
     };
 }
 
