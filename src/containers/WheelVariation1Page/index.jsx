@@ -144,11 +144,15 @@ class WheelVariationOne extends React.Component {
     };
 
     addToHistory = ({result, won}) => {
-        let multiplier = this.state.game.resultSpace[result].multiplier;
-        let history = Cache.getFromCache("wheel_variation_1History");
-        history = history ? history : [];
-        history.unshift({ value: `${multiplier}x`, win : won });
-        Cache.setToCache("wheel_variation_1History", history);
+        try {
+            let multiplier = this.state.game.resultSpace[result].multiplier;
+            let history = Cache.getFromCache("wheel_variation_1History");
+            history = history ? history : [];
+            history.unshift({ value: `${multiplier}x`, win : won });
+            Cache.setToCache("wheel_variation_1History", history);
+        } catch (error) {
+            console.log(error);
+        }
     }
 
 

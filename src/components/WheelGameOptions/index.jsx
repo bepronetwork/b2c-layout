@@ -12,7 +12,6 @@ import {
 import betSound from "assets/bet-sound.mp3";
 import Sound from "react-sound";
 import Dice from "components/Icons/Dice";
-import delay from 'delay';
 import "./index.css";
 import { Numbers } from "../../lib/ethereum/lib";
 import _ from 'lodash';

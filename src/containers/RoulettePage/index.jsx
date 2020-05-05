@@ -79,10 +79,14 @@ class RoulettePage extends Component {
     };
 
     addToHistory = ({result, won}) => {
-        let history = Cache.getFromCache("rouletteHistory");
-        history = history ? history : [];
-        history.unshift({ value: result, win : won });
-        Cache.setToCache("rouletteHistory", history);
+        try {
+            let history = Cache.getFromCache("rouletteHistory");
+            history = history ? history : [];
+            history.unshift({ value: result, win : won });
+            Cache.setToCache("rouletteHistory", history);
+        } catch (error) {
+            console.log(error);
+        }
     }
 
 

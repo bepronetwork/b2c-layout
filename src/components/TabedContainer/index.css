@@ -1,5 +1,9 @@
 @import "../../styles/all.css";
 
+.dashboard{
+    max-width: unset;
+}
+
 .text-tab{
     text-align: left;
 }
