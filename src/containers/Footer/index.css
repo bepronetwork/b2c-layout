@@ -83,18 +83,16 @@
 
 .footer-info{
     text-align: left;
-    margin-top : 20px;
+    margin : $spacing-28 0;
 }
 
-.footer-language-picker{
+.footer-partners{
     text-align: left;
     position: relative;
-    display: none;
-    width: 200px;
-
-    @include Breakpoint-mobileOnly {
-        display : block;
-    }
+    padding: $spacing-20 0;
+    margin: $spacing-28 0;
+    border-top: 1px solid  $primaryColor-light-13;
+    border-bottom: 1px solid  $primaryColor-light-13;
 }
 
 .bepro-made-by-logo{
@@ -105,4 +103,8 @@
         display : block;
         margin-top : $spacing-12;
     }
+}
+
+.col {
+    margin: auto;
 }
