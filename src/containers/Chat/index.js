@@ -10,9 +10,9 @@ import { CopyText } from "../../copy";
 import store from "../App/store";
 import { dateToHourAndMinute, getSkeletonColors } from "../../lib/helpers";
 import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
+import delay from 'delay';
 
 const sound = localStorage.getItem("sound");
-const delay = ms => new Promise(res => setTimeout(res, ms));
 
 const defaultProps = {
     messages : [],

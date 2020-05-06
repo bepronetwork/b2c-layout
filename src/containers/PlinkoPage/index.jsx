@@ -73,14 +73,18 @@ class PlinkoPage extends Component {
     };
 
     addToHistory = () => {
-        var { result, isWon, game } = this.state;
-        let history = localStorage.getItem("plinko_variation_1History");
-        const { resultSpace } = game;
-        history = history ? JSON.parse(history) : [];
-        let value = resultSpace.find( r => r.formType == result);
-        history.unshift({ value : `${value.multiplier}x`, win : value.multiplier >= 1  });
-        localStorage.setItem("plinko_variation_1History", JSON.stringify(history));
-        this.setState({ result : value });
+        try {
+            var { result, isWon, game } = this.state;
+            let history = localStorage.getItem("plinko_variation_1History");
+            const { resultSpace } = game;
+            history = history ? JSON.parse(history) : [];
+            let value = resultSpace.find( r => r.formType == result);
+            history.unshift({ value : `${value.multiplier}x`, win : value.multiplier >= 1  });
+            localStorage.setItem("plinko_variation_1History", JSON.stringify(history));
+            this.setState({ result : value });
+        } catch (error) {
+            console.log(error);
+        }
     }
 
     handleAnimation = async () => {

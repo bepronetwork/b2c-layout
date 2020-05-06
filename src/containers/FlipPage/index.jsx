@@ -61,10 +61,14 @@ class FlipPage extends Component {
     };
 
     addToHistory = ({result, won}) => {
-        let history = Cache.getFromCache("flipHistory");
-        history = history ? history : [];
-        history.unshift({ value: result, win : won });
-        Cache.setToCache("flipHistory", history);
+        try {
+            let history = Cache.getFromCache("flipHistory");
+            history = history ? history : [];
+            history.unshift({ value: result, win : won });
+            Cache.setToCache("flipHistory", history);
+        } catch (error) {
+            console.log(error);
+        }
     }
 
     onBet = async form => {

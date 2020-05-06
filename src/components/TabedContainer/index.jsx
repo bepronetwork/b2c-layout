@@ -32,7 +32,7 @@ class TabedContainer extends React.Component{
         const parent = mainIndex > 0 || path.length > 2 ? path[path.length-2] : path[path.length-1];
 
         return (
-            <Container className="dashboard">
+            <Container styleName="dashboard">
                 <Tab.Container id="left-tabs-example" defaultActiveKey={`item-${mainIndex}`}>
                     <Row>
                         <Col sm={3}>

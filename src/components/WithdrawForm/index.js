@@ -76,7 +76,7 @@ class WithdrawForm extends Component {
             ticker : currency.ticker,
             image : wallet.image ? wallet.image : wallet.currency.image,
             maxWithdraw : formatCurrency(appWallet.max_withdraw > wallet.playBalance ? wallet.playBalance : appWallet.max_withdraw),
-            minWithdraw : formatCurrency(appWallet.min_withdraw > wallet.playBalance ? wallet.playBalance : appWallet.min_withdraw)
+            minWithdraw : formatCurrency(appWallet.min_withdraw)
         })
     }
 

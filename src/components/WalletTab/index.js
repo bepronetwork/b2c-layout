@@ -37,10 +37,10 @@ class WalletTab extends React.Component{
     projectData = async (props) => {
         const { profile } = this.props;
         let { wallet } = this.state;
-        const wallets = profile.getWallets().filter(w => w.currency.virtual === false);
+        const wallets = profile.getWallets();
 
         if(wallets && !wallet) {
-            wallet = wallets[0];
+            wallet = wallets.find(w => w.currency.virtual === false);
         }
 
         this.setState({...this.state,

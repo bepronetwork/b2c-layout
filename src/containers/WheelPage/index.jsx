@@ -151,11 +151,15 @@ class WheelPage extends React.Component {
     };
 
     addToHistory = ({result, won}) => {
-        let multiplier = this.state.game.resultSpace[result].multiplier;
-        let history = Cache.getFromCache("wheelHistory");
-        history = history ? history : [];
-        history.unshift({ value: `${multiplier}x`, win : won });
-        Cache.setToCache("wheelHistory", history);
+        try {
+            let multiplier = this.state.game.resultSpace[result].multiplier;
+            let history = Cache.getFromCache("wheelHistory");
+            history = history ? history : [];
+            history.unshift({ value: `${multiplier}x`, win : won });
+            Cache.setToCache("wheelHistory", history);
+        } catch (error) {
+            console.log(error);
+        }
     }
 
 
