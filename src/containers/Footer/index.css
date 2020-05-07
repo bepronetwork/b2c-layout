@@ -2,9 +2,7 @@
 
 .footer {
     text-align: center;
-    padding : $spacing-36;
-    margin-top : $spacing-16;
-    background-color : $footer-background;
+    padding : $spacing-16;
     border-radius: $border-radius;
 }
 
@@ -79,32 +77,41 @@
   box-shadow: inset 0 0 15px color($red alpha(50%));
 }
 
-
-
 .footer-info{
     text-align: left;
+    margin : $spacing-28 0;
+}
+
+.footer-logo{
+    width: 60%;
     margin : $spacing-28 0;
 }
 
 .footer-partners{
     text-align: left;
     position: relative;
-    padding: $spacing-20 0;
+    padding: $spacing-16 0;
     margin: $spacing-28 0;
     border-top: 1px solid  $primaryColor-light-13;
     border-bottom: 1px solid  $primaryColor-light-13;
+
+    img {
+        @include Breakpoint-mobileOnly {
+            margin-bottom : $spacing-16;
+        }
+    }
 }
 
 .bepro-made-by-logo{
-    width : 80px;
-    height: 80px;
+    width : 60px;
+    height: 60px;
 
     @include Breakpoint-mobileOnly {
-        display : block;
         margin-top : $spacing-12;
     }
 }
 
 .col {
     margin: auto;
+    text-align: center;
 }
