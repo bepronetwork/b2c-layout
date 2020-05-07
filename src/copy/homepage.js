@@ -59,7 +59,8 @@
           AFFILIATE: 'Affiliate',
           TERMS_OF_SERVICE: 'Terms Of Service',
           BLOG: 'Blog',
-          TELEGRAM: 'Telegram'
+          TELEGRAM: 'Telegram',
+          LANGUAGE: 'Language'
         }
       }
     },
@@ -163,7 +164,8 @@
           AFFILIATE: '추천인 제도',
           TERMS_OF_SERVICE: '서비스 약관',
           BLOG: '블로그',
-          TELEGRAM: '텔레그램'
+          TELEGRAM: '텔레그램',
+          LANGUAGE: '언어'
         }
       }
     },
@@ -269,7 +271,8 @@
           AFFILIATE: '推荐人制度',
           TERMS_OF_SERVICE: '服务条款',
           BLOG: '博客',
-          TELEGRAM: '电报'
+          TELEGRAM: '电报',
+          LANGUAGE: '语言名称'
         }
       }
     },
@@ -383,7 +386,8 @@
           AFFILIATE: 'Affiliate',
           TERMS_OF_SERVICE: 'Terms Of Service',
           BLOG: 'Blog',
-          TELEGRAM: 'Telegram'
+          TELEGRAM: 'Telegram',
+          LANGUAGE: 'Language'
         }
       }
     },
