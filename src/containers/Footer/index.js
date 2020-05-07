@@ -12,6 +12,7 @@ import logobitgo from 'assets/partners/logo-bitgo-white.png';
 import logobetprotocol from 'assets/partners/betprotocol_white_logo.png';
 import logobitcoin from 'assets/partners/bitcoin-white.png';
 import logoethereum from 'assets/partners/ethereum_logo.png';
+import logoresponsible from 'assets/partners/responsible_gambling.png';
 
 const footerStaticOutput = ({props, supportLinks, communityLinks}) => {
     const info = getApp();
@@ -205,25 +206,30 @@ class Footer extends Component {
                         <Row>
                             <div className="col-md-2" styleName="col">
                                 <a href={'https://www.bitgo.com'} target={'_blank'}>
-                                    <img src={logobitgo} style={{height : 64}}/>
+                                    <img src={logobitgo} style={{height : 40}}/>
                                 </a>
                             </div>
-                            <div className="col-md-3" styleName="col">
+                            <div className="col-md-2" styleName="col">
                                 <a href={'https://betprotocol.com'} target={'_blank'}>
-                                    <img src={logobetprotocol} style={{height : 80}}/>
+                                    <img src={logobetprotocol} style={{height : 46}}/>
                                 </a>
                             </div>
-                            <div className="col-md-3" styleName="col">
+                            <div className="col-md-2" styleName="col">
                                 <a href={'https://bitcoin.org'} target={'_blank'}>
-                                    <img src={logobitcoin} style={{height : 64}}/>
+                                    <img src={logobitcoin} style={{height : 40}}/>
                                 </a>
                             </div>
-                            <div className="col-md-3" styleName="col">
+                            <div className="col-md-2" styleName="col">
                                 <a href={'https://ethereum.org'} target={'_blank'}>
-                                    <img src={logoethereum} style={{height : 34}}/>
+                                    <img src={logoethereum} style={{height : 26}}/>
                                 </a>
                             </div>
-                            <div className="col-md-1" styleName="col">
+                            <div className="col-md-2" styleName="col">
+                                <a href={'https://ethereum.org'} target={'_blank'}>
+                                    <img src={logoresponsible} style={{height : 30}}/>
+                                </a>
+                            </div>
+                            <div className="col-md-2" styleName="col">
                                 <Typography weight="bold" variant="h4" color="white"> 
                                     18+
                                 </Typography>
@@ -238,17 +244,17 @@ class Footer extends Component {
                             {footerInfo.info.text}
                         </Typography>
                     </div>
-                    <div styleName='footer-info'>
+                    <div styleName='footer-logo'>
                         <Row>
                             {logo && logo.id ?
-                                    <div className="col-md-2" styleName="col">
-                                        <img src={logo.id} style={{height : 50}}/>
+                                    <div className="col-md-3" styleName="col">
+                                        <img src={logo.id} style={{height : 40}}/>
                                     </div>
                                 :
                                     null
                             }
-                            <div className="col-md-2" styleName="col">
-                                <Typography weight="bold" variant="small-body" color="grey">
+                            <div className="col-md-3" styleName="col">
+                                <Typography weight="semi-bold" variant="x-small-body" color="grey">
                                     {info ?
                                         `@${new Date().getFullYear()} ${info.name}`             
                                     :
@@ -258,13 +264,13 @@ class Footer extends Component {
                                 </Typography>
                             </div>
                             {info && info.licenseID && info.isValid ?
-                                <div className="col-md-2" styleName="col">
+                                <div className="col-md-3" styleName="col">
                                     <LegalBox licenseID={info.licenseID}/>             
                                 </div>
                                 :
                                 null
                             }
-                            <div className="col-md-2" styleName="col">
+                            <div className="col-md-3" styleName="col">
                                 <a href={'https://betprotocol.com'} target={'_blank'}>
                                     <img src={logoMadeByBepro} styleName='bepro-made-by-logo'/>
                                 </a>
