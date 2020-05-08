@@ -37,7 +37,8 @@ class WalletTab extends React.Component{
     projectData = async (props) => {
         const { profile } = this.props;
         let { wallet } = this.state;
-        const wallets = profile.getWallets();
+        const virtual = getApp().virtual;
+        const wallets = virtual === true ? profile.getWallets().filter(w => new String(w.currency.ticker).toString().toLowerCase() !== 'eth') : profile.getWallets();
 
         if(wallets && !wallet) {
             wallet = wallets.find(w => w.currency.virtual === false);
@@ -55,8 +56,17 @@ class WalletTab extends React.Component{
     };
 
     changeWallet = async (wallet) => {
-        this.setState({ wallet, tab: "deposit"});
+        this.setState({ wallet });
     }
+
+    handleAddress = address => {
+        let { wallet } = this.state;
+
+        if(wallet) {
+            wallet.address = address;
+            this.setState({ wallet });
+        }
+    };
 
     render(){
         const { ln, isCurrentPath } = this.props;
@@ -101,9 +111,9 @@ class WalletTab extends React.Component{
                             />
                         </div>
                         {tab === "deposit" ? 
-                            <div><DepositForm  wallet={wallet} /> <DepositList isCurrentPath={isCurrentPath} /></div> 
+                            <div><DepositForm  wallet={wallet} onAddress={this.handleAddress}/> <DepositList isCurrentPath={isCurrentPath} /></div> 
                         : 
-                            <div><WithdrawForm wallet={wallet} /> <WithdrawList isCurrentPath={isCurrentPath} /></div>
+                            <div><WithdrawForm wallet={wallet} onAddress={this.handleAddress}/> <WithdrawList isCurrentPath={isCurrentPath} /></div>
                         }
                     </Col>
                 </Row>

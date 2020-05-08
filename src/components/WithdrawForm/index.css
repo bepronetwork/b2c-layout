@@ -54,6 +54,10 @@
     width : fit-content;
 }
 
+.building{
+    margin-top: $spacing-52;
+}
+
 .building-img {
     width: $spacing-160;
 }
