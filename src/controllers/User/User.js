@@ -141,6 +141,19 @@ export default class User {
         await this.updateUserState();
     }
 
+    updateBalance = async ({userDelta}) => {
+        const state = store.getState();
+        const { currency } = state;
+
+        this.user.wallet.forEach((w) => {
+            if(new String(w.currency._id).toString().toLowerCase() == new String(currency._id).toString().toLowerCase()) {
+                w.playBalance = w.playBalance + userDelta;
+            }
+        });
+
+        await this.updateUserState();
+    }
+
     updateUserState = async () => {
         /* Add Everything to the Redux State */  
         await store.dispatch(setProfileInfo(this));

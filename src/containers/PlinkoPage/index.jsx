@@ -89,10 +89,10 @@ class PlinkoPage extends Component {
 
     handleAnimation = async () => {
         const { profile } = this.props;
-        const { winAmount } = this.state.betObjectResult;
+        const { winAmount, userDelta } = this.state.betObjectResult;
         setWonPopupMessageDispatcher(winAmount);
         this.addToHistory();
-        await profile.getBalanceData();
+        await profile.updateBalance({ userDelta });
         return this.setState({ result : 0, disableControls : false });
     };
 

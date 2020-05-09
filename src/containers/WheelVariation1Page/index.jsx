@@ -202,10 +202,10 @@ class WheelVariationOne extends React.Component {
         this.setState({ bet: false, disableControls : false, inResultAnimation : false });
         const { profile } = this.props;
         /* Update Info User View */
-        const { isWon, result, winAmount } = this.state.betObjectResult;
+        const { isWon, result, winAmount, userDelta } = this.state.betObjectResult;
         setWonPopupMessageDispatcher(winAmount);
         this.addToHistory({result, won : isWon});
-        await profile.getBalanceData();
+        await profile.updateBalance({ userDelta });
     };
 
     getTotalBet = () => {

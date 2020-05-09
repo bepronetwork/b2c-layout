@@ -153,7 +153,7 @@ export default async function bet({ betHistory, betAmount, user }) {
 
         await processResponse(response);
 
-        const { winAmount, betAmount : amountBetted, _id : id, isWon } = response.data.message;
+        const { winAmount, betAmount : amountBetted, _id : id, isWon, user_delta } = response.data.message;
         const { index } = response.data.message.outcomeResultSpace;
 
         return {
@@ -161,7 +161,8 @@ export default async function bet({ betHistory, betAmount, user }) {
             winAmount, 
             isWon,
             betAmount : amountBetted,
-            id
+            id,
+            userDelta : user_delta
         };
     } catch (error) {
         console.log(error);
