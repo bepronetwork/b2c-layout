@@ -35,42 +35,50 @@ class DepositForm extends Component {
     }
 
     componentWillReceiveProps(props){
+        this.setState({ isLoaded: false, addressInitialized: false});
         this.projectData(props);
     }
 
     getCurrencyAddress = async (wallet) => {
-        const { profile } = this.props;
+        const { profile, onAddress } = this.props;
 
         let response = await profile.getCurrencyAddress({ currency_id: wallet.currency._id });
 
         if(!_.isEmpty(response) && _.isEmpty(response.message)) {
-            if (getApp().virtual === true) {
-                const virtualCurrency = getApp().currencies.find(c => c.virtual === true);
-    
-                if(wallet.currency && virtualCurrency) {
-                    const virtualWallet = getApp().wallet.find(w => w.currency._id === virtualCurrency._id);
-                    const price = virtualWallet ? virtualWallet.price.find(p => p.currency === wallet.currency._id).amount : null;
-
-                    this.setState({ price, virtualTicker : virtualCurrency.ticker });
-                }
-            }
             this.setState({ addressInitialized: true, address: response.address });
+            onAddress(response.address);
             clearInterval(this.intervalID);
         }
 
         this.setState({ isLoaded: true });
-    }
+    } 
 
     projectData = async (props) => {
         const { wallet } = props;
 
-        this.getCurrencyAddress(wallet);
-
-        this.intervalID = setInterval( async () => {
+        if(wallet && !wallet.address) {
             this.getCurrencyAddress(wallet);
-        }, 2*10000)
 
-        this.setState({...this.state, isLoaded: false, copied: false})
+            this.intervalID = setInterval( async () => {
+                this.getCurrencyAddress(wallet);
+            }, 2*10000)
+        }
+        else {
+            this.setState({ isLoaded: true, addressInitialized: true });
+        }
+
+        if (getApp().virtual === true) {
+            const virtualCurrency = getApp().currencies.find(c => c.virtual === true);
+
+            if(wallet.currency && virtualCurrency) {
+                const virtualWallet = getApp().wallet.find(w => w.currency._id === virtualCurrency._id);
+                const price = virtualWallet ? virtualWallet.price.find(p => p.currency === wallet.currency._id).amount : null;
+
+                this.setState({ price, virtualTicker : virtualCurrency.ticker });
+            }
+        }
+
+        this.setState({ copied: false, address : wallet.address });
     }
 
     copyToClipboard = (e) => {

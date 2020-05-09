@@ -57,6 +57,15 @@ class AffiliatesTab extends React.Component{
         this.setState({ wallet });
     }
 
+    handleAddress = address => {
+        let { wallet } = this.state;
+
+        if(wallet) {
+            wallet.address = address;
+            this.setState({ wallet });
+        }
+    };
+
     render(){
         const { ln } = this.props;
         const { wallets, wallet, id, percentageOnLevelOne, userAmount } = this.state;
@@ -91,7 +100,7 @@ class AffiliatesTab extends React.Component{
                         {
                         getApp().virtual !== true 
                         ?
-                            <WithdrawForm wallet={wallet} isAffiliate={true} />
+                            <WithdrawForm wallet={wallet} isAffiliate={true} onAddress={this.handleAddress}/>
                         :
                             null
                         }

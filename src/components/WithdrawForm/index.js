@@ -29,6 +29,8 @@ const defaultProps = {
 
 class WithdrawForm extends Component {
 
+    intervalID = 0;
+
     constructor(props){
         super(props);
         this.state = { ...defaultProps };
@@ -38,10 +40,12 @@ class WithdrawForm extends Component {
         this.projectData(this.props);
     }
 
+    componentWillUnmount() {
+        clearInterval(this.intervalID);
+    }
+
     componentWillReceiveProps(props){
-        if(props.wallet._id !== this.props.wallet._id){
-            this.setState({...this.state, isLoaded: false, addressInitialized : false });
-        }
+        this.setState({ isLoaded: false, addressInitialized: false});
         this.projectData(props);
     }
 
@@ -49,30 +53,37 @@ class WithdrawForm extends Component {
         await store.dispatch(setWithdrawInfo({key : 'id', value : id}));
     }
 
-    getCurrencyAddress = async () => {
-        const { profile, wallet } = this.props;
-        const { addressInitialized } = this.state;
+    getCurrencyAddress = async (wallet) => {
+        const { profile, onAddress } = this.props;
+        const response = await profile.getCurrencyAddress({ currency_id: wallet.currency._id });
 
-        if (!addressInitialized) {
-            const response = await profile.getCurrencyAddress({ currency_id: wallet.currency._id });
-
-            if(_.isEmpty(response.message)) {
-                this.setState({ addressInitialized: true });
-            }
+        if(!_.isEmpty(response) && _.isEmpty(response.message)) {
+            this.setState({ addressInitialized: true });
+            onAddress(response.address);
+            clearInterval(this.intervalID);
         }
 
         this.setState({ isLoaded: true });
     }
 
-    async projectData(props){
+    projectData = async (props) => {
         const { wallet, isAffiliate} = props;
         const { currency } = wallet;
 
-        this.getCurrencyAddress();
+        if(wallet && !wallet.address) {
+            this.getCurrencyAddress(wallet);
+
+            this.intervalID = setInterval( async () => {
+                this.getCurrencyAddress(wallet);
+            }, 2*10000)
+        }
+        else {
+            this.setState({ isLoaded: true, addressInitialized: true });
+        }
 
         const appWallet = isAffiliate === true ? wallet : getApp().wallet.find(w => w.currency._id === currency._id);
 
-        this.setState({...this.state, 
+        this.setState({ 
             ticker : currency.ticker,
             image : wallet.image ? wallet.image : wallet.currency.image,
             maxWithdraw : formatCurrency(appWallet.max_withdraw > wallet.playBalance ? wallet.playBalance : appWallet.max_withdraw),
@@ -200,13 +211,13 @@ class WithdrawForm extends Component {
                     </div>
                 </div>
                 :
-                <div>
-                        <img src={building} styleName="building-img"/>
-                        <div styleName="building-info">
-                            <Typography variant={'small-body'} color={`white`}>
-                                {copy.INDEX.TYPOGRAPHY.TEXT[0]}
-                            </Typography>
-                        </div>
+                <div styleName="building">
+                    <img src={building} styleName="building-img"/>
+                    <div styleName="building-info">
+                        <Typography variant={'small-body'} color={`white`}>
+                            {copy.INDEX.TYPOGRAPHY.TEXT[0]}
+                        </Typography>
+                    </div>
                 </div>
                 }
             </div>
