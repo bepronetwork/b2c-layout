@@ -77,7 +77,7 @@ class LanguageSelector extends Component {
     }
 
     renderOptionsLines = () => {
-        const { onChange } = this.props;
+        const { onChange, size, color } = this.props;
 
         return languages.map(option => (
             <button
@@ -88,7 +88,7 @@ class LanguageSelector extends Component {
                 type="button"
             >   
                 <img src={option.image}/>
-                <Typography variant="x-small-body" color="casper">{option.name}</Typography>
+                <Typography variant={size ? size : "x-small-body"} color={color ? color : "casper"} >{option.name}</Typography>
             </button>
         ));
     };
@@ -119,7 +119,7 @@ class LanguageSelector extends Component {
         const ln = defaultProps.language.nick;
         const copy = CopyText.languagePickerIndex[ln];
         const { language, open } = this.state;
-        const { showArrow } = this.props;
+        const { showArrow, size, color } = this.props;
 
         const styles = classNames("item", {
             itemHor: showArrow === true
@@ -135,7 +135,7 @@ class LanguageSelector extends Component {
                     type="button">
                     <span styleName={styles}>
                         <img src={language.image}/>
-                        <Typography variant="x-small-body" color="grey">
+                        <Typography variant={size ? size : "x-small-body"} color={color ? color : "grey"}>
                             {language.name}
                         </Typography>
                         {

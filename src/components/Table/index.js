@@ -5,10 +5,9 @@ import UserContext from "containers/App/UserContext";
 import classNames from "classnames";
 import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
 import { getSkeletonColors, loadFakeBets, getApp } from "../../lib/helpers";
+import delay from 'delay';
 
 import "./index.css";
-
-const delay = ms => new Promise(res => setTimeout(res, ms));
 
 class TableDefault extends Component {
     intervalID = 0;

@@ -77,9 +77,9 @@ class DicePage extends Component {
 
     handleAnimation = async () => {
         const { profile } = this.props;
-        const { winAmount } = this.state.betObjectResult;
+        const { winAmount, userDelta } = this.state.betObjectResult;
         setWonPopupMessageDispatcher(winAmount);
-        await profile.getBalanceData();
+        await profile.updateBalance({ userDelta });
         this.setState({ result: null, animating : false, disableControls: false });
     };
 

@@ -4,6 +4,7 @@ import { AffiliateLinkContainer, DataContainer, WithdrawForm, DepositsIcon, Affi
 import PaymentBox from "../PaymentBox";
 import { CopyText } from '../../copy';
 import { Col, Row } from 'reactstrap';
+import { getApp } from "../../lib/helpers";
 import _ from 'lodash';
 import './index.css';
 
@@ -36,7 +37,7 @@ class AffiliatesTab extends React.Component{
     projectData = async (props) => {
         const { profile } = this.props;
         let { wallet } = this.state;
-        const wallets = profile.getAffiliateWallets();
+        const wallets = getApp().virtual === true ? profile.getAffiliateWallets().filter(w => w.currency.virtual === true) : profile.getAffiliateWallets();
         const { id, userAmount, percentageOnLevelOne } = profile.getAffiliateInfo();
 
         if(wallets && !wallet) {
@@ -55,6 +56,15 @@ class AffiliatesTab extends React.Component{
     changeWallet = async (wallet) => {
         this.setState({ wallet });
     }
+
+    handleAddress = address => {
+        let { wallet } = this.state;
+
+        if(wallet) {
+            wallet.address = address;
+            this.setState({ wallet });
+        }
+    };
 
     render(){
         const { ln } = this.props;
@@ -87,7 +97,13 @@ class AffiliatesTab extends React.Component{
                     <Col lg={8}>
                         <DataContainer title={copy.INDEX.DATA_CONTAINER.TITLE[1]} message={userAmount} image={<AffiliateIcon/>} />
                         <DataContainer title={copy.INDEX.DATA_CONTAINER.TITLE[0]} message={`${wallet.playBalance} ${wallet.currency.ticker}`} image={<DepositsIcon/>} />
-                        <WithdrawForm wallet={wallet} isAffiliate={true} />
+                        {
+                        getApp().virtual !== true 
+                        ?
+                            <WithdrawForm wallet={wallet} isAffiliate={true} onAddress={this.handleAddress}/>
+                        :
+                            null
+                        }
                     </Col>
                 </Row>
             </div>

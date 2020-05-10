@@ -1,15 +1,20 @@
 import React, { Component } from "react";
 import { Row, Col} from 'reactstrap';
-import { Typography, LanguagePicker, LegalBox } from 'components';
+import { Typography, LanguagePicker, LegalBox, LanguageSelector } from 'components';
 import { Link } from 'react-dom';
 import { connect } from "react-redux";
 import "./index.css";
 import { getAppCustomization, getApp } from "../../lib/helpers";
 import {CopyText} from "../../copy";
+
 import logoMadeByBepro from 'assets/media/logo-bepro.png';
+import logobitgo from 'assets/partners/logo-bitgo-white.png';
+import logobetprotocol from 'assets/partners/betprotocol_white_logo.png';
+import logobitcoin from 'assets/partners/bitcoin-white.png';
+import logoethereum from 'assets/partners/ethereum_logo.png';
+import logoresponsible from 'assets/partners/responsible_gambling.png';
 
 const footerStaticOutput = ({props, supportLinks, communityLinks}) => {
-    const { logo } = getAppCustomization();
     const info = getApp();
     const {ln} = props;
     const copy = CopyText.homepage[ln];
@@ -20,37 +25,7 @@ const footerStaticOutput = ({props, supportLinks, communityLinks}) => {
             size : "x-small-body",
             color : 'grey',
         },
-        tabs : [
-            { 
-                col : 4,
-                align : 'left',
-                show : info.name,
-                items : [
-                    {
-                        type : 'image',
-                        image : logo.id,
-                        width : 150
-                    },
-                    {
-                        type : 'text',
-                        text : `@${new Date().getFullYear()} ${info.name}`,
-                        size : "x-small-body",
-                        color : 'casper',
-                    },
-                    {
-                        type : 'text',
-                        text : 'All Rights Reserved',
-                        size : "x-small-body",
-                        color : 'white',
-                    }
-                ]
-            },    
-            { 
-                col : 4,
-                align : 'left',
-                show : info.isValid,
-                return :  <LegalBox licenseID={info.licenseID}/> 
-            },               
+        tabs : [         
             { 
                 col : 2,
                 align : 'left',
@@ -58,7 +33,8 @@ const footerStaticOutput = ({props, supportLinks, communityLinks}) => {
                 title : {
                     color : 'white',
                     text : copy.CONTAINERS.FOOTER.INFO.SUPPORT,
-                    size : "body"
+                    size : "small-body",
+                    weight : 'semi-bold'
                 },
                 items : supportLinks.map( s => {
                     return {
@@ -77,7 +53,8 @@ const footerStaticOutput = ({props, supportLinks, communityLinks}) => {
                 title : {
                     color : 'white',
                     text : copy.CONTAINERS.FOOTER.INFO.COMMUNITY,
-                    size : "body"
+                    size : "small-body",
+                    weight : 'semi-bold'
                 },
                 items : communityLinks.map( s => {
                     return {
@@ -89,6 +66,22 @@ const footerStaticOutput = ({props, supportLinks, communityLinks}) => {
                     }
                 })
             }
+            ,               
+            { 
+                col : 2,
+                align : 'left',
+                show : true,
+                title : {
+                    color : 'white',
+                    text : copy.CONTAINERS.FOOTER.INFO.LANGUAGE,
+                    size : "small-body",
+                    weight : 'semi-bold'
+                },
+                items : [{
+                    type : 'component',
+                    component: <LanguageSelector showArrow={true} expand="bottom" size="small-body" color="casper"/>
+                }]     
+            }
         ]
     }
     
@@ -99,7 +92,8 @@ class Footer extends Component {
         super(props);
         this.state = {
             supportLinks : [],
-            communityLinks : []
+            communityLinks : [],
+            logo: null
         };
     }
 
@@ -113,12 +107,13 @@ class Footer extends Component {
 
 
     projectData = async () => {
-        const { footer } = getAppCustomization();
-        this.setState({supportLinks : footer.supportLinks, communityLinks : footer.communityLinks})
+        const info = getApp();
+        const { footer, logo } = getAppCustomization();
+        this.setState({supportLinks : footer.supportLinks, communityLinks : footer.communityLinks, logo, info})
     }
 
     render() {
-        const { supportLinks, communityLinks } = this.state;
+        const { supportLinks, communityLinks, logo, info } = this.state;
         const props = this.props;
         let footerInfo = footerStaticOutput({props, supportLinks, communityLinks});
 
@@ -147,7 +142,8 @@ class Footer extends Component {
                                         {tab.title ? 
                                             <div styleName='title'>
                                                 <Typography
-                                                    weight={tab.title.size}
+                                                    variant={tab.title.size}
+                                                    weight={tab.title.weight}
                                                     color={tab.title.color} 
                                                 >   
                                                     {tab.title.text}
@@ -193,6 +189,11 @@ class Footer extends Component {
                                                         </Link>
                                                     )
                                                 };
+                                                case 'component' : {
+                                                    return (
+                                                        col.component
+                                                    )
+                                                };
 
                                             }
                                         })}
@@ -201,26 +202,80 @@ class Footer extends Component {
                             )}
                         )}
                     </Row>
-                    <div styleName='footer-language-picker'>
-                        <LanguagePicker/>
+                    <div styleName='footer-partners'>
+                        <Row>
+                            <div className="col-md-2" styleName="col">
+                                <a href={'https://www.bitgo.com'} target={'_blank'}>
+                                    <img src={logobitgo} style={{height : 40}}/>
+                                </a>
+                            </div>
+                            <div className="col-md-2" styleName="col">
+                                <a href={'https://betprotocol.com'} target={'_blank'}>
+                                    <img src={logobetprotocol} style={{height : 46}}/>
+                                </a>
+                            </div>
+                            <div className="col-md-2" styleName="col">
+                                <a href={'https://bitcoin.org'} target={'_blank'}>
+                                    <img src={logobitcoin} style={{height : 40}}/>
+                                </a>
+                            </div>
+                            <div className="col-md-2" styleName="col">
+                                <a href={'https://ethereum.org'} target={'_blank'}>
+                                    <img src={logoethereum} style={{height : 26}}/>
+                                </a>
+                            </div>
+                            <div className="col-md-2" styleName="col">
+                                <a href={'https://ethereum.org'} target={'_blank'}>
+                                    <img src={logoresponsible} style={{height : 30}}/>
+                                </a>
+                            </div>
+                            <div className="col-md-2" styleName="col">
+                                <Typography weight="bold" variant="h4" color="white"> 
+                                    18+
+                                </Typography>
+                            </div>
+                        </Row>
                     </div>
                     <div styleName='footer-info'>
+                        <Typography
+                            weight={footerInfo.info.size}
+                            color={footerInfo.info.color}
+                        > 
+                            {footerInfo.info.text}
+                        </Typography>
+                    </div>
+                    <div styleName='footer-logo'>
                         <Row>
-                            <Col md={10}>
-                                <Typography
-                                    weight={footerInfo.info.size}
-                                    color={footerInfo.info.color}
-                                > 
-                                    {footerInfo.info.text}
+                            {logo && logo.id ?
+                                    <div className="col-md-3" styleName="col">
+                                        <img src={logo.id} style={{height : 40}}/>
+                                    </div>
+                                :
+                                    null
+                            }
+                            <div className="col-md-3" styleName="col">
+                                <Typography weight="semi-bold" variant="x-small-body" color="grey">
+                                    {info ?
+                                        `@${new Date().getFullYear()} ${info.name}`             
+                                    :
+                                        null
+                                    }
+                                    <br/>All Rights Reserved
                                 </Typography>
-                            </Col>
-                            <Col md={2}>
+                            </div>
+                            {info && info.licenseID && info.isValid ?
+                                <div className="col-md-3" styleName="col">
+                                    <LegalBox licenseID={info.licenseID}/>             
+                                </div>
+                                :
+                                null
+                            }
+                            <div className="col-md-3" styleName="col">
                                 <a href={'https://betprotocol.com'} target={'_blank'}>
                                     <img src={logoMadeByBepro} styleName='bepro-made-by-logo'/>
                                 </a>
-                            </Col>
+                            </div>
                         </Row>
-                      
                     </div>
                 </div>
             </div>

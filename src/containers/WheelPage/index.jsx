@@ -151,11 +151,15 @@ class WheelPage extends React.Component {
     };
 
     addToHistory = ({result, won}) => {
-        let multiplier = this.state.game.resultSpace[result].multiplier;
-        let history = Cache.getFromCache("wheelHistory");
-        history = history ? history : [];
-        history.unshift({ value: `${multiplier}x`, win : won });
-        Cache.setToCache("wheelHistory", history);
+        try {
+            let multiplier = this.state.game.resultSpace[result].multiplier;
+            let history = Cache.getFromCache("wheelHistory");
+            history = history ? history : [];
+            history.unshift({ value: `${multiplier}x`, win : won });
+            Cache.setToCache("wheelHistory", history);
+        } catch (error) {
+            console.log(error);
+        }
     }
 
 
@@ -205,10 +209,10 @@ class WheelPage extends React.Component {
         this.setState({ bet: false, disableControls : false, inResultAnimation : false });
         const { profile } = this.props;
         /* Update Info User View */
-        const { isWon, result, winAmount } = this.state.betObjectResult;
+        const { isWon, result, winAmount, userDelta } = this.state.betObjectResult;
         setWonPopupMessageDispatcher(winAmount);
         this.addToHistory({result, won : isWon});
-        await profile.getBalanceData();
+        await profile.updateBalance({ userDelta });
     };
 
     getTotalBet = () => {

@@ -32,7 +32,7 @@ class PaymentBox extends React.Component{
         if (virtual === true) {
             const virtualCurrency = getApp().currencies.find(c => c.virtual === true);
 
-            if(wallet && virtualCurrency) {
+            if(wallet.currency.virtual !== true && virtualCurrency) {
                 const virtualWallet = getApp().wallet.find(w => w.currency._id === virtualCurrency._id);
                 const price = virtualWallet ? virtualWallet.price.find(p => p.currency === wallet.currency._id).amount : null;
                 this.setState({ price, virtualTicker : virtualCurrency.ticker });
@@ -42,7 +42,7 @@ class PaymentBox extends React.Component{
     }
 
     onClick = () => {
-        const { id, onClick, isPicked } = this.props;
+        const { id, onClick } = this.props;
         if(onClick){
             onClick(id)
         }
@@ -56,7 +56,7 @@ class PaymentBox extends React.Component{
         });
 
         return (
-            <button onClick={this.onClick} styleName={styles}>
+            <button onClick={this.onClick} styleName={styles} disabled={wallet.currency.virtual}>
                 <Row>
                     <Col xs={4} md={4}>
                         <div styleName='container-image'>

@@ -79,10 +79,14 @@ class RoulettePage extends Component {
     };
 
     addToHistory = ({result, won}) => {
-        let history = Cache.getFromCache("rouletteHistory");
-        history = history ? history : [];
-        history.unshift({ value: result, win : won });
-        Cache.setToCache("rouletteHistory", history);
+        try {
+            let history = Cache.getFromCache("rouletteHistory");
+            history = history ? history : [];
+            history.unshift({ value: result, win : won });
+            Cache.setToCache("rouletteHistory", history);
+        } catch (error) {
+            console.log(error);
+        }
     }
 
 
@@ -124,10 +128,10 @@ class RoulettePage extends Component {
         this.setState({ bet: false });
         const { profile } = this.props;
         /* Update Info User View */
-        const { isWon, result, winAmount } = this.state.betObjectResult;
+        const { isWon, result, winAmount, userDelta } = this.state.betObjectResult;
         setWonPopupMessageDispatcher(winAmount);
         this.addToHistory({result, won : isWon});
-        await profile.getBalanceData();
+        await profile.updateBalance({ userDelta });
     };
 
     getTotalBet = () => {

@@ -53,9 +53,9 @@ import ChatChannel from "../../controllers/Chat";
 import AnnouncementTab from "../../components/AnnouncementTab";
 import { getCurrencyAddress } from "../../lib/api/users";
 import classNames from "classnames";
+import delay from 'delay';
 
 const history = createBrowserHistory();
-const delay = ms => new Promise(res => setTimeout(res, ms));
 class App extends Component {
     constructor(props) {
         super(props);
@@ -350,6 +350,8 @@ class App extends Component {
         localStorage.removeItem("customization");
         localStorage.removeItem("affiliate");
         localStorage.removeItem("appInfo");
+        localStorage.removeItem("user");
+        sessionStorage.clear();
         await store.dispatch(setProfileInfo(null));
         this.setState({ user: null });
         window.location.reload();

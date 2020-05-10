@@ -2,5 +2,6 @@
 
 .root {
     height: 80px;
-    padding-top : $padding-height-navbar;
+    padding-top : $spacing-8;
+    display: inline-flex;
 }

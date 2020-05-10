@@ -1,6 +1,11 @@
 import axios from "axios";
 import handleError from "./handleError";
+import { setProfileInfo } from "../../redux/actions/profile";
+import { setMessageNotification } from '../../redux/actions/message';
+import Cache from "../../lib/cache/cache";
+import store from ".../../containers/App/store";
 import { apiUrl, appId, apiUrlWithdraw } from "./apiConfig";
+import delay from 'delay';
 
 // Create an instance using the config defaults provided by the library
 // At this point the timeout config value is `0` as is the default for the library
@@ -209,8 +214,22 @@ export async function updateUserBalance(user, setUser) {
 }
 
 export async function logout() {
-  localStorage.removeItem("user");
-  sessionStorage.clear();
+    Cache.setToCache('user', null);
+    Cache.setToCache('Authentication', null);
+    localStorage.removeItem("diceHistory");
+    localStorage.removeItem("rouletteHistory");
+    localStorage.removeItem("flipHistory");
+    localStorage.removeItem("plinko_variation_1History");
+    localStorage.removeItem("wheelHistory");
+    localStorage.removeItem("wheel_variation_1History");
+    localStorage.removeItem("customization");
+    localStorage.removeItem("affiliate");
+    localStorage.removeItem("appInfo");
+    localStorage.removeItem("user");
+    sessionStorage.clear();
+    await store.dispatch(setProfileInfo(null));
+    window.location.reload();
+    window.location.href = '/';
 }
 
 /**
@@ -407,6 +426,13 @@ export async function userAuth(params, bearerToken, payload) {
         let response = await res.json();
 
         const { message, status } = response.data;
+
+        if(status === 48) {
+            await store.dispatch(setMessageNotification(message));
+            await delay(3000);
+            logout();
+            return null;
+        }
 
         return {
             address : message.address,

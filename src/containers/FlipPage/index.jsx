@@ -50,9 +50,9 @@ class FlipPage extends Component {
 
     handleUpdateBalance = async () => {
         const { profile } = this.props;
-        const { result, hasWon, winAmount } = this.state.betObjectResult;
+        const { result, hasWon, winAmount, userDelta } = this.state.betObjectResult;
         setWonPopupMessageDispatcher(winAmount);
-        await profile.getBalanceData();
+        await profile.updateBalance({ userDelta });
         this.addToHistory({result : `${result} `, won : hasWon})
     };
 
@@ -61,10 +61,14 @@ class FlipPage extends Component {
     };
 
     addToHistory = ({result, won}) => {
-        let history = Cache.getFromCache("flipHistory");
-        history = history ? history : [];
-        history.unshift({ value: result, win : won });
-        Cache.setToCache("flipHistory", history);
+        try {
+            let history = Cache.getFromCache("flipHistory");
+            history = history ? history : [];
+            history.unshift({ value: result, win : won });
+            Cache.setToCache("flipHistory", history);
+        } catch (error) {
+            console.log(error);
+        }
     }
 
     onBet = async form => {
