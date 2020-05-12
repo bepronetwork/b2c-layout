@@ -1,0 +1,40 @@
+@import "../../styles/all.css";
+
+.title {
+  height: 50px;
+  background-color: $primaryColor-dark-5;
+  display: flex;
+  align-items: center;
+  padding-left: 15%;
+  border-radius: $border-radius $border-radius 0 0;
+  border-bottom: 1px solid $secondaryColor;
+}
+
+.row {
+    display: flex;
+    align-items: center;
+    height: 48px;
+    padding-left: $spacing-28; 
+}
+
+.icon {
+    width: 30px;
+    margin-right: 20px;
+}
+
+.label {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    height: 40px;
+    cursor: pointer;
+    padding: $spacing-28;
+    background-color: $backgroundColor-light-2;
+  
+    .user-icon {
+      width: 50px;
+      background-color: $primaryColor-light-2;
+      border-radius: 25px;
+    }
+
+  }

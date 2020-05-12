@@ -4,7 +4,7 @@ $values-height: 92px;
 $with-without-padding: calc(100% - $spacing-20 - $spacing-20);
 
 .root {
-  height: inherit;
+  height: 100%;
   padding: $spacing-20;
   background-color: $background-main-table;
   border-radius: 0 $border-radius $border-radius 0;

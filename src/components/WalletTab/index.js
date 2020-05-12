@@ -68,7 +68,7 @@ class WalletTab extends React.Component{
         return (
             <div>
                 <Row>
-                    <Col lg={4}>
+                    <Col md={12} lg={12} xl={4}>
                         <div>
                             {wallets.map( w => {
                                 return (
@@ -81,7 +81,7 @@ class WalletTab extends React.Component{
                             })}
                         </div>
                     </Col>
-                    <Col lg={8}>
+                    <Col md={12} lg={12} xl={8}>
                         <div>
                             <Tabs
                                 selected={tab}

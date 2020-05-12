@@ -7,10 +7,7 @@ import { CopyText } from '../../copy';
 import _ from 'lodash';
 import "./index.css";
 
-const defaultProps = {
-    openChat : false,
-    openBetsList : false
-}
+const defaultProps = {}
 
 class BottomNavbar extends Component {
     static contextType = UserContext;
@@ -20,26 +17,10 @@ class BottomNavbar extends Component {
         this.state = {  ...defaultProps };
     }
 
-    openChatClick = () => {
-        const { onChat } = this.props;
-        const { openChat } = this.state;
-
-        this.setState({ openChat : !openChat });
-        onChat(!openChat);
-    };
-
-    openBetsListClick = () => {
-        const { onBetsList } = this.props;
-        const { openBetsList } = this.state;
-
-        this.setState({ openBetsList : !openBetsList });
-        onBetsList(!openBetsList);
-    };
-
     openDeposit = () => {
-        let { onWallet, onLoginRegister, profile, history } = this.props;
+        let { onMenuItem, onLoginRegister, profile, history } = this.props;
         
-        !_.isEmpty(profile) ? onWallet({history}) : onLoginRegister('login');
+        !_.isEmpty(profile) ? onMenuItem({history, path : "/settings/wallet"}) : onLoginRegister('login');
     }
 
     homeClick = () => {
@@ -49,7 +30,7 @@ class BottomNavbar extends Component {
 
 
     render() {
-        const {ln} = this.props;
+        const {ln, onChat, onBetsList} = this.props;
         const copy = CopyText.navbarIndex[ln]; 
 
         return (
@@ -80,7 +61,7 @@ class BottomNavbar extends Component {
                         </a>
                     </li>
                     <li>
-                        <a href="#" onClick={this.openBetsListClick}>
+                        <a href="#" onClick={() => onBetsList()}>
                             <span styleName="item">
                                 <div styleName="icon">
                                     <BetsIcon/>
@@ -92,7 +73,7 @@ class BottomNavbar extends Component {
                         </a>
                     </li>
                     <li>
-                        <a href="#" onClick={this.openChatClick}>
+                        <a href="#" onClick={() => onChat()}>
                             <span styleName="item">
                                 <div styleName="icon">
                                     <ChatIcon />

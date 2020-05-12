@@ -34,7 +34,11 @@
     margin-top: $spacing-16;
     margin-bottom: $spacing-20;
     padding: $spacing-20;
-    border-radius: 5px;
+    border-radius: $border-radius;
+
+    @include Breakpoint-mobileOnly {
+        padding: 0;
+    }
 }
 
 

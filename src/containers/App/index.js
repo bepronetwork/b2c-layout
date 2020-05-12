@@ -54,6 +54,7 @@ import AnnouncementTab from "../../components/AnnouncementTab";
 import { getCurrencyAddress } from "../../lib/api/users";
 import classNames from "classnames";
 import delay from 'delay';
+import MobileMenu from "../../components/MobileMenu";
 
 const history = createBrowserHistory();
 class App extends Component {
@@ -74,6 +75,7 @@ class App extends Component {
             confirmEmailParams : null,
             chatMobileOpen : false,
             betsListOpen : false,
+            settingsMenuOpen : false,
             chatExpand : true,
             tableDetailsOpen : null
         }
@@ -219,16 +221,26 @@ class App extends Component {
         this.setState({ tableDetailsOpen: true, tableDetails: params });
     };
 
-    handleChatOpen = (open) => {
-        this.setState({ chatMobileOpen: open, betsListOpen: false });
+    handleChatOpen = () => {
+        const { chatMobileOpen } = this.state;
+
+        this.setState({ chatMobileOpen: !chatMobileOpen, betsListOpen: false, settingsMenuOpen: false });
     };
 
-    handleBetsListOpen = (open) => {
-        this.setState({ betsListOpen: open, chatMobileOpen: false });
+    handleBetsListOpen = () => {
+        const { betsListOpen } = this.state;
+
+        this.setState({ betsListOpen: !betsListOpen, chatMobileOpen: false, settingsMenuOpen: false });
+    };
+
+    handlSettingsMenuOpen = () => {
+        const { settingsMenuOpen } = this.state;
+
+        this.setState({ settingsMenuOpen: !settingsMenuOpen, chatMobileOpen: false, betsListOpen: false });
     };
 
     handleHomeOpen = ({history}) => {
-        this.setState({ chatMobileOpen: false, betsListOpen : false });
+        this.setState({ chatMobileOpen: false, betsListOpen : false, settingsMenuOpen: false });
         history.push('/');
     }
 
@@ -236,8 +248,9 @@ class App extends Component {
         history.push('/settings');
     }
 
-    handleWalletOpen = ({history}) => {
-        history.push('/settings/wallet');
+    handleOpenMenuItem = ({history, path}) => {
+        this.setState({ chatMobileOpen: false, betsListOpen : false, settingsMenuOpen: false });
+        history.push(path);
     }
 
     handleLogin = async form => {
@@ -566,9 +579,10 @@ class App extends Component {
     }
 
     render() {
-        const { user, app, isLoading, chatMobileOpen, betsListOpen, chatExpand } = this.state;
+        const { user, app, isLoading, chatMobileOpen, betsListOpen, settingsMenuOpen, chatExpand } = this.state;
         const { profile, startLoadingProgress, modal } = this.props;
         const mobileBreakpoint = 768;
+        const tabletBreakpoint = 1024;
 
         if (!app || isLoading) {return null};
         const { progress, confirmations } = startLoadingProgress;
@@ -585,6 +599,10 @@ class App extends Component {
         });
         const betsListStyles = classNames("bets-container-main", {
             betsListDisplay: betsListOpen
+        });
+        const settingsMenuStyles = classNames("settings-container-menu", {
+            settingsMenuDisplay: settingsMenuOpen,
+            settingsMenuHidden: !settingsMenuOpen
         });
 
         return (
@@ -603,7 +621,8 @@ class App extends Component {
                                 onLogout={this.handleLogout}
                                 onLoginRegister={this.handleLoginOrRegisterOpen}
                                 onCashier={this.handleCashierOpen}
-                                onWallet={this.handleWalletOpen}
+                                onMenuItem={this.handleOpenMenuItem}
+                                onSettingsMenu={this.handlSettingsMenuOpen}
                             />
                             {this.renderLoginRegisterModal()}
                             {this.renderResetPasswordModal()}
@@ -727,6 +746,17 @@ class App extends Component {
                                     :
                                         null
                                 }
+                                {
+                                    document.documentElement.clientWidth <= tabletBreakpoint 
+                                    ?
+                                        <div styleName={settingsMenuStyles} > 
+                                            <div styleName={'settings-container'}>
+                                                <MobileMenu onMenuItem={this.handleOpenMenuItem} history={history}/>
+                                            </div>
+                                        </div>
+                                    :
+                                        null
+                                }
                             </div>
                             <PopupForm user={user}/>
                         </div>
@@ -737,7 +767,7 @@ class App extends Component {
                             onHome={this.handleHomeOpen}
                             onBetsList={this.handleBetsListOpen}
                             onLoginRegister={this.handleLoginOrRegisterOpen}
-                            onWallet={this.handleWalletOpen}
+                            onMenuItem={this.handleOpenMenuItem}
                         />
                     </Router>
                 </UserContext.Provider>

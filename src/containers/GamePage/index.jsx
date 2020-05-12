@@ -156,15 +156,6 @@ class GamePage extends Component {
                                 <div styleName={gameContainerStyles}>
                                     {game}
                                     {this.renderHistory()}
-                                    <div styleName="sound">
-                                        <ButtonIcon
-                                            iconAtLeft
-                                            icon="sound"
-                                            label={copy.SOUND}
-                                            onClick={this.handleSounds}
-                                            soundMode={soundMode}
-                                        />
-                                    </div>
                                 </div>
 
                             </Col>
@@ -173,11 +164,28 @@ class GamePage extends Component {
                             </Col>
                         </Row>
                     </div>
-                </div>
-                <div styleName="actions">
-                    <Button size={'x-small'} theme={'action'} onClick={this.handleActionsModalOpen}>
-                        <Typography color={'white'} variant={'small-body'}>{copy.RULES}</Typography>
-                    </Button>
+                    <div styleName="buttons">
+                        <div styleName="actions">
+                            <ButtonIcon
+                                iconAtLeft
+                                icon="copy"
+                                label={copy.RULES}
+                                onClick={this.handleActionsModalOpen}
+                                soundMode={soundMode}
+                                theme="primary"
+                            />
+                        </div>
+                        <div styleName="sound">
+                            <ButtonIcon
+                                iconAtLeft
+                                icon="sound"
+                                label={copy.SOUND}
+                                onClick={this.handleSounds}
+                                soundMode={soundMode}
+                                theme="primary"
+                            />
+                        </div>
+                    </div>
                 </div>
                 <LastBets gameMetaName={gameMetaName} onTableDetails={onTableDetails}/>
             </div>

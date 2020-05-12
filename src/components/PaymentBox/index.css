@@ -15,11 +15,6 @@
     &:hover{
         opacity : 0.4;
     }
-
-
-    @include Breakpoint-mobileOnly {
-        width : 250px;
-    }
 }
 
 .selected {

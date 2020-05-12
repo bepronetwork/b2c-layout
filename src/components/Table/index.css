@@ -10,9 +10,7 @@
     margin: auto;
     vertical-align: middle;
     padding: $spacing-12 $spacing-20;
-    @media screen and (max-width: 767px) {
-        padding: $spacing-4 $spacing-8;
-    }
+
 }
 
 .th-row-img {
@@ -42,9 +40,6 @@
         }
     }
 
-    @media screen and (max-width: 767px) {
-        padding-top: 38px;
-    }
 }
 
 .image{

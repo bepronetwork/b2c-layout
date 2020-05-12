@@ -3,6 +3,10 @@
 
 .container {
     margin: 0 $spacing-20;
+
+    @include Breakpoint-mobileOnly {
+        margin: 0;
+    }
 }
 
 .main{
