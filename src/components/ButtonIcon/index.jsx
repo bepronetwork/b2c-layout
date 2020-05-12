@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import classNames from "classnames";
-import { Typography, RotateIcon, UndoIcon, SoundIcon } from "components";
+import { Typography, RotateIcon, UndoIcon, SoundIcon, CopyIcon } from "components";
 
 import "./index.css";
 
@@ -12,10 +12,12 @@ const ButtonIcon = ({
   iconAtLeft,
   disabled,
   rollType,
-  soundMode
+  soundMode,
+  theme
 }) => {
   const rootStyles = classNames("root", {
-    disabled
+    disabled,
+    primaryTheme : theme === "primary"
   });
 
   const buttonStyles = classNames("button", {
@@ -28,6 +30,11 @@ const ButtonIcon = ({
     sound: (
       <SoundIcon
         soundMode={soundMode}
+        color={disabled ? "pickled-bluewood" : "casper"}
+      />
+    ),
+    copy: (
+      <CopyIcon
         color={disabled ? "pickled-bluewood" : "casper"}
       />
     )
@@ -67,7 +74,8 @@ ButtonIcon.propTypes = {
   label: PropTypes.string,
   rollType: PropTypes.oneOf(["over", "under", "sound", null]),
   icon: PropTypes.string,
-  soundMode: PropTypes.oneOf(["on", "off"])
+  soundMode: PropTypes.oneOf(["on", "off"]),
+  theme: PropTypes.oneOf(["default", "primary"])
 };
 
 ButtonIcon.defaultProps = {
@@ -77,7 +85,8 @@ ButtonIcon.defaultProps = {
   label: null,
   icon: null,
   rollType: null,
-  soundMode: "off"
+  soundMode: "off",
+  theme: "default"
 };
 
 export default ButtonIcon;

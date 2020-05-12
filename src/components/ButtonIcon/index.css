@@ -17,6 +17,17 @@
   }
 }
 
+.primaryTheme {
+  background-color: $backgroundColor-dark-5;
+  height: 40px;
+  padding: 0 $spacing-28;
+  border-radius: 20px;
+
+  div {
+    margin-top: 0;
+  }
+}
+
 .disabled {
 }
 

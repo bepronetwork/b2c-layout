@@ -20,11 +20,15 @@ $icon-index: calc($root-index + 1);
 
   background-color: color($background-table-1-outer alpha(70%));
 
-  @include Breakpoint-mobileOnly {
-    height: 110%;
-  }
   padding-top: 70px;
   padding-bottom: 100px;
+
+  @include Breakpoint-mobileOnly {
+    height: 110%;
+    padding-top: 40px;
+    padding-bottom: 40px;
+  }
+
 }
 
 .icon {
@@ -54,4 +58,9 @@ $icon-index: calc($root-index + 1);
   background-color: $modal-background;
 
   border-radius: $spacing-4;
+
+  @include Breakpoint-mobileOnly {
+    height: 100%;
+    width: 100%;
+  }
 }

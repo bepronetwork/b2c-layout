@@ -18,11 +18,6 @@
 
 .address {
     display: flex;
-
-    @include Breakpoint-mobileOnly {
-        width: 300px;
-        margin-left: $spacing-12;
-    }
 }
 
 .ad-copied {
@@ -49,8 +44,7 @@
     padding: $spacing-20;
 
     @include Breakpoint-mobileOnly {
-        margin: $spacing-20 $spacing-12 0 $spacing-12;
-        width: 300px;
+        padding: 0;
     }
 }
 

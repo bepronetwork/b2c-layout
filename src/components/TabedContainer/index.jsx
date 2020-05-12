@@ -35,7 +35,7 @@ class TabedContainer extends React.Component{
             <Container styleName="dashboard">
                 <Tab.Container id="left-tabs-example" defaultActiveKey={`item-${mainIndex}`}>
                     <Row>
-                        <Col sm={3}>
+                        <Col sm={0} md={0} lg={4} xl={3} styleName="container-menu">
                             <div styleName="title">
                                 <Typography variant={'small-body'} color={'white'}>{copy.CONTAINERS.ACCOUNT.TITLE[0]}</Typography>
                             </div>
@@ -61,7 +61,7 @@ class TabedContainer extends React.Component{
                                 })} 
                             </Nav>
                         </Col>
-                        <Col sm={9}>
+                        <Col sm={12} md={12} lg={8} xl={9}>
                             <Tab.Content>
                                 {filteredItems.map( (item, index) => {
                                     return (

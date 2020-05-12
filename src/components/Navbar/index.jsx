@@ -9,6 +9,8 @@ import { CopyText } from '../../copy';
 import _ from 'lodash';
 import "./index.css";
 
+import nineDots from "assets/icons/nine.png";
+
 
 function AddressConcat(string){
     return  `${string.substring(0, 6)}...${string.substring(string.length - 2)}`;
@@ -19,6 +21,7 @@ const defaultProps = {
     userAddress : 'N/A',
     currentBalance : 0,
     betIDVerified : '',
+    openSettingsMenu : false
 };
 
 class Navbar extends Component {
@@ -107,7 +110,7 @@ class Navbar extends Component {
 
     renderCurrencySelector = () => {
         let { currentBalance, difference } = this.state;
-        const { onWallet, history, ln } = this.props;
+        const { onMenuItem, history, ln } = this.props;
         const copy = CopyText.navbarIndex[ln]; 
         var currencies = getApp().currencies;
         const virtual = getApp().virtual;
@@ -137,7 +140,7 @@ class Navbar extends Component {
                     </div>
                  }
                 <div styleName='button-deposit'>
-                    <button onClick={() => onWallet({history})} type="submit" styleName="button">
+                    <button onClick={() => onMenuItem({history, path : "/settings/wallet"})} type="submit" styleName="button">
                         <Typography variant="small-body" color="white">
                             {virtual ? copy.INDEX.TYPOGRAPHY.TEXT[6] : copy.INDEX.TYPOGRAPHY.TEXT[2]}
                         </Typography>
@@ -159,6 +162,17 @@ class Navbar extends Component {
                     <span>
                         <Typography color="white" variant={'small-body'}>{profile.getUsername()}</Typography>
                     </span>
+                </div>
+            </button>
+        )
+    }
+
+    renderSettings = () => {
+        const { onSettingsMenu } = this.props;
+        return(
+            <button styleName="settings" onClick={() => onSettingsMenu()} type="button">
+                <div styleName="settings-icon">
+                    <img src={nineDots} />
                 </div>
             </button>
         )
@@ -191,7 +205,7 @@ class Navbar extends Component {
             <div styleName="language-profile">
                 {this.renderLanguageSelector()}
                 {user ?
-                    this.renderProfileMenu()
+                    [this.renderSettings(), this.renderProfileMenu()]
                 :
                     this.renderLoginOrRegister()
                 }

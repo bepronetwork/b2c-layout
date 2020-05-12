@@ -70,7 +70,7 @@ class AffiliateLinkContainer extends React.Component{
         
                     <div styleName='text-container'>
                         <Row>
-                            <Col xs={12} md={10}>
+                            <Col xs={12} md={10} lg={8} xl={10}>
                                 {copied ? (
                                     <div styleName="copied">
                                         <Typography variant="small-body" color={'white'}>
@@ -84,7 +84,7 @@ class AffiliateLinkContainer extends React.Component{
                                     </Typography>
                                 </div>
                             </Col>
-                            <Col xs={12} md={2}>
+                            <Col xs={12} md={2} lg={4} xl={2}>
                                 <button onClick={this.copyToClipboard} styleName='text-copy-container'>
                                     <Typography variant={'x-small-body'} color={'white'}>
                                         {copy.INDEX.TYPOGRAPHY.TEXT[0]}
