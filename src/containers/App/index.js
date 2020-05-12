@@ -338,9 +338,7 @@ class App extends Component {
         return userObject;
     };
 
-    handleLogout = async () => {
-        Cache.setToCache('user', null);
-        Cache.setToCache('Authentication', null);
+    cleanAppCache = async () => {
         localStorage.removeItem("diceHistory");
         localStorage.removeItem("rouletteHistory");
         localStorage.removeItem("flipHistory");
@@ -350,6 +348,12 @@ class App extends Component {
         localStorage.removeItem("customization");
         localStorage.removeItem("affiliate");
         localStorage.removeItem("appInfo");
+    };
+
+    handleLogout = async () => {
+        Cache.setToCache('user', null);
+        Cache.setToCache('Authentication', null);
+        this.cleanAppCache();
         localStorage.removeItem("user");
         sessionStorage.clear();
         await store.dispatch(setProfileInfo(null));
@@ -456,10 +460,9 @@ class App extends Component {
     };
 
     updateAppInfo = async () => {
-
-
         let app = await getAppInfo();
 
+        this.cleanAppCache();
 
         Cache.setToCache("appInfo", app);
         this.setState({...this.state, app})
