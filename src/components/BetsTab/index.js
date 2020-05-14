@@ -82,7 +82,7 @@ class BetsTab extends Component {
         const copy = CopyText.betspage[ln];
         let my_bets = [];
 
-        let games = getGames().filter(g => g.metaName != 'jackpot_auto');
+        let games = getGames();
         let gamesOptions = [];
         gamesOptions.push(allGames);
 
