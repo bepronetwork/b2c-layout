@@ -88,7 +88,7 @@
     background: none;
   
     border: 0;
-    color: white;
+    color: $white;
     outline: 0;
   
     font-family: $font-family;

@@ -141,7 +141,7 @@ class Navbar extends Component {
                  }
                 <div styleName='button-deposit'>
                     <button onClick={() => onMenuItem({history, path : "/settings/wallet"})} type="submit" styleName="button">
-                        <Typography variant="small-body" color="white">
+                        <Typography variant="small-body" color="fixedwhite">
                             {virtual ? copy.INDEX.TYPOGRAPHY.TEXT[6] : copy.INDEX.TYPOGRAPHY.TEXT[2]}
                         </Typography>
                     </button>

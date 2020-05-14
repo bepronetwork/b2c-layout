@@ -108,12 +108,12 @@ class Footer extends Component {
 
     projectData = async () => {
         const info = getApp();
-        const { footer, logo } = getAppCustomization();
-        this.setState({supportLinks : footer.supportLinks, communityLinks : footer.communityLinks, logo, info})
+        const { footer, logo, theme } = getAppCustomization();
+        this.setState({supportLinks : footer.supportLinks, communityLinks : footer.communityLinks, logo, info, theme})
     }
 
     render() {
-        const { supportLinks, communityLinks, logo, info } = this.state;
+        const { supportLinks, communityLinks, logo, info, theme } = this.state;
         const props = this.props;
         let footerInfo = footerStaticOutput({props, supportLinks, communityLinks});
 
@@ -202,7 +202,7 @@ class Footer extends Component {
                             )}
                         )}
                     </Row>
-                    <div styleName='footer-partners'>
+                    <div styleName='footer-partners' style={{backgroundColor: theme === 'light' ? '#333333' : null, borderRadius: theme === 'light' ? '5px' : null}}>
                         <Row>
                             <div className="col-md-2" styleName="col">
                                 <a href={'https://www.bitgo.com'} target={'_blank'}>
@@ -230,7 +230,7 @@ class Footer extends Component {
                                 </a>
                             </div>
                             <div className="col-md-2" styleName="col">
-                                <Typography weight="bold" variant="h4" color="white"> 
+                                <Typography weight="bold" variant="h4" color="fixedwhite"> 
                                     18+
                                 </Typography>
                             </div>
