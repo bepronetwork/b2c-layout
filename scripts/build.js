@@ -64,6 +64,25 @@ function ServerTOJSONMapper(serverJSON){
                 });
                 return serverColors.concat(darkLightColors);
             }
+            case 'theme' : {
+                var fontColors = [];
+                const theme = serverJSON.value;
+
+                if (theme === 'light') {
+                    const darkColor = { object : 'variable', key : 'white', value : '#333333'}
+                    fontColors.push(darkColor)
+                    const lightColor = { object : 'variable', key : 'grey', value : '#4D4D4D'}
+                    fontColors.push(lightColor)
+                }
+                else if (theme === 'dark') {
+                    const darkColor = { object : 'variable', key : 'white', value : '#FFFFFF'}
+                    fontColors.push(darkColor)
+                    const lightColor = { object : 'variable', key : 'grey', value : '#CCCCCC'}
+                    fontColors.push(lightColor)
+                }
+
+                return fontColors;
+            }
             /* Add more Types here..*/
         }
     })[0]
@@ -226,11 +245,20 @@ async function generateLoadingGif(){
     }
 }
 
+async function setFontColors(){
+    /* Get app Info */
+    const { theme } =  appInfo.customization;
+    const objectServerInfo = ServerTOJSONMapper({key : 'theme', value : theme});
+    fs.writeFile("src/styles/serverVariables.css", JSONtoSASS(objectServerInfo)+ "\n\n", () => {
+        console.log("Server Font Colors Css Written");
+    });
+}
+
 async function setColors(){
     /* Get app Info */
     const { colors } =  appInfo.customization;
     const objectServerInfo = ServerTOJSONMapper({key : 'colors', value : colors});
-    fs.writeFile("src/styles/serverVariables.css", JSONtoSASS(objectServerInfo), () => {
+    fs.appendFile("src/styles/serverVariables.css", JSONtoSASS(objectServerInfo), () => {
         console.log("Server Colors Css Written");
     });
 }
@@ -241,6 +269,8 @@ async function setColors(){
         appInfo = await getAppInfo();
         /* Set Head Elements */
         await generateHeadElements();
+        /* Set Platform Font Colors */
+        await setFontColors();
         /* Set Platform Colors */
         await setColors();
         /* Set Platform Favicon */

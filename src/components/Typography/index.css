@@ -104,7 +104,7 @@
 }
 
 .white {
-  color: $text-primary-color;
+  color: $white;
 }
 
 .mercury {
@@ -127,3 +127,6 @@
     color : $grey;
 }
 
+.fixedwhite{
+  color : white;
+}

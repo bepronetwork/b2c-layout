@@ -181,7 +181,7 @@
 }
 
 .button{
-    background-color: $fifthColor; 
+    background-color: $secondaryColor; 
     margin : auto;
     position: relative;
     display: block;

@@ -25,7 +25,7 @@ class Toggle extends React.Component{
         return (
             <div styleName={styles}>
                 <div styleName="toggle-text">
-                    <Typography variant={'small-body'} color={'white'} weight={'semi-bold'}>{checked === true ? 'ON' : 'OFF'}</Typography>
+                    <Typography variant={'small-body'} color={'fixedwhite'} weight={'semi-bold'}>{checked === true ? 'ON' : 'OFF'}</Typography>
                 </div>
                 <BootstrapSwitchButton 
                     checked={checked} 

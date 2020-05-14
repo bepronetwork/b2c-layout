@@ -92,8 +92,8 @@
 }
 
 .message-container > form > div > div {
-    background-color: $backgroundColor;
-    border: 2px solid $backgroundColor-light-8;
+    background-color: $primaryColor;
+    border: 2px solid $primaryColor-dark-3;
     border-radius: $border-radius 0 0 $border-radius ;
     height: 40px;
 
@@ -218,7 +218,7 @@
 
 .avatar {
   float: left;
-  background-color: $primaryColor-light-5;
+  background-color: $primaryColor-dark-8;
   border-radius: $border-radius;
   width: $spacing-20;
   height: $spacing-20;
