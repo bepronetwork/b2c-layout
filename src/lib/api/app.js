@@ -99,6 +99,20 @@ async function getPopularNumbers({size}) {
         return handleError(error);
     }
 }
+
+async function ping() {
+    try {
+        const response = await axios.post(`${apiUrl}/api/ping/post`, {
+            app: appId,
+            type: "user"
+        });
+            
+        return response.data.data.status;
+
+    } catch (error) {
+        return handleError(error);
+    }
+}
   
   
 export { 
@@ -106,5 +120,6 @@ export {
     getGames, 
     getBiggestUserWinners, 
     getBiggestBetWinners,
-    getPopularNumbers 
+    getPopularNumbers,
+    ping
 }

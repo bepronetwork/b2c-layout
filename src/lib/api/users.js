@@ -5,6 +5,7 @@ import { setMessageNotification } from '../../redux/actions/message';
 import Cache from "../../lib/cache/cache";
 import store from ".../../containers/App/store";
 import { apiUrl, appId, apiUrlWithdraw } from "./apiConfig";
+import { getWebsite } from "../../lib/helpers";
 import delay from 'delay';
 
 // Create an instance using the config defaults provided by the library
@@ -31,12 +32,15 @@ export async function register({ username, password, email, address, affiliateLi
 
     try {
         const response = await axios.post(`${apiUrl}/api/users/register`, postData);
+        const { status, message } = response.data.data;
 
-        if (response.data.data.status !== 200) {
+        if (status !== 200) {
+            if (status === 59) {
+                window.location.href = getWebsite();
+                return false;
+            }
             return response.data.data;
         }
-
-        const { status, message } = response.data.data;
 
         return {
             status,
@@ -56,11 +60,16 @@ export async function login({ username, password }) {
             password,
             app : appId
         });
-
-        if (response.data.data.status !== 200) {
-        return response.data.data;
-        }
         const { status, message } = response.data.data;
+
+        if (status !== 200) {
+            if (status === 59) {
+                window.location.href = getWebsite();
+                return false;
+            }
+            return response.data.data;
+        }
+
         return {
             address : message.address,
             status,
@@ -86,10 +95,16 @@ export async function login2FA({ username, password, token }) {
             app : appId
         });
 
-        if (response.data.data.status !== 200) {
-        return response.data.data;
-        }
         const { status, message } = response.data.data;
+
+        if (status !== 200) {
+            if (status === 59) {
+                window.location.href = getWebsite();
+                return false;
+            }
+            return response.data.data;
+        }
+
         return {
             address : message.address,
             status,
@@ -431,6 +446,10 @@ export async function userAuth(params, bearerToken, payload) {
             await store.dispatch(setMessageNotification(message));
             await delay(3000);
             logout();
+            return null;
+        }
+        else if(status === 59) {
+            window.location.href = getWebsite();
             return null;
         }
 

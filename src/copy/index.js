@@ -135,6 +135,7 @@ import withdrawTabIndexCopy from './withdrawTabIndex';
 import betspageCopy from './betspage';
 import depositspageCopy from './depositspage';
 import withdrawspageCopy from './withdrawspage';
+import countryRestrictedPageCopy from './countryRestrictedPage';
 
 const CopyText = {
     Errors: errorsCopy,
@@ -266,7 +267,8 @@ const CopyText = {
     withdrawTabIndex: withdrawTabIndexCopy,
     betspage: betspageCopy,
     depositspage: depositspageCopy,
-    withdrawspage: withdrawspageCopy
+    withdrawspage: withdrawspageCopy,
+    countryRestrictedPage: countryRestrictedPageCopy
 }
 
 export { CopyText }
