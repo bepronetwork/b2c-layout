@@ -238,7 +238,7 @@ class ChatPage extends React.Component {
                                     type="submit"
                                     styleName="button"
                                 >
-                                    <Typography variant="small-body" color="white">
+                                    <Typography variant="small-body" color="fixedwhite">
                                         {copy2.CONTAINERS.CHAT.TYPOGRAPHY[0]}
                                     </Typography>
                                 </button>

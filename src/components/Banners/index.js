@@ -67,7 +67,7 @@ class Banners extends Component {
                                                     
                                                     {banner.button_text &&  banner.link_url ?
                                                         <Button  onClick={() => this.handleClick(banner.link_url)} theme="action">
-                                                            <Typography color={'white'} variant={'small-body'}>{banner.button_text}</Typography>
+                                                            <Typography color={'fixedwhite'} variant={'small-body'}>{banner.button_text}</Typography>
                                                         </Button>
                                                     : 
                                                         null
@@ -83,16 +83,16 @@ class Banners extends Component {
                                                 banner.title || banner.subtitle || banner.button_text ?
                                                     <div>
                                                         <div styleName="fields">
-                                                            <Typography color={'white'} variant={'h3'}>{banner.title}</Typography>
+                                                            <Typography color={'fixedwhite'} variant={'h3'}>{banner.title}</Typography>
                                                         </div>
 
                                                         <div styleName="fields">
-                                                            <Typography color={'white'} variant={'body'}>{banner.subtitle}</Typography>
+                                                            <Typography color={'fixedwhite'} variant={'body'}>{banner.subtitle}</Typography>
                                                         </div>
                                                         
                                                         {banner.button_text &&  banner.link_url ?
                                                             <Button  onClick={() => this.handleClick(banner.link_url)} theme="action" size={'x-small'}>
-                                                                <Typography color={'white'} variant={'body'}>{banner.button_text}</Typography>
+                                                                <Typography color={'fixedwhite'} variant={'body'}>{banner.button_text}</Typography>
                                                             </Button>
                                                             : 
                                                             null
