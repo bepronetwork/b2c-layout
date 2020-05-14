@@ -11,7 +11,7 @@ import { Provider } from 'react-redux';
 class Main extends Component {
     constructor() {
       super();
-      this.state = { status: 200 };
+      this.state = { status: null };
     }
   
     async componentDidMount() {
@@ -26,10 +26,14 @@ class Main extends Component {
             <Provider store={store}>
                 <AppContainer>
                     <BrowserRouter>
-                    {status === 59 ?
-                        <CountryRestrictedPage/>
-                    :
+                    {status === 200 ?
                         <App />
+                        
+                    :
+                        status === 59 ?
+                            <CountryRestrictedPage/>
+                        :
+                            null
                     }
                     </BrowserRouter>
                 </AppContainer>
