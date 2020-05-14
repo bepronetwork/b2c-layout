@@ -48,7 +48,7 @@ import { connect } from 'react-redux';
 import _ from 'lodash';
 import { setStartLoadingProcessDispatcher } from "../../lib/redux";
 import AccountPage from "../AccountPage";
-import { getQueryVariable, getAppCustomization } from "../../lib/helpers";
+import { getQueryVariable, getAppCustomization, getWebsite } from "../../lib/helpers";
 import ChatChannel from "../../controllers/Chat";
 import AnnouncementTab from "../../components/AnnouncementTab";
 import { getCurrencyAddress } from "../../lib/api/users";

@@ -160,6 +160,13 @@ function loadFakeBets(rows, games, size) {
     return rows;
 }
 
+function getWebsite() {
+    const arr = window.location.href.split("/");
+    const url = arr[0] + "//" + arr[2];
+
+    return url;
+}
+
 
   
 
@@ -171,5 +178,6 @@ export {
     getApp,
     processResponse,
     getSkeletonColors,
-    loadFakeBets
+    loadFakeBets,
+    getWebsite
 }
