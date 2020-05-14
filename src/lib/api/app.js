@@ -106,6 +106,9 @@ async function ping() {
             app: appId,
             type: "user"
         });
+
+        console.log("response", response)
+        console.log("response.data", response.data)
             
         return response.data.data.status;
 
