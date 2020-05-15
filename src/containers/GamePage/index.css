@@ -70,11 +70,13 @@
 .options {
   padding : 0;
   background-color: $background-table-1-outer;
+  border-radius: $border-radius;
 }
 
 .card {
   padding : 0;
   background-color: $background-main-table;
+  border-radius: 0 $border-radius $border-radius 0;
 }
 
 .game-page-container{
@@ -94,7 +96,7 @@
 
 .options-container {
     background-color: $background-table-1-outer;
-    border-radius: $border-radius 0 0 $border-radius;
+    border-radius: $border-radius $border-radius 0 $border-radius;
 
   @include Breakpoint-mobileOnly {
     order: 2;
