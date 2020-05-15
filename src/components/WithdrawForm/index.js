@@ -86,7 +86,7 @@ class WithdrawForm extends Component {
         this.setState({ 
             ticker : currency.ticker,
             image : wallet.image ? wallet.image : wallet.currency.image,
-            maxWithdraw : formatCurrency(appWallet.max_withdraw > wallet.playBalance ? wallet.playBalance : appWallet.max_withdraw),
+            maxWithdraw : formatCurrency(appWallet.max_withdraw),
             minWithdraw : formatCurrency(appWallet.min_withdraw)
         })
     }
@@ -133,7 +133,7 @@ class WithdrawForm extends Component {
 
     render() {
         const { amount, image, maxWithdraw, minWithdraw, ticker, addressInitialized, isLoaded, toAddress, disabled } = this.state;
-        const {ln} = this.props;
+        const {ln, isAffiliate} = this.props;
         const copy = CopyText.amountFormIndex[ln];
 
         if(!isLoaded){
@@ -194,9 +194,14 @@ class WithdrawForm extends Component {
                             </Col>
                         </Row>
                         <div styleName='text-info-deposit'>
-                            <Typography variant={'x-small-body'} color={'grey'}>
-                                {copy.INDEX.TYPOGRAPHY.FUNC_TEXT[1]([maxWithdraw, ticker])}.
-                            </Typography>
+                            { isAffiliate !== true
+                                ?
+                                    <Typography variant={'x-small-body'} color={'grey'}>
+                                        {copy.INDEX.TYPOGRAPHY.FUNC_TEXT[1]([maxWithdraw, ticker])}.
+                                    </Typography>
+                                :
+                                    null
+                            }
                             <Typography variant={'x-small-body'} color={'grey'}>
                                 {copy.INDEX.TYPOGRAPHY.FUNC_TEXT[2]([minWithdraw, ticker])}.
                             </Typography>
