@@ -30,10 +30,6 @@ class DiceGameOptions extends Component {
         rollNumber: PropTypes.number.isRequired
     };
 
-    static defaultProps = {
-        disableControls: false
-    };
-
     constructor(props) {
         super(props);
 

@@ -63,7 +63,6 @@ class DicePage extends Component {
             });
             this.setState({ 
                 result : res.result, 
-                disableControls : false, 
                 bet : res,
                 animating : true,
                 betObjectResult : res 

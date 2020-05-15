@@ -30,10 +30,6 @@ class FlipGameOptions extends Component {
         disableControls: PropTypes.bool
     };
 
-    static defaultProps = {
-        disableControls: false
-    };
-
     state = {
         type: "manual",
         betAmount: 0,
@@ -232,7 +228,7 @@ const copy = CopyText.flipGameOptionsIndex[ln];
         let winEdge = (100-(this.state.edge))/100;
         let winAmount = betAmount * winEdge;
         const {ln} = this.props;
-const copy = CopyText.flipGameOptionsIndex[ln];
+        const copy = CopyText.flipGameOptionsIndex[ln];
         return (
         <div>
             <div styleName="element">
@@ -274,7 +270,7 @@ const copy = CopyText.flipGameOptionsIndex[ln];
 
     render() {
         const { type, betAmount, side, isAutoBetting } = this.state;
-        const { isCoinSpinning, onBetTrigger } = this.props;
+        const { isCoinSpinning } = this.props;
         const user = this.props.profile;
         const {ln} = this.props;
         const copy = CopyText.flipGameOptionsIndex[ln];
@@ -337,7 +333,7 @@ const copy = CopyText.flipGameOptionsIndex[ln];
                     <Button
                         fullWidth
                         theme="primary"
-                        disabled={!this.isBetValid()|| onBetTrigger || isCoinSpinning  || isAutoBetting}
+                        disabled={!this.isBetValid()|| isCoinSpinning  || isAutoBetting}
                         onClick={this.handleBet}
                         animation={<Dice />}
                     >

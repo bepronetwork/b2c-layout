@@ -35,8 +35,7 @@ class DiceGameCard extends Component {
     };
 
     static defaultProps = {
-        result: null,
-        disableControls: false
+        result: null
     };
 
     constructor(props) {
