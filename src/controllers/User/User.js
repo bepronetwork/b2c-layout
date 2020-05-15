@@ -130,7 +130,6 @@ export default class User {
     getAppCustomization = () => this.app.customization;
 
     getAllData = async () => {
-        await this.updateUser();
         setStartLoadingProcessDispatcher(6);
         this.isLoaded = true;
         await this.updateUserState();
