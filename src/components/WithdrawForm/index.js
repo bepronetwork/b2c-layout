@@ -24,6 +24,8 @@ const defaultProps = {
     toAddress: null,
     maxWithdraw: 0,
     minWithdraw: 0,
+    maxBalance: 0,
+    minBalance: 0,
     disabled: true
 }
 
@@ -37,6 +39,9 @@ class WithdrawForm extends Component {
     }
 
     componentDidMount(){
+        const { onWithdrawDisclaimer} = this.props;
+
+        onWithdrawDisclaimer();
         this.projectData(this.props);
     }
 
@@ -87,7 +92,9 @@ class WithdrawForm extends Component {
             ticker : currency.ticker,
             image : wallet.image ? wallet.image : wallet.currency.image,
             maxWithdraw : formatCurrency(appWallet.max_withdraw),
-            minWithdraw : formatCurrency(appWallet.min_withdraw)
+            minWithdraw : formatCurrency(appWallet.min_withdraw),
+            maxBalance : formatCurrency(appWallet.max_withdraw > wallet.playBalance ? wallet.playBalance : appWallet.max_withdraw),
+            minBalance : formatCurrency(appWallet.min_withdraw > wallet.playBalance ? wallet.playBalance : appWallet.min_withdraw)
         })
     }
 
@@ -132,7 +139,7 @@ class WithdrawForm extends Component {
     }
 
     render() {
-        const { amount, image, maxWithdraw, minWithdraw, ticker, addressInitialized, isLoaded, toAddress, disabled } = this.state;
+        const { amount, image, maxWithdraw, minWithdraw, maxBalance, minBalance, ticker, addressInitialized, isLoaded, toAddress, disabled } = this.state;
         const {ln, isAffiliate} = this.props;
         const copy = CopyText.amountFormIndex[ln];
 
@@ -180,12 +187,12 @@ class WithdrawForm extends Component {
                                         type="currency"
                                         custmomizedIcon={image}
                                     />
-                                    <div styleName="min-max" onClick={() => this.onChangeAmount(minWithdraw)}>
+                                    <div styleName="min-max" onClick={() => this.onChangeAmount(minBalance)}>
                                         <Typography variant={'x-small-body'} color={'grey'}>
                                             Min
                                         </Typography>
                                     </div>
-                                    <div styleName="min-max" onClick={() => this.onChangeAmount(maxWithdraw)}>
+                                    <div styleName="min-max" onClick={() => this.onChangeAmount(maxBalance)}>
                                         <Typography variant={'x-small-body'} color={'grey'}>
                                             Max
                                         </Typography>
@@ -212,6 +219,25 @@ class WithdrawForm extends Component {
                                     {copy.INDEX.TYPOGRAPHY.TEXT[1]} Withdraw
                                 </Typography>
                             </button>
+                        </div>
+                        <div styleName="disclaimer">
+                            <div styleName="title">
+                                <Typography variant={'x-small-body'} color={'grey'} weight={'bold'}>
+                                    {copy.INDEX.DISCLAIMER.NOTICE}:
+                                </Typography>
+                            </div>
+                            <ul>
+                                <li>
+                                    <Typography variant={'x-small-body'} color={'grey'}>
+                                        {copy.INDEX.DISCLAIMER.LIST[0]}
+                                    </Typography>
+                                </li>
+                                <li>
+                                    <Typography variant={'x-small-body'} color={'grey'}>
+                                        {copy.INDEX.DISCLAIMER.LIST[1]}
+                                    </Typography>
+                                </li>
+                            </ul>
                         </div>
                     </div>
                 </div>
