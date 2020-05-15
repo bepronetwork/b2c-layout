@@ -113,16 +113,16 @@ class TableDefault extends Component {
                             </thead>
                             <tbody>
                                 {
-                                    rows.map( (row, index) => 
+                                    rows.map( (row) => 
                                     <tr styleName={rowStyles}>
-                                        {fields.map( (field) => {
-                                            const styles = classNames("th-row", {
-                                                'th-row-img': field.image,
-                                                'th-row-currency': field.currency
+                                        {fields.map( (field, index) => {
+                                            const styles = classNames("td-row", {
+                                                'td-row-img': field.image,
+                                                'td-row-currency': field.currency
                                             });
                                             if(field.dependentColor){
                                                 return (
-                                                    <th styleName={styles}>
+                                                    <td styleName={styles} data-label={titles[index]}>
                                                         {onTableDetails 
                                                         ?
                                                             <a href="#" onClick={onTableDetails.bind(this, {titles, fields, row})}>
@@ -135,12 +135,12 @@ class TableDefault extends Component {
                                                                 {this.getCurrencyImage(field.currency, row['currency'])}
                                                             </div>
                                                         }
-                                                    </th>     
+                                                    </td>     
                                                 )
                                             }else if(field.image){
                                                 const background = row[field.value].hasOwnProperty("background_url") ? row[field.value].background_url : null;
                                                 return (
-                                                    <th styleName={styles}>
+                                                    <td styleName={styles} data-label={titles[index]}>
                                                         {onTableDetails 
                                                         ?
                                                             <a href="#" onClick={onTableDetails.bind(this, {titles, fields, row})}>
@@ -155,23 +155,23 @@ class TableDefault extends Component {
                                                                 <div styleName='image-name'><Typography variant='x-small-body' color={"grey"}> {row[field.value].name} </Typography></div>
                                                             </div>
                                                         }
-                                                    </th>
+                                                    </td>
                                                 )
                                             }else if(field.isLink === true){
                                                 return (
-                                                    <th styleName={styles}>
+                                                    <td styleName={styles} data-label={titles[index]}>
                                                         <a href={row[field.linkField]} target={'_blank'}>
                                                             <Typography variant={'x-small-body'} color='white'>
                                                                 {row[field.value]}
                                                             </Typography>
                                                         </a>
-                                                    </th>     
+                                                    </td>     
                                                 )
                                             }
                                             else{
                                                 return (
                                                     // Normal
-                                                    <th styleName={styles}>
+                                                    <td styleName={styles} data-label={titles[index]}>
                                                         {onTableDetails 
                                                         ?
                                                             <a href="#" onClick={onTableDetails.bind(this, {titles, fields, row})}>
@@ -184,7 +184,7 @@ class TableDefault extends Component {
                                                                 {this.getCurrencyImage(field.currency, row['currency'])}
                                                             </div>
                                                         }
-                                                    </th>
+                                                    </td>
                                                 )
                                             
                                             }
