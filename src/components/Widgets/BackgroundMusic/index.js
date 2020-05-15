@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactHowler from 'react-howler';
-import backgroundMusic from "assets/background-music.mp3";
+import music from "assets/backgroundMusic.mp3";
 
 class BackgroundMusic extends React.Component{
     constructor(props){
@@ -13,7 +13,7 @@ class BackgroundMusic extends React.Component{
         return (
             <ReactHowler
                 mute={mute}
-                src={backgroundMusic}
+                src={music}
                 playing={true}
                 loop={true}
             />
