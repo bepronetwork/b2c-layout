@@ -116,51 +116,21 @@ class GamePage extends Component {
 
         if (_.isEmpty(gameMetaName)) return null;
 
-        const containerStyles = classNames("container",
-            {
-                containerWheel: gameMetaName === 'wheel_simple' || gameMetaName === 'wheel_variation_1',
-                containerDice: gameMetaName === 'linear_dice_simple',
-                containerRoulette: gameMetaName === 'european_roulette_simple',
-                containerFlip: gameMetaName === 'coinflip_simple',
-                containerPlinko: gameMetaName === 'plinko_variation_1'
-            }
-        )
-
-        const gameContainerStyles = classNames(
-            {
-                gameContainerWheel: gameMetaName === 'wheel_simple' || gameMetaName === 'wheel_variation_1',
-                gameContainerDice: gameMetaName === 'linear_dice_simple',
-                gameContainerRoulette: gameMetaName === 'european_roulette_simple',
-                gameContainerFlip: gameMetaName === 'coinflip_simple',
-                gameContainerPlinko: gameMetaName === 'plinko_variation_1'
-            }
-        )
-
-        const optionsContainerStyles = classNames("options-container",
-            {
-                optionsContainerWheel: gameMetaName === 'wheel_simple' || gameMetaName === 'wheel_variation_1',
-                optionsContainerDice: gameMetaName === 'linear_dice_simple',
-                optionsContainerRoulette: gameMetaName === 'european_roulette_simple',
-                optionsContainerFlip: gameMetaName === 'coinflip_simple',
-                optionsContainerPlinko: gameMetaName === 'plinko_variation_1'
-            }
-        )
-
         return (
             <div styleName='main-container'>
                 {this.renderActions()}
                 <div styleName="root">
-                    <div styleName={containerStyles}>
+                    <div styleName="container">
                         <Row styleName="game-page-container">
-                            <Col lg={{ size: 9, order: 2}} styleName='no-padding'>
-                                <div styleName={gameContainerStyles}>
+                            <Col lg={{ size: 9, order: 2}} styleName='card'>
+                                <div styleName="game">
                                     {game}
                                     {this.renderHistory()}
                                 </div>
 
                             </Col>
-                            <Col lg={{ size: 3, order: 1}} styleName='no-padding'>
-                                <div styleName={optionsContainerStyles}>{options}</div>
+                            <Col lg={{ size: 3, order: 1}} styleName='options'>
+                                <div styleName="options-container">{options}</div>
                             </Col>
                         </Row>
                     </div>

@@ -37,7 +37,6 @@
     padding: $spacing-12 $spacing-12;
     text-align : left;
     overflow: hidden;
-    height: auto;
     border-radius: $border-radius;
 }
 
@@ -62,7 +61,6 @@
 .content{
     z-index: 1;
     width: inherit;
-    height: 100%;
     display: block;
     position: relative;
 }
@@ -92,7 +90,6 @@
     border-radius :  0 $border-radius $border-radius 0;
     background-color: $secondaryColor;
     width : 100%;
-    height: 100%;
     text-align : center;
 
     @media screen and (max-width: 767px) {

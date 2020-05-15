@@ -4,7 +4,6 @@ $values-height: 92px;
 $with-without-padding: calc(100% - $spacing-20 - $spacing-20);
 
 .root {
-  height: 100%;
   padding: $spacing-20;
   background-color: $background-main-table;
   border-radius: 0 $border-radius $border-radius 0;
@@ -16,7 +15,6 @@ $with-without-padding: calc(100% - $spacing-20 - $spacing-20);
   grid-template-rows: calc(100% - $values-height) $values-height;
 
   width: 100%;
-  height: 100%;
 }
 
 .slider {
