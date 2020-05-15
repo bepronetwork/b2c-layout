@@ -34,6 +34,7 @@
     grid-template-columns: 310px 1fr;
     margin : 0px;
     box-sizing: border-box;
+    background-color: $background-table-1-outer;
 
     min-width: 450px;
 
@@ -55,229 +56,25 @@
     }
 }
 
-/****** wheel ******/
-  .gameContainerWheel {
+.game{
     position: relative;
 
     display: block;
     width: 100%;
 
-    @media screen and (max-width: 1267px) and (min-width: 1024px) {
-    }
-
-    @media screen and (max-width: 1023px) and (min-width: 768px) {
-    }
-
     @media screen and (max-width: 767px) {
         order: 1;
     }
-  }
-
-  .containerWheel {
-
-    @media screen and (max-width: 1267px) and (min-width: 1024px) {
-    }
-
-    @media screen and (max-width: 1023px) and (min-width: 768px) {
-    }
-
-    @media screen and (max-width: 767px) {
-    }
-  }
-
-  .optionsContainerWheel {
-      height: 100%;
-
-    @media screen and (max-width: 1267px) and (min-width: 1024px) {
-    }
-
-    @media screen and (max-width: 1023px) and (min-width: 768px) {
-    }
-
-    @media screen and (max-width: 767px) {
-    }
-  }
-
-/****** dice ******/
-  .gameContainerDice {
-    position: relative;
-
-    display: block;
-    width: 100%;
-
-    @media screen and (max-width: 1267px) and (min-width: 1024px) {
-    }
-
-    @media screen and (max-width: 1023px) and (min-width: 768px) {
-    }
-
-    @media screen and (max-width: 767px) {
-        order: 1;
-    }
-  }
-
-  .containerDice {
-
-    @media screen and (max-width: 1267px) and (min-width: 1024px) {
-    }
-
-    @media screen and (max-width: 1023px) and (min-width: 768px) {
-    }
-
-    @media screen and (max-width: 767px) {
-    }
-  }
-
-  .optionsContainerDice {
-      height: 100%;
-
-    @media screen and (max-width: 1267px) and (min-width: 1024px) {
-    }
-
-    @media screen and (max-width: 1023px) and (min-width: 768px) {
-    }
-
-    @media screen and (max-width: 767px) {
-    }
-  }
-
-  /****** roulette ******/
-
-  .gameContainerRoulette {
-    position: relative;
-
-    display: block;
-    width: 100%;
-
-    @media screen and (max-width: 1267px) and (min-width: 1024px) {
-    }
-
-    @media screen and (max-width: 1023px) and (min-width: 768px) {
-    }
-
-    @media screen and (max-width: 767px) {
-        order: 1;
-    }
-  }
-
-  .containerRoulette {
-
-    @media screen and (max-width: 1267px) and (min-width: 1024px) {
-    }
-
-    @media screen and (max-width: 1023px) and (min-width: 768px) {
-    }
-
-    @media screen and (max-width: 767px) {
-    }
-  }
-
-  .optionsContainerRoulette {
-      height: 100%;
-
-    @media screen and (max-width: 1267px) and (min-width: 1024px) {
-    }
-
-    @media screen and (max-width: 1023px) and (min-width: 768px) {
-    }
-
-    @media screen and (max-width: 767px) {
-    }
-  }
-
-/****** flip ******/
-
-.gameContainerFlip {
-  position: relative;
-
-  display: block;
-  width: 100%;
-
-  @media screen and (max-width: 1267px) and (min-width: 1024px) {
-  }
-
-  @media screen and (max-width: 1023px) and (min-width: 768px) {
-  }
-
-  @media screen and (max-width: 767px) {
-      order: 1;
-  }
 }
 
-  .containerFlip {
+.options {
+  padding : 0;
+  background-color: $background-table-1-outer;
+}
 
-    @media screen and (max-width: 1267px) and (min-width: 1024px) {
-    }
-
-    @media screen and (max-width: 1023px) and (min-width: 768px) {
-    }
-
-    @media screen and (max-width: 767px) {
-    }
-  }
-
-
-  .optionsContainerFlip {
-      height: 100%;
-
-    @media screen and (max-width: 1267px) and (min-width: 1024px) {
-    }
-
-    @media screen and (max-width: 1023px) and (min-width: 768px) {
-    }
-
-    @media screen and (max-width: 767px) {
-    }
-  }
-
-
-
-  /****** plinko ******/
-
-  .gameContainerPlinko {
-    position: relative;
-  
-    display: block;
-    width: 100%;
-
-    @media screen and (max-width: 1267px) and (min-width: 1024px) {
-    }
-
-    @media screen and (max-width: 1023px) and (min-width: 768px) {
-    }
-
-    @media screen and (max-width: 767px) {
-        order: 1;
-    }
-  }
-
-  .containerPlinko {
-
-    @media screen and (max-width: 1267px) and (min-width: 1024px) {
-    }
-
-    @media screen and (max-width: 1023px) and (min-width: 768px) {
-    }
-
-    @media screen and (max-width: 767px) {
-    }
-  }
-
-  .optionsContainerPlinko {
-    height: 100%;
-
-    @media screen and (max-width: 1267px) and (min-width: 1024px) {
-    }
-
-    @media screen and (max-width: 1023px) and (min-width: 768px) {
-    }
-
-    @media screen and (max-width: 767px) {
-    }
-  }
-
-.no-padding{
-    padding : 0;
+.card {
+  padding : 0;
+  background-color: $background-main-table;
 }
 
 .game-page-container{
