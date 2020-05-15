@@ -10,14 +10,19 @@
     margin: auto;
     vertical-align: middle;
     padding: $spacing-12 $spacing-20;
-
 }
 
-.th-row-img {
+.td-row {
+    margin: auto;
+    vertical-align: middle;
+    padding: $spacing-12 $spacing-20;
+}
+
+.td-row-img {
     padding: 0;
 }
 
-.th-row-currency {
+.td-row-currency {
     display: inline-flex;
     padding-top: $spacing-20;
     p {
@@ -46,8 +51,6 @@
     display: flex;
 
     @media screen and (max-width: 767px) {
-        display: block;
-        margin-bottom: $spacing-8;
     }
 
     .icon {
@@ -90,23 +93,17 @@
     text-align: right;
 }
 
-.table-head {
-}
-
-.th-row-tab {
-}
-
 .table-row tbody .tr-row{
     text-align: center;
 }
 
-.table-row tbody .tr-row .th-row:first-child {
+.table-row tbody .tr-row .td-row:first-child {
     text-align: left;
     border-top-left-radius: $spacing-8;
     border-bottom-left-radius: $spacing-8;
 }
 
-.table-row tbody .tr-row .th-row:last-child {
+.table-row tbody .tr-row .td-row:last-child {
     text-align: right;
     border-top-right-radius: $spacing-8;
     border-bottom-right-radius: $spacing-8;
@@ -136,3 +133,61 @@
     margin-top: $spacing-8;
 }
 
+@media screen and (max-width: 767px) {
+    .table-row {
+      border: 0;
+    }
+    
+    .table-row  thead {
+      border: none;
+      clip: rect(0 0 0 0);
+      height: 1px;
+      margin: -1px;
+      overflow: hidden;
+      padding: 0;
+      position: absolute;
+      width: 1px;
+    }
+
+    .table-row tbody .tr-row .td-row:first-child {
+        text-align: right;
+    }
+    
+    .table-row  .tr-row {
+      display: block;
+      padding-bottom: $spacing-8;
+      border-bottom: 1px solid $primaryColor-light-13;
+    }
+    
+    .table-row  .td-row {
+      display: block;
+      text-align: right;
+    }
+    
+    .table-row td::before {
+      content: attr(data-label);
+      float: left;
+      color: $grey;
+      font-family: $font-family;
+      font-weight: bold;
+      font-size: 12px;
+    }
+
+    .table-row .td-row-img::before {
+        content: '';
+        float: none;
+    }
+
+    .table-row  .td-row-img {
+        display: flex;
+        justify-content: center;
+      }
+    
+    .table-row  td:last-child {
+      border-bottom: 0;
+    }
+
+    .td-row {
+        padding: 8px 20px;
+    }
+  }
