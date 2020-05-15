@@ -167,8 +167,9 @@ function getWebsite() {
     return url;
 }
 
-
-  
+function getAddOn(){
+    return  Cache.getFromCache("appInfo") ? Cache.getFromCache("appInfo").addOn : {};
+}
 
 export { 
     dateToHourAndMinute, getAppCustomization, 
@@ -179,5 +180,6 @@ export {
     processResponse,
     getSkeletonColors,
     loadFakeBets,
-    getWebsite
+    getWebsite,
+    getAddOn
 }
