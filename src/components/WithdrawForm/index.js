@@ -25,7 +25,7 @@ const defaultProps = {
     maxWithdraw: 0,
     minWithdraw: 0,
     disabled: true,
-    fee: null,
+    fee: 0,
     isTxFee: false,
     maxBalance: 0,
     minBalance: 0
@@ -129,6 +129,7 @@ class WithdrawForm extends Component {
             }else{
                 /* Create Withdraw Framework */
                 res = await profile.askForWithdraw({amount : parseFloat(amount), currency, address : toAddress});
+                await profile.updateBalance({userDelta: (parseFloat(-amount))});
             }
 
             await store.dispatch( setMessageNotification(
@@ -218,7 +219,7 @@ class WithdrawForm extends Component {
                                 {copy.INDEX.TYPOGRAPHY.FUNC_TEXT[2]([minWithdraw, ticker])}.
                             </Typography>
                             {
-                                isTxFee === true 
+                                isTxFee === true && fee > 0
                                 ?
                                     <div styleName="fee">
                                         <Typography variant={'x-small-body'} weight={"bold"} color={'grey'}>

@@ -23,7 +23,7 @@ class DepositForm extends Component {
             copied: false,
             price : null,
             virtualTicker : null,
-            fee: null,
+            fee: 0,
             isTxFee: false
         }
     }
@@ -141,7 +141,7 @@ class DepositForm extends Component {
                                 <QRCode value={address} />
                             </div>
                             {
-                            isTxFee === true 
+                            isTxFee === true && fee > 0
                             ?
                                 <div styleName="fee">
                                     <Typography variant={'x-small-body'} weight={"bold"} color={'grey'}>

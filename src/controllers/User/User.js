@@ -88,7 +88,7 @@ export default class User {
         /* Listen to Deposits */
         this.channel.bind('deposit', async (data) => {
             await store.dispatch(setMessageNotification(data.message));
-            this.getAllData();
+            this.getAllData(true);
         });
         /* Listen to Withdraws */
         this.channel.bind('withdraw', (data) => {
@@ -129,7 +129,8 @@ export default class User {
 
     getAppCustomization = () => this.app.customization;
 
-    getAllData = async () => {
+    getAllData = async (reloadUser=false) => {
+        if(reloadUser === true){ await this.updateUser() };
         setStartLoadingProcessDispatcher(6);
         this.isLoaded = true;
         await this.updateUserState();
