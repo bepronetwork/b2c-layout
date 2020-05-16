@@ -100,6 +100,11 @@
     cursor: pointer;
 }
 
+.fee{
+    margin-top: $spacing-20;
+}
+
+
 .disclaimer {
     background-color: $primaryColor-light-5;
     padding: $spacing-20 $spacing-20 $spacing-16 $spacing-36;

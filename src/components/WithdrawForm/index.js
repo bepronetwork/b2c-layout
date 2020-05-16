@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { compose } from 'lodash/fp';
 import { InputNumber,  Typography, InputText } from 'components';
 import { Col, Row } from 'reactstrap';
-import { getApp } from "../../lib/helpers";
+import { getApp, getAddOn } from "../../lib/helpers";
 import { setMessageNotification } from '../../redux/actions/message';
 import { setWithdrawInfo } from "../../redux/actions/withdraw";
 import store from 'containers/App/store';
@@ -24,9 +24,11 @@ const defaultProps = {
     toAddress: null,
     maxWithdraw: 0,
     minWithdraw: 0,
+    disabled: true,
+    fee: null,
+    isTxFee: false
     maxBalance: 0,
-    minBalance: 0,
-    disabled: true
+    minBalance: 0
 }
 
 class WithdrawForm extends Component {
@@ -72,7 +74,7 @@ class WithdrawForm extends Component {
     }
 
     projectData = async (props) => {
-        const { wallet, isAffiliate} = props;
+        const { wallet, isAffiliate } = props;
         const { currency } = wallet;
 
         if(wallet && !wallet.address) {
@@ -87,12 +89,15 @@ class WithdrawForm extends Component {
         }
 
         const appWallet = isAffiliate === true ? wallet : getApp().wallet.find(w => w.currency._id === currency._id);
+        const isTxFee = getAddOn().txFee.isTxFee;
 
         this.setState({ 
             ticker : currency.ticker,
             image : wallet.image ? wallet.image : wallet.currency.image,
             maxWithdraw : formatCurrency(appWallet.max_withdraw),
             minWithdraw : formatCurrency(appWallet.min_withdraw),
+            isTxFee,
+            fee: isTxFee === true ? getAddOn().txFee.withdraw_fee.find(f => f.currency === currency._id).amount : null
             maxBalance : formatCurrency(appWallet.max_withdraw > wallet.playBalance ? wallet.playBalance : appWallet.max_withdraw),
             minBalance : formatCurrency(appWallet.min_withdraw > wallet.playBalance ? wallet.playBalance : appWallet.min_withdraw)
         })
@@ -139,7 +144,7 @@ class WithdrawForm extends Component {
     }
 
     render() {
-        const { amount, image, maxWithdraw, minWithdraw, maxBalance, minBalance, ticker, addressInitialized, isLoaded, toAddress, disabled } = this.state;
+        const { amount, image, maxWithdraw, minWithdraw, maxBalance, minBalance, ticker, addressInitialized, isLoaded, toAddress, disabled, isTxFee, fee } = this.state;
         const {ln, isAffiliate} = this.props;
         const copy = CopyText.amountFormIndex[ln];
 
@@ -212,6 +217,17 @@ class WithdrawForm extends Component {
                             <Typography variant={'x-small-body'} color={'grey'}>
                                 {copy.INDEX.TYPOGRAPHY.FUNC_TEXT[2]([minWithdraw, ticker])}.
                             </Typography>
+                            {
+                                isTxFee === true 
+                                ?
+                                    <div styleName="fee">
+                                        <Typography variant={'x-small-body'} weight={"bold"} color={'grey'}>
+                                            * Fee: {fee} {ticker}
+                                        </Typography>
+                                    </div>
+                                :
+                                    null
+                            }
                         </div>
                         <div>
                             <button onClick={this.askForWithdraw} styleName='withdraw' disabled={disabled}>
