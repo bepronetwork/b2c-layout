@@ -122,7 +122,7 @@ class DepositTable extends Component {
             let { message, status } = res.data;
             if(status != 200){throw message};
             /* Update user Data */
-            await profile.getAllData();            
+            await profile.getAllData(true);            
         }catch(err){
             console.log(err)
         }

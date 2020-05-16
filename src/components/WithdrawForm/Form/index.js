@@ -73,6 +73,7 @@ class Form extends Component {
     projectData = async (props) => {
         const { wallet, isAffiliate } = props;
         const { currency } = wallet;
+        let isTxFee = false;
 
         if(wallet && !wallet.address) {
             this.getCurrencyAddress(wallet);
@@ -86,7 +87,10 @@ class Form extends Component {
         }
 
         const appWallet = isAffiliate === true ? wallet : getApp().wallet.find(w => w.currency._id === currency._id);
-        const isTxFee = getAddOn().txFee.isTxFee;
+
+        if(getAddOn().hasOwnProperty("txFee")) {
+            isTxFee = getAddOn().txFee.isTxFee;
+        }
 
         this.setState({ 
             ticker : currency.ticker,
@@ -126,6 +130,7 @@ class Form extends Component {
             }else{
                 /* Create Withdraw Framework */
                 res = await profile.askForWithdraw({amount : parseFloat(amount), currency, address : toAddress});
+                await profile.updateBalance({userDelta: (parseFloat(-amount))});
             }
 
             await store.dispatch( setMessageNotification(

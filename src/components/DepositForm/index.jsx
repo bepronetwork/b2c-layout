@@ -23,7 +23,7 @@ class DepositForm extends Component {
             copied: false,
             price : null,
             virtualTicker : null,
-            fee: null,
+            fee: 0,
             isTxFee: false
         }
     }
@@ -57,6 +57,7 @@ class DepositForm extends Component {
 
     projectData = async (props) => {
         const { wallet } = props;
+        let isTxFee = false;
 
         if(wallet && !wallet.address) {
             this.getCurrencyAddress(wallet);
@@ -80,7 +81,9 @@ class DepositForm extends Component {
             }
         }
 
-        const isTxFee = getAddOn().txFee.isTxFee;
+        if(getAddOn().hasOwnProperty("txFee")) {
+            isTxFee = getAddOn().txFee.isTxFee;
+        }
 
         this.setState({ 
             copied: false, 
@@ -141,7 +144,7 @@ class DepositForm extends Component {
                                 <QRCode value={address} />
                             </div>
                             {
-                            isTxFee === true 
+                            isTxFee === true && fee > 0
                             ?
                                 <div styleName="fee">
                                     <Typography variant={'x-small-body'} weight={"bold"} color={'grey'}>

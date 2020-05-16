@@ -25,7 +25,6 @@ class Confirmation extends Component {
         const { onConfirmed } = this.props;
 
         if(onConfirmed) { 
-            console.log(onConfirmed)
             onConfirmed(!isConfirmed) 
         }; 
 

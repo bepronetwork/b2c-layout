@@ -1,18 +1,10 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { compose } from 'lodash/fp';
-import { InputNumber,  Typography, InputText, HorizontalStepper} from 'components';
+import { HorizontalStepper} from 'components';
 import Confirmation from "./Confirmation"
 import Form from "./Form"
-import { Col, Row } from 'reactstrap';
-import { getApp } from "../../lib/helpers";
-import { setMessageNotification } from '../../redux/actions/message';
-import { setWithdrawInfo } from "../../redux/actions/withdraw";
-import store from 'containers/App/store';
-import building from 'assets/blockchain.png';
-import loading from 'assets/loading.gif';
 import { CopyText } from '../../copy';
-import { formatCurrency } from '../../utils/numberFormatation';
 import _ from 'lodash';
 import "./index.css";
 
@@ -28,6 +20,11 @@ class WithdrawForm extends Component {
     }
 
     componentDidMount(){
+    }
+
+    componentWillReceiveProps(props){
+        if(props !== this.props) {
+        }
     }
 
     onHandlerConfirm = async (isConfirmed) => {
