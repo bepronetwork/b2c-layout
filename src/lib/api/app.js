@@ -102,7 +102,7 @@ async function getPopularNumbers({size}) {
 
 async function ping() {
     try {
-        const response = await axios.post(`${apiUrl}/api/ping/post`, {
+        const response = await axios.post(`${apiUrl}/api/status/post`, {
             app: appId,
             type: "user"
         });
