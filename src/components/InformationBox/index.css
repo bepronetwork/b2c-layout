@@ -41,11 +41,6 @@
 
 .payment-image{
     width: 40px;
-    margin-top: 15px;
-
-    @include Breakpoint-mobileOnly {
-        margin-top: 0;
-    }
 }
 
 .container-text{

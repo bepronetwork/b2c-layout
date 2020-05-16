@@ -41,7 +41,7 @@ class WithdrawForm extends Component {
     componentDidMount(){
         const { onWithdrawDisclaimer} = this.props;
 
-        onWithdrawDisclaimer();
+        if(onWithdrawDisclaimer) { onWithdrawDisclaimer() }; 
         this.projectData(this.props);
     }
 

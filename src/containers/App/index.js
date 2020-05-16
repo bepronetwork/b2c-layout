@@ -462,7 +462,7 @@ class App extends Component {
         const { withdrawDisclaimerModalOpen } = this.state;
 
         return withdrawDisclaimerModalOpen ? (
-            <Modal>
+            <Modal onClose={this.handleWithdrawDisclaimerModalClose}>
                 <div styleName="modal">
                     <WithdrawDisclaimer onClose={this.handleWithdrawDisclaimerModalClose}/>
                 </div>
