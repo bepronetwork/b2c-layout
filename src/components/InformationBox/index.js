@@ -43,12 +43,12 @@ class InformationBox extends React.Component{
             <div styleName={`container-root ${isAlert ? 'alert' : ''}`}>
                 <button styleName='close-button' onClick={this.close}><CloseCircleIcon color={'white'} size={20}/></button>
                 <Row>
-                    <Col xs={3} md={3}>
+                    <Col xs={12} md={3}>
                         <div styleName='container-image'>
                             <img src={image} styleName='payment-image'/>
                         </div>
                     </Col>
-                    <Col xs={9} md={9}>
+                    <Col xs={12} md={9}>
                         <div styleName={'container-text'}>
                             <Typography variant={'body'} color={`${isAlert ? 'red' : ''} ${isInfo ? 'casper' : ''}`}>
                                {title}

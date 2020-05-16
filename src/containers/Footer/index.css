@@ -85,6 +85,10 @@
 .footer-logo{
     width: 60%;
     margin : $spacing-28 0;
+
+    @include Breakpoint-mobileOnly {
+        width: 100%;
+    }
 }
 
 .footer-partners{

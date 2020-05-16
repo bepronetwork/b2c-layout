@@ -15,8 +15,6 @@
     padding : $spacing-52 0;
     margin: auto;
     position: relative;
-    display: block;
-    overflow-x: auto !important;
   }
 
 }

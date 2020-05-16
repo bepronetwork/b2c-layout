@@ -71,7 +71,8 @@ class BetsTab extends Component {
     }
 
     componentWillReceiveProps(props){
-        if(props !== this.props) {
+        const { isCurrentPath } = props;
+        if(props !== this.props && isCurrentPath) {
             this.projectData(props);
         }
     }
