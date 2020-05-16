@@ -97,7 +97,7 @@ class WithdrawForm extends Component {
             maxWithdraw : formatCurrency(appWallet.max_withdraw),
             minWithdraw : formatCurrency(appWallet.min_withdraw),
             isTxFee,
-            fee: isTxFee === true ? getAddOn().txFee.withdraw_fee.find(f => f.currency === currency._id).amount : null
+            fee: isTxFee === true ? getAddOn().txFee.withdraw_fee.find(f => f.currency === currency._id).amount : null,
             maxBalance : formatCurrency(appWallet.max_withdraw > wallet.playBalance ? wallet.playBalance : appWallet.max_withdraw),
             minBalance : formatCurrency(appWallet.min_withdraw > wallet.playBalance ? wallet.playBalance : appWallet.min_withdraw)
         })
