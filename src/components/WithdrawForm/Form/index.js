@@ -73,7 +73,7 @@ class Form extends Component {
     projectData = async (props) => {
         const { wallet, isAffiliate } = props;
         const { currency } = wallet;
-        let isTxFee = false;
+        const isTxFee = (getAddOn().txFee) ? getAddOn().txFee.isTxFee : false;
 
         if(wallet && !wallet.address) {
             this.getCurrencyAddress(wallet);
@@ -87,10 +87,6 @@ class Form extends Component {
         }
 
         const appWallet = isAffiliate === true ? wallet : getApp().wallet.find(w => w.currency._id === currency._id);
-
-        if(getAddOn().hasOwnProperty("txFee")) {
-            isTxFee = getAddOn().txFee.isTxFee;
-        }
 
         this.setState({ 
             ticker : currency.ticker,
