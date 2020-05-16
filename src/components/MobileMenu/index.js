@@ -61,7 +61,7 @@ class MobileMenu extends Component {
                             </a>
                         </li>
                     )
-                })};
+                })}
             </ul>
         )
 

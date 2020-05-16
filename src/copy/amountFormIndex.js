@@ -18,6 +18,15 @@
           (params)=>{ return  `Minimum Withdrawal is ${params[0]} ${params[1]}`}
           
         ]
+      },
+      "DISCLAIMER": {
+        "CONFIRM_DESC": "Please ensure the address is not a smart contract address as KuCoin currently does not support contract trasnfer.",
+        "CONFIRM": "I understand the Risks and Wish to Continue.",
+        "NOTICE": "Notice",
+        "LIST" : [
+          "Please do not withdraw to the ICO or crowdfunding address",
+          "We will process your withdrawal in 30 minutes, it depends on the blockchain when the assets would be finally settled in your withdraw address"
+        ]
       }
     }
   },
@@ -36,6 +45,15 @@
           (params)=>{ return `You only have ${params[0]} ${params[1]}`},
           (params)=>{ return  `최대 출금 가능 금액은 ${params[0]} ${params[1]} 입니다.`},
           (params)=>{ return  `Minimum Withdrawal is ${params[0]} ${params[1]}`}
+        ]
+      },
+      "DISCLAIMER": {
+        "CONFIRM_DESC": "Please ensure the address is not a smart contract address as KuCoin currently does not support contract trasnfer.",
+        "CONFIRM": "I understand the Risks and Wish to Continue.",
+        "NOTICE": "Notice",
+        "LIST" : [
+          "Please do not withdraw to the ICO or crowdfunding address",
+          "We will process your withdrawal in 30 minutes, it depends on the blockchain when the assets would be finally settled in your withdraw address"
         ]
       }
     }
@@ -56,6 +74,15 @@
           (params)=>{ return  `您的最大提币限额为${params[0]} ${params[1]}`},
           (params)=>{ return  `Minimum Withdrawal is ${params[0]} ${params[1]}`}
         ]
+      },
+      "DISCLAIMER": {
+        "CONFIRM_DESC": "Please ensure the address is not a smart contract address as KuCoin currently does not support contract trasnfer.",
+        "CONFIRM": "I understand the Risks and Wish to Continue.",
+        "NOTICE": "Notice",
+        "LIST" : [
+          "Please do not withdraw to the ICO or crowdfunding address",
+          "We will process your withdrawal in 30 minutes, it depends on the blockchain when the assets would be finally settled in your withdraw address"
+        ]
       }
     }
   },
@@ -74,6 +101,15 @@
           (params)=>{ return `You only have ${params[0]} ${params[1]}`},
           (params)=>{ return  `Maximum Withdrawal is ${params[0]} ${params[1]}`},
           (params)=>{ return  `Minimum Withdrawal is ${params[0]} ${params[1]}`}
+        ]
+      },
+      "DISCLAIMER": {
+        "CONFIRM_DESC": "Please ensure the address is not a smart contract address as KuCoin currently does not support contract trasnfer.",
+        "CONFIRM": "I understand the Risks and Wish to Continue.",
+        "NOTICE": "Notice",
+        "LIST" : [
+          "Please do not withdraw to the ICO or crowdfunding address",
+          "We will process your withdrawal in 30 minutes, it depends on the blockchain when the assets would be finally settled in your withdraw address"
         ]
       }
     }
