@@ -20,7 +20,7 @@
     margin : 10px auto;
     padding : $spacing-20;
     border : 1px solid $white;
-    background: $black;
+    background: $primaryColor-dark-5;
     border-radius : $border-radius;
     opacity : 1;
     transition: all 0.2s ease-in;
@@ -32,7 +32,7 @@
 
 .picked{
     border : 1px solid $green;
-    box-shadow : 1px 10px 100px 10px $black;
+    box-shadow : 1px 10px 100px 10px $primaryColor;
 }
 
 .text-description{
@@ -42,6 +42,10 @@
 .payment-image{
     width: 40px;
     margin-top: 15px;
+
+    @include Breakpoint-mobileOnly {
+        margin-top: 0;
+    }
 }
 
 .container-text{
@@ -50,6 +54,12 @@
 
 .container-image{
     width : 50px;
+
+    @include Breakpoint-mobileOnly {
+        width: unset;
+        margin-bottom: $spacing-20;
+        text-align: center;
+    }
 }
 
 .nohover{
@@ -66,12 +76,12 @@
 
 .alert{
     border : 1px solid $red;
-    box-shadow : 1px 10px 100px 10px $black;
+    box-shadow : 1px 10px 100px 10px $primaryColor;
 }
 
 .onLoading{
     border : 1px solid $orange;
-    box-shadow : 1px 10px 100px 10px $black;
+    box-shadow : 1px 10px 100px 10px $primaryColor;
 }
 
 .loading-gif{
