@@ -72,7 +72,7 @@ class WalletTab extends React.Component{
     };
 
     render(){
-        const { ln, isCurrentPath, onWithdrawDisclaimer } = this.props;
+        const { ln, isCurrentPath } = this.props;
         const { tab, wallets, wallet, virtual } = this.state;
         const copy = CopyText.cashierFormIndex[ln];
 
@@ -116,7 +116,7 @@ class WalletTab extends React.Component{
                         {tab === "deposit" ? 
                             <div><DepositForm  wallet={wallet} onAddress={this.handleAddress}/> <DepositList isCurrentPath={isCurrentPath} /></div> 
                         : 
-                            <div><WithdrawForm wallet={wallet} onAddress={this.handleAddress} onWithdrawDisclaimer={onWithdrawDisclaimer} /> <WithdrawList isCurrentPath={isCurrentPath} /></div>
+                            <div><WithdrawForm wallet={wallet} onAddress={this.handleAddress}/> <WithdrawList isCurrentPath={isCurrentPath} /></div>
                         }
                     </Col>
                 </Row>

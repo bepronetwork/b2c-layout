@@ -19,8 +19,7 @@ import {
     AffiliateWithdrawForm,
     Authentication2FAModal,
     PopupForm,
-    DetailsTable,
-    WithdrawDisclaimer
+    DetailsTable
 } from "components";
 
 import PlinkoPage from "containers/PlinkoPage";
@@ -78,8 +77,7 @@ class App extends Component {
             betsListOpen : false,
             settingsMenuOpen : false,
             chatExpand : true,
-            tableDetailsOpen : null,
-            withdrawDisclaimerModalOpen : null
+            tableDetailsOpen : null
         }
     }
 
@@ -199,10 +197,6 @@ class App extends Component {
         this.setState({ accountInfoOpen: null });
     };
 
-    handleWithdrawDisclaimerModalClose = () => {
-        this.setState({ withdrawDisclaimerModalOpen: null });
-    };
-
     handleTabChange = name => {
         this.setState({ registerLoginModalOpen: name, error: null });
     };
@@ -243,10 +237,6 @@ class App extends Component {
         const { settingsMenuOpen } = this.state;
 
         this.setState({ settingsMenuOpen: !settingsMenuOpen, chatMobileOpen: false, betsListOpen: false });
-    };
-
-    handleWithdrawDisclaimerModalOpen = () => {
-        this.setState({ withdrawDisclaimerModalOpen: true });
     };
 
     handleHomeOpen = ({history}) => {
@@ -458,18 +448,6 @@ class App extends Component {
         ) : null;
     };
 
-    renderWithdrawDisclaimerModal = () => {
-        const { withdrawDisclaimerModalOpen } = this.state;
-
-        return withdrawDisclaimerModalOpen ? (
-            <Modal onClose={this.handleWithdrawDisclaimerModalClose}>
-                <div styleName="modal">
-                    <WithdrawDisclaimer onClose={this.handleWithdrawDisclaimerModalClose}/>
-                </div>
-            </Modal>
-        ) : null;
-    };
-
     renderCashierModal = () => {
         const { cashierOpen } = this.state;
 
@@ -651,7 +629,6 @@ class App extends Component {
                             {this.renderConfirmEmailModal()}
                             {this.renderCashierModal()}
                             {this.renderTableDetailsModal()}
-                            {this.renderWithdrawDisclaimerModal()}
                             <Authentication2FAModal/>
                             <AffiliateWithdrawForm/>
                             <NotificationForm user={user}/>
@@ -696,7 +673,7 @@ class App extends Component {
                                                             render={props => <AccountPage {...props} onHandleLoginOrRegister={this.handleLoginOrRegisterOpen} onTableDetails={this.handleTableDetailsOpen}/>} />
                                                         <Route 
                                                             path={`${url}/wallet`} 
-                                                            render={props => <AccountPage {...props} onHandleLoginOrRegister={this.handleLoginOrRegisterOpen} onWithdrawDisclaimer={this.handleWithdrawDisclaimerModalOpen}/>} />
+                                                            render={props => <AccountPage {...props} onHandleLoginOrRegister={this.handleLoginOrRegisterOpen}/>} />
                                                         <Route 
                                                             path={`${url}/deposits`} 
                                                             render={props => <AccountPage {...props} onHandleLoginOrRegister={this.handleLoginOrRegisterOpen}/>} />
@@ -705,7 +682,7 @@ class App extends Component {
                                                             render={props => <AccountPage {...props} onHandleLoginOrRegister={this.handleLoginOrRegisterOpen}/>} />
                                                         <Route 
                                                             path={`${url}/affiliate`} 
-                                                            render={props => <AccountPage {...props} onHandleLoginOrRegister={this.handleLoginOrRegisterOpen} onWithdrawDisclaimer={this.handleWithdrawDisclaimerModalOpen}/>} />
+                                                            render={props => <AccountPage {...props} onHandleLoginOrRegister={this.handleLoginOrRegisterOpen} />} />
                                                         <Route 
                                                             path={`${url}/preferences`} 
                                                             render={props => <AccountPage {...props} onHandleLoginOrRegister={this.handleLoginOrRegisterOpen}/>} />

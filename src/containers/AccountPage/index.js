@@ -38,7 +38,7 @@ class AccountPage extends Component {
     }
 
     render() {
-        const {ln, profile, onLogout, onTableDetails, onWithdrawDisclaimer} = this.props;
+        const {ln, profile, onLogout, onTableDetails} = this.props;
         const copy = CopyText.homepage[ln];
         if (!profile || _.isEmpty(profile)) return null;
 
@@ -72,7 +72,7 @@ class AccountPage extends Component {
                                 {
                                     path: "wallet",
                                     title : copy.CONTAINERS.ACCOUNT.TITLE[8],
-                                    container : <WalletTab onWithdrawDisclaimer={onWithdrawDisclaimer} isCurrentPath={this.isCurrentPath("wallet")} />,
+                                    container : <WalletTab isCurrentPath={this.isCurrentPath("wallet")} />,
                                     icon : <WalletIcon />
                                 },
                                 {
@@ -91,7 +91,7 @@ class AccountPage extends Component {
                                 {
                                     path: "affiliate",
                                     title : copy.CONTAINERS.ACCOUNT.TITLE[3],
-                                    container : <AffiliatesTab onWithdrawDisclaimer={onWithdrawDisclaimer} isCurrentPath={this.isCurrentPath("affiliate")} />,
+                                    container : <AffiliatesTab isCurrentPath={this.isCurrentPath("affiliate")} />,
                                     icon : <UsersIcon />
                                 },
                                 {
