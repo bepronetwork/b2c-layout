@@ -26,7 +26,7 @@ const defaultProps = {
     minWithdraw: 0,
     disabled: true,
     fee: null,
-    isTxFee: false
+    isTxFee: false,
     maxBalance: 0,
     minBalance: 0
 }
