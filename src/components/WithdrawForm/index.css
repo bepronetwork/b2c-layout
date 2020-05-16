@@ -125,3 +125,25 @@
 .title {
     padding-bottom: $spacing-12;
 }
+
+.main{
+    padding : $spacing-52 $spacing-20 $spacing-20 $spacing-20;
+}
+
+.confirm {
+    padding : $spacing-20 0 0 0;
+    grid-template-columns: auto auto;
+    display: grid;
+}
+
+.check {
+    justify-content: flex-end;
+    display: inline-flex;
+}
+
+.check-text {
+    margin-top: calc($spacing-20 + 2px);
+    margin-left: $spacing-16;
+    text-align: left;
+}
+

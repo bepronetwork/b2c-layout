@@ -160,7 +160,7 @@ const HorizontalStepper = (props) => {
     const classes = useStyles();
     const [activeStep, setActiveStep] = React.useState(0);
     let step = steps[activeStep];
-    const { pass, title, content, condition, first, last, closeStepper, showCloseButton = true, nextButtonLabel } = step;
+    const { pass, title, content, condition, first, last, closeStepper, showCloseButton = true, nextButtonLabel, showBackButton = true } = step;
     const {ln} = props;
 
     const copy = CopyText.horizontalStepperIndex[ln];
@@ -206,11 +206,16 @@ const HorizontalStepper = (props) => {
                     </Stepper>
                 : null}
             </div>
-            <div styleName='container-title'>
-                <Typography variant={'small-body'} color={'white'}>
-                    {title}
-                </Typography>
-            </div>
+            {
+                title ?
+                    <div styleName='container-title'>
+                        <Typography variant={'small-body'} color={'white'}>
+                            {title}
+                        </Typography>
+                    </div>
+                :
+                    null
+            }
             {alertCondition ? <InformationBox message={alertMessage} image={!_.isEmpty(alertIcon) ? alertIcon : allow}/> : content}
             <div>
                 {activeStep === steps.length ? (
@@ -229,13 +234,19 @@ const HorizontalStepper = (props) => {
                         ?  (
                         <div>
                             <Row>
-                                <Col md={showCloseButton ? 6 : 12}>   
-                                    <div styleName='button-stepper'>
-                                        <Button disabled={activeStep === 0} onClick={handleBack} className={classes.button}>
-                                            <Typography variant={'small-body'} color={'white'}> {copy.INDEX.TYPOGRAPHY.TEXT[1]}  </Typography>
-                                        </Button>
-                                    </div>
-                                </Col>
+                                {
+                                    showBackButton 
+                                    ?
+                                        <Col md={showCloseButton ? 6 : 12}>   
+                                            <div styleName='button-stepper'>
+                                                <Button disabled={activeStep === 0} onClick={handleBack} className={classes.button}>
+                                                    <Typography variant={'small-body'} color={'white'}> {copy.INDEX.TYPOGRAPHY.TEXT[1]}  </Typography>
+                                                </Button>
+                                            </div>
+                                        </Col>
+                                    :
+                                        null
+                                }
                                 {
                                     showCloseButton
                                     ? (
@@ -264,14 +275,19 @@ const HorizontalStepper = (props) => {
                                 !first
                                 ? (
                                 <Row>
-                                    <Col md={6}>   
-                                        <div styleName='button-stepper'>
-                                            <Button disabled={activeStep === 0} onClick={handleBack} className={classes.button}>
-                                                <Typography variant={'small-body'} color={'white'}> {copy.INDEX.TYPOGRAPHY.TEXT[3]} </Typography>
-                                            </Button>
-                                        </div>
-                                    </Col>
-                                    <Col md={6}>   
+                                    {
+                                        showBackButton ?
+                                            <Col md={6}>   
+                                                <div styleName='button-stepper'>
+                                                    <Button disabled={activeStep === 0} onClick={handleBack} className={classes.button}>
+                                                        <Typography variant={'small-body'} color={'white'}> {copy.INDEX.TYPOGRAPHY.TEXT[3]} </Typography>
+                                                    </Button>
+                                                </div>
+                                            </Col>
+                                        :
+                                            null
+                                    }
+                                    <Col md={showBackButton ? 6 : 12}>   
                                         <div styleName='button-stepper'>
                                             <Button
                                                 variant="contained"

@@ -70,7 +70,7 @@ class AffiliatesTab extends React.Component{
     };
 
     render(){
-        const { ln, onWithdrawDisclaimer } = this.props;
+        const { ln } = this.props;
         const { wallets, wallet, id, percentageOnLevelOne, userAmount } = this.state;
         const copy = CopyText.affiliatesTabIndex[ln];
 
@@ -103,7 +103,7 @@ class AffiliatesTab extends React.Component{
                         {
                         getApp().virtual !== true 
                         ?
-                            <WithdrawForm wallet={wallet} isAffiliate={true} onAddress={this.handleAddress} onWithdrawDisclaimer={onWithdrawDisclaimer}/>
+                            <WithdrawForm wallet={wallet} isAffiliate={true} onAddress={this.handleAddress}/>
                         :
                             null
                         }

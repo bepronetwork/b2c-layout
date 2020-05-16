@@ -20,7 +20,7 @@
         ]
       },
       "DISCLAIMER": {
-        "CONFIRM_DESC": "Please ensure the address is not a smart contract address as KuCoin currently does not support contract trasnfer.",
+        "CONFIRM_DESC": "Please ensure the address is not a smart contract address as we currently does not support contract trasnfer.",
         "CONFIRM": "I understand the Risks and Wish to Continue.",
         "NOTICE": "Notice",
         "LIST" : [
@@ -48,7 +48,7 @@
         ]
       },
       "DISCLAIMER": {
-        "CONFIRM_DESC": "Please ensure the address is not a smart contract address as KuCoin currently does not support contract trasnfer.",
+        "CONFIRM_DESC": "Please ensure the address is not a smart contract address as we currently does not support contract trasnfer.",
         "CONFIRM": "I understand the Risks and Wish to Continue.",
         "NOTICE": "Notice",
         "LIST" : [
@@ -76,7 +76,7 @@
         ]
       },
       "DISCLAIMER": {
-        "CONFIRM_DESC": "Please ensure the address is not a smart contract address as KuCoin currently does not support contract trasnfer.",
+        "CONFIRM_DESC": "Please ensure the address is not a smart contract address as we currently does not support contract trasnfer.",
         "CONFIRM": "I understand the Risks and Wish to Continue.",
         "NOTICE": "Notice",
         "LIST" : [
@@ -104,7 +104,7 @@
         ]
       },
       "DISCLAIMER": {
-        "CONFIRM_DESC": "Please ensure the address is not a smart contract address as KuCoin currently does not support contract trasnfer.",
+        "CONFIRM_DESC": "Please ensure the address is not a smart contract address as we currently does not support contract trasnfer.",
         "CONFIRM": "I understand the Risks and Wish to Continue.",
         "NOTICE": "Notice",
         "LIST" : [
