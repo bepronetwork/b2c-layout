@@ -147,10 +147,7 @@ export default class User {
 
         this.user.wallet.forEach((w) => {
             if(new String(w.currency._id).toString().toLowerCase() == new String(currency._id).toString().toLowerCase()) {
-                console.log("playBalance", w.playBalance)
-                console.log("userDelta", userDelta)
                 w.playBalance = w.playBalance + userDelta;
-                console.log("newPlayBalance", w.playBalance)
             }
         });
 
@@ -277,13 +274,13 @@ export default class User {
             }
             
             // Get Withdraw
-            let withdraws = await this.getWithdrawsAsync();
-            let withdraw = withdraws[withdraws.length-1];
+            //let withdraws = await this.getWithdrawsAsync();
+            //let withdraw = withdraws[withdraws.length-1];
             // Process Ask Withdraw API Call since can have errors
             if(!timeout){
                 res = await processResponse(res);
             }
-            return {...res, withdraw};
+            return {...res};
         } catch (err) {
             throw err;
         }
