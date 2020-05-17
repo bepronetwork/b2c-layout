@@ -6,7 +6,7 @@ $values-height: 92px;
   display: grid;
   grid-template-rows: 1fr $values-height;
 
-  height: inherit;
+  height: auto;
   min-width: 300px;
 
   padding: $spacing-20;

@@ -16,11 +16,15 @@
     height: 300px;
     border-radius: $border-radius;
     background-color: $primaryColor;
-    box-shadow: 1px 4px 10px 0px #000;
+    box-shadow: rgba(0, 0, 0, 0.4) 0 5px 6px -2px;
     padding-left: 5%;
 
     @media screen and (max-width: 1267px) {
         grid-template-columns: 1fr;
+    }
+
+    @media screen and (max-width: 767px) {
+        padding: 0;
     }
 }
 

@@ -6,7 +6,7 @@ import { Typography } from 'components';
 import classNames from "classnames";
 import building from 'assets/blockchain.png';
 import loading from 'assets/loading.gif';
-import { getApp } from "../../lib/helpers";
+import { getApp, getAddOn } from "../../lib/helpers";
 import _ from 'lodash';
 import { CopyText } from '../../copy';
 
@@ -22,7 +22,9 @@ class DepositForm extends Component {
             isLoaded: false,
             copied: false,
             price : null,
-            virtualTicker : null
+            virtualTicker : null,
+            fee: 0,
+            isTxFee: false
         }
     }
 
@@ -55,6 +57,7 @@ class DepositForm extends Component {
 
     projectData = async (props) => {
         const { wallet } = props;
+        const isTxFee = (getAddOn().txFee) ? getAddOn().txFee.isTxFee : false;
 
         if(wallet && !wallet.address) {
             this.getCurrencyAddress(wallet);
@@ -78,7 +81,12 @@ class DepositForm extends Component {
             }
         }
 
-        this.setState({ copied: false, address : wallet.address });
+        this.setState({ 
+            copied: false, 
+            address : wallet.address,
+            isTxFee,
+            fee: isTxFee === true ? getAddOn().txFee.deposit_fee.find(f => f.currency === wallet.currency._id).amount : null
+         });
     }
 
     copyToClipboard = (e) => {
@@ -95,7 +103,7 @@ class DepositForm extends Component {
 
     render() {
         const { wallet } = this.props;
-        const { addressInitialized, address, isLoaded, copied, price, virtualTicker } = this.state;
+        const { addressInitialized, address, isLoaded, copied, price, virtualTicker, isTxFee, fee } = this.state;
         const {ln} = this.props;
         const copy = CopyText.depositFormIndex[ln];
         const addressStyles = classNames("address", {"ad-copied": copied});
@@ -131,6 +139,17 @@ class DepositForm extends Component {
                             <div styleName="qrcode">
                                 <QRCode value={address} />
                             </div>
+                            {
+                            isTxFee === true && fee > 0
+                            ?
+                                <div styleName="fee">
+                                    <Typography variant={'x-small-body'} weight={"bold"} color={'grey'}>
+                                        * Fee: {fee} {wallet.currency.ticker}
+                                    </Typography>
+                                </div>
+                            :
+                                null
+                            }
                             {copied ? (
                                 <div styleName="copied">
                                     <Typography variant="small-body" color={'white'}>

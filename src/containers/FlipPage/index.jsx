@@ -72,7 +72,7 @@ class FlipPage extends Component {
     }
 
     onBet = async form => {
-        this.setState({onBet : true})
+        this.setState({onBet : true, disableControls : true})
         let res = await this.handleBet(form);
         this.setState({onBet : false});
         return res;
@@ -97,8 +97,7 @@ class FlipPage extends Component {
                 flipResult : result,
                 betObjectResult  :res,
                 hasWon,
-                isCoinSpinning : true,
-                disableControls: false
+                isCoinSpinning : true
             });
 
             
@@ -122,7 +121,6 @@ class FlipPage extends Component {
                 onBet={this.onBet}
                 profile={profile}
                 game={this.state.game}
-                onBetTrigger={this.state.onBet}
                 isCoinSpinning={this.state.isCoinSpinning}
                 disableControls={disableControls}
             />

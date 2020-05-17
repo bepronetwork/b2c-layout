@@ -48,12 +48,13 @@ import { connect } from 'react-redux';
 import _ from 'lodash';
 import { setStartLoadingProcessDispatcher } from "../../lib/redux";
 import AccountPage from "../AccountPage";
-import { getQueryVariable, getAppCustomization } from "../../lib/helpers";
+import { getQueryVariable, getAppCustomization, getWebsite } from "../../lib/helpers";
 import ChatChannel from "../../controllers/Chat";
 import AnnouncementTab from "../../components/AnnouncementTab";
 import { getCurrencyAddress } from "../../lib/api/users";
 import classNames from "classnames";
 import delay from 'delay';
+import MobileMenu from "../../components/MobileMenu";
 
 const history = createBrowserHistory();
 class App extends Component {
@@ -74,6 +75,7 @@ class App extends Component {
             confirmEmailParams : null,
             chatMobileOpen : false,
             betsListOpen : false,
+            settingsMenuOpen : false,
             chatExpand : true,
             tableDetailsOpen : null
         }
@@ -123,7 +125,7 @@ class App extends Component {
         let reponseUser = Cache.getFromCache('user');
 
         if(reponseUser) {
-            let user = await this.updateUser(reponseUser);
+            let user = await this.reloadUser(reponseUser);
             await user.updateUser();
             await this.setDefaultCurrency();
         }
@@ -219,16 +221,26 @@ class App extends Component {
         this.setState({ tableDetailsOpen: true, tableDetails: params });
     };
 
-    handleChatOpen = (open) => {
-        this.setState({ chatMobileOpen: open, betsListOpen: false });
+    handleChatOpen = () => {
+        const { chatMobileOpen } = this.state;
+
+        this.setState({ chatMobileOpen: !chatMobileOpen, betsListOpen: false, settingsMenuOpen: false });
     };
 
-    handleBetsListOpen = (open) => {
-        this.setState({ betsListOpen: open, chatMobileOpen: false });
+    handleBetsListOpen = () => {
+        const { betsListOpen } = this.state;
+
+        this.setState({ betsListOpen: !betsListOpen, chatMobileOpen: false, settingsMenuOpen: false });
+    };
+
+    handlSettingsMenuOpen = () => {
+        const { settingsMenuOpen } = this.state;
+
+        this.setState({ settingsMenuOpen: !settingsMenuOpen, chatMobileOpen: false, betsListOpen: false });
     };
 
     handleHomeOpen = ({history}) => {
-        this.setState({ chatMobileOpen: false, betsListOpen : false });
+        this.setState({ chatMobileOpen: false, betsListOpen : false, settingsMenuOpen: false });
         history.push('/');
     }
 
@@ -236,8 +248,9 @@ class App extends Component {
         history.push('/settings');
     }
 
-    handleWalletOpen = ({history}) => {
-        history.push('/settings/wallet');
+    handleOpenMenuItem = ({history, path}) => {
+        this.setState({ chatMobileOpen: false, betsListOpen : false, settingsMenuOpen: false });
+        history.push(path);
     }
 
     handleLogin = async form => {
@@ -335,6 +348,33 @@ class App extends Component {
         this.setState({
             user: userObject
         });
+        return userObject;
+    };
+
+    reloadUser = async user => {
+        
+        /* Destory Unlogged Chat Instance */
+        if(this.chat){
+            await this.chat.kill();
+            this.chat = null;
+        }
+
+        const appInfo = this.state.app;
+
+        let userObject = new User({
+            app : appInfo,
+            platformAddress: appInfo.platformAddress,
+            tokenAddress: appInfo.platformTokenAddress,
+            decimals: appInfo.decimals,
+            integrations : user && user.integrations ? user.integrations : appInfo.integrations,
+            appId: appInfo.id,
+            userId: user ? user.id : null,
+            user : user
+        })
+
+        await store.dispatch(setProfileInfo(userObject));
+        
+        this.setState({ user : userObject });
         return userObject;
     };
 
@@ -566,9 +606,10 @@ class App extends Component {
     }
 
     render() {
-        const { user, app, isLoading, chatMobileOpen, betsListOpen, chatExpand } = this.state;
+        const { user, app, isLoading, chatMobileOpen, betsListOpen, settingsMenuOpen, chatExpand } = this.state;
         const { profile, startLoadingProgress, modal } = this.props;
         const mobileBreakpoint = 768;
+        const tabletBreakpoint = 1024;
 
         if (!app || isLoading) {return null};
         const { progress, confirmations } = startLoadingProgress;
@@ -585,6 +626,10 @@ class App extends Component {
         });
         const betsListStyles = classNames("bets-container-main", {
             betsListDisplay: betsListOpen
+        });
+        const settingsMenuStyles = classNames("settings-container-menu", {
+            settingsMenuDisplay: settingsMenuOpen,
+            settingsMenuHidden: !settingsMenuOpen
         });
 
         return (
@@ -603,7 +648,8 @@ class App extends Component {
                                 onLogout={this.handleLogout}
                                 onLoginRegister={this.handleLoginOrRegisterOpen}
                                 onCashier={this.handleCashierOpen}
-                                onWallet={this.handleWalletOpen}
+                                onMenuItem={this.handleOpenMenuItem}
+                                onSettingsMenu={this.handlSettingsMenuOpen}
                             />
                             {this.renderLoginRegisterModal()}
                             {this.renderResetPasswordModal()}
@@ -663,7 +709,7 @@ class App extends Component {
                                                             render={props => <AccountPage {...props} onHandleLoginOrRegister={this.handleLoginOrRegisterOpen}/>} />
                                                         <Route 
                                                             path={`${url}/affiliate`} 
-                                                            render={props => <AccountPage {...props} onHandleLoginOrRegister={this.handleLoginOrRegisterOpen}/>} />
+                                                            render={props => <AccountPage {...props} onHandleLoginOrRegister={this.handleLoginOrRegisterOpen} />} />
                                                         <Route 
                                                             path={`${url}/preferences`} 
                                                             render={props => <AccountPage {...props} onHandleLoginOrRegister={this.handleLoginOrRegisterOpen}/>} />
@@ -727,6 +773,17 @@ class App extends Component {
                                     :
                                         null
                                 }
+                                {
+                                    document.documentElement.clientWidth <= tabletBreakpoint 
+                                    ?
+                                        <div styleName={settingsMenuStyles} > 
+                                            <div styleName={'settings-container'}>
+                                                <MobileMenu onMenuItem={this.handleOpenMenuItem} history={history}/>
+                                            </div>
+                                        </div>
+                                    :
+                                        null
+                                }
                             </div>
                             <PopupForm user={user}/>
                         </div>
@@ -737,7 +794,7 @@ class App extends Component {
                             onHome={this.handleHomeOpen}
                             onBetsList={this.handleBetsListOpen}
                             onLoginRegister={this.handleLoginOrRegisterOpen}
-                            onWallet={this.handleWalletOpen}
+                            onMenuItem={this.handleOpenMenuItem}
                         />
                     </Router>
                 </UserContext.Provider>

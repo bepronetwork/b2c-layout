@@ -88,7 +88,7 @@ export default class User {
         /* Listen to Deposits */
         this.channel.bind('deposit', async (data) => {
             await store.dispatch(setMessageNotification(data.message));
-            this.getAllData();
+            this.getAllData(true);
         });
         /* Listen to Withdraws */
         this.channel.bind('withdraw', (data) => {
@@ -129,8 +129,8 @@ export default class User {
 
     getAppCustomization = () => this.app.customization;
 
-    getAllData = async () => {
-        await this.updateUser();
+    getAllData = async (reloadUser=false) => {
+        if(reloadUser === true){ await this.updateUser() };
         setStartLoadingProcessDispatcher(6);
         this.isLoaded = true;
         await this.updateUserState();
@@ -147,7 +147,10 @@ export default class User {
 
         this.user.wallet.forEach((w) => {
             if(new String(w.currency._id).toString().toLowerCase() == new String(currency._id).toString().toLowerCase()) {
+                console.log("playBalance", w.playBalance)
+                console.log("userDelta", userDelta)
                 w.playBalance = w.playBalance + userDelta;
+                console.log("newPlayBalance", w.playBalance)
             }
         });
 

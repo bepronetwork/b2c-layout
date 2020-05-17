@@ -31,7 +31,10 @@ class AffiliatesTab extends React.Component{
     }
 
     componentWillReceiveProps(props){
-        this.projectData(props);
+        const { isCurrentPath } = props;
+        if(props !== this.props && isCurrentPath) {
+            this.projectData(props);
+        }
     }
 
     projectData = async (props) => {
@@ -81,7 +84,7 @@ class AffiliatesTab extends React.Component{
                     </Col>
                 </Row>
                 <Row>
-                    <Col lg={4}>
+                    <Col md={12} lg={12} xl={4}>
                         <div>
                             {wallets.map( w => {
                                 return (
@@ -94,7 +97,7 @@ class AffiliatesTab extends React.Component{
                             })}
                         </div>
                     </Col>
-                    <Col lg={8}>
+                    <Col md={12} lg={12} xl={8}>
                         <DataContainer title={copy.INDEX.DATA_CONTAINER.TITLE[1]} message={userAmount} image={<AffiliateIcon/>} />
                         <DataContainer title={copy.INDEX.DATA_CONTAINER.TITLE[0]} message={`${wallet.playBalance} ${wallet.currency.ticker}`} image={<DepositsIcon/>} />
                         {

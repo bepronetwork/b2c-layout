@@ -59,10 +59,10 @@
 
 .chatDisplay {
     display: inline;
-    animation: chat-open-animation 1s running;
+    animation: open-animation 1s running;
 }
 
-@keyframes chat-open-animation {
+@keyframes open-animation {
     0% {
       opacity: 0;
       transform: translateY(80%);
@@ -173,14 +173,7 @@
 
 .betsListDisplay {
   display: inline;
-  animation: bets-open-animation 1s running;
-}
-
-@keyframes bets-open-animation {
-  0% {
-    opacity: 0;
-    transform: translateY(80%);
-  }
+  animation: open-animation 1s running;
 }
 
 .container {
@@ -230,7 +223,6 @@
   }
 }
 
-
 .gif{
     width : 300px;
     position: fixed;
@@ -238,4 +230,46 @@
     top: 50%;
     left: 50%;
     margin-top: -50px;
+}
+
+.settings-container{
+  height: -webkit-fill-available !important;
+  background-color: $primaryColor;
+  overflow: auto;
+}
+
+.settings-container-menu{
+  position: fixed;
+  top : 0px;
+  right: 0;
+  height: 100%;
+  z-index: 9;
+  margin-top: 60px;
+}
+
+.settingsMenuDisplay {
+  width: 250px;
+  animation: open-horizontal-animation 1s running;
+}
+
+.settingsMenuHidden{
+  width: 0;
+  animation: close-horizontal-animation 1s running;
+}
+
+@keyframes open-horizontal-animation {
+  0% {
+    opacity: 0;
+    width: 0px;
+  }
+}
+
+@keyframes close-horizontal-animation {
+  0% {
+    opacity: 1;
+    width: 250px;
+  }
+  70% {
+    opacity: 0;
+  }
 }

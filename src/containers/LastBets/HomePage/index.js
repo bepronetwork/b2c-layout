@@ -39,8 +39,8 @@ const rows = {
             },
             {
                 value : 'payout',
-                dependentColor : true,
-                condition : 'isWon'
+                //dependentColor : true,
+                //condition : 'isWon'
             }
         ],
         rows : []
@@ -63,8 +63,8 @@ const rows = {
             },
             {
                 value : 'payout',
-                dependentColor : true,
-                condition : 'isWon'
+                //dependentColor : true,
+                //condition : 'isWon'
             }
         ],
         rows : []
@@ -90,8 +90,8 @@ const rows = {
             },
             {
                 value : 'payout',
-                dependentColor : true,
-                condition : 'isWon'
+                //dependentColor : true,
+                //condition : 'isWon'
             }
         ],
         rows : []
@@ -172,10 +172,10 @@ class LastBets extends Component {
     }
     
     projectData = async (props, options=null) => {
-        let { profile, ln, onTableDetails } = props;
+        let { profile, ln } = props;
         let { view_amount, view_game } = this.state;
 
-        let games = getGames().filter(g => g.metaName != 'jackpot_auto');
+        let games = getGames();
         let gamesOptions = [];
         gamesOptions.push(allGames);
 
