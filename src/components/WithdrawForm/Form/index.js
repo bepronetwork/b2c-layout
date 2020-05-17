@@ -126,11 +126,11 @@ class Form extends Component {
             var res;
             if(isAffiliate === true){
                 /* Create Withdraw Framework */
-                res = await profile.askForWithdrawAffiliate({amount : parseFloat(amount), currency, address : toAddress});
+                await profile.askForWithdrawAffiliate({amount : parseFloat(amount), currency, address : toAddress});
             }else{
                 /* Create Withdraw Framework */
-                res = await profile.askForWithdraw({amount : parseFloat(amount), currency, address : toAddress});
-                if(res.withdraw) { await profile.updateBalance({ userDelta: -res.withdraw.amount }) };
+                await profile.askForWithdraw({amount : parseFloat(amount), currency, address : toAddress});
+                await profile.updateBalance({ userDelta: -amount });
             }
 
             await store.dispatch( setMessageNotification(
@@ -138,7 +138,7 @@ class Form extends Component {
             ));
            
             this.setState({...this.state, amount: 0, toAddress: ''});
-            await this.setWithdrawInfoInRedux({id : res.withdraw._id});
+            //await this.setWithdrawInfoInRedux({id : res.withdraw._id});
 
         }catch(err){
             console.log(err);

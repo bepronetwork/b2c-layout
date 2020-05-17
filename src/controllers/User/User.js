@@ -277,13 +277,13 @@ export default class User {
             }
             
             // Get Withdraw
-            let withdraws = await this.getWithdrawsAsync();
-            let withdraw = withdraws[withdraws.length-1];
+            //let withdraws = await this.getWithdrawsAsync();
+            //let withdraw = withdraws[withdraws.length-1];
             // Process Ask Withdraw API Call since can have errors
             if(!timeout){
                 res = await processResponse(res);
             }
-            return {...res, withdraw};
+            return {...res};
         } catch (err) {
             throw err;
         }
