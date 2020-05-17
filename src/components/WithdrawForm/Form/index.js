@@ -130,7 +130,7 @@ class Form extends Component {
             }else{
                 /* Create Withdraw Framework */
                 res = await profile.askForWithdraw({amount : parseFloat(amount), currency, address : toAddress});
-                await profile.updateBalance({userDelta: (parseFloat(-amount))});
+                if(res.withdraw) { await profile.updateBalance({ userDelta: -res.withdraw.amount }) };
             }
 
             await store.dispatch( setMessageNotification(
