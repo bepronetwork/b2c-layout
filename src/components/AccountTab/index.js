@@ -37,7 +37,7 @@ class AccountTab extends React.Component{
         if(!isUserSet(profile)){return null}
         const id = profile.getID();
         const username = profile.getUsername();
-        const email = profile.user.email;
+        const email = profile.user.email ? profile.user.email : profile.user.user.email;
         const avatar = null;
 
         this.setState({...this.state,

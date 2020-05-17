@@ -147,10 +147,7 @@ export default class User {
 
         this.user.wallet.forEach((w) => {
             if(new String(w.currency._id).toString().toLowerCase() == new String(currency._id).toString().toLowerCase()) {
-                console.log("playBalance", w.playBalance)
-                console.log("userDelta", userDelta)
                 w.playBalance = w.playBalance + userDelta;
-                console.log("newPlayBalance", w.playBalance)
             }
         });
 

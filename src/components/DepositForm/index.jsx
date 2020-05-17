@@ -57,7 +57,7 @@ class DepositForm extends Component {
 
     projectData = async (props) => {
         const { wallet } = props;
-        let isTxFee = false;
+        const isTxFee = (getAddOn().txFee) ? getAddOn().txFee.isTxFee : false;
 
         if(wallet && !wallet.address) {
             this.getCurrencyAddress(wallet);
@@ -79,10 +79,6 @@ class DepositForm extends Component {
 
                 this.setState({ price, virtualTicker : virtualCurrency.ticker });
             }
-        }
-
-        if(getAddOn().hasOwnProperty("txFee")) {
-            isTxFee = getAddOn().txFee.isTxFee;
         }
 
         this.setState({ 
