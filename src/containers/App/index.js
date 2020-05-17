@@ -125,7 +125,7 @@ class App extends Component {
         let reponseUser = Cache.getFromCache('user');
 
         if(reponseUser) {
-            let user = await this.updateUser(reponseUser);
+            let user = await this.reloadUser(reponseUser);
             await user.updateUser();
             await this.setDefaultCurrency();
         }
@@ -348,6 +348,33 @@ class App extends Component {
         this.setState({
             user: userObject
         });
+        return userObject;
+    };
+
+    reloadUser = async user => {
+        
+        /* Destory Unlogged Chat Instance */
+        if(this.chat){
+            await this.chat.kill();
+            this.chat = null;
+        }
+
+        const appInfo = this.state.app;
+
+        let userObject = new User({
+            app : appInfo,
+            platformAddress: appInfo.platformAddress,
+            tokenAddress: appInfo.platformTokenAddress,
+            decimals: appInfo.decimals,
+            integrations : user && user.integrations ? user.integrations : appInfo.integrations,
+            appId: appInfo.id,
+            userId: user ? user.id : null,
+            user : user
+        })
+
+        await store.dispatch(setProfileInfo(userObject));
+        
+        this.setState({ user : userObject });
         return userObject;
     };
 
