@@ -125,22 +125,22 @@ class Form extends Component {
             var res;
             if(isAffiliate === true){
                 /* Create Withdraw Framework */
-                res = await profile.askForWithdrawAffiliate({amount : parseFloat(amount), currency, address : toAddress});
+                await profile.askForWithdrawAffiliate({amount : parseFloat(amount), currency, address : toAddress});
             }else{
                 /* Create Withdraw Framework */
-                res = await profile.askForWithdraw({amount : parseFloat(amount), currency, address : toAddress});
-                if(res.withdraw) { await profile.updateBalance({ userDelta: -res.withdraw.amount }) };
+                await profile.askForWithdraw({amount : parseFloat(amount), currency, address : toAddress});
+                await profile.updateBalance({ userDelta: parseFloat(-amount) });
             }
 
             await store.dispatch( setMessageNotification(
                 'Withdraw was Queued, you can see it in the Withdraws Tab',                
             ));
            
-            this.setState({...this.state, amount: 0, toAddress: '', isAsking : false });
-            await this.setWithdrawInfoInRedux({id : res.withdraw._id});
+            this.setState({...this.state, amount: 0, toAddress: '', isAsking : false, disabled : false });
+            //await this.setWithdrawInfoInRedux({id : res.withdraw._id});
 
         }catch(err){
-            this.setState({...this.state, isAsking : false });
+            this.setState({...this.state, isAsking : false, disabled : false });
             console.log(err);
         }
     }
