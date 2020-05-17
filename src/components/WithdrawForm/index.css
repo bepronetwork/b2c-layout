@@ -83,6 +83,11 @@
     width : 100%;
     text-align : center;
     margin-top: $spacing-28;
+
+    img {
+        width: 20px;
+        height: 20px;
+    }
 }
 
 .amount {

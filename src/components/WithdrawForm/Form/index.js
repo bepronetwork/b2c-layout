@@ -12,6 +12,7 @@ import loading from 'assets/loading.gif';
 import { CopyText } from '../../../copy';
 import { formatCurrency } from '../../../utils/numberFormatation';
 import _ from 'lodash';
+import loadingIco from 'assets/loading-circle.gif';
 import "../index.css";
 
 const defaultProps = {
@@ -28,7 +29,9 @@ const defaultProps = {
     fee: null,
     isTxFee: false,
     maxBalance: 0,
-    minBalance: 0
+    minBalance: 0,
+    isAsking: false
+    
 }
 
 class Form extends Component {
@@ -117,7 +120,7 @@ class Form extends Component {
             const { wallet, profile, isAffiliate } = this.props;
             const { currency } = wallet;
 
-            this.setState({...this.state, disabled : true});
+            this.setState({...this.state, disabled : true, isAsking : true});
 
             var res;
             if(isAffiliate === true){
@@ -133,16 +136,19 @@ class Form extends Component {
                 'Withdraw was Queued, you can see it in the Withdraws Tab',                
             ));
            
-            this.setState({...this.state, amount: 0, toAddress: ''});
+            this.setState({...this.state, amount: 0, toAddress: '', isAsking : false });
             await this.setWithdrawInfoInRedux({id : res.withdraw._id});
 
         }catch(err){
+            this.setState({...this.state, isAsking : false });
             console.log(err);
         }
     }
 
     render() {
-        const { amount, image, maxWithdraw, minWithdraw, maxBalance, minBalance, ticker, addressInitialized, isLoaded, toAddress, disabled, isTxFee, fee } = this.state;
+        const { amount, image, maxWithdraw, minWithdraw, maxBalance, minBalance, ticker, 
+                addressInitialized, isLoaded, toAddress, disabled, isTxFee, fee, isAsking
+        } = this.state;
         const {ln, isAffiliate} = this.props;
         const copy = CopyText.amountFormIndex[ln];
 
@@ -227,10 +233,15 @@ class Form extends Component {
                             }
                         </div>
                         <div>
-                            <button onClick={this.askForWithdraw} styleName='withdraw' disabled={disabled}>
-                                <Typography variant={'small-body'} color={'white'}>
-                                    {copy.INDEX.TYPOGRAPHY.TEXT[1]} Withdraw
-                                </Typography>
+                            <button onClick={this.askForWithdraw} styleName='withdraw' disabled={disabled || isAsking}>
+                            {isAsking 
+                                ?
+                                    <img src={loadingIco} />
+                                :
+                                    <Typography variant={'small-body'} color={'white'}>
+                                        {copy.INDEX.TYPOGRAPHY.TEXT[1]} Withdraw
+                                    </Typography>
+                            }
                             </button>
                         </div>
                         <div styleName="disclaimer">
