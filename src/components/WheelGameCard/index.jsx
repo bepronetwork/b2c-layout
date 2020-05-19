@@ -48,7 +48,7 @@ class WheelGameCard extends Component {
     }
 
     componentWillReceiveProps(props){
-        this.projectData(props);
+        //this.projectData(props);
     }
 
 
