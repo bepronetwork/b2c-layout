@@ -128,9 +128,9 @@ class LastBets extends Component {
     }
 
     componentWillReceiveProps(props){
-        if(props !== this.props) {
+        /*if(props !== this.props) {
             this.projectData(props);
-        }
+        }*/
     }
 
     setTimer = (options) => {
@@ -147,7 +147,7 @@ class LastBets extends Component {
     }
     
     projectData = async (props, options=null) => {
-        let { profile, ln, gameMetaName, onTableDetails } = props;
+        let { profile, ln, gameMetaName } = props;
         let { view_amount } = this.state;
 
         const games = getGames();
