@@ -7,7 +7,7 @@
     height: auto;
     margin-bottom : 10px;
     padding : $spacing-20;
-    background: $primaryColor-2;
+    background: $primaryColor-5;
     border-radius : $border-radius;
     opacity : 1;
     transition: all 0.2s ease-in;
@@ -18,7 +18,7 @@
 }
 
 .selected {
-    background: $primaryColor-8;
+    background: $primaryColor-13;
 }
 
 .text-description{
