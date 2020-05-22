@@ -158,7 +158,7 @@ class RouletteGameCard extends Component {
                             let color = cells[item.key].metadata.color;
                             return(
                                 <div styleName='popular-number-row'>
-                                    <div styleName={`popular-number-container ${color}-square ${isLight ? `${color}-square-light`: ''}`}>
+                                    <div styleName={`popular-number-container ${color}-square ${isLight ? `${color}-square_light`: ''}`}>
                                         <Typography variant={'small-body'} color={'white'}>
                                             {item.key}    
                                         </Typography>       

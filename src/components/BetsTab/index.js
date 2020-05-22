@@ -33,9 +33,9 @@ const rows = {
                 currency: true
             },
             {
-                value : 'payout',
-                dependentColor : true,
-                condition : 'isWon'
+                value : 'payout'
+                //dependentColor : true,
+                //condition : 'isWon'
             }
         ],
         rows : []

@@ -67,14 +67,14 @@
     background-color : $green;
 }
 
-.green-square-light{
+.green-square_light {
 }
 
 .blue-square{
     background-color : $roulette-blue-color;
 }
 
-.blue-square-light{
+.blue-square_light{
   background-color : #757575;
 }
 
@@ -82,7 +82,7 @@
     background-color : $red;
 }
 
-.red-square-light{
+.red-square_light{
 }
 
 .outer-popular-numbers{
