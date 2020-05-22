@@ -42,7 +42,7 @@ $icon-index: calc($root-index + 1);
   height: $spacing-20;
   padding-bottom: 1px;
 
-  background-color: $gable-green;
+  background-color: $primaryColor-5;
 
   cursor: pointer;
   outline: none;

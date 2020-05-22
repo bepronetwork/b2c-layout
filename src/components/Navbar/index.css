@@ -218,7 +218,7 @@
     width: 100%;
     height: $navbar-height;
     background-color: $primaryColor;
-    box-shadow : 1px 1px 100px 1px #0000006b;
+    box-shadow : 1px 1px 50px 1px $shadowColor;
     padding-left : $padding-width-navbar;
     padding-right : $padding-width-navbar;
 
@@ -337,12 +337,12 @@
     height: 32px;
     cursor: pointer;
     padding: 0 $spacing-8 0 $spacing-8;
-    background-color: $backgroundColor-light-2;
+    background-color: $backgroundColor-2;
     border-radius: $border-radius;
   
     .user-icon {
       width: 22px;
-      background-color: $primaryColor-light-2;
+      background-color: $primaryColor-2;
       border-radius: $border-radius;
     }
 

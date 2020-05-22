@@ -2,6 +2,10 @@
 
 .box {
     padding: $spacing-8 12%;
+
+    @include Breakpoint-mobileOnly {
+        padding: $spacing-8 5%;
+    }
 }
 
 .field{
