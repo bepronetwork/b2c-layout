@@ -275,26 +275,48 @@
     background-color: $wheel-variation-1-color-1;
 }
 
+.multiplier-0-light{
+  background: $wheel-variation-1-color-1-light; 
+}
+
 .multiplier-1{
     background-color:$wheel-variation-1-color-2;
+}
+
+.multiplier-1-light{
 }
 
 .multiplier-2{
     background-color: $wheel-variation-1-color-3;
 }
 
+.multiplier-2-light{
+}
+
 .multiplier-3{
     background-color: $wheel-variation-1-color-4;
+}
+
+.multiplier-3-light{
 }
 
 .multiplier-4{
     background-color: $wheel-variation-1-color-5;
 }
 
+.multiplier-4-light{
+}
+
 .multiplier-5{
     background-color: $wheel-variation-1-color-6;
 }
 
+.multiplier-5-light{
+}
+
 .multiplier-6{
     background-color: $wheel-variation-1-color-7;
+}
+
+.multiplier-6-light{
 }

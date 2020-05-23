@@ -6,6 +6,7 @@ import { reduce } from "lodash";
 import UserContext from "containers/App/UserContext";
 import { setWonPopupMessageDispatcher } from "../../lib/redux";
 import wheelBet from "lib/api/wheel";
+import { getAppCustomization } from "../../lib/helpers";
 import Cache from "../../lib/cache/cache";
 import { Numbers } from "lib/ethereum/lib";
 import { connect } from "react-redux";
@@ -14,7 +15,7 @@ import _ from "lodash";
 
 const resultSpaceColors = [
     {
-        "color" : '#000000'
+        "color" : getAppCustomization().theme === 'dark' ? '#000000' : '#777777'
     },
     {        
         "color" : '#406c82'

@@ -78,7 +78,7 @@
 .table-head .tr-row{
     text-align: center;
     height: 42px;
-    border-bottom: 1px solid $primaryColor-light-13;
+    border-bottom: 1px solid $primaryColor-13;
 }
 
 .table-head .tr-row .th-row{
@@ -167,7 +167,7 @@
     .table-row  .tr-row {
       display: block;
       padding-bottom: $spacing-8;
-      border-bottom: 1px solid $primaryColor-light-13;
+      border-bottom: 1px solid $primaryColor-13;
     }
     
     .table-row  .td-row {

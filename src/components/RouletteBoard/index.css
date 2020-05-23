@@ -399,8 +399,16 @@
   background-color: $background-table-1;
 }
 
+.cell.pickled-bluewood-light {
+  background-color: #757575;
+}
+
 .cell.pickled-bluewood.focused {
   background-color: $light-background-table-1-outer;
+}
+
+.cell.pickled-bluewood-light.focused {
+  background-color: #969696;
 }
 
 .cell.red.focused {
@@ -409,7 +417,8 @@
 
 .cell.red,
 .cell.japanese-laurel,
-.cell.pickled-bluewood {
+.cell.pickled-bluewood,
+.cell.pickled-bluewood-light {
   box-shadow: none;
 }
 
@@ -420,6 +429,10 @@
 
 .cell.pickled-bluewood:hover {
   background-color: $light-background-table-1-outer;
+}
+
+.cell.pickled-bluewood-light:hover {
+  background-color: #969696;
 }
 
 .cell.japanese-laurel:hover {

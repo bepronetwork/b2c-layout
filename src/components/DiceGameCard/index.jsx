@@ -4,12 +4,13 @@ import { InputNumber, Slider, ButtonIcon, Typography, AnimationNumber } from "co
 import { startCase } from "lodash";
 import { find } from "lodash";
 import { connect } from "react-redux";
-
-import "./index.css";
+import { getAppCustomization } from "../../lib/helpers";
 import { getPopularNumbers } from "../../lib/api/app";
 import { Numbers } from "../../lib/ethereum/lib";
 import { formatPercentage } from "../../utils/numberFormatation";
 import { CopyText } from '../../copy';
+
+import "./index.css";
 
 const minPayout = 1.0102;
 const maxPayout = 49.5;
@@ -199,6 +200,7 @@ class DiceGameCard extends Component {
 
     renderPopularNumbers = ({popularNumbers}) => {
         if(!popularNumbers || (popularNumbers && popularNumbers.length < 1)){return null}
+        const darkColor = getAppCustomization().theme === "light" ? "blue-square-light" : "";
         const totalAmount = popularNumbers.reduce( (acc, item) => {
             return acc+item.resultAmount;
         }, 0);
@@ -209,7 +211,7 @@ class DiceGameCard extends Component {
                         {
                             return(
                                 <div styleName='popular-number-row'>
-                                    <div styleName={`popular-number-container blue-square`}>
+                                    <div styleName={`popular-number-container blue-square ${darkColor}`}>
                                         <Typography variant={'small-body'} color={'white'}>
                                             {item.key}    
                                         </Typography>       

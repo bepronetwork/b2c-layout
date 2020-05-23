@@ -7,7 +7,7 @@
 .toggle {
   padding: $spacing-8;
 
-  background: $primaryColor-light-3;
+  background: $primaryColor-3;
 
   cursor: pointer;
 
@@ -17,7 +17,7 @@
 }
 
 .toggle:hover {
-  background-color: $light-pickled-bluewood;
+  background-color: $primaryColor-13;
 }
 
 .toggle-left {

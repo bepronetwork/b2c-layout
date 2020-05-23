@@ -26,8 +26,9 @@
 .qrcode {
   padding: $spacing-16;
   background-color: white;
-  width: 166px;
+  width: 160px;
   margin: 0 auto;
+  border-radius: $border-radius;
 }
 
 .qrcode canvas {
