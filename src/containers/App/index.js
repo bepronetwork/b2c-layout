@@ -28,6 +28,7 @@ import FlipPage from "containers/FlipPage";
 import RoulettePage from "containers/RoulettePage";
 import WheelPage from "../WheelPage";
 import WheelVariation1 from "../WheelVariation1Page";
+import KenoPage from "../KenoPage";
 
 import { login, login2FA, logout, register } from "lib/api/users";
 import getAppInfo from "lib/api/app";
@@ -387,6 +388,7 @@ class App extends Component {
         localStorage.removeItem("plinko_variation_1History");
         localStorage.removeItem("wheelHistory");
         localStorage.removeItem("wheel_variation_1History");
+        localStorage.removeItem("kenoHistory");
         localStorage.removeItem("customization");
         localStorage.removeItem("affiliate");
         localStorage.removeItem("appInfo");
@@ -500,6 +502,40 @@ class App extends Component {
 
         let app = await getAppInfo();
 
+        const keno = {
+            "_id": "5e5d3e585c63f10021352c52",
+            "resultSpace": [
+              {
+                "_id": "5e5d3e585c63f10021352c51",
+                "formType": "100",
+                "probability": 0.01
+              }
+            ],
+            "result": [
+              
+            ],
+            "isClosed": false,
+            "maxBet": 0,
+            "background_url": "https://storage.googleapis.com/betprotocol-game-images/6vihyu96t.jpg",
+            "name": "Keno",
+            "edge": 0,
+            "app": "5e5bf3cb5f175b1f22118a3d",
+            "betSystem": 0,
+            "timestamp": false,
+            "image_url": "https://storage.googleapis.com/betprotocol-game-images/p4ab76byh.jpg",
+            "metaName": "keno",
+            "rules": "1. Only roll outcomes that hit the green area are winners.\n 2. Players are prohibited from using their own dice.\n 3. Absolutely no hufflepuffs allowed.",
+            "description": "Linear Dice Game",
+            "wallets": [
+              {
+                "tableLimit": 30
+              }
+            ]
+        }
+
+        app.games.push(keno);
+
+        console.log(app)
 
         Cache.setToCache("appInfo", app);
         this.setState({...this.state, app})
@@ -594,6 +630,19 @@ class App extends Component {
                     path="/plinko_variation_1"
                     render={props => (
                         <PlinkoPage
+                        {...props}
+                        onHandleLoginOrRegister={this.handleLoginOrRegisterOpen}
+                        onTableDetails={this.handleTableDetailsOpen}
+                        />
+                    )}
+                    />
+                ) : null}
+                    {this.isGameAvailable("keno") ? (
+                    <Route
+                    exact
+                    path="/keno"
+                    render={props => (
+                        <KenoPage
                         {...props}
                         onHandleLoginOrRegister={this.handleLoginOrRegisterOpen}
                         onTableDetails={this.handleTableDetailsOpen}
