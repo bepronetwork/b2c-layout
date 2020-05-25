@@ -94,6 +94,11 @@
     display: inline-flex;
     width: 100%;
     align-items: center;
+
+    @include Breakpoint-mobileOnly {
+        float: left;
+        width: 65%;
+    }
 }
 
 .min-max {

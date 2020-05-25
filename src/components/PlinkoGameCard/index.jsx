@@ -6,14 +6,16 @@ import VerticalWall from './Components/wall';
 import {PARTICLE} from './Components/bodies';
 import { Row, Col } from 'reactstrap';
 import {PEG0, PEG1, PEG2, PEG3, PEG4, PEG5, PEG6, PEG7, PEG8, PEG9} from './Components/bars';
-import loseSound from "assets/lose-sound.mp3";
-import Sound from "react-sound";
-import "./index.css";
+import plockSound from "assets/plock.mp3";
+import congratsSound from "assets/congrats.mp3";
 import Typography from "../Typography";
+
+import "./index.css";
 
 const MS_IN_SECOND = 2000;
 const FPS = 60;
-
+const plock = new Audio(plockSound);
+const congrats = new Audio(congratsSound);
 class PlinkoGameCard extends React.Component {
     constructor(props) {
         super(props);
@@ -168,7 +170,7 @@ class PlinkoGameCard extends React.Component {
                             if (el.position.x > particle.body.position.x) {
                                 if (index === null) {
                                     index = i
-                                    return el
+                                    //return el
                                 }
                             }
 
@@ -192,7 +194,8 @@ class PlinkoGameCard extends React.Component {
                         setTimeout(() => {
                             if (checkParticle.length === 0) {
                                 this.props.onResultAnimation();
-                                clearInterval(checkParticleStatus)
+                                clearInterval(checkParticleStatus);
+                                this.playSound(congrats, 3000);
                             }
                         }, 10);
                     }
@@ -212,7 +215,7 @@ class PlinkoGameCard extends React.Component {
           const bodyB = pair.bodyB;
     
           if (bodyA.label === 'plinko' && bodyB.label === 'particle') {
-            this.renderCollisionSound();
+            this.playSound(plock, 100);
           }
     
           if (bodyA.label === 'plinko') {
@@ -268,10 +271,18 @@ class PlinkoGameCard extends React.Component {
         Events.on(this.engine, 'collisionStart', this.onCollisionStart);
     }
 
-    renderCollisionSound = () => {
-        return (
-            <Sound volume={100} url={loseSound} playStatus="PLAYING" autoLoad />
-        );
+    playSound = (sound, timeout) => {
+        const soundConfig = localStorage.getItem("sound");
+
+        if (soundConfig !== "on") {
+            return null;
+        }
+
+        sound.play();
+        setTimeout(() => {
+            sound.pause();
+            sound.currentTime = 0;
+        }, timeout);
     };
 
     renderResult = () => {

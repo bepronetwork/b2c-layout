@@ -6,6 +6,7 @@ import { CopyText } from '../../copy';
 import { connect } from "react-redux";
 import languages from "../../config/languages";
 import { setLanguageInfo } from "../../redux/actions/language";
+import { isUserSet } from "../../lib/helpers";
 import classNames from "classnames";
 
 import "./index.css";
@@ -60,7 +61,9 @@ class LanguageSelector extends Component {
             }
         })
         
-        profile.getChat().changeLanguage({language : item.name, channel_id : item.channel_id});
+        if(isUserSet(profile)){
+            profile.getChat().changeLanguage({language : item.name, channel_id : item.channel_id});
+        }
         await this.props.dispatch(setLanguageInfo(item));
         this.setState({...this.state, language : item, open: !open})
     }
