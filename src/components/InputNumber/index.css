@@ -106,7 +106,7 @@
 }
 
 .disabled .input {
-  color: white;
+  color: $white;
   cursor: not-allowed;
   appearance: none;
 }

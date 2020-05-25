@@ -1,8 +1,10 @@
+import { getAppCustomization } from "../../../lib/helpers";
+
 export const PLINKO = {
     FRICTION: 0,
     RESTITUTION: 1,
     RADIUS: 5,
-    FILL:'#fff'
+    FILL: getAppCustomization().theme === "light" ? '#969696' : '#fff'
   }
   
   PLINKO.DIAMETER = PLINKO.RADIUS * 2;

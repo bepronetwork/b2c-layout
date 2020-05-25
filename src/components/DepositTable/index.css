@@ -34,7 +34,7 @@
     display: grid;
     align-items: center;
     gap: $spacing-8;
-    background-color: $primaryColor-light-2;
+    background-color: $primaryColor-2;
     border-radius: $border-radius;
 
     @media screen and (max-width: 767px) {

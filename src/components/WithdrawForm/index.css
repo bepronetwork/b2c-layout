@@ -102,7 +102,7 @@
 }
 
 .min-max {
-    background-color: $primaryColor-dark-2;
+    background-color: $primaryColor-8;
     margin: auto;
     margin-left: $spacing-8;
     padding: $spacing-8;
@@ -116,7 +116,7 @@
 
 
 .disclaimer {
-    background-color: $primaryColor-light-5;
+    background-color: $primaryColor-5;
     padding: $spacing-20 $spacing-20 $spacing-16 $spacing-36;
     margin-top: $spacing-16;
     border-radius: $border-radius;

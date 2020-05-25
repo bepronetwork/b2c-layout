@@ -20,7 +20,7 @@
     margin : 10px auto;
     padding : $spacing-20;
     border : 1px solid $white;
-    background: $primaryColor-dark-5;
+    background: $primaryColor-2;
     border-radius : $border-radius;
     opacity : 1;
     transition: all 0.2s ease-in;
