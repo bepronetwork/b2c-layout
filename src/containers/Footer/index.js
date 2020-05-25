@@ -236,7 +236,7 @@ class Footer extends Component {
                                 </a>
                             </div>
                             <div className="col-md-2" styleName="col">
-                                <a href={'https://ethereum.org'} target={'_blank'}>
+                                <a href={'https://www.begambleaware.org'} target={'_blank'}>
                                     <img src={ getAppCustomization().theme === 'dark' ? logoResponsible_dark : logoResponsible_light } style={{height : 30}}/>
                                 </a>
                             </div>
