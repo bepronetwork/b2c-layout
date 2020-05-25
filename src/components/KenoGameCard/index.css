@@ -23,7 +23,6 @@ $with-without-padding: calc(100% - $spacing-20 - $spacing-20);
   width: 100%;
   grid-template-columns: repeat(8, auto);
   gap: 1em 1em;
-  padding-right: $spacing-16;
 }
 
 .card {
@@ -111,7 +110,6 @@ $with-without-padding: calc(100% - $spacing-20 - $spacing-20);
   position: relative;
   min-height: 8em;
   gap: 1em;
-  padding-right: $spacing-16;
 }
 
 .payouts {

@@ -1,22 +1,15 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import { InputNumber, Slider, ButtonIcon, Typography, AnimationNumber, StarIcon } from "components";
-import { startCase } from "lodash";
+import { Typography, AnimationNumber, StarIcon } from "components";
 import { find } from "lodash";
 import { connect } from "react-redux";
 import classNames from 'classnames';
 import { getPopularNumbers } from "../../lib/api/app";
 import { Numbers } from "../../lib/ethereum/lib";
 import { formatPercentage } from "../../utils/numberFormatation";
-import { CopyText } from '../../copy';
 import Keno from './keno';
 
 import "./index.css";
-
-const minPayout = 1.0102;
-const maxPayout = 49.5;
-const middlePayout = 2;
-const middleRoll = 50;
 
 const totalOfCards = 40;
 const maxPickedCards = 10;
@@ -49,8 +42,7 @@ class KenoGameCard extends Component {
     static propTypes = {
         result: PropTypes.number,
         disableControls: PropTypes.bool,
-        onResultAnimation: PropTypes.func.isRequired,
-        onChangeRollAndRollType: PropTypes.func.isRequired
+        onResultAnimation: PropTypes.func.isRequired
     };
 
     static defaultProps = {
@@ -91,17 +83,13 @@ class KenoGameCard extends Component {
         let result = null;
         let nextProps = props;
         let prevState = this.state;
-        const { rollNumber } = this.props;
+
         if (nextProps.result && nextProps.result !== prevState.result) {
-            let history = localStorage.getItem("diceHistory");
-            const win = !!(
-                (nextProps.result >= rollNumber && prevState.rollType === "over") ||
-                (nextProps.result < rollNumber && prevState.rollType === "under")
-            );
+            let history = localStorage.getItem("kenoHistory");
 
             history = history ? JSON.parse(history) : [];
-            history.unshift({ value: nextProps.result, win });
-            localStorage.setItem("diceHistory", JSON.stringify(history));
+            history.unshift({ value: nextProps.result, win: true });
+            localStorage.setItem("kenoHistory", JSON.stringify(history));
             result = nextProps.result;
             this.setState({...this.state, 
                 result
@@ -136,6 +124,7 @@ class KenoGameCard extends Component {
 
     renderPayouts() {
         const { numberOfPickeds } = this.state;
+        const { betAmount } = this.props;
 
         if(numberOfPickeds === 0) { return null };
 
@@ -143,7 +132,8 @@ class KenoGameCard extends Component {
 
         for (let index = 0; index <= numberOfPickeds; index++) {
             const keno = new Keno({ n: totalOfCards, d: maxPickedCards, x: numberOfPickeds, i: index });
-            payouts.push(<div styleName="payout"><Typography variant={'x-small-body'} color={'grey'}>{`${(keno.probability() * 100).toFixed(2)}%`}</Typography></div>);
+            const profit = betAmount * 1 / keno.probability();
+            payouts.push(<div styleName="payout"><Typography variant={'x-small-body'} color={'grey'}>{`${(profit).toFixed(2)}`}</Typography></div>);
         }
 
         return (
@@ -171,114 +161,6 @@ class KenoGameCard extends Component {
         )
 
     }
-
-
-
-
-
-
-
-    handlePayout = payout => {
-        const { onChangeRollAndRollType } = this.props;
-        const { rollType } = this.state;
-
-        let newRoll = 0;
-
-        if (payout === middlePayout) {
-        newRoll = middleRoll;
-        } else {
-        newRoll =
-            rollType === "over"
-            ? (middleRoll * middlePayout - 100 * payout) / (payout * -1)
-            : (middleRoll * middlePayout) / payout;
-        }
-
-        this.setState({
-            payout,
-            chance: rollType === "over" ? 100 - newRoll : newRoll
-        });
-
-        onChangeRollAndRollType(newRoll, rollType);
-    };
-
-    handleChance = value => {
-        const { onChangeRollAndRollType } = this.props;
-        const { rollType } = this.state;
-
-        const newRoll = rollType === "over" ? 100 - value : value;
-
-        const payout = this.getPayout(newRoll);
-
-        this.setState({
-            chance: value,
-            payout
-        });
-
-        onChangeRollAndRollType(newRoll, rollType);
-    };
-
-    handleRoll = () => {
-        const { onChangeRollAndRollType, rollNumber } = this.props;
-        const { rollType } = this.state;
-
-        const newRollType = rollType === "over" ? "under" : "over";
-        const newRoll = 100 - rollNumber;
-
-        this.setState({
-            rollType: newRollType,
-            chance: rollType === "over" ? newRoll : rollNumber
-        });
-
-        onChangeRollAndRollType(newRoll, newRollType);
-    };
-
-    getPayout = roll => {
-        const { rollType } = this.state;
-        let payout = 0;
-
-        if (roll === middleRoll) {
-        payout = middlePayout;
-        } else {
-        payout =
-            rollType === "over"
-            ? (middleRoll * middlePayout) / (100 - roll)
-            : (middleRoll * middlePayout) / roll;
-        }
-
-        return payout;
-    };
-
-    handleSlider = value => {
-        const { onChangeRollAndRollType } = this.props;
-        const { rollType } = this.state;
-        const payout = this.getPayout(value);
-        let chance = rollType === "over" ? 100 - value : value;        
-        this.setState({
-            chance: chance,
-            payout
-        });
-
-        onChangeRollAndRollType(value, rollType);
-    };
-
-    getPayoutStep = () => {
-        const { rollType } = this.state;
-        const { rollNumber } = this.props;
-
-        if (rollType === "over") {
-        if (rollNumber < 50) return 0.1;
-
-        if (rollNumber < 75) return 0.5;
-
-        return 2;
-        }
-
-        if (rollNumber < 25) return 2;
-
-        if (rollNumber < 50) return 0.5;
-
-        return 0.1;
-    };
 
     renderPopularNumbers = ({popularNumbers}) => {
         if(!popularNumbers || (popularNumbers && popularNumbers.length < 1)){return null}
@@ -310,12 +192,10 @@ class KenoGameCard extends Component {
     }
 
     render() {
-        let { rollType, chance, payout, popularNumbers, cards } = this.state;
-        const { result, disableControls, onResultAnimation, rollNumber, bet, animating } = this.props;
+        let { payout, popularNumbers, cards } = this.state;
         let winEdge = (100-(this.state.edge))/100;
         payout = payout * winEdge;
-        const {ln} = this.props;
-        const copy = CopyText.diceGameCardIndex[ln];
+
         return (
         <div styleName="root">
             <div styleName="container">
@@ -359,41 +239,6 @@ class KenoGameCard extends Component {
                 <div styleName="chances">
                     {this.renderPayouts()}
                     {this.renderHits()}
-                </div>
-                <div styleName="values">
-                    <div styleName="values-container">
-                    <InputNumber
-                        name="payout"
-                        min={minPayout}
-                        max={maxPayout}
-                        precision={4}
-                        step={this.getPayoutStep()}
-                        title={copy.INDEX.INPUT_NUMBER.TITLE[0]}
-                        onChange={this.handlePayout}
-                        icon="cross"
-                        value={payout}
-                    />
-                    <InputNumber
-                        name="roll"
-                        icon="rotate"
-                        title={`Roll ${startCase(rollType)}`}
-                        precision={2}
-                        disabled
-                        step={0.5}
-                        value={rollNumber}
-                    />
-                    <InputNumber
-                        name="chance"
-                        precision={4}
-                        min={2}
-                        max={98}
-                        unit="%"
-                        title={copy.INDEX.INPUT_NUMBER.TITLE[1]}
-                        onChange={this.handleChance}
-                        value={chance}
-                        step="any"
-                    />
-                    </div>
                 </div>
             </div>
         </div>
