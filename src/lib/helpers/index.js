@@ -171,6 +171,65 @@ function getAddOn(){
     return  Cache.getFromCache("appInfo") ? Cache.getFromCache("appInfo").addOn : {};
 }
 
+function loadWheelOptions(game){
+    const resultSpaceColors = [
+        {
+            "color" : '#000000'
+        },
+        {        
+            "color" : '#406c82'
+        },
+        {
+            "color" : '#00e403'
+        },
+        {
+            "color" : '#d5e8f2'
+        },
+        {
+            "color" : '#fde905'
+        },
+        {
+            "color" : '#7f46fd'
+        },
+        {
+            "color" : '#fca32f'
+        }
+    ]
+
+    let options = [];
+    let indexOptions = 0;
+
+    for(var i = 0; i < game.resultSpace.length; i++){
+        let resultSpace = game.resultSpace[i];
+        let optExists = options.find( opt => opt.multiplier == resultSpace.multiplier);
+        if(!optExists){
+            let color = resultSpaceColors[indexOptions].color;
+            // Does not exist
+            options.push({
+                index : indexOptions,
+                probability : resultSpace.probability,
+                multiplier : resultSpace.multiplier,
+                amount : 1,
+                start : i,
+                placings : [i],
+                color : color
+            })
+            indexOptions = indexOptions + 1;
+        }else{
+            optExists.placings.push(i)
+            // Exit update
+            options[optExists.index] = {
+                ...optExists,
+                amount : optExists.amount + 1,
+                placings : optExists.placings,
+                probability : optExists.probability + resultSpace.probability
+            }
+        }
+    }
+
+    return options;
+}
+
 export { 
     dateToHourAndMinute, getAppCustomization, 
     fromSmartContractTimeToMinutes, getGames, 
@@ -181,5 +240,6 @@ export {
     getSkeletonColors,
     loadFakeBets,
     getWebsite,
-    getAddOn
+    getAddOn,
+    loadWheelOptions
 }

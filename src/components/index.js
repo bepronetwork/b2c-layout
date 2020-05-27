@@ -120,6 +120,7 @@ import AccountTab from './AccountTab';
 import SecurityTab from './SecurityTab';
 import WalletTab from './WalletTab';
 import DetailsTable from './Table/DetailsTable';
+import BetDetails from './BetDetails';
 
 export { LegalBox };
 export { Authentication2FAModal };
@@ -243,3 +244,4 @@ export { AccountTab };
 export { SecurityTab };
 export { WalletTab };
 export { DetailsTable };
+export { BetDetails };

@@ -1,0 +1,55 @@
+@import "../../../../styles/all.css";
+
+.coin {
+  position: relative;
+
+  width: 150px;
+  height: 150px;
+  margin: 0 auto;
+  margin-bottom: $spacing-20;
+  margin-top: $spacing-36;
+
+  @include Breakpoint-mobileOnly {
+    width: 100px;
+    height: 100px;
+  }
+
+  * {
+    width: 100%;
+    height: 100%;
+
+    border-radius: 50%;
+
+    backface-visibility: hidden;
+  }
+
+  transform-style: preserve-3d;
+
+  transition: transform 1s ease-in;
+}
+
+.side-heads,
+.side-tails {
+  position: absolute;
+
+  * {
+    position: absolute;
+    left: 17%;
+
+    width: 100px;
+
+    @include Breakpoint-mobileOnly {
+      width: 70px;
+    }
+  }
+}
+
+.side-heads {
+  background-color: $flipcoin-color-head;
+  box-shadow: inset 0 0 15px color($tree-poppy alpha(70%));
+}
+
+.side-tails {
+  background-color: $flipcoin-color-tails;
+  box-shadow: inset 0 0 15px color($red alpha(50%));
+}
