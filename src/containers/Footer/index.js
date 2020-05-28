@@ -241,7 +241,7 @@ class Footer extends Component {
                                 </a>
                             </div>
                             <div className="col-md-2" styleName="col">
-                                <Typography weight="bold" variant="h4" color="fixedwhite"> 
+                                <Typography weight="bold" variant="h4" color="white"> 
                                     18+
                                 </Typography>
                             </div>
