@@ -96,8 +96,8 @@
     position: relative;
     padding: $spacing-16 0;
     margin: $spacing-28 0;
-    border-top: 1px solid  $primaryColor-light-13;
-    border-bottom: 1px solid  $primaryColor-light-13;
+    border-top: 1px solid  $primaryColor-13;
+    border-bottom: 1px solid  $primaryColor-13;
 
     img {
         @include Breakpoint-mobileOnly {

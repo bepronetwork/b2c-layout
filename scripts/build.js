@@ -42,19 +42,26 @@ function ServerTOJSONMapper(serverJSON){
         switch(serverJSON[key]){
             /* Colors */
             case 'colors' : {
-                var darkLightColors = [];
+                const { theme } =  appInfo.customization;
+                var colors = [];
                 var serverColors =  Object.keys(serverJSON.value).map( k => {
                     var hslColorEl = hexToHsl(serverJSON.value[k].hex);
                     var hslColor = "hsl(" + parseInt(hslColorEl.h) + "," + parseInt(hslColorEl.s) + "%," + parseInt(hslColorEl.l) + "%)";
                     var fibonacci = [2, 3, 5, 8, 13];
 
                     fibonacci.map( f => {
-                        var darkColor = { object : 'variable', key : serverJSON.value[k].type+"-dark-"+f, value : hslToLightOrDark(hslColorEl.h, hslColorEl.s, hslColorEl.l, f*-1) };
+                        /*var darkColor = { object : 'variable', key : serverJSON.value[k].type+"-dark-"+f, value : hslToLightOrDark(hslColorEl.h, hslColorEl.s, hslColorEl.l, f*-1) };
                         darkLightColors.push(darkColor);
     
                         var lightColor = { object : 'variable', key : serverJSON.value[k].type+"-light-"+f, value : hslToLightOrDark(hslColorEl.h, hslColorEl.s, hslColorEl.l, f) };
-                        darkLightColors.push(lightColor);
+                        darkLightColors.push(lightColor);*/
+
+                        var color = { object : 'variable', key : serverJSON.value[k].type+"-"+f, value : hslToLightOrDark(hslColorEl.h, hslColorEl.s, hslColorEl.l, theme === "dark" ? f : f*-1 ) };
+                        colors.push(color);
                     });
+
+                    var color = { object : 'variable', key : serverJSON.value[k].type+"-dark-3", value : hslToLightOrDark(hslColorEl.h, hslColorEl.s, hslColorEl.l, -3) };
+                    colors.push(color);
 
                     return {
                         object : 'variable',
@@ -62,7 +69,7 @@ function ServerTOJSONMapper(serverJSON){
                         value : hslColor
                     }
                 });
-                return serverColors.concat(darkLightColors);
+                return serverColors.concat(colors);
             }
             case 'theme' : {
                 var fontColors = [];
@@ -73,12 +80,16 @@ function ServerTOJSONMapper(serverJSON){
                     fontColors.push(darkColor)
                     const lightColor = { object : 'variable', key : 'grey', value : '#4D4D4D'}
                     fontColors.push(lightColor)
+                    const shadowColor = { object : 'variable', key : 'shadowColor', value : '#CCCCCC'}
+                    fontColors.push(shadowColor)
                 }
                 else if (theme === 'dark') {
                     const darkColor = { object : 'variable', key : 'white', value : '#FFFFFF'}
                     fontColors.push(darkColor)
                     const lightColor = { object : 'variable', key : 'grey', value : '#CCCCCC'}
                     fontColors.push(lightColor)
+                    const shadowColor = { object : 'variable', key : 'shadowColor', value : '#0000006b'}
+                    fontColors.push(shadowColor)
                 }
 
                 return fontColors;

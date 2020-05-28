@@ -4,7 +4,7 @@
     display: flex;
     flex-direction: column;
     box-sizing: border-box;
-    background: $primaryColor-light-5;
+    background: $primaryColor-5;
     overflow: hidden;
     margin-bottom : $spacing-20;
     text-align : left;

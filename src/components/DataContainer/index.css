@@ -7,7 +7,7 @@
     margin-bottom : $spacing-20;
     border-radius: $border-radius;
     padding : $spacing-8 $spacing-20;
-    background: $primaryColor-light-5;
+    background: $primaryColor-5;
     opacity : 1;
     border : none;
     transition: all 0.2s ease-in;
