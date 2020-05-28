@@ -632,7 +632,7 @@ class App extends Component {
 
         let progress100 = parseInt(progress/confirmations*100);
         let isUserLoaded = (confirmations == progress);
-        const { topBar } = getAppCustomization();
+        const { topBar, background } = getAppCustomization();
         const centerStyles = classNames("center", {
             centerExpand: !chatExpand
         });
@@ -681,7 +681,7 @@ class App extends Component {
                             <div styleName='top-bars'>
                                 <AnnouncementTab topBar={topBar}/>
                             </div>
-                            <div styleName='main'>
+                            <div styleName='main' style={{background : background ? 'url('+background.id+') center center / cover no-repeat' : null }}>
                                 <div styleName={centerStyles}>
                                     <div styleName='platform-container'>
                                         <Switch history={history}>
