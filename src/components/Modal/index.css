@@ -24,9 +24,9 @@ $icon-index: calc($root-index + 1);
   padding-bottom: 100px;
 
   @include Breakpoint-mobileOnly {
-    height: 110%;
-    padding-top: 40px;
-    padding-bottom: 40px;
+    height: 100%;
+    padding-top: 0px;
+    padding-bottom: 0px;
   }
 
 }
@@ -42,10 +42,21 @@ $icon-index: calc($root-index + 1);
   height: $spacing-20;
   padding-bottom: 1px;
 
-  background-color: $gable-green;
+  background-color: $primaryColor-5;
 
   cursor: pointer;
   outline: none;
+
+  @include Breakpoint-mobileOnly {
+    width: $spacing-28;
+    height: $spacing-28;
+    border-radius: $spacing-16;
+
+    svg {
+      height: $spacing-16;
+      width: $spacing-16;
+    }
+  }
 }
 
 .content {

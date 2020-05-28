@@ -19,7 +19,8 @@ import {
     AffiliateWithdrawForm,
     Authentication2FAModal,
     PopupForm,
-    BetDetails
+    BetDetails,
+    Jackpot
 } from "components";
 
 import PlinkoPage from "containers/PlinkoPage";
@@ -36,6 +37,7 @@ import User from "controllers/User/User";
 import UserContext from "./UserContext";
 import "./index.css";
 import { setProfileInfo } from "../../redux/actions/profile";
+import { setModal } from "../../redux/actions/modal";
 import store from "./store";
 import Cache from "../../lib/cache/cache";
 import ChatPage from "../Chat";
@@ -196,6 +198,10 @@ class App extends Component {
     handleAccountModalClose = () => {
         this.setState({ accountInfoOpen: null });
     };
+
+    handleJackpotModalClose = async () => {
+        await store.dispatch(setModal({key : 'JackpotModal', value : null}));
+    };  
 
     handleTabChange = name => {
         this.setState({ registerLoginModalOpen: name, error: null });
@@ -503,6 +509,16 @@ class App extends Component {
         return null;
     };
 
+    renderJackpotModal = () => {
+        const { modal } = this.props;
+
+        return modal.JackpotModal ? (
+            <Modal onClose={this.handleJackpotModalClose}>
+                <Jackpot message={modal.JackpotModal} />
+            </Modal>
+        ) : null;
+    };
+
     updateAppInfo = async () => {
 
 
@@ -664,6 +680,7 @@ class App extends Component {
                             {this.renderConfirmEmailModal()}
                             {this.renderCashierModal()}
                             {this.renderTableDetailsModal()}
+                            {this.renderJackpotModal()}
                             <Authentication2FAModal/>
                             <AffiliateWithdrawForm/>
                             <NotificationForm user={user}/>

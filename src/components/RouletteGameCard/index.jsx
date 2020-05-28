@@ -7,8 +7,6 @@ import { isEmpty } from "lodash";
 import Roulette from "components/Roulette";
 import { connect } from "react-redux";
 import { find } from "lodash";
-
-import "./index.css";
 import { CopyText } from "../../copy";
 import { getPopularNumbers } from "../../lib/api/app";
 import AnimationNumber from "../AnimationNumber";
@@ -16,6 +14,9 @@ import cells from "../RouletteBoard/cells";
 import Cache from "../../lib/cache/cache";
 import { Numbers } from "../../lib/ethereum/lib";
 import { formatPercentage } from "../../utils/numberFormatation";
+import { getAppCustomization } from "../../lib/helpers";
+
+import "./index.css";
 
 const mobileBreakpoint = 768;
 
@@ -147,6 +148,7 @@ class RouletteGameCard extends Component {
         const totalAmount = popularNumbers.reduce( (acc, item) => {
             return acc+item.resultAmount;
         }, 0)
+        const isLight = getAppCustomization().theme === "light";
         return(
             <div styleName='outer-popular-numbers'>
                 <div styleName='inner-popular-numbers'>
@@ -156,7 +158,7 @@ class RouletteGameCard extends Component {
                             let color = cells[item.key].metadata.color;
                             return(
                                 <div styleName='popular-number-row'>
-                                    <div styleName={`popular-number-container ${color}-square`}>
+                                    <div styleName={`popular-number-container ${color}-square ${isLight ? `${color}-square_light`: ''}`}>
                                         <Typography variant={'small-body'} color={'white'}>
                                             {item.key}    
                                         </Typography>       

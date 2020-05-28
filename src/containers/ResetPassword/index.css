@@ -35,7 +35,7 @@
 
 .reset-password {
   margin: $spacing-28 0;
-  background-color: $mirage;
+  background-color: $primaryColor-5;
   padding: $spacing-4 $spacing-20 $spacing-20 $spacing-20;
   border-radius: 4px;
   width: 450px;

@@ -27,7 +27,7 @@
 
   border-right: $spacing-4 solid transparent;
 
-  border-bottom: $spacing-4 solid $mirage;
+  border-bottom: $spacing-4 solid $primaryColor-5;
 
   border-left: $spacing-4 solid transparent;
 
@@ -45,12 +45,12 @@
 
   margin-top: $spacing-12;
 
-  background: $primaryColor-dark-3;
+  background: $primaryColor-5;
 
   border-radius: $spacing-4;
   width: auto;
 
-  top: $spacing-16;
+  top: $spacing-28;
 
 }
 

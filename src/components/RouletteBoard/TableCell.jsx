@@ -14,7 +14,8 @@ export default class TableCell extends Component {
       "auto",
       "red",
       "japanese-laurel",
-      "pickled-bluewood"
+      "pickled-bluewood",
+      "pickled-bluewood-light"
     ]),
     isResult: PropTypes.bool,
     betHistory: PropTypes.arrayOf(

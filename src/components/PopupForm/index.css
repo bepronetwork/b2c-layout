@@ -5,10 +5,11 @@
   position: fixed;
   overflow-y: auto;
   max-height: 100vh;
-  left: 20px;
-  bottom: 20px;
-  -ms-flex-direction: column;
+  right: 0;
+  bottom: 0;
   flex-direction: column;
+  width: 100%;
+  max-width: 400px;
 }
 
 .popup-wrapper {
@@ -16,7 +17,6 @@
   display: flex;
   padding: 10px;
   min-height: 0;
-  -ms-flex-direction: inherit;
   flex-direction: inherit;
 }
 
@@ -24,7 +24,6 @@
   position: relative;
   word-wrap: break-word;
   pointer-events: auto;
-  width: 400px;
   border-radius: 5px;
   background: $text-secondary-color;
   padding-left: 30px;
@@ -34,10 +33,6 @@
   max-height: 150px;
   min-height: 80px;
   animation: fadeIn ease 1s;
-  -webkit-animation: fadeIn ease 1s;
-  -moz-animation: fadeIn ease 1s;
-  -o-animation: fadeIn ease 1s;
-  -ms-animation: fadeIn ease 1s;
 }
 
 @keyframes fadeIn{

@@ -79,7 +79,7 @@
   width: 50px;
   border-radius: 40px;
   text-align: center;
-  box-shadow: rgba(0, 0, 0, 0.5) 0px 0px 10px;
+  box-shadow: $shadowColor 0px 0px 10px;
 
 
   @media screen and (max-width: 1267px) and (min-width: 1024px) {
