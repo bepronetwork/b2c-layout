@@ -68,7 +68,7 @@
   background: none;
 
   border: 0;
-  color: white;
+  color: $white;
   outline: 0;
 
   font-family: $font-family;
@@ -102,7 +102,7 @@
   }
 
 .input::placeholder {
-  color: white;
+  color: $white;
 
   font-size: $font-size-body;
 }
