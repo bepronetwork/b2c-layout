@@ -1,29 +1,61 @@
 @import "../../styles/all.css";
 
-.box {
-    padding: $spacing-8 12%;
+.root {
+    width: 100%;
+    text-align: center;
+    display: grid;
+    grid-auto-columns: minmax(0px, 1fr);
+    overflow-y: auto;
+    min-height: 0px;
+    transform: translate3d(0px, 0px, 0px);
+    overflow-x: hidden;
 }
 
-.field{
-    grid-template-columns: auto auto;
+.game {
+    width: 100%;
     display: grid;
-    margin-bottom: $spacing-20;
+    grid-auto-columns: minmax(0px, 1fr);
+    justify-items: center;
+    padding: 2rem;
+    gap: 2rem;
+}
+
+.seed {
+    width: 100%;
+    display: grid;
+    justify-items: stretch;
+    padding: 2rem;
+    gap: 1em;
+    background: $backgroundColor-8;
+}
+
+.element {
+    display: flex;
+    float: left;
+    width: 100%;
 }
 
 .label{
-    text-align: left;
-
+    padding: $spacing-12 0;
+    float: left;
 }
 
-.value{
-    justify-content: flex-end;
-    display: inline-flex;
+.text{
+    width : 100%;
+    padding: 14px $spacing-20;
+    text-align : left;
+    overflow: hidden;
+    height: 40px;
+    border-radius : $border-radius 0 0  $border-radius;
+    background-color : white;
 }
 
-.button{
-    margin-top : $spacing-52;
-
-    button {
-        width: 100%;
-    }
+.text-seed{
+    border : none;
+    padding: $spacing-12 24px;
+    border-radius :  0 $border-radius $border-radius 0;
+    background-color: $light-background;
+    width : inherit;
+    height : 40px;
+    text-align : center;
 }

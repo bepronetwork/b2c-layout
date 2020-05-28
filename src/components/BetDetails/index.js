@@ -5,6 +5,7 @@ import DiceDetails from './Game/DiceDetails';
 import FlipDetails from './Game/FlipDetails';
 import RouletteDetails from './Game/RouletteDetails';
 import WheelDetails from './Game/WheelDetails';
+import PlinkoDetails from './Game/PlinkoDetails';
 
 
 import "./index.css";
@@ -15,7 +16,14 @@ class BetDetails extends Component {
     constructor(props){
         super(props);
         this.state = {
-            component: null
+            component: null,
+            clientSeed: null,
+            serverHashedSeed: null,
+            serverSeed: null,
+            timestamp: null,
+            winAmount: null,
+            betAmount: null,
+            game: null
         };
     }
 
@@ -51,7 +59,7 @@ class BetDetails extends Component {
                 component = <WheelDetails response={response}/>;
                 break;
             case 'plinko_variation_1':
-                component = <DiceDetails response={response}/>;
+                component = <PlinkoDetails response={response}/>;
                 break;
             case 'keno':
                 component = <DiceDetails response={response}/>;
@@ -59,19 +67,63 @@ class BetDetails extends Component {
         }
              
         this.setState({
-            component
+            component,
+            clientSeed: response.clientSeed,
+            serverHashedSeed: response.serverHashedSeed,
+            serverSeed: response.serverSeed,
+            timestamp: response.timestamp,
+            winAmount: response.winAmount,
+            betAmount: response.betAmount,
+            game 
         });
         console.log(response)
     }
     
     render() {
-        const { component } = this.state;
+        const { component, clientSeed, serverHashedSeed, serverSeed, timestamp, winAmount, betAmount, game } = this.state;
 
         if (component === null) { return null };
 
         return (
-            <div>
-                {component}
+            <div styleName="root">
+                <div styleName="game">
+                    {component}
+                </div>
+                <div styleName="seed">
+                    <div>
+                        <div styleName='label'>
+                            <Typography variant={'x-small-body'} color={`white`}>
+                                Semente do Servidor
+                            </Typography>
+                        </div>
+                        <div styleName='text'>
+                            <Typography variant={'x-small-body'} color={`casper`}>
+                                {serverSeed}
+                            </Typography>
+                        </div>
+                    </div>
+                    <div>
+                        <div styleName='label'>
+                            <Typography variant={'x-small-body'} color={`white`}>
+                                Semente do Servidor
+                            </Typography>
+                        </div>
+                        <div styleName="element">
+                            <div styleName='text'>
+                                <Typography variant={'x-small-body'} color={`casper`}>
+                                    {serverSeed}
+                                </Typography>
+                            </div>
+                            <div>
+                                <button onClick={this.copyToClipboard} styleName='text-seed'>
+                                    <Typography variant={'small-body'} color={'white'}>
+                                        Copiar
+                                    </Typography>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         )
     }

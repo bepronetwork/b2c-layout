@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import Wheel from "../../../Wheel";
 import WheelBox from "../../../WheelBox";
 import { loadWheelOptions } from "../../../../lib/helpers";
 import _ from 'lodash';
