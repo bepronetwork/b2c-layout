@@ -9,22 +9,26 @@
     justify-content: center;
   }
 
-  .pegs_wrapper {
-    display: grid;
-    height: 100%;
-    position: relative;
-    gap: $spacing-4;
-    width: 100%;
-    padding: 0 20px;
-  }
+.pegs_wrapper {
+  display: grid;
+  height: 100%;
+  position: relative;
+  gap: $spacing-4;
+  width: 100%;
+  padding: 0 20px;
 
-  .pegs.rows8 .pegs_wrapper {
-    width: 71%;
-    gap: 1% 2%;
-  }
-  .pegs.rows9 .pegs_wrapper {
-    width: 100%;
-  }
+  @media screen and (max-width: 767px) {
+    padding: 0;
+  } 
+}
+
+.pegs.rows8 .pegs_wrapper {
+  width: 71%;
+  gap: 1% 2%;
+}
+.pegs.rows9 .pegs_wrapper {
+  width: 100%;
+}
 
 
 .peg {
@@ -35,7 +39,12 @@
     margin: auto;
     height: 30px;
     padding-top : 7px;
-    opacity: 0.3
+    opacity: 0.3;
+
+    @media screen and (max-width: 767px) {
+      width: 28px;
+      height: 26px;
+    }
 }
 
 .result {

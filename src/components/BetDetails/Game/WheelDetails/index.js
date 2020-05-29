@@ -25,9 +25,9 @@ class WheelDetails extends Component {
     }
 
     projectData = async (props) => {
-        const { response } = this.props;
-        const result = response.outcomeResultSpace.key;
-        const game = response.game;
+        const { bet } = this.props;
+        const result = bet.outcomeResultSpace.key;
+        const game = bet.game;
         const value = loadWheelOptions(game);
 
         this.setState({
@@ -42,7 +42,7 @@ class WheelDetails extends Component {
     };
 
     render() {
-        const { value, result, game} = this.state;
+        const { value, result, game } = this.state;
 
         if(game === null) { return null };
 

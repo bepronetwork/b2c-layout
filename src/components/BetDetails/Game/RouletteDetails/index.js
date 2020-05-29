@@ -22,9 +22,9 @@ class RouletteDetails extends Component {
     }
 
     projectData = async (props) => {
-        const { response } = this.props;
+        const { bet } = this.props;
 
-        const result = response.result;
+        const result = bet.result;
         const betHistory = result.map( el => {
             return { cell : el._id.place, chip : el._id.value.toFixed(3) }
         })

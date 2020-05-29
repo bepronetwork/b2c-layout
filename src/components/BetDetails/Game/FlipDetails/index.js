@@ -22,9 +22,9 @@ class FlipDetails extends Component {
     }
 
     projectData = async (props) => {
-        const { response } = this.props;
+        const { bet } = this.props;
 
-        const result = response.outcomeResultSpace.key;
+        const result = bet.outcomeResultSpace.key;
 
         this.setState({
             result
@@ -35,7 +35,7 @@ class FlipDetails extends Component {
     };
 
     render() {
-        const { result} = this.state;
+        const { result } = this.state;
 
         return (
             <div styleName="coin">

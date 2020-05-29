@@ -23,10 +23,10 @@ class DiceDetails extends Component {
     }
 
     projectData = async (props) => {
-        const { response } = this.props;
+        const { bet } = this.props;
 
-        const value = response.result.length;
-        const result = response.outcomeResultSpace.key;
+        const value = bet.result.length;
+        const result = bet.outcomeResultSpace.key;
 
         this.setState({
             value

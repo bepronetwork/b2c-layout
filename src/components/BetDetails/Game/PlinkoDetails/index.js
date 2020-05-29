@@ -25,13 +25,11 @@ class PlinkoDetails extends Component {
     }
 
     projectData = async (props) => {
-        const { response } = this.props;
-        const result = response.outcomeResultSpace.key;
-        const game = response.game;
-        const value = loadWheelOptions(game);
+        const { bet } = this.props;
+        const result = bet.outcomeResultSpace.key;
+        const game = bet.game;
 
         this.setState({
-            value,
             game,
             result
         });
@@ -42,10 +40,10 @@ class PlinkoDetails extends Component {
     };
 
     render() {
-        const { value, result, game} = this.state;
+        const { result, game } = this.state;
 
         if(game === null) { return null };
-        //<WheelBox options={value} result={result} game={game}/>
+
         return (
             <div styleName={`pegs rows${game.resultSpace.length-1}`}>
                 <div styleName="pegs_wrapper" >

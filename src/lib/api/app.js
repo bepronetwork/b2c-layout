@@ -121,7 +121,7 @@ async function getBet({betId}) {
             bet: betId
         });
             
-        return response.data.data.message;
+        return response.data.data;
 
     } catch (error) {
         return handleError(error);
