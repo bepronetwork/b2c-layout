@@ -8,7 +8,7 @@ import { Row, Col } from 'reactstrap';
 import {PEG0, PEG1, PEG2, PEG3, PEG4, PEG5, PEG6, PEG7, PEG8, PEG9} from './Components/bars';
 import plockSound from "assets/plock.mp3";
 import congratsSound from "assets/congrats.mp3";
-import Typography from "../Typography";
+import Pegs from "./Components/Pegs";
 
 import "./index.css";
 
@@ -296,7 +296,7 @@ class PlinkoGameCard extends React.Component {
     };
       
     render() {
-        const { game } = this.state;
+        const { game, peg1, peg2, peg3, peg4, peg5, peg6, peg7, peg8, peg9, peg10 } = this.state;
 
         return (
             <div styleName="root">
@@ -304,27 +304,19 @@ class PlinkoGameCard extends React.Component {
                     <Col span={18} push={6} gutter={16}>
                     <div styleName="canvas-container">
                         <div id="techvr" styleName="canvas"/>
-                        <div styleName={`pegs rows${game.resultSpace.length-1}`}>
-                            <div styleName="pegs_wrapper" >
-                                {game.resultSpace.map((el, i) => {
-                                    let className;
-                                    if(el.multiplier < 1){
-                                        className = 'peg10'
-                                    }else if(el.multiplier < 2){
-                                        className = 'peg7'
-                                    }else{
-                                        className = 'peg1'
-                                    };
-                                    const hasAnimationClass = this.state[`peg${i+1}`] ? 'peg-animated' : '';
-
-                                    return (
-                                        <div styleName={`peg ${className} ${hasAnimationClass}`} >
-                                            <Typography variant={'small-body'} color={'pickled-bluewood'} >{el.multiplier}x</Typography>
-                                        </div>
-                                    )
-                                })}
-                            </div>
-                        </div>
+                        <Pegs 
+                            game={game} 
+                            peg1={peg1}
+                            peg2={peg2}
+                            peg3={peg3}
+                            peg4={peg4}
+                            peg5={peg5}
+                            peg6={peg6}
+                            peg7={peg7}
+                            peg8={peg8}
+                            peg9={peg9}
+                            peg10={peg10}
+                        />
                         <div styleName="result">
                             {this.renderResult()}
                         </div>

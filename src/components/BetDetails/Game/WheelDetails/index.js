@@ -38,9 +38,6 @@ class WheelDetails extends Component {
 
     }
 
-    handleAnimation = async () => {
-    };
-
     render() {
         const { value, result, game } = this.state;
 

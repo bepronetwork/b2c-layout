@@ -39,10 +39,7 @@ class DiceDetails extends Component {
         }, 300);
 
     }
-
-    handleAnimation = async () => {
-    };
-
+    
     render() {
         const { value, result} = this.state;
         return (
