@@ -30,10 +30,7 @@ class FlipDetails extends Component {
             result
         });
     }
-
-    handleAnimation = async () => {
-    };
-
+    
     render() {
         const { result } = this.state;
 
