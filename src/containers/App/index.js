@@ -19,7 +19,7 @@ import {
     AffiliateWithdrawForm,
     Authentication2FAModal,
     PopupForm,
-    DetailsTable,
+    BetDetails,
     Jackpot
 } from "components";
 
@@ -494,11 +494,19 @@ class App extends Component {
     renderTableDetailsModal = () => {
         const { tableDetailsOpen, tableDetails } = this.state;
 
-        return tableDetailsOpen ? (
-            <Modal onClose={this.handleTableDetailsModalClose}>
-                <DetailsTable onClose={this.handleTableDetailsModalClose} tableDetails={tableDetails} />
-            </Modal>
-        ) : null;
+        if (tableDetailsOpen) {
+            const { row } = tableDetails;
+
+            return (
+                <Modal onClose={this.handleTableDetailsModalClose}>
+                    {/*<DetailsTable onClose={this.handleTableDetailsModalClose} tableDetails={tableDetails} />*/}
+                    <BetDetails onClose={this.handleTableDetailsModalClose} tableDetails={tableDetails} betId={row.id} />
+                </Modal>
+            )
+            
+        }
+
+        return null;
     };
 
     renderJackpotModal = () => {
