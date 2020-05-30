@@ -24,7 +24,10 @@ class DepositForm extends Component {
             price : null,
             virtualTicker : null,
             fee: 0,
-            isTxFee: false
+            isTxFee: false,
+            isDepositBonus: false,
+            depositBonus: 0
+
         }
     }
 
@@ -58,6 +61,7 @@ class DepositForm extends Component {
     projectData = async (props) => {
         const { wallet } = props;
         const isTxFee = (getAddOn().txFee) ? getAddOn().txFee.isTxFee : false;
+        const isDepositBonus = (getAddOn().depositBonus) ? getAddOn().depositBonus.isDepositBonus : false;
 
         if(wallet && !wallet.address) {
             this.getCurrencyAddress(wallet);
@@ -85,7 +89,9 @@ class DepositForm extends Component {
             copied: false, 
             address : wallet.address,
             isTxFee,
-            fee: isTxFee === true ? getAddOn().txFee.deposit_fee.find(f => f.currency === wallet.currency._id).amount : null
+            fee: isTxFee === true ? getAddOn().txFee.deposit_fee.find(f => f.currency === wallet.currency._id).amount : null,
+            isDepositBonus,
+            depositBonus: isDepositBonus === true ? getAddOn().depositBonus.percentage.find(d => d.currency === wallet.currency._id).amount : null
          });
     }
 
@@ -103,7 +109,7 @@ class DepositForm extends Component {
 
     render() {
         const { wallet } = this.props;
-        const { addressInitialized, address, isLoaded, copied, price, virtualTicker, isTxFee, fee } = this.state;
+        const { addressInitialized, address, isLoaded, copied, price, virtualTicker, isTxFee, fee, isDepositBonus, depositBonus } = this.state;
         const {ln} = this.props;
         const copy = CopyText.depositFormIndex[ln];
         const addressStyles = classNames("address", {"ad-copied": copied});
@@ -139,6 +145,17 @@ class DepositForm extends Component {
                             <div styleName="qrcode">
                                 <QRCode value={address} />
                             </div>
+                            {
+                            isDepositBonus === true && depositBonus > 0
+                            ?
+                                <div styleName="bonus">
+                                    <Typography variant={'x-small-body'} weight={"bold"} color={'green'}>
+                                        * Bonus: {depositBonus}%
+                                    </Typography>
+                                </div>
+                            :
+                                null
+                            }
                             {
                             isTxFee === true && fee > 0
                             ?

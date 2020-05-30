@@ -31,6 +31,10 @@
 .chat-container{
     height: 100%;
     z-index: 10;
+
+    @media screen and (max-width: 767px) {
+      background-color: $backgroundColor;
+    }
 }
 
 .chat-container-main{
