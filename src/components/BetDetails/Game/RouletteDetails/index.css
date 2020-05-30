@@ -1,1 +1,25 @@
 @import "../../../../styles/all.css";
+
+.container {
+    width: 100%;
+    display: grid;
+    gap: 1em;
+}
+
+.result {
+    padding: $spacing-8;
+    background-color: $background-table-1;
+    border: 1px solid $white;
+    border-radius: $border-radius;
+    margin: auto;
+    width: 40px;
+}
+
+
+.result.red {
+    background-color: $red;
+}
+
+.result.green {
+    background-color: $japanese-laurel;
+}

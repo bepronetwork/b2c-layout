@@ -15,13 +15,13 @@ import Cache from "../../lib/cache/cache";
 import { Numbers } from "../../lib/ethereum/lib";
 import { formatPercentage } from "../../utils/numberFormatation";
 import { getAppCustomization } from "../../lib/helpers";
+import redColors from "./redColors";
 
 import "./index.css";
 
 const mobileBreakpoint = 768;
 
 class RouletteGameCard extends Component {
-    redColors = [1, 3, 5, 7, 9, 12, 14, 16, 18, 19, 21, 23, 25, 27, 30, 32, 34, 36];
 
     static propTypes = {
         result: PropTypes.number,
@@ -85,9 +85,9 @@ class RouletteGameCard extends Component {
 
         const resultStyles = classNames("result", {
         green: result === 0 && !rotating,
-        red: this.redColors.includes(result) && !rotating,
+        red: redColors.includes(result) && !rotating,
         picked:
-            result && result !== 0 && !this.redColors.includes(result) && !rotating
+            result && result !== 0 && !redColors.includes(result) && !rotating
         });
         
         return (
