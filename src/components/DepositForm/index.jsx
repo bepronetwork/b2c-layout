@@ -145,28 +145,6 @@ class DepositForm extends Component {
                             <div styleName="qrcode">
                                 <QRCode value={address} />
                             </div>
-                            {
-                            isDepositBonus === true && depositBonus > 0
-                            ?
-                                <div styleName="bonus">
-                                    <Typography variant={'x-small-body'} weight={"bold"} color={'green'}>
-                                        * Bonus: {depositBonus}%
-                                    </Typography>
-                                </div>
-                            :
-                                null
-                            }
-                            {
-                            isTxFee === true && fee > 0
-                            ?
-                                <div styleName="fee">
-                                    <Typography variant={'x-small-body'} weight={"bold"} color={'grey'}>
-                                        * Fee: {fee} {wallet.currency.ticker}
-                                    </Typography>
-                                </div>
-                            :
-                                null
-                            }
                             {copied ? (
                                 <div styleName="copied">
                                     <Typography variant="small-body" color={'white'}>
@@ -187,6 +165,43 @@ class DepositForm extends Component {
                                         </Typography>
                                     </button>
                                 </div>
+                            </div>
+                            <div styleName="notice">
+                                <div styleName="title">
+                                    <Typography variant={'x-small-body'} color={'grey'} weight={'bold'}>
+                                        {copy.NOTICE}
+                                    </Typography>
+                                </div>
+                                {
+                                    isTxFee === true || isDepositBonus === true 
+                                    ?
+                                        <ul>
+                                            {
+                                            isDepositBonus === true && depositBonus > 0
+                                            ?
+                                                <li>
+                                                    <Typography variant={'x-small-body'} color={'grey'}>
+                                                        Bonus {depositBonus}%
+                                                    </Typography>
+                                                </li>
+                                            :
+                                                null
+                                            }
+                                            {
+                                            isTxFee === true && fee > 0
+                                            ?
+                                                <li>
+                                                    <Typography variant={'x-small-body'} color={'grey'}>
+                                                        Fee {fee} {wallet.currency.ticker}
+                                                    </Typography>
+                                                </li>
+                                            :
+                                                null
+                                            }
+                                        </ul>
+                                    :
+                                        null
+                                }
                             </div>
                         </div>
                     </div>
