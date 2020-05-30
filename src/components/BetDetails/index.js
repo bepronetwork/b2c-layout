@@ -102,8 +102,6 @@ class BetDetails extends Component {
             });
         }
     }
-
-    renderValue
     
     render() {
         const { ln } = this.props;

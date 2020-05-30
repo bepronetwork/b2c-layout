@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import Bitcoin from "components/Icons/Bitcoin";
+import { Typography } from "components";
 import _ from 'lodash';
 import "./index.css";
 
@@ -9,7 +10,8 @@ class FlipDetails extends Component {
     constructor(props){
         super(props);
         this.state = {
-            result: null
+            result: null,
+            isWon: false
         };
     }
 
@@ -25,19 +27,26 @@ class FlipDetails extends Component {
         const { bet } = this.props;
 
         const result = bet.outcomeResultSpace.key;
+        const isWon = bet.isWon;
 
         this.setState({
-            result
+            result,
+            isWon
         });
     }
-    
+
     render() {
-        const { result } = this.state;
+        const { result, isWon } = this.state;
 
         return (
             <div styleName="coin">
                 <div styleName={result === "Tails" ? "side-tails" : "side-heads"}>
                     <Bitcoin />
+                </div>
+                <div>
+                    <Typography variant="h3" color="white">
+                        {isWon === true ? "You won" : "You Lost"}
+                    </Typography>
                 </div>
             </div>
         );
