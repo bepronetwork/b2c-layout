@@ -9,6 +9,7 @@ const depositspageCopy =
             "Tx Hash",
             "Creation Date",
             "Amount",
+            "Bonus Amount",
             "Status"
         ]
       }
@@ -22,6 +23,7 @@ const depositspageCopy =
             "Tx 해시",
             "생성일",
             "금액",
+            "Bonus Amount",
             "상태"
         ]
       }
@@ -35,6 +37,7 @@ const depositspageCopy =
             "Tx 杂凑",
             "创建日期",
             "金额",
+            "Bonus Amount",
             "状态"
         ]
       }
@@ -48,6 +51,7 @@ const depositspageCopy =
             "Tx Hash",
             "Creation Date",
             "Amount",
+            "Bonus Amount",
             "Status"
         ]
       }

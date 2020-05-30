@@ -208,30 +208,6 @@ class Form extends Component {
                                 </div>
                             </Col>
                         </Row>
-                        <div styleName='text-info-deposit'>
-                            { isAffiliate !== true
-                                ?
-                                    <Typography variant={'x-small-body'} color={'grey'}>
-                                        {copy.INDEX.TYPOGRAPHY.FUNC_TEXT[1]([maxWithdraw, ticker])}.
-                                    </Typography>
-                                :
-                                    null
-                            }
-                            <Typography variant={'x-small-body'} color={'grey'}>
-                                {copy.INDEX.TYPOGRAPHY.FUNC_TEXT[2]([minWithdraw, ticker])}.
-                            </Typography>
-                            {
-                                isTxFee === true 
-                                ?
-                                    <div styleName="fee">
-                                        <Typography variant={'x-small-body'} weight={"bold"} color={'grey'}>
-                                            * Fee: {fee} {ticker}
-                                        </Typography>
-                                    </div>
-                                :
-                                    null
-                            }
-                        </div>
                         <div>
                             <button onClick={this.askForWithdraw} styleName='withdraw' disabled={disabled || isAsking}>
                             {isAsking 
@@ -247,7 +223,7 @@ class Form extends Component {
                         <div styleName="disclaimer">
                             <div styleName="title">
                                 <Typography variant={'x-small-body'} color={'grey'} weight={'bold'}>
-                                    {copy.INDEX.DISCLAIMER.NOTICE}:
+                                    {copy.INDEX.DISCLAIMER.NOTICE}
                                 </Typography>
                             </div>
                             <ul>
@@ -259,6 +235,33 @@ class Form extends Component {
                                 <li>
                                     <Typography variant={'x-small-body'} color={'grey'}>
                                         {copy.INDEX.DISCLAIMER.LIST[1]}
+                                    </Typography>
+                                </li>
+                                {
+                                    isTxFee === true 
+                                    ?
+                                        <li>
+                                            <Typography variant={'x-small-body'} color={'grey'}>
+                                                Fee {fee} {ticker}
+                                            </Typography>
+                                        </li>
+                                    :
+                                        null
+                                }
+                                { isAffiliate !== true
+                                    ?
+                                        <li>
+                                            <Typography variant={'x-small-body'} color={'grey'}>
+                                                {copy.INDEX.TYPOGRAPHY.FUNC_TEXT[1]([maxWithdraw, ticker])}
+                                            </Typography>
+                                        </li>
+
+                                    :
+                                        null
+                                }
+                                <li>
+                                    <Typography variant={'x-small-body'} color={'grey'}>
+                                        {copy.INDEX.TYPOGRAPHY.FUNC_TEXT[2]([minWithdraw, ticker])}
                                     </Typography>
                                 </li>
                             </ul>

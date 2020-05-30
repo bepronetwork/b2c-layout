@@ -14,7 +14,8 @@
           (params) => { return `Scan the QR code and transfer ${params[0]} to it, only deposit ${params[1]} in this address.`}
         ]
       }
-    }
+    },
+    "NOTICE": "Notice"
   },
   "ko": {
     "INDEX": {
@@ -30,7 +31,8 @@
           (params) => { return `QR 코드를 스캔하여 ${params[0]}를 전송하십시오. 이 주소에는 ${params[1]} 만 입금 가능합니다.`}
         ]
       }
-    }
+    },
+    "NOTICE": "Notice"
   },
   "ch": {
     "INDEX": {
@@ -45,7 +47,8 @@
           (params) => { return `扫描QR码并将${params[0]}转移到其中，仅将${params[1]}存入该地址。`}
         ]
       }
-    }
+    },
+    "NOTICE": "Notice"
   },
   "jp": {
     "INDEX": {
@@ -60,7 +63,8 @@
           (params) => { return `Scan the QR code and transfer ${params[0]} to it, only deposit ${params[1]} in this address.`}
         ]
       }
-    }
+    },
+    "NOTICE": "Notice"
   }
 }
     export default depositFormIndexCopy;

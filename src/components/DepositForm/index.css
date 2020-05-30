@@ -109,3 +109,31 @@
     margin-bottom: $spacing-20;
     text-align: center;
 }
+
+.bonus {
+    margin-bottom: $spacing-20;
+    text-align: center;
+}
+
+.notice {
+    background-color: $primaryColor-5;
+    padding: $spacing-20 $spacing-20 $spacing-16 $spacing-36;
+    margin-top: $spacing-16;
+    border-radius: $border-radius;
+    text-align: left;
+
+    ul, li {
+        list-style-type: circle !important;
+        margin: 0 0 $spacing-12 0;
+    }
+
+    ul, li::before {
+        color: $grey;
+    }
+}
+
+.title {
+    padding-bottom: $spacing-12;
+    margin-bottom: $spacing-12;
+    border-bottom: 1px solid $primaryColor-13;
+}

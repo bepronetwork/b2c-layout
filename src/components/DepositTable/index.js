@@ -28,6 +28,9 @@ const rows = {
                 currency: true
             },
             {
+                value: 'bonusAmount'
+            },
+            {
                 value: 'status'
             }
         ],
@@ -98,7 +101,8 @@ class DepositTable extends Component {
                         creation_timestamp: dateToHourAndMinute(d.creation_timestamp),
                         status: d.transactionHash ? 'Confirmed' : 'Confirm',
                         currency: d.currency,
-                        link_url: d.link_url
+                        link_url: d.link_url,
+                        bonusAmount: d.bonusAmount
                     }
                 })
             }
