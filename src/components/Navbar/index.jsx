@@ -10,6 +10,7 @@ import _ from 'lodash';
 import "./index.css";
 
 import nineDots from "assets/icons/nine.png";
+import nineDotsLight from "assets/icons/nine-light.png";
 
 
 function AddressConcat(string){
@@ -172,7 +173,7 @@ class Navbar extends Component {
         return(
             <button styleName="settings" onClick={() => onSettingsMenu()} type="button">
                 <div styleName="settings-icon">
-                    <img src={nineDots} />
+                    <img src={getAppCustomization().theme === "light" ? nineDotsLight : nineDots} />
                 </div>
             </button>
         )

@@ -15,7 +15,8 @@ export default class TableCell extends Component {
       "red",
       "japanese-laurel",
       "pickled-bluewood",
-      "pickled-bluewood-light"
+      "pickled-bluewood-light",
+      "pickled-bluewood-dark"
     ]),
     isResult: PropTypes.bool,
     betHistory: PropTypes.arrayOf(
@@ -103,7 +104,7 @@ export default class TableCell extends Component {
         <Typography
           weight="semi-bold"
           variant={chipSelected ? "x-small-body" : "small-body"}
-          color={chipSelected ? "pickled-bluewood" : "white"}
+          color={chipSelected ? "gable-green" : "fixedwhite"}
         >
           {chipLabelAndValue ? chipLabelAndValue[0] : label}
         </Typography>

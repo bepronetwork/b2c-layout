@@ -79,7 +79,7 @@
     border : none;
     padding: $spacing-12 24px;
     border-radius :  $border-radius;
-    background-color: $light-background;
+    background-color: $secondaryColor;
     width : 100%;
     text-align : center;
     margin-top: $spacing-28;

@@ -26,7 +26,9 @@ class DepositForm extends Component {
             fee: 0,
             isTxFee: false,
             isDepositBonus: false,
-            depositBonus: 0
+            depositBonus: 0,
+            maxBonusDeposit: 0,
+            minBonusDeposit: 0
 
         }
     }
@@ -91,7 +93,9 @@ class DepositForm extends Component {
             isTxFee,
             fee: isTxFee === true ? getAddOn().txFee.deposit_fee.find(f => f.currency === wallet.currency._id).amount : null,
             isDepositBonus,
-            depositBonus: isDepositBonus === true ? getAddOn().depositBonus.percentage.find(d => d.currency === wallet.currency._id).amount : null
+            depositBonus: isDepositBonus === true ? getAddOn().depositBonus.percentage.find(d => d.currency === wallet.currency._id).amount : null,
+            maxBonusDeposit: isDepositBonus === true ? getAddOn().depositBonus.max_deposit.find(d => d.currency === wallet.currency._id).amount : null,
+            minBonusDeposit: isDepositBonus === true ? getAddOn().depositBonus.min_deposit.find(d => d.currency === wallet.currency._id).amount : null
          });
     }
 
@@ -109,7 +113,7 @@ class DepositForm extends Component {
 
     render() {
         const { wallet } = this.props;
-        const { addressInitialized, address, isLoaded, copied, price, virtualTicker, isTxFee, fee, isDepositBonus, depositBonus } = this.state;
+        const { addressInitialized, address, isLoaded, copied, price, virtualTicker, isTxFee, fee, isDepositBonus, depositBonus, maxBonusDeposit, minBonusDeposit } = this.state;
         const {ln} = this.props;
         const copy = CopyText.depositFormIndex[ln];
         const addressStyles = classNames("address", {"ad-copied": copied});
@@ -160,7 +164,7 @@ class DepositForm extends Component {
                                 </div>
                                 <div>
                                     <button onClick={this.copyToClipboard} styleName='text-copy-container'>
-                                        <Typography variant={'small-body'} color={'white'}>
+                                        <Typography variant={'small-body'} color={'fixedwhite'}>
                                             {copy.INDEX.TYPOGRAPHY.TEXT[1]}
                                         </Typography>
                                     </button>
@@ -181,7 +185,7 @@ class DepositForm extends Component {
                                             ?
                                                 <li>
                                                     <Typography variant={'x-small-body'} color={'grey'}>
-                                                        Bonus {depositBonus}%
+                                                        Bonus {depositBonus}% (minimun amount {minBonusDeposit} {wallet.currency.ticker} and maximun amount {maxBonusDeposit} {wallet.currency.ticker} to qualify Bonus)
                                                     </Typography>
                                                 </li>
                                             :

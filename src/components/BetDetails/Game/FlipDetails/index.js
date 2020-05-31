@@ -40,13 +40,21 @@ class FlipDetails extends Component {
 
         return (
             <div styleName="coin">
-                <div styleName={result === "Tails" ? "side-tails" : "side-heads"}>
-                    <Bitcoin />
+                <div>
+                    <Typography variant="small-body" color="white">
+                        Your bet
+                    </Typography>
+                    <div styleName={isWon === true ? "side-"+result.toLowerCase() : result === "Head" ? "side-tails" : "side-head"}>
+                        <Bitcoin />
+                    </div>
                 </div>
                 <div>
-                    <Typography variant="h3" color="white">
+                    <Typography variant="small-body" color="white">
                         {isWon === true ? "You won" : "You Lost"}
                     </Typography>
+                    <div styleName={result === "Tails" ? "side-tails" : "side-head"}>
+                        <Bitcoin />
+                    </div>
                 </div>
             </div>
         );
