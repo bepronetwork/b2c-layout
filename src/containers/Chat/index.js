@@ -8,7 +8,7 @@ import languages from "../../config/languages";
 import { setMessageNotification } from "../../redux/actions/message";
 import { CopyText } from "../../copy";
 import store from "../App/store";
-import { dateToHourAndMinute, getSkeletonColors } from "../../lib/helpers";
+import { dateToHourAndMinute, getSkeletonColors, getAppCustomization } from "../../lib/helpers";
 import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 import delay from 'delay';
 
@@ -180,7 +180,7 @@ class ChatPage extends React.Component {
         return (
             <div styleName="root">
                     <div styleName="container">
-                        <div styleName="message-top">
+                        <div styleName="message-top" style={{backgroundColor : getAppCustomization().theme === "light" ? "white" : null}}>
                             <div styleName="online">
                                 {this.state.open ? 
                                     <div styleName={'green-light'}/>

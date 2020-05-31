@@ -52,7 +52,7 @@
     border : none;
     padding: $spacing-12 24px;
     border-radius :  0 $border-radius $border-radius 0;
-    background-color: $light-background;
+    background-color: $secondaryColor;
     width : inherit;
     height : 40px;
     text-align : center;

@@ -86,7 +86,7 @@ class AffiliateLinkContainer extends React.Component{
                             </Col>
                             <Col xs={12} md={2} lg={4} xl={2}>
                                 <button onClick={this.copyToClipboard} styleName='text-copy-container'>
-                                    <Typography variant={'x-small-body'} color={'white'}>
+                                    <Typography variant={'x-small-body'} color={'fixedwhite'}>
                                         {copy.INDEX.TYPOGRAPHY.TEXT[0]}
                                     </Typography>
                                 </button>

@@ -55,8 +55,8 @@
 .message-top {
     margin-top: $navbar-height;
     top: 0;
-    height: calc($navbar-height - 10);
-    background-color:$primaryColor-3;
+    height: calc($navbar-height - 10px);
+    background-color: $primaryColor-3;
     grid-template-columns: auto auto;
     display: grid;
     align-items: center;
