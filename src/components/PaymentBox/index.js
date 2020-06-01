@@ -6,6 +6,7 @@ import { connect } from "react-redux";
 import classNames from 'classnames';
 import { getApp } from "../../lib/helpers";
 import { formatCurrency } from '../../utils/numberFormatation';
+import _ from 'lodash';
 
 class PaymentBox extends React.Component{
     constructor(props){
@@ -14,6 +15,7 @@ class PaymentBox extends React.Component{
             checked : false,
             price : null,
             virtualTicker: null,
+            walletImage: null
         }
     }
 
@@ -39,6 +41,12 @@ class PaymentBox extends React.Component{
             }
         }
 
+        const appWallet = getApp().wallet.find(w => w.currency._id === wallet.currency._id);
+
+        this.setState({
+            walletImage : _.isEmpty(appWallet.image) ? wallet.currency.image : appWallet.image
+        });
+
     }
 
     onClick = () => {
@@ -50,7 +58,7 @@ class PaymentBox extends React.Component{
 
     render(){
         let { isPicked, wallet} = this.props;
-        const { price, virtualTicker } = this.state;
+        const { price, virtualTicker, walletImage } = this.state;
         const styles = classNames("container-root", {
             selected: isPicked
         });
@@ -60,7 +68,7 @@ class PaymentBox extends React.Component{
                 <Row>
                     <Col xs={4} md={4}>
                         <div styleName='container-image'>
-                            <img src={wallet.image ? wallet.image : wallet.currency.image} styleName='payment-image'/>
+                            <img src={walletImage} styleName='payment-image'/>
                         </div>
                     </Col>
                     <Col xs={8} md={8}>

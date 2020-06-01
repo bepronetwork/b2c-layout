@@ -1,12 +1,8 @@
 import React, { Component } from "react";
-import PropTypes from "prop-types";
 import ArrowDown from "components/Icons/ArrowDown";
 import ArrowUp from "components/Icons/ArrowUp";
-import { 
-    Typography, UserIcon, LogoutIcon, CashierIcon
-} from "components";
+import { Typography } from "components";
 import { map } from "lodash";
-import { CopyText } from '../../copy';
 import { formatCurrency } from '../../utils/numberFormatation';
 import { connect } from "react-redux";
 import { getApp } from "../../lib/helpers";
@@ -59,10 +55,11 @@ class CurrencySelector extends Component {
         currencies = currencies.map( 
             c => {
                 const w = profile.getWallet({currency : c});
+                const wApp = getApp().wallet.find(w => w.currency._id === c._id);
                 return {
                     ...c,
                     balance : _.isEmpty(w) ? 0 : w.playBalance,
-                    walletImage : _.isEmpty(w) ? null : w.image
+                    image : _.isEmpty(wApp.image) ? c.image : wApp.image
                 }
             }
         );
@@ -84,7 +81,7 @@ class CurrencySelector extends Component {
                 return {
                     value: c._id,
                     label: _.isEmpty(w) ? 0 : formatCurrency(w.playBalance),
-                    icon: _.isEmpty(w.image) ? c.image : w.image,
+                    icon: c.image,
                     currency: c
                 }
             }
@@ -116,7 +113,8 @@ class CurrencySelector extends Component {
 
         const w = profile.getWallet({ currency });
         const balance =  _.isEmpty(w) ? 0 : formatCurrency(w.playBalance);
-        const icon = _.isEmpty(w.image) ? currency.image : w.image;
+        const wApp = getApp().wallet.find(w => w.currency._id === currency._id);
+        const icon = _.isEmpty(wApp.image) ? currency.image : wApp.image;
 
         return (
             <div styleName="label">
