@@ -14,5 +14,5 @@ export default [{
 },{
     metaName : 'wheel_variation_1',  
 },{
-    metaName : 'keno',  
+    metaName : 'keno_simple',  
 }];

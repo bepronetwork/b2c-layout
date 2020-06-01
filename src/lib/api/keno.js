@@ -1,17 +1,14 @@
 import { find, map, range } from "lodash";
 import { processResponse } from "../helpers";
 
-export default async function bet({ rollNumber, rollType, betAmount, user }) {
+export default async function bet({ cards, betAmount, user }) {
     try {
         const appInfo = JSON.parse(localStorage.getItem("appInfo"));
 
-        const game = find(appInfo.games, { name: "Linear Dice" });
+        const game = find(appInfo.games, { name: "Keno" });
 
-        const initial = rollType === "over" ? rollNumber : 0;
-        const finish = rollType === "under" ? rollNumber : 100;
-        const maxRoll = finish - initial;
-        const result = map(range(0, maxRoll), index => {
-            return { place: index, value: betAmount / maxRoll };
+        const result = map(range(0, cards.length), index => {
+            return { place: index+1, value: betAmount / cards.length };
         });
 
         const response = await user.createBet({
@@ -22,10 +19,10 @@ export default async function bet({ rollNumber, rollType, betAmount, user }) {
 
         await processResponse(response);
         const { winAmount, betAmount : amountBetted, _id : id, nonce, user_delta } = response.data.message;
-        const { key } = response.data.message.outcomeResultSpace;
+        const { index } = response.data.message.outcomeResultSpace;
 
         return {
-            result : (rollType == "under") ? parseInt(key) : (100 - parseInt(key)),
+            result : index,
             winAmount, 
             nonce,
             betAmount : amountBetted,

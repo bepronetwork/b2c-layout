@@ -103,6 +103,7 @@ class KenoGameCard extends Component {
     }
 
     onCardClick = index => {
+        const { onChooseCards } = this.props;
         const { cards } = this.state;
         const isPicked = cards[index].isPicked;
 
@@ -119,6 +120,10 @@ class KenoGameCard extends Component {
                 numberOfPickeds
             });
         }
+
+        onChooseCards(cards.filter(function(card) {  
+            return card.isPicked === true 
+        }));
 
     }
 
