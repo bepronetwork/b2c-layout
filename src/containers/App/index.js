@@ -29,6 +29,7 @@ import FlipPage from "containers/FlipPage";
 import RoulettePage from "containers/RoulettePage";
 import WheelPage from "../WheelPage";
 import WheelVariation1 from "../WheelVariation1Page";
+import KenoPage from "../KenoPage";
 
 import { login, login2FA, logout, register } from "lib/api/users";
 import getAppInfo from "lib/api/app";
@@ -393,6 +394,7 @@ class App extends Component {
         localStorage.removeItem("plinko_variation_1History");
         localStorage.removeItem("wheelHistory");
         localStorage.removeItem("wheel_variation_1History");
+        localStorage.removeItem("kenoHistory");
         localStorage.removeItem("customization");
         localStorage.removeItem("affiliate");
         localStorage.removeItem("appInfo");
@@ -524,7 +526,6 @@ class App extends Component {
 
         let app = await getAppInfo();
 
-
         Cache.setToCache("appInfo", app);
         this.setState({...this.state, app})
     };
@@ -618,6 +619,19 @@ class App extends Component {
                     path="/plinko_variation_1"
                     render={props => (
                         <PlinkoPage
+                        {...props}
+                        onHandleLoginOrRegister={this.handleLoginOrRegisterOpen}
+                        onTableDetails={this.handleTableDetailsOpen}
+                        />
+                    )}
+                    />
+                ) : null}
+                    {this.isGameAvailable("keno_simple") ? (
+                    <Route
+                    exact
+                    path="/keno_simple"
+                    render={props => (
+                        <KenoPage
                         {...props}
                         onHandleLoginOrRegister={this.handleLoginOrRegisterOpen}
                         onTableDetails={this.handleTableDetailsOpen}

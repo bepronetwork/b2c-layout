@@ -12,7 +12,7 @@ const betWidth = "52px";
 export default class History extends Component {
   static propTypes = {
     // eslint-disable-next-line react/no-unused-prop-types
-    game: PropTypes.oneOf(["diceHistory", "rouletteHistory", "flipHistory", "plinko_variation_1History", "wheelHistory", "wheel_variation_1History"])
+    game: PropTypes.oneOf(["diceHistory", "rouletteHistory", "flipHistory", "plinko_variation_1History", "wheelHistory", "wheel_variation_1History", "kenoHistory"])
       .isRequired
   };
 
