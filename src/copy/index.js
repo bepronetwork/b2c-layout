@@ -134,6 +134,7 @@ import widgetsIndexCopy from './widgetsIndex';
 import withdrawFormIndexCopy from './withdrawFormIndex';
 import withdrawTabIndexCopy from './withdrawTabIndex';
 import betspageCopy from './betspage';
+import betsdetailspageCopy from './betsdetailspage';
 import depositspageCopy from './depositspage';
 import withdrawspageCopy from './withdrawspage';
 import countryRestrictedPageCopy from './countryRestrictedPage';
@@ -268,6 +269,7 @@ const CopyText = {
     withdrawFormIndex: withdrawFormIndexCopy,
     withdrawTabIndex: withdrawTabIndexCopy,
     betspage: betspageCopy,
+    betsdetailspage: betsdetailspageCopy,
     depositspage: depositspageCopy,
     withdrawspage: withdrawspageCopy,
     countryRestrictedPage: countryRestrictedPageCopy

@@ -21,7 +21,8 @@ export default class Slider extends Component {
     onChange: PropTypes.func,
     result: PropTypes.number,
     disableControls: PropTypes.bool,
-    onResultAnimation: PropTypes.func.isRequired
+    onResultAnimation: PropTypes.func.isRequired,
+    isBetDetails: PropTypes.bool
   };
 
   static defaultProps = {
@@ -29,7 +30,8 @@ export default class Slider extends Component {
     roll: "over",
     onChange: null,
     result: null,
-    disableControls: false
+    disableControls: false,
+    isBetDetails: false
   };
 
   constructor(props) {
@@ -174,6 +176,29 @@ export default class Slider extends Component {
     );
   };
 
+  renderBetDetailsResult = () => {
+    const { roll } = this.props;
+    const { result, value, leftP, moving } = this.state;
+    if (!result || moving) return null;
+
+    const Show = styled.div`
+      position: absolute;
+      top: ${-diamondwidth}px;
+      left: ${leftP}px;
+      z-index: 1;
+
+      width: ${diamondwidth}px;
+
+      transform: scale(0.8);
+    `;
+
+    return (
+      <Show id="animation-div">
+        <Diamond value={value} result={result} roll={roll} />
+      </Show>
+    );
+  };
+
   handleAnimation = () => {
     const { onResultAnimation } = this.props;
 
@@ -224,7 +249,7 @@ export default class Slider extends Component {
   };
 
   render() {
-    const { roll, disableControls } = this.props;
+    const { roll, disableControls, isBetDetails } = this.props;
     const { value } = this.state;
 
     return (
@@ -233,7 +258,7 @@ export default class Slider extends Component {
 
         <div styleName="container">
           <div styleName="slider-container" ref={this.handleRef}>
-            {this.renderResult()}
+            {isBetDetails === true ? this.renderBetDetailsResult() : this.renderResult()}
             <div styleName="marker-0">
               <Typography weight="bold" variant="small-body" color="white">
                 0

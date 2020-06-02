@@ -48,7 +48,6 @@ class KenoGameOptions extends Component {
     isBetValid = () => {
         const { user } = this.context;
         const { disableControls } = this.props;
-
         const { amount } = this.state;
 
         return (amount > 0 && !disableControls) || !user;
@@ -177,6 +176,7 @@ class KenoGameOptions extends Component {
         const user = this.props.profile;
         const { ln, cards } = this.props;
         const copy = CopyText.kenoGameOptionsIndex[ln];
+
         return (
         <div styleName="root">
             {this.renderSound()}

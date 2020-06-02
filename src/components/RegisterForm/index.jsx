@@ -142,7 +142,7 @@ class RegisterForm extends Component {
                     ?
                         <img src={loading} />
                     :
-                        <Typography color="white">{copy.INDEX.TYPOGRAPHY.TEXT[0]}</Typography>
+                        <Typography color="fixedwhite">{copy.INDEX.TYPOGRAPHY.TEXT[0]}</Typography>
                 }
             </Button>
             </div>

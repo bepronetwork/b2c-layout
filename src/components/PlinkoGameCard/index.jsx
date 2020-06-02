@@ -6,14 +6,16 @@ import VerticalWall from './Components/wall';
 import {PARTICLE} from './Components/bodies';
 import { Row, Col } from 'reactstrap';
 import {PEG0, PEG1, PEG2, PEG3, PEG4, PEG5, PEG6, PEG7, PEG8, PEG9} from './Components/bars';
-import loseSound from "assets/lose-sound.mp3";
-import Sound from "react-sound";
+import plockSound from "assets/plock.mp3";
+import congratsSound from "assets/congrats.mp3";
+import Pegs from "./Components/Pegs";
+
 import "./index.css";
-import Typography from "../Typography";
 
 const MS_IN_SECOND = 2000;
 const FPS = 60;
-
+const plock = new Audio(plockSound);
+const congrats = new Audio(congratsSound);
 class PlinkoGameCard extends React.Component {
     constructor(props) {
         super(props);
@@ -168,7 +170,7 @@ class PlinkoGameCard extends React.Component {
                             if (el.position.x > particle.body.position.x) {
                                 if (index === null) {
                                     index = i
-                                    return el
+                                    //return el
                                 }
                             }
 
@@ -192,7 +194,8 @@ class PlinkoGameCard extends React.Component {
                         setTimeout(() => {
                             if (checkParticle.length === 0) {
                                 this.props.onResultAnimation();
-                                clearInterval(checkParticleStatus)
+                                clearInterval(checkParticleStatus);
+                                this.playSound(congrats, 3000);
                             }
                         }, 10);
                     }
@@ -212,7 +215,7 @@ class PlinkoGameCard extends React.Component {
           const bodyB = pair.bodyB;
     
           if (bodyA.label === 'plinko' && bodyB.label === 'particle') {
-            this.renderCollisionSound();
+            this.playSound(plock, 100);
           }
     
           if (bodyA.label === 'plinko') {
@@ -268,10 +271,18 @@ class PlinkoGameCard extends React.Component {
         Events.on(this.engine, 'collisionStart', this.onCollisionStart);
     }
 
-    renderCollisionSound = () => {
-        return (
-            <Sound volume={100} url={loseSound} playStatus="PLAYING" autoLoad />
-        );
+    playSound = (sound, timeout) => {
+        const soundConfig = localStorage.getItem("sound");
+
+        if (soundConfig !== "on") {
+            return null;
+        }
+
+        sound.play();
+        setTimeout(() => {
+            sound.pause();
+            sound.currentTime = 0;
+        }, timeout);
     };
 
     renderResult = () => {
@@ -285,7 +296,7 @@ class PlinkoGameCard extends React.Component {
     };
       
     render() {
-        const { game } = this.state;
+        const { game, peg1, peg2, peg3, peg4, peg5, peg6, peg7, peg8, peg9, peg10 } = this.state;
 
         return (
             <div styleName="root">
@@ -293,27 +304,19 @@ class PlinkoGameCard extends React.Component {
                     <Col span={18} push={6} gutter={16}>
                     <div styleName="canvas-container">
                         <div id="techvr" styleName="canvas"/>
-                        <div styleName={`pegs rows${game.resultSpace.length-1}`}>
-                            <div styleName="pegs_wrapper" >
-                                {game.resultSpace.map((el, i) => {
-                                    let className;
-                                    if(el.multiplier < 1){
-                                        className = 'peg10'
-                                    }else if(el.multiplier < 2){
-                                        className = 'peg7'
-                                    }else{
-                                        className = 'peg1'
-                                    };
-                                    const hasAnimationClass = this.state[`peg${i+1}`] ? 'peg-animated' : '';
-
-                                    return (
-                                        <div styleName={`peg ${className} ${hasAnimationClass}`} >
-                                            <Typography variant={'small-body'} color={'pickled-bluewood'} >{el.multiplier}x</Typography>
-                                        </div>
-                                    )
-                                })}
-                            </div>
-                        </div>
+                        <Pegs 
+                            game={game} 
+                            peg1={peg1}
+                            peg2={peg2}
+                            peg3={peg3}
+                            peg4={peg4}
+                            peg5={peg5}
+                            peg6={peg6}
+                            peg7={peg7}
+                            peg8={peg8}
+                            peg9={peg9}
+                            peg10={peg10}
+                        />
                         <div styleName="result">
                             {this.renderResult()}
                         </div>

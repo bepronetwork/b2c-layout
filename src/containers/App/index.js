@@ -19,7 +19,8 @@ import {
     AffiliateWithdrawForm,
     Authentication2FAModal,
     PopupForm,
-    DetailsTable
+    BetDetails,
+    Jackpot
 } from "components";
 
 import PlinkoPage from "containers/PlinkoPage";
@@ -37,6 +38,7 @@ import User from "controllers/User/User";
 import UserContext from "./UserContext";
 import "./index.css";
 import { setProfileInfo } from "../../redux/actions/profile";
+import { setModal } from "../../redux/actions/modal";
 import store from "./store";
 import Cache from "../../lib/cache/cache";
 import ChatPage from "../Chat";
@@ -197,6 +199,10 @@ class App extends Component {
     handleAccountModalClose = () => {
         this.setState({ accountInfoOpen: null });
     };
+
+    handleJackpotModalClose = async () => {
+        await store.dispatch(setModal({key : 'JackpotModal', value : null}));
+    };  
 
     handleTabChange = name => {
         this.setState({ registerLoginModalOpen: name, error: null });
@@ -490,9 +496,27 @@ class App extends Component {
     renderTableDetailsModal = () => {
         const { tableDetailsOpen, tableDetails } = this.state;
 
-        return tableDetailsOpen ? (
-            <Modal onClose={this.handleTableDetailsModalClose}>
-                <DetailsTable onClose={this.handleTableDetailsModalClose} tableDetails={tableDetails} />
+        if (tableDetailsOpen) {
+            const { row } = tableDetails;
+
+            return (
+                <Modal onClose={this.handleTableDetailsModalClose}>
+                    {/*<DetailsTable onClose={this.handleTableDetailsModalClose} tableDetails={tableDetails} />*/}
+                    <BetDetails onClose={this.handleTableDetailsModalClose} tableDetails={tableDetails} betId={row.id} />
+                </Modal>
+            )
+            
+        }
+
+        return null;
+    };
+
+    renderJackpotModal = () => {
+        const { modal } = this.props;
+
+        return modal.JackpotModal ? (
+            <Modal onClose={this.handleJackpotModalClose}>
+                <Jackpot message={modal.JackpotModal} />
             </Modal>
         ) : null;
     };
@@ -630,7 +654,7 @@ class App extends Component {
 
         let progress100 = parseInt(progress/confirmations*100);
         let isUserLoaded = (confirmations == progress);
-        const { topBar } = getAppCustomization();
+        const { topBar, background } = getAppCustomization();
         const centerStyles = classNames("center", {
             centerExpand: !chatExpand
         });
@@ -670,6 +694,7 @@ class App extends Component {
                             {this.renderConfirmEmailModal()}
                             {this.renderCashierModal()}
                             {this.renderTableDetailsModal()}
+                            {this.renderJackpotModal()}
                             <Authentication2FAModal/>
                             <AffiliateWithdrawForm/>
                             <NotificationForm user={user}/>
@@ -678,7 +703,7 @@ class App extends Component {
                             <div styleName='top-bars'>
                                 <AnnouncementTab topBar={topBar}/>
                             </div>
-                            <div styleName='main'>
+                            <div styleName='main' style={{background : background ? 'url('+background.id+') center center / cover no-repeat' : null }}>
                                 <div styleName={centerStyles}>
                                     <div styleName='platform-container'>
                                         <Switch history={history}>

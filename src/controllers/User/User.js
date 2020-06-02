@@ -18,6 +18,7 @@ import ChatChannel from "../Chat";
 import store from "../../containers/App/store";
 import { setProfileInfo } from "../../redux/actions/profile";
 import { setStartLoadingProcessDispatcher } from "../../lib/redux";
+import { setModal } from "../../redux/actions/modal";
 import { processResponse } from "../../lib/helpers";
 import _ from 'lodash';
 import Pusher from 'pusher-js';
@@ -90,9 +91,15 @@ export default class User {
             await store.dispatch(setMessageNotification(data.message));
             this.getAllData(true);
         });
+        
         /* Listen to Withdraws */
         this.channel.bind('withdraw', (data) => {
 
+        });
+
+        /* Listen to Jackpot */
+        this.channel.bind('jackpot', async (data) => {
+            await store.dispatch(setModal({key : 'JackpotModal', value : data.message}));
         });
     }
 

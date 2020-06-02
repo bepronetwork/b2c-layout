@@ -47,7 +47,7 @@ class KenoPage extends Component {
     };
 
     handleChooseCards = (cards) => {
-        this.setState({ cards });
+        this.setState({ cards, isWon : false, result : null });
     };
 
     handleBet = async ({ cards, amount }) => {
@@ -62,15 +62,19 @@ class KenoPage extends Component {
                 betAmount: amount,
                 user
             });
+
             this.setState({ 
                 result : res.result, 
+                isWon : res.isWon,
                 bet : res,
                 animating : true,
-                betObjectResult : res 
+                betObjectResult : res,
+                disableControls: false,
+                winAmount : res.winAmount
             });
             return res;
         }catch(err){
-            return this.setState({ result : 0, disableControls : false });
+            return this.setState({ result : [], disableControls : false });
 
         }
     };
@@ -100,7 +104,7 @@ class KenoPage extends Component {
     };
 
     getGameCard = () => {
-        const { result, disableControls, bet, animating, betAmount } = this.state;
+        const { result, disableControls, bet, animating, betAmount, isWon, winAmount } = this.state;
         const { profile } = this.props;
 
         return (
@@ -114,6 +118,8 @@ class KenoPage extends Component {
                 game={this.state.game}
                 betAmount={betAmount}
                 onChooseCards={this.handleChooseCards}
+                isWon={isWon}
+                winAmount={winAmount}
             />
         );
     };

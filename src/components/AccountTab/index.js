@@ -88,8 +88,8 @@ class AccountTab extends React.Component{
                 </div>
 
                 <div styleName='button' onClick={onLogout}>
-                    <Button size={'x-small'}>
-                        <Typography color={'white'} variant={'small-body'}>{copyLogout.INDEX.TYPOGRAPHY.TEXT[2]}</Typography>
+                    <Button size={'x-small'} theme="primary">
+                        <Typography color={'fixedwhite'} variant={'small-body'}>{copyLogout.INDEX.TYPOGRAPHY.TEXT[2]}</Typography>
                     </Button>
                 </div>  
             </div>

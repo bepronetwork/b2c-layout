@@ -113,7 +113,20 @@ async function ping() {
         return handleError(error);
     }
 }
-  
+
+async function getBet({betId}) {
+    try {
+        const response = await axios.post(`${apiUrl}/api/app/bet/get`, {
+            app: appId,
+            bet: betId
+        });
+            
+        return response.data.data;
+
+    } catch (error) {
+        return handleError(error);
+    }
+}
   
 export { 
     getLastBets, 
@@ -121,5 +134,6 @@ export {
     getBiggestUserWinners, 
     getBiggestBetWinners,
     getPopularNumbers,
-    ping
+    ping,
+    getBet
 }

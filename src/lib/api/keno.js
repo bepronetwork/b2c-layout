@@ -7,8 +7,8 @@ export default async function bet({ cards, betAmount, user }) {
 
         const game = find(appInfo.games, { name: "Keno" });
 
-        const result = map(range(0, cards.length), index => {
-            return { place: index+1, value: betAmount / cards.length };
+        const result = cards.map( card => {
+            return { place: card.id, value: betAmount / cards.length };
         });
 
         const response = await user.createBet({
@@ -18,12 +18,16 @@ export default async function bet({ cards, betAmount, user }) {
         }); 
 
         await processResponse(response);
-        const { winAmount, betAmount : amountBetted, _id : id, nonce, user_delta } = response.data.message;
-        const { index } = response.data.message.outcomeResultSpace;
+        const { winAmount, isWon, betAmount : amountBetted, _id : id, nonce, user_delta, outcomeResultSpace } = response.data.message;
+
+        const index = outcomeResultSpace.map( r => {
+            return r.index;
+        });
 
         return {
             result : index,
             winAmount, 
+            isWon,
             nonce,
             betAmount : amountBetted,
             id,

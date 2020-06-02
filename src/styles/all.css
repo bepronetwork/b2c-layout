@@ -30,7 +30,7 @@ body{
     overflow-x : hidden;
     background-color: $background-color-theme;
     overflow-y: auto !important;
-    padding-bottom: 30px;
+    padding-bottom: 0px;
 }
 
 a{
