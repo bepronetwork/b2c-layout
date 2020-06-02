@@ -54,7 +54,7 @@ class KenoPage extends Component {
         try{
             const { user } = this.context;
             const { onHandleLoginOrRegister } = this.props;
-            this.setState({ disableControls: true });
+            this.setState({ disableControls: true, isWon: false, result: null });
             if (!user || _.isEmpty(user)) return onHandleLoginOrRegister("register");
 
             const res = await kenoBet({
@@ -83,7 +83,7 @@ class KenoPage extends Component {
         const { profile } = this.props;
         const { winAmount, userDelta } = this.state.betObjectResult;
         setWonPopupMessageDispatcher(winAmount);
-        await profile.updateBalance({ userDelta });
+        /*await profile.updateBalance({ userDelta });*/
         this.setState({ result: null, animating : false, disableControls: false });
     };
 
