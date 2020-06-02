@@ -8,7 +8,6 @@ import { getPopularNumbers } from "../../lib/api/app";
 import { Numbers } from "../../lib/ethereum/lib";
 import { formatPercentage } from "../../utils/numberFormatation";
 import { formatCurrency } from "../../utils/numberFormatation";
-import delay from 'delay';
 import Keno from './keno';
 import plockSound from "assets/plock.mp3";
 import congratsSound from "assets/congrats.mp3";
@@ -96,12 +95,11 @@ class KenoGameCard extends Component {
 
     async renderResult() {
         const { cards, result } = this.state;
+        const { onResultAnimation } = this.props;
 
+        cards.forEach( (c) => { c.isSelected = false });
+        
         if(result != null) {
-            /*cards.map(card => {
-                card.isSelected = result.includes(card.id) ? true : false;
-            });*/
-
             result.forEach((r, i) => {
                 setTimeout(() => {
                     const card = cards.find( c => {
@@ -114,23 +112,15 @@ class KenoGameCard extends Component {
                     this.setState({
                         cards
                     });
-                }, i * 300);
+                }, i * 200);
             });
 
-            /*
-            for await (const card of cards) {
-                setTimeout( async () => {
-                    const included = result.includes(card.id) ? true : false;
-                    card.isSelected = included;
-
-                    if(included) { console.log(included); this.playSound(plock, 300); };
-
-                    this.setState({
-                        cards
-                    });
-                }, 500)
-            }
-            */
+            setTimeout(() => {
+                this.setState({
+                    result: null
+                });
+                onResultAnimation();
+            }, (result.length * 200) + 400);
         }
 
     }
@@ -173,7 +163,7 @@ class KenoGameCard extends Component {
                 numberOfPickeds
             });
         }
-console.log("zerar result")
+
         this.setState({
             cards,
             result: null
@@ -183,6 +173,24 @@ console.log("zerar result")
             return card.isPicked === true 
         }));
 
+    }
+
+    formatPayout(amount) {
+        const arr = amount.split('.');
+        const first = arr[0];
+        const second = arr[1];
+
+        if(first == 0 && second == 0) {
+            return 0;
+        }
+        else if((first > 0 && second == 0) || first > 9) {
+            return first;
+        }
+        else if(first > 0 && first < 10 && second > 0) {
+            return amount.substring(0, 1);
+        }
+
+        return amount;
     }
 
     renderPayouts() {
@@ -196,7 +204,7 @@ console.log("zerar result")
         for (let index = 0; index <= numberOfPickeds; index++) {
             const keno = new Keno({ n: totalOfCards, d: maxPickedCards, x: numberOfPickeds, i: index });
             const profit = betAmount * 1 / keno.probability();
-            payouts.push(<div styleName="payout"><Typography variant={'x-small-body'} color={'grey'}>{`${(profit).toFixed(2)}`}</Typography></div>);
+            payouts.push(<div styleName="payout"><Typography variant={'x-small-body'} color={'grey'}>{`${this.formatPayout(profit.toFixed(2))}`}</Typography></div>);
         }
 
         return (
@@ -260,7 +268,7 @@ console.log("zerar result")
             "cover-selected": card.isSelected === true && card.isPicked === false
         });
         return(
-            <button styleName="card" onClick={() => this.onCardClick(index)}>
+            <button styleName="card" onClick={() => this.onCardClick(index)} style={{outline: "none"}}>
                 {
                     card.isSelected === true && card.isPicked === true
                     ?
@@ -291,7 +299,7 @@ console.log("zerar result")
 
     render() {
         let { payout, popularNumbers, cards } = this.state;
-        const { isWon, winAmount } = this.props;
+        const { isWon, winAmount, currency, animating } = this.props;
 
         let winEdge = (100-(this.state.edge))/100;
         payout = payout * winEdge;
@@ -305,16 +313,19 @@ console.log("zerar result")
                     )}
                 </div>
                 {
-                    isWon === true
+                    isWon === true && animating === false
                     ?
                         <div styleName="won">
                             <div styleName="won-1">
                                 <Typography variant={'small-body'} color={'white'} weight={"bold"}>
                                     Win
                                 </Typography> 
-                                <Typography variant={'small-body'} color={'white'} weight={"bold"}>
-                                    {formatCurrency(winAmount)}
-                                </Typography> 
+                                <div styleName="currency">
+                                    <Typography variant={'small-body'} color={'white'} weight={"bold"}>
+                                        {formatCurrency(winAmount)}
+                                    </Typography> 
+                                    <img src={currency.image} width={16} height={16}/>
+                                </div>
                             </div>
                         </div>
                     :
@@ -334,7 +345,8 @@ console.log("zerar result")
 function mapStateToProps(state){
     return {
         profile : state.profile,
-        ln: state.language
+        ln: state.language,
+        currency: state.currency
     };
 }
 
