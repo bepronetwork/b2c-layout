@@ -39,6 +39,7 @@ import depositFormIndexCopy from './depositFormIndex';
 import depositTabIndexCopy from './depositTabIndex';
 import diceGameCardIndexCopy from './diceGameCardIndex';
 import diceGameOptionsIndexCopy from './diceGameOptionsIndex';
+import kenoGameCardIndexCopy from './kenoGameCardIndex';
 import kenoGameOptionsIndexCopy from './kenoGameOptionsIndex';
 import dropDownFieldIndexCopy from './dropDownFieldIndex';
 import flipGameCardIndexCopy from './flipGameCardIndex';
@@ -177,6 +178,7 @@ const CopyText = {
     depositTabIndex: depositTabIndexCopy,
     diceGameCardIndex: diceGameCardIndexCopy,
     diceGameOptionsIndex: diceGameOptionsIndexCopy,
+    kenoGameCardIndex: kenoGameCardIndexCopy,
     kenoGameOptionsIndex: kenoGameOptionsIndexCopy,
     dropDownFieldIndex: dropDownFieldIndexCopy,
     flipGameCardIndex: flipGameCardIndexCopy,

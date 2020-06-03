@@ -35,6 +35,15 @@
   }
 }
 
+.selected{
+  border-bottom: 2px solid $secondaryColor;
+
+  * {
+    color: $white;
+    opacity: 1;
+  }
+}
+
 .fullBackground {
   background-color: $primaryColor;
   border-radius: $border-radius; 
@@ -48,18 +57,14 @@
   background-color: $secondaryColor;
   border-radius: $border-radius; 
 
+  * {
+    color: white;
+  }
+
   button {
     border-radius: $border-radius; 
   }
-}
 
-.selected{
-  border-bottom: 2px solid $secondaryColor;
-
-  * {
-    color: white;
-    opacity: 1;
-  }
 }
 
 .main{
