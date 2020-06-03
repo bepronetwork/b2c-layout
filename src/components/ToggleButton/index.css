@@ -35,9 +35,12 @@
 }
 
 .toggle.selected {
-  border-bottom: 1px solid $secondaryColor;
-
+  background: $secondaryColor;
   transition: background 300ms linear;
+
+  * {
+    color: white;
+  }
 }
 
 .toggle.selected:hover {

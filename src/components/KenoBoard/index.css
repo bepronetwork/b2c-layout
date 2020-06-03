@@ -104,7 +104,7 @@
 .cover-picked {
   box-shadow: $secondaryColor-8  0px 0.3em;
   background: $secondaryColor-13;
-  text-shadow: ##ff003f 0px 3px 2px;
+  text-shadow: #000 0px 3px 2px;
 
   @include Breakpoint-mobileOnly {
     box-shadow: $secondaryColor-8  0px 0.2em;
@@ -118,7 +118,7 @@
 
 .cover-selected {
   background: $primaryColor-3;
-  text-shadow: ##ff003f 0px 3px 2px;
+  text-shadow: #adadad 0px 1px 1px;
   box-shadow: $primaryColor-5 0px 0.3em inset;
 
   @include Breakpoint-mobileOnly {
@@ -126,7 +126,7 @@
   }
 
   .number p {
-    color: #bd0303;
+    color: #ff003f;
   }
 }
 

@@ -175,7 +175,7 @@ $with-without-padding: calc(100% - $spacing-20 - $spacing-20);
   }
 
   svg {
-    opacity: 0.2;
+    opacity: 0.15;
     height: $spacing-16;
     margin-left: $spacing-4;
 
