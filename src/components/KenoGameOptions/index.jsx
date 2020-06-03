@@ -110,7 +110,7 @@ class KenoGameOptions extends Component {
     }
 
     handleBet = async (callback) => {
-        const { onBet, cards } = this.props;
+        const { onBet } = this.props;
         const { amount, type } = this.state;
         var res;
 
@@ -119,7 +119,7 @@ class KenoGameOptions extends Component {
             this.setState({ sound: true });
             switch(type){
                 case 'manual' : {
-                    res = await onBet({ cards, amount });
+                    res = await onBet({ amount });
                     break;
                 };
                 case 'auto' : {
@@ -174,7 +174,7 @@ class KenoGameOptions extends Component {
     render() {
         const { type, amount, isAutoBetting } = this.state;
         const user = this.props.profile;
-        const { ln, cards } = this.props;
+        const { ln } = this.props;
         const copy = CopyText.kenoGameOptionsIndex[ln];
 
         return (
@@ -213,7 +213,7 @@ class KenoGameOptions extends Component {
             
                 <div styleName="button">
                     <Button
-                        disabled={!this.isBetValid() || this.isInAutoBet() || cards.length === 0}
+                        disabled={!this.isBetValid() || this.isInAutoBet()}
                         onClick={this.handleBet}
                         fullWidth
                         theme="primary"

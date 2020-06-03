@@ -9,32 +9,26 @@ import { Numbers } from "../../lib/ethereum/lib";
 import { formatPercentage } from "../../utils/numberFormatation";
 import { formatCurrency } from "../../utils/numberFormatation";
 import Keno from './keno';
-import plockSound from "assets/plock.mp3";
-import congratsSound from "assets/congrats.mp3";
+import plockSound from "assets/keno-selected.mp3";
+import congratsSound from "assets/keno-diamond.mp3";
+import tickSound from "assets/keno-tick.mp3";
 
 import "./index.css";
+import { KenoBoard } from "..";
 
 const plock = new Audio(plockSound);
-const congrats = new Audio(congratsSound);
+const congrats = new Audio(congratsSound); 
+const tick = new Audio(tickSound); 
+
 const totalOfCards = 40;
 const maxPickedCards = 10;
 
 
 const defaultState = {
     popularNumbers : [],
-    cards: [ 
-        { id: 0,  display:  1, isPicked: false, isSelected: false }, { id: 1,  display:  2, isPicked: false, isSelected: false }, { id: 2,  display:  3, isPicked: false, isSelected: false }, { id: 3,  display:  4, isPicked: false, isSelected: false }, 
-        { id: 4,  display:  5, isPicked: false, isSelected: false }, { id: 5,  display:  6, isPicked: false, isSelected: false }, { id: 6,  display:  7, isPicked: false, isSelected: false }, { id: 7,  display:  8, isPicked: false, isSelected: false }, 
-        { id: 8,  display:  9, isPicked: false, isSelected: false }, { id: 9,  display: 10, isPicked: false, isSelected: false }, { id: 10, display: 11, isPicked: false, isSelected: false }, { id: 11, display: 12, isPicked: false, isSelected: false }, 
-        { id: 12, display: 13, isPicked: false, isSelected: false }, { id: 13, display: 14, isPicked: false, isSelected: false }, { id: 14, display: 15, isPicked: false, isSelected: false }, { id: 15, display: 16, isPicked: false, isSelected: false }, 
-        { id: 16, display: 17, isPicked: false, isSelected: false }, { id: 17, display: 18, isPicked: false, isSelected: false }, { id: 18, display: 19, isPicked: false, isSelected: false }, { id: 19, display: 20, isPicked: false, isSelected: false }, 
-        { id: 20, display: 21, isPicked: false, isSelected: false }, { id: 21, display: 22, isPicked: false, isSelected: false }, { id: 22, display: 23, isPicked: false, isSelected: false }, { id: 23, display: 24, isPicked: false, isSelected: false }, 
-        { id: 24, display: 25, isPicked: false, isSelected: false }, { id: 25, display: 26, isPicked: false, isSelected: false }, { id: 26, display: 27, isPicked: false, isSelected: false }, { id: 27, display: 28, isPicked: false, isSelected: false }, 
-        { id: 28, display: 29, isPicked: false, isSelected: false }, { id: 29, display: 30, isPicked: false, isSelected: false }, { id: 30, display: 31, isPicked: false, isSelected: false }, { id: 31, display: 32, isPicked: false, isSelected: false }, 
-        { id: 32, display: 33, isPicked: false, isSelected: false }, { id: 33, display: 34, isPicked: false, isSelected: false }, { id: 34, display: 35, isPicked: false, isSelected: false }, { id: 35, display: 36, isPicked: false, isSelected: false }, 
-        { id: 36, display: 37, isPicked: false, isSelected: false }, { id: 37, display: 38, isPicked: false, isSelected: false }, { id: 38, display: 39, isPicked: false, isSelected: false }, { id: 39, display: 40, isPicked: false, isSelected: false }
-    ],
-    numberOfPickeds: 0
+    numberOfCardsPicked: 0,
+    numberOfDiamonds: 0,
+    localCards: []
 }
 
 class KenoGameCard extends Component {
@@ -54,19 +48,19 @@ class KenoGameCard extends Component {
 
         this.state = {
             ...defaultState,
-            result: props.result
+            result: props.result,
+            localCards: props.cards
         };
     }
 
     componentDidMount(){
         this.projectData(this.props);
         this.getBets(this.props);
-      
     }
 
     async componentWillReceiveProps(props){
         await this.projectData(props);
-        this.renderResult();
+
         //this.getBets(props);
     }
 
@@ -82,45 +76,54 @@ class KenoGameCard extends Component {
 
     async projectData(props){
         let result = null;
-        let nextProps = props;
-        let prevState = this.state;
 
-        if (nextProps.result && nextProps.result !== prevState.result) {
-            result = nextProps.result;
-            this.setState({...this.state, 
-                result
-            });
+        if (props.result && this.state.result !== props.result) {
+            result = props.result;
+            this.renderResult(result);
         }
+        if (this.state.result && props.result) {
+            result = null;
+        }
+
+        this.setState({...this.state, 
+            edge : props.game.edge,
+            result
+        });
     }
 
-    async renderResult() {
-        const { cards, result } = this.state;
+    async renderResult(result) {
         const { onResultAnimation } = this.props;
+        const { localCards } = this.state;
+        let numberOfDiamonds = 0;
 
-        cards.forEach( (c) => { c.isSelected = false });
-        
+        localCards.forEach( (c) => { c.isSelected = false });
         if(result != null) {
             result.forEach((r, i) => {
                 setTimeout(() => {
-                    const card = cards.find( c => {
+                    const card = localCards.find( c => {
                         if(c.id === r){
                             return c;
                         }
                     });
                     card.isSelected = true;
-                    card.isPicked ? this.playSound(congrats, 700) : this.playSound(plock, 100);
+                    if (card.isPicked) {
+                       this.playSound(congrats, 300);
+                       numberOfDiamonds++;
+                    }
+                    else {
+                        this.playSound(plock, 100);
+                    }
+                    
                     this.setState({
-                        cards
+                        result,
+                        numberOfDiamonds
                     });
                 }, i * 200);
             });
 
             setTimeout(() => {
-                this.setState({
-                    result: null
-                });
                 onResultAnimation();
-            }, (result.length * 200) + 400);
+            }, (result.length * 200) + 200);
         }
 
     }
@@ -140,38 +143,35 @@ class KenoGameCard extends Component {
     };
 
     onCardClick = index => {
-        const { onChooseCards, disableControls } = this.props;
-        const { cards } = this.state;
-        const isPicked = cards[index].isPicked;
+        const { onChooseCards, disableControls, cards } = this.props;
+        const localCards = cards;
+        const isPicked = localCards[index].isPicked;
 
         if (disableControls) { return null };
 
-        cards.map(card => {
+        localCards.map(card => {
             card.isSelected = false;
         });
 
-        const total = cards.filter(function(card) {  
+        const total = localCards.filter(function(card) {  
             return card.isPicked === true 
         }).length; 
 
         if (total < maxPickedCards || isPicked) {
-            const numberOfPickeds = !isPicked ? total + 1 : total - 1;
-            cards[index].isPicked = !isPicked;
+            const numberOfCardsPicked = !isPicked ? total + 1 : total - 1;
+            localCards[index].isPicked = !isPicked;
+            this.playSound(tick, 100);
 
             this.setState({
-                cards,
-                numberOfPickeds
+                numberOfCardsPicked
             });
         }
 
         this.setState({
-            cards,
             result: null
         });
 
-        onChooseCards(cards.filter(function(card) {  
-            return card.isPicked === true 
-        }));
+        onChooseCards(localCards);
 
     }
 
@@ -194,39 +194,42 @@ class KenoGameCard extends Component {
     }
 
     renderPayouts() {
-        const { numberOfPickeds } = this.state;
+        const { numberOfCardsPicked } = this.state;
         const { betAmount } = this.props;
 
-        if(numberOfPickeds === 0) { return null };
+        if(numberOfCardsPicked === 0) { return null };
 
         let payouts = [];
 
-        for (let index = 0; index <= numberOfPickeds; index++) {
-            const keno = new Keno({ n: totalOfCards, d: maxPickedCards, x: numberOfPickeds, i: index });
+        for (let index = 0; index <= numberOfCardsPicked; index++) {
+            const keno = new Keno({ n: totalOfCards, d: maxPickedCards, x: numberOfCardsPicked, i: index });
             const profit = betAmount * 1 / keno.probability();
             payouts.push(<div styleName="payout"><Typography variant={'x-small-body'} color={'grey'}>{`${this.formatPayout(profit.toFixed(2))}`}</Typography></div>);
         }
 
         return (
-            <div styleName={`payouts payouts-${numberOfPickeds}`}>
+            <div styleName={`payouts payouts-${numberOfCardsPicked}`}>
                 {payouts}
             </div>
         )
     }
 
     renderHits() {
-        const { numberOfPickeds } = this.state;
+        const { numberOfCardsPicked, numberOfDiamonds } = this.state;
 
-        if(numberOfPickeds === 0) { return null };
+        if(numberOfCardsPicked === 0) { return null };
 
         let hits = [];
 
-        for (let index = 0; index <= numberOfPickeds; index++) {
-            hits.push(<div styleName="hit"><Typography variant={'x-small-body'} color={'grey'}>{`${index}x`}</Typography> <DiamondIcon/></div>);
+        for (let index = 0; index <= numberOfCardsPicked; index++) {
+            const styles = classNames("hit", {
+                "highlight": index == numberOfDiamonds
+            });
+            hits.push(<div styleName={styles}><Typography variant={'x-small-body'} color={'grey'}>{`${index}x`}</Typography> <DiamondIcon/></div>);
         }
 
         return (
-            <div styleName={`hits hits-${numberOfPickeds}`}>
+            <div styleName={`hits hits-${numberOfCardsPicked}`}>
                 {hits}
             </div>
         )
@@ -262,43 +265,8 @@ class KenoGameCard extends Component {
         )
     }
 
-    renderBoard = (card, index) => {
-        const styles = classNames("cover", {
-            "cover-picked": card.isPicked === true,
-            "cover-selected": card.isSelected === true && card.isPicked === false
-        });
-        return(
-            <button styleName="card" onClick={() => this.onCardClick(index)} style={{outline: "none"}}>
-                {
-                    card.isSelected === true && card.isPicked === true
-                    ?
-                        <span styleName="card-selected">
-                            <div styleName="card-star">
-                                <DiamondIcon/>
-                            </div>
-                        </span>
-                    :
-                        null
-                }
-                <span styleName="card-number">
-                    <Typography variant={'body'} color={'white'} weight={"bold"}>
-                        {card.display} 
-                    </Typography>  
-                </span>
-                <div styleName={styles} style={{ opacity : card.isSelected === true && card.isPicked === true ? 0 : 1 }}>
-                    <span styleName="number">
-                        <Typography variant={'body'} color={card.isPicked === true ? 'fixedwhite' : 'white'} weight={"bold"}>
-                            {card.display} 
-                        </Typography>  
-                    </span>
-                </div>
-            </button>
-        )
-
-    }
-
     render() {
-        let { payout, popularNumbers, cards } = this.state;
+        let { payout, popularNumbers, localCards } = this.state;
         const { isWon, winAmount, currency, animating } = this.props;
 
         let winEdge = (100-(this.state.edge))/100;
@@ -307,11 +275,7 @@ class KenoGameCard extends Component {
         return (
         <div styleName="root">
             <div styleName="container">
-                <div styleName="board">
-                    {cards.map( (card, index) => 
-                        this.renderBoard(card, index)
-                    )}
-                </div>
+                <KenoBoard cards={localCards} onCardClick={this.onCardClick} />
                 {
                     isWon === true && animating === false
                     ?
