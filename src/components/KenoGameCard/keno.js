@@ -1,10 +1,10 @@
 export default class Keno {
-    constructor({ n, d, x, i }) {
+    constructor({ n, d, x, y }) {
         this.n = n;
         this.d = d;
         this.x = x;
-        this.i = i;
-        this.r = x - i;
+        this.y = y;
+        this.r = x - y;
     }
 
     factorial(num) {
@@ -19,6 +19,6 @@ export default class Keno {
     }
        
     probability() {
-        return this.combination(this.n - this.x, this.d - this.i) * this.combination(this.x, this.x - this.i) / this.combination(this.n, this.d);
+        return this.combination(this.n - this.x, this.d - this.y) * this.combination(this.x, this.y) / this.combination(this.n, this.d);
     }
 }

@@ -25,17 +25,18 @@ $with-without-padding: calc(100% - $spacing-20 - $spacing-20);
   display: grid;
   grid-template-rows: auto auto;
   position: relative;
-  min-height: 8em;
+  min-height: 1em;
   gap: 1em;
 
-  @include Breakpoint-mobileOnly {
-    display: none;
-  }
 }
 
 .payouts {
   display: grid;
   gap: 1em;
+
+  @include Breakpoint-mobileOnly {
+    gap: 0.3em;
+  }
 }
 
 .payouts-1 {
@@ -79,7 +80,6 @@ $with-without-padding: calc(100% - $spacing-20 - $spacing-20);
 }
 
 .payout {
-  font-weight: 600;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -87,17 +87,31 @@ $with-without-padding: calc(100% - $spacing-20 - $spacing-20);
   padding: 1em 0px;
   border-radius: $border-radius;
   background: $primaryColor-5;
-  transition: background 100ms ease 0s;
+
+  @include Breakpoint-mobileOnly {
+    height: 20px;
+  }
+
+  p {
+    @include Breakpoint-mobileOnly {
+      font-size: 10px !important;
+      padding: 0.5em 0px;
+    }
+  }
+
 }
 
 .hits {
   position: relative;
-  font-weight: 600;
   display: grid;
   box-shadow: rgba(0, 0, 0, 0.2) 0px 4px 6px -1px, rgba(0, 0, 0, 0.12) 0px 2px 4px -1px;
   border-radius: $border-radius;
   background: $primaryColor-5;
   gap: 1em;
+
+  @include Breakpoint-mobileOnly {
+    gap: 0.2em;
+  }
 }
 
 .hits-1 {
@@ -148,13 +162,29 @@ $with-without-padding: calc(100% - $spacing-20 - $spacing-20);
   white-space: nowrap;
   position: relative;
   padding: 1em 0px;
-  transition: background 100ms ease 0s;
+
+  @include Breakpoint-mobileOnly {
+    height: 20px;
+  }
+
+  p {
+    @include Breakpoint-mobileOnly {
+      font-size: 10px !important;
+      padding: 0.5em 0px;
+    }
+  }
 
   svg {
     opacity: 0.2;
     height: $spacing-16;
     margin-left: $spacing-4;
+
+    @include Breakpoint-mobileOnly {
+      height: $spacing-12;
+      margin-left: 2px;
+    }
   }
+  
 }
 
 .popular-number-container{
@@ -240,7 +270,10 @@ $with-without-padding: calc(100% - $spacing-20 - $spacing-20);
 .currency {
   display: inline-flex;
   padding: $spacing-12 $spacing-28;
-  justify-content: flex-end;
+
+  img {
+    margin-left: $spacing-4;
+  }
 
   p {
       margin-top: 0;
@@ -256,4 +289,32 @@ $with-without-padding: calc(100% - $spacing-20 - $spacing-20);
   svg{
     opacity: 1;
   }
+}
+
+.show-chance {
+  padding: $spacing-16;
+  position: absolute;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1em;
+  top: $spacing-8;
+  left: 50%;
+  width: 100%;
+  transform: translate(-50%, -50%) scale(1);
+  background: $primaryColor-8;
+  border-radius: $border-radius;
+}
+
+.label{
+  padding: $spacing-8 0;
+}
+
+.text{
+  width : 100%;
+  padding: $spacing-12 $spacing-20;
+  overflow: hidden;
+  border-radius : $border-radius;
+  background-color : $primaryColor-2;
+  word-break: break-all;
+  text-align: left;
 }
