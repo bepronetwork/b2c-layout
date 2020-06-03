@@ -83,7 +83,7 @@ class KenoPage extends Component {
         const { profile } = this.props;
         const { winAmount, userDelta } = this.state.betObjectResult;
         setWonPopupMessageDispatcher(winAmount);
-        /*await profile.updateBalance({ userDelta });*/
+        await profile.updateBalance({ userDelta });
         this.setState({ result: null, animating : false, disableControls: false });
     };
 

@@ -9,8 +9,8 @@ import { Numbers } from "../../lib/ethereum/lib";
 import { formatPercentage } from "../../utils/numberFormatation";
 import { formatCurrency } from "../../utils/numberFormatation";
 import Keno from './keno';
-import plockSound from "assets/plock.mp3";
-import congratsSound from "assets/congrats.mp3";
+import plockSound from "assets/keno-selected.mp3";
+import congratsSound from "assets/keno-diamond.mp3";
 
 import "./index.css";
 
@@ -61,12 +61,11 @@ class KenoGameCard extends Component {
     componentDidMount(){
         this.projectData(this.props);
         this.getBets(this.props);
-      
     }
 
     async componentWillReceiveProps(props){
         await this.projectData(props);
-        this.renderResult();
+
         //this.getBets(props);
     }
 
@@ -82,23 +81,26 @@ class KenoGameCard extends Component {
 
     async projectData(props){
         let result = null;
-        let nextProps = props;
-        let prevState = this.state;
 
-        if (nextProps.result && nextProps.result !== prevState.result) {
-            result = nextProps.result;
-            this.setState({...this.state, 
-                result
-            });
+        if (props.result && this.state.result !== props.result) {
+            result = props.result;
+            this.renderResult(result);
         }
+        if (this.state.result && props.result) {
+            result = null;
+        }
+
+        this.setState({...this.state, 
+            edge : props.game.edge,
+            result
+        });
     }
 
-    async renderResult() {
-        const { cards, result } = this.state;
+    async renderResult(result) {
+        const { cards } = this.state;
         const { onResultAnimation } = this.props;
 
         cards.forEach( (c) => { c.isSelected = false });
-        
         if(result != null) {
             result.forEach((r, i) => {
                 setTimeout(() => {
@@ -108,7 +110,7 @@ class KenoGameCard extends Component {
                         }
                     });
                     card.isSelected = true;
-                    card.isPicked ? this.playSound(congrats, 700) : this.playSound(plock, 100);
+                    card.isPicked ? this.playSound(congrats, 300) : this.playSound(plock, 100);
                     this.setState({
                         cards
                     });
@@ -116,9 +118,6 @@ class KenoGameCard extends Component {
             });
 
             setTimeout(() => {
-                this.setState({
-                    result: null
-                });
                 onResultAnimation();
             }, (result.length * 200) + 400);
         }
