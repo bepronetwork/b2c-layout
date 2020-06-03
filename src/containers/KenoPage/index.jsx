@@ -8,6 +8,7 @@ import kenoBet from "lib/api/keno";
 import Cache from "../../lib/cache/cache";
 import { find } from "lodash";
 import { connect } from "react-redux";
+import defaultCards from "./defaultCards";
 import _ from "lodash";
 
 class KenoPage extends Component {
@@ -27,7 +28,7 @@ class KenoPage extends Component {
             edge : 0
         },
         betAmount: 0,
-        cards: []
+        cards: defaultCards,
     };
 
     componentDidMount(){
@@ -50,18 +51,25 @@ class KenoPage extends Component {
         this.setState({ cards, isWon : false, result : null });
     };
 
-    handleBet = async ({ cards, amount }) => {
+    handleBet = async ({ amount }) => {
         try{
+            const { cards } = this.state;
             const { user } = this.context;
             const { onHandleLoginOrRegister } = this.props;
             this.setState({ disableControls: true, isWon: false, result: null });
             if (!user || _.isEmpty(user)) return onHandleLoginOrRegister("register");
 
+            const pickedCards = cards.filter(function(card) {  
+                return card.isPicked === true 
+            });
+
             const res = await kenoBet({
-                cards,
+                cards: pickedCards,
                 betAmount: amount,
                 user
             });
+
+            this.changeCardsFromResult(res.result);
 
             this.setState({ 
                 result : res.result, 
@@ -79,6 +87,19 @@ class KenoPage extends Component {
         }
     };
 
+    changeCardsFromResult(result) {
+        const { cards } = this.state;
+
+        cards.map(card => {
+            card.isSelected = result.includes(card.id) ? true : false;
+        });
+
+        this.setState({
+            cards
+        });
+    
+    }
+
     handleAnimation = async () => {
         const { profile } = this.props;
         const { winAmount, userDelta } = this.state.betObjectResult;
@@ -88,23 +109,25 @@ class KenoPage extends Component {
     };
 
     getOptions = () => {
-        const { disableControls, cards } = this.state;
+        const { disableControls, cards, animating } = this.state;
         const { profile } = this.props;
+        const pickedCards = cards.filter(function(card) {  
+            return card.isPicked === true 
+        });
 
         return (
             <KenoGameOptions
-                disableControls={disableControls}
+                disableControls={disableControls || pickedCards.length == 0 || animating == true}
                 profile={profile}
                 onBet={this.handleBet}
                 game={this.state.game}
                 onBetAmount={this.handleBetAmountChange}
-                cards={cards}
             />
         );
     };
 
     getGameCard = () => {
-        const { result, disableControls, bet, animating, betAmount, isWon, winAmount } = this.state;
+        const { result, disableControls, bet, animating, betAmount, isWon, winAmount, cards } = this.state;
         const { profile } = this.props;
 
         return (
@@ -120,6 +143,7 @@ class KenoPage extends Component {
                 onChooseCards={this.handleChooseCards}
                 isWon={isWon}
                 winAmount={winAmount}
+                cards={cards}
             />
         );
     };

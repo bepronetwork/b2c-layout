@@ -7,6 +7,7 @@ import FlipDetails from './Game/FlipDetails';
 import RouletteDetails from './Game/RouletteDetails';
 import WheelDetails from './Game/WheelDetails';
 import PlinkoDetails from './Game/PlinkoDetails';
+import KenoDetails from './Game/KenoDetails';
 import { formatCurrency } from "../../utils/numberFormatation";
 import { getApp, getSkeletonColors } from "../../lib/helpers";
 import { CopyText } from "../../copy";
@@ -73,8 +74,8 @@ class BetDetails extends Component {
                 case 'plinko_variation_1':
                     component = <PlinkoDetails bet={bet}/>;
                     break;
-                case 'keno':
-                    component = null;
+                case 'keno_simple':
+                    component = <KenoDetails bet={bet}/>;
                     break;
             }
 

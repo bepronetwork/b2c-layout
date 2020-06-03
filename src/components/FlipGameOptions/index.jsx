@@ -105,8 +105,8 @@ class FlipGameOptions extends Component {
         const { profile } = this.props;
         const { disableControls } = this.props;
         const { betAmount } = this.state;
-        return (
-        (profile && betAmount > 0 && profile.getBalance() >= betAmount && !disableControls) || !profile);
+
+        return (betAmount > 0 && !disableControls) || !profile;
     };
 
     handleBet = async () => {

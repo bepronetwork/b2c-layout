@@ -20,130 +20,6 @@ $with-without-padding: calc(100% - $spacing-20 - $spacing-20);
   gap: 1em;
 }
 
-.board {
-  position: relative;
-  display: grid;
-  width: 100%;
-  grid-template-columns: repeat(8, auto);
-  gap: 1em 1em;
-
-  @include Breakpoint-mobileOnly {
-    grid-template-columns: repeat(8, auto);
-    gap: 0.7em 0.7em;
-  }
-}
-
-.card {
-  position: relative;
-  text-shadow: $shadowColor 0px 3px 2px;
-  border-radius: $border-radius;
-  background: $primaryColor-13;
-}
-
-.card::after  {
-  content: "";
-  display: block;
-  padding-bottom: 100%;
-}
-
-.card-selected {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 100%;
-  transform: translate(-50%, -50%);
-  box-shadow: $secondaryColor-2  0px 0.3em;
-  border-radius: $border-radius;
-  border: 2px solid $secondaryColor-13;
-}
-
-.card-star {
-  width: 100%;
-  height: auto;
-  overflow: hidden;
-  margin: 0px auto;
-  outline: none;
-
-  svg {
-    width: 100%;
-  }
-}
-
-.card-number {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  pointer-events: none;
-  text-shadow: rgb(255, 255, 255) 0px 1px 1px;
-
-  p {
-    color: rgb(0, 138, 1);
-    text-shadow: rgb(255, 255, 255) 0px 1px 1px;
-
-    @include Breakpoint-mobileOnly {
-      font-size: 13px;
-    }
-  }
-}
-
-.cover {
-  position: absolute;
-  top: 0px;
-  left: 0px;
-  bottom: 0px;
-  right: 0px;
-  box-shadow: $primaryColor-8  0px 0.3em;
-  border-radius: $border-radius;
-  background: $primaryColor-13;
-}
-
-.cover:hover {
-  background-color: $primaryColor-8;
-  box-shadow: $primaryColor-5  0px 0.4em;
-  transform: translateY(-0.1em);
-}
-
-.cover-picked {
-  box-shadow: $secondaryColor-8  0px 0.3em;
-  background: $secondaryColor-13;
-  text-shadow: #000 0px 3px 2px;
-}
-
-.cover-picked:hover {
-  background-color: $secondaryColor-8;
-  box-shadow: $secondaryColor-5  0px 0.4em;
-}
-
-.cover-selected {
-  background: $primaryColor-3;
-  text-shadow: #000 0px 3px 2px;
-  box-shadow: $primaryColor-5 0px 0.3em inset;
-
-  .number p {
-    color: #bd0303;
-  }
-}
-
-.cover-selectedd:hover {
-  background-color: $primaryColor-2;
-  box-shadow: $secondaryColor-5  0px 0.4em;
-}
-
-.number {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  pointer-events: none;
-
-  p {
-    @include Breakpoint-mobileOnly {
-      font-size: 13px;
-    }
-  }
-}
-
 .chances {
   width: 100%;
   display: grid;
@@ -275,34 +151,11 @@ $with-without-padding: calc(100% - $spacing-20 - $spacing-20);
   transition: background 100ms ease 0s;
 
   svg {
+    opacity: 0.2;
     height: $spacing-16;
     margin-left: $spacing-4;
   }
 }
-
-
-
-
-.values {
-  width: calc(100% - $spacing-16 - $spacing-16);
-  padding: $spacing-16;
-  margin: auto;
-  background-color: $background-table-1-outer;
-
-  border-radius: $border-radius;
-}
-
-.values-container {
-  display: grid;
-
-  grid-column-gap: $spacing-20;
-  grid-template-columns:
-    calc($with-without-padding / 3) calc($with-without-padding / 3)
-    calc($with-without-padding / 3);
-
-  width: 100%;
-}
-
 
 .popular-number-container{
     padding : 10px;
@@ -324,19 +177,6 @@ $with-without-padding: calc(100% - $spacing-20 - $spacing-20);
 
 .popular-number-row{
     margin-left : -30px;
-}
-
-
-.green-square{
-    background-color : $green;
-}
-
-.blue-square{
-    background-color : $roulette-blue-color;
-}
-
-.red-square{
-    background-color : $red;
 }
 
 .outer-popular-numbers{
@@ -410,4 +250,10 @@ $with-without-padding: calc(100% - $spacing-20 - $spacing-20);
     padding: 0;
   }
 
+}
+
+.highlight {
+  svg{
+    opacity: 1;
+  }
 }
