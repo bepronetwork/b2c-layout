@@ -119,7 +119,7 @@ function loadFakeBets(rows, games, size) {
     let currency = row ? row.currency : null;
     const virtual = getApp().virtual;
     if (virtual === true) {
-        currency = getApp().currencies.find(c => c.virtual === true);
+        currency = getApp().currencies.find(c => c.virtual === true)._id;
     }
 
     let fakeUserName = faker.internet.userName();

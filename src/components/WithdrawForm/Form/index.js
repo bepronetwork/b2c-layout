@@ -215,7 +215,7 @@ class Form extends Component {
                                 ?
                                     <img src={loadingIco} />
                                 :
-                                    <Typography variant={'small-body'} color={'white'}>
+                                    <Typography variant={'small-body'} color={'fixedwhite'}>
                                         {copy.INDEX.TYPOGRAPHY.TEXT[1]} Withdraw
                                     </Typography>
                             }

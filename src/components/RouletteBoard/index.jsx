@@ -178,7 +178,7 @@ class RouletteBoard extends Component {
           onClick={this.handleClick}
           type="button"
         >
-          <TableCell label="19 to 36" id="range1936" betHistory={betHistory} />
+          <TableCell label="19 to 36" id="range1936" betHistory={betHistory} color="pickled-bluewood-dark"/>
         </button>
         <button
           styleName="parityOdd"
@@ -188,7 +188,7 @@ class RouletteBoard extends Component {
           onClick={this.handleClick}
           type="button"
         >
-          <TableCell label={copy.ODD_NAME} id="parityOdd" betHistory={betHistory} />
+          <TableCell label={copy.ODD_NAME} id="parityOdd" betHistory={betHistory} color="pickled-bluewood-dark"/>
         </button>
         <button
           styleName="colorBlack"
@@ -222,7 +222,7 @@ class RouletteBoard extends Component {
           onClick={this.handleClick}
           type="button"
         >
-          <TableCell label={copy.EVEN_NAME}  id="parityEven" betHistory={betHistory} />
+          <TableCell label={copy.EVEN_NAME}  id="parityEven" betHistory={betHistory} color="pickled-bluewood-dark"/>
         </button>
         <button
           styleName="range0118"
@@ -232,7 +232,7 @@ class RouletteBoard extends Component {
           onClick={this.handleClick}
           type="button"
         >
-          <TableCell label="1 to 18" id="range0118" betHistory={betHistory} />
+          <TableCell label="1 to 18" id="range0118" betHistory={betHistory} color="pickled-bluewood-dark"/>
         </button>
         <button
           styleName="range2536"
@@ -242,7 +242,7 @@ class RouletteBoard extends Component {
           onClick={this.handleClick}
           type="button"
         >
-          <TableCell label="25 to 36" id="range2536" betHistory={betHistory} />
+          <TableCell label="25 to 36" id="range2536" betHistory={betHistory} color="pickled-bluewood-dark"/>
         </button>
         <button
           styleName="range1324"
@@ -252,7 +252,7 @@ class RouletteBoard extends Component {
           onClick={this.handleClick}
           type="button"
         >
-          <TableCell label="13 to 24" id="range1324" betHistory={betHistory} />
+          <TableCell label="13 to 24" id="range1324" betHistory={betHistory} color="pickled-bluewood-dark"/>
         </button>
         <button
           styleName="range0112"
@@ -262,7 +262,7 @@ class RouletteBoard extends Component {
           onClick={this.handleClick}
           type="button"
         >
-          <TableCell label="1 to 12" id="range0112" betHistory={betHistory} />
+          <TableCell label="1 to 12" id="range0112" betHistory={betHistory} color="pickled-bluewood-dark"/>
         </button>
         <button
           styleName="row3"
@@ -272,7 +272,7 @@ class RouletteBoard extends Component {
           onClick={this.handleClick}
           type="button"
         >
-          <TableCell label="2:1" id="row3" betHistory={betHistory} />
+          <TableCell label="2:1" id="row3" betHistory={betHistory} color="pickled-bluewood-dark"/>
         </button>
         <button
           styleName="row2"
@@ -282,7 +282,7 @@ class RouletteBoard extends Component {
           onClick={this.handleClick}
           type="button"
         >
-          <TableCell label="2:1" id="row2" betHistory={betHistory} />
+          <TableCell label="2:1" id="row2" betHistory={betHistory} color="pickled-bluewood-dark"/>
         </button>
         <button
           styleName="row1"
@@ -292,7 +292,7 @@ class RouletteBoard extends Component {
           onClick={this.handleClick}
           type="button"
         >
-          <TableCell label="2:1" id="row1" betHistory={betHistory} />
+          <TableCell label="2:1" id="row1" betHistory={betHistory} color="pickled-bluewood-dark"/>
         </button>
         <button
           styleName="number36"

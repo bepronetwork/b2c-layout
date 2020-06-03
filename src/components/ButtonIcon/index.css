@@ -17,6 +17,10 @@
   }
 }
 
+.root:focus {
+  outline: none;
+}
+
 .primaryTheme {
   background-color: $primaryColor;
   height: 40px;
