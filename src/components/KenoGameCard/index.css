@@ -239,8 +239,7 @@ $with-without-padding: calc(100% - $spacing-20 - $spacing-20);
 }
 
 .won {
-  opacity: 0.9;
-  color: rgb(0, 231, 1);
+  opacity: 0.95;
   position: absolute;
   top: 45%;
   left: 50%;
@@ -252,7 +251,7 @@ $with-without-padding: calc(100% - $spacing-20 - $spacing-20);
   border-radius: $border-radius;
   border-width: 3px;
   border-style: solid;
-  border-color: rgb(0, 231, 1);
+  border-color: green;
   border-image: initial;
 }
 
@@ -262,8 +261,8 @@ $with-without-padding: calc(100% - $spacing-20 - $spacing-20);
   padding: $spacing-8;
 
   p {
-    color: rgb(0, 231, 1);
-    margin: $spacing-8;
+    color: green;
+    margin: $spacing-8 $spacing-4;
   }
 }
 
@@ -292,12 +291,12 @@ $with-without-padding: calc(100% - $spacing-20 - $spacing-20);
 }
 
 .show-chance {
-  padding: $spacing-16;
+  padding: $spacing-8 $spacing-16;
   position: absolute;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 1em;
-  top: $spacing-8;
+  top: $spacing-16;
   left: 50%;
   width: 100%;
   transform: translate(-50%, -50%) scale(1);
@@ -311,7 +310,7 @@ $with-without-padding: calc(100% - $spacing-20 - $spacing-20);
 
 .text{
   width : 100%;
-  padding: $spacing-12 $spacing-20;
+  padding: $spacing-8 $spacing-16;
   overflow: hidden;
   border-radius : $border-radius;
   background-color : $primaryColor-2;

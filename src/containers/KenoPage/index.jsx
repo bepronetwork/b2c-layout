@@ -28,7 +28,7 @@ class KenoPage extends Component {
             edge : 0
         },
         betAmount: 0,
-        cards: defaultCards,
+        cards: JSON.parse(JSON.stringify(defaultCards)),
     };
 
     componentDidMount(){

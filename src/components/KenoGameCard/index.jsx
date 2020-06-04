@@ -65,7 +65,6 @@ class KenoGameCard extends Component {
 
     async componentWillReceiveProps(props){
         await this.projectData(props);
-
         //this.getBets(props);
     }
 
@@ -363,37 +362,37 @@ class KenoGameCard extends Component {
                         <div styleName="show-chance">
                             <div>
                                 <div styleName='label'>
-                                    <Typography variant={'small-body'} color={`casper`} weight={`bold`}>
+                                    <Typography variant={'x-small-body'} color={`casper`} weight={`bold`}>
                                         {copy.INDEX.INPUT_NUMBER.TITLE[0]}
                                     </Typography>
                                 </div>
                                 <div styleName='text'>
-                                    <Typography variant={'small-body'} color={`white`}>
+                                    <Typography variant={'x-small-body'} color={`white`}>
                                         {chancePayout}x
                                     </Typography>
                                 </div>
                             </div>
                             <div>
                                 <div styleName='label'>
-                                    <Typography variant={'small-body'} color={`casper`} weight={`bold`}>
+                                    <Typography variant={'x-small-body'} color={`casper`} weight={`bold`}>
                                         {copy.INDEX.INPUT_NUMBER.TITLE[2]}
                                     </Typography>
                                 </div>
                                 <div styleName='text currency'>
-                                    <Typography variant={'small-body'} color={`white`}>
+                                    <Typography variant={'x-small-body'} color={`white`}>
                                         {chanceProfit}
                                     </Typography>
-                                    <img src={currency.image} width={16} height={16}/>
+                                    <img src={currency.image} width={14} height={14}/>
                                 </div>
                             </div>
                             <div>
                                 <div styleName='label'>
-                                    <Typography variant={'small-body'} color={`casper`} weight={`bold`}>
+                                    <Typography variant={'x-small-body'} color={`casper`} weight={`bold`}>
                                         {copy.INDEX.INPUT_NUMBER.TITLE[1]}
                                     </Typography>
                                 </div>
                                 <div styleName='text'>
-                                    <Typography variant={'small-body'} color={`white`}>
+                                    <Typography variant={'x-small-body'} color={`white`}>
                                         {chanceWinChance}%
                                     </Typography>
                                 </div>
@@ -437,23 +436,24 @@ class KenoGameCard extends Component {
     }
 
     render() {
-        let { payout, popularNumbers, localCards } = this.state;
-        const { isWon, winAmount, currency, animating } = this.props;
+        let { popularNumbers, localCards, numberOfCardsPicked, numberOfDiamonds } = this.state;
+        const { isWon, winAmount, currency, animating, betAmount } = this.props;
 
-        let winEdge = (100-(this.state.edge))/100;
-        payout = payout * winEdge;
+        const keno = new Keno({ n: totalOfCards, d: maxPickedCards, x: numberOfCardsPicked, y: numberOfDiamonds });
+        let probability = this.getGameProbablityNormalizer(keno.probability(), numberOfCardsPicked, numberOfDiamonds);
+        const payout = betAmount * 1 / probability / betAmount; 
 
         return (
         <div styleName="root">
             <div styleName="container">
                 <KenoBoard cards={localCards} onCardClick={this.onCardClick} />
                 {
-                    isWon === true && animating === false
+                    isWon === true && animating === false && winAmount > betAmount
                     ?
                         <div styleName="won">
                             <div styleName="won-1">
-                                <Typography variant={'small-body'} color={'white'} weight={"bold"}>
-                                    Win
+                                <Typography variant={'body'} color={'white'} weight={"bold"}>
+                                    {payout}x
                                 </Typography> 
                                 <div styleName="currency">
                                     <Typography variant={'small-body'} color={'white'} weight={"bold"}>
