@@ -13,7 +13,7 @@
 
   background-color: $background-main-table;
 
-  border: 2px solid $background-table-1-outer-2;
+  border: 2px solid $primaryColor-8;
 
   border-radius: $spacing-4;
 }
@@ -68,7 +68,7 @@
   background: none;
 
   border: 0;
-  color: white;
+  color: $white;
   outline: 0;
 
   font-family: $font-family;
@@ -102,7 +102,7 @@
   }
 
 .input::placeholder {
-  color: white;
+  color: $white;
 
   font-size: $font-size-body;
 }

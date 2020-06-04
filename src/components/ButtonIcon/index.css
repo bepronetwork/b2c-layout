@@ -17,8 +17,12 @@
   }
 }
 
+.root:focus {
+  outline: none;
+}
+
 .primaryTheme {
-  background-color: $backgroundColor-dark-5;
+  background-color: $primaryColor;
   height: 40px;
   padding: 0 $spacing-28;
   border-radius: $border-radius;

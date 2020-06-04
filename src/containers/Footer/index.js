@@ -7,12 +7,23 @@ import "./index.css";
 import { getAppCustomization, getApp } from "../../lib/helpers";
 import {CopyText} from "../../copy";
 
-import logoMadeByBepro from 'assets/media/logo-bepro.png';
-import logobitgo from 'assets/partners/logo-bitgo-white.png';
-import logobetprotocol from 'assets/partners/betprotocol_white_logo.png';
-import logobitcoin from 'assets/partners/bitcoin-white.png';
-import logoethereum from 'assets/partners/ethereum_logo.png';
-import logoresponsible from 'assets/partners/responsible_gambling.png';
+import logoMadeByBepro_light from 'assets/media/logo_bepro.png';
+import logoMadeByBepro_dark from 'assets/media/logo_bepro-dark.png';
+
+import logobBitGo_light from 'assets/partners/logo_bitgo.png';
+import logobBitGo_dark from 'assets/partners/logo_bitgo-dark.png';
+
+import logoBetProtocol_light from 'assets/partners/logo_betprotocol.png';
+import logoBetProtocol_dark from 'assets/partners/logo_betprotocol-dark.png';
+
+import logoBitCoin_light from 'assets/partners/logo_bitcoin.png';
+import logoBitCoin_dark from 'assets/partners/logo_bitcoin-dark.png';
+
+import logoEthereum_light from 'assets/partners/logo_ethereum.png';
+import logoEthereum_dark from 'assets/partners/logo_ethereum-dark.png';
+
+import logoResponsible_light from 'assets/partners/logo_responsible_gambling.png';
+import logoResponsible_dark from 'assets/partners/logo_responsible_gambling-dark.png';
 
 const footerStaticOutput = ({props, supportLinks, communityLinks}) => {
     const info = getApp();
@@ -202,35 +213,35 @@ class Footer extends Component {
                             )}
                         )}
                     </Row>
-                    <div styleName='footer-partners' style={{backgroundColor: theme === 'light' ? '#333333' : null, borderRadius: theme === 'light' ? '5px' : null}}>
+                    <div styleName='footer-partners'>
                         <Row>
                             <div className="col-md-2" styleName="col">
                                 <a href={'https://www.bitgo.com'} target={'_blank'}>
-                                    <img src={logobitgo} style={{height : 40}}/>
+                                    <img src={ getAppCustomization().theme === 'dark' ? logobBitGo_dark : logobBitGo_light } style={{height : 40}}/>
                                 </a>
                             </div>
                             <div className="col-md-2" styleName="col">
                                 <a href={'https://betprotocol.com'} target={'_blank'}>
-                                    <img src={logobetprotocol} style={{height : 46}}/>
+                                    <img src={ getAppCustomization().theme === 'dark' ? logoBetProtocol_dark : logoBetProtocol_light } style={{height : 46}}/>
                                 </a>
                             </div>
                             <div className="col-md-2" styleName="col">
                                 <a href={'https://bitcoin.org'} target={'_blank'}>
-                                    <img src={logobitcoin} style={{height : 40}}/>
+                                    <img src={ getAppCustomization().theme === 'dark' ? logoBitCoin_dark : logoBitCoin_light } style={{height : 40}}/>
                                 </a>
                             </div>
                             <div className="col-md-2" styleName="col">
                                 <a href={'https://ethereum.org'} target={'_blank'}>
-                                    <img src={logoethereum} style={{height : 26}}/>
+                                    <img src={ getAppCustomization().theme === 'dark' ? logoEthereum_dark : logoEthereum_light } style={{height : 26}}/>
                                 </a>
                             </div>
                             <div className="col-md-2" styleName="col">
-                                <a href={'https://ethereum.org'} target={'_blank'}>
-                                    <img src={logoresponsible} style={{height : 30}}/>
+                                <a href={'https://www.begambleaware.org'} target={'_blank'}>
+                                    <img src={ getAppCustomization().theme === 'dark' ? logoResponsible_dark : logoResponsible_light } style={{height : 30}}/>
                                 </a>
                             </div>
                             <div className="col-md-2" styleName="col">
-                                <Typography weight="bold" variant="h4" color="fixedwhite"> 
+                                <Typography weight="bold" variant="h4" color="white"> 
                                     18+
                                 </Typography>
                             </div>
@@ -272,7 +283,7 @@ class Footer extends Component {
                             }
                             <div className="col-md-3" styleName="col">
                                 <a href={'https://betprotocol.com'} target={'_blank'}>
-                                    <img src={logoMadeByBepro} styleName='bepro-made-by-logo'/>
+                                    <img src={ getAppCustomization().theme === 'dark' ? logoMadeByBepro_dark : logoMadeByBepro_light } styleName='bepro-made-by-logo'/>
                                 </a>
                             </div>
                         </Row>

@@ -1,8 +1,10 @@
 import React, { Component } from "react";
 import RouletteWheel from "assets/roulette-wheel.png";
+import RouletteWheelLight from "assets/roulette-wheel-light.png";
 import Konva from "konva";
 import PropTypes from "prop-types";
 import Sound from "react-sound";
+import { getAppCustomization } from "../../lib/helpers";
 import rouletteSound from "assets/roulette-sound.mp3";
 import ballSound from "assets/ball-stop-sound.mp3";
 
@@ -180,12 +182,14 @@ export default class Roulette extends Component {
   };
 
   render() {
+    const isLight = getAppCustomization().theme === "light";
+
     return (
       <div>
         <div
           styleName="container"
           id="container"
-          style={{ backgroundImage: `url(${RouletteWheel})` }}
+          style={{ backgroundImage: `url(${isLight ? RouletteWheelLight : RouletteWheel})` }}
         />
         {this.renderSound()}
         {this.renderBallStopSound()}

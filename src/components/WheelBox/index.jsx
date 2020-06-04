@@ -1,12 +1,9 @@
 import React, { Component } from "react";
-import PropTypes from "prop-types";
-import {
-  Typography,
-} from "components";
+import { Typography } from "components";
 import { connect } from "react-redux";
-import "./index.css";
-import { CopyText } from "../../copy";
+import { getAppCustomization } from "../../lib/helpers";
 import { Numbers } from "../../lib/ethereum/lib";
+import "./index.css";
 
 class WheelBox extends Component {
     constructor(props){
@@ -18,6 +15,7 @@ class WheelBox extends Component {
 
     renderContainer = ({multiplier, index}) => {
         const { result, inResultAnimation, game } = this.props;
+        const isLight = getAppCustomization().theme === "light";
         if(!game.resultSpace){return}
         let multiplierResult = null;
         if(result){
@@ -25,9 +23,10 @@ class WheelBox extends Component {
         }
         const wasSet = (multiplier == multiplierResult) && !inResultAnimation;
         let styleName = `multiplier-${new String(index).toString().trim()}`;
+        styleName += isLight ? ` multiplier-${new String(index).toString().trim()}-light` : '';
 
         return (
-            <div styleName={`box ${styleName} ${wasSet ? 'no-transform' : ''}`}>
+            <div styleName={`box ${styleName} ${wasSet ? 'no-transform' : ''} ${isLight ? 'box-light' : ''}`}>
                 <div style={{zIndex : 5}}>
                     <Typography weight="small-body" color="white">
                         {Numbers.toFloat(multiplier)}x

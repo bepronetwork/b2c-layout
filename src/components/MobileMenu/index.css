@@ -2,7 +2,7 @@
 
 .title {
   height: 50px;
-  background-color: $primaryColor-dark-5;
+  background-color: $primaryColor-3;
   display: flex;
   align-items: center;
   padding-left: 15%;
@@ -29,11 +29,11 @@
     height: 40px;
     cursor: pointer;
     padding: $spacing-28;
-    background-color: $backgroundColor-light-2;
+    background-color: $backgroundColor-2;
   
     .user-icon {
       width: 50px;
-      background-color: $primaryColor-light-2;
+      background-color: $primaryColor-2;
       border-radius: 25px;
     }
 

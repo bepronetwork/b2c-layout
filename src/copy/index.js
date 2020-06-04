@@ -39,6 +39,8 @@ import depositFormIndexCopy from './depositFormIndex';
 import depositTabIndexCopy from './depositTabIndex';
 import diceGameCardIndexCopy from './diceGameCardIndex';
 import diceGameOptionsIndexCopy from './diceGameOptionsIndex';
+import kenoGameCardIndexCopy from './kenoGameCardIndex';
+import kenoGameOptionsIndexCopy from './kenoGameOptionsIndex';
 import dropDownFieldIndexCopy from './dropDownFieldIndex';
 import flipGameCardIndexCopy from './flipGameCardIndex';
 import flipGameOptionsIndexCopy from './flipGameOptionsIndex';
@@ -133,6 +135,7 @@ import widgetsIndexCopy from './widgetsIndex';
 import withdrawFormIndexCopy from './withdrawFormIndex';
 import withdrawTabIndexCopy from './withdrawTabIndex';
 import betspageCopy from './betspage';
+import betsdetailspageCopy from './betsdetailspage';
 import depositspageCopy from './depositspage';
 import withdrawspageCopy from './withdrawspage';
 import countryRestrictedPageCopy from './countryRestrictedPage';
@@ -175,6 +178,8 @@ const CopyText = {
     depositTabIndex: depositTabIndexCopy,
     diceGameCardIndex: diceGameCardIndexCopy,
     diceGameOptionsIndex: diceGameOptionsIndexCopy,
+    kenoGameCardIndex: kenoGameCardIndexCopy,
+    kenoGameOptionsIndex: kenoGameOptionsIndexCopy,
     dropDownFieldIndex: dropDownFieldIndexCopy,
     flipGameCardIndex: flipGameCardIndexCopy,
     flipGameOptionsIndex: flipGameOptionsIndexCopy,
@@ -266,6 +271,7 @@ const CopyText = {
     withdrawFormIndex: withdrawFormIndexCopy,
     withdrawTabIndex: withdrawTabIndexCopy,
     betspage: betspageCopy,
+    betsdetailspage: betsdetailspageCopy,
     depositspage: depositspageCopy,
     withdrawspage: withdrawspageCopy,
     countryRestrictedPage: countryRestrictedPageCopy

@@ -11,7 +11,7 @@
 }
 
 .box{
-    box-shadow: rgba(25, 25, 25, 0.75) 0px 0px 10px;
+    box-shadow: $shadowColor 0px 0px 10px;
     display: flex;
     -webkit-box-pack: center;
     justify-content: center;
@@ -22,7 +22,7 @@
     width: 130px;
     position: relative;
     cursor: help;
-    text-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px;
+    text-shadow: $shadowColor 0px 2px 4px;
     border-radius: 6px;
     background: rgb(53, 68, 82);
     padding: 1em 0.5em;
@@ -31,6 +31,10 @@
     @include Breakpoint-mobileOnly {
         width : 40px;
     }
+}
+
+.box-light{
+    background: $primaryColor-13;
 }
 
 
@@ -73,31 +77,53 @@
 .multiplier-6{}
 
 .multiplier-0::before{
-    background: $wheel-variation-1-color-1;
+    background: $wheel-variation-1-color-1; 
+}
+
+.multiplier-0-light::before{
+    background: $wheel-variation-1-color-1-light; 
 }
 
 .multiplier-1::before{
     background: $wheel-variation-1-color-2;
 }
 
+.multiplier-1-light::before{
+}
+
 .multiplier-2::before{
     background: $wheel-variation-1-color-3;
+}
+
+.multiplier-2-light::before{
 }
 
 .multiplier-3::before{
     background: $wheel-variation-1-color-4;
 }
 
+.multiplier-3-light::before{
+}
+
 .multiplier-4::before{
     background: $wheel-variation-1-color-5;
+}
+
+.multiplier-4-light::before{
 }
 
 .multiplier-5::before{
     background: $wheel-variation-1-color-6;
 }
 
+.multiplier-5-light::before{
+}
+
 .multiplier-6::before{
     background: $wheel-variation-1-color-7;
+}
+
+.multiplier-6-light::before{
 }
 
 

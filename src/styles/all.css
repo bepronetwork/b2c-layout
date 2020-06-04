@@ -30,7 +30,7 @@ body{
     overflow-x : hidden;
     background-color: $background-color-theme;
     overflow-y: auto !important;
-    padding-bottom: 30px;
+    padding-bottom: 0px;
 }
 
 a{
@@ -39,6 +39,10 @@ a{
 
 button{
     text-decoration: none !important;
+}
+
+button:focus {
+    outline: none;
 }
 
 @media only screen and (max-width: 600px) {
@@ -66,4 +70,6 @@ button{
     color : $white !important;
 }
 
-
+:global(.carousel-indicators li) {
+    background-color: $secondaryColor !important;
+}

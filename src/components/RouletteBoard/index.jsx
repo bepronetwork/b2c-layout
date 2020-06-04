@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import Sound from "react-sound";
 import coinSound from "assets/coin-board-sound.mp3";
 import TableCell from "./TableCell";
+import { getAppCustomization } from "../../lib/helpers";
 import { connect } from "react-redux";
 
 import "./index.css";
@@ -163,7 +164,7 @@ class RouletteBoard extends Component {
 
     const { result, betHistory, rotating, ln } = this.props;
     const copy = CopyText.shared[ln];
-
+    const darkColor = getAppCustomization().theme === "light" ? "pickled-bluewood-light" : "pickled-bluewood";
 
     return (
       <div styleName="root">
@@ -177,7 +178,7 @@ class RouletteBoard extends Component {
           onClick={this.handleClick}
           type="button"
         >
-          <TableCell label="19 to 36" id="range1936" betHistory={betHistory} />
+          <TableCell label="19 to 36" id="range1936" betHistory={betHistory} color="pickled-bluewood-dark"/>
         </button>
         <button
           styleName="parityOdd"
@@ -187,7 +188,7 @@ class RouletteBoard extends Component {
           onClick={this.handleClick}
           type="button"
         >
-          <TableCell label={copy.ODD_NAME} id="parityOdd" betHistory={betHistory} />
+          <TableCell label={copy.ODD_NAME} id="parityOdd" betHistory={betHistory} color="pickled-bluewood-dark"/>
         </button>
         <button
           styleName="colorBlack"
@@ -198,7 +199,7 @@ class RouletteBoard extends Component {
           type="button"
         >
           <TableCell
-            color="pickled-bluewood"
+            color={darkColor}
             id="colorBlack"
             betHistory={betHistory}
           />
@@ -221,7 +222,7 @@ class RouletteBoard extends Component {
           onClick={this.handleClick}
           type="button"
         >
-          <TableCell label={copy.EVEN_NAME}  id="parityEven" betHistory={betHistory} />
+          <TableCell label={copy.EVEN_NAME}  id="parityEven" betHistory={betHistory} color="pickled-bluewood-dark"/>
         </button>
         <button
           styleName="range0118"
@@ -231,7 +232,7 @@ class RouletteBoard extends Component {
           onClick={this.handleClick}
           type="button"
         >
-          <TableCell label="1 to 18" id="range0118" betHistory={betHistory} />
+          <TableCell label="1 to 18" id="range0118" betHistory={betHistory} color="pickled-bluewood-dark"/>
         </button>
         <button
           styleName="range2536"
@@ -241,7 +242,7 @@ class RouletteBoard extends Component {
           onClick={this.handleClick}
           type="button"
         >
-          <TableCell label="25 to 36" id="range2536" betHistory={betHistory} />
+          <TableCell label="25 to 36" id="range2536" betHistory={betHistory} color="pickled-bluewood-dark"/>
         </button>
         <button
           styleName="range1324"
@@ -251,7 +252,7 @@ class RouletteBoard extends Component {
           onClick={this.handleClick}
           type="button"
         >
-          <TableCell label="13 to 24" id="range1324" betHistory={betHistory} />
+          <TableCell label="13 to 24" id="range1324" betHistory={betHistory} color="pickled-bluewood-dark"/>
         </button>
         <button
           styleName="range0112"
@@ -261,7 +262,7 @@ class RouletteBoard extends Component {
           onClick={this.handleClick}
           type="button"
         >
-          <TableCell label="1 to 12" id="range0112" betHistory={betHistory} />
+          <TableCell label="1 to 12" id="range0112" betHistory={betHistory} color="pickled-bluewood-dark"/>
         </button>
         <button
           styleName="row3"
@@ -271,7 +272,7 @@ class RouletteBoard extends Component {
           onClick={this.handleClick}
           type="button"
         >
-          <TableCell label="2:1" id="row3" betHistory={betHistory} />
+          <TableCell label="2:1" id="row3" betHistory={betHistory} color="pickled-bluewood-dark"/>
         </button>
         <button
           styleName="row2"
@@ -281,7 +282,7 @@ class RouletteBoard extends Component {
           onClick={this.handleClick}
           type="button"
         >
-          <TableCell label="2:1" id="row2" betHistory={betHistory} />
+          <TableCell label="2:1" id="row2" betHistory={betHistory} color="pickled-bluewood-dark"/>
         </button>
         <button
           styleName="row1"
@@ -291,7 +292,7 @@ class RouletteBoard extends Component {
           onClick={this.handleClick}
           type="button"
         >
-          <TableCell label="2:1" id="row1" betHistory={betHistory} />
+          <TableCell label="2:1" id="row1" betHistory={betHistory} color="pickled-bluewood-dark"/>
         </button>
         <button
           styleName="number36"
@@ -328,7 +329,7 @@ class RouletteBoard extends Component {
               range2536Focused ||
               row2Focused
             }
-            color="pickled-bluewood"
+            color={darkColor}
             isResult={rotating === false && result === 35}
             betHistory={betHistory}
           />
@@ -361,7 +362,7 @@ class RouletteBoard extends Component {
         >
           <TableCell
             label="33"
-            color="pickled-bluewood"
+            color={darkColor}
             focused={
               blackFocused ||
               oddFocused ||
@@ -401,7 +402,7 @@ class RouletteBoard extends Component {
         >
           <TableCell
             label="31"
-            color="pickled-bluewood"
+            color={darkColor}
             focused={
               blackFocused ||
               oddFocused ||
@@ -441,7 +442,7 @@ class RouletteBoard extends Component {
         >
           <TableCell
             label="29"
-            color="pickled-bluewood"
+            color={darkColor}
             focused={
               blackFocused ||
               oddFocused ||
@@ -461,7 +462,7 @@ class RouletteBoard extends Component {
         >
           <TableCell
             label="28"
-            color="pickled-bluewood"
+            color={darkColor}
             focused={
               blackFocused ||
               evenFocused ||
@@ -501,7 +502,7 @@ class RouletteBoard extends Component {
         >
           <TableCell
             label="26"
-            color="pickled-bluewood"
+            color={darkColor}
             focused={
               blackFocused ||
               evenFocused ||
@@ -541,7 +542,7 @@ class RouletteBoard extends Component {
         >
           <TableCell
             label="24"
-            color="pickled-bluewood"
+            color={darkColor}
             focused={
               blackFocused ||
               evenFocused ||
@@ -581,7 +582,7 @@ class RouletteBoard extends Component {
         >
           <TableCell
             label="22"
-            color="pickled-bluewood"
+            color={darkColor}
             focused={
               blackFocused ||
               evenFocused ||
@@ -621,7 +622,7 @@ class RouletteBoard extends Component {
         >
           <TableCell
             label="20"
-            color="pickled-bluewood"
+            color={darkColor}
             focused={
               blackFocused ||
               evenFocused ||
@@ -681,7 +682,7 @@ class RouletteBoard extends Component {
         >
           <TableCell
             label="17"
-            color="pickled-bluewood"
+            color={darkColor}
             focused={
               blackFocused ||
               oddFocused ||
@@ -721,7 +722,7 @@ class RouletteBoard extends Component {
         >
           <TableCell
             label="15"
-            color="pickled-bluewood"
+            color={darkColor}
             focused={
               blackFocused ||
               oddFocused ||
@@ -761,7 +762,7 @@ class RouletteBoard extends Component {
         >
           <TableCell
             label="13"
-            color="pickled-bluewood"
+            color={darkColor}
             focused={
               blackFocused ||
               oddFocused ||
@@ -801,7 +802,7 @@ class RouletteBoard extends Component {
         >
           <TableCell
             label="11"
-            color="pickled-bluewood"
+            color={darkColor}
             focused={
               blackFocused ||
               oddFocused ||
@@ -821,7 +822,7 @@ class RouletteBoard extends Component {
         >
           <TableCell
             label="10"
-            color="pickled-bluewood"
+            color={darkColor}
             focused={
               blackFocused ||
               evenFocused ||
@@ -861,7 +862,7 @@ class RouletteBoard extends Component {
         >
           <TableCell
             label="8"
-            color="pickled-bluewood"
+            color={darkColor}
             focused={
               blackFocused ||
               evenFocused ||
@@ -901,7 +902,7 @@ class RouletteBoard extends Component {
         >
           <TableCell
             label="6"
-            color="pickled-bluewood"
+            color={darkColor}
             focused={
               blackFocused ||
               evenFocused ||
@@ -941,7 +942,7 @@ class RouletteBoard extends Component {
         >
           <TableCell
             label="4"
-            color="pickled-bluewood"
+            color={darkColor}
             focused={
               blackFocused ||
               evenFocused ||
@@ -981,7 +982,7 @@ class RouletteBoard extends Component {
         >
           <TableCell
             label="2"
-            color="pickled-bluewood"
+            color={darkColor}
             focused={
               blackFocused ||
               evenFocused ||

@@ -7,7 +7,22 @@ export async function setStartLoadingProcessDispatcher(step){
 }
 
 export async function setWonPopupMessageDispatcher(winAmount){
-    if (winAmount > 30) {
-        await store.dispatch(setMessagePopup(new String("You won " + winAmount + "!").toString()));
+    const state = store.getState();
+    const ticker = state.currency ? state.currency.ticker : null;
+    const amountToShow = (function(ticker) {
+        switch(ticker) {
+            case 'ETH':
+                return 1;
+            case 'BTC':
+                return 0.1;
+            case 'Gold':
+                return 1000;
+            default:
+                return 30;
+        }
+    });
+    
+    if (winAmount > amountToShow(ticker)) {
+        await store.dispatch(setMessagePopup(new String(`You won  ${winAmount} ${ticker}!`).toString()));
     }
 }

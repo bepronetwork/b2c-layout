@@ -55,8 +55,8 @@
 .message-top {
     margin-top: $navbar-height;
     top: 0;
-    height: calc($navbar-height - 10);
-    background-color:$primaryColor-dark-2;
+    height: calc($navbar-height - 10px);
+    background-color: $primaryColor-3;
     grid-template-columns: auto auto;
     display: grid;
     align-items: center;
@@ -74,7 +74,6 @@
 .message-container{
     padding : $spacing-12 $spacing-12 0 0;
     border-radius : $border-radius-messsage-box;
-    background-color:$backgroundColor;
     width: 100%;
 
     @include Breakpoint-mobileOnly {
@@ -93,7 +92,7 @@
 
 .message-container > form > div > div {
     background-color: $primaryColor;
-    border: 2px solid $primaryColor-dark-3;
+    border: 2px solid $backgroundColor-5;
     border-radius: $border-radius 0 0 $border-radius ;
     height: 40px;
 
@@ -218,7 +217,7 @@
 
 .avatar {
   float: left;
-  background-color: $primaryColor-dark-8;
+  background-color: $primaryColor-8;
   border-radius: $border-radius;
   width: $spacing-20;
   height: $spacing-20;
@@ -233,7 +232,7 @@
   right: 40px;
   z-index: 12;
   border-radius: $border-radius;
-  background-color: $primaryColor-light-5;
+  background-color: $primaryColor-5;
   opacity: 0.7;
 
 

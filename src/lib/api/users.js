@@ -237,6 +237,7 @@ export async function logout() {
     localStorage.removeItem("plinko_variation_1History");
     localStorage.removeItem("wheelHistory");
     localStorage.removeItem("wheel_variation_1History");
+    localStorage.removeItem("kenoHistory");
     localStorage.removeItem("customization");
     localStorage.removeItem("affiliate");
     localStorage.removeItem("appInfo");

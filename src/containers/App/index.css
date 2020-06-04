@@ -3,6 +3,8 @@
 
 .main{
     width: 100%;
+    padding-bottom: 30px;
+    height: 100%;
 }
 
 .center{
@@ -30,7 +32,10 @@
 .chat-container{
     height: 100%;
     z-index: 10;
-    background-color: $backgroundColor;
+
+    @media screen and (max-width: 767px) {
+      background-color: $backgroundColor;
+    }
 }
 
 .chat-container-main{
@@ -79,7 +84,7 @@
   width: 50px;
   border-radius: 40px;
   text-align: center;
-  box-shadow: rgba(0, 0, 0, 0.5) 0px 0px 10px;
+  box-shadow: $shadowColor 0px 0px 10px;
 
 
   @media screen and (max-width: 1267px) and (min-width: 1024px) {

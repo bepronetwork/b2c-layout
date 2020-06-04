@@ -7,8 +7,6 @@ import { isEmpty } from "lodash";
 import Roulette from "components/Roulette";
 import { connect } from "react-redux";
 import { find } from "lodash";
-
-import "./index.css";
 import { CopyText } from "../../copy";
 import { getPopularNumbers } from "../../lib/api/app";
 import AnimationNumber from "../AnimationNumber";
@@ -16,11 +14,14 @@ import cells from "../RouletteBoard/cells";
 import Cache from "../../lib/cache/cache";
 import { Numbers } from "../../lib/ethereum/lib";
 import { formatPercentage } from "../../utils/numberFormatation";
+import { getAppCustomization } from "../../lib/helpers";
+import redColors from "./redColors";
+
+import "./index.css";
 
 const mobileBreakpoint = 768;
 
 class RouletteGameCard extends Component {
-    redColors = [1, 3, 5, 7, 9, 12, 14, 16, 18, 19, 21, 23, 25, 27, 30, 32, 34, 36];
 
     static propTypes = {
         result: PropTypes.number,
@@ -49,7 +50,7 @@ class RouletteGameCard extends Component {
     }
 
     componentWillReceiveProps(props){
-        this.projectData(props);
+        //this.projectData(props);
     }
 
     
@@ -84,9 +85,9 @@ class RouletteGameCard extends Component {
 
         const resultStyles = classNames("result", {
         green: result === 0 && !rotating,
-        red: this.redColors.includes(result) && !rotating,
+        red: redColors.includes(result) && !rotating,
         picked:
-            result && result !== 0 && !this.redColors.includes(result) && !rotating
+            result && result !== 0 && !redColors.includes(result) && !rotating
         });
         
         return (
@@ -147,6 +148,7 @@ class RouletteGameCard extends Component {
         const totalAmount = popularNumbers.reduce( (acc, item) => {
             return acc+item.resultAmount;
         }, 0)
+        const isLight = getAppCustomization().theme === "light";
         return(
             <div styleName='outer-popular-numbers'>
                 <div styleName='inner-popular-numbers'>
@@ -156,7 +158,7 @@ class RouletteGameCard extends Component {
                             let color = cells[item.key].metadata.color;
                             return(
                                 <div styleName='popular-number-row'>
-                                    <div styleName={`popular-number-container ${color}-square`}>
+                                    <div styleName={`popular-number-container ${color}-square ${isLight ? `${color}-square_light`: ''}`}>
                                         <Typography variant={'small-body'} color={'white'}>
                                             {item.key}    
                                         </Typography>       

@@ -79,7 +79,7 @@
     border : none;
     padding: $spacing-12 24px;
     border-radius :  $border-radius;
-    background-color: $light-background;
+    background-color: $secondaryColor;
     width : 100%;
     text-align : center;
     margin-top: $spacing-28;
@@ -94,10 +94,15 @@
     display: inline-flex;
     width: 100%;
     align-items: center;
+
+    @include Breakpoint-mobileOnly {
+        float: left;
+        width: 65%;
+    }
 }
 
 .min-max {
-    background-color: $primaryColor-dark-2;
+    background-color: $primaryColor-8;
     margin: auto;
     margin-left: $spacing-8;
     padding: $spacing-8;
@@ -111,7 +116,7 @@
 
 
 .disclaimer {
-    background-color: $primaryColor-light-5;
+    background-color: $primaryColor-5;
     padding: $spacing-20 $spacing-20 $spacing-16 $spacing-36;
     margin-top: $spacing-16;
     border-radius: $border-radius;
@@ -129,6 +134,8 @@
 
 .title {
     padding-bottom: $spacing-12;
+    margin-bottom: $spacing-12;
+    border-bottom: 1px solid $primaryColor-13;
 }
 
 .main{

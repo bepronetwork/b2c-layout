@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import Sound from "react-sound";
+import { getAppCustomization } from "../../lib/helpers";
 import rouletteSound from "assets/roulette-sound.mp3";
 import ballSound from "assets/coin-board-sound.mp3";
 import pointer from "assets/wheel-pointer.png";
@@ -278,6 +279,7 @@ export default class Wheel extends Component {
     renderResult = () => {
         const { result, rotating, game, inResultAnimation, options} = this.props;
         const { metaName } = this.state;
+        const isLight = getAppCustomization().theme === "light";
         const containerStyles = classNames("result-container",
             {
                 resultContainerSimple: metaName === 'wheel_simple' || metaName === 'wheel_variation_1'
@@ -288,6 +290,7 @@ export default class Wheel extends Component {
         let multiplier = game.resultSpace[result].multiplier;
         let colorMultiplier = options.find(opt => opt.multiplier == multiplier).index;
         let styleName = `multiplier-${new String(colorMultiplier).toString().trim()}`;
+        styleName += isLight ? ` multiplier-${new String(colorMultiplier).toString().trim()}-light` : '';
 
         return (
             <div styleName={containerStyles}>
@@ -297,10 +300,14 @@ export default class Wheel extends Component {
     };
 
     render() {
+        const styles = classNames("outer-circle",{
+            "outer-circle-light": getAppCustomization().theme === "light"
+        });
+
         return (
             <div  styleName="root" >
                 <div>
-                    <div styleName={'outer-circle'}>
+                    <div styleName={styles}>
                         <img src={pointer} styleName={'wheel-pointer'}/>
                         <div styleName={'circle'}>
                             {this.renderResult()}

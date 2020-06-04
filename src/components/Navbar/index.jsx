@@ -10,6 +10,7 @@ import _ from 'lodash';
 import "./index.css";
 
 import nineDots from "assets/icons/nine.png";
+import nineDotsLight from "assets/icons/nine-light.png";
 
 
 function AddressConcat(string){
@@ -88,8 +89,8 @@ class Navbar extends Component {
                     {copy.INDEX.SUBTLE_BUTTON.TEXT[0]}
                     </SubtleButton>
                 </div>
-                <Button size="x-small" onClick={this.handleClick} name="register">
-                    <Typography color="white" variant="x-small-body">{copy.INDEX.TYPOGRAPHY.TEXT[0]}</Typography>
+                <Button size="x-small" onClick={this.handleClick} name="register" theme="primary">
+                    <Typography color="fixedwhite" variant="x-small-body">{copy.INDEX.TYPOGRAPHY.TEXT[0]}</Typography>
                 </Button>
             </div>
         )
@@ -172,7 +173,7 @@ class Navbar extends Component {
         return(
             <button styleName="settings" onClick={() => onSettingsMenu()} type="button">
                 <div styleName="settings-icon">
-                    <img src={nineDots} />
+                    <img src={getAppCustomization().theme === "light" ? nineDotsLight : nineDots} />
                 </div>
             </button>
         )

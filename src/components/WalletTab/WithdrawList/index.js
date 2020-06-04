@@ -27,9 +27,7 @@ class WithdrawList extends Component {
     }
 
     componentWillReceiveProps(props){
-        if(props !== this.props) {
-            this.projectData(props);
-        }
+        this.projectData(props);
     }
 
     projectData = async (props) => {

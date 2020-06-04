@@ -51,6 +51,10 @@
     }
 }
 
+.outer-circle-light {
+    border: 20px solid $primaryColor-13;
+}
+
 .circle {
     width: 44%;
     height: 44%;
@@ -173,26 +177,48 @@
     color: $wheel-variation-1-color-1;
 }
 
+.multiplier-0-light{
+    color: $wheel-variation-1-color-1-light;
+}
+
 .multiplier-1{
     color: $wheel-variation-1-color-2;
+}
+
+.multiplier-1-light{
 }
 
 .multiplier-2{
     color: $wheel-variation-1-color-3;
 }
 
+.multiplier-2-light{
+}
+
 .multiplier-3{
     color: $wheel-variation-1-color-4;
+}
+
+.multiplier-3-light{
 }
 
 .multiplier-4{
     color: $wheel-variation-1-color-5;
 }
 
+.multiplier-4-light{
+}
+
 .multiplier-5{
     color: $wheel-variation-1-color-6;
 }
 
+.multiplier-5-light{
+}
+
 .multiplier-6{
     color: $wheel-variation-1-color-7;
+}
+
+.multiplier-6-light{
 }

@@ -1,0 +1,150 @@
+@import "../../styles/all.css";
+
+.board {
+  position: relative;
+  display: grid;
+  width: 100%;
+  grid-template-columns: repeat(8, auto);
+  gap: 1em 1em;
+
+  @include Breakpoint-mobileOnly {
+    gap: 0.7em 0.7em;
+  }
+}
+
+.board-details {
+  grid-template-columns: repeat(10, auto);
+  gap: 0.7em 0.7em;
+  width: 80%;
+
+  @include Breakpoint-mobileOnly {
+    width: 100%;
+  }
+}
+
+.card {
+  position: relative;
+  text-shadow: $shadowColor 0px 3px 2px;
+  border-radius: $border-radius;
+  background: $primaryColor-13;
+}
+
+.card::after  {
+  content: "";
+  display: block;
+  padding-bottom: 100%;
+}
+
+.card-selected {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100%;
+  transform: translate(-50%, -50%);
+  box-shadow: $secondaryColor-2  0px 0.3em;
+  border-radius: $border-radius;
+  border: 2px solid $secondaryColor-13;
+
+  @include Breakpoint-mobileOnly {
+    box-shadow: $secondaryColor-2  0px 0.2em;
+  }
+}
+
+.card-star {
+  width: 100%;
+  height: auto;
+  overflow: hidden;
+  margin: 0px auto;
+  outline: none;
+
+  svg {
+    width: 100%;
+  }
+}
+
+.card-number {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  text-shadow: rgb(255, 255, 255) 0px 1px 1px;
+
+  p {
+    color: rgb(0, 138, 1);
+    text-shadow: rgb(255, 255, 255) 0px 1px 1px;
+
+    @include Breakpoint-mobileOnly {
+      font-size: 13px;
+    }
+  }
+}
+
+.cover {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  bottom: 0px;
+  right: 0px;
+  box-shadow: $primaryColor-8  0px 0.3em;
+  border-radius: $border-radius;
+  background: $primaryColor-13;
+
+  @include Breakpoint-mobileOnly {
+    box-shadow: $primaryColor-8  0px 0.2em;
+  }
+}
+
+.cover:hover {
+  background-color: $primaryColor-8;
+  box-shadow: $primaryColor-5  0px 0.4em;
+  transform: translateY(-0.1em);
+}
+
+.cover-picked {
+  box-shadow: $secondaryColor-8  0px 0.3em;
+  background: $secondaryColor-13;
+  text-shadow: #000 0px 3px 2px;
+
+  @include Breakpoint-mobileOnly {
+    box-shadow: $secondaryColor-8  0px 0.2em;
+  }
+}
+
+.cover-picked:hover {
+  background-color: $secondaryColor-8;
+  box-shadow: $secondaryColor-5  0px 0.4em;
+}
+
+.cover-selected {
+  background: $primaryColor-3;
+  text-shadow: #adadad 0px 1px 1px;
+  box-shadow: $primaryColor-5 0px 0.3em inset;
+
+  @include Breakpoint-mobileOnly {
+    box-shadow: $primaryColor-5 0px 0.2em inset;
+  }
+
+  .number p {
+    color: #ff003f;
+  }
+}
+
+.cover-selectedd:hover {
+  background-color: $primaryColor-2;
+  box-shadow: $secondaryColor-5  0px 0.4em;
+}
+
+.number {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+
+  p {
+    @include Breakpoint-mobileOnly {
+      font-size: 13px;
+    }
+  }
+}

@@ -74,12 +74,13 @@ class TableDefault extends Component {
         if(!isCurrency) return null;
 
         const currencies = getApp().currencies;
-        const currenncy = (currencies.find(currency => currency._id == currencyId));
+        const currency = (currencies.find(currency => currency._id == currencyId));
+        const appWallet = getApp().wallet.find(w => w.currency._id === currencyId);
 
-        if(!currenncy) return null;
+        if(!currency) return null;
 
         return (
-            <img src={currenncy.image} width={16} height={16}/>
+            <img src={appWallet.image != null ? appWallet.image : currency.image} width={16} height={16}/>
         )
     }
 

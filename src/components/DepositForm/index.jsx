@@ -24,7 +24,12 @@ class DepositForm extends Component {
             price : null,
             virtualTicker : null,
             fee: 0,
-            isTxFee: false
+            isTxFee: false,
+            isDepositBonus: false,
+            depositBonus: 0,
+            maxBonusDeposit: 0,
+            minBonusDeposit: 0
+
         }
     }
 
@@ -58,6 +63,7 @@ class DepositForm extends Component {
     projectData = async (props) => {
         const { wallet } = props;
         const isTxFee = (getAddOn().txFee) ? getAddOn().txFee.isTxFee : false;
+        const isDepositBonus = (getAddOn().depositBonus) ? getAddOn().depositBonus.isDepositBonus : false;
 
         if(wallet && !wallet.address) {
             this.getCurrencyAddress(wallet);
@@ -85,7 +91,11 @@ class DepositForm extends Component {
             copied: false, 
             address : wallet.address,
             isTxFee,
-            fee: isTxFee === true ? getAddOn().txFee.deposit_fee.find(f => f.currency === wallet.currency._id).amount : null
+            fee: isTxFee === true ? getAddOn().txFee.deposit_fee.find(f => f.currency === wallet.currency._id).amount : null,
+            isDepositBonus,
+            depositBonus: isDepositBonus === true ? getAddOn().depositBonus.percentage.find(d => d.currency === wallet.currency._id).amount : null,
+            maxBonusDeposit: isDepositBonus === true ? getAddOn().depositBonus.max_deposit.find(d => d.currency === wallet.currency._id).amount : null,
+            minBonusDeposit: isDepositBonus === true ? getAddOn().depositBonus.min_deposit.find(d => d.currency === wallet.currency._id).amount : null
          });
     }
 
@@ -103,7 +113,7 @@ class DepositForm extends Component {
 
     render() {
         const { wallet } = this.props;
-        const { addressInitialized, address, isLoaded, copied, price, virtualTicker, isTxFee, fee } = this.state;
+        const { addressInitialized, address, isLoaded, copied, price, virtualTicker, isTxFee, fee, isDepositBonus, depositBonus, maxBonusDeposit, minBonusDeposit } = this.state;
         const {ln} = this.props;
         const copy = CopyText.depositFormIndex[ln];
         const addressStyles = classNames("address", {"ad-copied": copied});
@@ -139,17 +149,6 @@ class DepositForm extends Component {
                             <div styleName="qrcode">
                                 <QRCode value={address} />
                             </div>
-                            {
-                            isTxFee === true && fee > 0
-                            ?
-                                <div styleName="fee">
-                                    <Typography variant={'x-small-body'} weight={"bold"} color={'grey'}>
-                                        * Fee: {fee} {wallet.currency.ticker}
-                                    </Typography>
-                                </div>
-                            :
-                                null
-                            }
                             {copied ? (
                                 <div styleName="copied">
                                     <Typography variant="small-body" color={'white'}>
@@ -165,11 +164,48 @@ class DepositForm extends Component {
                                 </div>
                                 <div>
                                     <button onClick={this.copyToClipboard} styleName='text-copy-container'>
-                                        <Typography variant={'small-body'} color={'white'}>
+                                        <Typography variant={'small-body'} color={'fixedwhite'}>
                                             {copy.INDEX.TYPOGRAPHY.TEXT[1]}
                                         </Typography>
                                     </button>
                                 </div>
+                            </div>
+                            <div styleName="notice">
+                                <div styleName="title">
+                                    <Typography variant={'x-small-body'} color={'grey'} weight={'bold'}>
+                                        {copy.NOTICE}
+                                    </Typography>
+                                </div>
+                                {
+                                    isTxFee === true || isDepositBonus === true 
+                                    ?
+                                        <ul>
+                                            {
+                                            isDepositBonus === true && depositBonus > 0
+                                            ?
+                                                <li>
+                                                    <Typography variant={'x-small-body'} color={'grey'}>
+                                                        Bonus {depositBonus}% (minimun amount {minBonusDeposit} {wallet.currency.ticker} and maximun amount {maxBonusDeposit} {wallet.currency.ticker} to qualify Bonus)
+                                                    </Typography>
+                                                </li>
+                                            :
+                                                null
+                                            }
+                                            {
+                                            isTxFee === true && fee > 0
+                                            ?
+                                                <li>
+                                                    <Typography variant={'x-small-body'} color={'grey'}>
+                                                        Fee {fee} {wallet.currency.ticker}
+                                                    </Typography>
+                                                </li>
+                                            :
+                                                null
+                                            }
+                                        </ul>
+                                    :
+                                        null
+                                }
                             </div>
                         </div>
                     </div>

@@ -6,16 +6,17 @@ import { isEmpty } from "lodash";
 import { connect } from "react-redux";
 import { find } from "lodash";
 import _ from "lodash";
-
-import "./index.css";
+import { getAppCustomization } from "../../lib/helpers";
 import { CopyText } from "../../copy";
 import { getPopularNumbers } from "../../lib/api/app";
 import AnimationNumber from "../AnimationNumber";
-import cells from "../RouletteBoard/cells";
 import Wheel from "../Wheel";
 import WheelBox from "../WheelBox";
 import { Numbers } from "../../lib/ethereum/lib";
 import { formatPercentage } from "../../utils/numberFormatation";
+
+import "./index.css";
+
 const mobileBreakpoint = 768;
 
 class WheelGameCard extends Component {
@@ -48,7 +49,7 @@ class WheelGameCard extends Component {
     }
 
     componentWillReceiveProps(props){
-        this.projectData(props);
+        //this.projectData(props);
     }
 
 
@@ -136,6 +137,8 @@ class WheelGameCard extends Component {
 
     renderPopularNumbers = ({popularNumbers}) => {
         const { options } = this.props;
+        const isLight = getAppCustomization().theme === "light";
+        
         if(!popularNumbers){return null}
 
         const totalAmount = popularNumbers.reduce( (acc, item) => {
@@ -162,8 +165,8 @@ class WheelGameCard extends Component {
                         {
                             return(
                                 <div styleName='popular-number-row'>
-                                    <div styleName={`popular-number-container multiplier-${new String(parseInt(item.index))}`}>
-                                        <Typography variant={'small-body'} color={'white'}>
+                                    <div styleName={`popular-number-container multiplier-${new String(parseInt(item.index))} ${isLight ? ` multiplier-${new String(parseInt(item.index))}-light` : ''}`}>
+                                        <Typography variant={'small-body'} color={'fixedwhite'}>
                                             {item.multiplier}
                                         </Typography>       
                                     </div>

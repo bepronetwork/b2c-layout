@@ -209,7 +209,7 @@ class PlinkoGameOptions extends Component {
     renderAuto = () => {
         const { bets, profitStop, lossStop, onWin, onLoss } = this.state;
         const {ln} = this.props;
-const copy = CopyText.plinkoGameOptionsIndex[ln];
+        const copy = CopyText.plinkoGameOptionsIndex[ln];
         return (
             <div>
             <div styleName="element">
@@ -289,7 +289,7 @@ const copy = CopyText.plinkoGameOptionsIndex[ln];
         const { type, amount, isAutoBetting } = this.state;
         const user = this.props.profile;
         const {ln} = this.props;
-const copy = CopyText.plinkoGameOptionsIndex[ln];
+            const copy = CopyText.plinkoGameOptionsIndex[ln];
 
         return (
         <div styleName="root">
