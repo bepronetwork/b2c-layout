@@ -172,7 +172,7 @@ class LastBets extends Component {
     }
     
     projectData = async (props, options=null) => {
-        let { profile, ln } = props;
+        let { profile, ln, onTableDetails } = props;
         let { view_amount, view_game } = this.state;
 
         let games = getGames();
@@ -274,7 +274,8 @@ class LastBets extends Component {
                         payout : `${formatCurrency(Numbers.toFloat(bet.bet.winAmount/bet.bet.betAmount))}x`,
                         currency: bet.currency._id
                     }
-                })
+                }),
+                onTableDetails : onTableDetails ? onTableDetails : null
             },
             my_bets : {
                 ...this.state.my_bets,
@@ -290,7 +291,8 @@ class LastBets extends Component {
                         payout : `${formatCurrency(Numbers.toFloat(bet.winAmount/bet.betAmount))}x`,
                         currency: bet.currency
                     }
-                })
+                }),
+                onTableDetails : onTableDetails ? onTableDetails : null
             },
             biggest_win_bets  : {
                 ...this.state.biggest_win_bets,
@@ -373,7 +375,7 @@ class LastBets extends Component {
                     size={this.state.view_amount.value}
                     games={games.filter(function(g) { return view_game.value == 'all_games' || g.metaName == view_game.value; }).map(function(g) { return g; })}
                     isLoading={isListLoading}
-                    onTableDetails={onTableDetails ? onTableDetails : null}
+                    onTableDetails={this.state[this.state.view].onTableDetails}
                 /> 
             </div>
         );

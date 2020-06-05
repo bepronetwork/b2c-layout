@@ -426,6 +426,7 @@ class App extends Component {
                         { value: "login", label: copy.CONTAINERS.APP.MODAL[1] }
                     ]}
                     onSelect={this.handleTabChange}
+                    style="full-background"
                     />
                 </div>
 
@@ -703,8 +704,8 @@ class App extends Component {
                             <div styleName='top-bars'>
                                 <AnnouncementTab topBar={topBar}/>
                             </div>
-                            <div styleName='main' style={{background : background ? 'url('+background.id+') center center / cover no-repeat' : null }}>
-                                <div styleName={centerStyles}>
+                            <div styleName='main'>
+                                <div styleName={centerStyles} style={{background : background ? 'url('+background.id+') center center / cover no-repeat' : null }}>
                                     <div styleName='platform-container'>
                                         <Switch history={history}>
                                             <Route

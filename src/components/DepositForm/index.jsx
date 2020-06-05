@@ -185,7 +185,7 @@ class DepositForm extends Component {
                                             ?
                                                 <li>
                                                     <Typography variant={'x-small-body'} color={'grey'}>
-                                                        Bonus {depositBonus}% (minimun amount {minBonusDeposit} {wallet.currency.ticker} and maximun amount {maxBonusDeposit} {wallet.currency.ticker} to qualify Bonus)
+                                                        Bonus {depositBonus}% (minimun amount {minBonusDeposit} {wallet.currency.ticker} and maximun amount {maxBonusDeposit} {wallet.currency.ticker} to qualify)
                                                     </Typography>
                                                 </li>
                                             :

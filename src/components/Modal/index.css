@@ -38,8 +38,6 @@ $icon-index: calc($root-index + 1);
   right: $spacing-4;
   z-index: $icon-index;
 
-  width: $spacing-20;
-  height: $spacing-20;
   padding-bottom: 1px;
 
   background-color: $primaryColor-5;
@@ -47,15 +45,13 @@ $icon-index: calc($root-index + 1);
   cursor: pointer;
   outline: none;
 
-  @include Breakpoint-mobileOnly {
-    width: $spacing-28;
-    height: $spacing-28;
-    border-radius: $spacing-16;
+  width: $spacing-28;
+  height: $spacing-28;
+  border-radius: $spacing-16;
 
-    svg {
-      height: $spacing-16;
-      width: $spacing-16;
-    }
+  svg {
+    height: $spacing-12;
+    width: $spacing-12;
   }
 }
 
