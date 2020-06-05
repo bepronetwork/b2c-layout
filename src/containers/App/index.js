@@ -426,6 +426,7 @@ class App extends Component {
                         { value: "login", label: copy.CONTAINERS.APP.MODAL[1] }
                     ]}
                     onSelect={this.handleTabChange}
+                    style="full-background"
                     />
                 </div>
 
