@@ -1,12 +1,13 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { Button, Typography, InputText } from "components";
-import "./index.css";
 import { connect } from "react-redux";
 import { compose } from 'lodash/fp';
 import Cache from "../../lib/cache/cache";
 import { CopyText } from '../../copy';
 import loading from 'assets/loading-circle.gif';
+
+import "./index.css";
 
 class RegisterForm extends Component {
     static propTypes = {
@@ -21,7 +22,6 @@ class RegisterForm extends Component {
     state = {
         username: "",
         password: "",
-        confirmPassword: "",
         email: "",
         emailValid: false,
         isLoading: false
@@ -48,13 +48,11 @@ class RegisterForm extends Component {
     };
 
     formIsValid = () => {
-        const { password, confirmPassword, username, emailValid } = this.state;
+        const { password, username, emailValid } = this.state;
         return (
         username !== "" &&
         emailValid &&
-        (password !== "" &&
-            confirmPassword !== "" &&
-            password === confirmPassword)
+        password !== ""
         );
     };
 
@@ -83,7 +81,7 @@ class RegisterForm extends Component {
 
     render() {
         const { error } = this.props;
-        const { username, password, confirmPassword, email, isLoading } = this.state;
+        const { username, password, email, isLoading } = this.state;
         const {ln} = this.props;
         const copy = CopyText.registerFormIndex[ln];
 
@@ -92,7 +90,7 @@ class RegisterForm extends Component {
             <div styleName="username">
             <InputText
                 name="username"
-                label={copy.INDEX.INPUT_TEXT.LABEL[0]}
+                placeholder={copy.INDEX.INPUT_TEXT.LABEL[0]}
                 onChange={this.onChange}
                 value={username}
             />
@@ -101,23 +99,14 @@ class RegisterForm extends Component {
             <InputText
                 name="password"
                 type="password"
-                label={copy.INDEX.INPUT_TEXT.LABEL[1]}
+                placeholder={copy.INDEX.INPUT_TEXT.LABEL[1]}
                 onChange={this.onChange}
                 value={password}
             />
             </div>
-            <div styleName="password">
-            <InputText
-                name="confirmPassword"
-                label= {copy.INDEX.INPUT_TEXT.LABEL[2]}
-                type="password"
-                onChange={this.onChange}
-                value={confirmPassword}
-            />
-            </div>
             <InputText
             name="email"
-            label={copy.INDEX.INPUT_TEXT.LABEL[3]}
+            placeholder={copy.INDEX.INPUT_TEXT.LABEL[3]}
             onChange={this.onEmailChange}
             value={email}
             />

@@ -29,11 +29,6 @@
   margin: $spacing-8;
 }
 
-.tkn_logo_login{
-    width : 283px;
-    margin-top : 30%;
-}
-
 .disabled {
   opacity : 0.5;
 }

@@ -1,6 +1,7 @@
 import map from "lodash/map";
 import React, { Component } from "react";
 import PropTypes from "prop-types";
+import classNames from 'classnames';
 import _ from 'lodash';
 import Tab from "./Tab";
 
@@ -24,12 +25,15 @@ export default class Tabs extends Component {
         const filteredOptions = options.filter(o => !o.disabled);
 
         if (!filteredOptions) {
-        return null;
+            return null;
         }
 
+        const styles = classNames("tabs", 
+            {"tabs-limit": filteredOptions.length > 3
+        });
         const selectedTab = selected || filteredOptions[0].value;
         return (
-            <div styleName="tabs">
+            <div styleName={styles}>
              {   filteredOptions.map(option => (
 
                     <Tab

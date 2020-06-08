@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { Button, Typography, InputText } from "components";
 import "./index.css";
-import { getAppCustomization } from "../../lib/helpers";
 import { CopyText } from '../../copy';
 import { connect } from "react-redux";
 import loading from 'assets/loading-circle.gif';
@@ -82,7 +81,7 @@ class LoginForm extends Component {
                 <div styleName="username">
                     <InputText
                         name="username"
-                        label= {copy.INDEX.INPUT_TEXT.LABEL[0]}
+                        placeholder= {copy.INDEX.INPUT_TEXT.LABEL[0]}
                         onChange={this.onUsernameChange}
                         value={username}
                         disabled={has2FA}
@@ -90,7 +89,7 @@ class LoginForm extends Component {
                 </div>
                 <InputText
                     name="password"
-                    label= {copy.INDEX.INPUT_TEXT.LABEL[1]}
+                    placeholder= {copy.INDEX.INPUT_TEXT.LABEL[1]}
                     type="password"
                     onChange={this.onPasswordChange}
                     value={password}
@@ -113,11 +112,10 @@ class LoginForm extends Component {
                 <div styleName="token2FA">
                     <InputText
                         name="token2fa"
-                        label={copy.INDEX.INPUT_TEXT.LABEL[2]}
                         onChange={this.on2FATokenChange}
                         value={token}
                         maxlength="6"
-                        placeholder={copy.INDEX.INPUT_TEXT.PLACEHOLDER[0]}
+                        placeholder={`${copy.INDEX.INPUT_TEXT.LABEL[2]} - ${copy.INDEX.INPUT_TEXT.PLACEHOLDER[0]}`}
                     />
                 </div>
                 <div styleName="token2FA-info">
@@ -152,14 +150,12 @@ class LoginForm extends Component {
     render() {
         const { error, has2FA } = this.props;
         const { isLoading } = this.state;
-        const { logo } = getAppCustomization();
         const {ln} = this.props;
         const copy = CopyText.loginFormIndex[ln];
 
         return (
             <form onSubmit={this.handleSubmit}>
-                <img src={logo.id} styleName="tkn_logo_login"/>
-                
+
                 {this.renderStageOne()}
                 
                 {has2FA ? this.renderStageTwo() : null}
