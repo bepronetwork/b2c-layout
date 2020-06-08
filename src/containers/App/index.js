@@ -410,25 +410,27 @@ class App extends Component {
 
         const {ln} = this.props;
         const copy = CopyText.homepage[ln];
+        const { logo } = getAppCustomization();
 
         const { registerLoginModalOpen, error, has2FA} = this.state;
         return registerLoginModalOpen ? (
             <Modal onClose={this.handleRegisterLoginModalClose}>
                 <div styleName="modal">
-                <div styleName="tabs">
-                    <Tabs
-                    selected={registerLoginModalOpen}
-                    options={[
-                        {
-                        value: "register",
-                        label: copy.CONTAINERS.APP.MODAL[0]
-                        },
-                        { value: "login", label: copy.CONTAINERS.APP.MODAL[1] }
-                    ]}
-                    onSelect={this.handleTabChange}
-                    style="full-background"
-                    />
-                </div>
+                    <img src={logo.id} styleName="tkn_logo_login"/>
+                    <div styleName="tabs">
+                        <Tabs
+                        selected={registerLoginModalOpen}
+                        options={[
+                            {
+                            value: "register",
+                            label: copy.CONTAINERS.APP.MODAL[0]
+                            },
+                            { value: "login", label: copy.CONTAINERS.APP.MODAL[1] }
+                        ]}
+                        onSelect={this.handleTabChange}
+                        style="full-background"
+                        />
+                    </div>
 
                 {registerLoginModalOpen === "login" ? (
                     <LoginForm onSubmit={has2FA ? this.handleLogin2FA : this.handleLogin} error={error} has2FA={has2FA} onClose={this.handleRegisterLoginModalClose} onHandleResetPassword={this.handleResetPasswordOpen}/>

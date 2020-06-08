@@ -82,6 +82,8 @@ function ServerTOJSONMapper(serverJSON){
                     fontColors.push(lightColor)
                     const shadowColor = { object : 'variable', key : 'shadowColor', value : '#CCCCCC'}
                     fontColors.push(shadowColor)
+                    const placeHolderColor = { object : 'variable', key : 'placeHolderColor', value : '#a3a3a3'}
+                    fontColors.push(placeHolderColor)
                 }
                 else if (theme === 'dark') {
                     const darkColor = { object : 'variable', key : 'white', value : '#FFFFFF'}
@@ -90,6 +92,8 @@ function ServerTOJSONMapper(serverJSON){
                     fontColors.push(lightColor)
                     const shadowColor = { object : 'variable', key : 'shadowColor', value : '#0000006b'}
                     fontColors.push(shadowColor)
+                    const placeHolderColor = { object : 'variable', key : 'placeHolderColor', value : '#696969'}
+                    fontColors.push(placeHolderColor)
                 }
 
                 return fontColors;

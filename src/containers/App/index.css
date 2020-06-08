@@ -225,7 +225,7 @@
   padding: $spacing-52 $spacing-20;
 
   .tabs {
-    width: 100%;
+    width: 340px;
   }
 }
 
@@ -278,4 +278,10 @@
   70% {
     opacity: 0;
   }
+}
+
+.tkn_logo_login{
+    width : 283px;
+    margin-top : 2%;
+    margin-bottom : 7%;
 }

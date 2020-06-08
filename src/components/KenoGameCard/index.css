@@ -249,10 +249,12 @@ $with-without-padding: calc(100% - $spacing-20 - $spacing-20);
   animation-timing-function: cubic-bezier(0.87, -0.41, 0.19, 1.44);
   background: $primaryColor;
   border-radius: $border-radius;
-  border-width: 3px;
-  border-style: solid;
-  border-color: green;
+  border: 3px solid $secondaryColor;
   border-image: initial;
+
+  @include Breakpoint-mobileOnly {
+    top: 35%;
+  }
 }
 
 .won-1 {
@@ -261,7 +263,7 @@ $with-without-padding: calc(100% - $spacing-20 - $spacing-20);
   padding: $spacing-8;
 
   p {
-    color: green;
+    color: #6fde73;
     margin: $spacing-8 $spacing-4;
   }
 }
