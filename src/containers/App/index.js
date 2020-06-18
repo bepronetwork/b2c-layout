@@ -649,9 +649,7 @@ class App extends Component {
                     path="/slots_simple"
                     render={props => (
                         <SlotsPage
-                        {...props}
-                        onHandleLoginOrRegister={this.handleLoginOrRegisterOpen}
-                        onTableDetails={this.handleTableDetailsOpen}
+                            {...props}
                         />
                     )}
                     />

@@ -1,19 +1,19 @@
 import React, { Component } from "react";
 import propTypes from "prop-types";
+import { compose } from "lodash/fp";
+import { connect } from "react-redux";
+import { find } from "lodash";
+
+import { RouletteGameOptions } from "components";
 import GamePage from "containers/GamePage";
 import UserContext from "containers/App/UserContext";
-import { find } from "lodash";
-import { connect } from "react-redux";
-import { compose } from "lodash/fp";
 import Cache from "../../lib/cache/cache";
-import { setWonPopupMessageDispatcher } from "../../lib/redux";
 
 const defaultState = {
   edge: 0,
   Result: null,
   hasWon: null,
-  gameName: "CoinFlip",
-  isCoinSpinning: false,
+  gameName: "Slots",
   game: {
     edge: 0
   }
@@ -31,86 +31,43 @@ class SlotsPage extends Component {
     this.getGame();
   }
 
-  handleAnimationEnd = () => {
-    this.setState({ isCoinSpinning: false }, () => {
-      this.handleUpdateBalance();
-    });
-  };
-
-  handleAnimationStart = () => {
-    this.setState({ isCoinSpinning: true });
-  };
-
-  handleUpdateBalance = async () => {
-    const { profile } = this.props;
-    const { betObjectResult } = this.state;
-    const { result, hasWon, winAmount, userDelta } = betObjectResult;
-
-    setWonPopupMessageDispatcher(winAmount);
-    await profile.updateBalance({ userDelta });
-    this.addToHistory({ result: `${result} `, won: hasWon });
-  };
-
-  handleEnableControls = () => {
-    this.setState({ disableControls: false, flipResult: null });
-  };
-
-  addToHistory = ({ result, won }) => {
-    try {
-      let history = Cache.getFromCache("flipHistory");
-
-      history = history || [];
-      history.unshift({ value: result, win: won });
-      Cache.setToCache("flipHistory", history);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  onBet = async form => {
-    this.setState({ onBet: true, disableControls: true });
-    const res = await this.handleBet(form);
-
-    this.setState({ onBet: false });
-
-    return res;
-  };
-
-  handleBet = async () => {
-    try {
-      const { user } = this.context;
-      const { onHandleLoginOrRegister } = this.props;
-
-      if (!user) return onHandleLoginOrRegister("register")
-
-    } catch (err) {
-      return this.setState({
-        Result: 0,
-        hasWon: false,
-        disableControls: false
-      });
-    }
-  };
-
   getGame = () => {
+    const { gameName, ...state } = this.state;
     const appInfo = Cache.getFromCache("appInfo");
-    const { gameName } = this.state;
 
     if (appInfo) {
       const game = find(appInfo.games, { name: gameName });
 
-      this.setState({ ...this.state, game });
+      this.setState({ ...state, game });
     }
   };
 
+  renderGameOptions = () => {
+    const { bet, game } = this.state;
+    const { profile } = this.props;
+
+    return (
+      <RouletteGameOptions
+        onBet={this.handleBet}
+        onChangeChip={this.handleChangeChip}
+        totalBet={this.getTotalBet()}
+        game={game}
+        profile={profile}
+        doubleDownBet={this.doubleDownBet}
+        disableControls={bet}
+      />
+    );
+  };
+
   render() {
-    const { game, onTableDetails } = this.props;
+    const { onTableDetails } = this.props;
+    const { game } = this.state;
 
     return (
       <GamePage
-        options={this.getOptions()}
-        game={this.getGameCard()}
-        history="flipHistory"
+        options={this.renderGameOptions()}
+        game={() => {}}
+        history="rouletteHistory"
         gameMetaName={game.metaName}
         onTableDetails={onTableDetails}
       />
@@ -119,9 +76,7 @@ class SlotsPage extends Component {
 }
 
 SlotsPage.propTypes = {
-  onHandleLoginOrRegister: propTypes.func.isRequired,
   profile: propTypes.string.isRequired,
-  game: propTypes.string.isRequired,
   onTableDetails: propTypes.string.isRequired
 };
 
