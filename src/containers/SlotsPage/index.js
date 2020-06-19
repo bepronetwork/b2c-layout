@@ -4,7 +4,7 @@ import { compose } from "lodash/fp";
 import { connect } from "react-redux";
 import { find } from "lodash";
 
-import { RouletteGameOptions } from "components";
+import { SlotsGameOptions, SlotsGame } from "components";
 import GamePage from "containers/GamePage";
 import UserContext from "containers/App/UserContext";
 import Cache from "../../lib/cache/cache";
@@ -13,7 +13,7 @@ const defaultState = {
   edge: 0,
   Result: null,
   hasWon: null,
-  gameName: "Slots",
+  game_name: "Slots",
   game: {
     edge: 0
   }
@@ -42,15 +42,22 @@ class SlotsPage extends Component {
     }
   };
 
+  renderGameCard = () => {
+    // const { result, betHistory, bet } = this.state;
+    // const { profile } = this.props;
+
+    return <SlotsGame />;
+  };
+
   renderGameOptions = () => {
     const { bet, game } = this.state;
     const { profile } = this.props;
 
     return (
-      <RouletteGameOptions
+      <SlotsGameOptions
         onBet={this.handleBet}
         onChangeChip={this.handleChangeChip}
-        totalBet={this.getTotalBet()}
+        totalBet={() => {}}
         game={game}
         profile={profile}
         doubleDownBet={this.doubleDownBet}
@@ -66,9 +73,9 @@ class SlotsPage extends Component {
     return (
       <GamePage
         options={this.renderGameOptions()}
-        game={() => {}}
-        history="rouletteHistory"
-        gameMetaName={game.metaName}
+        game={this.renderGameCard()}
+        history="SlotsHistory"
+        gameMetaName={'slots_simple'}
         onTableDetails={onTableDetails}
       />
     );
