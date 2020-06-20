@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import { DropdownButton, Dropdown } from "react-bootstrap";
 import Sound from "react-sound";
 import { connect } from "react-redux";
 import {
@@ -13,10 +12,9 @@ import {
 
 import UserContext from "containers/App/UserContext";
 import betSound from "assets/bet-sound.mp3";
-import Dice from "components/Icons/Dice";
 import Numbers from "./numberofLines";
 
-import "./index.css";
+import styles from "./index.css";
 import { CopyText } from "../../copy";
 
 class SlotsGameOptions extends Component {
@@ -186,7 +184,11 @@ class SlotsGameOptions extends Component {
               title={copy.TOTAL_BET_NAME}
             />
             <form onSubmit={this.handleSubmit}>
-              <select onChange={this.handleChange} className="dropdown-input">
+              <p className={styles.dropdownLabel}>Number of lines</p>
+              <select
+                onChange={this.handleChange}
+                className={styles.dropdownInput}
+              >
                 {Numbers.map(items => {
                   return <option value="laranja">{items}</option>;
                 })}
@@ -214,7 +216,6 @@ class SlotsGameOptions extends Component {
               onClick={doubleDownBet}
               fullWidth
               theme="default"
-              animation={<Dice />}
             >
               <Typography weight="semi-bold" color="pickled-bluewood">
                 {copy.DOUBLE_DOWN_NAME}

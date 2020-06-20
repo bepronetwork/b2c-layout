@@ -4,15 +4,13 @@ import styles from "./index.css";
 
 function WinningSound() {
   return (
-    <audio
-autoPlay="autoplay" className="player" preload="false">
+    <audio autoPlay="autoplay" className="player" preload="false">
       <source src="https://andyhoffman.codes/random-assets/img/slots/winning_slot.wav" />
     </audio>
   );
 }
 
 class SlotsGame extends React.Component {
-
   static matches = [];
 
   loser = [
@@ -119,8 +117,9 @@ class SlotsGame extends React.Component {
         </div>
         {winner === null ? null : (
           <button
-          className="repeat-button"
-          onClick={this.handleClick}
+            className="repeat-button"
+            type="button"
+            onClick={this.handleClick}
           />
         )}
       </div>
