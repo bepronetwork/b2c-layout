@@ -44,6 +44,11 @@
   }
 }
 
+.dropdown-input{
+  width: 100% !important;
+  height: 40px;
+}
+
 .container {
   display: flex;
 

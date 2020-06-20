@@ -1,0 +1,110 @@
+@import url('https://fonts.googleapis.com/css?family=Cairo');
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg)
+  }
+}
+
+body {
+  background-color: #292929;
+}
+
+h1 {
+  font-size: 150%;
+  padding: 0.25em .5em;
+  font-family: 'Cairo', sans-serif;
+}
+
+h1 span {
+  color: aliceblue;
+  border: 1px solid hsla(208, 100%, 97.1%, .2);
+  padding: 0.1em .2em;
+}
+
+.containerInit{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  margin: 20px;
+  flex-direction: column;
+}
+
+.topContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 200px;
+  height: 30px;
+  border-radius: 10px 10px 0px 0px;
+  background-color: rgb(47, 69, 83);
+}
+
+.topContainerText {
+  margin: 0;
+  text-align: center;
+  color: white;
+  font-size: 10px;
+}
+
+.icons {
+  display: inline-block;
+  width: 100%;
+  height: 100%;
+  background: url(https://andyhoffman.codes/random-assets/img/slots/sprite5.png) repeat-y;
+  background-size: 80px;
+  will-change: backgroundPosition;
+  overflow: hidden;
+  transition: 0.3s background-position ease-in-out;
+}
+
+.icons:nth-child(2) {
+  margin: 0 10px;
+}
+
+* { box-sizing: border-box; }
+
+.spinnerContainer {
+  display: flex;
+  overflow: hidden;
+  height: 332px;
+  width: 70%;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  transition: 0.3s transform;
+  border: 10px solid rgb(47, 69, 83);
+  border-radius: 20px;
+}
+
+.app-wrap.winner-false {
+  animation: linear 1s spin;
+}
+.separatedLine {
+  border-left: 1px solid gray;
+  height: 300px;
+}
+.spinnerContainer::after {
+  position: absolute;
+  content: '';
+  display: block;
+  height: 180px;
+  top: 50%;
+  transform: translateY(-50%);
+  right: 30px;
+  left: 30px;
+  background: rgba(255, 0, 0, .1);
+}
+
+@media screen and (max-width: 1000px) {
+  .spinnerContainer {
+    transform: translate(-50%, -50%) scale(.55, .55);
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .spinnerContainer {
+    transform: translate(-50%, -50%) scale(.4, .4);
+  }
+}

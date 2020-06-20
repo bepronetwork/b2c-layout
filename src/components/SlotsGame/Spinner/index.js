@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-import "../styles.css";
+import styles from "../index.css";
 
 class Spinner extends React.Component {
   iconHeight = 188;
@@ -108,7 +108,7 @@ class Spinner extends React.Component {
     return (
       <div
         style={{ backgroundPosition: `0px ${position}px` }}
-        className="icons"
+        className={styles.icons}
       />
     );
   }

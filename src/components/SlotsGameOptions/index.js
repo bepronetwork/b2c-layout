@@ -1,5 +1,8 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
+import { DropdownButton, Dropdown } from "react-bootstrap";
+import Sound from "react-sound";
+import { connect } from "react-redux";
 import {
   InputNumber,
   ToggleButton,
@@ -7,11 +10,11 @@ import {
   Typography,
   OnWinLoss
 } from "components";
+
 import UserContext from "containers/App/UserContext";
-import Sound from "react-sound";
 import betSound from "assets/bet-sound.mp3";
 import Dice from "components/Icons/Dice";
-import { connect } from "react-redux";
+import Numbers from "./numberofLines";
 
 import "./index.css";
 import { CopyText } from "../../copy";
@@ -182,6 +185,13 @@ class SlotsGameOptions extends Component {
               value={totalBet}
               title={copy.TOTAL_BET_NAME}
             />
+            <form onSubmit={this.handleSubmit}>
+              <select onChange={this.handleChange} className="dropdown-input">
+                {Numbers.map(items => {
+                  return <option value="laranja">{items}</option>;
+                })}
+              </select>
+            </form>
           </div>
           <div styleName="content">
             {type === "manual" ? null : this.renderAuto()}
@@ -221,7 +231,7 @@ SlotsGameOptions.propTypes = {
   onBet: PropTypes.func.isRequired,
   totalBet: PropTypes.number,
   disableControls: PropTypes.bool,
-  doubleDownBet: PropTypes.string.isRequired,
+  doubleDownBet: PropTypes.string.isRequired
 };
 
 SlotsGameOptions.defaultProps = {

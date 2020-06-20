@@ -43,9 +43,6 @@ class SlotsPage extends Component {
   };
 
   renderGameCard = () => {
-    // const { result, betHistory, bet } = this.state;
-    // const { profile } = this.props;
-
     return <SlotsGame />;
   };
 
@@ -75,7 +72,7 @@ class SlotsPage extends Component {
         options={this.renderGameOptions()}
         game={this.renderGameCard()}
         history="SlotsHistory"
-        gameMetaName={'slots_simple'}
+        gameMetaName="slots_simple"
         onTableDetails={onTableDetails}
       />
     );

@@ -1,29 +1,21 @@
 import React from "react";
-
-import "./styles.css";
 import Spinner from "./Spinner";
-
-function RepeatButton(onClick) {
-  return (
-    <button
-      aria-label="Play again."
-      type="button"
-      id="repeatButton"
-      onClick={onClick}
-    />
-  );
-}
+import styles from "./index.css";
 
 function WinningSound() {
   return (
-    <audio autoPlay="autoplay" className="player" preload="false">
+    <audio
+autoPlay="autoplay" className="player" preload="false">
       <source src="https://andyhoffman.codes/random-assets/img/slots/winning_slot.wav" />
     </audio>
   );
 }
 
 class SlotsGame extends React.Component {
-  static loser = [
+
+  static matches = [];
+
+  loser = [
     "Not quite",
     "Stop gambling",
     "Hey, you lost!",
@@ -36,8 +28,6 @@ class SlotsGame extends React.Component {
     "Don't hate the coder"
   ];
 
-  matches = [];
-
   constructor(props) {
     super(props);
     this.state = {
@@ -47,18 +37,22 @@ class SlotsGame extends React.Component {
     this.handleClick = this.handleClick.bind(this);
   }
 
-  handleClick() {
+  handleClick = () => {
     this.setState({ winner: null });
     this.emptyArray();
-    this.childSpinner.forceUpdateHandler();
-  }
+    this.child1.forceUpdateHandler();
+    this.child2.forceUpdateHandler();
+    this.child3.forceUpdateHandler();
+    this.child4.forceUpdateHandler();
+    this.child5.forceUpdateHandler();
+  };
 
   finishHandler(value) {
-    this.matches.push(value);
+    SlotsGame.matches.push(value);
 
-    if (this.matches.length === 3) {
-      const first = this.matches[0];
-      const results = this.matches.every(match => match === first);
+    if (SlotsGame.matches.length === 5) {
+      const first = SlotsGame.matches[0];
+      const results = SlotsGame.matches.every(match => match === first);
 
       this.setState({ winner: results });
     }
@@ -70,67 +64,65 @@ class SlotsGame extends React.Component {
 
   render() {
     const { winner } = this.state;
-    const getLoser = () => {
-      return SlotsGame.loser[
-        Math.floor(Math.random() * SlotsGame.loser.length)
-      ];
-    };
-    let repeatButton = null;
     let winningSound = null;
-
-    if (winner !== null) {
-      repeatButton = <RepeatButton onClick={this.handleClick} />;
-    }
 
     if (winner) {
       winningSound = <WinningSound />;
     }
 
     return (
-      <div>
+      <div className={styles.containerInit}>
         {winningSound}
-        <h1 style={{ color: "white" }}>
-          <span>
-            {winner === null
-              ? "Waiting…"
-              : winner
-              ? "🤑 Pure skill! 🤑"
-              : getLoser()}
-          </span>
-        </h1>
-
-        <div className="spinner-container">
+        <div className={styles.topContainer}>
+          <h1 className={styles.topContainerText}>Pagamento total: 0.000000</h1>
+        </div>
+        <div className={styles.spinnerContainer}>
           <Spinner
             onFinish={this.finishHandler}
             ref={child => {
-              this.childSpinner = child;
+              this.child1 = child;
             }}
             timer="1000"
           />
+          <div className={styles.separatedLine} />
           <Spinner
             onFinish={this.finishHandler}
             ref={child => {
-              this.childSpinner = child;
+              this.child2 = child;
             }}
             timer="1400"
           />
+          <div className={styles.separatedLine} />
           <Spinner
             onFinish={this.finishHandler}
             ref={child => {
-              this.childSpinner = child;
+              this.child3 = child;
             }}
             timer="2200"
           />
+          <div className={styles.separatedLine} />
           <Spinner
             onFinish={this.finishHandler}
             ref={child => {
-              this.childSpinner = child;
+              this.child4 = child;
             }}
-            timer="2800"
+            timer="3000"
           />
-          <div className="gradient-fade" />
+          <div className={styles.separatedLine} />
+          <Spinner
+            onFinish={this.finishHandler}
+            ref={child => {
+              this.child5 = child;
+            }}
+            timer="3800"
+          />
         </div>
-        {repeatButton}
+        {winner === null ? null : (
+          <button
+          className="repeat-button"
+          onClick={this.handleClick}
+          />
+        )}
       </div>
     );
   }
