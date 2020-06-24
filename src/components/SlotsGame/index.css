@@ -6,6 +6,16 @@
   }
 }
 
+.textButton{
+  font-size: medium;
+  font: roboto;
+}
+
+.textButton:hover{
+  color: white;
+  cursor: pointer;
+}
+
 body {
   background-color: #292929;
 }
@@ -20,6 +30,36 @@ h1 span {
   color: aliceblue;
   border: 1px solid hsla(208, 100%, 97.1%, .2);
   padding: 0.1em .2em;
+}
+
+.rowContainer{
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+}
+
+.columnContainer{
+  display: flex;
+  flex-direction: column;
+}
+
+.repeatButton{
+  appearance: none;  
+  border: none;
+  background: url(https://andyhoffman.codes/random-assets/img/slots/repeat.png) transparent 0 0 no-repeat;
+  background-size: cover;
+  width: 48px;
+  height: 48px;
+  position: absolute;
+  top: 10px;
+  right: 20px; 
+  cursor: pointer;
+  animation-name: spin;
+  animation-duration: 6s;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
 }
 
 .containerInit{
