@@ -1,6 +1,7 @@
 import React from "react";
 import Spinner from "./Spinner";
 import styles from "./index.css";
+import numberOfLines from "../SlotsGameOptions/numberofLines";
 
 function WinningSound() {
   return (
@@ -43,6 +44,7 @@ class SlotsGame extends React.Component {
     this.child3.forceUpdateHandler();
     this.child4.forceUpdateHandler();
     this.child5.forceUpdateHandler();
+    console.log(SlotsGame.matches);
   };
 
   finishHandler(value) {
@@ -74,54 +76,122 @@ class SlotsGame extends React.Component {
         <div className={styles.topContainer}>
           <h1 className={styles.topContainerText}>Pagamento total: 0.000000</h1>
         </div>
-        <div className={styles.spinnerContainer}>
-          <Spinner
-            onFinish={this.finishHandler}
-            ref={child => {
-              this.child1 = child;
-            }}
-            timer="1000"
-          />
-          <div className={styles.separatedLine} />
-          <Spinner
-            onFinish={this.finishHandler}
-            ref={child => {
-              this.child2 = child;
-            }}
-            timer="1400"
-          />
-          <div className={styles.separatedLine} />
-          <Spinner
-            onFinish={this.finishHandler}
-            ref={child => {
-              this.child3 = child;
-            }}
-            timer="2200"
-          />
-          <div className={styles.separatedLine} />
-          <Spinner
-            onFinish={this.finishHandler}
-            ref={child => {
-              this.child4 = child;
-            }}
-            timer="3000"
-          />
-          <div className={styles.separatedLine} />
-          <Spinner
-            onFinish={this.finishHandler}
-            ref={child => {
-              this.child5 = child;
-            }}
-            timer="3800"
-          />
+        <div className={styles.rowContainer}>
+          <div className={styles.columnContainer}>
+            <div style={{ margin: "20px" }}>
+              {numberOfLines.map(lines => {
+                if (lines <= 3) {
+                  return (
+                    <div className={styles.textButton}>
+                      <p>{lines}</p>
+                    </div>
+                  );
+                }
+              })}
+            </div>
+            <div style={{ margin: "20px" }}>
+              {numberOfLines.map(lines => {
+                if (lines >= 4 && lines <= 6) {
+                  return (
+                    <div className={styles.textButton}>
+                      <p>{lines}</p>
+                    </div>
+                  );
+                }
+              })}
+            </div>
+            <div style={{ margin: "20px" }}>
+              {numberOfLines.map(lines => {
+                if (lines >= 7 && lines <= 9) {
+                  return (
+                    <div className={styles.textButton}>
+                      <p>{lines}</p>
+                    </div>
+                  );
+                }
+              })}
+            </div>
+          </div>
+
+          <div className={styles.spinnerContainer}>
+            <Spinner
+              onFinish={this.finishHandler}
+              ref={child => {
+                this.child1 = child;
+              }}
+              timer="1000"
+            />
+            <div className={styles.separatedLine} />
+            <Spinner
+              onFinish={this.finishHandler}
+              ref={child => {
+                this.child2 = child;
+              }}
+              timer="1400"
+            />
+            <div className={styles.separatedLine} />
+            <Spinner
+              onFinish={this.finishHandler}
+              ref={child => {
+                this.child3 = child;
+              }}
+              timer="2200"
+            />
+            <div className={styles.separatedLine} />
+            <Spinner
+              onFinish={this.finishHandler}
+              ref={child => {
+                this.child4 = child;
+              }}
+              timer="3000"
+            />
+            <div className={styles.separatedLine} />
+            <Spinner
+              onFinish={this.finishHandler}
+              ref={child => {
+                this.child5 = child;
+              }}
+              timer="3800"
+            />
+          </div>
+          <div className={styles.columnContainer}>
+            <div style={{ margin: "20px" }}>
+              {numberOfLines.map(lines => {
+                if (lines >= 10 && lines <= 12) {
+                  return (
+                    <div className={styles.textButton}>
+                      <p>{lines}</p>
+                    </div>
+                  );
+                }
+              })}
+            </div>
+
+            <div style={{ margin: "20px" }}>
+              {numberOfLines.map(lines => {
+                if (lines >= 13 && lines <= 15) {
+                  return (
+                    <div className={styles.textButton}>
+                      <p>{lines}</p>
+                    </div>
+                  );
+                }
+              })}
+            </div>
+
+            <div style={{ margin: "20px" }}>
+              {numberOfLines.map(lines => {
+                if (lines >= 16 && lines <= 18) {
+                  return (
+                    <div className={styles.textButton}>
+                      <p>{lines}</p>
+                    </div>
+                  );
+                }
+              })}
+            </div>
+          </div>
         </div>
-        {winner === null ? null : (
-          <button
-            className="repeat-button"
-            type="button"
-            onClick={this.handleClick}
-          />
-        )}
       </div>
     );
   }

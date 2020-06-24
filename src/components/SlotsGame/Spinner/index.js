@@ -1,6 +1,5 @@
 import React from "react";
 import PropTypes from "prop-types";
-
 import styles from "../index.css";
 
 class Spinner extends React.Component {
@@ -10,7 +9,7 @@ class Spinner extends React.Component {
 
   start = this.setStartPosition();
 
-  speed = Spinner.iconHeight * this.multiplier;
+  speed = this.iconHeight * this.multiplier;
 
   constructor(props) {
     super(props);
@@ -37,19 +36,19 @@ class Spinner extends React.Component {
   }
 
   setStartPosition() {
-    return Math.floor(Math.random() * 9) * Spinner.iconHeight * -1;
+    return Math.floor(Math.random() * 9) * this.iconHeight * -1;
   }
 
   getSymbolFromPosition() {
     const { timer, onFinish } = this.props;
     const totalSymbols = 9;
-    const maxPosition = Spinner.iconHeight * (totalSymbols - 1) * -1;
+    const maxPosition = this.iconHeight * (totalSymbols - 1) * -1;
     const moved = (timer / 100) * this.multiplier;
     const startPosition = this.start;
     let currentPosition = startPosition;
 
     for (let i = 0; i < moved; i++) {
-      currentPosition -= Spinner.iconHeight;
+      currentPosition -= this.iconHeight;
 
       if (currentPosition < maxPosition) {
         currentPosition = 0;
