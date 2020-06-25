@@ -78,7 +78,7 @@ class SlotsGame extends React.Component {
         </div>
         <div className={styles.rowContainer}>
           <div className={styles.columnContainer}>
-            <div style={{ margin: "20px" }}>
+            <div style={{ margin: "15px" }}>
               {numberOfLines.map(lines => {
                 if (lines <= 3) {
                   return (
@@ -89,7 +89,7 @@ class SlotsGame extends React.Component {
                 }
               })}
             </div>
-            <div style={{ margin: "20px" }}>
+            <div style={{ margin: "15px" }}>
               {numberOfLines.map(lines => {
                 if (lines >= 4 && lines <= 6) {
                   return (
@@ -100,7 +100,7 @@ class SlotsGame extends React.Component {
                 }
               })}
             </div>
-            <div style={{ margin: "20px" }}>
+            <div style={{ margin: "15px" }}>
               {numberOfLines.map(lines => {
                 if (lines >= 7 && lines <= 9) {
                   return (
@@ -155,7 +155,7 @@ class SlotsGame extends React.Component {
             />
           </div>
           <div className={styles.columnContainer}>
-            <div style={{ margin: "20px" }}>
+            <div style={{ margin: "15px" }}>
               {numberOfLines.map(lines => {
                 if (lines >= 10 && lines <= 12) {
                   return (
@@ -167,7 +167,7 @@ class SlotsGame extends React.Component {
               })}
             </div>
 
-            <div style={{ margin: "20px" }}>
+            <div style={{ margin: "15px" }}>
               {numberOfLines.map(lines => {
                 if (lines >= 13 && lines <= 15) {
                   return (
@@ -179,7 +179,7 @@ class SlotsGame extends React.Component {
               })}
             </div>
 
-            <div style={{ margin: "20px" }}>
+            <div style={{ margin: "15px" }}>
               {numberOfLines.map(lines => {
                 if (lines >= 16 && lines <= 18) {
                   return (
