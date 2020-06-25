@@ -13,11 +13,13 @@
   width: 100%;
   position: relative;
   grid-template-columns: 30% 70%;
+  gap: 1.5em;
 
   @media screen and (max-width: 767px) {
     grid-template-rows: auto auto;
     grid-template-areas: unset;
     grid-template-columns: unset;
+    gap: unset;
   } 
 
 }
@@ -48,11 +50,7 @@
 }
 
 .element {
-  margin-left: $spacing-36;
 
-  @media screen and (max-width: 767px) {
-    margin-left: 0;
-  } 
 }
 
 .background {
@@ -250,7 +248,6 @@
   flex-direction: row;
   flex: 1.2;
   justify-content: space-between;
-  max-width: 480px;
   min-width: 280px;
 }
 

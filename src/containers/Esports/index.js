@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Typography, Button, LiveIcon } from 'components';
 import { connect } from 'react-redux';
-import { Carousel } from '3d-react-carousal';
+import Carousel from 'react-bootstrap/Carousel'
 import classNames from "classnames";
 import { games, tournaments, matches } from './fakeData';
 import { Link } from "react-router-dom";
@@ -26,36 +26,38 @@ class Esports extends Component {
 
         matches.map( match => {
             slides.push(
-                <Link to={`/esports/${match.id}`}>
-                    <div styleName="element">
-                        <div styleName="background" style={{background: "url('" + match.image + "') center center / cover no-repeat"}} />
-                        <div styleName="text">
-                            <div styleName="tour">
-                                <img src={match.tournament.game.image} />
-                                <div>
-                                    <Typography variant={'x-small-body'} color={'white'}>{`${match.tournament.name} - ${match.round}`}</Typography>
+                <Carousel.Item>
+                    <Link to={`/esports/${match.id}`}>
+                        <div styleName="element">
+                            <div styleName="background" style={{background: "url('" + match.image + "') center center / cover no-repeat"}} />
+                            <div styleName="text">
+                                <div styleName="tour">
+                                    <img src={match.tournament.game.image} />
+                                    <div>
+                                        <Typography variant={'x-small-body'} color={'white'}>{`${match.tournament.name} - ${match.round}`}</Typography>
+                                    </div>
                                 </div>
-                            </div>
-                            <div styleName="teams">
-                                <div styleName="team">
-                                    <img src={match.teams[0].country} />
-                                    <img src={match.teams[0].flag} />
-                                    <Typography variant={'x-small-body'} color={'white'}>{match.teams[0].name}</Typography>
-                                </div>
-                                <div styleName="triangle">
-                                    <div styleName="right-arrow"></div>
-                                    <div styleName="vs"><Typography variant={'x-small-body'} color={'grey'}>VS</Typography></div>
-                                    <div styleName="left-arrow"></div>
-                                </div>
-                                <div styleName="team">
-                                    <img src={match.teams[1].country} />
-                                    <img src={match.teams[1].flag} />
-                                    <Typography variant={'x-small-body'} color={'white'}>{match.teams[1].name}</Typography>
+                                <div styleName="teams">
+                                    <div styleName="team">
+                                        <img src={match.teams[0].country} />
+                                        <img src={match.teams[0].flag} />
+                                        <Typography variant={'x-small-body'} color={'white'}>{match.teams[0].name}</Typography>
+                                    </div>
+                                    <div styleName="triangle">
+                                        <div styleName="right-arrow"></div>
+                                        <div styleName="vs"><Typography variant={'x-small-body'} color={'grey'}>VS</Typography></div>
+                                        <div styleName="left-arrow"></div>
+                                    </div>
+                                    <div styleName="team">
+                                        <img src={match.teams[1].country} />
+                                        <img src={match.teams[1].flag} />
+                                        <Typography variant={'x-small-body'} color={'white'}>{match.teams[1].name}</Typography>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </Link>
+                    </Link>
+                </Carousel.Item>
             );
         });
 
@@ -127,7 +129,9 @@ class Esports extends Component {
                         </div>
                     </div>
                     <div styleName="carousel">
-                        {<Carousel slides={this.renderSlides()} autoplay={true} interval={2000} />}
+                        <Carousel pause="hover" interval={1500}>
+                            {this.renderSlides()}
+                        </Carousel>
                     </div>
                 </div>
                 <div styleName="results">
