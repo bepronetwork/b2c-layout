@@ -1,0 +1,144 @@
+@import "../../../styles/all.css";
+
+
+.score-board {
+    margin: auto;
+    max-width: 1192px;
+    min-width: 300px;
+    display: grid;
+    grid-template-columns: 30% 40% 30%;
+    gap: 1.5em;
+
+    @media screen and (max-width: 767px) {
+        display: inline;
+        grid-template-columns: none;
+        gap: unset;
+    } 
+}
+
+.tournament {
+    display: inline-flex;
+    align-items: center;
+  
+    img {
+      width: 32px;
+      height: 32px;
+      margin: auto 0;
+      margin-right: $spacing-12;
+      border-radius: 20px;
+    }
+
+    @media screen and (max-width: 767px) {
+        margin-bottom: $spacing-12;
+
+        a {
+            display: none;
+        }
+    } 
+}
+
+.matches {
+    margin-right: $spacing-20;
+}
+
+
+.game-name {
+
+    * {
+      margin: $spacing-4;
+    }
+
+    @media screen and (max-width: 767px) {
+        display: inline-flex;
+
+        * {
+            margin: 0;
+            margin-right: $spacing-4;
+          }
+    } 
+}
+
+.teams {
+    display: flex;
+    flex-direction: row;
+    flex: 1.2;
+    justify-content: space-between;
+}
+
+.team {
+    height: 50px;
+    display: flex;
+    align-items: center;
+    min-width: 106px;
+    flex: 1;
+    justify-self: center;
+    align-self: center;
+    position: relative;
+    background-color: $primaryColor-5;
+    border-radius:  0 $border-radius $border-radius 0;
+    text-align: left;
+    min-width: 106px;
+  
+    img {
+      width: 20px;
+      height: 20px;
+      margin-right: $spacing-12;
+      margin-left: 0;
+      border-radius: 10px;
+    }
+
+    img:first-child {
+      width: 12px;
+      height: 12px;
+    }
+}
+  
+.teams .team:first-child {
+    flex-direction: row-reverse;
+    text-align: right;
+    border-radius: $border-radius 0 0 $border-radius;
+  
+    img {
+      margin-left: $spacing-12;
+      margin-right: 0;
+    }
+}
+
+.triangle {
+    display: inline-flex;
+}
+  
+.vs {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 $spacing-12;
+    max-width: 112px;
+}
+
+.left-arrow {
+    border-color: transparent $primaryColor-5;
+    border-style: solid;
+    border-width: 26px 26px 26px 0px;
+    height: 0px;
+    width: 0px;
+}
+
+.right-arrow {
+    border-color: transparent $primaryColor-5;
+    border-style: solid;
+    border-width: 26px 0px 26px 26px;
+    height: 0px;
+    width: 0px;
+}
+
+.date {
+    justify-content: flex-end;
+    display: inline-grid;
+    text-align: right;
+    align-items: center;
+
+    @media screen and (max-width: 767px) {
+        display: none;
+    } 
+}

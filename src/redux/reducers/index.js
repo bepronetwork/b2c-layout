@@ -11,6 +11,7 @@ import withdrawReducer from './withdrawReducer';
 import modalReducer from './modalReducer';
 import set2FAReducer from './set2FAReducer';
 import currencyReducer from './currencyReducer';
+import betSlipReducer from './betSlipReducer';
 
 export {
     profileReducer,
@@ -24,5 +25,6 @@ export {
     chatReducer,
     depositReducer,
     betReducer,
-    set2FAReducer
+    set2FAReducer,
+    betSlipReducer
 };

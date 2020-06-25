@@ -1,0 +1,43 @@
+@import "../../../styles/all.css";
+
+.side-menu {
+    margin-top: $spacing-20;
+    background-color: $primaryColor;
+
+    @media screen and (max-width: 767px) {
+        margin-top: 0;
+        border-top: 1px solid $backgroundColor;
+    } 
+}
+
+.main {
+    padding: $spacing-20;
+    background-color: $primaryColor-3;
+
+    @media screen and (max-width: 767px) {
+        padding: 0;
+    } 
+}
+
+.live {
+    background-color: $primaryColor;
+    padding: $spacing-20;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+
+    @media screen and (max-width: 767px) {
+        display: none;
+    } 
+}
+
+.cam {
+    justify-content: end;
+
+    svg {
+        height: 16px;
+        width: 16px;
+        margin-left: $spacing-12;
+    }
+}

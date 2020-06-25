@@ -2,10 +2,9 @@
 
 .navigation-step{
     margin: auto $spacing-20;
-    display: flex;
+    display: inline-flex;
     align-items: center;
     height: auto;
-    width: 100%;
     transition: all 0.2s ease-in;
 
     .img{

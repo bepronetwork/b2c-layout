@@ -5,9 +5,8 @@ import { GameCard, Banners } from "components";
 import PropTypes from "prop-types";
 import UserContext from "containers/App/UserContext";
 import PlayInvitation from "components/PlayInvitation";
-import games from '../../config/games';
-import LastBets from "../LastBets/HomePage";
-import Footer from "../Footer";
+import games from '../../../config/games';
+import LastBets from "../../LastBets/HomePage";
 import { connect } from 'react-redux';
 import _ from 'lodash';
 import "./index.css";
@@ -50,7 +49,7 @@ class HomePage extends Component {
         return (
                 <div class={"col"} styleName="col">
                     <GameCard
-                        path={metaName}
+                        path={"casino/"+metaName}
                         title={name}
                         edge={edge}
                         image_url={image_url}
@@ -87,7 +86,6 @@ class HomePage extends Component {
                             </div>
                     }
                     {/* <Media/> */}
-                    <Footer/>
                 </div>
             </div>
         );

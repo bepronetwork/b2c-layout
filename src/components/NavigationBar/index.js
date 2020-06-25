@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import _ from 'lodash';
 import "./index.css";
-import { Typography, CasinoIcon } from 'components';
+import { Typography, CasinoIcon, UsersIcon } from 'components';
 import { Link } from "react-router-dom";
 import { CopyText } from '../../copy';
 
@@ -28,7 +28,8 @@ class NavigationBar extends Component {
         const {ln} = this.props;
         const copy = CopyText.navigationBarIndex[ln];
         return (
-                <Link to='/' styleName='navigation-step'>
+            <div>
+                <Link to='/casino' styleName='navigation-step'>
                     <div styleName='img'>
                         <CasinoIcon/>
                     </div>
@@ -37,7 +38,18 @@ class NavigationBar extends Component {
                             {copy.INDEX.TYPOGRAPHY.TEXT[0]}
                         </Typography>
                     </div>
+                </Link>                
+                <Link to='/esports' styleName='navigation-step'>
+                    <div styleName='img'>
+                        <UsersIcon/>
+                    </div>
+                    <div styleName='text'>
+                        <Typography variant={'small-body'} color={'white'}>
+                            eSports
+                        </Typography>
+                    </div>
                 </Link>
+            </div>
         );
     }
 }

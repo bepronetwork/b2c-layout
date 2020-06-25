@@ -169,7 +169,8 @@ class Footer extends Component {
                                                     return (
                                                         <a styleName='item' href={col.href} target={'_blank'}>
                                                             <Typography
-                                                                weight={col.size}
+                                                                variant={col.size}
+                                                                weight={col.weight}
                                                                 color={col.color}
                                                             > {col.text}</Typography>
                                                         </a>
@@ -184,7 +185,8 @@ class Footer extends Component {
                                                     return (
                                                         <div styleName='no-hover-item'>
                                                             <Typography
-                                                                weight={col.size}
+                                                                variant={col.size}
+                                                                weight={col.weight}
                                                                 color={col.color}
                                                             > {col.text}</Typography>
                                                         </div>
@@ -194,7 +196,8 @@ class Footer extends Component {
                                                     return (
                                                         <Link to={col.href} styleName='item'>
                                                             <Typography
-                                                                weight={col.size}
+                                                                variant={col.size}
+                                                                weight={col.weight}
                                                                 color={col.color}
                                                             > {col.text}</Typography>
                                                         </Link>
@@ -249,7 +252,8 @@ class Footer extends Component {
                     </div>
                     <div styleName='footer-info'>
                         <Typography
-                            weight={footerInfo.info.size}
+                            variant={footerInfo.info.size}
+                            weight={footerInfo.info.weight}
                             color={footerInfo.info.color}
                         > 
                             {footerInfo.info.text}

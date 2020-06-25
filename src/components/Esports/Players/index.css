@@ -1,0 +1,89 @@
+@import "../../../styles/all.css";
+
+.players-menu {
+  background-color: $primaryColor-2;
+  box-shadow: 1px 1px 8px 1px rgba(0,0,0,0.41961);
+  margin-top: $spacing-20;
+}
+
+.players-title {
+    padding: $spacing-20;
+    text-align: center;
+}
+
+.teams {
+    display: grid;
+    grid-template-columns: auto auto;
+    gap: 1em;
+}
+
+.team {
+    background-color: $primaryColor-8;
+    text-align: center;
+    padding: $spacing-8;
+    border-radius: $border-radius 0 0 $border-radius;
+}
+
+.teams div:first-child .team {
+    border-radius: 0 $border-radius $border-radius 0;
+}
+
+.players {
+    flex: 1;
+    display: flex;
+    text-align: center;
+}
+
+.left-column, .right-column {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    min-width: 0;
+}
+
+.player {
+    display: flex;
+    padding: $spacing-12 $spacing-16;
+    border-bottom: 1px solid $backgroundColor;
+}
+
+.description {
+    flex: 1;
+    flex-direction: column;
+    text-align: right;
+    justify-content: center;
+    display: flex;
+    min-width: 0;
+}
+
+.left-column .player .description {
+    align-items: flex-end;
+}
+
+.right-column .player {
+    flex-direction: row-reverse;
+}
+
+.right-column .player .description {
+    text-align: left;
+}
+
+.right-column .player .player-country {
+    padding: 0 $spacing-12 0 0;
+}
+
+.name {
+    width: 100%;
+    white-space: nowrap;
+}
+
+.player-country {
+    display: flex;
+    align-items: center;
+    padding: 0 0 0 $spacing-12;
+
+    img {
+        width: 18px;
+        height: 18px;
+    }
+}

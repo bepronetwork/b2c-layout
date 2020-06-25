@@ -1,0 +1,379 @@
+@import "../../styles/all.css";
+
+.root {
+  max-width: 1192px;
+  min-width: 300px;
+  margin: auto;
+  padding: 30px 8px 0 8px;
+}
+
+.main {
+  display: grid;
+  grid-template-areas: "highlight carousel";
+  width: 100%;
+  position: relative;
+  grid-template-columns: 30% 70%;
+
+  @media screen and (max-width: 767px) {
+    grid-template-rows: auto auto;
+    grid-template-areas: unset;
+    grid-template-columns: unset;
+  } 
+
+}
+
+.highlight {
+  opacity: 0.9;
+
+  h2 {
+    text-transform: uppercase; 
+  }
+
+  @media screen and (max-width: 767px) {
+    margin-bottom: $spacing-36;
+    padding: 0 $spacing-20;
+  } 
+}
+
+.intro {
+  margin-top: $spacing-36;
+  opacity: 0.7;
+}
+
+.button {
+  margin-top: $spacing-36;
+}
+
+.carousel {
+}
+
+.element {
+  margin-left: $spacing-36;
+
+  @media screen and (max-width: 767px) {
+    margin-left: 0;
+  } 
+}
+
+.background {
+  height: 250px;
+  border-radius: $border-radius $border-radius 0 0;
+
+  @media screen and (max-width: 767px) {
+    height: 200px;
+  } 
+}
+
+.text {
+  text-align: center;
+  padding: $spacing-20 $spacing-20;
+  background-color: $primaryColor;
+  border-radius: 0 0 $border-radius $border-radius;
+}
+
+.tour {
+  display: flex;
+  margin-bottom: $spacing-12;
+
+  div {
+    display: inline-flex;
+    align-items: center;
+  }
+
+  img {
+    width: 20px;
+    height: 20px;
+    margin-right: $spacing-8;
+    border-radius: 12px;
+  }
+}
+
+.results {
+  margin-top: $spacing-52;
+
+  @media screen and (max-width: 767px) {
+    margin-top: $spacing-36;
+  } 
+}
+
+.filters {
+}
+
+.filter-matches {
+  margin: $spacing-8 0;
+}
+
+.filter-tournaments {
+  margin: $spacing-8 0;
+}
+
+.all {
+  float: left;
+  background-color: $primaryColor;
+  padding: $spacing-12 $spacing-20;
+  border-radius: 24px;
+  margin: $spacing-4 $spacing-8 $spacing-4 0;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+}
+
+.all-selected {
+  color: white;
+  font-size: 11px;
+  font-weight: 500;
+  font-family: Arial, sans-serif;
+  margin-left: $spacing-8;
+  background-color: $secondaryColor;
+  padding: 1px 4px;
+  border-radius: 20px;
+}
+
+.filter-match {
+  display: inline;
+  cursor: pointer;
+
+  img {
+    width: 30px;
+    height: 30px;
+    border-radius: 18px;
+    margin: $spacing-4 $spacing-8;
+  }
+}
+
+.selected {
+  img {
+    border: 3px solid $secondaryColor;
+  }
+}
+
+.tournament {
+  display: inline-flex;
+  margin: $spacing-4 $spacing-4;
+  background-color: $primaryColor;
+  padding: $spacing-4 $spacing-12;
+  border-radius: 24px;
+  align-items: center;
+  height: 36px;
+  cursor: pointer;
+
+  img {
+    width: 24px;
+    height: 24px;
+    margin-right: $spacing-12;
+    border-radius: 13px;
+  }
+  
+}
+
+.tourSelected {
+  border: 2px solid $secondaryColor;
+}
+
+.date {
+  margin: $spacing-16 $spacing-4;
+}
+
+.matches{
+  display: grid;
+  grid-template-columns: 75% 25%;
+  gap: 1.5em;
+
+  @media screen and (max-width: 767px) {
+    display: inline;
+    grid-template-columns: none;
+    gap: unset;
+  } 
+}
+
+.match {
+  background-color: $primaryColor-2;
+  display: flex;
+  flex-direction: row;
+  padding: $spacing-12;
+  margin-bottom: $spacing-8;
+  border-radius: $border-radius;
+  align-items: center;
+  border-bottom: 1px solid $secondaryColor;
+
+  @media screen and (max-width: 767px) {
+    display: grid;
+
+    img {
+      width: 24px;
+      height: 24px;
+    }
+  } 
+}
+
+.match:hover {
+  background-color: $primaryColor-8;
+}
+
+.match-tour{
+  display: flex;
+  width: 0;
+  min-width: 0;
+  flex: 0.5;
+
+  img {
+    width: 30px;
+    height: 30px;
+    margin-right: $spacing-12;
+    border-radius: 20px;
+  }
+
+  @media screen and (max-width: 767px) {
+    width: auto;
+    min-width: auto;
+    flex: auto;
+    margin-bottom: $spacing-12;
+  } 
+}
+
+.tour-name {
+  display: flex;
+}
+
+.match-name {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  span {
+    padding-top: $spacing-8;
+  }
+}
+
+.teams {
+  display: flex;
+  flex-direction: row;
+  flex: 1.2;
+  justify-content: space-between;
+  max-width: 480px;
+  min-width: 280px;
+}
+
+.team {
+  height: 50px;
+  display: flex;
+  align-items: center;
+  flex: 1;
+  justify-self: center;
+  align-self: center;
+  position: relative;
+  background-color: $primaryColor-5;
+  border-radius:  0 $border-radius $border-radius 0;
+  text-align: left;
+  min-width: 106px;
+
+  img {
+    width: 20px;
+    height: 20px;
+    margin-right: $spacing-8;
+    margin-left: 0;
+    border-radius: 10px;
+  }
+
+  img:first-child {
+    width: 12px;
+    height: 12px;
+  }
+
+  @media screen and (max-width: 767px) {
+    min-width: 86px;
+    white-space: normal;
+    padding: 0 $spacing-8;
+
+    img {
+      margin-right: $spacing-8;
+    }
+  } 
+}
+
+.teams .team:first-child {
+  flex-direction: row-reverse;
+  text-align: right;
+  border-radius: $border-radius 0 0 $border-radius;
+
+  img {
+    margin-left: $spacing-8;
+    margin-right: 0;
+  }
+}
+
+.triangle {
+  display: inline-flex;
+}
+
+.vs {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 $spacing-12;
+  max-width: 112px;
+}
+
+.left-arrow {
+	border-color: transparent $primaryColor-5;
+	border-style: solid;
+	border-width: 26px 26px 26px 0px;
+	height: 0px;
+	width: 0px;
+}
+
+.right-arrow {
+	border-color: transparent $primaryColor-5;
+	border-style: solid;
+	border-width: 26px 0px 26px 26px;
+	height: 0px;
+	width: 0px;
+}
+
+.live {
+  display: flex;
+  flex: 0.5;
+  justify-content: flex-end;
+  align-items: center;
+  min-width: 0;
+  width: 0;
+
+  @media screen and (max-width: 767px) {
+    width: auto;
+    min-width: auto;
+    flex: auto;
+  } 
+
+  svg {
+    height: 16px;
+    width: 16px;
+    margin-right: $spacing-12;
+  }
+}
+
+.live-mobile {
+  display: none;
+
+  @media screen and (max-width: 767px) {
+    display: flex;
+  } 
+}
+
+.live-desktop {
+  display: flex;
+
+  @media screen and (max-width: 767px) {
+    display: none;
+  } 
+}
+
+.right {
+  width: 100%;
+  background-color: $primaryColor;
+  padding: $spacing-20;
+  border-radius: $border-radius;
+
+  @media screen and (max-width: 767px) {
+    display: none
+  } 
+}

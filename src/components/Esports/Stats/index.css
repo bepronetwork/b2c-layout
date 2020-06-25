@@ -1,0 +1,114 @@
+@import "../../../styles/all.css";
+
+.stats-menu {
+  background-color: $primaryColor-2;
+  box-shadow: 1px 1px 8px 1px rgba(0,0,0,0.41961);
+}
+
+.stats-title {
+    padding: $spacing-20;
+    text-align: center;
+}
+
+.stats-score {
+    display: grid;
+    grid-template-columns: auto auto;
+    gap: 1em;
+    border-bottom: 1px solid $backgroundColor;
+}
+
+.score-team {
+    background-color: $primaryColor-8;
+    text-align: center;
+    padding: $spacing-8;
+    border-radius: $border-radius 0 0 $border-radius;
+}
+
+.stats-score div:first-child .score-team {
+    border-radius: 0 $border-radius $border-radius 0;
+}
+
+.score-number {
+    padding: $spacing-16;
+    text-align: center;
+}
+
+.history {
+    display: grid;
+    grid-template-columns: 30% 10% 10% 10% 30%;
+    gap: 0.5em;
+    align-items: center;
+    padding: $spacing-8 0;
+    border-bottom: 1px solid $backgroundColor;
+  
+    div {
+      text-align: center;
+    }
+}
+
+.history .bar:first-child {
+    transform: rotateY(180deg);
+}
+
+.bar {
+    height: 2px;
+    flex: 1;
+    background-color: $primaryColor-13;
+    display: flex;
+    justify-content: flex-start;
+    margin: 0 $spacing-8;
+
+    span {
+        display: block;
+        height: 100%;
+    }
+}
+
+.progress {
+    animation: progressbar 1s ease-in-out;
+    animation-fill-mode: both;
+}
+
+.progress.red {
+    background: linear-gradient(270deg, #FF1E55 3.78%, #1C202B 100%);
+}
+
+.progress.green {
+    background: linear-gradient(270deg, #26FF81 3.78%, #1C202B 100%);
+}
+
+.progress.yellow {
+    background: linear-gradient(270deg, #FFF43C 3.78%, #1C202B 100%);
+}
+
+@keyframes progressbar {
+    0% {
+        width: 0;
+    }
+    100% {
+        width: 100%;
+    }
+}
+
+.history-month {
+    text-align: center;
+}
+
+.live {
+    background-color: $primaryColor;
+    padding: $spacing-20;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+.cam {
+    justify-content: end;
+
+    svg {
+        height: 16px;
+        width: 16px;
+        margin-left: $spacing-12;
+    }
+}
