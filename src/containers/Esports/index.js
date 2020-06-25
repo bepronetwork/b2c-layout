@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { Typography, Button, LiveIcon } from 'components';
 import { connect } from 'react-redux';
-import { Carousel } from '3d-react-carousal';
 import classNames from "classnames";
 import { games, tournaments, matches } from './fakeData';
 import { Link } from "react-router-dom";
@@ -127,7 +126,7 @@ class Esports extends Component {
                         </div>
                     </div>
                     <div styleName="carousel">
-                        {<Carousel slides={this.renderSlides()} autoplay={true} interval={2000} />}
+                        
                     </div>
                 </div>
                 <div styleName="results">
