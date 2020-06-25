@@ -47,6 +47,12 @@
 }
 
 .carousel {
+  width: 75%;
+  margin: auto;
+
+  @media screen and (max-width: 767px) {
+    width: 100%;
+  } 
 }
 
 .element {
