@@ -89,6 +89,18 @@
   grid-template-columns: 25% 50% 25%;
   gap: 1.5em;
 
+  @media screen and (max-width: 1267px) and (min-width: 1024px) {
+    grid-template-columns: 33% 34% 33%;
+    gap: 1em;
+  }
+
+  @media screen and (max-width: 1023px) and (min-width: 768px) {
+    display: grid;
+    grid-template-columns: none;
+    gap: unset;
+    margin-top: 0;
+  } 
+
   @media screen and (max-width: 767px) {
     display: grid;
     grid-template-columns: none;
@@ -100,6 +112,13 @@
 .left {
   width: 100%;
 
+  @media screen and (max-width: 1267px) and (min-width: 1024px) {
+  }
+
+  @media screen and (max-width: 1023px) and (min-width: 768px) {
+    order: 2;
+  } 
+
   @media screen and (max-width: 767px) {
     order: 2;
   } 
@@ -107,6 +126,13 @@
 
 .middle {
   background-color: $primaryColor;
+
+  @media screen and (max-width: 1267px) and (min-width: 1024px) {
+  }
+
+  @media screen and (max-width: 1023px) and (min-width: 768px) {
+    order: 1;
+  } 
 
   @media screen and (max-width: 767px) {
     order: 1;
@@ -119,7 +145,14 @@
   background-color: $primaryColor;
   padding: $spacing-20;
 
+  @media screen and (max-width: 1267px) and (min-width: 1024px) {
+  }
+
+  @media screen and (max-width: 1023px) and (min-width: 768px) {
+    order: 3;
+  } 
+
   @media screen and (max-width: 767px) {
-    display: none
+    order: 3;
   } 
 }

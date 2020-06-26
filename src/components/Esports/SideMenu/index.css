@@ -27,6 +27,14 @@
     align-items: center;
     width: 100%;
 
+
+    @media screen and (max-width: 1267px) and (min-width: 1024px) {
+    }
+  
+    @media screen and (max-width: 1023px) and (min-width: 768px) {
+      display: none;
+    } 
+
     @media screen and (max-width: 767px) {
         display: none;
     } 

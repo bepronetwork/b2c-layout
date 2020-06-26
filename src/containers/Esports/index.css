@@ -15,6 +15,16 @@
   grid-template-columns: 30% 70%;
   gap: 1.5em;
 
+  @media screen and (max-width: 1267px) and (min-width: 1024px) {
+  }
+
+  @media screen and (max-width: 1023px) and (min-width: 768px) {
+    grid-template-rows: auto auto;
+    grid-template-areas: unset;
+    grid-template-columns: unset;
+    gap: unset;
+  } 
+
   @media screen and (max-width: 767px) {
     grid-template-rows: auto auto;
     grid-template-areas: unset;
@@ -29,6 +39,14 @@
 
   h2 {
     text-transform: uppercase; 
+  }
+
+  @media screen and (max-width: 1267px) and (min-width: 1024px) {
+  }
+
+  @media screen and (max-width: 1023px) and (min-width: 768px) {
+    margin-bottom: $spacing-36;
+    padding: 0 $spacing-20;
   }
 
   @media screen and (max-width: 767px) {
@@ -49,6 +67,13 @@
 .carousel {
   width: 75%;
   margin: auto;
+
+  @media screen and (max-width: 1267px) and (min-width: 1024px) {
+  }
+
+  @media screen and (max-width: 1023px) and (min-width: 768px) {
+    width: 100%;
+  }
 
   @media screen and (max-width: 767px) {
     width: 100%;
@@ -183,6 +208,18 @@
   grid-template-columns: 75% 25%;
   gap: 1.5em;
 
+  @media screen and (max-width: 1267px) and (min-width: 1024px) {
+    grid-template-columns: 70% 30%;
+    gap: 0.7em;
+    margin-right: $spacing-12;
+  }
+
+  @media screen and (max-width: 1023px) and (min-width: 768px) {
+    display: inline;
+    grid-template-columns: none;
+    gap: unset;
+  } 
+
   @media screen and (max-width: 767px) {
     display: inline;
     grid-template-columns: none;
@@ -315,6 +352,16 @@
   align-items: center;
   margin: 0 $spacing-12;
   max-width: 112px;
+
+  @media screen and (max-width: 1267px) and (min-width: 1024px) {
+    margin: 0 $spacing-4;
+  }
+
+  @media screen and (max-width: 1023px) and (min-width: 768px) {
+  } 
+
+  @media screen and (max-width: 767px) {
+  } 
 }
 
 .left-arrow {
@@ -375,6 +422,14 @@
   background-color: $primaryColor;
   padding: $spacing-20;
   border-radius: $border-radius;
+
+  @media screen and (max-width: 1267px) and (min-width: 1024px) {
+    padding: $spacing-12;
+  }
+
+  @media screen and (max-width: 1023px) and (min-width: 768px) {
+    display: none
+  } 
 
   @media screen and (max-width: 767px) {
     display: none
