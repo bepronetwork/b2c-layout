@@ -20,24 +20,24 @@ class ScoreBoard extends Component {
                             <Typography variant={'x-small-body'} color={'white'}>&lt; Matches </Typography>
                         </div>
                     </Link>
-                    <img src={match.tournament.game.image} />
+                    <img src={match.league.image_url} />
                     <div>
                         <div styleName="game-name">
-                            <Typography variant={'small-body'} color={'white'}>{match.tournament.name}</Typography>
+                            <Typography variant={'small-body'} color={'white'}>{match.league.name}</Typography>
                             <span>
-                                <Typography variant={'x-small-body'} color={'grey'}>{match.round}</Typography>
+                                <Typography variant={'x-small-body'} color={'grey'}>{match.serie.full_name}</Typography>
                             </span>
                         </div>
                     </div>
                 </div>
                 <div styleName="teams">
                     <div styleName="team">
-                        <img src={match.teams[0].country} />
-                        <img src={match.teams[0].flag} />
+                        <img src="https://image.flaticon.com/icons/svg/197/197484.svg" />
+                        <img src={match.opponents[0].opponent.image_url} />
                         <div>
-                            <Typography variant={'small-body'} color={'white'}>{match.teams[0].name}</Typography>
+                            <Typography variant={'small-body'} color={'white'}>{match.opponents[0].opponent.name}</Typography>
                             <span>
-                                <Typography variant={'x-small-body'} color={'white'}>{match.teams[0].score}</Typography>
+                                <Typography variant={'x-small-body'} color={'white'}>{match.results[0].score}</Typography>
                             </span>
                         </div>
                     </div>
@@ -47,12 +47,12 @@ class ScoreBoard extends Component {
                         <div styleName="left-arrow"></div>
                     </div>
                     <div styleName="team">
-                        <img src={match.teams[1].country} />
-                        <img src={match.teams[1].flag} />
+                        <img src="https://image.flaticon.com/icons/svg/197/197484.svg" />
+                        <img src={match.opponents[1].opponent.image_url} />
                         <div>
-                            <Typography variant={'small-body'} color={'white'}>{match.teams[1].name}</Typography>
+                            <Typography variant={'small-body'} color={'white'}>{match.opponents[1].opponent.name}</Typography>
                             <span>
-                                <Typography variant={'x-small-body'} color={'white'}>{match.teams[1].score}</Typography>
+                                <Typography variant={'x-small-body'} color={'white'}>{match.results[1].score}</Typography>
                             </span>
                         </div>
                     </div>

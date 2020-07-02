@@ -3,8 +3,9 @@ import { Typography, Button, LiveIcon } from 'components';
 import { connect } from 'react-redux';
 import Carousel from 'react-bootstrap/Carousel'
 import classNames from "classnames";
-import { games, tournaments, matches } from './fakeData';
 import { Link } from "react-router-dom";
+import { getGames, getMatches, getMatchesBySeries } from "controllers/Esports/EsportsUser";
+import Tooltip from '@material-ui/core/Tooltip';
 import _ from 'lodash';
 import "./index.css";
 import BetSlip from "../../components/Esports/BetSlip";
@@ -15,33 +16,122 @@ class Esports extends Component {
         super(props);
         this.state = {
             gameFilter: [],
-            tournamentFilter: [],
-            betsSlip: []
+            serieFilter: [],
+            betsSlip: [],
+            games: [],
+            matches: []
         };
+    }
+
+    componentDidMount(){
+        this.projectData(this.props)
+    }
+
+    componentWillReceiveProps(props){
+        this.projectData(props);
+    }
+
+
+    projectData = async (props) => {
+        const games = await getGames();
+        const matches = await getMatches();
+
+        this.setState({
+            games,
+            matches
+        })
+    }
+
+    handleFilterGameClick = async (id) => {
+        let { gameFilter, games, matches } = this.state;
+        const exist = gameFilter.some(el => el === id); 
+
+        if(exist) {
+            const index = gameFilter.indexOf(id);
+            gameFilter.splice(index, 1);
+        }
+        else {
+            gameFilter.push(id);
+        }
+
+        if(gameFilter.length > 0) {
+            const filtered = games.filter(g => gameFilter.includes(g.external_id));
+            const series = filtered.flatMap(item => item.series);
+            const serieFilter = series.map(s => {
+                return s.id
+            });
+            matches = await getMatchesBySeries(serieFilter);
+        }
+        else {
+            matches = await getMatches();
+        }
+
+        this.setState({ gameFilter, matches });
+    }
+
+    handleCleanGameFilterClick = async () => {
+        const { gameFilter } = this.state;
+
+        gameFilter.splice(0, gameFilter.length);
+
+        const matches = await getMatches();
+
+        this.setState({ gameFilter, matches });
+    }
+
+    handleFilterSerieClick = async (id) => {
+        const { serieFilter } = this.state;
+        const exist = serieFilter.some(el => el === id); 
+
+        if(exist) {
+            const index = serieFilter.indexOf(id);
+            serieFilter.splice(index, 1);
+        }
+        else {
+            serieFilter.push(id);
+        }
+
+        const matches = serieFilter.length > 0 ? await getMatchesBySeries(serieFilter): await getMatches();
+
+        this.setState({ serieFilter, matches });
+    }
+
+    handleCleanSerieFilterClick = async () => {
+        const { serieFilter } = this.state;
+
+        serieFilter.splice(0, serieFilter.length);
+
+        const matches = await getMatches();
+
+        this.setState({ serieFilter, matches });
     }
 
     renderSlides() {
 
+        const { matches, games } = this.state;
         let slides = [];
 
-        matches.map( match => {
+        matches.slice(0, 3).map( match => {
+            const image = games.find(g => g.external_id === match.videogame.id).image;
             slides.push(
                 <Carousel.Item>
                     <Link to={`/esports/${match.id}`}>
                         <div styleName="element">
-                            <div styleName="background" style={{background: "url('" + match.image + "') center center / cover no-repeat"}} />
+                            <div styleName="background" style={{background: "url('https://i.mlcdn.com.br/portaldalu/fotosconteudo/55652.jpg') center center / cover no-repeat"}} />
                             <div styleName="text">
                                 <div styleName="tour">
-                                    <img src={match.tournament.game.image} />
+                                    <div styleName="tour-img">
+                                        <img src={image} />
+                                    </div>
                                     <div>
-                                        <Typography variant={'x-small-body'} color={'white'}>{`${match.tournament.name} - ${match.round}`}</Typography>
+                                        <Typography variant={'x-small-body'} color={'white'}>{`${match.league.name} - ${match.serie.full_name}`}</Typography>
                                     </div>
                                 </div>
                                 <div styleName="teams">
                                     <div styleName="team">
-                                        <img src={match.teams[0].country} />
-                                        <img src={match.teams[0].flag} />
-                                        <Typography variant={'x-small-body'} color={'white'}>{match.teams[0].name}</Typography>
+                                        <img src="https://image.flaticon.com/icons/svg/197/197484.svg" />
+                                        <img src={match.opponents[0].opponent.image_url} />
+                                        <Typography variant={'x-small-body'} color={'white'}>{match.opponents[0].opponent.name}</Typography>
                                     </div>
                                     <div styleName="triangle">
                                         <div styleName="right-arrow"></div>
@@ -49,9 +139,9 @@ class Esports extends Component {
                                         <div styleName="left-arrow"></div>
                                     </div>
                                     <div styleName="team">
-                                        <img src={match.teams[1].country} />
-                                        <img src={match.teams[1].flag} />
-                                        <Typography variant={'x-small-body'} color={'white'}>{match.teams[1].name}</Typography>
+                                        <img src="https://image.flaticon.com/icons/svg/197/197484.svg" />
+                                        <img src={match.opponents[1].opponent.image_url} />
+                                        <Typography variant={'x-small-body'} color={'white'}>{match.opponents[1].opponent.name}</Typography>
                                     </div>
                                 </div>
                             </div>
@@ -64,55 +154,85 @@ class Esports extends Component {
         return slides;
     }
 
-    handleFilterGameClick(id) {
-        const { gameFilter } = this.state;
-        const exist = gameFilter.some(el => el === id); 
+    filterGame() {
+        const { gameFilter, games } = this.state;
 
-        if(exist) {
-            const index = gameFilter.indexOf(id);
-            gameFilter.splice(index, 1);
-        }
-        else {
-            gameFilter.push(id);
-        }
-
-        this.setState({ gameFilter });
+        return (
+            <div styleName="filter-matches">
+                <div styleName="all" onClick={() => this.handleCleanGameFilterClick()}>
+                    <Typography variant={'x-small-body'} color={'white'}>All Games</Typography>
+                    {
+                        gameFilter.length 
+                        ?
+                            <span styleName="all-selected">x</span>
+                        :
+                            null
+                    }
+                </div>
+                <ul>
+                    {
+                        games.map(game => {
+                            const exist = gameFilter.some(el => el === game.external_id);
+                            const styles = classNames("filter-match", {
+                                selected: exist
+                            });
+                            return (
+                                <li styleName={styles} onClick={() => this.handleFilterGameClick(game.external_id)} key={game.external_id}>
+                                    <Tooltip title={game.name} >
+                                        <div>
+                                            <img src={game.image}/>
+                                        </div>
+                                    </Tooltip>
+                                </li>
+                            )
+                        })
+                    }
+                </ul>
+            </div>
+        )
     }
 
-    handleCleanGameFilterClick() {
-        const { gameFilter } = this.state;
+    filterSerie() {
+        const { serieFilter, games } = this.state;
 
-        gameFilter.splice(0, gameFilter.length);
-
-        this.setState({ gameFilter });
+        return (
+            <div styleName="filter-tournaments">
+                <div styleName="all" onClick={() => this.handleCleanSerieFilterClick()}>
+                        <Typography variant={'x-small-body'} color={'white'}>All Tournaments</Typography>
+                        {
+                        serieFilter.length 
+                        ?
+                            <span styleName="all-selected">x</span>
+                        :
+                            null
+                        }
+                </div>
+                <ul>
+                    {
+                        games.map(game => {
+                            if(!_.isEmpty(game.series)) {
+                                const exist = serieFilter.some(el => el === game.series[0].id);
+                                const styles = classNames("tournament", {
+                                    tourSelected: exist
+                                });
+                                return (
+                                    <li styleName={styles} onClick={() => this.handleFilterSerieClick(game.series[0].id)} key={game.series[0].id}>
+                                        <div>
+                                            <img src={game.image} />
+                                        </div>
+                                        <Typography variant={'x-small-body'} color={'white'}>{`${game.series[0].league.name} - ${game.series[0].full_name}`}</Typography>
+                                    </li>
+                                )
+                            }
+                        })
+                    }
+                </ul>
+            </div>
+        )
     }
-
-    handleFilterTournamentClick(id) {
-        const { tournamentFilter } = this.state;
-        const exist = tournamentFilter.some(el => el === id); 
-
-        if(exist) {
-            const index = tournamentFilter.indexOf(id);
-            tournamentFilter.splice(index, 1);
-        }
-        else {
-            tournamentFilter.push(id);
-        }
-
-        this.setState({ tournamentFilter });
-    }
-
-    handleCleanTournamentFilterClick() {
-        const { tournamentFilter } = this.state;
-
-        tournamentFilter.splice(0, tournamentFilter.length);
-
-        this.setState({ tournamentFilter });
-    }
-
 
     render() {
-        const { gameFilter, tournamentFilter } = this.state;
+        const { games, matches } = this.state;
 
         return (
             <div styleName="root">
@@ -136,61 +256,8 @@ class Esports extends Component {
                 </div>
                 <div styleName="results">
                     <div styleName="filters">
-                        <div styleName="filter-matches">
-                            <div styleName="all" onClick={() => this.handleCleanGameFilterClick()}>
-                                <Typography variant={'x-small-body'} color={'white'}>All Games</Typography>
-                                {
-                                    gameFilter.length 
-                                    ?
-                                        <span styleName="all-selected">x</span>
-                                    :
-                                        null
-                                }
-                            </div>
-                            <ul>
-                                {
-                                    games.map(game => {
-                                        const exist = gameFilter.some(el => el === game.id);
-                                        const styles = classNames("filter-match", {
-                                            selected: exist
-                                        });
-                                        return (
-                                            <li styleName={styles} onClick={() => this.handleFilterGameClick(game.id)} key={game.id}>
-                                                <img src={game.image} />
-                                            </li>
-                                        )
-                                    })
-                                }
-                            </ul>
-                        </div>
-                        <div styleName="filter-tournaments">
-                            <div styleName="all" onClick={() => this.handleCleanTournamentFilterClick()}>
-                                    <Typography variant={'x-small-body'} color={'white'}>All Tournaments</Typography>
-                                    {
-                                    tournamentFilter.length 
-                                    ?
-                                        <span styleName="all-selected">x</span>
-                                    :
-                                        null
-                                    }
-                                </div>
-                                <ul>
-                                    {
-                                        tournaments.map(tournament => {
-                                            const exist = tournamentFilter.some(el => el === tournament.id);
-                                            const styles = classNames("tournament", {
-                                                tourSelected: exist
-                                            });
-                                            return (
-                                                <li styleName={styles} onClick={() => this.handleFilterTournamentClick(tournament.id)} key={tournament.id}>
-                                                    <img src={tournament.game.image} />
-                                                    <Typography variant={'x-small-body'} color={'white'}>{tournament.name}</Typography>
-                                                </li>
-                                            )
-                                        })
-                                    }
-                                </ul>
-                            </div>
+                        {this.filterGame()}
+                        {this.filterSerie()}
                     </div>
                     <div>
                         <div styleName="date">
@@ -200,16 +267,19 @@ class Esports extends Component {
                             <div>
                                 {
                                     matches.map(match => {
+                                        const image = games.find(g => g.external_id === match.videogame.id).image;
                                         return (
                                             <Link to={`/esports/${match.id}`}>
                                                 <div styleName="match">
                                                     <div styleName="match-tour">
                                                         <div styleName="tour-name">
-                                                            <img src={match.tournament.game.image} />
+                                                            <div styleName="tour-img">
+                                                                <img src={image} />
+                                                            </div>
                                                             <div styleName="match-name">
-                                                                <Typography variant={'x-small-body'} color={'white'}> {match.tournament.name}</Typography>
+                                                                <Typography variant={'x-small-body'} color={'white'}> {match.league.name}</Typography>
                                                                 <span>
-                                                                    <Typography variant={'x-small-body'} color={'grey'}>{match.round}</Typography>
+                                                                    <Typography variant={'x-small-body'} color={'grey'}>{match.serie.full_name}</Typography>
                                                                 </span>
                                                             </div>
                                                         </div>
@@ -234,12 +304,12 @@ class Esports extends Component {
                                                     </div>
                                                     <div styleName="teams">
                                                         <div styleName="team">
-                                                            <img src={match.teams[0].country} />
-                                                            <img src={match.teams[0].flag} />
+                                                            <img src="https://image.flaticon.com/icons/svg/197/197484.svg" />
+                                                            <img src={match.opponents[0].opponent.image_url} />
                                                             <div>
-                                                                <Typography variant={'x-small-body'} color={'white'}>{match.teams[0].name}</Typography>
+                                                                <Typography variant={'x-small-body'} color={'white'}>{match.opponents[0].opponent.name}</Typography>
                                                                 <span>
-                                                                    <Typography variant={'x-small-body'} color={'grey'}>{match.teams[0].score}</Typography>
+                                                                    <Typography variant={'x-small-body'} color={'grey'}>{match.results[0].score}</Typography>
                                                                 </span>
                                                             </div>
                                                         </div>
@@ -249,12 +319,12 @@ class Esports extends Component {
                                                             <div styleName="left-arrow"></div>
                                                         </div>
                                                         <div styleName="team">
-                                                            <img src={match.teams[1].country} />
-                                                            <img src={match.teams[1].flag} />
+                                                            <img src="https://image.flaticon.com/icons/svg/197/197484.svg" />
+                                                            <img src={match.opponents[1].opponent.image_url} />
                                                             <div>
-                                                                <Typography variant={'x-small-body'} color={'white'}>{match.teams[1].name}</Typography>
+                                                                <Typography variant={'x-small-body'} color={'white'}>{match.opponents[1].opponent.name}</Typography>
                                                                 <span>
-                                                                    <Typography variant={'x-small-body'} color={'grey'}>{match.teams[1].score}</Typography>
+                                                                    <Typography variant={'x-small-body'} color={'grey'}>{match.results[1].score}</Typography>
                                                                 </span>
                                                             </div>
                                                         </div>

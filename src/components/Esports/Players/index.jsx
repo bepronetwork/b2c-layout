@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Typography, Tabs, LiveIcon } from 'components';
 import { connect } from 'react-redux';
-import classNames from "classnames";
+import { getTeam } from "controllers/Esports/EsportsUser";
 import _ from 'lodash';
 import "./index.css";
 
@@ -13,33 +13,30 @@ class Players extends Component {
         this.state = {
         };
     }
-
-    componentDidMount() {
-    }
-
+    
     renderPlayers() {
-        const { match } = this.props;
+        const { team1, team2 } = this.props;
 
         return (
             <div styleName="players">
                 <div styleName="left-column">
                     {
-                        match.teams[0].players.map(p => {
+                        team1.players.map(p => {
                             return (
-                                <div styleName="player" key={p.nickName}>
+                                <div styleName="player" key={p.name}>
                                     <div styleName="description">
                                         <span styleName="name">
                                             <Typography variant={'x-small-body'} color={'white'}>
-                                                {p.nickName}
+                                                {p.name}
                                             </Typography>
                                         </span>
                                         <span styleName="name">
                                             <Typography variant={'x-small-body'} color={'grey'}>
-                                                {p.fullName}
+                                                {`${p.first_name} ${p.last_name}`}
                                             </Typography>
                                         </span>
                                     </div>
-                                    <div styleName="player-country"><img src={p.country} /></div>
+                                    <div styleName="player-country"><img src={p.image_url} /></div>
                                 </div>
                             )
                         })
@@ -47,22 +44,22 @@ class Players extends Component {
                 </div>
                 <div styleName="right-column">
                     {
-                        match.teams[1].players.map(p => {
+                        team2.players.map(p => {
                             return (
-                                <div styleName="player" key={p.nickName}>
+                                <div styleName="player" key={p.name}>
                                     <div styleName="description">
                                         <span styleName="name">
                                             <Typography variant={'x-small-body'} color={'white'}>
-                                                {p.nickName}
+                                                {p.name}
                                             </Typography>
                                         </span>
                                         <span styleName="name">
                                             <Typography variant={'x-small-body'} color={'grey'}>
-                                                {p.fullName}
+                                                {`${p.first_name} ${p.last_name}`}
                                             </Typography>
                                         </span>
                                     </div>
-                                    <div styleName="player-country"><img src={p.country} /></div>
+                                    <div styleName="player-country"><img src={p.image_url} /></div>
                                 </div>
                             )
                         })
@@ -73,8 +70,7 @@ class Players extends Component {
     }
 
     render() {
-
-        const { match } = this.props;
+        const { team1, team2, hasPlayers } = this.props;
 
         return (
             <div styleName="players-menu">
@@ -85,17 +81,27 @@ class Players extends Component {
                 <div styleName="teams">
                     <div>
                         <div styleName="team">
-                            <Typography variant={'x-small-body'} color={'white'}>{match.teams[0].name}</Typography>
+                            <Typography variant={'x-small-body'} color={'white'}>{team1.name}</Typography>
                         </div>
                     </div>
                     <div>
                         <div styleName="team">
-                            <Typography variant={'x-small-body'} color={'white'}>{match.teams[1].name}</Typography>
+                            <Typography variant={'x-small-body'} color={'white'}>{team2.name}</Typography>
                         </div>
                     </div>
                 </div>
                 <div>
-                    {this.renderPlayers()}
+                {
+                    hasPlayers === true 
+                    ?
+                        this.renderPlayers()
+                    :
+                        <div styleName="empty">
+                            <Typography variant={'x-small-body'} color={'white'}>
+                                No info available at the moment. Stay tuned...
+                            </Typography>
+                        </div>
+                }
                 </div>
             </div>
         );

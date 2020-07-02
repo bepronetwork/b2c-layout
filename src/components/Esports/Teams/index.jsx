@@ -1,0 +1,75 @@
+import React, { Component } from "react";
+import { Stats, Players } from 'components/Esports';
+import { getTeam } from "controllers/Esports/EsportsUser";
+import { connect } from 'react-redux';
+import _ from 'lodash';
+import "./index.css";
+
+
+class Teams extends Component {
+
+    constructor(props) {
+        super(props);
+        this.state = {
+            team1 : null,
+            team2 : null,
+            hasPlayers : false
+        };
+    }
+
+    componentDidMount(){
+        this.projectData(this.props)
+    }
+
+    componentWillReceiveProps(props){
+        this.projectData(props);
+    }
+
+    projectData = async (props) => {
+        let { hasPlayers } = this.state;
+        const { match } = props;
+
+        const slug = match.videogame.slug;
+        let team1 = match.opponents[0].opponent;
+        let team2 = match.opponents[1].opponent;
+
+        if (slug == "league-of-legends") {
+            const teamId1 = match.opponents[0].opponent.id;
+            const teamId2 = match.opponents[1].opponent.id;
+            team1 = await getTeam(teamId1, slug);
+            team2 = await getTeam(teamId2, slug);
+
+            hasPlayers = true;
+        }
+
+        this.setState({
+            team1,
+            team2,
+            hasPlayers
+        });
+    }
+
+    render() {
+        const { team1, team2, hasPlayers } = this.state;
+        const { match } = this.props;
+
+
+        if(team1 == null || team2 == null) { return null }
+
+        return (
+            <div>
+                <Stats match={match} team1={team1} team2={team2} hasPlayers={hasPlayers} />
+                <Players match={match} team1={team1} team2={team2} hasPlayers={hasPlayers} />
+            </div>
+        );
+    }
+}
+
+function mapStateToProps(state){
+    return {
+        profile : state.profile,
+        ln: state.language
+    };
+}
+
+export default connect(mapStateToProps)(Teams);

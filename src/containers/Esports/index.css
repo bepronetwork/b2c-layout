@@ -110,10 +110,10 @@
   }
 
   img {
-    width: 20px;
-    height: 20px;
-    margin-right: $spacing-8;
-    border-radius: 12px;
+    width: 22px;
+    height: 22px;
+    padding: 2px;
+    margin: $spacing-4;
   }
 }
 
@@ -130,10 +130,12 @@
 
 .filter-matches {
   margin: $spacing-8 0;
+  display: flex;
 }
 
 .filter-tournaments {
-  margin: $spacing-8 0;
+  margin: $spacing-12 0;
+  display: flex;
 }
 
 .all {
@@ -141,10 +143,12 @@
   background-color: $primaryColor;
   padding: $spacing-12 $spacing-20;
   border-radius: 24px;
-  margin: $spacing-4 $spacing-8 $spacing-4 0;
+  margin: 0 $spacing-12 0 0;
   cursor: pointer;
   display: inline-flex;
   align-items: center;
+  white-space: nowrap;
+  height: 36px;
 }
 
 .all-selected {
@@ -162,23 +166,35 @@
   display: inline;
   cursor: pointer;
 
+  div {
+    float: left;
+    background-color: white;
+    border-radius: 24px;
+    margin-right: $spacing-16;
+  }
+
   img {
-    width: 30px;
-    height: 30px;
-    border-radius: 18px;
-    margin: $spacing-4 $spacing-8;
+    width: 28px;
+    height: 28px;
+    margin: $spacing-4;
+    padding: 2px;
   }
 }
 
 .selected {
-  img {
+  div {
     border: 3px solid $secondaryColor;
+  }
+
+  img {
+    width: 24px;
+    height: 24px;
   }
 }
 
 .tournament {
   display: inline-flex;
-  margin: $spacing-4 $spacing-4;
+  margin: 0 $spacing-8 $spacing-8 0;
   background-color: $primaryColor;
   padding: $spacing-4 $spacing-12;
   border-radius: 24px;
@@ -186,11 +202,16 @@
   height: 36px;
   cursor: pointer;
 
+  div {
+    background-color: white;
+    border-radius: 24px;
+    margin-right: $spacing-12;
+  }
+
   img {
     width: 24px;
     height: 24px;
-    margin-right: $spacing-12;
-    border-radius: 13px;
+    padding: 4px;
   }
   
 }
@@ -257,13 +278,6 @@
   min-width: 0;
   flex: 0.5;
 
-  img {
-    width: 30px;
-    height: 30px;
-    margin-right: $spacing-12;
-    border-radius: 20px;
-  }
-
   @media screen and (max-width: 767px) {
     width: auto;
     min-width: auto;
@@ -274,6 +288,21 @@
 
 .tour-name {
   display: flex;
+
+  img {
+    width: 22px;
+    height: 22px;
+    padding: 2px;
+    margin: $spacing-4;
+  }
+}
+
+.tour-img {
+  background-color: white;
+  border-radius: 24px;
+  height: 30px;
+  width: 30px;
+  margin-right: $spacing-12;
 }
 
 .match-name {
@@ -337,7 +366,7 @@
   border-radius: $border-radius 0 0 $border-radius;
 
   img {
-    margin-left: $spacing-8;
+    margin-left: $spacing-12;
     margin-right: 0;
   }
 }

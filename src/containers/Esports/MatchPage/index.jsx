@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import { Market, ScoreBoard, SideMenu } from 'components';
-import { matches } from '../fakeData';
 import { connect } from 'react-redux';
 import { Live, BetSlip } from "components/Esports";
+import { getMatch } from "controllers/Esports/EsportsUser";
 import _ from 'lodash';
 import "./index.css";
 
@@ -11,20 +11,36 @@ class MatchPage extends Component {
     constructor(props){
         super(props);
         this.state = {
-            isLive: false
+            match: null
         };
     }
 
-    componentDidMount() {
+    componentDidMount(){
+        this.projectData(this.props)
+    }
+
+    componentWillReceiveProps(props){
+        this.projectData(props);
+    }
+
+
+    projectData = async (props) => {
+        const { params } = props.match;
+
+        const matchId = parseInt(params.id);
+        const match = await getMatch(matchId);
+        
+        console.log("match", match)
+
+        this.setState({
+            match
+        })
     }
 
     render() {
-        const { isLive } = this.state;
-        const { params } = this.props.match;
+        const { match } = this.state;
 
-        if(!params.id) return null;
-
-        const match = matches.find(m => m.id == params.id)
+        if(!match) return null;
 
         return (
             <div styleName="root">
@@ -36,7 +52,7 @@ class MatchPage extends Component {
                         <SideMenu match={match} />
                     </div>
                     {
-                        match.isVideoTransmition
+                        false
                         ?
                             <div styleName="middle">
                                 <Live streaming={match.videoTransmition} />
