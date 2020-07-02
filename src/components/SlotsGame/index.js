@@ -32,18 +32,13 @@ class SlotsGame extends React.Component {
     const resultRow = this.randomTable(4, 6);
 
     await this.setState({ matrixResult: resultRow });
-    this.concatMatrices();
+    await this.concatMatrices();
   }
 
   concatMatrices = () => {
     const { matrixResult } = this.state;
 
-    const resultConcatFinal = [
-      ...matrixResult[0],
-      ...matrixResult[1],
-      ...matrixResult[2],
-      ...matrixResult[3]
-    ];
+    const resultConcatFinal = [].concat(...matrixResult);
 
     this.setState({ concatResult: resultConcatFinal });
   };
@@ -58,22 +53,40 @@ class SlotsGame extends React.Component {
 
     this.setState({ winner: null });
     this.emptyArray();
-    // this.child1.forceUpdateHandler();
     const resultRow = this.randomTable(4, 6);
 
     await this.setState({ matrixResult: resultRow });
 
-    const resultConcatFinal = [
-      ...matrixResult[0],
-      ...matrixResult[1],
-      ...matrixResult[2],
-      ...matrixResult[3]
-    ];
+    const resultConcatFinal = [].concat(...matrixResult);
 
     this.setState({ concatResult: resultConcatFinal });
 
     console.log(concatResult);
     console.log(matrixResult);
+  };
+
+  handleLine = () => {
+    const c = document.getElementById("myCanvas");
+    const ctx = c.getContext("2d");
+
+    ctx.beginPath();
+    ctx.lineWidth = "5";
+    ctx.strokeStyle = "green"; // Green path
+    ctx.moveTo(0, 75);
+    ctx.lineTo(250, 75);
+    ctx.stroke(); // Draw it
+  };
+
+  handleLine2 = () => {
+    const c = document.getElementById("myCanvas");
+    const ctx = c.getContext("2d");
+
+    ctx.beginPath();
+    ctx.lineWidth = "5";
+    ctx.strokeStyle = "green"; // Green path
+    ctx.moveTo(100, 75);
+    ctx.lineTo(350, 344);
+    ctx.stroke(); // Draw it
   };
 
   finishHandler(value) {
@@ -104,6 +117,12 @@ class SlotsGame extends React.Component {
         {winningSound}
         <button onClick={this.handleClick} type="button">
           TESTE
+        </button>
+        <button onClick={this.handleLine} type="button">
+          TESTE LINE
+        </button>
+        <button onClick={this.handleLine2} type="button">
+          TESTE LINE
         </button>
         <div className={styles.topContainer}>
           <h1 className={styles.topContainerText}>Pagamento total: 0.000000</h1>
@@ -146,11 +165,19 @@ class SlotsGame extends React.Component {
           </div>
 
           <div className={styles.spinnerContainer}>
+            <canvas
+              id="myCanvas"
+              width="300"
+              height="150"
+              style={{ border: "1px solid #d3d3d3;" }}
+              className={styles.lineTest}
+            />
             <div className={styles.rowContainer}>
               <div className={styles.columnContainer}>
                 {concatResult.slice(0, 4).map(num => {
                   return (
-                    <img src={images[num]} alt="" className={styles.icon} />
+                    // <img src={images[num]} alt="" className={styles.icon} />
+                    <p>{num}</p>
                   );
                 })}
               </div>
@@ -160,9 +187,7 @@ class SlotsGame extends React.Component {
             <div className={styles.rowContainer}>
               <div className={styles.columnContainer}>
                 {concatResult.slice(5, 9).map(num => {
-                  return (
-                    <img src={images[num]} alt="" className={styles.icon} />
-                  );
+                  return <p>{num}</p>;
                 })}
               </div>
               <div className={styles.separatedLine} />
@@ -171,9 +196,7 @@ class SlotsGame extends React.Component {
             <div className={styles.rowContainer}>
               <div className={styles.columnContainer}>
                 {concatResult.slice(10, 14).map(num => {
-                  return (
-                    <img src={images[num]} alt="" className={styles.icon} />
-                  );
+                  return <p>{num}</p>;
                 })}
               </div>
               <div className={styles.separatedLine} />
@@ -182,9 +205,7 @@ class SlotsGame extends React.Component {
             <div className={styles.rowContainer}>
               <div className={styles.columnContainer}>
                 {concatResult.slice(15, 19).map(num => {
-                  return (
-                    <img src={images[num]} alt="" className={styles.icon} />
-                  );
+                  return <p>{num}</p>;
                 })}
               </div>
               <div className={styles.separatedLine} />
@@ -193,9 +214,7 @@ class SlotsGame extends React.Component {
             <div className={styles.rowContainer}>
               <div className={styles.columnContainer}>
                 {concatResult.slice(20, 24).map(num => {
-                  return (
-                    <img src={images[num]} alt="" className={styles.icon} />
-                  );
+                  return <p>{num}</p>;
                 })}
               </div>
               <div className={styles.separatedLine} />
