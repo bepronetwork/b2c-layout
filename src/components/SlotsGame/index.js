@@ -1,7 +1,10 @@
 import React from "react";
-import Spinner from "./Spinner";
+// import { random } from "lodash";
+// import { array } from "prop-types";
+// import Spinner from "./Spinner";
 import styles from "./index.css";
 import numberOfLines from "../SlotsGameOptions/numberofLines";
+import images from "./Spinner/images";
 
 function WinningSound() {
   return (
@@ -14,37 +17,63 @@ function WinningSound() {
 class SlotsGame extends React.Component {
   static matches = [];
 
-  loser = [
-    "Not quite",
-    "Stop gambling",
-    "Hey, you lost!",
-    "Ouch! I felt that",
-    "Don't beat yourself up",
-    "There goes the college fund",
-    "I have a cat. You have a loss",
-    "You're awesome at losing",
-    "Coding is hard",
-    "Don't hate the coder"
-  ];
-
   constructor(props) {
     super(props);
     this.state = {
-      winner: null
+      winner: null,
+      matrixResult: [],
+      concatResult: []
     };
     this.finishHandler = this.finishHandler.bind(this);
     this.handleClick = this.handleClick.bind(this);
   }
 
-  handleClick = () => {
+  async componentDidMount() {
+    const resultRow = this.randomTable(4, 6);
+
+    await this.setState({ matrixResult: resultRow });
+    this.concatMatrices();
+  }
+
+  concatMatrices = () => {
+    const { matrixResult } = this.state;
+
+    const resultConcatFinal = [
+      ...matrixResult[0],
+      ...matrixResult[1],
+      ...matrixResult[2],
+      ...matrixResult[3]
+    ];
+
+    this.setState({ concatResult: resultConcatFinal });
+  };
+
+  randomTable = (rows, cols) =>
+    Array.from({ length: rows }, () =>
+      Array.from({ length: cols }, () => Math.floor(Math.random() * 8))
+    );
+
+  handleClick = async () => {
+    const { matrixResult, concatResult } = this.state;
+
     this.setState({ winner: null });
     this.emptyArray();
-    this.child1.forceUpdateHandler();
-    this.child2.forceUpdateHandler();
-    this.child3.forceUpdateHandler();
-    this.child4.forceUpdateHandler();
-    this.child5.forceUpdateHandler();
-    console.log(SlotsGame.matches);
+    // this.child1.forceUpdateHandler();
+    const resultRow = this.randomTable(4, 6);
+
+    await this.setState({ matrixResult: resultRow });
+
+    const resultConcatFinal = [
+      ...matrixResult[0],
+      ...matrixResult[1],
+      ...matrixResult[2],
+      ...matrixResult[3]
+    ];
+
+    this.setState({ concatResult: resultConcatFinal });
+
+    console.log(concatResult);
+    console.log(matrixResult);
   };
 
   finishHandler(value) {
@@ -63,7 +92,7 @@ class SlotsGame extends React.Component {
   }
 
   render() {
-    const { winner } = this.state;
+    const { winner, concatResult } = this.state;
     let winningSound = null;
 
     if (winner) {
@@ -73,6 +102,9 @@ class SlotsGame extends React.Component {
     return (
       <div className={styles.containerInit}>
         {winningSound}
+        <button onClick={this.handleClick} type="button">
+          TESTE
+        </button>
         <div className={styles.topContainer}>
           <h1 className={styles.topContainerText}>Pagamento total: 0.000000</h1>
         </div>
@@ -114,45 +146,60 @@ class SlotsGame extends React.Component {
           </div>
 
           <div className={styles.spinnerContainer}>
-            <Spinner
-              onFinish={this.finishHandler}
-              ref={child => {
-                this.child1 = child;
-              }}
-              timer="1000"
-            />
-            <div className={styles.separatedLine} />
-            <Spinner
-              onFinish={this.finishHandler}
-              ref={child => {
-                this.child2 = child;
-              }}
-              timer="1400"
-            />
-            <div className={styles.separatedLine} />
-            <Spinner
-              onFinish={this.finishHandler}
-              ref={child => {
-                this.child3 = child;
-              }}
-              timer="2200"
-            />
-            <div className={styles.separatedLine} />
-            <Spinner
-              onFinish={this.finishHandler}
-              ref={child => {
-                this.child4 = child;
-              }}
-              timer="3000"
-            />
-            <div className={styles.separatedLine} />
-            <Spinner
-              onFinish={this.finishHandler}
-              ref={child => {
-                this.child5 = child;
-              }}
-              timer="3800"
-            />
+            <div className={styles.rowContainer}>
+              <div className={styles.columnContainer}>
+                {concatResult.slice(0, 4).map(num => {
+                  return (
+                    <img src={images[num]} alt="" className={styles.icon} />
+                  );
+                })}
+              </div>
+              <div className={styles.separatedLine} />
+            </div>
+
+            <div className={styles.rowContainer}>
+              <div className={styles.columnContainer}>
+                {concatResult.slice(5, 9).map(num => {
+                  return (
+                    <img src={images[num]} alt="" className={styles.icon} />
+                  );
+                })}
+              </div>
+              <div className={styles.separatedLine} />
+            </div>
+
+            <div className={styles.rowContainer}>
+              <div className={styles.columnContainer}>
+                {concatResult.slice(10, 14).map(num => {
+                  return (
+                    <img src={images[num]} alt="" className={styles.icon} />
+                  );
+                })}
+              </div>
+              <div className={styles.separatedLine} />
+            </div>
+
+            <div className={styles.rowContainer}>
+              <div className={styles.columnContainer}>
+                {concatResult.slice(15, 19).map(num => {
+                  return (
+                    <img src={images[num]} alt="" className={styles.icon} />
+                  );
+                })}
+              </div>
+              <div className={styles.separatedLine} />
+            </div>
+
+            <div className={styles.rowContainer}>
+              <div className={styles.columnContainer}>
+                {concatResult.slice(20, 24).map(num => {
+                  return (
+                    <img src={images[num]} alt="" className={styles.icon} />
+                  );
+                })}
+              </div>
+              <div className={styles.separatedLine} />
+            </div>
           </div>
           <div className={styles.columnContainer}>
             <div style={{ margin: "15px" }}>

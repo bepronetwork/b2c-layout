@@ -45,7 +45,6 @@ h1 span {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-between;
 }
 
 .repeatButton{
@@ -91,6 +90,14 @@ h1 span {
   font-size: 10px;
 }
 
+.icon{
+  width: 100%;
+  animation-duration: 2s;
+    animation-timing-function: ease;
+    animation-delay: 2.2s;
+    animation-fill-mode: forwards;
+}
+
 .icons {
   display: inline-block;
   width: 100%;
@@ -118,8 +125,14 @@ h1 span {
   justify-content: center;
   display: flex;
   transition: 0.3s transform;
-  border: 10px solid rgb(47, 69, 83);
+  border: 5px solid rgb(47, 69, 83);
   border-radius: 20px;
+}
+
+.gridContainer{
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .app-wrap.winner-false {
@@ -127,7 +140,8 @@ h1 span {
 }
 .separatedLine {
   border-left: 1px solid gray;
-  height: 300px;
+  height: 150px;
+  margin: 10px;
 }
 .spinnerContainer::after {
   position: absolute;

@@ -7,15 +7,6 @@ import Heart from "../../../assets/icons/SlotsIcons/heart.png";
 import Leaf from "../../../assets/icons/SlotsIcons/leaf.png";
 import Seven from "../../../assets/icons/SlotsIcons/seven.png";
 
-const images = {
-  cherry: { Cherry },
-  apple: { Apple },
-  bell: { Bell },
-  cent: { Cent },
-  fruit: { Fruit },
-  heart: { Heart },
-  leaf: { Leaf },
-  seven: { Seven }
-};
+const images = [Cherry, Apple, Bell, Cent, Fruit, Heart, Leaf, Seven];
 
 export default images;
