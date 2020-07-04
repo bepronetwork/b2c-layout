@@ -84,8 +84,9 @@ class SlotsGame extends React.Component {
     ctx.beginPath();
     ctx.lineWidth = "5";
     ctx.strokeStyle = "green"; // Green path
-    ctx.moveTo(100, 75);
+    ctx.moveTo(100, 80);
     ctx.lineTo(350, 344);
+    ctx.lineTo(320, 330);
     ctx.stroke(); // Draw it
   };
 
@@ -133,9 +134,9 @@ class SlotsGame extends React.Component {
               {numberOfLines.map(lines => {
                 if (lines <= 3) {
                   return (
-                    <div className={styles.textButton}>
+                    <button className={styles.textButton}>
                       <p>{lines}</p>
-                    </div>
+                    </button>
                   );
                 }
               })}
@@ -144,9 +145,9 @@ class SlotsGame extends React.Component {
               {numberOfLines.map(lines => {
                 if (lines >= 4 && lines <= 6) {
                   return (
-                    <div className={styles.textButton}>
+                    <button className={styles.textButton}>
                       <p>{lines}</p>
-                    </div>
+                    </button>
                   );
                 }
               })}
@@ -155,9 +156,20 @@ class SlotsGame extends React.Component {
               {numberOfLines.map(lines => {
                 if (lines >= 7 && lines <= 9) {
                   return (
-                    <div className={styles.textButton}>
+                    <button className={styles.textButton}>
                       <p>{lines}</p>
-                    </div>
+                    </button>
+                  );
+                }
+              })}
+            </div>
+            <div style={{ margin: "15px" }}>
+              {numberOfLines.map(lines => {
+                if (lines >= 16 && lines <= 18) {
+                  return (
+                    <button className={styles.textButton}>
+                      <p>{lines}</p>
+                    </button>
                   );
                 }
               })}
@@ -167,57 +179,38 @@ class SlotsGame extends React.Component {
           <div className={styles.spinnerContainer}>
             <canvas
               id="myCanvas"
-              width="300"
-              height="150"
+              width="600px"
+              height="300px"
               style={{ border: "1px solid #d3d3d3;" }}
               className={styles.lineTest}
             />
-            <div className={styles.rowContainer}>
-              <div className={styles.columnContainer}>
-                {concatResult.slice(0, 4).map(num => {
-                  return (
-                    // <img src={images[num]} alt="" className={styles.icon} />
-                    <p>{num}</p>
-                  );
-                })}
-              </div>
-              <div className={styles.separatedLine} />
+            <div className={styles.columnContainer}>
+              {concatResult.slice(0, 4).map(num => {
+                return (
+                  // <img src={images[num]} alt="" className={styles.icon} />
+                  <img src={images[num]} alt="" className={styles.icon} />
+                );
+              })}
             </div>
-
-            <div className={styles.rowContainer}>
-              <div className={styles.columnContainer}>
-                {concatResult.slice(5, 9).map(num => {
-                  return <p>{num}</p>;
-                })}
-              </div>
-              <div className={styles.separatedLine} />
+            <div className={styles.columnContainer}>
+              {concatResult.slice(5, 9).map(num => {
+                return <img src={images[num]} alt="" className={styles.icon} />;
+              })}
             </div>
-
-            <div className={styles.rowContainer}>
-              <div className={styles.columnContainer}>
-                {concatResult.slice(10, 14).map(num => {
-                  return <p>{num}</p>;
-                })}
-              </div>
-              <div className={styles.separatedLine} />
+            <div className={styles.columnContainer}>
+              {concatResult.slice(10, 14).map(num => {
+                return <img src={images[num]} alt="" className={styles.icon} />;
+              })}
             </div>
-
-            <div className={styles.rowContainer}>
-              <div className={styles.columnContainer}>
-                {concatResult.slice(15, 19).map(num => {
-                  return <p>{num}</p>;
-                })}
-              </div>
-              <div className={styles.separatedLine} />
+            <div className={styles.columnContainer}>
+              {concatResult.slice(15, 19).map(num => {
+                return <img src={images[num]} alt="" className={styles.icon} />;
+              })}
             </div>
-
-            <div className={styles.rowContainer}>
-              <div className={styles.columnContainer}>
-                {concatResult.slice(20, 24).map(num => {
-                  return <p>{num}</p>;
-                })}
-              </div>
-              <div className={styles.separatedLine} />
+            <div className={styles.columnContainer}>
+              {concatResult.slice(20, 24).map(num => {
+                return <img src={images[num]} alt="" className={styles.icon} />;
+              })}
             </div>
           </div>
           <div className={styles.columnContainer}>
@@ -225,9 +218,9 @@ class SlotsGame extends React.Component {
               {numberOfLines.map(lines => {
                 if (lines >= 10 && lines <= 12) {
                   return (
-                    <div className={styles.textButton}>
+                    <button className={styles.textButton}>
                       <p>{lines}</p>
-                    </div>
+                    </button>
                   );
                 }
               })}
@@ -237,9 +230,9 @@ class SlotsGame extends React.Component {
               {numberOfLines.map(lines => {
                 if (lines >= 13 && lines <= 15) {
                   return (
-                    <div className={styles.textButton}>
+                    <button className={styles.textButton}>
                       <p>{lines}</p>
-                    </div>
+                    </button>
                   );
                 }
               })}
@@ -247,7 +240,18 @@ class SlotsGame extends React.Component {
 
             <div style={{ margin: "15px" }}>
               {numberOfLines.map(lines => {
-                if (lines >= 16 && lines <= 18) {
+                if (lines >= 19 && lines <= 21) {
+                  return (
+                    <button className={styles.textButton}>
+                      <p>{lines}</p>
+                    </button>
+                  );
+                }
+              })}
+            </div>
+            <div style={{ margin: "15px" }}>
+              {numberOfLines.map(lines => {
+                if (lines >= 22 && lines <= 24) {
                   return (
                     <div className={styles.textButton}>
                       <p>{lines}</p>

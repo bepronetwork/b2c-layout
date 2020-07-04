@@ -18,7 +18,11 @@ const numbers = [
   17,
   18,
   19,
-  20
+  20,
+  21,
+  22,
+  23,
+  24
 ];
 
 export default numbers;

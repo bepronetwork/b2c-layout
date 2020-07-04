@@ -9,12 +9,13 @@
 .textButton{
   font-size: medium;
   font: roboto;
-  color: white;
+  background-color: none !important;
 }
 
 .textButton:hover{
   color: white;
   cursor: pointer;
+  background-color: none;
 }
 
 body {
@@ -34,9 +35,10 @@ h1 span {
 }
 .lineTest{
   position: absolute;
-    top: 0px;
-    left: 0px;
-    z-index: 3;
+  top: 0px;
+  left: 0px;
+  z-index: -1;
+  align-self: center;
 }
 
 .rowContainer{
@@ -94,6 +96,8 @@ h1 span {
   text-align: center;
   color: white;
   font-size: 10px;
+  top: 0px;
+  left: 0px;
 }
 
 .icon{
@@ -127,6 +131,9 @@ h1 span {
   overflow: hidden;
   height: 300px;
   width: 70%;
+  top: 0px;
+  left: 0px;
+  padding: 20px 30px;
   align-items: center;
   justify-content: center;
   display: flex;

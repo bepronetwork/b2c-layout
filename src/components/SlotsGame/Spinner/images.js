@@ -1,12 +1,12 @@
-import Cherry from "../../../assets/icons/SlotsIcons/cherry.png";
-import Apple from "../../../assets/icons/SlotsIcons/apple.png";
-import Bell from "../../../assets/icons/SlotsIcons/bell.png";
-import Cent from "../../../assets/icons/SlotsIcons/cent.png";
+import BlueCoin from "../../../assets/icons/SlotsIcons/blue-coin.svg";
+import Coin from "../../../assets/icons/SlotsIcons/coin.svg";
+import Club from "../../../assets/icons/SlotsIcons/club.svg";
+import Spade from "../../../assets/icons/SlotsIcons/spade.svg";
 import Fruit from "../../../assets/icons/SlotsIcons/fruit.png";
-import Heart from "../../../assets/icons/SlotsIcons/heart.png";
+import Heart from "../../../assets/icons/SlotsIcons/heart.svg";
 import Leaf from "../../../assets/icons/SlotsIcons/leaf.png";
 import Seven from "../../../assets/icons/SlotsIcons/seven.png";
 
-const images = [Cherry, Apple, Bell, Cent, Fruit, Heart, Leaf, Seven];
+const images = [BlueCoin, Coin, Club, Spade, Fruit, Heart, Leaf, Seven];
 
 export default images;
