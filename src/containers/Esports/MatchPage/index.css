@@ -7,7 +7,6 @@
 .main {
   width: 100%;
   background-color: $primaryColor;
-  padding: $spacing-20;
   border-top: 1px solid $primaryColor-8;
 }
 

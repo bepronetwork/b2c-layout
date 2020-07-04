@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Typography, Tabs, LiveIcon } from 'components';
 import { connect } from 'react-redux';
-import { getTeam } from "controllers/Esports/EsportsUser";
+import { Shield } from "components/Esports";
 import _ from 'lodash';
 import "./index.css";
 
@@ -80,11 +80,17 @@ class Players extends Component {
                 </div>
                 <div styleName="teams">
                     <div>
+                        <div styleName="shield">
+                            <Shield image={team1.image_url} size={"medium"} />
+                        </div>
                         <div styleName="team">
                             <Typography variant={'x-small-body'} color={'white'}>{team1.name}</Typography>
                         </div>
                     </div>
                     <div>
+                        <div styleName="shield">
+                            <Shield image={team2.image_url} size={"medium"} />
+                        </div>
                         <div styleName="team">
                             <Typography variant={'x-small-body'} color={'white'}>{team2.name}</Typography>
                         </div>

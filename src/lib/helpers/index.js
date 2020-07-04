@@ -12,6 +12,9 @@ function dateToHourAndMinute(date){
     return moment(new Date(date)).fromNow();
 }
 
+function formatToBeautyDate(date) {
+    return moment(new Date(date)).format("h:mm a, MMMM Do YYYY")
+}
 
 function fromSmartContractTimeToMinutes(time){
     return moment().startOf('day')
@@ -231,7 +234,7 @@ function loadWheelOptions(game){
 }
 
 export { 
-    dateToHourAndMinute, getAppCustomization, 
+    dateToHourAndMinute, formatToBeautyDate, getAppCustomization, 
     fromSmartContractTimeToMinutes, getGames, 
     isUserSet, getMinutesfromSeconds, 
     getQueryVariable,  getGeo,

@@ -6,7 +6,7 @@ import _ from 'lodash';
 import "./index.css";
 
 
-class Teams extends Component {
+class TeamsTable extends Component {
 
     constructor(props) {
         super(props);
@@ -72,4 +72,4 @@ function mapStateToProps(state){
     };
 }
 
-export default connect(mapStateToProps)(Teams);
+export default connect(mapStateToProps)(TeamsTable);

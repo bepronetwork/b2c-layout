@@ -8,6 +8,7 @@
     display: grid;
     grid-template-columns: 30% 40% 30%;
     gap: 1.5em;
+    height: 70px;
 
     @media screen and (max-width: 1267px) and (min-width: 1024px) {
         display: inline;
@@ -31,6 +32,10 @@
 .tournament {
     display: inline-flex;
     align-items: center;
+
+    a {
+        height: 100%;
+    }
   
     img {
       width: 32px;
@@ -55,6 +60,17 @@
 
 .matches {
     margin-right: $spacing-20;
+    padding-right: 20px;
+    border-right: 1px solid $backgroundColor;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+
+    svg {
+        width: 20px;
+        height: 20px;
+    }
 }
 
 
@@ -181,4 +197,8 @@
     @media screen and (max-width: 767px) {
         display: none;
     } 
+}
+
+.game {
+    margin-left: $spacing-12;
 }

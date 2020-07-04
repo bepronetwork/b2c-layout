@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Typography } from 'components';
+import { Shield } from "components/Esports";
 import { connect } from 'react-redux';
 import classNames from "classnames";
 import moment from 'moment-timezone';
@@ -203,8 +204,8 @@ class Stats extends Component {
         const sumPlayed1 = stats1.reduce((a, b) => +a + +b.matchesPlayed, 0);
         const sumPlayed2 = stats2.reduce((a, b) => +a + +b.matchesPlayed, 0);
 
-        const performance1 = ( sumWon1 / sumPlayed1 ) * 100;
-        const performance2 = ( sumWon2 / sumPlayed2 ) * 100;
+        const performance1 = sumPlayed1 > 0 ? (( sumWon1 / sumPlayed1 ) * 100).toFixed(0) + "%" : "N/A";
+        const performance2 = sumPlayed2 > 0 ? (( sumWon2 / sumPlayed2 ) * 100).toFixed(0) + "%" : "N/A";
 
         return (
             <div styleName="stats-menu">
@@ -214,19 +215,25 @@ class Stats extends Component {
                 </div>
                 <div styleName="stats-score">
                     <div>
+                        <div styleName="shield">
+                            <Shield image={team1.image_url} size={"medium"} />
+                        </div>
                         <div styleName="score-team">
                             <Typography variant={'x-small-body'} color={'white'}>{team1.name}</Typography>
                         </div>
                         <div styleName="score-number">
-                            <Typography variant={'body'} color={'white'}>{performance1.toFixed(0)}%</Typography>
+                            <Typography variant={'body'} color={'white'}>{performance1}</Typography>
                         </div>
                     </div>
                     <div>
+                        <div styleName="shield">
+                            <Shield image={team2.image_url} size={"medium"} />
+                        </div>
                         <div styleName="score-team">
                             <Typography variant={'x-small-body'} color={'white'}>{team2.name}</Typography>
                         </div>
                         <div styleName="score-number">
-                            <Typography variant={'body'} color={'white'}>{performance2.toFixed(0)}%</Typography>
+                            <Typography variant={'body'} color={'white'}>{performance2}</Typography>
                         </div>
                     </div>
                 </div>

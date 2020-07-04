@@ -1,0 +1,26 @@
+@import "../../../styles/all.css";
+
+.shield {
+    display: flex;
+    background-color: $primaryColor-13;
+    border-radius: 50%;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    box-shadow: 0 2px 4px 0 $primaryColor;
+}
+
+.small {
+    width: 26px;
+    height: 26px;
+}
+
+.medium {
+    width: 30px;
+    height: 30px;
+}
+
+.large {
+    width: 34px;
+    height: 34px;
+}

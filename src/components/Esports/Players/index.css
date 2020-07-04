@@ -104,3 +104,9 @@
     padding: $spacing-52 $spacing-8;
     text-align: center;
 }
+
+.shield {
+    display: flex;
+    justify-content: center;
+    margin-bottom: $spacing-8;
+}

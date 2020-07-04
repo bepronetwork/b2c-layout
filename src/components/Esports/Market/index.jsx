@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Typography } from 'components';
 import { BetsTable } from 'components/Esports';
+import { dateToHourAndMinute, formatToBeautyDate } from "../../../lib/helpers";
 import { connect } from 'react-redux';
 import _ from 'lodash';
 import "./index.css";
@@ -9,7 +10,6 @@ import "./index.css";
 class Market extends Component {
 
     render() {
-
         const { match } = this.props;
 
         return (
@@ -20,10 +20,10 @@ class Market extends Component {
                             <Typography variant={'h4'} color={'white'}>Upcoming Match</Typography>
                         </div>
                         <div styleName="date">
-                            <Typography variant={'x-small-body'} color={'grey'}>8th June, Tuesday, 7:00 pm</Typography>
+                            <Typography variant={'x-small-body'} color={'grey'}>{formatToBeautyDate(match.begin_at)}</Typography>
                         </div>
                         <div styleName="time">
-                            <Typography variant={'small-body'} color={'white'}>7H : 30M : 48S</Typography>
+                            <Typography variant={'small-body'} color={'white'}>{dateToHourAndMinute(match.begin_at)}</Typography>
                         </div>
                     </div>
                     <BetsTable match={match} />

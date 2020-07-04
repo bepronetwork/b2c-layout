@@ -1,5 +1,6 @@
 import React, { Component } from "react";
-import { Typography, Button, LiveIcon } from 'components';
+import { Typography, Button } from 'components';
+import { Shield, Opponents, Status, BetSlip} from "components/Esports";
 import { connect } from 'react-redux';
 import Carousel from 'react-bootstrap/Carousel'
 import classNames from "classnames";
@@ -8,7 +9,6 @@ import { getGames, getMatches, getMatchesBySeries } from "controllers/Esports/Es
 import Tooltip from '@material-ui/core/Tooltip';
 import _ from 'lodash';
 import "./index.css";
-import BetSlip from "../../components/Esports/BetSlip";
 
 class Esports extends Component {
 
@@ -19,7 +19,8 @@ class Esports extends Component {
             serieFilter: [],
             betsSlip: [],
             games: [],
-            matches: []
+            matches: [],
+            status: ["pre_match", "live"]
         };
     }
 
@@ -33,8 +34,9 @@ class Esports extends Component {
 
 
     projectData = async (props) => {
+        const { status } = this.state;
         const games = await getGames();
-        const matches = await getMatches();
+        const matches = await getMatches(status);
 
         this.setState({
             games,
@@ -43,7 +45,7 @@ class Esports extends Component {
     }
 
     handleFilterGameClick = async (id) => {
-        let { gameFilter, games, matches } = this.state;
+        let { gameFilter, games, matches, status } = this.state;
         const exist = gameFilter.some(el => el === id); 
 
         if(exist) {
@@ -60,27 +62,27 @@ class Esports extends Component {
             const serieFilter = series.map(s => {
                 return s.id
             });
-            matches = await getMatchesBySeries(serieFilter);
+            matches = await getMatchesBySeries(serieFilter, status);
         }
         else {
-            matches = await getMatches();
+            matches = await getMatches(status);
         }
 
         this.setState({ gameFilter, matches });
     }
 
     handleCleanGameFilterClick = async () => {
-        const { gameFilter } = this.state;
+        const { gameFilter, status } = this.state;
 
         gameFilter.splice(0, gameFilter.length);
 
-        const matches = await getMatches();
+        const matches = await getMatches(status);
 
         this.setState({ gameFilter, matches });
     }
 
     handleFilterSerieClick = async (id) => {
-        const { serieFilter } = this.state;
+        const { serieFilter, status } = this.state;
         const exist = serieFilter.some(el => el === id); 
 
         if(exist) {
@@ -91,17 +93,17 @@ class Esports extends Component {
             serieFilter.push(id);
         }
 
-        const matches = serieFilter.length > 0 ? await getMatchesBySeries(serieFilter): await getMatches();
+        const matches = serieFilter.length > 0 ? await getMatchesBySeries(serieFilter, status): await getMatches(status);
 
         this.setState({ serieFilter, matches });
     }
 
     handleCleanSerieFilterClick = async () => {
-        const { serieFilter } = this.state;
+        const { serieFilter, status } = this.state;
 
         serieFilter.splice(0, serieFilter.length);
 
-        const matches = await getMatches();
+        const matches = await getMatches(status);
 
         this.setState({ serieFilter, matches });
     }
@@ -112,7 +114,7 @@ class Esports extends Component {
         let slides = [];
 
         matches.slice(0, 3).map( match => {
-            const image = games.find(g => g.external_id === match.videogame.id).image;
+            const gameImage = games.find(g => g.external_id === match.videogame.id).image;
             slides.push(
                 <Carousel.Item>
                     <Link to={`/esports/${match.id}`}>
@@ -121,29 +123,14 @@ class Esports extends Component {
                             <div styleName="text">
                                 <div styleName="tour">
                                     <div styleName="tour-img">
-                                        <img src={image} />
+                                        <img src={gameImage} />
                                     </div>
+                                    
                                     <div>
                                         <Typography variant={'x-small-body'} color={'white'}>{`${match.league.name} - ${match.serie.full_name}`}</Typography>
                                     </div>
                                 </div>
-                                <div styleName="teams">
-                                    <div styleName="team">
-                                        <img src="https://image.flaticon.com/icons/svg/197/197484.svg" />
-                                        <img src={match.opponents[0].opponent.image_url} />
-                                        <Typography variant={'x-small-body'} color={'white'}>{match.opponents[0].opponent.name}</Typography>
-                                    </div>
-                                    <div styleName="triangle">
-                                        <div styleName="right-arrow"></div>
-                                        <div styleName="vs"><Typography variant={'x-small-body'} color={'grey'}>VS</Typography></div>
-                                        <div styleName="left-arrow"></div>
-                                    </div>
-                                    <div styleName="team">
-                                        <img src="https://image.flaticon.com/icons/svg/197/197484.svg" />
-                                        <img src={match.opponents[1].opponent.image_url} />
-                                        <Typography variant={'x-small-body'} color={'white'}>{match.opponents[1].opponent.name}</Typography>
-                                    </div>
-                                </div>
+                                <Opponents opponents={match.opponents} results={match.results} gameImage={gameImage} odds={match.odds}/>
                             </div>
                         </div>
                     </Link>
@@ -179,9 +166,7 @@ class Esports extends Component {
                             return (
                                 <li styleName={styles} onClick={() => this.handleFilterGameClick(game.external_id)} key={game.external_id}>
                                     <Tooltip title={game.name} >
-                                        <div>
-                                            <img src={game.image}/>
-                                        </div>
+                                        <Shield image={game.image} size={"large"} />
                                     </Tooltip>
                                 </li>
                             )
@@ -217,10 +202,10 @@ class Esports extends Component {
                                 });
                                 return (
                                     <li styleName={styles} onClick={() => this.handleFilterSerieClick(game.series[0].id)} key={game.series[0].id}>
-                                        <div>
-                                            <img src={game.image} />
+                                        <Shield image={game.image} size={"small"} />
+                                        <div styleName="tournament-name">
+                                            <Typography variant={'x-small-body'} color={'white'}>{`${game.series[0].league.name} - ${game.series[0].full_name}`}</Typography>
                                         </div>
-                                        <Typography variant={'x-small-body'} color={'white'}>{`${game.series[0].league.name} - ${game.series[0].full_name}`}</Typography>
                                     </li>
                                 )
                             }
@@ -267,15 +252,13 @@ class Esports extends Component {
                             <div>
                                 {
                                     matches.map(match => {
-                                        const image = games.find(g => g.external_id === match.videogame.id).image;
+                                        const gameImage = games.find(g => g.external_id === match.videogame.id).image;
                                         return (
                                             <Link to={`/esports/${match.id}`}>
                                                 <div styleName="match">
                                                     <div styleName="match-tour">
                                                         <div styleName="tour-name">
-                                                            <div styleName="tour-img">
-                                                                <img src={image} />
-                                                            </div>
+                                                            <Shield image={gameImage} size={"medium"} />
                                                             <div styleName="match-name">
                                                                 <Typography variant={'x-small-body'} color={'white'}> {match.league.name}</Typography>
                                                                 <span>
@@ -283,70 +266,25 @@ class Esports extends Component {
                                                                 </span>
                                                             </div>
                                                         </div>
-                                                        <div styleName="live live-mobile">
-                                                            {
-                                                                match.isVideoTransmition === true
-                                                                ?
-                                                                    <LiveIcon/>
-                                                                :
-                                                                    null
-                                                            }
-                                                            {
-                                                                match.isLive === true
-                                                                ?
-                                                                    <Button size={'x-small'} theme="primary">
-                                                                        <Typography color={'fixedwhite'} variant={'x-small-body'}>Live</Typography>
-                                                                    </Button>
-                                                                :
-                                                                    null
-                                                            }
-                                                        </div>
+                                                        <Status 
+                                                            status={match.status} 
+                                                            date={match.begin_at} 
+                                                            isMobile={true} 
+                                                            hasLiveTransmition={!_.isEmpty(match.live_embed_url)} 
+                                                        />
                                                     </div>
-                                                    <div styleName="teams">
-                                                        <div styleName="team">
-                                                            <img src="https://image.flaticon.com/icons/svg/197/197484.svg" />
-                                                            <img src={match.opponents[0].opponent.image_url} />
-                                                            <div>
-                                                                <Typography variant={'x-small-body'} color={'white'}>{match.opponents[0].opponent.name}</Typography>
-                                                                <span>
-                                                                    <Typography variant={'x-small-body'} color={'grey'}>{match.results[0].score}</Typography>
-                                                                </span>
-                                                            </div>
-                                                        </div>
-                                                        <div styleName="triangle">
-                                                            <div styleName="right-arrow"></div>
-                                                            <div styleName="vs"><Typography variant={'x-small-body'} color={'grey'}>VS</Typography></div>
-                                                            <div styleName="left-arrow"></div>
-                                                        </div>
-                                                        <div styleName="team">
-                                                            <img src="https://image.flaticon.com/icons/svg/197/197484.svg" />
-                                                            <img src={match.opponents[1].opponent.image_url} />
-                                                            <div>
-                                                                <Typography variant={'x-small-body'} color={'white'}>{match.opponents[1].opponent.name}</Typography>
-                                                                <span>
-                                                                    <Typography variant={'x-small-body'} color={'grey'}>{match.results[1].score}</Typography>
-                                                                </span>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div styleName="live live-desktop">
-                                                        {
-                                                            match.isVideoTransmition === true
-                                                            ?
-                                                                <LiveIcon/>
-                                                            :
-                                                                null
-                                                        }
-                                                        {
-                                                            match.isLive === true
-                                                            ?
-                                                                <Button size={'x-small'} theme="primary">
-                                                                    <Typography color={'fixedwhite'} variant={'x-small-body'}>Live</Typography>
-                                                                </Button>
-                                                            :
-                                                                null
-                                                        }
-                                                    </div>
+                                                    <Opponents 
+                                                        opponents={match.opponents} 
+                                                        results={match.results}
+                                                        odds={match.odds}
+                                                        gameImage={gameImage} 
+                                                    />
+                                                    <Status 
+                                                        status={match.status} 
+                                                        date={match.begin_at} 
+                                                        isMobile={false}
+                                                        hasLiveTransmition={!_.isEmpty(match.live_embed_url)} 
+                                                    />
                                                 </div>
                                             </Link>
                                         )

@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Typography, Tabs, LiveIcon } from 'components';
-import { BetsTable, Teams } from 'components/Esports';
+import { BetsTable, TeamsTable } from 'components/Esports';
 import { connect } from 'react-redux';
 import _ from 'lodash';
 import "./index.css";
@@ -53,7 +53,7 @@ class SideMenu extends Component {
                     <div styleName="main">
                         {tab === "stats" 
                             ? 
-                                <Teams match={match} />
+                                <TeamsTable match={match} />
                             : 
                                 <BetsTable match={match} />
                         }

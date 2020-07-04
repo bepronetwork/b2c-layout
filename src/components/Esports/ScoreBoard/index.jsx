@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import { Typography } from 'components';
 import { connect } from 'react-redux';
 import { Link } from "react-router-dom";
+import ArrowLeft from "components/Icons/ArrowLeft";
+import { Opponents, Shield, Status } from 'components/Esports';
 import _ from 'lodash';
 import "./index.css";
 
@@ -17,11 +19,11 @@ class ScoreBoard extends Component {
                 <div styleName="tournament">
                     <Link to="/esports">
                         <div styleName="matches">
-                            <Typography variant={'x-small-body'} color={'white'}>&lt; Matches </Typography>
+                            <Typography variant={'x-small-body'} color={'white'}><ArrowLeft /> Matches </Typography>
                         </div>
                     </Link>
-                    <img src={match.league.image_url} />
-                    <div>
+                    <Shield image={match.league.image_url} size={"large"} />
+                    <div styleName="game">
                         <div styleName="game-name">
                             <Typography variant={'small-body'} color={'white'}>{match.league.name}</Typography>
                             <span>
@@ -30,37 +32,19 @@ class ScoreBoard extends Component {
                         </div>
                     </div>
                 </div>
-                <div styleName="teams">
-                    <div styleName="team">
-                        <img src="https://image.flaticon.com/icons/svg/197/197484.svg" />
-                        <img src={match.opponents[0].opponent.image_url} />
-                        <div>
-                            <Typography variant={'small-body'} color={'white'}>{match.opponents[0].opponent.name}</Typography>
-                            <span>
-                                <Typography variant={'x-small-body'} color={'white'}>{match.results[0].score}</Typography>
-                            </span>
-                        </div>
-                    </div>
-                    <div styleName="triangle">
-                        <div styleName="right-arrow"></div>
-                        <div styleName="vs"><Typography variant={'x-small-body'} color={'grey'}>VS</Typography></div>
-                        <div styleName="left-arrow"></div>
-                    </div>
-                    <div styleName="team">
-                        <img src="https://image.flaticon.com/icons/svg/197/197484.svg" />
-                        <img src={match.opponents[1].opponent.image_url} />
-                        <div>
-                            <Typography variant={'small-body'} color={'white'}>{match.opponents[1].opponent.name}</Typography>
-                            <span>
-                                <Typography variant={'x-small-body'} color={'white'}>{match.results[1].score}</Typography>
-                            </span>
-                        </div>
-                    </div>
-                </div>
-                <div styleName="date">
-                    <Typography variant={'x-small-body'} color={'white'}>in 7 hours, 36 minutes</Typography>
-                    <Typography variant={'x-small-body'} color={'white'}>7:00 pm WEST, 8th June</Typography>
-                </div>
+                <Opponents 
+                    opponents={match.opponents} 
+                    results={match.results} 
+                    odds={match.odds} 
+                    gameImage={match.league.image_url} 
+                    isScoreBoard={true} 
+                />
+                <Status 
+                    status={match.status} 
+                    date={match.begin_at} 
+                    isMobile={false}
+                    hasLiveTransmition={!_.isEmpty(match.live_embed_url)} 
+                />
             </div>
         );
     }

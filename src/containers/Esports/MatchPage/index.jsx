@@ -29,8 +29,6 @@ class MatchPage extends Component {
 
         const matchId = parseInt(params.id);
         const match = await getMatch(matchId);
-        
-        console.log("match", match)
 
         this.setState({
             match
@@ -52,10 +50,10 @@ class MatchPage extends Component {
                         <SideMenu match={match} />
                     </div>
                     {
-                        false
+                        match.status == "running" && !_.isEmpty(match.live_embed_url)
                         ?
                             <div styleName="middle">
-                                <Live streaming={match.videoTransmition} />
+                                <Live streaming={match.live_embed_url} />
                             </div>
                         :
                             <Market match={match} />
