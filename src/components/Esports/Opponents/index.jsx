@@ -52,7 +52,7 @@ export default class Opponents extends Component {
             opponent1.location  = opponents[0].opponent.location;
             opponent1.score = results.find(r => r.team_id == opponents[0].opponent.id).score;
             if(odds != null) {
-                opponent1.odd = odds.winnerTwoWay.find(o => o.participant_id == opponents[0].opponent.id).probability;
+                opponent1.odd = (1 / odds.winnerTwoWay.find(o => o.participant_id == opponents[0].opponent.id).probability).toFixed(2);
             }
 
             opponent2.image = opponents[1].opponent.image_url;
@@ -60,7 +60,7 @@ export default class Opponents extends Component {
             opponent2.location  = opponents[0].opponent.location;
             opponent2.score = results.find(r => r.team_id == opponents[1].opponent.id).score;
             if(odds != null) {
-                opponent2.odd = odds.winnerTwoWay.find(o => o.participant_id == opponents[1].opponent.id).probability;
+                opponent2.odd = (1 / odds.winnerTwoWay.find(o => o.participant_id == opponents[1].opponent.id).probability).toFixed(2);
             }
         }
 
@@ -107,9 +107,9 @@ export default class Opponents extends Component {
                     isScoreBoard === true
                     ?
                         <div styleName="score">
-                            <div><Typography variant={'small-body'} color={'white'} weight={"bold"}>1</Typography></div>
+                            <div><Typography variant={'small-body'} color={'white'} weight={"bold"}>{opponent1.score}</Typography></div>
                             <div styleName="vs"><Typography variant={'x-small-body'} color={'grey'}>:</Typography></div>
-                            <div><Typography variant={'small-body'} color={'white'} weight={"bold"}>0</Typography></div>
+                            <div><Typography variant={'small-body'} color={'white'} weight={"bold"}>{opponent2.score}</Typography></div>
                         </div>
                     :
                         <div styleName="triangle">

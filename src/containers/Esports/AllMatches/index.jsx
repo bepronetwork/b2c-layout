@@ -44,7 +44,7 @@ class AllMatches extends Component {
         });
     }
 
-    handlerGameFilterClick = async (gameFilter) => {
+    handleGameFilterClick = async (gameFilter) => {
         let { games, matches, status, size } = this.state;
 
         this.setState({ isLoading: true });
@@ -71,7 +71,7 @@ class AllMatches extends Component {
         this.setState({ gameFilter, matches, isLoading: false });
     }
 
-    handlerCleanGameFilterClick = async (gameFilter) => {
+    handleCleanGameFilterClick = async (gameFilter) => {
         const { status, size } = this.state;
 
         this.setState({ isLoading: true });
@@ -84,7 +84,7 @@ class AllMatches extends Component {
         this.setState({ gameFilter, matches, isLoading: false });
     }
 
-    handlerSerieFilterClick = async (serieFilter) => {
+    handleSerieFilterClick = async (serieFilter) => {
         const { status } = this.state;
 
         this.setState({ isLoading: true });
@@ -94,7 +94,7 @@ class AllMatches extends Component {
         this.setState({ serieFilter, matches, isLoading: false });
     }
 
-    handlerCleanSerieFilterClick = async (serieFilter) => {
+    handleCleanSerieFilterClick = async (serieFilter) => {
         const { status, size } = this.state;
 
         this.setState({ isLoading: true });
@@ -107,7 +107,7 @@ class AllMatches extends Component {
         this.setState({ serieFilter, matches, isLoading: false });
     }
 
-    handlerFetchMoreData = async () => {
+    handleFetchMoreData = async () => {
         let { matches, status, size, tab } = this.state;
 
         const offset = matches.length;
@@ -148,8 +148,8 @@ class AllMatches extends Component {
                     <div styleName="game-filter">
                         <GameFilter 
                             games={games}
-                            onCleanGameFilter={this.handlerCleanGameFilterClick}
-                            onGameFilter={this.handlerGameFilterClick}
+                            onCleanGameFilter={this.handleCleanGameFilterClick}
+                            onGameFilter={this.handleGameFilterClick}
                             isLoading={isLoading}
                         />
                         <div>
@@ -175,8 +175,8 @@ class AllMatches extends Component {
                     <div styleName="filters">
                         <SerieFilter
                             games={games}
-                            onCleanSerieFilter={this.handlerCleanSerieFilterClick}
-                            onSerieFilter={this.handlerSerieFilterClick}
+                            onCleanSerieFilter={this.handleCleanSerieFilterClick}
+                            onSerieFilter={this.handleSerieFilterClick}
                             isLoading={isLoading}
                         />
                     </div>
@@ -185,7 +185,7 @@ class AllMatches extends Component {
                             <Matches 
                                 matches={matches}
                                 games={games}
-                                onFetchMoreData={this.handlerFetchMoreData}
+                                onFetchMoreData={this.handleFetchMoreData}
                                 size={size}
                                 showInfiniteScroll={true}
                                 isLoading={isLoading}

@@ -18,10 +18,10 @@ class Matches extends Component {
         };
     }
 
-    createSkeletonRows = () => {
+    createSkeletonRows = (size) => {
         let rows = []
 
-        for (let i = 0; i < 10; i++) {
+        for (let i = 0; i < size; i++) {
             rows.push(
                 <div styleName="skeleton-match">
                     <div styleName="skeleton-match-tour">
@@ -112,7 +112,7 @@ class Matches extends Component {
                 {isLoading ?
                     <SkeletonTheme color={ getSkeletonColors().color} highlightColor={ getSkeletonColors().highlightColor}>
                         <div style={{opacity : '0.5'}}> 
-                            {this.createSkeletonRows()}
+                            {this.createSkeletonRows(10)}
                         </div>
                     </SkeletonTheme>
                 :
@@ -124,7 +124,13 @@ class Matches extends Component {
                                 dataLength={matches.length}
                                 next={onFetchMoreData}
                                 hasMore={matches.length % size === 0}
-                                loader={<div styleName="loading-gif"><img src={loadingGif} /></div>}
+                                loader={(
+                                    <SkeletonTheme color={ getSkeletonColors().color} highlightColor={ getSkeletonColors().highlightColor}>
+                                        <div style={{opacity : '0.5'}}> 
+                                            {this.createSkeletonRows(3)}
+                                        </div>
+                                    </SkeletonTheme>
+                                )}
                                 >   
                                 { 
                                     matches.map(match => {

@@ -96,7 +96,7 @@ class OddsTable extends Component {
             image : opponent1.image,
             title : matchName,
             name : opponent1.name + " - Winner, Full Match",
-            probability : opponent1.odd.probability
+            probability : (1 / opponent1.odd.probability).toFixed(2)
         }
 
         const opponent2Bet = { 
@@ -104,7 +104,7 @@ class OddsTable extends Component {
             image : opponent2.image,
             title : matchName,
             name : opponent2.name + " - Winner, Full Match",
-            probability : opponent2.odd.probability
+            probability : (1 / opponent2.odd.probability).toFixed(2)
         }
 
         return (
@@ -117,12 +117,12 @@ class OddsTable extends Component {
                         <div styleName={opponent1Styles} onClick={() => isOpponent1Selected ? this.handleRemoveToBetSlip(opponent1.id) : this.handleAddToBetSlip(opponent1Bet)}>
                             <img src={opponent1.image} />
                             <Typography variant={'x-small-body'} color={'white'}>{opponent1.name}</Typography>
-                            <Typography variant={'x-small-body'} color={'white'}>{opponent1.odd.probability}</Typography>
+                            <Typography variant={'x-small-body'} color={'white'}>{(1 / opponent1.odd.probability).toFixed(2)}</Typography>
                         </div>
                         <div styleName={opponent2Styles} onClick={() => isOpponent2Selected ? this.handleRemoveToBetSlip(opponent2.id) : this.handleAddToBetSlip(opponent2Bet)}>
                             <img src={opponent2.image} />
                             <Typography variant={'x-small-body'} color={'white'}>{opponent2.name}</Typography>
-                            <Typography variant={'x-small-body'} color={'white'}>{opponent2.odd.probability}</Typography>
+                            <Typography variant={'x-small-body'} color={'white'}>{(1 / opponent2.odd.probability).toFixed(2)}</Typography>
                         </div>
                     </div>
                 </div>
