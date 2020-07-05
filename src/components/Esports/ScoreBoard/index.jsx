@@ -17,7 +17,7 @@ class ScoreBoard extends Component {
         return (
             <div styleName="score-board">
                 <div styleName="tournament">
-                    <Link to="/esports">
+                    <Link to="/esports/matches">
                         <div styleName="matches">
                             <Typography variant={'x-small-body'} color={'white'}><ArrowLeft /> Matches </Typography>
                         </div>

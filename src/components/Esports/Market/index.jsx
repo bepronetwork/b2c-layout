@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Typography } from 'components';
-import { BetsTable } from 'components/Esports';
+import { OddsTable } from 'components/Esports';
 import { dateToHourAndMinute, formatToBeautyDate } from "../../../lib/helpers";
 import { connect } from 'react-redux';
 import _ from 'lodash';
@@ -11,9 +11,11 @@ class Market extends Component {
 
     render() {
         const { match } = this.props;
+        const images = require.context('assets/esports', true);
+        const image = images('./' + match.videogame.slug + '.jpg');
 
         return (
-            <div styleName="middle" style={{background: "url('" + match.image + "') center center / cover no-repeat"}} >
+            <div styleName="middle" style={{background: "url('" + image + "') center center / cover no-repeat"}} >
                 <div styleName="market">
                     <div styleName="info">
                         <div styleName="title">
@@ -26,7 +28,7 @@ class Market extends Component {
                             <Typography variant={'small-body'} color={'white'}>{dateToHourAndMinute(match.begin_at)}</Typography>
                         </div>
                     </div>
-                    <BetsTable match={match} />
+                    <OddsTable match={match} />
                 </div>
             </div>
         );

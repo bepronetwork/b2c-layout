@@ -1,12 +1,11 @@
 import React, { Component } from "react";
-import { Typography, Button } from 'components';
-import { Shield, Opponents, Status, BetSlip} from "components/Esports";
+import { Typography, Button, DimensionCarousel } from 'components';
+import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
+import { Opponents, BetSlip, GameFilter, SerieFilter, Matches, Shield } from "components/Esports";
 import { connect } from 'react-redux';
-import Carousel from 'react-bootstrap/Carousel'
-import classNames from "classnames";
 import { Link } from "react-router-dom";
 import { getGames, getMatches, getMatchesBySeries } from "controllers/Esports/EsportsUser";
-import Tooltip from '@material-ui/core/Tooltip';
+import { getSkeletonColors } from "../../lib/helpers";
 import _ from 'lodash';
 import "./index.css";
 
@@ -17,10 +16,12 @@ class Esports extends Component {
         this.state = {
             gameFilter: [],
             serieFilter: [],
-            betsSlip: [],
             games: [],
             matches: [],
-            status: ["pre_match", "live"]
+            slides: [],
+            status: ["pre_match", "live"],
+            size: 10,
+            isLoading: true
         };
     }
 
@@ -32,29 +33,33 @@ class Esports extends Component {
         this.projectData(props);
     }
 
-
     projectData = async (props) => {
-        const { status } = this.state;
+        const { status, size } = this.state;
+
+        this.setState({ isLoading: true });
+
         const games = await getGames();
-        const matches = await getMatches(status);
+        const matches = await getMatches({
+            status, 
+            size
+        });
+        const slides = await getMatches({
+            status, 
+            size: 3
+        });
 
         this.setState({
             games,
-            matches
-        })
+            matches,
+            slides,
+            isLoading: false 
+        });
     }
 
-    handleFilterGameClick = async (id) => {
-        let { gameFilter, games, matches, status } = this.state;
-        const exist = gameFilter.some(el => el === id); 
+    handlerGameFilterClick = async (gameFilter) => {
+        let { games, matches, status, size } = this.state;
 
-        if(exist) {
-            const index = gameFilter.indexOf(id);
-            gameFilter.splice(index, 1);
-        }
-        else {
-            gameFilter.push(id);
-        }
+        this.setState({ isLoading: true });
 
         if(gameFilter.length > 0) {
             const filtered = games.filter(g => gameFilter.includes(g.external_id));
@@ -62,162 +67,102 @@ class Esports extends Component {
             const serieFilter = series.map(s => {
                 return s.id
             });
-            matches = await getMatchesBySeries(serieFilter, status);
+            matches = await getMatchesBySeries({
+                serie_id: serieFilter, 
+                status, 
+                size
+            });
         }
         else {
-            matches = await getMatches(status);
+            matches = await getMatches({
+                status, 
+                size
+            });
         }
 
-        this.setState({ gameFilter, matches });
+        this.setState({ gameFilter, matches, isLoading: false });
     }
 
-    handleCleanGameFilterClick = async () => {
-        const { gameFilter, status } = this.state;
+    handlerCleanGameFilterClick = async (gameFilter) => {
+        const { status, size } = this.state;
 
-        gameFilter.splice(0, gameFilter.length);
+        this.setState({ isLoading: true });
 
-        const matches = await getMatches(status);
+        const matches = await getMatches({
+            status, 
+            size
+        });
 
-        this.setState({ gameFilter, matches });
+        this.setState({ gameFilter, matches, isLoading: false });
     }
 
-    handleFilterSerieClick = async (id) => {
-        const { serieFilter, status } = this.state;
-        const exist = serieFilter.some(el => el === id); 
+    handlerSerieFilterClick = async (serieFilter) => {
+        const { status } = this.state;
 
-        if(exist) {
-            const index = serieFilter.indexOf(id);
-            serieFilter.splice(index, 1);
-        }
-        else {
-            serieFilter.push(id);
-        }
+        this.setState({ isLoading: true });
 
-        const matches = serieFilter.length > 0 ? await getMatchesBySeries(serieFilter, status): await getMatches(status);
+        const matches = serieFilter.length > 0 ? await getMatchesBySeries({serie_id: serieFilter, status}): await getMatches({status});
 
-        this.setState({ serieFilter, matches });
+        this.setState({ serieFilter, matches, isLoading: false });
     }
 
-    handleCleanSerieFilterClick = async () => {
-        const { serieFilter, status } = this.state;
+    handlerCleanSerieFilterClick = async (serieFilter) => {
+        const { status, size } = this.state;
 
-        serieFilter.splice(0, serieFilter.length);
+        this.setState({ isLoading: true });
 
-        const matches = await getMatches(status);
+        const matches = await getMatches({
+            status, 
+            size
+        });
 
-        this.setState({ serieFilter, matches });
+        this.setState({ serieFilter, matches, isLoading: false });
     }
 
     renderSlides() {
 
-        const { matches, games } = this.state;
-        let slides = [];
+        const { slides, games } = this.state;
+        let slidesElements = [];
 
-        matches.slice(0, 3).map( match => {
+        slides.map( match => {
             const gameImage = games.find(g => g.external_id === match.videogame.id).image;
-            slides.push(
-                <Carousel.Item>
-                    <Link to={`/esports/${match.id}`}>
-                        <div styleName="element">
-                            <div styleName="background" style={{background: "url('https://i.mlcdn.com.br/portaldalu/fotosconteudo/55652.jpg') center center / cover no-repeat"}} />
-                            <div styleName="text">
-                                <div styleName="tour">
-                                    <div styleName="tour-img">
-                                        <img src={gameImage} />
-                                    </div>
-                                    
-                                    <div>
-                                        <Typography variant={'x-small-body'} color={'white'}>{`${match.league.name} - ${match.serie.full_name}`}</Typography>
-                                    </div>
+            slidesElements.push(
+                <Link to={`/esports/${match.id}`}>
+                    <div styleName="element">
+                        <div styleName="background" style={{background: "url('https://i.mlcdn.com.br/portaldalu/fotosconteudo/55652.jpg') center center / cover no-repeat"}} />
+                        <div styleName="text">
+                            <div styleName="tour">
+                                <div styleName="tour-img">
+                                    <Shield image={gameImage} size={"medium"} />
                                 </div>
-                                <Opponents opponents={match.opponents} results={match.results} gameImage={gameImage} odds={match.odds}/>
+                                <div>
+                                    <Typography variant={'x-small-body'} color={'white'}>{`${match.league.name} - ${match.serie.full_name}`}</Typography>
+                                </div>
                             </div>
+                            <Opponents opponents={match.opponents} results={match.results} gameImage={gameImage} odds={match.odds}/>
                         </div>
-                    </Link>
-                </Carousel.Item>
+                    </div>
+                </Link>
             );
         });
 
-        return slides;
+        return slidesElements;
     }
 
-    filterGame() {
-        const { gameFilter, games } = this.state;
+    handlerAllMatchesClick() {
+        const { games, matches } = this.state;
 
-        return (
-            <div styleName="filter-matches">
-                <div styleName="all" onClick={() => this.handleCleanGameFilterClick()}>
-                    <Typography variant={'x-small-body'} color={'white'}>All Games</Typography>
-                    {
-                        gameFilter.length 
-                        ?
-                            <span styleName="all-selected">x</span>
-                        :
-                            null
-                    }
-                </div>
-                <ul>
-                    {
-                        games.map(game => {
-                            const exist = gameFilter.some(el => el === game.external_id);
-                            const styles = classNames("filter-match", {
-                                selected: exist
-                            });
-                            return (
-                                <li styleName={styles} onClick={() => this.handleFilterGameClick(game.external_id)} key={game.external_id}>
-                                    <Tooltip title={game.name} >
-                                        <Shield image={game.image} size={"large"} />
-                                    </Tooltip>
-                                </li>
-                            )
-                        })
-                    }
-                </ul>
-            </div>
-        )
-    }
-
-    filterSerie() {
-        const { serieFilter, games } = this.state;
-
-        return (
-            <div styleName="filter-tournaments">
-                <div styleName="all" onClick={() => this.handleCleanSerieFilterClick()}>
-                        <Typography variant={'x-small-body'} color={'white'}>All Tournaments</Typography>
-                        {
-                        serieFilter.length 
-                        ?
-                            <span styleName="all-selected">x</span>
-                        :
-                            null
-                        }
-                </div>
-                <ul>
-                    {
-                        games.map(game => {
-                            if(!_.isEmpty(game.series)) {
-                                const exist = serieFilter.some(el => el === game.series[0].id);
-                                const styles = classNames("tournament", {
-                                    tourSelected: exist
-                                });
-                                return (
-                                    <li styleName={styles} onClick={() => this.handleFilterSerieClick(game.series[0].id)} key={game.series[0].id}>
-                                        <Shield image={game.image} size={"small"} />
-                                        <div styleName="tournament-name">
-                                            <Typography variant={'x-small-body'} color={'white'}>{`${game.series[0].league.name} - ${game.series[0].full_name}`}</Typography>
-                                        </div>
-                                    </li>
-                                )
-                            }
-                        })
-                    }
-                </ul>
-            </div>
-        )
+        this.props.history.push({
+            pathname: '/esports/matches',
+            state: { 
+                games,
+                matches
+            }
+        });
     }
 
     render() {
-        const { games, matches } = this.state;
+        const { matches, slides, games, size, isLoading } = this.state;
 
         return (
             <div styleName="root">
@@ -234,69 +179,50 @@ class Esports extends Component {
                         </div>
                     </div>
                     <div styleName="carousel">
-                        <Carousel pause="hover" interval={1500}>
-                            {this.renderSlides()}
-                        </Carousel>
+                        {isLoading ?
+                            <SkeletonTheme color={ getSkeletonColors().color} highlightColor={ getSkeletonColors().highlightColor}>
+                                <div style={{opacity : '0.5'}}> 
+                                    <Skeleton height={350} width={"80%"}/>
+                                </div>
+                            </SkeletonTheme>
+                        :
+                            <DimensionCarousel slides={this.renderSlides()} autoplay={true} interval={2000} />
+                        }
                     </div>
                 </div>
                 <div styleName="results">
                     <div styleName="filters">
-                        {this.filterGame()}
-                        {this.filterSerie()}
+                        <GameFilter 
+                            games={games}
+                            onCleanGameFilter={this.handlerCleanGameFilterClick}
+                            onGameFilter={this.handlerGameFilterClick}
+                            isLoading={isLoading}
+                        />
+                        <SerieFilter
+                            games={games}
+                            onCleanSerieFilter={this.handlerCleanSerieFilterClick}
+                            onSerieFilter={this.handlerSerieFilterClick}
+                            isLoading={isLoading}
+                        />
                     </div>
-                    <div>
-                        <div styleName="date">
-                            <Typography variant={'x-small-body'} color={'grey'}>26 march 2020</Typography>
-                        </div>
-                        <div styleName="matches">
-                            <div>
-                                {
-                                    matches.map(match => {
-                                        const gameImage = games.find(g => g.external_id === match.videogame.id).image;
-                                        return (
-                                            <Link to={`/esports/${match.id}`}>
-                                                <div styleName="match">
-                                                    <div styleName="match-tour">
-                                                        <div styleName="tour-name">
-                                                            <Shield image={gameImage} size={"medium"} />
-                                                            <div styleName="match-name">
-                                                                <Typography variant={'x-small-body'} color={'white'}> {match.league.name}</Typography>
-                                                                <span>
-                                                                    <Typography variant={'x-small-body'} color={'grey'}>{match.serie.full_name}</Typography>
-                                                                </span>
-                                                            </div>
-                                                        </div>
-                                                        <Status 
-                                                            status={match.status} 
-                                                            date={match.begin_at} 
-                                                            isMobile={true} 
-                                                            hasLiveTransmition={!_.isEmpty(match.live_embed_url)} 
-                                                        />
-                                                    </div>
-                                                    <Opponents 
-                                                        opponents={match.opponents} 
-                                                        results={match.results}
-                                                        odds={match.odds}
-                                                        gameImage={gameImage} 
-                                                    />
-                                                    <Status 
-                                                        status={match.status} 
-                                                        date={match.begin_at} 
-                                                        isMobile={false}
-                                                        hasLiveTransmition={!_.isEmpty(match.live_embed_url)} 
-                                                    />
-                                                </div>
-                                            </Link>
-                                        )
-                                    })
-                                }
-                            </div>
-                            <div styleName="right">
-                                <BetSlip/>
+                    <div styleName="matches">
+                        <div>
+                            <Matches 
+                                matches={matches}
+                                games={games}
+                                size={size}
+                                isLoading={isLoading}
+                            />
+                            <div styleName="all-matches">
+                                <Button size={'x-small'} theme="primary" onClick={() => this.handlerAllMatchesClick()}>
+                                    <Typography color={'fixedwhite'} variant={'x-small-body'}>See All Matches</Typography>
+                                </Button>
                             </div>
                         </div>
+                        <div styleName="right">
+                            <BetSlip/>
+                        </div>
                     </div>
-
                 </div>
             </div>
         );

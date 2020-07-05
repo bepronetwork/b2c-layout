@@ -1,8 +1,9 @@
 import React, { Component } from "react";
-import { Market, ScoreBoard, SideMenu } from 'components';
 import { connect } from 'react-redux';
-import { Live, BetSlip } from "components/Esports";
+import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
+import { Market, ScoreBoard, SideMenu, Live, BetSlip } from "components/Esports";
 import { getMatch } from "controllers/Esports/EsportsUser";
+import { getSkeletonColors } from "../../../lib/helpers";
 import _ from 'lodash';
 import "./index.css";
 
@@ -11,7 +12,8 @@ class MatchPage extends Component {
     constructor(props){
         super(props);
         this.state = {
-            match: null
+            match: null,
+            isLoading: true
         };
     }
 
@@ -23,43 +25,77 @@ class MatchPage extends Component {
         this.projectData(props);
     }
 
-
     projectData = async (props) => {
         const { params } = props.match;
+        let match = null;
 
-        const matchId = parseInt(params.id);
-        const match = await getMatch(matchId);
+        const matchParam = String(params.match);
+        if(matchParam != null) {
+            const matchId = parseInt(matchParam.split(/[-]+/).pop());
+            match = await getMatch(matchId);
+        }
 
         this.setState({
-            match
-        })
+            match,
+            isLoading: false
+        });
     }
 
     render() {
-        const { match } = this.state;
-
-        if(!match) return null;
+        const { match, isLoading } = this.state;
 
         return (
             <div styleName="root">
                 <div styleName="main">
-                    <ScoreBoard match={match} />
+                    {isLoading ?
+                        <SkeletonTheme color={ getSkeletonColors().color} highlightColor={ getSkeletonColors().highlightColor}>
+                            <div style={{opacity : '0.5'}}> 
+                                <Skeleton height={70} width={"100%"}/>
+                            </div>
+                        </SkeletonTheme>
+                    :
+                        <ScoreBoard match={match} />
+                    }
                 </div>
                 <div styleName="painel">
                     <div styleName="left">
-                        <SideMenu match={match} />
-                    </div>
-                    {
-                        match.status == "running" && !_.isEmpty(match.live_embed_url)
-                        ?
-                            <div styleName="middle">
-                                <Live streaming={match.live_embed_url} />
-                            </div>
+                        {isLoading ?
+                            <SkeletonTheme color={ getSkeletonColors().color} highlightColor={ getSkeletonColors().highlightColor}>
+                                <div style={{opacity : '0.5'}}> 
+                                    <Skeleton height={200} width={"100%"}/>
+                                </div>
+                            </SkeletonTheme>
                         :
-                            <Market match={match} />
+                            <SideMenu match={match} />
+                        }
+                    </div>
+                    {isLoading ?
+                            <SkeletonTheme color={ getSkeletonColors().color} highlightColor={ getSkeletonColors().highlightColor}>
+                                <div style={{opacity : '0.5'}}> 
+                                    <div styleName="middle">
+                                        <Skeleton height={200} width={"100%"}/>
+                                    </div>
+                                </div>
+                            </SkeletonTheme>
+                        :
+                            match.status == "live" && !_.isEmpty(match.live_embed_url)
+                            ?
+                                <div styleName="middle">
+                                    <Live streaming={match.live_embed_url} />
+                                </div>
+                            :
+                                <Market match={match} />
                     }
                     <div styleName="right">
-                       <BetSlip match={match} />
+                        {isLoading ?
+                            <SkeletonTheme color={ getSkeletonColors().color} highlightColor={ getSkeletonColors().highlightColor}>
+                                <div style={{opacity : '0.5'}}> 
+                                    <Skeleton height={100} width={"100%"}/>
+                                </div>
+                            </SkeletonTheme>
+                        :
+                            <BetSlip match={match} />
+                        }
                     </div>
                 </div>
             </div>

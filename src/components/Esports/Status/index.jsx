@@ -82,8 +82,8 @@ export default class Status extends Component {
 
         return (
             <div styleName={styles}>
-                { status == "not_started" ? this.renderPreMatch() : null }
-                { status == "running" ? this.renderLive() : null }
+                { status == "pre_match" ? this.renderPreMatch() : null }
+                { status == "live" ? this.renderLive() : null }
             </div>
         );
     }

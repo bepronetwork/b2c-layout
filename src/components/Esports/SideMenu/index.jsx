@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Typography, Tabs, LiveIcon } from 'components';
-import { BetsTable, TeamsTable } from 'components/Esports';
+import { OddsTable, TeamsTable } from 'components/Esports';
 import { connect } from 'react-redux';
 import _ from 'lodash';
 import "./index.css";
@@ -29,12 +29,12 @@ class SideMenu extends Component {
 
         return (
             <div>
-               <div styleName="live">
+               {/*<div styleName="live">
                     <Typography variant={'x-small-body'} color={'white'}>Live Strumming will be available</Typography>
                     <div styleName="cam">
                         <LiveIcon/>
                     </div>
-                </div>
+                </div>*/}
                 <div styleName="side-menu">
                     <Tabs
                         selected={tab}
@@ -55,7 +55,7 @@ class SideMenu extends Component {
                             ? 
                                 <TeamsTable match={match} />
                             : 
-                                <BetsTable match={match} />
+                                <OddsTable match={match} />
                         }
                     </div>
                 </div>

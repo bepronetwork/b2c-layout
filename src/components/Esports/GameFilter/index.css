@@ -1,0 +1,71 @@
+@import "../../../styles/all.css";
+
+
+.filter-matches {
+    margin: $spacing-8 0;
+    display: flex;
+}
+
+.filter-match {
+    display: inline;
+    cursor: pointer;
+  
+    div {
+      float: left;
+      margin-right: $spacing-16;
+    }
+
+    @media screen and (max-width: 767px) {
+      margin-top: $spacing-8;
+
+      div {
+        margin-bottom: $spacing-8;
+      }
+    }
+}
+
+.all {
+    float: left;
+    background-color: $primaryColor;
+    padding: $spacing-12 $spacing-20;
+    border-radius: 24px;
+    margin: 0 $spacing-12 0 0;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    white-space: nowrap;
+    height: 36px;
+}
+  
+.all-selected {
+    margin-left: $spacing-8;
+    background-color: $secondaryColor;
+    border-radius: 20px;
+    padding: $spacing-4;
+    border-radius: 50%;
+}
+
+.selected {
+    div {
+      border: 3px solid $secondaryColor;
+    }
+  
+    img {
+      width: 24px;
+      height: 24px;
+    }
+}
+
+.not-selected {
+  opacity: 0.5;
+}
+
+.skeleton-filter-match {
+  display: inline;
+  cursor: pointer;
+  margin-right: $spacing-16;
+
+  div {
+    float: left;
+  }
+}

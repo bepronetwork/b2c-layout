@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Typography, Tabs, LiveIcon } from 'components';
 import { connect } from 'react-redux';
 import { Shield } from "components/Esports";
+import ReactCountryFlag from "react-country-flag"
 import _ from 'lodash';
 import "./index.css";
 
@@ -36,7 +37,17 @@ class Players extends Component {
                                             </Typography>
                                         </span>
                                     </div>
-                                    <div styleName="player-country"><img src={p.image_url} /></div>
+                                    <div styleName="player-country">
+                                        <ReactCountryFlag
+                                            countryCode={p.nationality}
+                                            className="emojiFlag"
+                                            style={{
+                                                width: '1em',
+                                                height: '1em',
+                                            }}
+                                            title={p.hometown}
+                                        />
+                                    </div>
                                 </div>
                             )
                         })
@@ -59,7 +70,17 @@ class Players extends Component {
                                             </Typography>
                                         </span>
                                     </div>
-                                    <div styleName="player-country"><img src={p.image_url} /></div>
+                                    <div styleName="player-country">
+                                        <ReactCountryFlag
+                                            countryCode={p.nationality}
+                                            className="emojiFlag"
+                                            style={{
+                                                width: '1em',
+                                                height: '1em',
+                                            }}
+                                            title={p.hometown}
+                                        />
+                                    </div>
                                 </div>
                             )
                         })

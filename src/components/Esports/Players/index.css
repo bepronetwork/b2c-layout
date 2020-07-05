@@ -15,6 +15,16 @@
     display: grid;
     grid-template-columns: repeat( auto-fit, 121px );
     gap: 1em;
+
+    @media screen and (max-width: 1267px) and (min-width: 1024px) {
+    }
+    
+    @media screen and (max-width: 1023px) and (min-width: 768px) {
+    } 
+    
+    @media screen and (max-width: 767px) {
+        grid-template-columns: 1fr 1fr; 
+    }
 }
 
 .team {

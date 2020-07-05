@@ -129,9 +129,7 @@ import WalletTab from './WalletTab';
 import DetailsTable from './Table/DetailsTable';
 import BetDetails from './BetDetails';
 import Jackpot from './Jackpot';
-import ScoreBoard from './Esports/ScoreBoard';
-import SideMenu from './Esports/SideMenu';
-import Market from './Esports/Market';
+import DimensionCarousel from './DimensionCarousel';
 
 export { LegalBox };
 export { Authentication2FAModal };
@@ -264,6 +262,4 @@ export { WalletTab };
 export { DetailsTable };
 export { BetDetails };
 export { Jackpot };
-export { ScoreBoard };
-export { SideMenu };
-export { Market };
+export { DimensionCarousel };

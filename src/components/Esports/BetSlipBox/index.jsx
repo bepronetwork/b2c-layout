@@ -3,7 +3,6 @@ import { Typography, InputNumber } from 'components';
 import { connect } from 'react-redux';
 import CloseCircleIcon from 'mdi-react/CloseCircleIcon';
 import { removeBetSlipFromResult } from "../../../redux/actions/betSlip";
-import { matches }  from '../../../containers/Esports/fakeData';
 import _ from 'lodash';
 import "./index.css";
 
@@ -26,30 +25,27 @@ class BetSlipBox extends Component {
     render() {
 
         const { bet } = this.props;
-        const match = matches.find(m => m.id === bet.match);
-        const team = match.teams.find(t => t.id == bet.option.team);
-
 
         return (
             <div styleName="box">
                 <div styleName="bet-header">
                     <div styleName="game-section">
-                        <img src={team.flag}/>
+                        <img src={bet.image}/>
                     </div>
                     <div>
                         <Typography variant={'x-small-body'} color={'grey'}>
-                            {`${match.teams[0].name} vs ${match.teams[1].name}`}
+                            {bet.title}
                         </Typography>
                     </div>
                     <div styleName="close-btn">
-                        <button type="button" onClick={() => this.handleRemoveToBetSlip(bet.option.id)}>
+                        <button type="button" onClick={() => this.handleRemoveToBetSlip(bet.id)}>
                             <CloseCircleIcon color={'white'} size={20}/>
                         </button>
                     </div>
                 </div>
                 <div>
                     <Typography variant={'small-body'} color={'white'}>
-                        {`${bet.option.name} - ${bet.title}`}
+                        {bet.name}
                     </Typography>
                 </div>
                 <div styleName="controls">
@@ -64,7 +60,7 @@ class BetSlipBox extends Component {
                     </div>
                     <div styleName="section odds-section">
                         <Typography variant={'small-body'} color={'white'}>
-                            at {bet.option.value}
+                            at {bet.probability}
                         </Typography>
                     </div>
                 </div>

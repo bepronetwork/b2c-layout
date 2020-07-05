@@ -1,0 +1,98 @@
+@import "../../../styles/all.css";
+
+
+.root {
+  width: 100%;
+}
+
+.main {
+  width: 100%;
+  background-color: $primaryColor-3;
+  border-top: 1px solid $primaryColor-8;
+}
+
+.game-filter {
+  margin: auto;
+  align-items: center;
+  max-width: 1192px;
+  min-width: 300px;
+  display: grid;
+  grid-template-columns: 75% 25%;
+  gap: 1.5em;
+  height: 70px;
+
+  @media screen and (max-width: 1267px) and (min-width: 1024px) {
+      display: inline;
+      grid-template-columns: none;
+      gap: unset;
+  }
+
+  @media screen and (max-width: 1023px) and (min-width: 768px) {
+      display: inline;
+      grid-template-columns: none;
+      gap: unset;
+  } 
+
+  @media screen and (max-width: 767px) {
+      display: inline;
+      grid-template-columns: none;
+      gap: unset;
+  } 
+}
+
+.results {
+  margin: auto;
+  margin-top: $spacing-20;
+  max-width: 1192px;
+  min-width: 300px;
+
+  @media screen and (max-width: 767px) {
+    margin-top: $spacing-36;
+  } 
+}
+
+.filters {
+}
+
+.matches{
+  display: grid;
+  grid-template-columns: 75% 25%;
+  gap: 1.5em;
+
+  @media screen and (max-width: 1267px) and (min-width: 1024px) {
+    grid-template-columns: 70% 30%;
+    gap: 0.7em;
+    margin-right: $spacing-12;
+  }
+
+  @media screen and (max-width: 1023px) and (min-width: 768px) {
+    display: inline;
+    grid-template-columns: none;
+    gap: unset;
+  } 
+
+  @media screen and (max-width: 767px) {
+    display: inline;
+    grid-template-columns: none;
+    gap: unset;
+  } 
+}
+
+.right {
+  width: 100%;
+  background-color: $primaryColor;
+  padding: $spacing-20;
+  border-radius: $border-radius;
+
+  @media screen and (max-width: 1267px) and (min-width: 1024px) {
+    padding: $spacing-12;
+  }
+
+  @media screen and (max-width: 1023px) and (min-width: 768px) {
+    display: none
+  } 
+
+  @media screen and (max-width: 767px) {
+    display: none
+  } 
+}

@@ -5,6 +5,7 @@ import { find } from "lodash";
 import CasinoHomePage from "containers/Casino";
 import EsportsHomePage from "containers/Esports";
 import EsportsMatchPage from "containers/Esports/MatchPage";
+import EsportsMatchesPage from "containers/Esports/AllMatches";
 import HomePage from "containers/HomePage";
 import Footer from "../Footer";
 import ResetPassword from "containers/ResetPassword";
@@ -754,7 +755,20 @@ class App extends Component {
 
                                             <Route
                                                 exact
-                                                path="/esports/:id"
+                                                path="/esports/matches"
+                                                render={props => (
+                                                    <EsportsMatchesPage
+                                                        {...props}
+                                                        onHandleLoginOrRegister={this.handleLoginOrRegisterOpen}
+                                                        onTableDetails={this.handleTableDetailsOpen}
+                                                    />
+                                            
+                                                )}
+                                            />  
+
+                                            <Route
+                                                exact
+                                                path="/esports/:match"
                                                 render={props => (
                                                     <EsportsMatchPage
                                                         {...props}

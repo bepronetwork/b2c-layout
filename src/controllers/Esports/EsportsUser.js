@@ -23,11 +23,11 @@ export async function getGames() {
     }
 }
 
-export async function getMatches(status) {
+export async function getMatches(params) {
     try {
         let res = await getAllMatches({      
             app: appId,
-            ...status != null && { status }
+            ...params
         });
 
         return await processResponse(res);
@@ -38,12 +38,11 @@ export async function getMatches(status) {
     }
 }
 
-export async function getMatchesBySeries(series, status) {
+export async function getMatchesBySeries(params) {
     try {
         let res = await getAllMatchesBySeries({      
             app: appId,
-            serie_id: series,
-            ...status != null && { status }
+            ...params
         });
 
         return await processResponse(res);

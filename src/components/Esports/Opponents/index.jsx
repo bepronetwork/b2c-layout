@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Typography } from 'components';
 import { Shield } from "components/Esports";
 import classNames from 'classnames';
+import ReactCountryFlag from "react-country-flag"
 import _ from 'lodash';
 import "./index.css";
 
@@ -12,14 +13,14 @@ export default class Opponents extends Component {
         super(props);
         this.state = {
             opponent1: {
-                country: "https://image.flaticon.com/icons/svg/197/197484.svg",
+                location: null,
                 image: null,
                 name: "Team 1",
                 score: 0,
                 odd: null
             },
             opponent2: {
-                country: "https://image.flaticon.com/icons/svg/197/197484.svg",
+                location: null,
                 image: null,
                 name: "Team 2",
                 score: 0,
@@ -48,6 +49,7 @@ export default class Opponents extends Component {
         else {
             opponent1.image = opponents[0].opponent.image_url;
             opponent1.name  = opponents[0].opponent.name;
+            opponent1.location  = opponents[0].opponent.location;
             opponent1.score = results.find(r => r.team_id == opponents[0].opponent.id).score;
             if(odds != null) {
                 opponent1.odd = odds.winnerTwoWay.find(o => o.participant_id == opponents[0].opponent.id).probability;
@@ -55,6 +57,7 @@ export default class Opponents extends Component {
 
             opponent2.image = opponents[1].opponent.image_url;
             opponent2.name  = opponents[1].opponent.name;
+            opponent2.location  = opponents[0].opponent.location;
             opponent2.score = results.find(r => r.team_id == opponents[1].opponent.id).score;
             if(odds != null) {
                 opponent2.odd = odds.winnerTwoWay.find(o => o.participant_id == opponents[1].opponent.id).probability;
@@ -77,7 +80,15 @@ export default class Opponents extends Component {
         return (
             <div styleName="teams">
                 <div styleName={teamStyles}>
-                    <img src="https://image.flaticon.com/icons/svg/197/197484.svg" />
+                    <ReactCountryFlag
+                        countryCode={opponent1.location}
+                        svg
+                        style={{
+                            width: '0.9em',
+                            height: '0.9em',
+                        }}
+                        title={opponent1.location}
+                    />
                     <Shield image={opponent1.image} size={"small"} />
                     <div styleName="name">
                         <Typography variant={'x-small-body'} color={'white'}>{opponent1.name}</Typography>
@@ -108,7 +119,15 @@ export default class Opponents extends Component {
                         </div>
                 }
                 <div styleName={teamStyles}>
-                    <img src="https://image.flaticon.com/icons/svg/197/197484.svg" />
+                    <ReactCountryFlag
+                        countryCode={opponent2.location}
+                        svg
+                        style={{
+                            width: '0.9em',
+                            height: '0.9em',
+                        }}
+                        title={opponent2.location}
+                    />
                     <Shield image={opponent2.image} size={"small"} />
                     <div styleName="name">
                         <Typography variant={'x-small-body'} color={'white'}>{opponent2.name}</Typography>
