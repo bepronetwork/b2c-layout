@@ -35,9 +35,7 @@ h1 span {
 }
 .lineTest{
   position: absolute;
-  top: 0px;
-  left: 0px;
-  z-index: -1;
+  z-index: 1;
   align-self: center;
 }
 
@@ -76,7 +74,7 @@ h1 span {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 100%;
+  width: 650px;
   margin: 20px;
   flex-direction: column;
 }
@@ -102,10 +100,6 @@ h1 span {
 
 .icon{
   width: 100%;
-  animation-duration: 2s;
-    animation-timing-function: ease;
-    animation-delay: 2.2s;
-    animation-fill-mode: forwards;
 }
 
 .icons {
@@ -153,8 +147,8 @@ h1 span {
 }
 .separatedLine {
   border-left: 1px solid gray;
-  height: 150px;
-  margin: 10px;
+  height: 200px;
+  margin: 5px;
 }
 .spinnerContainer::after {
   position: absolute;

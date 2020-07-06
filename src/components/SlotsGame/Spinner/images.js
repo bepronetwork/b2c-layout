@@ -6,7 +6,18 @@ import Fruit from "../../../assets/icons/SlotsIcons/fruit.png";
 import Heart from "../../../assets/icons/SlotsIcons/heart.svg";
 import Leaf from "../../../assets/icons/SlotsIcons/leaf.png";
 import Seven from "../../../assets/icons/SlotsIcons/seven.png";
+import Quadrilateral from "../../../assets/icons/SlotsIcons/quadrilateral.svg";
 
-const images = [BlueCoin, Coin, Club, Spade, Fruit, Heart, Leaf, Seven];
+const images = [
+  BlueCoin,
+  Coin,
+  Club,
+  Spade,
+  Fruit,
+  Heart,
+  Leaf,
+  Seven,
+  Quadrilateral
+];
 
 export default images;

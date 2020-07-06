@@ -22,7 +22,9 @@ const numbers = [
   21,
   22,
   23,
-  24
+  24,
+  25,
+  26
 ];
 
 export default numbers;

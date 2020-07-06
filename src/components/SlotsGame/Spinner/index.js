@@ -1,5 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
+
+import images from "./images";
 import styles from "../index.css";
 
 class Spinner extends React.Component {
@@ -103,12 +105,20 @@ class Spinner extends React.Component {
 
   render() {
     const { position } = this.state;
+    const { concatResult, numberOne, numberTwo } = this.props;
 
     return (
       <div
         style={{ backgroundPosition: `0px ${position}px` }}
         className={styles.icons}
-      />
+      >
+        {concatResult.slice(numberOne, numberTwo).map(num => {
+          return (
+            // <img src={images[num]} alt="" className={styles.icon} />
+            <img src={images[num]} alt="" className={styles.icon} />
+          );
+        })}
+      </div>
     );
   }
 }
