@@ -6,6 +6,15 @@
   }
 }
 
+@keyframes spinVertical {
+  from{
+   transform: translate3D(0, 0, 0)
+  }
+  to {
+    transform: translate3D(0, 600px, 0)
+  }
+}
+
 .textButton{
   font-size: medium;
   font: roboto;
@@ -53,21 +62,12 @@ h1 span {
   align-items: center;
 }
 
-.repeatButton{
-  appearance: none;  
-  border: none;
-  background: url(https://andyhoffman.codes/random-assets/img/slots/repeat.png) transparent 0 0 no-repeat;
-  background-size: cover;
-  width: 48px;
-  height: 48px;
-  position: absolute;
-  top: 10px;
-  right: 20px; 
-  cursor: pointer;
-  animation-name: spin;
-  animation-duration: 6s;
-  animation-timing-function: linear;
-  animation-iteration-count: infinite;
+.columnSpinner{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 120px;
+  animation: spinVertical 1.5s forwards 0.5s initial;
 }
 
 .containerInit{
@@ -113,6 +113,7 @@ h1 span {
   overflow: hidden;
   transition: 0.3s background-position ease-in-out;
 }
+
 
 .icons:nth-child(2) {
   margin: 0 10px;

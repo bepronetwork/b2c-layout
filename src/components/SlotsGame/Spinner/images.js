@@ -2,10 +2,9 @@ import BlueCoin from "../../../assets/icons/SlotsIcons/blue-coin.svg";
 import Coin from "../../../assets/icons/SlotsIcons/coin.svg";
 import Club from "../../../assets/icons/SlotsIcons/club.svg";
 import Spade from "../../../assets/icons/SlotsIcons/spade.svg";
-import Fruit from "../../../assets/icons/SlotsIcons/fruit.png";
 import Heart from "../../../assets/icons/SlotsIcons/heart.svg";
-import Leaf from "../../../assets/icons/SlotsIcons/leaf.png";
-import Seven from "../../../assets/icons/SlotsIcons/seven.png";
+import Octagon from "../../../assets/icons/SlotsIcons/octagon.svg";
+import Dog from "../../../assets/icons/SlotsIcons/dog.svg";
 import Quadrilateral from "../../../assets/icons/SlotsIcons/quadrilateral.svg";
 
 const images = [
@@ -13,11 +12,11 @@ const images = [
   Coin,
   Club,
   Spade,
-  Fruit,
+  Quadrilateral,
   Heart,
-  Leaf,
-  Seven,
-  Quadrilateral
+  Octagon,
+  Dog,
+
 ];
 
 export default images;

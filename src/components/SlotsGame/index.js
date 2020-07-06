@@ -2,7 +2,6 @@ import React from "react";
 // import { random } from "lodash";
 // import { array } from "prop-types";
 import { Line1, Line2, Line3 } from "./FuncLines";
-import Spinner from "./Spinner";
 import styles from "./index.css";
 import numberOfLines from "../SlotsGameOptions/numberofLines";
 import images from "./Spinner/images";
@@ -30,7 +29,7 @@ class SlotsGame extends React.Component {
   }
 
   async componentDidMount() {
-    const resultRow = this.randomTable(4, 6);
+    const resultRow = this.randomTable(15, 15);
 
     await this.setState({ matrixResult: resultRow });
     await this.concatMatrices();
@@ -54,10 +53,14 @@ class SlotsGame extends React.Component {
 
     this.setState({ winner: null });
     this.emptyArray();
-    const resultRow = this.randomTable(4, 6);
-
-    this.handleAnimation();
+    await this.handleAnimation("columnItem", 0);
+    await this.handleAnimation("columnItem2", 500);
+    await this.handleAnimation("columnItem3", 1000);
+    await this.handleAnimation("columnItem4", 1500);
+    await this.handleAnimation("columnItem5", 2000);
     this.finishHandler();
+
+    const resultRow = this.randomTable(15, 15);
 
     await this.setState({ matrixResult: resultRow });
     const resultConcatFinal = [].concat(...matrixResult);
@@ -83,19 +86,21 @@ class SlotsGame extends React.Component {
     Line2("myCanvas");
   };
 
-  handleAnimation = () => {
-    document
-      .getElementById("columnItem")
-      .animate(
-        [
-          { transform: "translate3D(0, 0, 0)" },
-          { transform: "translate3D(0, -300px, 0)" }
-        ],
-        {
-          duration: 1000,
-          iterations: Infinity
-        }
-      );
+  handleAnimation = (spinnerColumn, delayTime) => {
+    const box = document.getElementById(spinnerColumn);
+
+    box.animate(
+      [
+        { transform: "translate3D(0, 0, 0)" },
+        { transform: "translate3D(0, -30px, 0)" },
+        { transform: "translate3D(0, 600px, 0)" }
+      ],
+      {
+        duration: 1000,
+        iterations: 1,
+        delay: delayTime
+      }
+    );
   };
 
   emptyArray() {
@@ -211,8 +216,8 @@ class SlotsGame extends React.Component {
               numberOne={0}
               numberTwo={4}
             /> */}
-            <div id="columnItem" className={styles.columnContainer}>
-              {concatResult.slice(0, 4).map(num => {
+            <div id="columnItem" className={styles.columnSpinner}>
+              {concatResult.slice(0, 40).map(num => {
                 return (
                   // <img src={images[num]} alt="" className={styles.icon} />
                   <img src={images[num]} alt="" className={styles.icon} />
@@ -220,26 +225,26 @@ class SlotsGame extends React.Component {
               })}
             </div>
             <div className={styles.separatedLine} />
-            <div className={styles.columnContainer}>
-              {concatResult.slice(5, 9).map(num => {
+            <div id="columnItem2" className={styles.columnSpinner}>
+              {concatResult.slice(41, 81).map(num => {
                 return <img src={images[num]} alt="" className={styles.icon} />;
               })}
             </div>
             <div className={styles.separatedLine} />
-            <div className={styles.columnContainer}>
-              {concatResult.slice(10, 14).map(num => {
+            <div id="columnItem3" className={styles.columnSpinner}>
+              {concatResult.slice(82, 122).map(num => {
                 return <img src={images[num]} alt="" className={styles.icon} />;
               })}
             </div>
             <div className={styles.separatedLine} />
-            <div className={styles.columnContainer}>
-              {concatResult.slice(15, 19).map(num => {
+            <div id="columnItem4" className={styles.columnSpinner}>
+              {concatResult.slice(123, 163).map(num => {
                 return <img src={images[num]} alt="" className={styles.icon} />;
               })}
             </div>
             <div className={styles.separatedLine} />
-            <div className={styles.columnContainer}>
-              {concatResult.slice(20, 24).map(num => {
+            <div id="columnItem5" className={styles.columnSpinner}>
+              {concatResult.slice(164, 204).map(num => {
                 return <img src={images[num]} alt="" className={styles.icon} />;
               })}
             </div>
