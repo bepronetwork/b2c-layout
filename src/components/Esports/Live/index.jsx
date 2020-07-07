@@ -10,11 +10,9 @@ class Live extends Component {
         const { streaming } = this.props;
 
         return (
-            /*<iframe width="100%" height="100%" src={streaming} frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-            <iframe width="100%" height="100%" title="stream" src={streaming} allowfullscreen=""></iframe>*/
             <iframe
-                src={`${streaming}&parent=http://localhost:3000&autoplay=true`}
-                height="100%"
+                src={`${streaming}&parent=${window.location.hostname}`}
+                height="350"
                 width="100%"
                 frameborder="true"
                 scrolling="true"

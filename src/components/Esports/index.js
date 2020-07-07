@@ -14,6 +14,7 @@ import Market from './Market';
 import GameFilter from './GameFilter';
 import SerieFilter from './SerieFilter';
 import Matches from './Matches';
+import Chat from './Chat';
 
 export { Stats };
 export { OddsTable };
@@ -31,3 +32,4 @@ export { Market };
 export { GameFilter };
 export { SerieFilter };
 export { Matches };
+export { Chat };

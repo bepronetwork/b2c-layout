@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-import { Typography, Tabs, LiveIcon } from 'components';
-import { OddsTable, TeamsTable } from 'components/Esports';
+import { Tabs } from 'components';
+import { OddsTable, TeamsTable, Chat } from 'components/Esports';
 import { connect } from 'react-redux';
 import _ from 'lodash';
 import "./index.css";
@@ -45,18 +45,21 @@ class SideMenu extends Component {
                             },
                             {
                                 value: "bets",
-                                label: "Bets"
+                                label: "Bets",
+                                disabled: match.status == "finished" || match.status == "settled"
+                            },
+                            {
+                                value: "chat",
+                                label: "Chat",
+                                disabled: match.live_embed_url == null
                             }
                         ]}
                         onSelect={this.handleTabChange}
                     />
                     <div styleName="main">
-                        {tab === "stats" 
-                            ? 
-                                <TeamsTable match={match} />
-                            : 
-                                <OddsTable match={match} />
-                        }
+                        { tab === "stats" ? <TeamsTable match={match} /> : null }
+                        { tab === "bets" ? <OddsTable match={match} /> : null }
+                        { tab === "chat" ? <Chat streaming={match.live_embed_url} /> : null }
                     </div>
                 </div>
             </div>

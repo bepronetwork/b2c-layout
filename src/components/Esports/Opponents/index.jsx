@@ -26,6 +26,7 @@ export default class Opponents extends Component {
                 score: 0,
                 odd: null
             },
+            drawOdd: null,
             isScoreBoard: false
         };
     }
@@ -40,7 +41,7 @@ export default class Opponents extends Component {
 
     projectData = async (props) => {
         const { opponents, results, odds, gameImage, isScoreBoard } = props;
-        const { opponent1, opponent2 } = this.state;
+        let { opponent1, opponent2, drawOdd } = this.state;
 
         if(_.isEmpty(opponents)) {
             opponent1.image = gameImage;
@@ -51,28 +52,35 @@ export default class Opponents extends Component {
             opponent1.name  = opponents[0].opponent.name;
             opponent1.location  = opponents[0].opponent.location;
             opponent1.score = results.find(r => r.team_id == opponents[0].opponent.id).score;
+            const oddType = odds.winnerTwoWay.length > 0 ? odds.winnerTwoWay : odds.winnerThreeWay;
+            drawOdd = odds.winnerThreeWay.length > 0 ? (oddType.find(o => o.participant_id == null).probability).toFixed(2) : null;
+
             if(odds != null) {
-                opponent1.odd = (1 / odds.winnerTwoWay.find(o => o.participant_id == opponents[0].opponent.id).probability).toFixed(2);
+                opponent1.odd = oddType.find(o => o.participant_id == opponents[0].opponent.id);
+                opponent1.odd = !_.isEmpty(opponent1.odd) ? (1 / opponent1.odd.probability).toFixed(2) : null;
             }
 
             opponent2.image = opponents[1].opponent.image_url;
             opponent2.name  = opponents[1].opponent.name;
             opponent2.location  = opponents[0].opponent.location;
             opponent2.score = results.find(r => r.team_id == opponents[1].opponent.id).score;
+
             if(odds != null) {
-                opponent2.odd = (1 / odds.winnerTwoWay.find(o => o.participant_id == opponents[1].opponent.id).probability).toFixed(2);
+                opponent2.odd = oddType.find(o => o.participant_id == opponents[1].opponent.id);
+                opponent2.odd = !_.isEmpty(opponent2.odd) ? (1 / opponent2.odd.probability).toFixed(2) : null;
             }
         }
 
         this.setState({
             opponent1,
             opponent2,
+            drawOdd,
             isScoreBoard: isScoreBoard === true ? true : false
         });
     }
 
     render() {
-        const { opponent1, opponent2, isScoreBoard } = this.state;
+        const { opponent1, opponent2, isScoreBoard, drawOdd } = this.state;
         const teamStyles = classNames("team", {
             "team-score-board" : isScoreBoard
         });
@@ -114,7 +122,11 @@ export default class Opponents extends Component {
                     :
                         <div styleName="triangle">
                             <div styleName="right-arrow"></div>
-                            <div styleName="vs"><Typography variant={'x-small-body'} color={'grey'}>VS</Typography></div>
+                            <div styleName="vs">
+                                <Typography variant={'x-small-body'} color={'grey'}>
+                                {drawOdd == null ? "VS" : drawOdd}
+                                </Typography>
+                            </div>
                             <div styleName="left-arrow"></div>
                         </div>
                 }

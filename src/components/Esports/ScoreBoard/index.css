@@ -6,7 +6,7 @@
     max-width: 1192px;
     min-width: 300px;
     display: grid;
-    grid-template-columns: 30% 40% 30%;
+    grid-template-columns: 35% 30% 35%;
     gap: 1.5em;
     height: 70px;
 

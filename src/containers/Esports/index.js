@@ -43,10 +43,9 @@ class Esports extends Component {
             status, 
             size
         });
-        const slides = await getMatches({
-            status, 
-            size: 3
-        });
+
+        let slides = matches.filter(m => m.live_embed_url != null);
+        slides = slides.length > 0 ? slides : matches;
 
         this.setState({
             games,
@@ -124,12 +123,31 @@ class Esports extends Component {
         const { slides, games } = this.state;
         let slidesElements = [];
 
-        slides.map( match => {
+        slides.slice(0, 3).map( match => {
             const gameImage = games.find(g => g.external_id === match.videogame.id).image;
+            const images = require.context('assets/esports', true);
+            const backgroundImage = images('./' + match.videogame.slug + '.jpg');
+
             slidesElements.push(
                 <Link to={`/esports/${match.id}`}>
                     <div styleName="element">
-                        <div styleName="background" style={{background: "url('https://i.mlcdn.com.br/portaldalu/fotosconteudo/55652.jpg') center center / cover no-repeat"}} />
+                        {
+                            match.live_embed_url != null
+                            ?
+                                <div styleName="background">
+                                    <iframe
+                                        src={`${match.live_embed_url}&parent=${window.location.hostname}`}
+                                        height="250"
+                                        width="100%"
+                                        frameborder="false"
+                                        scrolling="false"
+                                        allowfullscreen="false"
+                                    >
+                                    </iframe>
+                                </div>
+                            :
+                                <div styleName="background" style={{background: "url('" + backgroundImage + "') center center / cover no-repeat"}} />
+                        }
                         <div styleName="text">
                             <div styleName="tour">
                                 <div styleName="tour-img">

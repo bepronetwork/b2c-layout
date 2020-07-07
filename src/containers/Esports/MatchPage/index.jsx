@@ -84,7 +84,11 @@ class MatchPage extends Component {
                                     <Live streaming={match.live_embed_url} />
                                 </div>
                             :
-                                <Market match={match} />
+                                match.status == "finished" || match.status == "settled"
+                                ?
+                                    <div/>
+                                :
+                                    <Market match={match} />  
                     }
                     <div styleName="right">
                         {isLoading ?

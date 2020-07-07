@@ -20,6 +20,16 @@
     border-bottom: 1px solid $backgroundColor;
 }
 
+.bets-placar-3 {
+    grid-template-columns: 1fr 1fr 1fr;
+
+    svg {
+        height: 30px;
+        width:  14px;
+        margin: 8px 0;
+    }
+}
+
 .bets-player{
 }
 

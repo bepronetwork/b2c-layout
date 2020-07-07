@@ -5,7 +5,6 @@ import CloseIcon from "components/Icons/CloseCross";
 import { Shield } from "components/Esports";
 import { connect } from 'react-redux';
 import classNames from "classnames";
-import Tooltip from '@material-ui/core/Tooltip';
 import { getSkeletonColors } from "../../../lib/helpers";
 import _ from 'lodash';
 import "./index.css";
@@ -95,10 +94,9 @@ class GameFilter extends Component {
                                 "not-selected": gameFilter.length && !exist
                             });
                             return (
+                                
                                 <li styleName={styles} onClick={() => this.handlerGameFilterClick(game.external_id)} key={game.external_id}>
-                                    <Tooltip title={game.name} >
-                                        <Shield image={game.image} size={"large"} />
-                                    </Tooltip>
+                                    <Shield image={game.image} size={"large"} tooltip={game.name} />
                                 </li>
                             )
                         })

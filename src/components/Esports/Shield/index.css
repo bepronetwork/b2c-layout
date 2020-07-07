@@ -1,26 +1,35 @@
 @import "../../../styles/all.css";
 
-.shield {
+.root {
     display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 4px 0 $primaryColor;
     background-color: $primaryColor-13;
     border-radius: 50%;
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: center;
-    box-shadow: 0 2px 4px 0 $primaryColor;
 }
 
-.small {
+.root-small {
     width: 26px;
     height: 26px;
 }
 
-.medium {
+.root-medium {
     width: 30px;
     height: 30px;
 }
 
-.large {
+.root-large {
     width: 34px;
     height: 34px;
+}
+
+.shield {
+    display: flex;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    border-radius: 50%;
+    width: 70%;
+    height: 70%;
 }
