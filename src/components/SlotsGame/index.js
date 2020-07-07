@@ -50,9 +50,9 @@ class SlotsGame extends React.Component {
     const { concatResult } = this.state;
 
     this.clearCanvas();
-
-    await this.hadleAnimations();
     this.setState({ winner: null });
+
+    this.hadleAnimations();
 
     this.concatMatrices();
     this.handleAnimationResults();
@@ -74,31 +74,39 @@ class SlotsGame extends React.Component {
     ctx.lineTo(450, 220);
   };
 
-  hadleAnimations = async () => {
+  hadleAnimations = () => {
     this.handleAnimation("columnItem", 0);
     this.handleAnimation("columnItem2", 500);
     this.handleAnimation("columnItem3", 1000);
     this.handleAnimation("columnItem4", 1500);
-    this.handleAnimation("columnItem5", 2000);
+    this.handleAnimation("columnItem5", 2000).then(() => {
+      const resultRow = this.randomTable(15, 15);
+
+      console.log(resultRow);
+
+      this.setState({ matrixResult: resultRow });
+    });
   };
 
-  handleAnimation = async (spinnerColumn, delayTime) => {
+  handleAnimation = (spinnerColumn, delayTime) => {
     const box = document.getElementById(spinnerColumn);
 
-    box.animate(
-      [
-        { transform: "translate3D(0, 0, 0)" },
-        { transform: "translate3D(0, -30px, 0)" },
-        { transform: "translate3D(0, 600px, 0)" }
-      ],
-      {
-        duration: 1000,
-        iterations: 1,
-        delay: delayTime
-      }
-    );
-      const resultRow = this.randomTable(15, 15);
-      this.setState({ matrixResult: resultRow });
+    return new Promise(() => {
+      console.log("initial");
+    }).then(() => {
+      box.animate(
+        [
+          { transform: "translate3D(0, 0, 0)" },
+          { transform: "translate3D(0, -30px, 0)" },
+          { transform: "translate3D(0, 600px, 0)" }
+        ],
+        {
+          duration: 1000,
+          iterations: 1,
+          delay: delayTime
+        }
+      );
+    });
   };
 
   clearCanvas() {
