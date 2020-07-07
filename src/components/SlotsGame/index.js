@@ -7,7 +7,7 @@ import images from "./Spinner/images";
 function WinningSound() {
   return (
     <audio autoPlay="autoplay" className="player" preload="false">
-      <source src="https://andyhoffman.codes/random-assets/img/slots/winning_slot.wav" />
+      <source src="" />
     </audio>
   );
 }
@@ -43,26 +43,24 @@ class SlotsGame extends React.Component {
 
   randomTable = (rows, cols) =>
     Array.from({ length: rows }, () =>
-      Array.from({ length: cols }, () => Math.floor(Math.random() * 8))
+      Array.from({ length: cols }, () => Math.floor(Math.random() * 7))
     );
 
   handleClick = async () => {
-    const { matrixResult, concatResult } = this.state;
+    const { concatResult } = this.state;
 
     this.clearCanvas();
 
-    this.handleAnimation("columnItem", 0);
-    this.handleAnimation("columnItem2", 500);
-    this.handleAnimation("columnItem3", 1000);
-    this.handleAnimation("columnItem4", 1500);
-    await this.handleAnimation("columnItem5", 2000);
-    this.finishHandler();
+    await this.hadleAnimations();
+    this.setState({ winner: null });
 
-    const resultConcatFinal = [].concat(...matrixResult);
+    this.concatMatrices();
+    this.handleAnimationResults();
 
-    await this.setState({ concatResult: resultConcatFinal });
-
-    console.log(concatResult);
+    console.log(concatResult[18], concatResult[58]);
+    console.log(concatResult[19], concatResult[59]);
+    console.log(concatResult[20], concatResult[60]);
+    console.log(concatResult[21], concatResult[61]);
   };
 
   handleLine = () => {
@@ -76,14 +74,18 @@ class SlotsGame extends React.Component {
     ctx.lineTo(450, 220);
   };
 
-  handleLine2 = () => {
-    
+  hadleAnimations = async () => {
+    this.handleAnimation("columnItem", 0);
+    this.handleAnimation("columnItem2", 500);
+    this.handleAnimation("columnItem3", 1000);
+    this.handleAnimation("columnItem4", 1500);
+    this.handleAnimation("columnItem5", 2000);
   };
 
   handleAnimation = async (spinnerColumn, delayTime) => {
     const box = document.getElementById(spinnerColumn);
 
-    await box.animate(
+    box.animate(
       [
         { transform: "translate3D(0, 0, 0)" },
         { transform: "translate3D(0, -30px, 0)" },
@@ -95,10 +97,8 @@ class SlotsGame extends React.Component {
         delay: delayTime
       }
     );
-
-    const resultRow = this.randomTable(15, 15);
-
-    this.setState({ matrixResult: resultRow });
+      const resultRow = this.randomTable(15, 15);
+      this.setState({ matrixResult: resultRow });
   };
 
   clearCanvas() {
@@ -108,27 +108,37 @@ class SlotsGame extends React.Component {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
   }
 
-  emptyArray() {
-    SlotsGame.matches = [];
+  handleAnimationResults() {
+    this.finishHandler(18, 58, true, 80, 60, 90, 65, 450, 65);
+    this.finishHandler(19, 80, true, 80, 120, 90, 125, 450, 125);
+    this.finishHandler(20, 60, true, 80, 190, 450, 190, 0, 0);
+    this.finishHandler(21, 80, true, 80, 255, 90, 245, 450, 245);
   }
 
-  finishHandler() {
+  async finishHandler(
+    concatResult1,
+    concatResult2,
+    winnerState,
+    canvas1,
+    canvas2,
+    canvas3,
+    canvas4,
+    canvas5,
+    canvas6
+  ) {
     const { concatResult } = this.state;
 
-    if (concatResult[0] === concatResult[5]) {
-      return Line1("myCanvas", 80, 60, 90, 65, 450, 65);
-    }
-
-    if (concatResult[1] === concatResult[6]) {
-      return Line1("myCanvas", 80, 120, 90, 125, 450, 125);
-    }
-
-    if (concatResult[2] === concatResult[7]) {
-      return Line3("myCanvas", 80, 190, 450, 190);
-    }
-
-    if (concatResult[3] === concatResult[8]) {
-      return Line1("myCanvas", 80, 255, 90, 245, 450, 245);
+    if (concatResult[concatResult1] === concatResult[concatResult2]) {
+      await Line1(
+        "myCanvas",
+        canvas1,
+        canvas2,
+        canvas3,
+        canvas4,
+        canvas5,
+        canvas6
+      );
+      this.setState({ winner: winnerState });
     }
   }
 
@@ -211,6 +221,15 @@ class SlotsGame extends React.Component {
               style={{ border: "1px solid #d3d3d3;" }}
               className={styles.lineTest}
             />
+            {winner === true ? (
+              <div className={styles.resultCard}>
+                <div className={styles.columnContainer}>
+                  <p className={styles.resultCardText}>0,25x</p>
+                  <p className={styles.resultCardText}>0,0000000</p>
+                </div>
+              </div>
+            ) : null}
+
             <div id="columnItem" className={styles.columnSpinner}>
               {concatResult.slice(0, 40).map(num => {
                 return (

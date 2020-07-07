@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css?family=Cairo');
+@import "../../styles/all.css";
 
 @keyframes spin {
   to {
@@ -6,19 +7,19 @@
   }
 }
 
-@keyframes spinVertical {
+@keyframes cardJump {
   from{
-   transform: translate3D(0, 0, 0)
+    transform: scale(1, 1);
   }
   to {
-    transform: translate3D(0, 600px, 0)
+    transform: scale(0.8, 0.8);
   }
 }
 
 .textButton{
   font-size: 12px;
   font: roboto;
-  background-color: none !important;
+  color: white;
 }
 
 .textButton:hover{
@@ -31,17 +32,6 @@ body {
   background-color: #292929;
 }
 
-h1 {
-  font-size: 150%;
-  padding: 0.25em .5em;
-  font-family: 'Cairo', sans-serif;
-}
-
-h1 span {
-  color: aliceblue;
-  border: 1px solid hsla(208, 100%, 97.1%, .2);
-  padding: 0.1em .2em;
-}
 .lineTest{
   position: absolute;
   z-index: 1;
@@ -66,7 +56,6 @@ h1 span {
   flex-direction: column;
   align-items: center;
   width: 120px;
-  animation: spinVertical 1.5s forwards 0.5s initial;
 }
 
 .containerInit{
@@ -83,7 +72,7 @@ h1 span {
   justify-content: center;
   width: 200px;
   height: 30px;
-  border-radius: 10px 10px 0px 0px;
+  border-radius: 5px 5px 0px 0px;
   background-color: rgb(47, 69, 83);
 }
 
@@ -106,16 +95,14 @@ h1 span {
   display: flex;
   overflow: hidden;
   height: 250px;
-  width: 70%;
+  width: 420px;
   top: 0px;
   left: 0px;
   padding: 20px 30px;
   align-items: center;
   justify-content: center;
-  display: flex;
-  transition: 0.3s transform;
-  border: 3px solid rgb(47, 69, 83);
-  border-radius: 20px;
+  border: 5px solid rgb(47, 69, 83);
+  border-radius: 5px;
 }
 
 .gridContainer{
@@ -128,6 +115,31 @@ h1 span {
   border-left: 1px solid gray;
   height: 200px;
   margin: 5px;
+}
+
+.resultCard {
+  display: flex;
+  position: absolute;
+  z-index: 1;
+  align-self: center;
+  width: 170px;
+  height: 110px;
+  background-color:  hsl(244,34%,8%);
+  border: 5px solid limegreen;
+  border-radius: 5px;
+  justify-content: center;
+  align-items: center;
+  animation: cardJump 0.5s forwards 0.1s;
+}
+
+.resultCardText{
+  font-size: 25px;
+  color: limegreen;
+  text-align: center;
+  font-weight: bolder;
+  margin: 5px;
+  font-family: 'Cairo', sans-serif;
+  animation: cardJump 0.5s forwards 0.1s;
 }
 
 @media screen and (max-width: 1000px) {
