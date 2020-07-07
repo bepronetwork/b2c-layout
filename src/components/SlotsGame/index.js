@@ -1,7 +1,5 @@
 import React from "react";
-// import { random } from "lodash";
-// import { array } from "prop-types";
-import { Line1, Line2, Line3 } from "./FuncLines";
+import { Line1, Line3 } from "./FuncLines";
 import styles from "./index.css";
 import numberOfLines from "../SlotsGameOptions/numberofLines";
 import images from "./Spinner/images";
@@ -51,18 +49,15 @@ class SlotsGame extends React.Component {
   handleClick = async () => {
     const { matrixResult, concatResult } = this.state;
 
-    this.setState({ winner: null });
-    this.emptyArray();
-    await this.handleAnimation("columnItem", 0);
-    await this.handleAnimation("columnItem2", 500);
-    await this.handleAnimation("columnItem3", 1000);
-    await this.handleAnimation("columnItem4", 1500);
+    this.clearCanvas();
+
+    this.handleAnimation("columnItem", 0);
+    this.handleAnimation("columnItem2", 500);
+    this.handleAnimation("columnItem3", 1000);
+    this.handleAnimation("columnItem4", 1500);
     await this.handleAnimation("columnItem5", 2000);
     this.finishHandler();
 
-    const resultRow = this.randomTable(15, 15);
-
-    await this.setState({ matrixResult: resultRow });
     const resultConcatFinal = [].concat(...matrixResult);
 
     await this.setState({ concatResult: resultConcatFinal });
@@ -71,25 +66,24 @@ class SlotsGame extends React.Component {
   };
 
   handleLine = () => {
-    const c = document.getElementById("myCanvas");
-    const ctx = c.getContext("2d");
+    const canvas = document.getElementById("myCanvas");
+    const ctx = canvas.getContext("2d");
 
     ctx.beginPath();
     ctx.lineWidth = "1";
     ctx.strokeStyle = "white";
-    ctx.moveTo(65, 190);
-    ctx.lineTo(450, 190);
-    ctx.stroke(); // Draw it
+    ctx.moveTo(65, 220);
+    ctx.lineTo(450, 220);
   };
 
   handleLine2 = () => {
-    Line2("myCanvas");
+    
   };
 
-  handleAnimation = (spinnerColumn, delayTime) => {
+  handleAnimation = async (spinnerColumn, delayTime) => {
     const box = document.getElementById(spinnerColumn);
 
-    box.animate(
+    await box.animate(
       [
         { transform: "translate3D(0, 0, 0)" },
         { transform: "translate3D(0, -30px, 0)" },
@@ -101,7 +95,18 @@ class SlotsGame extends React.Component {
         delay: delayTime
       }
     );
+
+    const resultRow = this.randomTable(15, 15);
+
+    this.setState({ matrixResult: resultRow });
   };
+
+  clearCanvas() {
+    const canvas = document.getElementById("myCanvas");
+    const ctx = canvas.getContext("2d");
+
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+  }
 
   emptyArray() {
     SlotsGame.matches = [];
@@ -111,19 +116,19 @@ class SlotsGame extends React.Component {
     const { concatResult } = this.state;
 
     if (concatResult[0] === concatResult[5]) {
-      return Line1("myCanvas");
+      return Line1("myCanvas", 80, 60, 90, 65, 450, 65);
     }
 
     if (concatResult[1] === concatResult[6]) {
-      return Line2("myCanvas");
+      return Line1("myCanvas", 80, 120, 90, 125, 450, 125);
     }
 
     if (concatResult[2] === concatResult[7]) {
-      return Line3("myCanvas", 65, 190, 450, 190);
+      return Line3("myCanvas", 80, 190, 450, 190);
     }
 
     if (concatResult[3] === concatResult[8]) {
-      return Line3("myCanvas", 65, 265, 450, 265);
+      return Line1("myCanvas", 80, 255, 90, 245, 450, 245);
     }
   }
 
@@ -206,16 +211,6 @@ class SlotsGame extends React.Component {
               style={{ border: "1px solid #d3d3d3;" }}
               className={styles.lineTest}
             />
-            {/* <Spinner
-              onFinish={this.finishHandler}
-              ref={child => {
-                this.child1 = child;
-              }}
-              timer="1000"
-              concatResult={concatResult}
-              numberOne={0}
-              numberTwo={4}
-            /> */}
             <div id="columnItem" className={styles.columnSpinner}>
               {concatResult.slice(0, 40).map(num => {
                 return (

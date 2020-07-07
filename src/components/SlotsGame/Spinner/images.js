@@ -15,8 +15,7 @@ const images = [
   Quadrilateral,
   Heart,
   Octagon,
-  Dog,
-
+  Dog
 ];
 
 export default images;

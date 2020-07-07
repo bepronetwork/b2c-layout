@@ -16,7 +16,7 @@
 }
 
 .textButton{
-  font-size: medium;
+  font-size: 12px;
   font: roboto;
   background-color: none !important;
 }
@@ -52,7 +52,6 @@ h1 span {
   display: flex;
   flex-direction: row;
   width: 100%;
-  align-items: center;
   justify-content: center;
 }
 
@@ -74,7 +73,6 @@ h1 span {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 650px;
   margin: 20px;
   flex-direction: column;
 }
@@ -98,23 +96,6 @@ h1 span {
   left: 0px;
 }
 
-.icon{
-  width: 100%;
-}
-
-.icons {
-  display: inline-block;
-  width: 100%;
-  height: 100%;
-  background: url(https://andyhoffman.codes/random-assets/img/slots/sprite5.png) repeat-y;
-  background-size: 70px;
-  margin: 10px 5px;
-  will-change: backgroundPosition;
-  overflow: hidden;
-  transition: 0.3s background-position ease-in-out;
-}
-
-
 .icons:nth-child(2) {
   margin: 0 10px;
 }
@@ -124,7 +105,7 @@ h1 span {
 .spinnerContainer {
   display: flex;
   overflow: hidden;
-  height: 300px;
+  height: 250px;
   width: 70%;
   top: 0px;
   left: 0px;
@@ -133,7 +114,7 @@ h1 span {
   justify-content: center;
   display: flex;
   transition: 0.3s transform;
-  border: 5px solid rgb(47, 69, 83);
+  border: 3px solid rgb(47, 69, 83);
   border-radius: 20px;
 }
 
@@ -143,24 +124,10 @@ h1 span {
   justify-content: center;
 }
 
-.app-wrap.winner-false {
-  animation: linear 1s spin;
-}
 .separatedLine {
   border-left: 1px solid gray;
   height: 200px;
   margin: 5px;
-}
-.spinnerContainer::after {
-  position: absolute;
-  content: '';
-  display: block;
-  height: 180px;
-  top: 50%;
-  transform: translateY(-50%);
-  right: 30px;
-  left: 30px;
-  background: rgba(255, 0, 0, .1);
 }
 
 @media screen and (max-width: 1000px) {
