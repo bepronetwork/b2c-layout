@@ -1,4 +1,4 @@
-export const Line1 = (
+export const Line1 = async (
   ElementId,
   moveToX,
   moveToY,
@@ -7,22 +7,18 @@ export const Line1 = (
   line2ToX,
   line2ToY
 ) => {
-  new Promise(resolve => {
-    console.log("Initial");
+  const c = document.getElementById(ElementId);
+  const ctx = c.getContext("2d");
 
-    resolve();
-  }).then(() => {
-    const c = document.getElementById(ElementId);
-    const ctx = c.getContext("2d");
+  ctx.beginPath();
+  ctx.lineWidth = "1";
+  ctx.strokeStyle = "gray";
+  ctx.moveTo(moveToX, moveToY);
+  ctx.lineTo(line1ToX, line1ToY);
+  ctx.lineTo(line2ToX, line2ToY);
+  ctx.stroke();
 
-    ctx.beginPath();
-    ctx.lineWidth = "1";
-    ctx.strokeStyle = "gray";
-    ctx.moveTo(moveToX, moveToY);
-    ctx.lineTo(line1ToX, line1ToY);
-    ctx.lineTo(line2ToX, line2ToY);
-    ctx.stroke();
-  });
+  return new Promise(resolve => setTimeout(() => resolve(), 3000));
 };
 
 export const Line3 = (

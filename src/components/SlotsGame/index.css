@@ -18,7 +18,7 @@
 
 .textButton{
   font-size: 12px;
-  font: roboto;
+  font-family: 'Muli', sans-serif;
   color: white;
 }
 
@@ -85,10 +85,6 @@ body {
   left: 0px;
 }
 
-.icons:nth-child(2) {
-  margin: 0 10px;
-}
-
 * { box-sizing: border-box; }
 
 .spinnerContainer {
@@ -130,6 +126,15 @@ body {
   justify-content: center;
   align-items: center;
   animation: cardJump 0.5s forwards 0.1s;
+}
+
+.backgroundTransparence {
+  background-color: rgba(0,0,0,0.5);
+  position: absolute;
+  z-index: 1;
+  align-self: center;
+  width: 420px;
+  height: 250px;
 }
 
 .resultCardText{
