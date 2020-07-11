@@ -22,7 +22,8 @@ class SlotsGame extends React.Component {
       winner: false,
       matrixResult: [],
       concatResult: [],
-      testBol: new Array(200).fill(false)
+      testBol: new Array(200).fill(false),
+      testArray: [1, 1, 2, 3, 5]
     };
     this.finishHandler = this.finishHandler.bind(this);
     this.handleClick = this.handleClick.bind(this);
@@ -45,21 +46,22 @@ class SlotsGame extends React.Component {
     );
 
   handleClick = async () => {
-    const { testBol } = this.state;
+    const { testBol, concatResult } = this.state;
 
     this.clearCanvas();
     this.setState({ winner: false });
-    this.setState({ testBol: new Array(200).fill(false) });
 
     await this.handleAnimations();
     await this.setWinnerState(true);
     await this.funcHandleMatriz();
     await this.concatMatrices();
+    await this.testeItem(0);
 
     await this.handleAnimationResults();
     this.handleImages();
 
     console.log(testBol);
+    console.log(concatResult);
   };
 
   funcHandleMatriz = async () => {
@@ -117,6 +119,20 @@ class SlotsGame extends React.Component {
     return new Promise(resolve => setTimeout(() => resolve(), 1000));
   };
 
+  Numbers(min, max) {
+    return Math.floor(Math.random() * (max - min + 1) + min);
+  }
+
+  async testeItem(resultIndex) {
+    const { concatResult, testArray } = this.state;
+
+    // const randNum = this.Numbers(58, 60);
+
+    const result = concatResult.splice(58, 0, testArray[resultIndex]);
+
+    console.log(result);
+  }
+
   clearCanvas() {
     const canvas = document.getElementById("myCanvas");
     const ctx = canvas.getContext("2d");
@@ -128,19 +144,15 @@ class SlotsGame extends React.Component {
     const { testBol } = this.state;
 
     if (testBol[58] === true) {
-      return this.finishHandler(18, 80, 60, 90, 65, 450, 65);
+      return this.finishHandler(80, 60, 90, 65, 450, 65);
     }
 
     if (testBol[59] === true) {
-      return this.finishHandler(19, 80, 120, 90, 125, 450, 125);
+      return this.finishHandler(80, 120, 90, 125, 450, 125);
     }
 
     if (testBol[60] === true) {
-      return this.finishHandler(20, 80, 188, 450, 188, 450, 188);
-    }
-
-    if (testBol[61] === true) {
-      return this.finishHandler(21, 255, 90, 245, 450, 245);
+      return this.finishHandler(80, 188, 450, 188, 450, 188);
     }
 
     return new Promise(resolve => setTimeout(() => resolve(), 1000));
@@ -150,7 +162,6 @@ class SlotsGame extends React.Component {
     await this.handleImage(18);
     await this.handleImage(19);
     await this.handleImage(20);
-    await this.handleImage(21);
   }
 
   async handleImage(startPosTest) {
@@ -208,9 +219,9 @@ class SlotsGame extends React.Component {
         <button onClick={this.handleClick} type="button">
           TESTE
         </button>
-        {/* <button onClick={this.handleLine} type="button">
+        <button onClick={this.testeItem} type="button">
           TESTE LINE
-        </button> */}
+        </button>
         <div className={styles.topContainer}>
           <h1 className={styles.topContainerText}>Pagamento total: 0.000000</h1>
         </div>
@@ -249,17 +260,6 @@ class SlotsGame extends React.Component {
                 }
               })}
             </div>
-            <div style={{ margin: "15px" }}>
-              {numberOfLines.map(lines => {
-                if (lines >= 16 && lines <= 18) {
-                  return (
-                    <div className={styles.textButton}>
-                      <p>{lines}</p>
-                    </div>
-                  );
-                }
-              })}
-            </div>
           </div>
 
           <div className={styles.spinnerContainer}>
@@ -276,14 +276,14 @@ class SlotsGame extends React.Component {
             testBol[61] === true ? (
               <div className={styles.backgroundTransparence} />
             ) : null}
-            {winner === true ? (
+            {/* {winner === true ? (
               <div className={styles.resultCard}>
                 <div className={styles.columnContainer}>
                   <p className={styles.resultCardText}>0,25x</p>
                   <p className={styles.resultCardText}>0,0000000</p>
                 </div>
               </div>
-            ) : null}
+            ) : null} */}
 
             <div id="columnItem" className={styles.columnSpinner}>
               {concatResult.slice(0, 40).map((num, index) => {
@@ -310,8 +310,10 @@ class SlotsGame extends React.Component {
                     style={{
                       zIndex: testBol[index + 40] === true ? 2 : 0,
                       transform:
-                        testBol[index + 40] === true ? "scale(1.2, 1.2)" : null,
-                      transition: "transform 0,5s ease-in-out"
+                        testBol[index + 40] === true
+                          ? "scale(1.2, 1.2) rotate(25deg)"
+                          : null,
+                      transition: "transform 2s ease-in-out 0.5s"
                     }}
                     src={images[num]}
                     alt=""
@@ -406,18 +408,7 @@ class SlotsGame extends React.Component {
 
             <div style={{ margin: "15px" }}>
               {numberOfLines.map(lines => {
-                if (lines >= 19 && lines <= 21) {
-                  return (
-                    <div className={styles.textButton}>
-                      <p>{lines}</p>
-                    </div>
-                  );
-                }
-              })}
-            </div>
-            <div style={{ margin: "15px" }}>
-              {numberOfLines.map(lines => {
-                if (lines >= 22 && lines <= 24) {
+                if (lines >= 16 && lines <= 18) {
                   return (
                     <div className={styles.textButton}>
                       <p>{lines}</p>
