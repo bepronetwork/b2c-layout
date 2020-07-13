@@ -8,7 +8,7 @@
   gap: 1em 1em;
 
   @include Breakpoint-mobileOnly {
-    gap: 0.7em 0.7em;
+    gap: 0.5em 0.5em;
   }
 }
 
@@ -19,6 +19,7 @@
 
   @include Breakpoint-mobileOnly {
     width: 100%;
+    gap: 0.4em 0.4em;
   }
 }
 
@@ -47,6 +48,7 @@
 
   @include Breakpoint-mobileOnly {
     box-shadow: $secondaryColor-2  0px 0.2em;
+    border: 1px solid $secondaryColor-13;
   }
 }
 
@@ -75,7 +77,7 @@
     text-shadow: rgb(255, 255, 255) 0px 1px 1px;
 
     @include Breakpoint-mobileOnly {
-      font-size: 13px;
+      font-size: 10px;
     }
   }
 }
@@ -144,7 +146,7 @@
 
   p {
     @include Breakpoint-mobileOnly {
-      font-size: 13px;
+      font-size: 10px;
     }
   }
 }

@@ -90,6 +90,10 @@
     }
 }
 
+.withdraw:disabled {
+    background-color: #999999;
+}
+
 .amount {
     display: inline-flex;
     width: 100%;

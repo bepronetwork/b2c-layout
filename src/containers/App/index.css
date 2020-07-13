@@ -10,6 +10,7 @@
 .center{
     width: 100%;
     padding-right: $chat-width-desktop;
+    background-color: $backgroundColor;
 
     @media screen and (max-width: 1267px) and (min-width: 1024px) {
       padding-right: $chat-width-tablet-pro;
@@ -224,7 +225,7 @@
   padding: $spacing-52 $spacing-20;
 
   .tabs {
-    width: 100%;
+    width: 340px;
   }
 }
 
@@ -277,4 +278,10 @@
   70% {
     opacity: 0;
   }
+}
+
+.tkn_logo_login{
+    width : 283px;
+    margin-top : 2%;
+    margin-bottom : 7%;
 }

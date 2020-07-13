@@ -78,7 +78,7 @@ class BetsTab extends Component {
     }
 
     projectData = async (props, options=null) => {
-        let { profile, ln } = props;
+        let { profile, ln, onTableDetails } = props;
         let { view_amount, view_game } = this.state;
         const copy = CopyText.betspage[ln];
         let my_bets = [];
@@ -136,7 +136,8 @@ class BetsTab extends Component {
                         isWon : bet.isWon,
                         payout : `${formatCurrency(Numbers.toFloat(bet.winAmount/bet.betAmount))}x`
                     }
-                })
+                }),
+                onTableDetails : onTableDetails ? onTableDetails : null
             }
         })
     }
@@ -206,7 +207,7 @@ class BetsTab extends Component {
                     size={this.state.view_amount.value}
                     games={games.filter(function(g) { return view_game.value == 'all_games' || g.metaName == view_game.value; }).map(function(g) { return g; })}
                     isLoading={isListLoading}
-                    onTableDetails={onTableDetails ? onTableDetails : null}
+                    onTableDetails={this.state[view].onTableDetails}
                 /> 
             </div>
         );

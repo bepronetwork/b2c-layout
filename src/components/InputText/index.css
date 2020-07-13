@@ -102,7 +102,7 @@
   }
 
 .input::placeholder {
-  color: $white;
+  color: $placeHolderColor;
 
   font-size: $font-size-body;
 }

@@ -10,6 +10,7 @@ import { formatPercentage } from "../../utils/numberFormatation";
 import { formatCurrency } from "../../utils/numberFormatation";
 import { CopyText } from '../../copy';
 import Keno from './keno';
+import _ from 'lodash';
 import plockSound from "assets/keno-selected.mp3";
 import congratsSound from "assets/keno-diamond.mp3";
 import tickSound from "assets/keno-tick.mp3";
@@ -101,7 +102,7 @@ class KenoGameCard extends Component {
         let numberOfDiamonds = 0;
 
         localCards.forEach( (c) => { c.isSelected = false });
-        if(result != null) {
+        if (!_.isEmpty(result)) {
             result.forEach((r, i) => {
                 setTimeout(() => {
                     const card = localCards.find( c => {
@@ -147,11 +148,11 @@ class KenoGameCard extends Component {
     };
 
     onCardClick = index => {
-        const { onChooseCards, disableControls, cards } = this.props;
+        const { onChooseCards, animating, cards } = this.props;
         const localCards = cards;
         const isPicked = localCards[index].isPicked;
 
-        if (disableControls) { return null };
+        if (animating) { return null };
 
         localCards.map(card => {
             card.isSelected = false;
@@ -453,7 +454,7 @@ class KenoGameCard extends Component {
                         <div styleName="won">
                             <div styleName="won-1">
                                 <Typography variant={'body'} color={'white'} weight={"bold"}>
-                                    {payout}x
+                                    {payout.toFixed(2)}x
                                 </Typography> 
                                 <div styleName="currency">
                                     <Typography variant={'small-body'} color={'white'} weight={"bold"}>

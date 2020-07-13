@@ -8,6 +8,13 @@
     gap: 0;
 }
 
+.tabs-limit {
+    @media screen and (max-width: 767px) {
+        grid-template-columns: repeat(3, auto);
+        grid-auto-flow: unset;
+    }
+}
+
 .tabs > div:first-child {
     border-left: none;
 }
