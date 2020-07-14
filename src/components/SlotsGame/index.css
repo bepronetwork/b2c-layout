@@ -192,9 +192,9 @@ body {
   z-index: 4;
   left: 0px;
   opacity: 1;
-  stroke-dasharray: 1000;
-  stroke-dashoffset: 1000;
-  animation: animateLine 1.2s linear 0s 1 normal forwards running ;
+  stroke-dasharray: 300;
+  stroke-dashoffset: 300;
+  animation: animateLine 1s linear forwards;
 }
 
 

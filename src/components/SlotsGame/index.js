@@ -149,12 +149,12 @@ class SlotsGame extends React.Component {
   }
 
   async handleImages() {
-    await this.handleImage(18);
-    await this.handleImage(19);
-    await this.handleImage(20);
+    await this.handleImage(18, 500);
+    await this.handleImage(19, 1000);
+    await this.handleImage(20, 1500);
   }
 
-  async handleImage(startPosTest) {
+  async handleImage(startPosTest, setTimeOut) {
     const { concatResult, testBol } = this.state;
 
     const startPos = startPosTest;
@@ -178,7 +178,7 @@ class SlotsGame extends React.Component {
 
     console.log(i);
 
-    return new Promise(resolve => setTimeout(() => resolve(), 1000));
+    return new Promise(resolve => setTimeout(() => resolve(), setTimeOut));
   }
 
   render() {
@@ -281,7 +281,7 @@ class SlotsGame extends React.Component {
                 <Line
                   svgClass={styles.classLine}
                   polylineClass={styles.classSvg}
-                  points="9 55,12 55, 18 55, 33 55, 76 55"
+                  points="10 97,12 94, 18 94, 33 94, 76 94"
                   viewBox="0 5 100 100"
                 />
               ) : null}
