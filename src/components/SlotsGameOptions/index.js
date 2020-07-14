@@ -189,7 +189,7 @@ class SlotsGameOptions extends Component {
                 onChange={this.handleChange}
                 className={styles.dropdownInput}
               >
-                {Numbers.slice(0, 24).map(items => {
+                {Numbers.slice(0, 18).map(items => {
                   return <option value="laranja">{items}</option>;
                 })}
               </select>

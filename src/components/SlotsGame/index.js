@@ -1,7 +1,7 @@
 import React from "react";
 import { zip } from "lodash";
 
-import Line from "assets/icons/SlotsIcons/line";
+import Line from "components/SlotsLines";
 import styles from "./index.css";
 import numberOfLines from "../SlotsGameOptions/numberofLines";
 import images from "./Spinner/images";
@@ -195,9 +195,6 @@ class SlotsGame extends React.Component {
         <button onClick={this.handleClick} type="button">
           TESTE
         </button>
-        <button onClick={this.testeItem} type="button">
-          TESTE LINE
-        </button>
         <div className={styles.topContainer}>
           <h1 className={styles.topContainerText}>Pagamento total: 0.000000</h1>
         </div>
@@ -253,25 +250,41 @@ class SlotsGame extends React.Component {
                   viewBox="0 3 100 100"
                 />
               ) : null}
-              {/* {testBol[59] ? ( */}
-              <Line
+
+              {/* 1 */}
+              {/* <Line
                 svgClass={styles.classLine}
                 polylineClass={styles.classSvg}
                 points="9 10,12 15, 18 15, 47.4 92, 76 10"
                 viewBox="0 5 100 100"
-              />
-              <Line
+              /> */}
+
+              {/* 3 */}
+              {/* <Line
                 svgClass={styles.classLine}
                 polylineClass={styles.classSvg}
                 points="9 20,12 15, 18 15, 33 55, 76 55"
                 viewBox="0 5 100 100"
-              />
-              <Line
-                svgClass={styles.classLine}
-                polylineClass={styles.classSvg}
-                points="9 20,12 15, 18 15, 33 55, 76 55"
-                viewBox="0 5 100 100"
-              />
+              /> */}
+
+              {/* 5 */}
+              {testBol[59] ? (
+                <Line
+                  svgClass={styles.classLine}
+                  polylineClass={styles.classSvg}
+                  points="9 55,12 55, 18 55, 33 55, 76 55"
+                  viewBox="0 5 100 100"
+                />
+              ) : null}
+
+              {testBol[60] ? (
+                <Line
+                  svgClass={styles.classLine}
+                  polylineClass={styles.classSvg}
+                  points="9 55,12 55, 18 55, 33 55, 76 55"
+                  viewBox="0 5 100 100"
+                />
+              ) : null}
             </div>
             {testBol[58] ||
             testBol[59] ||
