@@ -1,6 +1,7 @@
 import React from "react";
 import { zip } from "lodash";
-import { Line1 } from "./FuncLines";
+
+import Line from "assets/icons/SlotsIcons/line";
 import styles from "./index.css";
 import numberOfLines from "../SlotsGameOptions/numberofLines";
 import images from "./Spinner/images";
@@ -25,7 +26,7 @@ class SlotsGame extends React.Component {
       testBol: new Array(200).fill(false),
       testArray: [1, 1, 2, 3, 5]
     };
-    this.finishHandler = this.finishHandler.bind(this);
+    // this.finishHandler = this.finishHandler.bind(this);
     this.handleClick = this.handleClick.bind(this);
   }
 
@@ -48,18 +49,18 @@ class SlotsGame extends React.Component {
   handleClick = async () => {
     const { testBol, concatResult } = this.state;
 
-    this.clearCanvas();
     this.setState({ winner: false });
+    this.setState({ testBol: new Array(200).fill(false) });
 
     await this.handleAnimations();
-    await this.setWinnerState(true);
     await this.funcHandleMatriz();
     await this.concatMatrices();
     await this.testeItem(0);
 
     await this.handleAnimationResults();
-    this.handleImages();
+    await this.handleImages();
 
+    await this.setWinnerState(true);
     console.log(testBol);
     console.log(concatResult);
   };
@@ -82,8 +83,6 @@ class SlotsGame extends React.Component {
     await this.handleAnimation("columnItem3");
     await this.handleAnimation("columnItem4");
     await this.handleAnimation("columnItem5");
-
-    return new Promise(resolve => setTimeout(() => resolve(), 1800));
   };
 
   handleAnimation = async spinnerColumn => {
@@ -119,40 +118,31 @@ class SlotsGame extends React.Component {
     return new Promise(resolve => setTimeout(() => resolve(), 1000));
   };
 
-  Numbers(min, max) {
-    return Math.floor(Math.random() * (max - min + 1) + min);
-  }
-
   async testeItem(resultIndex) {
     const { concatResult, testArray } = this.state;
-
-    // const randNum = this.Numbers(58, 60);
 
     const result = concatResult.splice(58, 0, testArray[resultIndex]);
 
     console.log(result);
   }
 
-  clearCanvas() {
-    const canvas = document.getElementById("myCanvas");
-    const ctx = canvas.getContext("2d");
-
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-  }
-
   async handleAnimationResults() {
     const { testBol } = this.state;
 
     if (testBol[58] === true) {
-      return this.finishHandler(80, 60, 90, 65, 450, 65);
-    }
-
-    if (testBol[59] === true) {
-      return this.finishHandler(80, 120, 90, 125, 450, 125);
-    }
-
-    if (testBol[60] === true) {
-      return this.finishHandler(80, 188, 450, 188, 450, 188);
+      return (
+        <svg
+          viewBox="0 0 100 100"
+          preserveAspectRatio="none"
+          className="styles__SVG-sc-1t73zzd-4 iBHven"
+        >
+          <polyline
+            points="12 15, 31 15, 50 50, 69 85, 87 50, 100 42"
+            shapeRendering="geometricPrecision"
+            className="styles__Line-sc-1t73zzd-5 gwXqok"
+          />
+        </svg>
+      );
     }
 
     return new Promise(resolve => setTimeout(() => resolve(), 1000));
@@ -191,20 +181,6 @@ class SlotsGame extends React.Component {
     return new Promise(resolve => setTimeout(() => resolve(), 1000));
   }
 
-  async finishHandler(canvas1, canvas2, canvas3, canvas4, canvas5, canvas6) {
-    await Line1(
-      "myCanvas",
-      canvas1,
-      canvas2,
-      canvas3,
-      canvas4,
-      canvas5,
-      canvas6
-    );
-
-    return new Promise(resolve => setTimeout(() => resolve(), 300));
-  }
-
   render() {
     const { winner, concatResult, testBol } = this.state;
     let winningSound = null;
@@ -227,7 +203,7 @@ class SlotsGame extends React.Component {
         </div>
         <div className={styles.rowContainer}>
           <div className={styles.columnContainer}>
-            <div style={{ margin: "15px" }}>
+            <div style={{ margin: "25px 0px 0px 0px" }}>
               {numberOfLines.map(lines => {
                 if (lines <= 3) {
                   return (
@@ -249,7 +225,7 @@ class SlotsGame extends React.Component {
                 }
               })}
             </div>
-            <div style={{ margin: "15px" }}>
+            <div style={{ margin: "0px 0px 25px 0px" }}>
               {numberOfLines.map(lines => {
                 if (lines >= 7 && lines <= 9) {
                   return (
@@ -263,41 +239,43 @@ class SlotsGame extends React.Component {
           </div>
 
           <div className={styles.spinnerContainer}>
-            <canvas
-              id="myCanvas"
+            <div
               width="600px"
               height="300px"
               style={{ border: "1px solid #d3d3d3;" }}
               className={styles.lineTest}
-            />
+            >
+              {testBol[58] ? (
+                <Line
+                  svgClass={styles.classLine}
+                  polylineClass={styles.classSvg}
+                  points="11 13,12 14, 125 14"
+                />
+              ) : null}
+            </div>
             {testBol[58] ||
             testBol[59] ||
             testBol[60] ||
             testBol[61] === true ? (
               <div className={styles.backgroundTransparence} />
             ) : null}
-            {/* {winner === true ? (
+            {winner === true ? (
               <div className={styles.resultCard}>
                 <div className={styles.columnContainer}>
                   <p className={styles.resultCardText}>0,25x</p>
                   <p className={styles.resultCardText}>0,0000000</p>
                 </div>
               </div>
-            ) : null} */}
-
+            ) : null}
             <div id="columnItem" className={styles.columnSpinner}>
               {concatResult.slice(0, 40).map((num, index) => {
                 return (
                   <img
-                    style={{
-                      zIndex: testBol[index] === true ? 2 : 0,
-                      transform:
-                        testBol[index] === true ? "scale(1.2, 1.2)" : null,
-                      transition: "transform 0,5s ease-in-out"
-                    }}
                     src={images[num]}
                     alt=""
-                    className={styles.icon}
+                    className={
+                      testBol[index] === true ? styles.icon : styles.iconStatic
+                    }
                   />
                 );
               })}
@@ -307,17 +285,13 @@ class SlotsGame extends React.Component {
               {concatResult.slice(40, 80).map((num, index) => {
                 return (
                   <img
-                    style={{
-                      zIndex: testBol[index + 40] === true ? 2 : 0,
-                      transform:
-                        testBol[index + 40] === true
-                          ? "scale(1.2, 1.2) rotate(25deg)"
-                          : null,
-                      transition: "transform 2s ease-in-out 0.5s"
-                    }}
                     src={images[num]}
                     alt=""
-                    className={styles.icon}
+                    className={
+                      testBol[index + 40] === true
+                        ? styles.icon
+                        : styles.iconStatic
+                    }
                   />
                 );
               })}
@@ -327,15 +301,13 @@ class SlotsGame extends React.Component {
               {concatResult.slice(80, 120).map((num, index) => {
                 return (
                   <img
-                    style={{
-                      zIndex: testBol[index + 80] === true ? 2 : 0,
-                      transform:
-                        testBol[index + 80] === true ? "scale(1.2, 1.2)" : null,
-                      transition: "transform 0,5s ease-in-out"
-                    }}
                     src={images[num]}
                     alt=""
-                    className={styles.icon}
+                    className={
+                      testBol[index + 80] === true
+                        ? styles.icon
+                        : styles.iconStatic
+                    }
                   />
                 );
               })}
@@ -345,17 +317,13 @@ class SlotsGame extends React.Component {
               {concatResult.slice(120, 160).map((num, index) => {
                 return (
                   <img
-                    style={{
-                      zIndex: testBol[index + 120] === true ? 2 : 0,
-                      transform:
-                        testBol[index + 120] === true
-                          ? "scale(1.2, 1.2)"
-                          : null,
-                      transition: "transform 0,5s ease-in-out"
-                    }}
                     src={images[num]}
                     alt=""
-                    className={styles.icon}
+                    className={
+                      testBol[index + 120] === true
+                        ? styles.icon
+                        : styles.iconStatic
+                    }
                   />
                 );
               })}
@@ -365,24 +333,20 @@ class SlotsGame extends React.Component {
               {concatResult.slice(160, 200).map((num, index) => {
                 return (
                   <img
-                    style={{
-                      zIndex: testBol[index + 160] === true ? 2 : 0,
-                      transform:
-                        testBol[index + 160] === true
-                          ? "scale(1.2, 1.2)"
-                          : null,
-                      transition: "transform 0,5s ease-in-out"
-                    }}
                     src={images[num]}
                     alt=""
-                    className={styles.icon}
+                    className={
+                      testBol[index + 160] === true
+                        ? styles.icon
+                        : styles.iconStatic
+                    }
                   />
                 );
               })}
             </div>
           </div>
           <div className={styles.columnContainer}>
-            <div style={{ margin: "15px" }}>
+            <div style={{ margin: "25px 0px 0px 0px" }}>
               {numberOfLines.map(lines => {
                 if (lines >= 10 && lines <= 12) {
                   return (
@@ -406,7 +370,7 @@ class SlotsGame extends React.Component {
               })}
             </div>
 
-            <div style={{ margin: "15px" }}>
+            <div style={{ margin: "0px 0px 25px 0px" }}>
               {numberOfLines.map(lines => {
                 if (lines >= 16 && lines <= 18) {
                   return (

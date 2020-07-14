@@ -7,12 +7,29 @@
   }
 }
 
+@keyframes iconAfter {
+  50%{
+    transform: scale(1, 1);
+  }
+  0% {
+    transform: scale(1.2, 1.2) rotate(25deg);
+    transition: transform 2s ease-in-out 1s;
+  }
+
+}
+
 @keyframes cardJump {
   from{
     transform: scale(1, 1);
   }
   to {
     transform: scale(0.8, 0.8);
+  }
+}
+
+@keyframes animateLine {
+  to{
+    stroke-dasharray: 0;
   }
 }
 
@@ -37,6 +54,7 @@ body {
   z-index: 1;
   align-self: center;
   height: 200px;
+  width: 450px;
 }
 
 .rowContainer{
@@ -50,9 +68,17 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: space-between;
 }
 .icon{
   width: 80px;
+  z-index: 2;
+  animation: iconAfter 1s forwards 0.5s;
+} 
+
+.iconStatic {
+  width: 80px;
+
 }
 
 .columnSpinner{
@@ -121,7 +147,7 @@ body {
 .resultCard {
   display: flex;
   position: absolute;
-  z-index: 1;
+  z-index: 3;
   align-self: center;
   width: 170px;
   height: 110px;
@@ -151,6 +177,26 @@ body {
   font-family: 'Cairo', sans-serif;
   animation: cardJump 0.5s forwards 0.1s;
 }
+
+.classSvg {
+  stroke-width: 0.025em;
+  stroke: rgb(255, 255, 255);
+  stroke-linecap: round;
+  fill: transparent;
+}
+
+.classLine {
+  width: 106%;
+  height: inherit;
+  position: absolute;
+  z-index: 4;
+  left: 0px;
+  opacity: 1;
+  stroke-dasharray: 1000;
+  stroke-dashoffset: 1000;
+  animation: animateLine 1.2s linear 0s 1 normal forwards running ;
+}
+
 
 @media screen and (max-width: 1000px) {
   .spinnerContainer {
