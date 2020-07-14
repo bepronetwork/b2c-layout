@@ -249,9 +249,29 @@ class SlotsGame extends React.Component {
                 <Line
                   svgClass={styles.classLine}
                   polylineClass={styles.classSvg}
-                  points="11 13,12 14, 125 14"
+                  points="9 13,12 14, 80 14"
+                  viewBox="0 3 100 100"
                 />
               ) : null}
+              {/* {testBol[59] ? ( */}
+              <Line
+                svgClass={styles.classLine}
+                polylineClass={styles.classSvg}
+                points="9 10,12 15, 18 15, 47.4 92, 76 10"
+                viewBox="0 5 100 100"
+              />
+              <Line
+                svgClass={styles.classLine}
+                polylineClass={styles.classSvg}
+                points="9 20,12 15, 18 15, 33 55, 76 55"
+                viewBox="0 5 100 100"
+              />
+              <Line
+                svgClass={styles.classLine}
+                polylineClass={styles.classSvg}
+                points="9 20,12 15, 18 15, 33 55, 76 55"
+                viewBox="0 5 100 100"
+              />
             </div>
             {testBol[58] ||
             testBol[59] ||
