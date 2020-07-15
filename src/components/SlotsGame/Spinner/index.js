@@ -1,6 +1,6 @@
 import React from 'react';
 
-// import { Container } from './styles';
+import styles from "./index.css";
 
 const Spinner = () => {
   return (
