@@ -31,6 +31,9 @@
   to{
     stroke-dasharray: 0;
   }
+  from{
+    stroke-dasharray: 1900;
+  }
 }
 
 .textButton{
@@ -51,7 +54,7 @@ body {
 
 .lineTest{
   position: absolute;
-  z-index: 1;
+  z-index: 3;
   align-self: center;
   height: 200px;
   width: 600px;
@@ -192,9 +195,12 @@ body {
   z-index: 4;
   left: 0px;
   opacity: 1;
-  stroke-dasharray: 100;
-  stroke-dashoffset: 100;
-  animation: animateLine 1s linear forwards;
+  stroke-dasharray: 1000;
+  stroke-dashoffset: 1000;
+  -webkit-animation: 2s linear forwards;
+  -o-animation: 2s linear forwards;
+  -moz-animation: 2s linear forwards;
+  animation: animateLine 2s linear forwards;
 }
 
 
