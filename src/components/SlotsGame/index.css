@@ -192,8 +192,8 @@ body {
   z-index: 4;
   left: 0px;
   opacity: 1;
-  stroke-dasharray: 300;
-  stroke-dashoffset: 300;
+  stroke-dasharray: 100;
+  stroke-dashoffset: 100;
   animation: animateLine 1s linear forwards;
 }
 
