@@ -1,11 +1,13 @@
 import React, { Component } from "react";
-import { Typography } from 'components';
+import { Typography, MoreIcon, Modal } from 'components';
 import CloseIcon from "components/Icons/CloseCross";
 import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
 import { getSkeletonColors } from "../../../lib/helpers";
-import { Shield } from "components/Esports";
+import { Shield, SerieFilterMore } from "components/Esports";
 import { connect } from 'react-redux';
 import classNames from "classnames";
+import store from "../../../containers/App/store";
+import { setModal } from "../../../redux/actions/modal";
 import _ from 'lodash';
 import "./index.css";
 
@@ -15,11 +17,12 @@ class SerieFilter extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            serieFilter: []
+            serieFilter: [],
+            moreWindowOpen: false
         };
     }
 
-    handlerSerieFilterClick = async (id) => {
+    handleFilterClick = async (id) => {
         const { onSerieFilter } = this.props;
         const { serieFilter } = this.state;
         const exist = serieFilter.some(el => el === id); 
@@ -35,9 +38,10 @@ class SerieFilter extends Component {
         this.setState({ serieFilter });
 
         onSerieFilter(serieFilter);
+
     }
 
-    handlerCleanSerieFilterClick = async () => {
+    handleCleanFilterClick = async () => {
         const { onCleanSerieFilter } = this.props;
         const { serieFilter } = this.state;
 
@@ -48,14 +52,81 @@ class SerieFilter extends Component {
         onCleanSerieFilter(serieFilter);
     }
 
+    handleFilterMoreClick = async (serieFilter) => {
+        const { onSerieFilter } = this.props;
+
+        this.setState({ serieFilter });
+
+        onSerieFilter(serieFilter);
+
+        this.handleFilterMoreModal();
+    }
+
+    handleFilterMoreModal = async () => {
+        const { moreWindowOpen } = this.state;
+
+        this.setState({ moreWindowOpen: !moreWindowOpen });
+    } 
+
+    renderFilterMoreModal = () => {
+        const { games, gameFilter } = this.props;
+        const { moreWindowOpen, serieFilter } = this.state;
+
+        return moreWindowOpen == true ? (
+            <Modal onClose={this.handleFilterMoreModal}>
+                <SerieFilterMore 
+                    serieFilter={serieFilter}
+                    games={games} 
+                    onFilterClick={this.handleFilterMoreClick} 
+                    gameFilter={gameFilter}
+                />
+            </Modal>
+        ) : null;
+    }
+
+    renderOptions() {
+        const { serieFilter } = this.state;
+        const { games, gameFilter } = this.props;
+
+        let series = [];
+
+        games.filter(game => gameFilter.includes(game.external_id) || gameFilter.length == 0).slice(0, 3).map(game => {
+            if(!_.isEmpty(game.series)) {
+                const exist = serieFilter.some(el => el === game.series[0].id);
+                const styles = classNames("tournament", {
+                    tourSelected: exist
+                });
+                series.push(
+                    <li styleName={styles} onClick={() => this.handleFilterClick(game.series[0].id)} key={game.series[0].id}>
+                        <Shield image={game.image} size={"small"} />
+                        <div styleName="tournament-name">
+                            <Typography variant={'x-small-body'} color={'white'}>{`${game.series[0].league.name} - ${game.series[0].full_name}`}</Typography>
+                        </div>
+                    </li>
+                )
+            }
+        });
+
+        if(series.length > 0) {
+            series.push(
+                <div styleName="tournament-more" onClick={() => this.handleFilterMoreModal()}>
+                    <MoreIcon />
+                </div>
+            )
+        }
+
+        return series;
+    }
+
 
     render() {
         const { serieFilter } = this.state;
-        const { games, isLoading } = this.props;
+        const { isLoading } = this.props;
 
         return (
             <div styleName="filter-tournaments">
-                <div styleName="all" onClick={() => this.handlerCleanSerieFilterClick()}>
+                {this.renderFilterMoreModal()}
+                <div styleName="all" onClick={() => this.handleCleanFilterClick()}>
                         <Typography variant={'x-small-body'} color={'white'}>All Tournaments</Typography>
                         {
                         serieFilter.length 
@@ -75,7 +146,7 @@ class SerieFilter extends Component {
                                 </li>
                                 <li styleName="tournament">
                                     <Skeleton circle={true} height={30} width={30}/>
-                                    <Skeleton height={20} width={80}/>
+                                    <Skeleton height={20} width={120}/>
                                 </li>
                                 <li styleName="tournament">
                                     <Skeleton circle={true} height={30} width={30}/>
@@ -83,27 +154,12 @@ class SerieFilter extends Component {
                                 </li>
                                 <li styleName="tournament">
                                     <Skeleton circle={true} height={30} width={30}/>
-                                    <Skeleton height={20} width={120}/>
+                                    <Skeleton height={20} width={50}/>
                                 </li>
                             </div>
                         </SkeletonTheme>
                     :
-                        games.slice(0, 5).map(game => {
-                            if(!_.isEmpty(game.series)) {
-                                const exist = serieFilter.some(el => el === game.series[0].id);
-                                const styles = classNames("tournament", {
-                                    tourSelected: exist
-                                });
-                                return (
-                                    <li styleName={styles} onClick={() => this.handlerSerieFilterClick(game.series[0].id)} key={game.series[0].id}>
-                                        <Shield image={game.image} size={"small"} />
-                                        <div styleName="tournament-name">
-                                            <Typography variant={'x-small-body'} color={'white'}>{`${game.series[0].league.name} - ${game.series[0].full_name}`}</Typography>
-                                        </div>
-                                    </li>
-                                )
-                            }
-                        })
+                        this.renderOptions()
                     }
                 </ul>
             </div>

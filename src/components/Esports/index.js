@@ -15,6 +15,7 @@ import GameFilter from './GameFilter';
 import SerieFilter from './SerieFilter';
 import Matches from './Matches';
 import Chat from './Chat';
+import SerieFilterMore from './SerieFilter/More';
 
 export { Stats };
 export { OddsTable };
@@ -33,3 +34,4 @@ export { GameFilter };
 export { SerieFilter };
 export { Matches };
 export { Chat };
+export { SerieFilterMore };

@@ -140,7 +140,7 @@ class AllMatches extends Component {
     };
 
     render() {
-        const { matches, games, size, isLoading, tab } = this.state;
+        const { matches, games, size, isLoading, tab, gameFilter } = this.state;
 
         return (
             <div styleName="root">
@@ -178,6 +178,7 @@ class AllMatches extends Component {
                             onCleanSerieFilter={this.handleCleanSerieFilterClick}
                             onSerieFilter={this.handleSerieFilterClick}
                             isLoading={isLoading}
+                            gameFilter={gameFilter}
                         />
                     </div>
                     <div styleName="matches">

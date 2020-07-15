@@ -38,6 +38,18 @@
     } 
 }
 
+.team:hover {
+  background-color: $primaryColor-13;
+}
+
+.team:hover + .triangle .left-arrow {
+  border-color: transparent $primaryColor-13;
+}
+/*
+.team:first-child:hover + .triangle .left-arrow {
+  border-color: transparent $primaryColor-13;
+}*/
+
 .team-score-board {
   background-color: unset;
 }

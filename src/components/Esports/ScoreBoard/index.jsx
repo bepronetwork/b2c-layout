@@ -19,7 +19,8 @@ class ScoreBoard extends Component {
                 <div styleName="tournament">
                     <Link to="/esports/matches">
                         <div styleName="matches">
-                            <Typography variant={'x-small-body'} color={'white'}><ArrowLeft /> Matches </Typography>
+                            <ArrowLeft />
+                            <Typography variant={'x-small-body'} color={'white'}> Matches </Typography>
                         </div>
                     </Link>
                     <Shield image={match.league.image_url} size={"large"} />

@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Typography, Button, DimensionCarousel } from 'components';
+import { Typography, Button, DimensionCarousel, Modal } from 'components';
 import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
 import { Opponents, BetSlip, GameFilter, SerieFilter, Matches, Shield } from "components/Esports";
 import { connect } from 'react-redux';
@@ -180,7 +180,7 @@ class Esports extends Component {
     }
 
     render() {
-        const { matches, slides, games, size, isLoading } = this.state;
+        const { matches, games, size, isLoading, gameFilter } = this.state;
 
         return (
             <div styleName="root">
@@ -221,6 +221,7 @@ class Esports extends Component {
                             onCleanSerieFilter={this.handlerCleanSerieFilterClick}
                             onSerieFilter={this.handlerSerieFilterClick}
                             isLoading={isLoading}
+                            gameFilter={gameFilter}
                         />
                     </div>
                     <div styleName="matches">

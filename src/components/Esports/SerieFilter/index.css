@@ -8,7 +8,7 @@
 
 .tournament {
   display: inline-flex;
-  margin: 0 $spacing-8 $spacing-8 0;
+  margin-right: $spacing-8;
   background-color: $primaryColor;
   padding: $spacing-4 $spacing-12;
   border-radius: 24px;
@@ -19,6 +19,22 @@
 
 .tournament-name {
   margin-left: $spacing-8;
+}
+
+.tournament-more {
+  float: right;
+  background-color: $primaryColor;
+  padding: $spacing-12 $spacing-20;
+  border-radius: 24px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  height: 36px;
+
+  svg {
+    height: 18px;
+    width: 18px;
+  }
 }
 
 .all {

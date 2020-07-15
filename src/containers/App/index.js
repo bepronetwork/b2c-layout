@@ -6,6 +6,7 @@ import CasinoHomePage from "containers/Casino";
 import EsportsHomePage from "containers/Esports";
 import EsportsMatchPage from "containers/Esports/MatchPage";
 import EsportsMatchesPage from "containers/Esports/AllMatches";
+import { SerieFilterMore } from "components/Esports";
 import HomePage from "containers/HomePage";
 import Footer from "../Footer";
 import ResetPassword from "containers/ResetPassword";

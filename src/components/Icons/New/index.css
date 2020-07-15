@@ -28,3 +28,7 @@
 .g {
     fill: none;
 }
+
+.h {
+    fill: $white;
+}
