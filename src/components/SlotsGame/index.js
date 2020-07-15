@@ -181,6 +181,33 @@ class SlotsGame extends React.Component {
     return new Promise(resolve => setTimeout(() => resolve(), setTimeOut));
   }
 
+  async handleMap2(startPosTest, setTimeOut){
+    const { concatResult, testBol } = this.state;
+
+    const startPos = startPosTest;
+
+    let i = 0;
+
+    while (i < 5) {
+      if (
+        concatResult[startPos + i * 41] !==
+        concatResult[startPos + (i + 1) * 41]
+      ) {
+        break;
+      }
+
+      testBol[startPos + i * 41] = true;
+      testBol[startPos + (i + 1) * 41] = true;
+
+      i += 1;
+    }
+    this.setState({ testBol });
+
+    console.log(i);
+
+    return new Promise(resolve => setTimeout(() => resolve(), setTimeOut));
+  }
+
   render() {
     const { winner, concatResult, testBol } = this.state;
     let winningSound = null;
