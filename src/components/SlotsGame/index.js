@@ -1,5 +1,4 @@
 import React from "react";
-import { zip } from "lodash";
 
 import Line from "components/SlotsLines";
 import styles from "./index.css";
@@ -22,7 +21,6 @@ class SlotsGame extends React.Component {
     this.state = {
       winner: false,
       matrixResult: [],
-      concatResult: [],
       testBol: new Array(200).fill(false),
       testArray: [1, 1, 2, 3, 5]
     };
@@ -33,12 +31,7 @@ class SlotsGame extends React.Component {
   async componentDidMount() {
     const resultRow = this.randomTable(5, 40);
 
-    const tMat = zip(...resultRow);
-
-    console.log(tMat);
-
-    await this.setState({ matrixResult: tMat });
-    await this.concatMatrices();
+    await this.setState({ matrixResult: resultRow });
   }
 
   randomTable = (rows, cols) =>
@@ -47,34 +40,15 @@ class SlotsGame extends React.Component {
     );
 
   handleClick = async () => {
-    const { testBol, concatResult } = this.state;
-
     this.setState({ winner: false });
     this.setState({ testBol: new Array(200).fill(false) });
 
     await this.handleAnimations();
-    await this.funcHandleMatriz();
-    await this.concatMatrices();
-    await this.testeItem(0);
 
     await this.handleAnimationResults();
-    await this.handleImages();
+    // await this.handleImages();
 
     await this.setWinnerState(true);
-    console.log(testBol);
-    console.log(concatResult);
-  };
-
-  funcHandleMatriz = async () => {
-    const resultRow = this.randomTable(5, 40);
-
-    console.log(resultRow);
-
-    const tMat = zip(...resultRow);
-
-    console.log(tMat);
-
-    return this.setState({ matrixResult: tMat });
   };
 
   handleAnimations = async () => {
@@ -106,26 +80,6 @@ class SlotsGame extends React.Component {
     this.setState({ winner: winnerState });
   };
 
-  concatMatrices = async () => {
-    const { matrixResult } = this.state;
-
-    const resultConcatFinal = [].concat(...matrixResult);
-
-    this.setState({ concatResult: resultConcatFinal });
-
-    console.log(resultConcatFinal);
-
-    return new Promise(resolve => setTimeout(() => resolve(), 1000));
-  };
-
-  async testeItem(resultIndex) {
-    const { concatResult, testArray } = this.state;
-
-    const result = concatResult.splice(58, 0, testArray[resultIndex]);
-
-    console.log(result);
-  }
-
   async handleAnimationResults() {
     const { testBol } = this.state;
 
@@ -148,69 +102,57 @@ class SlotsGame extends React.Component {
     return new Promise(resolve => setTimeout(() => resolve(), 1000));
   }
 
-  async handleImages() {
-    await this.handleImage(18, 500);
-    await this.handleImage(19, 1000);
-    await this.handleImage(20, 1500);
-  }
+  // async handleImages() {
+  //   await this.handleImage(18, 500);
+  //   await this.handleImage(19, 1000);
+  //   await this.handleImage(20, 1500);
+  // }
 
-  async handleImage(startPosTest, setTimeOut) {
-    const { concatResult, testBol } = this.state;
+  // async handleImage(startPosTest, setTimeOut) {
+  //   const { matrixResult, testBol } = this.state;
 
-    const startPos = startPosTest;
+  //   const startPos = startPosTest;
 
-    let i = 0;
+  //   let i = 0;
 
-    while (i < 5) {
-      if (
-        concatResult[startPos + i * 40] !==
-        concatResult[startPos + (i + 1) * 40]
-      ) {
-        break;
-      }
+  //   while (i < 5) {
+  //     if (
+  //       concatResult[startPos + i * 40] !==
+  //       concatResult[startPos + (i + 1) * 40]
+  //     ) {
+  //       break;
+  //     }
 
-      testBol[startPos + i * 40] = true;
-      testBol[startPos + (i + 1) * 40] = true;
+  //     testBol[startPos + i * 40] = true;
+  //     testBol[startPos + (i + 1) * 40] = true;
 
-      i += 1;
-    }
-    this.setState({ testBol });
+  //     i += 1;
+  //   }
+  //   this.setState({ testBol });
 
-    console.log(i);
-
-    return new Promise(resolve => setTimeout(() => resolve(), setTimeOut));
-  }
-
-  async handleMap2(startPosTest, setTimeOut){
-    const { concatResult, testBol } = this.state;
-
-    const startPos = startPosTest;
-
-    let i = 0;
-
-    while (i < 5) {
-      if (
-        concatResult[startPos + i * 41] !==
-        concatResult[startPos + (i + 1) * 41]
-      ) {
-        break;
-      }
-
-      testBol[startPos + i * 41] = true;
-      testBol[startPos + (i + 1) * 41] = true;
-
-      i += 1;
-    }
-    this.setState({ testBol });
-
-    console.log(i);
-
-    return new Promise(resolve => setTimeout(() => resolve(), setTimeOut));
-  }
+  //   return new Promise(resolve => setTimeout(() => resolve(), setTimeOut));
+  // }
 
   render() {
-    const { winner, concatResult, testBol } = this.state;
+    const { winner, testBol } = this.state;
     let winningSound = null;
+
+    const randomTable = (rows, cols) =>
+      Array.from({ length: rows }, () =>
+        Array.from({ length: cols }, () => Math.floor(Math.random() * 8))
+      );
+
+    const resultMatrix = randomTable(40, 5);
+
+    const arrayColumn = (arr, n) => {
+      return arr.map(x => x[n]);
+    };
+
+    const resultFirstColumn = arrayColumn(resultMatrix, 0);
+    const resultSecondColumn = arrayColumn(resultMatrix, 1);
+    const resultThirstColumn = arrayColumn(resultMatrix, 2);
+    const resultFourthColumn = arrayColumn(resultMatrix, 3);
+    const resultFiveColumn = arrayColumn(resultMatrix, 4);
 
     if (winner) {
       winningSound = <WinningSound />;
@@ -295,7 +237,7 @@ class SlotsGame extends React.Component {
               /> */}
 
               {/* 5 */}
-              {testBol[59] ? (
+              {/* {testBol[59] ? (
                 <Line
                   svgClass={styles.classLine}
                   polylineClass={styles.classSvg}
@@ -311,95 +253,78 @@ class SlotsGame extends React.Component {
                   points="10 97,12 94, 18 94, 33 94, 76 94"
                   viewBox="0 5 100 100"
                 />
-              ) : null}
+              ) : null} */}
             </div>
-            {testBol[58] ||
-            testBol[59] ||
-            testBol[60] ||
-            testBol[61] === true ? (
-              <div className={styles.backgroundTransparence} />
-            ) : null}
-            {winner === true ? (
-              <div className={styles.resultCard}>
-                <div className={styles.columnContainer}>
-                  <p className={styles.resultCardText}>0,25x</p>
-                  <p className={styles.resultCardText}>0,0000000</p>
-                </div>
-              </div>
-            ) : null}
+
             <div id="columnItem" className={styles.columnSpinner}>
-              {concatResult.slice(0, 40).map((num, index) => {
-                return (
-                  <img
-                    src={images[num]}
-                    alt=""
-                    className={
-                      testBol[index] === true ? styles.icon : styles.iconStatic
-                    }
-                  />
-                );
+              {resultFirstColumn.map(num => {
+                return <img src={images[num]} alt="" className={styles.icon} />;
               })}
             </div>
             <div className={styles.separatedLine} />
             <div id="columnItem2" className={styles.columnSpinner}>
-              {concatResult.slice(40, 80).map((num, index) => {
+              {resultSecondColumn.map(num => {
                 return (
                   <img
                     src={images[num]}
                     alt=""
-                    className={
-                      testBol[index + 40] === true
-                        ? styles.icon
-                        : styles.iconStatic
-                    }
+                    className={styles.icon}
+                    // className={
+                    //   testBol[index + 40] === true
+                    //     ? styles.icon
+                    //     : styles.iconStatic
+                    // }
                   />
                 );
               })}
             </div>
             <div className={styles.separatedLine} />
             <div id="columnItem3" className={styles.columnSpinner}>
-              {concatResult.slice(80, 120).map((num, index) => {
+              {resultThirstColumn.map(num => {
                 return (
                   <img
                     src={images[num]}
                     alt=""
-                    className={
-                      testBol[index + 80] === true
-                        ? styles.icon
-                        : styles.iconStatic
-                    }
+                    className={styles.icon}
+                    // className={
+                    //   testBol[index + 80] === true
+                    //     ? styles.icon
+                    //     : styles.iconStatic
+                    // }
                   />
                 );
               })}
             </div>
             <div className={styles.separatedLine} />
             <div id="columnItem4" className={styles.columnSpinner}>
-              {concatResult.slice(120, 160).map((num, index) => {
+              {resultFourthColumn.map(num => {
                 return (
                   <img
                     src={images[num]}
                     alt=""
-                    className={
-                      testBol[index + 120] === true
-                        ? styles.icon
-                        : styles.iconStatic
-                    }
+                    className={styles.icon}
+                    // className={
+                    //   testBol[index + 120] === true
+                    //     ? styles.icon
+                    //     : styles.iconStatic
+                    // }
                   />
                 );
               })}
             </div>
             <div className={styles.separatedLine} />
             <div id="columnItem5" className={styles.columnSpinner}>
-              {concatResult.slice(160, 200).map((num, index) => {
+              {resultFiveColumn.map(num => {
                 return (
                   <img
                     src={images[num]}
                     alt=""
-                    className={
-                      testBol[index + 160] === true
-                        ? styles.icon
-                        : styles.iconStatic
-                    }
+                    className={styles.icon}
+                    // className={
+                    //   testBol[index + 160] === true
+                    //     ? styles.icon
+                    //     : styles.iconStatic
+                    // }
                   />
                 );
               })}
