@@ -39,13 +39,14 @@ class WithdrawForm extends Component {
         return (
                 <HorizontalStepper showStepper={false} 
                     steps={[
+                        /*
                         {
                             label : "Confirmation",
                             nextButtonLabel : "Continue",
                             condition : isConfirmed,
                             content : <Confirmation  onConfirmed={this.onHandlerConfirm} />,
                             showBackButton : false
-                        },
+                        },*/
                         {
                             label : "Withdraw",
                             content : <Form isAffiliate={isAffiliate} wallet={wallet} onAddress={onAddress}/>,
