@@ -21,17 +21,16 @@ class SlotsGame extends React.Component {
     this.state = {
       winner: false,
       matrixResult: [],
-      testBol: new Array(200).fill(false),
-      testArray: [1, 1, 2, 3, 5]
+      testBol: [].fill(false),
+      testArray: [[1, 1, 2, 3, 5]]
     };
-    // this.finishHandler = this.finishHandler.bind(this);
     this.handleClick = this.handleClick.bind(this);
   }
 
   async componentDidMount() {
-    const resultRow = this.randomTable(5, 40);
+    const resultRow = this.randomTable(40, 5);
 
-    await this.setState({ matrixResult: resultRow });
+    this.setState({ matrixResult: resultRow });
   }
 
   randomTable = (rows, cols) =>
@@ -41,12 +40,12 @@ class SlotsGame extends React.Component {
 
   handleClick = async () => {
     this.setState({ winner: false });
-    this.setState({ testBol: new Array(200).fill(false) });
+    this.setState({ testBol: [].fill(false) });
 
     await this.handleAnimations();
-
-    await this.handleAnimationResults();
-    // await this.handleImages();
+    this.setInsertArray();
+    // await this.fillWithBool();
+    await this.handleImages();
 
     await this.setWinnerState(true);
   };
@@ -80,79 +79,55 @@ class SlotsGame extends React.Component {
     this.setState({ winner: winnerState });
   };
 
-  async handleAnimationResults() {
-    const { testBol } = this.state;
+  setInsertArray() {
+    const { matrixResult, testArray } = this.state;
+    const insertArray = matrixResult.splice(19, 1, ...testArray);
 
-    if (testBol[58] === true) {
-      return (
-        <svg
-          viewBox="0 0 100 100"
-          preserveAspectRatio="none"
-          className="styles__SVG-sc-1t73zzd-4 iBHven"
-        >
-          <polyline
-            points="12 15, 31 15, 50 50, 69 85, 87 50, 100 42"
-            shapeRendering="geometricPrecision"
-            className="styles__Line-sc-1t73zzd-5 gwXqok"
-          />
-        </svg>
-      );
-    }
-
-    return new Promise(resolve => setTimeout(() => resolve(), 1000));
+    this.setState({ winner: insertArray });
   }
 
-  // async handleImages() {
-  //   await this.handleImage(18, 500);
-  //   await this.handleImage(19, 1000);
-  //   await this.handleImage(20, 1500);
-  // }
+  async handleImages() {
+    await this.handleImage(500);
+  }
 
-  // async handleImage(startPosTest, setTimeOut) {
-  //   const { matrixResult, testBol } = this.state;
+  async fillWithBool() {
+    const { matrixResult } = this.state;
 
-  //   const startPos = startPosTest;
+    this.setState({ testBol: matrixResult });
+  }
 
-  //   let i = 0;
+  async handleImage(setTimeOut) {
+    const { testArray, testBol } = this.state;
 
-  //   while (i < 5) {
-  //     if (
-  //       concatResult[startPos + i * 40] !==
-  //       concatResult[startPos + (i + 1) * 40]
-  //     ) {
-  //       break;
-  //     }
+    let i = 0;
 
-  //     testBol[startPos + i * 40] = true;
-  //     testBol[startPos + (i + 1) * 40] = true;
+    while (i < 5) {
+      if (testArray[19 + i] !== testArray[19 + (i + 1)]) {
+        break;
+      }
 
-  //     i += 1;
-  //   }
-  //   this.setState({ testBol });
+      testBol[19 + i] = true;
+      testBol[19 + (i + 1)] = true;
+      i += 1;
+    }
+    this.setState({ testBol });
 
-  //   return new Promise(resolve => setTimeout(() => resolve(), setTimeOut));
-  // }
+    return new Promise(resolve => setTimeout(() => resolve(), setTimeOut));
+  }
 
   render() {
-    const { winner, testBol } = this.state;
+    const { winner, testBol, matrixResult } = this.state;
     let winningSound = null;
-
-    const randomTable = (rows, cols) =>
-      Array.from({ length: rows }, () =>
-        Array.from({ length: cols }, () => Math.floor(Math.random() * 8))
-      );
-
-    const resultMatrix = randomTable(40, 5);
 
     const arrayColumn = (arr, n) => {
       return arr.map(x => x[n]);
     };
 
-    const resultFirstColumn = arrayColumn(resultMatrix, 0);
-    const resultSecondColumn = arrayColumn(resultMatrix, 1);
-    const resultThirstColumn = arrayColumn(resultMatrix, 2);
-    const resultFourthColumn = arrayColumn(resultMatrix, 3);
-    const resultFiveColumn = arrayColumn(resultMatrix, 4);
+    const resultFirstColumn = arrayColumn(matrixResult, 0);
+    const resultSecondColumn = arrayColumn(matrixResult, 1);
+    const resultThirstColumn = arrayColumn(matrixResult, 2);
+    const resultFourthColumn = arrayColumn(matrixResult, 3);
+    const resultFiveColumn = arrayColumn(matrixResult, 4);
 
     if (winner) {
       winningSound = <WinningSound />;
@@ -263,68 +238,60 @@ class SlotsGame extends React.Component {
             </div>
             <div className={styles.separatedLine} />
             <div id="columnItem2" className={styles.columnSpinner}>
-              {resultSecondColumn.map(num => {
+              {resultSecondColumn.map((num, index) => {
                 return (
                   <img
                     src={images[num]}
                     alt=""
-                    className={styles.icon}
-                    // className={
-                    //   testBol[index + 40] === true
-                    //     ? styles.icon
-                    //     : styles.iconStatic
-                    // }
+                    className={
+                      testBol[index] === true ? styles.icon : styles.iconStatic
+                    }
                   />
                 );
               })}
             </div>
             <div className={styles.separatedLine} />
             <div id="columnItem3" className={styles.columnSpinner}>
-              {resultThirstColumn.map(num => {
+              {resultThirstColumn.map((num, index) => {
                 return (
                   <img
                     src={images[num]}
                     alt=""
-                    className={styles.icon}
-                    // className={
-                    //   testBol[index + 80] === true
-                    //     ? styles.icon
-                    //     : styles.iconStatic
-                    // }
+                    className={
+                      testBol[index] === true ? styles.icon : styles.iconStatic
+                    }
                   />
                 );
               })}
             </div>
             <div className={styles.separatedLine} />
             <div id="columnItem4" className={styles.columnSpinner}>
-              {resultFourthColumn.map(num => {
+              {resultFourthColumn.map((num, index) => {
                 return (
                   <img
                     src={images[num]}
                     alt=""
-                    className={styles.icon}
-                    // className={
-                    //   testBol[index + 120] === true
-                    //     ? styles.icon
-                    //     : styles.iconStatic
-                    // }
+                    className={
+                      testBol[index + 120] === true
+                        ? styles.icon
+                        : styles.iconStatic
+                    }
                   />
                 );
               })}
             </div>
             <div className={styles.separatedLine} />
             <div id="columnItem5" className={styles.columnSpinner}>
-              {resultFiveColumn.map(num => {
+              {resultFiveColumn.map((num, index) => {
                 return (
                   <img
                     src={images[num]}
                     alt=""
-                    className={styles.icon}
-                    // className={
-                    //   testBol[index + 160] === true
-                    //     ? styles.icon
-                    //     : styles.iconStatic
-                    // }
+                    className={
+                      testBol[index + 160] === true
+                        ? styles.icon
+                        : styles.iconStatic
+                    }
                   />
                 );
               })}
