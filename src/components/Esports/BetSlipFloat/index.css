@@ -44,6 +44,7 @@
     opacity: 1;
     pointer-events: all;
     min-width: 300px;
+    width: 100%;
 
     @media screen and (max-width: 1267px) and (min-width: 1024px) {
     }
