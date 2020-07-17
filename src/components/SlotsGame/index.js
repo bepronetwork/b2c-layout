@@ -14,7 +14,7 @@ class SlotsGame extends React.Component {
       winner: false,
       matrixResult: [],
       testBol: Array(5).fill(false),
-      testArray: [[1, 1, 1, 1, 1]],
+      testArray: [[1, 1, 2, 4, 2]],
       resultFirstColumn: [],
       resultSecondColumn: [],
       resultThirstColumn: [],
@@ -38,20 +38,14 @@ class SlotsGame extends React.Component {
     const { testBol, testArray } = this.state;
 
     this.setState({ winner: false });
-    this.setState({ testBol: [].fill(false) });
+    this.setState({ testBol: Array(5).fill(false) });
 
+    this.getcolumn();
     await this.handleAnimations();
-    this.setNewRandomMatrix();
+
     // this.setInsertArray();
     this.randomNumberResult();
     await this.handleImage(500);
-
-    const testArr = testArray[0];
-
-    console.log(testArr[0]);
-    console.log(testBol[0]);
-
-    await this.setWinnerState(true);
   };
 
   handleAnimations = async () => {
@@ -79,10 +73,6 @@ class SlotsGame extends React.Component {
     return new Promise(resolve => setTimeout(() => resolve(), 300));
   };
 
-  setWinnerState = async winnerState => {
-    this.setState({ winner: winnerState });
-  };
-
   async setNewRandomMatrix() {
     const resultRow = this.randomTable(40, 5);
 
@@ -102,11 +92,13 @@ class SlotsGame extends React.Component {
     return result;
   }
 
-  getcolumn() {
+  async getcolumn() {
     const { matrixResult } = this.state;
     const arrayColumn = (arr, n) => {
       return arr.map(x => x[n]);
     };
+
+    await this.setNewRandomMatrix();
 
     const resultFirstColumn = arrayColumn(matrixResult, 0);
     const resultSecondColumn = arrayColumn(matrixResult, 1);
@@ -131,11 +123,11 @@ class SlotsGame extends React.Component {
       resultFiveColumn
     } = this.state;
 
-    const randNum = this.randomNumber(18, 20);
-    const randNum2 = this.randomNumber(18, 20);
-    const randNum3 = this.randomNumber(18, 20);
-    const randNum4 = this.randomNumber(18, 20);
-    const randNum5 = this.randomNumber(18, 20);
+    const randNum = this.randomNumber(18, 21);
+    const randNum2 = this.randomNumber(18, 21);
+    const randNum3 = this.randomNumber(18, 21);
+    const randNum4 = this.randomNumber(18, 21);
+    const randNum5 = this.randomNumber(18, 21);
 
     const testArr = testArray[0];
 
@@ -146,18 +138,11 @@ class SlotsGame extends React.Component {
     resultFiveColumn.splice(randNum5, 1, testArr[4]);
   }
 
-  async fillWithBool() {
-    const { testArray } = this.state;
-
-    const resultFalse = testArray.fill(false);
-
-    this.setState({ testBol: resultFalse });
-  }
-
   async handleImage(setTimeOut) {
     const { testArray, testBol } = this.state;
 
     let i = 0;
+
     const testArr = testArray[0];
 
     while (i < 5) {
@@ -169,6 +154,7 @@ class SlotsGame extends React.Component {
       testBol[0 + (i + 1)] = true;
       i += 1;
     }
+
     this.setState({ testBol });
 
     return new Promise(resolve => setTimeout(() => resolve(), setTimeOut));
@@ -269,9 +255,9 @@ class SlotsGame extends React.Component {
                   points="9 55,12 55, 18 55, 33 55, 76 55"
                   viewBox="0 5 100 100"
                 />
-              ) : null}
-
-              {testBol[60] ? (
+              ) : null} */}
+              {/* 
+              {testBol[3] ? (
                 <Line
                   svgClass={styles.classLine}
                   polylineClass={styles.classSvg}
@@ -280,10 +266,34 @@ class SlotsGame extends React.Component {
                 />
               ) : null} */}
             </div>
+            {testBol[0] ||
+            testBol[1] ||
+            testBol[2] ||
+            testBol[4] ||
+            testBol[3] === true ? (
+              <div className={styles.backgroundTransparence} />
+            ) : null}
+
+            {testBol[1] ? (
+              <div className={styles.resultCard}>
+                <div className={styles.columnContainer}>
+                  <p className={styles.resultCardText}>0,25x</p>
+                  <p className={styles.resultCardText}>0,0000000</p>
+                </div>
+              </div>
+            ) : null}
 
             <div id="columnItem" className={styles.columnSpinner}>
-              {resultFirstColumn.map(num => {
-                return <img src={images[num]} alt="" className={styles.icon} />;
+              {resultFirstColumn.map((num, index) => {
+                return (
+                  <img
+                    src={images[num]}
+                    alt=""
+                    className={
+                      testBol[index] === true ? styles.icon : styles.iconStatic
+                    }
+                  />
+                );
               })}
             </div>
             <div className={styles.separatedLine} />
@@ -322,9 +332,7 @@ class SlotsGame extends React.Component {
                     src={images[num]}
                     alt=""
                     className={
-                      testBol[index + 120] === true
-                        ? styles.icon
-                        : styles.iconStatic
+                      testBol[index] === true ? styles.icon : styles.iconStatic
                     }
                   />
                 );
@@ -338,9 +346,7 @@ class SlotsGame extends React.Component {
                     src={images[num]}
                     alt=""
                     className={
-                      testBol[index + 160] === true
-                        ? styles.icon
-                        : styles.iconStatic
+                      testBol[index] === true ? styles.icon : styles.iconStatic
                     }
                   />
                 );
