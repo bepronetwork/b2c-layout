@@ -17,27 +17,6 @@
     transform: scale(1);
   }
 }
-@keyframes heartbeat {
-	0% {
-		transform: scale(0);
-	}
-
-	25% {
-		transform: scale(1.2);
-	}
-
-	50% {
-		transform: scale(1);
-	}
-
-	75% {
-		transform: scale(1.2);
-	}
-
-	100% {
-		transform: scale(1);
-	}
-}
 
 .react-3d-carousel {
 	position: relative;

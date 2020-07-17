@@ -51,7 +51,6 @@ class BetSlip extends Component {
 
     render() {
         const user = this.props.profile;
-        const { showBetSlip=true } = this.props;
         const { betSlip, tab, amount } = this.state;
         let totalSimpleAmount = 0;
         let totalMultipleOdd = 1;
@@ -82,79 +81,73 @@ class BetSlip extends Component {
                             onSelect={this.handleTabChange}
                             style="full-background"
                         />
-                        {
-                            showBetSlip == true
-                            ?
-                                <div>
-                                    <div styleName="betslip-header">
-                                        <button styleName="clear-all" type="button" onClick={() => this.handleRemoveAll()}>
-                                            <Typography variant={'x-small-body'} color={'grey'}>
-                                                Clear all
-                                            </Typography>
-                                        </button>
-                                    </div>
-                                    <div styleName="bet-slip">
-                                        {betSlip.map(bet => {
-                                            totalSimpleAmount += (bet.amount * bet.probability);
-                                            totalMultipleOdd = totalMultipleOdd * bet.probability;
-                                            return (
-                                                <BetSlipBox bet={bet} type={tab} />
-                                            )
-                                        })}
-                                        <div styleName="total-returns">
-                                            {
-                                                tab == "multiple"
-                                                ?
-                                                    <div styleName="multiple-info">
-                                                        <InputNumber
-                                                            name="amount"
-                                                            title="Bet Amount"
-                                                            precision={2}
-                                                            disabled={false}
-                                                            max={(user && !_.isEmpty(user)) ? user.getBalance() : null}
-                                                            value={amount}
-                                                            onChange={this.handleBetAmountChange}
-                                                        />
-                                                        <div styleName="return">
-                                                            <Typography variant={'x-small-body'} color={'grey'}>
-                                                                Odds: 
-                                                            </Typography>
-                                                            <Typography variant={'small-body'} color={'white'}>
-                                                                {totalMultipleOdd.toFixed(2)}
-                                                            </Typography>
-                                                        </div>
-                                                        <div styleName="return">
-                                                            <Typography variant={'x-small-body'} color={'grey'}>
-                                                                Total returns: 
-                                                            </Typography>
-                                                            <Typography variant={'small-body'} color={'white'}>
-                                                                {formatCurrency(totalMultipleOdd * amount)}
-                                                            </Typography>
-                                                        </div>
-                                                    </div>
-                                                :
-                                                    <div styleName="return">
-                                                        <Typography variant={'x-small-body'} color={'grey'}>
-                                                            Total returns: 
-                                                        </Typography>
-                                                        <Typography variant={'small-body'} color={'white'}>
-                                                            {formatCurrency(totalSimpleAmount)}
-                                                        </Typography>
-                                                    </div>
-                                            }
-                                        </div>
-                                        <div styleName="button">
-                                            <Button fullWidth theme="primary">
-                                                <Typography weight="semi-bold" color="fixedwhite">
-                                                    Bet
+                        <div>
+                            <div styleName="betslip-header">
+                                <button styleName="clear-all" type="button" onClick={() => this.handleRemoveAll()}>
+                                    <Typography variant={'x-small-body'} color={'grey'}>
+                                        Clear all
+                                    </Typography>
+                                </button>
+                            </div>
+                            <div styleName="bet-slip">
+                                {betSlip.map(bet => {
+                                    totalSimpleAmount += (bet.amount * bet.probability);
+                                    totalMultipleOdd = totalMultipleOdd * bet.probability;
+                                    return (
+                                        <BetSlipBox bet={bet} type={tab} />
+                                    )
+                                })}
+                                <div styleName="total-returns">
+                                    {
+                                        tab == "multiple"
+                                        ?
+                                            <div styleName="multiple-info">
+                                                <InputNumber
+                                                    name="amount"
+                                                    title="Bet Amount"
+                                                    precision={2}
+                                                    disabled={false}
+                                                    max={(user && !_.isEmpty(user)) ? user.getBalance() : null}
+                                                    value={amount}
+                                                    onChange={this.handleBetAmountChange}
+                                                />
+                                                <div styleName="return">
+                                                    <Typography variant={'x-small-body'} color={'grey'}>
+                                                        Odds: 
+                                                    </Typography>
+                                                    <Typography variant={'small-body'} color={'white'}>
+                                                        {totalMultipleOdd.toFixed(2)}
+                                                    </Typography>
+                                                </div>
+                                                <div styleName="return">
+                                                    <Typography variant={'x-small-body'} color={'grey'}>
+                                                        Total returns: 
+                                                    </Typography>
+                                                    <Typography variant={'small-body'} color={'white'}>
+                                                        {formatCurrency(totalMultipleOdd * amount)}
+                                                    </Typography>
+                                                </div>
+                                            </div>
+                                        :
+                                            <div styleName="return">
+                                                <Typography variant={'x-small-body'} color={'grey'}>
+                                                    Total returns: 
                                                 </Typography>
-                                            </Button>
-                                        </div>
-                                    </div>
+                                                <Typography variant={'small-body'} color={'white'}>
+                                                    {formatCurrency(totalSimpleAmount)}
+                                                </Typography>
+                                            </div>
+                                    }
                                 </div>
-                            :
-                                null
-                        }
+                                <div styleName="button">
+                                    <Button fullWidth theme="primary">
+                                        <Typography weight="semi-bold" color="fixedwhite">
+                                            Bet
+                                        </Typography>
+                                    </Button>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 }
             </div>

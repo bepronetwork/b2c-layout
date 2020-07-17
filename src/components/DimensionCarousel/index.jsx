@@ -47,7 +47,7 @@ class DimensionCarousel extends React.Component {
 
     }
     componentDidUpdate(prevProps, prevState, snapshot) {
-        if (prevProps.slides && prevProps.slides[0] && this.props.slides[0]) {
+        /*if (prevProps.slides && prevProps.slides[0] && this.props.slides[0]) {
             if (!isEqual(prevProps.slides[0], this.props.slides[0])) {
                 let slides = [];
                 this.props.slides.forEach((slide) => {
@@ -77,7 +77,7 @@ class DimensionCarousel extends React.Component {
                     }
                 }, 500);
             }
-        }
+        }*/
     }
 
     slideRight() {

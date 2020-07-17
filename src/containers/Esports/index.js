@@ -20,7 +20,8 @@ class Esports extends Component {
             slides: [],
             status: ["pre_match", "live"],
             size: 10,
-            isLoading: true
+            isLoading: true,
+            isLoadingMatches: true
         };
     }
 
@@ -35,7 +36,7 @@ class Esports extends Component {
     projectData = async (props) => {
         const { status, size } = this.state;
 
-        this.setState({ isLoading: true });
+        this.setState({ isLoading: true, isLoadingMatches: true });
         const images = require.context('assets/esports', true);
 
         let games = await getGames();
@@ -56,14 +57,15 @@ class Esports extends Component {
             games,
             matches,
             slides,
-            isLoading: false 
+            isLoading: false,
+            isLoadingMatches: false
         });
     }
 
     handlerGameFilterClick = async (gameFilter) => {
         let { games, matches, status, size } = this.state;
 
-        this.setState({ isLoading: true });
+        this.setState({ isLoadingMatches: true });
 
         if(gameFilter.length > 0) {
             const filtered = games.filter(g => gameFilter.includes(g.external_id));
@@ -84,43 +86,43 @@ class Esports extends Component {
             });
         }
 
-        this.setState({ gameFilter, matches, isLoading: false });
+        this.setState({ gameFilter, matches, isLoadingMatches: false });
     }
 
     handlerCleanGameFilterClick = async (gameFilter) => {
         const { status, size } = this.state;
 
-        this.setState({ isLoading: true });
+        this.setState({ isLoadingMatches: true });
 
         const matches = await getMatches({
             status, 
             size
         });
 
-        this.setState({ gameFilter, matches, isLoading: false });
+        this.setState({ gameFilter, matches, isLoadingMatches: false });
     }
 
     handlerSerieFilterClick = async (serieFilter) => {
         const { status } = this.state;
 
-        this.setState({ isLoading: true });
+        this.setState({ isLoadingMatches: true });
 
         const matches = serieFilter.length > 0 ? await getMatchesBySeries({serie_id: serieFilter, status}): await getMatches({status});
 
-        this.setState({ serieFilter, matches, isLoading: false });
+        this.setState({ serieFilter, matches, isLoadingMatches: false });
     }
 
     handlerCleanSerieFilterClick = async (serieFilter) => {
         const { status, size } = this.state;
 
-        this.setState({ isLoading: true });
+        this.setState({ isLoadingMatches: true });
 
         const matches = await getMatches({
             status, 
             size
         });
 
-        this.setState({ serieFilter, matches, isLoading: false });
+        this.setState({ serieFilter, matches, isLoadingMatches: false });
     }
 
     goToMatch(slug, id) {
@@ -128,7 +130,6 @@ class Esports extends Component {
     }
 
     renderSlides() {
-
         const { slides, games } = this.state;
         let slidesElements = [];
 
@@ -188,7 +189,7 @@ class Esports extends Component {
 
     render() {
         const { history } = this.props;
-        const { matches, games, size, isLoading, gameFilter, slides } = this.state;
+        const { matches, games, size, isLoading, isLoadingMatches, gameFilter } = this.state;
 
         return (
             <div styleName="root">
@@ -205,23 +206,17 @@ class Esports extends Component {
                             </Button>
                         </div>
                     </div>
-                    {
-                        slides.length > 0
-                        ?
-                            <div styleName="carousel">
-                                {isLoading ?
-                                    <SkeletonTheme color={ getSkeletonColors().color} highlightColor={ getSkeletonColors().highlightColor}>
-                                        <div style={{opacity : '0.5'}}> 
-                                            <Skeleton height={350} width={"80%"}/>
-                                        </div>
-                                    </SkeletonTheme>
-                                :
-                                    <DimensionCarousel slides={this.renderSlides()} autoplay={true} interval={3000} />
-                                }
-                            </div>
+                    <div styleName="carousel">
+                        {isLoading ?
+                            <SkeletonTheme color={ getSkeletonColors().color} highlightColor={ getSkeletonColors().highlightColor}>
+                                <div style={{opacity : '0.5'}}> 
+                                    <Skeleton height={350} width={"80%"}/>
+                                </div>
+                            </SkeletonTheme>
                         :
-                            null
-                    }
+                            <DimensionCarousel slides={this.renderSlides()} autoplay={true} interval={3000} />
+                        }
+                    </div>
                 </div>
                 <div styleName="results">
                     <div styleName="filters">
@@ -229,13 +224,13 @@ class Esports extends Component {
                             games={games}
                             onCleanGameFilter={this.handlerCleanGameFilterClick}
                             onGameFilter={this.handlerGameFilterClick}
-                            isLoading={isLoading}
+                            isLoading={isLoadingMatches}
                         />
                         <SerieFilter
                             games={games}
                             onCleanSerieFilter={this.handlerCleanSerieFilterClick}
                             onSerieFilter={this.handlerSerieFilterClick}
-                            isLoading={isLoading}
+                            isLoading={isLoadingMatches}
                             gameFilter={gameFilter}
                         />
                     </div>
@@ -245,7 +240,7 @@ class Esports extends Component {
                                 matches={matches}
                                 games={games}
                                 size={size}
-                                isLoading={isLoading}
+                                isLoading={isLoadingMatches}
                                 history={history}
                             />
                             <div styleName="all-matches">

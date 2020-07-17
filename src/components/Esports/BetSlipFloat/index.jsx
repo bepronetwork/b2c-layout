@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { connect } from 'react-redux';
 import { BetSlip } from "components/Esports";
+import { Typography } from 'components';
 import { BetsIcon } from "components";
 import classNames from "classnames";
 import _ from 'lodash';
@@ -25,6 +26,7 @@ class BetSlipFloat extends Component {
     }
 
     render() {
+        const { betSlip } = this.props;
         const { expand } = this.state;
 
         const styles = classNames("wrapper", {
@@ -36,19 +38,22 @@ class BetSlipFloat extends Component {
             <div styleName="bet-slip">
                 <div styleName={styles}>
                     <div styleName="top">
-                        <div styleName="icon" onClick={() => this.expandClick()}>
-                            <BetsIcon/>
+                        <div styleName="header" onClick={() => this.expandClick()}>
+                            <div styleName="total">
+                                <div>
+                                    <Typography variant={'x-small-body'} color={'fixedwhite'}>
+                                        {betSlip !=  null && betSlip.length > 0 ? betSlip.length : 0}
+                                    </Typography>
+                                </div>
+                            </div>
+                            <div styleName="icon">
+                                <BetsIcon/> 
+                            </div>
                         </div>
                     </div>
                     <div styleName="bets">
-                    {
-                        expand == true
-                        ?
-                            <BetSlip  />
-                        :
-                            <BetSlip showBetSlip={false}/>
-                    }
-                     </div>
+                        <BetSlip />
+                    </div>
                 </div>
             </div>
         )
@@ -59,7 +64,8 @@ class BetSlipFloat extends Component {
 function mapStateToProps(state){
     return {
         profile : state.profile,
-        ln: state.language
+        ln: state.language,
+        betSlip: state.betSlip
     };
 }
 
