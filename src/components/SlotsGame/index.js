@@ -5,14 +5,6 @@ import styles from "./index.css";
 import numberOfLines from "../SlotsGameOptions/numberofLines";
 import images from "./Spinner/images";
 
-function WinningSound() {
-  return (
-    <audio autoPlay="autoplay" className="player" preload="false">
-      <source src="" />
-    </audio>
-  );
-}
-
 class SlotsGame extends React.Component {
   static matches = [];
 
@@ -21,16 +13,14 @@ class SlotsGame extends React.Component {
     this.state = {
       winner: false,
       matrixResult: [],
-      testBol: [].fill(false),
+      testBol: [],
       testArray: [[1, 1, 2, 3, 5]]
     };
     this.handleClick = this.handleClick.bind(this);
   }
 
   async componentDidMount() {
-    const resultRow = this.randomTable(40, 5);
-
-    this.setState({ matrixResult: resultRow });
+    this.setNewRandomMatrix();
   }
 
   randomTable = (rows, cols) =>
@@ -43,8 +33,9 @@ class SlotsGame extends React.Component {
     this.setState({ testBol: [].fill(false) });
 
     await this.handleAnimations();
-    this.setInsertArray();
-    // await this.fillWithBool();
+    this.setNewRandomMatrix();
+    // this.setInsertArray();
+    this.randomNumberResult();
     await this.handleImages();
 
     await this.setWinnerState(true);
@@ -79,11 +70,30 @@ class SlotsGame extends React.Component {
     this.setState({ winner: winnerState });
   };
 
+  setNewRandomMatrix() {
+    const resultRow = this.randomTable(40, 5);
+
+    this.setState({ matrixResult: resultRow });
+  }
+
   setInsertArray() {
     const { matrixResult, testArray } = this.state;
     const insertArray = matrixResult.splice(19, 1, ...testArray);
 
-    this.setState({ winner: insertArray });
+    return insertArray;
+  }
+
+  randomNumber(min, max) {
+    const result = Math.floor(Math.random() * (max - min) + min);
+
+    return result;
+  }
+
+  randomNumberResult() {
+    const { testArray, matrixResult } = this.state;
+    const randNum = this.randomNumber(18, 20);
+
+    matrixResult.splice(randNum, 1, ...testArray[[0]]);
   }
 
   async handleImages() {
@@ -91,9 +101,11 @@ class SlotsGame extends React.Component {
   }
 
   async fillWithBool() {
-    const { matrixResult } = this.state;
+    const { testArray } = this.state;
 
-    this.setState({ testBol: matrixResult });
+    const resultFalse = testArray.fill(false);
+
+    this.setState({ testBol: resultFalse });
   }
 
   async handleImage(setTimeOut) {
@@ -102,12 +114,12 @@ class SlotsGame extends React.Component {
     let i = 0;
 
     while (i < 5) {
-      if (testArray[19 + i] !== testArray[19 + (i + 1)]) {
+      if (testArray[0 + i] !== testArray[0 + (i + 1)]) {
         break;
       }
 
-      testBol[19 + i] = true;
-      testBol[19 + (i + 1)] = true;
+      testBol[0 + i] = true;
+      testBol[0 + (i + 1)] = true;
       i += 1;
     }
     this.setState({ testBol });
@@ -116,8 +128,7 @@ class SlotsGame extends React.Component {
   }
 
   render() {
-    const { winner, testBol, matrixResult } = this.state;
-    let winningSound = null;
+    const { testBol, matrixResult } = this.state;
 
     const arrayColumn = (arr, n) => {
       return arr.map(x => x[n]);
@@ -129,13 +140,8 @@ class SlotsGame extends React.Component {
     const resultFourthColumn = arrayColumn(matrixResult, 3);
     const resultFiveColumn = arrayColumn(matrixResult, 4);
 
-    if (winner) {
-      winningSound = <WinningSound />;
-    }
-
     return (
       <div className={styles.containerInit}>
-        {winningSound}
         <button onClick={this.handleClick} type="button">
           TESTE
         </button>
