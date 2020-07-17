@@ -13,14 +13,20 @@ class SlotsGame extends React.Component {
     this.state = {
       winner: false,
       matrixResult: [],
-      testBol: [],
-      testArray: [[1, 1, 2, 3, 5]]
+      testBol: Array(5).fill(false),
+      testArray: [[1, 1, 1, 1, 1]],
+      resultFirstColumn: [],
+      resultSecondColumn: [],
+      resultThirstColumn: [],
+      resultFourthColumn: [],
+      resultFiveColumn: []
     };
     this.handleClick = this.handleClick.bind(this);
   }
 
   async componentDidMount() {
-    this.setNewRandomMatrix();
+    await this.setNewRandomMatrix();
+    this.getcolumn();
   }
 
   randomTable = (rows, cols) =>
@@ -29,6 +35,8 @@ class SlotsGame extends React.Component {
     );
 
   handleClick = async () => {
+    const { testBol, testArray } = this.state;
+
     this.setState({ winner: false });
     this.setState({ testBol: [].fill(false) });
 
@@ -36,7 +44,12 @@ class SlotsGame extends React.Component {
     this.setNewRandomMatrix();
     // this.setInsertArray();
     this.randomNumberResult();
-    await this.handleImages();
+    await this.handleImage(500);
+
+    const testArr = testArray[0];
+
+    console.log(testArr[0]);
+    console.log(testBol[0]);
 
     await this.setWinnerState(true);
   };
@@ -70,7 +83,7 @@ class SlotsGame extends React.Component {
     this.setState({ winner: winnerState });
   };
 
-  setNewRandomMatrix() {
+  async setNewRandomMatrix() {
     const resultRow = this.randomTable(40, 5);
 
     this.setState({ matrixResult: resultRow });
@@ -89,15 +102,48 @@ class SlotsGame extends React.Component {
     return result;
   }
 
-  randomNumberResult() {
-    const { testArray, matrixResult } = this.state;
-    const randNum = this.randomNumber(18, 20);
+  getcolumn() {
+    const { matrixResult } = this.state;
+    const arrayColumn = (arr, n) => {
+      return arr.map(x => x[n]);
+    };
 
-    matrixResult.splice(randNum, 1, ...testArray[[0]]);
+    const resultFirstColumn = arrayColumn(matrixResult, 0);
+    const resultSecondColumn = arrayColumn(matrixResult, 1);
+    const resultThirstColumn = arrayColumn(matrixResult, 2);
+    const resultFourthColumn = arrayColumn(matrixResult, 3);
+    const resultFiveColumn = arrayColumn(matrixResult, 4);
+
+    this.setState({ resultFirstColumn });
+    this.setState({ resultSecondColumn });
+    this.setState({ resultThirstColumn });
+    this.setState({ resultFourthColumn });
+    this.setState({ resultFiveColumn });
   }
 
-  async handleImages() {
-    await this.handleImage(500);
+  randomNumberResult() {
+    const {
+      testArray,
+      resultFirstColumn,
+      resultSecondColumn,
+      resultThirstColumn,
+      resultFourthColumn,
+      resultFiveColumn
+    } = this.state;
+
+    const randNum = this.randomNumber(18, 20);
+    const randNum2 = this.randomNumber(18, 20);
+    const randNum3 = this.randomNumber(18, 20);
+    const randNum4 = this.randomNumber(18, 20);
+    const randNum5 = this.randomNumber(18, 20);
+
+    const testArr = testArray[0];
+
+    resultFirstColumn.splice(randNum, 1, testArr[0]);
+    resultSecondColumn.splice(randNum2, 1, testArr[1]);
+    resultThirstColumn.splice(randNum3, 1, testArr[2]);
+    resultFourthColumn.splice(randNum4, 1, testArr[3]);
+    resultFiveColumn.splice(randNum5, 1, testArr[4]);
   }
 
   async fillWithBool() {
@@ -112,9 +158,10 @@ class SlotsGame extends React.Component {
     const { testArray, testBol } = this.state;
 
     let i = 0;
+    const testArr = testArray[0];
 
     while (i < 5) {
-      if (testArray[0 + i] !== testArray[0 + (i + 1)]) {
+      if (testArr[0 + i] !== testArr[0 + (i + 1)]) {
         break;
       }
 
@@ -128,17 +175,14 @@ class SlotsGame extends React.Component {
   }
 
   render() {
-    const { testBol, matrixResult } = this.state;
-
-    const arrayColumn = (arr, n) => {
-      return arr.map(x => x[n]);
-    };
-
-    const resultFirstColumn = arrayColumn(matrixResult, 0);
-    const resultSecondColumn = arrayColumn(matrixResult, 1);
-    const resultThirstColumn = arrayColumn(matrixResult, 2);
-    const resultFourthColumn = arrayColumn(matrixResult, 3);
-    const resultFiveColumn = arrayColumn(matrixResult, 4);
+    const {
+      testBol,
+      resultFirstColumn,
+      resultSecondColumn,
+      resultThirstColumn,
+      resultFourthColumn,
+      resultFiveColumn
+    } = this.state;
 
     return (
       <div className={styles.containerInit}>
