@@ -1,0 +1,119 @@
+@import "../../../styles/all.css";
+
+.bet-slip {
+    will-change: transform;
+    pointer-events: none;
+    box-sizing: border-box;
+    padding: $spacing-20 0;
+    margin: 0;
+    position: fixed;
+    z-index: 20;
+    right: calc($chat-width-desktop + $spacing-120);
+    bottom: 0;
+    top: 0;
+    width: 340px;
+    justify-content: flex-end;
+    overflow: hidden;
+  
+    @media screen and (max-width: 1267px) and (min-width: 1024px) {
+      right: calc($chat-width-tablet-pro + $spacing-36);
+    }
+    
+    @media screen and (max-width: 1023px) and (min-width: 768px) {
+      right: calc($chat-width-tablet + $spacing-36);
+    }
+  
+    @media screen and (max-width: 767px) {
+      right: 0;
+      width: 100%;
+      bottom: 60px;
+    }
+}
+
+.wrapper {
+    will-change: transform;
+    position: absolute;
+    bottom: 0;
+    max-height: calc(100% - $spacing-20);
+    box-sizing: border-box;
+    display: flex;
+    flex: 0 1 auto;
+    flex-flow: column;
+    transition: all .25s ease-in-out 0ms;
+    transform: translate(0);
+    opacity: 1;
+    pointer-events: all;
+    min-width: 300px;
+
+    @media screen and (max-width: 1267px) and (min-width: 1024px) {
+    }
+    
+    @media screen and (max-width: 1023px) and (min-width: 768px) {
+    }
+  
+    @media screen and (max-width: 767px) {
+      width: 100%;
+    }
+}
+
+.bets {
+    border-top: 2px solid $backgroundColor-13;
+    background-color: $primaryColor;
+    box-shadow: $shadowColor 0px 2.4px 7.2px, $shadowColor 0px 12.8px 28.8px;
+    padding: $spacing-16;
+    transform: translateY(0%);
+}
+
+.top {
+  width: 100%;
+}
+
+.icon {
+    float: right;
+    display: block;
+    align-items: center;
+    background-color: $backgroundColor-13;
+    justify-content: flex-end;
+    display: inline-flex;
+    align-items: center;
+    padding: $spacing-8 $spacing-12 0 $spacing-12;
+    border-radius: 50% 50% 0 0;
+    box-shadow: $shadowColor 0px 2.4px 7.2px, $shadowColor 0px 12.8px 28.8px;
+    cursor: pointer;
+
+    svg {
+      width: 48px;
+    }
+}
+
+.betslip {
+    
+}
+
+.betExpandDisplay {
+    animation: bet-expand-animation 0.7s running;
+}
+
+.betCollapseDisplay {
+  animation: bet-collapse-animation 0.7s running;
+}
+  
+@keyframes bet-expand-animation {
+
+    from {
+      transform: translateY(100%);
+    }
+    to {
+      transform: translateY(0%);
+    }
+}
+
+@keyframes bet-collapse-animation {
+
+  from {
+    transform: translateY(100%);
+  }
+  to {
+    transform: translateY(0%);
+  }
+}

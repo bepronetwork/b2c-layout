@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from 'react-redux';
 import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
-import { Market, ScoreBoard, SideMenu, Live, BetSlip } from "components/Esports";
+import { Market, ScoreBoard, SideMenu, Live, BetSlip, BetSlipFloat } from "components/Esports";
 import { getMatch } from "controllers/Esports/EsportsUser";
 import { getSkeletonColors } from "../../../lib/helpers";
 import _ from 'lodash';
@@ -46,6 +46,7 @@ class MatchPage extends Component {
 
         return (
             <div styleName="root">
+                <BetSlipFloat />
                 <div styleName="main">
                     {isLoading ?
                         <SkeletonTheme color={ getSkeletonColors().color} highlightColor={ getSkeletonColors().highlightColor}>

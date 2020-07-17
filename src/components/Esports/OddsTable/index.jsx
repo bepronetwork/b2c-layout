@@ -51,13 +51,13 @@ class OddsTable extends Component {
             opponent1.odd = oddType.find(o => o.participant_id == opponentId1);
             opponent1.image = match.opponents[0].opponent.image_url;
             opponent1.name  = match.opponents[0].opponent.name;
-            opponent1.id = match.opponents[0].opponent.id;
+            opponent1.id = opponentId1;
 
             const opponentId2 = match.opponents[1].opponent.id;
             opponent2.odd = oddType.find(o => o.participant_id == opponentId2);
             opponent2.image = match.opponents[1].opponent.image_url;
             opponent2.name  = match.opponents[1].opponent.name;
-            opponent2.id = match.opponents[1].opponent.id;
+            opponent2.id = opponentId2;
         }
 
         this.setState({
@@ -113,7 +113,8 @@ class OddsTable extends Component {
             image : opponent1.image,
             title : matchName,
             name : opponent1.name + " - Winner, Full Match",
-            probability : (1 / opponent1.odd.probability).toFixed(2)
+            probability : (1 / opponent1.odd.probability).toFixed(2),
+            amount: 0
         }
 
         const opponent2Bet = { 
@@ -121,7 +122,8 @@ class OddsTable extends Component {
             image : opponent2.image,
             title : matchName,
             name : opponent2.name + " - Winner, Full Match",
-            probability : (1 / opponent2.odd.probability).toFixed(2)
+            probability : (1 / opponent2.odd.probability).toFixed(2),
+            amount: 0
         }
 
         const drawBet = { 
@@ -129,9 +131,10 @@ class OddsTable extends Component {
             image : <CloseIcon />,
             title : matchName,
             name : "Draw - Winner, Full Match",
-            probability : drawOdd != null ? (1 / drawOdd.probability).toFixed(2) : 0
+            probability : drawOdd != null ? (1 / drawOdd.probability).toFixed(2) : 0,
+            amount: 0
         }
-        
+
         return (
             <div styleName="bets-menu">
                 <div>

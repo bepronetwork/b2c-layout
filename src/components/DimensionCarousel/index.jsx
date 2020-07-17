@@ -15,9 +15,11 @@ class DimensionCarousel extends React.Component {
             slideTotal: 0,
             slideCurrent: -1,
             slides: [],
-            height: "0px"
+            height: "0px",
+            onMouseOver: false
         }
         this.interval = null;
+        this.pauseOnMouseOver = true;
     }
     componentDidMount() {
         let slides = [];
@@ -79,10 +81,12 @@ class DimensionCarousel extends React.Component {
     }
 
     slideRight() {
-        let { slideCurrent, slideTotal } = this.state;
+        let { slideCurrent, slideTotal, onMouseOver } = this.state;
         let preactiveSlide, proactiveSlide;
         const activeClass = 'slider-single active';
         let slide = this.state.slides;
+
+        if(onMouseOver == true) { return null };
 
         if (slideTotal > 1) {
             if (slideCurrent < slideTotal) {
@@ -187,6 +191,18 @@ class DimensionCarousel extends React.Component {
             }
         }
     }
+
+    onMouseOverElement(e) {
+        this.setState({ onMouseOver: e });
+
+        if (this.props.autoplay && e == false) {
+            clearTimeout(this.interval);
+            this.interval = setTimeout(() => {
+                this.slideRight();
+            }, this.props.interval);
+        }
+    }
+
     render() {
         return (
             <div styleName="react-3d-carousel" style={{ height: this.state.height }}>
@@ -208,7 +224,7 @@ class DimensionCarousel extends React.Component {
                                             </div>
                                         </div>
 
-                                        <div styleName="slider-single-content">
+                                        <div styleName="slider-single-content" onMouseOver={() => this.onMouseOverElement(true)} onMouseOut={() => this.onMouseOverElement(false)}>
                                             {slider.element}
                                         </div>
                                     </div>

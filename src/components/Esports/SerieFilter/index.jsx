@@ -98,7 +98,7 @@ class SerieFilter extends Component {
                 });
                 series.push(
                     <li styleName={styles} onClick={() => this.handleFilterClick(game.series[0].id)} key={game.series[0].id}>
-                        <Shield image={game.image} size={"small"} />
+                        <Shield image={game.image} size={"small"} isFull={true} />
                         <div styleName="tournament-name">
                             <Typography variant={'x-small-body'} color={'white'}>{`${game.series[0].league.name} - ${game.series[0].full_name}`}</Typography>
                         </div>
@@ -141,19 +141,19 @@ class SerieFilter extends Component {
                         <SkeletonTheme color={ getSkeletonColors().color} highlightColor={ getSkeletonColors().highlightColor}>
                             <div style={{opacity : '0.5'}}> 
                                 <li styleName="tournament">
-                                    <Skeleton circle={true} height={30} width={30}/>
-                                    <Skeleton height={20} width={180}/>
+                                    <Skeleton circle={true} height={30} width={30} style={{marginRight: 12}}/>
+                                    <Skeleton height={20} width={150}/>
                                 </li>
                                 <li styleName="tournament">
-                                    <Skeleton circle={true} height={30} width={30}/>
+                                    <Skeleton circle={true} height={30} width={30} style={{marginRight: 12}}/>
                                     <Skeleton height={20} width={120}/>
                                 </li>
                                 <li styleName="tournament">
-                                    <Skeleton circle={true} height={30} width={30}/>
+                                    <Skeleton circle={true} height={30} width={30} style={{marginRight: 12}}/>
                                     <Skeleton height={20} width={100}/>
                                 </li>
                                 <li styleName="tournament">
-                                    <Skeleton circle={true} height={30} width={30}/>
+                                    <Skeleton circle={true} height={30} width={30} style={{marginRight: 12}}/>
                                     <Skeleton height={20} width={50}/>
                                 </li>
                             </div>

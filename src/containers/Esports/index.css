@@ -83,6 +83,7 @@
 
 .element {
   width: 460px;
+  cursor: pointer;
 
   @media screen and (max-width: 1267px) and (min-width: 1024px) {
   }

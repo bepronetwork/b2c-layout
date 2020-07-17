@@ -26,6 +26,16 @@
   height: calc(100% - 128px);
   max-height: 712px;
   padding: $spacing-28;
+
+  @media screen and (max-width: 1267px) and (min-width: 1024px) {
+  }
+  
+  @media screen and (max-width: 1023px) and (min-width: 768px) {
+  }
+
+  @media screen and (max-width: 767px) {
+    height: 100%;
+  }
 }
 
 .top-row {

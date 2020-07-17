@@ -65,7 +65,7 @@
 }
 
 .notification-info {
-  background-color: $text-secondary-color;
+  background-color: $secondaryColor;
 }
 
 .notification-error {
@@ -90,7 +90,7 @@
 }
 
 .icon-info {
-  background: $text-secondary-color;
+  background: $secondaryColor;
 }
 
 .icon-error {
@@ -112,7 +112,7 @@
 }
 
 .content-info {
-  background-color: $text-secondary-color;
+  background-color: $secondaryColor;
 }
 
 .content-error {

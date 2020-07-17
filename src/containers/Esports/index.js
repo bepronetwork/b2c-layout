@@ -1,9 +1,8 @@
 import React, { Component } from "react";
-import { Typography, Button, DimensionCarousel, Modal } from 'components';
+import { Typography, Button, DimensionCarousel } from 'components';
 import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
-import { Opponents, BetSlip, GameFilter, SerieFilter, Matches, Shield } from "components/Esports";
+import { Opponents, BetSlip, GameFilter, SerieFilter, Matches, Shield, BetSlipFloat } from "components/Esports";
 import { connect } from 'react-redux';
-import { Link } from "react-router-dom";
 import { getGames, getMatches, getMatchesBySeries } from "controllers/Esports/EsportsUser";
 import { getSkeletonColors } from "../../lib/helpers";
 import _ from 'lodash';
@@ -37,8 +36,14 @@ class Esports extends Component {
         const { status, size } = this.state;
 
         this.setState({ isLoading: true });
+        const images = require.context('assets/esports', true);
 
-        const games = await getGames();
+        let games = await getGames();
+        games = games.filter(g => g.series.length > 0).map(g => {
+            g.image = images('./' + g.slug + '-ico.png');
+            return g;
+        });
+
         const matches = await getMatches({
             status, 
             size
@@ -118,6 +123,10 @@ class Esports extends Component {
         this.setState({ serieFilter, matches, isLoading: false });
     }
 
+    goToMatch(slug, id) {
+        this.props.history.push(`/esports/${slug}-${id}`);
+    }
+
     renderSlides() {
 
         const { slides, games } = this.state;
@@ -129,38 +138,36 @@ class Esports extends Component {
             const backgroundImage = images('./' + match.videogame.slug + '.jpg');
 
             slidesElements.push(
-                <Link to={`/esports/${match.id}`}>
-                    <div styleName="element">
-                        {
-                            match.live_embed_url != null
-                            ?
-                                <div styleName="background">
-                                    <iframe
-                                        src={`${match.live_embed_url}&parent=${window.location.hostname}`}
-                                        height="250"
-                                        width="100%"
-                                        frameborder="false"
-                                        scrolling="false"
-                                        allowfullscreen="false"
-                                    >
-                                    </iframe>
-                                </div>
-                            :
-                                <div styleName="background" style={{background: "url('" + backgroundImage + "') center center / cover no-repeat"}} />
-                        }
-                        <div styleName="text">
-                            <div styleName="tour">
-                                <div styleName="tour-img">
-                                    <Shield image={gameImage} size={"medium"} />
-                                </div>
-                                <div>
-                                    <Typography variant={'x-small-body'} color={'white'}>{`${match.league.name} - ${match.serie.full_name}`}</Typography>
-                                </div>
+                <div styleName="element" onClick={() => this.goToMatch(match.slug, match.id)}>
+                    {
+                        match.live_embed_url != null
+                        ?
+                            <div styleName="background">
+                                <iframe
+                                    src={`${match.live_embed_url}&parent=${window.location.hostname}`}
+                                    height="250"
+                                    width="100%"
+                                    frameborder="false"
+                                    scrolling="false"
+                                    allowfullscreen="false"
+                                >
+                                </iframe>
                             </div>
-                            <Opponents opponents={match.opponents} results={match.results} gameImage={gameImage} odds={match.odds}/>
+                        :
+                            <div styleName="background" style={{background: "url('" + backgroundImage + "') center center / cover no-repeat"}} />
+                    }
+                    <div styleName="text">
+                        <div styleName="tour">
+                            <div styleName="tour-img">
+                                <Shield image={gameImage} size={"small"} isFull={true} />
+                            </div>
+                            <div>
+                                <Typography variant={'x-small-body'} color={'white'}>{`${match.league.name} - ${match.serie.full_name}`}</Typography>
+                            </div>
                         </div>
+                        <Opponents gameImage={gameImage} match={match}/>
                     </div>
-                </Link>
+                </div>
             );
         });
 
@@ -180,10 +187,12 @@ class Esports extends Component {
     }
 
     render() {
-        const { matches, games, size, isLoading, gameFilter } = this.state;
+        const { history } = this.props;
+        const { matches, games, size, isLoading, gameFilter, slides } = this.state;
 
         return (
             <div styleName="root">
+                <BetSlipFloat />
                 <div styleName="main">
                     <div styleName="highlight">
                         <Typography variant={'h2'} color={'white'} weight={'bold'}>eSports Beting is Live</Typography>
@@ -196,17 +205,23 @@ class Esports extends Component {
                             </Button>
                         </div>
                     </div>
-                    <div styleName="carousel">
-                        {isLoading ?
-                            <SkeletonTheme color={ getSkeletonColors().color} highlightColor={ getSkeletonColors().highlightColor}>
-                                <div style={{opacity : '0.5'}}> 
-                                    <Skeleton height={350} width={"80%"}/>
-                                </div>
-                            </SkeletonTheme>
+                    {
+                        slides.length > 0
+                        ?
+                            <div styleName="carousel">
+                                {isLoading ?
+                                    <SkeletonTheme color={ getSkeletonColors().color} highlightColor={ getSkeletonColors().highlightColor}>
+                                        <div style={{opacity : '0.5'}}> 
+                                            <Skeleton height={350} width={"80%"}/>
+                                        </div>
+                                    </SkeletonTheme>
+                                :
+                                    <DimensionCarousel slides={this.renderSlides()} autoplay={true} interval={3000} />
+                                }
+                            </div>
                         :
-                            <DimensionCarousel slides={this.renderSlides()} autoplay={true} interval={2000} />
-                        }
-                    </div>
+                            null
+                    }
                 </div>
                 <div styleName="results">
                     <div styleName="filters">
@@ -231,6 +246,7 @@ class Esports extends Component {
                                 games={games}
                                 size={size}
                                 isLoading={isLoading}
+                                history={history}
                             />
                             <div styleName="all-matches">
                                 <Button size={'x-small'} theme="primary" onClick={() => this.handlerAllMatchesClick()}>
@@ -239,7 +255,7 @@ class Esports extends Component {
                             </div>
                         </div>
                         <div styleName="right">
-                            <BetSlip/>
+                            <BetSlip />
                         </div>
                     </div>
                 </div>

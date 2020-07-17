@@ -4,7 +4,7 @@
     margin: auto $spacing-20;
     display: inline-flex;
     align-items: center;
-    height: auto;
+    height: 100%;
     transition: all 0.2s ease-in;
 
     .img{

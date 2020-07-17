@@ -60,6 +60,10 @@
     margin: $spacing-16 0;
 }
 
+.controls-one {
+    margin: $spacing-16 0 0 0;
+}
+
 .section {
     display: flex;
     justify-content: center;
@@ -81,6 +85,12 @@
     border-radius: 0 $border-radius $border-radius 0;
 }
 
+.section-one {
+    width: 100%;
+    padding: $spacing-8;
+    border-radius: $border-radius;
+}
+
 .return {
     display: flex;
     justify-content: flex-end;
@@ -90,13 +100,13 @@
 
 @keyframes blink {
     0% {
-        border:0
+        border:0;
     }
     50% {
         border: 1px solid $secondaryColor;
         box-shadow: 0 0 56px 0 $secondaryColor;
     }
     100% {
-        border: 0
+        border: 0;
     }
 }

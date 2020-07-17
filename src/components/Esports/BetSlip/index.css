@@ -2,10 +2,11 @@
 
 .betslip-header {
     display: grid;
-    grid-template-columns: auto auto;
+    grid-template-columns: auto;
     align-items: center;
-    padding-bottom: $spacing-16;
+    padding-bottom: $spacing-8;
     width: 100%;
+    margin-top: $spacing-16;
 }
 
 .clear-all {
@@ -22,6 +23,7 @@
     align-items: center;
     width: 100%;
     margin: $spacing-12 0;
+    border-top: 1px solid $backgroundColor-2;
 }
 
 .empty {
@@ -33,4 +35,28 @@
     align-items: center;
     border-radius: $border-radius; 
 }
-  
+
+.multiple-info {
+    width: 100%;
+    padding-top: $spacing-16;
+}
+
+.return {
+    display: flex;
+    margin: $spacing-16 0;
+    align-items: center;
+
+    p {
+        margin-right: $spacing-8;
+    }
+}
+
+.bet-slip {
+    overflow-y: auto;
+    max-height: 80vh;
+    padding-right: $spacing-4;
+}
+
+.button {
+    margin-bottom: $spacing-8;
+}

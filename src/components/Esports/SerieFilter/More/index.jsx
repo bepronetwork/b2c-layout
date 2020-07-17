@@ -71,7 +71,7 @@ class SerieFilterMore extends Component {
                                 return (
                                     <div styleName="more-group" data-order="1">
                                         <div styleName="more-heading">
-                                            <Shield image={game.image} size={"large"} />
+                                            <Shield image={game.image} size={"large"} isFull={true} />
                                             <Typography variant={'small-body'} weight={'bold'} color={'white'}>{game.name}</Typography>
                                         </div>
                                         <div styleName="more-series">

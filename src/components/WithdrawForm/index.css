@@ -59,7 +59,10 @@
 }
 
 .building{
-    margin-top: $spacing-52;
+    margin: $spacing-36 0;
+    background-color: $primaryColor;
+    border-radius : $border-radius;
+    padding: $spacing-28;
 }
 
 .building-img {
@@ -67,7 +70,7 @@
 }
 
 .building-info {
-    margin: $spacing-52 0;
+    margin-top: $spacing-36;
 }
 
 .loading-gif{

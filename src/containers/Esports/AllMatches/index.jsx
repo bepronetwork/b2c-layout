@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Tabs } from "components";
-import { Matches, SerieFilter, GameFilter, BetSlip } from "components/Esports";
+import { Matches, SerieFilter, GameFilter, BetSlip, BetSlipFloat } from "components/Esports";
 import { connect } from 'react-redux';
 import { getGames, getMatches, getMatchesBySeries } from "controllers/Esports/EsportsUser";
 import _ from 'lodash';
@@ -32,7 +32,15 @@ class AllMatches extends Component {
 
     projectData = async (props) => {
         const { status, size } = this.state;
-        const games = await getGames();
+
+        const images = require.context('assets/esports', true);
+        
+        let games = await getGames();
+        games = games.filter(g => g.series.length > 0).map(g => {
+            g.image = images('./' + g.slug + '-ico.png');
+            return g;
+        });
+
         const matches = await getMatches({
             status, size
         });
@@ -140,10 +148,12 @@ class AllMatches extends Component {
     };
 
     render() {
+        const { history } = this.props;
         const { matches, games, size, isLoading, tab, gameFilter } = this.state;
 
         return (
             <div styleName="root">
+                <BetSlipFloat />
                 <div styleName="main">
                     <div styleName="game-filter">
                         <GameFilter 
@@ -190,6 +200,7 @@ class AllMatches extends Component {
                                 size={size}
                                 showInfiniteScroll={true}
                                 isLoading={isLoading}
+                                history={history}
                             />
                         </div>
                         <div styleName="right">

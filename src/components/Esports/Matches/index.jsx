@@ -2,13 +2,11 @@ import React, { Component } from "react";
 import { Typography } from 'components';
 import { Shield, Opponents, Status } from "components/Esports";
 import { connect } from 'react-redux';
-import { Link } from "react-router-dom";
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { formatToSimpleDate, getSkeletonColors } from "../../../lib/helpers";
 import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
 import _ from 'lodash';
 import "./index.css";
-import loadingGif from 'assets/loading.gif';
 
 class Matches extends Component {
 
@@ -47,6 +45,10 @@ class Matches extends Component {
         return rows
     }
 
+    goToMatch(slug, id) {
+        this.props.history.push(`/esports/${slug}-${id}`);
+    }
+
     renderMatch(match, beginDate) {
         const { games } = this.props;
         const gameImage = games.find(g => g.external_id === match.videogame.id).image;
@@ -63,41 +65,36 @@ class Matches extends Component {
                     :
                         null
                 }
-
-                <Link to={`/esports/${match.slug}-${match.id}`}>
-                    <div styleName="match">
-                        <div styleName="match-tour">
-                            <div styleName="tour-name">
-                                <Shield image={gameImage} size={"medium"} />
-                                <div styleName="match-name">
-                                    <Typography variant={'x-small-body'} color={'white'}> {match.league.name}</Typography>
-                                    <span>
-                                        <Typography variant={'x-small-body'} color={'grey'}>{match.serie.full_name}</Typography>
-                                    </span>
-                                </div>
+                <div styleName="match" onClick={() => this.goToMatch(match.slug, match.id)}>
+                    <div styleName="match-tour">
+                        <div styleName="tour-name">
+                            <Shield image={gameImage} size={"small"} isFull={true} />
+                            <div styleName="match-name">
+                                <Typography variant={'x-small-body'} color={'white'}> {match.league.name}</Typography>
+                                <span>
+                                    <Typography variant={'x-small-body'} color={'grey'}>{match.serie.full_name}</Typography>
+                                </span>
                             </div>
-                            <Status 
-                                status={match.status} 
-                                date={match.begin_at} 
-                                isMobile={true} 
-                                hasLiveTransmition={!_.isEmpty(match.live_embed_url)} 
-                            />
                         </div>
-                        <Opponents 
-                            opponents={match.opponents} 
-                            results={match.results}
-                            odds={match.odds}
-                            gameImage={gameImage} 
-                            isScoreBoard={match.status == "finished" || match.status == "settled" ? true : false}
-                        />
                         <Status 
                             status={match.status} 
                             date={match.begin_at} 
-                            isMobile={false}
+                            isMobile={true} 
                             hasLiveTransmition={!_.isEmpty(match.live_embed_url)} 
                         />
                     </div>
-                </Link>
+                    <Opponents 
+                        gameImage={gameImage} 
+                        isScoreBoard={match.status == "finished" || match.status == "settled" ? true : false}
+                        match={match}
+                    />
+                    <Status 
+                        status={match.status} 
+                        date={match.begin_at} 
+                        isMobile={false}
+                        hasLiveTransmition={!_.isEmpty(match.live_embed_url)} 
+                    />
+                </div>
             </div>
         );
     }

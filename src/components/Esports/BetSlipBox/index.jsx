@@ -2,7 +2,9 @@ import React, { Component } from "react";
 import { Typography, InputNumber } from 'components';
 import { connect } from 'react-redux';
 import CloseCircleIcon from 'mdi-react/CloseCircleIcon';
-import { removeBetSlipFromResult } from "../../../redux/actions/betSlip";
+import { removeBetSlipFromResult, setBetSlipResult } from "../../../redux/actions/betSlip";
+import { formatCurrency } from "../../../utils/numberFormatation";
+import classNames from "classnames";
 import _ from 'lodash';
 import "./index.css";
 
@@ -12,6 +14,7 @@ class BetSlipBox extends Component {
     constructor(props){
         super(props);
         this.state = {
+            amount: 0
         };
     }
 
@@ -22,9 +25,34 @@ class BetSlipBox extends Component {
         await this.props.dispatch(removeBetSlipFromResult(id));
     }
 
-    render() {
+    async handleAddBetToBetSlip(amount) {
+        const { bet, betSlip } = this.props;
+        const newBetSlip = betSlip.map(b =>
+            b.id == bet.id ? { ...b, amount: amount } : b
+        );
 
-        const { bet } = this.props;
+        await this.props.dispatch(setBetSlipResult(newBetSlip));
+    }
+
+    handleBetAmountChange = value => {
+        this.setState({
+            amount: value
+        });
+
+        this.handleAddBetToBetSlip(value);
+    };
+
+    render() {
+        const { bet, type } = this.props;
+        const user = this.props.profile;
+        const { amount } = this.state;
+
+        const styles = classNames("section", "odds-section", {
+            "section-one" : type == "multiple"
+        });
+        const stylesControls = classNames("controls", {
+            "controls-one" : type == "multiple"
+        });
 
         return (
             <div styleName="box">
@@ -48,27 +76,41 @@ class BetSlipBox extends Component {
                         {bet.name}
                     </Typography>
                 </div>
-                <div styleName="controls">
-                    <div styleName="section section-left">
-                        <InputNumber
-                            name="win-profit"
-                            title="Bet Amount"
-                            icon="bitcoin"
-                            precision={2}
-                            disabled={false}
-                        />
-                    </div>
-                    <div styleName="section odds-section">
-                        <Typography variant={'small-body'} color={'white'}>
-                            at {bet.probability}
+                <div styleName={stylesControls}>
+                    {
+                        type == "simple"
+                        ?
+                            <div styleName="section section-left">
+                                <InputNumber
+                                    name="amount"
+                                    title="Bet Amount"
+                                    precision={2}
+                                    disabled={false}
+                                    max={(user && !_.isEmpty(user)) ? user.getBalance() : null}
+                                    value={bet.amount}
+                                    onChange={this.handleBetAmountChange}
+                                />
+                            </div>
+                        :
+                            null
+                    }
+                    <div styleName={styles}>
+                        <Typography variant={'small-body'} color={'casper'}>
+                            {bet.probability}
                         </Typography>
                     </div>
                 </div>
-                <div styleName="return">
-                    <Typography variant={'x-small-body'} color={'grey'}>
-                        to return: 0.01 ETH
-                    </Typography>
-                </div>
+                {
+                    type == "simple"
+                    ?
+                        <div styleName="return">
+                            <Typography variant={'x-small-body'} color={'grey'}>
+                                to return: {formatCurrency(amount * bet.probability)}
+                            </Typography>
+                        </div>
+                    :
+                        null
+                }
             </div>
         )
 
@@ -78,7 +120,8 @@ class BetSlipBox extends Component {
 function mapStateToProps(state){
     return {
         profile : state.profile,
-        ln: state.language
+        ln: state.language,
+        betSlip: state.betSlip
     };
 }
 

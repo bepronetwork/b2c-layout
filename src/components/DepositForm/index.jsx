@@ -4,8 +4,6 @@ import { connect } from "react-redux";
 import  QRCode from 'qrcode.react';
 import { Typography } from 'components';
 import classNames from "classnames";
-import building from 'assets/blockchain.png';
-import loading from 'assets/loading.gif';
 import { getApp, getAddOn } from "../../lib/helpers";
 import _ from 'lodash';
 import { CopyText } from '../../copy';
@@ -121,7 +119,7 @@ class DepositForm extends Component {
         if(!isLoaded){
             return (
                 <div>
-                    <img src={loading} styleName='loading-gif'/>
+                    <img src={process.env.PUBLIC_URL + "/loading.gif"} styleName='loading-gif'/>
                 </div>
             )
         }
@@ -211,7 +209,7 @@ class DepositForm extends Component {
                     </div>
                 :
                     <div styleName="building">
-                        <img src={building} styleName="building-img"/>
+                        <img src={process.env.PUBLIC_URL + "/logo.png"} styleName="building-img"/>
                         <div styleName="building-info">
                             <Typography variant={'small-body'} color={`white`}>
                                 {copy.INDEX.TYPOGRAPHY.TEXT[2]}

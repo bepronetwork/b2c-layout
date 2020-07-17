@@ -8,11 +8,16 @@ import "./index.css";
 export default class Shield extends Component {
 
     render() {
-        const { image, size, tooltip } = this.props;
+        const { image, size, tooltip, isFull } = this.props;
         const rootStyles = classNames("root", {
             "root-small" : size == "small",
             "root-medium": size == "medium",
-            "root-large" : size == "large"
+            "root-large" : size == "large",
+            "root-full"  : size == "full"
+        });
+
+        const shieldStyles = classNames("shield", {
+            "shield-full"  : isFull == true
         });
 
         return (
@@ -21,10 +26,10 @@ export default class Shield extends Component {
                     tooltip != null
                     ?
                         <Tooltip title={tooltip}>
-                            <span styleName={"shield"} style={{ backgroundImage: "url(" + image + ")" }} />
+                            <span styleName={shieldStyles} style={{ backgroundImage: "url(" + image + ")" }} />
                         </Tooltip>
                     :
-                        <span styleName={"shield"} style={{ backgroundImage: "url(" + image + ")" }} />
+                        <span styleName={shieldStyles} style={{ backgroundImage: "url(" + image + ")" }} />
                 }
             </div>
         );

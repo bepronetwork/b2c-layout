@@ -13,6 +13,8 @@ class ScoreBoard extends Component {
     render() {
 
         const { match } = this.props;
+        const images = require.context('assets/esports', true);
+        const image = images('./' + match.videogame.slug + '-ico.png');
 
         return (
             <div styleName="score-board">
@@ -23,7 +25,7 @@ class ScoreBoard extends Component {
                             <Typography variant={'x-small-body'} color={'white'}> Matches </Typography>
                         </div>
                     </Link>
-                    <Shield image={match.league.image_url} size={"large"} />
+                    <Shield image={image} size={"medium"} isFull={true} />
                     <div styleName="game">
                         <div styleName="game-name">
                             <Typography variant={'small-body'} color={'white'}>{match.league.name}</Typography>
@@ -34,11 +36,9 @@ class ScoreBoard extends Component {
                     </div>
                 </div>
                 <Opponents 
-                    opponents={match.opponents} 
-                    results={match.results} 
-                    odds={match.odds} 
-                    gameImage={match.league.image_url} 
+                    gameImage={image} 
                     isScoreBoard={true} 
+                    match={match}
                 />
                 <Status 
                     status={match.status} 

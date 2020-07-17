@@ -1,7 +1,8 @@
 import React, { Component } from "react";
-import { Typography, Button } from 'components';
+import { Typography, Button, Tabs, InputNumber } from 'components';
 import { BetSlipBox } from 'components/Esports';
 import { removeAllFromResult } from "../../../redux/actions/betSlip";
+import { formatCurrency } from "../../../utils/numberFormatation";
 import { connect } from 'react-redux';
 import _ from 'lodash';
 import "./index.css";
@@ -12,7 +13,9 @@ class BetSlip extends Component {
     constructor(props){
         super(props);
         this.state = {
-            betSlip: null
+            betSlip: null,
+            tab: "simple",
+            amount: 0
         };
     }
 
@@ -32,13 +35,26 @@ class BetSlip extends Component {
         });
     }
 
+    handleTabChange = async (name) => {
+        this.setState({ tab: name });
+    };
+
     async handleRemoveAll() {
         await this.props.dispatch(removeAllFromResult(null));
     }
 
-    render() {
+    handleBetAmountChange = value => {
+        this.setState({
+            amount: value
+        });
+    };
 
-        const { betSlip } = this.state;
+    render() {
+        const user = this.props.profile;
+        const { showBetSlip=true } = this.props;
+        const { betSlip, tab, amount } = this.state;
+        let totalSimpleAmount = 0;
+        let totalMultipleOdd = 1;
 
         return (
             <div>
@@ -50,33 +66,96 @@ class BetSlip extends Component {
                             </Typography>
                         </div>
                     :
-                        <div>
-                            <div styleName="betslip-header">
-                                <Typography variant={'small-body'} color={'white'}>
-                                    {`Betslip (${betSlip.length})`}
-                                </Typography>
-                                <button styleName="clear-all" type="button" onClick={() => this.handleRemoveAll()}>
-                                    <Typography variant={'small-body'} color={'grey'}>
-                                        Clear all
-                                    </Typography>
-                                </button>
-                            </div>
-                            {betSlip.map(bet => {
-                                return (
-                                    <BetSlipBox bet={bet} />
-                                )
-                            })}
-                            <div styleName="total-returns">
-                                <Typography variant={'small-body'} color={'grey'}>
-                                    Total returns: 2.3 ETH
-                                </Typography>
-                            </div>
-                            <Button fullWidth theme="primary">
-                                <Typography weight="semi-bold" color="pickled-bluewood">
-                                    Bet
-                                </Typography>
-                            </Button>
-                        </div>
+                    <div>
+                        <Tabs
+                            selected={tab}
+                            options={[
+                            {
+                                value: "simple",
+                                label: `Simple (${betSlip.length})`
+                            },
+                            {   
+                                value: "multiple", 
+                                label: "Multiple"
+                            }
+                            ]}
+                            onSelect={this.handleTabChange}
+                            style="full-background"
+                        />
+                        {
+                            showBetSlip == true
+                            ?
+                                <div>
+                                    <div styleName="betslip-header">
+                                        <button styleName="clear-all" type="button" onClick={() => this.handleRemoveAll()}>
+                                            <Typography variant={'x-small-body'} color={'grey'}>
+                                                Clear all
+                                            </Typography>
+                                        </button>
+                                    </div>
+                                    <div styleName="bet-slip">
+                                        {betSlip.map(bet => {
+                                            totalSimpleAmount += (bet.amount * bet.probability);
+                                            totalMultipleOdd = totalMultipleOdd * bet.probability;
+                                            return (
+                                                <BetSlipBox bet={bet} type={tab} />
+                                            )
+                                        })}
+                                        <div styleName="total-returns">
+                                            {
+                                                tab == "multiple"
+                                                ?
+                                                    <div styleName="multiple-info">
+                                                        <InputNumber
+                                                            name="amount"
+                                                            title="Bet Amount"
+                                                            precision={2}
+                                                            disabled={false}
+                                                            max={(user && !_.isEmpty(user)) ? user.getBalance() : null}
+                                                            value={amount}
+                                                            onChange={this.handleBetAmountChange}
+                                                        />
+                                                        <div styleName="return">
+                                                            <Typography variant={'x-small-body'} color={'grey'}>
+                                                                Odds: 
+                                                            </Typography>
+                                                            <Typography variant={'small-body'} color={'white'}>
+                                                                {totalMultipleOdd.toFixed(2)}
+                                                            </Typography>
+                                                        </div>
+                                                        <div styleName="return">
+                                                            <Typography variant={'x-small-body'} color={'grey'}>
+                                                                Total returns: 
+                                                            </Typography>
+                                                            <Typography variant={'small-body'} color={'white'}>
+                                                                {formatCurrency(totalMultipleOdd * amount)}
+                                                            </Typography>
+                                                        </div>
+                                                    </div>
+                                                :
+                                                    <div styleName="return">
+                                                        <Typography variant={'x-small-body'} color={'grey'}>
+                                                            Total returns: 
+                                                        </Typography>
+                                                        <Typography variant={'small-body'} color={'white'}>
+                                                            {formatCurrency(totalSimpleAmount)}
+                                                        </Typography>
+                                                    </div>
+                                            }
+                                        </div>
+                                        <div styleName="button">
+                                            <Button fullWidth theme="primary">
+                                                <Typography weight="semi-bold" color="fixedwhite">
+                                                    Bet
+                                                </Typography>
+                                            </Button>
+                                        </div>
+                                    </div>
+                                </div>
+                            :
+                                null
+                        }
+                    </div>
                 }
             </div>
         );
