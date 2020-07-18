@@ -136,7 +136,7 @@ class DimensionCarousel extends React.Component {
                     this.slideRight();
                 }, this.props.interval);
             }
-        } else {
+        } else if(slideTotal == 1) {
             if (slide[0].class !== activeClass) {
                 slide[0].class = activeClass;
                 this.setState((prevState, props) => {

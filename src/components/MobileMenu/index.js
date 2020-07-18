@@ -39,6 +39,11 @@ class MobileMenu extends Component {
     projectData = async (props) => {
     }
 
+    homeClick = (homepage) => {
+        this.setState({ gameType: homepage })
+        this.props.history.push(`/${homepage}`);
+    };
+
     renderItens() {
         const { ln, onMenuItem, history } = this.props;
         const { itens } = this.state;
@@ -74,6 +79,12 @@ class MobileMenu extends Component {
 
         return (
             <div>
+                <div styleName="title" onClick={() => this.homeClick("casino")}>
+                    <Typography variant={'body'} color={'white'}>Casino</Typography>
+                </div>
+                <div styleName="title" onClick={() => this.homeClick("esports")}>
+                    <Typography variant={'body'} color={'white'}>eSports</Typography>
+                </div>
                 <div styleName="title">
                     <Typography variant={'body'} color={'white'}>{copy.CONTAINERS.ACCOUNT.TITLE[0]}</Typography>
                 </div>

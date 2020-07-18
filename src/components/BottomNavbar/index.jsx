@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
+import { withRouter } from 'react-router-dom';
 import { Typography, LanguageSelector, BetsIcon, DepositIcon, ChatIcon, CasinoIcon, UsersIcon } from "components";
 import UserContext from "containers/App/UserContext";
 import { connect } from "react-redux";
@@ -17,6 +17,23 @@ class BottomNavbar extends Component {
         this.state = {  ...defaultProps,
             gameType: "casino"
         };
+    }
+
+
+    componentDidMount(){
+        this.projectData(this.props)
+    }
+
+    componentWillReceiveProps(props){
+        this.projectData(props);
+    }
+    
+    projectData = async (props) => {
+        const curPath = props.location.pathname;
+
+        this.setState({
+            gameType: curPath.includes("esports") ? "esports" : "casino"
+        })
     }
 
     openDeposit = () => {
@@ -118,4 +135,4 @@ function mapStateToProps(state){
     };
 }
 
-export default connect(mapStateToProps)(BottomNavbar);
+export default connect(mapStateToProps)(withRouter(BottomNavbar));

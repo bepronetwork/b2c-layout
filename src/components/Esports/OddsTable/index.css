@@ -51,7 +51,9 @@
 }
 
 .bets-team:hover {
-    background-color: $secondaryColor-8;
+    @media screen and (min-width: 767px) {
+        background-color: $secondaryColor-8;
+    } 
 }
 
 .bet-option {
