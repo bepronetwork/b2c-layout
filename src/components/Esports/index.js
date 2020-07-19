@@ -1,6 +1,7 @@
 import Stats from './Stats';
 import OddsTable from './OddsTable';
 import Players from './Players';
+import Player from './Player';
 import BetSlip from './BetSlip';
 import BetSlipBox from './BetSlipBox';
 import BetSlipFloat from './BetSlipFloat';
@@ -21,6 +22,7 @@ import SerieFilterMore from './SerieFilter/More';
 export { Stats };
 export { OddsTable };
 export { Players };
+export { Player };
 export { BetSlip };
 export { BetSlipBox };
 export { BetSlipFloat };

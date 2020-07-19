@@ -6,8 +6,6 @@ import { getSkeletonColors } from "../../../lib/helpers";
 import { Shield, SerieFilterMore } from "components/Esports";
 import { connect } from 'react-redux';
 import classNames from "classnames";
-import store from "../../../containers/App/store";
-import { setModal } from "../../../redux/actions/modal";
 import _ from 'lodash';
 import "./index.css";
 

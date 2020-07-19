@@ -55,7 +55,7 @@ class TeamsTable extends Component {
 
     render() {
         const { team1, team2, hasPlayers, isLoading } = this.state;
-        const { match } = this.props;
+        const { match, onPlayerClick } = this.props;
 
         return (
             isLoading ?
@@ -67,7 +67,7 @@ class TeamsTable extends Component {
             :
                 <div>
                     <Stats match={match} team1={team1} team2={team2} hasPlayers={hasPlayers} />
-                    <Players match={match} team1={team1} team2={team2} hasPlayers={hasPlayers} />
+                    <Players match={match} team1={team1} team2={team2} hasPlayers={hasPlayers} onPlayerClick={onPlayerClick} />
                 </div>
         );
     }

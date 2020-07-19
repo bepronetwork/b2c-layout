@@ -24,7 +24,7 @@ class SideMenu extends Component {
 
 
     render() {
-        const { match } = this.props;
+        const { match, onPlayerClick } = this.props;
         const { tab } = this.state;
 
         return (
@@ -57,7 +57,7 @@ class SideMenu extends Component {
                         onSelect={this.handleTabChange}
                     />
                     <div styleName="main">
-                        { tab === "stats" ? <TeamsTable match={match} /> : null }
+                        { tab === "stats" ? <TeamsTable match={match} onPlayerClick={onPlayerClick} /> : null }
                         { tab === "bets" ? <OddsTable match={match} /> : null }
                         { tab === "chat" ? <Chat streaming={match.live_embed_url} /> : null }
                     </div>

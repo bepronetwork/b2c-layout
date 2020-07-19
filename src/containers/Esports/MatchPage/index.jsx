@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import { connect } from 'react-redux';
+import { Modal } from 'components';
 import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
-import { Market, ScoreBoard, SideMenu, Live, BetSlip, BetSlipFloat } from "components/Esports";
+import { Market, ScoreBoard, SideMenu, Live, BetSlip, BetSlipFloat, Player } from "components/Esports";
 import { getMatch } from "controllers/Esports/EsportsUser";
 import { getSkeletonColors } from "../../../lib/helpers";
 import _ from 'lodash';
@@ -13,7 +14,9 @@ class MatchPage extends Component {
         super(props);
         this.state = {
             match: null,
-            isLoading: true
+            isLoading: true,
+            openPlayer: false,
+            player: null
         };
     }
 
@@ -41,11 +44,38 @@ class MatchPage extends Component {
         });
     }
 
+    handlePlayerClick = async (player) => {
+        this.setState({ 
+            openPlayer: true,
+            player
+        });
+    } 
+
+    handlePlayerModal = async () => {
+        const { openPlayer } = this.state;
+
+        this.setState({ openPlayer: !openPlayer });
+    } 
+
+    renderPlayerModal = () => {
+        const { openPlayer, match, player } = this.state;
+
+        return openPlayer == true ? (
+            <Modal onClose={this.handlePlayerModal}>
+                <Player 
+                    match={match}
+                    player={player}
+                />
+            </Modal>
+        ) : null;
+    }
+
     render() {
         const { match, isLoading } = this.state;
 
         return (
             <div styleName="root">
+                {this.renderPlayerModal()}
                 <BetSlipFloat />
                 <div styleName="main">
                     {isLoading ?
@@ -67,7 +97,7 @@ class MatchPage extends Component {
                                 </div>
                             </SkeletonTheme>
                         :
-                            <SideMenu match={match} />
+                            <SideMenu match={match} onPlayerClick={this.handlePlayerClick} />
                         }
                     </div>
                     {isLoading ?

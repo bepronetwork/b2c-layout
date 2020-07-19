@@ -14,6 +14,12 @@ class Players extends Component {
         this.state = {
         };
     }
+
+    handlePlayerClick(player) {
+        const { onPlayerClick } = this.props;
+
+        onPlayerClick(player);
+    }
     
     renderPlayers() {
         const { team1, team2 } = this.props;
@@ -24,7 +30,7 @@ class Players extends Component {
                     {
                         team1.players.map(p => {
                             return (
-                                <div styleName="player" key={p.name}>
+                                <div styleName="player" key={p.name} onClick={() => this.handlePlayerClick(p)}>
                                     <div styleName="description">
                                         <span styleName="name">
                                             <Typography variant={'x-small-body'} color={'white'}>
@@ -57,7 +63,7 @@ class Players extends Component {
                     {
                         team2.players.map(p => {
                             return (
-                                <div styleName="player" key={p.name}>
+                                <div styleName="player" key={p.name} onClick={() => this.handlePlayerClick(p)}>
                                     <div styleName="description">
                                         <span styleName="name">
                                             <Typography variant={'x-small-body'} color={'white'}>
