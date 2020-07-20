@@ -12,7 +12,6 @@ import {
 
 import UserContext from "containers/App/UserContext";
 import betSound from "assets/bet-sound.mp3";
-import Numbers from "./numberofLines";
 
 import styles from "./index.css";
 import { CopyText } from "../../copy";
@@ -183,17 +182,6 @@ class SlotsGameOptions extends Component {
               value={totalBet}
               title={copy.TOTAL_BET_NAME}
             />
-            <form onSubmit={this.handleSubmit}>
-              <p className={styles.dropdownLabel}>Number of lines</p>
-              <select
-                onChange={this.handleChange}
-                className={styles.dropdownInput}
-              >
-                {Numbers.slice(0, 18).map(items => {
-                  return <option value="laranja">{items}</option>;
-                })}
-              </select>
-            </form>
           </div>
           <div styleName="content">
             {type === "manual" ? null : this.renderAuto()}
