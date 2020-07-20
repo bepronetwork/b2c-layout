@@ -121,11 +121,11 @@ class SlotsGame extends React.Component {
       resultFiveColumn
     } = this.state;
 
-    const randNum = this.randomNumber(18, 21);
-    const randNum2 = this.randomNumber(18, 21);
-    const randNum3 = this.randomNumber(18, 21);
-    const randNum4 = this.randomNumber(18, 21);
-    const randNum5 = this.randomNumber(18, 21);
+    const randNum = this.randomNumber(18, 20);
+    const randNum2 = this.randomNumber(18, 20);
+    const randNum3 = this.randomNumber(18, 20);
+    const randNum4 = this.randomNumber(18, 20);
+    const randNum5 = this.randomNumber(18, 20);
 
     const testArr = testArray[0];
 
@@ -137,9 +137,9 @@ class SlotsGame extends React.Component {
 
     this.setState({ insertionIndex1: randNum });
     this.setState({ insertionIndex2: randNum2 });
-    this.setState({ insertionIndex3: randNum3 });
-    this.setState({ insertionIndex4: randNum4 });
-    this.setState({ insertionIndex5: randNum5 });
+    // this.setState({ insertionIndex3: randNum3 });
+    // this.setState({ insertionIndex4: randNum4 });
+    // this.setState({ insertionIndex5: randNum5 });
 
     return new Promise(resolve => setTimeout(() => resolve(), 1500));
   }
@@ -191,6 +191,67 @@ class SlotsGame extends React.Component {
         </div>
         <div className={styles.rowContainer}>
           <div className={styles.spinnerContainer}>
+            <div className={styles.lineTest}>
+              {insertionIndex1 === 18 && insertionIndex2 === 19 ? (
+                <Line
+                  svgClass={styles.classLine}
+                  polylineClass={styles.classSvg}
+                  points="18 15, 47.4 92, 76 15"
+                  viewBox="0 5 100 100"
+                />
+              ) : null}
+              {insertionIndex1 === 18 && insertionIndex2 === 19 ? (
+                <Line
+                  svgClass={styles.classLine}
+                  polylineClass={styles.classSvg}
+                  points="18 15, 18 25, 47.4 50, 76 15"
+                  viewBox="0 5 100 100"
+                />
+              ) : null}
+              {insertionIndex1 === 19 && insertionIndex2 === 19 ? (
+                <Line
+                  svgClass={styles.classLine}
+                  polylineClass={styles.classSvg}
+                  points="18 50, 47.4 50, 76 50"
+                  viewBox="0 5 100 100"
+                />
+              ) : null}
+              {insertionIndex1 === 19 && insertionIndex2 === 18 ? (
+                <Line
+                  svgClass={styles.classLine}
+                  polylineClass={styles.classSvg}
+                  points="18 50, 18 50, 33 15, 76 15"
+                  viewBox="0 5 100 100"
+                />
+              ) : null}
+              {insertionIndex1 === 18 && insertionIndex2 === 18 ? (
+                <Line
+                  svgClass={styles.classLine}
+                  polylineClass={styles.classSvg}
+                  points="18 15, 47.4 15, 76 15"
+                  viewBox="0 5 100 100"
+                />
+              ) : null}
+            </div>
+
+            {/* 5 */}
+            {/* {testBol[59] ? (
+                <Line
+                  svgClass={styles.classLine}
+                  polylineClass={styles.classSvg}
+                  points="9 55,12 55, 18 55, 33 55, 76 55"
+                  viewBox="0 5 100 100"
+                />
+              ) : null} */}
+            {/* 
+              {testBol[3] ? (
+                <Line
+                  svgClass={styles.classLine}
+                  polylineClass={styles.classSvg}
+                  points="10 97,12 94, 18 94, 33 94, 76 94"
+                  viewBox="0 5 100 100"
+                />
+              ) : null} */}
             <div
               width="600px"
               height="300px"
@@ -213,16 +274,14 @@ class SlotsGame extends React.Component {
             testBol[3] ? (
               <div className={styles.backgroundTransparence} />
             ) : null}
-
-            {testBol[1] ? (
+            {/* {testBol[1] ? (
               <div className={styles.resultCard}>
                 <div className={styles.columnContainer}>
                   <p className={styles.resultCardText}>0,25x</p>
                   <p className={styles.resultCardText}>0,0000000</p>
                 </div>
               </div>
-            ) : null}
-
+            ) : null} */}
             <div id="columnItem" className={styles.columnSpinner}>
               {resultFirstColumn.map((num, index) => {
                 return (
