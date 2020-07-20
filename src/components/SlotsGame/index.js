@@ -2,7 +2,6 @@ import React from "react";
 
 import Line from "components/SlotsLines";
 import styles from "./index.css";
-import numberOfLines from "../SlotsGameOptions/numberofLines";
 import images from "./Spinner/images";
 
 class SlotsGame extends React.Component {
@@ -19,7 +18,12 @@ class SlotsGame extends React.Component {
       resultSecondColumn: [],
       resultThirstColumn: [],
       resultFourthColumn: [],
-      resultFiveColumn: []
+      resultFiveColumn: [],
+      insertionIndex1: [],
+      insertionIndex2: [],
+      insertionIndex3: [],
+      insertionIndex4: [],
+      insertionIndex5: []
     };
     this.handleClick = this.handleClick.bind(this);
   }
@@ -35,8 +39,6 @@ class SlotsGame extends React.Component {
     );
 
   handleClick = async () => {
-    const { testBol, testArray } = this.state;
-
     this.setState({ winner: false });
     this.setState({ testBol: Array(5).fill(false) });
 
@@ -44,7 +46,8 @@ class SlotsGame extends React.Component {
     await this.handleAnimations();
 
     // this.setInsertArray();
-    this.randomNumberResult();
+    await this.randomNumberResult();
+
     await this.handleImage(500);
   };
 
@@ -54,6 +57,8 @@ class SlotsGame extends React.Component {
     await this.handleAnimation("columnItem3");
     await this.handleAnimation("columnItem4");
     await this.handleAnimation("columnItem5");
+
+    return new Promise(resolve => setTimeout(() => resolve(), 1000));
   };
 
   handleAnimation = async spinnerColumn => {
@@ -77,13 +82,6 @@ class SlotsGame extends React.Component {
     const resultRow = this.randomTable(40, 5);
 
     this.setState({ matrixResult: resultRow });
-  }
-
-  setInsertArray() {
-    const { matrixResult, testArray } = this.state;
-    const insertArray = matrixResult.splice(19, 1, ...testArray);
-
-    return insertArray;
   }
 
   randomNumber(min, max) {
@@ -113,7 +111,7 @@ class SlotsGame extends React.Component {
     this.setState({ resultFiveColumn });
   }
 
-  randomNumberResult() {
+  async randomNumberResult() {
     const {
       testArray,
       resultFirstColumn,
@@ -136,14 +134,22 @@ class SlotsGame extends React.Component {
     resultThirstColumn.splice(randNum3, 1, testArr[2]);
     resultFourthColumn.splice(randNum4, 1, testArr[3]);
     resultFiveColumn.splice(randNum5, 1, testArr[4]);
+
+    this.setState({ insertionIndex1: randNum });
+    this.setState({ insertionIndex2: randNum2 });
+    this.setState({ insertionIndex3: randNum3 });
+    this.setState({ insertionIndex4: randNum4 });
+    this.setState({ insertionIndex5: randNum5 });
+
+    return new Promise(resolve => setTimeout(() => resolve(), 1500));
   }
 
   async handleImage(setTimeOut) {
     const { testArray, testBol } = this.state;
 
-    let i = 0;
-
     const testArr = testArray[0];
+
+    let i = 0;
 
     while (i < 5) {
       if (testArr[0 + i] !== testArr[0 + (i + 1)]) {
@@ -167,7 +173,12 @@ class SlotsGame extends React.Component {
       resultSecondColumn,
       resultThirstColumn,
       resultFourthColumn,
-      resultFiveColumn
+      resultFiveColumn,
+      insertionIndex1,
+      insertionIndex2,
+      insertionIndex3,
+      insertionIndex4,
+      insertionIndex5
     } = this.state;
 
     return (
@@ -179,42 +190,6 @@ class SlotsGame extends React.Component {
           <h1 className={styles.topContainerText}>Pagamento total: 0.000000</h1>
         </div>
         <div className={styles.rowContainer}>
-          <div className={styles.columnContainer}>
-            <div style={{ margin: "25px 0px 0px 0px" }}>
-              {numberOfLines.map(lines => {
-                if (lines <= 3) {
-                  return (
-                    <div className={styles.textButton}>
-                      <p>{lines}</p>
-                    </div>
-                  );
-                }
-              })}
-            </div>
-            <div style={{ margin: "15px" }}>
-              {numberOfLines.map(lines => {
-                if (lines >= 4 && lines <= 6) {
-                  return (
-                    <div className={styles.textButton}>
-                      <p>{lines}</p>
-                    </div>
-                  );
-                }
-              })}
-            </div>
-            <div style={{ margin: "0px 0px 25px 0px" }}>
-              {numberOfLines.map(lines => {
-                if (lines >= 7 && lines <= 9) {
-                  return (
-                    <div className={styles.textButton}>
-                      <p>{lines}</p>
-                    </div>
-                  );
-                }
-              })}
-            </div>
-          </div>
-
           <div className={styles.spinnerContainer}>
             <div
               width="600px"
@@ -230,47 +205,12 @@ class SlotsGame extends React.Component {
                   viewBox="0 3 100 100"
                 />
               ) : null}
-
-              {/* 1 */}
-              {/* <Line
-                svgClass={styles.classLine}
-                polylineClass={styles.classSvg}
-                points="9 10,12 15, 18 15, 47.4 92, 76 10"
-                viewBox="0 5 100 100"
-              /> */}
-
-              {/* 3 */}
-              {/* <Line
-                svgClass={styles.classLine}
-                polylineClass={styles.classSvg}
-                points="9 20,12 15, 18 15, 33 55, 76 55"
-                viewBox="0 5 100 100"
-              /> */}
-
-              {/* 5 */}
-              {/* {testBol[59] ? (
-                <Line
-                  svgClass={styles.classLine}
-                  polylineClass={styles.classSvg}
-                  points="9 55,12 55, 18 55, 33 55, 76 55"
-                  viewBox="0 5 100 100"
-                />
-              ) : null} */}
-              {/* 
-              {testBol[3] ? (
-                <Line
-                  svgClass={styles.classLine}
-                  polylineClass={styles.classSvg}
-                  points="10 97,12 94, 18 94, 33 94, 76 94"
-                  viewBox="0 5 100 100"
-                />
-              ) : null} */}
             </div>
             {testBol[0] ||
             testBol[1] ||
             testBol[2] ||
             testBol[4] ||
-            testBol[3] === true ? (
+            testBol[3] ? (
               <div className={styles.backgroundTransparence} />
             ) : null}
 
@@ -290,7 +230,9 @@ class SlotsGame extends React.Component {
                     src={images[num]}
                     alt=""
                     className={
-                      testBol[index] === true ? styles.icon : styles.iconStatic
+                      index === insertionIndex1
+                        ? styles.icon
+                        : styles.iconStatic
                     }
                   />
                 );
@@ -304,7 +246,9 @@ class SlotsGame extends React.Component {
                     src={images[num]}
                     alt=""
                     className={
-                      testBol[index] === true ? styles.icon : styles.iconStatic
+                      index === insertionIndex2
+                        ? styles.icon
+                        : styles.iconStatic
                     }
                   />
                 );
@@ -318,7 +262,9 @@ class SlotsGame extends React.Component {
                     src={images[num]}
                     alt=""
                     className={
-                      testBol[index] === true ? styles.icon : styles.iconStatic
+                      index === insertionIndex3
+                        ? styles.icon
+                        : styles.iconStatic
                     }
                   />
                 );
@@ -332,7 +278,9 @@ class SlotsGame extends React.Component {
                     src={images[num]}
                     alt=""
                     className={
-                      testBol[index] === true ? styles.icon : styles.iconStatic
+                      index === insertionIndex4
+                        ? styles.icon
+                        : styles.iconStatic
                     }
                   />
                 );
@@ -346,47 +294,12 @@ class SlotsGame extends React.Component {
                     src={images[num]}
                     alt=""
                     className={
-                      testBol[index] === true ? styles.icon : styles.iconStatic
+                      index === insertionIndex5
+                        ? styles.icon
+                        : styles.iconStatic
                     }
                   />
                 );
-              })}
-            </div>
-          </div>
-          <div className={styles.columnContainer}>
-            <div style={{ margin: "25px 0px 0px 0px" }}>
-              {numberOfLines.map(lines => {
-                if (lines >= 10 && lines <= 12) {
-                  return (
-                    <div className={styles.textButton}>
-                      <p>{lines}</p>
-                    </div>
-                  );
-                }
-              })}
-            </div>
-
-            <div style={{ margin: "15px" }}>
-              {numberOfLines.map(lines => {
-                if (lines >= 13 && lines <= 15) {
-                  return (
-                    <div className={styles.textButton}>
-                      <p>{lines}</p>
-                    </div>
-                  );
-                }
-              })}
-            </div>
-
-            <div style={{ margin: "0px 0px 25px 0px" }}>
-              {numberOfLines.map(lines => {
-                if (lines >= 16 && lines <= 18) {
-                  return (
-                    <div className={styles.textButton}>
-                      <p>{lines}</p>
-                    </div>
-                  );
-                }
               })}
             </div>
           </div>
