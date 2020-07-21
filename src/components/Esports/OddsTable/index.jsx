@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import classNames from "classnames";
 import CloseIcon from "components/Icons/CloseCross";
 import { setBetSlipResult, removeBetSlipFromResult } from "../../../redux/actions/betSlip";
+import { formatOpponentData, formatOpponentBet, formatDrawBet } from "../../../lib/helpers";
 import _ from 'lodash';
 import "./index.css";
 
@@ -27,6 +28,8 @@ class OddsTable extends Component {
             },
             drawOdd: null,
             matchName: "Team 1 x Team 2",
+            matchId: null,
+            gameImage: null,
             isLoaded: false
         };
     }
@@ -43,21 +46,16 @@ class OddsTable extends Component {
         const { match } = props;
         let { opponent1, opponent2, drawOdd } = this.state;
 
+        const images = require.context('assets/esports', true);
+        const gameImage = images('./' + match.videogame.slug + '-ico.png');
+
         if(match.odds != null) {
             const oddType = match.odds.winnerTwoWay.length > 0 ? match.odds.winnerTwoWay : match.odds.winnerThreeWay;
             drawOdd = match.odds.winnerThreeWay.length > 0 ? oddType.find(o => o.participant_id == null) : null;
 
-            const opponentId1 = match.opponents[0].opponent.id;
-            opponent1.odd = oddType.find(o => o.participant_id == opponentId1);
-            opponent1.image = match.opponents[0].opponent.image_url;
-            opponent1.name  = match.opponents[0].opponent.name;
-            opponent1.id = opponentId1;
+            opponent1 = formatOpponentData(match, 0, gameImage);
 
-            const opponentId2 = match.opponents[1].opponent.id;
-            opponent2.odd = oddType.find(o => o.participant_id == opponentId2);
-            opponent2.image = match.opponents[1].opponent.image_url;
-            opponent2.name  = match.opponents[1].opponent.name;
-            opponent2.id = opponentId2;
+            opponent2 = formatOpponentData(match, 1, gameImage);
         }
 
         this.setState({
@@ -65,6 +63,8 @@ class OddsTable extends Component {
             opponent2,
             drawOdd,
             matchName: match.name,
+            matchId: match.id,
+            gameImage,
             isLoaded: true
         });
     }
@@ -83,7 +83,7 @@ class OddsTable extends Component {
 
     render() {
         const { betSlip } = this.props;
-        const { opponent1, opponent2, matchName, isLoaded, drawOdd } = this.state;
+        const { opponent1, opponent2, matchName, matchId, gameImage, isLoaded, drawOdd } = this.state;
 
         if(!isLoaded) { return null };
 
@@ -108,32 +108,11 @@ class OddsTable extends Component {
             selected : isDrawSelected
         });
 
-        const opponent1Bet = { 
-            id : opponent1.odd.participant_id,
-            image : opponent1.image,
-            title : matchName,
-            name : opponent1.name + " - Winner, Full Match",
-            probability : (1 / opponent1.odd.probability).toFixed(2),
-            amount: 0
-        }
+        const opponent1Bet = formatOpponentBet(opponent1, matchId, matchName, 0);
 
-        const opponent2Bet = { 
-            id : opponent2.odd.participant_id,
-            image : opponent2.image,
-            title : matchName,
-            name : opponent2.name + " - Winner, Full Match",
-            probability : (1 / opponent2.odd.probability).toFixed(2),
-            amount: 0
-        }
+        const opponent2Bet = formatOpponentBet(opponent2, matchId, matchName, 0);
 
-        const drawBet = { 
-            id : drawId,
-            image : <CloseIcon />,
-            title : matchName,
-            name : "Draw - Winner, Full Match",
-            probability : drawOdd != null ? (1 / drawOdd.probability).toFixed(2) : 0,
-            amount: 0
-        }
+        const drawBet = drawOdd != null ? formatDrawBet(drawId, drawOdd, matchId, matchName, gameImage, 0) : null;
 
         return (
             <div styleName="bets-menu">
@@ -151,7 +130,7 @@ class OddsTable extends Component {
                             drawOdd != null 
                             ?
                                 <div styleName={drawStyles} onClick={() => isDrawSelected ? this.handleRemoveToBetSlip(drawId) : this.handleAddToBetSlip(drawBet)}>
-                                    {drawBet.image}
+                                    <CloseIcon/>
                                     <Typography variant={'x-small-body'} color={'white'}>Draw</Typography>
                                     <Typography variant={'x-small-body'} color={'white'}>{(1 / drawOdd.probability).toFixed(2)}</Typography>
                                 </div>

@@ -5,7 +5,8 @@ import {
     getAllMatches,
     getAllMatchesBySeries,
     getSpecificMatch,
-    getSpecificTeam
+    getSpecificTeam,
+    createBet
   } from "lib/api/esports";
 import _ from 'lodash';
 
@@ -75,6 +76,18 @@ export async function getTeam(teamId, slug) {
             team_id: teamId,
             slug
         });
+
+        return await processResponse(res);
+    
+    } catch(err){
+        console.log(err)
+        throw err;
+    }
+}
+
+export async function bet(params, bearerToken) {
+    try {
+        let res = await createBet(params, bearerToken);
 
         return await processResponse(res);
     

@@ -3,7 +3,7 @@ import { Typography } from 'components';
 import { Shield } from "components/Esports";
 import { connect } from 'react-redux';
 import classNames from "classnames";
-import CloseIcon from "components/Icons/CloseCross";
+import { formatOpponentData, formatOpponentBet, formatDrawBet } from "../../../lib/helpers";
 import ReactCountryFlag from "react-country-flag"
 import { setBetSlipResult, removeBetSlipFromResult } from "../../../redux/actions/betSlip";
 import _ from 'lodash';
@@ -31,6 +31,8 @@ class Opponents extends Component {
             },
             drawOdd: null,
             matchName: "Team 1 x Team 2",
+            matchId: null,
+            gameImage: null,
             isScoreBoard: false,
             isLoaded: false,
             status: null
@@ -46,8 +48,11 @@ class Opponents extends Component {
     }
 
     projectData = async (props) => {
-        const { match, gameImage, isScoreBoard } = props;
+        const { match, isScoreBoard } = props;
         let { opponent1, opponent2, drawOdd } = this.state;
+
+        const images = require.context('assets/esports', true);
+        const gameImage = images('./' + match.videogame.slug + '-ico.png');
 
         if(_.isEmpty(match.opponents)) {
             opponent1.image = gameImage;
@@ -55,23 +60,11 @@ class Opponents extends Component {
         }
         else {
             const oddType = match.odds.winnerTwoWay.length > 0 ? match.odds.winnerTwoWay : match.odds.winnerThreeWay;
-            drawOdd = match.odds.winnerThreeWay.length > 0 ? (oddType.find(o => o.participant_id == null).probability).toFixed(2) : null;
+            drawOdd = match.odds.winnerThreeWay.length > 0 ? oddType.find(o => o.participant_id == null) : null;
 
-            const opponentId1 = match.opponents[0].opponent.id;
-            opponent1.odd = oddType.find(o => o.participant_id == opponentId1);
-            opponent1.image = match.opponents[0].opponent.image_url;
-            opponent1.name  = match.opponents[0].opponent.name;
-            opponent1.location  = match.opponents[0].opponent.location;
-            opponent1.score = match.results.find(r => r.team_id ==opponentId1).score;
-            opponent1.id = opponentId1;
-
-            const opponentId2 = match.opponents[1].opponent.id;
-            opponent2.odd = oddType.find(o => o.participant_id == opponentId2);
-            opponent2.image = match.opponents[1].opponent.image_url;
-            opponent2.name  = match.opponents[1].opponent.name;
-            opponent2.location  = match.opponents[0].opponent.location;
-            opponent2.score = match.results.find(r => r.team_id == opponentId2).score;
-            opponent2.id = opponentId2;
+            opponent1 = formatOpponentData(match, 0, gameImage);
+            
+            opponent2 = formatOpponentData(match, 1, gameImage);
         }
 
         this.setState({
@@ -79,6 +72,8 @@ class Opponents extends Component {
             opponent2,
             drawOdd,            
             matchName: match.name,
+            matchId: match.id,
+            gameImage,
             isScoreBoard: isScoreBoard === true ? true : false,
             isLoaded: true,
             status: match.status
@@ -96,14 +91,17 @@ class Opponents extends Component {
 
     async handleRemoveToBetSlip(event, id) {
         event.stopPropagation();
+
         await this.props.dispatch(removeBetSlipFromResult(id));
     }
 
     render() {
         const { betSlip } = this.props;
-        const { opponent1, opponent2, isScoreBoard, drawOdd, matchName, isLoaded, status } = this.state;
+        const { opponent1, opponent2, isScoreBoard, drawOdd, matchName, matchId, gameImage, isLoaded, status } = this.state;
 
         if(!isLoaded) { return null };
+
+        const drawId = opponent1.odd.participant_id + "" + opponent2.odd.participant_id;
 
         const isOpponent1Selected = !_.isEmpty(betSlip) ? betSlip.some(b => b.id === opponent1.odd.participant_id) : false;
         const team1Styles = classNames("team", {
@@ -119,40 +117,16 @@ class Opponents extends Component {
             "selected" : !isScoreBoard && isOpponent2Selected
         });
 
-        /*
         const isDrawSelected = !_.isEmpty(betSlip) ? betSlip.some(b => b.id === drawId) : false;
-        const drawStyles = classNames("bets-team", {
-            selected : isDrawSelected
-        });*/
+        const drawStyles = classNames("draw", {
+            "selected" : !isScoreBoard && isDrawSelected
+        });
 
-        const opponent1Bet = { 
-            id : opponent1.odd.participant_id,
-            image : opponent1.image,
-            title : matchName,
-            name : opponent1.name + " - Winner, Full Match",
-            probability : (1 / opponent1.odd.probability).toFixed(2),
-            amount: 0
-        }
+        const opponent1Bet = formatOpponentBet(opponent1, matchId, matchName, 0);
 
-        const opponent2Bet = { 
-            id : opponent2.odd.participant_id,
-            image : opponent2.image,
-            title : matchName,
-            name : opponent2.name + " - Winner, Full Match",
-            probability : (1 / opponent2.odd.probability).toFixed(2),
-            amount: 0
-        }
+        const opponent2Bet = formatOpponentBet(opponent2, matchId, matchName, 0);
 
-
-        /*
-        const drawId = opponent1.odd.participant_id + "" + opponent2.odd.participant_id;
-        const drawBet = { 
-            id : drawId,
-            image : <CloseIcon />,
-            title : matchName,
-            name : "Draw - Winner, Full Match",
-            probability : drawOdd != null ? (1 / drawOdd.probability).toFixed(2) : 0
-        }*/
+        const drawBet = drawOdd != null ? formatDrawBet(drawId, drawOdd, matchId, matchName, gameImage, 0) : null;
 
         return (
             <div styleName="teams">
@@ -197,7 +171,16 @@ class Opponents extends Component {
                     :
                         <div styleName="vs">
                             <Typography variant={'x-small-body'} color={'grey'}>
-                            {drawOdd == null ? "VS" : drawOdd}
+                            {
+                                drawOdd == null 
+                                ? 
+                                    "VS" 
+                                : 
+                                    <div styleName={drawStyles} onClick={(event) => {isDrawSelected ? this.handleRemoveToBetSlip(event, drawId) : this.handleAddToBetSlip(event, drawBet)}}>
+                                        <Typography variant={'x-small-body'} color={'grey'}>DRAW</Typography>
+                                        <Typography variant={'x-small-body'} color={'white'}>{(1 / drawOdd.probability).toFixed(2)}</Typography>
+                                    </div>
+                            }
                             </Typography>
                         </div>
 

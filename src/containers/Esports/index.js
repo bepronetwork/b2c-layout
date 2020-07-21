@@ -224,7 +224,7 @@ class Esports extends Component {
                             games={games}
                             onCleanGameFilter={this.handlerCleanGameFilterClick}
                             onGameFilter={this.handlerGameFilterClick}
-                            isLoading={isLoadingMatches}
+                            isLoading={isLoading}
                         />
                         <SerieFilter
                             games={games}

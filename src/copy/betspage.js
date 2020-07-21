@@ -3,8 +3,18 @@
     {
   "en": {
     "TABLE": {
-      "MY_BETS": {
-        "TITLE": "My Bets",
+      "CASINO": {
+        "TITLE": "Casino",
+        "ITEMS": [
+          "Game",
+          "Bet Id",
+          "Time",
+          "Payout",
+          "Profit"
+        ]
+      },
+      "ESPORTS": {
+        "TITLE": "eSports",
         "ITEMS": [
           "Game",
           "Bet Id",
@@ -17,8 +27,8 @@
   },
   "ko": {
     "TABLE": {
-      "MY_BETS": {
-        "TITLE": "나의 베팅",
+      "CASINO": {
+        "TITLE": "카지노",
         "ITEMS": [
           "게임",
           "내기 ID",
@@ -27,13 +37,23 @@
           "페이아웃",
           "이익"
         ]
+      },
+      "ESPORTS": {
+        "TITLE": "eSports",
+        "ITEMS": [
+          "Game",
+          "Bet Id",
+          "Time",
+          "Payout",
+          "Profit"
+        ]
       }
     }
   },
   "ch": {
     "TABLE": {
-      "MY_BETS": {
-        "TITLE": "我的投注",
+      "CASINO": {
+        "TITLE": "赌场",
         "ITEMS": [
           "游戏",
           "打赌 ID",
@@ -42,13 +62,23 @@
           "花费",
           "利润"
         ]
+      },
+      "ESPORTS": {
+        "TITLE": "eSports",
+        "ITEMS": [
+          "Game",
+          "Bet Id",
+          "Time",
+          "Payout",
+          "Profit"
+        ]
       }
     }
   },
   "jp": {
     "TABLE": {
-      "MY_BETS": {
-        "TITLE": "私の賭け",
+      "CASINO": {
+        "TITLE": "Casino",
         "ITEMS": [
           "ゲーム",
           "ベットID",
@@ -56,6 +86,16 @@
           "ベット",
           "ペイアウト",
           "利益"
+        ]
+      },
+      "ESPORTS": {
+        "TITLE": "eSports",
+        "ITEMS": [
+          "Game",
+          "Bet Id",
+          "Time",
+          "Payout",
+          "Profit"
         ]
       }
     }

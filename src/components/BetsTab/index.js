@@ -2,7 +2,8 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Numbers } from "../../lib/ethereum/lib";
 import { dateToHourAndMinute, getGames, getSkeletonColors } from "../../lib/helpers";
-import { SelectBox, Table, RewardIcon, Tabs } from 'components';
+import { getGames as getVideoGames } from "controllers/Esports/EsportsUser";
+import { SelectBox, Table, Tabs } from 'components';
 import { formatCurrency } from "../../utils/numberFormatation";
 import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 import { CopyText } from "../../copy";
@@ -13,7 +14,34 @@ const views = [{ text : 10, value : 10 }, { text : 25, value : 25 }, { text : 50
 const allGames =  { text : 'All Games', value : 'all_games' };
 
 const rows = {
-    my_bets : {
+    casino : {
+        titles : [],
+        fields : [
+            {
+                value : 'game',
+                image : true
+            },
+            {
+                value : 'id'
+            },
+            {
+                value : 'timestamp'
+            },
+            {
+                value : 'winAmount',
+                dependentColor : true,
+                condition : 'isWon',
+                currency: true
+            },
+            {
+                value : 'payout'
+                //dependentColor : true,
+                //condition : 'isWon'
+            }
+        ],
+        rows : []
+    },
+    esports : {
         titles : [],
         fields : [
             {
@@ -44,11 +72,15 @@ const rows = {
   
 
 const defaultProps = {
-    my_bets     : rows.my_bets,
-    view        : 'my_bets',
+    casino     : rows.casino,
+    view        : 'casino',
     view_amount : views[0],
     gamesOptions : [],
+    casinoGamesOptions : [],
+    esportsGamesOptions : [],
     games : [],
+    casinoGames : [],
+    esportsGames : [],
     options : [],
     view_game : allGames,
     isLoading: true,
@@ -79,21 +111,37 @@ class BetsTab extends Component {
 
     projectData = async (props, options=null) => {
         let { profile, ln, onTableDetails } = props;
-        let { view_amount, view_game } = this.state;
+        let { view, view_amount, view_game } = this.state;
         const copy = CopyText.betspage[ln];
-        let my_bets = [];
+        let casino = [];
+        let esports = [];
+        let casinoGames = [];
+        let esportsGames = [];
+        let games = [];
+        let casinoGamesOptions = [];
+        let esportsGamesOptions = [];
 
-        let games = getGames();
-        let gamesOptions = [];
-        gamesOptions.push(allGames);
-
-        games.map( (data) => {
+        casinoGames = await getGames();
+        casinoGamesOptions.push(allGames);
+        casinoGames.map( (data) => {
             const n = {
                 value :  data.metaName,
                 text : data.name
             }
-            gamesOptions.push(n);
+            casinoGamesOptions.push(n);
         });
+
+        esportsGames = await getVideoGames();
+        esportsGamesOptions.push(allGames);
+        esportsGames.map( (data) => {
+            const n = {
+                value :  data._id,
+                text : data.name
+            }
+            esportsGamesOptions.push(n);
+        });
+
+        games = view == "casino" ? casinoGames : esportsGames;
 
         if(options){
             view_amount = options.view_amount ? options.view_amount : view_amount;
@@ -103,10 +151,12 @@ class BetsTab extends Component {
         if(profile && !_.isEmpty(profile)){
             if(view_game.value != "all_games") {
                 const gameId = games.find(g =>g.metaName === view_game.value)._id;
-                my_bets = await profile.getMyBets({size : view_amount.value, game : gameId});
+                casino = await profile.getMyBets({size : view_amount.value, game : gameId, tag: "casino"});
+                esports = await profile.getMyBets({size : view_amount.value, game : gameId, tag: "esports"});
             }
             else {
-                my_bets = await profile.getMyBets({size : view_amount.value});
+                casino = await profile.getMyBets({size : view_amount.value, tag: "casino"});
+                esports = await profile.getMyBets({size : view_amount.value, tag: "esports"});
             }
         }
 
@@ -115,17 +165,38 @@ class BetsTab extends Component {
             isLoading : false,
             isListLoading : false,
             games,
-            gamesOptions,
+            casinoGames,
+            esportsGames,
+            gamesOptions: view == "casino" ? casinoGamesOptions : esportsGamesOptions,
+            casinoGamesOptions,
+            esportsGamesOptions,
             options : Object.keys(copy.TABLE).map( (key) => {
                 return {
                     value : new String(key).toLowerCase(),
                     label : copy.TABLE[key].TITLE
                 }
             }),
-            my_bets : {
-                ...this.state.my_bets,
-                titles : copy.TABLE.MY_BETS.ITEMS,
-                rows : my_bets.map( (bet) =>  {
+            casino : {
+                ...this.state.casino,
+                titles : copy.TABLE.CASINO.ITEMS,
+                rows : casino.map( (bet) =>  {
+                    return {
+                        game: (games.find(game => game._id === bet.game)),
+                        id: bet._id,
+                        timestamp: dateToHourAndMinute(bet.timestamp),
+                        betAmount: formatCurrency(Numbers.toFloat(bet.betAmount)),
+                        winAmount: formatCurrency(Numbers.toFloat(bet.winAmount)),
+                        currency: bet.currency,
+                        isWon : bet.isWon,
+                        payout : `${formatCurrency(Numbers.toFloat(bet.winAmount/bet.betAmount))}x`
+                    }
+                }),
+                onTableDetails : onTableDetails ? onTableDetails : null
+            },
+            esports : {
+                ...this.state.esports,
+                titles : copy.TABLE.ESPORTS.ITEMS,
+                rows : esports.map( (bet) =>  {
                     return {
                         game: (games.find(game => game._id === bet.game)),
                         id: bet._id,
@@ -156,6 +227,15 @@ class BetsTab extends Component {
         this.setTimer({view_game : option})
     }
 
+    handleTabChange = async name => {
+        const { casinoGamesOptions, esportsGamesOptions, casinoGames, esportsGames } = this.state;
+        this.setState({...this.state, 
+            view : name, 
+            gamesOptions: name == "casino" ? casinoGamesOptions : esportsGamesOptions,
+            games: name == "casino" ? casinoGames : esportsGames
+        });
+    };
+
     render() {
         const { onTableDetails } = this.props;
         const { games, gamesOptions, isLoading, isListLoading, view_game, options, view } = this.state;
@@ -180,6 +260,7 @@ class BetsTab extends Component {
                         <Tabs
                             selected={view}
                             options={options}
+                            onSelect={this.handleTabChange}
                         />
                         <div styleName="filters">
                             <div styleName='bets-dropdown-game'>

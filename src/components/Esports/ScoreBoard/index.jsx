@@ -36,7 +36,6 @@ class ScoreBoard extends Component {
                     </div>
                 </div>
                 <Opponents 
-                    gameImage={image} 
                     isScoreBoard={true} 
                     match={match}
                 />

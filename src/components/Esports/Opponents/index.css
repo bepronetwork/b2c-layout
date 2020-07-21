@@ -83,6 +83,16 @@
   border-bottom: unset;
 }
 
+.draw {
+  width: 56px;
+  height: 100%;
+  text-align: center;
+  background-color: $primaryColor-5;
+  border-radius: $border-radius;
+  padding: $spacing-4;
+  align-items: center;
+}
+
 .selected {
   background-color: $secondaryColor;
 }

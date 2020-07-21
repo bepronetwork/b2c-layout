@@ -172,7 +172,7 @@ class LastBets extends Component {
         let my_bets = [];
 
         if(profile && !_.isEmpty(profile)){
-            my_bets = await profile.getMyBets({size : view_amount.value, game : gameId });
+            my_bets = await profile.getMyBets({size : view_amount.value, game : gameId, tag: "casino" });
         }
 
         this.setState({...this.state, 
