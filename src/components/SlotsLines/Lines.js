@@ -15,14 +15,14 @@ const HandleLines = ({ insertion1, insertion2 }) => {
           viewBox="0 5 100 100"
         />
       ) : null}
-      {insertion1 === 18 && insertion2 === 19 ? (
+      {/* {insertion1 === 18 && insertion2 === 19 ? (
         <Line
           svgClass={styles.classLine}
           polylineClass={styles.classSvg}
-          points="18 15, 18 25, 47.4 50, 76 15"
+          points="18 25, 47.4 50, 76 15"
           viewBox="0 5 100 100"
         />
-      ) : null}
+      ) : null} */}
       {insertion1 === 19 && insertion2 === 19 ? (
         <Line
           svgClass={styles.classLine}
@@ -44,6 +44,14 @@ const HandleLines = ({ insertion1, insertion2 }) => {
           svgClass={styles.classLine}
           polylineClass={styles.classSvg}
           points="18 15, 47.4 15, 76 15"
+          viewBox="0 5 100 100"
+        />
+      ) : null}
+      {insertion1 === 20 && insertion2 === 20 ? (
+        <Line
+          svgClass={styles.classLine}
+          polylineClass={styles.classSvg}
+          points="18 85,18 85, 18 85, 33 85, 74 85"
           viewBox="0 5 100 100"
         />
       ) : null}

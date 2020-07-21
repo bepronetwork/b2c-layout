@@ -45,9 +45,6 @@ class SlotsGame extends React.Component {
     this.getcolumn();
     await this.handleAnimations();
 
-    // this.setInsertArray();
-    await this.randomNumberResult();
-
     await this.handleImage(1000);
     await this.setResult();
   };
@@ -58,6 +55,8 @@ class SlotsGame extends React.Component {
     await this.handleAnimation("columnItem3");
     await this.handleAnimation("columnItem4");
     await this.handleAnimation("columnItem5");
+
+    await this.randomNumberResult();
 
     return new Promise(resolve => setTimeout(() => resolve(), 2000));
   };
@@ -71,8 +70,8 @@ class SlotsGame extends React.Component {
         { transform: "translate3D(0, 600px, 0)" }
       ],
       {
-        duration: 1000,
-        iterations: 4
+        duration: 500,
+        iterations: 8
       }
     );
 
@@ -93,7 +92,7 @@ class SlotsGame extends React.Component {
 
   setResult = async () => {
     this.setState({ result: true });
-  }
+  };
 
   getcolumn = async () => {
     const { matrixResult } = this.state;
@@ -166,13 +165,7 @@ class SlotsGame extends React.Component {
     this.setState({ line: true });
     this.setState({ testBol });
     this.setState({
-      insertIndex: [
-        insertionIndex[0],
-        insertionIndex[1],
-        insertionIndex[2],
-        insertionIndex[3],
-        insertionIndex[4]
-      ]
+      insertIndex: [insertionIndex[0], insertionIndex[1]]
     });
 
     return new Promise(resolve => setTimeout(() => resolve(), setTimeOut));
@@ -207,16 +200,6 @@ class SlotsGame extends React.Component {
                 insertion2={insertIndex[1]}
               />
             ) : null}
-
-            {/* 5 */}
-            {/* {testBol[59] ? (
-                <Line
-                  svgClass={styles.classLine}
-                  polylineClass={styles.classSvg}
-                  points="9 55,12 55, 18 55, 33 55, 76 55"
-                  viewBox="0 5 100 100"
-                />
-              ) : null} */}
             {/* 
               {testBol[3] ? (
                 <Line
