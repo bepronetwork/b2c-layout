@@ -13,7 +13,7 @@ class SlotsGame extends React.Component {
       result: false,
       matrixResult: [],
       testBol: Array(5).fill(false),
-      testArray: [[1, 1, 2, 4, 2]],
+      testArray: [[1, 1, 1, 4, 2]],
       resultFirstColumn: [],
       resultSecondColumn: [],
       resultThirstColumn: [],
@@ -160,12 +160,14 @@ class SlotsGame extends React.Component {
 
       testBol[0 + i] = true;
       testBol[0 + (i + 1)] = true;
+
       i += 1;
+      console.log(testBol);
     }
     this.setState({ line: true });
     this.setState({ testBol });
     this.setState({
-      insertIndex: [insertionIndex[0], insertionIndex[1]]
+      insertIndex: insertionIndex
     });
 
     return new Promise(resolve => setTimeout(() => resolve(), setTimeOut));
@@ -181,7 +183,8 @@ class SlotsGame extends React.Component {
       resultThirstColumn,
       resultFourthColumn,
       resultFiveColumn,
-      insertIndex
+      insertIndex,
+      insertionIndex
     } = this.state;
 
     return (
@@ -194,6 +197,14 @@ class SlotsGame extends React.Component {
         </div>
         <div className={styles.rowContainer}>
           <div className={styles.spinnerContainer}>
+          <div className={styles.lineTest}>
+            <Line
+              svgClass={styles.classLine}
+              polylineClass={styles.classSvg}
+              points="18 50, 18 50, 33 50, 47.5 15, 76 15"
+              viewBox="0 5 100 100"
+            />
+            </div>
             {line === true ? (
               <HandleLines
                 insertion1={insertIndex[0]}
@@ -246,7 +257,9 @@ class SlotsGame extends React.Component {
                     src={images[num]}
                     alt=""
                     className={
-                      index === insertIndex[0] ? styles.icon : styles.iconStatic
+                      index === insertIndex[0] && testBol[0] === true
+                        ? styles.icon
+                        : styles.iconStatic
                     }
                   />
                 );
@@ -260,7 +273,9 @@ class SlotsGame extends React.Component {
                     src={images[num]}
                     alt=""
                     className={
-                      index === insertIndex[1] ? styles.icon : styles.iconStatic
+                      index === insertIndex[1] && testBol[1] === true
+                        ? styles.icon
+                        : styles.iconStatic
                     }
                   />
                 );
@@ -274,7 +289,9 @@ class SlotsGame extends React.Component {
                     src={images[num]}
                     alt=""
                     className={
-                      index === insertIndex[2] ? styles.icon : styles.iconStatic
+                      index === insertIndex[2] && testBol[2] === true
+                        ? styles.icon
+                        : styles.iconStatic
                     }
                   />
                 );
@@ -288,7 +305,9 @@ class SlotsGame extends React.Component {
                     src={images[num]}
                     alt=""
                     className={
-                      index === insertIndex[3] ? styles.icon : styles.iconStatic
+                      index === insertIndex[3] && testBol[3] === true
+                        ? styles.icon
+                        : styles.iconStatic
                     }
                   />
                 );
@@ -302,7 +321,9 @@ class SlotsGame extends React.Component {
                     src={images[num]}
                     alt=""
                     className={
-                      index === insertIndex[4] ? styles.icon : styles.iconStatic
+                      index === insertIndex[4] && testBol[4] === true
+                        ? styles.icon
+                        : styles.iconStatic
                     }
                   />
                 );
