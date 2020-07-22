@@ -19,8 +19,8 @@
           "Game",
           "Bet Id",
           "Time",
-          "Payout",
-          "Profit"
+          "Bet Amount",
+          "Win Amount"
         ]
       }
     }
@@ -44,8 +44,8 @@
           "Game",
           "Bet Id",
           "Time",
-          "Payout",
-          "Profit"
+          "Bet Amount",
+          "Win Amount"
         ]
       }
     }
@@ -69,8 +69,8 @@
           "Game",
           "Bet Id",
           "Time",
-          "Payout",
-          "Profit"
+          "Bet Amount",
+          "Win Amount"
         ]
       }
     }
@@ -94,8 +94,8 @@
           "Game",
           "Bet Id",
           "Time",
-          "Payout",
-          "Profit"
+          "Bet Amount",
+          "Win Amount"
         ]
       }
     }

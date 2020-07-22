@@ -160,6 +160,9 @@ class BetsTab extends Component {
             }
         }
 
+        console.log("esports", esports)
+        console.log("esportsGames", esportsGames)
+
         this.setState({...this.state, 
             ...options,
             isLoading : false,
@@ -181,7 +184,7 @@ class BetsTab extends Component {
                 titles : copy.TABLE.CASINO.ITEMS,
                 rows : casino.map( (bet) =>  {
                     return {
-                        game: (games.find(game => game._id === bet.game)),
+                        game: (casinoGames.find(game => game._id === bet.game)),
                         id: bet._id,
                         timestamp: dateToHourAndMinute(bet.timestamp),
                         betAmount: formatCurrency(Numbers.toFloat(bet.betAmount)),
@@ -198,14 +201,13 @@ class BetsTab extends Component {
                 titles : copy.TABLE.ESPORTS.ITEMS,
                 rows : esports.map( (bet) =>  {
                     return {
-                        game: (games.find(game => game._id === bet.game)),
+                        game: (esportsGames.find(game => game._id === bet.game)),
                         id: bet._id,
                         timestamp: dateToHourAndMinute(bet.timestamp),
                         betAmount: formatCurrency(Numbers.toFloat(bet.betAmount)),
                         winAmount: formatCurrency(Numbers.toFloat(bet.winAmount)),
                         currency: bet.currency,
-                        isWon : bet.isWon,
-                        payout : `${formatCurrency(Numbers.toFloat(bet.winAmount/bet.betAmount))}x`
+                        isWon : bet.isWon
                     }
                 }),
                 onTableDetails : onTableDetails ? onTableDetails : null
