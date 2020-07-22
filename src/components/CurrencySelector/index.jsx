@@ -7,6 +7,9 @@ import { formatCurrency } from '../../utils/numberFormatation';
 import { connect } from "react-redux";
 import { getApp } from "../../lib/helpers";
 import { setCurrencyView } from "../../redux/actions/currency";
+import Tooltip from '@material-ui/core/Tooltip';
+import { withStyles } from "@material-ui/core/styles";
+import { getAppCustomization } from "../../lib/helpers";
 import _ from 'lodash';
 
 import "./index.css";
@@ -116,16 +119,42 @@ class CurrencySelector extends Component {
         const wApp = getApp().wallet.find(w => w.currency._id === currency._id);
         const icon = _.isEmpty(wApp.image) ? currency.image : wApp.image;
 
+        const { colors } = getAppCustomization();
+        const secondaryColor = colors.find(c => {
+            return c.type == "secondaryColor"
+        })
+
+        const SecondaryTooltip = withStyles({
+            tooltip: {
+              color: "white",
+              backgroundColor: secondaryColor.hex
+            }
+        })(Tooltip);
+
         return (
-            <div styleName="label">
-                <div styleName="currency-icon">
-                    <img src={icon} width={20}/>
+            w.bonusAmount > 0
+            ?
+                <SecondaryTooltip title={`Bonus: ${balance}`}>
+                    <div styleName="label">
+                        <div styleName="currency-icon">
+                            <img src={icon} width={20}/>
+                        </div>
+                        <span>
+                            <Typography color="white" variant={'small-body'}>{balance}</Typography>
+                        </span>                    
+                        {open ? <ArrowUp /> : <ArrowDown />}
+                    </div>
+                </SecondaryTooltip>
+            :
+                <div styleName="label">
+                    <div styleName="currency-icon">
+                        <img src={icon} width={20}/>
+                    </div>
+                    <span>
+                        <Typography color="white" variant={'small-body'}>{balance}</Typography>
+                    </span>                    
+                    {open ? <ArrowUp /> : <ArrowDown />}
                 </div>
-                <span>
-                    <Typography color="white" variant={'small-body'}>{balance}</Typography>
-                </span>
-                {open ? <ArrowUp /> : <ArrowDown />}
-            </div>
         );
     }
 
