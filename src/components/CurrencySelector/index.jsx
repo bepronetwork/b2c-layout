@@ -83,7 +83,7 @@ class CurrencySelector extends Component {
                 const w = profile.getWallet({currency : c});
                 return {
                     value: c._id,
-                    label: _.isEmpty(w) ? 0 : formatCurrency(w.playBalance),
+                    label: _.isEmpty(w) ? 0 : w.bonusAmount > 0 ? formatCurrency(w.playBalance + w.bonusAmount) : formatCurrency(w.playBalance),
                     icon: c.image,
                     currency: c
                 }
@@ -118,7 +118,8 @@ class CurrencySelector extends Component {
         const balance =  _.isEmpty(w) ? 0 : formatCurrency(w.playBalance);
         const wApp = getApp().wallet.find(w => w.currency._id === currency._id);
         const icon = _.isEmpty(wApp.image) ? currency.image : wApp.image;
-        const bonusAmount = w.bonusAmount > 0 ? Number(w.bonusAmount) + Number(balance) : 0;
+        const bonusPlusBalance = w.bonusAmount > 0 ? Number(w.bonusAmount) + Number(balance) : balance;
+        const bonusAmount = w.bonusAmount > 0 ? Number(w.bonusAmount) : 0;
 
         const { colors } = getAppCustomization();
         const secondaryColor = colors.find(c => {
@@ -135,14 +136,14 @@ class CurrencySelector extends Component {
         return (
             bonusAmount > 0
             ?
-                <SecondaryTooltip title={`Bonus: ${bonusAmount}`}>
+                <SecondaryTooltip title={`Bonus: ${formatCurrency(bonusAmount)}`}>
                     <div styleName="label">
                         <div styleName="currency-icon">
                             <img src={icon} width={20}/>
                         </div>
                         <span>
-                            <Typography color="white" variant={'small-body'}>{balance}</Typography>
-                        </span>
+                            <Typography color="white" variant={'small-body'}>{formatCurrency(bonusPlusBalance)}</Typography>
+                        </span>                    
                         {open ? <ArrowUp /> : <ArrowDown />}
                     </div>
                 </SecondaryTooltip>
@@ -152,8 +153,8 @@ class CurrencySelector extends Component {
                         <img src={icon} width={20}/>
                     </div>
                     <span>
-                        <Typography color="white" variant={'small-body'}>{balance}</Typography>
-                    </span>
+                        <Typography color="white" variant={'small-body'}>{formatCurrency(balance)}</Typography>
+                    </span>                    
                     {open ? <ArrowUp /> : <ArrowDown />}
                 </div>
         );
