@@ -6,6 +6,7 @@ import { Col, Row } from 'reactstrap';
 import { getApp, getAddOn } from "../../../lib/helpers";
 import { setMessageNotification } from '../../../redux/actions/message';
 import { setWithdrawInfo } from "../../../redux/actions/withdraw";
+import { ProgressBar } from 'react-bootstrap';
 import store from 'containers/App/store';
 import { CopyText } from '../../../copy';
 import { formatCurrency } from '../../../utils/numberFormatation';
@@ -28,8 +29,9 @@ const defaultProps = {
     isTxFee: false,
     maxBalance: 0,
     minBalance: 0,
-    isAsking: false
-    
+    isAsking: false,
+    minBetAmountForBonusUnlocked: 0,
+    incrementBetAmountForBonus: 0  
 }
 
 class Form extends Component {
@@ -97,7 +99,9 @@ class Form extends Component {
             isTxFee,
             fee: isTxFee === true ? getAddOn().txFee.withdraw_fee.find(f => f.currency === currency._id).amount : null,
             maxBalance : formatCurrency(appWallet.max_withdraw > wallet.playBalance ? wallet.playBalance : appWallet.max_withdraw),
-            minBalance : formatCurrency(appWallet.min_withdraw > wallet.playBalance ? wallet.playBalance : appWallet.min_withdraw)
+            minBalance : formatCurrency(appWallet.min_withdraw > wallet.playBalance ? wallet.playBalance : appWallet.min_withdraw),
+            minBetAmountForBonusUnlocked : wallet.minBetAmountForBonusUnlocked,
+            incrementBetAmountForBonus : wallet.incrementBetAmountForBonus
         })
     }
 
@@ -146,7 +150,8 @@ class Form extends Component {
 
     render() {
         const { amount, image, maxWithdraw, minWithdraw, maxBalance, minBalance, ticker, 
-                addressInitialized, isLoaded, toAddress, disabled, isTxFee, fee, isAsking
+                addressInitialized, isLoaded, toAddress, disabled, isTxFee, fee, isAsking,
+                minBetAmountForBonusUnlocked, incrementBetAmountForBonus
         } = this.state;
         const {ln, isAffiliate} = this.props;
         const copy = CopyText.amountFormIndex[ln];
@@ -159,11 +164,53 @@ class Form extends Component {
             )
         }
 
+        const percenteToBonus = 100 * (incrementBetAmountForBonus / minBetAmountForBonusUnlocked);
+
         return (
             <div>
                 {addressInitialized 
                 ?
                     <div styleName="box">
+                        {
+                            percenteToBonus > 0 
+                            ?
+                                <div styleName="pb">
+                                    <div styleName="pb-text">
+                                        <Typography variant={'x-small-body'} color={'white'}>
+                                            How much bet amount left to unlock Withdraw Bonus.
+                                        </Typography>
+                                    </div>
+                                    <div styleName="pb-main">
+                                        <div styleName="pb-left">
+                                            <Typography variant={'x-small-body'} color={'white'} weight={'bold'}>
+                                                Locked
+                                            </Typography>
+                                        </div>
+                                        <div styleName="pb-right">
+                                            <Typography variant={'x-small-body'} color={'white'} weight={'bold'}>
+                                                Withdrawable
+                                            </Typography>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <ProgressBar animated striped variant="warning" now={percenteToBonus} />
+                                    </div>
+                                    <div styleName="pb-main">
+                                        <div styleName="pb-left">
+                                            <Typography variant={'x-small-body'} color={'white'}>
+                                                {`${incrementBetAmountForBonus} ${ticker}`}
+                                            </Typography>
+                                        </div>
+                                        <div styleName="pb-right">
+                                            <Typography variant={'x-small-body'} color={'white'}>
+                                                {`${minBetAmountForBonusUnlocked} ${ticker}`}
+                                            </Typography>
+                                        </div>
+                                    </div>
+                                </div>
+                            :
+                                null
+                        }
                         <Row>
                             <Col md={12}>
                                 <div style={{marginBottom : 20, marginTop : 10}}>
