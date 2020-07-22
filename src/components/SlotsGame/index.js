@@ -13,7 +13,7 @@ class SlotsGame extends React.Component {
       result: false,
       matrixResult: [],
       testBol: Array(5).fill(false),
-      testArray: [[1, 1, 1, 4, 2]],
+      testArray: [[1, 1, 3, 2, 6]],
       resultFirstColumn: [],
       resultSecondColumn: [],
       resultThirstColumn: [],
@@ -177,14 +177,14 @@ class SlotsGame extends React.Component {
     const {
       testBol,
       line,
+      testArray,
       result,
       resultFirstColumn,
       resultSecondColumn,
       resultThirstColumn,
       resultFourthColumn,
       resultFiveColumn,
-      insertIndex,
-      insertionIndex
+      insertIndex
     } = this.state;
 
     return (
@@ -197,43 +197,23 @@ class SlotsGame extends React.Component {
         </div>
         <div className={styles.rowContainer}>
           <div className={styles.spinnerContainer}>
-          <div className={styles.lineTest}>
-            <Line
-              svgClass={styles.classLine}
-              polylineClass={styles.classSvg}
-              points="18 50, 18 50, 33 50, 47.5 15, 76 15"
-              viewBox="0 5 100 100"
-            />
-            </div>
-            {line === true ? (
-              <HandleLines
-                insertion1={insertIndex[0]}
-                insertion2={insertIndex[1]}
-              />
-            ) : null}
-            {/* 
-              {testBol[3] ? (
-                <Line
-                  svgClass={styles.classLine}
-                  polylineClass={styles.classSvg}
-                  points="10 97,12 94, 18 94, 33 94, 76 94"
-                  viewBox="0 5 100 100"
-                />
-              ) : null} */}
-            <div
-              width="600px"
-              height="300px"
-              style={{ border: "1px solid #d3d3d3;" }}
-              className={styles.lineTest}
-            >
-              {testBol[58] ? (
-                <Line
-                  svgClass={styles.classLine}
-                  polylineClass={styles.classSvg}
-                  points="9 13,12 14, 80 14"
-                  viewBox="0 3 100 100"
+            <div className={styles.lineTest}>
+              {line === true ? (
+                <HandleLines
+                  arrayResult={testArray[0]}
+                  insertion1={insertIndex[0]}
+                  insertion2={insertIndex[1]}
+                  insertion3={insertIndex[2]}
+                  insertion4={insertIndex[3]}
+                  insertion5={insertIndex[4]}
                 />
               ) : null}
+                    {/* <Line
+          svgClass={styles.classLine}
+          polylineClass={styles.classSvg}
+          points="18 15, 33 15,  15, 62 55, 76 55"
+          viewBox="0 5 100 100"
+        /> */}
             </div>
             {testBol[0] ||
             testBol[1] ||
