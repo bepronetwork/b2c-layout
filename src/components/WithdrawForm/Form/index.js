@@ -101,7 +101,8 @@ class Form extends Component {
             maxBalance : formatCurrency(appWallet.max_withdraw > wallet.playBalance ? wallet.playBalance : appWallet.max_withdraw),
             minBalance : formatCurrency(appWallet.min_withdraw > wallet.playBalance ? wallet.playBalance : appWallet.min_withdraw),
             minBetAmountForBonusUnlocked : wallet.minBetAmountForBonusUnlocked,
-            incrementBetAmountForBonus : wallet.incrementBetAmountForBonus
+            incrementBetAmountForBonus : wallet.incrementBetAmountForBonus,
+            bonusAmount : wallet.bonusAmount
         })
     }
 
@@ -151,7 +152,7 @@ class Form extends Component {
     render() {
         const { amount, image, maxWithdraw, minWithdraw, maxBalance, minBalance, ticker, 
                 addressInitialized, isLoaded, toAddress, disabled, isTxFee, fee, isAsking,
-                minBetAmountForBonusUnlocked, incrementBetAmountForBonus
+                minBetAmountForBonusUnlocked, incrementBetAmountForBonus, bonusAmount
         } = this.state;
         const {ln, isAffiliate} = this.props;
         const copy = CopyText.amountFormIndex[ln];
@@ -172,23 +173,18 @@ class Form extends Component {
                 ?
                     <div styleName="box">
                         {
-                            percenteToBonus > 0 
+                            minBetAmountForBonusUnlocked > 0 
                             ?
                                 <div styleName="pb">
                                     <div styleName="pb-text">
                                         <Typography variant={'x-small-body'} color={'white'}>
-                                            How much bet amount left to unlock Withdraw Bonus.
+                                            Betting needed to allow the bonus withdraw.
                                         </Typography>
                                     </div>
                                     <div styleName="pb-main">
                                         <div styleName="pb-left">
                                             <Typography variant={'x-small-body'} color={'white'} weight={'bold'}>
-                                                Locked
-                                            </Typography>
-                                        </div>
-                                        <div styleName="pb-right">
-                                            <Typography variant={'x-small-body'} color={'white'} weight={'bold'}>
-                                                Withdrawable
+                                                {`Progress (${percenteToBonus}%)`}
                                             </Typography>
                                         </div>
                                     </div>
@@ -198,12 +194,7 @@ class Form extends Component {
                                     <div styleName="pb-main">
                                         <div styleName="pb-left">
                                             <Typography variant={'x-small-body'} color={'white'}>
-                                                {`${incrementBetAmountForBonus} ${ticker}`}
-                                            </Typography>
-                                        </div>
-                                        <div styleName="pb-right">
-                                            <Typography variant={'x-small-body'} color={'white'}>
-                                                {`${minBetAmountForBonusUnlocked} ${ticker}`}
+                                                {`${bonusAmount} ${ticker}`}
                                             </Typography>
                                         </div>
                                     </div>
