@@ -1,6 +1,5 @@
 import React from "react";
 
-import Line from "components/SlotsLines";
 import styles from "./index.css";
 import images from "./Spinner/images";
 import HandleLines from "../SlotsLines/Lines";
@@ -13,7 +12,7 @@ class SlotsGame extends React.Component {
       result: false,
       matrixResult: [],
       testBol: Array(5).fill(false),
-      testArray: [[1, 1, 3, 2, 6]],
+      testArray: [[1, 1, 5, 1, 1]],
       resultFirstColumn: [],
       resultSecondColumn: [],
       resultThirstColumn: [],
