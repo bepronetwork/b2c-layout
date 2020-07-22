@@ -179,11 +179,20 @@
 }
 
 .pb-main {
+    display: grid;
+    grid-template-columns: auto auto;
     align-items: center;
     margin: $spacing-8 0;
 }
 
 .pb-left {
+    text-align: left;
+}
+
+.pb-right {
+    justify-content: flex-end;
+    display: inline-flex;
+    align-items: center;
 }
 
 :global(.bg-warning) {
