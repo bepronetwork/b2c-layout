@@ -3,6 +3,7 @@ import { Typography, Button, Tabs, InputNumber } from 'components';
 import { BetSlipBox } from 'components/Esports';
 import { removeAllFromResult } from "../../../redux/actions/betSlip";
 import { formatCurrency } from "../../../utils/numberFormatation";
+import { bet } from "controllers/Esports/EsportsUser";
 import { connect } from 'react-redux';
 import _ from 'lodash';
 import "./index.css";
@@ -49,6 +50,19 @@ class BetSlip extends Component {
         });
     };
 
+    handleCreateBet = () => {
+        const { profile } = this.props;
+        const { betSlip, tab, amount } = this.state;
+        //const { app, matchId, user } = params;
+        console.log("betSlip", betSlip[0].matchId)
+        const params = {
+            app: profile.app.id,
+            user: profile.id,
+            matchId: betSlip[0].matchId
+        }
+        bet(params, profile.bearerToken);
+    };
+
     render() {
         const user = this.props.profile;
         const { betSlip, tab, amount } = this.state;
@@ -91,8 +105,8 @@ class BetSlip extends Component {
                             </div>
                             <div styleName="bet-slip">
                                 {betSlip.map(bet => {
-                                    totalSimpleAmount += (bet.amount * bet.probability);
-                                    totalMultipleOdd = totalMultipleOdd * bet.probability;
+                                    totalSimpleAmount += (bet.amount * (1 / bet.probability));
+                                    totalMultipleOdd = totalMultipleOdd * (1 / bet.probability);
                                     return (
                                         <BetSlipBox bet={bet} type={tab} />
                                     )
@@ -140,7 +154,7 @@ class BetSlip extends Component {
                                     }
                                 </div>
                                 <div styleName="button">
-                                    <Button fullWidth theme="primary">
+                                    <Button fullWidth theme="primary" onClick={() => this.handleCreateBet()}>
                                         <Typography weight="semi-bold" color="fixedwhite">
                                             Bet
                                         </Typography>

@@ -87,7 +87,7 @@ class OddsTable extends Component {
 
         if(!isLoaded) { return null };
 
-        const drawId = opponent1.odd.participant_id + "" + opponent2.odd.participant_id;
+        const drawId = parseInt(opponent1.odd.participant_id + "" + opponent2.odd.participant_id);
 
         const mainStyles = classNames("bets-placar", {
             "bets-placar-3" : drawOdd != null

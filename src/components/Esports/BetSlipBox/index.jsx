@@ -54,6 +54,8 @@ class BetSlipBox extends Component {
             "controls-one" : type == "multiple"
         });
 
+        const returnBet = (1 / bet.probability).toFixed(2);
+
         return (
             <div styleName="box">
                 <div styleName="bet-header">
@@ -96,7 +98,7 @@ class BetSlipBox extends Component {
                     }
                     <div styleName={styles}>
                         <Typography variant={'small-body'} color={'casper'}>
-                            {bet.probability}
+                            {returnBet}
                         </Typography>
                     </div>
                 </div>
@@ -105,7 +107,7 @@ class BetSlipBox extends Component {
                     ?
                         <div styleName="return">
                             <Typography variant={'x-small-body'} color={'grey'}>
-                                to return: {formatCurrency(amount * bet.probability)}
+                                to return: {formatCurrency(amount * returnBet)}
                             </Typography>
                         </div>
                     :

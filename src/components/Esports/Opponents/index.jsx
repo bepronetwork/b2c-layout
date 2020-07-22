@@ -101,7 +101,7 @@ class Opponents extends Component {
 
         if(!isLoaded) { return null };
 
-        const drawId = opponent1.odd.participant_id + "" + opponent2.odd.participant_id;
+        const drawId = parseInt(opponent1.odd.participant_id + "" + opponent2.odd.participant_id);
 
         const isOpponent1Selected = !_.isEmpty(betSlip) ? betSlip.some(b => b.id === opponent1.odd.participant_id) : false;
         const team1Styles = classNames("team", {
