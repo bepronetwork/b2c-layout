@@ -164,14 +164,10 @@
 }
 
 .pb {
-    margin: 0 25% $spacing-12 25%;
+    margin-bottom: $spacing-12;
     background-color: $primaryColor;
     padding: $spacing-16;
     border-radius: $border-radius;
-
-    @media screen and (max-width: 767px) {
-        margin: 0 10%;
-    }
 }
 
 .pb-text {
@@ -183,20 +179,11 @@
 }
 
 .pb-main {
-    display: grid;
-    grid-template-columns: auto auto;
     align-items: center;
     margin: $spacing-8 0;
 }
 
 .pb-left {
-    text-align: left;
-}
-
-.pb-right {
-    justify-content: flex-end;
-    display: inline-flex;
-    align-items: center;
 }
 
 :global(.bg-warning) {

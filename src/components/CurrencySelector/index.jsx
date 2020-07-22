@@ -118,6 +118,7 @@ class CurrencySelector extends Component {
         const balance =  _.isEmpty(w) ? 0 : formatCurrency(w.playBalance);
         const wApp = getApp().wallet.find(w => w.currency._id === currency._id);
         const icon = _.isEmpty(wApp.image) ? currency.image : wApp.image;
+        const bonusAmount = w.bonusAmount > 0 ? Number(w.bonusAmount) + Number(balance) : 0;
 
         const { colors } = getAppCustomization();
         const secondaryColor = colors.find(c => {
@@ -132,9 +133,9 @@ class CurrencySelector extends Component {
         })(Tooltip);
 
         return (
-            w.bonusAmount > 0
+            bonusAmount > 0
             ?
-                <SecondaryTooltip title={`Bonus: ${balance}`}>
+                <SecondaryTooltip title={`Bonus: ${bonusAmount}`}>
                     <div styleName="label">
                         <div styleName="currency-icon">
                             <img src={icon} width={20}/>
