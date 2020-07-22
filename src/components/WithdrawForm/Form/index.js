@@ -196,7 +196,12 @@ class Form extends Component {
                                     <div styleName="pb-main">
                                         <div styleName="pb-left">
                                             <Typography variant={'x-small-body'} color={'white'}>
-                                                {`${bonusAmount} ${ticker}`}
+                                                {`${incrementBetAmountForBonus} ${ticker}`}
+                                            </Typography>
+                                        </div>
+                                        <div styleName="pb-right">
+                                            <Typography variant={'x-small-body'} color={'white'}>
+                                                {`${minBetAmountForBonusUnlocked} ${ticker}`}
                                             </Typography>
                                         </div>
                                     </div>
