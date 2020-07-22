@@ -186,7 +186,7 @@ class Form extends Component {
                                     <div styleName="pb-main">
                                         <div styleName="pb-left">
                                             <Typography variant={'x-small-body'} color={'white'} weight={'bold'}>
-                                                Progress
+                                                {`Progress (${percenteToBonus}%)`}
                                             </Typography>
                                         </div>
                                     </div>
