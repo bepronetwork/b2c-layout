@@ -187,12 +187,26 @@
 
 .pb-left {
     text-align: left;
+    display: flex;
+    align-items: center;
+
+    img {
+        margin-left: $spacing-8;
+        width: 16px;
+        height: 16px;
+    }
 }
 
 .pb-right {
     justify-content: flex-end;
     display: inline-flex;
     align-items: center;
+
+    img {
+        margin-left: $spacing-8;
+        width: 16px;
+        height: 16px;
+    }
 }
 
 :global(.bg-warning) {
