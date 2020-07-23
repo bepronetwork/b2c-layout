@@ -163,3 +163,52 @@
     text-align: left;
 }
 
+.pb {
+    margin-bottom: $spacing-12;
+    background-color: $primaryColor;
+    padding: $spacing-16;
+    border-radius: $border-radius;
+}
+
+.pb-text {
+    margin-bottom: $spacing-16;
+    background-color: $primaryColor-3;
+    padding: $spacing-8;
+    border-radius: $border-radius;
+    text-align: left;
+}
+
+.pb-main {
+    display: grid;
+    grid-template-columns: auto auto;
+    align-items: center;
+    margin: $spacing-8 0;
+}
+
+.pb-left {
+    text-align: left;
+    display: flex;
+    align-items: center;
+
+    img {
+        margin-left: $spacing-8;
+        width: 16px;
+        height: 16px;
+    }
+}
+
+.pb-right {
+    justify-content: flex-end;
+    display: inline-flex;
+    align-items: center;
+
+    img {
+        margin-left: $spacing-8;
+        width: 16px;
+        height: 16px;
+    }
+}
+
+:global(.bg-warning) {
+    background-color: $secondaryColor !important;
+}
