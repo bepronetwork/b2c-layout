@@ -60,3 +60,7 @@
 .button {
     margin-bottom: $spacing-8;
 }
+
+.error {
+    margin-bottom: $spacing-20;
+}

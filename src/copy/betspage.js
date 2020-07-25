@@ -19,7 +19,6 @@
           "Game",
           "Bet Id",
           "Time",
-          "Bet Amount",
           "Win Amount"
         ]
       }
@@ -44,7 +43,6 @@
           "Game",
           "Bet Id",
           "Time",
-          "Bet Amount",
           "Win Amount"
         ]
       }
@@ -69,7 +67,6 @@
           "Game",
           "Bet Id",
           "Time",
-          "Bet Amount",
           "Win Amount"
         ]
       }
@@ -94,7 +91,6 @@
           "Game",
           "Bet Id",
           "Time",
-          "Bet Amount",
           "Win Amount"
         ]
       }

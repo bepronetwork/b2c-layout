@@ -152,7 +152,7 @@ class Form extends Component {
     render() {
         const { amount, image, maxWithdraw, minWithdraw, maxBalance, minBalance, ticker, 
                 addressInitialized, isLoaded, toAddress, disabled, isTxFee, fee, isAsking,
-                minBetAmountForBonusUnlocked, incrementBetAmountForBonus, bonusAmount
+                minBetAmountForBonusUnlocked, incrementBetAmountForBonus
         } = this.state;
         const {ln, isAffiliate} = this.props;
         const copy = CopyText.amountFormIndex[ln];
@@ -184,7 +184,7 @@ class Form extends Component {
                                     <div styleName="pb-main">
                                         <div styleName="pb-left">
                                             <Typography variant={'x-small-body'} color={'white'} weight={'bold'}>
-                                                {`Progress (${percenteToBonus}%)`}
+                                                {`Progress (${percenteToBonus.toFixed(0)}%)`}
                                             </Typography>
                                         </div>
                                     </div>
@@ -194,13 +194,15 @@ class Form extends Component {
                                     <div styleName="pb-main">
                                         <div styleName="pb-left">
                                             <Typography variant={'x-small-body'} color={'white'}>
-                                                {`${incrementBetAmountForBonus} ${ticker}`}
+                                                {`${formatCurrency(incrementBetAmountForBonus)}`}
                                             </Typography>
+                                            <img src={image} />
                                         </div>
                                         <div styleName="pb-right">
                                             <Typography variant={'x-small-body'} color={'white'}>
-                                                {`${minBetAmountForBonusUnlocked} ${ticker}`}
+                                                {`${formatCurrency(minBetAmountForBonusUnlocked)}`}
                                             </Typography>
+                                            <img src={image} />
                                         </div>
                                     </div>
                                 </div>

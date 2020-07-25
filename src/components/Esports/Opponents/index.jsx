@@ -72,7 +72,7 @@ class Opponents extends Component {
             opponent2,
             drawOdd,            
             matchName: match.name,
-            matchId: match.id,
+            matchId: match.match_id,
             gameImage,
             isScoreBoard: isScoreBoard === true ? true : false,
             isLoaded: true,
@@ -103,21 +103,21 @@ class Opponents extends Component {
 
         const drawId = parseInt(opponent1.odd.participant_id + "" + opponent2.odd.participant_id);
 
-        const isOpponent1Selected = !_.isEmpty(betSlip) ? betSlip.some(b => b.id === opponent1.odd.participant_id) : false;
+        const isOpponent1Selected = !_.isEmpty(betSlip) ? betSlip.some(b => b.id === opponent1.odd.participant_id && b.matchId === matchId) : false;
         const team1Styles = classNames("team", {
             "team1" : !isScoreBoard,
             "team-score-board" : isScoreBoard,
             "selected" : !isScoreBoard && isOpponent1Selected
         });
 
-        const isOpponent2Selected = !_.isEmpty(betSlip) ? betSlip.some(b => b.id === opponent2.odd.participant_id) : false;
+        const isOpponent2Selected = !_.isEmpty(betSlip) ? betSlip.some(b => b.id === opponent2.odd.participant_id && b.matchId === matchId) : false;
         const team2Styles = classNames("team", {
             "team2" : !isScoreBoard,
             "team-score-board" : isScoreBoard,
             "selected" : !isScoreBoard && isOpponent2Selected
         });
 
-        const isDrawSelected = !_.isEmpty(betSlip) ? betSlip.some(b => b.id === drawId) : false;
+        const isDrawSelected = !_.isEmpty(betSlip) ? betSlip.some(b => b.id === drawId && b.matchId === matchId) : false;
         const drawStyles = classNames("draw", {
             "selected" : !isScoreBoard && isDrawSelected
         });

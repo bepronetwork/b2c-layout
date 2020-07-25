@@ -87,7 +87,6 @@ class HomePage extends Component {
                             </div>
                     }
                     {/* <Media/> */}
-                    <Footer/>
                 </div>
             </div>
         );

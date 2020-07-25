@@ -82,17 +82,25 @@ class BetSlipBox extends Component {
                     {
                         type == "simple"
                         ?
-                            <div styleName="section section-left">
-                                <InputNumber
-                                    name="amount"
-                                    title="Bet Amount"
-                                    precision={2}
-                                    disabled={false}
-                                    max={(user && !_.isEmpty(user)) ? user.getBalance() : null}
-                                    value={bet.amount}
-                                    onChange={this.handleBetAmountChange}
-                                />
-                            </div>
+                            bet.success != true
+                            ?
+                                <div styleName="section section-left">
+                                    <InputNumber
+                                        name="amount"
+                                        title="Bet Amount"
+                                        precision={2}
+                                        disabled={false}
+                                        max={(user && !_.isEmpty(user)) ? user.getBalance() : null}
+                                        value={bet.amount}
+                                        onChange={this.handleBetAmountChange}
+                                    />
+                                </div>
+                            :
+                                <div styleName="section section-left">
+                                    <Typography variant={'small-body'} color={'casper'}>
+                                        Your bet was done.
+                                    </Typography>
+                                </div>
                         :
                             null
                     }

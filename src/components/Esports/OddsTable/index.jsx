@@ -63,7 +63,7 @@ class OddsTable extends Component {
             opponent2,
             drawOdd,
             matchName: match.name,
-            matchId: match.id,
+            matchId: match.match_id,
             gameImage,
             isLoaded: true
         });
@@ -93,17 +93,17 @@ class OddsTable extends Component {
             "bets-placar-3" : drawOdd != null
         });
 
-        const isOpponent1Selected = !_.isEmpty(betSlip) ? betSlip.some(b => b.id === opponent1.odd.participant_id) : false;
+        const isOpponent1Selected = !_.isEmpty(betSlip) ? betSlip.some(b => b.id === opponent1.odd.participant_id && b.matchId === matchId) : false;
         const opponent1Styles = classNames("bets-team", {
             selected : isOpponent1Selected
         });
 
-        const isOpponent2Selected = !_.isEmpty(betSlip) ? betSlip.some(b => b.id === opponent2.odd.participant_id) : false;
+        const isOpponent2Selected = !_.isEmpty(betSlip) ? betSlip.some(b => b.id === opponent2.odd.participant_id && b.matchId === matchId) : false;
         const opponent2Styles = classNames("bets-team", {
             selected : isOpponent2Selected
         });
 
-        const isDrawSelected = !_.isEmpty(betSlip) ? betSlip.some(b => b.id === drawId) : false;
+        const isDrawSelected = !_.isEmpty(betSlip) ? betSlip.some(b => b.id === drawId && b.matchId === matchId) : false;
         const drawStyles = classNames("bets-team", {
             selected : isDrawSelected
         });

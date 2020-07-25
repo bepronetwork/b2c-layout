@@ -84,15 +84,3 @@ export async function getTeam(teamId, slug) {
         throw err;
     }
 }
-
-export async function bet(params, bearerToken) {
-    try {
-        let res = await createBet(params, bearerToken);
-
-        return await processResponse(res);
-    
-    } catch(err){
-        console.log(err)
-        throw err;
-    }
-}

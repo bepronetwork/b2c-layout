@@ -6,7 +6,6 @@ import CasinoHomePage from "containers/Casino";
 import EsportsHomePage from "containers/Esports";
 import EsportsMatchPage from "containers/Esports/MatchPage";
 import EsportsMatchesPage from "containers/Esports/AllMatches";
-import { SerieFilterMore } from "components/Esports";
 import HomePage from "containers/HomePage";
 import Footer from "../Footer";
 import ResetPassword from "containers/ResetPassword";
@@ -52,7 +51,6 @@ import LastBets from "../LastBets/HomePage";
 import { CopyText } from "../../copy";
 import { setCurrencyView } from "../../redux/actions/currency";
 import { setWithdrawInfo } from "../../redux/actions/withdraw";
-
 import { connect } from 'react-redux';
 import _ from 'lodash';
 import { setStartLoadingProcessDispatcher } from "../../lib/redux";

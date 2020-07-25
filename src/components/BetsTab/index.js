@@ -59,11 +59,6 @@ const rows = {
                 dependentColor : true,
                 condition : 'isWon',
                 currency: true
-            },
-            {
-                value : 'payout'
-                //dependentColor : true,
-                //condition : 'isWon'
             }
         ],
         rows : []
@@ -73,6 +68,7 @@ const rows = {
 
 const defaultProps = {
     casino     : rows.casino,
+    esports     : rows.esports,
     view        : 'casino',
     view_amount : views[0],
     gamesOptions : [],
@@ -131,8 +127,13 @@ class BetsTab extends Component {
             casinoGamesOptions.push(n);
         });
 
+        const images = require.context('assets/esports', true);
         esportsGames = await getVideoGames();
         esportsGamesOptions.push(allGames);
+        esportsGames = esportsGames.filter(g => g.series.length > 0).map(g => {
+            g.image_url = images('./' + g.slug + '-ico.png');
+            return g;
+        });
         esportsGames.map( (data) => {
             const n = {
                 value :  data._id,
@@ -159,9 +160,6 @@ class BetsTab extends Component {
                 esports = await profile.getMyBets({size : view_amount.value, tag: "esports"});
             }
         }
-
-        console.log("esports", esports)
-        console.log("esportsGames", esportsGames)
 
         this.setState({...this.state, 
             ...options,
