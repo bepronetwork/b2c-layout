@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import Sound from "react-sound";
 import { connect } from "react-redux";
+import _ from "lodash";
 import {
   InputNumber,
   ToggleButton,
@@ -25,7 +26,8 @@ class SlotsGameOptions extends Component {
     lossStop: 0,
     onWin: null,
     onLoss: null,
-    sound: false
+    sound: false,
+    amount: 0
   };
 
   handleType = type => {
@@ -34,10 +36,11 @@ class SlotsGameOptions extends Component {
 
   isBetValid = () => {
     const { user } = this.context;
+    const { disableControls } = this.props;
 
-    const { totalBet, disableControls } = this.props;
+    const { amount } = this.state;
 
-    return (totalBet > 0 && !disableControls) || !user;
+    return (amount > 0 && !disableControls) || !user;
   };
 
   handleBet = () => {
@@ -107,6 +110,12 @@ class SlotsGameOptions extends Component {
     );
   };
 
+  handleBetAmountChange = value => {
+    this.setState({
+      amount: value
+    });
+  };
+
   handleOnWin = value => {
     this.setState({ onWin: value });
   };
@@ -152,8 +161,17 @@ class SlotsGameOptions extends Component {
 
   render() {
     const { type } = this.state;
-    const { totalBet, ln, doubleDownBet } = this.props;
+    const { totalBet, ln, doubleDownBet, onClickBet } = this.props;
     const copy = CopyText.shared[ln];
+
+    const user = this.props.profile;
+    let balance;
+
+    if (!user || _.isEmpty(user)) {
+      balance = 0;
+    } else {
+      balance = user.getBalance();
+    }
 
     return (
       <div styleName="root">
@@ -176,11 +194,12 @@ class SlotsGameOptions extends Component {
           <div styleName="element">
             <InputNumber
               name="amount"
-              disabled
-              icon="bitcoin"
-              precision={6}
               value={totalBet}
-              title={copy.TOTAL_BET_NAME}
+              max={user ? balance : null}
+              step={0.01}
+              icon="bitcoin"
+              precision={2}
+              onChange={this.handleBetAmountChange}
             />
           </div>
           <div styleName="content">
@@ -189,7 +208,7 @@ class SlotsGameOptions extends Component {
           <div styleName="button">
             <Button
               disabled={!this.isBetValid()}
-              onClick={this.handleBet}
+              onClick={onClickBet}
               fullWidth
               theme="primary"
             >
