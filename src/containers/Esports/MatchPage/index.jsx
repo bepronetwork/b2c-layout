@@ -71,12 +71,13 @@ class MatchPage extends Component {
     }
 
     render() {
+        const { onHandleLoginOrRegister } = this.props;
         const { match, isLoading } = this.state;
 
         return (
             <div styleName="root">
                 {this.renderPlayerModal()}
-                <BetSlipFloat />
+                <BetSlipFloat onHandleLoginOrRegister={onHandleLoginOrRegister}/>
                 <div styleName="main">
                     {isLoading ?
                         <SkeletonTheme color={ getSkeletonColors().color} highlightColor={ getSkeletonColors().highlightColor}>
@@ -129,7 +130,7 @@ class MatchPage extends Component {
                                 </div>
                             </SkeletonTheme>
                         :
-                            <BetSlip match={match} />
+                            <BetSlip match={match} onHandleLoginOrRegister={onHandleLoginOrRegister}/>
                         }
                     </div>
                 </div>

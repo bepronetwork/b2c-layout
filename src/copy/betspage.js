@@ -14,12 +14,13 @@
         ]
       },
       "ESPORTS": {
-        "TITLE": "eSports",
+        "TITLE": "Esports",
         "ITEMS": [
           "Game",
           "Bet Id",
           "Time",
-          "Win Amount"
+          "Win Amount",
+          "Type"
         ]
       }
     }
@@ -38,12 +39,13 @@
         ]
       },
       "ESPORTS": {
-        "TITLE": "eSports",
+        "TITLE": "Esports",
         "ITEMS": [
           "Game",
           "Bet Id",
           "Time",
-          "Win Amount"
+          "Win Amount",
+          "Type"
         ]
       }
     }
@@ -62,12 +64,13 @@
         ]
       },
       "ESPORTS": {
-        "TITLE": "eSports",
+        "TITLE": "Esports",
         "ITEMS": [
           "Game",
           "Bet Id",
           "Time",
-          "Win Amount"
+          "Win Amount",
+          "Type"
         ]
       }
     }
@@ -86,12 +89,13 @@
         ]
       },
       "ESPORTS": {
-        "TITLE": "eSports",
+        "TITLE": "Esports",
         "ITEMS": [
           "Game",
           "Bet Id",
           "Time",
-          "Win Amount"
+          "Win Amount",
+          "Type"
         ]
       }
     }

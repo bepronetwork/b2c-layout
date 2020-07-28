@@ -1,10 +1,9 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { Slider } from "components";
 import _ from 'lodash';
+import KenoBoard from "../../../../KenoBoard";
+import defaultCards from "../../../../../containers/KenoPage/defaultCards";
 import "./index.css";
-import KenoBoard from "../../../KenoBoard";
-import defaultCards from "../../../../containers/KenoPage/defaultCards";
 
 class KenoDetails extends Component {
 

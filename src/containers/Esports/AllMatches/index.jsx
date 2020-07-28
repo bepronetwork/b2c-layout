@@ -148,12 +148,12 @@ class AllMatches extends Component {
     };
 
     render() {
-        const { history } = this.props;
+        const { history, onHandleLoginOrRegister } = this.props;
         const { matches, games, size, isLoading, tab, gameFilter } = this.state;
 
         return (
             <div styleName="root">
-                <BetSlipFloat />
+                <BetSlipFloat onHandleLoginOrRegister={onHandleLoginOrRegister}/>
                 <div styleName="main">
                     <div styleName="game-filter">
                         <GameFilter 
@@ -204,7 +204,7 @@ class AllMatches extends Component {
                             />
                         </div>
                         <div styleName="right">
-                            <BetSlip/>
+                            <BetSlip onHandleLoginOrRegister={onHandleLoginOrRegister}/>
                         </div>
                     </div>
                 </div>

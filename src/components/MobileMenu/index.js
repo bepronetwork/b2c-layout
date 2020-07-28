@@ -83,7 +83,7 @@ class MobileMenu extends Component {
                     <Typography variant={'body'} color={'white'}>Casino</Typography>
                 </div>
                 <div styleName="title" onClick={() => this.homeClick("esports")}>
-                    <Typography variant={'body'} color={'white'}>eSports</Typography>
+                    <Typography variant={'body'} color={'white'}>Esports</Typography>
                 </div>
                 <div styleName="title">
                     <Typography variant={'body'} color={'white'}>{copy.CONTAINERS.ACCOUNT.TITLE[0]}</Typography>

@@ -188,15 +188,15 @@ class Esports extends Component {
     }
 
     render() {
-        const { history } = this.props;
+        const { history, onHandleLoginOrRegister } = this.props;
         const { matches, games, size, isLoading, isLoadingMatches, gameFilter } = this.state;
 
         return (
             <div styleName="root">
-                <BetSlipFloat />
+                <BetSlipFloat onHandleLoginOrRegister={onHandleLoginOrRegister}/>
                 <div styleName="main">
                     <div styleName="highlight">
-                        <Typography variant={'h2'} color={'white'} weight={'bold'}>eSports Beting is Live</Typography>
+                        <Typography variant={'h2'} color={'white'} weight={'bold'}>Esports Beting is Live</Typography>
                         <div styleName="intro">
                             <Typography variant={'small-body'} color={'white'}>Watch and bet on CSGO, Data, LoL, Overwatch and many more games. Safe and secure, with 100% player funds protection.</Typography>
                         </div>
@@ -250,7 +250,7 @@ class Esports extends Component {
                             </div>
                         </div>
                         <div styleName="right">
-                            <BetSlip />
+                            <BetSlip onHandleLoginOrRegister={onHandleLoginOrRegister}/>
                         </div>
                     </div>
                 </div>

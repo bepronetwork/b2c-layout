@@ -72,6 +72,7 @@ class OddsTable extends Component {
     async handleAddToBetSlip(bet) {
         const { betSlip } = this.props;
         let arrBets = _.isEmpty(betSlip) ? [] : betSlip;
+        //arrBets = arrBets.filter(bet => bet.success != true);
         arrBets.push(bet);
 
         await this.props.dispatch(setBetSlipResult(arrBets));

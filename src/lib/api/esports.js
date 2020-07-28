@@ -14,8 +14,8 @@ instance.defaults.timeout = SEC*1000;
 /**
  *
  * @param {*} params
- * @name Get All eSports Games
- * @use To show all eSports games
+ * @name Get All Esports Games
+ * @use To show all Esports games
  */
 
 export async function getVideoGames(params) {
@@ -33,8 +33,8 @@ export async function getVideoGames(params) {
 /**
  *
  * @param {*} params
- * @name Get All eSports Matches
- * @use To show all eSports Matches
+ * @name Get All Esports Matches
+ * @use To show all Esports Matches
  */
 
 export async function getAllMatches(params) {
@@ -52,8 +52,8 @@ export async function getAllMatches(params) {
 /**
  *
  * @param {*} params
- * @name Get All eSports Matches by Series
- * @use To show all eSports Matches by Series
+ * @name Get All Esports Matches by Series
+ * @use To show all Esports Matches by Series
  */
 
 export async function getAllMatchesBySeries(params) {
@@ -71,8 +71,8 @@ export async function getAllMatchesBySeries(params) {
 /**
  *
  * @param {*} params
- * @name Get Specific eSports Match
- * @use To show Specific eSports Match
+ * @name Get Specific Esports Match
+ * @use To show Specific Esports Match
  */
 
 export async function getSpecificMatch(params) {
@@ -90,8 +90,8 @@ export async function getSpecificMatch(params) {
 /**
  *
  * @param {*} params
- * @name Get eSports Team
- * @use To show eSports Team
+ * @name Get Esports Team
+ * @use To show Esports Team
  */
 
 export async function getSpecificTeam(params) {

@@ -26,7 +26,7 @@ class BetSlipFloat extends Component {
     }
 
     render() {
-        const { betSlip } = this.props;
+        const { betSlip, onHandleLoginOrRegister } = this.props;
         const { expand } = this.state;
 
         const styles = classNames("wrapper", {
@@ -52,7 +52,7 @@ class BetSlipFloat extends Component {
                         </div>
                     </div>
                     <div styleName="bets">
-                        <BetSlip />
+                        <BetSlip onHandleLoginOrRegister={onHandleLoginOrRegister}/>
                     </div>
                 </div>
             </div>

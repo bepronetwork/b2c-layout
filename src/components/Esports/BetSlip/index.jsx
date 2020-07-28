@@ -5,6 +5,7 @@ import { removeAllFromResult } from "../../../redux/actions/betSlip";
 import { formatCurrency } from "../../../utils/numberFormatation";
 import { websocketUrlEsports } from "../../../lib/api/apiConfig";
 import { setBetSlipResult } from "../../../redux/actions/betSlip";
+import Dice from "components/Icons/Dice";
 import openSocket from 'socket.io-client';
 import { connect } from 'react-redux';
 import { v4 as uuidv4 } from 'uuid';
@@ -19,7 +20,9 @@ class BetSlip extends Component {
         this.state = {
             betSlip: null,
             tab: "simple",
-            amount: 0
+            betType: null,
+            amount: 0,
+            isBetting: false
         };
     }
 
@@ -54,8 +57,14 @@ class BetSlip extends Component {
     };
 
     handleCreateBet = async () => {
-        const { profile, currency } = this.props;
+        const { profile, currency, onHandleLoginOrRegister } = this.props;
         const { betSlip, tab, amount } = this.state;
+
+        if (!profile || _.isEmpty(profile)) return onHandleLoginOrRegister("register");
+
+        this.setState({
+            isBetting: true
+        })
 
         const websocket = openSocket(websocketUrlEsports);
 
@@ -122,17 +131,36 @@ class BetSlip extends Component {
         await this.props.dispatch(setBetSlipResult(newBetSlip));
 
         websocket.on("createBetReturn", (res) => {
-            const response = newBetSlip = newBetSlip.map(b =>
-                b.bid == res.bid ? { ...b, success: res.success } : b
+            const bid = res.bid;
+            newBetSlip = newBetSlip.map(b =>
+                b.bid == bid ? { ...b, success: res.success } : b
             );
-            this.props.dispatch(setBetSlipResult(response));
+
+            this.props.dispatch(setBetSlipResult(newBetSlip));
+            this.setState({ isBetting: false });
+
+            if (tab == "simple") {
+                const bet = newBetSlip.find(b => b.bid == bid);
+                
+                if(!_.isEmpty(bet)) {
+                    profile.updateBalance({ userDelta: (bet.amount * -1)});
+                }
+            }
+            else if (tab == "multiple") {
+                profile.updateBalance({ userDelta: (amount * -1)});
+            }
+
         });
+
+        this.setState({ betType: tab });
     };
 
     hasMultipleBetOpponnetsInSameMatch() {
         const { betSlip } = this.state;
 
-        var valueArr = betSlip.map(function(bet){ return bet.matchId });
+        if(_.isEmpty(betSlip)) { return false };
+
+        var valueArr = betSlip.filter(b => b.success != true).map(function(bet){ return bet.matchId });
         var isDuplicate = valueArr.some(function(bet, idx){ 
             return valueArr.indexOf(bet) != idx
         });
@@ -140,14 +168,30 @@ class BetSlip extends Component {
         return isDuplicate;
     }
 
+    isBetValid = () => {
+        const { betSlip, amount, tab, isBetting } = this.state;
+        const isNotAllSuccessBet = _.isEmpty(betSlip) ? false : (betSlip.filter(b => b.success != true).length > 0);
+        let isValid = false;
+
+        if(tab == "simple") {
+            const isNotFilledAllAmount = betSlip.filter(b => b.amount <= 0).length > 0;
+
+            isValid = !isNotFilledAllAmount;
+        }
+        else if(tab == "multiple") {
+            isValid = (amount > 0 && !this.hasMultipleBetOpponnetsInSameMatch());
+        }
+
+        return (isValid && !isBetting && isNotAllSuccessBet);
+    };
+
     render() {
         const user = this.props.profile;
-        const { betSlip, tab, amount } = this.state;
+        const { betSlip, tab, amount, betType } = this.state;
         let totalSimpleAmount = 0;
         let totalMultipleOdd = 1;
    
         const isSuccessBet = _.isEmpty(betSlip) ? false : (betSlip.filter(b => b.success == true).length > 0);
-        const isDuplicate = _.isEmpty(betSlip) ? false : this.hasMultipleBetOpponnetsInSameMatch();
 
         return (
             <div>
@@ -197,7 +241,7 @@ class BetSlip extends Component {
                                         ?
                                             <div styleName="multiple-info">
                                                 {
-                                                    isSuccessBet == true
+                                                    isSuccessBet == true 
                                                     ?
                                                         <Typography variant={'small-body'} color={'casper'}>
                                                             Your bet was done.
@@ -243,7 +287,7 @@ class BetSlip extends Component {
                                     }
                                 </div>
                                 {
-                                    tab == "multiple" && isDuplicate
+                                    tab == "multiple" && this.hasMultipleBetOpponnetsInSameMatch()
                                     ?
                                         <div styleName="error">
                                             <Typography variant={'small-body'} color={'red'}>
@@ -254,8 +298,13 @@ class BetSlip extends Component {
                                         null
                                 }
                                 <div styleName="button">
-                                    <Button fullWidth theme="primary" onClick={() => this.handleCreateBet()} disabled={isSuccessBet || (tab == "multiple" && isDuplicate)}>
-                                        <Typography weight="semi-bold" color="fixedwhite">
+                                    <Button fullWidth 
+                                            theme="primary" 
+                                            onClick={() => this.handleCreateBet()} 
+                                            disabled={!this.isBetValid()}
+                                            animation={<Dice />}
+                                    >
+                                        <Typography weight="semi-bold" color="pickled-bluewood">
                                             Bet
                                         </Typography>
                                     </Button>

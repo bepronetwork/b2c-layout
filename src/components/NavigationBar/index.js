@@ -45,7 +45,7 @@ class NavigationBar extends Component {
                     </div>
                     <div styleName='text'>
                         <Typography variant={'small-body'} color={'white'}>
-                            eSports
+                            Esports
                         </Typography>
                     </div>
                 </Link>

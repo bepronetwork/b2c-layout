@@ -504,14 +504,13 @@ class App extends Component {
         const { tableDetailsOpen, tableDetails } = this.state;
 
         if (tableDetailsOpen) {
-            const { row } = tableDetails;
+            const { row, tag } = tableDetails;
 
             return (
                 <Modal onClose={this.handleTableDetailsModalClose}>
-                    <BetDetails onClose={this.handleTableDetailsModalClose} tableDetails={tableDetails} betId={row.id} />
+                    <BetDetails onClose={this.handleTableDetailsModalClose} tableDetails={tableDetails} betId={row.id} tag={tag}/>
                 </Modal>
             )
-            
         }
 
         return null;

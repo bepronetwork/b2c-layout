@@ -59,6 +59,9 @@ const rows = {
                 dependentColor : true,
                 condition : 'isWon',
                 currency: true
+            },
+            {
+                value : 'type'
             }
         ],
         rows : []
@@ -198,14 +201,34 @@ class BetsTab extends Component {
                 ...this.state.esports,
                 titles : copy.TABLE.ESPORTS.ITEMS,
                 rows : esports.map( (bet) =>  {
+                    let game = "";
+                    if (bet.videogames.length > 1) {
+                        let name = "";
+                        bet.videogames.map(g => {
+                            name = name + " " + g.name;
+                        })
+
+                        game = {
+                            name: name,
+                            image_url: images('./all-ico.png')
+                        }
+                    }
+                    else {
+                        game = {
+                            name: bet.videogames[0].name,
+                            image_url: images('./' + bet.videogames[0].slug + '-ico.png')
+                        }
+                    }
+
                     return {
-                        game: (esportsGames.find(game => game._id === bet.game)),
+                        game: game,
                         id: bet._id,
                         timestamp: dateToHourAndMinute(bet.timestamp),
                         betAmount: formatCurrency(Numbers.toFloat(bet.betAmount)),
                         winAmount: formatCurrency(Numbers.toFloat(bet.winAmount)),
                         currency: bet.currency,
-                        isWon : bet.isWon
+                        isWon : bet.isWon,
+                        type : bet.type == "simple" ? "Simple" : "Multiple"
                     }
                 }),
                 onTableDetails : onTableDetails ? onTableDetails : null
@@ -237,7 +260,6 @@ class BetsTab extends Component {
     };
 
     render() {
-        const { onTableDetails } = this.props;
         const { games, gamesOptions, isLoading, isListLoading, view_game, options, view } = this.state;
 
         return (
@@ -245,6 +267,7 @@ class BetsTab extends Component {
                 {isLoading ?
                     <SkeletonTheme color={ getSkeletonColors().color} highlightColor={ getSkeletonColors().highlightColor}>
                         <div styleName='lastBets' style={{opacity : '0.5'}}>
+                            <Skeleton height={30}/>
                             <div styleName='filters'>
                                 <div styleName='bets-dropdown-game'>
                                     <Skeleton width={100} height={30}/>
@@ -289,6 +312,7 @@ class BetsTab extends Component {
                     games={games.filter(function(g) { return view_game.value == 'all_games' || g.metaName == view_game.value; }).map(function(g) { return g; })}
                     isLoading={isListLoading}
                     onTableDetails={this.state[view].onTableDetails}
+                    tag={view}
                 /> 
             </div>
         );

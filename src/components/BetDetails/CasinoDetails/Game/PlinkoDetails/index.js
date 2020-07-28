@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import Pegs from "../../../PlinkoGameCard/Components/Pegs";
+import Pegs from "../../../../PlinkoGameCard/Components/Pegs";
 import _ from 'lodash';
 import "./index.css";
 

@@ -84,9 +84,18 @@ class TableDefault extends Component {
         )
     }
 
+    renderGameColumn(row, background) {
+        return (
+            <div styleName="image">
+                <div styleName="icon" style={{ background: background ? 'url('+background+') center center / cover no-repeat' : 'none'}}><img styleName='image-icon' src={row.image_url}/></div>
+                <div styleName='image-name'><Typography variant='x-small-body' color={"grey"}> {row.name} </Typography></div>
+            </div>
+        );
+    }
+
     render() {
         let { isLoadingRow, rows } = this.state; 
-        let { titles, fields, isLoading, onTableDetails } = this.props;
+        let { titles, fields, isLoading, onTableDetails, tag } = this.props;
 
         const rowStyles = classNames("tr-row", {
             addRow: isLoadingRow
@@ -126,7 +135,7 @@ class TableDefault extends Component {
                                                     <td styleName={styles} data-label={titles[index]}>
                                                         {onTableDetails 
                                                         ?
-                                                            <a href="#" onClick={onTableDetails.bind(this, {titles, fields, row})}>
+                                                            <a href="#" onClick={onTableDetails.bind(this, {titles, fields, row, tag})}>
                                                                 <Typography variant='x-small-body' color={ row[field.condition] ? 'green' : "grey"}> {row[field.value]} </Typography>
                                                                 {this.getCurrencyImage(field.currency, row['currency'])}
                                                             </a>
@@ -144,17 +153,11 @@ class TableDefault extends Component {
                                                     <td styleName={styles} data-label={titles[index]}>
                                                         {onTableDetails 
                                                         ?
-                                                            <a href="#" onClick={onTableDetails.bind(this, {titles, fields, row})}>
-                                                                <div styleName="image">
-                                                                    <div styleName="icon" style={{ background: background ? 'url('+background+') center center / cover no-repeat' : 'none'}}><img styleName='image-icon' src={row[field.value].image_url}/></div>
-                                                                    <div styleName='image-name'><Typography variant='x-small-body' color={"grey"}> {row[field.value].name} </Typography></div>
-                                                                </div>
+                                                            <a href="#" onClick={onTableDetails.bind(this, {titles, fields, row, tag})}>
+                                                                {this.renderGameColumn(row[field.value], background)}
                                                             </a>
                                                         :
-                                                            <div styleName="image">
-                                                                <div styleName="icon" style={{ background: background ? 'url('+background+') center center / cover no-repeat' : 'none'}}><img styleName='image-icon' src={row[field.value].image_url}/></div>
-                                                                <div styleName='image-name'><Typography variant='x-small-body' color={"grey"}> {row[field.value].name} </Typography></div>
-                                                            </div>
+                                                            this.renderGameColumn(row[field.value], background)
                                                         }
                                                     </td>
                                                 )
@@ -175,7 +178,7 @@ class TableDefault extends Component {
                                                     <td styleName={styles} data-label={titles[index]}>
                                                         {onTableDetails 
                                                         ?
-                                                            <a href="#" onClick={onTableDetails.bind(this, {titles, fields, row})}>
+                                                            <a href="#" onClick={onTableDetails.bind(this, {titles, fields, row, tag})}>
                                                                 <Typography variant='x-small-body' color={"white"}> {row[field.value]} </Typography>
                                                                 {this.getCurrencyImage(field.currency, row['currency'])}
                                                             </a>

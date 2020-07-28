@@ -66,7 +66,7 @@ class BottomNavbar extends Component {
                                             <UsersIcon/>
                                         </div>
                                         <Typography variant="x-small-body" color="grey">
-                                            eSports
+                                            Esports
                                         </Typography>
                                     </span>
                                 </a>  
