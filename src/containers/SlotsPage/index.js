@@ -21,7 +21,7 @@ const defaultState = {
   result: false,
   matrixResult: [],
   testBol: Array(5).fill(false),
-  testArray: [[1, 1, 5, 1, 1]],
+  testArray: [[7, 7, 7, 4, 4]],
   resultFirstColumn: [],
   resultSecondColumn: [],
   resultThirstColumn: [],
@@ -65,18 +65,18 @@ class SlotsPage extends Component {
   };
 
   handleAnimations = async () => {
-    await this.handleAnimation("columnItem");
-    await this.handleAnimation("columnItem2");
-    await this.handleAnimation("columnItem3");
-    await this.handleAnimation("columnItem4");
-    await this.handleAnimation("columnItem5");
+    this.handleAnimation("columnItem", 1);
+    this.handleAnimation("columnItem2", 2);
+    this.handleAnimation("columnItem3", 3);
+    this.handleAnimation("columnItem4", 4);
+    await this.handleAnimation("columnItem5", 5);
 
     await this.randomNumberResult();
 
-    return new Promise(resolve => setTimeout(() => resolve(), 2000));
+    return new Promise(resolve => setTimeout(() => resolve(), 500));
   };
 
-  handleAnimation = async spinnerColumn => {
+  handleAnimation = async (spinnerColumn, iterations) => {
     const box = document.getElementById(spinnerColumn);
 
     box.animate(
@@ -86,7 +86,7 @@ class SlotsPage extends Component {
       ],
       {
         duration: 500,
-        iterations: 8
+        iterations
       }
     );
 
@@ -99,11 +99,11 @@ class SlotsPage extends Component {
     this.setState({ matrixResult: resultRow });
   };
 
-  randomNumber(min, max) {
+  randomNumber = (min, max) => {
     const result = Math.floor(Math.random() * (max - min) + min);
 
     return result;
-  }
+  };
 
   setResult = async () => {
     this.setState({ result: true });
@@ -130,7 +130,7 @@ class SlotsPage extends Component {
     this.setState({ resultFiveColumn });
   };
 
-  async randomNumberResult() {
+  randomNumberResult = async () => {
     const {
       testArray,
       resultFirstColumn,
@@ -159,9 +159,9 @@ class SlotsPage extends Component {
     });
 
     return new Promise(resolve => setTimeout(() => resolve(), 1500));
-  }
+  };
 
-  async handleImage(setTimeOut) {
+  handleImage = async setTimeOut => {
     const { testArray, testBol, insertionIndex } = this.state;
 
     const testArr = testArray[0];
@@ -186,7 +186,7 @@ class SlotsPage extends Component {
     });
 
     return new Promise(resolve => setTimeout(() => resolve(), setTimeOut));
-  }
+  };
 
   getGame = () => {
     const { gameName, ...state } = this.state;
