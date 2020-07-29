@@ -108,6 +108,10 @@
   } 
 }
 
+.isLive {
+  grid-template-columns: 25% 75%;
+}
+
 .left {
   width: 100%;
 

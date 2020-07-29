@@ -5,6 +5,7 @@ import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
 import { Market, ScoreBoard, SideMenu, Live, BetSlip, BetSlipFloat, Player } from "components/Esports";
 import { getMatch } from "controllers/Esports/EsportsUser";
 import { getSkeletonColors } from "../../../lib/helpers";
+import classNames from "classnames";
 import _ from 'lodash';
 import "./index.css";
 
@@ -16,7 +17,8 @@ class MatchPage extends Component {
             match: null,
             isLoading: true,
             openPlayer: false,
-            player: null
+            player: null,
+            isLive: false
         };
     }
 
@@ -38,9 +40,12 @@ class MatchPage extends Component {
             match = await getMatch(matchId);
         }
 
+        const isLive = match.status == "live" && !_.isEmpty(match.live_embed_url);
+
         this.setState({
             match,
-            isLoading: false
+            isLoading: false,
+            isLive
         });
     }
 
@@ -72,7 +77,11 @@ class MatchPage extends Component {
 
     render() {
         const { onHandleLoginOrRegister } = this.props;
-        const { match, isLoading } = this.state;
+        const { match, isLoading, isLive } = this.state;
+
+        const painelStyles = classNames("painel", {
+            "isLive" : isLive
+        });
 
         return (
             <div styleName="root">
@@ -89,7 +98,7 @@ class MatchPage extends Component {
                         <ScoreBoard match={match} />
                     }
                 </div>
-                <div styleName="painel">
+                <div styleName={painelStyles}>
                     <div styleName="left">
                         {isLoading ?
                             <SkeletonTheme color={ getSkeletonColors().color} highlightColor={ getSkeletonColors().highlightColor}>
@@ -110,7 +119,7 @@ class MatchPage extends Component {
                                 </div>
                             </SkeletonTheme>
                         :
-                            match.status == "live" && !_.isEmpty(match.live_embed_url)
+                            isLive == true
                             ?
                                 <div styleName="middle">
                                     <Live streaming={match.live_embed_url} />
@@ -122,17 +131,24 @@ class MatchPage extends Component {
                                 :
                                     <Market match={match} />  
                     }
-                    <div styleName="right">
-                        {isLoading ?
-                            <SkeletonTheme color={ getSkeletonColors().color} highlightColor={ getSkeletonColors().highlightColor}>
-                                <div style={{opacity : '0.5'}}> 
-                                    <Skeleton height={100} width={"100%"}/>
-                                </div>
-                            </SkeletonTheme>
+                    {
+                        isLive == false
+                        ?
+                            <div styleName="right">
+                                {isLoading ?
+                                    <SkeletonTheme color={ getSkeletonColors().color} highlightColor={ getSkeletonColors().highlightColor}>
+                                        <div style={{opacity : '0.5'}}> 
+                                            <Skeleton height={100} width={"100%"}/>
+                                        </div>
+                                    </SkeletonTheme>
+                                :
+                                    <BetSlip match={match} onHandleLoginOrRegister={onHandleLoginOrRegister}/>
+                                }
+                            </div>
                         :
-                            <BetSlip match={match} onHandleLoginOrRegister={onHandleLoginOrRegister}/>
-                        }
-                    </div>
+                            null
+                    }
+
                 </div>
             </div>
         );

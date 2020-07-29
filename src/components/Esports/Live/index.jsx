@@ -11,8 +11,8 @@ class Live extends Component {
 
         return (
             <iframe
-                src={`${streaming}&parent=${window.location.hostname}`}
-                height="350"
+                src={`${streaming}&muted=true&parent=${window.location.hostname}`}
+                height="100%"
                 width="100%"
                 frameborder="true"
                 scrolling="true"

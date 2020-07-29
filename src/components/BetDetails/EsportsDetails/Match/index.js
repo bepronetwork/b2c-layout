@@ -63,6 +63,8 @@ class Match extends Component {
             "selected" : result.participantId == opponent2.id
         });
 
+        const isDraw = result.participantId == 0;
+
         return (
             <div styleName="match">
                 <div styleName="date">
@@ -77,7 +79,17 @@ class Match extends Component {
                     </div>
                     <div styleName="score">
                         <div><Typography variant={'small-body'} color={'white'} weight={"bold"}>{opponent1.score}</Typography></div>
-                        <div styleName="vs"><Typography variant={'x-small-body'} color={'grey'}>:</Typography></div>
+                        <div styleName="vs">
+                            {
+                                isDraw == true
+                                ?
+                                    <div styleName="draw">
+                                        <Typography variant={'x-small-body'} color={'white'}>DRAW</Typography>
+                                    </div>
+                                :
+                                    <Typography variant={'x-small-body'} color={'grey'}>:</Typography>
+                            }
+                        </div>
                         <div><Typography variant={'small-body'} color={'white'} weight={"bold"}>{opponent2.score}</Typography></div>
                     </div>
                     <div styleName={team2Styles}>

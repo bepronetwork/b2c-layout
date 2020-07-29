@@ -145,7 +145,7 @@ class Esports extends Component {
                         ?
                             <div styleName="background">
                                 <iframe
-                                    src={`${match.live_embed_url}&parent=${window.location.hostname}`}
+                                    src={`${match.live_embed_url}&muted=true&parent=${window.location.hostname}`}
                                     height="250"
                                     width="100%"
                                     frameborder="false"
