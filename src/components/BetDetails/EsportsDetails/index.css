@@ -27,7 +27,7 @@
 .bet {
     display: grid;
     width: 100%;
-    padding: 1em;
+    padding: $spacing-12 0;
     background: $primaryColor-2;
     border-radius: $border-radius;
     grid-template-columns: repeat(5, 1fr);
