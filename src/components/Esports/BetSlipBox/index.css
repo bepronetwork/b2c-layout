@@ -78,6 +78,13 @@
     border-radius: $border-radius 0 0 $border-radius;
 }
 
+.section-full {
+    margin-right: 2px;
+    width: 100%;
+    padding: $spacing-12;
+    border-radius: $border-radius;
+}
+
 .odds-section {
     width: 35%;
     position: relative;

@@ -5,6 +5,8 @@ import { removeAllFromResult } from "../../../redux/actions/betSlip";
 import { formatCurrency } from "../../../utils/numberFormatation";
 import { websocketUrlEsports } from "../../../lib/api/apiConfig";
 import { setBetSlipResult } from "../../../redux/actions/betSlip";
+import { setMessageNotification } from "../../../redux/actions/message";
+import store from "../../../containers/App/store";
 import Dice from "components/Icons/Dice";
 import openSocket from 'socket.io-client';
 import { connect } from 'react-redux';
@@ -79,7 +81,7 @@ class BetSlip extends Component {
             });
         });
 
-        let newBetSlip = [];
+        let newBetSlip = betSlip;
 
         if (tab == "simple") {
             newBetSlip = betSlip.map(b =>
@@ -128,31 +130,45 @@ class BetSlip extends Component {
             });
         }
 
+        this.setState({ betSlip: newBetSlip });
         await this.props.dispatch(setBetSlipResult(newBetSlip));
 
         websocket.on("createBetReturn", (res) => {
             const bid = res.bid;
-            newBetSlip = newBetSlip.map(b =>
-                b.bid == bid ? { ...b, success: res.success } : b
-            );
 
-            this.props.dispatch(setBetSlipResult(newBetSlip));
-            this.setState({ isBetting: false });
-
-            if (tab == "simple") {
-                const bet = newBetSlip.find(b => b.bid == bid);
-                
-                if(!_.isEmpty(bet)) {
-                    profile.updateBalance({ userDelta: (bet.amount * -1)});
+            if(res.success == true) {
+                newBetSlip = newBetSlip.map(b =>
+                    b.bid == bid ? { ...b, success: res.success } : b
+                );
+    
+                this.props.dispatch(setBetSlipResult(newBetSlip));
+                this.setState({ betSlip: newBetSlip });
+    
+                if (tab == "simple") {
+                    const bet = newBetSlip.find(b => b.bid == bid);
+                    
+                    if(!_.isEmpty(bet)) {
+                        profile.updateBalance({ userDelta: (bet.amount * -1)});
+                    }
+                }
+                else if (tab == "multiple") {
+                    profile.updateBalance({ userDelta: (amount * -1)});
                 }
             }
-            else if (tab == "multiple") {
-                profile.updateBalance({ userDelta: (amount * -1)});
+            else {
+                const bet = newBetSlip.find(b => b.bid == bid);
+
+                if(!_.isEmpty(bet)) {
+                    const message = (tab == "simple") ? "Error to bet on '" + bet.name + "' in the match '" + bet.title + "'." : "Error in one or more matches in the multiple bet."
+                    store.dispatch(setMessageNotification(message));
+                }
             }
+
+            this.setState({ isBetting: false });
 
         });
 
-        this.setState({ betType: tab });
+        this.setState({ betType: tab, betSlip: newBetSlip });
     };
 
     hasMultipleBetOpponnetsInSameMatch() {

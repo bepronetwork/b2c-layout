@@ -1,0 +1,227 @@
+@import "../../../../styles/all.css";
+
+.match {
+    background-color: $backgroundColor-2;
+    border-radius: $border-radius;
+    padding: $spacing-36;
+
+    @media screen and (max-width: 767px) {
+        padding: $spacing-16 $spacing-8;
+        margin-bottom: $spacing-16;
+    } 
+}
+
+.result {
+    width: 100%;
+    background-color: $backgroundColor;
+    border-radius: $border-radius;
+    padding: $spacing-20;
+    margin: auto;
+    border: 2px dashed $backgroundColor-5;
+    height: 100%;
+
+    @media screen and (max-width: 767px) {
+  } 
+}
+
+.main-info {
+    display: inline-flex;
+    align-items: center;
+    text-align: left;
+}
+
+.main {
+    display: grid;
+    grid-template-columns: 50% 50%;
+    align-items: center;
+  
+    img {
+      width: 32px;
+      height: 32px;
+      margin: auto 0;
+      margin-right: $spacing-12;
+      border-radius: 20px;
+    }
+}
+
+.info {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1em;
+  margin-top: $spacing-20;
+
+  @media screen and (max-width: 767px) {
+    gap: 0.5em;
+  }
+}
+
+.date {
+  margin-bottom: 16px;
+}
+
+.left {
+
+    * {
+      margin: $spacing-4;
+    }
+}
+
+.text {
+    margin-left: $spacing-12;
+}
+
+.right {
+    justify-content: flex-end;
+    display: inline-flex;
+    align-items: center;
+}
+
+.teams {
+    display: flex;
+    flex-direction: row;
+    flex: 1.2;
+    justify-content: space-between;
+    min-width: 280px;
+    margin-top: $spacing-12;
+  }
+
+.team {
+  height: $spacing-36;
+  display: flex;
+  align-items: center;
+  position: relative;
+  flex: 1;
+  justify-self: center;
+  align-self: center;
+  background-color: $primaryColor-5;
+  border-radius:  0 $border-radius $border-radius 0;
+  text-align: left;
+
+  div {
+    margin-right: $spacing-4;
+    margin-left: $spacing-4;
+  }
+
+  @media screen and (max-width: 767px) {
+    min-width: 66px;
+    white-space: normal;
+    flex: 0.5;
+
+    img {
+      margin-right: $spacing-8;
+    }
+  } 
+}
+
+.team:before {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  width: 0;
+  height: 0;
+  border-top: 18px solid transparent;
+  border-bottom: 18px solid transparent;
+}
+
+.team1:before {
+  right: -20px;
+  border-left: 20px solid $primaryColor-5;
+}
+
+.team2:before {
+  left: -20px;
+  border-right: 20px solid $primaryColor-5;
+}
+
+.team1:before {
+  right: -20px;
+  border-left: 20px solid $primaryColor-5;
+}
+
+.team-score-board {
+  background-color: unset;
+}
+
+.team-score-board:before {
+  border-top: unset;
+  border-bottom: unset;
+}
+
+.draw {
+  width: 56px;
+  height: 100%;
+  text-align: center;
+  background-color: $primaryColor-5;
+  border-radius: $border-radius;
+  padding: $spacing-4;
+  align-items: center;
+}
+
+.selected {
+  background-color: $secondaryColor;
+}
+  
+.teams .team:first-child {
+    flex-direction: row-reverse;
+    text-align: right;
+    border-radius: $border-radius 0 0 $border-radius;
+  
+    img {
+      margin-left: $spacing-8;
+      margin-right: 0;
+    }
+}
+
+.team1.selected:before {
+  border-left: 20px solid $secondaryColor;
+}
+
+.team2.selected:before {
+  border-right: 20px solid $secondaryColor;
+}
+  
+.score {
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  margin: 0 $spacing-28;
+}
+  
+.vs {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 $spacing-28;
+    max-width: 112px;
+  
+    @media screen and (max-width: 1267px) and (min-width: 1024px) {
+      margin: 0 $spacing-4;
+    }
+  
+    @media screen and (max-width: 1023px) and (min-width: 768px) {
+      margin: 0 $spacing-4;
+    } 
+  
+    @media screen and (max-width: 767px) {
+      margin: 0 $spacing-4;
+    } 
+}
+
+.name {
+  margin: 0 $spacing-8;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+
+  p {
+    margin-top: 2px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 120px;
+  }
+
+  @media screen and (max-width: 767px) {
+    width: 80px;
+  } 
+}

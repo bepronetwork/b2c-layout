@@ -239,15 +239,15 @@ function loadWheelOptions(game){
 
 function formatOpponentData(match, index, gameImage) {
     const opponentId = match.opponents[index].opponent.id;
-    const oddType = match.odds.winnerTwoWay.length > 0 ? match.odds.winnerTwoWay : match.odds.winnerThreeWay;
+    const oddType = _.isEmpty(match.odds) ? [] : match.odds.winnerTwoWay.length > 0 ? match.odds.winnerTwoWay : match.odds.winnerThreeWay;
 
     const opponent = {
-        type: match.odds.winnerTwoWay.length > 0 ? "winnerTwoWay" : "winnerThreeWay",
-        odd:oddType.find(o => o.participant_id == opponentId),
+        type: _.isEmpty(match.odds) ? null : match.odds.winnerTwoWay.length > 0 ? "winnerTwoWay" : "winnerThreeWay",
+        odd: oddType.find(o => o.participant_id == opponentId),
         image: match.opponents[index].opponent.image_url != null ? match.opponents[index].opponent.image_url : gameImage,
         name: match.opponents[index].opponent.name,
         location: match.opponents[index].opponent.location,
-        score: match.results.find(r => r.team_id ==opponentId).score,
+        score: match.results.find(r => r.team_id == opponentId).score,
         id: opponentId
     };
 

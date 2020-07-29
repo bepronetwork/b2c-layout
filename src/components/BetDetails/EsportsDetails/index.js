@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import {Typography } from "components";
-import { getGames as getVideoGames, getMatch } from "controllers/Esports/EsportsUser";
-import { Opponents } from 'components/Esports';
+import { getGames as getVideoGames } from "controllers/Esports/EsportsUser";
+import Match from './Match';
 import { formatCurrency } from "../../../utils/numberFormatation";
 import { getApp, getSkeletonColors } from "../../../lib/helpers";
 import { CopyText } from "../../../copy";
@@ -43,20 +43,22 @@ class EsportsDetails extends Component {
 
         if (!_.isEmpty(bet)) {
             for (let index = 0; index < bet.result.length; index++) {
-                const match = await getMatch(bet.result[index].match.external_id);
+                const match = bet.result[index].data_external_match;
                 match = {...match, status: bet.result[index].status, statistic: bet.result[index].statistic}
                 matches.push(match);
             }
 
             const images = require.context('assets/esports', true);
             const games = await getVideoGames();
-            const videogame = bet.result.map(r => {
+            let videogame = bet.result.map(r => {
                 const game = games.find(g => r.match.videogame == g._id);
                 return {
+                    id: game._id,
                     name: game.name,
                     image_url: images('./' + game.slug + '-ico.png')
                 }
             });
+            videogame = videogame.filter((v,i,a)=>a.findIndex(t=>(t.id === v.id))===i);
 
             const currenncy = (getApp().currencies.find(currency => currency._id == bet.currency));
                 
@@ -77,9 +79,19 @@ class EsportsDetails extends Component {
     }
     
     render() {
-        const { ln } = this.props;
+        const { ln, bet } = this.props;
         const { matches, created_at, winAmount, betAmount, game, userName, isWon, currencyImage, type, isLoading } = this.state;
         const copy = CopyText.betsdetailspage[ln];
+        let totalMultipleOdd = 1;
+        let isPending = false;
+
+        if(!_.isEmpty(bet)) {
+            bet.result.map(b => {
+                totalMultipleOdd = totalMultipleOdd * (1 / b.statistic);
+            });
+
+            isPending = bet.result.filter(b => b.status == "pending").length > 0 ? true : false;
+        }
 
         return (
             <div>
@@ -100,6 +112,16 @@ class EsportsDetails extends Component {
                                     </div>
                                     <div styleName="bet">
                                         <div>
+                                            <div styleName='label'>
+                                                <Skeleton width={100} height={50}/>
+                                            </div>
+                                        </div>
+                                        <div styleName="win">  
+                                            <div styleName='label'>
+                                                <Skeleton width={100} height={50}/>
+                                            </div>
+                                        </div>
+                                        <div>  
                                             <div styleName='label'>
                                                 <Skeleton width={100} height={50}/>
                                             </div>
@@ -195,7 +217,7 @@ class EsportsDetails extends Component {
                                             <img src={currencyImage} width={16} height={16}/>
                                         </div>
                                     </div>
-                                    <div>  
+                                    <div styleName="top">  
                                         <div styleName='label'>
                                             <Typography variant={'x-small-body'} color={`casper`}>
                                                 Type
@@ -207,6 +229,39 @@ class EsportsDetails extends Component {
                                             </Typography>
                                         </div>
                                     </div>
+                                    <div styleName="win top">   
+                                        <div styleName='label'>
+                                            <Typography variant={'x-small-body'} color={`casper`}>
+                                                Odds
+                                            </Typography>
+                                        </div>
+                                        <div styleName='bet-text'>
+                                            <Typography variant={'x-small-body'} color={isWon == true ? `green` : `white`}>
+                                                {totalMultipleOdd.toFixed(2)}
+                                            </Typography>
+                                        </div>
+                                    </div>
+                                    <div styleName="top">  
+                                        <div styleName='label'>
+                                            <Typography variant={'x-small-body'} color={`casper`}>
+                                                Status
+                                            </Typography>
+                                        </div>
+                                        <div styleName='bet-text'>
+                                            {
+                                                isPending == true 
+                                                ?
+                                                    <Typography variant={'x-small-body'} color={`white`}>
+                                                        Pending
+                                                    </Typography>
+                                                :
+                                                    <Typography variant={'x-small-body'} color={isWon == true ? `green` : `red`}>
+                                                        {isWon == true ? "Won" : "Lost"}
+                                                    </Typography>
+                                            }
+
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                             <div styleName="matches">
@@ -214,10 +269,7 @@ class EsportsDetails extends Component {
                                     matches.map(m => {
                                         return (
                                             <div styleName="match">
-                                                <Opponents 
-                                                    isScoreBoard={true} 
-                                                    match={m}
-                                                />
+                                                <Match bet={bet} match={m} />
                                             </div>
                                         )
                                     })

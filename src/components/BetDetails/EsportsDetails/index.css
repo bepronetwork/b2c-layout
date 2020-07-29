@@ -20,7 +20,7 @@
 }
 
 .image-icon {
-    width : 60px;
+    width : 40px;
     margin-bottom: $spacing-12;
 }
 
@@ -30,7 +30,17 @@
     padding: 1em;
     background: $primaryColor-2;
     border-radius: $border-radius;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(5, 1fr);
+
+    @media screen and (max-width: 1267px) and (min-width: 1024px) {
+    }
+
+    @media screen and (max-width: 1023px) and (min-width: 768px) {
+    } 
+
+    @media screen and (max-width: 767px) {
+        grid-template-columns: repeat(2, 1fr);
+    } 
 }
 
 .bet-text {
@@ -55,6 +65,29 @@
 .win {
     border-left: 1px solid $secondaryColor;
     border-right: 1px solid $secondaryColor;
+
+    @media screen and (max-width: 1267px) and (min-width: 1024px) {
+    }
+
+    @media screen and (max-width: 1023px) and (min-width: 768px) {
+    } 
+
+    @media screen and (max-width: 767px) {
+        border-left: none;
+        border-right: none;
+    } 
+}
+
+.top {
+    @media screen and (max-width: 1267px) and (min-width: 1024px) {
+    }
+
+    @media screen and (max-width: 1023px) and (min-width: 768px) {
+    } 
+
+    @media screen and (max-width: 767px) {
+        border-top: 1px solid $primaryColor-13;
+    } 
 }
 
 .game {
@@ -64,6 +97,10 @@
     justify-items: center;
     padding: 2rem;
     gap: 1.5rem;
+
+    @media screen and (max-width: 767px) {
+        padding: 2rem $spacing-8;
+    } 
 }
 
 .client {
@@ -76,11 +113,19 @@
     width: 100%;
     display: grid;
     justify-items: stretch;
-    padding: 2rem;
+    padding: 0 2rem 2rem 2rem;
+
+    @media screen and (max-width: 767px) {
+        padding: 0 $spacing-8 $spacing-8 $spacing-8;
+    } 
 }
 
 .match {
-    padding: $spacing-16 0;
+    margin-bottom: $spacing-20;
+
+    @media screen and (max-width: 767px) {
+        padding: 0;
+    } 
 }
 
 .label{

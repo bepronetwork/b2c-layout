@@ -96,7 +96,7 @@ class BetSlipBox extends Component {
                                     />
                                 </div>
                             :
-                                <div styleName="section section-left">
+                                <div styleName="section section-full">
                                     <Typography variant={'small-body'} color={'casper'}>
                                         Your bet was done.
                                     </Typography>
@@ -104,11 +104,17 @@ class BetSlipBox extends Component {
                         :
                             null
                     }
-                    <div styleName={styles}>
-                        <Typography variant={'small-body'} color={'casper'}>
-                            {returnBet}
-                        </Typography>
-                    </div>
+                    {
+                        bet.success != true
+                        ?
+                            <div styleName={styles}>
+                                <Typography variant={'small-body'} color={'casper'}>
+                                    {returnBet}
+                                </Typography>
+                            </div>
+                        : 
+                            null
+                    }
                 </div>
                 {
                     type == "simple"
