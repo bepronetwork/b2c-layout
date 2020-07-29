@@ -56,8 +56,8 @@
 
 .matches{
   display: grid;
-  grid-template-columns: 75% 25%;
-  gap: 1.5em;
+  grid-template-columns: 74% 25%;
+  gap: 1%;
 
   @media screen and (max-width: 1267px) and (min-width: 1024px) {
     grid-template-columns: 70% 30%;

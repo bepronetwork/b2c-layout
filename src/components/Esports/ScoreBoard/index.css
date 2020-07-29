@@ -7,7 +7,6 @@
     min-width: 300px;
     display: grid;
     grid-template-columns: 35% 30% 35%;
-    gap: 1.5em;
     height: 70px;
 
     @media screen and (max-width: 1267px) and (min-width: 1024px) {

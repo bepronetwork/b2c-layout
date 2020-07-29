@@ -52,7 +52,7 @@
 .history {
     display: grid;
     grid-template-columns: 30% 10% 10% 10% 30%;
-    gap: 0.5em;
+    gap: 0.4em;
     align-items: center;
     padding: $spacing-8 0;
     border-bottom: 1px solid $backgroundColor;
