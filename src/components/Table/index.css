@@ -193,6 +193,10 @@
         display: flex;
         justify-content: center;
       }
+
+      .table-row  .td-row-status {
+        margin-bottom: $spacing-12;
+      }
     
     .table-row  td:last-child {
       border-bottom: 0;
@@ -207,6 +211,12 @@
       padding: 2px;
       border-radius: 3px;
       text-align: center;
+
+      @media screen and (max-width: 767px) {
+        float: right;
+        width: 80px;
+
+    }
   }
 
   .green {
