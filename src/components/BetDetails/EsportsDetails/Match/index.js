@@ -7,6 +7,12 @@ import classNames from "classnames";
 import _ from 'lodash';
 import "./index.css";
 
+const stateOptions = Object.freeze({
+    won: { text: "Won", color: "green" },
+    lost: { text: "Lost", color: "red" },
+    pending: { text: "Pending", color: "primaryLight" }
+});
+
 class Match extends Component {
 
     constructor(props){
@@ -64,6 +70,9 @@ class Match extends Component {
         });
 
         const isDraw = result.participantId == 0;
+
+        const stateOption = result.status == "pending" ? stateOptions.pending : result.status == "gain" ? stateOptions.won : stateOptions.lost;
+        const stateStyles = classNames("status", [stateOption.color]);
 
         return (
             <div styleName="match">
@@ -123,21 +132,11 @@ class Match extends Component {
                                 </div>
                             </div>
                             <div styleName="right">
-                                {
-                                    result.status == "gain"
-                                    ?
-                                        <Typography variant={'x-small-body'} color={'green'}>Won</Typography>
-                                    : 
-                                        result.status == "loss"
-                                        ?
-                                            <Typography variant={'x-small-body'} color={'red'}>Loss</Typography>
-                                        :
-                                            result.status == "pending"
-                                            ?
-                                                <Typography variant={'x-small-body'} color={'white'}>Pending</Typography>
-                                            :
-                                                <Typography variant={'x-small-body'} color={'white'}>{result.status}</Typography>
-                                }
+                                <div styleName={stateStyles}>
+                                    <Typography variant={'x-small-body'} color={`fixedwhite`} weight={"bold"}>
+                                        {stateOption.text}
+                                    </Typography>
+                                </div>
                             </div>
                         </div>
                         <div styleName="main">

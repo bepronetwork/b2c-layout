@@ -20,7 +20,8 @@
           "Bet Id",
           "Time",
           "Win Amount",
-          "Type"
+          "Type",
+          "State"
         ]
       }
     }
@@ -45,7 +46,8 @@
           "Bet Id",
           "Time",
           "Win Amount",
-          "Type"
+          "Type",
+          "State"
         ]
       }
     }
@@ -70,7 +72,8 @@
           "Bet Id",
           "Time",
           "Win Amount",
-          "Type"
+          "Type",
+          "State"
         ]
       }
     }
@@ -95,7 +98,8 @@
           "Bet Id",
           "Time",
           "Win Amount",
-          "Type"
+          "Type",
+          "State"
         ]
       }
     }

@@ -6,11 +6,23 @@ import Match from './Match';
 import { formatCurrency } from "../../../utils/numberFormatation";
 import { getApp, getSkeletonColors } from "../../../lib/helpers";
 import { CopyText } from "../../../copy";
+import classNames from "classnames";
 import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 import _ from 'lodash';
 
 import "./index.css";
 
+const stateOptions = Object.freeze({
+    won: { text: "Won", color: "green" },
+    lost: { text: "Lost", color: "red" },
+    pending: { text: "Pending", color: "primaryLight" }
+});
+
+
+const typeOptions = Object.freeze({
+    simple: { text: "Simple", color: "primaryLight" },
+    multiple: { text: "Multiple", color: "primaryDark" }
+});
 class EsportsDetails extends Component {
    
     constructor(props){
@@ -25,6 +37,7 @@ class EsportsDetails extends Component {
             isWon: true,
             currencyImage: null,
             type: null,
+            resolved: false,
             isLoading: true
         };
     }
@@ -72,6 +85,7 @@ class EsportsDetails extends Component {
                 currencyImage: currenncy.image,
                 game: videogame,
                 type: bet.type,
+                resolved: bet.resolved,
                 isLoading: false
             });
         }
@@ -80,18 +94,20 @@ class EsportsDetails extends Component {
     
     render() {
         const { ln, bet } = this.props;
-        const { matches, created_at, winAmount, betAmount, game, userName, isWon, currencyImage, type, isLoading } = this.state;
+        const { matches, created_at, winAmount, betAmount, game, userName, isWon, currencyImage, type, resolved, isLoading } = this.state;
         const copy = CopyText.betsdetailspage[ln];
         let totalMultipleOdd = 1;
-        let isPending = false;
 
         if(!_.isEmpty(bet)) {
             bet.result.map(b => {
                 totalMultipleOdd = totalMultipleOdd * (1 / b.statistic);
             });
-
-            isPending = bet.result.filter(b => b.status == "pending").length > 0 ? true : false;
         }
+
+        const typeOption = type == "multiple" ? typeOptions.multiple : typeOptions.simple;
+        const typeStyles = classNames("status", [typeOption.color]);
+        const stateOption = resolved == false ? stateOptions.pending : isWon == true ? stateOptions.won : stateOptions.lost;
+        const stateStyles = classNames("status", [stateOption.color]);
 
         return (
             <div>
@@ -224,9 +240,11 @@ class EsportsDetails extends Component {
                                             </Typography>
                                         </div>
                                         <div styleName='bet-text'>
-                                            <Typography variant={'x-small-body'} color={isWon == true ? `green` : `white`}>
-                                                {type == "multiple" ? "Multiple" : "Simple"}
-                                            </Typography>
+                                            <div styleName={typeStyles}>
+                                                <Typography variant={'x-small-body'} color={`fixedwhite`} weight={"bold"}>
+                                                    {typeOption.text}
+                                                </Typography>
+                                            </div>
                                         </div>
                                     </div>
                                     <div styleName="win top">   
@@ -236,7 +254,7 @@ class EsportsDetails extends Component {
                                             </Typography>
                                         </div>
                                         <div styleName='bet-text'>
-                                            <Typography variant={'x-small-body'} color={isWon == true ? `green` : `white`}>
+                                            <Typography variant={'x-small-body'} color={`white`}>
                                                 {totalMultipleOdd.toFixed(2)}
                                             </Typography>
                                         </div>
@@ -248,18 +266,11 @@ class EsportsDetails extends Component {
                                             </Typography>
                                         </div>
                                         <div styleName='bet-text'>
-                                            {
-                                                isPending == true 
-                                                ?
-                                                    <Typography variant={'x-small-body'} color={`white`}>
-                                                        Pending
-                                                    </Typography>
-                                                :
-                                                    <Typography variant={'x-small-body'} color={isWon == true ? `green` : `red`}>
-                                                        {isWon == true ? "Won" : "Lost"}
-                                                    </Typography>
-                                            }
-
+                                            <div styleName={stateStyles}>
+                                                <Typography variant={'x-small-body'} color={`fixedwhite`} weight={"bold"}>
+                                                    {stateOption.text}
+                                                </Typography>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>

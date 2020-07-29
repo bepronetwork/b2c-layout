@@ -108,10 +108,6 @@
   } 
 }
 
-.isLive {
-  grid-template-columns: 25% 74%;
-}
-
 .left {
   width: 100%;
 
@@ -141,6 +137,10 @@
     order: 1;
     height: 200px;
   } 
+}
+
+.isLive {
+  background-color: $backgroundColor;
 }
 
 .right {

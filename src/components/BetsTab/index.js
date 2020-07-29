@@ -13,6 +13,18 @@ import "./index.css";
 const views = [{ text : 10, value : 10 }, { text : 25, value : 25 }, { text : 50, value : 50 }, { text : 100, value : 100 }];
 const allGames =  { text : 'All Games', value : 'all_games' };
 
+const stateOptions = Object.freeze({
+    won: { text: "Won", color: "green" },
+    lost: { text: "Lost", color: "red" },
+    pending: { text: "Pending", color: "primaryLight" }
+});
+
+
+const typeOptions = Object.freeze({
+    simple: { text: "Simple", color: "primaryLight" },
+    multiple: { text: "Multiple", color: "primaryDark" }
+});
+
 const rows = {
     casino : {
         titles : [],
@@ -61,7 +73,12 @@ const rows = {
                 currency: true
             },
             {
-                value : 'type'
+                value : 'type',
+                isStatus : true
+            },
+            {
+                value : 'state',
+                isStatus : true
             }
         ],
         rows : []
@@ -220,6 +237,9 @@ class BetsTab extends Component {
                         }
                     }
 
+                    const state = bet.resolved == false ? stateOptions.pending : bet.isWon == true ? stateOptions.won : stateOptions.lost;
+                    const type = bet.type == "simple" ? typeOptions.simple : typeOptions.multiple;
+
                     return {
                         game: game,
                         id: bet._id,
@@ -228,7 +248,8 @@ class BetsTab extends Component {
                         winAmount: formatCurrency(Numbers.toFloat(bet.winAmount)),
                         currency: bet.currency,
                         isWon : bet.isWon,
-                        type : bet.type == "simple" ? "Simple" : "Multiple"
+                        type : type,
+                        state : state
                     }
                 }),
                 onTableDetails : onTableDetails ? onTableDetails : null

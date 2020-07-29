@@ -50,10 +50,6 @@
     display: inline-flex;
     justify-content: center;
 
-    p {
-        margin-top: 2px;
-    }
-
     img {
         margin-left: $spacing-8;
     }
@@ -151,3 +147,25 @@
     height : $spacing-36;
     text-align : center;
 }
+
+.status {
+    padding: $spacing-4 $spacing-8;
+    border-radius: 3px;
+    text-align: center;
+}
+
+.green {
+    background-color: #7bd389;
+  }
+
+  .red {
+    background-color: #ed5565;
+  }
+
+  .primaryLight {
+    background-color: $primaryColor-13;
+  }
+
+  .primaryDark {
+    background-color: $primaryColor-8;
+  }

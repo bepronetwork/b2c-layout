@@ -202,3 +202,25 @@
         padding: 8px 20px;
     }
   }
+
+  .status{
+      padding: 2px;
+      border-radius: 3px;
+      text-align: center;
+  }
+
+  .green {
+    background-color: #7bd389;
+  }
+
+  .red {
+    background-color: #ed5565;
+  }
+
+  .primaryLight {
+    background-color: $primaryColor-13;
+  }
+
+  .primaryDark {
+    background-color: $primaryColor-5;
+  }

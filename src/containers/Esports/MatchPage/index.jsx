@@ -79,10 +79,6 @@ class MatchPage extends Component {
         const { onHandleLoginOrRegister } = this.props;
         const { match, isLoading, isLive } = this.state;
 
-        const painelStyles = classNames("painel", {
-            "isLive" : isLive
-        });
-
         return (
             <div styleName="root">
                 {this.renderPlayerModal()}
@@ -98,7 +94,7 @@ class MatchPage extends Component {
                         <ScoreBoard match={match} />
                     }
                 </div>
-                <div styleName={painelStyles}>
+                <div styleName="painel">
                     <div styleName="left">
                         {isLoading ?
                             <SkeletonTheme color={ getSkeletonColors().color} highlightColor={ getSkeletonColors().highlightColor}>
@@ -121,7 +117,7 @@ class MatchPage extends Component {
                         :
                             isLive == true
                             ?
-                                <div styleName="middle">
+                                <div styleName={isLive == true ? "isLive middle" : "middle"}>
                                     <Live streaming={match.live_embed_url} />
                                 </div>
                             :
@@ -131,24 +127,17 @@ class MatchPage extends Component {
                                 :
                                     <Market match={match} />  
                     }
-                    {
-                        isLive == false
-                        ?
-                            <div styleName="right">
-                                {isLoading ?
-                                    <SkeletonTheme color={ getSkeletonColors().color} highlightColor={ getSkeletonColors().highlightColor}>
-                                        <div style={{opacity : '0.5'}}> 
-                                            <Skeleton height={100} width={"100%"}/>
-                                        </div>
-                                    </SkeletonTheme>
-                                :
-                                    <BetSlip match={match} onHandleLoginOrRegister={onHandleLoginOrRegister}/>
-                                }
-                            </div>
+                    <div styleName="right">
+                        {isLoading ?
+                            <SkeletonTheme color={ getSkeletonColors().color} highlightColor={ getSkeletonColors().highlightColor}>
+                                <div style={{opacity : '0.5'}}> 
+                                    <Skeleton height={100} width={"100%"}/>
+                                </div>
+                            </SkeletonTheme>
                         :
-                            null
-                    }
-
+                            <BetSlip match={match} onHandleLoginOrRegister={onHandleLoginOrRegister}/>
+                        }
+                    </div>
                 </div>
             </div>
         );

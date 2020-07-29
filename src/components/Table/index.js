@@ -130,6 +130,11 @@ class TableDefault extends Component {
                                                 'td-row-img': field.image,
                                                 'td-row-currency': field.currency
                                             });
+                                            const statusStyles = classNames("status", {
+                                                [row[field.value].color]: field.isStatus === true
+                                            });
+
+
                                             if(field.dependentColor){
                                                 return (
                                                     <td styleName={styles} data-label={titles[index]}>
@@ -170,6 +175,23 @@ class TableDefault extends Component {
                                                             </Typography>
                                                         </a>
                                                     </td>     
+                                                )
+                                            }else if(field.isStatus === true){
+                                                return (
+                                                    <td styleName={styles} data-label={titles[index]}>
+                                                        <div styleName={statusStyles}>
+                                                            {onTableDetails 
+                                                            ?
+                                                                <a href="#" onClick={onTableDetails.bind(this, {titles, fields, row, tag})}>
+                                                                    <Typography variant='x-small-body' color={"fixedwhite"} weight={"bold"}> {row[field.value].text} </Typography>
+                                                                </a>
+                                                            :
+                                                                <div>
+                                                                    <Typography variant='x-small-body' color={"fixedwhite"} weight={"bold"}> {row[field.value].text} </Typography>
+                                                                </div>
+                                                            }
+                                                        </div>
+                                                    </td>  
                                                 )
                                             }
                                             else{
