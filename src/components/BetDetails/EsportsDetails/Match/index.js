@@ -90,7 +90,7 @@ class Match extends Component {
                 <div styleName="info">
                     <div styleName="result">
                         <div styleName="main-info">
-                            <Shield image={opponent1.image} size={"small"} isFull={true} />
+                            <Shield image={match.league.image_url} size={"small"} isFull={true} />
                             <div styleName="left">
                                 <div styleName="text">
                                     <Typography variant={'small-body'} color={'white'}>{match.league.name}</Typography>
