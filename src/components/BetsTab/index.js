@@ -88,7 +88,9 @@ const rows = {
 
 const defaultProps = {
     casino     : rows.casino,
-    esports     : rows.esports,
+    esports    : rows.esports,
+    casinoRows : rows.casino.rows,
+    esportsRows : rows.esports.rows,
     view        : 'casino',
     view_amount : views[0],
     gamesOptions : [],
@@ -127,10 +129,8 @@ class BetsTab extends Component {
 
     projectData = async (props, options=null) => {
         let { profile, ln, onTableDetails } = props;
-        let { view, view_amount, view_game } = this.state;
+        let { view, view_amount, view_game, casinoRows, esportsRows } = this.state;
         const copy = CopyText.betspage[ln];
-        let casino = [];
-        let esports = [];
         let casinoGames = [];
         let esportsGames = [];
         let games = [];
@@ -171,13 +171,16 @@ class BetsTab extends Component {
 
         if(profile && !_.isEmpty(profile)){
             if(view_game.value != "all_games") {
-                const gameId = games.find(g =>g.metaName === view_game.value)._id;
-                casino = await profile.getMyBets({size : view_amount.value, game : gameId, tag: "casino"});
-                esports = await profile.getMyBets({size : view_amount.value, game : gameId, tag: "esports"});
+                if(view == "casino") {
+                    casinoRows = await profile.getMyBets({size : view_amount.value, game : games.find(g =>g.metaName === view_game.value)._id, tag: "casino"});
+                }
+                else if (view == "esports") {
+                    esportsRows = await profile.getMyBets({size : view_amount.value, slug : games.find(g =>g._id === view_game.value).slug, tag: "esports"});
+                }
             }
             else {
-                casino = await profile.getMyBets({size : view_amount.value, tag: "casino"});
-                esports = await profile.getMyBets({size : view_amount.value, tag: "esports"});
+                casinoRows = await profile.getMyBets({size : view_amount.value, tag: "casino"});
+                esportsRows = await profile.getMyBets({size : view_amount.value, tag: "esports"});
             }
         }
 
@@ -191,6 +194,8 @@ class BetsTab extends Component {
             gamesOptions: view == "casino" ? casinoGamesOptions : esportsGamesOptions,
             casinoGamesOptions,
             esportsGamesOptions,
+            casinoRows,
+            esportsRows,
             options : Object.keys(copy.TABLE).map( (key) => {
                 return {
                     value : new String(key).toLowerCase(),
@@ -200,7 +205,7 @@ class BetsTab extends Component {
             casino : {
                 ...this.state.casino,
                 titles : copy.TABLE.CASINO.ITEMS,
-                rows : casino.map( (bet) =>  {
+                rows : casinoRows.map( (bet) =>  {
                     return {
                         game: (casinoGames.find(game => game._id === bet.game)),
                         id: bet._id,
@@ -217,7 +222,7 @@ class BetsTab extends Component {
             esports : {
                 ...this.state.esports,
                 titles : copy.TABLE.ESPORTS.ITEMS,
-                rows : esports.map( (bet) =>  {
+                rows : esportsRows.map( (bet) =>  {
                     let game = "";
                     if (bet.videogames.length > 1) {
                         let name = "";

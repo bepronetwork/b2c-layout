@@ -166,7 +166,7 @@ export default class User {
         await store.dispatch(setProfileInfo(this));
     }
 
-    getMyBets = async ({size, game, tag}) => {
+    getMyBets = async ({size, game, slug, tag}) => {
         try{
             // grab current state
             const state = store.getState();
@@ -179,6 +179,7 @@ export default class User {
                     user: this.user_id,
                     size,
                     game,
+                    slug,
                     tag
                 }, this.bearerToken);
                 return await processResponse(res);
