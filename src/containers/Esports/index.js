@@ -4,7 +4,8 @@ import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
 import { Opponents, BetSlip, GameFilter, SerieFilter, Matches, Shield, BetSlipFloat } from "components/Esports";
 import { connect } from 'react-redux';
 import { getGames, getMatches, getMatchesBySeries } from "controllers/Esports/EsportsUser";
-import { getSkeletonColors } from "../../lib/helpers";
+import { getSkeletonColors, getAppCustomization } from "../../lib/helpers";
+import classNames from "classnames";
 import _ from 'lodash';
 import "./index.css";
 
@@ -21,7 +22,9 @@ class Esports extends Component {
             status: ["pre_match", "live"],
             size: 10,
             isLoading: true,
-            isLoadingMatches: true
+            isLoadingMatches: true,
+            hasHighlight: true,
+            highlight: null
         };
     }
 
@@ -37,6 +40,9 @@ class Esports extends Component {
         const { status, size } = this.state;
 
         this.setState({ isLoading: true, isLoadingMatches: true });
+        const { esportsScrenner } = await getAppCustomization();
+        const hasHighlight = esportsScrenner.title || esportsScrenner.subtitle || esportsScrenner.button_text ? true : false;
+
         const images = require.context('assets/esports', true);
 
         let games = await getGames();
@@ -57,6 +63,8 @@ class Esports extends Component {
             games,
             matches,
             slides,
+            hasHighlight,
+            highlight: esportsScrenner,
             isLoading: false,
             isLoadingMatches: false
         });
@@ -129,6 +137,49 @@ class Esports extends Component {
         this.props.history.push(`/esports/${slug}-${id}`);
     }
 
+    onHighlightClick(url) {
+        if(url) {
+            window.location.assign(url);
+        }
+    }
+
+    renderHighlight() {
+        const { highlight, isLoading } = this.state;
+
+        return (
+            isLoading ?
+                <SkeletonTheme color={ getSkeletonColors().color} highlightColor={ getSkeletonColors().highlightColor}>
+                    <div style={{opacity : '0.5'}}> 
+                        <div styleName="highlight">
+                            <Skeleton width={"300"} height={"50"}/>
+                            <div styleName="intro">
+                                <Skeleton width={"200"} height={"80"}/>
+                            </div>
+                            <div styleName="button">                     
+                                <Skeleton width={"100"} height={"50"}/>
+                            </div>
+                        </div>
+                    </div>
+                </SkeletonTheme>
+            :
+                <div styleName="highlight">
+                    <Typography variant={'h2'} color={'white'} weight={'bold'}>{highlight.title}</Typography>
+                    <div styleName="intro">
+                        <Typography variant={'small-body'} color={'white'}>{highlight.subtitle}</Typography>
+                    </div>
+                    <div styleName="button">                     
+                        {highlight.button_text &&  highlight.link_url ?
+                            <Button theme="action" onClick={() => this.onHighlightClick(highlight.link_url)} theme="action">
+                                <Typography color={'fixedwhite'} variant={'small-body'}>{highlight.button_text}</Typography>
+                            </Button>
+                        : 
+                            null
+                        }
+                    </div>
+                </div>
+        );
+    }
+
     renderSlides() {
         const { slides, games } = this.state;
         let slidesElements = [];
@@ -189,23 +240,17 @@ class Esports extends Component {
 
     render() {
         const { history, onHandleLoginOrRegister } = this.props;
-        const { matches, games, size, isLoading, isLoadingMatches, gameFilter } = this.state;
+        const { matches, games, size, isLoading, isLoadingMatches, gameFilter, hasHighlight } = this.state;
+
+        const mainStyles = classNames("main", {
+            "main-unique": hasHighlight == false
+        });
 
         return (
             <div styleName="root">
                 <BetSlipFloat onHandleLoginOrRegister={onHandleLoginOrRegister}/>
-                <div styleName="main">
-                    <div styleName="highlight">
-                        <Typography variant={'h2'} color={'white'} weight={'bold'}>Esports Beting is Live</Typography>
-                        <div styleName="intro">
-                            <Typography variant={'small-body'} color={'white'}>Watch and bet on CSGO, Data, LoL, Overwatch and many more games. Safe and secure, with 100% player funds protection.</Typography>
-                        </div>
-                        <div styleName="button">
-                            <Button theme="action">
-                                <Typography color={'fixedwhite'} variant={'small-body'}>More Info</Typography>
-                            </Button>
-                        </div>
-                    </div>
+                <div styleName={mainStyles}>
+                    {this.renderHighlight()}
                     <div styleName="carousel">
                         {isLoading ?
                             <SkeletonTheme color={ getSkeletonColors().color} highlightColor={ getSkeletonColors().highlightColor}>

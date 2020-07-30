@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import { Button, SubtleButton, Typography, UserMenu, AnimationNumber, LanguagePicker } from "components";
 import ImageGallery from 'react-image-gallery';
 import { connect } from "react-redux";
 import _ from 'lodash';

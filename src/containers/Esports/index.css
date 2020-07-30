@@ -33,6 +33,10 @@
 
 }
 
+.main-unique {
+  display: inline;
+}
+
 .highlight {
   opacity: 0.9;
 

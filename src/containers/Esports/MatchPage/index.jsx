@@ -5,7 +5,6 @@ import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
 import { Market, ScoreBoard, SideMenu, Live, BetSlip, BetSlipFloat, Player } from "components/Esports";
 import { getMatch } from "controllers/Esports/EsportsUser";
 import { getSkeletonColors } from "../../../lib/helpers";
-import classNames from "classnames";
 import _ from 'lodash';
 import "./index.css";
 
