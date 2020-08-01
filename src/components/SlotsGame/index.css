@@ -100,25 +100,6 @@ body {
   flex-direction: column;
 }
 
-.topContainer {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 200px;
-  height: 30px;
-  border-radius: 5px 5px 0px 0px;
-  background-color: rgb(47, 69, 83);
-}
-
-.topContainerText {
-  margin: 0;
-  text-align: center;
-  color: white;
-  font-size: 10px;
-  top: 0px;
-  left: 0px;
-}
-
 * { box-sizing: border-box; }
 
 .spinnerContainer {

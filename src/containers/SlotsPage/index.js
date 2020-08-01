@@ -8,6 +8,7 @@ import { SlotsGameOptions, SlotsGame } from "components";
 import GamePage from "containers/GamePage";
 import UserContext from "containers/App/UserContext";
 import Cache from "../../lib/cache/cache";
+import GameAudio from "../../components/GameAudio";
 
 const defaultState = {
   edge: 0,
@@ -61,7 +62,17 @@ class SlotsPage extends Component {
     await this.handleAnimations();
 
     await this.handleImage(1000);
-    await this.setResult();
+    await this.handleResult();
+  };
+
+  handleResult = async () => {
+    const { testBol } = this.state;
+
+    testBol.map(async result => {
+      if (result) {
+        await this.setResult();
+      }
+    });
   };
 
   handleAnimations = async () => {
@@ -159,6 +170,23 @@ class SlotsPage extends Component {
     });
 
     return new Promise(resolve => setTimeout(() => resolve(), 1500));
+  };
+
+  handleIconAudio = (number, Sound) => {
+    const { testArray } = this.state;
+
+    if (testArray[0] && testArray[1] === number) {
+      return <GameAudio pathSound={Sound} />;
+    }
+  };
+
+  handleAudioIcons = () => {
+    this.handleIconAudio(1, null) ||
+      this.handleIconAudio(2, null) ||
+      this.handleIconAudio(3, null) ||
+      this.handleIconAudio(4, null) ||
+      this.handleIconAudio(5, null) ||
+      this.handleIconAudio(7, null);
   };
 
   handleImage = async setTimeOut => {

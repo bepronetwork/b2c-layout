@@ -22,9 +22,6 @@ class SlotsGame extends React.Component {
 
     return (
       <div className={styles.containerInit}>
-        <div className={styles.topContainer}>
-          <h1 className={styles.topContainerText}>Pagamento total: 0.000000</h1>
-        </div>
         <div className={styles.rowContainer}>
           <div className={styles.spinnerContainer}>
             <div className={styles.lineTest}>
