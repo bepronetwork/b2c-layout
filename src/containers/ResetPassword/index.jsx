@@ -178,7 +178,7 @@ class ResetPassword extends Component {
                                     theme="primary"
                                     disabled={disabled}
                                     onClick={mode === "reset" ? this.handleResetPassword.bind(this) : this.handleSetNewPassword.bind(this)}>
-                                    <Typography color="white">{mode === "reset" ? copy.INDEX.TYPOGRAPHY.TEXT[7] : copy.INDEX.TYPOGRAPHY.TEXT[8]}</Typography>
+                                    <Typography color="fixedwhite">{mode === "reset" ? copy.INDEX.TYPOGRAPHY.TEXT[7] : copy.INDEX.TYPOGRAPHY.TEXT[8]}</Typography>
                                 </Button>
 
                             </div>
