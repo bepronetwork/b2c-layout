@@ -481,3 +481,7 @@
   }
 }
 
+.cell.zero {
+  cursor: default;
+}
+
