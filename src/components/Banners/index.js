@@ -31,7 +31,7 @@ class Banners extends Component {
 
         this.setState({ 
             banners : !_.isEmpty(banners) ? banners.ids : null,
-            isFullWidth : !_.isEmpty(banners) ? banners.fullWidth : null
+            isFullWidth : !_.isEmpty(banners) ? banners.fullWidth : false
         })
     }
 
