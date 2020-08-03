@@ -184,7 +184,7 @@ class LoginForm extends Component {
                             ?
                                 <img src={loading} />
                             :
-                                <Typography color="white">{copy.INDEX.TYPOGRAPHY.TEXT[4]}</Typography>
+                                <Typography color="fixedwhite">{copy.INDEX.TYPOGRAPHY.TEXT[4]}</Typography>
                         }
                     </Button>
                 </div>

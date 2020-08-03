@@ -94,7 +94,7 @@ class SecurityTab extends React.Component{
                         </div>
                         <div styleName='value'>
                             <Button size={'x-small'} theme={'action'} disabled={isConfirmationSent} onClick={this.handleResendConfirmEmail}>
-                                <Typography color={'white'} variant={'small-body'}>{copyConfirmEmail.CONTAINERS.APP.MODAL[2]}</Typography>
+                                <Typography color={'fixedwhite'} variant={'small-body'}>{copyConfirmEmail.CONTAINERS.APP.MODAL[2]}</Typography>
                             </Button>
                         </div>
                     </div>
