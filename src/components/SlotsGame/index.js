@@ -4,6 +4,7 @@ import propTypes from "prop-types";
 import styles from "./index.css";
 import images from "./images";
 import HandleLines from "../SlotsLines/Lines";
+import Quadrilateral from "../../assets/icons/SlotsIcons/dog2.svg";
 
 class SlotsGame extends React.Component {
   render() {
@@ -53,16 +54,10 @@ class SlotsGame extends React.Component {
             ) : null}
             <div id="columnItem" className={styles.columnSpinner}>
               {resultFirstColumn.map((num, index) => {
-                return (
-                  <img
-                    src={images[num]}
-                    alt=""
-                    className={
-                      index === insertIndex[0] && testBol[0] === true
-                        ? styles.icon
-                        : styles.iconStatic
-                    }
-                  />
+                return index === insertIndex[0] && testBol[0] === true ? (
+                  <img src={Quadrilateral} alt="" className={styles.icon} />
+                ) : (
+                  <img src={images[num]} alt="" className={styles.iconStatic} />
                 );
               })}
             </div>

@@ -14,7 +14,7 @@ const defaultState = {
   edge: 0,
   Result: null,
   hasWon: null,
-  game_name: "Slots",
+  gameName: "Slots",
   game: {
     edge: 0
   },
@@ -52,11 +52,13 @@ class SlotsPage extends Component {
     );
 
   handleClick = async () => {
-    this.setState({ line: false });
-    this.setState({ result: false });
-    this.setState({ testBol: Array(5).fill(false) });
-    this.setState({ insertionIndex: [] });
-    this.setState({ insertIndex: [] });
+    this.setState({
+      line: false,
+      result: false,
+      testBol: Array(5).fill(false),
+      insertionIndex: [],
+      insertIndex: []
+    });
 
     this.getcolumn();
     await this.handleAnimations();
@@ -134,11 +136,13 @@ class SlotsPage extends Component {
     const resultFourthColumn = arrayColumn(matrixResult, 3);
     const resultFiveColumn = arrayColumn(matrixResult, 4);
 
-    this.setState({ resultFirstColumn });
-    this.setState({ resultSecondColumn });
-    this.setState({ resultThirstColumn });
-    this.setState({ resultFourthColumn });
-    this.setState({ resultFiveColumn });
+    this.setState({
+      resultFirstColumn,
+      resultSecondColumn,
+      resultThirstColumn,
+      resultFourthColumn,
+      resultFiveColumn
+    });
   };
 
   randomNumberResult = async () => {
@@ -205,7 +209,6 @@ class SlotsPage extends Component {
       testBol[0 + (i + 1)] = true;
 
       i += 1;
-      console.log(testBol);
     }
     this.setState({ line: true });
     this.setState({ testBol });
@@ -276,7 +279,6 @@ class SlotsPage extends Component {
 
   render() {
     const { onTableDetails } = this.props;
-    const { game } = this.state;
 
     return (
       <GamePage
