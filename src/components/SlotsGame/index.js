@@ -5,8 +5,32 @@ import styles from "./index.css";
 import images from "./images";
 import HandleLines from "../SlotsLines/Lines";
 import Quadrilateral from "../../assets/icons/SlotsIcons/dog2.svg";
+import Coin from "../../assets/icons/SlotsIcons/coin2.svg";
 
 class SlotsGame extends React.Component {
+  selectNumber = num => {
+    switch (num) {
+      case 0:
+        return Quadrilateral;
+      case 1:
+        return Coin;
+      case 2:
+        return Quadrilateral;
+      case 3:
+        return Quadrilateral;
+      case 4:
+        return Quadrilateral;
+      case 5:
+        return Quadrilateral;
+      case 6:
+        return Quadrilateral;
+      case 7:
+        return Quadrilateral;
+      default:
+        break;
+    }
+  };
+
   render() {
     const {
       testBol,
@@ -55,7 +79,13 @@ class SlotsGame extends React.Component {
             <div id="columnItem" className={styles.columnSpinner}>
               {resultFirstColumn.map((num, index) => {
                 return index === insertIndex[0] && testBol[0] === true ? (
-                  <img src={Quadrilateral} alt="" className={styles.icon} />
+                  <object
+                    type="image/svg+xml"
+                    data={this.selectNumber(num)}
+                    className={styles.icon}
+                  >
+                    svg-animation
+                  </object>
                 ) : (
                   <img src={images[num]} alt="" className={styles.iconStatic} />
                 );
@@ -64,64 +94,64 @@ class SlotsGame extends React.Component {
             <div className={styles.separatedLine} />
             <div id="columnItem2" className={styles.columnSpinner}>
               {resultSecondColumn.map((num, index) => {
-                return (
-                  <img
-                    src={images[num]}
-                    alt=""
-                    className={
-                      index === insertIndex[1] && testBol[1] === true
-                        ? styles.icon
-                        : styles.iconStatic
-                    }
-                  />
+                return index === insertIndex[1] && testBol[1] === true ? (
+                  <object
+                    type="image/svg+xml"
+                    data={this.selectNumber(num)}
+                    className={styles.icon}
+                  >
+                    svg-animation
+                  </object>
+                ) : (
+                  <img src={images[num]} alt="" className={styles.iconStatic} />
                 );
               })}
             </div>
             <div className={styles.separatedLine} />
             <div id="columnItem3" className={styles.columnSpinner}>
               {resultThirstColumn.map((num, index) => {
-                return (
-                  <img
-                    src={images[num]}
-                    alt=""
-                    className={
-                      index === insertIndex[2] && testBol[2] === true
-                        ? styles.icon
-                        : styles.iconStatic
-                    }
-                  />
+                return index === insertIndex[2] && testBol[2] === true ? (
+                  <object
+                    type="image/svg+xml"
+                    data={this.selectNumber(num)}
+                    className={styles.icon}
+                  >
+                    svg-animation
+                  </object>
+                ) : (
+                  <img src={images[num]} alt="" className={styles.iconStatic} />
                 );
               })}
             </div>
             <div className={styles.separatedLine} />
             <div id="columnItem4" className={styles.columnSpinner}>
               {resultFourthColumn.map((num, index) => {
-                return (
-                  <img
-                    src={images[num]}
-                    alt=""
-                    className={
-                      index === insertIndex[3] && testBol[3] === true
-                        ? styles.icon
-                        : styles.iconStatic
-                    }
-                  />
+                return index === insertIndex[3] && testBol[3] === true ? (
+                  <object
+                    type="image/svg+xml"
+                    data={this.selectNumber(num)}
+                    className={styles.icon}
+                  >
+                    svg-animation
+                  </object>
+                ) : (
+                  <img src={images[num]} alt="" className={styles.iconStatic} />
                 );
               })}
             </div>
             <div className={styles.separatedLine} />
             <div id="columnItem5" className={styles.columnSpinner}>
               {resultFiveColumn.map((num, index) => {
-                return (
-                  <img
-                    src={images[num]}
-                    alt=""
-                    className={
-                      index === insertIndex[4] && testBol[4] === true
-                        ? styles.icon
-                        : styles.iconStatic
-                    }
-                  />
+                return index === insertIndex[4] && testBol[4] === true ? (
+                  <object
+                    type="image/svg+xml"
+                    data={this.selectNumber(num)}
+                    className={styles.icon}
+                  >
+                    svg-animation
+                  </object>
+                ) : (
+                  <img src={images[num]} alt="" className={styles.iconStatic} />
                 );
               })}
             </div>

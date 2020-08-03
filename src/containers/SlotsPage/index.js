@@ -22,7 +22,7 @@ const defaultState = {
   result: false,
   matrixResult: [],
   testBol: Array(5).fill(false),
-  testArray: [[7, 7, 7, 4, 4]],
+  testArray: [[1, 1, 1, 4, 4]],
   resultFirstColumn: [],
   resultSecondColumn: [],
   resultThirstColumn: [],
@@ -79,10 +79,10 @@ class SlotsPage extends Component {
 
   handleAnimations = async () => {
     this.handleAnimation("columnItem", 1);
-    this.handleAnimation("columnItem2", 2);
-    this.handleAnimation("columnItem3", 3);
-    this.handleAnimation("columnItem4", 4);
-    await this.handleAnimation("columnItem5", 5);
+    this.handleAnimation("columnItem2", 1.5);
+    this.handleAnimation("columnItem3", 2);
+    this.handleAnimation("columnItem4", 2.5);
+    await this.handleAnimation("columnItem5", 3);
 
     await this.randomNumberResult();
 

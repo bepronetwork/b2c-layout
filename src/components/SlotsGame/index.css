@@ -7,16 +7,6 @@
   }
 }
 
-@keyframes iconAfter {
-  50%{
-    transform: scale(1, 1);
-  }
-  0% {
-    transform: scale(1.2, 1.2) rotate(25deg);
-    transition: transform 2s ease-in-out 1s;
-  }
-
-}
 
 @keyframes cardJump {
   from{
@@ -75,8 +65,8 @@ body {
 }
 .icon{
   width: 80px;
+  height: 80px;
   z-index: 2;
-  animation: iconAfter 1s forwards 0.5s;
 } 
 
 .iconStatic {
