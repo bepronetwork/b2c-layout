@@ -1017,7 +1017,6 @@ class RouletteBoard extends Component {
         <button
           styleName="number0"
           id="0"
-          onClick={this.handleClick}
           type="button"
         >
           <TableCell

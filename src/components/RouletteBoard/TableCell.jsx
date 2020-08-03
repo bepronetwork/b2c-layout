@@ -96,7 +96,8 @@ export default class TableCell extends Component {
       [color]: true,
       focused,
       "is-result": isResult,
-      active: chipSelected
+      active: chipSelected,
+      zero: label == "0"
     });
 
     return (
