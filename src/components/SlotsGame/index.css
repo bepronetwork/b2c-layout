@@ -65,13 +65,13 @@ body {
 }
 .icon{
   width: 80px;
-  height: 80px;
+  height: 75px;
   z-index: 2;
 } 
 
 .iconStatic {
   width: 80px;
-
+  height: 75px;
 }
 
 .columnSpinner{

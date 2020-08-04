@@ -6,12 +6,13 @@ import images from "./images";
 import HandleLines from "../SlotsLines/Lines";
 import Quadrilateral from "../../assets/icons/SlotsIcons/dog2.svg";
 import Coin from "../../assets/icons/SlotsIcons/coin2.svg";
+import BlueCoin from "../../assets/icons/SlotsIcons/bluecoin2.svg";
 
 class SlotsGame extends React.Component {
   selectNumber = num => {
     switch (num) {
       case 0:
-        return Quadrilateral;
+        return BlueCoin;
       case 1:
         return Coin;
       case 2:

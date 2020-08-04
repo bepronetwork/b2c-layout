@@ -22,7 +22,7 @@ const defaultState = {
   result: false,
   matrixResult: [],
   testBol: Array(5).fill(false),
-  testArray: [[1, 1, 1, 4, 4]],
+  testArray: [[1, 1, 1, 2, 2]],
   resultFirstColumn: [],
   resultSecondColumn: [],
   resultThirstColumn: [],
@@ -103,7 +103,7 @@ class SlotsPage extends Component {
       }
     );
 
-    return new Promise(resolve => setTimeout(() => resolve(), 700));
+    return new Promise(resolve => setTimeout(() => resolve(), 100));
   };
 
   setNewRandomMatrix = async () => {
