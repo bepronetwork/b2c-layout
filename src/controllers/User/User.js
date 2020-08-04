@@ -465,4 +465,8 @@ export default class User {
     getPoints = async () => {
         return this.user.points;
     }
+
+    isEmailConfirmed = async () => {
+        return this.user.email_confirmed;
+    }
 }
