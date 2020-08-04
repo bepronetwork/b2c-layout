@@ -346,6 +346,10 @@
       border-radius: $border-radius;
     }
 
+    .currency-icon {
+        margin-right: $spacing-8;
+    }
+
     span {
         margin-left: $spacing-8;
 
@@ -360,5 +364,46 @@
 
     img{
         width: 20px;
+    }
+}
+
+.label-points {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    height: 32px;
+    cursor: pointer;
+    padding: 0 $spacing-16;
+    background-color: $backgroundColor-2;
+    border-radius: $border-radius;
+  
+    .currency-icon {
+        margin-right: $spacing-8;
+    }
+
+    span {
+        margin-left: $spacing-8;
+
+        @media screen and (max-width: 767px) {
+            display: none;
+        }
+    }
+}
+
+.points {
+    display: inline-flex;
+    align-items: center;
+    margin-left: $spacing-36;
+
+    @media screen and (max-width: 1267px) and (min-width: 1024px) {
+        margin-left: $spacing-20;
+    }
+    
+    @media screen and (max-width: 1023px) and (min-width: 768px) {
+        display: none;
+    }
+    
+    @media screen and (max-width: 767px) {
+        display: none;
     }
 }
