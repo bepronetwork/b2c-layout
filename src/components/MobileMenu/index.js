@@ -5,7 +5,8 @@ import {
         SettingsIcon, DepositsIcon, WithdrawIcon, BetsIcon, UserIcon, UsersIcon, ConfirmedIcon
        } from 'components';
 import { CopyText } from "../../copy";
-import { getApp } from "../../lib/helpers";
+import { getApp, getAddOn } from "../../lib/helpers";
+import { formatCurrency } from "../../utils/numberFormatation";
 import _ from 'lodash';
 import "./index.css";
 
@@ -15,6 +16,7 @@ class MobileMenu extends Component {
     constructor(props){
         super(props);
         this.state = {
+            points: 0,
             itens : [
                 { path: "/settings/account",        copyValue: 6,                                       icon: <UserIcon /> },
                 { path: "/settings/security",       copyValue: 7,                                       icon: <ConfirmedIcon /> },
@@ -37,6 +39,11 @@ class MobileMenu extends Component {
     }
 
     projectData = async (props) => {
+        const user = !_.isEmpty(props.profile) ? props.profile : null;
+
+        this.setState({
+            points : await user.getPoints()
+        })
     }
 
     renderItens() {
@@ -69,11 +76,38 @@ class MobileMenu extends Component {
     }
 
     render() {
+        const { points } = this.state;
         const { ln } = this.props;
         const copy = CopyText.homepage[ln];
 
+        const isValidPoints = (getAddOn().pointSystem) ? getAddOn().pointSystem.isValid : false;
+        const logoPoints = (getAddOn().pointSystem) ? getAddOn().pointSystem.logo : null;
+        const namePoints = (getAddOn().pointSystem) ? getAddOn().pointSystem.name : null; 
+
         return (
             <div>
+                {
+                    isValidPoints == true
+                    ?
+                        <div styleName="points">
+                            <div styleName="label-points">
+                                {
+                                    !_.isEmpty(logoPoints)
+                                    ?
+                                        <div styleName="currency-icon">
+                                            <img src={logoPoints} width={20}/>
+                                        </div>
+                                    :
+                                        null
+                                }
+                                <span>
+                                    <Typography color="white" variant={'small-body'}>{`${formatCurrency(points)} ${namePoints}`}</Typography>
+                                </span>
+                            </div>
+                        </div>
+                    :
+                        null
+                }
                 <div styleName="title">
                     <Typography variant={'body'} color={'white'}>{copy.CONTAINERS.ACCOUNT.TITLE[0]}</Typography>
                 </div>

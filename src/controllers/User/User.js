@@ -461,4 +461,8 @@ export default class User {
             throw err;
         }
     };
+
+    getPoints = async () => {
+        return this.user.points;
+    }
 }

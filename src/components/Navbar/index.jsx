@@ -1,11 +1,13 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import { Button, SubtleButton, Typography, ProfileMenu, LanguageSelector, NavigationBar, CurrencySelector, UserIcon} from "components";
+import { Button, SubtleButton, Typography, LanguageSelector, NavigationBar, CurrencySelector, UserIcon} from "components";
 import UserContext from "containers/App/UserContext";
 import { connect } from "react-redux";
-import { getAppCustomization, getApp } from "../../lib/helpers";
+import { getAppCustomization, getApp, getAddOn } from "../../lib/helpers";
 import { formatCurrency } from "../../utils/numberFormatation";
 import { CopyText } from '../../copy';
+import Tooltip from '@material-ui/core/Tooltip';
+import { withStyles } from "@material-ui/core/styles";
 import _ from 'lodash';
 import "./index.css";
 
@@ -22,7 +24,8 @@ const defaultProps = {
     userAddress : 'N/A',
     currentBalance : 0,
     betIDVerified : '',
-    openSettingsMenu : false
+    openSettingsMenu : false,
+    points: 0
 };
 
 class Navbar extends Component {
@@ -60,7 +63,8 @@ class Navbar extends Component {
                     ...opts,
                     user    : user,
                     userFullAddress : user.getAddress(),
-                    userAddress : user.getAddress() ? AddressConcat(user.getAddress()) : defaultProps.userAddress  
+                    userAddress : user.getAddress() ? AddressConcat(user.getAddress()) : defaultProps.userAddress,
+                    points : await user.getPoints()
                 })
             }else{
                 this.setState({user : null})
@@ -110,43 +114,85 @@ class Navbar extends Component {
     }
 
     renderCurrencySelector = () => {
-        let { currentBalance, difference } = this.state;
+        let { currentBalance, difference, points } = this.state;
         const { onMenuItem, history, ln } = this.props;
         const copy = CopyText.navbarIndex[ln]; 
         var currencies = getApp().currencies;
         const virtual = getApp().virtual;
         currencies = currencies.filter(c => c.virtual === virtual);
 
+        const { colors } = getAppCustomization();
+
+        const secondaryColor = colors.find(c => {
+            return c.type == "secondaryColor"
+        })
+        const SecondaryTooltip = withStyles({
+            tooltip: {
+              color: "white",
+              backgroundColor: secondaryColor.hex
+            }
+        })(Tooltip);
+
+        const isValidPoints = (getAddOn().pointSystem) ? getAddOn().pointSystem.isValid : false;
+        const logoPoints = (getAddOn().pointSystem) ? getAddOn().pointSystem.logo : null;
+        const namePoints = (getAddOn().pointSystem) ? getAddOn().pointSystem.name : null; 
+
         return(
-            <div styleName="currency-selector">
-                 {(!currencies || _.isEmpty(currencies) || currencies.length < 0) ?
-                    <div styleName="no-coin">
-                        <Typography variant="x-small-body" color="grey">
-                            {copy.INDEX.TYPOGRAPHY.TEXT[1]}
-                        </Typography>
+            <div>
+                <div styleName="currency-selector">
+                    {(!currencies || _.isEmpty(currencies) || currencies.length < 0) ?
+                        <div styleName="no-coin">
+                            <Typography variant="x-small-body" color="grey">
+                                {copy.INDEX.TYPOGRAPHY.TEXT[1]}
+                            </Typography>
+                        </div>
+                    :
+                        <div styleName="currency">
+                            <CurrencySelector currentBalance={currentBalance}/>
+                            {difference ? (
+                                <div
+                                key={currentBalance}
+                                styleName={difference > 0 ? "diff-won" : "diff-lost"}
+                                >
+                                    <Typography variant="small-body">
+                                        {parseFloat(Math.abs(difference))}
+                                    </Typography>
+                                </div>
+                            ) : null}
+                        </div>
+                    }
+                    <div styleName='button-deposit'>
+                        <button onClick={() => onMenuItem({history, path : "/settings/wallet"})} type="submit" styleName="button">
+                            <Typography variant="small-body" color="fixedwhite">
+                                {virtual ? copy.INDEX.TYPOGRAPHY.TEXT[6] : copy.INDEX.TYPOGRAPHY.TEXT[2]}
+                            </Typography>
+                        </button>
                     </div>
-                :
-                    <div styleName="currency">
-                        <CurrencySelector currentBalance={currentBalance}/>
-                        {difference ? (
-                            <div
-                            key={currentBalance}
-                            styleName={difference > 0 ? "diff-won" : "diff-lost"}
-                            >
-                                <Typography variant="small-body">
-                                    {parseFloat(Math.abs(difference))}
-                                </Typography>
-                            </div>
-                        ) : null}
-                    </div>
-                 }
-                <div styleName='button-deposit'>
-                    <button onClick={() => onMenuItem({history, path : "/settings/wallet"})} type="submit" styleName="button">
-                        <Typography variant="small-body" color="fixedwhite">
-                            {virtual ? copy.INDEX.TYPOGRAPHY.TEXT[6] : copy.INDEX.TYPOGRAPHY.TEXT[2]}
-                        </Typography>
-                    </button>
                 </div>
+                {
+                    isValidPoints == true
+                    ?
+                        <div styleName="points">
+                            <SecondaryTooltip title={`${formatCurrency(points)} ${namePoints}`}>
+                                <div styleName="label-points">
+                                    {
+                                        !_.isEmpty(logoPoints)
+                                        ?
+                                            <div styleName="currency-icon">
+                                                <img src={logoPoints} width={20}/>
+                                            </div>
+                                        :
+                                            null
+                                    }
+                                    <span>
+                                        <Typography color="white" variant={'small-body'}>{formatCurrency(points)}</Typography>
+                                    </span>
+                                </div>
+                            </SecondaryTooltip>
+                        </div>
+                    :
+                        null
+                }
             </div>
         )
     }
@@ -218,14 +264,14 @@ class Navbar extends Component {
         let { user } = this.state;
 
         return (
-                <div  styleName="top-menu">
-                    {this.renderLogo()}
-                    {user ?
-                        [ this.renderCurrencySelector(), this.renderLanguageProfile() ]
-                    :
-                        [ <div/>, this.renderLanguageProfile() ]
-                    }
-                </div>
+            <div  styleName="top-menu">
+                {this.renderLogo()}
+                {user ?
+                    [ this.renderCurrencySelector(), this.renderLanguageProfile() ]
+                :
+                    [ <div/>, this.renderLanguageProfile() ]
+                }
+            </div>
         );
     }
 }
