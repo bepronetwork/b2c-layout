@@ -4,9 +4,20 @@ import propTypes from "prop-types";
 import styles from "./index.css";
 import images from "./images";
 import HandleLines from "../SlotsLines/Lines";
-import Quadrilateral from "../../assets/icons/SlotsIcons/dog2.svg";
+
 import Coin from "../../assets/icons/SlotsIcons/coin2.svg";
 import BlueCoin from "../../assets/icons/SlotsIcons/bluecoin2.svg";
+import Club from "../../assets/icons/SlotsIcons/club2.svg";
+import Spade from "../../assets/icons/SlotsIcons/spade2.svg";
+import Heart from "../../assets/icons/SlotsIcons/heart2.svg";
+import Octagon from "../../assets/icons/SlotsIcons/octagon2.svg";
+import DogJS from "../../assets/icons/SlotsIcons/dog2.svg";
+import Quadrilateral from "../../assets/icons/SlotsIcons/quadrilateral2.svg";
+import Diamond from "../../assets/icons/SlotsIcons/diamond2.svg";
+import Triangle from "../../assets/icons/SlotsIcons/triangle2.svg";
+import Pentagon from "../../assets/icons/SlotsIcons/pentagon2.svg";
+import Beetle from "../../assets/icons/SlotsIcons/beetle2.svg";
+import Esfinge from "../../assets/icons/SlotsIcons/esfinge2.svg";
 
 class SlotsGame extends React.Component {
   selectNumber = num => {
@@ -16,17 +27,28 @@ class SlotsGame extends React.Component {
       case 1:
         return Coin;
       case 2:
-        return Quadrilateral;
+        return Club;
       case 3:
-        return Quadrilateral;
+        return Spade;
       case 4:
         return Quadrilateral;
       case 5:
-        return Quadrilateral;
+        return Heart;
       case 6:
-        return Quadrilateral;
+        return Octagon;
       case 7:
-        return Quadrilateral;
+        return DogJS;
+      case 8:
+        return Diamond;
+      case 9:
+        return Triangle;
+      case 10:
+        return Pentagon;
+      case 11:
+        return Beetle;
+      case 12:
+        return Esfinge;
+
       default:
         break;
     }

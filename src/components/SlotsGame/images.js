@@ -5,7 +5,12 @@ import Spade from "../../assets/icons/SlotsIcons/spade.svg";
 import Heart from "../../assets/icons/SlotsIcons/heart.svg";
 import Octagon from "../../assets/icons/SlotsIcons/octagon.svg";
 import DogJS from "../../assets/icons/SlotsIcons/dog.svg";
-import Quadrilateral from "../../assets/icons/SlotsIcons/quadrilateral2.svg";
+import Quadrilateral from "../../assets/icons/SlotsIcons/quadrilateral.svg";
+import Diamond from "../../assets/icons/SlotsIcons/diamond.svg";
+import Triangle from "../../assets/icons/SlotsIcons/triangle.svg";
+import Pentagon from "../../assets/icons/SlotsIcons/pentagon.svg";
+import Beetle from "../../assets/icons/SlotsIcons/beetle.svg";
+import Esfinge from "../../assets/icons/SlotsIcons/esfinge.svg";
 
 const images = [
   BlueCoin,
@@ -15,7 +20,12 @@ const images = [
   Quadrilateral,
   Heart,
   Octagon,
-  DogJS
+  DogJS,
+  Diamond,
+  Triangle,
+  Pentagon,
+  Beetle,
+  Esfinge
 ];
 
 export default images;

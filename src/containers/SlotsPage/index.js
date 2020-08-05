@@ -22,7 +22,7 @@ const defaultState = {
   result: false,
   matrixResult: [],
   testBol: Array(5).fill(false),
-  testArray: [[1, 1, 1, 2, 2]],
+  testArray: [[12, 12, 12, 3, 12]],
   resultFirstColumn: [],
   resultSecondColumn: [],
   resultThirstColumn: [],
@@ -48,7 +48,7 @@ class SlotsPage extends Component {
 
   randomTable = (rows, cols) =>
     Array.from({ length: rows }, () =>
-      Array.from({ length: cols }, () => Math.floor(Math.random() * 8))
+      Array.from({ length: cols }, () => Math.floor(Math.random() * 10))
     );
 
   handleClick = async () => {
