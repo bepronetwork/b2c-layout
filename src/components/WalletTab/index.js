@@ -120,7 +120,10 @@ class WalletTab extends React.Component{
                     <div styleName="email-content">
                         <div styleName="email-text">
                             <Typography variant={'x-small-body'} color={'white'}>
-                                Your e-email is not confirmed, please confirm your e-mail to access your wallet.
+                                Your e-mail is not confirmed.
+                            </Typography>
+                            <Typography variant={'x-small-body'} color={'white'}>
+                                Please click the button to send another e-mail confirmation.
                             </Typography>
                         </div>
                         <div styleName="email-buttons">

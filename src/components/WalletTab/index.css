@@ -25,6 +25,13 @@
 
 .email-text{
     text-align: left;
+    p {
+        line-height: $spacing-16;
+    }
+
+    p:first-child {
+        line-height: $spacing-28;
+    }
 }
 
 .email-buttons{
