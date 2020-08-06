@@ -4,6 +4,7 @@ import { Typography } from 'components';
 import { getAppCustomization } from "../../lib/helpers";
 import { Link } from "react-router-dom";
 import classNames from 'classnames';
+import moment from 'moment-timezone';
 import _ from 'lodash';
 import "./index.css";
 
@@ -23,11 +24,30 @@ class NavigationBar extends Component {
     componentWillReceiveProps(props){
         this.projectData(props);
     }
+
+    componentWillUnmount() {
+        clearInterval(this.intervalID);
+    }
     
     projectData = async (props) => {
         const { topTab } = getAppCustomization();
 
-        this.setState({ tabs: topTab.ids });
+        this.setState({ 
+            tabs: topTab.ids
+        });
+
+        this.tick();
+
+        this.intervalID = setInterval(
+            () => this.tick(),
+            10000
+        );
+    }
+
+    tick() {
+        this.setState({
+            time: moment().format("hh:mm A")
+        });
     }
 
     renderMenuItem = ({link_url, icon, name}, isMainMenu=false) => {
@@ -52,7 +72,7 @@ class NavigationBar extends Component {
     }
 
     render() {
-        const { tabs, open } = this.state;
+        const { tabs, open, time } = this.state;
         const styles = classNames("dropdown-content", {
             "dropdown-content-open": open == true
         });
@@ -60,6 +80,11 @@ class NavigationBar extends Component {
 
         return (
             <div styleName="tabs">
+                <div styleName="time">
+                    <Typography variant={'x-small-body'} color={'white'}>
+                        {time}
+                    </Typography>
+                </div>
                 {
                     tabs.slice(0, 2).map(t => {
                         return (
