@@ -240,6 +240,7 @@
 .top-menu-transparent {
     background-color: unset;
     box-shadow: none;
+    position: initial;
 }
 
 .profile{
