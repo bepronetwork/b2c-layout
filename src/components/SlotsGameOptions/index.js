@@ -167,7 +167,7 @@ class SlotsGameOptions extends Component {
 
   render() {
     const { type } = this.state;
-    const { totalBet, ln, doubleDownBet, onClickBet, profile } = this.props;
+    const { amount, ln, doubleDownBet, onClickBet, profile } = this.props;
     const copy = CopyText.shared[ln];
 
     const user = profile;
@@ -200,7 +200,7 @@ class SlotsGameOptions extends Component {
           <div styleName="element">
             <InputNumber
               name="amount"
-              value={totalBet}
+              value={amount}
               max={user && !_.isEmpty(user) ? user.getBalance() : null}
               step={0.01}
               icon="bitcoin"
@@ -213,7 +213,7 @@ class SlotsGameOptions extends Component {
           </div>
           <div styleName="button">
             <Button
-              disabled={!this.isBetValid()}
+              // disabled={!this.isBetValid()}
               onClick={onClickBet}
               fullWidth
               theme="primary"
@@ -243,7 +243,7 @@ class SlotsGameOptions extends Component {
 
 SlotsGameOptions.propTypes = {
   onBet: PropTypes.func.isRequired,
-  totalBet: PropTypes.number,
+  amount: PropTypes.number.isRequired,
   disableControls: PropTypes.bool,
   doubleDownBet: PropTypes.string.isRequired,
   onBetAmount: PropTypes.string.isRequired

@@ -18,6 +18,7 @@ class SlotsPage extends Component {
     bet: {},
     gameStore: [],
     line: false,
+    betAmount: 0,
     matrixResult: [],
     testBol: Array(5).fill(false),
     testArray: [[11, 11, 11, 3, 12]],
