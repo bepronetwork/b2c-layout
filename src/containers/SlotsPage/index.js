@@ -10,35 +10,25 @@ import UserContext from "containers/App/UserContext";
 import Cache from "../../lib/cache/cache";
 import GameAudio from "../../components/GameAudio";
 
-const defaultState = {
-  edge: 0,
-  Result: null,
-  hasWon: null,
-  gameName: "Slots",
-  game: {
-    edge: 0
-  },
-  line: false,
-  result: false,
-  matrixResult: [],
-  testBol: Array(5).fill(false),
-  testArray: [[12, 12, 12, 3, 12]],
-  resultFirstColumn: [],
-  resultSecondColumn: [],
-  resultThirstColumn: [],
-  resultFourthColumn: [],
-  resultFiveColumn: [],
-  insertionIndex: [],
-  insertIndex: []
-};
-
 class SlotsPage extends Component {
   static contextType = UserContext;
 
-  constructor(props) {
-    super(props);
-    this.state = defaultState;
-  }
+  state = {
+    result: null,
+    bet: {},
+    gameStore: [],
+    line: false,
+    matrixResult: [],
+    testBol: Array(5).fill(false),
+    testArray: [[11, 11, 11, 3, 12]],
+    resultFirstColumn: [],
+    resultSecondColumn: [],
+    resultThirstColumn: [],
+    resultFourthColumn: [],
+    resultFiveColumn: [],
+    insertionIndex: [],
+    insertIndex: []
+  };
 
   async componentDidMount() {
     this.getGame();
@@ -220,14 +210,17 @@ class SlotsPage extends Component {
   };
 
   getGame = () => {
-    const { gameName, ...state } = this.state;
     const appInfo = Cache.getFromCache("appInfo");
 
     if (appInfo) {
-      const game = find(appInfo.games, { name: gameName });
+      const game = find(appInfo.games, { name: "Slots" });
 
-      this.setState({ ...state, game });
+      this.setState({ gameStore: game });
     }
+  };
+
+  handleBetAmountChange = betAmount => {
+    this.setState({ betAmount });
   };
 
   renderGameCard = () => {
@@ -261,31 +254,34 @@ class SlotsPage extends Component {
   };
 
   renderGameOptions = () => {
-    const { bet, game } = this.state;
+    const { bet, totalBet, gameStore } = this.state;
     const { profile } = this.props;
 
     return (
       <SlotsGameOptions
         onClickBet={this.handleClick}
         onChangeChip={this.handleChangeChip}
-        totalBet={() => {}}
-        game={game}
+        totalBet={totalBet}
+        game={gameStore}
         profile={profile}
         doubleDownBet={this.doubleDownBet}
         disableControls={bet}
+        onBetAmount={this.handleBetAmountChange}
       />
     );
   };
 
   render() {
     const { onTableDetails } = this.props;
+    const { gameStore } = this.state;
 
     return (
       <GamePage
         options={this.renderGameOptions()}
         game={this.renderGameCard()}
-        history="SlotsHistory"
-        gameMetaName="slots_simple"
+        history="slotsHistory"
+        slots="slots"
+        gameMetaName={gameStore.metaName}
         onTableDetails={onTableDetails}
       />
     );

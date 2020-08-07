@@ -26,7 +26,8 @@ class GamePage extends Component {
       "plinko_variation_1History",
       "wheelHistory",
       "wheel_variation_1History",
-      "kenoHistory"
+      "kenoHistory",
+      "slotsHistory"
     ])
   };
 
@@ -68,9 +69,13 @@ class GamePage extends Component {
 
   getGame = () => {
     const { gameMetaName } = this.props;
+    
+    console.log(gameMetaName);
 
     if (!_.isEmpty(gameMetaName)) {
       const appInfo = Cache.getFromCache("appInfo");
+
+      console.log("ta aqui cpx =>", appInfo);
 
       if (appInfo) {
         const gameInfo = find(appInfo.games, { metaName: gameMetaName });
@@ -78,6 +83,7 @@ class GamePage extends Component {
         this.setState({ ...this.state, gameInfo });
       }
     }
+    
   };
 
   handleSounds = () => {

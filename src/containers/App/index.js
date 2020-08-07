@@ -396,6 +396,7 @@ class App extends Component {
         localStorage.removeItem("wheelHistory");
         localStorage.removeItem("wheel_variation_1History");
         localStorage.removeItem("kenoHistory");
+        localStorage.removeItem("slotsHistory");
         localStorage.removeItem("customization");
         localStorage.removeItem("affiliate");
         localStorage.removeItem("appInfo");
@@ -677,6 +678,8 @@ class App extends Component {
                     render={props => (
                         <SlotsPage
                             {...props}
+                            onHandleLoginOrRegister={this.handleLoginOrRegisterOpen}
+                            onTableDetails={this.handleTableDetailsOpen}
                         />
                     )}
                     />

@@ -22,7 +22,7 @@ class SlotsGameOptions extends Component {
 
   state = {
     type: "manual",
-    profitStop: 0,
+    isAutoBetting: false,
     lossStop: 0,
     onWin: null,
     onLoss: null,
@@ -41,6 +41,18 @@ class SlotsGameOptions extends Component {
     const { amount } = this.state;
 
     return (amount > 0 && !disableControls) || !user;
+  };
+
+  isInAutoBet = () => this.state.isAutoBetting;
+
+  handleBetAmountChange = value => {
+    const { onBetAmount } = this.props;
+
+    this.setState({
+      amount: value
+    });
+
+    onBetAmount(value);
   };
 
   handleBet = () => {
@@ -110,12 +122,6 @@ class SlotsGameOptions extends Component {
     );
   };
 
-  handleBetAmountChange = value => {
-    this.setState({
-      amount: value
-    });
-  };
-
   handleOnWin = value => {
     this.setState({ onWin: value });
   };
@@ -161,10 +167,10 @@ class SlotsGameOptions extends Component {
 
   render() {
     const { type } = this.state;
-    const { totalBet, ln, doubleDownBet, onClickBet } = this.props;
+    const { totalBet, ln, doubleDownBet, onClickBet, profile } = this.props;
     const copy = CopyText.shared[ln];
 
-    const user = this.props.profile;
+    const user = profile;
     let balance;
 
     if (!user || _.isEmpty(user)) {
@@ -195,7 +201,7 @@ class SlotsGameOptions extends Component {
             <InputNumber
               name="amount"
               value={totalBet}
-              max={user ? balance : null}
+              max={user && !_.isEmpty(user) ? user.getBalance() : null}
               step={0.01}
               icon="bitcoin"
               precision={2}
@@ -219,7 +225,7 @@ class SlotsGameOptions extends Component {
           </div>
           <div styleName="button">
             <Button
-              disabled={!this.isBetValid()}
+              disabled={!this.isBetValid() || this.isInAutoBet()}
               onClick={doubleDownBet}
               fullWidth
               theme="default"
@@ -239,7 +245,8 @@ SlotsGameOptions.propTypes = {
   onBet: PropTypes.func.isRequired,
   totalBet: PropTypes.number,
   disableControls: PropTypes.bool,
-  doubleDownBet: PropTypes.string.isRequired
+  doubleDownBet: PropTypes.string.isRequired,
+  onBetAmount: PropTypes.string.isRequired
 };
 
 SlotsGameOptions.defaultProps = {
@@ -249,6 +256,7 @@ SlotsGameOptions.defaultProps = {
 
 function mapStateToProps(state) {
   return {
+    profile : state.profile,
     ln: state.language
   };
 }

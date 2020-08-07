@@ -2,7 +2,7 @@ import React from "react";
 import propTypes from "prop-types";
 
 import styles from "./index.css";
-import images from "./images";
+import { images } from "./images";
 import HandleLines from "../SlotsLines/Lines";
 
 import Coin from "../../assets/icons/SlotsIcons/coin2.svg";
