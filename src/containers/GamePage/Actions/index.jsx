@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Tabs, Typography } from "components";
+import { Tabs, Typography, slotsGameRules } from "components";
 import { escapedNewLineToLineBreakTag } from '../../../utils/br';
 import { connect } from "react-redux";
 import { CopyText } from "../../../copy";
@@ -64,10 +64,11 @@ class Actions extends Component {
                             <Typography variant='x-small-body' color={"grey"}>{game.name}</Typography>
                         </h1>
                         <div styleName="content">
-                                {
-                                    slotsRules.map(item => {
+                            <div styleName="grid-items">
+                            {
+                                     slotsRules.filter(item => item.id <= 12).map(item => {
                                         return (
-                                        <div styleName="icon-rule" key={item.id}>
+                                        <div styleName={"icon-rule"} key={item.id}>
                                             <object
                                                 type="image/svg+xml"
                                                 data={item.icon}
@@ -121,6 +122,75 @@ class Actions extends Component {
                                         );
                                     })
                                 }
+                            </div>
+                            {
+                                    slotsRules.filter(item => item.id === 13).map(item => {
+                                        return (
+                                        <div styleName={"beetle-container"} key={item.id}>
+                                            <object
+                                                type="image/svg+xml"
+                                                data={item.icon}
+                                                styleName="icon"
+                                            >
+                                                svg-animation
+                                            </object>
+                                            <div styleName="column-numbers">
+                                            <div styleName="row-number">
+                                                <div styleName="margin-right">
+                                                    <Typography color={'casper'} variant={'small-body'}>
+                                                        5
+                                                    </Typography>
+                                                </div>
+                                                <Typography color={'grey'} variant={'small-body'}>
+                                                    {item.value5}
+                                                </Typography>
+                                            </div>
+                                            <div styleName="row-number">
+                                                <div styleName="margin-right">
+                                                    <Typography color={'casper'} variant={'small-body'}>
+                                                        4
+                                                    </Typography>
+                                                </div>
+                                                <Typography color={'grey'} variant={'small-body'}>
+                                                    {item.value4}
+                                                </Typography>
+                                            </div>
+                                            <div styleName="row-number">
+                                                <div styleName="margin-right">
+                                                    <Typography color={'casper'} variant={'small-body'}>
+                                                        3
+                                                    </Typography>
+                                                </div>
+                                                <Typography color={'grey'} variant={'small-body'}>
+                                                    {item.value3}
+                                                </Typography>
+                                            </div>
+                                            <div styleName="row-number">
+                                                <div styleName="margin-right">
+                                                    <Typography color={'casper'} variant={'small-body'}>
+                                                        2
+                                                    </Typography>
+                                                </div>
+                                                <Typography color={'grey'} variant={'small-body'}>
+                                                    {item.value2}
+                                                </Typography>
+                                            </div>
+                                            </div>
+                                                {
+                                                    item.id === 13 ?
+                                                    <div styleName="beetle-text">
+                                                        <Typography color={'casper'} variant={'small-body'}>
+                                                            O jogador é pago de acordo com o número
+                                                            que aparece em algum lugar da tela.
+                                                        </Typography> 
+                                                    </div>
+                                                  
+                                                    :<div/>
+                                                }
+                                        </div>
+                                        );
+                                    })
+                                }  
                         </div>
                     </div>
                     :
