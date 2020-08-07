@@ -8,6 +8,7 @@ import { formatCurrency } from "../../utils/numberFormatation";
 import { CopyText } from '../../copy';
 import Tooltip from '@material-ui/core/Tooltip';
 import { withStyles } from "@material-ui/core/styles";
+import classNames from "classnames";
 import _ from 'lodash';
 import "./index.css";
 
@@ -25,7 +26,8 @@ const defaultProps = {
     currentBalance : 0,
     betIDVerified : '',
     openSettingsMenu : false,
-    points: 0
+    points: 0,
+    isTransparent: false
 };
 
 class Navbar extends Component {
@@ -48,6 +50,7 @@ class Navbar extends Component {
     
     projectData = async (props) => {
         try{
+            const { topTab } = getAppCustomization();
             var user = !_.isEmpty(props.profile) ? props.profile : null;
 
             if(user){
@@ -64,10 +67,11 @@ class Navbar extends Component {
                     user    : user,
                     userFullAddress : user.getAddress(),
                     userAddress : user.getAddress() ? AddressConcat(user.getAddress()) : defaultProps.userAddress,
-                    points : await user.getPoints()
+                    points : await user.getPoints(),
+                    isTransparent: topTab.isTransparent
                 })
             }else{
-                this.setState({user : null})
+                this.setState({user : null, isTransparent: topTab.isTransparent})
             }
         }catch(err){
             console.log(err)
@@ -261,10 +265,14 @@ class Navbar extends Component {
     }
 
     render() {
-        let { user } = this.state;
+        let { user, isTransparent } = this.state;
+
+        const styles = classNames("top-menu", {
+            "top-menu-transparent": isTransparent == true
+          });
 
         return (
-            <div  styleName="top-menu">
+            <div  styleName={styles}>
                 {this.renderLogo()}
                 {user ?
                     [ this.renderCurrencySelector(), this.renderLanguageProfile() ]
