@@ -237,6 +237,11 @@
     }
 }
 
+.top-menu-transparent {
+    background-color: unset;
+    box-shadow: none;
+}
+
 .profile{
     justify-content: flex-end;
     display: inline-flex;
