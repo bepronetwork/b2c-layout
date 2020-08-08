@@ -1,5 +1,4 @@
 import React from "react";
-import PropTypes from "prop-types";
 
 import Line from "components/SlotsLines";
 import styles from "../SlotsGame/index.css";
@@ -739,11 +738,6 @@ const HandleLines = ({
       ) : null}
     </div>
   );
-};
-
-HandleLines.propTypes = {
-  insertion1: PropTypes.number.isRequired,
-  insertion2: PropTypes.number.isRequired
 };
 
 export default HandleLines;

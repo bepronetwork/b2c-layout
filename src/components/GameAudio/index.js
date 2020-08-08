@@ -1,12 +1,12 @@
 import React from "react";
 import propTypes from "prop-types";
 
-// import { Container } from './styles';
-
 const GameAudio = ({ pathSound }) => {
   return (
-    <audio autoPlay="autoplay" className="player" preload="false">
-      <source src={pathSound} />
+    <audio controls autoPlay className="player" preload="true">
+      <source src={pathSound} type="audio/mp3" />
+      <source src={pathSound} type="audio/ogg" />
+      <source src={pathSound} type="audio/mpeg" />
       <track src="" kind="captions" srcLang="en" label="" />
     </audio>
   );

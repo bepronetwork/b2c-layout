@@ -2,13 +2,28 @@ import React, { Component } from "react";
 import propTypes from "prop-types";
 import { compose } from "lodash/fp";
 import { connect } from "react-redux";
+import Sound from "react-sound";
 import { find } from "lodash";
 
 import { SlotsGameOptions, SlotsGame } from "components";
 import GamePage from "containers/GamePage";
 import UserContext from "containers/App/UserContext";
+
+import Coin from "assets/audio/slotsaudio/coin.mp3";
+import BlueCoin from "assets/audio/slotsaudio/blue-coin.mp3";
+import Club from "assets/audio/slotsaudio/club.mp3";
+import Spade from "assets/audio/slotsaudio/spade.mp3";
+import Heart from "assets/audio/slotsaudio/heart.mp3";
+import Octagon from "assets/audio/slotsaudio/octagon.mp3";
+import DogJS from "assets/audio/slotsaudio/dog.mp3";
+import Quadrilateral from "assets/audio/slotsaudio/quadrilateral.mp3";
+import Diamond from "assets/audio/slotsaudio/diamond.mp3";
+import Triangle from "assets/audio/slotsaudio/triangle.mp3";
+import Pentagon from "assets/audio/slotsaudio/pentagon.mp3";
+import Beetle from "assets/audio/slotsaudio/beetle.mp3";
+import Esfinge from "assets/audio/slotsaudio/esfinge.mp3";
+
 import Cache from "../../lib/cache/cache";
-import GameAudio from "../../components/GameAudio";
 
 class SlotsPage extends Component {
   static contextType = UserContext;
@@ -20,8 +35,9 @@ class SlotsPage extends Component {
     line: false,
     betAmount: 0,
     matrixResult: [],
+    sound: false,
     testBol: Array(5).fill(false),
-    testArray: [[11, 11, 11, 3, 12]],
+    testArray: [[7, 7, 7, 3, 12]],
     resultFirstColumn: [],
     resultSecondColumn: [],
     resultThirstColumn: [],
@@ -46,6 +62,7 @@ class SlotsPage extends Component {
     this.setState({
       line: false,
       result: false,
+      sound: false,
       testBol: Array(5).fill(false),
       insertionIndex: [],
       insertIndex: []
@@ -54,6 +71,7 @@ class SlotsPage extends Component {
     this.getcolumn();
     await this.handleAnimations();
 
+    this.setSound();
     await this.handleImage(1000);
     await this.handleResult();
   };
@@ -113,6 +131,10 @@ class SlotsPage extends Component {
     this.setState({ result: true });
   };
 
+  setSound = () => {
+    this.setState({ sound: true });
+  };
+
   getcolumn = async () => {
     const { matrixResult } = this.state;
     const arrayColumn = (arr, n) => {
@@ -167,21 +189,77 @@ class SlotsPage extends Component {
     return new Promise(resolve => setTimeout(() => resolve(), 1500));
   };
 
-  handleIconAudio = (number, Sound) => {
+  handleIconAudio = () => {
     const { testArray } = this.state;
 
-    if (testArray[0] && testArray[1] === number) {
-      return <GameAudio pathSound={Sound} />;
+    const testArr = testArray[0];
+
+    const switchCondit = testArr[0] && testArr[1];
+
+    switch (switchCondit) {
+      case 0:
+        return <Sound volume={80} url={Coin} playStatus="PLAYING" autoLoad />;
+      case 1:
+        return (
+          <Sound volume={80} url={BlueCoin} playStatus="PLAYING" autoLoad />
+        );
+      case 2:
+        return <Sound volume={80} url={Club} playStatus="PLAYING" autoLoad />;
+      case 3:
+        return <Sound volume={80} url={Spade} playStatus="PLAYING" autoLoad />;
+      case 4:
+        return <Sound volume={80} url={Heart} playStatus="PLAYING" autoLoad />;
+      case 5:
+        return (
+          <Sound volume={80} url={Octagon} playStatus="PLAYING" autoLoad />
+        );
+      case 6:
+        return (
+          <Sound
+            volume={80}
+            url={Quadrilateral}
+            playStatus="PLAYING"
+            autoLoad
+          />
+        );
+      case 7:
+        return <Sound volume={80} url={DogJS} playStatus="PLAYING" autoLoad />;
+      case 8:
+        return (
+          <Sound volume={80} url={Diamond} playStatus="PLAYING" autoLoad />
+        );
+      case 9:
+        return (
+          <Sound volume={80} url={Triangle} playStatus="PLAYING" autoLoad />
+        );
+      case 10:
+        return (
+          <Sound volume={80} url={Pentagon} playStatus="PLAYING" autoLoad />
+        );
+      case 11:
+        return <Sound volume={80} url={Beetle} playStatus="PLAYING" autoLoad />;
+      case 12:
+        return (
+          <Sound volume={80} url={Esfinge} playStatus="PLAYING" autoLoad />
+        );
+
+      default:
+        break;
     }
   };
 
-  handleAudioIcons = () => {
-    this.handleIconAudio(1, null) ||
-      this.handleIconAudio(2, null) ||
-      this.handleIconAudio(3, null) ||
-      this.handleIconAudio(4, null) ||
-      this.handleIconAudio(5, null) ||
-      this.handleIconAudio(7, null);
+  playSound = (sound, timeout) => {
+    const soundConfig = localStorage.getItem("sound");
+
+    if (soundConfig !== "on") {
+      return null;
+    }
+
+    sound.play();
+    setTimeout(() => {
+      sound.pause();
+      sound.currentTime = 0;
+    }, timeout);
   };
 
   handleImage = async setTimeOut => {
@@ -230,6 +308,7 @@ class SlotsPage extends Component {
       line,
       testArray,
       result,
+      sound,
       resultFirstColumn,
       resultSecondColumn,
       resultThirstColumn,
@@ -239,18 +318,21 @@ class SlotsPage extends Component {
     } = this.state;
 
     return (
-      <SlotsGame
-        testBol={testBol}
-        line={line}
-        testArray={testArray}
-        result={result}
-        resultFirstColumn={resultFirstColumn}
-        resultSecondColumn={resultSecondColumn}
-        resultThirstColumn={resultThirstColumn}
-        resultFourthColumn={resultFourthColumn}
-        resultFiveColumn={resultFiveColumn}
-        insertIndex={insertIndex}
-      />
+      <>
+        {sound ? this.handleIconAudio() : null}
+        <SlotsGame
+          testBol={testBol}
+          line={line}
+          testArray={testArray}
+          result={result}
+          resultFirstColumn={resultFirstColumn}
+          resultSecondColumn={resultSecondColumn}
+          resultThirstColumn={resultThirstColumn}
+          resultFourthColumn={resultFourthColumn}
+          resultFiveColumn={resultFiveColumn}
+          insertIndex={insertIndex}
+        />
+      </>
     );
   };
 
