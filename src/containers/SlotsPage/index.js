@@ -15,13 +15,16 @@ import Club from "assets/audio/slotsaudio/club.mp3";
 import Spade from "assets/audio/slotsaudio/spade.mp3";
 import Heart from "assets/audio/slotsaudio/heart.mp3";
 import Octagon from "assets/audio/slotsaudio/octagon.mp3";
-import DogJS from "assets/audio/slotsaudio/dog.mp3";
+import Dog from "assets/audio/slotsaudio/dog.mp3";
 import Quadrilateral from "assets/audio/slotsaudio/quadrilateral.mp3";
 import Diamond from "assets/audio/slotsaudio/diamond.mp3";
 import Triangle from "assets/audio/slotsaudio/triangle.mp3";
 import Pentagon from "assets/audio/slotsaudio/pentagon.mp3";
 import Beetle from "assets/audio/slotsaudio/beetle.mp3";
 import Esfinge from "assets/audio/slotsaudio/esfinge.mp3";
+
+import Reel from "assets/audio/slotsaudio/reels.mp3";
+import Result from "assets/audio/slotsaudio/result.mp3";
 
 import Cache from "../../lib/cache/cache";
 
@@ -33,11 +36,12 @@ class SlotsPage extends Component {
     bet: {},
     gameStore: [],
     line: false,
-    betAmount: 0,
+    // betAmount: 0,
     matrixResult: [],
-    sound: false,
+    soundIcon: false,
+    soundReel: false,
     testBol: Array(5).fill(false),
-    testArray: [[7, 7, 7, 3, 12]],
+    testArray: [[12, 12, 12, 3, 12]],
     resultFirstColumn: [],
     resultSecondColumn: [],
     resultThirstColumn: [],
@@ -62,14 +66,16 @@ class SlotsPage extends Component {
     this.setState({
       line: false,
       result: false,
-      sound: false,
+      soundIcon: false,
       testBol: Array(5).fill(false),
       insertionIndex: [],
       insertIndex: []
     });
+    this.setState({ soundReel: true });
 
     this.getcolumn();
     await this.handleAnimations();
+    this.setState({ soundReel: false });
 
     this.setSound();
     await this.handleImage(1000);
@@ -104,7 +110,8 @@ class SlotsPage extends Component {
     box.animate(
       [
         { transform: "translate3D(0, -30px, 0)" },
-        { transform: "translate3D(0, 600px, 0)" }
+        { transform: "translate3D(0, 600px, 0)" },
+        { transform: "translate3D(0, 30px, 0)" }
       ],
       {
         duration: 500,
@@ -132,7 +139,11 @@ class SlotsPage extends Component {
   };
 
   setSound = () => {
-    this.setState({ sound: true });
+    this.setState({ soundIcon: true });
+  };
+
+  renderSounds = urlSound => {
+    return <Sound volume={80} url={urlSound} playStatus="PLAYING" autoLoad />;
   };
 
   getcolumn = async () => {
@@ -198,68 +209,35 @@ class SlotsPage extends Component {
 
     switch (switchCondit) {
       case 0:
-        return <Sound volume={80} url={Coin} playStatus="PLAYING" autoLoad />;
+        return this.renderSounds(BlueCoin);
       case 1:
-        return (
-          <Sound volume={80} url={BlueCoin} playStatus="PLAYING" autoLoad />
-        );
+        return this.renderSounds(Coin);
       case 2:
-        return <Sound volume={80} url={Club} playStatus="PLAYING" autoLoad />;
+        return this.renderSounds(Club);
       case 3:
-        return <Sound volume={80} url={Spade} playStatus="PLAYING" autoLoad />;
+        return this.renderSounds(Spade);
       case 4:
-        return <Sound volume={80} url={Heart} playStatus="PLAYING" autoLoad />;
+        return this.renderSounds(Heart);
       case 5:
-        return (
-          <Sound volume={80} url={Octagon} playStatus="PLAYING" autoLoad />
-        );
+        return this.renderSounds(Octagon);
       case 6:
-        return (
-          <Sound
-            volume={80}
-            url={Quadrilateral}
-            playStatus="PLAYING"
-            autoLoad
-          />
-        );
+        return this.renderSounds(Quadrilateral);
       case 7:
-        return <Sound volume={80} url={DogJS} playStatus="PLAYING" autoLoad />;
+        return this.renderSounds(Dog);
       case 8:
-        return (
-          <Sound volume={80} url={Diamond} playStatus="PLAYING" autoLoad />
-        );
+        return this.renderSounds(Diamond);
       case 9:
-        return (
-          <Sound volume={80} url={Triangle} playStatus="PLAYING" autoLoad />
-        );
+        return this.renderSounds(Triangle);
       case 10:
-        return (
-          <Sound volume={80} url={Pentagon} playStatus="PLAYING" autoLoad />
-        );
+        return this.renderSounds(Pentagon);
       case 11:
-        return <Sound volume={80} url={Beetle} playStatus="PLAYING" autoLoad />;
+        return this.renderSounds(Beetle);
       case 12:
-        return (
-          <Sound volume={80} url={Esfinge} playStatus="PLAYING" autoLoad />
-        );
+        return this.renderSounds(Esfinge);
 
       default:
         break;
     }
-  };
-
-  playSound = (sound, timeout) => {
-    const soundConfig = localStorage.getItem("sound");
-
-    if (soundConfig !== "on") {
-      return null;
-    }
-
-    sound.play();
-    setTimeout(() => {
-      sound.pause();
-      sound.currentTime = 0;
-    }, timeout);
   };
 
   handleImage = async setTimeOut => {
@@ -298,9 +276,9 @@ class SlotsPage extends Component {
     }
   };
 
-  handleBetAmountChange = betAmount => {
-    this.setState({ betAmount });
-  };
+  // handleBetAmountChange = betAmount => {
+  //   this.setState({ betAmount });
+  // };
 
   renderGameCard = () => {
     const {
@@ -308,7 +286,8 @@ class SlotsPage extends Component {
       line,
       testArray,
       result,
-      sound,
+      soundIcon,
+      soundReel,
       resultFirstColumn,
       resultSecondColumn,
       resultThirstColumn,
@@ -319,7 +298,9 @@ class SlotsPage extends Component {
 
     return (
       <>
-        {sound ? this.handleIconAudio() : null}
+        {soundReel ? this.renderSounds(Reel) : null}
+        {soundIcon ? this.handleIconAudio() : null}
+        {result ? this.renderSounds(Result) : null}
         <SlotsGame
           testBol={testBol}
           line={line}
