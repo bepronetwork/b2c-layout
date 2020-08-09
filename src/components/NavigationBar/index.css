@@ -24,6 +24,7 @@
     &:hover{
         opacity : 0.4;
         background-color : $navigation-bar-item;
+        border-radius: $border-radius;
     }
 
 }

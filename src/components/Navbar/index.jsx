@@ -100,12 +100,12 @@ class Navbar extends Component {
         return(
             <div styleName='buttons'>
                 <div styleName="login">
-                    <SubtleButton onClick={this.handleClick} name="login" variant="x-small-body">
+                    <SubtleButton onClick={this.handleClick} name="login" variant="small-body">
                     {copy.INDEX.SUBTLE_BUTTON.TEXT[0]}
                     </SubtleButton>
                 </div>
                 <Button size="x-small" onClick={this.handleClick} name="register" theme="primary">
-                    <Typography color="fixedwhite" variant="x-small-body">{copy.INDEX.TYPOGRAPHY.TEXT[0]}</Typography>
+                    <Typography color="fixedwhite" variant="small-body">{copy.INDEX.TYPOGRAPHY.TEXT[0]}</Typography>
                 </Button>
             </div>
         )
