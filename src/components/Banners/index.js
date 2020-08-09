@@ -13,7 +13,8 @@ class Banners extends Component {
         super(props);
         this.state = {
             banners : [],
-            index : 0
+            index : 0,
+            isFullWidth : false
         }
     }
 
@@ -28,7 +29,10 @@ class Banners extends Component {
     projectData = async (props) => {
         const { banners } = getAppCustomization();
 
-        this.setState({ banners : !_.isEmpty(banners) ? banners.ids : null })
+        this.setState({ 
+            banners : !_.isEmpty(banners) ? banners.ids : null,
+            isFullWidth : !_.isEmpty(banners) ? banners.fullWidth : false
+        })
     }
 
     handleSelect(selectedIndex, e) {
@@ -40,23 +44,28 @@ class Banners extends Component {
     }
 
     render() {
-        const { banners, index } = this.state;
+        const { banners, index, isFullWidth } = this.state;
         
         if(_.isEmpty(banners)) { return null; }
 
+        const bannersStyles = classNames("banners", {
+            "banners-full": isFullWidth
+        });
+
         return (
-            <div styleName='banners'>
+            <div styleName={bannersStyles}>
               <Carousel activeIndex={index} onSelect={this.handleSelect.bind(this)} pause="hover">
                     {banners.map(banner => {
                         const styles = classNames("text-image", {"text-image-show": !(banner.title || banner.subtitle || banner.button_text)});
-
+                        const bannerStyles = classNames("banner", { "banner-full": isFullWidth });
+                        const textStyles = classNames("text", { "text-full": isFullWidth });
                         return (
                             <Carousel.Item>
-                                <div styleName="banner">
-                                    <div styleName="text">
+                                <div styleName={bannerStyles} style={{background: isFullWidth == true ? "url("+banner.image_url+") center center / cover no-repeat" : null}}>
+                                    <div styleName={textStyles}>
                                         {
                                             banner.title || banner.subtitle || banner.button_text ?
-                                                <div>
+                                                <div style={{margin: isFullWidth == true ? "auto" : null}}>
                                                     <div styleName="fields">
                                                         <Typography color={'grey'} variant={'h4'}>{banner.title}</Typography>
                                                     </div>
@@ -77,7 +86,7 @@ class Banners extends Component {
                                                 <div/>
                                         }
                                     </div>
-                                    <div styleName="image" style={{background: "url("+banner.image_url+") center center / cover no-repeat"}}>
+                                    <div styleName="image" style={{background: isFullWidth == false ? "url("+banner.image_url+") center center / cover no-repeat" : "linear-gradient(to right, rgba(0,0,0,0.9) 0%,rgba(0,0,0,0) 69%)"}}>
                                         <div styleName={styles}>
                                             {
                                                 banner.title || banner.subtitle || banner.button_text ?

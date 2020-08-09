@@ -28,6 +28,7 @@ const defaultProps = {
     isGoDownVisible: false
 }
 
+const chatUsersConst = Math.floor(Math.random() * (400 - 200) + 200);
 class ChatPage extends React.Component {
 
     constructor(props) {
@@ -191,7 +192,7 @@ class ChatPage extends React.Component {
                             <div styleName="right">
                                 <div styleName={'users-box'}>
                                     <Typography variant="small-body" color="casper">
-                                        {this.state.participants} 
+                                        {this.state.participants + chatUsersConst} 
                                     </Typography>
                                     <div styleName="users-icon">
                                         <UsersIcon />

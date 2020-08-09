@@ -148,7 +148,7 @@ export default class User {
         await this.updateUserState();
     }
 
-    updateBalance = async ({userDelta}) => {
+    updateBalance = async ({userDelta, amount}) => {
         const state = store.getState();
         const { currency } = state;
 
@@ -157,6 +157,12 @@ export default class User {
                 w.playBalance = w.playBalance + userDelta;
             }
         });
+
+        if(this.app.addOn.pointSystem.isValid == true) {
+            const ratio = this.app.addOn.pointSystem.ratio.find( p => p.currency == currency._id ).value;
+            const points = await this.getPoints();
+            this.user.points = points + (amount * ratio);
+        }
 
         await this.updateUserState();
     }
@@ -461,4 +467,12 @@ export default class User {
             throw err;
         }
     };
+
+    getPoints = async () => {
+        return this.user.points;
+    }
+
+    isEmailConfirmed = async () => {
+        return this.user.email_confirmed;
+    }
 }

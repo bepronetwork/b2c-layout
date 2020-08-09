@@ -18,7 +18,8 @@ const defaultState = {
     isCoinSpinning : false,
     game : {
         edge : 0
-    }
+    },
+    amount: 0
 }
 
 
@@ -50,9 +51,10 @@ class FlipPage extends Component {
 
     handleUpdateBalance = async () => {
         const { profile } = this.props;
+        const { amount } = this.state;
         const { result, hasWon, winAmount, userDelta } = this.state.betObjectResult;
         setWonPopupMessageDispatcher(winAmount);
-        await profile.updateBalance({ userDelta });
+        await profile.updateBalance({ userDelta, amount });
         this.addToHistory({result : `${result} `, won : hasWon})
     };
 
@@ -97,7 +99,8 @@ class FlipPage extends Component {
                 flipResult : result,
                 betObjectResult  :res,
                 hasWon,
-                isCoinSpinning : true
+                isCoinSpinning : true,
+                amount
             });
 
             

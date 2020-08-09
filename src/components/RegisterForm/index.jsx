@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import { Button, Typography, InputText } from "components";
+import { Button, Typography, InputText, Checkbox } from "components";
 import { connect } from "react-redux";
 import { compose } from 'lodash/fp';
 import Cache from "../../lib/cache/cache";
@@ -24,7 +24,8 @@ class RegisterForm extends Component {
         password: "",
         email: "",
         emailValid: false,
-        isLoading: false
+        isLoading: false,
+        isConfirmed: false
     };
 
     componentDidMount(){
@@ -48,11 +49,12 @@ class RegisterForm extends Component {
     };
 
     formIsValid = () => {
-        const { password, username, emailValid } = this.state;
+        const { password, username, emailValid, isConfirmed } = this.state;
         return (
         username !== "" &&
         emailValid &&
-        password !== ""
+        password !== "" &&
+        isConfirmed === true
         );
     };
 
@@ -79,9 +81,15 @@ class RegisterForm extends Component {
         this.setState({ address: event.target.value });
     };
 
+    onHandlerConfirm() {
+        const { isConfirmed } = this.state;
+
+        this.setState({ isConfirmed : !isConfirmed });
+    }
+
     render() {
         const { error } = this.props;
-        const { username, password, email, isLoading } = this.state;
+        const { username, password, email, isLoading, isConfirmed } = this.state;
         const {ln} = this.props;
         const copy = CopyText.registerFormIndex[ln];
 
@@ -110,6 +118,17 @@ class RegisterForm extends Component {
             onChange={this.onEmailChange}
             value={email}
             />
+
+            <div styleName="agree">
+                <div>
+                    <Checkbox onClick={() => this.onHandlerConfirm()} isSet={isConfirmed} id={'isConfirmed'}/>
+                </div>
+                <div styleName="agree-right">
+                    <Typography color="white" variant="x-small-body">
+                        I Agree with Terms & Conditions (See Footer)
+                    </Typography>
+                </div>
+            </div>
 
             <div styleName="error">
             {error ? (

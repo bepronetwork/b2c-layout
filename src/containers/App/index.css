@@ -217,6 +217,10 @@
     width: 100%;
 }
 
+.top-bars-transparent {
+  margin-top: 0px;
+}
+
 .modal {
   display: flex;
   flex-direction: column;

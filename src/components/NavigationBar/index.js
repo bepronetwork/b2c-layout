@@ -1,16 +1,19 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import { Typography } from 'components';
+import { getAppCustomization } from "../../lib/helpers";
+import { Link } from "react-router-dom";
+import classNames from 'classnames';
+import moment from 'moment-timezone';
 import _ from 'lodash';
 import "./index.css";
-import { Typography, CasinoIcon } from 'components';
-import { Link } from "react-router-dom";
-import { CopyText } from '../../copy';
 
 class NavigationBar extends Component {
     constructor(props) {
         super(props);
         this.state = {
-           
+           tabs: [],
+           open: false
         };
     }
 
@@ -21,23 +24,107 @@ class NavigationBar extends Component {
     componentWillReceiveProps(props){
         this.projectData(props);
     }
+
+    componentWillUnmount() {
+        clearInterval(this.intervalID);
+    }
     
-    projectData = async (props) => {}
+    projectData = async (props) => {
+        const { topTab } = getAppCustomization();
+
+        this.setState({ 
+            tabs: topTab.ids
+        });
+
+        this.tick();
+
+        this.intervalID = setInterval(
+            () => this.tick(),
+            10000
+        );
+    }
+
+    tick() {
+        this.setState({
+            time: moment().format("hh:mm A")
+        });
+    }
+
+    renderMenuItem = ({link_url, icon, name}, isMainMenu=false) => {
+        return (
+            <Link to={link_url} styleName={isMainMenu == true ? 'navigation-step navigation-margin' : 'navigation-step'}>
+                <div styleName='img'>
+                    <img src={icon} width="22"/>
+                </div>
+                <div styleName='text'>
+                    <Typography variant={'small-body'} color={'white'}>
+                        {name}
+                    </Typography>
+                </div>
+            </Link>
+        )
+    }
+
+    onOpenMenu() {
+        const { open } = this.state;
+
+        this.setState({ open: !open })
+    }
 
     render() {
-        const {ln} = this.props;
-        const copy = CopyText.navigationBarIndex[ln];
+        const { tabs, open, time } = this.state;
+        const styles = classNames("dropdown-content", {
+            "dropdown-content-open": open == true
+        });
+
+
         return (
-                <Link to='/' styleName='navigation-step'>
-                    <div styleName='img'>
-                        <CasinoIcon/>
-                    </div>
-                    <div styleName='text'>
-                        <Typography variant={'small-body'} color={'white'}>
-                            {copy.INDEX.TYPOGRAPHY.TEXT[0]}
-                        </Typography>
-                    </div>
-                </Link>
+            <div styleName="tabs">
+                <div styleName="time">
+                    <Typography variant={'x-small-body'} color={'white'}>
+                        {time}
+                    </Typography>
+                </div>
+                {
+                    tabs.slice(0, 2).map(t => {
+                        return (
+                            this.renderMenuItem({
+                                link_url: t.link_url,
+                                icon: t.icon,
+                                name: t.name
+                            }, true)
+                        )
+                    })
+                }
+                {
+                    tabs.length > 2
+                    ?
+                        <div styleName="dropdown">
+                            <a onClick={() => this.onOpenMenu()}>
+                                <div styleName="dropdown-dots"/>
+                            </a>
+                            <div styleName={styles}>
+                                <div styleName="dropdown-nav">
+                                    <div styleName="dropdown-column">
+                                        {
+                                            tabs.slice(2, tabs.length).map(t => {
+                                                return (
+                                                    this.renderMenuItem({
+                                                        link_url: t.link_url,
+                                                        icon: t.icon,
+                                                        name: t.name
+                                                    })
+                                                )
+                                            })
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    :
+                        null
+                }
+            </div>
         );
     }
 }

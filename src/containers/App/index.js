@@ -657,7 +657,7 @@ class App extends Component {
 
         let progress100 = parseInt(progress/confirmations*100);
         let isUserLoaded = (confirmations == progress);
-        const { topBar, background } = getAppCustomization();
+        const { topBar, background, topTab } = getAppCustomization();
         const centerStyles = classNames("center", {
             centerExpand: !chatExpand
         });
@@ -671,6 +671,10 @@ class App extends Component {
         const settingsMenuStyles = classNames("settings-container-menu", {
             settingsMenuDisplay: settingsMenuOpen,
             settingsMenuHidden: !settingsMenuOpen
+        });
+
+        const topStyles = classNames("top-bars", {
+            "top-bars-transparent": topTab.isTransparent == true
         });
 
         return (
@@ -703,7 +707,7 @@ class App extends Component {
                             <NotificationForm user={user}/>
                         </header>
                         <div>
-                            <div styleName='top-bars'>
+                            <div styleName={topStyles}>
                                 <AnnouncementTab topBar={topBar}/>
                             </div>
                             <div styleName='main'>
