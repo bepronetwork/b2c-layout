@@ -30,6 +30,7 @@ import RoulettePage from "containers/RoulettePage";
 import WheelPage from "../WheelPage";
 import WheelVariation1 from "../WheelVariation1Page";
 import KenoPage from "../KenoPage";
+import SlotsPage from "../SlotsPage";
 
 import { login, login2FA, logout, register } from "lib/api/users";
 import getAppInfo from "lib/api/app";
@@ -395,6 +396,7 @@ class App extends Component {
         localStorage.removeItem("wheelHistory");
         localStorage.removeItem("wheel_variation_1History");
         localStorage.removeItem("kenoHistory");
+        localStorage.removeItem("slotsHistory");
         localStorage.removeItem("customization");
         localStorage.removeItem("affiliate");
         localStorage.removeItem("appInfo");
@@ -525,10 +527,37 @@ class App extends Component {
     };
 
     updateAppInfo = async () => {
-
+        const slots = 
+        {
+            "_id": "5ed5132bd8414d0027062330",
+            "result": [],
+            "isClosed": false,
+            "maxBet": 0,
+            "background_url": null,
+            "name": "Slots",
+            "edge": 0,
+            "app": "5e5bf3cb5f175b1f22118a3d",
+            "betSystem": 0,
+            "timestamp": false,
+            "image_url": "https://storage.googleapis.com/betprotocol-game-images/gjb31y40i.jpg",
+            "metaName": "slots_simple",
+            "rules": "Slots is great!",
+            "description": "Keno with 40 Spaces",
+            "wallets": [
+              {
+                "_id": "5ed5132bd8414d0027064531",
+                "tableLimit": 5
+              },
+              {
+                "_id": "5ed5132bd8414d0027064532",
+                "tableLimit": 0
+              }
+            ]
+          }
 
         let app = await getAppInfo();
-
+        app.games.push(slots);
+        console.log(app)
         Cache.setToCache("appInfo", app);
         this.setState({...this.state, app})
     };
@@ -629,7 +658,7 @@ class App extends Component {
                     )}
                     />
                 ) : null}
-                    {this.isGameAvailable("keno_simple") ? (
+                {this.isGameAvailable("keno_simple") ? (
                     <Route
                     exact
                     path="/keno_simple"
@@ -638,6 +667,19 @@ class App extends Component {
                         {...props}
                         onHandleLoginOrRegister={this.handleLoginOrRegisterOpen}
                         onTableDetails={this.handleTableDetailsOpen}
+                        />
+                    )}
+                    />
+                ) : null}
+                {this.isGameAvailable("slots_simple") ? (
+                    <Route
+                    exact
+                    path="/slots_simple"
+                    render={props => (
+                        <SlotsPage
+                            {...props}
+                            onHandleLoginOrRegister={this.handleLoginOrRegisterOpen}
+                            onTableDetails={this.handleTableDetailsOpen}
                         />
                     )}
                     />

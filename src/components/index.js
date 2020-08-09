@@ -128,6 +128,9 @@ import WalletTab from './WalletTab';
 import DetailsTable from './Table/DetailsTable';
 import BetDetails from './BetDetails';
 import Jackpot from './Jackpot';
+import SlotsGameOptions from './SlotsGameOptions';
+import SlotsGame from './SlotsGame';
+import GameAudio from './GameAudio';
 
 export { LegalBox };
 export { Authentication2FAModal };
@@ -259,3 +262,6 @@ export { WalletTab };
 export { DetailsTable };
 export { BetDetails };
 export { Jackpot };
+export { SlotsGameOptions };
+export { SlotsGame };
+export { GameAudio };

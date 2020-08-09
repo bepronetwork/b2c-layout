@@ -76,6 +76,8 @@ class BetDetails extends Component {
                     break;
                 case 'keno_simple':
                     component = <KenoDetails bet={bet}/>;
+                case 'slots_simple':
+                    component = <KenoDetails bet={bet}/>;
                     break;
             }
 

@@ -1,11 +1,13 @@
 import React, { Component } from "react";
-import { Tabs, Typography } from "components";
+import { Tabs, Typography, slotsGameRules } from "components";
 import { escapedNewLineToLineBreakTag } from '../../../utils/br';
 import { connect } from "react-redux";
 import { CopyText } from "../../../copy";
 import _ from 'lodash';
+import { slotsRules } from "../../../components/SlotsGame/images";
 
 import "./index.css";
+
 class Actions extends Component {
     constructor(props) {
         super(props);
@@ -19,17 +21,19 @@ class Actions extends Component {
     };
 
     render() {
-        const { game, currency, profile } = this.props;
+        const { game, currency, profile, slots } = this.props;
         const { tab } = this.state;
         const { ln } = this.props;
         const copy = CopyText.homepagegame[ln];
         const rulesLabel = copy.RULES;
         const limitsLabel = copy.LIMITS;
         
+        console.log(game);
+
         let tableLimit;
         if(profile && !_.isEmpty(profile)){
             const wallet = currency ? profile.getWallet({currency}) : null;
-            const gameWallet = game.wallets.find( w => new String(w.wallet).toString() == new String(wallet._id).toString());
+            const gameWallet = game.wallets.find( w => new String(w.wallet).toString() == new String(wallet.id).toString());
             tableLimit = gameWallet ? gameWallet.tableLimit : null;
         }
 
@@ -53,6 +57,143 @@ class Actions extends Component {
             </div>
             {
                 tab === "rules" ? 
+                    !slots ?
+                    <div styleName="rule">
+                        <h1 styleName="rule-h1">
+                            <img styleName="image-icon" src={game.image_url}/> 
+                            <Typography variant='x-small-body' color={"grey"}>{game.name}</Typography>
+                        </h1>
+                        <div styleName="content">
+                            <div styleName="grid-items">
+                            {
+                                     slotsRules.filter(item => item.id <= 12).map(item => {
+                                        return (
+                                        <div styleName={"icon-rule"} key={item.id}>
+                                            <object
+                                                type="image/svg+xml"
+                                                data={item.icon}
+                                                styleName="icon"
+                                            >
+                                                svg-animation
+                                            </object>
+                                            <div styleName="column-numbers">
+                                            <div styleName="row-number">
+                                                <div styleName="margin-right">
+                                                    <Typography color={'casper'} variant={'small-body'}>
+                                                        5
+                                                    </Typography>
+                                                </div>
+                                                <Typography color={'grey'} variant={'small-body'}>
+                                                    {item.value5}
+                                                </Typography>
+                                            </div>
+                                            <div styleName="row-number">
+                                                <div styleName="margin-right">
+                                                    <Typography color={'casper'} variant={'small-body'}>
+                                                        4
+                                                    </Typography>
+                                                </div>
+                                                <Typography color={'grey'} variant={'small-body'}>
+                                                    {item.value4}
+                                                </Typography>
+                                            </div>
+                                            <div styleName="row-number">
+                                                <div styleName="margin-right">
+                                                    <Typography color={'casper'} variant={'small-body'}>
+                                                        3
+                                                    </Typography>
+                                                </div>
+                                                <Typography color={'grey'} variant={'small-body'}>
+                                                    {item.value3}
+                                                </Typography>
+                                            </div>
+                                            <div styleName="row-number">
+                                                <div styleName="margin-right">
+                                                    <Typography color={'casper'} variant={'small-body'}>
+                                                        2
+                                                    </Typography>
+                                                </div>
+                                                <Typography color={'grey'} variant={'small-body'}>
+                                                    {item.value2}
+                                                </Typography>
+                                            </div>
+                                            </div>
+                                        </div>
+                                        );
+                                    })
+                                }
+                            </div>
+                            {
+                                    slotsRules.filter(item => item.id === 13).map(item => {
+                                        return (
+                                        <div styleName={"beetle-container"} key={item.id}>
+                                            <object
+                                                type="image/svg+xml"
+                                                data={item.icon}
+                                                styleName="icon"
+                                            >
+                                                svg-animation
+                                            </object>
+                                            <div styleName="column-numbers">
+                                            <div styleName="row-number">
+                                                <div styleName="margin-right">
+                                                    <Typography color={'casper'} variant={'small-body'}>
+                                                        5
+                                                    </Typography>
+                                                </div>
+                                                <Typography color={'grey'} variant={'small-body'}>
+                                                    {item.value5}
+                                                </Typography>
+                                            </div>
+                                            <div styleName="row-number">
+                                                <div styleName="margin-right">
+                                                    <Typography color={'casper'} variant={'small-body'}>
+                                                        4
+                                                    </Typography>
+                                                </div>
+                                                <Typography color={'grey'} variant={'small-body'}>
+                                                    {item.value4}
+                                                </Typography>
+                                            </div>
+                                            <div styleName="row-number">
+                                                <div styleName="margin-right">
+                                                    <Typography color={'casper'} variant={'small-body'}>
+                                                        3
+                                                    </Typography>
+                                                </div>
+                                                <Typography color={'grey'} variant={'small-body'}>
+                                                    {item.value3}
+                                                </Typography>
+                                            </div>
+                                            <div styleName="row-number">
+                                                <div styleName="margin-right">
+                                                    <Typography color={'casper'} variant={'small-body'}>
+                                                        2
+                                                    </Typography>
+                                                </div>
+                                                <Typography color={'grey'} variant={'small-body'}>
+                                                    {item.value2}
+                                                </Typography>
+                                            </div>
+                                            </div>
+                                                {
+                                                    item.id === 13 ?
+                                                    <div styleName="beetle-text">
+                                                        <Typography color={'casper'} variant={'small-body'}>
+                                                            O jogador é pago de acordo com o número
+                                                            que aparece em algum lugar da tela.
+                                                        </Typography> 
+                                                    </div>
+                                                  
+                                                    :<div/>
+                                                }
+                                        </div>
+                                        );
+                                    })
+                                }  
+                        </div>
+                    </div>
+                    :
                     <div styleName="rule">
                         <h1 styleName="rule-h1">
                             <img styleName="image-icon" src={game.image_url}/> 

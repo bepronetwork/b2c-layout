@@ -17,7 +17,6 @@
     display: block;
     overflow-x: auto !important;
   }
-
 }
 
 .image-icon {
@@ -34,10 +33,7 @@
 
 .rule {
   width: 100%;
-  display: grid;
-  grid-auto-columns: minmax(0px, 1fr);
   justify-items: center;
-  gap: 2em 2em;
   padding-top: 16px;
 }
 
@@ -46,4 +42,62 @@
   background: $dark-table-color;
   padding: 1.8em;
   border-radius: 0.3em;
+}
+
+.grid-items{
+  display: grid;
+  grid-template-columns: auto auto auto;
+}
+
+.icon-rule{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 190px;
+  height: 100px;
+  border: 1px solid rgb(133, 138, 199);
+  border-radius: 2px;
+  ṕadding: 15px;
+  margin: 5px;
+}
+
+.beetle-container{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 660px;
+  height: 100px;
+  border: 1px solid rgb(133, 138, 199);
+  border-radius: 2px;
+  ṕadding: 15px;
+  margin: 5px;
+}
+
+.beetle-text{
+  display: flex;
+  align-items: center;
+  margin: 0px 50px;
+  height: 100px;
+}
+
+.icon{
+  width: 100px;
+  height: 75px;
+  z-index: 2;
+}
+
+
+.column-numbers{
+  display: flex;
+  flex-direction: column;
+}
+
+.row-number{
+  display: flex;
+  flex-direction: row;
+  margin: 2px;
+}
+
+.margin-right{
+ margin-right: 5px;
 }
