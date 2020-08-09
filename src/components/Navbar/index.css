@@ -395,6 +395,20 @@
     align-items: center;
     margin-left: $spacing-36;
 
+
+    .diff-won{
+        padding-left: 52px;
+        margin-top: $spacing-20;
+
+        position: absolute;
+        * {
+            color: $green;
+            opacity: 0;
+
+            animation: won-animation 1s running;
+        }
+    }
+
     @media screen and (max-width: 1267px) and (min-width: 1024px) {
         margin-left: $spacing-20;
     }
