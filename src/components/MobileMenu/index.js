@@ -39,11 +39,15 @@ class MobileMenu extends Component {
     }
 
     projectData = async (props) => {
-        const user = !_.isEmpty(props.profile) ? props.profile : null;
 
-        this.setState({
-            points : await user.getPoints()
-        })
+        if(!_.isEmpty(props.profile)) {
+            const user = props.profile;
+
+            this.setState({
+                points : await user.getPoints()
+            });
+        }
+
     }
 
     renderItens() {
