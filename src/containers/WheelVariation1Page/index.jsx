@@ -55,7 +55,8 @@ class WheelVariationOne extends React.Component {
             },
             options : [],
             betObjectResult : {},
-            bet: false
+            bet: false,
+            amount: 0
         }
     }
 
@@ -180,7 +181,8 @@ class WheelVariationOne extends React.Component {
                 inResultAnimation : true,
                 hasWon : isWon,
                 disableControls: false,
-                betObjectResult : res
+                betObjectResult : res,
+                amount
             });
             return res;
         }catch(err){
@@ -202,11 +204,12 @@ class WheelVariationOne extends React.Component {
     handleAnimation = async () => {
         this.setState({ bet: false, disableControls : false, inResultAnimation : false });
         const { profile } = this.props;
+        const { amount } = this.state;
         /* Update Info User View */
         const { isWon, result, winAmount, userDelta } = this.state.betObjectResult;
         setWonPopupMessageDispatcher(winAmount);
         this.addToHistory({result, won : isWon});
-        await profile.updateBalance({ userDelta });
+        await profile.updateBalance({ userDelta, amount });
     };
 
     getTotalBet = () => {

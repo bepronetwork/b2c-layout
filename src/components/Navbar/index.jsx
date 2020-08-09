@@ -26,7 +26,7 @@ const defaultProps = {
     currentBalance : 0,
     betIDVerified : '',
     openSettingsMenu : false,
-    points: 0,
+    currentPoints : 0,
     isTransparent: false
 };
 
@@ -61,13 +61,20 @@ class Navbar extends Component {
                     opts.difference = difference;
                     opts.currentBalance = user.getBalance();
                 }
+
+                const points = await user.getPoints();
+
+                let differencePoints = formatCurrency(points - this.state.currentPoints);
+                if(differencePoints != 0){
+                    opts.differencePoints = differencePoints;
+                    opts.currentPoints = points;
+                }
                 
                 this.setState({
                     ...opts,
                     user    : user,
                     userFullAddress : user.getAddress(),
                     userAddress : user.getAddress() ? AddressConcat(user.getAddress()) : defaultProps.userAddress,
-                    points : await user.getPoints(),
                     isTransparent: topTab.isTransparent
                 })
             }else{
@@ -118,7 +125,7 @@ class Navbar extends Component {
     }
 
     renderCurrencySelector = () => {
-        let { currentBalance, difference, points } = this.state;
+        let { currentBalance, difference, currentPoints, differencePoints } = this.state;
         const { onMenuItem, history, ln } = this.props;
         const copy = CopyText.navbarIndex[ln]; 
         var currencies = getApp().currencies;
@@ -177,7 +184,7 @@ class Navbar extends Component {
                     isValidPoints == true
                     ?
                         <div styleName="points">
-                            <SecondaryTooltip title={`${formatCurrency(points)} ${namePoints}`}>
+                            <SecondaryTooltip title={`${formatCurrency(currentPoints)} ${namePoints}`}>
                                 <div styleName="label-points">
                                     {
                                         !_.isEmpty(logoPoints)
@@ -189,10 +196,20 @@ class Navbar extends Component {
                                             null
                                     }
                                     <span>
-                                        <Typography color="white" variant={'small-body'}>{formatCurrency(points)}</Typography>
+                                        <Typography color="white" variant={'small-body'}>{formatCurrency(currentPoints)}</Typography>
                                     </span>
                                 </div>
                             </SecondaryTooltip>
+                            {differencePoints ? (
+                                <div
+                                key={currentPoints}
+                                styleName={"diff-won"}
+                                >
+                                    <Typography variant="small-body">
+                                        {parseFloat(Math.abs(differencePoints))}
+                                    </Typography>
+                                </div>
+                            ) : null}
                         </div>
                     :
                         null

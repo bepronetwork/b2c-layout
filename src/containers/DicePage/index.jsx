@@ -27,7 +27,8 @@ class DicePage extends Component {
         animating : false,
         game : {
             edge : 0
-        }
+        },
+        amount: 0
     };
 
     componentDidMount(){
@@ -65,7 +66,8 @@ class DicePage extends Component {
                 result : res.result, 
                 bet : res,
                 animating : true,
-                betObjectResult : res 
+                betObjectResult : res,
+                amount
             });
             return res;
         }catch(err){
@@ -76,9 +78,10 @@ class DicePage extends Component {
 
     handleAnimation = async () => {
         const { profile } = this.props;
+        const { amount } = this.state;
         const { winAmount, userDelta } = this.state.betObjectResult;
         setWonPopupMessageDispatcher(winAmount);
-        await profile.updateBalance({ userDelta });
+        await profile.updateBalance({ userDelta, amount });
         this.setState({ result: null, animating : false, disableControls: false });
     };
 

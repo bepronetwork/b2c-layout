@@ -25,7 +25,8 @@ class PlinkoPage extends Component {
         animating : false,
         game : {
             edge : 0
-        }
+        },
+        amount: 0
     };
     
     triggerChildGameCard(result){
@@ -62,7 +63,8 @@ class PlinkoPage extends Component {
                 isWon : res.isWon,
                 bet : res,
                 animating : true,
-                betObjectResult : res 
+                betObjectResult : res,
+                amount
             });
             
             return res;
@@ -89,10 +91,11 @@ class PlinkoPage extends Component {
 
     handleAnimation = async () => {
         const { profile } = this.props;
+        const { amount } = this.state;
         const { winAmount, userDelta } = this.state.betObjectResult;
         setWonPopupMessageDispatcher(winAmount);
         this.addToHistory();
-        await profile.updateBalance({ userDelta });
+        await profile.updateBalance({ userDelta, amount });
         return this.setState({ result : 0, disableControls : false });
     };
 
