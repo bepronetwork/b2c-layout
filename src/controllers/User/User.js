@@ -158,7 +158,7 @@ export default class User {
             }
         });
 
-        if(this.app.addOn.pointSystem.isValid == true) {
+        if(this.app.addOn.pointSystem && (this.app.addOn.pointSystem.isValid == true)) {
             const ratio = this.app.addOn.pointSystem.ratio.find( p => p.currency == currency._id ).value;
             const points = await this.getPoints();
             this.user.points = points + (amount * ratio);
