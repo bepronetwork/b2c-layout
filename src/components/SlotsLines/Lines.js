@@ -92,7 +92,7 @@ const HandleLines = ({
         <Line
           svgClass={styles.classLine}
           polylineClass={styles.classSvg}
-          points="18 55, 18 55, 33 55, 47.5 15, 76 15"
+          points="18 55, 33 55, 47.5 55, 62 15, 76 15"
           viewBox="0 5 100 100"
         />
       ) : null}

@@ -25,6 +25,11 @@ import Esfinge from "assets/audio/slotsaudio/esfinge.mp3";
 
 import Reel from "assets/audio/slotsaudio/reels.mp3";
 import Result from "assets/audio/slotsaudio/result.mp3";
+import {
+  renderSounds,
+  handleAnimation,
+  randomNumber
+} from "../../helpers/SlotsHelpers";
 
 import Cache from "../../lib/cache/cache";
 
@@ -41,7 +46,7 @@ class SlotsPage extends Component {
     soundIcon: false,
     soundReel: false,
     testBol: Array(5).fill(false),
-    testArray: [[12, 12, 12, 3, 12]],
+    testArray: [[10, 11, 7, 3, 12]],
     resultFirstColumn: [],
     resultSecondColumn: [],
     resultThirstColumn: [],
@@ -93,33 +98,15 @@ class SlotsPage extends Component {
   };
 
   handleAnimations = async () => {
-    this.handleAnimation("columnItem", 1);
-    this.handleAnimation("columnItem2", 1.5);
-    this.handleAnimation("columnItem3", 2);
-    this.handleAnimation("columnItem4", 2.5);
-    await this.handleAnimation("columnItem5", 3);
+    handleAnimation("columnItem", 1);
+    handleAnimation("columnItem2", 1.5);
+    handleAnimation("columnItem3", 2);
+    handleAnimation("columnItem4", 2.5);
+    await handleAnimation("columnItem5", 3);
 
     await this.randomNumberResult();
 
     return new Promise(resolve => setTimeout(() => resolve(), 500));
-  };
-
-  handleAnimation = async (spinnerColumn, iterations) => {
-    const box = document.getElementById(spinnerColumn);
-
-    box.animate(
-      [
-        { transform: "translate3D(0, -30px, 0)" },
-        { transform: "translate3D(0, 600px, 0)" },
-        { transform: "translate3D(0, 30px, 0)" }
-      ],
-      {
-        duration: 500,
-        iterations
-      }
-    );
-
-    return new Promise(resolve => setTimeout(() => resolve(), 100));
   };
 
   setNewRandomMatrix = async () => {
@@ -128,22 +115,18 @@ class SlotsPage extends Component {
     this.setState({ matrixResult: resultRow });
   };
 
-  randomNumber = (min, max) => {
-    const result = Math.floor(Math.random() * (max - min) + min);
-
-    return result;
-  };
-
   setResult = async () => {
     this.setState({ result: true });
   };
 
   setSound = () => {
-    this.setState({ soundIcon: true });
-  };
+    const { testArray } = this.state;
 
-  renderSounds = urlSound => {
-    return <Sound volume={80} url={urlSound} playStatus="PLAYING" autoLoad />;
+    const testArr = testArray[0];
+
+    if (testArr[0] !== testArr[1]) {
+      this.setState({ soundIcon: false });
+    } else this.setState({ soundIcon: true });
   };
 
   getcolumn = async () => {
@@ -179,12 +162,11 @@ class SlotsPage extends Component {
       resultFiveColumn
     } = this.state;
 
-    const randNum = this.randomNumber(18, 20);
-    const randNum2 = this.randomNumber(18, 20);
-    const randNum3 = this.randomNumber(18, 20);
-    const randNum4 = this.randomNumber(18, 20);
-    const randNum5 = this.randomNumber(18, 20);
-
+    const randNum = randomNumber(18, 20);
+    const randNum2 = randomNumber(18, 20);
+    const randNum3 = randomNumber(18, 20);
+    const randNum4 = randomNumber(18, 20);
+    const randNum5 = randomNumber(18, 20);
     const testArr = testArray[0];
 
     resultFirstColumn.splice(randNum, 1, testArr[0]);
@@ -209,35 +191,45 @@ class SlotsPage extends Component {
 
     switch (switchCondit) {
       case 0:
-        return this.renderSounds(BlueCoin);
+        return renderSounds(BlueCoin);
       case 1:
-        return this.renderSounds(Coin);
+        return renderSounds(Coin);
       case 2:
-        return this.renderSounds(Club);
+        return renderSounds(Club);
       case 3:
-        return this.renderSounds(Spade);
+        return renderSounds(Spade);
       case 4:
-        return this.renderSounds(Heart);
+        return renderSounds(Heart);
       case 5:
-        return this.renderSounds(Octagon);
+        return renderSounds(Octagon);
       case 6:
-        return this.renderSounds(Quadrilateral);
+        return renderSounds(Quadrilateral);
       case 7:
-        return this.renderSounds(Dog);
+        return renderSounds(Dog);
       case 8:
-        return this.renderSounds(Diamond);
+        return renderSounds(Diamond);
       case 9:
-        return this.renderSounds(Triangle);
+        return renderSounds(Triangle);
       case 10:
-        return this.renderSounds(Pentagon);
+        return renderSounds(Pentagon);
       case 11:
-        return this.renderSounds(Beetle);
+        return renderSounds(Beetle);
       case 12:
-        return this.renderSounds(Esfinge);
+        return renderSounds(Esfinge);
 
       default:
         break;
     }
+  };
+
+  handleLine = () => {
+    const { testArray } = this.state;
+
+    const testArr = testArray[0];
+
+    if (testArr[0] !== testArr[1]) {
+      this.setState({ line: false });
+    } else this.setState({ line: true });
   };
 
   handleImage = async setTimeOut => {
@@ -257,7 +249,7 @@ class SlotsPage extends Component {
 
       i += 1;
     }
-    this.setState({ line: true });
+    this.handleLine();
     this.setState({ testBol });
     this.setState({
       insertIndex: insertionIndex
@@ -298,9 +290,9 @@ class SlotsPage extends Component {
 
     return (
       <>
-        {soundReel ? this.renderSounds(Reel) : null}
+        {soundReel ? renderSounds(Reel) : null}
         {soundIcon ? this.handleIconAudio() : null}
-        {result ? this.renderSounds(Result) : null}
+        {result ? renderSounds(Result) : null}
         <SlotsGame
           testBol={testBol}
           line={line}
