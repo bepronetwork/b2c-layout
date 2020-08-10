@@ -429,6 +429,7 @@ class App extends Component {
                         ]}
                         onSelect={this.handleTabChange}
                         style="full-background"
+                        variant="body"
                         />
                     </div>
 
