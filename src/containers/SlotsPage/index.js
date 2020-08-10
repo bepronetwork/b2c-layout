@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import propTypes from "prop-types";
 import { compose } from "lodash/fp";
 import { connect } from "react-redux";
-import Sound from "react-sound";
 import { find } from "lodash";
 
 import { SlotsGameOptions, SlotsGame } from "components";
@@ -29,7 +28,7 @@ import {
   renderSounds,
   handleAnimation,
   randomNumber
-} from "../../helpers/SlotsHelpers";
+} from "../../lib/helpers/SlotsHelpers";
 
 import Cache from "../../lib/cache/cache";
 
@@ -46,7 +45,7 @@ class SlotsPage extends Component {
     soundIcon: false,
     soundReel: false,
     testBol: Array(5).fill(false),
-    testArray: [[10, 11, 7, 3, 12]],
+    testArray: [[7, 7, 7, 3, 12]],
     resultFirstColumn: [],
     resultSecondColumn: [],
     resultThirstColumn: [],
