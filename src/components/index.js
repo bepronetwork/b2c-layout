@@ -128,6 +128,8 @@ import WalletTab from './WalletTab';
 import DetailsTable from './Table/DetailsTable';
 import BetDetails from './BetDetails';
 import Jackpot from './Jackpot';
+import DiamondGamePage from './DiamondGame';
+import DiamondGameOptions from './DiamondGameOptions';
 
 export { LegalBox };
 export { Authentication2FAModal };
@@ -259,3 +261,5 @@ export { WalletTab };
 export { DetailsTable };
 export { BetDetails };
 export { Jackpot };
+export { DiamondGamePage };
+export { DiamondGameOptions };

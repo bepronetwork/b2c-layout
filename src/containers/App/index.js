@@ -30,6 +30,7 @@ import RoulettePage from "containers/RoulettePage";
 import WheelPage from "../WheelPage";
 import WheelVariation1 from "../WheelVariation1Page";
 import KenoPage from "../KenoPage";
+import DiamondPage from "../DiamondPage";
 
 import { login, login2FA, logout, register } from "lib/api/users";
 import getAppInfo from "lib/api/app";
@@ -665,6 +666,17 @@ class App extends Component {
                         {...props}
                         onHandleLoginOrRegister={this.handleLoginOrRegisterOpen}
                         onTableDetails={this.handleTableDetailsOpen}
+                        />
+                    )}
+                    />
+                ) : null}
+                {this.isGameAvailable("keno_simple") ? (
+                    <Route
+                    exact
+                    path="/diamond_simple"
+                    render={props => (
+                        <DiamondPage
+                        {...props}
                         />
                     )}
                     />
