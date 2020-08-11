@@ -525,10 +525,37 @@ class App extends Component {
     };
 
     updateAppInfo = async () => {
-
+        const diamonds = 
+        {
+            "_id": "5ed5132bd8414d0027062330",
+            "result": [],
+            "isClosed": false,
+            "maxBet": 0,
+            "background_url": null,
+            "name": "Diamonds",
+            "edge": 0,
+            "app": "5e5bf3cb5f175b1f22118a3d",
+            "betSystem": 0,
+            "timestamp": false,
+            "image_url": "https://storage.googleapis.com/betprotocol-game-images/gjb31y40i.jpg",
+            "metaName": "diamonds_simple",
+            "rules": "Diamond is great",
+            "description": "Diamond is the best game of the ENTIRE GALAXY",
+            "wallets": [
+              {
+                "_id": "5ed5132bd8414d0027064531",
+                "tableLimit": 5
+              },
+              {
+                "_id": "5ed5132bd8414d0027064532",
+                "tableLimit": 0
+              }
+            ]
+          }
 
         let app = await getAppInfo();
-
+        app.games.push(diamonds);
+        console.log(app)
         Cache.setToCache("appInfo", app);
         this.setState({...this.state, app})
     };
