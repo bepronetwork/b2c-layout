@@ -26,7 +26,7 @@ class JackpotPot extends React.Component{
     }
 
     projectData = async (props) => {
-        const { profile, currency } = this.props;
+        const { profile, currency } = props;
 
         if(profile && !_.isEmpty(profile)){
             const appWallet = getApp().wallet.find(w => w.currency._id === currency._id);

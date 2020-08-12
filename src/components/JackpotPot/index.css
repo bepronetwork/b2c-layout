@@ -46,11 +46,13 @@
 
     p {
         margin-top: $spacing-4;
+        padding: $spacing-4 $spacing-8 $spacing-4 0;
+        border-radius: $border-radius;
     }
 }
 
 .right {
-    margin: auto;
+    margin-left: auto;
     background-color: $backgroundColor-5;
     padding: $spacing-4 $spacing-12;
     border-radius: $border-radius;
