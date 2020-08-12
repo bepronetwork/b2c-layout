@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { DiceGameCard, DiceGameOptions } from "components";
+import { DiamondGamePage, DiceGameOptions } from "components";
 import PropTypes from "prop-types";
 import UserContext from "containers/App/UserContext";
 import GamePage from "containers/GamePage";
@@ -111,22 +111,7 @@ class DiamondPage extends Component {
   };
 
   getGameCard = () => {
-    const { result, disableControls, rollNumber, bet, animating } = this.state;
-    const { profile } = this.props;
-
-    return (
-      <DiceGameCard
-        profile={profile}
-        onResultAnimation={this.handleAnimation}
-        disableControls={disableControls}
-        result={result}
-        rollNumber={rollNumber}
-        animating={animating}
-        bet={bet}
-        game={this.state.game}
-        onChangeRollAndRollType={this.handleRollAndRollTypeChange}
-      />
-    );
+    return <DiamondGamePage />;
   };
 
   render() {

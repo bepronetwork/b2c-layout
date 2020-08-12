@@ -62,3 +62,30 @@
 .bet-properties{
   padding: $spacing-20;
 }
+
+.container{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.second-container{
+  width: 90%;
+  height: 200px;
+  border-top: 4px solid $casper;
+  border-radius: 0px 2px 0px 2px;
+}
+
+.result-container{
+  background-color: rgb(29, 26, 55);
+  width: 50%;
+  height: 40px;
+  border-radius: 3px;
+}
+
+td{
+ font-family: $font-family;
+ font-size: 16px;
+ color:  hsl(235,37%,65%);
+}

@@ -673,10 +673,12 @@ class App extends Component {
                 {this.isGameAvailable("keno_simple") ? (
                     <Route
                     exact
-                    path="/diamond_simple"
+                    path="/diamonds_simple"
                     render={props => (
                         <DiamondPage
                         {...props}
+                        onHandleLoginOrRegister={this.handleLoginOrRegisterOpen}
+                        onTableDetails={this.handleTableDetailsOpen}
                         />
                     )}
                     />
