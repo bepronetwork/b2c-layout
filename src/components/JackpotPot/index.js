@@ -1,9 +1,8 @@
 import React from "react";
 import { connect } from "react-redux";
 import { Typography, JackpotPotIcon } from "components";
-import { getApp, getSkeletonColors } from "../../lib/helpers";
+import { getApp } from "../../lib/helpers";
 import { formatCurrency } from '../../utils/numberFormatation';
-import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 import _ from 'lodash';
 import coinPng from 'assets/coin.png';
 
@@ -47,7 +46,7 @@ class JackpotPot extends React.Component{
 
         return (
             <div styleName="box">
-                <div  style={{ background: 'url('+coinPng+')', backgroundPosition: "right bottom", backgroundSize: "auto 100%", backgroundRepeat: "no-repeat"}}>
+                <div styleName="box-1" style={{ background: 'url('+coinPng+')', backgroundPosition: "right center", backgroundSize: "auto 85%", backgroundRepeat: "no-repeat"}}>
                     <div styleName="root">
                         <div styleName="main">
                             <div styleName="icon">

@@ -1,8 +1,8 @@
 @import "../../styles/all.css";
 
 .box{
-    background-color: $backgroundColor-3;
-    padding: $spacing-16;
+    background-color: $primaryColor-2;
+
     width: 50%;
     margin: $spacing-20 auto;
     border-radius: $border-radius;
@@ -11,6 +11,10 @@
         width: 100%;
     }
 }
+.box-1 {
+    padding: $spacing-16 $spacing-16;
+}
+
 .root {
     display: flex;
     align-items: center;
