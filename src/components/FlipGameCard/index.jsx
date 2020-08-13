@@ -18,6 +18,7 @@ import { getPopularNumbers } from "../../lib/api/app";
 import { formatPercentage } from "../../utils/numberFormatation";
 import { CopyText } from '../../copy';
 import { connect } from "react-redux";
+import letterlogo from 'assets/letter-logo.svg';
 
 const defaultState = {
     payout : 2,
@@ -167,11 +168,12 @@ class FlipGameCard extends Component {
     render() {
         const { flipResult } = this.props;
         const { popularNumbers } = this.state;
-        const coinStyles = classNames( "coin", flipResult ? { [flipResult]: true } : null);
+        const coinStyles = classNames( flipResult ? { [flipResult]: true } : null);
+        const coinMainStyles = classNames( "coin-main", flipResult ? { [flipResult]: true } : null);
         let winEdge = (100-(this.state.edge))/100;
         let payout = this.state.payout * winEdge;
         const {ln} = this.props;
-const copy = CopyText.flipGameCardIndex[ln];
+        const copy = CopyText.flipGameCardIndex[ln];
 
         return (
             <div styleName="root">
@@ -179,23 +181,26 @@ const copy = CopyText.flipGameCardIndex[ln];
                 {this.renderPopularNumbers({popularNumbers})}
                 {this.renderWinLoseSound()}
                 <div styleName="flip-container">
-                <div
-                    styleName={coinStyles}
-                    onAnimationStart={this.handleAnimationStart}
-                    onAnimationEnd={this.handleAnimationEnd}
-                >
-                    <div styleName="side-heads">
-                        <Bitcoin />
+                    <div styleName={flipResult ? "show-label" : "label"}>
+                        <Typography variant="h3" color="white">
+                            {flipResult ? this.renderWinLost() : ""}
+                        </Typography>
                     </div>
-                    <div styleName="side-tails">
-                        <Bitcoin />
+                    <div
+                        styleName={coinStyles}
+                        onAnimationStart={this.handleAnimationStart}
+                        onAnimationEnd={this.handleAnimationEnd}
+                    >
                     </div>
-                </div>
-                <div styleName={flipResult ? "show-label" : "label"}>
-                    <Typography variant="h3" color="white">
-                        {flipResult ? this.renderWinLost() : ""}
-                    </Typography>
-                </div>
+                    <div styleName={coinMainStyles}>
+                        <div styleName="oval">
+                            <div styleName="inner-oval" style={{backgroundImage: "url(" + letterlogo + ")"}}></div>
+                        </div>
+                        <div styleName="oval-back">
+                            <div styleName="inner-oval" style={{backgroundImage: "url(" + letterlogo + ")"}}></div>
+                        </div>
+                        <div styleName="oval-shadow"></div>
+                    </div>
                 </div>
                 <div styleName="values">
                     <InputNumber
