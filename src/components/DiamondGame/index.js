@@ -34,19 +34,19 @@ class DiamondGame extends Component {
     this.handleMouseEnter6();
   }
 
-  handleCardResult = marginTop => {
+  handleCardResult = (marginTop, profit, chance) => {
     return (
       <div styleName="result-container-right" style={{ marginTop }}>
         <div>
           <p styleName="text-result">Lucro</p>
           <div styleName="result-right">
-            <p styleName="text-result">00000</p>
+            <p styleName="text-result">{profit}</p>
           </div>
         </div>
         <div>
           <p styleName="text-result">Chance</p>
           <div styleName="result-right">
-            <p styleName="text-result">00000</p>
+            <p styleName="text-result">{chance}</p>
             <p styleName="text-result">%</p>
           </div>
         </div>
@@ -251,13 +251,13 @@ class DiamondGame extends Component {
               <p styleName="text-result">0,00x</p>
             </div>
           </div>
-          {isHover ? this.handleCardResult("0px") : null}
-          {isHover1 ? this.handleCardResult("40px") : null}
-          {isHover2 ? this.handleCardResult("80px") : null}
-          {isHover3 ? this.handleCardResult("120px") : null}
-          {isHover4 ? this.handleCardResult("160px") : null}
-          {isHover5 ? this.handleCardResult("200px") : null}
-          {isHover6 ? this.handleCardResult("220px") : null}
+          {isHover ? this.handleCardResult("0px", "00000", "0.04") : null}
+          {isHover1 ? this.handleCardResult("40px", "00000", "1.25") : null}
+          {isHover2 ? this.handleCardResult("80px", "00000", "2.50") : null}
+          {isHover3 ? this.handleCardResult("120px", "00000", "12.49") : null}
+          {isHover4 ? this.handleCardResult("160px", "00000", "18.74") : null}
+          {isHover5 ? this.handleCardResult("200px", "00000", "49.98") : null}
+          {isHover6 ? this.handleCardResult("220px", "00000", "14.99") : null}
         </div>
         <div styleName="container-center">
           <div styleName="second-container">
