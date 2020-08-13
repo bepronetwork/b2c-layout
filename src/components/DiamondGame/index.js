@@ -55,34 +55,78 @@ class DiamondGame extends Component {
   };
 
   handleMouseEnter = () => {
-    this.setState({ isHover: true });
+    this.setState({
+      isHover: true,
+      isHover1: false,
+      isHover2: false,
+      isHover3: false,
+      isHover4: false,
+      isHover5: false,
+      isHover6: false
+    });
   };
 
   handleMouseEnter1 = () => {
-    this.setState({ isHover1: true });
+    this.setState({
+      isHover: false,
+      isHover1: true,
+      isHover2: false,
+      isHover3: false,
+      isHover4: false,
+      isHover5: false,
+      isHover6: false
+    });
   };
 
   handleMouseEnter2 = () => {
-    this.setState({ isHover2: true });
+    this.setState({
+      isHover: false,
+      isHover1: false,
+      isHover2: true,
+      isHover3: false,
+      isHover4: false,
+      isHover5: false,
+      isHover6: false
+    });
   };
 
   handleMouseEnter3 = () => {
-    this.setState({ isHover3: true });
+    this.setState({
+      isHover: false,
+      isHover1: false,
+      isHover2: false,
+      isHover3: true,
+      isHover4: false,
+      isHover5: false,
+      isHover6: false
+    });
   };
 
   handleMouseEnter4 = () => {
-    this.setState({ isHover4: true });
+    this.setState({
+      isHover: false,
+      isHover1: false,
+      isHover2: false,
+      isHover3: false,
+      isHover4: true,
+      isHover5: false,
+      isHover6: false
+    });
   };
 
   handleMouseEnter5 = () => {
-    this.setState({ isHover5: true });
+    this.setState({
+      isHover: false,
+      isHover1: false,
+      isHover2: false,
+      isHover3: false,
+      isHover4: false,
+      isHover5: true,
+      isHover6: false
+    });
   };
 
   handleMouseEnter6 = () => {
-    this.setState({ isHover6: true });
-  };
-
-  handleMouseLeave = () => {
     this.setState({
       isHover: false,
       isHover1: false,
@@ -90,7 +134,7 @@ class DiamondGame extends Component {
       isHover3: false,
       isHover4: false,
       isHover5: false,
-      isHover6: false
+      isHover6: true
     });
   };
 
@@ -112,7 +156,6 @@ class DiamondGame extends Component {
             <div
               styleName="result-container"
               onMouseEnter={this.handleMouseEnter}
-              onMouseLeave={this.handleMouseLeave}
             >
               <div>
                 <DiamondFill color={isHover ? "white" : "#3A3A83"} />
@@ -127,7 +170,6 @@ class DiamondGame extends Component {
             <div
               styleName="result-container"
               onMouseEnter={this.handleMouseEnter1}
-              onMouseLeave={this.handleMouseLeave}
             >
               <div>
                 <DiamondFill color={isHover1 ? "white" : "#3A3A83"} />
@@ -142,7 +184,6 @@ class DiamondGame extends Component {
             <div
               styleName="result-container"
               onMouseEnter={this.handleMouseEnter2}
-              onMouseLeave={this.handleMouseLeave}
             >
               <div>
                 <DiamondFill color={isHover2 ? "white" : "#3A3A83"} />
@@ -157,7 +198,6 @@ class DiamondGame extends Component {
             <div
               styleName="result-container"
               onMouseEnter={this.handleMouseEnter3}
-              onMouseLeave={this.handleMouseLeave}
             >
               <div>
                 <DiamondFill color={isHover3 ? "white" : "#3A3A83"} />
@@ -172,7 +212,6 @@ class DiamondGame extends Component {
             <div
               styleName="result-container"
               onMouseEnter={this.handleMouseEnter4}
-              onMouseLeave={this.handleMouseLeave}
             >
               <div>
                 <DiamondFill color={isHover4 ? "white" : "#3A3A83"} />
@@ -187,7 +226,6 @@ class DiamondGame extends Component {
             <div
               styleName="result-container"
               onMouseEnter={this.handleMouseEnter5}
-              onMouseLeave={this.handleMouseLeave}
             >
               <div>
                 <DiamondFill color={isHover5 ? "white" : "#3A3A83"} />
@@ -202,7 +240,6 @@ class DiamondGame extends Component {
             <div
               styleName="result-container"
               onMouseEnter={this.handleMouseEnter6}
-              onMouseLeave={this.handleMouseLeave}
             >
               <div>
                 <Diamond color="#0E0C1B" />
