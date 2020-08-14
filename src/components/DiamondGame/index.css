@@ -70,6 +70,8 @@
 .second-container{
   display: flex;
   align-items: flex-end;
+  flex-direction: column;
+  justify-content: center;
   padding: 10px;
   width: 100%;
   height: 200px;
@@ -167,10 +169,7 @@
 }
 
 .svg-animated-container{
-    align-items: center;
-    justify-content: center;
-    display: flex;
-    flex-direction: column;
+   height: 100px;
 }
 
 .svg-animated{
