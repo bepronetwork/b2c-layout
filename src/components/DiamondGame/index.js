@@ -7,7 +7,6 @@ import DiamondWithBorder from "../../assets/DiamondIcons/diamond-with-border";
 import images from "./images";
 
 import "./index.css";
-import { result } from "lodash";
 
 class DiamondGame extends Component {
   state = {
@@ -17,97 +16,15 @@ class DiamondGame extends Component {
     isHover3: false,
     isHover4: false,
     isHover5: false,
-    isHover6: false,
-    backendResult: [],
-    resultEquals: []
+    isHover6: false
   };
 
   stylesSvg = {
     alignItems: "center",
     justifyContent: "center",
     display: "flex",
-    margin: "0px 18px"
-  };
-
-  componentDidMount() {
-    this.handleMouseEnter6();
-  }
-
-  styleBase = (state, number, hex) => ({
-    backgroundColor: state === number ? hex : false
-  });
-
-  handleCardResult = (marginTop, profit, chance) => {
-    return (
-      <div styleName="result-container-right" style={{ marginTop }}>
-        <div>
-          <p styleName="text-result">Lucro</p>
-          <div styleName="result-right">
-            <p styleName="text-result">{profit}</p>
-          </div>
-        </div>
-        <div>
-          <p styleName="text-result">Chance</p>
-          <div styleName="result-right">
-            <p styleName="text-result">{chance}</p>
-            <p styleName="text-result">%</p>
-          </div>
-        </div>
-      </div>
-    );
-  };
-
-  onClick = async () => {
-    await this.generateRandomResult();
-    this.getSameNumber();
-    console.log(this.getSameNumber());
-  };
-
-  generateRandomResult = async () => {
-    this.setState({ backendResult: false });
-    const resultGen = Array.from({ length: 5 }, () =>
-      Math.floor(Math.random() * 7)
-    );
-
-    this.setState({ backendResult: resultGen });
-  };
-
-  getElementByIdCpx = (color, id) => {
-    // const findDuplicates = arr =>
-    //   arr.filter((item, index) => arr.indexOf(item) !== index);
-
-    // const resultDupli = [...new Set(findDuplicates(backendResult))];
-    // console.log(resultDupli);
-    document.getElementById(id).style.backgroundColor = color;
-  };
-
-  getSameNumber = testSa => {
-    // const { backendResult } = this.state;
-    // const strArray = backendResult;
-
-    // const findDuplicates = arr =>
-    //   arr.filter((item, index) => arr.indexOf(item) !== index);
-
-    // const resultDupli = [...new Set(findDuplicates(strArray))];
-
-    switch (testSa) {
-      case 0:
-        return this.getElementById("#FF69C1");
-      case 1:
-        return this.getElementById("#2C71E2");
-      case 2:
-        return this.getElementById("#FDE22E");
-      case 3:
-        return this.getElementById("#03D6DF");
-      case 4:
-        return this.getElementById("#00C702");
-      case 5:
-        return this.getElementById("#D31639");
-      case 6:
-        return this.getElementById("#6C2DE6");
-      default:
-        break;
-    }
+    flexDirection: "column",
+    zIndex: 1
   };
 
   handleMouseEnter = () => {
@@ -194,7 +111,29 @@ class DiamondGame extends Component {
     });
   };
 
+  handleCardResult = (marginTop, profit, chance) => {
+    return (
+      <div styleName="result-container-right" style={{ marginTop }}>
+        <div>
+          <p styleName="text-result">Lucro</p>
+          <div styleName="result-right">
+            <p styleName="text-result">{profit}</p>
+          </div>
+        </div>
+        <div>
+          <p styleName="text-result">Chance</p>
+          <div styleName="result-right">
+            <p styleName="text-result">{chance}</p>
+            <p styleName="text-result">%</p>
+          </div>
+        </div>
+      </div>
+    );
+  };
+
   render() {
+    const { backendResult, isActiveBottomBar } = this.props;
+
     const {
       isHover,
       isHover1,
@@ -202,8 +141,7 @@ class DiamondGame extends Component {
       isHover3,
       isHover4,
       isHover5,
-      isHover6,
-      backendResult
+      isHover6
     } = this.state;
 
     return (
@@ -315,31 +253,50 @@ class DiamondGame extends Component {
           {isHover4 ? this.handleCardResult("160px", "00000", "18.74") : null}
           {isHover5 ? this.handleCardResult("200px", "00000", "49.98") : null}
           {isHover6 ? this.handleCardResult("220px", "00000", "14.99") : null}
-          <button onClick={this.onClick}>TESTES</button>
         </div>
 
         <div styleName="container-center">
           <div styleName="second-container">
-            <div styleName="row-container svg-animated-container">
-              {backendResult.map((num, index) => {
-                return (
-                  <div style={this.stylesSvg}>
-                    <img
-                      src={images[num]}
-                      alt=""
-                      className="svg-animated"
-                      style={{ zIndex: 1 }}
-                    />
+            <div styleName="container-center">
+              <div styleName="row-container svg-animated-container container-center">
+                {backendResult.map((num, index) => {
+                  return (
+                    <div style={this.stylesSvg}>
+                      <img
+                        src={images[num].img}
+                        alt=""
+                        className="svg-animated"
+                        style={{ zIndex: 1 }}
+                      />
+                    </div>
+                  );
+                })}
+              </div>
+              <div styleName="row-container container-center">
+                {isActiveBottomBar ? (
+                  backendResult.map(num => {
+                    return (
+                      <div
+                        styleName="bottom-base-svg"
+                        key={images.id}
+                        style={{
+                          backgroundColor: images[num].isActive
+                            ? images[num].color
+                            : "rgb(29, 26, 55)"
+                        }}
+                      />
+                    );
+                  })
+                ) : (
+                  <div styleName="row-container container-center">
+                    <div styleName="bottom-base-svg" id="test" />
+                    <div styleName="bottom-base-svg" id="test1" />
+                    <div styleName="bottom-base-svg" id="test2" />
+                    <div styleName="bottom-base-svg" id="test3" />
+                    <div styleName="bottom-base-svg" id="test4" />
                   </div>
-                );
-              })}
-            </div>
-            <div styleName="row-container">
-              <div styleName="bottom-base-svg" id="test" />
-              <div styleName="bottom-base-svg" id="test1" />
-              <div styleName="bottom-base-svg" id="test2" />
-              <div styleName="bottom-base-svg" id="test3" />
-              <div styleName="bottom-base-svg" id="test4" />
+                )}
+              </div>
             </div>
           </div>
         </div>

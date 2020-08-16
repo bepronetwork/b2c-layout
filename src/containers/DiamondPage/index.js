@@ -7,6 +7,7 @@ import diceBet from "lib/api/dice";
 import _, { find } from "lodash";
 import { connect } from "react-redux";
 
+import images from "../../components/DiamondGame/images";
 import Cache from "../../lib/cache/cache";
 import { setWonPopupMessageDispatcher } from "../../lib/redux";
 
@@ -28,12 +29,53 @@ class DiamondPage extends Component {
     game: {
       edge: 0
     },
-    amount: 0
+    amount: 0,
+    backendResult: [],
+    resultEquals: [],
+    isActiveBottomBar: false
   };
 
   componentDidMount() {
     this.getGame();
   }
+
+  setActive = number => {
+    images[number].isActive = false;
+  };
+
+  changeColorBottom = async (searchImage, number) => {
+    const { backendResult } = this.state;
+
+    const count = backendResult.filter(x => x === searchImage).length;
+
+    if (count >= 2) {
+      images[number].isActive = true;
+    }
+  };
+
+  setTest = () => {
+    this.changeColorBottom(0, 0);
+    this.changeColorBottom(1, 1);
+    this.changeColorBottom(2, 2);
+    this.changeColorBottom(3, 3);
+    this.changeColorBottom(4, 4);
+    this.changeColorBottom(5, 5);
+    this.changeColorBottom(6, 6);
+  };
+
+  setBottomBar = () => {
+    this.setState({ isActiveBottomBar: true });
+  };
+
+  generateRandomResult = async () => {
+    this.setState({ backendResult: false });
+    const resultGen = Array.from({ length: 5 }, () =>
+      Math.floor(Math.random() * 7)
+    );
+
+    this.setState({ backendResult: resultGen });
+    console.log(resultGen);
+  };
 
   getGame = () => {
     const appInfo = Cache.getFromCache("appInfo");
@@ -52,32 +94,52 @@ class DiamondPage extends Component {
     this.setState({ rollNumber, rollType });
   };
 
+  // handleBet = async ({ amount }) => {
+  //   try {
+  //     const { user } = this.context;
+  //     const { onHandleLoginOrRegister } = this.props;
+  //     const { rollNumber, rollType } = this.state;
+
+  //     this.setState({ disableControls: true });
+
+  //     if (!user || _.isEmpty(user)) return onHandleLoginOrRegister("register");
+
+  //     const res = await diceBet({
+  //       rollNumber,
+  //       rollType,
+  //       betAmount: amount,
+  //       user
+  //     });
+
+  //     this.setState({
+  //       result: res.result,
+  //       bet: res,
+  //       animating: true,
+  //       betObjectResult: res,
+  //       amount
+  //     });
+
+  //     return res;
+  //   } catch (err) {
+  //     return this.setState({ result: 0, disableControls: false });
+  //   }
+  // };
+
   handleBet = async ({ amount }) => {
     try {
       const { user } = this.context;
       const { onHandleLoginOrRegister } = this.props;
       const { rollNumber, rollType } = this.state;
 
-      this.setState({ disableControls: true });
+      this.setState({ disableControls: false });
 
       if (!user || _.isEmpty(user)) return onHandleLoginOrRegister("register");
 
-      const res = await diceBet({
-        rollNumber,
-        rollType,
-        betAmount: amount,
-        user
-      });
+      this.setState({ isActiveBottomBar: false, backendResult: [] });
+      await this.generateRandomResult();
 
-      this.setState({
-        result: res.result,
-        bet: res,
-        animating: true,
-        betObjectResult: res,
-        amount
-      });
-
-      return res;
+      this.setTest();
+      this.setBottomBar();
     } catch (err) {
       return this.setState({ result: 0, disableControls: false });
     }
@@ -111,7 +173,14 @@ class DiamondPage extends Component {
   };
 
   getGameCard = () => {
-    return <DiamondGamePage />;
+    const { backendResult, isActiveBottomBar } = this.state;
+
+    return (
+      <DiamondGamePage
+        backendResult={backendResult}
+        isActiveBottomBar={isActiveBottomBar}
+      />
+    );
   };
 
   render() {
