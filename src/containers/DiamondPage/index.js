@@ -44,10 +44,29 @@ class DiamondPage extends Component {
 
   componentDidMount() {
     this.getGame();
+    this.setState({
+      isHover: false,
+      isHover1: false,
+      isHover2: false,
+      isHover3: false,
+      isHover4: false,
+      isHover5: false,
+      isHover6: true
+    });
   }
 
   caseSwitch = condition => {
     switch (condition) {
+      case 0:
+        return this.setState({
+          isHover: false,
+          isHover1: false,
+          isHover2: false,
+          isHover3: false,
+          isHover4: false,
+          isHover5: false,
+          isHover6: true
+        });
       case 2:
         return this.setState({
           isHover: false,
@@ -63,17 +82,17 @@ class DiamondPage extends Component {
           isHover: false,
           isHover1: false,
           isHover2: false,
-          isHover3: false,
+          isHover3: true,
           isHover4: false,
-          isHover5: true,
+          isHover5: false,
           isHover6: false
         });
       case 4:
         return this.setState({
           isHover: false,
-          isHover1: false,
+          isHover1: true,
           isHover2: false,
-          isHover3: true,
+          isHover3: false,
           isHover4: false,
           isHover5: false,
           isHover6: false
@@ -92,27 +111,108 @@ class DiamondPage extends Component {
       default:
         break;
     }
-  }
+  };
 
   setActiveHover = () => {
     const { backendResult } = this.state;
 
     const result = backendResult.filter((e, i, a) => a.indexOf(e) !== i);
 
-    if (result[0] === result[1]) {
-      const count = backendResult.filter(x => x === result[0]).length;
-
-      this.caseSwitch(count);
-    }
-
-    if (result[0] !== result[1]) {
+    if (result.length === 3) {
       const count = backendResult.filter(x => x === result[0]).length;
       const count2 = backendResult.filter(x => x === result[1]).length;
+      const count3 = backendResult.filter(x => x === result[2]).length;
 
-      const resultSum = count + count2;
+      const resultSum = count + count2 + count3;
 
-     console.log(resultSum);
+      switch (resultSum) {
+        case 8:
+          return this.setState({
+            isHover: false,
+            isHover1: false,
+            isHover2: true,
+            isHover3: false,
+            isHover4: false,
+            isHover5: false,
+            isHover6: false
+          });
+        default:
+          break;
+      }
     }
+
+    if (result.length === 2) {
+      if (result[0] === result[1]) {
+        const count = backendResult.filter(x => x === result[0]).length;
+
+        this.caseSwitch(count);
+      }
+
+      if (result[0] !== result[1]) {
+        const count = backendResult.filter(x => x === result[0]).length;
+        const count2 = backendResult.filter(x => x === result[1]).length;
+
+        const resultSum = count + count2;
+        switch (resultSum) {
+          case 0:
+            return this.setState({
+              isHover: false,
+              isHover1: false,
+              isHover2: false,
+              isHover3: false,
+              isHover4: false,
+              isHover5: false,
+              isHover6: true
+            });
+          case 2:
+            return this.setState({
+              isHover: false,
+              isHover1: false,
+              isHover2: false,
+              isHover3: false,
+              isHover4: false,
+              isHover5: true,
+              isHover6: false
+            });
+          case 3:
+            return this.setState({
+              isHover: false,
+              isHover1: false,
+              isHover2: false,
+              isHover3: true,
+              isHover4: false,
+              isHover5: false,
+              isHover6: false
+            });
+          case 4:
+            return this.setState({
+              isHover: false,
+              isHover1: false,
+              isHover2: false,
+              isHover3: false,
+              isHover4: true,
+              isHover5: false,
+              isHover6: false
+            });
+          case 5:
+            return this.setState({
+              isHover: false,
+              isHover1: false,
+              isHover2: true,
+              isHover3: false,
+              isHover4: false,
+              isHover5: false,
+              isHover6: false
+            });
+          default:
+            break;
+        }
+      }
+    }
+
+    const count = backendResult.filter(x => x === result[0]).length;
+
+    this.caseSwitch(count);
   };
 
   changeColorBottom = async (searchImage, number) => {
@@ -150,7 +250,6 @@ class DiamondPage extends Component {
     );
 
     this.setState({ backendResult: resultGen });
-    console.log(resultGen);
   };
 
   getGame = () => {
@@ -214,7 +313,6 @@ class DiamondPage extends Component {
       await this.generateRandomResult();
 
       this.setTest();
-      console.log(this.setTest());
       this.setBottomBar();
       this.setActiveHover();
     } catch (err) {

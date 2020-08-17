@@ -142,7 +142,7 @@ class DiamondGame extends Component {
       isHover4,
       isHover5,
       isHover6
-    } = this.state;
+    } = this.props;
 
     return (
       <div styleName="container">
