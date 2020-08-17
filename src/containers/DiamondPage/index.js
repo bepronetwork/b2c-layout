@@ -3,7 +3,7 @@ import { DiamondGamePage, DiceGameOptions } from "components";
 import PropTypes from "prop-types";
 import UserContext from "containers/App/UserContext";
 import GamePage from "containers/GamePage";
-import diceBet from "lib/api/dice";
+// import diceBet from "lib/api/dice";
 import _, { find } from "lodash";
 import { connect } from "react-redux";
 
@@ -32,15 +32,87 @@ class DiamondPage extends Component {
     amount: 0,
     backendResult: [],
     resultEquals: [],
-    isActiveBottomBar: false
+    isActiveBottomBar: false,
+    isHover: false,
+    isHover1: false,
+    isHover2: false,
+    isHover3: false,
+    isHover4: false,
+    isHover5: false,
+    isHover6: false
   };
 
   componentDidMount() {
     this.getGame();
   }
 
-  setActive = number => {
-    images[number].isActive = false;
+  caseSwitch = condition => {
+    switch (condition) {
+      case 2:
+        return this.setState({
+          isHover: false,
+          isHover1: false,
+          isHover2: false,
+          isHover3: false,
+          isHover4: false,
+          isHover5: true,
+          isHover6: false
+        });
+      case 3:
+        return this.setState({
+          isHover: false,
+          isHover1: false,
+          isHover2: false,
+          isHover3: false,
+          isHover4: false,
+          isHover5: true,
+          isHover6: false
+        });
+      case 4:
+        return this.setState({
+          isHover: false,
+          isHover1: false,
+          isHover2: false,
+          isHover3: true,
+          isHover4: false,
+          isHover5: false,
+          isHover6: false
+        });
+      case 5:
+        return this.setState({
+          isHover: true,
+          isHover1: false,
+          isHover2: false,
+          isHover3: false,
+          isHover4: false,
+          isHover5: false,
+          isHover6: false
+        });
+
+      default:
+        break;
+    }
+  }
+
+  setActiveHover = () => {
+    const { backendResult } = this.state;
+
+    const result = backendResult.filter((e, i, a) => a.indexOf(e) !== i);
+
+    if (result[0] === result[1]) {
+      const count = backendResult.filter(x => x === result[0]).length;
+
+      this.caseSwitch(count);
+    }
+
+    if (result[0] !== result[1]) {
+      const count = backendResult.filter(x => x === result[0]).length;
+      const count2 = backendResult.filter(x => x === result[1]).length;
+
+      const resultSum = count + count2;
+
+     console.log(resultSum);
+    }
   };
 
   changeColorBottom = async (searchImage, number) => {
@@ -50,6 +122,10 @@ class DiamondPage extends Component {
 
     if (count >= 2) {
       images[number].isActive = true;
+    }
+
+    if (count < 2) {
+      images[number].isActive = false;
     }
   };
 
@@ -129,7 +205,6 @@ class DiamondPage extends Component {
     try {
       const { user } = this.context;
       const { onHandleLoginOrRegister } = this.props;
-      const { rollNumber, rollType } = this.state;
 
       this.setState({ disableControls: false });
 
@@ -139,7 +214,9 @@ class DiamondPage extends Component {
       await this.generateRandomResult();
 
       this.setTest();
+      console.log(this.setTest());
       this.setBottomBar();
+      this.setActiveHover();
     } catch (err) {
       return this.setState({ result: 0, disableControls: false });
     }
@@ -173,12 +250,29 @@ class DiamondPage extends Component {
   };
 
   getGameCard = () => {
-    const { backendResult, isActiveBottomBar } = this.state;
+    const {
+      backendResult,
+      isActiveBottomBar,
+      isHover,
+      isHover1,
+      isHover2,
+      isHover3,
+      isHover4,
+      isHover5,
+      isHover6
+    } = this.state;
 
     return (
       <DiamondGamePage
         backendResult={backendResult}
         isActiveBottomBar={isActiveBottomBar}
+        isHover={isHover}
+        isHover1={isHover1}
+        isHover2={isHover2}
+        isHover3={isHover3}
+        isHover4={isHover4}
+        isHover5={isHover5}
+        isHover6={isHover6}
       />
     );
   };
