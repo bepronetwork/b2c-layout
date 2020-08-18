@@ -171,12 +171,13 @@ class DiamondGame extends Component {
                 {backendResult.map((num, index) => {
                   return (
                     <div style={this.stylesSvg}>
-                      <img
-                        src={images[num].img}
-                        alt=""
+                      <object
+                        type="image/svg+xml"
+                        data={images[num].img}
                         className="svg-animated"
-                        style={{ zIndex: 1 }}
-                      />
+                      >
+                        svg-animation
+                      </object>
                     </div>
                   );
                 })}
