@@ -17,90 +17,6 @@ class DiamondGame extends Component {
     zIndex: 1
   };
 
-  // handleMouseEnter = () => {
-  //   this.setState({
-  //     isHover: true,
-  //     isHover1: false,
-  //     isHover2: false,
-  //     isHover3: false,
-  //     isHover4: false,
-  //     isHover5: false,
-  //     isHover6: false
-  //   });
-  // };
-
-  // handleMouseEnter1 = () => {
-  //   this.setState({
-  //     isHover: false,
-  //     isHover1: true,
-  //     isHover2: false,
-  //     isHover3: false,
-  //     isHover4: false,
-  //     isHover5: false,
-  //     isHover6: false
-  //   });
-  // };
-
-  // handleMouseEnter2 = () => {
-  //   this.setState({
-  //     isHover: false,
-  //     isHover1: false,
-  //     isHover2: true,
-  //     isHover3: false,
-  //     isHover4: false,
-  //     isHover5: false,
-  //     isHover6: false
-  //   });
-  // };
-
-  // handleMouseEnter3 = () => {
-  //   this.setState({
-  //     isHover: false,
-  //     isHover1: false,
-  //     isHover2: false,
-  //     isHover3: true,
-  //     isHover4: false,
-  //     isHover5: false,
-  //     isHover6: false
-  //   });
-  // };
-
-  // handleMouseEnter4 = () => {
-  //   this.setState({
-  //     isHover: false,
-  //     isHover1: false,
-  //     isHover2: false,
-  //     isHover3: false,
-  //     isHover4: true,
-  //     isHover5: false,
-  //     isHover6: false
-  //   });
-  // };
-
-  // handleMouseEnter5 = () => {
-  //   this.setState({
-  //     isHover: false,
-  //     isHover1: false,
-  //     isHover2: false,
-  //     isHover3: false,
-  //     isHover4: false,
-  //     isHover5: true,
-  //     isHover6: false
-  //   });
-  // };
-
-  // handleMouseEnter6 = () => {
-  //   this.setState({
-  //     isHover: false,
-  //     isHover1: false,
-  //     isHover2: false,
-  //     isHover3: false,
-  //     isHover4: false,
-  //     isHover5: false,
-  //     isHover6: true
-  //   });
-  // };
-
   handleCardResult = (marginTop, profit, chance) => {
     return (
       <div styleName="result-container-right" style={{ marginTop }}>
@@ -248,10 +164,13 @@ class DiamondGame extends Component {
         <div styleName="container-center">
           <div styleName="second-container">
             <div styleName="container-center">
-              <div styleName="row-container svg-animated-container container-center">
+              <div
+                styleName="row-container svg-animated-container container-center"
+                id="svg-diamond-animated"
+              >
                 {backendResult.map((num, index) => {
                   return (
-                    <div style={this.stylesSvg} id="svg-diamond-animated">
+                    <div style={this.stylesSvg}>
                       <img
                         src={images[num].img}
                         alt=""
