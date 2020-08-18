@@ -113,6 +113,23 @@ class DiamondPage extends Component {
     }
   };
 
+  handleAnimations = async () => {
+    const box = document.getElementById("svg-diamond-animated");
+
+    box.animate(
+      [
+        { transform: "translate3D(0, -20px, 0)" },
+        { transform: "translate3D(0, 0px, 0)" }
+      ],
+      {
+        duration: 100,
+        iterations: 0.5
+      }
+    );
+
+    return new Promise(resolve => setTimeout(() => resolve(), 100));
+  };
+
   setActiveHover = () => {
     const { backendResult } = this.state;
 
@@ -153,6 +170,7 @@ class DiamondPage extends Component {
         const count2 = backendResult.filter(x => x === result[1]).length;
 
         const resultSum = count + count2;
+
         switch (resultSum) {
           case 0:
             return this.setState({
@@ -311,7 +329,7 @@ class DiamondPage extends Component {
 
       this.setState({ isActiveBottomBar: false, backendResult: [] });
       await this.generateRandomResult();
-
+      this.handleAnimations();
       this.setTest();
       this.setBottomBar();
       this.setActiveHover();
