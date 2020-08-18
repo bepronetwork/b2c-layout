@@ -25,6 +25,10 @@
   width: $spacing-28;
 }
 
+.button > button > div {
+  width: 304px;
+}
+
 .error {
   margin: $spacing-8;
 }
