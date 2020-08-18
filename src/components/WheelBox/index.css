@@ -54,9 +54,7 @@
 .container-blocks{
     position: relative;
     width: 100%;
-    display: grid;
     display: flex;
-    gap: 1em 1em;
     max-width: 600px;
 
     @include Breakpoint-tabletOnly {
