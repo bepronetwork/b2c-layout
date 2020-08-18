@@ -10,7 +10,8 @@ import {
   set2FA,
   userAuth,
   getCurrencyAddress,
-  resendConfirmEmail
+  resendConfirmEmail,
+  getJackpotPot
 } from "lib/api/users";
 import { Numbers } from "../../lib/ethereum/lib";
 import Cache from "../../lib/cache/cache";
@@ -474,5 +475,25 @@ export default class User {
 
     isEmailConfirmed = async () => {
         return this.user.email_confirmed;
+    }
+
+    getJackpotPot = async ({currency_id}) => {
+        try {
+            if(!this.user_id){return []}
+            if(currency_id){
+                let res = await getJackpotPot({     
+                    app: this.app_id,        
+                    user: this.user_id,
+                    currency : currency_id
+                }, this.bearerToken);
+                return await processResponse(res);
+            }else{
+                return [];
+            }
+      
+        }catch(err){
+            console.log(err)
+            throw err;
+        }
     }
 }

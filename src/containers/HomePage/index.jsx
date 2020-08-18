@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import queryString from 'query-string'
 import { find } from "lodash";
-import { GameCard, Banners } from "components";
+import { GameCard, Banners, JackpotPot } from "components";
 import PropTypes from "prop-types";
 import UserContext from "containers/App/UserContext";
 import PlayInvitation from "components/PlayInvitation";
@@ -79,6 +79,7 @@ class HomePage extends Component {
                     <div styleName='container-small'>                       
                         {appInfo.games.map( (item) => this.renderGame(item))}
                     </div> 
+                    <JackpotPot/>
                     {
                         document.documentElement.clientWidth <= mobileBreakpoint
                         ?
