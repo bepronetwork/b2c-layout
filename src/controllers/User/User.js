@@ -486,6 +486,14 @@ export default class User {
                     user: this.user_id,
                     currency : currency_id
                 }, this.bearerToken);
+
+                //workaround to dont show "Jackpot not exist in App" error message notifitication
+                //should be removed when Jackpot will be in the addOns list
+                if(res.data.status == 56) {
+                    return { pot: 0 };
+                }
+                //finish
+
                 return await processResponse(res);
             }else{
                 return [];
