@@ -10,11 +10,8 @@ import "./index.css";
 
 class DiamondGame extends Component {
   stylesSvg = {
-    alignItems: "center",
-    justifyContent: "center",
-    display: "flex",
-    flexDirection: "column",
-    zIndex: 1
+    zIndex: 1,
+    width: 100
   };
 
   handleCardResult = (marginTop, profit, chance) => {
@@ -47,7 +44,12 @@ class DiamondGame extends Component {
       isHover3,
       isHover4,
       isHover5,
-      isHover6
+      isHover6,
+      isVisible1,
+      isVisible2,
+      isVisible3,
+      isVisible4,
+      isVisible5
     } = this.props;
 
     return (
@@ -157,8 +159,8 @@ class DiamondGame extends Component {
           {isHover2 ? this.handleCardResult("80px", "00000", "2.50") : null}
           {isHover3 ? this.handleCardResult("120px", "00000", "12.49") : null}
           {isHover4 ? this.handleCardResult("160px", "00000", "18.74") : null}
-          {isHover5 ? this.handleCardResult("200px", "00000", "49.98") : null}
-          {isHover6 ? this.handleCardResult("220px", "00000", "14.99") : null}
+          {isHover5 ? this.handleCardResult("180px", "00000", "49.98") : null}
+          {isHover6 ? this.handleCardResult("190px", "00000", "14.99") : null}
         </div>
 
         <div styleName="container-center">
@@ -168,19 +170,96 @@ class DiamondGame extends Component {
                 styleName="row-container svg-animated-container container-center"
                 id="svg-diamond-animated"
               >
-                {backendResult.map((num, index) => {
-                  return (
-                    <div style={this.stylesSvg}>
-                      <object
-                        type="image/svg+xml"
-                        data={images[num].img}
-                        className="svg-animated"
-                      >
-                        svg-animation
-                      </object>
-                    </div>
-                  );
-                })}
+                <div
+                  styleName="svg-animated-container container-center"
+                  id="svg-diamond-animated-1"
+                >
+                  {backendResult.slice(0, 1).map(num => {
+                    return isVisible1 ? (
+                      <div style={this.stylesSvg}>
+                        <object
+                          type="image/svg+xml"
+                          data={images[num].img}
+                          className="svg-animated"
+                        >
+                          svg-animation
+                        </object>
+                      </div>
+                    ) : null;
+                  })}
+                </div>
+                <div
+                  styleName="svg-animated-container container-center"
+                  id="svg-diamond-animated-2"
+                >
+                  {backendResult.slice(1, 2).map(num => {
+                    return isVisible2 ? (
+                      <div style={this.stylesSvg}>
+                        <object
+                          type="image/svg+xml"
+                          data={images[num].img}
+                          className="svg-animated"
+                        >
+                          svg-animation
+                        </object>
+                      </div>
+                    ) : null;
+                  })}
+                </div>
+                <div
+                  styleName="svg-animated-container container-center"
+                  id="svg-diamond-animated-3"
+                >
+                  {backendResult.slice(2, 3).map(num => {
+                    return isVisible3 ? (
+                      <div style={this.stylesSvg}>
+                        <object
+                          type="image/svg+xml"
+                          data={images[num].img}
+                          className="svg-animated"
+                        >
+                          svg-animation
+                        </object>
+                      </div>
+                    ) : null;
+                  })}
+                </div>
+                <div
+                  styleName="svg-animated-container container-center"
+                  id="svg-diamond-animated-4"
+                >
+                  {backendResult.slice(3, 4).map(num => {
+                    return isVisible4 ? (
+                      <div style={this.stylesSvg}>
+                        <object
+                          type="image/svg+xml"
+                          data={images[num].img}
+                          className="svg-animated"
+                        >
+                          svg-animation
+                        </object>
+                      </div>
+                    ) : null;
+                  })}
+                </div>
+                <div
+                  styleName="svg-animated-container container-center"
+                  id="svg-diamond-animated-5"
+                >
+                  {backendResult.slice(4, 5).map(num => {
+                    return isVisible5 ? (
+                      <div style={this.stylesSvg}>
+                        <object
+                          type="image/svg+xml"
+                          data={images[num].img}
+                          className="svg-animated"
+                        >
+                          svg-animation
+                        </object>
+                      </div>
+                    ) : null;
+                  })}
+                </div>
               </div>
               <div styleName="row-container container-center">
                 {isActiveBottomBar ? (

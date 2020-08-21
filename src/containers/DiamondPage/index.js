@@ -39,18 +39,17 @@ class DiamondPage extends Component {
     isHover3: false,
     isHover4: false,
     isHover5: false,
-    isHover6: false
+    isHover6: false,
+    isVisible1: false,
+    isVisible2: false,
+    isVisible3: false,
+    isVisible4: false,
+    isVisible5: false
   };
 
   componentDidMount() {
     this.getGame();
     this.setState({
-      isHover: false,
-      isHover1: false,
-      isHover2: false,
-      isHover3: false,
-      isHover4: false,
-      isHover5: false,
       isHover6: true
     });
   }
@@ -59,52 +58,26 @@ class DiamondPage extends Component {
     switch (condition) {
       case 0:
         return this.setState({
-          isHover: false,
-          isHover1: false,
-          isHover2: false,
-          isHover3: false,
-          isHover4: false,
-          isHover5: false,
           isHover6: true
         });
       case 2:
         return this.setState({
-          isHover: false,
-          isHover1: false,
-          isHover2: false,
-          isHover3: false,
-          isHover4: false,
           isHover5: true,
           isHover6: false
         });
       case 3:
         return this.setState({
-          isHover: false,
-          isHover1: false,
-          isHover2: false,
           isHover3: true,
-          isHover4: false,
-          isHover5: false,
           isHover6: false
         });
       case 4:
         return this.setState({
-          isHover: false,
           isHover1: true,
-          isHover2: false,
-          isHover3: false,
-          isHover4: false,
-          isHover5: false,
           isHover6: false
         });
       case 5:
         return this.setState({
           isHover: true,
-          isHover1: false,
-          isHover2: false,
-          isHover3: false,
-          isHover4: false,
-          isHover5: false,
           isHover6: false
         });
 
@@ -113,8 +86,8 @@ class DiamondPage extends Component {
     }
   };
 
-  handleAnimations = async () => {
-    const box = document.getElementById("svg-diamond-animated");
+  handleAnimations = async idIcon => {
+    const box = document.getElementById(idIcon);
 
     box.animate(
       [
@@ -123,11 +96,41 @@ class DiamondPage extends Component {
       ],
       {
         duration: 100,
-        iterations: 0.5
+        iterations: 1
       }
     );
 
-    return new Promise(resolve => setTimeout(() => resolve(), 100));
+    if (idIcon === "svg-diamond-animated-1") {
+      this.setState({
+        isVisible1: true
+      });
+    }
+
+    if (idIcon === "svg-diamond-animated-2") {
+      this.setState({
+        isVisible2: true
+      });
+    }
+
+    if (idIcon === "svg-diamond-animated-3") {
+      this.setState({
+        isVisible3: true
+      });
+    }
+
+    if (idIcon === "svg-diamond-animated-4") {
+      this.setState({
+        isVisible4: true
+      });
+    }
+
+    if (idIcon === "svg-diamond-animated-5") {
+      this.setState({
+        isVisible5: true
+      });
+    }
+
+    return new Promise(resolve => setTimeout(() => resolve(), 800));
   };
 
   setActiveHover = () => {
@@ -145,12 +148,7 @@ class DiamondPage extends Component {
       switch (resultSum) {
         case 8:
           return this.setState({
-            isHover: false,
-            isHover1: false,
             isHover2: true,
-            isHover3: false,
-            isHover4: false,
-            isHover5: false,
             isHover6: false
           });
         default:
@@ -174,52 +172,26 @@ class DiamondPage extends Component {
         switch (resultSum) {
           case 0:
             return this.setState({
-              isHover: false,
-              isHover1: false,
-              isHover2: false,
-              isHover3: false,
-              isHover4: false,
-              isHover5: false,
               isHover6: true
             });
           case 2:
             return this.setState({
-              isHover: false,
-              isHover1: false,
-              isHover2: false,
-              isHover3: false,
-              isHover4: false,
               isHover5: true,
               isHover6: false
             });
           case 3:
             return this.setState({
-              isHover: false,
-              isHover1: false,
-              isHover2: false,
               isHover3: true,
-              isHover4: false,
-              isHover5: false,
               isHover6: false
             });
           case 4:
             return this.setState({
-              isHover: false,
-              isHover1: false,
-              isHover2: false,
-              isHover3: false,
               isHover4: true,
-              isHover5: false,
               isHover6: false
             });
           case 5:
             return this.setState({
-              isHover: false,
-              isHover1: false,
               isHover2: true,
-              isHover3: false,
-              isHover4: false,
-              isHover5: false,
               isHover6: false
             });
           default:
@@ -267,7 +239,17 @@ class DiamondPage extends Component {
       Math.floor(Math.random() * 7)
     );
 
-    this.setState({ backendResult: resultGen });
+    this.setState({
+      backendResult: resultGen
+    });
+  };
+
+  setResultIcons = async () => {
+    await this.handleAnimations("svg-diamond-animated-1");
+    await this.handleAnimations("svg-diamond-animated-2");
+    await this.handleAnimations("svg-diamond-animated-3");
+    await this.handleAnimations("svg-diamond-animated-4");
+    await this.handleAnimations("svg-diamond-animated-5");
   };
 
   getGame = () => {
@@ -322,17 +304,35 @@ class DiamondPage extends Component {
     try {
       const { user } = this.context;
       const { onHandleLoginOrRegister } = this.props;
+      const { resultFirstIcon } = this.state;
 
       this.setState({ disableControls: false });
 
       if (!user || _.isEmpty(user)) return onHandleLoginOrRegister("register");
 
-      this.setState({ isActiveBottomBar: false, backendResult: [] });
+      this.setState({
+        isActiveBottomBar: false,
+        backendResult: [],
+        isHover: false,
+        isHover1: false,
+        isHover2: false,
+        isHover3: false,
+        isHover4: false,
+        isHover5: false,
+        isHover6: true,
+        isVisible1: false,
+        isVisible2: false,
+        isVisible3: false,
+        isVisible4: false,
+        isVisible5: false
+      });
+
       await this.generateRandomResult();
-      this.handleAnimations();
+      await this.setResultIcons();
       this.setTest();
       this.setBottomBar();
       this.setActiveHover();
+      console.log(`chegou ao ${resultFirstIcon}`);
     } catch (err) {
       return this.setState({ result: 0, disableControls: false });
     }
@@ -375,7 +375,12 @@ class DiamondPage extends Component {
       isHover3,
       isHover4,
       isHover5,
-      isHover6
+      isHover6,
+      isVisible1,
+      isVisible2,
+      isVisible3,
+      isVisible4,
+      isVisible5
     } = this.state;
 
     return (
@@ -389,6 +394,11 @@ class DiamondPage extends Component {
         isHover4={isHover4}
         isHover5={isHover5}
         isHover6={isHover6}
+        isVisible1={isVisible1}
+        isVisible2={isVisible2}
+        isVisible3={isVisible3}
+        isVisible4={isVisible4}
+        isVisible5={isVisible5}
       />
     );
   };
