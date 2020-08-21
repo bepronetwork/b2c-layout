@@ -130,6 +130,7 @@ import DetailsTable from './Table/DetailsTable';
 import BetDetails from './BetDetails';
 import Jackpot from './Jackpot';
 import JackpotPot from './JackpotPot';
+import SubSections from './SubSections';
 
 export { LegalBox };
 export { Authentication2FAModal };
@@ -263,3 +264,4 @@ export { DetailsTable };
 export { BetDetails };
 export { Jackpot };
 export { JackpotPot };
+export { SubSections };

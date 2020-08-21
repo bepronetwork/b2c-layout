@@ -1,16 +1,15 @@
 import React, { Component } from "react";
 import queryString from 'query-string'
 import { find } from "lodash";
-import { GameCard, Banners, JackpotPot } from "components";
+import { GameCard, Banners, JackpotPot, SubSections } from "components";
 import PropTypes from "prop-types";
 import UserContext from "containers/App/UserContext";
 import PlayInvitation from "components/PlayInvitation";
-import { Col} from 'reactstrap';
 import games from '../../config/games';
 import LastBets from "../LastBets/HomePage";
 import Footer from "../Footer";
 import { connect } from 'react-redux';
-import { CopyText } from "../../copy";
+import { LOCATION } from 'components/SubSections/properties';
 import _ from 'lodash';
 import "./index.css";
 class HomePage extends Component {
@@ -73,13 +72,16 @@ class HomePage extends Component {
 
         return (
             <div styleName="root">
+               <SubSections location={LOCATION.BEFORE_BANNER} />
                <Banners/> 
                 {/* this.renderPlayNow() */}
+                <SubSections location={LOCATION.BEFORE_GAMES} />
                 <div styleName="container">
                     <div styleName='container-small'>                       
                         {appInfo.games.map( (item) => this.renderGame(item))}
                     </div> 
                     <JackpotPot/>
+                    <SubSections location={LOCATION.BEFORE_DATA_LIST} />
                     {
                         document.documentElement.clientWidth <= mobileBreakpoint
                         ?
@@ -90,7 +92,9 @@ class HomePage extends Component {
                             </div>
                     }
                     {/* <Media/> */}
+                    <SubSections location={LOCATION.BEFORE_FOOTER} />
                     <Footer/>
+                    <SubSections location={LOCATION.AFTER_FOOTER} />
                 </div>
             </div>
         );
