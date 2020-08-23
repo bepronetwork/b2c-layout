@@ -24,7 +24,7 @@
     cursor: help;
     text-shadow: $shadowColor 0px 2px 4px;
     border-radius: 6px;
-    background: rgb(53, 68, 82);
+    background: $backgroundColor-8;
     padding: 1em 0.5em;
     overflow: hidden;
 
@@ -54,9 +54,7 @@
 .container-blocks{
     position: relative;
     width: 100%;
-    display: grid;
     display: flex;
-    gap: 1em 1em;
     max-width: 600px;
 
     @include Breakpoint-tabletOnly {

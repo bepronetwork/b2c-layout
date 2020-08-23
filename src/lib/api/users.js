@@ -493,3 +493,23 @@ export async function getCurrencyAddress(params, bearerToken, payload) {
         throw err;
     }    
 }
+
+/**
+ *
+ * @param {*} params
+ * @param {*} bearerToken
+ * @name Get Jackpot
+ * @use Get info about Jackpot Pot
+ */
+
+export async function getJackpotPot(params, bearerToken, payload) {
+    try{
+        let res = await fetch(`${apiUrl}/api/users/jackpot/pot`, {
+            method : 'POST',
+            headers : addSecurityHeader({bearerToken, payload :  payload || params.user}),
+            body : JSON.stringify(params)})
+        return res.json();
+    }catch(err){
+        throw err;
+    }    
+}
