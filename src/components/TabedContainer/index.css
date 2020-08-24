@@ -61,6 +61,7 @@
 
     @media screen and (max-width: 767px) {
         padding: $spacing-12;
+        margin-bottom: $spacing-20;
     }
 }
 

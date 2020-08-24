@@ -59,7 +59,9 @@ class SubSections extends Component {
         return (
             <div styleName="sub-sections">
                 {subSections.map(s => {
-                    return this.renderSubSection(s);
+                    if(!_.isEmpty(s.title) && !_.isEmpty(s.text)) {
+                        return this.renderSubSection(s);
+                    }
                 })}
             </div>
         );
