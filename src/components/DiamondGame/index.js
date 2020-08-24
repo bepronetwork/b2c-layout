@@ -1,5 +1,7 @@
 import React, { Component } from "react";
+import PropTypes from "prop-types";
 
+import handleCardResult from "./resultCard";
 import Diamond from "../../assets/DiamondIcons/diamond";
 import DiamondFill from "../../assets/DiamondIcons/diamond-fill";
 import DiamondWithBorder from "../../assets/DiamondIcons/diamond-with-border";
@@ -9,35 +11,10 @@ import images from "./images";
 import "./index.css";
 
 class DiamondGame extends Component {
-  stylesSvg = {
-    zIndex: 1,
-    width: 100
-  };
-
-  handleCardResult = (marginTop, profit, chance) => {
-    return (
-      <div styleName="result-container-right" style={{ marginTop }}>
-        <div>
-          <p styleName="text-result">Lucro</p>
-          <div styleName="result-right">
-            <p styleName="text-result">{profit}</p>
-          </div>
-        </div>
-        <div>
-          <p styleName="text-result">Chance</p>
-          <div styleName="result-right">
-            <p styleName="text-result">{chance}</p>
-            <p styleName="text-result">%</p>
-          </div>
-        </div>
-      </div>
-    );
-  };
-
   render() {
-    const { backendResult, isActiveBottomBar } = this.props;
-
     const {
+      backendResult,
+      isActiveBottomBar,
       isHover,
       isHover1,
       isHover2,
@@ -154,13 +131,13 @@ class DiamondGame extends Component {
               <p styleName="text-result">0,00x</p>
             </div>
           </div>
-          {isHover ? this.handleCardResult("0px", "00000", "0.04") : null}
-          {isHover1 ? this.handleCardResult("40px", "00000", "1.25") : null}
-          {isHover2 ? this.handleCardResult("80px", "00000", "2.50") : null}
-          {isHover3 ? this.handleCardResult("120px", "00000", "12.49") : null}
-          {isHover4 ? this.handleCardResult("160px", "00000", "18.74") : null}
-          {isHover5 ? this.handleCardResult("180px", "00000", "49.98") : null}
-          {isHover6 ? this.handleCardResult("190px", "00000", "14.99") : null}
+          {isHover ? handleCardResult("0px", "00000", "0.04") : null}
+          {isHover1 ? handleCardResult("40px", "00000", "1.25") : null}
+          {isHover2 ? handleCardResult("80px", "00000", "2.50") : null}
+          {isHover3 ? handleCardResult("120px", "00000", "12.49") : null}
+          {isHover4 ? handleCardResult("160px", "00000", "18.74") : null}
+          {isHover5 ? handleCardResult("180px", "00000", "49.98") : null}
+          {isHover6 ? handleCardResult("190px", "00000", "14.99") : null}
         </div>
 
         <div styleName="container-center">
@@ -176,11 +153,11 @@ class DiamondGame extends Component {
                 >
                   {backendResult.slice(0, 1).map(num => {
                     return isVisible1 ? (
-                      <div style={this.stylesSvg}>
+                      <div styleName="svg-animated">
                         <object
                           type="image/svg+xml"
                           data={images[num].img}
-                          className="svg-animated"
+                          styleName="svg"
                         >
                           svg-animation
                         </object>
@@ -194,11 +171,11 @@ class DiamondGame extends Component {
                 >
                   {backendResult.slice(1, 2).map(num => {
                     return isVisible2 ? (
-                      <div style={this.stylesSvg}>
+                      <div styleName="svg-animated">
                         <object
                           type="image/svg+xml"
                           data={images[num].img}
-                          className="svg-animated"
+                          styleName="svg"
                         >
                           svg-animation
                         </object>
@@ -212,11 +189,11 @@ class DiamondGame extends Component {
                 >
                   {backendResult.slice(2, 3).map(num => {
                     return isVisible3 ? (
-                      <div style={this.stylesSvg}>
+                      <div styleName="svg-animated">
                         <object
                           type="image/svg+xml"
                           data={images[num].img}
-                          className="svg-animated"
+                          styleName="svg"
                         >
                           svg-animation
                         </object>
@@ -230,11 +207,11 @@ class DiamondGame extends Component {
                 >
                   {backendResult.slice(3, 4).map(num => {
                     return isVisible4 ? (
-                      <div style={this.stylesSvg}>
+                      <div styleName="svg-animated">
                         <object
                           type="image/svg+xml"
                           data={images[num].img}
-                          className="svg-animated"
+                          styleName="svg"
                         >
                           svg-animation
                         </object>
@@ -248,11 +225,11 @@ class DiamondGame extends Component {
                 >
                   {backendResult.slice(4, 5).map(num => {
                     return isVisible5 ? (
-                      <div style={this.stylesSvg}>
+                      <div styleName="svg-animated">
                         <object
                           type="image/svg+xml"
                           data={images[num].img}
-                          className="svg-animated"
+                          styleName="svg"
                         >
                           svg-animation
                         </object>
@@ -293,5 +270,22 @@ class DiamondGame extends Component {
     );
   }
 }
+
+DiamondGame.propTypes = {
+  backendResult: PropTypes.arrayOf.isRequired,
+  isActiveBottomBar: PropTypes.bool.isRequired,
+  isHover: PropTypes.bool.isRequired,
+  isHover1: PropTypes.bool.isRequired,
+  isHover2: PropTypes.bool.isRequired,
+  isHover3: PropTypes.bool.isRequired,
+  isHover4: PropTypes.bool.isRequired,
+  isHover5: PropTypes.bool.isRequired,
+  isHover6: PropTypes.bool.isRequired,
+  isVisible1: PropTypes.bool.isRequired,
+  isVisible2: PropTypes.bool.isRequired,
+  isVisible3: PropTypes.bool.isRequired,
+  isVisible4: PropTypes.bool.isRequired,
+  isVisible5: PropTypes.bool.isRequired
+};
 
 export default DiamondGame;

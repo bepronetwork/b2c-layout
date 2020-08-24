@@ -130,7 +130,7 @@ class DiamondPage extends Component {
       });
     }
 
-    return new Promise(resolve => setTimeout(() => resolve(), 800));
+    return new Promise(resolve => setTimeout(() => resolve(), 500));
   };
 
   setActiveHover = () => {
