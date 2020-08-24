@@ -25,7 +25,7 @@
   word-wrap: break-word;
   pointer-events: auto;
   border-radius: 5px;
-  background: $text-secondary-color;
+  background: $secondaryColor-3;
   padding-left: 30px;
   overflow: hidden;
   z-index: 9999;
@@ -65,7 +65,7 @@
 }
 
 .notification-info {
-  background-color: $text-secondary-color;
+  background-color: $secondaryColor-3;
 }
 
 .notification-error {
@@ -82,7 +82,7 @@
   box-sizing: border-box;
   width: 60px;
   text-align: center;
-  background: $text-secondary-color;
+  background: $secondaryColor-3;
 }
 
 .icon-success {
@@ -90,7 +90,7 @@
 }
 
 .icon-info {
-  background: $text-secondary-color;
+  background: $secondaryColor-3;
 }
 
 .icon-error {
@@ -103,7 +103,7 @@
 
 .notification-content {
   border-radius: 0 2px 2px 0;
-  background-color: $text-secondary-color;
+  background-color: $secondaryColor-3;
   padding-left: 20px;
 }
 
@@ -112,7 +112,7 @@
 }
 
 .content-info {
-  background-color: $text-secondary-color;
+  background-color: $secondaryColor-3;
 }
 
 .content-error {

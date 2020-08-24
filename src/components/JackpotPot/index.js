@@ -56,7 +56,7 @@ class JackpotPot extends React.Component{
                                         JACKPOT
                                     </Typography>
                                     <Typography variant={'x-small-body'} color={'white'}>
-                                        Text to explain the Jackpot Pot. How can I win?
+                                        Bet to gain the possibility of taking the jackpot home!
                                     </Typography>
                                 </div>
                             </div>
