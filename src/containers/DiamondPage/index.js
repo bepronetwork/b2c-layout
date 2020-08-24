@@ -262,6 +262,25 @@ class DiamondPage extends Component {
     }
   };
 
+  resetState = () => {
+    this.setState({
+      isActiveBottomBar: false,
+      backendResult: [],
+      isHover: false,
+      isHover1: false,
+      isHover2: false,
+      isHover3: false,
+      isHover4: false,
+      isHover5: false,
+      isHover6: true,
+      isVisible1: false,
+      isVisible2: false,
+      isVisible3: false,
+      isVisible4: false,
+      isVisible5: false
+    });
+  };
+
   handleRollAndRollTypeChange = (
     rollNumber,
     rollType = this.state.rollType
@@ -300,52 +319,25 @@ class DiamondPage extends Component {
   //   }
   // };
 
-  handleBet = async ({ amount }) => {
+  handleBet = async () => {
     try {
       const { user } = this.context;
       const { onHandleLoginOrRegister } = this.props;
-      const { resultFirstIcon } = this.state;
-
-      this.setState({ disableControls: false });
 
       if (!user || _.isEmpty(user)) return onHandleLoginOrRegister("register");
 
-      this.setState({
-        isActiveBottomBar: false,
-        backendResult: [],
-        isHover: false,
-        isHover1: false,
-        isHover2: false,
-        isHover3: false,
-        isHover4: false,
-        isHover5: false,
-        isHover6: true,
-        isVisible1: false,
-        isVisible2: false,
-        isVisible3: false,
-        isVisible4: false,
-        isVisible5: false
-      });
+      this.resetState();
+      this.setState({ disableControls: true });
 
       await this.generateRandomResult();
       await this.setResultIcons();
       this.setTest();
       this.setBottomBar();
       this.setActiveHover();
-      console.log(`chegou ao ${resultFirstIcon}`);
+      this.setState({ disableControls: false });
     } catch (err) {
       return this.setState({ result: 0, disableControls: false });
     }
-  };
-
-  handleAnimation = async () => {
-    const { profile } = this.props;
-    const { amount } = this.state;
-    const { winAmount, userDelta } = this.state.betObjectResult;
-
-    setWonPopupMessageDispatcher(winAmount);
-    await profile.updateBalance({ userDelta, amount });
-    this.setState({ result: null, animating: false, disableControls: false });
   };
 
   getOptions = () => {
