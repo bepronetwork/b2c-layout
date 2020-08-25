@@ -12,11 +12,13 @@ import {
 import betSound from "assets/bet-sound.mp3";
 import Sound from "react-sound";
 import Dice from "components/Icons/Dice";
-import "./index.css";
+import delay from 'delay';
 import { Numbers } from "../../lib/ethereum/lib";
 import _ from 'lodash';
 import { CopyText } from "../../copy";
+import { isUserSet } from "../../lib/helpers";
 import { connect } from "react-redux";
+import "./index.css";
 
 class WheelGameOptions extends Component {
     static contextType = UserContext;
@@ -119,7 +121,7 @@ class WheelGameOptions extends Component {
     }
 
     handleBet = async (callback) => {
-        const { onBet } = this.props;
+        const { onBet, profile } = this.props;
         const { amount, type, bets, profitStop, lossStop, onWin, onLoss} = this.state;
         var res;
 
@@ -131,6 +133,30 @@ class WheelGameOptions extends Component {
                     res = await onBet({ amount });
                     break;
                 };
+                case 'auto' : {
+                    if(!isUserSet(profile)){return null};
+                    this.setState({isAutoBetting : true})
+                    var totalProfit = 0, totalLoss = 0, lastBet = 0, wasWon = 0;
+                    var betAmount = amount;
+                    for( var i = 0; i < bets ; i++){
+                        if(
+                            (profitStop == 0  || totalProfit <= profitStop) && // Stop Profit
+                            (lossStop == 0 || totalLoss <= lossStop) // Stop Loss
+                        ){
+                            await delay(5*1000);
+                            let { winAmount } = await this.betAction({amount : betAmount});
+                            totalProfit += (winAmount-betAmount);
+                            totalLoss += (winAmount == 0) ? -Math.abs(betAmount) : 0;
+                            wasWon = (winAmount != 0);
+                            lastBet = betAmount;
+                            if(onWin && wasWon){ betAmount += Numbers.toFloat(betAmount*onWin/100) }; 
+                            if(onLoss && !wasWon){ betAmount += Numbers.toFloat(betAmount*onLoss/100) }; 
+                        }
+                            
+                    }
+                    this.setState({isAutoBetting : false})
+                    break;
+                }
             }
         }
         return true;
@@ -165,7 +191,7 @@ class WheelGameOptions extends Component {
     renderAuto = () => {
         const { bets, profitStop, lossStop, onWin, onLoss } = this.state;
         const {ln} = this.props;
-const copy = CopyText.wheelGameOptionsIndex[ln];
+        const copy = CopyText.wheelGameOptionsIndex[ln];
 
         return (
         <div>
@@ -179,36 +205,36 @@ const copy = CopyText.wheelGameOptionsIndex[ln];
             />
             </div>
             <div styleName="element">
-            <OnWinLoss value={onWin} title={copy.INDEX.ON_WIN_LOSS.TITLE[0]} onChange={this.handleOnWin} />
+                <OnWinLoss value={onWin} title={copy.INDEX.ON_WIN_LOSS.TITLE[0]} onChange={this.handleOnWin} />
             </div>
             <div styleName="element">
-            <OnWinLoss
-                value={onLoss}
-                title={copy.INDEX.ON_WIN_LOSS.TITLE[1]}
-                onChange={this.handleOnLoss}
-            />
+                <OnWinLoss
+                    value={onLoss}
+                    title={copy.INDEX.ON_WIN_LOSS.TITLE[1]}
+                    onChange={this.handleOnLoss}
+                />
             </div>
             <div styleName="element">
-            <InputNumber
-                name="profit"
-                step={0.01}
-                title={copy.INDEX.INPUT_NUMBER.TITLE[1]}
-                icon="bitcoin"
-                precision={2}
-                value={profitStop}
-                onChange={this.handleStopOnProfit}
-            />
+                <InputNumber
+                    name="profit"
+                    step={0.01}
+                    title={copy.INDEX.INPUT_NUMBER.TITLE[1]}
+                    icon="bitcoin"
+                    precision={2}
+                    value={profitStop}
+                    onChange={this.handleStopOnProfit}
+                />
             </div>
             <div styleName="element">
-            <InputNumber
-                name="loss"
-                step={0.01}
-                precision={2}
-                title="Stop on Loss"
-                icon="bitcoin"
-                value={lossStop}
-                onChange={this.handleStopOnLoss}
-            />
+                <InputNumber
+                    name="loss"
+                    step={0.01}
+                    precision={2}
+                    title={copy.INDEX.INPUT_NUMBER.TITLE[2]}
+                    icon="bitcoin"
+                    value={lossStop}
+                    onChange={this.handleStopOnLoss}
+                />
             </div>
         </div>
         );
@@ -305,8 +331,8 @@ const copy = CopyText.wheelGameOptionsIndex[ln];
             <div styleName="toggle">
             <ToggleButton
                 config={{
-                    left: { value: "manual", title: copy.MANUAL_NAME},
-                    right: { value: "auto", title: copy.AUTO_NAME, disabled : true}
+                    left: { value: "manual", title: copy.MANUAL_NAME },
+                    right: { value: "auto", title: copy.AUTO_NAME }
                 }}
                 selected={type}
                 size="full"
