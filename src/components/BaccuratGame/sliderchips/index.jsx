@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {Tabs} from 'antd';
-import chipdot from '../../assets/images/chip_dot.svg';
+import chipdot from 'assets/images/chip_dot.svg';
 import './index.css';
 
 class SliderChips extends Component {

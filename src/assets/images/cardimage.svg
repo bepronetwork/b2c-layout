@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 56 88.9" style="enable-background:new 0 0 56 88.9;" xml:space="preserve">
+<style type="text/css">
+	.bt0{fill:#007BFF;}
+	.bt1{fill:#FFFFFF;}
+	.bt2{fill:#B3E3FC;}
+	.btname{font-size:10px;}
+</style>
+<g>
+	<path class="bt0" d="M3.5,2.1h49c0.7,0,1.4,0.6,1.4,1.3v82c0,0.8-0.6,1.3-1.4,1.3h-49c-0.7,0-1.4-0.6-1.4-1.3v-82
+		C2.1,2.7,2.8,2.1,3.5,2.1z"/>
+	<circle class="bt1" cx="51.8" cy="4.2" r="0.8"/>
+	<circle class="bt1" cx="4.2" cy="4.2" r="0.8"/>
+	<g>
+		<circle class="bt1" cx="51.8" cy="84.7" r="0.8"/>
+		<circle class="bt1" cx="4.2" cy="84.7" r="0.8"/>
+	</g>
+	<title>back</title>
+	<g>
+		<g>
+			<text class="btname" x="10" y="50" fill="#ffffff" transform="rotate(-54 30,50)">
+					Betprotocol					
+				</text>
+		</g>
+	</g>
+	
+</g>
+</svg>

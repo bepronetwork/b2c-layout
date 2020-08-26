@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import cardbackimage from '../../assets/images/cardimage.svg';
+import cardbackimage from 'assets/images/cardimage.svg';
 import './index.css';
 class CardSection extends Component {
    constructor(props){

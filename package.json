@@ -21,6 +21,7 @@
     "@material-ui/icons": "^4.4.1",
     "abi-decoder": "^2.2.0",
     "accounting": "^0.4.1",
+    "antd": "^4.6.1",
     "audio-loader": "^1.0.3",
     "audio-play": "^2.2.1",
     "auto-prefixer": "^0.4.2",
