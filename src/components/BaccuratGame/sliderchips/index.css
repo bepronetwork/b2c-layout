@@ -1,0 +1,212 @@
+.slider_chips .ant-tabs-nav-container-scrolling {
+    background-color: #2e4452;
+    border-radius: 6px;
+}
+
+.slider_chips .ant-tabs-nav-container-scrolling span.ant-tabs-tab-prev:hover,.slider_chips .ant-tabs-nav-container-scrolling span.ant-tabs-tab-next:hover {
+    background-color: rgb(55, 82, 98);
+}
+
+.slider_chips .ant-tabs-nav-container-scrolling span.ant-tabs-tab-prev span.ant-tabs-tab-prev-icon i,.slider_chips .ant-tabs-nav-container-scrolling span.ant-tabs-tab-next span.ant-tabs-tab-next-icon i {color: rgb(183, 191, 214)!important;}
+
+
+
+.slider_chips .ant-tabs-nav-container-scrolling .ant-tabs-nav-wrap {
+    padding-top: 0.25em;
+    padding-bottom: 0.25em;
+    background-color: #2e4452;
+}
+
+.slider_chips .ant-tabs-nav-container-scrolling .ant-tabs-nav-wrap .ant-tabs-nav-scroll {
+    background-color: #12222e;
+}
+.slider_chips .ant-tabs-nav-container-scrolling .ant-tabs-nav-wrap .ant-tabs-nav-scroll .ant-tabs-tab {
+    margin-right: 0;
+    padding: 0.5em 0 0.5em 0.5em;
+}
+
+.slider_chips .chipvalue {
+    position: absolute;
+    font-size: 0.7em;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    -webkit-box-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    align-items: center;
+    user-select: none;
+    font-weight: 700;
+    pointer-events: none;
+}
+
+/* chip css */
+#chip_1 {
+    color: rgb(89, 23, 0);
+    display: inline-block;
+    position: relative;
+    height: 4ch;
+    width: 4ch;
+    background: 0% 0% / cover no-repeat rgb(255, 206, 0);
+    border-radius: 50%;
+    background-repeat: no-repeat;
+    overflow: hidden;
+}
+#chip_10 {
+    box-shadow: rgb(163, 124, 1) 0px 0.2em 0px 0px;
+    color: rgb(89, 23, 0);
+    display: inline-block;
+    position: relative;
+    height: 4ch;
+    width: 4ch;
+    background: 0% 0% / cover no-repeat rgb(254, 195, 12);
+    border-radius: 50%;
+    background-repeat: no-repeat;
+    overflow: hidden;
+}
+
+#chip_100{
+    box-shadow: rgb(175, 123, 1) 0px 0.2em 0px 0px;
+    color: rgb(89, 23, 0);
+    display: inline-block;
+    position: relative;
+    height: 4ch;
+    width: 4ch;
+    background: 0% 0% / cover no-repeat rgb(254, 185, 24);
+    border-radius: 50%;
+    background-repeat: no-repeat;
+    overflow: hidden;
+}
+#chip_1k{
+    box-shadow: rgb(184, 118, 2) 0px 0.2em 0px 0px;
+    color: rgb(89, 23, 0);
+    display: inline-block;
+    position: relative;
+    height: 4ch;
+    width: 4ch;
+    background: 0% 0% / cover no-repeat rgb(253, 174, 35);
+    border-radius: 50%;
+    background-repeat: no-repeat;
+    overflow: hidden;
+}
+#chip_10k{
+    box-shadow: rgb(194, 111, 3) 0px 0.2em 0px 0px;
+    color: rgb(89, 23, 0);
+    display: inline-block;
+    position: relative;
+    height: 4ch;
+    width: 4ch;
+    background:0% 0% / cover no-repeat rgb(252, 163, 47);
+    border-radius: 50%;
+    background-repeat: no-repeat;
+    overflow: hidden;
+}
+#chip_100k{
+    box-shadow: rgb(187, 91, 3) 0px 0.2em 0px 0px;
+    color: rgb(89, 23, 0);
+    display: inline-block;
+    position: relative;
+    height: 4ch;
+    width: 4ch;
+    background: 0% 0% / cover no-repeat rgb(252, 141, 40);
+    border-radius: 50%;
+    background-repeat: no-repeat;
+    overflow: hidden;
+}
+#chip_1m{
+    box-shadow: rgb(180, 73, 2) 0px 0.2em 0px 0px;
+    color: rgb(89, 23, 0);
+    display: inline-block;
+    position: relative;
+    height: 4ch;
+    width: 4ch;
+    background: 0% 0% / cover no-repeat rgb(252, 120, 32);
+    border-radius: 50%;
+    background-repeat: no-repeat;
+    overflow: hidden;
+}
+#chip_10m{
+    box-shadow: rgb(172, 57, 2) 0px 0.2em 0px 0px;
+    color: rgb(89, 23, 0);
+    display: inline-block;
+    position: relative;
+    height: 4ch;
+    width: 4ch;
+    background: 0% 0% / cover no-repeat rgb(252, 98, 24);
+    border-radius: 50%;
+    background-repeat: no-repeat;
+    overflow: hidden;
+}
+#chip_100m{
+    box-shadow: rgb(165, 43, 2) 0px 0.2em 0px 0px;
+    color: rgb(89, 23, 0);
+    display: inline-block;
+    position: relative;
+    height: 4ch;
+    width: 4ch;
+    background: 0% 0% / cover no-repeat rgb(252, 76, 17);
+    border-radius: 50%;
+    background-repeat: no-repeat;
+    overflow: hidden;
+}
+#chip_1b{
+    box-shadow: rgb(158, 30, 8) 0px 0.2em 0px 0px;
+    color: rgb(89, 23, 0);
+    display: inline-block;
+    position: relative;
+    height: 4ch;
+    width: 4ch;
+    background:0% 0% / cover no-repeat rgb(243, 57, 25);
+    border-radius: 50%;
+    background-repeat: no-repeat;
+    overflow: hidden;
+}
+#chip_10b{
+    box-shadow: rgb(151, 18, 14) 0px 0.2em 0px 0px;
+    color: rgb(89, 23, 0);
+    display: inline-block;
+    position: relative;
+    height: 4ch;
+    width: 4ch;
+    background: 0% 0% / cover no-repeat rgb(235, 38, 32);
+    border-radius: 50%;
+    background-repeat: no-repeat;
+    overflow: hidden;
+}
+#chip_100B{
+    box-shadow: rgb(132, 11, 23) 0px 0.2em 0px 0px;
+    color: rgb(89, 23, 0);
+    display: inline-block;
+    position: relative;
+    height: 4ch;
+    width: 4ch;
+    background: 0% 0% / cover no-repeat rgb(226, 19, 40);
+    border-radius: 50%;
+    background-repeat: no-repeat;
+    overflow: hidden;
+}
+#chip_1t{
+    box-shadow: rgb(115, 0, 25) 0px 0.2em 0px 0px;
+    color: rgb(89, 23, 0);
+    display: inline-block;
+    position: relative;
+    height: 4ch;
+    width: 4ch;
+    background:0% 0% / cover no-repeat rgb(217, 0, 47);
+    border-radius: 50%;
+    background-repeat: no-repeat;
+    overflow: hidden;
+}
+/* *** */
+
+
+.slider_chips .ant-tabs-nav-container-scrolling .ant-tabs-nav-wrap .ant-tabs-nav-scroll .ant-tabs-tab-active.ant-tabs-tab .title {
+    box-shadow: rgb(153, 124, 0) 0px 0.2em 0px 0px, rgb(255, 255, 255) 0px 0.1em 0px 0.3em!important;
+}
+.slider_chips.ant-tabs-line {
+    height: auto!important;
+}
+.slider_chips .ant-tabs-tab:hover {
+    background-color: transparent!important;
+}

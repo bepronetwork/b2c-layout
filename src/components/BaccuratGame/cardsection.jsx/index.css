@@ -1,0 +1,210 @@
+.cardsection .card_wrapper {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.cardsection .card_wrapper .card_side_a {
+    display: flex;
+    flex-flow: column;
+}
+
+.cardsection .card_wrapper .card_side_a .counter {
+    width: 62px;
+    text-align: center;
+    background-color: #2e4452;
+    border-radius: 20px;
+    font-weight: 600;
+    color: #ffffff;
+}
+
+.cardsection .card_wrapper .card_side_b {
+    display: flex;
+    flex-flow: column;
+}
+
+.cardsection .card_wrapper .card_side_b .counter {
+    width: 62px;
+    text-align: center;
+    background-color: #00f703;
+    border-radius: 20px;
+    font-weight: 600;
+    color: #000000;
+}
+
+.cardsection .card_wrapper .counter{
+    border: 0!important;
+    font-size: 1rem;
+    position: absolute;
+    top: -2px;
+    left: 100%;  
+    transform: translate(-100%, -100%);
+    transition-duration: 300ms;
+    transition-property: background, color, transform, opacity;
+    transition-timing-function: ease-out;
+}
+.cardsection .card_wrapper .card_block > div img {
+    width: 100%;
+    height: auto;
+    box-shadow: rgba(25, 25, 25, 0.75) 0px 0px 10px;
+    border-radius: 5px;
+}
+.cardsection .card_wrapper .card_block > div{
+    max-width: 110px;
+}
+.baccarat_main .cardsection .card_wrapper {
+    padding-top: 35px;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.baccarat_main .cardsection .card_wrapper .card_side_a,.baccarat_main .cardsection .card_wrapper .card_side_b {
+    display: inline-flex;
+    width: 50%;
+    align-items: center;
+}
+.baccarat_main .cardsection .card_wrapper .card_block {
+    display: flex;
+    position: relative;
+    align-items: flex-start;
+    margin-top: 1em;
+    font-size: 1.4em;
+    min-width: 221px;
+    width: 221px;
+    min-height: 189px;
+}
+.cardsection .card_wrapper .card_side_a .card_block div.card1.active {
+    margin-top: 0em;
+    margin-left: 0em;
+    position: relative;
+    transition-duration: 300ms;
+    transition-property: transform;
+    width:auto;
+   
+}
+
+.cardsection .card_wrapper .card_side_a .card_block div.card2.active {
+    margin-top: 1em;
+    margin-left: -2.8em;
+    position: relative;
+    transition-duration: 300ms;
+    transition-property: transform;
+    width:auto;
+   
+}
+
+.cardsection .card_wrapper .card_side_a .card_block div.card3.active {
+    margin-top: 2em;
+    margin-left: -2.8em;
+    position: relative;
+    transition-duration: 300ms;
+    transition-property: transform;
+    width:auto;
+   
+}
+.cardsection .card_wrapper .card_side_b .card_block div.card1.active {
+    margin-top: 0em;
+    margin-left: 0em;
+    position: relative;
+    transition-duration: 300ms;
+    transition-property: transform;
+    width:auto;
+   
+}
+
+.cardsection .card_wrapper .card_side_b .card_block div.card2.active {
+    margin-top: 1em;
+    margin-left: -2.8em;
+    position: relative;
+    transition-duration: 300ms;
+    transition-property: transform;
+    width:auto;
+   
+}
+
+.cardsection .card_wrapper .card_side_b .card_block div.card3.active {
+    margin-top: 2em;
+    margin-left: -2.8em;
+    position: relative;
+    transition-duration: 300ms;
+    transition-property: transform;
+    width:auto;
+   
+}
+.cardsection .card_wrapper .card_side_a .card_block div.card1{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 80px;
+  
+}
+.cardsection .card_wrapper .card_side_a .card_block div.card2{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 80px;
+  
+}
+.cardsection .card_wrapper .card_side_a .card_block div.card3{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 80px;
+  
+}
+.cardsection .card_wrapper .card_side_b .card_block div.card1{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 80px;
+  
+}
+.cardsection .card_wrapper .card_side_b .card_block div.card2{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 80px;
+  
+}
+.cardsection .card_wrapper .card_side_b .card_block div.card3{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 80px;
+  
+}
+
+.playcard {
+    transform-style: preserve-3d;
+}
+
+.playcard .cardback {
+    position: absolute;
+    transform: rotateY(-180deg);
+    top: 0;
+    overflow: hidden;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    border: 4px solid #ffffff;
+    border-radius: 5px;
+}
+
+.playcard .cardback img {box-shadow: unset!important;position: absolute;}
+
+.playcard .cardback {
+    background-size: 108%;
+    background-repeat: no-repeat;
+    background-position: center;
+    border: 4px solid white;
+}
+
+.active.playcard.allhc {
+    transform: translate(-40%, 29%) rotateY(0deg)!important;
+    opacity: 0;
+    transition: 250ms all!important;
+}
+.active.playcard.allhc .cardfront {
+    z-index: 2;
+    position: relative;
+}
