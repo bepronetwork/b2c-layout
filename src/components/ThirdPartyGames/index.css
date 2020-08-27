@@ -68,11 +68,9 @@
 }
 
 .game-list {
+    margin: $spacing-8 0 0 0;
     display: grid;
-    grid-auto-columns: 160px;
-    grid-auto-flow: column;
-    gap: 2rem;
-    margin-left: $spacing-28;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
 
     img {
         border-radius: $border-radius;
