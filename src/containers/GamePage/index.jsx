@@ -108,7 +108,7 @@ class GamePage extends Component {
     }
 
     render() {
-        const { options, game, gameMetaName, onTableDetails } = this.props;
+        const { options, game, gameMetaName, onTableDetails, isThirdParty } = this.props;
         const { soundMode } = this.state;
 
         const { ln } = this.props;
@@ -119,44 +119,53 @@ class GamePage extends Component {
         return (
             <div styleName='main-container'>
                 {this.renderActions()}
-                <div styleName="root">
-                    <div styleName="container">
-                        <Row styleName="game-page-container">
-                            <Col lg={{ size: 9, order: 2}} styleName='card'>
-                                <div styleName="game">
-                                    {game}
-                                    {this.renderHistory()}
-                                </div>
+                {
+                    isThirdParty == true
+                    ?
+                        <div styleName="root">
+                            <iframe src="https://casino.nolimitcdn.com/loader/game-loader.html?game=DragonTribe&operator=EASYGO&language=en&token=1f4b6539-6f22-4fec-b85d-fd77b569a1b7&depositUrl=https%3A%2F%2Fstake.com%2F%3Fcurrency%3Deth%26modal%3Ddeposit&lobbyUrl=https%3A%2F%2Fstake.com&device=desktop" 
+                            frameborder="0" allowfullscreen=""></iframe>
+                        </div>
+                    :
+                        <div styleName="root">
+                            <div styleName="container">
+                                <Row styleName="game-page-container">
+                                    <Col lg={{ size: 9, order: 2}} styleName='card'>
+                                        <div styleName="game">
+                                            {game}
+                                            {this.renderHistory()}
+                                        </div>
 
-                            </Col>
-                            <Col lg={{ size: 3, order: 1}} styleName='options'>
-                                <div styleName="options-container">{options}</div>
-                            </Col>
-                        </Row>
-                    </div>
-                    <div styleName="buttons">
-                        <div styleName="actions">
-                            <ButtonIcon
-                                iconAtLeft
-                                icon="copy"
-                                label={copy.RULES}
-                                onClick={this.handleActionsModalOpen}
-                                soundMode={soundMode}
-                                theme="primary"
-                            />
+                                    </Col>
+                                    <Col lg={{ size: 3, order: 1}} styleName='options'>
+                                        <div styleName="options-container">{options}</div>
+                                    </Col>
+                                </Row>
+                            </div>
+                            <div styleName="buttons">
+                                <div styleName="actions">
+                                    <ButtonIcon
+                                        iconAtLeft
+                                        icon="copy"
+                                        label={copy.RULES}
+                                        onClick={this.handleActionsModalOpen}
+                                        soundMode={soundMode}
+                                        theme="primary"
+                                    />
+                                </div>
+                                <div styleName="sound">
+                                    <ButtonIcon
+                                        iconAtLeft
+                                        icon="sound"
+                                        label={copy.SOUND}
+                                        onClick={this.handleSounds}
+                                        soundMode={soundMode}
+                                        theme="primary"
+                                    />
+                                </div>
+                            </div>
                         </div>
-                        <div styleName="sound">
-                            <ButtonIcon
-                                iconAtLeft
-                                icon="sound"
-                                label={copy.SOUND}
-                                onClick={this.handleSounds}
-                                soundMode={soundMode}
-                                theme="primary"
-                            />
-                        </div>
-                    </div>
-                </div>
+                }
                 <LastBets gameMetaName={gameMetaName} onTableDetails={onTableDetails}/>
             </div>
         );

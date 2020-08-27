@@ -1,4 +1,4 @@
-@import "../../styles/all.css";
+@import "../../../styles/all.css";
 
 .providers {
     margin: auto;
@@ -69,17 +69,16 @@
 
 .game-list {
     display: grid;
-    grid-auto-columns: 160px;
+    grid-auto-columns: 177px;
     grid-auto-flow: column;
     gap: 2rem;
-    margin-left: $spacing-28;
 
     img {
         border-radius: $border-radius;
     }
 
     h2 {
-        padding-top: $spacing-8;
-        padding-bottom: $spacing-8;
+        padding-top: $spacing-4;
+        padding-bottom: $spacing-4;
     }
 }
