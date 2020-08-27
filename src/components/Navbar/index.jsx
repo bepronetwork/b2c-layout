@@ -75,10 +75,10 @@ class Navbar extends Component {
                     user    : user,
                     userFullAddress : user.getAddress(),
                     userAddress : user.getAddress() ? AddressConcat(user.getAddress()) : defaultProps.userAddress,
-                    isTransparent: topTab.isTransparent
+                    isTransparent: _.isEmpty(topTab) ? false : topTab.isTransparent
                 })
             }else{
-                this.setState({user : null, isTransparent: topTab.isTransparent})
+                this.setState({user : null, isTransparent: _.isEmpty(topTab) ? false : topTab.isTransparent})
             }
         }catch(err){
             console.log(err)
