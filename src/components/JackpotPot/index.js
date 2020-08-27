@@ -32,10 +32,12 @@ class JackpotPot extends React.Component{
             const appWallet = getApp().wallet.find(w => w.currency._id === currency._id);
             const res = await profile.getJackpotPot({ currency_id: currency._id });
 
-            this.setState({
-                currencyImage: _.isEmpty(appWallet.image) ? currency.image : appWallet.image,
-                pot: res ? res.pot : 0
-            });
+            if(!_.isEmpty(appWallet) && !_.isEmpty(currency)) {
+                this.setState({
+                    currencyImage: _.isEmpty(appWallet.image) ? currency.image : appWallet.image,
+                    pot: res ? res.pot : 0
+                });
+            }
         }
     }
 

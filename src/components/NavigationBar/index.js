@@ -32,7 +32,7 @@ class NavigationBar extends Component {
         const { topTab } = getAppCustomization();
 
         this.setState({ 
-            tabs: topTab.ids
+            tabs: _.isEmpty(topTab) ? [] : topTab.ids
         });
     }
 

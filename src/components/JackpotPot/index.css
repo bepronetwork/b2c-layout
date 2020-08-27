@@ -3,7 +3,7 @@
 .box{
     background-color: $primaryColor-2;
 
-    width: 50%;
+    width: 100%;
     margin: $spacing-20 auto;
     border-radius: $border-radius;
 
