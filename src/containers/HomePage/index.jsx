@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import queryString from 'query-string'
 import { find } from "lodash";
-import { GameCard, Banners, JackpotPot, SubSections } from "components";
+import { GameCard, Banners, JackpotPot, SubSections, ThirdPartyGames, Typography } from "components";
 import PropTypes from "prop-types";
 import UserContext from "containers/App/UserContext";
 import PlayInvitation from "components/PlayInvitation";
@@ -77,6 +77,10 @@ class HomePage extends Component {
                 {/* this.renderPlayNow() */}
                 <SubSections location={LOCATION.BEFORE_GAMES} />
                 <div styleName="container">
+                    <ThirdPartyGames />
+                    <div styleName="originals">
+                        <Typography variant={'small-body'} color={'white'} weight={'bold'}>Originals</Typography>
+                    </div>
                     <div styleName='container-small'>                       
                         {appInfo.games.map( (item) => this.renderGame(item))}
                     </div> 

@@ -131,6 +131,7 @@ import BetDetails from './BetDetails';
 import Jackpot from './Jackpot';
 import JackpotPot from './JackpotPot';
 import SubSections from './SubSections';
+import ThirdPartyGames from './ThirdPartyGames';
 
 export { LegalBox };
 export { Authentication2FAModal };
@@ -265,3 +266,4 @@ export { BetDetails };
 export { Jackpot };
 export { JackpotPot };
 export { SubSections };
+export { ThirdPartyGames };
