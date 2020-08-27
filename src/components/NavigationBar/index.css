@@ -4,6 +4,7 @@
 .tabs {
     display: flex;
     align-items: center;
+    margin-left: $spacing-16;
 }
 
 .navigation-step{
@@ -29,15 +30,16 @@
 
 }
 
-.navigation-margin {
-    margin-left: $spacing-16;
-}
-
 .dropdown{
-    display: inline-block;
+    display: none;
     margin: 0;
     position: relative;
     box-sizing: border-box;
+
+    @media screen and (max-width: 1267px) and (min-width: 767px) {
+        display: inline-block;
+    }
+
 }
 
 .dropdown-content {
@@ -84,9 +86,10 @@
     background-repeat: no-repeat;
 }
 
-.time{
-    margin-left: $spacing-16;
-    opacity: 0.6;
+.others {
+    display: inline;
 
-
+    @media screen and (max-width: 1267px) and (min-width: 767px) {
+        display: none;
+    }
 }

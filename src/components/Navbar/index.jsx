@@ -190,7 +190,7 @@ class Navbar extends Component {
                                         !_.isEmpty(logoPoints)
                                         ?
                                             <div styleName="currency-icon">
-                                                <img src={logoPoints} width={20}/>
+                                                <img src={logoPoints} height={20}/>
                                             </div>
                                         :
                                             null
@@ -271,11 +271,16 @@ class Navbar extends Component {
 
         return(
             <div styleName="language-profile">
-                {this.renderLanguageSelector()}
                 {user ?
-                    [this.renderSettings(), this.renderProfileMenu()]
+                    this.renderProfileMenu()
                 :
                     this.renderLoginOrRegister()
+                }
+                {this.renderLanguageSelector()}
+                {user ?
+                    this.renderSettings()
+                :
+                    null
                 }
             </div>
         )
