@@ -688,7 +688,7 @@ class App extends Component {
         });
 
         const topStyles = classNames("top-bars", {
-            "top-bars-transparent": topTab.isTransparent == true
+            "top-bars-transparent": _.isEmpty(topTab) ? false : topTab.isTransparent == true
         });
 
         return (

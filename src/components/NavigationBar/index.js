@@ -4,7 +4,6 @@ import { Typography } from 'components';
 import { getAppCustomization } from "../../lib/helpers";
 import { Link } from "react-router-dom";
 import classNames from 'classnames';
-import moment from 'moment-timezone';
 import _ from 'lodash';
 import "./index.css";
 
@@ -33,26 +32,13 @@ class NavigationBar extends Component {
         const { topTab } = getAppCustomization();
 
         this.setState({ 
-            tabs: topTab.ids
-        });
-
-        this.tick();
-
-        this.intervalID = setInterval(
-            () => this.tick(),
-            10000
-        );
-    }
-
-    tick() {
-        this.setState({
-            time: moment().format("hh:mm A")
+            tabs: _.isEmpty(topTab) ? [] : topTab.ids
         });
     }
 
-    renderMenuItem = ({link_url, icon, name}, isMainMenu=false) => {
+    renderMenuItem = ({link_url, icon, name}) => {
         return (
-            <Link to={link_url} styleName={isMainMenu == true ? 'navigation-step navigation-margin' : 'navigation-step'}>
+            <Link to={link_url} styleName={'navigation-step'}>
                 <div styleName='img'>
                     <img src={icon} width="22"/>
                 </div>
@@ -72,7 +58,7 @@ class NavigationBar extends Component {
     }
 
     render() {
-        const { tabs, open, time } = this.state;
+        const { tabs, open } = this.state;
         const styles = classNames("dropdown-content", {
             "dropdown-content-open": open == true
         });
@@ -80,11 +66,6 @@ class NavigationBar extends Component {
 
         return (
             <div styleName="tabs">
-                <div styleName="time">
-                    <Typography variant={'x-small-body'} color={'white'}>
-                        {time}
-                    </Typography>
-                </div>
                 {
                     tabs.slice(0, 2).map(t => {
                         return (
@@ -92,35 +73,51 @@ class NavigationBar extends Component {
                                 link_url: t.link_url,
                                 icon: t.icon,
                                 name: t.name
-                            }, true)
+                            })
                         )
                     })
                 }
                 {
                     tabs.length > 2
                     ?
-                        <div styleName="dropdown">
-                            <a onClick={() => this.onOpenMenu()}>
-                                <div styleName="dropdown-dots"/>
-                            </a>
-                            <div styleName={styles}>
-                                <div styleName="dropdown-nav">
-                                    <div styleName="dropdown-column">
-                                        {
-                                            tabs.slice(2, tabs.length).map(t => {
-                                                return (
-                                                    this.renderMenuItem({
-                                                        link_url: t.link_url,
-                                                        icon: t.icon,
-                                                        name: t.name
-                                                    })
-                                                )
-                                            })
-                                        }
+                        <div>
+                            <div styleName="others">
+                            {
+                                tabs.slice(2, tabs.length).map(t => {
+                                    return (
+                                        this.renderMenuItem({
+                                            link_url: t.link_url,
+                                            icon: t.icon,
+                                            name: t.name
+                                        })
+                                    )
+                                })
+                            }
+                            </div>
+                            <div styleName="dropdown">
+                                <a onClick={() => this.onOpenMenu()}>
+                                    <div styleName="dropdown-dots"/>
+                                </a>
+                                <div styleName={styles}>
+                                    <div styleName="dropdown-nav">
+                                        <div styleName="dropdown-column">
+                                            {
+                                                tabs.slice(2, tabs.length).map(t => {
+                                                    return (
+                                                        this.renderMenuItem({
+                                                            link_url: t.link_url,
+                                                            icon: t.icon,
+                                                            name: t.name
+                                                        })
+                                                    )
+                                                })
+                                            }
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
+
                     :
                         null
                 }
