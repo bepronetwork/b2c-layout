@@ -28,35 +28,45 @@ class ThirdPartyGames extends Component {
     render() {
         return (
             <div>
-                <div styleName="providers">
-                    <div styleName="carousel">
-                        <div styleName="body">
-                            <div class="styles__Wrap-shsmns-0 gaCOHP" style={{opacity: "0.3"}}>
+                <div styleName="container">
+                    <div styleName="container-small carousel">
+                        <div class={"col"} styleName="col">
+                            <div styleName="root">
                                 <a class="styles__Link-shsmns-2 jxnQRV" href="/casino/group/pragmatic-play">
                                     <div class="styles__ImgWrap-shsmns-1 iJzvhr"><img draggable="false" alt="Pragmatic Play" class="styles__ImgixImage-shsmns-4 iWgbLe" width="175" src="https://mediumrare.imgix.net/0277f0d0636f858c7c7b54f6f4882650102f1e2153859f79f13355a4aa0d3fbd?auto=format&q=80&ixlib=react-9.0.2&w=200" /></div>
                                 </a>
                             </div>
-                            <div class="styles__Wrap-shsmns-0 gaCOHP">
+                        </div>
+                        <div class={"col"} styleName="col">
+                            <div styleName="root">
                                 <a class="styles__Link-shsmns-2 jxnQRV" href="/casino/group/no-limit-city">
                                     <div class="styles__ImgWrap-shsmns-1 iJzvhr"><img draggable="false" alt="No Limit City" class="styles__ImgixImage-shsmns-4 iWgbLe" width="175" src="https://mediumrare.imgix.net/fffebb8ad954c1fdcaca444cf83308ef0226ea06f8aa7a8d0a4e5f50c1d433c7?auto=format&;q=80&;ixlib=react-9.0.2&;w=200" /></div>
                                 </a>
                             </div>
-                            <div class="styles__Wrap-shsmns-0 gaCOHP" style={{opacity: "0.3"}}>
+                        </div>
+                        <div class={"col"} styleName="col">
+                            <div styleName="root">
                                 <a class="styles__Link-shsmns-2 jxnQRV" href="/casino/group/relax-gaming">
                                     <div class="styles__ImgWrap-shsmns-1 iJzvhr"><img draggable="false" alt="Relax Gaming" class="styles__ImgixImage-shsmns-4 iWgbLe" width="175" src="https://mediumrare.imgix.net/c2d8f03f4b3dccf296186fe782043ebf37a6cba1b53fa1fb0d1e544f2efe129f?auto=format&;q=80&;ixlib=react-9.0.2&;w=200" /></div>
                                 </a>
                             </div>
-                            <div class="styles__Wrap-shsmns-0 gaCOHP" style={{opacity: "0.3"}}>
+                        </div>
+                        <div class={"col"} styleName="col">
+                            <div styleName="root">
                                 <a class="styles__Link-shsmns-2 jxnQRV" href="/casino/group/evolution-gaming">
                                     <div class="styles__ImgWrap-shsmns-1 iJzvhr"><img draggable="false" alt="Evolution Gaming" class="styles__ImgixImage-shsmns-4 iWgbLe" width="175" src="https://mediumrare.imgix.net/99a8d104f80fab1ca964f6de4367f87337ddb6efd6325fbf63e71b2c90f960b9?auto=format&;q=80&;ixlib=react-9.0.2&;w=200" /></div>
                                 </a>
                             </div>
-                            <div class="styles__Wrap-shsmns-0 gaCOHP" style={{opacity: "0.3"}}>
+                        </div>
+                        <div class={"col"} styleName="col">
+                            <div styleName="root">
                                 <a class="styles__Link-shsmns-2 jxnQRV" href="/casino/group/thunderkick">
                                     <div class="styles__ImgWrap-shsmns-1 iJzvhr"><img draggable="false" alt="Thunderkick" class="styles__ImgixImage-shsmns-4 iWgbLe" width="175" src="https://mediumrare.imgix.net/09d73f4ba8167c7e0ec9c0cfd1ae8b6c3ad5934e24fbe85a6404023c1b860660?auto=format&;q=80&;ixlib=react-9.0.2&;w=200" /></div>
                                 </a>
                             </div>
-                            <div class="styles__Wrap-shsmns-0 gaCOHP" style={{opacity: "0.3"}}>
+                        </div>
+                        <div class={"col"} styleName="col">
+                            <div styleName="root">
                                 <a class="styles__Link-shsmns-2 jxnQRV" href="/casino/group/stake-games">
                                     <div class="styles__ImgWrap-shsmns-1 iJzvhr"><img draggable="false" alt="Stake Originals" class="styles__ImgixImage-shsmns-4 iWgbLe" width="175" src="https://mediumrare.imgix.net/8e443b9bc9306554328540c75fc25ba03ee26adeec31367f4555705ff2c51447?auto=format&;q=80&;ixlib=react-9.0.2&;w=200"/></div>
                                 </a>
