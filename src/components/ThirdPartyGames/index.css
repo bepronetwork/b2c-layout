@@ -2,7 +2,7 @@
 
 .providers {
     margin: auto;
-    margin-top: $spacing-20;
+    margin-top: $spacing-28;
 }
 
 .title {
@@ -62,22 +62,101 @@
     background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='%23fff' viewBox='0 0 8 8'%3e%3cpath d='M2.75 0l-1.5 1.5 2.5 2.5-2.5 2.5 1.5 1.5 4-4-4-4z'/%3e%3c/svg%3e");
 }
 
-.games {
-    margin-top: $spacing-20;
-    position: relative;
+.container {
+    justify-content: center;
+    grid-column-gap: $spacing-28;
+    grid-row-gap: $spacing-28;
+    grid-template-columns: repeat(3, 290px);
+    max-width: $content-width-desktop;
+    margin: auto;
+  
+    @include Breakpoint-tabletOnly {
+      grid-template-columns: 1fr;
+    }
+  
+    @include Breakpoint-mobileOnly {
+      grid-template-columns: 1fr;
+    }
 }
 
-.game-list {
+.container-small{
     margin: $spacing-8 0 0 0;
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-
-    img {
-        border-radius: $border-radius;
-    }
-
-    h2 {
-        padding-top: $spacing-8;
-        padding-bottom: $spacing-8;
-    }
 }
+
+.col {
+    padding-right: $spacing-8;
+    padding-left: $spacing-8;
+}
+
+.root {
+    text-align: center;
+    margin : $spacing-8 0;
+}
+
+.button {
+    display: inline-block;
+  
+    background: none;
+  
+    text-decoration: none;
+    width: 100%;
+}
+
+.image-container {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    margin: 0 0 $spacing-4 0;
+    border-radius: $spacing-12;
+    transition: margin 100ms linear;
+    height: $games-box-heigth;
+}
+
+.image-container:hover {
+    margin: calc($spacing-8 * -1) 0 $spacing-8 0;
+  
+    transition: margin 200ms ease-out;
+}
+  
+.image-container.firefly {
+    background-color: $firefly;
+}
+
+.image-container.dice-background-color {
+    background-color: $dice-background-color;
+}
+
+.labels {
+    display: grid;
+    align-items: center;
+    width: 100%;
+    grid-template-columns: 60% 40%;
+}
+  
+.title {
+    margin-left: $spacing-8;
+    text-align: left;
+}
+
+.icon {
+    margin: 0 auto;
+    transform: scale(1) rotate(0deg);
+    transition: transform 800ms linear;
+}
+
+.image-container:hover .icon {
+    transform: scale(1.01) rotate(-10deg);
+
+    transition: transform 500ms linear;
+}
+
+.game-icon{
+    width: 170px;
+}
+
+.info-holder{
+    margin-right: $spacing-8;
+    text-align: right;
+} 
