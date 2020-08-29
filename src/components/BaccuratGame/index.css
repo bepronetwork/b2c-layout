@@ -9,6 +9,36 @@ main.ant-layout-content .baccarat {
     border-radius: 6px 0px 0px 6px;
 }
 
+.baccarat_main .cardsection .card_wrapper {
+    padding-top: 35px;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.baccarat_main .cardsection .card_wrapper .card_side_a,.baccarat_main .cardsection .card_wrapper .card_side_b {
+    display: inline-flex;
+    width: 50%;
+    align-items: center;
+}
+.baccarat_main .cardsection .card_wrapper .card_block {
+    display: flex;
+    position: relative;
+    align-items: flex-start;
+    margin-top: 1em;
+    font-size: 1.4em;
+    min-width: 221px;
+    width: 221px;
+    min-height: 189px;
+}
+.player{
+    font-family: 'Muli', sans-serif;
+}
+.amount{
+    font-family: 'Muli', sans-serif;
+}
+.undo{}
+.clear{}
+
 .baccarat> .ant-row {
     box-shadow: rgba(25, 25, 25, 0.75) 0px 0px 10px;
     background-color: rgb(18, 34, 46);
@@ -320,6 +350,7 @@ input[type=number]::-webkit-outer-spin-button {
     color: rgb(134, 144, 164);
     font-weight: 600;
     font-size: 1.2em;
+    font-family: 'Muli', sans-serif;
     transform: translate(-50%, -100%);
 }
 
@@ -435,7 +466,9 @@ span.icon_ {
     filter: contrast(150%);
 }
 .baccarat_footer .btn_wrapper button {
+    background-color: hsl(244,34%,8%);
     padding: 0;
+    font-family: 'Muli', sans-serif;
 }
 .bet_notification_wrapper {
     font-size: 1rem;

@@ -641,75 +641,76 @@ class Baccarat extends Component {
         for (var k = 0; k < this.state.bankerCoinChildren; k += 1) {
             bankercoinchildren.push(<CoinComponent onClickCoinValue={this.state.onClickBankerCoinValue} key={k} number={k} />);
         };
+
         return (
-            <div className="baccarat">
+            <div styleName="baccarat">
                 <Row>
-                    <Col className="main_section" span={18} push={6} gutter={16} style={{ backgroundImage: `url(` + bgimg + `)` }}>
-                        <div className="cards">
-                            <div className="image_cards">
+                    <Col styleName="main_section" span={18} push={6} gutter={16} style={{ backgroundImage: `url(` + bgimg + `)` }}>
+                        <div styleName="cards">
+                            <div styleName="image_cards">
                                 <img src={cards} alt="cards" />
                             </div>
                         </div>
-                        <div className="baccarat_main">
+                        <div styleName="baccarat_main">
                             <CardSection {...this.state} />
                         </div>
-                        <div className="baccarat_footer">
-                            <div className="wrapper">
-                                <div className="text">Place your bets</div>
-                                <div className="inner_col">
-                                    <Button className="custom_bet_btn" disabled={this.state.gameRunning} onClick={this.handleCoin.bind(this, 'playerclicked')}>
-                                        <div className="player">
+                        <div styleName="baccarat_footer">
+                            <div styleName="wrapper">
+                                <div styleName="text">Place your bets</div>
+                                <div styleName="inner_col">
+                                    <Button styleName="custom_bet_btn" disabled={this.state.gameRunning} onClick={this.handleCoin.bind(this, 'playerclicked')}>
+                                        <div styleName="player">
                                             PLAYER
                                             </div>
-                                        <div className="amount">
+                                        <div styleName="amount">
                                             {this.state.playeramount.toFixed(2)}
                                         </div>
-                                        <div className="coin_wrapper">
+                                        <div styleName="coin_wrapper">
                                             {playercoinchildren}
                                         </div>
                                     </Button>
                                 </div>
-                                <div className="inner_col">
-                                    <Button className="custom_bet_btn" disabled={this.state.gameRunning} onClick={this.handleCoin.bind(this, 'tieclicked')}>
-                                        <div className="player">
+                                <div styleName="inner_col">
+                                    <Button styleName="custom_bet_btn" disabled={this.state.gameRunning} onClick={this.handleCoin.bind(this, 'tieclicked')}>
+                                        <div styleName="player">
                                             TIE
                                         </div>
-                                        <div className="amount">
+                                        <div styleName="amount">
                                             {this.state.tieamount.toFixed(2)}
                                         </div>
-                                        <div className="coin_wrapper">
+                                        <div styleName="coin_wrapper">
                                             {tiecoinchildren}
                                         </div>
                                     </Button>
                                 </div>
 
-                                <div className="inner_col">
-                                    <Button className="custom_bet_btn" onClick={this.handleCoin.bind(this, 'bankerclicked')} disabled={this.state.gameRunning}>
-                                        <div className="player">
+                                <div styleName="inner_col">
+                                    <Button styleName="custom_bet_btn" onClick={this.handleCoin.bind(this, 'bankerclicked')} disabled={this.state.gameRunning}>
+                                        <div styleName="player">
                                             BANKER
                        </div>
-                                        <div className="amount">
+                                        <div styleName="amount">
                                             {this.state.bankeramount.toFixed(2)}
                                         </div>
-                                        <div className="coin_wrapper">
+                                        <div styleName="coin_wrapper">
                                             {bankercoinchildren}
                                         </div>
                                     </Button>
                                 </div>
                             </div>
 
-                            <div className="btn_wrapper">
-                                <Button className="undo" type="link" size='large' disabled={this.state.gameRunning}><span className="icon_"><img src={undoimg} alt="undo" /></span> Undo</Button>
-                                <Button className="clear" type="link" size='large' disabled={this.state.gameRunning} onClick={this.clearBaccaratState}>Clear <span className="icon_"><img src={rotateimg} alt="undo" /></span></Button>
+                            <div styleName="btn_wrapper">
+                                <Button styleName="undo" type="link" size='large' disabled={this.state.gameRunning}><span styleName="icon_"><img src={undoimg} alt="undo" /></span> Undo</Button>
+                                <Button styleName="clear" type="link" size='large' disabled={this.state.gameRunning} onClick={this.clearBaccaratState}>Clear <span styleName="icon_"><img src={rotateimg} alt="undo" /></span></Button>
                             </div>
 
                         </div>
                         {this.state.notifyStatus
                             &&
-                            <div className="bet_notification_wrapper" style={{ color: this.state.notifyStatusColor, boxShadow: `0px 0px 0px 4px ${this.state.notifyStatusColor}` }}>
-                                <div className="bet_notification_inner">
-                                    <span className="text">{this.state.betmultiply}.00<span>+</span></span>
-                                    <span className="win_amt">
+                            <div styleName="bet_notification_wrapper" style={{ color: this.state.notifyStatusColor, boxShadow: `0px 0px 0px 4px ${this.state.notifyStatusColor}` }}>
+                                <div styleName="bet_notification_inner">
+                                    <span styleName="text">{this.state.betmultiply}.00<span>+</span></span>
+                                    <span styleName="win_amt">
                                         <span>{this.state.winammount.toFixed(2)}</span>
                                     </span>
                                 </div>
@@ -717,13 +718,13 @@ class Baccarat extends Component {
                         }
                     </Col>
                     <Col span={6} pull={18}>
-                        <Tabs defaultActiveKey="manual" size={'small'} className="baccarat_tab">
+                        <Tabs defaultActiveKey="manual" size={'small'} styleName="baccarat_tab">
                             <TabPane tab="Manual" key="manual" disabled={this.state.gameRunning}>
-                                <ManualTabToBet {...this.state.manual} handlesqueezechecked={this.handleSqueezeChecked} handleBet={this.handleBet} selectedchipvalue={this.state.selectedchipvalue} handleChipClick={this.handleChipClick} activesliderchips={this.state.activesliderchips} totalBetAmount={this.state.totalBetAmount} handleCoin={this.handleCoin} gameRunning={this.state.gameRunning}/>
+                                <ManualTabToBet {...this.state.manual} handlesqueezechecked={this.handleSqueezeChecked} handleBet={this.handleBet} selectedchipvalue={this.state.selectedchipvalue} handleChipClick={this.handleChipClick} activesliderchips={this.state.activesliderchips} totalBetAmount={this.state.totalBetAmount} handleCoin={this.handleCoin} gameRunning={this.state.gameRunning} />
                             </TabPane>
-                            <TabPane tab="Auto" key="auto" disabled={this.state.gameRunning}>
-                                <AutoTabToBet  {...this.state.auto} on_change_win={this.onChangeWin} on_change_loss={this.onChangeLoss} selectedchipvalue={this.state.selectedchipvalue} handleChipClick={this.handleChipClick} activesliderchips={this.state.activesliderchips} totalBetAmount={this.state.totalBetAmount} handleCoin={this.handleCoin} handleBet={this.handleBet} handleAutobetInput={this.handleAutobetInput} gameRunning={this.state.gameRunning}/>
-                            </TabPane>
+                            {/* <TabPane tab="Auto" key="auto" disabled={this.state.gameRunning}>
+                                <AutoTabToBet  {...this.state.auto} on_change_win={this.onChangeWin} on_change_loss={this.onChangeLoss} selectedchipvalue={this.state.selectedchipvalue} handleChipClick={this.handleChipClick} activesliderchips={this.state.activesliderchips} totalBetAmount={this.state.totalBetAmount} handleCoin={this.handleCoin} handleBet={this.handleBet} handleAutobetInput={this.handleAutobetInput} gameRunning={this.state.gameRunning} />
+                            </TabPane> */}
                         </Tabs>
                     </Col>
                 </Row>
@@ -737,8 +738,8 @@ export default Baccarat;
 
 class CoinComponent extends Component {
     render() {
-        return (<div className="coin_image" style={{ backgroundImage: 'url(' + chip_dot + ')' }}>
-            <div className="coin_value">
+        return (<div styleName="coin_image" style={{ backgroundImage: 'url(' + chip_dot + ')' }}>
+            <div styleName="coin_value">
                 {this.props.onClickCoinValue}
             </div>
         </div>);

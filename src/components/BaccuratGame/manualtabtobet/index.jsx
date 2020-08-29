@@ -12,7 +12,7 @@ class ManualTabToBet extends Component {
             <div className="manual_tab">
                 <>
                 <label>Chip Value ({this.props.selectedchipvalue})</label>
-                <SliderChips {...this.props}/>
+                {/* <SliderChips {...this.props}/> */}
                 </>
                 <>
                 <label>Total Bet</label>
