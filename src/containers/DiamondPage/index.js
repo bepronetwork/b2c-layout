@@ -24,7 +24,7 @@ class DiamondPage extends Component {
     rollNumber: 50,
     rollType: "under",
     bet: {},
-    game_name: "Linear Dice",
+    game_name: "Diamonds",
     animating: false,
     game: {
       edge: 0
