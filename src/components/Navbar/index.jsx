@@ -60,10 +60,11 @@ class Navbar extends Component {
                     ...opts,
                     user    : user,
                     userFullAddress : user.getAddress(),
-                    userAddress : user.getAddress() ? AddressConcat(user.getAddress()) : defaultProps.userAddress  
+                    userAddress : user.getAddress() ? AddressConcat(user.getAddress()) : defaultProps.userAddress,
+                    isTransparent: _.isEmpty(topTab) ? false : topTab.isTransparent
                 })
             }else{
-                this.setState({user : null})
+                this.setState({user : null, isTransparent: _.isEmpty(topTab) ? false : topTab.isTransparent})
             }
         }catch(err){
             console.log(err)
@@ -147,6 +148,40 @@ class Navbar extends Component {
                         </Typography>
                     </button>
                 </div>
+                {
+                    isValidPoints == true
+                    ?
+                        <div styleName="points">
+                            <SecondaryTooltip title={`${formatCurrency(currentPoints)} ${namePoints}`}>
+                                <div styleName="label-points">
+                                    {
+                                        !_.isEmpty(logoPoints)
+                                        ?
+                                            <div styleName="currency-icon">
+                                                <img src={logoPoints} height={20}/>
+                                            </div>
+                                        :
+                                            null
+                                    }
+                                    <span>
+                                        <Typography color="white" variant={'small-body'}>{formatCurrency(currentPoints)}</Typography>
+                                    </span>
+                                </div>
+                            </SecondaryTooltip>
+                            {differencePoints ? (
+                                <div
+                                key={currentPoints}
+                                styleName={"diff-won"}
+                                >
+                                    <Typography variant="small-body">
+                                        {parseFloat(Math.abs(differencePoints))}
+                                    </Typography>
+                                </div>
+                            ) : null}
+                        </div>
+                    :
+                        null
+                }
             </div>
         )
     }
@@ -204,11 +239,16 @@ class Navbar extends Component {
 
         return(
             <div styleName="language-profile">
-                {this.renderLanguageSelector()}
                 {user ?
-                    [this.renderSettings(), this.renderProfileMenu()]
+                    this.renderProfileMenu()
                 :
                     this.renderLoginOrRegister()
+                }
+                {this.renderLanguageSelector()}
+                {user ?
+                    this.renderSettings()
+                :
+                    null
                 }
             </div>
         )

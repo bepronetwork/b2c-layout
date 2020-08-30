@@ -1,0 +1,26 @@
+@import "../../../../styles/all.css";
+
+.sub-section {
+    display: grid;
+    grid-template-areas: "text image";
+    width: 100%;
+    position: relative;
+    grid-template-columns: 50% 50%;
+    border-radius: $border-radius;
+    margin: $spacing-16 0;
+}
+
+.text {
+    margin: auto 0;
+    text-align: left;
+    padding: $spacing-28;
+    border-radius: $border-radius 0px 0px $border-radius;
+}
+
+.image {
+    border-radius: 0px $border-radius $border-radius 0px;
+}
+
+.fields{
+    margin-bottom: $spacing-16;
+}

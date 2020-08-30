@@ -13,10 +13,12 @@ import Sound from "react-sound";
 import betSound from "assets/bet-sound.mp3";
 import Dice from "components/Icons/Dice";
 import { connect } from "react-redux";
-
+import delay from 'delay';
+import { Numbers } from "../../lib/ethereum/lib";
+import { isUserSet } from "../../lib/helpers";
+import _ from 'lodash';
 import "./index.css";
 import { CopyText } from "../../copy";
-import Cache from "../../lib/cache/cache";
 
 class RouletteGameOptions extends Component {
     static contextType = UserContext;
@@ -39,7 +41,8 @@ class RouletteGameOptions extends Component {
         lossStop: 0,
         onWin: null,
         onLoss: null,
-        sound: false
+        sound: false,
+        isAutoBetting: false
     };
 
     handleType = type => {
@@ -48,20 +51,74 @@ class RouletteGameOptions extends Component {
 
     isBetValid = () => {
         const { user } = this.context;
-
+        const { isAutoBetting } = this.state;
         const { totalBet, disableControls } = this.props;
-        return (totalBet > 0 && !disableControls) || !user;
+
+        return (totalBet > 0 && !disableControls && isAutoBetting == false) || !user;
     };
 
 
-    handleBet = () => {
-        const { onBet } = this.props;
+    handleBet = async (callback) => {
+        const { onBet, profile } = this.props;
+        const { amount, type, bets, profitStop, lossStop, onWin, onLoss} = this.state;
+        var res;
         if (this.isBetValid()) {
+            // to be completed with the other options
             this.setState({ sound: true });
-            return onBet();
+            switch(type){
+                case 'manual' : {
+                    res = await onBet({ amount });
+                    break;
+                };
+                case 'auto' : {
+                    if(!isUserSet(profile)){return null};
+                    this.setState({isAutoBetting : true})
+                    var totalProfit = 0, totalLoss = 0, lastBet = 0, wasWon = 0;
+                    var betAmount = amount;
+                    for( var i = 0; i < bets ; i++){
+                        if(
+                            (profitStop == 0  || totalProfit <= profitStop) && // Stop Profit
+                            (lossStop == 0 || totalLoss <= lossStop) // Stop Loss
+                        ){
+                            await delay(5*1000);
+                            const res = await this.betAction({amount : betAmount});
+                            if(!_.isEmpty(res)) {
+                                let { winAmount } = res;
+                                totalProfit += (winAmount-betAmount);
+                                totalLoss += (winAmount == 0) ? -Math.abs(betAmount) : 0;
+                                wasWon = (winAmount != 0);
+                                lastBet = betAmount;
+                                if(onWin && wasWon){ betAmount += Numbers.toFloat(betAmount*onWin/100) }; 
+                                if(onLoss && !wasWon){ betAmount += Numbers.toFloat(betAmount*onLoss/100) }; 
+                            }
+                            else {
+                                break;
+                            }
+                        }
+                            
+                    }
+                    this.setState({isAutoBetting : false})
+                    break;
+                }
+            }
         }
-        return null;
     };
+
+    betAction = ({amount}) => {
+        const { onBet } = this.props;
+        return new Promise( (resolve, reject) => {
+            try{
+                setTimeout( async () => {
+                    let res = await onBet({ amount });
+                    resolve(res)
+                },2*1000)
+            }catch(err){
+                console.log(err)
+                reject(err)
+            }
+
+        })
+    }
 
     renderAuto = () => {
         const { bets, profitStop, lossStop, onWin, onLoss } = this.state;
@@ -169,7 +226,7 @@ class RouletteGameOptions extends Component {
                 <ToggleButton
                     config={{
                     left: { value: "manual", title: copy.MANUAL_NAME},
-                    right: { value: "auto", title: copy.AUTO_NAME, disabled : true}
+                    right: { value: "auto", title: copy.AUTO_NAME}
                     }}
                     selected={type}
                     size="full"

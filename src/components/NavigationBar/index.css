@@ -1,5 +1,12 @@
 @import "../../styles/all.css";
 
+
+.tabs {
+    display: flex;
+    align-items: center;
+    margin-left: $spacing-16;
+}
+
 .navigation-step{
     margin: auto $spacing-20;
     display: flex;
@@ -21,4 +28,71 @@
         background-color : $navigation-bar-item;
     }
 
+<<<<<<< HEAD
+=======
+}
+
+.dropdown{
+    display: none;
+    margin: 0;
+    position: relative;
+    box-sizing: border-box;
+
+    @media screen and (max-width: 1267px) and (min-width: 767px) {
+        display: inline-block;
+    }
+
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    left: 0;
+    top: 36px;
+}
+
+.dropdown-content-open {
+    display: block;
+}
+
+.dropdown-nav{
+    border-radius: $border-radius;
+    padding: $spacing-8 $spacing-12;
+    background-color: $primaryColor-3;
+    box-shadow: $shadowColor 0 $spacing-16 $spacing-20 0;
+    box-sizing: border-box
+}
+
+.dropdown-column{
+    display: flex;
+    height: 100%;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: space-around;
+    padding: 0;
+}
+
+.dropdown-dots {
+    margin-left: $spacing-28;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 24px;
+    min-width: 24px;
+    outline: none;
+    border-radius: 20px;
+    cursor: pointer;
+    opacity: 0.5;
+    background-image: url(https://luckbox.com/559b34465a2b304792263a9e427f743b.png);
+    background-position: center center;
+    background-repeat: no-repeat;
+}
+
+.others {
+    display: inline;
+
+    @media screen and (max-width: 1267px) and (min-width: 767px) {
+        display: none;
+    }
+>>>>>>> dev
 }

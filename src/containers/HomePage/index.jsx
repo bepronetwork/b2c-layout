@@ -1,17 +1,16 @@
 import React, { Component } from "react";
-import queryString from "query-string";
-import _, { find } from "lodash";
-import { GameCard, Banners } from "components";
+import queryString from 'query-string'
+import { find } from "lodash";
+import { GameCard, Banners, JackpotPot, SubSections } from "components";
 import PropTypes from "prop-types";
 import UserContext from "containers/App/UserContext";
 import PlayInvitation from "components/PlayInvitation";
-import { Col } from "reactstrap";
-import { connect } from "react-redux";
-import games from "../../config/games";
+import games from '../../config/games';
 import LastBets from "../LastBets/HomePage";
 import Footer from "../Footer";
-import { CopyText } from "../../copy";
-
+import { connect } from 'react-redux';
+import { LOCATION } from 'components/SubSections/properties';
+import _ from 'lodash';
 import "./index.css";
 
 class HomePage extends Component {

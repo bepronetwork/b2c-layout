@@ -56,13 +56,13 @@ class Banners extends Component {
                                     <div styleName="text">
                                         {
                                             banner.title || banner.subtitle || banner.button_text ?
-                                                <div>
+                                                <div style={{marginTop: isFullWidth == true ? "auto" : null}}>
                                                     <div styleName="fields">
-                                                        <Typography color={'grey'} variant={'h4'}>{banner.title}</Typography>
+                                                        <Typography color={'white'} variant={'h3'} weight={'bold'}>{banner.title}</Typography>
                                                     </div>
 
-                                                    <div styleName="fields">
-                                                        <Typography color={'grey'} variant={'small-body'}>{banner.subtitle}</Typography>
+                                                    <div styleName="fields fields-text">
+                                                        <Typography color={'white'} variant={'small-body'}>{banner.subtitle}</Typography>
                                                     </div>
                                                     
                                                     {banner.button_text &&  banner.link_url ?
@@ -83,10 +83,10 @@ class Banners extends Component {
                                                 banner.title || banner.subtitle || banner.button_text ?
                                                     <div>
                                                         <div styleName="fields">
-                                                            <Typography color={'fixedwhite'} variant={'h3'}>{banner.title}</Typography>
+                                                            <Typography color={'fixedwhite'} variant={'h3'} weight={'bold'}>{banner.title}</Typography>
                                                         </div>
 
-                                                        <div styleName="fields">
+                                                        <div styleName="fields fields-text">
                                                             <Typography color={'fixedwhite'} variant={'body'}>{banner.subtitle}</Typography>
                                                         </div>
                                                         

@@ -417,7 +417,7 @@ class App extends Component {
         const { registerLoginModalOpen, error, has2FA} = this.state;
         return registerLoginModalOpen ? (
             <Modal onClose={this.handleRegisterLoginModalClose}>
-                <div styleName="modal">
+                <div styleName="modal modal-login">
                     <img src={logo.id} styleName="tkn_logo_login"/>
                     <div styleName="tabs">
                         <Tabs
@@ -431,6 +431,7 @@ class App extends Component {
                         ]}
                         onSelect={this.handleTabChange}
                         style="full-background"
+                        variant="body"
                         />
                     </div>
 
@@ -713,6 +714,10 @@ class App extends Component {
         const settingsMenuStyles = classNames("settings-container-menu", {
             settingsMenuDisplay: settingsMenuOpen,
             settingsMenuHidden: !settingsMenuOpen
+        });
+
+        const topStyles = classNames("top-bars", {
+            "top-bars-transparent": _.isEmpty(topTab) ? false : topTab.isTransparent == true
         });
 
         return (

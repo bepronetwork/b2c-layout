@@ -16,10 +16,33 @@
   width: $spacing-28;
 }
 
+.button > button {
+  width: 100%;
+}
+
+.button > button > div {
+  width: 100%;
+}
+
 .error {
   margin-top: $spacing-8;
 }
 
 .address {
   margin-top: $spacing-16;
+}
+
+.agree {
+  display: inline-flex;
+  align-items: flex-end;
+  background-color: $primaryColor-2;
+  border-radius: $border-radius;
+  margin-top: $spacing-12;
+  padding: $spacing-8;
+}
+
+.agree-right {
+  margin-left: $spacing-8;
+  margin-bottom: $spacing-4;
+  opacity: 0.5;
 }

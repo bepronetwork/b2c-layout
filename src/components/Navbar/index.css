@@ -155,6 +155,19 @@
 .logo{
     display: inline-flex;
     align-items: center;
+    min-width: 600px;
+
+    @media screen and (max-width: 1267px) and (min-width: 1024px) {
+        min-width: 500px;
+    }
+    
+    @media screen and (max-width: 1023px) and (min-width: 768px) {
+        min-width: unset;
+    }
+    
+    @media screen and (max-width: 767px) {
+        min-width: unset;
+    }
 }
 
 .logo-image{
@@ -222,8 +235,8 @@
     padding-left : $padding-width-navbar;
     padding-right : $padding-width-navbar;
 
-    @include Breakpoint-mobileOnly {
-
+    @media screen and (max-width: 1800px) {
+        grid-template-columns: auto auto 1fr;
     }
 
     @media screen and (max-width: 1267px) and (min-width: 768px) {
@@ -234,6 +247,10 @@
     @media screen and (max-width: 767px) {
         padding-left : calc($padding-width-navbar - 30px);
         padding-right : calc($padding-width-navbar - 30px);
+    }
+
+    @include Breakpoint-mobileOnly {
+
     }
 }
 
@@ -282,7 +299,7 @@
 }
 
 .language-container{
-    margin-right: $spacing-36;
+    margin-left: $spacing-36;
 
     @media screen and (max-width: 767px) {
         display: none;
@@ -357,8 +374,63 @@
 
  .settings-icon {
     background-color: $primaryColor;
+    padding-left: $spacing-16;
 
     img{
         width: 20px;
+    }
+}
+
+.label-points {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    height: 32px;
+    cursor: pointer;
+    padding: 0 $spacing-16;
+    background-color: $backgroundColor-2;
+    border-radius: $border-radius;
+  
+    .currency-icon {
+        margin-right: $spacing-8;
+    }
+
+    span {
+        margin-left: $spacing-8;
+
+        @media screen and (max-width: 767px) {
+            display: none;
+        }
+    }
+}
+
+.points {
+    display: inline-flex;
+    align-items: center;
+    margin-left: $spacing-36;
+
+    .diff-won{
+        padding-left: 52px;
+        margin-top: $spacing-20;
+
+        position: absolute;
+        * {
+            color: $green;
+            opacity: 0;
+
+            animation: won-animation 1s running;
+        }
+    }
+
+    @media screen and (max-width: 1267px) and (min-width: 1024px) {
+        display: none;
+    }
+    
+    @media screen and (max-width: 1023px) and (min-width: 768px) {
+        display: none;
+    }
+    
+    @media screen and (max-width: 767px) {
+        display: none;
     }
 }

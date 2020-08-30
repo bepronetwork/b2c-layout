@@ -10,7 +10,8 @@ import {
   set2FA,
   userAuth,
   getCurrencyAddress,
-  resendConfirmEmail
+  resendConfirmEmail,
+  getJackpotPot
 } from "lib/api/users";
 import { Numbers } from "../../lib/ethereum/lib";
 import Cache from "../../lib/cache/cache";
@@ -461,4 +462,40 @@ export default class User {
             throw err;
         }
     };
+
+    getPoints = async () => {
+        return this.user.points;
+    }
+
+    isEmailConfirmed = async () => {
+        return this.user.email_confirmed;
+    }
+
+    getJackpotPot = async ({currency_id}) => {
+        try {
+            if(!this.user_id){return []}
+            if(currency_id){
+                let res = await getJackpotPot({     
+                    app: this.app_id,        
+                    user: this.user_id,
+                    currency : currency_id
+                }, this.bearerToken);
+
+                //workaround to dont show "Jackpot not exist in App" error message notifitication
+                //should be removed when Jackpot will be in the addOns list
+                if(res.data.status == 56 || res.data.status == 45) {
+                    return { pot: 0 };
+                }
+                //finish
+
+                return await processResponse(res);
+            }else{
+                return [];
+            }
+      
+        }catch(err){
+            console.log(err)
+            throw err;
+        }
+    }
 }
