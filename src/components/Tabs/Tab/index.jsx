@@ -35,7 +35,7 @@ export default class Tab extends Component {
   };
 
   render() {
-    const { selected, label, icon, style } = this.props;
+    const { selected, label, icon, style, variant="small-body" } = this.props;
     const classes = classNames("tab", {
       selected,
       fullBackground : style === "full-background",
@@ -50,7 +50,7 @@ export default class Tab extends Component {
               { icon ? icon : null }
             </div>
             <div styleName="label">
-              <Typography variant={this.isMobileOrTablet() ? 'x-small-body' : 'small-body'} color="white">
+              <Typography variant={this.isMobileOrTablet() ? 'x-small-body' : variant} color="white">
                 {label}
               </Typography>
             </div>

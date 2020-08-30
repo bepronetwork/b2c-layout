@@ -25,6 +25,14 @@
   width: $spacing-28;
 }
 
+.button > button {
+  width: 100%;
+}
+
+.button > button > div {
+  width: 100%;
+}
+
 .error {
   margin: $spacing-8;
 }
