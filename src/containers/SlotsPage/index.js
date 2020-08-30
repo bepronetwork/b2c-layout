@@ -38,6 +38,10 @@ class SlotsPage extends Component {
   state = {
     result: null,
     bet: {},
+    gameName: "Slots",
+    game: {
+      edge: 0
+    },
     gameStore: [],
     line: false,
     // betAmount: 0,
@@ -258,12 +262,13 @@ class SlotsPage extends Component {
   };
 
   getGame = () => {
+    const { gameName } = this.state;
     const appInfo = Cache.getFromCache("appInfo");
 
     if (appInfo) {
-      const game = find(appInfo.games, { name: "Slots" });
+      const game = find(appInfo.games, { metaName: gameName });
 
-      this.setState({ gameStore: game });
+      this.setState({ ...this.state, game });
     }
   };
 
@@ -328,15 +333,13 @@ class SlotsPage extends Component {
 
   render() {
     const { onTableDetails } = this.props;
-    const { gameStore } = this.state;
 
     return (
       <GamePage
         options={this.renderGameOptions()}
         game={this.renderGameCard()}
         history="slotsHistory"
-        slots="slots"
-        gameMetaName={gameStore.metaName}
+        gameMetaName={this.state.game.metaName}
         onTableDetails={onTableDetails}
       />
     );
