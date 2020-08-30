@@ -700,7 +700,7 @@ class App extends Component {
 
         let progress100 = parseInt(progress/confirmations*100);
         let isUserLoaded = (confirmations == progress);
-        const { topBar, background } = getAppCustomization();
+        const { topBar, background, topTab } = getAppCustomization();
         const centerStyles = classNames("center", {
             centerExpand: !chatExpand
         });

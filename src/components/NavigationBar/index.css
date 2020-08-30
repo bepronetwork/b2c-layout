@@ -28,8 +28,6 @@
         background-color : $navigation-bar-item;
     }
 
-<<<<<<< HEAD
-=======
 }
 
 .dropdown{
@@ -94,5 +92,4 @@
     @media screen and (max-width: 1267px) and (min-width: 767px) {
         display: none;
     }
->>>>>>> dev
 }
