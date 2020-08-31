@@ -9,6 +9,19 @@
   border-radius: $border-radius 0 0 0;
 }
 
+
+.amount-container {
+  display: grid;
+  grid-template-columns: 57% 43%;
+
+  margin-top: $spacing-4;
+}
+
+.amount {
+  order: 1;
+  margin-top: $spacing-20;
+}
+
 .button {
   order: 4;
 

@@ -1,34 +1,55 @@
 import React, { Component } from "react";
+import UserContext from "containers/App/UserContext";
 import PropTypes from "prop-types";
-import Sound from "react-sound";
-import { connect } from "react-redux";
-import _ from "lodash";
 import {
   InputNumber,
   ToggleButton,
   Button,
   Typography,
+  MultiplyMaxButton,
   OnWinLoss
 } from "components";
-
-import UserContext from "containers/App/UserContext";
 import betSound from "assets/bet-sound.mp3";
-
-import styles from "./index.css";
+import Sound from "react-sound";
+import Dice from "components/Icons/Dice";
+import delay from "delay";
+import _ from "lodash";
+import { connect } from "react-redux";
+import { Numbers } from "../../lib/ethereum/lib";
 import { CopyText } from "../../copy";
+import { isUserSet } from "../../lib/helpers";
+import "./index.css";
 
-class SlotsGameOptions extends Component {
+class WheelGameOptions extends Component {
   static contextType = UserContext;
 
-  state = {
-    type: "manual",
-    isAutoBetting: false,
-    lossStop: 0,
-    onWin: null,
-    onLoss: null,
-    sound: false,
-    amount: 0
+  static propTypes = {
+    onBet: PropTypes.func.isRequired,
+    disableControls: PropTypes.bool,
+    rollType: PropTypes.number.isRequired,
+    rollNumber: PropTypes.number.isRequired
   };
+
+  static defaultProps = {
+    disableControls: false
+  };
+
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      type: "manual",
+      amount: 0,
+      isAutoBetting: false,
+      bets: 1,
+      profitStop: 0,
+      lossStop: 0,
+      onWin: null,
+      edge: 0,
+      onLoss: null,
+      sound: false
+    };
+  }
 
   handleType = type => {
     this.setState({ type });
@@ -45,38 +66,165 @@ class SlotsGameOptions extends Component {
 
   isInAutoBet = () => this.state.isAutoBetting;
 
-  handleBetAmountChange = value => {
-    const { onBetAmount } = this.props;
+  renderSound = () => {
+    const { sound } = this.state;
+    const soundConfig = localStorage.getItem("sound");
 
+    if (!sound || soundConfig !== "on") {
+      return null;
+    }
+
+    return (
+      <Sound
+        onFinishedPlaying={this.handleSongFinishedPlaying}
+        volume={100}
+        useConsole={false}
+        url={betSound}
+        playStatus="PLAYING"
+        autoLoad
+      />
+    );
+  };
+
+  componentDidMount() {
+    this.projectData(this.props);
+  }
+
+  componentWillReceiveProps(props) {
+    this.projectData(props);
+  }
+
+  projectData(props) {
+    this.setState({ ...this.state, edge: props.game.edge });
+  }
+
+  handleSongFinishedPlaying = () => {
+    this.setState({ sound: false });
+  };
+
+  betAction = ({ amount }) => {
+    const { onBet } = this.props;
+
+    return new Promise((resolve, reject) => {
+      try {
+        setTimeout(async () => {
+          const res = await onBet({ amount });
+
+          resolve(res);
+        }, 2 * 1000);
+      } catch (err) {
+        console.log(err);
+        reject(err);
+      }
+    });
+  };
+
+  handleBet = async callback => {
+    const { onBet, profile } = this.props;
+    const {
+      amount,
+      type,
+      bets,
+      profitStop,
+      lossStop,
+      onWin,
+      onLoss
+    } = this.state;
+    let res;
+
+    if (this.isBetValid()) {
+      // to be completed with the other options
+      this.setState({ sound: true });
+      switch (type) {
+        case "manual": {
+          res = await onBet({ amount });
+          break;
+        }
+        case "auto": {
+          if (!isUserSet(profile)) {
+            return null;
+          }
+
+          this.setState({ isAutoBetting: true });
+          let totalProfit = 0;
+
+          let totalLoss = 0;
+
+          let lastBet = 0;
+
+          let wasWon = 0;
+          let betAmount = amount;
+
+          for (let i = 0; i < bets; i++) {
+            if (
+              (profitStop == 0 || totalProfit <= profitStop) && // Stop Profit
+              (lossStop == 0 || totalLoss <= lossStop) // Stop Loss
+            ) {
+              await delay(5 * 1000);
+              const { winAmount } = await this.betAction({ amount: betAmount });
+
+              totalProfit += winAmount - betAmount;
+              totalLoss += winAmount == 0 ? -Math.abs(betAmount) : 0;
+              wasWon = winAmount != 0;
+              lastBet = betAmount;
+
+              if (onWin && wasWon) {
+                betAmount += Numbers.toFloat((betAmount * onWin) / 100);
+              }
+
+              if (onLoss && !wasWon) {
+                betAmount += Numbers.toFloat((betAmount * onLoss) / 100);
+              }
+            }
+          }
+          this.setState({ isAutoBetting: false });
+          break;
+        }
+        default:
+          break;
+      }
+    }
+
+    return true;
+  };
+
+  handleBetAmountChange = value => {
     this.setState({
       amount: value
     });
-
-    onBetAmount(value);
   };
 
-  handleBet = () => {
-    const { onBet } = this.props;
+  handleOnWin = value => {
+    this.setState({ onWin: value });
+  };
 
-    if (this.isBetValid()) {
-      this.setState({ sound: true });
+  handleOnLoss = value => {
+    this.setState({ onLoss: value });
+  };
 
-      return onBet();
-    }
+  handleBets = value => {
+    this.setState({ bets: value });
+  };
 
-    return null;
+  handleStopOnProfit = value => {
+    this.setState({ profitStop: value });
+  };
+
+  handleStopOnLoss = value => {
+    this.setState({ lossStop: value });
   };
 
   renderAuto = () => {
     const { bets, profitStop, lossStop, onWin, onLoss } = this.state;
     const { ln } = this.props;
-    const copy = CopyText.rouletteGameOptionsIndex[ln];
+    const copy = CopyText.wheelGameOptionsIndex[ln];
 
     return (
       <div>
         <div styleName="element">
           <InputNumber
             name="bets"
+            min={1}
             title={copy.INDEX.INPUT_NUMBER.TITLE[0]}
             value={bets}
             onChange={this.handleBets}
@@ -84,15 +232,15 @@ class SlotsGameOptions extends Component {
         </div>
         <div styleName="element">
           <OnWinLoss
-            title={copy.INDEX.ON_WIN_LOSS.TITLE[0]}
             value={onWin}
+            title={copy.INDEX.ON_WIN_LOSS.TITLE[0]}
             onChange={this.handleOnWin}
           />
         </div>
         <div styleName="element">
           <OnWinLoss
-            title={copy.INDEX.ON_WIN_LOSS.TITLE[1]}
             value={onLoss}
+            title={copy.INDEX.ON_WIN_LOSS.TITLE[1]}
             onChange={this.handleOnLoss}
           />
         </div>
@@ -122,56 +270,88 @@ class SlotsGameOptions extends Component {
     );
   };
 
-  handleOnWin = value => {
-    this.setState({ onWin: value });
-  };
+  getPayout = () => {
+    const { rollNumber, rollType } = this.props;
+    let payout = 0;
 
-  handleOnLoss = value => {
-    this.setState({ onLoss: value });
-  };
+    const middlePayout = 2;
+    const middleRoll = 50;
 
-  handleBets = value => {
-    this.setState({ bets: value });
-  };
-
-  handleStopOnProfit = value => {
-    this.setState({ profitStop: value });
-  };
-
-  handleStopOnLoss = value => {
-    this.setState({ lossStop: value });
-  };
-
-  renderSound = () => {
-    const { sound } = this.state;
-    const soundConfig = localStorage.getItem("sound");
-
-    if (!sound || soundConfig !== "on") {
-      return null;
+    if (rollNumber === middleRoll) {
+      payout = middlePayout;
+    } else {
+      payout =
+        rollType === "over"
+          ? (middleRoll * middlePayout) / (100 - rollNumber)
+          : (middleRoll * middlePayout) / rollNumber;
     }
 
+    const winEdge = (100 - this.state.edge) / 100;
+
+    payout *= winEdge;
+
+    return Numbers.toFloat(payout);
+  };
+
+  renderManual = () => {
+    const { amount } = this.state;
+    const { ln } = this.props;
+    const copy = CopyText.wheelGameOptionsIndex[ln];
+
     return (
-      <Sound
-        onFinishedPlaying={this.handleSongFinishedPlaying}
-        volume={100}
-        url={betSound}
-        playStatus="PLAYING"
-        autoLoad
-      />
+      <div>
+        <div styleName="element">
+          <InputNumber
+            name="win-profit"
+            title={copy.INDEX.INPUT_NUMBER.TITLE[2]}
+            icon="bitcoin"
+            precision={2}
+            disabled
+            value={Numbers.toFloat(amount * (this.getPayout() - 1))}
+          />
+        </div>
+      </div>
     );
   };
 
-  handleSongFinishedPlaying = () => {
-    this.setState({ sound: false });
+  handleMultiply = value => {
+    const { profile } = this.props;
+    const { amount } = this.state;
+    let newAmount = amount;
+
+    if (_.isEmpty(profile)) {
+      return null;
+    }
+
+    const balance = profile.getBalance();
+
+    if (value === "max") {
+      newAmount = balance;
+    }
+
+    if (value === "2") {
+      newAmount = newAmount === 0 ? 0.01 : newAmount * 2;
+    }
+
+    if (value === "0.5") {
+      newAmount = newAmount === 0.01 ? 0 : newAmount * 0.5;
+    }
+
+    if (newAmount > balance) {
+      newAmount = balance;
+    }
+
+    this.setState({ amount: newAmount });
   };
 
   render() {
-    const { type } = this.state;
-    const { amount, ln, doubleDownBet, onClickBet, profile } = this.props;
-    const copy = CopyText.shared[ln];
+    const { type, amount, isAutoBetting } = this.state;
+    const { ln } = this.props;
 
-    const user = profile;
+    const user = this.props.profile;
     let balance;
+    const copy = CopyText.shared[ln];
+    const copy2 = CopyText.wheelGameOptionsIndex[ln];
 
     if (!user || _.isEmpty(user)) {
       balance = 0;
@@ -182,12 +362,11 @@ class SlotsGameOptions extends Component {
     return (
       <div styleName="root">
         {this.renderSound()}
-
         <div styleName="toggle">
           <ToggleButton
             config={{
               left: { value: "manual", title: copy.MANUAL_NAME },
-              right: { value: "auto", title: copy.AUTO_NAME, disabled: true }
+              right: { value: "auto", title: copy.AUTO_NAME }
             }}
             selected={type}
             size="full"
@@ -195,43 +374,39 @@ class SlotsGameOptions extends Component {
             onSelect={this.handleType}
           />
         </div>
-
         <div styleName="bet-properties">
-          <div styleName="element">
-            <InputNumber
-              name="amount"
-              value={amount}
-              max={user && !_.isEmpty(user) ? user.getBalance() : null}
-              step={0.01}
-              icon="bitcoin"
-              precision={2}
-              onChange={this.handleBetAmountChange}
-            />
+          <div styleName="amount">
+            <Typography variant="small-body" weight="semi-bold" color="casper">
+              {copy2.INDEX.TYPOGRAPHY.TEXT[0]}
+            </Typography>
+            <div styleName="amount-container">
+              <InputNumber
+                name="amount"
+                value={amount}
+                max={user ? balance : null}
+                step={0.01}
+                icon="bitcoin"
+                precision={2}
+                onChange={this.handleBetAmountChange}
+              />
+              <MultiplyMaxButton onSelect={this.handleMultiply} />
+            </div>
           </div>
           <div styleName="content">
             {type === "manual" ? null : this.renderAuto()}
           </div>
           <div styleName="button">
             <Button
-              // disabled={!this.isBetValid()}
-              onClick={onClickBet}
+              disabled={!this.isBetValid() || this.isInAutoBet()}
+              onClick={this.handleBet}
               fullWidth
               theme="primary"
+              animation={<Dice />}
             >
               <Typography weight="semi-bold" color="pickled-bluewood">
-                {type === "manual" ? copy.BET_NAME : copy.AUTO_BET_NAME}
-              </Typography>
-            </Button>
-          </div>
-          <div styleName="button">
-            <Button
-              disabled={!this.isBetValid() || this.isInAutoBet()}
-              onClick={doubleDownBet}
-              fullWidth
-              theme="default"
-            >
-              <Typography weight="semi-bold" color="pickled-bluewood">
-                {copy.DOUBLE_DOWN_NAME}
+                {type === "manual"
+                  ? copy2.INDEX.TYPOGRAPHY.TEXT[1]
+                  : copy2.INDEX.TYPOGRAPHY.TEXT[2]}
               </Typography>
             </Button>
           </div>
@@ -241,24 +416,10 @@ class SlotsGameOptions extends Component {
   }
 }
 
-SlotsGameOptions.propTypes = {
-  onBet: PropTypes.func.isRequired,
-  amount: PropTypes.number.isRequired,
-  disableControls: PropTypes.bool,
-  doubleDownBet: PropTypes.string.isRequired,
-  onBetAmount: PropTypes.string.isRequired
-};
-
-SlotsGameOptions.defaultProps = {
-  totalBet: 0,
-  disableControls: false
-};
-
 function mapStateToProps(state) {
   return {
-    profile : state.profile,
     ln: state.language
   };
 }
 
-export default connect(mapStateToProps)(SlotsGameOptions);
+export default connect(mapStateToProps)(WheelGameOptions);

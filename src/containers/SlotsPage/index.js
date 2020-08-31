@@ -35,29 +35,29 @@ import Cache from "../../lib/cache/cache";
 class SlotsPage extends Component {
   static contextType = UserContext;
 
-  state = {
-    result: null,
-    bet: {},
-    gameName: "Slots",
-    game: {
-      edge: 0
-    },
-    gameStore: [],
-    line: false,
-    // betAmount: 0,
-    matrixResult: [],
-    soundIcon: false,
-    soundReel: false,
-    testBol: Array(5).fill(false),
-    testArray: [[7, 7, 7, 3, 12]],
-    resultFirstColumn: [],
-    resultSecondColumn: [],
-    resultThirstColumn: [],
-    resultFourthColumn: [],
-    resultFiveColumn: [],
-    insertionIndex: [],
-    insertIndex: []
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      result: null,
+      bet: false,
+      gameName: "Slots",
+      gameStore: [],
+      line: false,
+      betAmount: 0,
+      matrixResult: [],
+      soundIcon: false,
+      soundReel: false,
+      testBol: Array(5).fill(false),
+      testArray: [[7, 7, 7, 3, 12]],
+      resultFirstColumn: [],
+      resultSecondColumn: [],
+      resultThirstColumn: [],
+      resultFourthColumn: [],
+      resultFiveColumn: [],
+      insertionIndex: [],
+      insertIndex: []
+    };
+  }
 
   async componentDidMount() {
     this.getGame();
@@ -262,19 +262,19 @@ class SlotsPage extends Component {
   };
 
   getGame = () => {
-    const { gameName } = this.state;
     const appInfo = Cache.getFromCache("appInfo");
 
     if (appInfo) {
-      const game = find(appInfo.games, { metaName: gameName });
+      const game = find(appInfo.games, { name: "Slots" });
 
-      this.setState({ ...this.state, game });
+      this.setState({ gameStore: game });
     }
   };
 
-  // handleBetAmountChange = betAmount => {
-  //   this.setState({ betAmount });
-  // };
+  handleBetAmountChange = betAmount => {
+    this.setState({ betAmount, bet: true });
+    console.log(betAmount);
+  };
 
   renderGameCard = () => {
     const {
@@ -314,7 +314,7 @@ class SlotsPage extends Component {
   };
 
   renderGameOptions = () => {
-    const { bet, totalBet, gameStore } = this.state;
+    const { bet, totalBet, gameName } = this.state;
     const { profile } = this.props;
 
     return (
@@ -322,7 +322,7 @@ class SlotsPage extends Component {
         onClickBet={this.handleClick}
         onChangeChip={this.handleChangeChip}
         totalBet={totalBet}
-        game={gameStore}
+        game={gameName}
         profile={profile}
         doubleDownBet={this.doubleDownBet}
         disableControls={bet}
@@ -333,13 +333,16 @@ class SlotsPage extends Component {
 
   render() {
     const { onTableDetails } = this.props;
+    const { gameStore } = this.state;
+
 
     return (
       <GamePage
         options={this.renderGameOptions()}
         game={this.renderGameCard()}
         history="slotsHistory"
-        gameMetaName={this.state.game.metaName}
+        slots="slots"
+        gameMetaName={gameStore.metaName}
         onTableDetails={onTableDetails}
       />
     );

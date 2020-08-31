@@ -75,8 +75,6 @@ class GamePage extends Component {
     if (!_.isEmpty(gameMetaName)) {
       const appInfo = Cache.getFromCache("appInfo");
 
-      console.log("ta aqui cpx =>", appInfo);
-
       if (appInfo) {
         const gameInfo = find(appInfo.games, { metaName: gameMetaName });
 
