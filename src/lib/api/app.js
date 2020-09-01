@@ -27,7 +27,6 @@ async function getGames(){
     }
 }
 
-
 async function getLastBets({size, game}) {
     try {
         const response = await axios.post(`${apiUrl}/api/app/lastBets`, {

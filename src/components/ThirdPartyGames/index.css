@@ -69,6 +69,7 @@
     grid-template-columns: repeat(3, 290px);
     max-width: $content-width-desktop;
     margin: auto;
+    margin-top: $spacing-20;
   
     @include Breakpoint-tabletOnly {
       grid-template-columns: 1fr;
@@ -93,15 +94,11 @@
 .root {
     text-align: center;
     margin : $spacing-8 0;
-}
+    cursor: pointer;
 
-.button {
-    display: inline-block;
-  
-    background: none;
-  
-    text-decoration: none;
-    width: 100%;
+    img {
+        border-radius: $border-radius;
+    }
 }
 
 .image-container {
@@ -154,6 +151,7 @@
 
 .game-icon{
     width: 170px;
+    border-radius: $border-radius;
 }
 
 .info-holder{

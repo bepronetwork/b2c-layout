@@ -104,29 +104,30 @@ class GamePage extends Component {
     }
 
     componentDidMount() {
-        window.scrollTo(0, 0)
+        window.scrollTo(0, 0);
     }
 
     render() {
-        const { options, game, gameMetaName, onTableDetails, isThirdParty } = this.props;
+        const { profile, currency, ln, options, game, gameMetaName, onTableDetails, isThirdParty, providerToken, providerGameId, providerPartnerId, providerUrl } = this.props;
         const { soundMode } = this.state;
-
-        const { ln } = this.props;
         const copy = CopyText.homepagegame[ln];
 
-        if (_.isEmpty(gameMetaName)) return null;
+        if (_.isEmpty(gameMetaName) && isThirdParty != true) return null;
 
         return (
             <div styleName='main-container'>
-                {this.renderActions()}
                 {
                     isThirdParty == true
                     ?
                         <div styleName="root">
-                            <iframe src="https://casino.nolimitcdn.com/loader/game-loader.html?game=DragonTribe&operator=EASYGO&language=en&token=1f4b6539-6f22-4fec-b85d-fd77b569a1b7&depositUrl=https%3A%2F%2Fstake.com%2F%3Fcurrency%3Deth%26modal%3Ddeposit&lobbyUrl=https%3A%2F%2Fstake.com&device=desktop" 
-                            frameborder="0" allowfullscreen=""></iframe>
+                            <iframe styleName="iframe" allowfullscreen="allowfullscreen" src={`${providerUrl}/game?token=${providerToken}&partner_id=${providerPartnerId}&player_id=${profile.id}&game_id=${providerGameId}&language=${ln}&currency=${currency.ticker}`}
+                            frameborder="0"></iframe>
+                            <div styleName="provider">
+                            </div>
                         </div>
                     :
+                    <div>
+                        {this.renderActions()}
                         <div styleName="root">
                             <div styleName="container">
                                 <Row styleName="game-page-container">
@@ -165,8 +166,9 @@ class GamePage extends Component {
                                 </div>
                             </div>
                         </div>
+                        <LastBets gameMetaName={gameMetaName} onTableDetails={onTableDetails}/>
+                    </div>
                 }
-                <LastBets gameMetaName={gameMetaName} onTableDetails={onTableDetails}/>
             </div>
         );
     }
@@ -175,7 +177,9 @@ class GamePage extends Component {
 function mapStateToProps(state){
     return {
         ln : state.language,
-        modal : state.modal
+        modal : state.modal,
+        profile : state.profile,
+        currency : state.currency
     };
 }
 

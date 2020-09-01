@@ -647,7 +647,7 @@ class App extends Component {
 
                 <Route
                     exact
-                    path="/third-party"
+                    path="/casino/:providerGameId"
                     render={props => (
                         <ThirdPartyGamePage
                         {...props}
@@ -736,6 +736,7 @@ class App extends Component {
                                                         {...props}
                                                         onHandleLoginOrRegister={this.handleLoginOrRegisterOpen}
                                                         onTableDetails={this.handleTableDetailsOpen}
+                                                        history={history}
                                                     />
                                             
                                                 )}
