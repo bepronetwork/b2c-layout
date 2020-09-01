@@ -233,6 +233,12 @@
   }
 }
 
+.modal-login {
+  .tabs {
+    width: 304px;
+  }
+}
+
 .gif{
     width : 300px;
     position: fixed;

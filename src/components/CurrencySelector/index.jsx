@@ -118,8 +118,8 @@ class CurrencySelector extends Component {
         const balance =  _.isEmpty(w) ? 0 : formatCurrency(w.playBalance);
         const wApp = getApp().wallet.find(w => w.currency._id === currency._id);
         const icon = _.isEmpty(wApp.image) ? currency.image : wApp.image;
-        const bonusPlusBalance = w.bonusAmount > 0 ? Number(w.bonusAmount) + Number(balance) : balance;
-        const bonusAmount = w.bonusAmount > 0 ? Number(w.bonusAmount) : 0;
+        const bonusPlusBalance = _.isEmpty(w) ? 0 : w.bonusAmount > 0 ? Number(w.bonusAmount) + Number(balance) : balance;
+        const bonusAmount = _.isEmpty(w) ? 0 : w.bonusAmount > 0 ? Number(w.bonusAmount) : 0;
 
         const { colors } = getAppCustomization();
         const secondaryColor = colors.find(c => {

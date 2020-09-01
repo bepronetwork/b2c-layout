@@ -1,0 +1,74 @@
+@import "../../styles/all.css";
+
+.box{
+    background-color: $primaryColor-2;
+
+    width: 100%;
+    margin: $spacing-20 auto;
+    border-radius: $border-radius;
+
+    @media screen and (max-width: 767px) {
+        width: 100%;
+    }
+}
+.box-1 {
+    padding: $spacing-16 $spacing-16;
+}
+
+.root {
+    display: flex;
+    align-items: center;
+    border-radius: $border-radius;
+}
+
+.main {
+    display: flex;
+    align-items: center;
+    background: rgba(0, 0, 0, 0.4);
+    border-radius: $border-radius;
+    padding: $spacing-16 $spacing-20;
+    width: 100%;
+}
+
+.icon {
+    text-align: left;
+    display: inline-flex;
+    align-items: center;
+
+    svg {
+        width: 50px;
+        height: 50px;
+    }
+}
+
+.text {
+    margin-left: $spacing-20;
+
+    p {
+        margin-top: $spacing-4;
+        padding: $spacing-4 $spacing-8 $spacing-4 0;
+        border-radius: $border-radius;
+    }
+}
+
+.right {
+    margin-left: auto;
+    background-color: $backgroundColor-5;
+    padding: $spacing-4 $spacing-12;
+    border-radius: $border-radius;
+
+    img {
+        margin-right: $spacing-8;
+    }
+}
+
+.value {
+
+    display: flex;
+    align-items: center;
+}
+
+.coins {
+    display: flex;
+    align-items: baseline;
+}
