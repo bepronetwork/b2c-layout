@@ -49,7 +49,7 @@ class Banners extends Component {
         if(_.isEmpty(banners)) { return null; }
 
         const bannersStyles = classNames("banners", {
-            "banners-full": isFullWidth
+            "": isFullWidth
         });
 
         return (

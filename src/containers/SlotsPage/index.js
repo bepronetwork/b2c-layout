@@ -2,12 +2,13 @@ import React, { Component } from "react";
 import propTypes from "prop-types";
 import { compose } from "lodash/fp";
 import { connect } from "react-redux";
-import { find } from "lodash";
+import { find, _ } from "lodash";
 
 import { SlotsGameOptions, SlotsGame } from "components";
 import GamePage from "containers/GamePage";
 import UserContext from "containers/App/UserContext";
 
+import slotsBet from "lib/api/slots";
 import Coin from "assets/audio/slotsaudio/coin.mp3";
 import BlueCoin from "assets/audio/slotsaudio/blue-coin.mp3";
 import Club from "assets/audio/slotsaudio/club.mp3";
@@ -48,7 +49,7 @@ class SlotsPage extends Component {
       soundIcon: false,
       soundReel: false,
       testBol: Array(5).fill(false),
-      testArray: [[7, 7, 7, 3, 12]],
+      testArray: [[12, 12, 12, 3, 12]],
       resultFirstColumn: [],
       resultSecondColumn: [],
       resultThirstColumn: [],
@@ -70,6 +71,31 @@ class SlotsPage extends Component {
       Array.from({ length: cols }, () => Math.floor(Math.random() * 10))
     );
 
+  handleBetSend = async ({ amount }) => {
+    try {
+      const { user } = this.context;
+
+      const res = await slotsBet({
+        amount,
+        user
+      });
+
+      this.setState({
+        resultTest: res.result,
+        isWon: res.isWon,
+        bet: res,
+        betObjectResult: res,
+        winAmount: res.winAmount
+      });
+
+      console.log(res.result);
+
+      return res;
+    } catch (err) {
+      return err;
+    }
+  };
+
   handleClick = async () => {
     this.setState({
       line: false,
@@ -79,6 +105,8 @@ class SlotsPage extends Component {
       insertionIndex: [],
       insertIndex: []
     });
+
+    await this.handleBetSend();
     this.setState({ soundReel: true });
 
     this.getcolumn();
@@ -319,13 +347,10 @@ class SlotsPage extends Component {
 
     return (
       <SlotsGameOptions
-        onClickBet={this.handleClick}
-        onChangeChip={this.handleChangeChip}
-        totalBet={totalBet}
-        game={gameName}
+        disableControls={bet === false}
         profile={profile}
-        doubleDownBet={this.doubleDownBet}
-        disableControls={bet}
+        onBet={this.handleClick}
+        game={gameName}
         onBetAmount={this.handleBetAmountChange}
       />
     );
@@ -334,7 +359,6 @@ class SlotsPage extends Component {
   render() {
     const { onTableDetails } = this.props;
     const { gameStore } = this.state;
-
 
     return (
       <GamePage

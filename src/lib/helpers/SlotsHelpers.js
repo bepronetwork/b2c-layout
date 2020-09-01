@@ -2,6 +2,8 @@ import React from "react";
 import Sound from "react-sound";
 
 export const renderSounds = urlSound => {
+  window.soundManager.setup({ debugMode: false });
+
   return <Sound volume={80} url={urlSound} playStatus="PLAYING" autoLoad />;
 };
 

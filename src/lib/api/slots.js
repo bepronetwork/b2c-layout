@@ -1,14 +1,16 @@
 import { find } from "lodash";
 import { processResponse } from "../helpers";
 
-export default async function bet({ amount, user, gameId }) {
+export default async function bet({ amount, user }) {
   try {
     const appInfo = JSON.parse(localStorage.getItem("appInfo"));
-    const game = find(appInfo.games, { _id: gameId });
-    const result = new Array(30).fill(0).map((value, index) => {
+
+    const game = find(appInfo.games, { metaName: "slots_simple" });
+
+    const result = new Array(13).fill(0).map((value, index) => {
       return {
         place: index,
-        value: parseFloat(amount / 30)
+        value: parseFloat(amount / 13)
       };
     });
 
@@ -20,18 +22,27 @@ export default async function bet({ amount, user, gameId }) {
     await processResponse(response);
     const {
       winAmount,
+      isWon,
       betAmount: amountBetted,
       _id: id,
       nonce,
-      user_delta
+      user_delta,
+      outcomeResultSpace
     } = response.data.message;
-    const { index } = response.data.message.outcomeResultSpace;
+
+    console.log(response.data.message);
+
+    const index = outcomeResultSpace.map(r => {
+      return r.index;
+    });
+
+    console.log(index);
 
     return {
       result: index,
       winAmount,
+      isWon,
       nonce,
-      isWon: parseFloat(winAmount) !== 0,
       betAmount: amountBetted,
       id,
       userDelta: user_delta

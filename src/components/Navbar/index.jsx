@@ -290,7 +290,7 @@ class Navbar extends Component {
         let { user, isTransparent } = this.state;
 
         const styles = classNames("top-menu", {
-            "top-menu-transparent": isTransparent == true
+            "": isTransparent == true
           });
 
         return (

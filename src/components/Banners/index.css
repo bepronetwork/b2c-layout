@@ -7,6 +7,10 @@
     padding: $spacing-8 $spacing-8 0 $spacing-8;
 }
 
+.banners-full {
+    max-width: 100%;
+}
+
 .banner{
     display: grid;
     grid-template-areas: "info image";
@@ -28,6 +32,10 @@
     }
 }
 
+.banner-full {
+    padding-left: 0;
+}
+
 .text{
     margin: auto 0;
     text-align: left;
@@ -37,6 +45,13 @@
     @media screen and (max-width: 1267px) {
         display: none;
     }
+}
+
+.text-full {
+    padding-left: 12%;
+    height: 100%;
+    display: flex;
+    background: rgba(0, 0, 0, 0.9);
 }
 
 .text-image{
