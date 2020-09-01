@@ -1,9 +1,9 @@
 import React, { Component } from "react";
-import { DiamondGamePage, DiceGameOptions } from "components";
+import { DiamondGamePage, DiamondGameOptions } from "components";
 import PropTypes from "prop-types";
 import UserContext from "containers/App/UserContext";
 import GamePage from "containers/GamePage";
-// import diceBet from "lib/api/dice";
+import diamondsBet from "lib/api/diamonds";
 import _, { find } from "lodash";
 import { connect } from "react-redux";
 
@@ -319,12 +319,27 @@ class DiamondPage extends Component {
   //   }
   // };
 
-  handleBet = async () => {
+  handleBet = async ({ amount }) => {
     try {
       const { user } = this.context;
       const { onHandleLoginOrRegister } = this.props;
+      const { game } = this.state;
 
       if (!user || _.isEmpty(user)) return onHandleLoginOrRegister("register");
+
+      const res = await diamondsBet({
+        amount,
+        user,
+        game_id: game._id
+      });
+
+      this.setState({
+        result: res.result,
+        bet: res,
+        animating: true,
+        betObjectResult: res,
+        amount
+      });
 
       this.resetState();
       this.setState({ disableControls: true });
@@ -345,7 +360,7 @@ class DiamondPage extends Component {
     const { profile } = this.props;
 
     return (
-      <DiceGameOptions
+      <DiamondGameOptions
         disableControls={disableControls}
         profile={profile}
         onBet={this.handleBet}
