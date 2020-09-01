@@ -1,7 +1,7 @@
 import React, { Component } from "react";
-import queryString from 'query-string'
+import queryString from 'query-string';
 import { find } from "lodash";
-import { GameCard, Banners, JackpotPot, SubSections } from "components";
+import { GameCard, Banners, JackpotPot, SubSections, ThirdPartyGames } from "components";
 import PropTypes from "prop-types";
 import UserContext from "containers/App/UserContext";
 import PlayInvitation from "components/PlayInvitation";
@@ -65,7 +65,7 @@ class HomePage extends Component {
     }
 
     render() {
-        const { onTableDetails } = this.props;
+        const { onTableDetails, history, onHandleLoginOrRegister } = this.props;
         const mobileBreakpoint = 768;
         const appInfo = JSON.parse(localStorage.getItem("appInfo"));
         if (!appInfo) { return null; }
@@ -80,6 +80,7 @@ class HomePage extends Component {
                     <div styleName='container-small'>                       
                         {appInfo.games.map( (item) => this.renderGame(item))}
                     </div> 
+                    <ThirdPartyGames history={history} onHandleLoginOrRegister={onHandleLoginOrRegister} />
                     <JackpotPot/>
                     <SubSections location={LOCATION.BEFORE_DATA_LIST} />
                     {
