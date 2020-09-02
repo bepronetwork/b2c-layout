@@ -194,12 +194,107 @@ class DiamondPage extends Component {
     this.changeColorBottom(6, 6);
   };
 
+  randomNumber = (min, max) => {
+    const result = Math.floor(Math.random() * (max - min) + min);
+
+    return result;
+  };
+
   setBottomBar = () => {
     this.setState({ isActiveBottomBar: true });
   };
 
+  randBetween = (min, max) => Math.floor(Math.random() * (max - min)) + min;
+
+  generateRandArray = async () => {
+    const { resultBack } = this.state;
+
+    const result1 = this.randBetween(0, 1);
+    const result2 = this.randBetween(1, 2);
+    const result3 = this.randBetween(3, 4);
+    const result4 = this.randBetween(4, 5);
+    const result5 = this.randBetween(5, 6);
+
+    const resultest = this.randBetween(0, 2);
+    const resultest1 = this.randBetween(2, 4);
+    const resultest2 = this.randBetween(4, 6);
+
+    const resultTest = this.randBetween(0, 3);
+    const resultTest2 = this.randBetween(3, 6);
+
+    const resultEqual = this.randBetween(0, 6);
+
+    switch (resultBack) {
+      case 0:
+        return this.setState({
+          backendResult: [
+            this.randBetween(0, 1),
+            this.randBetween(1, 2),
+            this.randBetween(2, 3),
+            this.randBetween(3, 4),
+            this.randBetween(4, 6)
+          ]
+        });
+      case 1:
+        return this.setState({
+          backendResult: [result1, result1, result3, result4, result5]
+        });
+      case 2:
+        return this.setState({
+          backendResult: [
+            this.randBetween(4, 6),
+            result1,
+            result2,
+            result1,
+            result2
+          ]
+        });
+      case 3:
+        return this.setState({
+          backendResult: [
+            resultest,
+            resultest,
+            resultest1,
+            resultest,
+            resultest2
+          ]
+        });
+      case 4:
+        return this.setState({
+          backendResult: [
+            resultTest,
+            resultTest2,
+            resultTest,
+            resultTest2,
+            resultTest
+          ]
+        });
+      case 5:
+        return this.setState({
+          backendResult: [
+            result1,
+            result1,
+            result1,
+            this.randBetween(3, 6),
+            result1
+          ]
+        });
+      case 6:
+        return this.setState({
+          backendResult: [
+            resultEqual,
+            resultEqual,
+            resultEqual,
+            resultEqual,
+            resultEqual
+          ]
+        });
+      default:
+        break;
+    }
+  };
+
   generateRandomResult = async () => {
-    this.setState({ backendResult: false });
     const resultGen = Array.from({ length: 5 }, () =>
       Math.floor(Math.random() * 7)
     );
@@ -207,6 +302,12 @@ class DiamondPage extends Component {
     this.setState({
       backendResult: resultGen
     });
+    console.log(resultGen);
+  };
+
+  generateResult = async () => {
+    // this.generateRandomResult();
+    this.generateRandArray();
   };
 
   setResultIcons = async () => {
@@ -248,7 +349,8 @@ class DiamondPage extends Component {
       isVisible5: false,
       sound: false,
       soundResult: false,
-      winAmount: 0
+      winAmount: 0,
+      resultBack: 0
     });
   };
 
@@ -306,7 +408,6 @@ class DiamondPage extends Component {
   handleBet = async ({ amount }) => {
     try {
       this.resetState();
-
       const { user } = this.context;
       const { onHandleLoginOrRegister } = this.props;
       const { winAmount } = this.state.betObjectResult;
@@ -315,14 +416,17 @@ class DiamondPage extends Component {
 
       window.soundManager.setup({ debugMode: false });
       this.setState({ disableControls: true });
-      await this.generateRandomResult();
       await this.handleBetWithBack(amount);
+      await this.generateResult();
+
       await this.setResultIcons();
+
       this.setTest();
       this.setBottomBar();
       this.setState({ winAmount });
       this.setActiveHover();
       await this.userUpdateBalance();
+
       this.setState({ disableControls: false });
     } catch (err) {
       return this.setState({ result: 0, disableControls: false });
