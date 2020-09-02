@@ -10,7 +10,7 @@ export default async function bet({ amount, user }) {
     const result = new Array(13).fill(0).map((value, index) => {
       return {
         place: index,
-        value: parseFloat(amount / 13)
+        value: amount / 13
       };
     });
 

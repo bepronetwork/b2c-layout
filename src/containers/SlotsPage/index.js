@@ -45,6 +45,12 @@ class SlotsPage extends Component {
       gameStore: [],
       line: false,
       betAmount: 0,
+      result: null,
+      selectedChip: 0.01,
+      betHistory: [],
+      game: {
+        edge: 0
+      },
       matrixResult: [],
       soundIcon: false,
       soundReel: false,
@@ -71,7 +77,7 @@ class SlotsPage extends Component {
       Array.from({ length: cols }, () => Math.floor(Math.random() * 10))
     );
 
-  handleBetSend = async ({ amount }) => {
+  handleBetSend = async amount => {
     try {
       const { user } = this.context;
 
@@ -96,7 +102,7 @@ class SlotsPage extends Component {
     }
   };
 
-  handleClick = async () => {
+  handleBet = async ({ amount }) => {
     this.setState({
       line: false,
       result: false,
@@ -342,16 +348,17 @@ class SlotsPage extends Component {
   };
 
   renderGameOptions = () => {
-    const { bet, totalBet, gameName } = this.state;
+    const { bet } = this.state;
     const { profile } = this.props;
 
     return (
       <SlotsGameOptions
-        disableControls={bet === false}
+        onBet={this.handleBet}
+        onChangeChip={this.handleChangeChip}
+        game={this.state.game}
         profile={profile}
-        onBet={this.handleClick}
-        game={gameName}
-        onBetAmount={this.handleBetAmountChange}
+        doubleDownBet={this.doubleDownBet}
+        disableControls={bet}
       />
     );
   };
