@@ -1,4 +1,4 @@
-import { find, map, range } from "lodash";
+import { find } from "lodash";
 import { processResponse } from "../helpers";
 
 export default async function bet({ amount, user, game_id }) {
@@ -8,7 +8,7 @@ export default async function bet({ amount, user, game_id }) {
     const result = new Array(7).fill(0).map((value, index) => {
       return {
         place: index,
-        value: parseFloat(amount / 7)
+        value: amount
       };
     });
 
@@ -27,11 +27,13 @@ export default async function bet({ amount, user, game_id }) {
     } = response.data.message;
     const { index } = response.data.message.outcomeResultSpace;
 
+    console.log(index);
+
     return {
       result: index,
       winAmount,
       nonce,
-      isWon: parseFloat(winAmount) != 0,
+      isWon: parseFloat(winAmount) !== 0,
       betAmount: amountBetted,
       id,
       userDelta: user_delta

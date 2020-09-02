@@ -13,14 +13,14 @@ import betSound from "assets/bet-sound.mp3";
 import Sound from "react-sound";
 import Dice from "components/Icons/Dice";
 import delay from "delay";
-import "./index.css";
 import _ from "lodash";
 import { connect } from "react-redux";
 import { Numbers } from "../../lib/ethereum/lib";
-import { isUserSet } from "../../lib/helpers";
 import { CopyText } from "../../copy";
+import { isUserSet } from "../../lib/helpers";
+import "./index.css";
 
-class DimondGameOptions extends Component {
+class DiamondGameOptions extends Component {
   static contextType = UserContext;
 
   static propTypes = {
@@ -28,6 +28,10 @@ class DimondGameOptions extends Component {
     disableControls: PropTypes.bool,
     rollType: PropTypes.number.isRequired,
     rollNumber: PropTypes.number.isRequired
+  };
+
+  static defaultProps = {
+    disableControls: false
   };
 
   constructor(props) {
@@ -156,7 +160,7 @@ class DimondGameOptions extends Component {
               (profitStop == 0 || totalProfit <= profitStop) && // Stop Profit
               (lossStop == 0 || totalLoss <= lossStop) // Stop Loss
             ) {
-              await delay(1.5 * 1000);
+              await delay(5 * 1000);
               const { winAmount } = await this.betAction({ amount: betAmount });
 
               totalProfit += winAmount - betAmount;
@@ -211,7 +215,7 @@ class DimondGameOptions extends Component {
   renderAuto = () => {
     const { bets, profitStop, lossStop, onWin, onLoss } = this.state;
     const { ln } = this.props;
-    const copy = CopyText.diceGameOptionsIndex[ln];
+    const copy = CopyText.wheelGameOptionsIndex[ln];
 
     return (
       <div>
@@ -229,7 +233,6 @@ class DimondGameOptions extends Component {
             value={onWin}
             title={copy.INDEX.ON_WIN_LOSS.TITLE[0]}
             onChange={this.handleOnWin}
-          />
           />
         </div>
         <div styleName="element">
@@ -291,40 +294,18 @@ class DimondGameOptions extends Component {
   renderManual = () => {
     const { amount } = this.state;
     const { ln } = this.props;
-    const copy = CopyText.diceGameOptionsIndex[ln];
+    const copy = CopyText.wheelGameOptionsIndex[ln];
 
     return (
       <div>
         <div styleName="element">
           <InputNumber
             name="win-profit"
-            title={copy.INDEX.INPUT_NUMBER.TITLE[3]}
+            title={copy.INDEX.INPUT_NUMBER.TITLE[2]}
             icon="bitcoin"
             precision={2}
             disabled
             value={Numbers.toFloat(amount * (this.getPayout() - 1))}
-          />
-        </div>
-      </div>
-    );
-  };
-
-  renderAmountDice = () => {
-    const { ln } = this.props;
-    const copy = CopyText.diceGameOptionsIndex[ln];
-
-    return (
-      <div>
-        <div styleName="element">
-          <InputNumber
-            name="roll-number"
-            title={copy.INDEX.INPUT_NUMBER.TITLE[4]}
-            onChange={e => this.props.onChangeRollAndRollType(e)}
-            max={98}
-            min={2}
-            step={1}
-            precision={0}
-            value={this.props.rollNumber}
           />
         </div>
       </div>
@@ -363,9 +344,18 @@ class DimondGameOptions extends Component {
 
   render() {
     const { type, amount, isAutoBetting } = this.state;
-    const user = this.props.profile;
     const { ln } = this.props;
-    const copy = CopyText.diceGameOptionsIndex[ln];
+
+    const user = this.props.profile;
+    let balance;
+    const copy = CopyText.shared[ln];
+    const copy2 = CopyText.wheelGameOptionsIndex[ln];
+
+    if (!user || _.isEmpty(user)) {
+      balance = 0;
+    } else {
+      balance = user.getBalance();
+    }
 
     return (
       <div styleName="root">
@@ -373,11 +363,8 @@ class DimondGameOptions extends Component {
         <div styleName="toggle">
           <ToggleButton
             config={{
-              left: {
-                value: "manual",
-                title: copy.INDEX.TOGGLE_BUTTON.TITLE[0]
-              },
-              right: { value: "auto", title: copy.INDEX.TOGGLE_BUTTON.TITLE[1] }
+              left: { value: "manual", title: copy.MANUAL_NAME },
+              right: { value: "auto", title: copy.AUTO_NAME }
             }}
             selected={type}
             size="full"
@@ -388,13 +375,13 @@ class DimondGameOptions extends Component {
         <div styleName="bet-properties">
           <div styleName="amount">
             <Typography variant="small-body" weight="semi-bold" color="casper">
-              {copy.INDEX.TYPOGRAPHY.TEXT[0]}
+              {copy2.INDEX.TYPOGRAPHY.TEXT[0]}
             </Typography>
             <div styleName="amount-container">
               <InputNumber
                 name="amount"
                 value={amount}
-                max={user && !_.isEmpty(user) ? user.getBalance() : null}
+                max={user ? balance : null}
                 step={0.01}
                 icon="bitcoin"
                 precision={2}
@@ -403,11 +390,9 @@ class DimondGameOptions extends Component {
               <MultiplyMaxButton onSelect={this.handleMultiply} />
             </div>
           </div>
-          <div styleName="content">{this.renderAmountDice()}</div>
           <div styleName="content">
-            {type === "manual" ? this.renderManual() : this.renderAuto()}
+            {type === "manual" ? null : this.renderAuto()}
           </div>
-
           <div styleName="button">
             <Button
               disabled={!this.isBetValid() || this.isInAutoBet()}
@@ -418,8 +403,8 @@ class DimondGameOptions extends Component {
             >
               <Typography weight="semi-bold" color="pickled-bluewood">
                 {type === "manual"
-                  ? copy.INDEX.TYPOGRAPHY.TEXT[1]
-                  : copy.INDEX.TYPOGRAPHY.TEXT[2]}
+                  ? copy2.INDEX.TYPOGRAPHY.TEXT[1]
+                  : copy2.INDEX.TYPOGRAPHY.TEXT[2]}
               </Typography>
             </Button>
           </div>
@@ -431,9 +416,8 @@ class DimondGameOptions extends Component {
 
 function mapStateToProps(state) {
   return {
-    profile: state.profile,
     ln: state.language
   };
 }
 
-export default connect(mapStateToProps)(DimondGameOptions);
+export default connect(mapStateToProps)(DiamondGameOptions);

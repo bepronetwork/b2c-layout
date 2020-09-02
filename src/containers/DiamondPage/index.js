@@ -6,32 +6,32 @@ import GamePage from "containers/GamePage";
 import diamondsBet from "lib/api/diamonds";
 import _, { find } from "lodash";
 import { connect } from "react-redux";
+import Sound from "react-sound";
 
+import DiamondSound from "assets/DiamondIcons/sound/diamond.mp3";
+import DiamondResult from "assets/DiamondIcons/sound/result.mp3";
 import images from "../../components/DiamondGame/images";
 import Cache from "../../lib/cache/cache";
-import { setWonPopupMessageDispatcher } from "../../lib/redux";
 
 class DiamondPage extends Component {
   static contextType = UserContext;
 
-  static propTypes = {
-    onHandleLoginOrRegister: PropTypes.func.isRequired
-  };
-
   state = {
     result: null,
+    resultBack: 0,
     disableControls: false,
     rollNumber: 50,
     rollType: "under",
     bet: {},
-    game_name: "Diamonds",
+    gameName: "Diamonds",
     animating: false,
+    amount: 0,
     game: {
       edge: 0
     },
-    amount: 0,
+    betObjectResult: {},
+    resultTest: null,
     backendResult: [],
-    resultEquals: [],
     isActiveBottomBar: false,
     isHover: false,
     isHover1: false,
@@ -44,7 +44,9 @@ class DiamondPage extends Component {
     isVisible2: false,
     isVisible3: false,
     isVisible4: false,
-    isVisible5: false
+    isVisible5: false,
+    sound: false,
+    soundResult: false
   };
 
   componentDidMount() {
@@ -53,38 +55,6 @@ class DiamondPage extends Component {
       isHover6: true
     });
   }
-
-  caseSwitch = condition => {
-    switch (condition) {
-      case 0:
-        return this.setState({
-          isHover6: true
-        });
-      case 2:
-        return this.setState({
-          isHover5: true,
-          isHover6: false
-        });
-      case 3:
-        return this.setState({
-          isHover3: true,
-          isHover6: false
-        });
-      case 4:
-        return this.setState({
-          isHover1: true,
-          isHover6: false
-        });
-      case 5:
-        return this.setState({
-          isHover: true,
-          isHover6: false
-        });
-
-      default:
-        break;
-    }
-  };
 
   handleAnimations = async idIcon => {
     const box = document.getElementById(idIcon);
@@ -99,6 +69,8 @@ class DiamondPage extends Component {
         iterations: 1
       }
     );
+
+    this.setState({ sound: true });
 
     if (idIcon === "svg-diamond-animated-1") {
       this.setState({
@@ -133,76 +105,56 @@ class DiamondPage extends Component {
     return new Promise(resolve => setTimeout(() => resolve(), 500));
   };
 
+  checkArray = (item, value) => {
+    const { resultBack } = this.state;
+
+    const newItems = [...resultBack];
+
+    newItems[item] = value;
+    this.setState({ items: newItems });
+  };
+
   setActiveHover = () => {
-    const { backendResult } = this.state;
+    const { resultBack } = this.state;
 
-    const result = backendResult.filter((e, i, a) => a.indexOf(e) !== i);
-
-    if (result.length === 3) {
-      const count = backendResult.filter(x => x === result[0]).length;
-      const count2 = backendResult.filter(x => x === result[1]).length;
-      const count3 = backendResult.filter(x => x === result[2]).length;
-
-      const resultSum = count + count2 + count3;
-
-      switch (resultSum) {
-        case 8:
-          return this.setState({
-            isHover2: true,
-            isHover6: false
-          });
-        default:
-          break;
-      }
+    switch (resultBack) {
+      case 0:
+        return this.setState({
+          isHover6: true
+        });
+      case 1:
+        return this.setState({
+          isHover5: true,
+          isHover6: false,
+          soundResult: true
+        });
+      case 2:
+        return this.setState({
+          isHover4: true,
+          isHover6: false,
+          soundResult: true
+        });
+      case 3:
+        return this.setState({
+          isHover3: true,
+          isHover6: false,
+          soundResult: true
+        });
+      case 4:
+        return this.setState({
+          isHover2: true,
+          isHover6: false,
+          soundResult: true
+        });
+      case 5:
+        return this.setState({
+          isHover1: true,
+          isHover6: false,
+          soundResult: true
+        });
+      default:
+        break;
     }
-
-    if (result.length === 2) {
-      if (result[0] === result[1]) {
-        const count = backendResult.filter(x => x === result[0]).length;
-
-        this.caseSwitch(count);
-      }
-
-      if (result[0] !== result[1]) {
-        const count = backendResult.filter(x => x === result[0]).length;
-        const count2 = backendResult.filter(x => x === result[1]).length;
-
-        const resultSum = count + count2;
-
-        switch (resultSum) {
-          case 0:
-            return this.setState({
-              isHover6: true
-            });
-          case 2:
-            return this.setState({
-              isHover5: true,
-              isHover6: false
-            });
-          case 3:
-            return this.setState({
-              isHover3: true,
-              isHover6: false
-            });
-          case 4:
-            return this.setState({
-              isHover4: true,
-              isHover6: false
-            });
-          case 5:
-            return this.setState({
-              isHover2: true,
-              isHover6: false
-            });
-          default:
-            break;
-        }
-      }
-    }
-
-    const count = backendResult.filter(x => x === result[0]).length;
-
-    this.caseSwitch(count);
   };
 
   changeColorBottom = async (searchImage, number) => {
@@ -217,6 +169,18 @@ class DiamondPage extends Component {
     if (count < 2) {
       images[number].isActive = false;
     }
+  };
+
+  SoundComponent = urlParam => {
+    return (
+      <Sound
+        volume={100}
+        useConsole={false}
+        url={urlParam}
+        playStatus="PLAYING"
+        autoLoad
+      />
+    );
   };
 
   setTest = () => {
@@ -250,13 +214,16 @@ class DiamondPage extends Component {
     await this.handleAnimations("svg-diamond-animated-3");
     await this.handleAnimations("svg-diamond-animated-4");
     await this.handleAnimations("svg-diamond-animated-5");
+    this.setState({ sound: false });
   };
 
   getGame = () => {
+    const { gameName } = this.state;
+
     const appInfo = Cache.getFromCache("appInfo");
 
     if (appInfo) {
-      const game = find(appInfo.games, { name: this.state.game_name });
+      const game = find(appInfo.games, { name: gameName });
 
       this.setState({ ...this.state, game });
     }
@@ -277,7 +244,9 @@ class DiamondPage extends Component {
       isVisible2: false,
       isVisible3: false,
       isVisible4: false,
-      isVisible5: false
+      isVisible5: false,
+      sound: false,
+      soundResult: false
     });
   };
 
@@ -288,44 +257,15 @@ class DiamondPage extends Component {
     this.setState({ rollNumber, rollType });
   };
 
-  // handleBet = async ({ amount }) => {
-  //   try {
-  //     const { user } = this.context;
-  //     const { onHandleLoginOrRegister } = this.props;
-  //     const { rollNumber, rollType } = this.state;
-
-  //     this.setState({ disableControls: true });
-
-  //     if (!user || _.isEmpty(user)) return onHandleLoginOrRegister("register");
-
-  //     const res = await diceBet({
-  //       rollNumber,
-  //       rollType,
-  //       betAmount: amount,
-  //       user
-  //     });
-
-  //     this.setState({
-  //       result: res.result,
-  //       bet: res,
-  //       animating: true,
-  //       betObjectResult: res,
-  //       amount
-  //     });
-
-  //     return res;
-  //   } catch (err) {
-  //     return this.setState({ result: 0, disableControls: false });
-  //   }
-  // };
-
-  handleBet = async ({ amount }) => {
+  handleBetWithBack = async amount => {
     try {
       const { user } = this.context;
       const { onHandleLoginOrRegister } = this.props;
       const { game } = this.state;
 
-      if (!user || _.isEmpty(user)) return onHandleLoginOrRegister("register");
+      if (!user) return onHandleLoginOrRegister("register");
+
+      this.setState({ bet: true });
 
       const res = await diamondsBet({
         amount,
@@ -334,21 +274,51 @@ class DiamondPage extends Component {
       });
 
       this.setState({
-        result: res.result,
+        resultBack: res.result,
         bet: res,
         animating: true,
         betObjectResult: res,
         amount
       });
 
-      this.resetState();
-      this.setState({ disableControls: true });
+      return res;
+    } catch (err) {
+      return this.setState({
+        bet: false,
+        flipResult: 0,
+        inResultAnimation: false,
+        hasWon: false,
+        disableControls: false
+      });
+    }
+  };
 
+  userUpdateBalance = async () => {
+    const { profile } = this.props;
+    const { amount} = this.state;
+    const { userDelta } = this.state.betObjectResult;
+
+    await profile.updateBalance({ userDelta, amount });
+  };
+
+  handleBet = async ({ amount }) => {
+    try {
+      this.resetState();
+
+      const { user } = this.context;
+      const { onHandleLoginOrRegister } = this.props;
+
+      if (!user || _.isEmpty(user)) return onHandleLoginOrRegister("register");
+
+      this.setState({ disableControls: true });
       await this.generateRandomResult();
+      await this.handleBetWithBack(amount);
+
       await this.setResultIcons();
       this.setTest();
       this.setBottomBar();
       this.setActiveHover();
+      await this.userUpdateBalance();
       this.setState({ disableControls: false });
     } catch (err) {
       return this.setState({ result: 0, disableControls: false });
@@ -356,7 +326,7 @@ class DiamondPage extends Component {
   };
 
   getOptions = () => {
-    const { disableControls, rollType, rollNumber } = this.state;
+    const { disableControls, rollType, rollNumber, } = this.state;
     const { profile } = this.props;
 
     return (
@@ -387,26 +357,34 @@ class DiamondPage extends Component {
       isVisible2,
       isVisible3,
       isVisible4,
-      isVisible5
+      isVisible5,
+      sound,
+      soundResult,
+      betObjectResult
     } = this.state;
 
     return (
-      <DiamondGamePage
-        backendResult={backendResult}
-        isActiveBottomBar={isActiveBottomBar}
-        isHover={isHover}
-        isHover1={isHover1}
-        isHover2={isHover2}
-        isHover3={isHover3}
-        isHover4={isHover4}
-        isHover5={isHover5}
-        isHover6={isHover6}
-        isVisible1={isVisible1}
-        isVisible2={isVisible2}
-        isVisible3={isVisible3}
-        isVisible4={isVisible4}
-        isVisible5={isVisible5}
-      />
+      <>
+      {console.log(betObjectResult)};
+        {sound ? this.SoundComponent(DiamondSound) : null}
+        {soundResult ? this.SoundComponent(DiamondResult) : null}
+        <DiamondGamePage
+          backendResult={backendResult}
+          isActiveBottomBar={isActiveBottomBar}
+          isHover={isHover}
+          isHover1={isHover1}
+          isHover2={isHover2}
+          isHover3={isHover3}
+          isHover4={isHover4}
+          isHover5={isHover5}
+          isHover6={isHover6}
+          isVisible1={isVisible1}
+          isVisible2={isVisible2}
+          isVisible3={isVisible3}
+          isVisible4={isVisible4}
+          isVisible5={isVisible5}
+        />
+      </>
     );
   };
 
@@ -424,6 +402,12 @@ class DiamondPage extends Component {
     );
   }
 }
+
+DiamondPage.propTypes = {
+  profile: PropTypes.arrayOf.isRequired,
+  onHandleLoginOrRegister: PropTypes.objectOf.isRequired,
+  onTableDetails: PropTypes.objectOf.isRequired
+};
 
 function mapStateToProps(state) {
   return {
