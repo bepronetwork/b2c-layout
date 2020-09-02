@@ -8,7 +8,7 @@ export default async function bet({ amount, user, game_id }) {
     const result = new Array(7).fill(0).map((value, index) => {
       return {
         place: index,
-        value: amount
+        value: amount / 7
       };
     });
 

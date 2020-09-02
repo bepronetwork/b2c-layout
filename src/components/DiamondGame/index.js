@@ -26,7 +26,8 @@ class DiamondGame extends Component {
       isVisible2,
       isVisible3,
       isVisible4,
-      isVisible5
+      isVisible5,
+      profitAmount
     } = this.props;
 
     return (
@@ -131,13 +132,13 @@ class DiamondGame extends Component {
               <p styleName="text-result">0,00x</p>
             </div>
           </div>
-          {isHover ? handleCardResult("0px", "00000", "0.04") : null}
-          {isHover1 ? handleCardResult("40px", "00000", "1.25") : null}
-          {isHover2 ? handleCardResult("80px", "00000", "2.50") : null}
-          {isHover3 ? handleCardResult("120px", "00000", "12.49") : null}
-          {isHover4 ? handleCardResult("160px", "00000", "18.74") : null}
-          {isHover5 ? handleCardResult("180px", "00000", "49.98") : null}
-          {isHover6 ? handleCardResult("190px", "00000", "14.99") : null}
+          {isHover ? handleCardResult("0px", profitAmount, "0.04") : null}
+          {isHover1 ? handleCardResult("40px", profitAmount, "1.25") : null}
+          {isHover2 ? handleCardResult("80px", profitAmount, "2.50") : null}
+          {isHover3 ? handleCardResult("120px", profitAmount, "12.49") : null}
+          {isHover4 ? handleCardResult("160px", profitAmount, "18.74") : null}
+          {isHover5 ? handleCardResult("180px", profitAmount, "49.98") : null}
+          {isHover6 ? handleCardResult("190px", profitAmount, "14.99") : null}
         </div>
 
         <div styleName="container-center">
@@ -285,7 +286,8 @@ DiamondGame.propTypes = {
   isVisible2: PropTypes.bool.isRequired,
   isVisible3: PropTypes.bool.isRequired,
   isVisible4: PropTypes.bool.isRequired,
-  isVisible5: PropTypes.bool.isRequired
+  isVisible5: PropTypes.bool.isRequired,
+  profitAmount: PropTypes.number.isRequired
 };
 
 export default DiamondGame;

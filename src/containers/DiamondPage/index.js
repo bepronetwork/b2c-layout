@@ -20,6 +20,7 @@ class DiamondPage extends Component {
     result: null,
     resultBack: 0,
     disableControls: false,
+    winAmount: 0,
     rollNumber: 50,
     rollType: "under",
     bet: {},
@@ -246,7 +247,8 @@ class DiamondPage extends Component {
       isVisible4: false,
       isVisible5: false,
       sound: false,
-      soundResult: false
+      soundResult: false,
+      winAmount: 0
     });
   };
 
@@ -295,7 +297,7 @@ class DiamondPage extends Component {
 
   userUpdateBalance = async () => {
     const { profile } = this.props;
-    const { amount} = this.state;
+    const { amount } = this.state;
     const { userDelta } = this.state.betObjectResult;
 
     await profile.updateBalance({ userDelta, amount });
@@ -307,16 +309,18 @@ class DiamondPage extends Component {
 
       const { user } = this.context;
       const { onHandleLoginOrRegister } = this.props;
+      const { winAmount } = this.state.betObjectResult;
 
       if (!user || _.isEmpty(user)) return onHandleLoginOrRegister("register");
 
+      window.soundManager.setup({ debugMode: false });
       this.setState({ disableControls: true });
       await this.generateRandomResult();
       await this.handleBetWithBack(amount);
-
       await this.setResultIcons();
       this.setTest();
       this.setBottomBar();
+      this.setState({ winAmount });
       this.setActiveHover();
       await this.userUpdateBalance();
       this.setState({ disableControls: false });
@@ -326,7 +330,7 @@ class DiamondPage extends Component {
   };
 
   getOptions = () => {
-    const { disableControls, rollType, rollNumber, } = this.state;
+    const { disableControls, rollType, rollNumber } = this.state;
     const { profile } = this.props;
 
     return (
@@ -360,12 +364,11 @@ class DiamondPage extends Component {
       isVisible5,
       sound,
       soundResult,
-      betObjectResult
+      winAmount
     } = this.state;
 
     return (
       <>
-      {console.log(betObjectResult)};
         {sound ? this.SoundComponent(DiamondSound) : null}
         {soundResult ? this.SoundComponent(DiamondResult) : null}
         <DiamondGamePage
@@ -383,6 +386,7 @@ class DiamondPage extends Component {
           isVisible3={isVisible3}
           isVisible4={isVisible4}
           isVisible5={isVisible5}
+          profitAmount={winAmount}
         />
       </>
     );
