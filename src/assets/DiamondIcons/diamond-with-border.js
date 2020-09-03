@@ -1,9 +1,9 @@
 import React from "react";
 
-function diamondWithBorder({ color, styles }) {
+function diamondWithBorder({ color, styles, width }) {
   return (
     <svg
-      width="20"
+      width={width}
       height="20"
       viewBox="0 0 30 28"
       fill="none"

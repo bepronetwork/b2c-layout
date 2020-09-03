@@ -33,101 +33,173 @@ class DiamondGame extends Component {
     return (
       <div styleName="container">
         <div styleName="row-container">
-          <div styleName="column-container">
-            <div
-              styleName="result-container"
-              onMouseEnter={this.handleMouseEnter}
-            >
-              <div>
-                <DiamondFill color={isHover ? "white" : "#3A3A83"} />
-                <DiamondFill color={isHover ? "white" : "#3A3A83"} />
-                <DiamondFill color={isHover ? "white" : "#3A3A83"} />
-                <DiamondFill color={isHover ? "white" : "#3A3A83"} />
-                <DiamondFill color={isHover ? "white" : "#3A3A83"} />
-              </div>
+          <div styleName="column-container result-grid-container">
+            <div>
+              <div
+                styleName="result-container"
+                onMouseEnter={this.handleMouseEnter}
+              >
+                <div>
+                  <DiamondFill
+                    color={isHover ? "white" : "#3A3A83"}
+                    width="18%"
+                  />
+                  <DiamondFill
+                    color={isHover ? "white" : "#3A3A83"}
+                    width="18%"
+                  />
+                  <DiamondFill
+                    color={isHover ? "white" : "#3A3A83"}
+                    width="18%"
+                  />
+                  <DiamondFill
+                    color={isHover ? "white" : "#3A3A83"}
+                    width="18%"
+                  />
+                  <DiamondFill
+                    color={isHover ? "white" : "#3A3A83"}
+                    width="18%"
+                  />
+                </div>
 
-              <p styleName="text-result">50,00x</p>
+                <p styleName="text-result">50,00x</p>
+              </div>
+              <div
+                styleName="result-container"
+                onMouseEnter={this.handleMouseEnter1}
+              >
+                <div>
+                  <DiamondFill
+                    color={isHover1 ? "white" : "#3A3A83"}
+                    width="18%"
+                  />
+                  <DiamondFill
+                    color={isHover1 ? "white" : "#3A3A83"}
+                    width="18%"
+                  />
+                  <DiamondFill
+                    color={isHover1 ? "white" : "#3A3A83"}
+                    width="18%"
+                  />
+                  <DiamondFill
+                    color={isHover1 ? "white" : "#3A3A83"}
+                    width="18%"
+                  />
+                  <Diamond color="#0E0C1B" width="18%" />
+                </div>
+
+                <p styleName="text-result">5,00x</p>
+              </div>
+              <div
+                styleName="result-container"
+                onMouseEnter={this.handleMouseEnter2}
+              >
+                <div>
+                  <DiamondFill
+                    color={isHover2 ? "white" : "#3A3A83"}
+                    width="18%"
+                  />
+                  <DiamondFill
+                    color={isHover2 ? "white" : "#3A3A83"}
+                    width="18%"
+                  />
+                  <DiamondFill
+                    color={isHover2 ? "white" : "#3A3A83"}
+                    width="18%"
+                  />
+                  <DiamondWithBorder
+                    color={isHover2 ? "white" : "#3A3A83"}
+                    width="18%"
+                  />
+                  <DiamondWithBorder
+                    color={isHover2 ? "white" : "#3A3A83"}
+                    width="18%"
+                  />
+                </div>
+                <p styleName="text-result">4,00x</p>
+              </div>
             </div>
-            <div
-              styleName="result-container"
-              onMouseEnter={this.handleMouseEnter1}
-            >
-              <div>
-                <DiamondFill color={isHover1 ? "white" : "#3A3A83"} />
-                <DiamondFill color={isHover1 ? "white" : "#3A3A83"} />
-                <DiamondFill color={isHover1 ? "white" : "#3A3A83"} />
-                <DiamondFill color={isHover1 ? "white" : "#3A3A83"} />
-                <Diamond color="#0E0C1B" />
-              </div>
+            <div>
+              <div
+                styleName="result-container"
+                onMouseEnter={this.handleMouseEnter3}
+              >
+                <div>
+                  <DiamondFill
+                    color={isHover3 ? "white" : "#3A3A83"}
+                    width="18%"
+                  />
+                  <DiamondFill
+                    color={isHover3 ? "white" : "#3A3A83"}
+                    width="18%"
+                  />
+                  <DiamondFill
+                    color={isHover3 ? "white" : "#3A3A83"}
+                    width="18%"
+                  />
+                  <Diamond color="#0E0C1B" width="18%" />
+                  <Diamond color="#0E0C1B" width="18%" />
+                </div>
 
-              <p styleName="text-result">5,00x</p>
-            </div>
-            <div
-              styleName="result-container"
-              onMouseEnter={this.handleMouseEnter2}
-            >
-              <div>
-                <DiamondFill color={isHover2 ? "white" : "#3A3A83"} />
-                <DiamondFill color={isHover2 ? "white" : "#3A3A83"} />
-                <DiamondFill color={isHover2 ? "white" : "#3A3A83"} />
-                <DiamondWithBorder color={isHover2 ? "white" : "#3A3A83"} />
-                <DiamondWithBorder color={isHover2 ? "white" : "#3A3A83"} />
+                <p styleName="text-result">3,00x</p>
               </div>
+              <div
+                styleName="result-container"
+                onMouseEnter={this.handleMouseEnter4}
+              >
+                <div>
+                  <DiamondFill
+                    color={isHover4 ? "white" : "#3A3A83"}
+                    width="18%"
+                  />
+                  <DiamondFill
+                    color={isHover4 ? "white" : "#3A3A83"}
+                    width="18%"
+                  />
+                  <DiamondWithBorder
+                    color={isHover4 ? "white" : "#3A3A83"}
+                    width="18%"
+                  />
+                  <DiamondWithBorder
+                    color={isHover4 ? "white" : "#3A3A83"}
+                    width="18%"
+                  />
+                  <Diamond color="#0E0C1B" width="18%" />
+                </div>
 
-              <p styleName="text-result">4,00x</p>
-            </div>
-            <div
-              styleName="result-container"
-              onMouseEnter={this.handleMouseEnter3}
-            >
-              <div>
-                <DiamondFill color={isHover3 ? "white" : "#3A3A83"} />
-                <DiamondFill color={isHover3 ? "white" : "#3A3A83"} />
-                <DiamondFill color={isHover3 ? "white" : "#3A3A83"} />
-                <Diamond color="#0E0C1B" />
-                <Diamond color="#0E0C1B" />
+                <p styleName="text-result">0,10x</p>
               </div>
+              <div
+                styleName="result-container"
+                onMouseEnter={this.handleMouseEnter5}
+              >
+                <div>
+                  <DiamondFill
+                    color={isHover5 ? "white" : "#3A3A83"}
+                    width="18%"
+                  />
+                  <DiamondFill
+                    color={isHover5 ? "white" : "#3A3A83"}
+                    width="18%"
+                  />
+                  <Diamond color="#0E0C1B" width="18%" />
+                  <Diamond color="#0E0C1B" width="18%" />
+                  <Diamond color="#0E0C1B" width="18%" />
+                </div>
 
-              <p styleName="text-result">3,00x</p>
-            </div>
-            <div
-              styleName="result-container"
-              onMouseEnter={this.handleMouseEnter4}
-            >
-              <div>
-                <DiamondFill color={isHover4 ? "white" : "#3A3A83"} />
-                <DiamondFill color={isHover4 ? "white" : "#3A3A83"} />
-                <DiamondWithBorder color={isHover4 ? "white" : "#3A3A83"} />
-                <DiamondWithBorder color={isHover4 ? "white" : "#3A3A83"} />
-                <Diamond color="#0E0C1B" />
+                <p styleName="text-result">0,00x</p>
               </div>
-
-              <p styleName="text-result">0,10x</p>
-            </div>
-            <div
-              styleName="result-container"
-              onMouseEnter={this.handleMouseEnter5}
-            >
-              <div>
-                <DiamondFill color={isHover5 ? "white" : "#3A3A83"} />
-                <DiamondFill color={isHover5 ? "white" : "#3A3A83"} />
-                <Diamond color="#0E0C1B" />
-                <Diamond color="#0E0C1B" />
-                <Diamond color="#0E0C1B" />
-              </div>
-
-              <p styleName="text-result">0,00x</p>
             </div>
             <div
               styleName="result-container"
               onMouseEnter={this.handleMouseEnter6}
             >
               <div>
-                <Diamond color="#0E0C1B" />
-                <Diamond color="#0E0C1B" />
-                <Diamond color="#0E0C1B" />
-                <Diamond color="#0E0C1B" />
-                <Diamond color="#0E0C1B" />
+                <Diamond color="#0E0C1B" width="18%" />
+                <Diamond color="#0E0C1B" width="18%" />
+                <Diamond color="#0E0C1B" width="18%" />
+                <Diamond color="#0E0C1B" width="18%" />
+                <Diamond color="#0E0C1B" width="18%" />
               </div>
               <p styleName="text-result">0,00x</p>
             </div>

@@ -1,9 +1,9 @@
 import React from "react";
 
-function diamondFill({ fill, color, styles }) {
+function diamondFill({ fill, color, styles, width }) {
   return (
     <svg
-      width="20"
+      width={width}
       height="20"
       viewBox="0 0 30 28"
       fill={{ ...fill }}
