@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
 import { getProviders, getProvidersGames } from "../../lib/api/app";
 import { getSkeletonColors } from "../../lib/helpers";
+import InfiniteCarousel from 'react-leaf-carousel';
 import _ from 'lodash';
 import "./index.css";
 
@@ -149,30 +150,48 @@ class ThirdPartyGames extends Component {
                             </div>
                         </SkeletonTheme>
                     :
-                    <div styleName="container-small carousel">
-                        {
-                            providers.map(p => {
-                                return(
-                                    <div class={"col"} styleName="col">
-                                        <div styleName="root" onClick={() => this.onClickProvider(p._id)}>
-                                            <a>
-                                                <div>
-                                                    <img width="175" alt={p.name} src={p.logo} />
-                                                </div>
-                                            </a>
+                    <div styleName="carousel">
+                        <InfiniteCarousel
+                            breakpoints={[
+                            {
+                                breakpoint: 500,
+                                settings: {
+                                    slidesToShow: 2,
+                                    slidesToScroll: 1,
+                                },
+                            },
+                            {
+                                breakpoint: 768,
+                                settings: {
+                                    slidesToShow: 3,
+                                    slidesToScroll: 2,
+                                },
+                            },
+                            ]}
+                            dots={false}
+                            showSides={true}
+                            sidesOpacity={0.5}
+                            sideSize={0.1}
+                            slidesToScroll={2}
+                            slidesToShow={4}
+                            scrollOnDevice={true}
+                            >
+                            {
+                                providers.map(p => {
+                                    return(
+                                        <div class={"col"} styleName="col">
+                                            <div styleName="root" onClick={() => this.onClickProvider(p._id)}>
+                                                <a>
+                                                    <div>
+                                                        <img width="175" height="70" alt={p.name} src={p.logo} />
+                                                    </div>
+                                                </a>
+                                            </div>
                                         </div>
-                                    </div>
-                                )
-                            })
-                        }
-                        <a styleName="carousel-control-prev" href="#carousel-example" role="button" data-slide="prev">
-                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                            <span class="sr-only">Previous</span>
-                        </a>
-                        <a styleName="carousel-control-next" href="#carousel-example" role="button" data-slide="next">
-                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                            <span class="sr-only">Next</span>
-                        </a>
+                                    )
+                                })
+                            }
+                        </InfiniteCarousel>
                     </div>
                 }
                 </div>
