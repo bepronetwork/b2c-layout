@@ -167,7 +167,7 @@ class DiamondGame extends Component {
                   <Diamond color="#0E0C1B" width="18%" />
                 </div>
 
-                <p styleName="text-result">0,10x</p>
+                <p styleName="text-result">2,00x</p>
               </div>
               <div
                 styleName="result-container"
@@ -187,7 +187,7 @@ class DiamondGame extends Component {
                   <Diamond color="#0E0C1B" width="18%" />
                 </div>
 
-                <p styleName="text-result">0,00x</p>
+                <p styleName="text-result">0,10x</p>
               </div>
             </div>
             <div

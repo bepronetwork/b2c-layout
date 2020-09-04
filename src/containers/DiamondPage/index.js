@@ -380,11 +380,29 @@ class DiamondPage extends Component {
     }
   };
 
-  handleBetWithBack = async amount => {
+  userUpdateBalance = async () => {
+    const { profile } = this.props;
+    const { amount } = this.state;
+    const { userDelta } = this.state.betObjectResult;
+
+    await profile.updateBalance({ userDelta, amount });
+  };
+
+  handleBetAmountChange = ({ betAmount }) => {
+    this.setState({ betAmount });
+  };
+
+  handleBet = async ({ amount }) => {
     try {
+      this.resetState();
       const { user } = this.context;
       const { onHandleLoginOrRegister } = this.props;
       const { game } = this.state;
+
+      if (!user || _.isEmpty(user)) return onHandleLoginOrRegister("register");
+
+      window.soundManager.setup({ debugMode: false });
+      this.setState({ disableControls: true });
 
       if (!user) return onHandleLoginOrRegister("register");
 
@@ -405,39 +423,6 @@ class DiamondPage extends Component {
         amount
       });
 
-      return res;
-    } catch (err) {
-      return this.setState({
-        bet: false,
-        hasWon: false,
-        disableControls: false
-      });
-    }
-  };
-
-  userUpdateBalance = async () => {
-    const { profile } = this.props;
-    const { amount } = this.state;
-    const { userDelta } = this.state.betObjectResult;
-
-    await profile.updateBalance({ userDelta, amount });
-  };
-
-  handleBetAmountChange = ({ betAmount }) => {
-    this.setState({ betAmount });
-  };
-
-  handleBet = async ({ amount }) => {
-    try {
-      this.resetState();
-      const { user } = this.context;
-      const { onHandleLoginOrRegister } = this.props;
-
-      if (!user || _.isEmpty(user)) return onHandleLoginOrRegister("register");
-
-      window.soundManager.setup({ debugMode: false });
-      this.setState({ disableControls: true });
-      await this.handleBetWithBack(amount);
       await this.generateResult();
 
       await this.setResultIcons();
@@ -449,10 +434,32 @@ class DiamondPage extends Component {
       await this.userUpdateBalance();
 
       this.setState({ disableControls: false });
+
+      return res;
     } catch (err) {
-      return this.setState({ result: 0, disableControls: false });
-    }
+      return this.setState({
+        isActiveBottomBar: false,
+        backendResult: [],
+        isHover: false,
+        isHover1: false,
+        isHover2: false,
+        isHover3: false,
+        isHover4: false,
+        isHover5: false,
+        isHover6: true,
+        isVisible1: false,
+        isVisible2: false,
+        isVisible3: false,
+        isVisible4: false,
+        isVisible5: false,
+        sound: false,
+        soundResult: false,
+        winAmount: 0,
+        resultWinAmount: 0,
+        resultBack: 0
+        });
   };
+}
 
   getOptions = () => {
     const { disableControls } = this.state;
