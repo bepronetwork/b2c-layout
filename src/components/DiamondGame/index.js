@@ -204,13 +204,55 @@ class DiamondGame extends Component {
               <p styleName="text-result">0,00x</p>
             </div>
           </div>
-          {isHover ? handleCardResult("0px", profitAmount, "0.04") : null}
-          {isHover1 ? handleCardResult("40px", profitAmount, "1.25") : null}
-          {isHover2 ? handleCardResult("80px", profitAmount, "2.50") : null}
-          {isHover3 ? handleCardResult("120px", profitAmount, "12.49") : null}
-          {isHover4 ? handleCardResult("160px", profitAmount, "18.74") : null}
-          {isHover5 ? handleCardResult("180px", profitAmount, "49.98") : null}
-          {isHover6 ? handleCardResult("190px", profitAmount, "14.99") : null}
+          {isHover
+            ? handleCardResult(
+                "0px",
+                backendResult.length > 0 ? profitAmount : "0",
+                "0.04"
+              )
+            : null}
+          {isHover1
+            ? handleCardResult(
+                "40px",
+                backendResult.length > 0 ? profitAmount : "0",
+                "1.25"
+              )
+            : null}
+          {isHover2
+            ? handleCardResult(
+                "80px",
+                backendResult.length > 0 ? profitAmount : "0",
+                "2.50"
+              )
+            : null}
+          {isHover3
+            ? handleCardResult(
+                "120px",
+                backendResult.length > 0 ? profitAmount : "0",
+                "12.49"
+              )
+            : null}
+          {isHover4
+            ? handleCardResult(
+                "160px",
+                backendResult.length > 0 ? profitAmount : "0",
+                "18.74"
+              )
+            : null}
+          {isHover5
+            ? handleCardResult(
+                "180px",
+                backendResult.length > 0 ? profitAmount : "0",
+                "49.98"
+              )
+            : null}
+          {isHover6
+            ? handleCardResult(
+                "190px",
+                backendResult.length > 0 ? profitAmount : "0",
+                "14.99"
+              )
+            : null}
         </div>
 
         <div styleName="container-center">
