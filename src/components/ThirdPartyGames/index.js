@@ -2,8 +2,8 @@ import React, { Component } from "react";
 import { Typography } from 'components';
 import { connect } from "react-redux";
 import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
-import { getProviders, getProvidersGames } from "../../lib/api/app";
-import { getSkeletonColors } from "../../lib/helpers";
+import { getProvidersGames } from "../../lib/api/app";
+import { getSkeletonColors, getApp } from "../../lib/helpers";
 import InfiniteCarousel from 'react-leaf-carousel';
 import _ from 'lodash';
 import "./index.css";
@@ -33,7 +33,7 @@ class ThirdPartyGames extends Component {
     projectData = async (props) => {
         this.setState({ isLoading: true, isLoadingGames: true });
 
-        const providers = await getProviders();
+        const providers = getApp().casino_providers.filter(p => p.activated === true);
         const games = await getProvidersGames();
         
         this.formatGames(games);
