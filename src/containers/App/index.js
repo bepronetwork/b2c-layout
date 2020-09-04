@@ -644,7 +644,7 @@ class App extends Component {
                     )}
                     />
                 ) : null}
-                {this.isGameAvailable("keno_simple") ? (
+                {this.isGameAvailable("diamonds_simple") ? (
                     <Route
                     exact
                     path="/diamonds_simple"
