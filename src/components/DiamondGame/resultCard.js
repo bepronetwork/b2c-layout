@@ -6,7 +6,7 @@ const handleCardResult = (marginTop, profit, chance) => {
   return (
     <div styleName="result-container-right" style={{ marginTop }}>
       <div>
-        <p styleName="text-result">Lucro</p>
+        <p styleName="text-result">Profit</p>
         <div styleName="result-right">
           <p styleName="text-result">{profit}</p>
         </div>

@@ -75,9 +75,31 @@ class SlotsPage extends Component {
       Array.from({ length: cols }, () => Math.floor(Math.random() * 10))
     );
 
-  handleBetSend = async amount => {
+  userUpdateBalance = async () => {
+    const { profile } = this.props;
+    const { amount } = this.state;
+    const { userDelta } = this.state.betObjectResult;
+
+    await profile.updateBalance({ userDelta, amount });
+  };
+
+  handleBet = async ({ amount }) => {
     try {
       const { user } = this.context;
+      const { onHandleLoginOrRegister } = this.props;
+
+      if (!user) return onHandleLoginOrRegister("register");
+
+      this.setState({
+        line: false,
+        result: false,
+        soundIcon: false,
+        testBol: Array(5).fill(false),
+        insertionIndex: [],
+        insertIndex: [],
+        resultSound: false
+      });
+      this.setState({ disableControls: true });
 
       const res = await slotsBet({
         amount,
@@ -90,48 +112,29 @@ class SlotsPage extends Component {
         winAmount: res.winAmount.toFixed(8),
         resultMultiplier: (res.winAmount / res.betAmount).toFixed(2)
       });
+      this.setState({ soundReel: true });
 
-      return res;
+      await this.getcolumn();
+      await this.handleAnimations();
+      this.setState({ soundReel: false });
+      await this.setSound();
+      await this.handleImage(1000);
+      await this.handleResult();
+      await this.userUpdateBalance();
+      this.setState({ disableControls: false });
     } catch (err) {
-      return err;
+      return this.setState({
+        result: null,
+        resultSound: false,
+        line: false,
+        betObjectResult: {},
+        resultMultiplier: 0,
+        disableControls: false,
+        soundIcon: false,
+        soundReel: false,
+        testBol: Array(5).fill(false)
+      });
     }
-  };
-
-  userUpdateBalance = async () => {
-    const { profile } = this.props;
-    const { amount } = this.state;
-    const { userDelta } = this.state.betObjectResult;
-
-    await profile.updateBalance({ userDelta, amount });
-  };
-
-  handleBet = async ({ amount }) => {
-    const { user } = this.context;
-    const { onHandleLoginOrRegister } = this.props;
-
-    if (!user) return onHandleLoginOrRegister("register");
-
-    this.setState({
-      line: false,
-      result: false,
-      soundIcon: false,
-      testBol: Array(5).fill(false),
-      insertionIndex: [],
-      insertIndex: [],
-      resultSound: false
-    });
-    this.setState({ disableControls: true });
-    await this.handleBetSend(amount);
-    this.setState({ soundReel: true });
-
-    this.getcolumn();
-    await this.handleAnimations();
-    this.setState({ soundReel: false });
-    await this.setSound();
-    await this.handleImage(1000);
-    await this.handleResult();
-    await this.userUpdateBalance();
-    this.setState({ disableControls: false });
   };
 
   handleResult = async () => {
