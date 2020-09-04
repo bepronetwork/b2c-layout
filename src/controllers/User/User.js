@@ -11,7 +11,8 @@ import {
   userAuth,
   getCurrencyAddress,
   resendConfirmEmail,
-  getJackpotPot
+  getJackpotPot,
+  getProviderToken
 } from "lib/api/users";
 import { Numbers } from "../../lib/ethereum/lib";
 import Cache from "../../lib/cache/cache";
@@ -492,6 +493,24 @@ export default class User {
             }else{
                 return [];
             }
+      
+        }catch(err){
+            console.log(err)
+            throw err;
+        }
+    }
+
+    getProviderToken = async ({game_id, ticker}) => {
+        try {
+            if(!this.user_id){return []}
+            let res = await getProviderToken({     
+                app: this.app_id,        
+                user: this.user_id,
+                game_id,
+                ticker
+            }, this.bearerToken);
+
+            return await processResponse(res);
       
         }catch(err){
             console.log(err)

@@ -514,3 +514,23 @@ export async function getJackpotPot(params, bearerToken, payload) {
         throw err;
     }    
 }
+
+/**
+ *
+ * @param {*} params
+ * @param {*} bearerToken
+ * @name Get Token
+ * @use Third-party games token
+ */
+
+export async function getProviderToken(params, bearerToken, payload) {
+    try{
+        let res = await fetch(`${apiUrl}/api/app/provider/token`, {
+            method : 'POST',
+            headers : addSecurityHeader({bearerToken, payload :  payload || params.user}),
+            body : JSON.stringify(params)})
+        return res.json();
+    }catch(err){
+        throw err;
+    }    
+}

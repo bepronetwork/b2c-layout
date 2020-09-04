@@ -133,6 +133,7 @@ import SlotsGameOptions from './SlotsGameOptions';
 import SlotsGame from './SlotsGame';
 import JackpotPot from './JackpotPot';
 import SubSections from './SubSections';
+import ThirdPartyGames from './ThirdPartyGames';
 
 export { LegalBox };
 export { Authentication2FAModal };
@@ -269,3 +270,4 @@ export { SlotsGameOptions };
 export { SlotsGame };
 export { JackpotPot };
 export { SubSections };
+export { ThirdPartyGames };
