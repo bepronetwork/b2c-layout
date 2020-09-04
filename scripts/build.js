@@ -165,6 +165,8 @@ function generateCripsrIntegration(html){
 
         return html;
     }
+    
+    return html;
 }
 
 function hexToHsl(hex) {
