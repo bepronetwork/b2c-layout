@@ -164,7 +164,6 @@ function generateCripsrIntegration(html){
         html.child[0].child[1].child[titleIndex].child[0].text = content;
     }
     return html;
-
 }
 
 function hexToHsl(hex) {
