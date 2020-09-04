@@ -30,13 +30,9 @@ export default async function bet({ amount, user }) {
       outcomeResultSpace
     } = response.data.message;
 
-    console.log(response.data.message);
-
     const index = outcomeResultSpace.map(r => {
       return r.index;
     });
-
-    console.log(index);
 
     return {
       result: index,

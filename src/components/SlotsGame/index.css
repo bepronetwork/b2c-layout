@@ -174,16 +174,3 @@ body {
  
 
 }
-
-
-@media screen and (max-width: 1000px) {
-  .spinnerContainer {
-    transform: translate(-50%, -50%) scale(.55, .55);
-  }
-}
-
-@media screen and (max-width: 500px) {
-  .spinnerContainer {
-    transform: translate(-50%, -50%) scale(.4, .4);
-  }
-}

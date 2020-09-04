@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import propTypes from "prop-types";
 import { compose } from "lodash/fp";
 import { connect } from "react-redux";
-import { find, _ } from "lodash";
+import { find, result } from "lodash";
 
 import { SlotsGameOptions, SlotsGame } from "components";
 import GamePage from "containers/GamePage";
@@ -40,13 +40,12 @@ class SlotsPage extends Component {
     super(props);
     this.state = {
       result: null,
-      bet: false,
-      gameName: "Slots",
       gameStore: [],
       line: false,
+      betObjectResult: {},
       betAmount: 0,
-      result: null,
-      selectedChip: 0.01,
+      resultMultiplier: 0,
+      disableControls: false,
       betHistory: [],
       game: {
         edge: 0
@@ -55,7 +54,7 @@ class SlotsPage extends Component {
       soundIcon: false,
       soundReel: false,
       testBol: Array(5).fill(false),
-      testArray: [[12, 12, 12, 3, 12]],
+      testArray: [],
       resultFirstColumn: [],
       resultSecondColumn: [],
       resultThirstColumn: [],
@@ -87,14 +86,11 @@ class SlotsPage extends Component {
       });
 
       this.setState({
-        resultTest: res.result,
-        isWon: res.isWon,
-        bet: res,
+        testArray: res.result,
         betObjectResult: res,
-        winAmount: res.winAmount
+        winAmount: res.winAmount.toFixed(8),
+        resultMultiplier: (res.winAmount / res.betAmount).toFixed(2)
       });
-
-      console.log(res.result);
 
       return res;
     } catch (err) {
@@ -103,6 +99,13 @@ class SlotsPage extends Component {
   };
 
   handleBet = async ({ amount }) => {
+    const { profile } = this.props;
+    const { user } = this.context;
+    const { userDelta } = this.state.betObjectResult;
+    const { onHandleLoginOrRegister } = this.props;
+
+    if (!user) return onHandleLoginOrRegister("register");
+
     this.setState({
       line: false,
       result: false,
@@ -111,17 +114,18 @@ class SlotsPage extends Component {
       insertionIndex: [],
       insertIndex: []
     });
-
-    await this.handleBetSend();
+    this.setState({ disableControls: true });
+    await this.handleBetSend(amount);
     this.setState({ soundReel: true });
 
     this.getcolumn();
     await this.handleAnimations();
     this.setState({ soundReel: false });
-
     this.setSound();
     await this.handleImage(1000);
     await this.handleResult();
+    await profile.updateBalance({ userDelta });
+    this.setState({ disableControls: false });
   };
 
   handleResult = async () => {
@@ -157,13 +161,7 @@ class SlotsPage extends Component {
   };
 
   setSound = () => {
-    const { testArray } = this.state;
-
-    const testArr = testArray[0];
-
-    if (testArr[0] !== testArr[1]) {
-      this.setState({ soundIcon: false });
-    } else this.setState({ soundIcon: true });
+    this.setState({ soundIcon: true });
   };
 
   getcolumn = async () => {
@@ -204,7 +202,7 @@ class SlotsPage extends Component {
     const randNum3 = randomNumber(18, 20);
     const randNum4 = randomNumber(18, 20);
     const randNum5 = randomNumber(18, 20);
-    const testArr = testArray[0];
+    const testArr = testArray;
 
     resultFirstColumn.splice(randNum, 1, testArr[0]);
     resultSecondColumn.splice(randNum2, 1, testArr[1]);
@@ -222,9 +220,9 @@ class SlotsPage extends Component {
   handleIconAudio = () => {
     const { testArray } = this.state;
 
-    const testArr = testArray[0];
+    const testArr = testArray;
 
-    const switchCondit = testArr[0] && testArr[1];
+    const switchCondit = testArr[0];
 
     switch (switchCondit) {
       case 0:
@@ -260,34 +258,18 @@ class SlotsPage extends Component {
   };
 
   handleLine = () => {
-    const { testArray } = this.state;
-
-    const testArr = testArray[0];
-
-    if (testArr[0] !== testArr[1]) {
-      this.setState({ line: false });
-    } else this.setState({ line: true });
+    this.setState({ line: true });
   };
 
   handleImage = async setTimeOut => {
-    const { testArray, testBol, insertionIndex } = this.state;
+    const { isWon } = this.state.betObjectResult;
+    const { insertionIndex } = this.state;
 
-    const testArr = testArray[0];
-
-    let i = 0;
-
-    while (i < 5) {
-      if (testArr[0 + i] !== testArr[0 + (i + 1)]) {
-        break;
-      }
-
-      testBol[0 + i] = true;
-      testBol[0 + (i + 1)] = true;
-
-      i += 1;
+    if (isWon === true) {
+      this.setState({ testBol: Array(5).fill(true) });
     }
+
     this.handleLine();
-    this.setState({ testBol });
     this.setState({
       insertIndex: insertionIndex
     });
@@ -306,8 +288,7 @@ class SlotsPage extends Component {
   };
 
   handleBetAmountChange = betAmount => {
-    this.setState({ betAmount, bet: true });
-    console.log(betAmount);
+    this.setState({ betAmount });
   };
 
   renderGameCard = () => {
@@ -323,7 +304,9 @@ class SlotsPage extends Component {
       resultThirstColumn,
       resultFourthColumn,
       resultFiveColumn,
-      insertIndex
+      insertIndex,
+      winAmount,
+      resultMultiplier
     } = this.state;
 
     return (
@@ -342,13 +325,15 @@ class SlotsPage extends Component {
           resultFourthColumn={resultFourthColumn}
           resultFiveColumn={resultFiveColumn}
           insertIndex={insertIndex}
+          winAmount={winAmount}
+          multiplier={resultMultiplier}
         />
       </>
     );
   };
 
   renderGameOptions = () => {
-    const { bet } = this.state;
+    const { disableControls } = this.state;
     const { profile } = this.props;
 
     return (
@@ -358,7 +343,7 @@ class SlotsPage extends Component {
         game={this.state.game}
         profile={profile}
         doubleDownBet={this.doubleDownBet}
-        disableControls={bet}
+        disableControls={disableControls}
       />
     );
   };
@@ -382,7 +367,8 @@ class SlotsPage extends Component {
 
 SlotsPage.propTypes = {
   profile: propTypes.string.isRequired,
-  onTableDetails: propTypes.string.isRequired
+  onTableDetails: propTypes.string.isRequired,
+  onHandleLoginOrRegister: propTypes.func.isRequired
 };
 
 function mapStateToProps(state) {
