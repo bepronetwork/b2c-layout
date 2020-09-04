@@ -47,7 +47,7 @@ body {
   z-index: 3;
   align-self: center;
   height: 200px;
-  width: 600px;
+  width: 100%;
 }
 
 .rowContainer{
@@ -78,7 +78,7 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 250px;
+  width: 20%;
   margin-top: 60px;
 }
 
@@ -96,7 +96,7 @@ body {
   display: flex;
   overflow: hidden;
   height: 400px;
-  width: 470px;
+  width: 92%;
   top: 0px;
   left: 0px;
   padding: 20px 30px;
@@ -138,7 +138,7 @@ body {
   position: absolute;
   z-index: 1;
   align-self: center;
-  width: 455px;
+  width: 84%;
   height: 392px;
 }
 

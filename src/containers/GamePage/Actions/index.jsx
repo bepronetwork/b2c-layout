@@ -27,9 +27,6 @@ class Actions extends Component {
         const copy = CopyText.homepagegame[ln];
         const rulesLabel = copy.RULES;
         const limitsLabel = copy.LIMITS;
-        
-        console.log(game);
-
         let tableLimit;
         if(profile && !_.isEmpty(profile)){
             const wallet = currency ? profile.getWallet({currency}) : null;
