@@ -13,6 +13,7 @@ export default async function bet({ amount, user, game_id }) {
     });
 
     const response = await user.createBet({
+      amount,
       result,
       gameId: game._id
     });

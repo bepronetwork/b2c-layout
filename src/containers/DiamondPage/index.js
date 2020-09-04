@@ -30,6 +30,7 @@ class DiamondPage extends Component {
     game: {
       edge: 0
     },
+    betAmount: 0,
     betObjectResult: {},
     resultTest: null,
     backendResult: [],
@@ -350,15 +351,31 @@ class DiamondPage extends Component {
       sound: false,
       soundResult: false,
       winAmount: 0,
+      resultWinAmount: 0,
       resultBack: 0
     });
   };
 
-  handleRollAndRollTypeChange = (
-    rollNumber,
-    rollType = this.state.rollType
-  ) => {
-    this.setState({ rollNumber, rollType });
+  setWinAmount = async () => {
+    try {
+      const { user } = this.context;
+      const { onHandleLoginOrRegister } = this.props;
+      const { winAmount } = this.state;
+
+      if (!user) return onHandleLoginOrRegister("register");
+
+      this.setState({ bet: true });
+
+      this.setState({
+        resultWinAmount: winAmount.toFixed(8)
+      });
+    } catch (err) {
+      return this.setState({
+        bet: false,
+        hasWon: false,
+        disableControls: false
+      });
+    }
   };
 
   handleBetWithBack = async amount => {
@@ -382,6 +399,7 @@ class DiamondPage extends Component {
         bet: res,
         animating: true,
         betObjectResult: res,
+        winAmount: res.winAmount,
         amount
       });
 
@@ -389,8 +407,6 @@ class DiamondPage extends Component {
     } catch (err) {
       return this.setState({
         bet: false,
-        flipResult: 0,
-        inResultAnimation: false,
         hasWon: false,
         disableControls: false
       });
@@ -405,12 +421,15 @@ class DiamondPage extends Component {
     await profile.updateBalance({ userDelta, amount });
   };
 
+  handleBetAmountChange = ({ betAmount }) => {
+    this.setState({ betAmount });
+};
+
   handleBet = async ({ amount }) => {
     try {
       this.resetState();
       const { user } = this.context;
       const { onHandleLoginOrRegister } = this.props;
-      const { winAmount } = this.state.betObjectResult;
 
       if (!user || _.isEmpty(user)) return onHandleLoginOrRegister("register");
 
@@ -423,7 +442,7 @@ class DiamondPage extends Component {
 
       this.setTest();
       this.setBottomBar();
-      this.setState({ winAmount });
+      await this.setWinAmount();
       this.setActiveHover();
       await this.userUpdateBalance();
 
@@ -434,7 +453,7 @@ class DiamondPage extends Component {
   };
 
   getOptions = () => {
-    const { disableControls, rollType, rollNumber } = this.state;
+    const { disableControls } = this.state;
     const { profile } = this.props;
 
     return (
@@ -443,9 +462,7 @@ class DiamondPage extends Component {
         profile={profile}
         onBet={this.handleBet}
         game={this.state.game}
-        onChangeRollAndRollType={this.handleRollAndRollTypeChange}
-        rollType={rollType}
-        rollNumber={rollNumber}
+        onBetAmount={this.handleBetAmountChange}
       />
     );
   };
@@ -468,7 +485,7 @@ class DiamondPage extends Component {
       isVisible5,
       sound,
       soundResult,
-      winAmount
+      resultWinAmount
     } = this.state;
 
     return (
@@ -490,7 +507,7 @@ class DiamondPage extends Component {
           isVisible3={isVisible3}
           isVisible4={isVisible4}
           isVisible5={isVisible5}
-          profitAmount={winAmount}
+          profitAmount={resultWinAmount}
         />
       </>
     );
