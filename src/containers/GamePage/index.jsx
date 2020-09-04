@@ -104,60 +104,71 @@ class GamePage extends Component {
     }
 
     componentDidMount() {
-        window.scrollTo(0, 0)
+        window.scrollTo(0, 0);
     }
 
     render() {
-        const { options, game, gameMetaName, onTableDetails } = this.props;
+        const { profile, currency, ln, options, game, gameMetaName, onTableDetails, isThirdParty, providerToken, providerGameId, providerPartnerId, providerUrl } = this.props;
         const { soundMode } = this.state;
-
-        const { ln } = this.props;
         const copy = CopyText.homepagegame[ln];
 
-        if (_.isEmpty(gameMetaName)) return null;
+        if (_.isEmpty(gameMetaName) && isThirdParty != true) return null;
 
         return (
             <div styleName='main-container'>
-                {this.renderActions()}
-                <div styleName="root">
-                    <div styleName="container">
-                        <Row styleName="game-page-container">
-                            <Col lg={{ size: 9, order: 2}} styleName='card'>
-                                <div styleName="game">
-                                    {game}
-                                    {this.renderHistory()}
-                                </div>
+                {
+                    isThirdParty == true
+                    ?
+                        <div styleName="root">
+                            <iframe styleName="iframe" allowfullscreen="allowfullscreen" src={`${providerUrl}/game?token=${providerToken}&partner_id=${providerPartnerId}&player_id=${profile.id}&game_id=${providerGameId}&language=${ln}&currency=${currency.ticker}`}
+                            frameborder="0"></iframe>
+                            <div styleName="provider">
+                            </div>
+                        </div>
+                    :
+                    <div>
+                        {this.renderActions()}
+                        <div styleName="root">
+                            <div styleName="container">
+                                <Row styleName="game-page-container">
+                                    <Col lg={{ size: 9, order: 2}} styleName='card'>
+                                        <div styleName="game">
+                                            {game}
+                                            {this.renderHistory()}
+                                        </div>
 
-                            </Col>
-                            <Col lg={{ size: 3, order: 1}} styleName='options'>
-                                <div styleName="options-container">{options}</div>
-                            </Col>
-                        </Row>
-                    </div>
-                    <div styleName="buttons">
-                        <div styleName="actions">
-                            <ButtonIcon
-                                iconAtLeft
-                                icon="copy"
-                                label={copy.RULES}
-                                onClick={this.handleActionsModalOpen}
-                                soundMode={soundMode}
-                                theme="primary"
-                            />
+                                    </Col>
+                                    <Col lg={{ size: 3, order: 1}} styleName='options'>
+                                        <div styleName="options-container">{options}</div>
+                                    </Col>
+                                </Row>
+                            </div>
+                            <div styleName="buttons">
+                                <div styleName="actions">
+                                    <ButtonIcon
+                                        iconAtLeft
+                                        icon="copy"
+                                        label={copy.RULES}
+                                        onClick={this.handleActionsModalOpen}
+                                        soundMode={soundMode}
+                                        theme="primary"
+                                    />
+                                </div>
+                                <div styleName="sound">
+                                    <ButtonIcon
+                                        iconAtLeft
+                                        icon="sound"
+                                        label={copy.SOUND}
+                                        onClick={this.handleSounds}
+                                        soundMode={soundMode}
+                                        theme="primary"
+                                    />
+                                </div>
+                            </div>
                         </div>
-                        <div styleName="sound">
-                            <ButtonIcon
-                                iconAtLeft
-                                icon="sound"
-                                label={copy.SOUND}
-                                onClick={this.handleSounds}
-                                soundMode={soundMode}
-                                theme="primary"
-                            />
-                        </div>
+                        <LastBets gameMetaName={gameMetaName} onTableDetails={onTableDetails}/>
                     </div>
-                </div>
-                <LastBets gameMetaName={gameMetaName} onTableDetails={onTableDetails}/>
+                }
             </div>
         );
     }
@@ -166,7 +177,9 @@ class GamePage extends Component {
 function mapStateToProps(state){
     return {
         ln : state.language,
-        modal : state.modal
+        modal : state.modal,
+        profile : state.profile,
+        currency : state.currency
     };
 }
 

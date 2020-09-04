@@ -31,6 +31,7 @@ import WheelPage from "../WheelPage";
 import WheelVariation1 from "../WheelVariation1Page";
 import KenoPage from "../KenoPage";
 import DiamondPage from "../DiamondPage";
+import ThirdPartyGamePage from "../ThirdPartyGamePage";
 
 import { login, login2FA, logout, register } from "lib/api/users";
 import getAppInfo from "lib/api/app";
@@ -657,6 +658,17 @@ class App extends Component {
                     )}
                     />
                 ) : null}
+                <Route
+                    exact
+                    path="/casino/:providerGameId"
+                    render={props => (
+                        <ThirdPartyGamePage
+                        {...props}
+                        onHandleLoginOrRegister={this.handleLoginOrRegisterOpen}
+                        onTableDetails={this.handleTableDetailsOpen}
+                        />
+                    )}
+                    />
             </>
         )
     }
@@ -737,6 +749,7 @@ class App extends Component {
                                                         {...props}
                                                         onHandleLoginOrRegister={this.handleLoginOrRegisterOpen}
                                                         onTableDetails={this.handleTableDetailsOpen}
+                                                        history={history}
                                                     />
                                             
                                                 )}

@@ -133,6 +133,7 @@ import DiamondGamePage from './DiamondGame';
 import DiamondGameOptions from './DiamondGameOptions';
 import JackpotPot from './JackpotPot';
 import SubSections from './SubSections';
+import ThirdPartyGames from './ThirdPartyGames';
 
 export { LegalBox };
 export { Authentication2FAModal };
@@ -269,3 +270,4 @@ export { DiamondGamePage };
 export { DiamondGameOptions };
 export { JackpotPot };
 export { SubSections };
+export { ThirdPartyGames };
