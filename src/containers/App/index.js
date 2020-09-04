@@ -30,6 +30,9 @@ import RoulettePage from "containers/RoulettePage";
 import WheelPage from "../WheelPage";
 import WheelVariation1 from "../WheelVariation1Page";
 import KenoPage from "../KenoPage";
+import DiamondPage from "../DiamondPage";
+import ThirdPartyGamePage from "../ThirdPartyGamePage";
+import SlotsPage from "../SlotsPage";
 
 import { login, login2FA, logout, register } from "lib/api/users";
 import getAppInfo from "lib/api/app";
@@ -529,7 +532,7 @@ class App extends Component {
 
 
         let app = await getAppInfo();
-
+        console.log(app);
         Cache.setToCache("appInfo", app);
         this.setState({...this.state, app})
     };
@@ -643,6 +646,43 @@ class App extends Component {
                     )}
                     />
                 ) : null}
+                {this.isGameAvailable("diamonds_simple") ? (
+                    <Route
+                    exact
+                    path="/diamonds_simple"
+                    render={props => (
+                        <DiamondPage
+                        {...props}
+                        onHandleLoginOrRegister={this.handleLoginOrRegisterOpen}
+                        onTableDetails={this.handleTableDetailsOpen}
+                        />
+                    )}
+                    />
+                ) : null}
+                {this.isGameAvailable("slots_simple") ? (
+                    <Route
+                    exact
+                    path="/slots_simple"
+                    render={props => (
+                        <SlotsPage
+                        {...props}
+                        onHandleLoginOrRegister={this.handleLoginOrRegisterOpen}
+                        onTableDetails={this.handleTableDetailsOpen}
+                        />
+                    )}
+                    />
+                ) : null}
+                <Route
+                    exact
+                    path="/casino/:providerGameId"
+                    render={props => (
+                        <ThirdPartyGamePage
+                        {...props}
+                        onHandleLoginOrRegister={this.handleLoginOrRegisterOpen}
+                        onTableDetails={this.handleTableDetailsOpen}
+                        />
+                    )}
+                    />
             </>
         )
     }
@@ -675,7 +715,7 @@ class App extends Component {
         });
 
         const topStyles = classNames("top-bars", {
-            "top-bars-transparent": topTab.isTransparent == true
+            "top-bars-transparent": _.isEmpty(topTab) ? false : topTab.isTransparent == true
         });
 
         return (
@@ -723,6 +763,7 @@ class App extends Component {
                                                         {...props}
                                                         onHandleLoginOrRegister={this.handleLoginOrRegisterOpen}
                                                         onTableDetails={this.handleTableDetailsOpen}
+                                                        history={history}
                                                     />
                                             
                                                 )}

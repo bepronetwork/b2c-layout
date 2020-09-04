@@ -75,10 +75,10 @@ class Navbar extends Component {
                     user    : user,
                     userFullAddress : user.getAddress(),
                     userAddress : user.getAddress() ? AddressConcat(user.getAddress()) : defaultProps.userAddress,
-                    isTransparent: topTab.isTransparent
+                    isTransparent: _.isEmpty(topTab) ? false : topTab.isTransparent
                 })
             }else{
-                this.setState({user : null, isTransparent: topTab.isTransparent})
+                this.setState({user : null, isTransparent: _.isEmpty(topTab) ? false : topTab.isTransparent})
             }
         }catch(err){
             console.log(err)
@@ -190,7 +190,7 @@ class Navbar extends Component {
                                         !_.isEmpty(logoPoints)
                                         ?
                                             <div styleName="currency-icon">
-                                                <img src={logoPoints} width={20}/>
+                                                <img src={logoPoints} height={20}/>
                                             </div>
                                         :
                                             null
@@ -271,11 +271,16 @@ class Navbar extends Component {
 
         return(
             <div styleName="language-profile">
-                {this.renderLanguageSelector()}
                 {user ?
-                    [this.renderSettings(), this.renderProfileMenu()]
+                    this.renderProfileMenu()
                 :
                     this.renderLoginOrRegister()
+                }
+                {this.renderLanguageSelector()}
+                {user ?
+                    this.renderSettings()
+                :
+                    null
                 }
             </div>
         )
