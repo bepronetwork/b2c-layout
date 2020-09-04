@@ -162,9 +162,9 @@ function generateCripsrIntegration(html){
         const content = `window.$crisp=[];window.CRISP_WEBSITE_ID="${cripsr.key}";(function(){d=document;s=d.createElement("script");s.src="https://client.crisp.chat/l.js";s.async=1;d.getElementsByTagName("head")[0].appendChild(s);})();`;
         let titleIndex = html.child[0].child[1].child.findIndex( c => c.tag && (c.tag.toLowerCase() == 'script') && (c.attr && c.attr.id == 'cripsr'));
         html.child[0].child[1].child[titleIndex].child[0].text = content;
-
-        return html;
     }
+
+    return html;
 }
 
 function hexToHsl(hex) {
