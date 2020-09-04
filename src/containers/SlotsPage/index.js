@@ -343,10 +343,10 @@ class SlotsPage extends Component {
 
     return (
       <SlotsGameOptions
+        onBetAmount={this.handleBetAmountChange}
         onBet={this.handleBet}
         game={this.state.game}
         profile={profile}
-        doubleDownBet={this.doubleDownBet}
         disableControls={disableControls}
       />
     );

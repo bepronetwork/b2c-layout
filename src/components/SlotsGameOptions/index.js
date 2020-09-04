@@ -12,26 +12,21 @@ import {
 import betSound from "assets/bet-sound.mp3";
 import Sound from "react-sound";
 import Dice from "components/Icons/Dice";
-import delay from "delay";
 import _ from "lodash";
 import { connect } from "react-redux";
-import { Numbers } from "../../lib/ethereum/lib";
+import delay from "delay";
 import { CopyText } from "../../copy";
 import { isUserSet } from "../../lib/helpers";
+import { Numbers } from "../../lib/ethereum/lib";
+
 import "./index.css";
 
-class WheelGameOptions extends Component {
+class KenoGameOptions extends Component {
   static contextType = UserContext;
 
   static propTypes = {
     onBet: PropTypes.func.isRequired,
-    disableControls: PropTypes.bool,
-    rollType: PropTypes.number.isRequired,
-    rollNumber: PropTypes.number.isRequired
-  };
-
-  static defaultProps = {
-    disableControls: false
+    disableControls: PropTypes.bool
   };
 
   constructor(props) {
@@ -58,7 +53,6 @@ class WheelGameOptions extends Component {
   isBetValid = () => {
     const { user } = this.context;
     const { disableControls } = this.props;
-
     const { amount } = this.state;
 
     return (amount > 0 && !disableControls) || !user;
@@ -160,26 +154,34 @@ class WheelGameOptions extends Component {
               (profitStop == 0 || totalProfit <= profitStop) && // Stop Profit
               (lossStop == 0 || totalLoss <= lossStop) // Stop Loss
             ) {
-              await delay(5 * 1000);
-              const { winAmount } = await this.betAction({ amount: betAmount });
+              await delay(1.5 * 1000);
+              const res = await this.betAction({ amount: betAmount });
 
-              totalProfit += winAmount - betAmount;
-              totalLoss += winAmount == 0 ? -Math.abs(betAmount) : 0;
-              wasWon = winAmount != 0;
-              lastBet = betAmount;
+              if (!_.isEmpty(res)) {
+                const { winAmount } = res;
 
-              if (onWin && wasWon) {
-                betAmount += Numbers.toFloat((betAmount * onWin) / 100);
-              }
+                totalProfit += winAmount - betAmount;
+                totalLoss += winAmount == 0 ? -Math.abs(betAmount) : 0;
+                wasWon = winAmount != 0;
+                lastBet = betAmount;
 
-              if (onLoss && !wasWon) {
-                betAmount += Numbers.toFloat((betAmount * onLoss) / 100);
+                if (onWin && wasWon) {
+                  betAmount += Numbers.toFloat((betAmount * onWin) / 100);
+                }
+
+                if (onLoss && !wasWon) {
+                  betAmount += Numbers.toFloat((betAmount * onLoss) / 100);
+                }
+              } else {
+                break;
               }
             }
           }
           this.setState({ isAutoBetting: false });
           break;
         }
+        default:
+          break;
       }
     }
 
@@ -187,9 +189,13 @@ class WheelGameOptions extends Component {
   };
 
   handleBetAmountChange = value => {
+    const { onBetAmount } = this.props;
+
     this.setState({
       amount: value
     });
+
+    onBetAmount(value);
   };
 
   handleOnWin = value => {
@@ -215,7 +221,7 @@ class WheelGameOptions extends Component {
   renderAuto = () => {
     const { bets, profitStop, lossStop, onWin, onLoss } = this.state;
     const { ln } = this.props;
-    const copy = CopyText.wheelGameOptionsIndex[ln];
+    const copy = CopyText.plinkoGameOptionsIndex[ln];
 
     return (
       <div>
@@ -268,52 +274,8 @@ class WheelGameOptions extends Component {
     );
   };
 
-  getPayout = () => {
-    const { rollNumber, rollType } = this.props;
-    let payout = 0;
-
-    const middlePayout = 2;
-    const middleRoll = 50;
-
-    if (rollNumber === middleRoll) {
-      payout = middlePayout;
-    } else {
-      payout =
-        rollType === "over"
-          ? (middleRoll * middlePayout) / (100 - rollNumber)
-          : (middleRoll * middlePayout) / rollNumber;
-    }
-
-    const winEdge = (100 - this.state.edge) / 100;
-
-    payout *= winEdge;
-
-    return Numbers.toFloat(payout);
-  };
-
-  renderManual = () => {
-    const { amount } = this.state;
-    const { ln } = this.props;
-    const copy = CopyText.wheelGameOptionsIndex[ln];
-
-    return (
-      <div>
-        <div styleName="element">
-          <InputNumber
-            name="win-profit"
-            title={copy.INDEX.INPUT_NUMBER.TITLE[2]}
-            icon="bitcoin"
-            precision={2}
-            disabled
-            value={Numbers.toFloat(amount * (this.getPayout() - 1))}
-          />
-        </div>
-      </div>
-    );
-  };
-
   handleMultiply = value => {
-    const { profile } = this.props;
+    const { profile, onBetAmount } = this.props;
     const { amount } = this.state;
     let newAmount = amount;
 
@@ -340,22 +302,14 @@ class WheelGameOptions extends Component {
     }
 
     this.setState({ amount: newAmount });
+    onBetAmount(newAmount);
   };
 
   render() {
     const { type, amount, isAutoBetting } = this.state;
-    const { ln } = this.props;
-
     const user = this.props.profile;
-    let balance;
-    const copy = CopyText.shared[ln];
-    const copy2 = CopyText.wheelGameOptionsIndex[ln];
-
-    if (!user || _.isEmpty(user)) {
-      balance = 0;
-    } else {
-      balance = user.getBalance();
-    }
+    const { ln } = this.props;
+    const copy = CopyText.kenoGameOptionsIndex[ln];
 
     return (
       <div styleName="root">
@@ -363,8 +317,11 @@ class WheelGameOptions extends Component {
         <div styleName="toggle">
           <ToggleButton
             config={{
-              left: { value: "manual", title: copy.MANUAL_NAME },
-              right: { value: "auto", title: copy.AUTO_NAME }
+              left: {
+                value: "manual",
+                title: copy.INDEX.TOGGLE_BUTTON.TITLE[0]
+              },
+              right: { value: "auto", title: copy.INDEX.TOGGLE_BUTTON.TITLE[1] }
             }}
             selected={type}
             size="full"
@@ -375,13 +332,13 @@ class WheelGameOptions extends Component {
         <div styleName="bet-properties">
           <div styleName="amount">
             <Typography variant="small-body" weight="semi-bold" color="casper">
-              {copy2.INDEX.TYPOGRAPHY.TEXT[0]}
+              {copy.INDEX.TYPOGRAPHY.TEXT[0]}
             </Typography>
             <div styleName="amount-container">
               <InputNumber
                 name="amount"
                 value={amount}
-                max={user ? balance : null}
+                max={user && !_.isEmpty(user) ? user.getBalance() : null}
                 step={0.01}
                 icon="bitcoin"
                 precision={2}
@@ -389,21 +346,23 @@ class WheelGameOptions extends Component {
               />
               <MultiplyMaxButton onSelect={this.handleMultiply} />
             </div>
+            <div styleName="content">
+              {type === "manual" ? null : this.renderAuto()}
+            </div>
           </div>
-          <div styleName="content">
-            {type === "manual" ? null : this.renderAuto()}
-          </div>
+
           <div styleName="button">
             <Button
               disabled={!this.isBetValid() || this.isInAutoBet()}
               onClick={this.handleBet}
               fullWidth
               theme="primary"
+              animation={<Dice />}
             >
               <Typography weight="semi-bold" color="pickled-bluewood">
                 {type === "manual"
-                  ? copy2.INDEX.TYPOGRAPHY.TEXT[1]
-                  : copy2.INDEX.TYPOGRAPHY.TEXT[2]}
+                  ? copy.INDEX.TYPOGRAPHY.TEXT[1]
+                  : copy.INDEX.TYPOGRAPHY.TEXT[2]}
               </Typography>
             </Button>
           </div>
@@ -415,8 +374,9 @@ class WheelGameOptions extends Component {
 
 function mapStateToProps(state) {
   return {
+    profile: state.profile,
     ln: state.language
   };
 }
 
-export default connect(mapStateToProps)(WheelGameOptions);
+export default connect(mapStateToProps)(KenoGameOptions);
