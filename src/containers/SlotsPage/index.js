@@ -29,7 +29,7 @@ import {
   renderSounds,
   handleAnimation,
   randomNumber
-} from "../../lib/helpers/SlotsHelpers";
+} from "../../lib/helpers/slotsHelpers";
 
 import Cache from "../../lib/cache/cache";
 

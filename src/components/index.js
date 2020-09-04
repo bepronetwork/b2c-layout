@@ -134,6 +134,8 @@ import DiamondGameOptions from './DiamondGameOptions';
 import JackpotPot from './JackpotPot';
 import SubSections from './SubSections';
 import ThirdPartyGames from './ThirdPartyGames';
+import SlotsGame from './SlotsGame';
+import SlotsGameOptions from './SlotsGameOptions';
 
 export { LegalBox };
 export { Authentication2FAModal };
@@ -271,3 +273,5 @@ export { DiamondGameOptions };
 export { JackpotPot };
 export { SubSections };
 export { ThirdPartyGames };
+export { SlotsGame };
+export { SlotsGameOptions };

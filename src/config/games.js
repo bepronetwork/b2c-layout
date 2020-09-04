@@ -25,5 +25,8 @@ export default [
   },
   {
     metaName: "diamonds_simple"
+  },
+  {
+    metaName: "slots_simple"
   }
 ];

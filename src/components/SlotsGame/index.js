@@ -1,7 +1,6 @@
 import React from "react";
 import propTypes from "prop-types";
 
-import { prop } from "lodash/fp";
 import styles from "./index.css";
 import { images } from "./images";
 import HandleLines from "../SlotsLines/Lines";
