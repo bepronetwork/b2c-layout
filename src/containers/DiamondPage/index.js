@@ -234,11 +234,13 @@ class DiamondPage extends Component {
             this.randBetween(2, 3),
             this.randBetween(3, 4),
             this.randBetween(4, 6)
-          ]
+          ].sort(() => Math.random() - 0.5)
         });
       case 1:
         return this.setState({
-          backendResult: [result1, result1, result3, result4, result5]
+          backendResult: [result1, result1, result3, result4, result5].sort(
+            () => Math.random() - 0.5
+          )
         });
       case 2:
         return this.setState({
@@ -248,7 +250,7 @@ class DiamondPage extends Component {
             result2,
             result1,
             result2
-          ]
+          ].sort(() => Math.random() - 0.5)
         });
       case 3:
         return this.setState({
@@ -258,7 +260,7 @@ class DiamondPage extends Component {
             resultest1,
             resultest,
             resultest2
-          ]
+          ].sort(() => Math.random() - 0.5)
         });
       case 4:
         return this.setState({
@@ -268,7 +270,7 @@ class DiamondPage extends Component {
             resultTest,
             resultTest2,
             resultTest
-          ]
+          ].sort(() => Math.random() - 0.5)
         });
       case 5:
         return this.setState({
@@ -278,7 +280,7 @@ class DiamondPage extends Component {
             result1,
             this.randBetween(3, 6),
             result1
-          ]
+          ].sort(() => Math.random() - 0.5)
         });
       case 6:
         return this.setState({
@@ -288,7 +290,7 @@ class DiamondPage extends Component {
             resultEqual,
             resultEqual,
             resultEqual
-          ]
+          ].sort(() => Math.random() - 0.5)
         });
       default:
         break;
@@ -423,7 +425,7 @@ class DiamondPage extends Component {
 
   handleBetAmountChange = ({ betAmount }) => {
     this.setState({ betAmount });
-};
+  };
 
   handleBet = async ({ amount }) => {
     try {
