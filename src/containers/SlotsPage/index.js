@@ -40,12 +40,12 @@ class SlotsPage extends Component {
     super(props);
     this.state = {
       result: null,
+      resultSound: false,
       gameStore: [],
       line: false,
       betObjectResult: {},
       resultMultiplier: 0,
       disableControls: false,
-      betHistory: [],
       game: {
         edge: 0
       },
@@ -117,7 +117,8 @@ class SlotsPage extends Component {
       soundIcon: false,
       testBol: Array(5).fill(false),
       insertionIndex: [],
-      insertIndex: []
+      insertIndex: [],
+      resultSound: false
     });
     this.setState({ disableControls: true });
     await this.handleBetSend(amount);
@@ -126,7 +127,7 @@ class SlotsPage extends Component {
     this.getcolumn();
     await this.handleAnimations();
     this.setState({ soundReel: false });
-    this.setSound();
+    await this.setSound();
     await this.handleImage(1000);
     await this.handleResult();
     await this.userUpdateBalance();
@@ -162,10 +163,10 @@ class SlotsPage extends Component {
   };
 
   setResult = async () => {
-    this.setState({ result: true });
+    this.setState({ result: true, resultSound: true });
   };
 
-  setSound = () => {
+  setSound = async () => {
     this.setState({ soundIcon: true });
   };
 
@@ -293,7 +294,7 @@ class SlotsPage extends Component {
   };
 
   handleBetAmountChange = betAmount => {
-    this.setState({ betAmount });
+    this.setState({ betAmount, soundIcon: false, resultSound: false });
   };
 
   renderGameCard = () => {
@@ -304,6 +305,7 @@ class SlotsPage extends Component {
       result,
       soundIcon,
       soundReel,
+      resultSound,
       resultFirstColumn,
       resultSecondColumn,
       resultThirstColumn,
@@ -318,7 +320,7 @@ class SlotsPage extends Component {
       <>
         {soundReel ? renderSounds(Reel) : null}
         {soundIcon ? this.handleIconAudio() : null}
-        {result ? renderSounds(Result) : null}
+        {resultSound ? renderSounds(Result) : null}
         <SlotsGame
           testBol={testBol}
           line={line}
