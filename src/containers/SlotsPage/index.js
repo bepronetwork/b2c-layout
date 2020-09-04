@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import propTypes from "prop-types";
 import { compose } from "lodash/fp";
 import { connect } from "react-redux";
-import { find, result } from "lodash";
+import { find } from "lodash";
 
 import { SlotsGameOptions, SlotsGame } from "components";
 import GamePage from "containers/GamePage";
@@ -43,7 +43,6 @@ class SlotsPage extends Component {
       gameStore: [],
       line: false,
       betObjectResult: {},
-      betAmount: 0,
       resultMultiplier: 0,
       disableControls: false,
       betHistory: [],
@@ -98,10 +97,16 @@ class SlotsPage extends Component {
     }
   };
 
-  handleBet = async ({ amount }) => {
+  userUpdateBalance = async () => {
     const { profile } = this.props;
-    const { user } = this.context;
+    const { amount } = this.state;
     const { userDelta } = this.state.betObjectResult;
+
+    await profile.updateBalance({ userDelta, amount });
+  };
+
+  handleBet = async ({ amount }) => {
+    const { user } = this.context;
     const { onHandleLoginOrRegister } = this.props;
 
     if (!user) return onHandleLoginOrRegister("register");
@@ -124,7 +129,7 @@ class SlotsPage extends Component {
     this.setSound();
     await this.handleImage(1000);
     await this.handleResult();
-    await profile.updateBalance({ userDelta });
+    await this.userUpdateBalance();
     this.setState({ disableControls: false });
   };
 
@@ -339,7 +344,6 @@ class SlotsPage extends Component {
     return (
       <SlotsGameOptions
         onBet={this.handleBet}
-        onChangeChip={this.handleChangeChip}
         game={this.state.game}
         profile={profile}
         doubleDownBet={this.doubleDownBet}
