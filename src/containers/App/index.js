@@ -32,6 +32,7 @@ import WheelVariation1 from "../WheelVariation1Page";
 import KenoPage from "../KenoPage";
 import DiamondPage from "../DiamondPage";
 import ThirdPartyGamePage from "../ThirdPartyGamePage";
+import SlotsPage from "../SlotsPage";
 
 import { login, login2FA, logout, register } from "lib/api/users";
 import getAppInfo from "lib/api/app";
@@ -651,6 +652,19 @@ class App extends Component {
                     path="/diamonds_simple"
                     render={props => (
                         <DiamondPage
+                        {...props}
+                        onHandleLoginOrRegister={this.handleLoginOrRegisterOpen}
+                        onTableDetails={this.handleTableDetailsOpen}
+                        />
+                    )}
+                    />
+                ) : null}
+                {this.isGameAvailable("slots_simple") ? (
+                    <Route
+                    exact
+                    path="/slots_simple"
+                    render={props => (
+                        <SlotsPage
                         {...props}
                         onHandleLoginOrRegister={this.handleLoginOrRegisterOpen}
                         onTableDetails={this.handleTableDetailsOpen}
