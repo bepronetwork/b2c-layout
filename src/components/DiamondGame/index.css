@@ -60,7 +60,13 @@
   font-size: 14px;
   background: transparent;
   width: 120px;
-  outline: none;
+}
+
+.text-result-percent{
+  font-family: $font-family;
+  color: white;
+  font-weight: bold;
+  font-size: 14px;
 }
 
 .container-center{

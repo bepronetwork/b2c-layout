@@ -15,7 +15,7 @@ const handleCardResult = (marginTop, profit, chance) => {
         <p styleName="text-result">Probability</p>
         <div styleName="result-right">
           <p styleName="text-result">{`${chance}`}</p>
-          <p styleName="text-result">%</p>
+          <p styleName="text-result-percent">%</p>
         </div>
       </div>
     </div>
