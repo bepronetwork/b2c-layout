@@ -473,7 +473,8 @@ class DiamondPage extends Component {
       isHover3: false,
       isHover4: false,
       isHover5: false,
-      isHover6: false
+      isHover6: false,
+      soundResult: false
     });
   };
 
@@ -485,7 +486,8 @@ class DiamondPage extends Component {
       isHover3: false,
       isHover4: false,
       isHover5: false,
-      isHover6: false
+      isHover6: false,
+      soundResult: false
     });
   };
 
@@ -497,7 +499,8 @@ class DiamondPage extends Component {
       isHover3: false,
       isHover4: false,
       isHover5: false,
-      isHover6: false
+      isHover6: false,
+      soundResult: false
     });
   };
 
@@ -509,7 +512,8 @@ class DiamondPage extends Component {
       isHover3: true,
       isHover4: false,
       isHover5: false,
-      isHover6: false
+      isHover6: false,
+      soundResult: false
     });
   };
 
@@ -521,7 +525,8 @@ class DiamondPage extends Component {
       isHover3: false,
       isHover4: true,
       isHover5: false,
-      isHover6: false
+      isHover6: false,
+      soundResult: false
     });
   };
 
@@ -533,7 +538,8 @@ class DiamondPage extends Component {
       isHover3: false,
       isHover4: false,
       isHover5: true,
-      isHover6: false
+      isHover6: false,
+      soundResult: false
     });
   };
 
@@ -545,7 +551,8 @@ class DiamondPage extends Component {
       isHover3: false,
       isHover4: false,
       isHover5: false,
-      isHover6: true
+      isHover6: true,
+      soundResult: false
     });
   };
 

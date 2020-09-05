@@ -46,6 +46,11 @@ class DiamondGame extends Component {
               <div
                 styleName="result-container"
                 onMouseEnter={handleMouseEnter}
+                style={
+                  isHover
+                    ? { backgroundColor: "#3A3A83" }
+                    : { backgroundColor: "rgb(29, 26, 55)" }
+                }
               >
                 <div>
                   <DiamondFill
@@ -76,6 +81,11 @@ class DiamondGame extends Component {
               <div
                 styleName="result-container"
                 onMouseEnter={handleMouseEnter1}
+                color={
+                  isHover1
+                    ? { backgroundColor: "#3A3A83" }
+                    : { backgroundColor: "rgb(29, 26, 55)" }
+                }
               >
                 <div>
                   <DiamondFill
@@ -104,6 +114,11 @@ class DiamondGame extends Component {
               <div
                 styleName="result-container"
                 onMouseEnter={handleMouseEnter2}
+                style={
+                  isHover2
+                    ? { backgroundColor: "#3A3A83" }
+                    : { backgroundColor: "rgb(29, 26, 55)" }
+                }
               >
                 <div>
                   <DiamondFill
@@ -136,6 +151,11 @@ class DiamondGame extends Component {
               <div
                 styleName="result-container"
                 onMouseEnter={handleMouseEnter3}
+                style={
+                  isHover3
+                    ? { backgroundColor: "#3A3A83" }
+                    : { backgroundColor: "rgb(29, 26, 55)" }
+                }
               >
                 <div>
                   <DiamondFill
@@ -161,6 +181,11 @@ class DiamondGame extends Component {
               <div
                 styleName="result-container"
                 onMouseEnter={handleMouseEnter4}
+                style={
+                  isHover4
+                    ? { backgroundColor: "#3A3A83" }
+                    : { backgroundColor: "rgb(29, 26, 55)" }
+                }
               >
                 <div>
                   <DiamondFill
@@ -189,6 +214,11 @@ class DiamondGame extends Component {
               <div
                 styleName="result-container"
                 onMouseEnter={handleMouseEnter5}
+                style={
+                  isHover5
+                    ? { backgroundColor: "#3A3A83" }
+                    : { backgroundColor: "rgb(29, 26, 55)" }
+                }
               >
                 <div>
                   <DiamondFill
@@ -209,7 +239,15 @@ class DiamondGame extends Component {
                 </p>
               </div>
             </div>
-            <div styleName="result-container" onMouseEnter={handleMouseEnter6}>
+            <div
+              styleName="result-container"
+              onMouseEnter={handleMouseEnter6}
+              style={
+                isHover6
+                  ? { backgroundColor: "#3A3A83" }
+                  : { backgroundColor: "rgb(29, 26, 55)" }
+              }
+            >
               <div>
                 <Diamond color="#0E0C1B" width="18%" />
                 <Diamond color="#0E0C1B" width="18%" />
