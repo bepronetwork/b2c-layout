@@ -58,6 +58,9 @@
   color: white;
   font-weight: bold;
   font-size: 14px;
+  background: transparent;
+  width: 120px;
+  outline: none;
 }
 
 .container-center{

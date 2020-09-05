@@ -48,7 +48,8 @@ class DiamondPage extends Component {
     isVisible4: false,
     isVisible5: false,
     sound: false,
-    soundResult: false
+    soundResult: false,
+    resultSpace: []
   };
 
   componentDidMount() {
@@ -330,7 +331,7 @@ class DiamondPage extends Component {
     if (appInfo) {
       const game = find(appInfo.games, { name: gameName });
 
-      this.setState({ ...this.state, game });
+      this.setState({ ...this.state, game, resultSpace: game.resultSpace });
     }
   };
 
@@ -397,7 +398,7 @@ class DiamondPage extends Component {
       this.resetState();
       const { user } = this.context;
       const { onHandleLoginOrRegister } = this.props;
-      const { game } = this.state;
+      const { game, resultSpace } = this.state;
 
       if (!user || _.isEmpty(user)) return onHandleLoginOrRegister("register");
 
@@ -457,9 +458,9 @@ class DiamondPage extends Component {
         winAmount: 0,
         resultWinAmount: 0,
         resultBack: 0
-        });
+      });
+    }
   };
-}
 
   getOptions = () => {
     const { disableControls } = this.state;
@@ -494,7 +495,8 @@ class DiamondPage extends Component {
       isVisible5,
       sound,
       soundResult,
-      resultWinAmount
+      resultWinAmount,
+      resultSpace
     } = this.state;
 
     return (
@@ -517,6 +519,7 @@ class DiamondPage extends Component {
           isVisible4={isVisible4}
           isVisible5={isVisible5}
           profitAmount={resultWinAmount}
+          resultSpace={resultSpace}
         />
       </>
     );

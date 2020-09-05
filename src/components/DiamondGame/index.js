@@ -27,7 +27,8 @@ class DiamondGame extends Component {
       isVisible3,
       isVisible4,
       isVisible5,
-      profitAmount
+      profitAmount,
+      resultSpace
     } = this.props;
 
     return (
@@ -61,8 +62,9 @@ class DiamondGame extends Component {
                     width="18%"
                   />
                 </div>
-
-                <p styleName="text-result">50,00x</p>
+                <p styleName="text-result">
+                  {`${resultSpace[6].multiplier.toFixed(2)}x`}
+                </p>
               </div>
               <div
                 styleName="result-container"
@@ -88,7 +90,9 @@ class DiamondGame extends Component {
                   <Diamond color="#0E0C1B" width="18%" />
                 </div>
 
-                <p styleName="text-result">5,00x</p>
+                <p styleName="text-result">
+                  {`${resultSpace[5].multiplier.toFixed(2)}x`}
+                </p>
               </div>
               <div
                 styleName="result-container"
@@ -116,7 +120,9 @@ class DiamondGame extends Component {
                     width="18%"
                   />
                 </div>
-                <p styleName="text-result">4,00x</p>
+                <p styleName="text-result">
+                  {`${resultSpace[4].multiplier.toFixed(2)}x`}
+                </p>
               </div>
             </div>
             <div>
@@ -141,7 +147,9 @@ class DiamondGame extends Component {
                   <Diamond color="#0E0C1B" width="18%" />
                 </div>
 
-                <p styleName="text-result">3,00x</p>
+                <p styleName="text-result">
+                  {`${resultSpace[3].multiplier.toFixed(2)}x`}
+                </p>
               </div>
               <div
                 styleName="result-container"
@@ -167,7 +175,9 @@ class DiamondGame extends Component {
                   <Diamond color="#0E0C1B" width="18%" />
                 </div>
 
-                <p styleName="text-result">2,00x</p>
+                <p styleName="text-result">
+                  {`${resultSpace[2].multiplier.toFixed(2)}x`}
+                </p>
               </div>
               <div
                 styleName="result-container"
@@ -187,7 +197,9 @@ class DiamondGame extends Component {
                   <Diamond color="#0E0C1B" width="18%" />
                 </div>
 
-                <p styleName="text-result">0,10x</p>
+                <p styleName="text-result">
+                  {`${resultSpace[1].multiplier.toFixed(2)}x`}
+                </p>
               </div>
             </div>
             <div
@@ -201,56 +213,58 @@ class DiamondGame extends Component {
                 <Diamond color="#0E0C1B" width="18%" />
                 <Diamond color="#0E0C1B" width="18%" />
               </div>
-              <p styleName="text-result">0,00x</p>
+              <p styleName="text-result">
+                {`${resultSpace[0].multiplier.toFixed(2)}x`}
+              </p>
             </div>
           </div>
           {isHover
             ? handleCardResult(
                 "0px",
                 backendResult.length > 0 ? profitAmount : "0",
-                "0.04"
+                (resultSpace[6].probability * 100).toFixed(2)
               )
             : null}
           {isHover1
             ? handleCardResult(
                 "40px",
                 backendResult.length > 0 ? profitAmount : "0",
-                "1.25"
+                (resultSpace[5].probability * 100).toFixed(2)
               )
             : null}
           {isHover2
             ? handleCardResult(
                 "80px",
                 backendResult.length > 0 ? profitAmount : "0",
-                "2.50"
+                (resultSpace[4].probability * 100).toFixed(2)
               )
             : null}
           {isHover3
             ? handleCardResult(
                 "120px",
                 backendResult.length > 0 ? profitAmount : "0",
-                "12.49"
+                (resultSpace[3].probability * 100).toFixed(2)
               )
             : null}
           {isHover4
             ? handleCardResult(
                 "160px",
                 backendResult.length > 0 ? profitAmount : "0",
-                "18.74"
+                (resultSpace[2].probability * 100).toFixed(2)
               )
             : null}
           {isHover5
             ? handleCardResult(
                 "180px",
                 backendResult.length > 0 ? profitAmount : "0",
-                "49.98"
+                (resultSpace[1].probability * 100).toFixed(2)
               )
             : null}
           {isHover6
             ? handleCardResult(
                 "190px",
                 backendResult.length > 0 ? profitAmount : "0",
-                "14.99"
+                (resultSpace[0].probability * 100).toFixed(2)
               )
             : null}
         </div>

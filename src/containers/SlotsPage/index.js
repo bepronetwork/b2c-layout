@@ -293,6 +293,7 @@ class SlotsPage extends Component {
       const game = find(appInfo.games, { name: "Slots" });
 
       this.setState({ gameStore: game });
+      console.log(game);
     }
   };
 
