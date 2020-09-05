@@ -8,6 +8,8 @@ import RouletteDetails from './Game/RouletteDetails';
 import WheelDetails from './Game/WheelDetails';
 import PlinkoDetails from './Game/PlinkoDetails';
 import KenoDetails from './Game/KenoDetails';
+import DiamondDetails from './Game/DiamondDetails';
+import SlotsDetails from './Game/SlotsDetails';
 import { formatCurrency } from "../../utils/numberFormatation";
 import { getApp, getSkeletonColors } from "../../lib/helpers";
 import { CopyText } from "../../copy";
@@ -76,6 +78,12 @@ class BetDetails extends Component {
                     break;
                 case 'keno_simple':
                     component = <KenoDetails bet={bet}/>;
+                    break;
+                    case 'diamonds_simple':
+                    component = <DiamondDetails bet={bet}/>;
+                    break;
+                    case 'slots_simple':
+                    component = <SlotsDetails bet={bet}/>;
                     break;
             }
 
