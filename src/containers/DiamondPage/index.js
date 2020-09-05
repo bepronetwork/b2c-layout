@@ -73,36 +73,39 @@ class DiamondPage extends Component {
       }
     );
 
-    this.setState({ sound: true });
-
     if (idIcon === "svg-diamond-animated-1") {
       this.setState({
         isVisible1: true
       });
+      this.setState({ sound: true });
     }
 
     if (idIcon === "svg-diamond-animated-2") {
       this.setState({
         isVisible2: true
       });
+      this.setState({ sound: true });
     }
 
     if (idIcon === "svg-diamond-animated-3") {
       this.setState({
         isVisible3: true
       });
+      this.setState({ sound: true });
     }
 
     if (idIcon === "svg-diamond-animated-4") {
       this.setState({
         isVisible4: true
       });
+      this.setState({ sound: true });
     }
 
     if (idIcon === "svg-diamond-animated-5") {
       this.setState({
         isVisible5: true
       });
+      this.setState({ sound: true });
     }
 
     return new Promise(resolve => setTimeout(() => resolve(), 500));
@@ -398,7 +401,7 @@ class DiamondPage extends Component {
       this.resetState();
       const { user } = this.context;
       const { onHandleLoginOrRegister } = this.props;
-      const { game, resultSpace } = this.state;
+      const { game } = this.state;
 
       if (!user || _.isEmpty(user)) return onHandleLoginOrRegister("register");
 
@@ -462,6 +465,90 @@ class DiamondPage extends Component {
     }
   };
 
+  handleMouseEnter = () => {
+    this.setState({
+      isHover: true,
+      isHover1: false,
+      isHover2: false,
+      isHover3: false,
+      isHover4: false,
+      isHover5: false,
+      isHover6: false
+    });
+  };
+
+  handleMouseEnter1 = () => {
+    this.setState({
+      isHover: false,
+      isHover1: true,
+      isHover2: false,
+      isHover3: false,
+      isHover4: false,
+      isHover5: false,
+      isHover6: false
+    });
+  };
+
+  handleMouseEnter2 = () => {
+    this.setState({
+      isHover: false,
+      isHover1: false,
+      isHover2: true,
+      isHover3: false,
+      isHover4: false,
+      isHover5: false,
+      isHover6: false
+    });
+  };
+
+  handleMouseEnter3 = () => {
+    this.setState({
+      isHover: false,
+      isHover1: false,
+      isHover2: false,
+      isHover3: true,
+      isHover4: false,
+      isHover5: false,
+      isHover6: false
+    });
+  };
+
+  handleMouseEnter4 = () => {
+    this.setState({
+      isHover: false,
+      isHover1: false,
+      isHover2: false,
+      isHover3: false,
+      isHover4: true,
+      isHover5: false,
+      isHover6: false
+    });
+  };
+
+  handleMouseEnter5 = () => {
+    this.setState({
+      isHover: false,
+      isHover1: false,
+      isHover2: false,
+      isHover3: false,
+      isHover4: false,
+      isHover5: true,
+      isHover6: false
+    });
+  };
+
+  handleMouseEnter6 = () => {
+    this.setState({
+      isHover: false,
+      isHover1: false,
+      isHover2: false,
+      isHover3: false,
+      isHover4: false,
+      isHover5: false,
+      isHover6: true
+    });
+  };
+
   getOptions = () => {
     const { disableControls } = this.state;
     const { profile } = this.props;
@@ -513,6 +600,13 @@ class DiamondPage extends Component {
           isHover4={isHover4}
           isHover5={isHover5}
           isHover6={isHover6}
+          handleMouseEnter={this.handleMouseEnter}
+          handleMouseEnter1={this.handleMouseEnter1}
+          handleMouseEnter2={this.handleMouseEnter2}
+          handleMouseEnter3={this.handleMouseEnter3}
+          handleMouseEnter4={this.handleMouseEnter4}
+          handleMouseEnter5={this.handleMouseEnter5}
+          handleMouseEnter6={this.handleMouseEnter6}
           isVisible1={isVisible1}
           isVisible2={isVisible2}
           isVisible3={isVisible3}

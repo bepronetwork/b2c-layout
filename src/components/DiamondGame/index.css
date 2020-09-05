@@ -54,7 +54,7 @@
 }
 
 .text-result{
-  font-family: 'Muli', sans-serif; 
+  font-family: $font-family;
   color: white;
   font-weight: bold;
   font-size: 14px;

@@ -28,7 +28,14 @@ class DiamondGame extends Component {
       isVisible4,
       isVisible5,
       profitAmount,
-      resultSpace
+      resultSpace,
+      handleMouseEnter,
+      handleMouseEnter1,
+      handleMouseEnter2,
+      handleMouseEnter3,
+      handleMouseEnter4,
+      handleMouseEnter5,
+      handleMouseEnter6
     } = this.props;
 
     return (
@@ -38,7 +45,7 @@ class DiamondGame extends Component {
             <div>
               <div
                 styleName="result-container"
-                onMouseEnter={this.handleMouseEnter}
+                onMouseEnter={handleMouseEnter}
               >
                 <div>
                   <DiamondFill
@@ -68,7 +75,7 @@ class DiamondGame extends Component {
               </div>
               <div
                 styleName="result-container"
-                onMouseEnter={this.handleMouseEnter1}
+                onMouseEnter={handleMouseEnter1}
               >
                 <div>
                   <DiamondFill
@@ -96,7 +103,7 @@ class DiamondGame extends Component {
               </div>
               <div
                 styleName="result-container"
-                onMouseEnter={this.handleMouseEnter2}
+                onMouseEnter={handleMouseEnter2}
               >
                 <div>
                   <DiamondFill
@@ -128,7 +135,7 @@ class DiamondGame extends Component {
             <div>
               <div
                 styleName="result-container"
-                onMouseEnter={this.handleMouseEnter3}
+                onMouseEnter={handleMouseEnter3}
               >
                 <div>
                   <DiamondFill
@@ -153,7 +160,7 @@ class DiamondGame extends Component {
               </div>
               <div
                 styleName="result-container"
-                onMouseEnter={this.handleMouseEnter4}
+                onMouseEnter={handleMouseEnter4}
               >
                 <div>
                   <DiamondFill
@@ -181,7 +188,7 @@ class DiamondGame extends Component {
               </div>
               <div
                 styleName="result-container"
-                onMouseEnter={this.handleMouseEnter5}
+                onMouseEnter={handleMouseEnter5}
               >
                 <div>
                   <DiamondFill
@@ -202,10 +209,7 @@ class DiamondGame extends Component {
                 </p>
               </div>
             </div>
-            <div
-              styleName="result-container"
-              onMouseEnter={this.handleMouseEnter6}
-            >
+            <div styleName="result-container" onMouseEnter={handleMouseEnter6}>
               <div>
                 <Diamond color="#0E0C1B" width="18%" />
                 <Diamond color="#0E0C1B" width="18%" />
@@ -410,12 +414,20 @@ DiamondGame.propTypes = {
   isHover4: PropTypes.bool.isRequired,
   isHover5: PropTypes.bool.isRequired,
   isHover6: PropTypes.bool.isRequired,
+  handleMouseEnter: PropTypes.func.isRequired,
+  handleMouseEnter1: PropTypes.func.isRequired,
+  handleMouseEnter2: PropTypes.func.isRequired,
+  handleMouseEnter3: PropTypes.func.isRequired,
+  handleMouseEnter4: PropTypes.func.isRequired,
+  handleMouseEnter5: PropTypes.func.isRequired,
+  handleMouseEnter6: PropTypes.func.isRequired,
   isVisible1: PropTypes.bool.isRequired,
   isVisible2: PropTypes.bool.isRequired,
   isVisible3: PropTypes.bool.isRequired,
   isVisible4: PropTypes.bool.isRequired,
   isVisible5: PropTypes.bool.isRequired,
-  profitAmount: PropTypes.number.isRequired
+  profitAmount: PropTypes.number.isRequired,
+  resultSpace: PropTypes.number.isRequired
 };
 
 export default DiamondGame;
