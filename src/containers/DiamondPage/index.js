@@ -62,7 +62,7 @@ class DiamondPage extends Component {
   handleAnimations = async idIcon => {
     const box = document.getElementById(idIcon);
 
-    this.setState({ sound: false });
+    this.setState({ sound: true });
 
     box.animate(
       [
@@ -77,31 +77,31 @@ class DiamondPage extends Component {
 
     if (idIcon === "svg-diamond-animated-1") {
       this.setState({
-        isVisible1: true, sound: true
+        isVisible1: true
       });
     }
 
     if (idIcon === "svg-diamond-animated-2") {
       this.setState({
-        isVisible2: true, sound: true
+        isVisible2: true
       });
     }
 
     if (idIcon === "svg-diamond-animated-3") {
       this.setState({
-        isVisible3: true, sound: true
+        isVisible3: true
       });
     }
 
     if (idIcon === "svg-diamond-animated-4") {
       this.setState({
-        isVisible4: true, sound: true
+        isVisible4: true
       });
     }
 
     if (idIcon === "svg-diamond-animated-5") {
       this.setState({
-        isVisible5: true, sound: true
+        isVisible5: true
       });
     }
 
@@ -308,12 +308,20 @@ class DiamondPage extends Component {
     });
   };
 
-
   setResultIcons = async () => {
+    this.setState({ sound: false });
     await this.handleAnimations("svg-diamond-animated-1");
+
+    this.setState({ sound: false });
     await this.handleAnimations("svg-diamond-animated-2");
+
+    this.setState({ sound: false });
     await this.handleAnimations("svg-diamond-animated-3");
+
+    this.setState({ sound: false });
     await this.handleAnimations("svg-diamond-animated-4");
+
+    this.setState({ sound: false });
     await this.handleAnimations("svg-diamond-animated-5");
     this.setState({ sound: false });
   };
@@ -393,7 +401,9 @@ class DiamondPage extends Component {
       const { user } = this.context;
       const { onHandleLoginOrRegister } = this.props;
       const { game } = this.state;
+
       this.resetState();
+
       if (!user || _.isEmpty(user)) return onHandleLoginOrRegister("register");
 
       window.soundManager.setup({ debugMode: false });
