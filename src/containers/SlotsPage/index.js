@@ -122,6 +122,8 @@ class SlotsPage extends Component {
       await this.handleResult();
       await this.userUpdateBalance();
       this.setState({ disableControls: false });
+
+      return res;
     } catch (err) {
       return this.setState({
         result: null,
@@ -293,6 +295,7 @@ class SlotsPage extends Component {
       const game = find(appInfo.games, { name: "Slots" });
 
       this.setState({ gameStore: game });
+      console.log(game);
     }
   };
 
