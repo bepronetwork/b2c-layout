@@ -23,6 +23,7 @@ class DiamondBox extends Component {
 
   setActiveHover = () => {
     const { resultBack } = this.props;
+
     console.log(resultBack);
     switch (resultBack) {
       case 0:
@@ -293,49 +294,49 @@ class DiamondBox extends Component {
         {isHover
           ? handleCardResult(
               "0px",
-              profitAmount,
+              profitAmount * resultSpace[6].multiplier.toFixed(2),
               (resultSpace[6].probability * 100).toFixed(2)
             )
           : null}
         {isHover1
           ? handleCardResult(
               "40px",
-              profitAmount,
+              profitAmount * resultSpace[5].multiplier.toFixed(2),
               (resultSpace[5].probability * 100).toFixed(2)
             )
           : null}
         {isHover2
           ? handleCardResult(
               "80px",
-              profitAmount,
+              profitAmount * resultSpace[4].multiplier.toFixed(2),
               (resultSpace[4].probability * 100).toFixed(2)
             )
           : null}
         {isHover3
           ? handleCardResult(
               "120px",
-              profitAmount,
+              profitAmount * resultSpace[3].multiplier.toFixed(2),
               (resultSpace[3].probability * 100).toFixed(2)
             )
           : null}
         {isHover4
           ? handleCardResult(
               "160px",
-              profitAmount,
+              profitAmount * resultSpace[2].multiplier.toFixed(2),
               (resultSpace[2].probability * 100).toFixed(2)
             )
           : null}
         {isHover5
           ? handleCardResult(
               "180px",
-              profitAmount,
+              profitAmount * resultSpace[1].multiplier.toFixed(2),
               (resultSpace[1].probability * 100).toFixed(2)
             )
           : null}
         {isHover6
           ? handleCardResult(
               "190px",
-              profitAmount,
+              profitAmount * resultSpace[0].multiplier.toFixed(2),
               (resultSpace[0].probability * 100).toFixed(2)
             )
           : null}

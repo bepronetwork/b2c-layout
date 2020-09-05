@@ -263,49 +263,63 @@ class DiamondGame extends Component {
           {isHover
             ? handleCardResult(
                 "0px",
-                backendResult.length > 0 ? profitAmount : "0",
+                backendResult.length > 0
+                  ? profitAmount * resultSpace[6].multiplier.toFixed(2)
+                  : "0",
                 (resultSpace[6].probability * 100).toFixed(2)
               )
             : null}
           {isHover1
             ? handleCardResult(
                 "40px",
-                backendResult.length > 0 ? profitAmount : "0",
+                backendResult.length > 0
+                  ? profitAmount * resultSpace[5].multiplier.toFixed(2)
+                  : "0",
                 (resultSpace[5].probability * 100).toFixed(2)
               )
             : null}
           {isHover2
             ? handleCardResult(
                 "80px",
-                backendResult.length > 0 ? profitAmount : "0",
+                backendResult.length > 0
+                  ? profitAmount * resultSpace[4].multiplier.toFixed(2)
+                  : "0",
                 (resultSpace[4].probability * 100).toFixed(2)
               )
             : null}
           {isHover3
             ? handleCardResult(
                 "120px",
-                backendResult.length > 0 ? profitAmount : "0",
+                backendResult.length > 0
+                  ? profitAmount * resultSpace[3].multiplier.toFixed(2)
+                  : "0",
                 (resultSpace[3].probability * 100).toFixed(2)
               )
             : null}
           {isHover4
             ? handleCardResult(
                 "160px",
-                backendResult.length > 0 ? profitAmount : "0",
+                backendResult.length > 0
+                  ? profitAmount * resultSpace[2].multiplier.toFixed(2)
+                  : "0",
                 (resultSpace[2].probability * 100).toFixed(2)
               )
             : null}
           {isHover5
             ? handleCardResult(
                 "180px",
-                backendResult.length > 0 ? profitAmount : "0",
+                backendResult.length > 0
+                  ? profitAmount * resultSpace[1].multiplier.toFixed(2)
+                  : "0",
                 (resultSpace[1].probability * 100).toFixed(2)
               )
             : null}
           {isHover6
             ? handleCardResult(
                 "190px",
-                backendResult.length > 0 ? profitAmount : "0",
+                backendResult.length > 0
+                  ? profitAmount * resultSpace[0].multiplier.toFixed(2)
+                  : "0",
                 (resultSpace[0].probability * 100).toFixed(2)
               )
             : null}

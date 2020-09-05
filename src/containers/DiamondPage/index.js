@@ -62,6 +62,8 @@ class DiamondPage extends Component {
   handleAnimations = async idIcon => {
     const box = document.getElementById(idIcon);
 
+    this.setState({ sound: false });
+
     box.animate(
       [
         { transform: "translate3D(0, -20px, 0)" },
@@ -75,37 +77,32 @@ class DiamondPage extends Component {
 
     if (idIcon === "svg-diamond-animated-1") {
       this.setState({
-        isVisible1: true
+        isVisible1: true, sound: true
       });
-      this.setState({ sound: true });
     }
 
     if (idIcon === "svg-diamond-animated-2") {
       this.setState({
-        isVisible2: true
+        isVisible2: true, sound: true
       });
-      this.setState({ sound: true });
     }
 
     if (idIcon === "svg-diamond-animated-3") {
       this.setState({
-        isVisible3: true
+        isVisible3: true, sound: true
       });
-      this.setState({ sound: true });
     }
 
     if (idIcon === "svg-diamond-animated-4") {
       this.setState({
-        isVisible4: true
+        isVisible4: true, sound: true
       });
-      this.setState({ sound: true });
     }
 
     if (idIcon === "svg-diamond-animated-5") {
       this.setState({
-        isVisible5: true
+        isVisible5: true, sound: true
       });
-      this.setState({ sound: true });
     }
 
     return new Promise(resolve => setTimeout(() => resolve(), 500));
@@ -309,13 +306,8 @@ class DiamondPage extends Component {
     this.setState({
       backendResult: resultGen
     });
-    console.log(resultGen);
   };
 
-  generateResult = async () => {
-    // this.generateRandomResult();
-    this.generateRandArray();
-  };
 
   setResultIcons = async () => {
     await this.handleAnimations("svg-diamond-animated-1");
@@ -398,11 +390,10 @@ class DiamondPage extends Component {
 
   handleBet = async ({ amount }) => {
     try {
-      this.resetState();
       const { user } = this.context;
       const { onHandleLoginOrRegister } = this.props;
       const { game } = this.state;
-
+      this.resetState();
       if (!user || _.isEmpty(user)) return onHandleLoginOrRegister("register");
 
       window.soundManager.setup({ debugMode: false });
@@ -427,7 +418,7 @@ class DiamondPage extends Component {
         amount
       });
 
-      await this.generateResult();
+      await this.generateRandArray();
 
       await this.setResultIcons();
 
