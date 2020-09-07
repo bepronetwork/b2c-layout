@@ -36,7 +36,8 @@
     grid-row-gap: $spacing-28;
     grid-template-columns: repeat(3, 290px);
     max-width: $content-width-desktop;
-    margin: auto;
+    margin: 0 auto;
+    padding: $spacing-52 0;
   
     @include Breakpoint-tabletOnly {
       grid-template-columns: 1fr;
@@ -144,4 +145,28 @@
 
 .show:hover {
     opacity: 1;
+}
+
+.provider {
+    margin: $spacing-20 $spacing-12;
+    border-radius: $border-radius;
+    background-color: $primaryColor-8;
+    width: auto;
+    padding: $spacing-12;
+    max-width: 270px;
+}
+
+.progress {
+    text-align: center;
+    margin: auto;
+    width: 220px
+}
+
+.line {
+    margin-top: $spacing-36;
+}
+
+.text {
+    margin: $spacing-20 0;
+    opacity: 0.8;
 }
