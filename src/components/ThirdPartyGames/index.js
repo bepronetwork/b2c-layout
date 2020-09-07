@@ -146,50 +146,54 @@ class ThirdPartyGames extends Component {
                             </div>
                         </SkeletonTheme>
                     :
-                    <div styleName="carousel">
-                        <InfiniteCarousel
-                            breakpoints={[
-                            {
-                                breakpoint: 500,
-                                settings: {
-                                    slidesToShow: 2,
-                                    slidesToScroll: 1,
-                                },
-                            },
-                            {
-                                breakpoint: 768,
-                                settings: {
-                                    slidesToShow: 3,
-                                    slidesToScroll: 2,
-                                },
-                            },
-                            ]}
-                            dots={false}
-                            showSides={true}
-                            sidesOpacity={0.5}
-                            sideSize={0}
-                            slidesToScroll={2}
-                            slidesToShow={4}
-                            scrollOnDevice={true}
-                            title="Providers"
-                            >
-                            {
-                                providers.map(p => {
-                                    return(
-                                        <div class={"col"} styleName="col">
-                                            <div styleName="root" onClick={() => this.onClickProvider(p.providerEco)}>
-                                                <a>
-                                                    <div>
-                                                        <img width="175" height="70" alt={p.name} src={p.logo} />
+                        providers.length > 0
+                        ?
+                            <div styleName="carousel">
+                                <InfiniteCarousel
+                                    breakpoints={[
+                                    {
+                                        breakpoint: 500,
+                                        settings: {
+                                            slidesToShow: 2,
+                                            slidesToScroll: 1,
+                                        },
+                                    },
+                                    {
+                                        breakpoint: 768,
+                                        settings: {
+                                            slidesToShow: 3,
+                                            slidesToScroll: 2,
+                                        },
+                                    },
+                                    ]}
+                                    dots={false}
+                                    showSides={true}
+                                    sidesOpacity={0.5}
+                                    sideSize={0}
+                                    slidesToScroll={2}
+                                    slidesToShow={4}
+                                    scrollOnDevice={true}
+                                    title="Providers"
+                                    >
+                                    {
+                                        providers.map(p => {
+                                            return(
+                                                <div class={"col"} styleName="col">
+                                                    <div styleName="root" onClick={() => this.onClickProvider(p.providerEco)}>
+                                                        <a>
+                                                            <div>
+                                                                <img width="175" height="70" alt={p.name} src={p.logo} />
+                                                            </div>
+                                                        </a>
                                                     </div>
-                                                </a>
-                                            </div>
-                                        </div>
-                                    )
-                                })
-                            }
-                        </InfiniteCarousel>
-                    </div>
+                                                </div>
+                                            )
+                                        })
+                                    }
+                                </InfiniteCarousel>
+                            </div>
+                        :
+                            null
                 }
                 </div>
                 <div styleName="container">

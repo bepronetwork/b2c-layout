@@ -28,8 +28,7 @@ class Actions extends Component {
         
         let tableLimit;
         if(profile && !_.isEmpty(profile)){
-            const wallet = currency ? profile.getWallet({currency}) : null;
-            const gameWallet = game.wallets.find( w => new String(w.wallet).toString() == new String(wallet._id).toString());
+            const gameWallet = game.wallets.find( w => new String(w.currency).toString() == new String(currency._id).toString());
             tableLimit = gameWallet ? gameWallet.tableLimit : null;
         }
 

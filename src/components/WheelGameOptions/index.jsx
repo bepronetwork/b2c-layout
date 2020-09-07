@@ -143,7 +143,7 @@ class WheelGameOptions extends Component {
                             (profitStop == 0  || totalProfit <= profitStop) && // Stop Profit
                             (lossStop == 0 || totalLoss <= lossStop) // Stop Loss
                         ){
-                            await delay(5*1000);
+                            if (i != 0) { await delay(6*1000); };
                             let { winAmount } = await this.betAction({amount : betAmount});
                             totalProfit += (winAmount-betAmount);
                             totalLoss += (winAmount == 0) ? -Math.abs(betAmount) : 0;
@@ -151,6 +151,8 @@ class WheelGameOptions extends Component {
                             lastBet = betAmount;
                             if(onWin && wasWon){ betAmount += Numbers.toFloat(betAmount*onWin/100) }; 
                             if(onLoss && !wasWon){ betAmount += Numbers.toFloat(betAmount*onLoss/100) }; 
+                            await delay(9*1000);
+                            this.setState({bets : bets-(i + 1), amount: betAmount});
                         }
                             
                     }

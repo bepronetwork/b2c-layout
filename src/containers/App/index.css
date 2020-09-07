@@ -87,7 +87,7 @@
   border-radius: 40px;
   text-align: center;
   box-shadow: $shadowColor 0px 0px 10px;
-
+  cursor: pointer;
 
   @media screen and (max-width: 1267px) and (min-width: 1024px) {
     right: calc($chat-width-tablet-pro + $spacing-20);
@@ -100,7 +100,8 @@
   }
 
   @media screen and (max-width: 767px) {
-    display: none;
+    bottom: 70px;
+    right: $spacing-16;
   }
 
   div {
@@ -129,7 +130,7 @@
   border-radius: 40px;
   text-align: center;
   box-shadow: $shadowColor 0px 0px 10px;
-
+  cursor: pointer;
 
   @media screen and (max-width: 1267px) and (min-width: 1024px) {
     right: calc($chat-width-tablet-pro + $spacing-20);
