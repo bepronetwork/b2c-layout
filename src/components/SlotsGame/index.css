@@ -165,7 +165,7 @@ body {
 }
 
 .classLine {
-  width: 106%;
+  width: 100%;
   height: inherit;
   position: absolute;
   z-index: 4;

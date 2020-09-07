@@ -48,7 +48,8 @@ class DiamondPage extends Component {
     isVisible4: false,
     isVisible5: false,
     sound: false,
-    soundResult: false
+    soundResult: false,
+    resultSpace: []
   };
 
   componentDidMount() {
@@ -61,6 +62,8 @@ class DiamondPage extends Component {
   handleAnimations = async idIcon => {
     const box = document.getElementById(idIcon);
 
+    this.setState({ sound: true });
+
     box.animate(
       [
         { transform: "translate3D(0, -20px, 0)" },
@@ -71,8 +74,6 @@ class DiamondPage extends Component {
         iterations: 1
       }
     );
-
-    this.setState({ sound: true });
 
     if (idIcon === "svg-diamond-animated-1") {
       this.setState({
@@ -305,19 +306,22 @@ class DiamondPage extends Component {
     this.setState({
       backendResult: resultGen
     });
-    console.log(resultGen);
-  };
-
-  generateResult = async () => {
-    // this.generateRandomResult();
-    this.generateRandArray();
   };
 
   setResultIcons = async () => {
+    this.setState({ sound: false });
     await this.handleAnimations("svg-diamond-animated-1");
+
+    this.setState({ sound: false });
     await this.handleAnimations("svg-diamond-animated-2");
+
+    this.setState({ sound: false });
     await this.handleAnimations("svg-diamond-animated-3");
+
+    this.setState({ sound: false });
     await this.handleAnimations("svg-diamond-animated-4");
+
+    this.setState({ sound: false });
     await this.handleAnimations("svg-diamond-animated-5");
     this.setState({ sound: false });
   };
@@ -330,7 +334,7 @@ class DiamondPage extends Component {
     if (appInfo) {
       const game = find(appInfo.games, { name: gameName });
 
-      this.setState({ ...this.state, game });
+      this.setState({ ...this.state, game, resultSpace: game.resultSpace });
     }
   };
 
@@ -380,11 +384,30 @@ class DiamondPage extends Component {
     }
   };
 
-  handleBetWithBack = async amount => {
+  userUpdateBalance = async () => {
+    const { profile } = this.props;
+    const { amount } = this.state;
+    const { userDelta } = this.state.betObjectResult;
+
+    await profile.updateBalance({ userDelta, amount });
+  };
+
+  handleBetAmountChange = ({ betAmount }) => {
+    this.setState({ betAmount });
+  };
+
+  handleBet = async ({ amount }) => {
     try {
       const { user } = this.context;
       const { onHandleLoginOrRegister } = this.props;
       const { game } = this.state;
+
+      this.resetState();
+
+      if (!user || _.isEmpty(user)) return onHandleLoginOrRegister("register");
+
+      window.soundManager.setup({ debugMode: false });
+      this.setState({ disableControls: true });
 
       if (!user) return onHandleLoginOrRegister("register");
 
@@ -405,40 +428,7 @@ class DiamondPage extends Component {
         amount
       });
 
-      return res;
-    } catch (err) {
-      return this.setState({
-        bet: false,
-        hasWon: false,
-        disableControls: false
-      });
-    }
-  };
-
-  userUpdateBalance = async () => {
-    const { profile } = this.props;
-    const { amount } = this.state;
-    const { userDelta } = this.state.betObjectResult;
-
-    await profile.updateBalance({ userDelta, amount });
-  };
-
-  handleBetAmountChange = ({ betAmount }) => {
-    this.setState({ betAmount });
-  };
-
-  handleBet = async ({ amount }) => {
-    try {
-      this.resetState();
-      const { user } = this.context;
-      const { onHandleLoginOrRegister } = this.props;
-
-      if (!user || _.isEmpty(user)) return onHandleLoginOrRegister("register");
-
-      window.soundManager.setup({ debugMode: false });
-      this.setState({ disableControls: true });
-      await this.handleBetWithBack(amount);
-      await this.generateResult();
+      await this.generateRandArray();
 
       await this.setResultIcons();
 
@@ -449,9 +439,122 @@ class DiamondPage extends Component {
       await this.userUpdateBalance();
 
       this.setState({ disableControls: false });
+
+      return res;
     } catch (err) {
-      return this.setState({ result: 0, disableControls: false });
+      return this.setState({
+        isActiveBottomBar: false,
+        backendResult: [],
+        isHover: false,
+        isHover1: false,
+        isHover2: false,
+        isHover3: false,
+        isHover4: false,
+        isHover5: false,
+        isHover6: true,
+        isVisible1: false,
+        isVisible2: false,
+        isVisible3: false,
+        isVisible4: false,
+        isVisible5: false,
+        sound: false,
+        soundResult: false,
+        winAmount: 0,
+        resultWinAmount: 0,
+        resultBack: 0
+      });
     }
+  };
+
+  handleMouseEnter = () => {
+    this.setState({
+      isHover: true,
+      isHover1: false,
+      isHover2: false,
+      isHover3: false,
+      isHover4: false,
+      isHover5: false,
+      isHover6: false,
+      soundResult: false
+    });
+  };
+
+  handleMouseEnter1 = () => {
+    this.setState({
+      isHover: false,
+      isHover1: true,
+      isHover2: false,
+      isHover3: false,
+      isHover4: false,
+      isHover5: false,
+      isHover6: false,
+      soundResult: false
+    });
+  };
+
+  handleMouseEnter2 = () => {
+    this.setState({
+      isHover: false,
+      isHover1: false,
+      isHover2: true,
+      isHover3: false,
+      isHover4: false,
+      isHover5: false,
+      isHover6: false,
+      soundResult: false
+    });
+  };
+
+  handleMouseEnter3 = () => {
+    this.setState({
+      isHover: false,
+      isHover1: false,
+      isHover2: false,
+      isHover3: true,
+      isHover4: false,
+      isHover5: false,
+      isHover6: false,
+      soundResult: false
+    });
+  };
+
+  handleMouseEnter4 = () => {
+    this.setState({
+      isHover: false,
+      isHover1: false,
+      isHover2: false,
+      isHover3: false,
+      isHover4: true,
+      isHover5: false,
+      isHover6: false,
+      soundResult: false
+    });
+  };
+
+  handleMouseEnter5 = () => {
+    this.setState({
+      isHover: false,
+      isHover1: false,
+      isHover2: false,
+      isHover3: false,
+      isHover4: false,
+      isHover5: true,
+      isHover6: false,
+      soundResult: false
+    });
+  };
+
+  handleMouseEnter6 = () => {
+    this.setState({
+      isHover: false,
+      isHover1: false,
+      isHover2: false,
+      isHover3: false,
+      isHover4: false,
+      isHover5: false,
+      isHover6: true,
+      soundResult: false
+    });
   };
 
   getOptions = () => {
@@ -487,7 +590,8 @@ class DiamondPage extends Component {
       isVisible5,
       sound,
       soundResult,
-      resultWinAmount
+      resultWinAmount,
+      resultSpace
     } = this.state;
 
     return (
@@ -504,12 +608,20 @@ class DiamondPage extends Component {
           isHover4={isHover4}
           isHover5={isHover5}
           isHover6={isHover6}
+          handleMouseEnter={this.handleMouseEnter}
+          handleMouseEnter1={this.handleMouseEnter1}
+          handleMouseEnter2={this.handleMouseEnter2}
+          handleMouseEnter3={this.handleMouseEnter3}
+          handleMouseEnter4={this.handleMouseEnter4}
+          handleMouseEnter5={this.handleMouseEnter5}
+          handleMouseEnter6={this.handleMouseEnter6}
           isVisible1={isVisible1}
           isVisible2={isVisible2}
           isVisible3={isVisible3}
           isVisible4={isVisible4}
           isVisible5={isVisible5}
           profitAmount={resultWinAmount}
+          resultSpace={resultSpace}
         />
       </>
     );

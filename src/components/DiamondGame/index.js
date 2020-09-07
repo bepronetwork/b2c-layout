@@ -27,7 +27,15 @@ class DiamondGame extends Component {
       isVisible3,
       isVisible4,
       isVisible5,
-      profitAmount
+      profitAmount,
+      resultSpace,
+      handleMouseEnter,
+      handleMouseEnter1,
+      handleMouseEnter2,
+      handleMouseEnter3,
+      handleMouseEnter4,
+      handleMouseEnter5,
+      handleMouseEnter6
     } = this.props;
 
     return (
@@ -37,7 +45,12 @@ class DiamondGame extends Component {
             <div>
               <div
                 styleName="result-container"
-                onMouseEnter={this.handleMouseEnter}
+                onMouseEnter={handleMouseEnter}
+                style={
+                  isHover
+                    ? { backgroundColor: "#3A3A83" }
+                    : { backgroundColor: "rgb(29, 26, 55)" }
+                }
               >
                 <div>
                   <DiamondFill
@@ -61,12 +74,18 @@ class DiamondGame extends Component {
                     width="18%"
                   />
                 </div>
-
-                <p styleName="text-result">50,00x</p>
+                <p styleName="text-result">
+                  {`${resultSpace[6].multiplier.toFixed(2)}x`}
+                </p>
               </div>
               <div
                 styleName="result-container"
-                onMouseEnter={this.handleMouseEnter1}
+                onMouseEnter={handleMouseEnter1}
+                color={
+                  isHover1
+                    ? { backgroundColor: "#3A3A83" }
+                    : { backgroundColor: "rgb(29, 26, 55)" }
+                }
               >
                 <div>
                   <DiamondFill
@@ -88,11 +107,18 @@ class DiamondGame extends Component {
                   <Diamond color="#0E0C1B" width="18%" />
                 </div>
 
-                <p styleName="text-result">5,00x</p>
+                <p styleName="text-result">
+                  {`${resultSpace[5].multiplier.toFixed(2)}x`}
+                </p>
               </div>
               <div
                 styleName="result-container"
-                onMouseEnter={this.handleMouseEnter2}
+                onMouseEnter={handleMouseEnter2}
+                style={
+                  isHover2
+                    ? { backgroundColor: "#3A3A83" }
+                    : { backgroundColor: "rgb(29, 26, 55)" }
+                }
               >
                 <div>
                   <DiamondFill
@@ -116,13 +142,20 @@ class DiamondGame extends Component {
                     width="18%"
                   />
                 </div>
-                <p styleName="text-result">4,00x</p>
+                <p styleName="text-result">
+                  {`${resultSpace[4].multiplier.toFixed(2)}x`}
+                </p>
               </div>
             </div>
             <div>
               <div
                 styleName="result-container"
-                onMouseEnter={this.handleMouseEnter3}
+                onMouseEnter={handleMouseEnter3}
+                style={
+                  isHover3
+                    ? { backgroundColor: "#3A3A83" }
+                    : { backgroundColor: "rgb(29, 26, 55)" }
+                }
               >
                 <div>
                   <DiamondFill
@@ -141,11 +174,18 @@ class DiamondGame extends Component {
                   <Diamond color="#0E0C1B" width="18%" />
                 </div>
 
-                <p styleName="text-result">3,00x</p>
+                <p styleName="text-result">
+                  {`${resultSpace[3].multiplier.toFixed(2)}x`}
+                </p>
               </div>
               <div
                 styleName="result-container"
-                onMouseEnter={this.handleMouseEnter4}
+                onMouseEnter={handleMouseEnter4}
+                style={
+                  isHover4
+                    ? { backgroundColor: "#3A3A83" }
+                    : { backgroundColor: "rgb(29, 26, 55)" }
+                }
               >
                 <div>
                   <DiamondFill
@@ -167,11 +207,18 @@ class DiamondGame extends Component {
                   <Diamond color="#0E0C1B" width="18%" />
                 </div>
 
-                <p styleName="text-result">0,10x</p>
+                <p styleName="text-result">
+                  {`${resultSpace[2].multiplier.toFixed(2)}x`}
+                </p>
               </div>
               <div
                 styleName="result-container"
-                onMouseEnter={this.handleMouseEnter5}
+                onMouseEnter={handleMouseEnter5}
+                style={
+                  isHover5
+                    ? { backgroundColor: "#3A3A83" }
+                    : { backgroundColor: "rgb(29, 26, 55)" }
+                }
               >
                 <div>
                   <DiamondFill
@@ -187,12 +234,19 @@ class DiamondGame extends Component {
                   <Diamond color="#0E0C1B" width="18%" />
                 </div>
 
-                <p styleName="text-result">0,00x</p>
+                <p styleName="text-result">
+                  {`${resultSpace[1].multiplier.toFixed(2)}x`}
+                </p>
               </div>
             </div>
             <div
               styleName="result-container"
-              onMouseEnter={this.handleMouseEnter6}
+              onMouseEnter={handleMouseEnter6}
+              style={
+                isHover6
+                  ? { backgroundColor: "#3A3A83" }
+                  : { backgroundColor: "rgb(29, 26, 55)" }
+              }
             >
               <div>
                 <Diamond color="#0E0C1B" width="18%" />
@@ -201,56 +255,72 @@ class DiamondGame extends Component {
                 <Diamond color="#0E0C1B" width="18%" />
                 <Diamond color="#0E0C1B" width="18%" />
               </div>
-              <p styleName="text-result">0,00x</p>
+              <p styleName="text-result">
+                {`${resultSpace[0].multiplier.toFixed(2)}x`}
+              </p>
             </div>
           </div>
           {isHover
             ? handleCardResult(
                 "0px",
-                backendResult.length > 0 ? profitAmount : "0",
-                "0.04"
+                backendResult.length > 0
+                  ? profitAmount * resultSpace[6].multiplier.toFixed(2)
+                  : "0",
+                (resultSpace[6].probability * 100).toFixed(2)
               )
             : null}
           {isHover1
             ? handleCardResult(
                 "40px",
-                backendResult.length > 0 ? profitAmount : "0",
-                "1.25"
+                backendResult.length > 0
+                  ? profitAmount * resultSpace[5].multiplier.toFixed(2)
+                  : "0",
+                (resultSpace[5].probability * 100).toFixed(2)
               )
             : null}
           {isHover2
             ? handleCardResult(
                 "80px",
-                backendResult.length > 0 ? profitAmount : "0",
-                "2.50"
+                backendResult.length > 0
+                  ? profitAmount * resultSpace[4].multiplier.toFixed(2)
+                  : "0",
+                (resultSpace[4].probability * 100).toFixed(2)
               )
             : null}
           {isHover3
             ? handleCardResult(
                 "120px",
-                backendResult.length > 0 ? profitAmount : "0",
-                "12.49"
+                backendResult.length > 0
+                  ? profitAmount * resultSpace[3].multiplier.toFixed(2)
+                  : "0",
+                (resultSpace[3].probability * 100).toFixed(2)
               )
             : null}
           {isHover4
             ? handleCardResult(
                 "160px",
-                backendResult.length > 0 ? profitAmount : "0",
-                "18.74"
+                backendResult.length > 0
+                  ? profitAmount * resultSpace[2].multiplier.toFixed(2)
+                  : "0",
+                (resultSpace[2].probability * 100).toFixed(2)
               )
             : null}
           {isHover5
             ? handleCardResult(
                 "180px",
-                backendResult.length > 0 ? profitAmount : "0",
-                "49.98"
+                backendResult.length > 0
+                  ? profitAmount * resultSpace[1].multiplier.toFixed(2)
+                  : "0",
+                (resultSpace[1].probability * 100).toFixed(2)
               )
             : null}
           {isHover6
             ? handleCardResult(
                 "190px",
-                backendResult.length > 0 ? profitAmount : "0",
-                "14.99"
+                backendResult.length > 0
+                  ? profitAmount * resultSpace[0].multiplier.toFixed(2)
+                  : "0",
+                (resultSpace[0].probability * 100).toFixed(2)
               )
             : null}
         </div>
@@ -396,12 +466,20 @@ DiamondGame.propTypes = {
   isHover4: PropTypes.bool.isRequired,
   isHover5: PropTypes.bool.isRequired,
   isHover6: PropTypes.bool.isRequired,
+  handleMouseEnter: PropTypes.func.isRequired,
+  handleMouseEnter1: PropTypes.func.isRequired,
+  handleMouseEnter2: PropTypes.func.isRequired,
+  handleMouseEnter3: PropTypes.func.isRequired,
+  handleMouseEnter4: PropTypes.func.isRequired,
+  handleMouseEnter5: PropTypes.func.isRequired,
+  handleMouseEnter6: PropTypes.func.isRequired,
   isVisible1: PropTypes.bool.isRequired,
   isVisible2: PropTypes.bool.isRequired,
   isVisible3: PropTypes.bool.isRequired,
   isVisible4: PropTypes.bool.isRequired,
   isVisible5: PropTypes.bool.isRequired,
-  profitAmount: PropTypes.number.isRequired
+  profitAmount: PropTypes.number.isRequired,
+  resultSpace: PropTypes.number.isRequired
 };
 
 export default DiamondGame;
