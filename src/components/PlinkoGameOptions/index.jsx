@@ -139,14 +139,20 @@ class PlinkoGameOptions extends Component {
                             (profitStop == 0  || totalProfit <= profitStop) && // Stop Profit
                             (lossStop == 0 || totalLoss <= lossStop) // Stop Loss
                         ){
-                            await delay(1.5*1000);
-                            let { winAmount } = await this.betAction({amount : betAmount});
-                            totalProfit += (winAmount-betAmount);
-                            totalLoss += (winAmount == 0) ? -Math.abs(betAmount) : 0;
-                            wasWon = (winAmount != 0);
-                            lastBet = betAmount;
-                            if(onWin && wasWon){ betAmount += Numbers.toFloat(betAmount*onWin/100) }; 
-                            if(onLoss && !wasWon){ betAmount += Numbers.toFloat(betAmount*onLoss/100) }; 
+                            await delay(4*1000);
+                            const res = await this.betAction({amount : betAmount});
+                            if(!_.isEmpty(res)) {
+                                let { winAmount } = res;
+                                totalProfit += (winAmount-betAmount);
+                                totalLoss += (winAmount == 0) ? -Math.abs(betAmount) : 0;
+                                wasWon = (winAmount != 0);
+                                lastBet = betAmount;
+                                if(onWin && wasWon){ betAmount += Numbers.toFloat(betAmount*onWin/100) }; 
+                                if(onLoss && !wasWon){ betAmount += Numbers.toFloat(betAmount*onLoss/100) }; 
+                            }
+                            else {
+                                break;
+                            }
                         }
                             
                     }
@@ -221,7 +227,7 @@ class PlinkoGameOptions extends Component {
                 onChange={this.handleBets}
             />
             </div>
-            <div styleName="element">
+            {/*<div styleName="element">
             <OnWinLoss value={onWin} title={copy.INDEX.ON_WIN_LOSS.TITLE[0]} onChange={this.handleOnWin} />
             </div>
             <div styleName="element">
@@ -252,7 +258,7 @@ class PlinkoGameOptions extends Component {
                 value={lossStop}
                 onChange={this.handleStopOnLoss}
             />
-            </div>
+            </div>*/}
         </div>
         );
     };
@@ -298,7 +304,7 @@ class PlinkoGameOptions extends Component {
             <ToggleButton
                 config={{
                     left: { value: "manual", title: copy.INDEX.TOGGLE_BUTTON.TITLE[0]},
-                    right: { value: "auto", title: copy.INDEX.TOGGLE_BUTTON.TITLE[1], disabled : true}
+                    right: { value: "auto", title: copy.INDEX.TOGGLE_BUTTON.TITLE[1]}
                 }}
                 selected={type}
                 size="full"

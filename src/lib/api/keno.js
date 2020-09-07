@@ -23,7 +23,6 @@ export default async function bet({ cards, betAmount, user }) {
         const index = outcomeResultSpace.map( r => {
             return r.index;
         });
-
         return {
             result : index,
             winAmount, 

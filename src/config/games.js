@@ -24,6 +24,12 @@ export default [
     metaName: "keno_simple"
   },
   {
+    metaName: "diamonds_simple"
+  },
+  {
+    metaName: "slots_simple"
+  },
+  {
     metaName: "baccarat_simple"
   }
 ];

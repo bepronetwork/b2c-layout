@@ -111,6 +111,7 @@ async function generateHeadElements(){
     var html = html2json(indexHtml);
     html = generateNavBarName(html);
     html = generateLicenseNumber(html);
+    html = generateCripsrIntegration(html);
 
     if(appInfo.hasOwnProperty('typography')){
         const { typography } =  appInfo;
@@ -151,6 +152,18 @@ function generateLicenseNumber(html){
         let titleIndex = html.child[0].child[1].child.findIndex( c => c.tag && (c.tag.toLowerCase() == 'script') && (c.attr && c.attr.id == 'licenseID'));
         html.child[0].child[1].child[titleIndex].attr.src = src;
     }
+    return html;
+}
+
+function generateCripsrIntegration(html){
+    /* Get Cripsr Key */
+    const { cripsr } =  appInfo.integrations;
+    if (cripsr && cripsr.key) {
+        const content = `window.$crisp=[];window.CRISP_WEBSITE_ID="${cripsr.key}";(function(){d=document;s=d.createElement("script");s.src="https://client.crisp.chat/l.js";s.async=1;d.getElementsByTagName("head")[0].appendChild(s);})();$crisp.push(['do', 'chat:hide']);`;
+        let titleIndex = html.child[0].child[1].child.findIndex( c => c.tag && (c.tag.toLowerCase() == 'script') && (c.attr && c.attr.id == 'cripsr'));
+        html.child[0].child[1].child[titleIndex].child[0].text = content;
+    }
+
     return html;
 }
 

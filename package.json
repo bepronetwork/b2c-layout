@@ -89,6 +89,7 @@
     "react-loading-skeleton": "^2.0.1",
     "react-mati": "0.0.2",
     "react-redux": "^7.1.0",
+    "react-responsive-mixin": "^0.4.0",
     "react-rewards": "^1.0.7",
     "react-router-dom": "^5.0.0",
     "react-scripts": "2.1.8",
@@ -102,6 +103,7 @@
     "style-loader": "^0.23.1",
     "styled-components": "^4.2.0",
     "tmp": "^0.1.0",
+    "uniqid": "^5.2.0",
     "webpack": "^4.40.2",
     "whatwg-fetch-timeout": "^2.0.2-timeout"
   },

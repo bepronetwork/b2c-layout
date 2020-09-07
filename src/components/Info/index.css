@@ -1,0 +1,40 @@
+@import "../../styles/all.css";
+
+
+.info {
+  position: relative;
+  display: inline;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  opacity: 0.8;
+
+  svg {
+      width: 1em;
+      height: 1em;
+  }
+}
+
+.window {
+  position: absolute;
+  right: -60px;
+  bottom: 24px;
+  z-index: 2;
+  display: inline-block;
+  margin-top: $spacing-8;
+  background: $primaryColor-13;
+  border-radius: $border-radius;
+  width: 140px;
+  padding: $spacing-12;
+}
+
+.triangle {
+  position: absolute;
+  top: -8px;
+  right: $spacing-4;
+  width: 0;
+  height: 0;
+  border-right: $spacing-4 solid transparent;
+  border-top: $spacing-4 solid $primaryColor-13;
+  border-left: $spacing-4 solid transparent;
+}
