@@ -879,27 +879,23 @@ class App extends Component {
                                         </Switch>
                                     </div>
                                 </div>
-                                <div styleName={chatStyles} >
-                                    {
-                                        cripsr && cripsr.key
-                                        ?
-                                            <a href="#" onClick={this.openCripsrChatClick}>
-                                                <div styleName="chat-crisp-expand">
-                                                    <div>
-                                                        <LiveChatIcon/> 
-                                                    </div>
-                                                </div> 
-                                            </a>
-                                        :
-                                            null
-                                    }
-                                    <a href="#" onClick={this.expandChatClick}>
-                                        <div styleName="chat-expand">
+                                {
+                                    cripsr && cripsr.key
+                                    ?
+                                        <div styleName="chat-crisp-expand" onClick={this.openCripsrChatClick}>
                                             <div>
-                                                <ChatIcon/> 
+                                                <LiveChatIcon/> 
                                             </div>
                                         </div> 
-                                    </a>
+                                    :
+                                        null
+                                }
+                                <div styleName={chatStyles} >
+                                    <div styleName="chat-expand" onClick={this.expandChatClick}>
+                                        <div>
+                                            <ChatIcon/> 
+                                        </div>
+                                    </div> 
                                     <div styleName={'chat-container'}>
                                         <ChatPage/>
                                     </div>

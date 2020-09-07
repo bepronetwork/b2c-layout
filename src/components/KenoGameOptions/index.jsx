@@ -136,7 +136,7 @@ class KenoGameOptions extends Component {
                             (profitStop == 0  || totalProfit <= profitStop) && // Stop Profit
                             (lossStop == 0 || totalLoss <= lossStop) // Stop Loss
                         ){
-                            await delay(1.5*1000);
+                            if (i != 0) { await delay(1.5*1000); };
                             const res = await this.betAction({amount : betAmount});
                             if(!_.isEmpty(res)) {
                                 let { winAmount } = res;
@@ -146,6 +146,8 @@ class KenoGameOptions extends Component {
                                 lastBet = betAmount;
                                 if(onWin && wasWon){ betAmount += Numbers.toFloat(betAmount*onWin/100) }; 
                                 if(onLoss && !wasWon){ betAmount += Numbers.toFloat(betAmount*onLoss/100) }; 
+                                await delay(3*1000);
+                                this.setState({bets : bets-(i + 1), amount: betAmount});
                             }
                             else {
                                 break;

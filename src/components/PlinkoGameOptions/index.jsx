@@ -139,7 +139,7 @@ class PlinkoGameOptions extends Component {
                             (profitStop == 0  || totalProfit <= profitStop) && // Stop Profit
                             (lossStop == 0 || totalLoss <= lossStop) // Stop Loss
                         ){
-                            await delay(4*1000);
+                            if (i != 0) { await delay(4*1000); };
                             const res = await this.betAction({amount : betAmount});
                             if(!_.isEmpty(res)) {
                                 let { winAmount } = res;
@@ -149,6 +149,8 @@ class PlinkoGameOptions extends Component {
                                 lastBet = betAmount;
                                 if(onWin && wasWon){ betAmount += Numbers.toFloat(betAmount*onWin/100) }; 
                                 if(onLoss && !wasWon){ betAmount += Numbers.toFloat(betAmount*onLoss/100) }; 
+                                await delay(4*1000);
+                                this.setState({bets : bets-(i + 1), amount: betAmount});
                             }
                             else {
                                 break;
