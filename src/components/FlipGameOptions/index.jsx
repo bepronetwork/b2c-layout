@@ -131,7 +131,7 @@ class FlipGameOptions extends Component {
                             (profitStop == 0  || totalProfit <= profitStop) && // Stop Profit
                             (lossStop == 0 || totalLoss <= lossStop) // Stop Loss
                         ){
-                            if (i != 0) { await delay(4*1000); };
+                            if (i != 0) { await delay(2.5*1000); };
                             let { winAmount } = await onBet({amount : betAmount, side});
                             totalProfit += (winAmount-betAmount);
                             totalLoss += (winAmount == 0) ? -Math.abs(betAmount) : 0;

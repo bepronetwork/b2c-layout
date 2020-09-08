@@ -98,18 +98,14 @@ class SlotsGameOptions extends Component {
 
   betAction = ({ amount }) => {
     const { onBet } = this.props;
+    return new Promise( async (resolve, reject) => {
+        try{
+            let res = await onBet({ amount });
+            resolve(res)
+        }catch(err){
+            reject(err)
+        }
 
-    return new Promise((resolve, reject) => {
-      try {
-        setTimeout(async () => {
-          const res = await onBet({ amount });
-
-          resolve(res);
-        }, 2 * 1000);
-      } catch (err) {
-        console.log(err);
-        reject(err);
-      }
     });
   };
 

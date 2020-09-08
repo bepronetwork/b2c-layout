@@ -113,7 +113,7 @@ class PlinkoGameOptions extends Component {
                 reject(err)
             }
 
-        })
+        });
     }
 
     handleBet = async (callback) => {

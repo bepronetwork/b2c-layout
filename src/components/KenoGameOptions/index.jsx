@@ -99,18 +99,15 @@ class KenoGameOptions extends Component {
 
     betAction = ({amount}) => {
         const { onBet } = this.props;
-        return new Promise( (resolve, reject) => {
+        return new Promise( async (resolve, reject) => {
             try{
-                setTimeout( async () => {
-                    let res = await onBet({ amount });
-                    resolve(res)
-                },2*1000)
+                let res = await onBet({ amount });
+                resolve(res)
             }catch(err){
-                console.log(err)
                 reject(err)
             }
 
-        })
+        });
     }
 
     handleBet = async (callback) => {
