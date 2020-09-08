@@ -94,11 +94,16 @@ class Navbar extends Component {
 
 
     renderLoginOrRegister = () => {
+        let { user } = this.state;
         const {ln} = this.props;
         const copy = CopyText.navbarIndex[ln];
 
+        const styles = classNames("buttons", {
+            "buttons-not-logged": !user
+        });
+
         return(
-            <div styleName='buttons'>
+            <div styleName={styles}>
                 <div styleName="login">
                     <SubtleButton onClick={this.handleClick} name="login" variant="small-body">
                     {copy.INDEX.SUBTLE_BUTTON.TEXT[0]}
@@ -247,8 +252,14 @@ class Navbar extends Component {
     }
 
     renderLanguageSelector = () => {
+        let { user } = this.state;
+
+        const styles = classNames("language-container", {
+            "language-container-not-logged": !user
+        });
+
         return(
-            <div styleName="language-container">
+            <div styleName={styles}>
                 <LanguageSelector showArrow={true} expand="bottom"/>
             </div>
         )
@@ -267,10 +278,14 @@ class Navbar extends Component {
     }
 
     renderLanguageProfile = () => {
-            let { user } = this.state;
+        let { user } = this.state;
+
+        const styles = classNames("language-profile", {
+            "language-profile-not-logged": !user
+        });
 
         return(
-            <div styleName="language-profile">
+            <div styleName={styles}>
                 {user ?
                     this.renderProfileMenu()
                 :
@@ -290,8 +305,9 @@ class Navbar extends Component {
         let { user, isTransparent } = this.state;
 
         const styles = classNames("top-menu", {
-            "top-menu-transparent": isTransparent == true
-          });
+            "top-menu-transparent": isTransparent == true,
+            "top-menu-not-logged": !user
+        });
 
         return (
             <div  styleName={styles}>

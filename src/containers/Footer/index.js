@@ -25,6 +25,9 @@ import logoEthereum_dark from 'assets/partners/logo_ethereum-dark.png';
 import logoResponsible_light from 'assets/partners/logo_responsible_gambling.png';
 import logoResponsible_dark from 'assets/partners/logo_responsible_gambling-dark.png';
 
+const arr = window.location.href.split("/");
+const website = arr[2];
+
 const footerStaticOutput = ({props, supportLinks, communityLinks}) => {
     const info = getApp();
     const {ln} = props;
@@ -253,6 +256,17 @@ class Footer extends Component {
                             color={footerInfo.info.color}
                         > 
                             {footerInfo.info.text}
+                        </Typography>
+                    </div>
+                    <div styleName='footer-info'>
+                        <Typography
+                            weight={footerInfo.info.size}
+                            color={footerInfo.info.color}
+                        > 
+                            
+                            All {website} products are operated by Ignisvc B.V. registered address, Heelsumstraat 51, Willemstad, Curacao. A company licensed and 
+                            regulated by the law of Curacao under the Master License Holder Curacao eGaming with license number 1668/JAZ.
+                    
                         </Typography>
                     </div>
                     <div styleName='footer-logo'>
