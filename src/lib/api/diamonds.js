@@ -28,8 +28,6 @@ export default async function bet({ amount, user, game_id }) {
     } = response.data.message;
     const { index } = response.data.message.outcomeResultSpace;
 
-    console.log(index);
-
     return {
       result: index,
       winAmount,

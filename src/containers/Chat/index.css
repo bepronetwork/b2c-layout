@@ -60,7 +60,7 @@
     grid-template-columns: auto auto;
     display: grid;
     align-items: center;
-
+    border-radius: 0 0 $border-radius $border-radius;
 }
 
 .message-box{

@@ -21,7 +21,7 @@ import { Numbers } from "../../lib/ethereum/lib";
 
 import "./index.css";
 
-class KenoGameOptions extends Component {
+class SlotsGameOptions extends Component {
   static contextType = UserContext;
 
   static propTypes = {
@@ -98,18 +98,14 @@ class KenoGameOptions extends Component {
 
   betAction = ({ amount }) => {
     const { onBet } = this.props;
+    return new Promise( async (resolve, reject) => {
+        try{
+            let res = await onBet({ amount });
+            resolve(res)
+        }catch(err){
+            reject(err)
+        }
 
-    return new Promise((resolve, reject) => {
-      try {
-        setTimeout(async () => {
-          const res = await onBet({ amount });
-
-          resolve(res);
-        }, 2 * 1000);
-      } catch (err) {
-        console.log(err);
-        reject(err);
-      }
     });
   };
 
@@ -154,7 +150,7 @@ class KenoGameOptions extends Component {
               (profitStop == 0 || totalProfit <= profitStop) && // Stop Profit
               (lossStop == 0 || totalLoss <= lossStop) // Stop Loss
             ) {
-              await delay(1.5 * 1000);
+              if (i != 0) { await delay(1.5 * 1000); };
               const res = await this.betAction({ amount: betAmount });
 
               if (!_.isEmpty(res)) {
@@ -172,6 +168,8 @@ class KenoGameOptions extends Component {
                 if (onLoss && !wasWon) {
                   betAmount += Numbers.toFloat((betAmount * onLoss) / 100);
                 }
+                await delay(1.5*1000);
+                this.setState({bets : bets-(i + 1), amount: betAmount});
               } else {
                 break;
               }
@@ -379,4 +377,4 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps)(KenoGameOptions);
+export default connect(mapStateToProps)(SlotsGameOptions);
