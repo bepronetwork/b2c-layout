@@ -1,9 +1,10 @@
 import React, { Component } from "react";
-import { Typography, InfiniteCarousel, ThirdPartyGameCard } from 'components';
+import { Typography } from 'components';
 import { connect } from "react-redux";
 import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
 import { getProvidersGames } from "../../lib/api/app";
 import { getSkeletonColors, getApp } from "../../lib/helpers";
+import InfiniteCarousel from 'react-leaf-carousel';
 import _ from 'lodash';
 import "./index.css";
 
@@ -17,8 +18,7 @@ class ThirdPartyGames extends Component {
             providerId: null,
             partnerId: null,
             isLoading: true,
-            isLoadingGames: true,
-            total: 0
+            isLoadingGames: true
         };
     }
 
@@ -64,12 +64,17 @@ class ThirdPartyGames extends Component {
             });
         });
 
-        this.setState({ games: gameList, total: gameList.length });
+        this.setState({ games: gameList });
     }
 
-    linkToGameListPage(id) {
-        const url = id === null ? `/casino/games/all` : `/casino/games/${id}`;
-        this.props.history.push(url);
+    linkToGamePage({id, partnerId, url}) {
+        const { profile, onHandleLoginOrRegister } = this.props;
+
+        if (!profile || _.isEmpty(profile)) {
+            return onHandleLoginOrRegister("login");
+        }
+
+        this.props.history.push(`/casino/${id}?partner_id=${partnerId}&url=${url}`);
     }
 
     onClickProvider = async (id) => {
@@ -104,7 +109,7 @@ class ThirdPartyGames extends Component {
     createSkeletonGames = () => {
         let games = []
 
-        for (let i = 0; i < 12; i++) {
+        for (let i = 0; i < 8; i++) {
             games.push(
                 <div class={"col"} styleName="col">
                     <div styleName="root">
@@ -130,8 +135,7 @@ class ThirdPartyGames extends Component {
     }
 
     render() {
-        const { onHandleLoginOrRegister, history } = this.props;
-        const { providers, games, isLoading, isLoadingGames, total, providerId } = this.state;
+        const { providers, games, isLoading, isLoadingGames } = this.state;
 
         return (
             <div>
@@ -146,54 +150,49 @@ class ThirdPartyGames extends Component {
                             </div>
                         </SkeletonTheme>
                     :
-                        providers.length > 0
-                        ?
-                            <div styleName="carousel">
-                                <InfiniteCarousel
-                                    breakpoints={[
-                                    {
-                                        breakpoint: 500,
-                                        settings: {
-                                            slidesToShow: 2,
-                                            slidesToScroll: 1,
-                                        },
-                                    },
-                                    {
-                                        breakpoint: 768,
-                                        settings: {
-                                            slidesToShow: 3,
-                                            slidesToScroll: 2,
-                                        },
-                                    },
-                                    ]}
-                                    dots={false}
-                                    showSides={true}
-                                    sidesOpacity={0.5}
-                                    sideSize={0}
-                                    slidesToScroll={2}
-                                    slidesToShow={4}
-                                    scrollOnDevice={true}
-                                    title="Providers"
-                                    >
-                                    {
-                                        providers.map(p => {
-                                            return(
-                                                <div class={"col"} styleName="col">
-                                                    <div styleName="root" onClick={() => this.onClickProvider(p.providerEco)}>
-                                                        <a>
-                                                            <div>
-                                                                <img width="175" height="70" alt={p.name} src={p.logo} />
-                                                            </div>
-                                                        </a>
+                    <div styleName="carousel">
+                        <InfiniteCarousel
+                            breakpoints={[
+                            {
+                                breakpoint: 500,
+                                settings: {
+                                    slidesToShow: 2,
+                                    slidesToScroll: 1,
+                                },
+                            },
+                            {
+                                breakpoint: 768,
+                                settings: {
+                                    slidesToShow: 3,
+                                    slidesToScroll: 2,
+                                },
+                            },
+                            ]}
+                            dots={false}
+                            showSides={true}
+                            sidesOpacity={0.5}
+                            sideSize={0.1}
+                            slidesToScroll={2}
+                            slidesToShow={4}
+                            scrollOnDevice={true}
+                            >
+                            {
+                                providers.map(p => {
+                                    return(
+                                        <div class={"col"} styleName="col">
+                                            <div styleName="root" onClick={() => this.onClickProvider(p._id)}>
+                                                <a>
+                                                    <div>
+                                                        <img width="175" height="70" alt={p.name} src={p.logo} />
                                                     </div>
-                                                </div>
-                                            )
-                                        })
-                                    }
-                                </InfiniteCarousel>
-                            </div>
-                        :
-                            null
+                                                </a>
+                                            </div>
+                                        </div>
+                                    )
+                                })
+                            }
+                        </InfiniteCarousel>
+                    </div>
                 }
                 </div>
                 <div styleName="container">
@@ -207,27 +206,30 @@ class ThirdPartyGames extends Component {
                             </div>
                         </SkeletonTheme>
                     :
-                    <div>
-                        <div styleName="show" onClick={() => this.linkToGameListPage(providerId)}>
-                            <Typography variant="small-body" color="white">
-                                {`Show All (${total})`}
-                            </Typography>
-                        </div>
-                        <div styleName="container-small">
-                            {games.slice(0, 12).map(g => {
-                                const game = {
-                                    id: g.id, 
-                                    partnerId: g.partnerId, 
-                                    url: g.url,
-                                    icon: g.icon,
-                                    title: g.title,
-                                    provider: g.provider
-                                };
-                                return (
-                                    <ThirdPartyGameCard game={game} onHandleLoginOrRegister={onHandleLoginOrRegister} history={history}/>
-                                )
-                            })}
-                        </div>
+                    <div styleName="container-small">
+                        {games.map(g => {
+                            return (
+                                <div class={"col"} styleName="col">
+                                    <div styleName="root" onClick={() => this.linkToGamePage({id: g.id, partnerId: g.partnerId, url: g.url})}>
+                                        <div styleName="image-container dice-background-color">
+                                            <div styleName="icon">
+                                                <img src={g.icon} styleName='game-icon'/>
+                                            </div>
+                                        </div>
+                                        <div styleName="labels">
+                                            <div styleName="title">
+                                                <Typography variant="small-body" weight="semi-bold" color="white">
+                                                    {g.title}
+                                                </Typography>
+                                            </div>
+                                            <div styleName='info-holder'>
+                                                <Typography variant={'x-small-body'} color={'grey'}>{g.provider}</Typography>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            )
+                        })}
                     </div>
                 }
                 </div>

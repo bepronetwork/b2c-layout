@@ -62,8 +62,6 @@ class DiamondPage extends Component {
   handleAnimations = async idIcon => {
     const box = document.getElementById(idIcon);
 
-    this.setState({ sound: true });
-
     box.animate(
       [
         { transform: "translate3D(0, -20px, 0)" },
@@ -79,30 +77,35 @@ class DiamondPage extends Component {
       this.setState({
         isVisible1: true
       });
+      this.setState({ sound: true });
     }
 
     if (idIcon === "svg-diamond-animated-2") {
       this.setState({
         isVisible2: true
       });
+      this.setState({ sound: true });
     }
 
     if (idIcon === "svg-diamond-animated-3") {
       this.setState({
         isVisible3: true
       });
+      this.setState({ sound: true });
     }
 
     if (idIcon === "svg-diamond-animated-4") {
       this.setState({
         isVisible4: true
       });
+      this.setState({ sound: true });
     }
 
     if (idIcon === "svg-diamond-animated-5") {
       this.setState({
         isVisible5: true
       });
+      this.setState({ sound: true });
     }
 
     return new Promise(resolve => setTimeout(() => resolve(), 500));
@@ -306,22 +309,19 @@ class DiamondPage extends Component {
     this.setState({
       backendResult: resultGen
     });
+    console.log(resultGen);
+  };
+
+  generateResult = async () => {
+    // this.generateRandomResult();
+    this.generateRandArray();
   };
 
   setResultIcons = async () => {
-    this.setState({ sound: false });
     await this.handleAnimations("svg-diamond-animated-1");
-
-    this.setState({ sound: false });
     await this.handleAnimations("svg-diamond-animated-2");
-
-    this.setState({ sound: false });
     await this.handleAnimations("svg-diamond-animated-3");
-
-    this.setState({ sound: false });
     await this.handleAnimations("svg-diamond-animated-4");
-
-    this.setState({ sound: false });
     await this.handleAnimations("svg-diamond-animated-5");
     this.setState({ sound: false });
   };
@@ -398,11 +398,10 @@ class DiamondPage extends Component {
 
   handleBet = async ({ amount }) => {
     try {
+      this.resetState();
       const { user } = this.context;
       const { onHandleLoginOrRegister } = this.props;
       const { game } = this.state;
-
-      this.resetState();
 
       if (!user || _.isEmpty(user)) return onHandleLoginOrRegister("register");
 
@@ -428,7 +427,7 @@ class DiamondPage extends Component {
         amount
       });
 
-      await this.generateRandArray();
+      await this.generateResult();
 
       await this.setResultIcons();
 

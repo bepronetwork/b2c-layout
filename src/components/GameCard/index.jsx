@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
-import { Typography, Info } from "components";
+import { Typography } from "components";
 import { connect } from "react-redux";
 
 import "./index.css";
@@ -50,17 +50,19 @@ class GameCard extends Component {
                             <img src={image_url} styleName='game-icon'/>
                         </div>
                     </div>
-                </Link>
-                <div styleName="title">
-                    <div styleName="prov">
-                        <Typography variant="small-body" weight="semi-bold" color="white">
-                            {title}
-                        </Typography>
+                    <div styleName="labels">
+                        <div styleName="title">
+                            <Typography variant="small-body" weight="semi-bold" color="white">
+                                {title}
+                            </Typography>
+                        </div>
+                        <div styleName='info-holder'>
+                            <Typography variant="x-small-body" color="grey">
+                                {edge >= 0 ? `${edge}% ${copy.EDGE_NAME}` : ""} 
+                            </Typography>
+                        </div>
                     </div>
-                    <span styleName="info">
-                        <Info text={edge >= 0 ? `${copy.EDGE_NAME}: ${edge}%` : ""} />
-                    </span>
-                </div>
+                </Link>
             </div>
         );
     }
