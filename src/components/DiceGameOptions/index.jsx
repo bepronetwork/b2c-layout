@@ -102,18 +102,15 @@ class DiceGameOptions extends Component {
 
     betAction = ({amount}) => {
         const { onBet } = this.props;
-        return new Promise( (resolve, reject) => {
+        return new Promise( async (resolve, reject) => {
             try{
-                setTimeout( async () => {
-                    let res = await onBet({ amount });
-                    resolve(res)
-                },2*1000)
+                let res = await onBet({ amount });
+                resolve(res)
             }catch(err){
-                console.log(err)
                 reject(err)
             }
 
-        })
+        });
     }
 
     handleBet = async (callback) => {
@@ -139,7 +136,7 @@ class DiceGameOptions extends Component {
                             (profitStop == 0  || totalProfit <= profitStop) && // Stop Profit
                             (lossStop == 0 || totalLoss <= lossStop) // Stop Loss
                         ){
-                            if (i != 0) { await delay(1.5 * 1000); };
+                            if (i != 0) { await delay(1 * 1000); };
                             let { winAmount } = await this.betAction({amount : betAmount});
                             totalProfit += (winAmount-betAmount);
                             totalLoss += (winAmount == 0) ? -Math.abs(betAmount) : 0;
