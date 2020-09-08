@@ -15,7 +15,7 @@
 
 .carousel {
     position: relative;
-    margin-top: $spacing-20;
+    margin: 0 $spacing-8;
 }
 
 .body {
@@ -37,6 +37,7 @@
     grid-template-columns: repeat(3, 290px);
     max-width: $content-width-desktop;
     margin: auto;
+    margin-top: $spacing-20;
   
     @include Breakpoint-tabletOnly {
       grid-template-columns: 1fr;
@@ -48,7 +49,7 @@
 }
 
 .container-small{
-    margin: 0;
+    margin: $spacing-8 0 0 0;
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
 }
@@ -104,14 +105,6 @@
     text-align: left;
 }
 
-.background-icon {
-    width: 282px;
-    height: 170px;
-    position: absolute;
-    border-radius: $spacing-12; 
-    opacity: 0.3;
-}
-
 .icon {
     margin: 0 auto;
     transform: scale(1) rotate(0deg);
@@ -132,16 +125,4 @@
 .info-holder{
     margin-right: $spacing-8;
     text-align: right;
-}
-
-.show {
-    text-align: right;
-    margin-right: $spacing-8;
-    margin-bottom: $spacing-4;
-    cursor: pointer;
-    opacity: 0.7;
-}
-
-.show:hover {
-    opacity: 1;
-}
+} 

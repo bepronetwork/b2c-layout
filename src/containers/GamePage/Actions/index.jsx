@@ -28,7 +28,8 @@ class Actions extends Component {
         
         let tableLimit;
         if(profile && !_.isEmpty(profile)){
-            const gameWallet = game.wallets.find( w => new String(w.currency).toString() == new String(currency._id).toString());
+            const wallet = currency ? profile.getWallet({currency}) : null;
+            const gameWallet = game.wallets.find( w => new String(w.wallet).toString() == new String(wallet._id).toString());
             tableLimit = gameWallet ? gameWallet.tableLimit : null;
         }
 
@@ -70,10 +71,10 @@ class Actions extends Component {
                         </h1>
                         <div styleName="content">
                             <span>
-                                <Typography color={'grey'} variant={'small-body'}>Minimum : 0.01</Typography>
+                                <Typography color={'grey'} variant={'small-body'}>Min: 0.01</Typography>
                             </span>
                             <span>
-                                <Typography color={'grey'} variant={'small-body'}>Maximum : {tableLimit}</Typography>
+                                <Typography color={'grey'} variant={'small-body'}>Max: {tableLimit}</Typography>
                             </span>
                         </div>
                     </div>

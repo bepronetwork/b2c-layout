@@ -80,7 +80,7 @@ class RouletteGameOptions extends Component {
                             (profitStop == 0  || totalProfit <= profitStop) && // Stop Profit
                             (lossStop == 0 || totalLoss <= lossStop) // Stop Loss
                         ){
-                            if (i != 0) { await delay(3*1000); };
+                            await delay(5*1000);
                             const res = await this.betAction({amount : betAmount});
                             if(!_.isEmpty(res)) {
                                 let { winAmount } = res;
@@ -90,8 +90,6 @@ class RouletteGameOptions extends Component {
                                 lastBet = betAmount;
                                 if(onWin && wasWon){ betAmount += Numbers.toFloat(betAmount*onWin/100) }; 
                                 if(onLoss && !wasWon){ betAmount += Numbers.toFloat(betAmount*onLoss/100) }; 
-                                await delay(4*1000);
-                                this.setState({bets : bets-(i + 1), amount: betAmount});
                             }
                             else {
                                 break;
@@ -108,15 +106,18 @@ class RouletteGameOptions extends Component {
 
     betAction = ({amount}) => {
         const { onBet } = this.props;
-        return new Promise( async (resolve, reject) => {
+        return new Promise( (resolve, reject) => {
             try{
-                let res = await onBet({ amount });
-                resolve(res)
+                setTimeout( async () => {
+                    let res = await onBet({ amount });
+                    resolve(res)
+                },2*1000)
             }catch(err){
+                console.log(err)
                 reject(err)
             }
 
-        });
+        })
     }
 
     renderAuto = () => {

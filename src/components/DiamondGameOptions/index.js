@@ -98,15 +98,19 @@ class DiamondGameOptions extends Component {
 
   betAction = ({ amount }) => {
     const { onBet } = this.props;
-    return new Promise( async (resolve, reject) => {
-        try{
-            let res = await onBet({ amount });
-            resolve(res)
-        }catch(err){
-            reject(err)
-        }
 
-    })
+    return new Promise((resolve, reject) => {
+      try {
+        setTimeout(async () => {
+          const res = await onBet({ amount });
+
+          resolve(res);
+        }, 2 * 1000);
+      } catch (err) {
+        console.log(err);
+        reject(err);
+      }
+    });
   };
 
   handleBet = async callback => {
@@ -150,7 +154,7 @@ class DiamondGameOptions extends Component {
               (profitStop == 0 || totalProfit <= profitStop) && // Stop Profit
               (lossStop == 0 || totalLoss <= lossStop) // Stop Loss
             ) {
-              if (i != 0) { await delay(1.5 * 1000); };
+              await delay(1.5 * 1000);
               const res = await this.betAction({ amount: betAmount });
 
               if (!_.isEmpty(res)) {
@@ -168,9 +172,6 @@ class DiamondGameOptions extends Component {
                 if (onLoss && !wasWon) {
                   betAmount += Numbers.toFloat((betAmount * onLoss) / 100);
                 }
-
-                await delay(1.5*1000);
-                this.setState({bets : bets-(i + 1), amount: betAmount});
               } else {
                 break;
               }
