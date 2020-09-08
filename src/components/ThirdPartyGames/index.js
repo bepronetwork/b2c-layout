@@ -207,28 +207,32 @@ class ThirdPartyGames extends Component {
                             </div>
                         </SkeletonTheme>
                     :
-                    <div>
-                        <div styleName="show" onClick={() => this.linkToGameListPage(providerId)}>
-                            <Typography variant="small-body" color="white">
-                                {`Show All (${total})`}
-                            </Typography>
+                    providers.length > 0
+                    ?
+                        <div>
+                            <div styleName="show" onClick={() => this.linkToGameListPage(providerId)}>
+                                <Typography variant="small-body" color="white">
+                                    {`Show All (${total})`}
+                                </Typography>
+                            </div>
+                            <div styleName="container-small">
+                                {games.slice(0, 12).map(g => {
+                                    const game = {
+                                        id: g.id, 
+                                        partnerId: g.partnerId, 
+                                        url: g.url,
+                                        icon: g.icon,
+                                        title: g.title,
+                                        provider: g.provider
+                                    };
+                                    return (
+                                        <ThirdPartyGameCard game={game} onHandleLoginOrRegister={onHandleLoginOrRegister} history={history}/>
+                                    )
+                                })}
+                            </div>
                         </div>
-                        <div styleName="container-small">
-                            {games.slice(0, 12).map(g => {
-                                const game = {
-                                    id: g.id, 
-                                    partnerId: g.partnerId, 
-                                    url: g.url,
-                                    icon: g.icon,
-                                    title: g.title,
-                                    provider: g.provider
-                                };
-                                return (
-                                    <ThirdPartyGameCard game={game} onHandleLoginOrRegister={onHandleLoginOrRegister} history={history}/>
-                                )
-                            })}
-                        </div>
-                    </div>
+                    : 
+                        null
                 }
                 </div>
             </div>
