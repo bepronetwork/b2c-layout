@@ -1,11 +1,11 @@
 import { find } from "lodash";
 import { processResponse } from "../helpers";
 
-export default async function bet({ amount, user }) {
+export default async function bet({ amount, user, game_id }) {
   try {
     const appInfo = JSON.parse(localStorage.getItem("appInfo"));
 
-    const game = find(appInfo.games, { metaName: "slots_simple" });
+    const game = find(appInfo.games, { _id: game_id });
 
     const result = new Array(13).fill(0).map((value, index) => {
       return {
@@ -15,6 +15,7 @@ export default async function bet({ amount, user }) {
     });
 
     const response = await user.createBet({
+      amount,
       result,
       gameId: game._id
     });

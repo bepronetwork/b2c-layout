@@ -41,11 +41,13 @@ class SlotsPage extends Component {
     this.state = {
       result: null,
       resultSound: false,
+      gameName: "Slots",
       gameStore: [],
       line: false,
       betObjectResult: {},
       resultMultiplier: 0,
       disableControls: false,
+      amount: 0,
       game: {
         edge: 0
       },
@@ -87,6 +89,7 @@ class SlotsPage extends Component {
     try {
       const { user } = this.context;
       const { onHandleLoginOrRegister } = this.props;
+      const { game } = this.state;
 
       if (!user) return onHandleLoginOrRegister("register");
 
@@ -103,14 +106,16 @@ class SlotsPage extends Component {
 
       const res = await slotsBet({
         amount,
-        user
+        user,
+        game_id: game._id
       });
 
       this.setState({
         testArray: res.result,
         betObjectResult: res,
         winAmount: res.winAmount.toFixed(8),
-        resultMultiplier: (res.winAmount / res.betAmount).toFixed(2)
+        resultMultiplier: (res.winAmount / res.betAmount).toFixed(2),
+        amount
       });
       this.setState({ soundReel: true });
 
@@ -289,13 +294,14 @@ class SlotsPage extends Component {
   };
 
   getGame = () => {
+    const { gameName } = this.state;
+
     const appInfo = Cache.getFromCache("appInfo");
 
     if (appInfo) {
-      const game = find(appInfo.games, { name: "Slots" });
+      const game = find(appInfo.games, { name: gameName });
 
-      this.setState({ gameStore: game });
-      console.log(game);
+      this.setState({ ...this.state, game });
     }
   };
 
@@ -362,7 +368,6 @@ class SlotsPage extends Component {
 
   render() {
     const { onTableDetails } = this.props;
-    const { gameStore } = this.state;
 
     return (
       <GamePage
@@ -370,7 +375,7 @@ class SlotsPage extends Component {
         game={this.renderGameCard()}
         history="slotsHistory"
         slots="slots"
-        gameMetaName={gameStore.metaName}
+        gameMetaName={this.state.game.metaName}
         onTableDetails={onTableDetails}
       />
     );
@@ -378,7 +383,7 @@ class SlotsPage extends Component {
 }
 
 SlotsPage.propTypes = {
-  profile: propTypes.string.isRequired,
+  profile: propTypes.objectOf.isRequired,
   onTableDetails: propTypes.string.isRequired,
   onHandleLoginOrRegister: propTypes.func.isRequired
 };
