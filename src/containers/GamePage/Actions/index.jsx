@@ -70,10 +70,10 @@ class Actions extends Component {
                         </h1>
                         <div styleName="content">
                             <span>
-                                <Typography color={'grey'} variant={'small-body'}>Minimum: 0.01</Typography>
+                                <Typography color={'grey'} variant={'small-body'}>Minimum : 0.01</Typography>
                             </span>
                             <span>
-                                <Typography color={'grey'} variant={'small-body'}>Maximum: {tableLimit}</Typography>
+                                <Typography color={'grey'} variant={'small-body'}>Maximum : {tableLimit}</Typography>
                             </span>
                         </div>
                     </div>
