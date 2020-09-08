@@ -409,8 +409,6 @@ class DiamondPage extends Component {
       window.soundManager.setup({ debugMode: false });
       this.setState({ disableControls: true });
 
-      if (!user) return onHandleLoginOrRegister("register");
-
       this.setState({ bet: true });
 
       const res = await diamondsBet({
@@ -634,7 +632,7 @@ class DiamondPage extends Component {
       <GamePage
         game={this.getGameCard()}
         options={this.getOptions()}
-        history="diceHistory"
+        history="diamondsHistory"
         gameMetaName={this.state.game.metaName}
         onTableDetails={onTableDetails}
       />

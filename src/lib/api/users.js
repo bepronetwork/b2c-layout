@@ -238,6 +238,8 @@ export async function logout() {
     localStorage.removeItem("wheelHistory");
     localStorage.removeItem("wheel_variation_1History");
     localStorage.removeItem("kenoHistory");
+    localStorage.removeItem("slotsHistory");
+    localStorage.removeItem("diamondsHistory");
     localStorage.removeItem("customization");
     localStorage.removeItem("affiliate");
     localStorage.removeItem("appInfo");

@@ -26,6 +26,7 @@ export default async function bet({ amount, user, game_id }) {
       nonce,
       user_delta
     } = response.data.message;
+
     const { index } = response.data.message.outcomeResultSpace;
 
     return {
