@@ -35,7 +35,6 @@ class SlotsDetails extends Component {
       result,
       game
     });
-    console.log(result);
   };
 
   render() {
