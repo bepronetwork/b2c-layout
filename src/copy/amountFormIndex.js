@@ -26,7 +26,7 @@
         "LIST" : [
           "Please do not withdraw to the ICO or crowdfunding address",
           "We will process your withdrawal in 30 minutes, it depends on the blockchain when the assets would be finally settled in your withdraw address",
-          "Withdrawing directly into the another user deposit address is not supported, please use an external address"
+          "Withdrawing directly into another user deposit address is not supported, please use an external address"
         ]
       }
     }
