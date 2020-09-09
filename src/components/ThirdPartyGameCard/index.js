@@ -35,24 +35,22 @@ class ThirdPartyGameCard extends Component {
         return (
             <div class={"col"} styleName="col">
                 <div styleName="root">
-                    <div styleName="image-container dice-background-color" onClick={() => this.linkToGamePage({id: game.id, partnerId: game.partnerId, url: game.url})}>
-                        <div styleName="background-icon" style={{background: "url("+game.icon+") center center / cover no-repeat"}}></div>
-                        <div styleName="icon">
-                            <img src={game.icon} styleName='game-icon'/>
-                        </div>
+                    <div styleName="image-container dice-background-color" onClick={() => this.linkToGamePage({id: game.id, partnerId: game.partnerId, url: game.url})} style={{background: "url("+game.icon+") center center / cover no-repeat"}}>
                     </div>
-                    <div styleName="title" onClick={() => this.linkToGamePage({id: game.id, partnerId: game.partnerId, url: game.url})}>
-                        <Typography variant="small-body" weight="semi-bold" color="white">
-                            {game.title}
-                        </Typography>
+                    <div styleName="title">
+                        <div styleName="name" onClick={() => this.linkToGamePage({id: game.id, partnerId: game.partnerId, url: game.url})}>
+                            <Typography variant="x-small-body" weight="semi-bold" color="white">
+                                {game.title}
+                            </Typography>
+                        </div>
+                        <span styleName="info">
+                            <Info text="Edge: %"/>
+                        </span>
                     </div>
                     <div styleName="title">
                         <div styleName="prov">
                             <Typography variant={'x-small-body'} color={'grey'}>{game.provider}</Typography>
                         </div>
-                        <span styleName="info">
-                            <Info text="Edge: %"/>
-                        </span>
                     </div>
                 </div>
             </div>
