@@ -95,14 +95,16 @@ class App extends Component {
         this.asyncCalls();
         this.getQueryParams();
 
-        this.intervalID = setInterval( async () => {
-            const isClosed = window.$crisp.is("chat:closed");
-
-            if(isClosed == true) {
-                window.$crisp.push(['do', 'chat:hide']);
-            }
-
-        }, 1000);
+        if (typeof window.$crisp != "undefined") {
+            this.intervalID = setInterval( async () => {
+                const isClosed = window.$crisp.is("chat:closed");
+    
+                if(isClosed == true) {
+                    window.$crisp.push(['do', 'chat:hide']);
+                }
+    
+            }, 1000);
+        }
     };
 
     componentWillUnmount() {
