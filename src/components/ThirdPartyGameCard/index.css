@@ -43,18 +43,10 @@
 }
   
 .title {
-    margin: $spacing-8 $spacing-8;
+    margin: 0 $spacing-4;
     display: flex;
     justify-content: space-between;
     text-transform: capitalize;
-}
-
-.background-icon {
-    width: 282px;
-    height: 170px;
-    position: absolute;
-    border-radius: $spacing-12; 
-    opacity: 0.3;
 }
 
 .icon {
@@ -69,11 +61,6 @@
     transition: transform 500ms linear;
 }
 
-.game-icon{
-    width: 170px;
-    border-radius: $border-radius;
-}
-
 .info-holder{
     margin-right: $spacing-8;
     text-align: right;
@@ -86,6 +73,7 @@
     justify-content: center;
     align-items: center;
     opacity: 0.7;
+    letter-spacing: 1px;
 }
 
 .info {
@@ -93,9 +81,16 @@
     display: inline;
     justify-content: center;
     align-items: center;
+    margin-top: $spacing-4;
 
     svg {
         width: 1em;
         height: 1em;
     }
+}
+
+.name {
+    cursor: "pointer";
+    margin: 6px 0;
+    text-align: left;
 }
