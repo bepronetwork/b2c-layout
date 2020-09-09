@@ -95,7 +95,10 @@ class App extends Component {
         this.asyncCalls();
         this.getQueryParams();
 
-        if (typeof window.$crisp != "undefined") {
+        const app = Cache.getFromCache("appInfo");
+        const { cripsr } =  app.integrations;
+
+        if (cripsr && cripsr.key && typeof window.$crisp != "undefined") {
             this.intervalID = setInterval( async () => {
                 const isClosed = window.$crisp.is("chat:closed");
     
@@ -417,6 +420,8 @@ class App extends Component {
         localStorage.removeItem("wheelHistory");
         localStorage.removeItem("wheel_variation_1History");
         localStorage.removeItem("kenoHistory");
+        localStorage.removeItem("slotsHistory");
+        localStorage.removeItem("diamondsHistory");
         localStorage.removeItem("customization");
         localStorage.removeItem("affiliate");
         localStorage.removeItem("appInfo");
@@ -549,6 +554,7 @@ class App extends Component {
 
     updateAppInfo = async () => {
         let app = await getAppInfo();
+        console.log(app);
         Cache.setToCache("appInfo", app);
         this.setState({...this.state, app})
     };

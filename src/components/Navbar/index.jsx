@@ -94,11 +94,12 @@ class Navbar extends Component {
 
 
     renderLoginOrRegister = () => {
+        let { user } = this.state;
         const {ln} = this.props;
         const copy = CopyText.navbarIndex[ln];
 
         return(
-            <div styleName='buttons'>
+            <div styleName="buttons">
                 <div styleName="login">
                     <SubtleButton onClick={this.handleClick} name="login" variant="small-body">
                     {copy.INDEX.SUBTLE_BUTTON.TEXT[0]}
@@ -247,6 +248,8 @@ class Navbar extends Component {
     }
 
     renderLanguageSelector = () => {
+        let { user } = this.state;
+
         return(
             <div styleName="language-container">
                 <LanguageSelector showArrow={true} expand="bottom"/>
@@ -267,7 +270,7 @@ class Navbar extends Component {
     }
 
     renderLanguageProfile = () => {
-            let { user } = this.state;
+        let { user } = this.state;
 
         return(
             <div styleName="language-profile">
@@ -291,7 +294,7 @@ class Navbar extends Component {
 
         const styles = classNames("top-menu", {
             "top-menu-transparent": isTransparent == true
-          });
+        });
 
         return (
             <div  styleName={styles}>

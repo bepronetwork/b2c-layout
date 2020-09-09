@@ -19,7 +19,17 @@ class GamePage extends Component {
     static propTypes = {
         options: PropTypes.node,
         game: PropTypes.node,
-        history: PropTypes.oneOf(["diceHistory", "rouletteHistory", "flipHistory", "plinko_variation_1History", "wheelHistory", "wheel_variation_1History", "kenoHistory"])
+        history: PropTypes.oneOf([
+            "diceHistory",
+            "rouletteHistory",
+            "flipHistory",
+            "plinko_variation_1History",
+            "wheelHistory",
+            "wheel_variation_1History",
+            "kenoHistory",
+            "diamondsHistory",
+            "slotsHistory"
+    ])
     };
 
     static defaultProps = {
