@@ -52,14 +52,19 @@ class GameCard extends Component {
                     </div>
                 </Link>
                 <div styleName="title">
-                    <div styleName="prov">
-                        <Typography variant="small-body" weight="semi-bold" color="white">
+                    <div styleName="name">
+                        <Typography variant="x-small-body" weight="semi-bold" color="white">
                             {title}
                         </Typography>
                     </div>
                     <span styleName="info">
                         <Info text={edge >= 0 ? `${copy.EDGE_NAME}: ${edge}%` : ""} />
                     </span>
+                </div>
+                <div styleName="title">
+                    <div styleName="prov">
+                        <Typography variant={'x-small-body'} color={'grey'}>BetProtocol Games</Typography>
+                    </div>
                 </div>
             </div>
         );
