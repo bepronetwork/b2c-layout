@@ -111,7 +111,7 @@
 }
 
 .title {
-  margin: $spacing-8 $spacing-8;
+  margin: 0 $spacing-4;
   display: flex;
   justify-content: space-between;
   text-transform: capitalize;
@@ -136,6 +136,7 @@
   justify-content: center;
   align-items: center;
   opacity: 0.7;
+  letter-spacing: 1px;
 }
 
 .info {
@@ -143,6 +144,7 @@
   display: inline;
   justify-content: center;
   align-items: center;
+  margin-top: $spacing-4;
 
   svg {
       width: 1em;
@@ -150,3 +152,8 @@
   }
 }
 
+.name {
+  cursor: "pointer";
+  margin: 6px 0;
+  text-align: left;
+}

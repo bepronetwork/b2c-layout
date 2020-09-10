@@ -59,10 +59,14 @@ class DiamondPage extends Component {
     });
   }
 
+  setSound = async value => {
+    this.setState({ sound: value });
+  };
+
   handleAnimations = async idIcon => {
     const box = document.getElementById(idIcon);
 
-    this.setState({ sound: true });
+    this.setSound(true);
 
     box.animate(
       [
@@ -309,21 +313,13 @@ class DiamondPage extends Component {
   };
 
   setResultIcons = async () => {
-    this.setState({ sound: false });
     await this.handleAnimations("svg-diamond-animated-1");
-
-    this.setState({ sound: false });
     await this.handleAnimations("svg-diamond-animated-2");
-
-    this.setState({ sound: false });
     await this.handleAnimations("svg-diamond-animated-3");
-
-    this.setState({ sound: false });
     await this.handleAnimations("svg-diamond-animated-4");
-
-    this.setState({ sound: false });
     await this.handleAnimations("svg-diamond-animated-5");
-    this.setState({ sound: false });
+
+    await this.setSound(false);
   };
 
   getGame = () => {
@@ -408,8 +404,6 @@ class DiamondPage extends Component {
 
       window.soundManager.setup({ debugMode: false });
       this.setState({ disableControls: true });
-
-      if (!user) return onHandleLoginOrRegister("register");
 
       this.setState({ bet: true });
 
@@ -634,7 +628,7 @@ class DiamondPage extends Component {
       <GamePage
         game={this.getGameCard()}
         options={this.getOptions()}
-        history="diceHistory"
+        history="diamondsHistory"
         gameMetaName={this.state.game.metaName}
         onTableDetails={onTableDetails}
       />

@@ -96,14 +96,19 @@ class App extends Component {
         this.asyncCalls();
         this.getQueryParams();
 
-        // this.intervalID = setInterval( async () => {
-        //     const isClosed = window.$crisp.is("chat:closed");
+        const app = Cache.getFromCache("appInfo");
+        const { cripsr } =  app.integrations;
 
-        //     if(isClosed == true) {
-        //         window.$crisp.push(['do', 'chat:hide']);
-        //     }
-
-        // }, 1000);
+        if (cripsr && cripsr.key && typeof window.$crisp != "undefined") {
+            this.intervalID = setInterval( async () => {
+                const isClosed = window.$crisp.is("chat:closed");
+    
+                if(isClosed == true) {
+                    window.$crisp.push(['do', 'chat:hide']);
+                }
+    
+            }, 1000);
+        }
     };
 
     componentWillUnmount() {
@@ -416,6 +421,8 @@ class App extends Component {
         localStorage.removeItem("wheelHistory");
         localStorage.removeItem("wheel_variation_1History");
         localStorage.removeItem("kenoHistory");
+        localStorage.removeItem("slotsHistory");
+        localStorage.removeItem("diamondsHistory");
         localStorage.removeItem("customization");
         localStorage.removeItem("affiliate");
         localStorage.removeItem("appInfo");
@@ -923,27 +930,23 @@ class App extends Component {
                                         </Switch>
                                     </div>
                                 </div>
-                                <div styleName={chatStyles} >
-                                    {
-                                        cripsr && cripsr.key
-                                        ?
-                                            <a href="#" onClick={this.openCripsrChatClick}>
-                                                <div styleName="chat-crisp-expand">
-                                                    <div>
-                                                        <LiveChatIcon/> 
-                                                    </div>
-                                                </div> 
-                                            </a>
-                                        :
-                                            null
-                                    }
-                                    <a href="#" onClick={this.expandChatClick}>
-                                        <div styleName="chat-expand">
+                                {
+                                    cripsr && cripsr.key
+                                    ?
+                                        <div styleName="chat-crisp-expand" onClick={this.openCripsrChatClick}>
                                             <div>
-                                                <ChatIcon/> 
+                                                <LiveChatIcon/> 
                                             </div>
                                         </div> 
-                                    </a>
+                                    :
+                                        null
+                                }
+                                <div styleName={chatStyles} >
+                                    <div styleName="chat-expand" onClick={this.expandChatClick}>
+                                        <div>
+                                            <ChatIcon/> 
+                                        </div>
+                                    </div> 
                                     <div styleName={'chat-container'}>
                                         <ChatPage/>
                                     </div>

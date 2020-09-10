@@ -36,3 +36,7 @@
 .i {
     fill: $grey;
 }
+
+.j {
+    fill: $secondaryColor;
+}

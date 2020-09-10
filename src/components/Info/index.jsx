@@ -3,7 +3,7 @@ import { Typography, InfoIcon } from "components";
 
 import "./index.css";
 
-export default class Inffo extends Component {
+export default class Info extends Component {
 
   constructor(props){
     super(props);
@@ -14,7 +14,6 @@ export default class Inffo extends Component {
 
   onInfoClick = () => {
     const { open } = this.state;
-    console.log(open)
     this.setState({ open : !open });
   };
 

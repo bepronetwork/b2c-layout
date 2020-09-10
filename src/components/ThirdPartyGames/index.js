@@ -84,7 +84,7 @@ class ThirdPartyGames extends Component {
     createSkeletonProviders = () => {
         let providers = []
 
-        for (let i = 0; i < 4; i++) {
+        for (let i = 0; i < 6; i++) {
             providers.push(
                 <div class={"col"} styleName="col">
                     <div styleName="root">
@@ -108,18 +108,21 @@ class ThirdPartyGames extends Component {
             games.push(
                 <div class={"col"} styleName="col">
                     <div styleName="root">
-                        <div styleName="image-container dice-background-color">
+                        <div styleName="image-container">
                             <div styleName="icon">
-                                <Skeleton width={"250"} height={"150"}/>
+                                <Skeleton width={"180"} height={"150"}/>
                             </div>
                         </div>
                         <div styleName="labels">
                             <div styleName="title">
-                                <Skeleton width={"150"} height={"30"}/>
+                                <Skeleton width={"120"} height={"20"}/>
                             </div>
                             <div styleName='info-holder'>
-                                <Skeleton width={"60"} height={"20"}/> 
+                                <Skeleton width={"20"} height={"20"} circle={true}/> 
                             </div>
+                        </div>
+                        <div styleName="title">
+                                <Skeleton width={"80"} height={"20"}/>
                         </div>
                     </div>
                 </div>
@@ -146,50 +149,54 @@ class ThirdPartyGames extends Component {
                             </div>
                         </SkeletonTheme>
                     :
-                    <div styleName="carousel">
-                        <InfiniteCarousel
-                            breakpoints={[
-                            {
-                                breakpoint: 500,
-                                settings: {
-                                    slidesToShow: 2,
-                                    slidesToScroll: 1,
-                                },
-                            },
-                            {
-                                breakpoint: 768,
-                                settings: {
-                                    slidesToShow: 3,
-                                    slidesToScroll: 2,
-                                },
-                            },
-                            ]}
-                            dots={false}
-                            showSides={true}
-                            sidesOpacity={0.5}
-                            sideSize={0}
-                            slidesToScroll={2}
-                            slidesToShow={4}
-                            scrollOnDevice={true}
-                            title="Providers"
-                            >
-                            {
-                                providers.map(p => {
-                                    return(
-                                        <div class={"col"} styleName="col">
-                                            <div styleName="root" onClick={() => this.onClickProvider(p.providerEco)}>
-                                                <a>
-                                                    <div>
-                                                        <img width="175" height="70" alt={p.name} src={p.logo} />
+                        providers.length > 0
+                        ?
+                            <div styleName="carousel">
+                                <InfiniteCarousel
+                                    breakpoints={[
+                                    {
+                                        breakpoint: 500,
+                                        settings: {
+                                            slidesToShow: 2,
+                                            slidesToScroll: 1,
+                                        },
+                                    },
+                                    {
+                                        breakpoint: 768,
+                                        settings: {
+                                            slidesToShow: 3,
+                                            slidesToScroll: 2,
+                                        },
+                                    },
+                                    ]}
+                                    dots={false}
+                                    showSides={true}
+                                    sidesOpacity={0.5}
+                                    sideSize={0}
+                                    slidesToScroll={2}
+                                    slidesToShow={6}
+                                    scrollOnDevice={true}
+                                    title="Providers"
+                                    >
+                                    {
+                                        providers.map(p => {
+                                            return(
+                                                <div class={"col"} styleName="col">
+                                                    <div styleName="root" onClick={() => this.onClickProvider(p.providerEco)}>
+                                                        <a>
+                                                            <div>
+                                                                <img width="175" height="70" alt={p.name} src={p.logo} />
+                                                            </div>
+                                                        </a>
                                                     </div>
-                                                </a>
-                                            </div>
-                                        </div>
-                                    )
-                                })
-                            }
-                        </InfiniteCarousel>
-                    </div>
+                                                </div>
+                                            )
+                                        })
+                                    }
+                                </InfiniteCarousel>
+                            </div>
+                        :
+                            null
                 }
                 </div>
                 <div styleName="container">
@@ -203,28 +210,32 @@ class ThirdPartyGames extends Component {
                             </div>
                         </SkeletonTheme>
                     :
-                    <div>
-                        <div styleName="show" onClick={() => this.linkToGameListPage(providerId)}>
-                            <Typography variant="small-body" color="white">
-                                {`Show All (${total})`}
-                            </Typography>
+                    providers.length > 0
+                    ?
+                        <div>
+                            <div styleName="show" onClick={() => this.linkToGameListPage(providerId)}>
+                                <Typography variant="small-body" color="white">
+                                    {`Show All (${total})`}
+                                </Typography>
+                            </div>
+                            <div styleName="container-small">
+                                {games.slice(0, 12).map(g => {
+                                    const game = {
+                                        id: g.id, 
+                                        partnerId: g.partnerId, 
+                                        url: g.url,
+                                        icon: g.icon,
+                                        title: g.title,
+                                        provider: g.provider
+                                    };
+                                    return (
+                                        <ThirdPartyGameCard game={game} onHandleLoginOrRegister={onHandleLoginOrRegister} history={history}/>
+                                    )
+                                })}
+                            </div>
                         </div>
-                        <div styleName="container-small">
-                            {games.slice(0, 12).map(g => {
-                                const game = {
-                                    id: g.id, 
-                                    partnerId: g.partnerId, 
-                                    url: g.url,
-                                    icon: g.icon,
-                                    title: g.title,
-                                    provider: g.provider
-                                };
-                                return (
-                                    <ThirdPartyGameCard game={game} onHandleLoginOrRegister={onHandleLoginOrRegister} history={history}/>
-                                )
-                            })}
-                        </div>
-                    </div>
+                    : 
+                        null
                 }
                 </div>
             </div>
