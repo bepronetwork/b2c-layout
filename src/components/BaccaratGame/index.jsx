@@ -8,7 +8,7 @@ import rotateimg from "assets/images/rotate.svg";
 import cards from "assets/images/cardimage.svg";
 
 import "./index.css";
-import CardSection from "./cardsection.jsx";
+import CardSection from "./cardsection.jsx/index.jsx";
 
 class Baccarat extends Component {
   render() {
@@ -34,7 +34,8 @@ class Baccarat extends Component {
       bankerAmount,
       notifyStatus,
       stateCard,
-      winAmount
+      winAmount,
+      handleBet
     } = this.props;
 
     for (let i = 0; i < playerCoinChildren; i += 1) {
@@ -123,6 +124,7 @@ class Baccarat extends Component {
                     <div styleName="coin_wrapper">{bankerCoinArr}</div>
                   </Button>
                 </div>
+                 <Button className="bet-btn" block size={'large'} disabled={this.props.manual_tab_bet_button} onClick={handleBet}>Bet</Button>
               </div>
 
               <div styleName="btn_wrapper">
@@ -145,7 +147,7 @@ class Baccarat extends Component {
                   disabled={gameRunning}
                   onClick={clearBaccaratState}
                 >
-                  > Clear
+                  Clear
                   <span styleName="icon_">
                     <img src={rotateimg} alt="undo" />
                   </span>
@@ -186,7 +188,7 @@ class CoinComponent extends Component {
     return (
       <div
         styleName="coin_image"
-        style={{ backgroundImage: "url(" + chip_dot + ")" }}
+        style={{ backgroundImage: `url(${chip_dot})` }}
       >
         <div styleName="coin_value">{this.props.onClickCoinValue}</div>
       </div>
