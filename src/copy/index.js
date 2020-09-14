@@ -139,6 +139,7 @@ import betsdetailspageCopy from './betsdetailspage';
 import depositspageCopy from './depositspage';
 import withdrawspageCopy from './withdrawspage';
 import countryRestrictedPageCopy from './countryRestrictedPage';
+import DiamondGamePageCopy from "./diamondGame";
 
 const CopyText = {
     Errors: errorsCopy,
@@ -274,7 +275,8 @@ const CopyText = {
     betsdetailspage: betsdetailspageCopy,
     depositspage: depositspageCopy,
     withdrawspage: withdrawspageCopy,
-    countryRestrictedPage: countryRestrictedPageCopy
+    countryRestrictedPage: countryRestrictedPageCopy,
+    DiamondGamePage: DiamondGamePageCopy
 }
 
 export { CopyText }
