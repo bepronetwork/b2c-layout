@@ -1,0 +1,41 @@
+@import "../../styles/all.css";
+
+.root {
+  background: $background-table-1-outer-2;
+
+  border-top-right-radius: $spacing-4;
+  border-bottom-right-radius: $spacing-4;
+}
+
+.container {
+  display: grid;
+  align-items: center;
+  grid-template-columns: 33% 33% 33%;
+  padding-top: 14px;
+}
+
+.button {
+  height: 100%;
+
+  background: $background-table-1-outer-2;
+  cursor: pointer;
+
+  outline: none;
+}
+
+.button:last-child {
+  border-top-right-radius: $spacing-4;
+  border-bottom-right-radius: $spacing-4;
+}
+
+.button:hover {
+  background-color: $light-background-table-1-outer;
+}
+
+.button-container {
+  border-right: 1.5px solid $casper;
+}
+
+.button:last-child .button-container {
+  border-right: none;
+}

@@ -11,7 +11,7 @@ import info from 'assets/info.png';
 import _ from 'lodash';
 import "./index.css";
 import { CopyText } from '../../copy';
-import { getApp } from "../../lib/helpers";
+import { getApp, getAppCustomization } from "../../lib/helpers";
 
 class Authentication2FAModal extends Component {
     constructor(props) {
@@ -103,6 +103,13 @@ class Authentication2FAModal extends Component {
         const { auth_2fa, error } = this.state;
         const {ln} = this.props;
         const copy = CopyText.authentication2FAModalIndex[ln];
+        const { colors, skin } = getAppCustomization();
+        const backgroundColor = colors.find(c => {
+            return c.type == "backgroundColor"
+        });
+        const secondaryColor = colors.find(c => {
+            return c.type == "secondaryColor"
+        });
 
         if(!modal.Authentication2FAModal){ return null };
         return (    
@@ -111,7 +118,7 @@ class Authentication2FAModal extends Component {
                     <div >
                         <Typography variant='h4' color={"grey"}> {copy.INDEX.TYPOGRAPHY.TEXT[0]}</Typography>
                     </div>
-                    <div styleName='root'>
+                    <div styleName='root-code'>
                         <div styleName="content">
                             <HorizontalStepper 
                                 alertCondition={!_.isEmpty(error)}
@@ -124,7 +131,7 @@ class Authentication2FAModal extends Component {
                                         title : copy.INDEX.HORIZONTAL_STEPPER.TITLE[0],
                                         first : true,
                                         condition : true,
-                                        content : <div styleName="qrcode"><QRCode value={auth_2fa.uri} /></div>
+                                        content : <div styleName="qrcode"><QRCode value={auth_2fa.uri} bgColor={skin.skin_type == "digital" ? backgroundColor.hex : "#fff"} fgColor={skin.skin_type == "digital" ? secondaryColor.hex : "#000"} /></div>
                                     },
                                     {
                                         label : copy.INDEX.HORIZONTAL_STEPPER.LABEL[1],

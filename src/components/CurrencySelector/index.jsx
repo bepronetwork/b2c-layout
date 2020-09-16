@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import ArrowDown from "components/Icons/ArrowDown";
 import ArrowUp from "components/Icons/ArrowUp";
-import { Typography } from "components";
+import { Typography, ArrowDownIcon, ArrowUpIcon } from "components";
 import { map } from "lodash";
 import { formatCurrency } from '../../utils/numberFormatation';
 import { connect } from "react-redux";
@@ -120,6 +120,7 @@ class CurrencySelector extends Component {
         const icon = _.isEmpty(wApp.image) ? currency.image : wApp.image;
         const bonusPlusBalance = _.isEmpty(w) ? 0 : w.bonusAmount > 0 ? Number(w.bonusAmount) + Number(balance) : balance;
         const bonusAmount = _.isEmpty(w) ? 0 : w.bonusAmount > 0 ? Number(w.bonusAmount) : 0;
+        const skin = getAppCustomization().skin.skin_type;
 
         const { colors } = getAppCustomization();
         const secondaryColor = colors.find(c => {
@@ -144,7 +145,12 @@ class CurrencySelector extends Component {
                         <span>
                             <Typography color="white" variant={'small-body'}>{formatCurrency(bonusPlusBalance)}</Typography>
                         </span>                    
-                        {open ? <ArrowUp /> : <ArrowDown />}
+                        {open 
+                        ? 
+                            skin == "digital" ? <ArrowUpIcon /> : <ArrowUp /> 
+                        : 
+                            skin == "digital" ? <ArrowDownIcon /> : <ArrowDown /> 
+                        }
                     </div>
                 </SecondaryTooltip>
             :
@@ -155,7 +161,12 @@ class CurrencySelector extends Component {
                     <span>
                         <Typography color="white" variant={'small-body'}>{formatCurrency(balance)}</Typography>
                     </span>                    
-                    {open ? <ArrowUp /> : <ArrowDown />}
+                    {open 
+                    ? 
+                        skin == "digital" ? <ArrowUpIcon /> : <ArrowUp /> 
+                    : 
+                        skin == "digital" ? <ArrowDownIcon /> : <ArrowDown /> 
+                    }
                 </div>
         );
     }

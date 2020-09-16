@@ -1,9 +1,9 @@
 import React from "react";
 import { Row, Col } from 'reactstrap';
-import { Typography } from 'components';
+import { Typography, CopyIcon } from 'components';
 import { connect } from "react-redux";
 import classNames from "classnames";
-import { getApp } from "../../lib/helpers";
+import { getApp, getAppCustomization } from "../../lib/helpers";
 import { CopyText } from '../../copy';
 
 import './index.css';
@@ -52,6 +52,7 @@ class AffiliateLinkContainer extends React.Component{
         const { copied } = this.state;
         const {ln} = this.props;
         const copy = CopyText.affiliateLinkContainerIndex[ln];
+        const { skin } = getAppCustomization();
         const styles = classNames("link-text-container", {"ad-copied": copied});
 
         return (
@@ -79,13 +80,22 @@ class AffiliateLinkContainer extends React.Component{
                                     </div>
                                 ) : null}
                                 <div styleName={styles}>
-                                    <Typography variant={'x-small-body'} color={`casper`}>
+                                    <Typography variant={'x-small-body'} color={skin.skin_type == "digital" ? `secondary` : 'casper'}>
                                         {URL_REF + link}
                                     </Typography>
                                 </div>
                             </Col>
                             <Col xs={12} md={2} lg={4} xl={2}>
                                 <button onClick={this.copyToClipboard} styleName='text-copy-container'>
+                                    {
+                                        skin.skin_type == "digital"
+                                        ?
+                                            <div styleName="icon">
+                                                <CopyIcon />
+                                            </div>
+                                        :
+                                            null
+                                    }
                                     <Typography variant={'x-small-body'} color={'fixedwhite'}>
                                         {copy.INDEX.TYPOGRAPHY.TEXT[0]}
                                     </Typography>

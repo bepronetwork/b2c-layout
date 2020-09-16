@@ -97,6 +97,7 @@ class Navbar extends Component {
         let { user } = this.state;
         const {ln} = this.props;
         const copy = CopyText.navbarIndex[ln];
+        const skin = getAppCustomization().skin.skin_type;
 
         return(
             <div styleName="buttons">
@@ -106,7 +107,7 @@ class Navbar extends Component {
                     </SubtleButton>
                 </div>
                 <Button size="x-small" onClick={this.handleClick} name="register" theme="primary">
-                    <Typography color="fixedwhite" variant="small-body">{copy.INDEX.TYPOGRAPHY.TEXT[0]}</Typography>
+                    <Typography color={skin == "digital" ? "secondary" : "fixedwhite"} variant="small-body">{copy.INDEX.TYPOGRAPHY.TEXT[0]}</Typography> 
                 </Button>
             </div>
         )
@@ -149,6 +150,8 @@ class Navbar extends Component {
         const logoPoints = (getAddOn().pointSystem) ? getAddOn().pointSystem.logo : null;
         const namePoints = (getAddOn().pointSystem) ? getAddOn().pointSystem.name : null; 
 
+        const skin = getAppCustomization().skin.skin_type;
+
         return(
             <div>
                 <div styleName="currency-selector">
@@ -175,7 +178,7 @@ class Navbar extends Component {
                     }
                     <div styleName='button-deposit'>
                         <button onClick={() => onMenuItem({history, path : "/settings/wallet"})} type="submit" styleName="button">
-                            <Typography variant="small-body" color="fixedwhite">
+                            <Typography variant="small-body" color={skin == "digital" ? "secondary" : "fixedwhite"}>
                                 {virtual ? copy.INDEX.TYPOGRAPHY.TEXT[6] : copy.INDEX.TYPOGRAPHY.TEXT[2]}
                             </Typography>
                         </button>

@@ -1,0 +1,25 @@
+@import "../../styles/all.css";
+
+.tabs{
+    width: 100%;
+    grid-auto-flow: column;
+    display: grid;
+    align-items: center;
+    gap: 0;
+}
+
+.fullBackground {
+    border: 2px solid $secondaryColor;
+    border-radius: $border-radius; 
+}
+
+.tabs-limit {
+    @media screen and (max-width: 767px) {
+        grid-template-columns: repeat(3, auto);
+        grid-auto-flow: unset;
+    }
+}
+
+.tabs > div:first-child {
+    border-left: none;
+}

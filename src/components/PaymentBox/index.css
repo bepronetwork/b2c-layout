@@ -23,6 +23,7 @@
 
 .text-description{
     margin-top : $spacing-8;
+    opacity: 0.5;
 }
 
 .payment-image{

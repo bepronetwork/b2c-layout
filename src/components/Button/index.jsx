@@ -15,7 +15,8 @@ export default class Button extends Component {
     children: PropTypes.node.isRequired,
     size: PropTypes.oneOf(["x-small", "small", "medium", "large"]),
     name: PropTypes.string,
-    animation: PropTypes.node
+    animation: PropTypes.node,
+    icon: PropTypes.string
   };
 
   static defaultProps = {
@@ -75,7 +76,8 @@ export default class Button extends Component {
       size,
       type,
       name,
-      onClick
+      onClick,
+      icon
     } = this.props;
     const rootStyles = classNames("root", {
       [theme]: true,
@@ -97,7 +99,18 @@ export default class Button extends Component {
             name={name}
             disabled={disabled}
         >
-            <div styleName={contentStyles}>{this.renderContent()}</div>
+            <div styleName={contentStyles}>
+              {
+                icon
+                ?
+                  <div styleName="icon">
+                    {icon}
+                  </div>
+                :
+                  null
+              }
+              {this.renderContent()}
+            </div>
         </button>
     );
   }

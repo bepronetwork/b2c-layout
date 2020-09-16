@@ -3,7 +3,7 @@ import { Typography, InfiniteCarousel, ThirdPartyGameCard } from 'components';
 import { connect } from "react-redux";
 import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
 import { getProvidersGames } from "../../lib/api/app";
-import { getSkeletonColors, getApp } from "../../lib/helpers";
+import { getSkeletonColors, getApp, getAppCustomization } from "../../lib/helpers";
 import _ from 'lodash';
 import "./index.css";
 
@@ -132,6 +132,7 @@ class ThirdPartyGames extends Component {
     render() {
         const { onHandleLoginOrRegister, history } = this.props;
         const { providers, games, isLoading, isLoadingGames, total, providerId } = this.state;
+        const skin = getAppCustomization().skin.skin_type;
 
         return (
             <div>
@@ -173,7 +174,7 @@ class ThirdPartyGames extends Component {
                                     slidesToScroll={2}
                                     slidesToShow={4}
                                     scrollOnDevice={true}
-                                    title="Providers"
+                                    title={skin == "digital" ? "Third party Games" : "Providers"}
                                     >
                                     {
                                         providers.map(p => {

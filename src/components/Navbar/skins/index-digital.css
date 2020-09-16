@@ -1,0 +1,477 @@
+@import "../../styles/all.css";
+
+.address-text{
+
+}
+.root {
+    position: fixed;
+    top: 0;
+    z-index: 20;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin : 0;
+    width: 100%;
+    height: $navbar-height;
+    padding-top : $padding-height-navbar;
+    padding-left : $padding-width-navbar;
+    padding-right : $padding-width-navbar;
+
+    background-color: $background-top-bar-theme;
+    box-shadow : 1px 1px 100px 1px #0000006b;
+
+    @include Breakpoint-mobileOnly {
+        padding-left : 40px;
+    }
+}
+
+.image {
+    /*width: 120px;*/
+    height: 40px;
+}
+
+.coin {
+    position: fixed;
+    margin: auto;
+    display: flex;
+    align-items: center;
+    height: 30px;
+    width : 146px;
+    padding: 5px !important;
+    border-radius: $spacing-4;
+    cursor: default;
+    top: 16px;
+    padding-left: 10px !important;
+    background-color: $mirage;
+
+    @include Breakpoint-tabletOnly {
+        width : 142px;
+    }
+
+    @include Breakpoint-mobileOnly {
+        padding: 0px !important;
+        width: 116px;
+        top: 16px;
+    }
+
+    .icon {
+            margin-top : -4px;
+            width: $spacing-16;
+            height: $spacing-16;
+
+            @include Breakpoint-mobileOnly {
+                margin-top: -20px !important;
+            }
+    }
+
+    .diff-won {
+        position: absolute;
+        top: 60%;
+        left: 30%;
+        * {
+        color: $green;
+        opacity: 0;
+
+        animation: won-animation 1s running;
+        }
+    }
+
+    .diff-lost {
+        position: absolute;
+        top: 60%;
+        left: 30%;
+        * {
+        color: $red;
+        opacity: 0;
+
+        animation: lost-animation 1s running;
+        }
+    }
+}
+
+.no-coin{
+    padding-top: $spacing-8;
+    float: left;
+
+    @media screen and (max-width: 767px) {
+        padding-top: 0;
+    }
+}
+
+@keyframes lost-animation {
+  50% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(100%) scale(0.8);
+  }
+}
+
+@keyframes won-animation {
+  0% {
+    opacity: 0;
+
+    transform: translateY(80%);
+  }
+
+  50% {
+    opacity: 1;
+
+    transform: translateY(50%) scale(1.2);
+  }
+}
+
+.buttons {
+    display: inline-flex;
+    align-items: center;
+
+    .login {
+        margin-right: $spacing-20;
+        justify-content: flex-end;
+    }
+}
+
+.buttons-1 {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin: auto;
+    text-align: center;
+    width: fit-content;
+    position: relative;
+    top: -8px;
+    
+    .login {
+        margin-right: $spacing-8;
+    }
+}
+
+
+.small-icon{
+    width : 30px;
+}
+
+.logo{
+    display: inline-flex;
+    align-items: center;
+    min-width: 600px;
+
+    @media screen and (max-width: 1267px) and (min-width: 1024px) {
+        min-width: 500px;
+    }
+    
+    @media screen and (max-width: 1023px) and (min-width: 768px) {
+        min-width: unset;
+    }
+    
+    @media screen and (max-width: 767px) {
+        min-width: unset;
+    }
+}
+
+.logo-image{
+}
+
+.user-menu{
+    margin-top : 5px;
+}
+
+.icon-green{
+    color : $green;
+}
+
+.icon-red{
+    color : $red;
+}
+
+.button-deposit{
+    float: left;
+
+    @media screen and (max-width: 767px) {
+        display: none;
+    }
+}
+
+.button{
+    background-color: $backgroundColor-2;
+    border-left: 1px solid $primaryColor-8; 
+    margin : auto;
+    position: relative;
+    display: block;
+    padding : 5px $spacing-20;
+    border-radius : 0 $border-radius $border-radius 0;
+}
+
+.button:hover {
+    background-color: $primaryColor-2;
+    transition: opacity 0.1s ease-in;
+}
+
+.navbar-language{
+    position: fixed;
+    top: 0;
+    z-index: 20;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding-top: 4px;
+
+    @include Breakpoint-mobileOnly {
+        /*display: none;*/
+        padding-left: 18px;
+    }
+
+}
+
+.top-menu{
+    z-index: 20;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    grid-template-columns: auto auto 340px;
+    display: grid;
+    align-items: center;
+    width: 100%;
+    height: 50px;
+    background-color: $primaryColor;
+    box-shadow : 1px 1px 50px 1px $shadowColor;
+    padding-left : $padding-width-navbar;
+    padding-right : $padding-width-navbar;
+
+    @media screen and (max-width: 1800px) {
+    }
+
+    @media screen and (max-width: 1267px) and (min-width: 768px) {
+        grid-template-columns: 1fr auto 1fr;
+        padding-left : $spacing-28;
+        padding-right : $spacing-28;
+    }
+
+    @media screen and (max-width: 767px) {
+        grid-template-columns: auto auto 30px;
+        padding-left : calc($padding-width-navbar - 30px);
+        padding-right : calc($padding-width-navbar - 30px);
+    }
+
+    @include Breakpoint-mobileOnly {
+
+    }
+}
+
+.top-menu-transparent {
+    background-color: unset;
+    box-shadow: none;
+    position: initial;
+}
+
+.profile{
+    align-items: center;
+    border-radius: $spacing-8;
+    min-width: 120px;
+
+    @media screen and (max-width: 1023px) and (min-width: 768px) {
+        display: none;
+    }
+
+    @media screen and (max-width: 767px) {
+        display: none;
+    }
+}
+
+.settings{
+    justify-content: flex-end;
+    display: inline-flex;
+    align-items: center;
+    border-radius: $spacing-8;
+    margin-right: $spacing-4;
+    display: none;
+
+    @media screen and (max-width: 1023px) and (min-width: 768px) {
+        display: block;
+    }
+
+    @media screen and (max-width: 767px) {
+        display: block;
+    }
+}
+
+.language{
+    justify-content: flex-end;
+    display: inline-flex;
+    align-items: center;
+}
+
+.language-profile{
+    align-items: center;
+    grid-template-columns: auto 1fr;
+    display: grid;
+
+    @media screen and (max-width: 767px) {
+        justify-content: flex-end;
+        display: inline-flex;
+    }
+
+}
+
+.language-container{
+    margin-left: $spacing-36;
+    justify-content: flex-end;
+    display: inline-flex;
+
+    @media screen and (max-width: 767px) {
+        display: none;
+    }
+}
+
+.casino-sports{
+
+}
+
+.casino-sports-container{
+    @media screen and (max-width: 767px) {
+        display: none;
+    }
+}
+
+.currency{
+    float: left;
+
+    .diff-won{
+        padding-left: 40px;
+        position: absolute;
+        * {
+            color: $green;
+            opacity: 0;
+
+            animation: won-animation 1s running;
+        }
+    }
+
+    .diff-lost{
+        padding-left: 40px;
+        position: absolute;
+        * {
+            color: $red;
+            opacity: 0;
+
+            animation: lost-animation 1s running;
+        }
+    }
+}
+
+.currency-selector{
+    border: 1px solid $primaryColor-8; 
+    display: inline-flex;
+    align-items: center;
+    border-radius: $border-radius;
+}
+
+.label {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    height: 30px;
+    cursor: pointer;
+    padding: 0 $spacing-8 0 0;
+    background-color: $backgroundColor-2;
+    border: 1px solid $primaryColor-8; 
+    border-radius: $border-radius;
+  
+    .user-icon {
+      width: 24px;
+      height: 24px;
+      background-color: $primaryColor-2;
+      border-radius: 2px;
+      margin: 2px;
+      align-items: center;
+      display: flex;
+    }
+
+    .currency-icon {
+        margin-right: $spacing-8;
+    }
+
+    span {
+        margin-left: $spacing-8;
+
+        @media screen and (max-width: 767px) {
+            display: none;
+        }
+    }
+  }
+
+ .settings-icon {
+    background-color: $primaryColor;
+    padding-left: $spacing-16;
+
+    img{
+        width: 20px;
+    }
+}
+
+.label:hover {
+    background-color: $primaryColor-2;
+    transition: opacity 0.1s ease-in;
+}
+
+.label-points {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    height: 30px;
+    cursor: pointer;
+    padding: 0 $spacing-12;
+    background-color: $backgroundColor-2;
+    border: 1px solid $primaryColor-8; 
+    border-radius: $border-radius;
+  
+    .currency-icon {
+        margin-right: $spacing-8;
+    }
+
+    span {
+        margin-left: $spacing-8;
+
+        @media screen and (max-width: 767px) {
+            display: none;
+        }
+    }
+}
+
+.label-points:hover {
+    background-color: $primaryColor-2;
+    transition: opacity 0.1s ease-in;
+}
+
+.points {
+    display: inline-flex;
+    align-items: center;
+    margin-left: $spacing-36;
+
+    .diff-won{
+        padding-left: 52px;
+        margin-top: $spacing-20;
+
+        position: absolute;
+        * {
+            color: $green;
+            opacity: 0;
+
+            animation: won-animation 1s running;
+        }
+    }
+
+    @media screen and (max-width: 1267px) and (min-width: 1024px) {
+        display: none;
+    }
+    
+    @media screen and (max-width: 1023px) and (min-width: 768px) {
+        display: none;
+    }
+    
+    @media screen and (max-width: 767px) {
+        display: none;
+    }
+}

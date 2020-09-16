@@ -47,3 +47,9 @@
   padding-right: $spacing-8;
   padding-left: $spacing-8;
 }
+
+.title-betprotocol {
+  text-align: left;
+  margin-left: $spacing-16;
+  margin-top: $spacing-28;
+}

@@ -1,0 +1,105 @@
+@import "../../styles/all.css";
+
+.root {
+  display: flex;
+  flex-direction: column;
+
+  border-radius: $border-radius 0 0 0;
+
+  * {
+    box-sizing: border-box;
+  }
+}
+
+.button {
+  order: 4;
+
+  margin-top: $spacing-36;
+
+  @include Breakpoint-mobileOnly {
+    order: 0;
+
+    margin-top: 0;
+  }
+}
+
+.element {
+  margin-top: $spacing-20;
+}
+
+.amount {
+  order: 1;
+  margin-top: $spacing-20;
+
+  @include Breakpoint-mobileOnly {
+    order: 2;
+  }
+}
+
+.content {
+  order: 2;
+}
+
+.toggle {
+  order: 0;
+  border: 1px solid $secondaryColor;
+  border-radius: $border-radius $border-radius 0 0;
+
+  @include Breakpoint-mobileOnly {
+    order: 4;
+
+    margin-top: $spacing-20;
+  }
+
+  div {
+    height: 38px;
+  }
+}
+
+.side {
+  order: 4;
+
+  margin-top: $spacing-20;
+
+  @include Breakpoint-mobileOnly {
+    order: 1;
+
+    margin-top: $spacing-28;
+    margin-bottom: $spacing-8;
+  }
+
+  .label {
+    display: flex;
+    margin-bottom: $spacing-8;
+  }
+}
+
+.amount-title {
+  margin-bottom: $spacing-4;
+}
+
+.amount-container {
+  margin-top: $spacing-4;
+}
+
+.container {
+  display: flex;
+
+  width: 100%;
+
+  margin-top: $spacing-8;
+
+  background: $background-table-1-outer-2;
+
+  border: 2px solid color($background-table-1-outer-2 alpha(50%));
+
+  border-radius: $spacing-4;
+}
+
+.input {
+  flex-grow: 1;
+}
+
+.bet-properties{
+  padding: $spacing-20;
+}
