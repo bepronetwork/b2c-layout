@@ -97,7 +97,7 @@ class App extends Component {
 
         const app = Cache.getFromCache("appInfo");
 
-        if(app.integrations) {
+        if(app) {
             const { cripsr } =  app.integrations;
 
             if (cripsr && cripsr.key && typeof window.$crisp != "undefined") {

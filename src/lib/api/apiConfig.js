@@ -1,4 +1,5 @@
 require('dotenv').config();
+require('dotenv').config({path: '/home/guilherme/BetProtocol/code/layout-1/.env.development'});
 
 export const IS_PRODUCTION = process.env.REACT_APP_PRODUCTION;
 

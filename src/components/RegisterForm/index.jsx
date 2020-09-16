@@ -5,6 +5,7 @@ import { connect } from "react-redux";
 import { compose } from 'lodash/fp';
 import Cache from "../../lib/cache/cache";
 import { CopyText } from '../../copy';
+import { getAppCustomization } from "../../lib/helpers";
 import loading from 'assets/loading-circle.gif';
 
 import "./index.css";
@@ -92,6 +93,7 @@ class RegisterForm extends Component {
         const { username, password, email, isLoading, isConfirmed } = this.state;
         const {ln} = this.props;
         const copy = CopyText.registerFormIndex[ln];
+        const { skin } = getAppCustomization();
 
         return (
         <form onSubmit={this.handleSubmit}>
@@ -150,7 +152,7 @@ class RegisterForm extends Component {
                     ?
                         <img src={loading} />
                     :
-                        <Typography color="fixedwhite">{copy.INDEX.TYPOGRAPHY.TEXT[0]}</Typography>
+                        <Typography color={skin.skin_type == "digital" ? 'secondary' : 'fixedwhite'}>{copy.INDEX.TYPOGRAPHY.TEXT[0]}</Typography>
                 }
             </Button>
             </div>
