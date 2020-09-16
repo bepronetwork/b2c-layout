@@ -49,7 +49,8 @@ class DiamondPage extends Component {
     isVisible5: false,
     sound: false,
     soundResult: false,
-    resultSpace: []
+    resultSpace: [],
+    isDisable: true
   };
 
   componentDidMount() {
@@ -59,10 +60,14 @@ class DiamondPage extends Component {
     });
   }
 
+  setSound = async value => {
+    this.setState({ sound: value });
+  };
+
   handleAnimations = async idIcon => {
     const box = document.getElementById(idIcon);
 
-    this.setState({ sound: true });
+    this.setSound(true);
 
     box.animate(
       [
@@ -309,21 +314,13 @@ class DiamondPage extends Component {
   };
 
   setResultIcons = async () => {
-    this.setState({ sound: false });
     await this.handleAnimations("svg-diamond-animated-1");
-
-    this.setState({ sound: false });
     await this.handleAnimations("svg-diamond-animated-2");
-
-    this.setState({ sound: false });
     await this.handleAnimations("svg-diamond-animated-3");
-
-    this.setState({ sound: false });
     await this.handleAnimations("svg-diamond-animated-4");
-
-    this.setState({ sound: false });
     await this.handleAnimations("svg-diamond-animated-5");
-    this.setState({ sound: false });
+
+    await this.setSound(false);
   };
 
   getGame = () => {
@@ -465,94 +462,122 @@ class DiamondPage extends Component {
   };
 
   handleMouseEnter = () => {
-    this.setState({
-      isHover: true,
-      isHover1: false,
-      isHover2: false,
-      isHover3: false,
-      isHover4: false,
-      isHover5: false,
-      isHover6: false,
-      soundResult: false
-    });
+    const { disableControls } = this.state;
+
+    if (disableControls === false) {
+      this.setState({
+        isHover: true,
+        isHover1: false,
+        isHover2: false,
+        isHover3: false,
+        isHover4: false,
+        isHover5: false,
+        isHover6: false,
+        soundResult: false
+      });
+    }
   };
 
   handleMouseEnter1 = () => {
-    this.setState({
-      isHover: false,
-      isHover1: true,
-      isHover2: false,
-      isHover3: false,
-      isHover4: false,
-      isHover5: false,
-      isHover6: false,
-      soundResult: false
-    });
+    const { disableControls } = this.state;
+
+    if (disableControls === false) {
+      this.setState({
+        isHover: false,
+        isHover1: true,
+        isHover2: false,
+        isHover3: false,
+        isHover4: false,
+        isHover5: false,
+        isHover6: false,
+        soundResult: false
+      });
+    }
   };
 
   handleMouseEnter2 = () => {
-    this.setState({
-      isHover: false,
-      isHover1: false,
-      isHover2: true,
-      isHover3: false,
-      isHover4: false,
-      isHover5: false,
-      isHover6: false,
-      soundResult: false
-    });
+    const { disableControls } = this.state;
+
+    if (disableControls === false) {
+      this.setState({
+        isHover: false,
+        isHover1: false,
+        isHover2: true,
+        isHover3: false,
+        isHover4: false,
+        isHover5: false,
+        isHover6: false,
+        soundResult: false
+      });
+    }
   };
 
   handleMouseEnter3 = () => {
-    this.setState({
-      isHover: false,
-      isHover1: false,
-      isHover2: false,
-      isHover3: true,
-      isHover4: false,
-      isHover5: false,
-      isHover6: false,
-      soundResult: false
-    });
+    const { disableControls } = this.state;
+
+    if (disableControls === false) {
+      this.setState({
+        isHover: false,
+        isHover1: false,
+        isHover2: false,
+        isHover3: true,
+        isHover4: false,
+        isHover5: false,
+        isHover6: false,
+        soundResult: false
+      });
+    }
   };
 
   handleMouseEnter4 = () => {
-    this.setState({
-      isHover: false,
-      isHover1: false,
-      isHover2: false,
-      isHover3: false,
-      isHover4: true,
-      isHover5: false,
-      isHover6: false,
-      soundResult: false
-    });
+    const { disableControls } = this.state;
+
+    if (disableControls === false) {
+      this.setState({
+        isHover: false,
+        isHover1: false,
+        isHover2: false,
+        isHover3: false,
+        isHover4: true,
+        isHover5: false,
+        isHover6: false,
+        soundResult: false
+      });
+    }
   };
 
   handleMouseEnter5 = () => {
-    this.setState({
-      isHover: false,
-      isHover1: false,
-      isHover2: false,
-      isHover3: false,
-      isHover4: false,
-      isHover5: true,
-      isHover6: false,
-      soundResult: false
-    });
+    const { disableControls } = this.state;
+
+    if (disableControls === false) {
+      this.setState({
+        isHover: false,
+        isHover1: false,
+        isHover2: false,
+        isHover3: false,
+        isHover4: false,
+        isHover5: true,
+        isHover6: false,
+        soundResult: false
+      });
+    }
   };
 
   handleMouseEnter6 = () => {
-    this.setState({
-      isHover: false,
-      isHover1: false,
-      isHover2: false,
-      isHover3: false,
-      isHover4: false,
-      isHover5: false,
-      isHover6: true,
-      soundResult: false
-    });
+    const { disableControls } = this.state;
+
+    if (disableControls === false) {
+      this.setState({
+        isHover: false,
+        isHover1: false,
+        isHover2: false,
+        isHover3: false,
+        isHover4: false,
+        isHover5: false,
+        isHover6: true,
+        soundResult: false
+      });
+    }
   };
 
   getOptions = () => {

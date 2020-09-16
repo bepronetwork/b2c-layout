@@ -84,7 +84,7 @@ class ThirdPartyGames extends Component {
     createSkeletonProviders = () => {
         let providers = []
 
-        for (let i = 0; i < 4; i++) {
+        for (let i = 0; i < 6; i++) {
             providers.push(
                 <div class={"col"} styleName="col">
                     <div styleName="root">
@@ -108,18 +108,21 @@ class ThirdPartyGames extends Component {
             games.push(
                 <div class={"col"} styleName="col">
                     <div styleName="root">
-                        <div styleName="image-container dice-background-color">
+                        <div styleName="image-container">
                             <div styleName="icon">
-                                <Skeleton width={"250"} height={"150"}/>
+                                <Skeleton width={"180"} height={"150"}/>
                             </div>
                         </div>
                         <div styleName="labels">
                             <div styleName="title">
-                                <Skeleton width={"150"} height={"30"}/>
+                                <Skeleton width={"120"} height={"20"}/>
                             </div>
                             <div styleName='info-holder'>
-                                <Skeleton width={"60"} height={"20"}/> 
+                                <Skeleton width={"20"} height={"20"} circle={true}/> 
                             </div>
+                        </div>
+                        <div styleName="title">
+                                <Skeleton width={"80"} height={"20"}/>
                         </div>
                     </div>
                 </div>
@@ -172,7 +175,7 @@ class ThirdPartyGames extends Component {
                                     sidesOpacity={0.5}
                                     sideSize={0}
                                     slidesToScroll={2}
-                                    slidesToShow={4}
+                                    slidesToShow={6}
                                     scrollOnDevice={true}
                                     title={skin == "digital" ? "Third party Games" : "Providers"}
                                     >

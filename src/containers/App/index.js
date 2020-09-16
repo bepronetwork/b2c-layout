@@ -98,7 +98,7 @@ class App extends Component {
         const app = Cache.getFromCache("appInfo");
         const { cripsr } =  app.integrations;
 
-        if (cripsr && cripsr.key) {
+        if (cripsr && cripsr.key && typeof window.$crisp != "undefined") {
             this.intervalID = setInterval( async () => {
                 const isClosed = window.$crisp.is("chat:closed");
     
