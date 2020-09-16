@@ -24,7 +24,6 @@ class DiamondBox extends Component {
   setActiveHover = () => {
     const { resultBack } = this.props;
 
-    console.log(resultBack);
     switch (resultBack) {
       case 0:
         return this.setState({

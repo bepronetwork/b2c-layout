@@ -7,6 +7,8 @@ import classNames from 'classnames';
 import _ from 'lodash';
 import "./index.css";
 
+import dots from "assets/dots.png";
+
 class NavigationBar extends Component {
     constructor(props) {
         super(props);
@@ -80,7 +82,7 @@ class NavigationBar extends Component {
                 {
                     tabs.length > 2
                     ?
-                        <div>
+                        <div styleName="main-others">
                             <div styleName="others">
                             {
                                 tabs.slice(2, tabs.length).map(t => {
@@ -96,7 +98,7 @@ class NavigationBar extends Component {
                             </div>
                             <div styleName="dropdown">
                                 <a onClick={() => this.onOpenMenu()}>
-                                    <div styleName="dropdown-dots"/>
+                                    <div styleName="dropdown-dots" style={{ backgroundImage: 'url(' + dots + ')'}}/>
                                 </a>
                                 <div styleName={styles}>
                                     <div styleName="dropdown-nav">

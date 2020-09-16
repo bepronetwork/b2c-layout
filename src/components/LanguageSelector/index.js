@@ -91,7 +91,7 @@ class LanguageSelector extends Component {
                 type="button"
             >   
                 <img src={option.image}/>
-                <Typography variant={size ? size : "small-body"} color={color ? color : "casper"} >{option.name}</Typography>
+                <Typography variant={size ? size : "small-body"} color={color ? color : "white"} >{option.name}</Typography>
             </button>
         ));
     };

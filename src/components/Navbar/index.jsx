@@ -136,13 +136,13 @@ class Navbar extends Component {
 
         const { colors } = getAppCustomization();
 
-        const secondaryColor = colors.find(c => {
-            return c.type == "secondaryColor"
+        const primaryColor = colors.find(c => {
+            return c.type == "primaryColor"
         })
-        const SecondaryTooltip = withStyles({
+        const PrimaryTooltip = withStyles({
             tooltip: {
-              color: "white",
-              backgroundColor: secondaryColor.hex
+              color: getAppCustomization().theme === "light" ? "black" : "white",
+              backgroundColor: primaryColor.hex
             }
         })(Tooltip);
 
@@ -188,7 +188,7 @@ class Navbar extends Component {
                     isValidPoints == true
                     ?
                         <div styleName="points">
-                            <SecondaryTooltip title={`${formatCurrency(currentPoints)} ${namePoints}`}>
+                            <PrimaryTooltip title={`${formatCurrency(currentPoints)} ${namePoints}`}>
                                 <div styleName="label-points">
                                     {
                                         !_.isEmpty(logoPoints)
@@ -203,7 +203,7 @@ class Navbar extends Component {
                                         <Typography color="white" variant={'small-body'}>{formatCurrency(currentPoints)}</Typography>
                                     </span>
                                 </div>
-                            </SecondaryTooltip>
+                            </PrimaryTooltip>
                             {differencePoints ? (
                                 <div
                                 key={currentPoints}

@@ -45,7 +45,7 @@ const rows = {
         ],
         rows : []
     },
-    my_bets : {
+    /*my_bets : {
         titles : [],
         fields : [
             {
@@ -68,7 +68,7 @@ const rows = {
             }
         ],
         rows : []
-    },
+    },*/
     biggest_win_bets : {
         titles : [],
         fields : [

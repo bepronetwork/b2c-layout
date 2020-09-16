@@ -183,7 +183,7 @@ class CurrencySelector extends Component {
             <div styleName="currency-icon">
                 <img src={icon} width={20}/>
             </div>
-            <Typography variant="small-body" color="casper">{label}</Typography>
+            <Typography variant="small-body" color="white">{label}</Typography>
         </button>
         ));
     };

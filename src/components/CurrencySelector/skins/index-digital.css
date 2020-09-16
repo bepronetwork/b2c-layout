@@ -32,6 +32,10 @@
   background: $primaryColor-3;
   border-radius: $border-radius;
   width: 100%;
+
+  p {
+    opacity: 0.5;
+  }
 }
 
 .option {
