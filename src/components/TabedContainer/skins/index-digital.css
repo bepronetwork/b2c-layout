@@ -31,7 +31,6 @@
     display: flex;
     align-items: center;
     padding-left: 15%;
-    border-radius: $border-radius $border-radius 0 0;
 }
 
 .menu {
@@ -72,6 +71,37 @@
     }
 
     @media screen and (max-width: 767px) {
+        display: none;
+    }
+}
+
+.label-points {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    height: 40px;
+    cursor: pointer;
+    padding: $spacing-16;
+    background-color: $backgroundColor-2;
+    border-radius: $border-radius 0 0 0;
+    width: 100%;
+    padding-left: 15%;
+  
+    .currency-icon {
+        margin-right: $spacing-8;
+    }
+  
+    span {
+        margin-left: $spacing-8;
+    }
+}
+  
+.points {
+    display: inline-flex;
+    align-items: center;
+    width: 100%;
+
+    @media screen and (min-width: 1516px) {
         display: none;
     }
 }

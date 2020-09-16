@@ -96,11 +96,11 @@
     display: grid;
     align-items: center;
     width: 100%;
-    grid-template-columns: 60% 40%;
+    grid-template-columns: 70% 30%;
 }
   
 .title {
-    margin-left: $spacing-8;
+    margin: 2px;
     text-align: left;
 }
 
