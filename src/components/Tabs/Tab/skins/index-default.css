@@ -1,0 +1,106 @@
+@import "../../../styles/all.css";
+
+
+.tab:not(.selected) {
+  &:hover {
+    /*background-color: $dodger-blue;*/
+    * {
+      color: $white;
+      opacity: 1;
+    }
+  }
+}
+
+.tab {
+  height: 100%;
+  text-align: center;
+
+  * {
+    opacity: 0.85;
+  }
+
+  button {
+    width: 100%;
+    padding: $spacing-4;
+    background-color: inherit;
+    cursor: pointer;
+    outline: none;
+    min-height: 40px;
+    display: inline-flex;
+    align-items: center;
+
+    * {
+      cursor: pointer;
+    }
+  }
+}
+
+.selected{
+  border-bottom: 2px solid $secondaryColor;
+
+  * {
+    color: $white;
+    opacity: 1;
+  }
+}
+
+.fullBackground {
+  background-color: $primaryColor;
+  border-radius: $border-radius; 
+
+  button {
+    border-radius: $border-radius; 
+  }
+}
+
+.fullBackgroundSelected {
+  background-color: $secondaryColor;
+  border-radius: $border-radius; 
+
+  * {
+    color: white;
+  }
+
+  button {
+    border-radius: $border-radius; 
+  }
+
+}
+
+.main{
+  grid-template-columns: auto auto;
+  display: grid;
+  align-items: center;
+  width: 100%;
+}
+
+.icon {
+  justify-content: flex-end;
+  display: inline-flex;
+  margin-right: $spacing-4;
+  
+  svg {
+    width: 36px;
+    height: 36px;
+  }
+
+  @media screen and (max-width: 767px) {
+    float: none;
+    margin-bottom: $spacing-8;
+    margin: auto;
+  }
+}
+
+.label {
+  text-align: left;
+
+  @media screen and (max-width: 1023px) {
+    margin-left: $spacing-8;
+  }
+
+  @media screen and (max-width: 767px) {
+    margin-left: 0;
+    float: left;
+  }
+}
+

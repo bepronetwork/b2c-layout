@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import queryString from 'query-string';
 import { find } from "lodash";
-import { GameCard, Banners, JackpotPot, SubSections, ThirdPartyGames } from "components";
+import { GameCard, Banners, JackpotPot, SubSections, ThirdPartyGames, Typography } from "components";
 import PropTypes from "prop-types";
 import UserContext from "containers/App/UserContext";
 import PlayInvitation from "components/PlayInvitation";
@@ -10,6 +10,7 @@ import LastBets from "../LastBets/HomePage";
 import Footer from "../Footer";
 import { connect } from 'react-redux';
 import { LOCATION } from 'components/SubSections/properties';
+import { getAppCustomization } from "../../lib/helpers";
 import _ from 'lodash';
 import "./index.css";
 class HomePage extends Component {
@@ -70,6 +71,8 @@ class HomePage extends Component {
         const appInfo = JSON.parse(localStorage.getItem("appInfo"));
         if (!appInfo) { return null; }
 
+        const skin = getAppCustomization().skin.skin_type;
+
         return (
             <div styleName="root">
                <SubSections location={LOCATION.BEFORE_BANNER} />
@@ -77,7 +80,18 @@ class HomePage extends Component {
                 {/* this.renderPlayNow() */}
                 <SubSections location={LOCATION.BEFORE_GAMES} />
                 <div styleName="container">
-                    <div styleName='container-small'>                       
+                    {
+                        skin == "digital"
+                        ?
+                            <div styleName="title-betprotocol">
+                                <Typography variant="small-body" weight="semi-bold" color="white">
+                                    BetProtocol Games
+                                </Typography>
+                            </div>
+                        :
+                            null
+                    }
+                    <div styleName='container-small'>                      
                         {appInfo.games.map( (item) => this.renderGame(item))}
                     </div> 
                     <ThirdPartyGames history={history} onHandleLoginOrRegister={onHandleLoginOrRegister} />

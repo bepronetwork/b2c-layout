@@ -1,0 +1,129 @@
+@import "../../styles/all.css";
+
+.root {
+  position: relative;
+
+  cursor: pointer;
+  outline: none;
+  display: inline-block;
+  margin-top: $spacing-4;
+
+  * {
+    background-color: transparent;
+    cursor: pointer;
+    outline: none;
+  }
+}
+
+
+.triangle {
+  position: absolute;
+
+  top: calc($spacing-4 * -1);
+  left: 50%;
+
+  width: 0;
+  height: 0;
+
+  border-right: $spacing-4 solid transparent;
+
+  border-bottom: $spacing-4 solid $primaryColor-5;
+
+  border-left: $spacing-4 solid transparent;
+
+  transform: rotate(0deg);
+}
+
+
+.options {
+  position: absolute;
+  left : 0;
+  margin-left: calc($spacing-16 * -1);
+  z-index: 2;
+
+  display: inline-block;
+
+  margin-top: $spacing-12;
+
+  background: $primaryColor-5;
+
+  border-radius: $spacing-4;
+  width: auto;
+
+  top: $spacing-28;
+
+}
+
+
+.option {
+  flex-direction: row;
+  align-items: center;
+  width: 100%;
+
+  padding: $spacing-8 $spacing-16;
+
+  border-radius: $spacing-4;
+
+  *:first-child {
+    width: $spacing-16;
+    margin-right: $spacing-8;
+  }
+
+  cursor: pointer;
+  outline: none;
+
+  p {
+      display: inline;
+  }
+}
+
+.option:hover {
+  background-color: $concrete;
+
+  * {
+    color: $nepal;
+  }
+}*/
+
+.item{
+  display: inline-flex;
+  position: relative;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 0.3em;
+}
+
+.item img{
+  display: inline-block;
+  height: 1em;
+  stroke-width: 0;
+  margin-bottom: 0.4em;
+}
+
+.item svg{
+  margin-left: 7px;
+  margin-top: -20px;
+}
+
+.label {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    height: $spacing-16;
+    cursor: pointer;
+  
+    *:first-child {
+      margin-right: $spacing-4;
+    }
+  }
+  
+  .label span{
+    margin-left: $spacing-4;
+  }
+  
+  .label:hover {
+    * {
+      opacity: 0.75;
+      transition: opacity 0.1s ease-in;
+    }
+  }

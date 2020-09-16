@@ -1,7 +1,8 @@
 import React from 'react';
 import ArrowDown from "components/Icons/ArrowDown";
 import ArrowUp from "components/Icons/ArrowUp";
-import Typography from "components/Typography";
+import { Typography, ArrowDownIcon, ArrowUpIcon } from "components";
+import { getAppCustomization } from "../../lib/helpers";
 import _ from 'lodash';
 
 import "./index.css";
@@ -68,13 +69,14 @@ class SelectBox extends React.Component{
 
     renderLabel() {
         const { value, open } = this.state;
+        const skin = getAppCustomization().skin.skin_type;
 
         return (
             <div styleName="label">
                 <span>
                     <Typography color="white" variant={'small-body'}>{value.text}</Typography>
                 </span>
-                {open ? <ArrowUp /> : <ArrowDown />}
+                {open ? skin == "digital" ? <ArrowUpIcon /> : <ArrowUp />  : skin == "digital" ? <ArrowDownIcon /> : <ArrowDown /> }
             </div>
         );
     }

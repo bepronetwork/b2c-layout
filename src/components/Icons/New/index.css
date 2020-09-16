@@ -40,3 +40,7 @@
 .j {
     fill: $secondaryColor;
 }
+
+.h {
+    fill: $primaryColor-8;
+}

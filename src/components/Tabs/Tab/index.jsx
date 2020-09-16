@@ -13,7 +13,7 @@ export default class Tab extends Component {
     name: PropTypes.string.isRequired,
     onClick: PropTypes.func,
     selected: PropTypes.bool,
-    style: PropTypes.oneOf(["fullBackground", "default"])
+    style: PropTypes.oneOf(["full-background", "default"])
   };
 
   static defaultProps = {

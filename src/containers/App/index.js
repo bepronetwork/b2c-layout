@@ -554,7 +554,6 @@ class App extends Component {
 
     updateAppInfo = async () => {
         let app = await getAppInfo();
-        console.log(app);
         Cache.setToCache("appInfo", app);
         this.setState({...this.state, app})
     };

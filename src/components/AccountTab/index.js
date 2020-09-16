@@ -2,7 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import { Typography, Button } from "components";
 import { Cache } from 'react-avatar';
-import { isUserSet } from "../../lib/helpers";
+import { isUserSet, getAppCustomization } from "../../lib/helpers";
 import { CopyText } from '../../copy';
 import './index.css';
 
@@ -53,12 +53,13 @@ class AccountTab extends React.Component{
         const { username, email, id } = this.state;
         const copy = CopyText.registerFormIndex[ln];
         const copyLogout = CopyText.userMenuIndex[ln];
+        const skin = getAppCustomization().skin.skin_type;
 
         return (
             <div styleName='box'>
                 <div styleName="field">
                     <div styleName='label'>
-                        <Typography variant={'small-body'} color={'casper'}>{copy.INDEX.INPUT_TEXT.LABEL[4]}</Typography>
+                        <Typography variant={'small-body'} color={'white'}>{copy.INDEX.INPUT_TEXT.LABEL[4]}</Typography>
                     </div>
                     <div styleName='value'>
                         <Typography variant={'small-body'} color={'white'}>
@@ -68,7 +69,7 @@ class AccountTab extends React.Component{
                 </div>
                 <div styleName="field">
                     <div styleName='label'>
-                        <Typography variant={'small-body'} color={'casper'}>{copy.INDEX.INPUT_TEXT.LABEL[0]}</Typography>
+                        <Typography variant={'small-body'} color={'white'}>{copy.INDEX.INPUT_TEXT.LABEL[0]}</Typography>
                     </div>
                     <div styleName='value'>
                         <Typography variant={'small-body'} color={'white'}>
@@ -78,7 +79,7 @@ class AccountTab extends React.Component{
                 </div>
                 <div styleName="field">
                     <div styleName='label'>
-                        <Typography variant={'small-body'} color={'casper'}>{copy.INDEX.INPUT_TEXT.LABEL[3]}</Typography>
+                        <Typography variant={'small-body'} color={'white'}>{copy.INDEX.INPUT_TEXT.LABEL[3]}</Typography>
                     </div>
                     <div styleName='value'>
                         <Typography variant={'small-body'} color={'white'}>
@@ -89,7 +90,7 @@ class AccountTab extends React.Component{
 
                 <div styleName='button' onClick={onLogout}>
                     <Button size={'x-small'} theme="primary">
-                        <Typography color={'fixedwhite'} variant={'small-body'}>{copyLogout.INDEX.TYPOGRAPHY.TEXT[2]}</Typography>
+                        <Typography color={skin == "digital" ? "secondary" : "fixedwhite"} variant={'small-body'}>{copyLogout.INDEX.TYPOGRAPHY.TEXT[2]}</Typography>
                     </Button>
                 </div>  
             </div>

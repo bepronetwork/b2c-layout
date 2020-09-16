@@ -1,0 +1,204 @@
+@import "../../styles/all.css";
+
+.table-row {
+    width: 100%;
+    background-color: $primaryColor;
+    border-radius: $border-radius;
+}
+
+.th-row {
+    margin: auto;
+    vertical-align: middle;
+    padding: $spacing-12 $spacing-20;
+}
+
+.td-row {
+    margin: auto;
+    vertical-align: middle;
+    padding: $spacing-12 $spacing-20;
+}
+
+.td-row-img {
+    padding: 0;
+}
+
+.td-row-currency {
+    display: inline-flex;
+    padding-top: $spacing-20;
+    p {
+        margin-right: $spacing-8;
+    }
+
+    a {
+        display: inline-flex;
+
+        img {
+            margin-top: -2px;
+        } 
+    }
+
+    div {
+        display: inline-flex;
+
+        img {
+            margin-top: -2px;
+        }
+    }
+
+}
+
+.image{
+    display: flex;
+
+    @media screen and (max-width: 767px) {
+    }
+
+    .icon {
+        text-align: center;
+        width: 55px;
+        height: 40px;
+        margin: $spacing-8;
+        border-radius: $border-radius;
+    }
+}
+
+.image-icon {
+    height : 40px;
+    margin-left: calc($spacing-8 * -1);
+}
+
+.image-name{
+    margin: auto 0;
+
+    @media screen and (max-width: 767px) {
+        text-align: center;
+    }
+}
+
+.table-head .tr-row{
+    text-align: center;
+    height: 42px;
+    border-bottom: 1px solid $primaryColor-13;
+}
+
+.table-head .tr-row .th-row{
+    padding: $spacing-8 $spacing-20;
+}
+
+.table-head .tr-row .th-row:first-child {
+    text-align: left;
+}
+
+.table-head .tr-row .th-row:last-child {
+    text-align: right;
+}
+
+.table-row tbody .tr-row{
+    text-align: center;
+}
+
+.table-row tbody .tr-row .td-row:first-child {
+    text-align: left;
+    border-top-left-radius: $spacing-8;
+    border-bottom-left-radius: $spacing-8;
+}
+
+.table-row tbody .tr-row .td-row:last-child {
+    text-align: right;
+    border-top-right-radius: $spacing-8;
+    border-bottom-right-radius: $spacing-8;
+}
+
+.no-info{
+    padding: $spacing-28 0;
+    margin: $spacing-8 0;
+    background-color: $primaryColor;
+    border-radius: $border-radius;
+    opacity: 0.6;
+    text-align: center;
+}
+
+.addRow {
+    animation: new-row-animation 1s running;
+}
+
+@media screen and (min-width: 768px) {
+    @keyframes new-row-animation {
+        0% {
+            opacity: 0.3;
+            transform: translateY(-80%);
+        }
+    }
+}
+
+@media screen and (max-width: 767px) {
+    @keyframes new-row-animation {
+        0% {
+            opacity: 0.3;
+            transform: translateY(-20%);
+        }
+    }
+}
+
+.skeleton-row {
+    margin-top: $spacing-8;
+}
+
+@media screen and (max-width: 767px) {
+    .table-row {
+      border: 0;
+    }
+    
+    .table-row  thead {
+      border: none;
+      clip: rect(0 0 0 0);
+      height: 1px;
+      margin: -1px;
+      overflow: hidden;
+      padding: 0;
+      position: absolute;
+      width: 1px;
+    }
+
+    .table-row tbody .tr-row .td-row:first-child {
+        text-align: right;
+    }
+    
+    .table-row  .tr-row {
+      display: block;
+      padding-bottom: $spacing-8;
+      border-bottom: 1px solid $primaryColor-13;
+    }
+    
+    .table-row  .td-row {
+      display: block;
+      text-align: right;
+    }
+    
+    .table-row td::before {
+      content: attr(data-label);
+      float: left;
+      color: $grey;
+      font-family: $font-family;
+      font-weight: bold;
+      font-size: 12px;
+    }
+
+    .table-row .td-row-img::before {
+        content: '';
+        float: none;
+    }
+
+    .table-row  .td-row-img {
+        display: flex;
+        justify-content: center;
+      }
+    
+    .table-row  td:last-child {
+      border-bottom: 0;
+    }
+
+    .td-row {
+        padding: 8px 20px;
+    }
+  }

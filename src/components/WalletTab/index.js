@@ -5,7 +5,7 @@ import PaymentBox from "../PaymentBox";
 import DepositList from "./DepositList";
 import WithdrawList from "./WithdrawList";
 import { CopyText } from '../../copy';
-import { getApp } from "../../lib/helpers";
+import { getApp, getAppCustomization } from "../../lib/helpers";
 import { Col, Row } from 'reactstrap';
 import { setMessageNotification } from "../../redux/actions/message";
 import store from "../../containers/App/store";
@@ -104,6 +104,7 @@ class WalletTab extends React.Component{
         const { ln } = this.props;
         const { isEmailConfirmed, isConfirmationSent } = this.state;
         const copyConfirmEmail = CopyText.homepage[ln];
+        const skin = getAppCustomization().skin.skin_type;
 
         return(
             isEmailConfirmed === false
@@ -129,7 +130,7 @@ class WalletTab extends React.Component{
                         <div styleName="email-buttons">
                             <div styleName="button">
                                 <Button size={'x-small'} theme={'action'} disabled={isConfirmationSent} onClick={this.handleResendConfirmEmail}>
-                                    <Typography color={'fixedwhite'} variant={'small-body'}>{copyConfirmEmail.CONTAINERS.APP.MODAL[2]}</Typography>
+                                    <Typography color={skin == "digital" ? 'secondary' : 'fixedwhite'} variant={'small-body'}>{copyConfirmEmail.CONTAINERS.APP.MODAL[2]}</Typography>
                                 </Button>
                             </div>
                         </div>

@@ -1,0 +1,61 @@
+@import "../../styles/all.css";
+
+.root {
+  display: flex;
+  flex-direction: column;
+
+  box-sizing: border-box;
+
+  border-radius: $border-radius 0 0 0;
+}
+
+.button {
+  order: 4;
+
+  margin-top: $spacing-36;
+
+  @include Breakpoint-mobileOnly {
+    order: 0;
+
+    margin-top: 0;
+  }
+}
+
+.element {
+  margin-top: $spacing-20;
+}
+
+.amount {
+  order: 1;
+  margin-top: $spacing-20;
+}
+
+.content {
+  order: 2;
+}
+
+.toggle {
+  order: 0;
+
+  @include Breakpoint-mobileOnly {
+    order: 4;
+
+    margin-top: $spacing-20;
+  }
+
+  div {
+    height: 38px;
+  }
+}
+
+.amount-title {
+  margin-bottom: $spacing-4;
+}
+
+.amount-container {
+  margin-top: $spacing-4;
+}
+
+.bet-properties{
+  padding: $spacing-20;
+}

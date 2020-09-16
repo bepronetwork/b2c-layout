@@ -1,0 +1,72 @@
+@import "../../styles/all.css";
+
+$root-index: 20;
+$icon-index: calc($root-index + 1);
+
+:export {
+  scrollwidth: 17px;
+}
+
+.root {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index : 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+
+  background-color: color($background-table-1-outer alpha(70%));
+
+  padding-top: 70px;
+  padding-bottom: 100px;
+
+  @include Breakpoint-mobileOnly {
+    height: 100%;
+    padding-top: 0px;
+    padding-bottom: 0px;
+  }
+
+}
+
+.icon {
+  position: absolute;
+
+  top: $spacing-4;
+  right: $spacing-4;
+  z-index: $icon-index;
+
+  padding-bottom: 1px;
+
+  background-color: $primaryColor-5;
+
+  cursor: pointer;
+  outline: none;
+
+  width: $spacing-28;
+  height: $spacing-28;
+  border-radius: $spacing-16;
+
+  svg {
+    height: $spacing-12;
+    width: $spacing-12;
+  }
+}
+
+.content {
+  position: relative;
+  height: auto;
+  width: auto;
+  z-index : 100;
+
+  background-color: $modal-background;
+
+  border-radius: $spacing-4;
+
+  @include Breakpoint-mobileOnly {
+    height: 100%;
+    width: 100%;
+  }
+}
