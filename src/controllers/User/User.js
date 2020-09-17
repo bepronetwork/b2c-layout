@@ -474,6 +474,10 @@ export default class User {
         return this.user.points;
     }
 
+    getExternalId = async () => {
+        return this.user.external_id;
+    }
+
     isEmailConfirmed = async () => {
         return this.user.email_confirmed;
     }
