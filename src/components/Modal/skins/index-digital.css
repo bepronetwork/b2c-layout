@@ -58,7 +58,7 @@ $icon-index: calc($root-index + 1);
 .content {
   position: relative;
   height: auto;
-  width: auto;
+  width: 800px;
   z-index : 100;
 
   background-color: $modal-background;

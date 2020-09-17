@@ -115,8 +115,6 @@ class ThirdPartyGameList extends Component {
     render() {
         const { onHandleLoginOrRegister, history } = this.props;
         const { games, isLoading, providerName, total, quantity } = this.state;
-        console.log("total", total)
-        console.log("quantity", quantity)
 
         return (
             <div styleName="container">

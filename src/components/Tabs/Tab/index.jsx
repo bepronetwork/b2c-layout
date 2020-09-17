@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import classNames from "classnames";
 import Typography from "../../Typography";
+import { getAppCustomization } from "../../../lib/helpers";
 
 import "./index.css";
 
@@ -36,6 +37,7 @@ export default class Tab extends Component {
 
   render() {
     const { selected, label, icon, style, variant="small-body" } = this.props;
+    const { skin } = getAppCustomization();
     const classes = classNames("tab", {
       selected,
       fullBackground : style === "full-background",
@@ -50,7 +52,7 @@ export default class Tab extends Component {
               { icon ? icon : null }
             </div>
             <div styleName="label">
-              <Typography variant={this.isMobileOrTablet() ? 'x-small-body' : variant} color="white">
+              <Typography variant={this.isMobileOrTablet() ? 'x-small-body' : variant} color={skin.skin_type == "digital" ? 'secondary' : 'white'}>
                 {label}
               </Typography>
             </div>

@@ -118,7 +118,7 @@ class GamePage extends Component {
     }
 
     render() {
-        const { profile, currency, ln, options, game, gameMetaName, onTableDetails, isThirdParty, providerToken, providerGameId, providerPartnerId, providerUrl } = this.props;
+        const { currency, ln, options, game, gameMetaName, onTableDetails, isThirdParty, providerToken, providerGameId, providerPartnerId, providerUrl, providerExternalId } = this.props;
         const { soundMode } = this.state;
         const copy = CopyText.homepagegame[ln];
 
@@ -130,7 +130,7 @@ class GamePage extends Component {
                     isThirdParty == true
                     ?
                         <div styleName="root">
-                            <iframe styleName="iframe" allowfullscreen="allowfullscreen" src={`${providerUrl}/game?token=${providerToken}&partner_id=${providerPartnerId}&player_id=${profile.id}&game_id=${providerGameId}&language=${ln}&currency=${currency.ticker}`}
+                            <iframe styleName="iframe" allowfullscreen="allowfullscreen" src={`${providerUrl}/game?token=${providerToken}&partner_id=${providerPartnerId}&player_id=${providerExternalId}&game_id=${providerGameId}&language=${ln}&currency=${currency.ticker}`}
                             frameborder="0"></iframe>
                             <div styleName="provider">
                             </div>

@@ -44,17 +44,11 @@
   position: absolute;
   right: calc($spacing-20 * -1);
   z-index: 2;
-
   display: inline-block;
-
   margin-top: $spacing-12;
-
   background: $primaryColor-3;
-
   border-radius: $spacing-4;
-
   bottom: 49px;
-
 }
 
 .expandBottom {
@@ -68,10 +62,12 @@
   flex-direction: row;
   align-items: center;
   width: 100%;
-
   padding: $spacing-8 $spacing-16;
-
   border-radius: $spacing-4;
+
+  p {
+    opacity: 0.5;
+  }
 
   *:first-child {
     width: $spacing-16;

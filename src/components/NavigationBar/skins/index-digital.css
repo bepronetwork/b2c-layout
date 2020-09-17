@@ -83,13 +83,18 @@
     border-radius: 20px;
     cursor: pointer;
     opacity: 0.5;
-    background-image: url(https://luckbox.com/559b34465a2b304792263a9e427f743b.png);
     background-position: center center;
     background-repeat: no-repeat;
 }
 
+.main-others {
+    border-left: 1px solid $primaryColor-5;
+    margin-left: $spacing-12;
+}
+
 .others {
     display: inline;
+    margin-left: $spacing-12;
 
     @media screen and (max-width: 1267px) and (min-width: 767px) {
         display: none;

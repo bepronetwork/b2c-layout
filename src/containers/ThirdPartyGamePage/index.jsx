@@ -10,7 +10,8 @@ const defaultState = {
     gameId : null,
     token: null,
     partnerId: null,
-    url: null
+    url: null,
+    externalId: null
 }
 
 
@@ -46,13 +47,13 @@ class ThirdPartyGamePage extends Component {
                     game_id: gameIdParam,
                     ticker: currency.ticker});
 
-            this.setState({ gameId: gameIdParam, token, url: queryParams.url, partnerId: queryParams.partner_id });
+            this.setState({ gameId: gameIdParam, token, url: queryParams.url, partnerId: queryParams.partner_id, externalId: queryParams.external_id });
         }
     }
 
 
     render() {
-        const { gameId, token, partnerId, url } = this.state;
+        const { gameId, token, partnerId, url, externalId } = this.state;
 
         if(gameId == null || token == null) { return null };
 
@@ -63,6 +64,7 @@ class ThirdPartyGamePage extends Component {
                 providerToken={token}
                 providerUrl={url}
                 providerPartnerId={partnerId}
+                providerExternalId={externalId}
             />
         );
     }

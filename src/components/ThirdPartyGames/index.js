@@ -186,7 +186,7 @@ class ThirdPartyGames extends Component {
                                                     <div styleName="root" onClick={() => this.onClickProvider(p.providerEco)}>
                                                         <a>
                                                             <div>
-                                                                <img width="175" height="70" alt={p.name} src={p.logo} />
+                                                                <img alt={p.name} src={p.logo} />
                                                             </div>
                                                         </a>
                                                     </div>
