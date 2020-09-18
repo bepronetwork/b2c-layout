@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import { ButtonIcon, History, Modal, Tabs, Button, Typography } from "components";
+import { ButtonIcon, History, Modal, Tabs, Button, Typography, MaximizeIcon } from "components";
 import UserContext from "containers/App/UserContext";
 import LastBets from "../LastBets/GamePage";
 import Actions from "./Actions"
@@ -48,8 +48,16 @@ class GamePage extends Component {
         this.state = {
             soundMode: sound || "off",
             actionsOpen: false,
-            gameInfo: null
+            gameInfo: null,
+            max: false
         };
+        this.escFunction = this.escFunction.bind(this);
+    }
+
+    escFunction(event){
+        if(event.keyCode === 27) {
+          this.setState({ max: false });
+        }
     }
 
     handleSounds = () => {
@@ -113,27 +121,112 @@ class GamePage extends Component {
         }
     }
 
-    componentDidMount() {
+    componentDidMount = async () => {
         window.scrollTo(0, 0);
+        document.addEventListener("keydown", this.escFunction, false);
     }
 
-    render() {
-        const { currency, ln, options, game, gameMetaName, onTableDetails, isThirdParty, providerToken, providerGameId, providerPartnerId, providerUrl, providerExternalId } = this.props;
+    componentWillUnmount(){
+        document.removeEventListener("keydown", this.escFunction, false);
+    }
+
+    convertAmountProviderBigger = (ticker, value) => {
+        let tickers = {
+            "ETH": {value: 1000, ticker: "mETH"},
+            "BTC": {value: 1000000, ticker: "μBTC"}
+        };
+        return {value: (value * tickers[ticker].value),  ticker: (tickers[ticker].ticker)};
+    }
+
+    maximizeIframe() {
+        this.setState({ max: true });
+    }
+
+    renderBox({title, game, info, showActions}) {
+        const { ln } = this.props;
         const { soundMode } = this.state;
         const copy = CopyText.homepagegame[ln];
 
+        return(
+            <div styleName="box">
+                <div styleName="box-title">
+                    <Typography variant='small-body' color={"white"}>
+                        {title}
+                    </Typography>
+                </div>
+                <div styleName="box-game">
+                    <Typography variant='x-small-body' color={"white"}>
+                        {game}
+                    </Typography>
+                </div>
+                {
+                    info 
+                    ?
+                        <div styleName="box-info">
+                            <Typography variant='x-small-body' color={"white"}>
+                                {info}
+                            </Typography>
+                        </div>
+                    :
+                        null
+                }
+                {
+                    showActions === true
+                    ?
+                        <div styleName="buttons">
+                            <div styleName="actions">
+                                <ButtonIcon
+                                    iconAtLeft
+                                    icon="copy"
+                                    label={copy.RULES}
+                                    onClick={this.handleActionsModalOpen}
+                                    soundMode={soundMode}
+                                    theme="primary"
+                                />
+                            </div>
+                            <div styleName="sound">
+                                <ButtonIcon
+                                    iconAtLeft
+                                    icon="sound"
+                                    label={copy.SOUND}
+                                    onClick={this.handleSounds}
+                                    soundMode={soundMode}
+                                    theme="primary"
+                                />
+                            </div>
+                        </div>
+                    :
+                        null
+                }
+            </div>
+        )
+    }
+
+    render() {
+        const { currency, ln, options, game, gameMetaName, onTableDetails, isThirdParty, providerToken, providerGameId, providerPartnerId, providerUrl, providerExternalId, providerName, providerGameName } = this.props;
+        const { gameInfo, max } = this.state;
+
         if (_.isEmpty(gameMetaName) && isThirdParty != true) return null;
+
+        const newCurrency = this.convertAmountProviderBigger(currency.ticker, 1);
+        const thirdStyles = classNames("iframe", {
+            max: max === true
+          });
 
         return (
             <div styleName='main-container'>
                 {
                     isThirdParty == true
                     ?
-                        <div styleName="root">
-                            <iframe styleName="iframe" allowfullscreen="allowfullscreen" src={`${providerUrl}/game?token=${providerToken}&partner_id=${providerPartnerId}&player_id=${providerExternalId}&game_id=${providerGameId}&language=${ln}&currency=${currency.ticker}`}
-                            frameborder="0"></iframe>
-                            <div styleName="provider">
+                        <div>
+                            <div styleName="third">
+                                <div styleName="functions">
+                                    <div onClick={() => this.maximizeIframe()}><MaximizeIcon /></div>
+                                </div>
+                                <iframe styleName={thirdStyles} allowfullscreen="" src={`${providerUrl}/game?token=${providerToken}&partner_id=${providerPartnerId}&player_id=${providerExternalId}&game_id=${providerGameId}&language=${ln}&currency=${newCurrency.ticker}`}
+                                frameborder="0"></iframe>
                             </div>
+                            {this.renderBox({title: providerName, game: providerGameName, info: `1 ${currency.ticker} = ${newCurrency.value} ${newCurrency.ticker}`})}
                         </div>
                     :
                     <div>
@@ -153,28 +246,7 @@ class GamePage extends Component {
                                     </Col>
                                 </Row>
                             </div>
-                            <div styleName="buttons">
-                                <div styleName="actions">
-                                    <ButtonIcon
-                                        iconAtLeft
-                                        icon="copy"
-                                        label={copy.RULES}
-                                        onClick={this.handleActionsModalOpen}
-                                        soundMode={soundMode}
-                                        theme="primary"
-                                    />
-                                </div>
-                                <div styleName="sound">
-                                    <ButtonIcon
-                                        iconAtLeft
-                                        icon="sound"
-                                        label={copy.SOUND}
-                                        onClick={this.handleSounds}
-                                        soundMode={soundMode}
-                                        theme="primary"
-                                    />
-                                </div>
-                            </div>
+                            {this.renderBox({title: "BetProtocol Games", game: gameInfo ? gameInfo.description : null, showActions: true})}
                         </div>
                         <LastBets gameMetaName={gameMetaName} onTableDetails={onTableDetails}/>
                     </div>

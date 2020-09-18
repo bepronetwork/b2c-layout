@@ -62,9 +62,24 @@
     text-align: center;
     margin : $spacing-8 0;
     cursor: pointer;
+    background-color: $primaryColor;
+    border-radius: $border-radius;
+    
+    div {
+        display:table-cell; 
+        vertical-align:middle; 
+        text-align:center;
+        height: 70px;
+        width: auto;
+    }
 
     img {
-        border-radius: $border-radius;
+        display: inline-flex;
+        max-width: 150px;
+        max-height: 60px;
+        width: auto;
+        height: auto;
+        align-items: center;
     }
 }
 

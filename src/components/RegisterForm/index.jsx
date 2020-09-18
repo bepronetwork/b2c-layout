@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import { Button, Typography, InputText, Checkbox } from "components";
+import { Button, Typography, InputText, Checkbox, Toggle } from "components";
 import { connect } from "react-redux";
 import { compose } from 'lodash/fp';
 import Cache from "../../lib/cache/cache";
@@ -123,7 +123,13 @@ class RegisterForm extends Component {
 
             <div styleName="agree">
                 <div>
-                    <Checkbox onClick={() => this.onHandlerConfirm()} isSet={isConfirmed} id={'isConfirmed'}/>
+                    {
+                        skin.skin_type == "digital" 
+                        ?
+                            <Toggle id={'isConfirmed'} checked={isConfirmed} onChange={() => this.onHandlerConfirm()} showText={false}/>
+                        :
+                            <Checkbox onClick={() => this.onHandlerConfirm()} isSet={isConfirmed} id={'isConfirmed'}/>
+                    }
                 </div>
                 <div styleName="agree-right">
                     <Typography color="white" variant="x-small-body">

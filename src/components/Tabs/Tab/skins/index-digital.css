@@ -8,6 +8,11 @@
       opacity: 1;
     }
   }
+
+  * {
+    color: $white;
+    opacity: 0.85;
+  }
 }
 
 .tab {
@@ -34,7 +39,7 @@
   background-color: $primaryColor-13;
 
   * {
-    color: $secondaryColor;
+    color: white;
   }
 }
 
@@ -42,7 +47,7 @@
   border-bottom: 2px solid $secondaryColor;
 
   * {
-    color: $white;
+    color: $secondaryColor;
     opacity: 1;
   }
 }
@@ -59,11 +64,18 @@
   }
 }
 
+.fullBackground:not(.selected) {
+  * {
+    color: $secondaryColor;
+    opacity: 1;
+  }
+}
+
 .fullBackgroundSelected {
   background-color: $secondaryColor;
 
   * {
-    color: white;
+    color: $backgroundColor;
   }
 
   button {

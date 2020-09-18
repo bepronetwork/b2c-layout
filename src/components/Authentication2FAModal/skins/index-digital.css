@@ -3,12 +3,12 @@
 .root {
     position: relative;
     display: block;
-    width: 100%;
+    width: 350px;
     height: inherit;
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: $spacing-52 $spacing-20;
+    padding: $spacing-52 $spacing-20 0 $spacing-20;
 
   @include Breakpoint-mobileOnly {
     width: 320px;
@@ -27,7 +27,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin: $spacing-52 $spacing-20;
+  margin: $spacing-36 $spacing-20;
   border-top: 1px solid $backgroundColor;  
 
   @include Breakpoint-mobileOnly {
@@ -41,6 +41,17 @@
 
 .content {
     text-align: center;
+    border-top: 1px solid $primaryColor-5;
+    width: 100%;
+}
+
+.content > div {
+  width: 250px;
+
+  div:nth-child(2) {
+    margin-bottom: 10px;
+    padding: 14px 30px;
+  }
 }
 
 .qrcode {

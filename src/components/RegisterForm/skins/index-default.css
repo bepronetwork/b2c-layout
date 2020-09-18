@@ -42,7 +42,7 @@
 }
 
 .agree-right {
+  margin: auto; 
   margin-left: $spacing-8;
-  margin-bottom: $spacing-4;
   opacity: 0.5;
 }
