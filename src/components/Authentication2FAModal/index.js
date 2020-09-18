@@ -116,7 +116,7 @@ class Authentication2FAModal extends Component {
             <Modal onClose={this.onClose}>
                 <div styleName="root" style={{ overflowY: 'auto', overflowX : 'hidden'}}>
                     <div >
-                        <Typography variant='h4' color={"grey"}> {copy.INDEX.TYPOGRAPHY.TEXT[0]}</Typography>
+                        <Typography variant='body' color={"grey"} weight={"bold"}> {copy.INDEX.TYPOGRAPHY.TEXT[0]}</Typography>
                     </div>
                     <div styleName='root-code'>
                         <div styleName="content">
@@ -131,7 +131,7 @@ class Authentication2FAModal extends Component {
                                         title : copy.INDEX.HORIZONTAL_STEPPER.TITLE[0],
                                         first : true,
                                         condition : true,
-                                        content : <div styleName="qrcode"><QRCode value={auth_2fa.uri} bgColor={skin.skin_type == "digital" ? backgroundColor.hex : "#fff"} fgColor={skin.skin_type == "digital" ? secondaryColor.hex : "#000"} /></div>
+                                        content : <div styleName="qrcode"><QRCode value={auth_2fa.uri} bgColor={skin.skin_type == "digital" ? secondaryColor.hex : "#fff"} fgColor={skin.skin_type == "digital" ? backgroundColor.hex : "#000"} /></div>
                                     },
                                     {
                                         label : copy.INDEX.HORIZONTAL_STEPPER.LABEL[1],

@@ -9,7 +9,8 @@ class Toggle extends React.Component{
     constructor(props){
         super(props);
         this.state = {
-            checked : false
+            checked : false,
+            showText: true
         }
     }
 
@@ -18,7 +19,7 @@ class Toggle extends React.Component{
     }
 
     render(){
-        const { checked, id, disabled, onChange } = this.props;
+        const { checked, id, disabled, onChange, showText=true } = this.props;
         const skin = getAppCustomization().skin.skin_type;
         
         const stylesOn = classNames("toggle", {
@@ -33,9 +34,15 @@ class Toggle extends React.Component{
 
         return (
             <div styleName={stylesOn}>
-                <div styleName={stylesTextOff}>
-                    <Typography variant={'x-small-body'} color={'fixedwhite'} weight={'semi-bold'}>{skin == "digital" ? 'OFF' : checked === true ? 'ON' : 'OFF'}</Typography>
-                </div>
+                {
+                    showText == true
+                    ?
+                        <div styleName={stylesTextOff}>
+                            <Typography variant={'x-small-body'} color={'fixedwhite'} weight={'semi-bold'}>{skin == "digital" ? 'OFF' : checked === true ? 'ON' : 'OFF'}</Typography>
+                        </div>
+                    :
+                        <div/>
+                }
                 <BootstrapSwitchButton
                     checked={checked} 
                     id={id}  
@@ -48,13 +55,13 @@ class Toggle extends React.Component{
                     offlabel=" "
                     disabled={disabled === true ? true : false}/>
                 {
-                    skin == "digital"
+                    skin == "digital" && showText == true
                     ?
                         <div styleName={stylesTextOn}>
                             <Typography variant={'x-small-body'} color={'fixedwhite'} weight={'semi-bold'}>{'ON'}</Typography>
                         </div>
                     :
-                        null
+                        <div/>
                 }
             </div>
         )

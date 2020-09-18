@@ -34,7 +34,7 @@ class ThirdPartyGameCard extends Component {
 
     }
 
-    linkToGamePage({id, partnerId, url}) {
+    linkToGamePage({id, partnerId, url, provider, name}) {
         const { externalId } = this.state;
         const { profile, onHandleLoginOrRegister } = this.props;
 
@@ -42,7 +42,7 @@ class ThirdPartyGameCard extends Component {
             return onHandleLoginOrRegister("login");
         }
 
-        this.props.history.push(`/casino/game/${id}?partner_id=${partnerId}&url=${url}&external_id=${externalId}`);
+        this.props.history.push(`/casino/game/${id}?partner_id=${partnerId}&url=${url}&external_id=${externalId}&name=${name}&provider=${provider}`);
     }
 
     render() {
@@ -51,7 +51,8 @@ class ThirdPartyGameCard extends Component {
         return (
             <div class={"col"} styleName="col">
                 <div styleName="root">
-                    <div styleName="image-container dice-background-color" onClick={() => this.linkToGamePage({id: game.id, partnerId: game.partnerId, url: game.url})} style={{background: "url("+game.icon+") center center / cover no-repeat"}}>
+                    <div styleName="image-container dice-background-color" onClick={() => this.linkToGamePage({id: game.id, partnerId: game.partnerId, url: game.url, provider: game.provider, name: game.title})} 
+                        style={{background: "url("+game.icon+") center center / cover no-repeat"}}>
                     </div>
                     <div styleName="title">
                         <div styleName="name" onClick={() => this.linkToGamePage({id: game.id, partnerId: game.partnerId, url: game.url})}>

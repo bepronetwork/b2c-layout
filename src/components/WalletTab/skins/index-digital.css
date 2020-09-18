@@ -11,16 +11,17 @@
 }
 
 .email-title{
-    margin: $spacing-20 0;
-    padding-bottom: $spacing-28;
-    border-bottom: 1px solid $primaryColor-13;
+    margin: $spacing-28 0 0 0;
+    padding-bottom: $spacing-36;
+    border-bottom: 1px solid $backgroundColor;
     display: grid;
     grid-template-columns: 25% 75%;
     align-items: center;
 }
 
 .email-content{
-    
+    padding: $spacing-28 0;
+    border-top: 1px solid $primaryColor-13;
 }
 
 .email-text{
@@ -45,6 +46,7 @@
     div {
         display: flex;
         align-items: center;
+        padding: $spacing-8 $spacing-28;
     }
 }
 

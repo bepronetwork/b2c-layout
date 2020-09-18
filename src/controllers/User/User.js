@@ -103,6 +103,13 @@ export default class User {
         this.channel.bind('jackpot', async (data) => {
             await store.dispatch(setModal({key : 'JackpotModal', value : data.message}));
         });
+
+        /* Listen to Update Wallet */
+        this.channel.bind('update_balance', async (data) => {
+            //const value = data.message.value;
+            const value = data.message.split("=")[0];
+            //await this.updateBalance({ userDelta: value });
+        });
     }
 
     hasLoaded = () => this.isLoaded;
@@ -123,6 +130,8 @@ export default class User {
     getBalanceAsync = async () => Numbers.toFloat((await this.updateUser()).balance);
 
     getChat = () =>  this.chat;
+
+    getChannel = () =>  this.channel;
 
     getDeposits = () => {
         if(!this.user.deposits) { return [] };
@@ -160,7 +169,7 @@ export default class User {
             }
         });
 
-        if(this.app.addOn.pointSystem && (this.app.addOn.pointSystem.isValid == true)) {
+        if(this.app.addOn.pointSystem && (this.app.addOn.pointSystem.isValid == true) && amount) {
             const ratio = this.app.addOn.pointSystem.ratio.find( p => p.currency == currency._id ).value;
             const points = await this.getPoints();
             this.user.points = points + (amount * ratio);

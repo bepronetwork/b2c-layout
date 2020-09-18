@@ -88,7 +88,7 @@
 
 .text-copy-container{
     border : none;
-    padding: $spacing-12 $spacing-12;
+    padding: $spacing-12 $spacing-20;
     border-radius :  0 $border-radius $border-radius 0;
     background-color: transparent;
     width : 100%;
@@ -96,6 +96,10 @@
     border: 1px solid $secondaryColor;
     display: inline-flex;
     align-items: center;
+
+    p {
+        color: $secondaryColor;
+    }
 
     @media screen and (max-width: 767px) {
         position: initial;

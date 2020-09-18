@@ -45,7 +45,7 @@ const rows = {
         ],
         rows : []
     },
-    /*my_bets : {
+    my_bets : {
         titles : [],
         fields : [
             {
@@ -68,7 +68,7 @@ const rows = {
             }
         ],
         rows : []
-    },*/
+    },
     biggest_win_bets : {
         titles : [],
         fields : [
@@ -277,8 +277,9 @@ class LastBets extends Component {
                 }),
                 onTableDetails : onTableDetails ? onTableDetails : null
             },
-            my_bets : {
+            /*my_bets : {
                 ...this.state.my_bets,
+
                 titles : copy.TABLE.MY_BETS.ITEMS,
                 rows : my_bets.map( (bet) =>  {
                     return {
@@ -293,7 +294,7 @@ class LastBets extends Component {
                     }
                 }),
                 onTableDetails : onTableDetails ? onTableDetails : null
-            },
+            },*/
             biggest_win_bets  : {
                 ...this.state.biggest_win_bets,
                 titles : copy.TABLE.BIGGEST_WIN_BETS.ITEMS,
