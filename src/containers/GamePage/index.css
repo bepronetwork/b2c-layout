@@ -121,9 +121,15 @@
 }
 
 .buttons {
-    display: inline-block;
+    display: inline-flex;
     width: 100%;
-    margin: $spacing-20 0 0 0;
+    margin: $spacing-4 0 0 0;
+
+    button {
+      margin-top: 0;
+      padding: 0 0 0 $spacing-16;
+      margin-right: $spacing-16;
+    }
 }
 
 .sound {
@@ -165,7 +171,7 @@
 }
 
 .functions{
-  border-radius: $border-radius $border-radius 0 0;
+  border-radius: 0 0 $border-radius $border-radius;
   background-color: $primaryColor;
   padding: $spacing-12;
   text-align: right;
@@ -210,13 +216,14 @@
 .iframe {
   width: 100%;
   height: 542px;
-  border-radius: 0 0 $border-radius $border-radius ;
+  border-radius: $border-radius $border-radius 0 0;
 }
 
 .third {
   box-shadow: $shadowColor 0px 0px 10px;
   width: 100%;
   min-width: 450px;
+  border-radius: $border-radius;
 
   @include Breakpoint-mobileOnly {
     min-width: 300px;
@@ -232,4 +239,25 @@
   height: 100%;
   border: 0px none;
   z-index: 20;
+}
+
+.close-iframe {
+  display: none;
+  position: fixed;
+  top: $spacing-20;
+  left: $spacing-20;
+  z-index: 30;
+  background-color: $backgroundColor;
+  border-radius: 50%;
+  padding: $spacing-12;
+  cursor: pointer;
+
+  svg {
+    width: $spacing-16;
+    height: $spacing-16;
+  }
+}
+
+.show-close {
+  display: inline;
 }

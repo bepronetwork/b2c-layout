@@ -88,7 +88,7 @@
 
 .text-copy-container{
     border : none;
-    padding: $spacing-12 $spacing-20;
+    padding: $spacing-12 $spacing-28;
     border-radius :  0 $border-radius $border-radius 0;
     background-color: transparent;
     width : 100%;

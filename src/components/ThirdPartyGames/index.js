@@ -90,7 +90,7 @@ class ThirdPartyGames extends Component {
                     <div styleName="root">
                         <a>
                             <div>
-                                <Skeleton width={"175"} height={"100"}/>
+                                <Skeleton width={"175"} height={"70"}/>
                             </div>
                         </a>
                     </div>
@@ -107,7 +107,7 @@ class ThirdPartyGames extends Component {
         for (let i = 0; i < 12; i++) {
             games.push(
                 <div class={"col"} styleName="col">
-                    <div styleName="root">
+                    <div styleName="root-skeleton">
                         <div styleName="image-container">
                             <div styleName="icon">
                                 <Skeleton width={"180"} height={"150"}/>

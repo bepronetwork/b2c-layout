@@ -101,13 +101,12 @@
 .disabled .content,
 .disabled:hover .content,
 .disabled:focus .content {
-  background-color: color($black alpha(50%));
-  border: 1px solid  color($black alpha(50%));
+  opacity: 0.4;
   color: white;
   cursor: default;
 
   * {
-    color: color($black alpha(50%));
+
   }
   
 }
@@ -147,5 +146,13 @@
   }
   to {
     transform: rotate(0deg);
+  }
+}
+
+.icon {
+  margin-right: $spacing-4;
+
+  svg {
+    height: 20px;
   }
 }

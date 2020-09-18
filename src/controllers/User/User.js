@@ -26,6 +26,7 @@ import _ from 'lodash';
 import Pusher from 'pusher-js';
 import { apiUrl } from "../../lib/api/apiConfig";
 import { setMessageNotification } from "../../redux/actions/message";
+import { formatCurrency } from "../../utils/numberFormatation";
 
 export default class User {
     constructor({
@@ -106,9 +107,9 @@ export default class User {
 
         /* Listen to Update Wallet */
         this.channel.bind('update_balance', async (data) => {
-            //const value = data.message.value;
-            const value = data.message.split("=")[0];
-            //await this.updateBalance({ userDelta: value });
+            const resp = JSON.parse(data.message);
+            const value = formatCurrency(resp.value);
+            await this.updateBalance({ userDelta: Number(value) });
         });
     }
 

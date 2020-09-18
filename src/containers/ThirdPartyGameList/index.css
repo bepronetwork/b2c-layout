@@ -51,7 +51,7 @@
 .container-small{
     margin: 0;
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
 }
 
 .col {
@@ -154,6 +154,12 @@
     width: auto;
     padding: $spacing-12;
     max-width: 270px;
+    display: inline-flex;
+    align-items: center;
+
+    p {
+        margin: $spacing-4;
+    }
 }
 
 .progress {

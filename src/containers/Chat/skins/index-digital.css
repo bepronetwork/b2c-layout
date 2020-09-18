@@ -180,6 +180,11 @@
       width: 28px;
       margin-left: $spacing-8;
     }
+
+    p {
+      color: $white;
+      opacity: 0.5;
+    }
 }
 
 .green-light{
