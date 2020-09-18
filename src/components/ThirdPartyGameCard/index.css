@@ -8,6 +8,7 @@
 .root {
     text-align: center;
     margin : $spacing-8 0;
+    opacity: 0.8;
 
     img {
         border-radius: $border-radius;

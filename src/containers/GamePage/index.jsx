@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import { ButtonIcon, History, Modal, Tabs, Button, Typography, MaximizeIcon } from "components";
+import { ButtonIcon, History, Modal, Typography, MaximizeIcon } from "components";
+import CloseIcon from "components/Icons/CloseCross";
 import UserContext from "containers/App/UserContext";
 import LastBets from "../LastBets/GamePage";
 import Actions from "./Actions"
@@ -51,13 +52,6 @@ class GamePage extends Component {
             gameInfo: null,
             max: false
         };
-        this.escFunction = this.escFunction.bind(this);
-    }
-
-    escFunction(event){
-        if(event.keyCode === 27) {
-          this.setState({ max: false });
-        }
     }
 
     handleSounds = () => {
@@ -123,11 +117,6 @@ class GamePage extends Component {
 
     componentDidMount = async () => {
         window.scrollTo(0, 0);
-        document.addEventListener("keydown", this.escFunction, false);
-    }
-
-    componentWillUnmount(){
-        document.removeEventListener("keydown", this.escFunction, false);
     }
 
     convertAmountProviderBigger = (ticker, value) => {
@@ -135,11 +124,15 @@ class GamePage extends Component {
             "ETH": {value: 1000, ticker: "mETH"},
             "BTC": {value: 1000000, ticker: "μBTC"}
         };
-        return {value: (value * tickers[ticker].value),  ticker: (tickers[ticker].ticker)};
+        if (tickers[ticker]) {
+            return {value: (value * tickers[ticker].value),  ticker: (tickers[ticker].ticker)};
+        }
+
+        return null;
     }
 
-    maximizeIframe() {
-        this.setState({ max: true });
+    maximizeIframe(max) {
+        this.setState({ max });
     }
 
     renderBox({title, game, info, showActions}) {
@@ -174,26 +167,22 @@ class GamePage extends Component {
                     showActions === true
                     ?
                         <div styleName="buttons">
-                            <div styleName="actions">
-                                <ButtonIcon
-                                    iconAtLeft
-                                    icon="copy"
-                                    label={copy.RULES}
-                                    onClick={this.handleActionsModalOpen}
-                                    soundMode={soundMode}
-                                    theme="primary"
+                            <ButtonIcon
+                                iconAtLeft
+                                icon="copy"
+
+                                onClick={this.handleActionsModalOpen}
+                                soundMode={soundMode}
+                                theme="primary"
+                            />
+                            <ButtonIcon
+                                iconAtLeft
+                                icon="sound"
+
+                                onClick={this.handleSounds}
+                                soundMode={soundMode}
+                                theme="primary"
                                 />
-                            </div>
-                            <div styleName="sound">
-                                <ButtonIcon
-                                    iconAtLeft
-                                    icon="sound"
-                                    label={copy.SOUND}
-                                    onClick={this.handleSounds}
-                                    soundMode={soundMode}
-                                    theme="primary"
-                                />
-                            </div>
                         </div>
                     :
                         null
@@ -202,32 +191,56 @@ class GamePage extends Component {
         )
     }
 
-    render() {
-        const { currency, ln, options, game, gameMetaName, onTableDetails, isThirdParty, providerToken, providerGameId, providerPartnerId, providerUrl, providerExternalId, providerName, providerGameName } = this.props;
-        const { gameInfo, max } = this.state;
-
-        if (_.isEmpty(gameMetaName) && isThirdParty != true) return null;
+    renderIframe() {
+        const { currency, ln, providerToken, providerGameId, providerPartnerId, providerUrl, providerExternalId, providerName, providerGameName } = this.props;
+        const { max } = this.state;
 
         const newCurrency = this.convertAmountProviderBigger(currency.ticker, 1);
+
+        if(newCurrency === null) { return null };
+
         const thirdStyles = classNames("iframe", {
             max: max === true
-          });
+        });
+
+        const closeStyles = classNames("close-iframe", {
+            "show-close": max === true
+        });
+
+        return (
+            <div>
+                <div styleName={closeStyles} onClick={() => this.maximizeIframe(false)}>
+                    <CloseIcon />
+                </div>
+                <div styleName="third">
+                    <iframe styleName={thirdStyles} allowFullScreen="" 
+                        src={`${providerUrl}/game?token=${providerToken}&partner_id=${providerPartnerId}&player_id=${providerExternalId}&game_id=${providerGameId}&language=${ln}&currency=${newCurrency.ticker}`}
+                        frameBorder="0">
+                    </iframe>
+                    <div styleName="functions">
+                        <div onClick={() => this.maximizeIframe(true)}><MaximizeIcon /></div>
+                    </div>
+                </div>
+                {this.renderBox({title: providerName, game: providerGameName, info: `${newCurrency.value} ${newCurrency.ticker} = 1 ${currency.ticker}`})}
+            </div>
+        )
+    }
+
+    render() {
+        const { options, game, gameMetaName, onTableDetails, isThirdParty } = this.props;
+        const { gameInfo } = this.state;
+
+        console.log("xxxxxxxxxxx")
+
+        if (_.isEmpty(gameMetaName) && isThirdParty != true) return null;
 
         return (
             <div styleName='main-container'>
                 {
+                    
                     isThirdParty == true
                     ?
-                        <div>
-                            <div styleName="third">
-                                <div styleName="functions">
-                                    <div onClick={() => this.maximizeIframe()}><MaximizeIcon /></div>
-                                </div>
-                                <iframe styleName={thirdStyles} allowfullscreen="" src={`${providerUrl}/game?token=${providerToken}&partner_id=${providerPartnerId}&player_id=${providerExternalId}&game_id=${providerGameId}&language=${ln}&currency=${newCurrency.ticker}`}
-                                frameborder="0"></iframe>
-                            </div>
-                            {this.renderBox({title: providerName, game: providerGameName, info: `1 ${currency.ticker} = ${newCurrency.value} ${newCurrency.ticker}`})}
-                        </div>
+                        this.renderIframe()
                     :
                     <div>
                         {this.renderActions()}

@@ -83,6 +83,22 @@
     }
 }
 
+.root-skeleton {
+    text-align: center;
+    margin : $spacing-8 0;
+    cursor: pointer;
+    border-radius: $border-radius;
+
+    img {
+        display: inline-flex;
+        max-width: 150px;
+        max-height: 60px;
+        width: auto;
+        height: auto;
+        align-items: center;
+    }
+}
+
 .image-container {
     display: flex;
     align-items: center;

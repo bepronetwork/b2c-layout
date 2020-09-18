@@ -32,12 +32,11 @@ class ThirdPartyGameList extends Component {
     }
 
     projectData = async (props) => {
+        const { params } = props.match;
         this.setState({ isLoading: true });
 
-        const queryParams = queryString.parse(this.props.location.search);
-        const providerId = queryParams.providerGameId;
-
-        const games = await getProvidersGames({ providerEco: providerId });
+        let providerId = String(params.providerGameId);
+        const games = providerId === "all" ?await getProvidersGames() : await getProvidersGames({ providerEco: providerId });
         
         this.formatGames(games, providerId);
 
@@ -70,30 +69,33 @@ class ThirdPartyGameList extends Component {
         });
 
         const total = gameList.length;
-        quantity = (quantity + 16) > total ? total : quantity + 16;
+        quantity = (quantity + 18) > total ? total : quantity + 18;
 
-        this.setState({ games: gameList, total, quantity, providerName: providerId ? providerName : "All" });
+        this.setState({ games: gameList, total, quantity, providerName: providerId === "all" ? "All" : providerName });
     }
 
     createSkeletonGames = () => {
         let games = []
 
-        for (let i = 0; i < 8; i++) {
+        for (let i = 0; i < 18; i++) {
             games.push(
                 <div class={"col"} styleName="col">
                     <div styleName="root">
                         <div styleName="image-container dice-background-color">
                             <div styleName="icon">
-                                <Skeleton width={"250"} height={"150"}/>
+                                <Skeleton width={"180"} height={"150"}/>
                             </div>
                         </div>
                         <div styleName="labels">
                             <div styleName="title">
-                                <Skeleton width={"150"} height={"30"}/>
+                                <Skeleton width={"120"} height={"20"}/>
                             </div>
                             <div styleName='info-holder'>
-                                <Skeleton width={"60"} height={"20"}/> 
+                                <Skeleton width={"20"} height={"20"} circle={true}/> 
                             </div>
+                        </div>
+                        <div styleName="title">
+                            <Skeleton width={"80"} height={"20"}/>
                         </div>
                     </div>
                 </div>
@@ -106,7 +108,7 @@ class ThirdPartyGameList extends Component {
     onLoadMoreGames = async (id) => {
         let { quantity, total } = this.state;
 
-        quantity = (quantity + 16) > total ? total : quantity + 16;
+        quantity = (quantity + 18) > total ? total : quantity + 18;
 
         this.setState({ quantity });
     }
@@ -130,8 +132,11 @@ class ThirdPartyGameList extends Component {
                 :
                 <div>
                     <div styleName="provider">
+                        <Typography variant="x-small-body" color="white">
+                            Provider:
+                        </Typography>
                         <Typography variant="small-body" color="white">
-                            {`Provider: ${providerName}`}
+                            {providerName}
                         </Typography>
                     </div>
                     <div styleName="container-small">
