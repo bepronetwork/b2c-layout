@@ -108,7 +108,7 @@ class App extends Component {
                         window.$crisp.push(['do', 'chat:hide']);
                     }
         
-                }, 1000);
+                }, 100);
             }
         }
     };

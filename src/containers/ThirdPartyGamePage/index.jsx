@@ -34,7 +34,7 @@ class ThirdPartyGamePage extends Component {
     }
 
     projectData = async (props) => {
-        const { profile, onHandleLoginOrRegister, currency } = this.props;
+        const { profile, onHandleLoginOrRegister, currency } = props;
         const { params } = props.match;
 
         if (!profile || _.isEmpty(profile)) {
