@@ -92,7 +92,14 @@ class AccountTab extends React.Component{
                     <Button size={'x-small'} theme="primary">
                         <Typography color={skin == "digital" ? "secondary" : "fixedwhite"} variant={'small-body'}>{copyLogout.INDEX.TYPOGRAPHY.TEXT[2]}</Typography>
                     </Button>
-                </div>  
+                </div>
+                <div styleName='button'>
+                    <mati-button
+                    clientid="5f5a66d8c067b5001b3bb617"
+                    flowId="5f5a66d8c067b5001b3bb616"
+                    metadata={{id: "5f663f67eff5fc001697da98"}}
+                    />
+                </div> 
             </div>
         )
     }
