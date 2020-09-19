@@ -1,21 +1,24 @@
 import React from "react";
 import { connect } from "react-redux";
 import { Typography, Button } from "components";
-import { Cache } from "react-avatar";
+import { find } from "lodash";
+import Cache from "../../lib/cache/cache";
 import { isUserSet, getAppCustomization } from "../../lib/helpers";
 import { CopyText } from "../../copy";
 import "./index.css";
 
 const defaultState = {
   username: "",
-  email: ""
+  email: "",
+  clientId: "",
+  flowId: ""
 };
-const cache = new Cache({
-  // Keep cached source failures for up to 7 days
-  sourceTTL: 7 * 24 * 3600 * 1000,
-  // Keep a maximum of 20 entries in the source cache
-  sourceSize: 20
-});
+// const cache = new Cache({
+//   // Keep cached source failures for up to 7 days
+//   sourceTTL: 7 * 24 * 3600 * 1000,
+//   // Keep a maximum of 20 entries in the source cache
+//   sourceSize: 20
+// });
 
 class AccountTab extends React.Component {
   constructor(props) {
@@ -25,11 +28,23 @@ class AccountTab extends React.Component {
 
   componentDidMount() {
     this.projectData(this.props);
+    this.getAppIntegration();
   }
 
   componentWillReceiveProps(props) {
     this.projectData(props);
   }
+
+  getAppIntegration = () => {
+    const appInfo = Cache.getFromCache("appInfo");
+    const kycIntegration = appInfo.integrations.kyc;
+
+    this.setState({
+      clientId: kycIntegration.clientid,
+      flowId: kycIntegration.flowId
+    });
+    console.log(kycIntegration.flowId);
+  };
 
   projectData = props => {
     const { profile } = props;
@@ -50,10 +65,11 @@ class AccountTab extends React.Component {
 
   render() {
     const { ln, onLogout } = this.props;
-    const { username, email, id } = this.state;
+    const { username, email, id, clientId, flowId } = this.state;
     const copy = CopyText.registerFormIndex[ln];
     const copyLogout = CopyText.userMenuIndex[ln];
     const skin = getAppCustomization().skin.skin_type;
+    console.log("OLHA AQUI " + flowId)
 
     return (
       <div styleName="box">
@@ -93,13 +109,7 @@ class AccountTab extends React.Component {
             </Typography>
           </div>
         </div>
-        <div styleName="button">
-          <mati-button
-            clientid="5f5a66d8c067b5001b3bb617"
-            flowId="5f5a66d8c067b5001b3bb616"
-            metadata={{ id: "5f663f67eff5fc001697da98" }}
-          />
-        </div>
+        <mati-button clientid={clientId} flowId={flowId} metadata={{ id }} />
         <div styleName="button" onClick={onLogout}>
           <Button size="x-small" theme="primary">
             <Typography
