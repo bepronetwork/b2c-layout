@@ -130,3 +130,7 @@
 .fixedwhite{
   color : white;
 }
+
+.secondary{
+  color : $secondaryColor;
+}
