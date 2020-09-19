@@ -13,7 +13,6 @@ const skinsPath = [
     { path: "src/components/HorizontalStepper" },
     { path: "src/components/KenoGameOptions" },
     { path: "src/components/LanguageSelector" },
-    { path: "src/components/Modal" },
     { path: "src/components/MultiplyMaxButton" },
     { path: "src/components/Navbar" },
     { path: "src/components/NavigationBar" },
@@ -36,7 +35,6 @@ const skinsPath = [
     { path: "src/components/WheelGameOptions" },
     { path: "src/components/WithdrawForm" },
     { path: "src/containers/Chat" },
-    { path: "src/containers/App" },
     { path: "src/containers/ThirdPartyGameList" }
 ]
 
