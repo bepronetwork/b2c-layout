@@ -31,9 +31,7 @@
   border-top: 1px solid $backgroundColor;  
 
   @include Breakpoint-mobileOnly {
-    width: 320px;
-    padding : $spacing-52 0;
-    margin: auto;
+    width: auto;
     position: relative;
   }
 
@@ -47,6 +45,10 @@
 
 .content > div {
   width: 400px;
+
+  @include Breakpoint-mobileOnly {
+    width: 100%;
+  }
 }
 
 .qrcode {

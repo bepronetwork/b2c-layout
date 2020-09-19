@@ -54,6 +54,14 @@ class GamePage extends Component {
         };
     }
 
+    shouldComponentUpdate(nextProps, nextState) {
+        if (this.props.isThirdParty === true) {
+          return false;
+        } else {
+          return true;
+        }
+      }
+
     handleSounds = () => {
         const { soundMode } = this.state;
         const mode = soundMode === "off" ? "on" : "off";
@@ -125,7 +133,7 @@ class GamePage extends Component {
             "BTC": {value: 1000000, ticker: "μBTC"}
         };
         if (tickers[ticker]) {
-            return {value: (value * tickers[ticker].value),  ticker: (tickers[ticker].ticker)};
+            return {value: (value / tickers[ticker].value),  ticker: (tickers[ticker].ticker)};
         }
 
         return null;
@@ -136,9 +144,7 @@ class GamePage extends Component {
     }
 
     renderBox({title, game, info, showActions}) {
-        const { ln } = this.props;
         const { soundMode } = this.state;
-        const copy = CopyText.homepagegame[ln];
 
         return(
             <div styleName="box">
@@ -213,7 +219,7 @@ class GamePage extends Component {
                     <CloseIcon />
                 </div>
                 <div styleName="third">
-                    <iframe styleName={thirdStyles} allowFullScreen="" 
+                    <iframe key={providerGameId} styleName={thirdStyles} allowFullScreen="" 
                         src={`${providerUrl}/game?token=${providerToken}&partner_id=${providerPartnerId}&player_id=${providerExternalId}&game_id=${providerGameId}&language=${ln}&currency=${newCurrency.ticker}`}
                         frameBorder="0">
                     </iframe>
@@ -221,7 +227,7 @@ class GamePage extends Component {
                         <div onClick={() => this.maximizeIframe(true)}><MaximizeIcon /></div>
                     </div>
                 </div>
-                {this.renderBox({title: providerName, game: providerGameName, info: `${newCurrency.value} ${newCurrency.ticker} = 1 ${currency.ticker}`})}
+                {this.renderBox({title: providerName, game: providerGameName, info: `1 ${newCurrency.ticker} = ${newCurrency.value} ${currency.ticker}`})}
             </div>
         )
     }
@@ -229,8 +235,6 @@ class GamePage extends Component {
     render() {
         const { options, game, gameMetaName, onTableDetails, isThirdParty } = this.props;
         const { gameInfo } = this.state;
-
-        console.log("xxxxxxxxxxx")
 
         if (_.isEmpty(gameMetaName) && isThirdParty != true) return null;
 
