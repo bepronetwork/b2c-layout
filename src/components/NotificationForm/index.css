@@ -61,15 +61,18 @@
 }
 
 .notification-success {
-  background-color: $green;
+  border: 1px solid #c9a53c;
+  background-image: linear-gradient(#886f2c, #5d4b22);
 }
 
 .notification-info {
-  background-color: $secondaryColor-3;
+  border: 1px solid #c9a53c;
+  background-image: linear-gradient(#886f2c, #5d4b22);
 }
 
 .notification-error {
-  background-color: $red;
+  border: 1px solid #c9a53c;
+  background-image: linear-gradient(#886f2c, #5d4b22);
 }
 
 .notification-icon {
@@ -82,19 +85,15 @@
   box-sizing: border-box;
   width: 60px;
   text-align: center;
-  background: $secondaryColor-3;
 }
 
 .icon-success {
-  background: $green;
 }
 
 .icon-info {
-  background: $secondaryColor-3;
 }
 
 .icon-error {
-  background: $red;
 }
 
 .notification-icon .icon {
@@ -103,20 +102,16 @@
 
 .notification-content {
   border-radius: 0 2px 2px 0;
-  background-color: $secondaryColor-3;
   padding-left: 20px;
 }
 
 .content-success {
-  background-color: $green;
 }
 
 .content-info {
-  background-color: $secondaryColor-3;
 }
 
 .content-error {
-  background-color: $red;
 }
 
 .notification-title {

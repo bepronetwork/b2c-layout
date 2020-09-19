@@ -177,6 +177,16 @@
     opacity: 0.8;
 }
 
+.progress {
+
+    button {
+
+        * {
+            color: $secondaryColor;
+        }
+    }
+}
+
 :global(.MuiLinearProgress-barColorPrimary) {
     background-color: $secondaryColor !important;
 }

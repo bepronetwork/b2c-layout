@@ -91,6 +91,10 @@
   position: relative;
   flex-direction: column;
   align-items: center;
+
+  svg {
+    width: $spacing-8;
+  }
 }
 
 .item img{

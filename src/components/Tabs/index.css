@@ -9,6 +9,9 @@
 }
 
 .fullBackground {
+    border: 2px solid $secondaryColor;
+    border-radius: $border-radius; 
+    grid-template-columns: repeat(auto-fill, 50%);
 }
 
 .tabs-limit {

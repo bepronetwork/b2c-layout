@@ -2,7 +2,7 @@
 
 .table-row {
     width: 100%;
-    background-color: $primaryColor;
+    background-color: $backgroundColor-2;
     border-radius: $border-radius;
 }
 
@@ -112,7 +112,7 @@
 .no-info{
     padding: $spacing-28 0;
     margin: $spacing-8 0;
-    background-color: $primaryColor;
+    background-color: $backgroundColor-3;
     border-radius: $border-radius;
     opacity: 0.6;
     text-align: center;
