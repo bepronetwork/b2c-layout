@@ -9,19 +9,19 @@
 }
 
 .field{
-    grid-template-columns: auto auto;
+    grid-template-columns: 1fr 1fr;
     display: grid;
     margin-bottom: $spacing-20;
+    gap: $spacing-28;
 }
 
 .label{
-    text-align: left;
+    text-align: right;
     margin: auto 0;
     opacity: 0.5;
 }
 
 .value{
-    justify-content: flex-end;
     display: inline-flex;
 }
 

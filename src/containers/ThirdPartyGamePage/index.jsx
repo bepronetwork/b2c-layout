@@ -30,9 +30,7 @@ class ThirdPartyGamePage extends Component {
     }
 
     componentWillReceiveProps(props){
-        if(props.currency != this.props.currency) {
-            this.projectData(props);
-        }
+        this.projectData(props);
     }
 
     projectData = async (props) => {

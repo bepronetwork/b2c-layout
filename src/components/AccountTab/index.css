@@ -1,7 +1,7 @@
 @import "../../styles/all.css";
 
 .box {
-    padding: $spacing-8 12%;
+    padding: $spacing-8 5%;
 
     @include Breakpoint-mobileOnly {
         padding: $spacing-8 5%;
@@ -9,25 +9,48 @@
 }
 
 .field{
-    grid-template-columns: auto auto;
+    grid-template-columns: 1fr 1fr;
     display: grid;
     margin-bottom: $spacing-20;
+    gap: $spacing-28;
+
+    @include Breakpoint-mobileOnly {
+        grid-template-columns: 25% 75%;
+    }
 }
 
 .label{
-    text-align: left;
+    text-align: right;
     opacity: 0.5;
 }
 
 .value{
-    justify-content: flex-end;
     display: inline-flex;
 }
 
 .button{
     margin-top : $spacing-52;
 
-    button {
-        width: 100%;
+    div {
+        padding: $spacing-4 $spacing-52;
     }
+}
+
+.button-container{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.button-kyc{
+    height: 250px;
+    width: 300px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    flex-direction: column;
+    padding-bottom: $spacing-20;
+    border-radius: 10px;
+    background-color: $primaryColor-3;
 }

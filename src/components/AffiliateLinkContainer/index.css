@@ -4,7 +4,6 @@
     display: flex;
     flex-direction: column;
     box-sizing: border-box;
-    background: $primaryColor-5;
     overflow: hidden;
     margin-bottom : $spacing-20;
     text-align : left;
@@ -38,6 +37,9 @@
     text-align : left;
     overflow: hidden;
     border-radius: $border-radius;
+    align-items: center;
+    display: flex;
+    height: 100%;
 }
 
 .subtitle-text{
@@ -86,11 +88,18 @@
 
 .text-copy-container{
     border : none;
-    padding: $spacing-12 $spacing-12;
+    padding: $spacing-12 $spacing-28;
     border-radius :  0 $border-radius $border-radius 0;
-    background-color: $secondaryColor;
+    background-color: transparent;
     width : 100%;
     text-align : center;
+    border: 1px solid $secondaryColor;
+    display: inline-flex;
+    align-items: center;
+
+    p {
+        color: $secondaryColor;
+    }
 
     @media screen and (max-width: 767px) {
         position: initial;
@@ -130,4 +139,9 @@
 }
 
 .icon {
+    margin-right: $spacing-8;
+
+    svg {
+        height: 20px;
+    }
 }

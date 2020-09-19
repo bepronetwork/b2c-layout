@@ -3,12 +3,12 @@
 .root {
     position: relative;
     display: block;
-    width: 100%;
+    width: 450px;
     height: inherit;
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: $spacing-52 $spacing-20;
+    padding: $spacing-52 $spacing-20 0 $spacing-20;
 
   @include Breakpoint-mobileOnly {
     width: 320px;
@@ -27,12 +27,11 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: $spacing-52 $spacing-20;
+  margin: $spacing-36 $spacing-20;
+  border-top: 1px solid $backgroundColor;  
 
   @include Breakpoint-mobileOnly {
-    width: 320px;
-    padding : $spacing-52 0;
-    margin: auto;
+    width: auto;
     position: relative;
   }
 
@@ -40,11 +39,21 @@
 
 .content {
     text-align: center;
+    border-top: 1px solid $primaryColor-5;
+    width: 100%;
+}
+
+.content > div {
+  width: 400px;
+
+  @include Breakpoint-mobileOnly {
+    width: 100%;
+  }
 }
 
 .qrcode {
   padding: $spacing-16;
-  background-color: white;
+  background-color: $backgroundColor;
   width: 160px;
   margin: 0 auto;
   border-radius: $border-radius;
