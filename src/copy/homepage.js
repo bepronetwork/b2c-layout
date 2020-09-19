@@ -26,7 +26,8 @@
         "MODAL": [
           "Register",
           "Login",
-          "Confirm E-mail"
+          "Confirm E-mail",
+          "Confirm KYC"
         ],
         "NOTIFICATION": [
           "Need to confirm your email to make withdrawls",
