@@ -60,9 +60,9 @@ class ThirdPartyGameCard extends Component {
                                 {game.title}
                             </Typography>
                         </div>
-                        <span styleName="info">
+                        {/*<span styleName="info">
                             <Info text="Edge:"/>
-                        </span>
+                        </span>*/}
                     </div>
                     <div styleName="title">
                         <div styleName="prov">
