@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
+import { connect } from "react-redux";
 
+import { CopyText } from "../../copy";
 import handleCardResult from "./resultCard";
 import Diamond from "../../assets/DiamondIcons/diamond";
 import DiamondFill from "../../assets/DiamondIcons/diamond-fill";
@@ -13,6 +15,7 @@ import "./index.css";
 class DiamondGame extends Component {
   render() {
     const {
+      ln,
       backendResult,
       isActiveBottomBar,
       isHover,
@@ -37,6 +40,7 @@ class DiamondGame extends Component {
       handleMouseEnter5,
       handleMouseEnter6
     } = this.props;
+    const copy = CopyText.DiamondGamePage[ln];
 
     return (
       <div styleName="container">
@@ -44,13 +48,10 @@ class DiamondGame extends Component {
           <div styleName="column-container result-grid-container">
             <div>
               <div
-                styleName="result-container"
+                styleName={`result-container ${
+                  isHover ? "secondary-result-color" : "primary-result-color"
+                }`}
                 onMouseEnter={handleMouseEnter}
-                style={
-                  isHover
-                    ? { backgroundColor: "#3A3A83" }
-                    : { backgroundColor: "rgb(29, 26, 55)" }
-                }
               >
                 <div>
                   <DiamondFill
@@ -79,13 +80,10 @@ class DiamondGame extends Component {
                 </p>
               </div>
               <div
-                styleName="result-container"
+                styleName={`result-container ${
+                  isHover1 ? "secondary-result-color" : "primary-result-color"
+                }`}
                 onMouseEnter={handleMouseEnter1}
-                color={
-                  isHover1
-                    ? { backgroundColor: "#3A3A83" }
-                    : { backgroundColor: "rgb(29, 26, 55)" }
-                }
               >
                 <div>
                   <DiamondFill
@@ -112,13 +110,10 @@ class DiamondGame extends Component {
                 </p>
               </div>
               <div
-                styleName="result-container"
+                styleName={`result-container ${
+                  isHover2 ? "secondary-result-color" : "primary-result-color"
+                }`}
                 onMouseEnter={handleMouseEnter2}
-                style={
-                  isHover2
-                    ? { backgroundColor: "#3A3A83" }
-                    : { backgroundColor: "rgb(29, 26, 55)" }
-                }
               >
                 <div>
                   <DiamondFill
@@ -149,13 +144,10 @@ class DiamondGame extends Component {
             </div>
             <div>
               <div
-                styleName="result-container"
+                styleName={`result-container ${
+                  isHover3 ? "secondary-result-color" : "primary-result-color"
+                }`}
                 onMouseEnter={handleMouseEnter3}
-                style={
-                  isHover3
-                    ? { backgroundColor: "#3A3A83" }
-                    : { backgroundColor: "rgb(29, 26, 55)" }
-                }
               >
                 <div>
                   <DiamondFill
@@ -179,13 +171,10 @@ class DiamondGame extends Component {
                 </p>
               </div>
               <div
-                styleName="result-container"
+                styleName={`result-container ${
+                  isHover4 ? "secondary-result-color" : "primary-result-color"
+                }`}
                 onMouseEnter={handleMouseEnter4}
-                style={
-                  isHover4
-                    ? { backgroundColor: "#3A3A83" }
-                    : { backgroundColor: "rgb(29, 26, 55)" }
-                }
               >
                 <div>
                   <DiamondFill
@@ -212,13 +201,10 @@ class DiamondGame extends Component {
                 </p>
               </div>
               <div
-                styleName="result-container"
+                styleName={`result-container ${
+                  isHover5 ? "secondary-result-color" : "primary-result-color"
+                }`}
                 onMouseEnter={handleMouseEnter5}
-                style={
-                  isHover5
-                    ? { backgroundColor: "#3A3A83" }
-                    : { backgroundColor: "rgb(29, 26, 55)" }
-                }
               >
                 <div>
                   <DiamondFill
@@ -240,13 +226,10 @@ class DiamondGame extends Component {
               </div>
             </div>
             <div
-              styleName="result-container"
+              styleName={`result-container ${
+                isHover6 ? "secondary-result-color" : "primary-result-color"
+              }`}
               onMouseEnter={handleMouseEnter6}
-              style={
-                isHover6
-                  ? { backgroundColor: "#3A3A83" }
-                  : { backgroundColor: "rgb(29, 26, 55)" }
-              }
             >
               <div>
                 <Diamond color="#0E0C1B" width="18%" />
@@ -266,7 +249,9 @@ class DiamondGame extends Component {
                 backendResult.length > 0
                   ? profitAmount * resultSpace[6].multiplier.toFixed(2)
                   : "0",
-                (resultSpace[6].probability * 100).toFixed(2)
+                (resultSpace[6].probability * 100).toFixed(2),
+                copy.INDEX.INPUT_NUMBER.TITLE[0],
+                copy.INDEX.INPUT_NUMBER.TITLE[1]
               )
             : null}
           {isHover1
@@ -275,7 +260,9 @@ class DiamondGame extends Component {
                 backendResult.length > 0
                   ? profitAmount * resultSpace[5].multiplier.toFixed(2)
                   : "0",
-                (resultSpace[5].probability * 100).toFixed(2)
+                (resultSpace[5].probability * 100).toFixed(2),
+                copy.INDEX.INPUT_NUMBER.TITLE[0],
+                copy.INDEX.INPUT_NUMBER.TITLE[1]
               )
             : null}
           {isHover2
@@ -284,7 +271,9 @@ class DiamondGame extends Component {
                 backendResult.length > 0
                   ? profitAmount * resultSpace[4].multiplier.toFixed(2)
                   : "0",
-                (resultSpace[4].probability * 100).toFixed(2)
+                (resultSpace[4].probability * 100).toFixed(2),
+                copy.INDEX.INPUT_NUMBER.TITLE[0],
+                copy.INDEX.INPUT_NUMBER.TITLE[1]
               )
             : null}
           {isHover3
@@ -293,7 +282,9 @@ class DiamondGame extends Component {
                 backendResult.length > 0
                   ? profitAmount * resultSpace[3].multiplier.toFixed(2)
                   : "0",
-                (resultSpace[3].probability * 100).toFixed(2)
+                (resultSpace[3].probability * 100).toFixed(2),
+                copy.INDEX.INPUT_NUMBER.TITLE[0],
+                copy.INDEX.INPUT_NUMBER.TITLE[1]
               )
             : null}
           {isHover4
@@ -302,7 +293,9 @@ class DiamondGame extends Component {
                 backendResult.length > 0
                   ? profitAmount * resultSpace[2].multiplier.toFixed(2)
                   : "0",
-                (resultSpace[2].probability * 100).toFixed(2)
+                (resultSpace[2].probability * 100).toFixed(2),
+                copy.INDEX.INPUT_NUMBER.TITLE[0],
+                copy.INDEX.INPUT_NUMBER.TITLE[1]
               )
             : null}
           {isHover5
@@ -311,7 +304,9 @@ class DiamondGame extends Component {
                 backendResult.length > 0
                   ? profitAmount * resultSpace[1].multiplier.toFixed(2)
                   : "0",
-                (resultSpace[1].probability * 100).toFixed(2)
+                (resultSpace[1].probability * 100).toFixed(2),
+                copy.INDEX.INPUT_NUMBER.TITLE[0],
+                copy.INDEX.INPUT_NUMBER.TITLE[1]
               )
             : null}
           {isHover6
@@ -320,7 +315,9 @@ class DiamondGame extends Component {
                 backendResult.length > 0
                   ? profitAmount * resultSpace[0].multiplier.toFixed(2)
                   : "0",
-                (resultSpace[0].probability * 100).toFixed(2)
+                (resultSpace[0].probability * 100).toFixed(2),
+                copy.INDEX.INPUT_NUMBER.TITLE[0],
+                copy.INDEX.INPUT_NUMBER.TITLE[1]
               )
             : null}
         </div>
@@ -482,4 +479,10 @@ DiamondGame.propTypes = {
   resultSpace: PropTypes.number.isRequired
 };
 
-export default DiamondGame;
+function mapStateToProps(state) {
+  return {
+    ln: state.language
+  };
+}
+
+export default connect(mapStateToProps)(DiamondGame);

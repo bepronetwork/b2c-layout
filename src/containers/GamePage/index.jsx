@@ -1,9 +1,11 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import { ButtonIcon, History, Modal, Tabs, Button, Typography } from "components";
+import { ButtonIcon, History, Modal, Typography, MaximizeIcon } from "components";
+import CloseIcon from "components/Icons/CloseCross";
 import UserContext from "containers/App/UserContext";
 import LastBets from "../LastBets/GamePage";
-import Actions from "./Actions"
+import Actions from "./Actions";
+import IFrame from "./IFrame";
 import Cache from "../../lib/cache/cache";
 import { Row, Col } from 'reactstrap';
 import { CopyText } from "../../copy";
@@ -48,7 +50,8 @@ class GamePage extends Component {
         this.state = {
             soundMode: sound || "off",
             actionsOpen: false,
-            gameInfo: null
+            gameInfo: null,
+            max: false
         };
     }
 
@@ -113,28 +116,129 @@ class GamePage extends Component {
         }
     }
 
-    componentDidMount() {
+    componentDidMount = async () => {
         window.scrollTo(0, 0);
     }
 
-    render() {
-        const { profile, currency, ln, options, game, gameMetaName, onTableDetails, isThirdParty, providerToken, providerGameId, providerPartnerId, providerUrl } = this.props;
+    convertAmountProviderBigger = (ticker, value) => {
+        let tickers = {
+            "ETH": {value: 1000, ticker: "mETH"},
+            "BTC": {value: 1000000, ticker: "μBTC"}
+        };
+        if (tickers[ticker]) {
+            return {value: (value / tickers[ticker].value),  ticker: (tickers[ticker].ticker)};
+        }
+
+        return null;
+    }
+
+    maximizeIframe(max) {
+        this.setState({ max });
+    }
+
+    renderBox({title, game, info, showActions}) {
         const { soundMode } = this.state;
-        const copy = CopyText.homepagegame[ln];
+
+        return(
+            <div styleName="box">
+                <div styleName="box-title">
+                    <Typography variant='small-body' color={"white"}>
+                        {title}
+                    </Typography>
+                </div>
+                <div styleName="box-game">
+                    <Typography variant='x-small-body' color={"white"}>
+                        {game}
+                    </Typography>
+                </div>
+                {
+                    info 
+                    ?
+                        <div styleName="box-info">
+                            <Typography variant='x-small-body' color={"white"}>
+                                {info}
+                            </Typography>
+                        </div>
+                    :
+                        null
+                }
+                {
+                    showActions === true
+                    ?
+                        <div styleName="buttons">
+                            <ButtonIcon
+                                iconAtLeft
+                                icon="copy"
+
+                                onClick={this.handleActionsModalOpen}
+                                soundMode={soundMode}
+                                theme="primary"
+                            />
+                            <ButtonIcon
+                                iconAtLeft
+                                icon="sound"
+
+                                onClick={this.handleSounds}
+                                soundMode={soundMode}
+                                theme="primary"
+                                />
+                        </div>
+                    :
+                        null
+                }
+            </div>
+        )
+    }
+
+    renderIframe() {
+        const { currency, providerToken, providerGameId, providerPartnerId, providerUrl, providerExternalId, providerName, providerGameName } = this.props;
+        const { max } = this.state;
+
+        const newCurrency = this.convertAmountProviderBigger(currency.ticker, 1);
+
+        if(newCurrency === null) { return null };
+
+        const closeStyles = classNames("close-iframe", {
+            "show-close": max === true
+        });
+
+        return (
+            <div>
+                <div styleName={closeStyles} onClick={() => this.maximizeIframe(false)}>
+                    <CloseIcon />
+                </div>
+                <div styleName="third">
+                    <IFrame 
+                        providerUrl={providerUrl}
+                        token={providerToken}
+                        partnerId={providerPartnerId}
+                        playerId={providerExternalId}
+                        gameId={providerGameId}
+                        ticker={newCurrency.ticker}
+                        max={max}
+                    />
+                    <div styleName="functions">
+                        <div onClick={() => this.maximizeIframe(true)}><MaximizeIcon /></div>
+                    </div>
+                </div>
+                {this.renderBox({title: providerName, game: providerGameName, info: `1 ${newCurrency.ticker} = ${newCurrency.value} ${currency.ticker}`})}
+            </div>
+        )
+    }
+
+    render() {
+        const { options, game, gameMetaName, onTableDetails, isThirdParty } = this.props;
+        const { gameInfo } = this.state;
 
         if (_.isEmpty(gameMetaName) && isThirdParty != true) return null;
 
         return (
             <div styleName='main-container'>
                 {
+                    
                     isThirdParty == true
                     ?
-                        <div styleName="root">
-                            <iframe styleName="iframe" allowfullscreen="allowfullscreen" src={`${providerUrl}/game?token=${providerToken}&partner_id=${providerPartnerId}&player_id=${profile.id}&game_id=${providerGameId}&language=${ln}&currency=${currency.ticker}`}
-                            frameborder="0"></iframe>
-                            <div styleName="provider">
-                            </div>
-                        </div>
+                        this.renderIframe()
                     :
                     <div>
                         {this.renderActions()}
@@ -153,28 +257,7 @@ class GamePage extends Component {
                                     </Col>
                                 </Row>
                             </div>
-                            <div styleName="buttons">
-                                <div styleName="actions">
-                                    <ButtonIcon
-                                        iconAtLeft
-                                        icon="copy"
-                                        label={copy.RULES}
-                                        onClick={this.handleActionsModalOpen}
-                                        soundMode={soundMode}
-                                        theme="primary"
-                                    />
-                                </div>
-                                <div styleName="sound">
-                                    <ButtonIcon
-                                        iconAtLeft
-                                        icon="sound"
-                                        label={copy.SOUND}
-                                        onClick={this.handleSounds}
-                                        soundMode={soundMode}
-                                        theme="primary"
-                                    />
-                                </div>
-                            </div>
+                            {this.renderBox({title: "BetProtocol Games", game: gameInfo ? gameInfo.description : null, showActions: true})}
                         </div>
                         <LastBets gameMetaName={gameMetaName} onTableDetails={onTableDetails}/>
                     </div>

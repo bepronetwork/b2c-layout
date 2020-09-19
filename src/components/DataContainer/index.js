@@ -29,7 +29,7 @@ class DataContainer extends React.Component{
                     </Typography>
                 </div>
                 <div styleName='text-message'>
-                    <Typography variant={'small-body'} color={'casper'}>
+                    <Typography variant={'small-body'} color={'white'}>
                         {message}
                     </Typography>
                 </div>

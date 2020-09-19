@@ -1,0 +1,37 @@
+@import "../../styles/all.css";
+
+.box {
+    padding: $spacing-8 5%;
+
+    @include Breakpoint-mobileOnly {
+        padding: $spacing-8 5%;
+    }
+}
+
+.field{
+    grid-template-columns: 1fr 1fr;
+    display: grid;
+    margin-bottom: $spacing-20;
+    gap: $spacing-28;
+
+    @include Breakpoint-mobileOnly {
+        grid-template-columns: 25% 75%;
+    }
+}
+
+.label{
+    text-align: right;
+    opacity: 0.5;
+}
+
+.value{
+    display: inline-flex;
+}
+
+.button{
+    margin-top : $spacing-52;
+
+    div {
+        padding: $spacing-4 $spacing-52;
+    }
+}

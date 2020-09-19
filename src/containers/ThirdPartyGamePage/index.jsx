@@ -10,7 +10,10 @@ const defaultState = {
     gameId : null,
     token: null,
     partnerId: null,
-    url: null
+    url: null,
+    externalId: null,
+    provider: null,
+    name: null
 }
 
 
@@ -27,11 +30,13 @@ class ThirdPartyGamePage extends Component {
     }
 
     componentWillReceiveProps(props){
-        this.projectData(props);
+        if(props.currency != this.props.currency) {
+            this.projectData(props);
+        }
     }
 
     projectData = async (props) => {
-        const { profile, onHandleLoginOrRegister, currency } = this.props;
+        const { profile, onHandleLoginOrRegister, currency } = props;
         const { params } = props.match;
 
         if (!profile || _.isEmpty(profile)) {
@@ -46,13 +51,13 @@ class ThirdPartyGamePage extends Component {
                     game_id: gameIdParam,
                     ticker: currency.ticker});
 
-            this.setState({ gameId: gameIdParam, token, url: queryParams.url, partnerId: queryParams.partner_id });
+            this.setState({ gameId: gameIdParam, token, url: queryParams.url, partnerId: queryParams.partner_id, externalId: queryParams.external_id, provider: queryParams.provider, name: queryParams.name });
         }
     }
 
 
     render() {
-        const { gameId, token, partnerId, url } = this.state;
+        const { gameId, token, partnerId, url, externalId, provider, name } = this.state;
 
         if(gameId == null || token == null) { return null };
 
@@ -63,6 +68,9 @@ class ThirdPartyGamePage extends Component {
                 providerToken={token}
                 providerUrl={url}
                 providerPartnerId={partnerId}
+                providerExternalId={externalId}
+                providerName={provider}
+                providerGameName={name}
             />
         );
     }

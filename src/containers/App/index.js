@@ -96,17 +96,20 @@ class App extends Component {
         this.getQueryParams();
 
         const app = Cache.getFromCache("appInfo");
-        const { cripsr } =  app.integrations;
 
-        if (cripsr && cripsr.key && typeof window.$crisp != "undefined") {
-            this.intervalID = setInterval( async () => {
-                const isClosed = window.$crisp.is("chat:closed");
-    
-                if(isClosed == true) {
-                    window.$crisp.push(['do', 'chat:hide']);
-                }
-    
-            }, 1000);
+        if(app) {
+            const { cripsr } =  app.integrations;
+
+            if (cripsr && cripsr.key && typeof window.$crisp != "undefined") {
+                this.intervalID = setInterval( async () => {
+                    const isClosed = window.$crisp.is("chat:closed");
+        
+                    if(isClosed == true) {
+                        window.$crisp.push(['do', 'chat:hide']);
+                    }
+        
+                }, 100);
+            }
         }
     };
 
@@ -554,7 +557,6 @@ class App extends Component {
 
     updateAppInfo = async () => {
         let app = await getAppInfo();
-        console.log(app);
         Cache.setToCache("appInfo", app);
         this.setState({...this.state, app})
     };

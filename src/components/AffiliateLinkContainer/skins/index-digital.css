@@ -1,0 +1,147 @@
+@import "../../styles/all.css";
+
+.root {
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    overflow: hidden;
+    margin-bottom : $spacing-20;
+    text-align : left;
+    position: relative;
+    height: auto;
+    padding: $spacing-20 $spacing-20;
+    border-radius: $border-radius;
+}
+
+
+.picked{
+    border : 1px solid $green;
+    box-shadow : 1px 10px 100px 10px $black;
+}
+
+.text-description{
+    margin-bottom : $spacing-20;
+}
+
+.text-container{
+    background: $background-table-2;
+    width : auto;
+    text-align : left;
+    height: auto;
+    border-radius: $border-radius;
+}
+
+.link-text-container{
+    width : auto;
+    padding: $spacing-12 $spacing-12;
+    text-align : left;
+    overflow: hidden;
+    border-radius: $border-radius;
+    align-items: center;
+    display: flex;
+    height: 100%;
+}
+
+.subtitle-text{
+    margin-top : 10px;
+}
+
+.affiliate-image{
+    width : 400px;
+    position: absolute;
+    opacity : 0.1;
+    top : 0;
+    left : 0;
+    z-index: 0;
+}
+
+.data-image{
+    width: 30px;
+    margin-left: -10px;
+    margin-top: 15px;
+}
+.content{
+    z-index: 1;
+    width: inherit;
+    display: block;
+    position: relative;
+}
+.container-text{
+    text-align: left;
+}
+
+.container-image{
+    width : 50px;
+}
+
+.nohover{
+    cursor: pointer !important;
+
+    &:hover{
+        opacity : 1 !important;
+    }
+}
+
+.text-message{
+    margin-top : 5px;
+}
+
+.text-copy-container{
+    border : none;
+    padding: $spacing-12 $spacing-28;
+    border-radius :  0 $border-radius $border-radius 0;
+    background-color: transparent;
+    width : 100%;
+    text-align : center;
+    border: 1px solid $secondaryColor;
+    display: inline-flex;
+    align-items: center;
+
+    p {
+        color: $secondaryColor;
+    }
+
+    @media screen and (max-width: 767px) {
+        position: initial;
+        border-radius: 0 0 5px 5px;
+    }
+}
+
+.ad-copied {
+    opacity: 0.6;
+}
+
+.copied {
+    position: absolute;
+    margin-left: 50%;
+    margin-top: -$spacing-20;
+
+    @include Breakpoint-mobileOnly {
+        margin-left: 35%;
+    }
+
+    * {
+      opacity: 0;
+      animation: copied-animation 1s running;
+    }
+}
+
+@keyframes copied-animation {
+    0% {
+      opacity: 0;
+      transform: translateY(80%);
+    }
+  
+    50% {
+      opacity: 1;
+      transform: translateY(50%) scale(1.2);
+    }
+}
+
+.icon {
+    margin-right: $spacing-8;
+
+    svg {
+        height: 20px;
+    }
+}

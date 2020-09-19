@@ -48,6 +48,7 @@ class Banners extends Component {
         
         if(_.isEmpty(banners)) { return null; }
 
+        const skin = getAppCustomization().skin.skin_type;
         const bannersStyles = classNames("banners", {
             "banners-full": isFullWidth
         });
@@ -76,7 +77,7 @@ class Banners extends Component {
                                                     
                                                     {banner.button_text &&  banner.link_url ?
                                                         <Button  onClick={() => this.handleClick(banner.link_url)} theme="action">
-                                                            <Typography color={'fixedwhite'} variant={'small-body'}>{banner.button_text}</Typography>
+                                                            <Typography color={skin == "digital" ? "secondary" : "fixedwhite"} variant={'small-body'}>{banner.button_text}</Typography>
                                                         </Button>
                                                     : 
                                                         null
@@ -101,7 +102,7 @@ class Banners extends Component {
                                                         
                                                         {banner.button_text &&  banner.link_url ?
                                                             <Button  onClick={() => this.handleClick(banner.link_url)} theme="action" size={'x-small'}>
-                                                                <Typography color={'fixedwhite'} variant={'body'}>{banner.button_text}</Typography>
+                                                                <Typography color={skin == "digital" ? "secondary" : "fixedwhite"} variant={'body'}>{banner.button_text}</Typography>
                                                             </Button>
                                                             : 
                                                             null

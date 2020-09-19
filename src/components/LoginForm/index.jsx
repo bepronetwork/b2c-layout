@@ -1,11 +1,12 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { Button, Typography, InputText } from "components";
-import "./index.css";
 import { CopyText } from '../../copy';
 import { connect } from "react-redux";
+import { getAppCustomization } from "../../lib/helpers";
 import loading from 'assets/loading-circle.gif';
 
+import "./index.css";
 class LoginForm extends Component {
     static propTypes = {
         onSubmit: PropTypes.func.isRequired,
@@ -152,6 +153,7 @@ class LoginForm extends Component {
         const { isLoading } = this.state;
         const {ln} = this.props;
         const copy = CopyText.loginFormIndex[ln];
+        const { skin } = getAppCustomization();
 
         return (
             <form onSubmit={this.handleSubmit}>
@@ -184,7 +186,7 @@ class LoginForm extends Component {
                             ?
                                 <img src={loading} />
                             :
-                                <Typography color="fixedwhite">{copy.INDEX.TYPOGRAPHY.TEXT[4]}</Typography>
+                                <Typography color={skin.skin_type == "digital" ? 'secondary' : 'fixedwhite'}>{copy.INDEX.TYPOGRAPHY.TEXT[4]}</Typography>
                         }
                     </Button>
                 </div>

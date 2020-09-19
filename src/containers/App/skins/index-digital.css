@@ -1,0 +1,341 @@
+@import "../../styles/reset.css";
+@import "../../styles/all.css";
+
+.main{
+    width: 100%;
+    padding-bottom: 30px;
+    height: 100%;
+}
+
+.center{
+    width: 100%;
+    padding-right: $chat-width-desktop;
+    background-color: $backgroundColor;
+
+    @media screen and (max-width: 1267px) and (min-width: 1024px) {
+      padding-right: $chat-width-tablet-pro;
+    }
+    
+    @media screen and (max-width: 1023px) {
+      padding-right: $chat-width-tablet;
+    }
+  
+    @media screen and (max-width: 767px) {
+      padding-right: 0;
+      padding-bottom: $spacing-36;
+    }
+}
+
+.centerExpand{
+  padding-right: 0;
+}
+
+.chat-container{
+    height: 100%;
+    z-index: 10;
+
+    @media screen and (max-width: 767px) {
+      background-color: $backgroundColor;
+    }
+}
+
+.chat-container-main{
+    position: fixed;
+    top : 0px;
+    right: 0;
+    height: 100%;
+    width: $chat-width-desktop;
+
+    @media screen and (max-width: 1267px) and (min-width: 1024px) {
+      width: $chat-width-tablet-pro;
+      display: inline;
+    }
+    
+    @media screen and (max-width: 1023px) and (min-width: 768px) {
+      width: $chat-width-tablet;
+      display: inline;
+    }
+  
+    @media screen and (max-width: 767px) {
+      width: 100%;
+      z-index: 9;
+      display: none;
+    }
+}
+
+.chatDisplay {
+    display: inline;
+    animation: open-animation 1s running;
+}
+
+@keyframes open-animation {
+    0% {
+      opacity: 0;
+      transform: translateY(80%);
+    }
+}
+
+.chat-crisp-expand{
+  position: fixed;
+  display: flex;
+  bottom: $spacing-28;
+  right: calc($chat-width-desktop + $spacing-88);
+  z-index: 12;
+  background-color: $primaryColor;
+  height: 50px;
+  width: 50px;
+  border-radius: 40px;
+  text-align: center;
+  box-shadow: $shadowColor 0px 0px 10px;
+  cursor: pointer;
+
+  @media screen and (max-width: 1267px) and (min-width: 1024px) {
+    right: calc($chat-width-tablet-pro + $spacing-20);
+    bottom: $spacing-20;
+  }
+  
+  @media screen and (max-width: 1023px) and (min-width: 768px) {
+    right: calc($chat-width-tablet + $spacing-20);
+    bottom: $spacing-20;
+  }
+
+  @media screen and (max-width: 767px) {
+    bottom: 70px;
+    right: $spacing-16;
+  }
+
+  div {
+    margin: auto;
+
+    img {
+      margin-top: -1px;
+      margin-left: -1px;
+    }
+  }
+
+  svg {
+    width: 34px;
+    height: 34px;
+  }
+}
+
+.chat-expand{
+  position: fixed;
+  bottom: $spacing-28;
+  right: calc($chat-width-desktop + $spacing-28);
+  z-index: 12;
+  background-color: $primaryColor;
+  height: 50px;
+  width: 50px;
+  border-radius: 40px;
+  text-align: center;
+  box-shadow: $shadowColor 0px 0px 10px;
+  cursor: pointer;
+
+  @media screen and (max-width: 1267px) and (min-width: 1024px) {
+    right: calc($chat-width-tablet-pro + $spacing-20);
+    bottom: $spacing-20;
+  }
+  
+  @media screen and (max-width: 1023px) and (min-width: 768px) {
+    right: calc($chat-width-tablet + $spacing-20);
+    bottom: $spacing-20;
+  }
+
+  @media screen and (max-width: 767px) {
+    display: none;
+  }
+
+  div {
+    margin: auto;
+
+    img {
+      margin-top: -1px;
+      margin-left: -1px;
+    }
+  }
+}
+
+.chatExpandDisplay {
+  transform: translateX($chat-width-desktop);
+  animation: chat-expand-animation 0.7s running;
+
+  @media screen and (max-width: 1267px) and (min-width: 1024px) {
+    transform: translateX($chat-width-tablet-pro);
+  }
+  
+  @media screen and (max-width: 1023px) and (min-width: 768px) {
+    transform: translateX($chat-width-tablet);
+  }
+
+  @media screen and (max-width: 767px) {
+    transform: translateX(0);
+  }
+}
+
+@keyframes chat-expand-animation {
+  0% {
+    opacity: 0;
+    transform: translateX(20%);
+
+    @media screen and (max-width: 1267px) and (min-width: 1024px) {
+      transform: translateX(20%);
+    }
+    
+    @media screen and (max-width: 1023px) and (min-width: 768px) {
+      transform: translateX(20%);
+    }
+    
+    @media screen and (max-width: 767px) {
+      transform: translateX(0);
+    }
+  }
+}
+
+.bets-container{
+  height: -webkit-fill-available !important;
+  z-index: 10;
+  background-color: $chat-container-color;
+  overflow: auto;
+}
+
+.bets-container-main{
+  position: fixed;
+  top : 0px;
+  right: 0;
+  height: 100%;
+  width: $chat-width-desktop;
+  display: none;
+
+  @media screen and (max-width: 1267px) and (min-width: 1024px) {
+    width: $chat-width-tablet-pro;
+  }
+  
+  @media screen and (max-width: 1023px) and (min-width: 768px) {
+    width: $chat-width-tablet;
+  }
+
+  @media screen and (max-width: 767px) {
+    width: 100%;
+    z-index: 9;
+  }
+}
+
+.betsListDisplay {
+  display: inline;
+  animation: open-animation 1s running;
+}
+
+.container {
+    max-width: $content-width-desktop;
+    @include Breakpoint-tabletAndAbove {
+        max-width: $content-width-desktop;
+
+        padding: calc($navbar-height + $spacing-36) $spacing-20 0 $spacing-20;
+        margin: 0 auto;
+    }
+
+    @include Breakpoint-mobileOnly {
+        width: 100%;
+
+        max-width: $content-width-mobile;
+        padding: calc($navbar-height + $spacing-36) 0 0 0;
+        margin: 0 auto;
+    }
+}
+
+.platform-holder-pad{
+    @include Breakpoint-mobileOnly {
+        padding: 0 !important;
+        margin : 0 !important;
+    }
+}
+
+.platform-container{
+    width : 100%;
+    left: 0;
+}
+
+.top-bars{
+    margin-top: 60px;
+    width: 100%;
+}
+
+.top-bars-transparent {
+  margin-top: 0px;
+}
+
+.modal {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  padding: $spacing-52 $spacing-36;
+
+  .tabs {
+    width: 340px;
+  }
+}
+
+.modal-login {
+  .tabs {
+    width: 100%;
+  }
+}
+
+.gif{
+    width : 300px;
+    position: fixed;
+    margin-left: -130px;
+    top: 50%;
+    left: 50%;
+    margin-top: -50px;
+}
+
+.settings-container{
+  height: -webkit-fill-available !important;
+  background-color: $primaryColor;
+  overflow: auto;
+}
+
+.settings-container-menu{
+  position: fixed;
+  top : 0px;
+  right: 0;
+  height: 100%;
+  z-index: 9;
+  margin-top: 60px;
+}
+
+.settingsMenuDisplay {
+  width: 250px;
+  animation: open-horizontal-animation 1s running;
+}
+
+.settingsMenuHidden{
+  width: 0;
+  animation: close-horizontal-animation 1s running;
+}
+
+@keyframes open-horizontal-animation {
+  0% {
+    opacity: 0;
+    width: 0px;
+  }
+}
+
+@keyframes close-horizontal-animation {
+  0% {
+    opacity: 1;
+    width: 250px;
+  }
+  70% {
+    opacity: 0;
+  }
+}
+
+.tkn_logo_login{
+    width : 283px;
+    margin-top : 2%;
+    margin-bottom : 7%;
+}

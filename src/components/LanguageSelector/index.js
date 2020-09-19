@@ -1,12 +1,12 @@
 import React, { Component } from "react";
-import Typography from "components/Typography";
+import { Typography, ArrowDownIcon, ArrowUpIcon } from "components";
 import ArrowDown from "components/Icons/ArrowDown";
 import ArrowUp from "components/Icons/ArrowUp";
 import { CopyText } from '../../copy';
 import { connect } from "react-redux";
 import languages from "../../config/languages";
 import { setLanguageInfo } from "../../redux/actions/language";
-import { isUserSet } from "../../lib/helpers";
+import { isUserSet, getAppCustomization } from "../../lib/helpers";
 import classNames from "classnames";
 
 import "./index.css";
@@ -91,7 +91,7 @@ class LanguageSelector extends Component {
                 type="button"
             >   
                 <img src={option.image}/>
-                <Typography variant={size ? size : "small-body"} color={color ? color : "casper"} >{option.name}</Typography>
+                <Typography variant={size ? size : "small-body"} color={color ? color : "white"} >{option.name}</Typography>
             </button>
         ));
     };
@@ -123,6 +123,7 @@ class LanguageSelector extends Component {
         const copy = CopyText.languagePickerIndex[ln];
         const { language, open } = this.state;
         const { showArrow, size, color } = this.props;
+        const skin = getAppCustomization().skin.skin_type;
 
         const styles = classNames("item", {
             itemHor: showArrow === true
@@ -144,7 +145,11 @@ class LanguageSelector extends Component {
                         {
                             showArrow === true 
                             ?  
-                                open ? <ArrowUp /> : <ArrowDown />
+                                open 
+                                ? 
+                                    skin == "digital" ? <ArrowUpIcon /> : <ArrowUp /> 
+                                : 
+                                    skin == "digital" ? <ArrowDownIcon /> : <ArrowDown /> 
                             : 
                                 null  
                         }

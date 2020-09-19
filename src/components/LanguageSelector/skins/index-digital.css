@@ -1,0 +1,119 @@
+@import "../../styles/all.css";
+
+.root {
+  position: relative;
+
+  cursor: pointer;
+  outline: none;
+  display: inline-block;
+
+  * {
+    background-color: transparent;
+    cursor: pointer;
+    outline: none;
+  }
+}
+
+
+.triangle {
+  position: absolute;
+
+  bottom: calc($spacing-4 * -1);
+  right: calc($spacing-36 + $spacing-4);
+
+  width: 0;
+  height: 0;
+
+  border-right: $spacing-4 solid transparent;
+
+  border-bottom: $spacing-4 solid $primaryColor-3;
+
+  border-left: $spacing-4 solid transparent;
+
+  transform: rotate(180deg);
+}
+
+.triangleBottom {
+  top: calc($spacing-4 * -1);
+  right: $spacing-4;
+  bottom: auto;
+  transform: none;
+}
+
+.options {
+  position: absolute;
+  right: calc($spacing-20 * -1);
+  z-index: 2;
+  display: inline-block;
+  margin-top: $spacing-12;
+  background: $primaryColor-3;
+  border-radius: $spacing-4;
+  bottom: 49px;
+}
+
+.expandBottom {
+  bottom: auto;
+  right: 0;
+  margin-top: 8px;
+}
+
+.option {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 100%;
+  padding: $spacing-8 $spacing-16;
+  border-radius: $spacing-4;
+
+  p {
+    opacity: 0.5;
+  }
+
+  *:first-child {
+    width: $spacing-16;
+    margin-right: $spacing-8;
+  }
+
+  cursor: pointer;
+  outline: none;
+}
+
+.option:hover {
+  background-color: $primaryColor-13;
+
+  * {
+    color: $nepal;
+  }
+}
+
+.item{
+  display: inline-flex;
+  position: relative;
+  flex-direction: column;
+  align-items: center;
+
+  svg {
+    width: $spacing-8;
+  }
+}
+
+.item img{
+  display: inline-block;
+  height: 1em;
+  stroke-width: 0;
+  margin-top: 0.4em;
+  margin-bottom: 0.4em;
+}
+
+.item svg{
+  margin-left: $spacing-12;
+}
+
+.itemHor {
+  display: flex;
+  flex-direction: unset;
+
+  img {
+    margin-right: $spacing-8;
+  }
+}

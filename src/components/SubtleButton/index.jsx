@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import Typography from "../Typography";
+import { getAppCustomization } from "../../lib/helpers";
 
 import "./index.css";
 
@@ -29,10 +30,11 @@ export default class SubtleButton extends Component {
 
   render() {
     const { children, onClick, variant, name } = this.props;
+    const skin = getAppCustomization().skin.skin_type;
 
     return (
       <button type="button" name={name} styleName="root" onClick={onClick}>
-        <Typography color="white" variant={variant}>
+        <Typography color={skin == "digital" ? "secondary" : "white"} variant={variant}>
           {children}
         </Typography>
       </button>

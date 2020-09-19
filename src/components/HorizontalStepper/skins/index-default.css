@@ -1,0 +1,27 @@
+@import "../../styles/all.css";
+
+.buttons{
+    margin-top : 20px;
+}
+
+.container-title{
+    margin-top : 10px;
+    margin-bottom : 30px;
+    background-color: $backgroundColor;
+    border-radius: 4px;
+    text-align: center;
+    padding: 14px;
+}
+
+.stepper-root{
+ 
+
+    @include Breakpoint-mobileOnly {
+       margin-left : -45px;
+       width : 100px;
+    }
+}
+
+.button-stepper{
+    margin : 10px auto;
+}

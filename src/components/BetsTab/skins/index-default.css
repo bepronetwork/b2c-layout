@@ -1,0 +1,56 @@
+@import "../../styles/all.css";
+
+
+.container {
+    @include Breakpoint-tabletAndAbove {
+        max-width: $content-width-desktop;
+
+        margin: 0 auto;
+    }
+
+    @include Breakpoint-mobileOnly {
+
+    }
+
+}
+
+.filters{
+    justify-content: flex-end;
+    display: inline-flex;
+    align-items: center;
+}
+
+.bets-dropdown{
+    margin: 0 $spacing-12;
+}
+
+.bets-dropdown-game{
+    margin: 0 $spacing-12;
+}
+
+.lastBets {
+    width: 100%;
+    grid-auto-flow: column;
+    display: grid;
+    align-items: center;
+    gap: $spacing-8;
+    background-color: $primaryColor-2;
+    border-radius: $border-radius;
+
+    @media screen and (max-width: 767px) {
+        gap: $spacing-4;
+    }
+}
+
+.lastBets > div:first-child {
+    width: 150px;
+}
+
+.loading {
+    width: 100%;
+    text-align: center;
+
+    img {
+        height: $spacing-28;
+    }
+}

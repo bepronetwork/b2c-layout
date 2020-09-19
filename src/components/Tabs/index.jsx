@@ -28,8 +28,9 @@ export default class Tabs extends Component {
             return null;
         }
 
-        const styles = classNames("tabs", 
-            {"tabs-limit": filteredOptions.length > 3
+        const styles = classNames("tabs", {
+            "tabs-limit": filteredOptions.length > 3,
+            fullBackground : style === "full-background"
         });
         const selectedTab = selected || filteredOptions[0].value;
         return (

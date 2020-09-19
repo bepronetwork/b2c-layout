@@ -85,7 +85,7 @@
           "Profit"
         ]
       },
-      "MY_BETS": {
+      /*"MY_BETS": {
         "TITLE": "My Bets",
         "ITEMS": [
           "Game",
@@ -93,7 +93,7 @@
           "Payout",
           "Profit"
         ]
-      },
+      },*/
       "BIGGEST_WIN_BETS": {
         "TITLE": "Biggest Wins",
         "ITEMS": [
@@ -190,7 +190,7 @@
           "수익"
         ]
       },
-      "MY_BETS": {
+      /*"MY_BETS": {
         "TITLE": "나의 베팅",
         "ITEMS": [
           "게임",
@@ -199,7 +199,7 @@
           "페이아웃",
           "수익"
         ]
-      },
+      },*/
       "BIGGEST_WIN_BETS": {
         "TITLE": "최고 수익 달성",
         "ITEMS": [
@@ -297,7 +297,7 @@
           "盈利"
         ]
       },
-      "MY_BETS": {
+      /*"MY_BETS": {
         "TITLE": "我的投注",
         "ITEMS": [
           "游戏",
@@ -306,7 +306,7 @@
           "花费",
           "盈利"
         ]
-      },
+      },*/
       "BIGGEST_WIN_BETS": {
         "TITLE": "最大胜利",
         "ITEMS": [
@@ -412,7 +412,7 @@
           "利益"
         ]
       },
-      "MY_BETS": {
+      /*"MY_BETS": {
         "TITLE": "私の賭け",
         "ITEMS": [
           "ゲーム",
@@ -421,7 +421,7 @@
           "ペイアウト",
           "利益"
         ]
-      },
+      },*/
       "BIGGEST_WIN_BETS": {
         "TITLE": "最大の勝利",
         "ITEMS": [

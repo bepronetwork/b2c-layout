@@ -1,0 +1,105 @@
+@import "../../styles/all.css";
+
+.root {
+  position: relative;
+  cursor: pointer;
+  outline: none;
+
+  * {
+    background-color: transparent;
+    cursor: pointer;
+    outline: none;
+  }
+}
+
+.triangle {
+  position: absolute;
+  top: calc($spacing-4 * -1);
+  right: $spacing-16;
+  width: 0;
+  height: 0;
+  border-right: $spacing-4 solid transparent;
+  border-bottom: $spacing-4 solid $primaryColor-3;
+  border-left: $spacing-4 solid transparent;
+}
+
+.options {
+  position: absolute;
+  right: 0;
+  z-index: 2;
+  display: inline-block;
+  margin-top: $spacing-8;
+  background: $primaryColor-3;
+  border-radius: $border-radius;
+  width: 100%;
+
+  p {
+    opacity: 0.5;
+  }
+}
+
+.option {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 100%;
+  padding: $spacing-8 $spacing-8;
+  border-radius: $border-radius;
+
+  .currency-icon {
+    width: 20px;
+    margin-right: $spacing-8;
+  }
+
+  cursor: pointer;
+  outline: none;
+}
+
+.option:hover {
+  background-color: $primaryColor-13;
+
+  * {
+    color: $nepal;
+  }
+}
+
+.label {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 0 $spacing-8 0 $spacing-4;
+  height: 28px;
+  cursor: pointer;
+  background-color: $backgroundColor-2;
+  border-radius: $border-radius 0 0 $border-radius;
+
+  span {
+    margin-right: $spacing-8;
+  }
+
+  .currency-icon {
+    margin-right: $spacing-8;
+  }
+
+  svg {
+    width: $spacing-8;
+  }
+    
+  @include Breakpoint-mobileOnly {
+    border-radius: $border-radius;
+    padding: 0 $spacing-4;
+
+    .currency-icon {
+      width: 30px;
+    }
+
+    *:first-child {
+      margin-right: 0;
+    }
+  }
+}
+
+.label:hover {
+  background-color: $primaryColor-2;
+  transition: opacity 0.1s ease-in;
+}

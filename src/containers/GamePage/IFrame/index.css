@@ -1,0 +1,17 @@
+@import "../../../styles/all.css";
+
+.iframe {
+  width: 100%;
+  height: 542px;
+  border-radius: $border-radius $border-radius 0 0;
+}
+
+.max {
+  position: absolute;
+  inset: 0px;
+  top: -60px;
+  width: 100%;
+  height: 100%;
+  border: 0px none;
+  z-index: 20;
+}
