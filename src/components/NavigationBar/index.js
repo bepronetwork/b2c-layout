@@ -45,12 +45,13 @@ class NavigationBar extends Component {
                     icon
                     ?
                         <div styleName='img'>
-                            <img src={icon} width="22"/>
+                            <img src={icon} width="22" height="22"/>
                         </div>
+                    
                     :
-                        null
+                        <div styleName='img'/>
                 }
-                <div styleName='text'>
+                <div styleName={icon ? 'text' : 'text-empty' }>
                     <Typography variant={'small-body'} color={'white'}>
                         {name}
                     </Typography>
