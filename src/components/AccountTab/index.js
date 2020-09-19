@@ -40,7 +40,7 @@ class AccountTab extends React.Component {
     const kycIntegration = appInfo.integrations.kyc;
 
     this.setState({
-      clientId: kycIntegration.clientid,
+      clientId: kycIntegration.clientId,
       flowId: kycIntegration.flowId
     });
   };
@@ -68,6 +68,9 @@ class AccountTab extends React.Component {
     const copy = CopyText.registerFormIndex[ln];
     const copyLogout = CopyText.userMenuIndex[ln];
     const skin = getAppCustomization().skin.skin_type;
+
+    console.log(`FLOW${flowId}`);
+    console.log(`CLIENT${clientId}`);
 
     return (
       <div styleName="box">
@@ -108,16 +111,18 @@ class AccountTab extends React.Component {
           </div>
         </div>
         <div styleName="button-container">
-          <Typography variant="x-small-body" color="white">
-            Seems like we have to know a bit more about you, please do your KYC
-            to enable withdraws
-          </Typography>
-          <div>
-            <mati-button
-              clientid={clientId}
-              flowId={flowId}
-              metadata={{ id: userId }}
-            />
+          <div styleName="button-kyc">
+            <Typography variant="x-small-body" color="white">
+              Seems like we have to know a bit more about you, please do your
+              KYC to enable withdraws
+            </Typography>
+            <div>
+              <mati-button
+                clientid={clientId}
+                flowId={flowId}
+                metadata={{ user_id: userId }}
+              />
+            </div>
           </div>
         </div>
 

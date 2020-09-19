@@ -82,7 +82,7 @@ class WithdrawTable extends Component {
     const kycIntegration = appInfo.integrations.kyc;
 
     this.setState({
-      clientId: kycIntegration.clientid,
+      clientId: kycIntegration.clientId,
       flowId: kycIntegration.flowId,
       isKYCConfirmed: kycIntegration.isActive
     });
@@ -117,7 +117,7 @@ class WithdrawTable extends Component {
                 <mati-button
                   clientid={clientId}
                   flowId={flowId}
-                  metadata={{ id: userId }}
+                  metadata={{ user_id: userId }}
                 />
               </div>
             </div>
