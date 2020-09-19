@@ -41,10 +41,17 @@ class NavigationBar extends Component {
     renderMenuItem = ({link_url, icon, name}) => {
         return (
             <Link to={link_url} styleName={'navigation-step'}>
-                <div styleName='img'>
-                    <img src={icon} width="22"/>
-                </div>
-                <div styleName='text'>
+                {
+                    icon
+                    ?
+                        <div styleName='img'>
+                            <img src={icon} width="22" height="22"/>
+                        </div>
+                    
+                    :
+                        <div styleName='img'/>
+                }
+                <div styleName={icon ? 'text' : 'text-empty' }>
                     <Typography variant={'small-body'} color={'white'}>
                         {name}
                     </Typography>

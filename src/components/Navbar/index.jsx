@@ -64,10 +64,12 @@ class Navbar extends Component {
 
                 const points = await user.getPoints();
 
-                let differencePoints = formatCurrency(points - this.state.currentPoints);
-                if(differencePoints != 0){
-                    opts.differencePoints = differencePoints;
-                    opts.currentPoints = points;
+                if(points) {
+                    let differencePoints = formatCurrency(points - this.state.currentPoints);
+                    if(differencePoints != 0){
+                        opts.differencePoints = differencePoints;
+                        opts.currentPoints = points;
+                    }
                 }
                 
                 this.setState({
