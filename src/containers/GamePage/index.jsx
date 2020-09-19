@@ -4,7 +4,8 @@ import { ButtonIcon, History, Modal, Typography, MaximizeIcon } from "components
 import CloseIcon from "components/Icons/CloseCross";
 import UserContext from "containers/App/UserContext";
 import LastBets from "../LastBets/GamePage";
-import Actions from "./Actions"
+import Actions from "./Actions";
+import IFrame from "./IFrame";
 import Cache from "../../lib/cache/cache";
 import { Row, Col } from 'reactstrap';
 import { CopyText } from "../../copy";
@@ -53,14 +54,6 @@ class GamePage extends Component {
             max: false
         };
     }
-
-    shouldComponentUpdate(nextProps, nextState) {
-        if (this.props.isThirdParty === true) {
-          return false;
-        } else {
-          return true;
-        }
-      }
 
     handleSounds = () => {
         const { soundMode } = this.state;
@@ -198,16 +191,12 @@ class GamePage extends Component {
     }
 
     renderIframe() {
-        const { currency, ln, providerToken, providerGameId, providerPartnerId, providerUrl, providerExternalId, providerName, providerGameName } = this.props;
+        const { currency, providerToken, providerGameId, providerPartnerId, providerUrl, providerExternalId, providerName, providerGameName } = this.props;
         const { max } = this.state;
 
         const newCurrency = this.convertAmountProviderBigger(currency.ticker, 1);
 
         if(newCurrency === null) { return null };
-
-        const thirdStyles = classNames("iframe", {
-            max: max === true
-        });
 
         const closeStyles = classNames("close-iframe", {
             "show-close": max === true
@@ -219,10 +208,15 @@ class GamePage extends Component {
                     <CloseIcon />
                 </div>
                 <div styleName="third">
-                    <iframe key={providerGameId} styleName={thirdStyles} allowFullScreen="" 
-                        src={`${providerUrl}/game?token=${providerToken}&partner_id=${providerPartnerId}&player_id=${providerExternalId}&game_id=${providerGameId}&language=${ln}&currency=${newCurrency.ticker}`}
-                        frameBorder="0">
-                    </iframe>
+                    <IFrame 
+                        providerUrl={providerUrl}
+                        token={providerToken}
+                        partnerId={providerPartnerId}
+                        playerId={providerExternalId}
+                        gameId={providerGameId}
+                        ticker={newCurrency.ticker}
+                        max={max}
+                    />
                     <div styleName="functions">
                         <div onClick={() => this.maximizeIframe(true)}><MaximizeIcon /></div>
                     </div>
