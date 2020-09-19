@@ -11,6 +11,9 @@
 
 
 .amount-container {
+  display: grid;
+  grid-template-columns: 57% 43%;
+
   margin-top: $spacing-4;
 }
 
@@ -42,8 +45,6 @@
 
 .toggle {
   order: 0;
-  border: 1px solid $secondaryColor;
-  border-radius: $border-radius $border-radius 0 0;
 
   @include Breakpoint-mobileOnly {
     order: 4;

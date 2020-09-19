@@ -17,7 +17,7 @@
 
 .active {
     border-left: 2px solid $secondaryColor;
-    background-color: $primaryColor-2;
+    background-color: $primaryColor-5;
 }
 
 .icon {
@@ -27,14 +27,14 @@
 
 .title {
     height: 64px;
-    background-color: $backgroundColor-3;
+    background-color: $primaryColor;
     display: flex;
     align-items: center;
     padding-left: 15%;
 }
 
 .menu {
-    background-color: $primaryColor;
+    background-color: $primaryColor-3;
     border-radius: 0 0 $border-radius $border-radius;
 }
 
@@ -43,7 +43,7 @@
 }
 
 .content{
-    background-color: $primaryColor;
+    background-color: $primaryColor-3;
     padding: $spacing-28;
     border-radius: $border-radius;
     height: auto;

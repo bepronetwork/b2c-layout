@@ -2,7 +2,7 @@
 
 .qrcode {
     padding: $spacing-16;
-    background-color: $backgroundColor;
+    background-color: white;
     width: 160px;
     margin: $spacing-36 auto;
     border-radius: 4px;
@@ -52,17 +52,10 @@
     border : none;
     padding: $spacing-12 24px;
     border-radius :  0 $border-radius $border-radius 0;
-    background-color: transparent;
+    background-color: $secondaryColor;
     width : inherit;
     height : 40px;
     text-align : center;
-    border: 1px solid $secondaryColor;
-    display: inline-flex;
-    align-items: center;
-
-    p {
-        color: $secondaryColor;
-    }
 }
 
 .link-text-container{
@@ -72,7 +65,7 @@
     overflow: hidden;
     height: 40px;
     border-radius : $border-radius 0 0  $border-radius;
-    background-color : $backgroundColor;
+    background-color : white;
 }
 
 .loading-gif{

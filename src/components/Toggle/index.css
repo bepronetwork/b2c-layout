@@ -5,7 +5,8 @@
     justify-content: flex-end;
     display: inline-flex;
     font-family: $font-family;
-    padding: 5px 0;
+    padding: 5px $spacing-28 5px $spacing-28;
+    background-color: $secondaryColor;
     border-radius: $border-radius;
 
     @include Breakpoint-mobileOnly {
@@ -14,45 +15,20 @@
 
     div:nth-child(2) {
         cursor: pointer;
-        border-radius: 10px;
-        
-        span:nth-child(2) {
-            background-color: red;
-            opacity: 0.1;
-        }
-
-        span:nth-child(3) {
-            border-radius: 10px;
-            padding: .375rem 1.3rem;
-            background-color: red;
-            border: unset;
-        }
-    }
-
-}
-
-.toggleOn {
-    div:nth-child(2) {   
-        span:nth-child(3) {
-            background-color: #61ae64;
-        }
     }
 }
 
 .toggle-text {
-    padding: 0 $spacing-12;
+    padding-right: $spacing-28;
     margin: auto;
-
+    width: 50px;
 }
 
 .tOn {
-    p {
-        color: #61ae64;
-    }
 }
 
 .tOff {
-    p {
-        color: #c63734;
-    }
+}
+
+.toggleOn{
 }

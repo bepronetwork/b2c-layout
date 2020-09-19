@@ -2,16 +2,16 @@
 
 .root {
   background: $background-table-1-outer-2;
+
+  border-top-right-radius: $spacing-4;
+  border-bottom-right-radius: $spacing-4;
 }
 
 .container {
   display: grid;
   align-items: center;
   grid-template-columns: 33% 33% 33%;
-  margin-top: $spacing-12;
-  padding: $spacing-4 0;
-  border: 1px solid $secondaryColor;
-  border-radius: 4px;
+  padding-top: 14px;
 }
 
 .button {
@@ -33,7 +33,7 @@
 }
 
 .button-container {
-  border-right: 1px solid $secondaryColor;
+  border-right: 1.5px solid $casper;
 }
 
 .button:last-child .button-container {

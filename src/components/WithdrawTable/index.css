@@ -11,7 +11,7 @@
     @include Breakpoint-mobileOnly {
 
     }
-    position: relative;
+
 }
 
 .filters{
@@ -48,88 +48,5 @@
 
     img {
         height: $spacing-28;
-    }
-}
-
-@import "../../styles/all.css";
-
-.kyc-confirmation-ctn{
-    width: 100%;
-    height: 100%;
-    top: 0;
-    position: absolute;
-    background-color: rgba(0, 0, 0, 0.2);
-    -webkit-filter: blur(5px);
-    -moz-filter: blur(5px);
-    -o-filter: blur(5px);
-    -ms-filter: blur(5px);
-    filter: blur(5px);
-}
-
-.kyc-confirmation{
-    top: 0;
-    right: 0;
-    left: 0;
-    z-index: 10;
-    position: absolute;
-    padding: $spacing-20 $spacing-28;
-    width: 300px;
-    display: block;
-    margin: auto;
-    background-color: $primaryColor-3;
-    border-radius: $border-radius;
-    box-shadow: $shadowColor 0px 0px 10px;
-}
-
-.kyc-title{
-    margin: $spacing-28 0 0 0;
-    padding-bottom: $spacing-36;
-    border-bottom: 1px solid $backgroundColor;
-    display: grid;
-    grid-template-columns: 25% 75%;
-    align-items: center;
-}
-
-.kyc-content{
-    padding: $spacing-28 0;
-    border-top: 1px solid $primaryColor-13;
-}
-
-.kyc-text{
-    text-align: left;
-    p {
-        line-height: $spacing-16;
-    }
-
-    p:first-child {
-        line-height: $spacing-28;
-    }
-}
-
-.kyc-buttons{
-    display: flex;
-    margin: $spacing-28 0 $spacing-8 0;
-}
-
-.button{
-    margin: auto;
-
-    div {
-        display: flex;
-        align-items: center;
-        padding: $spacing-8 $spacing-28;
-    }
-}
-
-.blur {
-    filter: blur(5px);
-}
-
-.icon {
-    justify-content: flex-end;
-    display: inline-flex;
-    
-    svg {
-        width: 40px;
     }
 }

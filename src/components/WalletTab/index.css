@@ -5,23 +5,22 @@
     width: 300px;
     display: block;
     margin: auto;
-    background-color: $primaryColor-3;
+    background-color: $primaryColor-8;
     border-radius: $border-radius;
     box-shadow: $shadowColor 0px 0px 10px;
 }
 
 .email-title{
-    margin: $spacing-28 0 0 0;
-    padding-bottom: $spacing-36;
-    border-bottom: 1px solid $backgroundColor;
+    margin-bottom: $spacing-16;
+    padding-bottom: $spacing-8;
+    border-bottom: 1px solid $primaryColor-13;
     display: grid;
-    grid-template-columns: 25% 75%;
+    grid-template-columns: 30% 55%;
     align-items: center;
 }
 
 .email-content{
-    padding: $spacing-28 0;
-    border-top: 1px solid $primaryColor-13;
+    
 }
 
 .email-text{
@@ -46,7 +45,6 @@
     div {
         display: flex;
         align-items: center;
-        padding: $spacing-8 $spacing-28;
     }
 }
 

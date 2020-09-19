@@ -5,19 +5,19 @@
   &:hover {
     /*background-color: $dodger-blue;*/
     * {
+      color: $white;
       opacity: 1;
     }
-  }
-
-  * {
-    color: $white;
-    opacity: 0.85;
   }
 }
 
 .tab {
   height: 100%;
   text-align: center;
+
+  * {
+    opacity: 0.85;
+  }
 
   button {
     width: 100%;
@@ -35,58 +35,34 @@
   }
 }
 
-.tab:hover {
-  background-color: $primaryColor-13;
-
-  * {
-    color: white;
-  }
-}
-
 .selected{
   border-bottom: 2px solid $secondaryColor;
 
   * {
-    color: $secondaryColor;
+    color: $white;
     opacity: 1;
   }
-}
-
-.selected:hover {
-  background-color: $secondaryColor-5;
 }
 
 .fullBackground {
   background-color: $primaryColor;
+  border-radius: $border-radius; 
 
   button {
     border-radius: $border-radius; 
-  }
-}
-
-.fullBackground:not(.selected) {
-  * {
-    color: $secondaryColor;
-    opacity: 1;
   }
 }
 
 .fullBackgroundSelected {
   background-color: $secondaryColor;
+  border-radius: $border-radius; 
 
   * {
-    color: $backgroundColor;
+    color: white;
   }
 
   button {
     border-radius: $border-radius; 
-  }
-
-}
-
-.fullBackgroundSelected:hover {
-  * {
-    color: white;
   }
 
 }
