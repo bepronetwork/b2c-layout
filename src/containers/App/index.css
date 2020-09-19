@@ -270,7 +270,7 @@
   flex-direction: column;
   align-items: center;
 
-  padding: $spacing-52 $spacing-20;
+  padding: $spacing-52 $spacing-36;
 
   .tabs {
     width: 340px;
@@ -279,7 +279,7 @@
 
 .modal-login {
   .tabs {
-    width: 304px;
+    width: 100%;
   }
 }
 
