@@ -21,7 +21,7 @@
 }
 
 .x-small {
-  padding: $spacing-4 $spacing-12;
+  padding: $spacing-8 $spacing-12;
 }
 
 .small {
@@ -50,7 +50,7 @@
 
 .primary {
   .content {
-    border: 2px solid $secondaryColor;
+    background-color: $secondaryColor;
 
     transition: background-color 0.2s ease-out, color 0.2s ease-out;
   }
@@ -58,15 +58,9 @@
 
 .action {
   .content {
-    display: inline-flex;
-    align-items: center;
-    border: 2px solid $secondaryColor;
+    background-color: $light-table-color;
 
     transition: background-color 0.2s ease-out, color 0.2s ease-out;
-
-    p {
-      margin: auto;
-    }
   }
 }
 
@@ -98,7 +92,7 @@
 .action:hover {
   @include Breakpoint-desktopOnly {
     .content {
-      background-color: $primaryColor-2;
+      background-color: $button-hover-color;
       transition: background-color 0.2s ease-in;
     }
   }

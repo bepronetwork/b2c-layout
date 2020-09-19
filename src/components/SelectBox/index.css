@@ -111,10 +111,6 @@
     align-items: center;
     height: $spacing-16;
     cursor: pointer;
-
-    svg {
-      width: $spacing-8;
-    }
   
     *:first-child {
       margin-right: $spacing-4;

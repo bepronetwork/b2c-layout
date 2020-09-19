@@ -13,8 +13,6 @@
     height: 100%;
     transition: all 0.2s ease-in;
     padding: $spacing-8;
-    opacity: 0.9;
-    margin-right: $spacing-12;
 
     .img{
         width : 28px;
@@ -22,7 +20,6 @@
 
     .text{
         margin-left: $spacing-8;
-        opacity: 0.8;
     }
 
     &:hover{
@@ -32,13 +29,6 @@
     }
 
 }
-
-.tabs > .navigation-step:nth-child(2) {
-    padding-right: $spacing-12;
-    margin-right: 0;
-    border-right: 1px solid $backgroundColor;
-}
-
 
 .dropdown{
     display: none;
@@ -96,12 +86,10 @@
 }
 
 .main-others {
-    border-left: 1px solid $primaryColor-5;
 }
 
 .others {
     display: inline;
-    margin-left: $spacing-12;
 
     @media screen and (max-width: 1267px) and (min-width: 767px) {
         display: none;

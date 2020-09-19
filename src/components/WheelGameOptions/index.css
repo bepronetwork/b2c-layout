@@ -53,6 +53,9 @@
 }
 
 .amount-container {
+  display: grid;
+  grid-template-columns: 57% 43%;
+
   margin-top: $spacing-4;
 }
 

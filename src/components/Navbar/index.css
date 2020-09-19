@@ -126,7 +126,7 @@
     align-items: center;
 
     .login {
-        margin-right: $spacing-20;
+        margin-right: $spacing-8;
         justify-content: flex-end;
     }
 }
@@ -193,18 +193,12 @@
 }
 
 .button{
-    background-color: $backgroundColor-2;
-    border-left: 1px solid $primaryColor-8; 
+    background-color: $secondaryColor; 
     margin : auto;
     position: relative;
     display: block;
-    padding : 5px $spacing-20;
+    padding : $spacing-8 $spacing-20;
     border-radius : 0 $border-radius $border-radius 0;
-}
-
-.button:hover {
-    background-color: $primaryColor-2;
-    transition: opacity 0.1s ease-in;
 }
 
 .navbar-language{
@@ -234,7 +228,7 @@
     display: grid;
     align-items: center;
     width: 100%;
-    height: 50px;
+    height: $navbar-height;
     background-color: $primaryColor;
     box-shadow : 1px 1px 50px 1px $shadowColor;
     padding-left : $padding-width-navbar;
@@ -269,7 +263,6 @@
 .profile{
     align-items: center;
     border-radius: $spacing-8;
-    min-width: 120px;
 
     @media screen and (max-width: 1023px) and (min-width: 768px) {
         display: none;
@@ -362,31 +355,24 @@
 }
 
 .currency-selector{
-    border: 1px solid $primaryColor-8; 
     display: inline-flex;
     align-items: center;
-    border-radius: $border-radius;
 }
 
 .label {
     display: flex;
     flex-direction: row;
     align-items: center;
-    height: 30px;
+    height: 32px;
     cursor: pointer;
-    padding: 0 $spacing-8 0 0;
+    padding: 0 $spacing-8 0 $spacing-8;
     background-color: $backgroundColor-2;
-    border: 1px solid $primaryColor-8; 
     border-radius: $border-radius;
   
     .user-icon {
-      width: 24px;
-      height: 24px;
+      width: 22px;
       background-color: $primaryColor-2;
-      border-radius: 2px;
-      margin: 2px;
-      align-items: center;
-      display: flex;
+      border-radius: $border-radius;
     }
 
     .currency-icon {
@@ -411,20 +397,14 @@
     }
 }
 
-.label:hover {
-    background-color: $primaryColor-2;
-    transition: opacity 0.1s ease-in;
-}
-
 .label-points {
     display: flex;
     flex-direction: row;
     align-items: center;
-    height: 30px;
+    height: 32px;
     cursor: pointer;
-    padding: 0 $spacing-12;
+    padding: 0 $spacing-16;
     background-color: $backgroundColor-2;
-    border: 1px solid $primaryColor-8; 
     border-radius: $border-radius;
   
     .currency-icon {
@@ -438,11 +418,6 @@
             display: none;
         }
     }
-}
-
-.label-points:hover {
-    background-color: $primaryColor-2;
-    transition: opacity 0.1s ease-in;
 }
 
 .points {

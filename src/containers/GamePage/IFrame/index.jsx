@@ -12,7 +12,9 @@ class IFrame extends Component {
     }
 
     shouldComponentUpdate(nextProps) {
-        return nextProps.max !== this.props.max || nextProps.ticker !== this.props.ticker
+        return nextProps.max !== this.props.max 
+            || nextProps.ticker !== this.props.ticker 
+            || nextProps.token !== this.props.token
     }
 
     render() {

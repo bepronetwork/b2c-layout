@@ -43,7 +43,7 @@
   flex-direction: row;
   align-items: center;
   width: 100%;
-  padding: $spacing-8 $spacing-8;
+  padding: $spacing-8 $spacing-12;
   border-radius: $border-radius;
 
   .currency-icon {
@@ -67,22 +67,19 @@
   display: flex;
   flex-direction: row;
   align-items: center;
-  padding: 0 $spacing-8 0 $spacing-4;
-  height: 28px;
+  padding: 0 $spacing-12;
   cursor: pointer;
-  background-color: $backgroundColor-2;
+  height: 33px;
+  background-color: $primaryColor-5;
   border-radius: $border-radius 0 0 $border-radius;
 
   span {
+    margin-top: 2px;
     margin-right: $spacing-8;
   }
 
   .currency-icon {
     margin-right: $spacing-8;
-  }
-
-  svg {
-    width: $spacing-8;
   }
     
   @include Breakpoint-mobileOnly {
@@ -100,6 +97,9 @@
 }
 
 .label:hover {
-  background-color: $primaryColor-2;
-  transition: opacity 0.1s ease-in;
+  * {
+    opacity: 0.75;
+
+    transition: opacity 0.1s ease-in;
+  }
 }
