@@ -35,7 +35,9 @@ class Baccarat extends Component {
       notifyStatus,
       stateCard,
       winAmount,
-      handleBet
+      handleBet,
+      getResultText,
+      resultCard
     } = this.props;
 
     for (let i = 0; i < playerCoinChildren; i += 1) {
@@ -124,7 +126,15 @@ class Baccarat extends Component {
                     <div styleName="coin_wrapper">{bankerCoinArr}</div>
                   </Button>
                 </div>
-                 <Button className="bet-btn" block size={'large'} disabled={this.props.manual_tab_bet_button} onClick={handleBet}>Bet</Button>
+                <Button
+                  className="bet-btn"
+                  block
+                  size="large"
+                  disabled={this.props.manual_tab_bet_button}
+                  onClick={handleBet}
+                >
+                  Bet
+                </Button>
               </div>
 
               <div styleName="btn_wrapper">
@@ -154,7 +164,7 @@ class Baccarat extends Component {
                 </Button>
               </div>
             </div>
-            {notifyStatus && (
+            {resultCard ? (
               <div
                 styleName="bet_notification_wrapper"
                 style={{
@@ -171,9 +181,12 @@ class Baccarat extends Component {
                   <span styleName="win_amt">
                     <span>{winAmount.toFixed(2)}</span>
                   </span>
+                  <span styleName="text">
+                    <span>{getResultText}</span>
+                  </span>
                 </div>
               </div>
-            )}
+            ) : null}
           </Col>
         </Row>
       </div>

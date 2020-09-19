@@ -5,14 +5,6 @@ import GamePage from "containers/GamePage";
 import _, { find, reduce } from "lodash";
 import { connect } from "react-redux";
 
-import club3 from "assets/cards/3C.svg";
-import club7 from "assets/cards/7C.svg";
-
-import diamondK from "assets/cards/KD.svg";
-import diamondQ from "assets/cards/QD.svg";
-
-import spades1 from "assets/cards/AS.svg";
-import spades5 from "assets/cards/5S.svg";
 
 import Cache from "../../lib/cache/cache";
 import { setWonPopupMessageDispatcher } from "../../lib/redux";
@@ -33,7 +25,6 @@ class DicePage extends Component {
       edge: 0
     },
     amount: 0,
-    totalaccountbal: 100000000000000000000,
     playeramount: 0,
     tieamount: 0,
     bankeramount: 0,
@@ -43,38 +34,16 @@ class DicePage extends Component {
     coinval: 1,
     activesliderchips: 1,
     totalBetAmount: 0,
-    manual: {
-      squeezechecked: false,
-      manual_tab_bet_button: true
-    },
-    auto: {
-      auto_tab_bet_button: true,
-      auto_tab_bet_button_text: "Start Autobet",
-      numberofbets: "0"
-    },
     playerCoinChildren: 0,
     tieCoinChildren: 0,
     bankerCoinChildren: 0,
     betmultiply: 2,
     winammount: 2,
-    sideA: {
-      counter: "0",
-      card1: spades1,
-      card2: diamondQ,
-      card3: club3
-    },
-    sideB: {
-      counter: "0",
-      card1: spades5,
-      card2: diamondK,
-      card3: club7
-    },
-    sideACard1: false,
-    sideACard2: false,
-    sideACard3: false,
-    sideBCard1: false,
-    sideBCard2: false,
-    sideBCard3: false,
+    CardAResultBack: [0, 8, 6],
+    CardBResultBack: [6, 2, 1],
+    CardAResult: [],
+    CardBResult: [],
+    ResultText: "",
     sideAborderColor: "transparent",
     sideBborderColor: "transparent",
     notifyStatus: false,
@@ -86,11 +55,14 @@ class DicePage extends Component {
     sideBCard2transform: "translate(290%, -127%) rotateY(180deg)",
     sideBCard3transform: "translate(290%, -127%) rotateY(180deg)",
     cardHide: false,
-    autobetstatus: true,
     gameRunning: false,
     playerCoinArr: [],
     tieCoinArr: [],
-    bankerCoinArr: []
+    bankerCoinArr: [],
+    randNumber1: 0,
+    randNumber2: 0,
+    randNumber3: 0,
+    resultCard: false
   };
 
   componentDidMount() {
@@ -107,27 +79,78 @@ class DicePage extends Component {
     }
   };
 
-  handleBet = async () => {
-    const { manual } = this.state;
+  functest = async () => {
+    const { CardAResultBack } = this.state;
 
-    // await this.setCardsToInitialState();
+    if (CardAResultBack[0] === 9) {
+      return this.setState({ CardAResult: [CardAResultBack[0]] });
+    }
 
-    this.setState({ gameRunning: true, notifyStatus: false });
-    const newState = manual;
-
-    newState.manual_tab_bet_button = true;
-    this.setState({ manual: newState });
-
-    await this.startGame();
-    setTimeout(() => {
-      newState.manual_tab_bet_button = false;
-      this.setState({
-        sideAborderColor: "#00e403",
-        notifyStatus: true,
-        manual: newState,
-        gameRunning: false
+    if (CardAResultBack[0] + CardAResultBack[1] === 9) {
+      return this.setState({
+        CardAResult: [CardAResultBack[0], CardAResultBack[1]]
       });
-    }, 500);
+    }
+
+    if (CardAResultBack[0] + CardAResultBack[1] + CardAResultBack[2] === 9) {
+      return this.setState({
+        CardAResult: [
+          CardAResultBack[0],
+          CardAResultBack[1],
+          CardAResultBack[2]
+        ]
+      });
+    }
+  };
+
+  functest2 = async () => {
+    const { CardBResultBack } = this.state;
+
+    if (CardBResultBack[0] === 9) {
+      return this.setState({ CardBResult: [CardBResultBack[0]] });
+    }
+
+    if (CardBResultBack[0] + CardBResultBack[1] === 9) {
+      return this.setState({
+        CardBResult: [CardBResultBack[0], CardBResultBack[1]]
+      });
+    }
+
+    if (CardBResultBack[0] + CardBResultBack[1] + CardBResultBack[2] === 9) {
+      return this.setState({
+        CardBResult: [
+          CardBResultBack[0],
+          CardBResultBack[1],
+          CardBResultBack[2]
+        ]
+      });
+    }
+  };
+
+  funcToDefineNewArray = async () => {
+    await this.functest();
+    await this.functest2();
+  };
+
+  FuncToGetWinner = async () => {
+    const { cardAResult, CardBResult } = this.state;
+
+    // if (cardAResult.length === CardBResult.length) {
+    //   this.setState({ ResultText: "TIE" });
+    // } else if (cardAResult.length < CardBResult.length) {
+    //   this.setState({ ResultText: "BANKER WINS" });
+    // } else {
+    //   this.setState({ ResultText: "PLAYER WINS" });
+    // }
+    console.log(cardAResult);
+  };
+
+  handleGenerateNumber = async () => {
+    this.setState({
+      randNumber1: Math.floor(Math.random() * 3 + 1),
+      randNumber2: Math.floor(Math.random() * 3 + 1),
+      randNumber3: Math.floor(Math.random() * 3 + 1)
+    });
   };
 
   getTotalBet = () => {
@@ -150,12 +173,6 @@ class DicePage extends Component {
             sideAborderColor: "transparent",
             sideBborderColor: "transparent",
             notifyStatusColor: "#00e403",
-            sideACard1: false,
-            sideACard2: false,
-            sideACard3: false,
-            sideBCard1: false,
-            sideBCard2: false,
-            sideBCard3: false,
             sideACard1transform: "translate(858%, -127%) rotateY(180deg)",
             sideACard2transform: "translate(858%, -127%) rotateY(180deg)",
             sideACard3transform: "translate(858%, -127%) rotateY(180deg)",
@@ -163,19 +180,6 @@ class DicePage extends Component {
             sideBCard2transform: "translate(290%, -127%) rotateY(180deg)",
             sideBCard3transform: "translate(290%, -127%) rotateY(180deg)"
           });
-          setTimeout(() => {
-            console.log("reset");
-
-            if (this.state.auto.auto_tab_bet_button_text === "Finishing Bet") {
-              const oldst = { ...this.state.auto };
-
-              oldst.auto_tab_bet_button_text = "Start Autobet";
-              oldst.auto_tab_bet_button = false;
-              this.setState({
-                auto: oldst
-              });
-            }
-          }, 200);
         }, 300);
       });
     }, 50);
@@ -200,7 +204,7 @@ class DicePage extends Component {
   };
 
   showCards = async (time, val, data, rotateval) => {
-    return new Promise((resolve, reject) => {
+    return new Promise(resolve => {
       setTimeout(async () => {
         const sideCard = `side${data}Card${val}`;
         const rotateState = `side${data}Card${val}transform`;
@@ -335,130 +339,39 @@ class DicePage extends Component {
     }
   };
 
-  handleChipClick = e => {
+  clearBaccaratState = async () => {
     this.setState({
-      activesliderchips: e
-    });
-
-    if (e === 1) {
-      this.setState({
-        selectedChip: 1,
-        coinval: 1
-      });
-    }
-
-    if (e === 2) {
-      this.setState({
-        selectedChip: 10,
-        coinval: 10
-      });
-    }
-
-    if (e === 3) {
-      this.setState({
-        selectedChip: 100,
-        coinval: 100
-      });
-    }
-
-    if (e === 4) {
-      this.setState({
-        selectedChip: 1000,
-        coinval: 1000
-      });
-    }
-
-    if (e === 5) {
-      this.setState({
-        selectedChip: 10000,
-        coinval: 10000
-      });
-    }
-
-    if (e === 6) {
-      this.setState({
-        selectedChip: 100000,
-        coinval: 100000
-      });
-    }
-
-    if (e === 7) {
-      this.setState({
-        selectedChip: 1000000,
-        coinval: 1000000
-      });
-    }
-
-    if (e === 8) {
-      this.setState({
-        selectedChip: 10000000,
-        coinval: 10000000
-      });
-    }
-
-    if (e === 9) {
-      this.setState({
-        selectedChip: 100000000,
-        coinval: 100000000
-      });
-    }
-
-    if (e === 10) {
-      this.setState({
-        selectedChip: 1000000000,
-        coinval: 1000000000
-      });
-    }
-
-    if (e === 11) {
-      this.setState({
-        selectedChip: 10000000000,
-        coinval: 10000000000
-      });
-    }
-
-    if (e === 12) {
-      this.setState({
-        selectedChip: 100000000000,
-        coinval: 100000000000
-      });
-    }
-
-    if (e === 13) {
-      this.setState({
-        selectedChip: 1000000000000,
-        coinval: 1000000000000
-      });
-    }
-
-    console.log("testchipclick", e);
-  };
-
-  clearBaccaratState = () => {
-    const manualoldstate = { ...this.state.manual };
-
-    manualoldstate.manual_tab_bet_button = true;
-    this.setState({
-      manual: manualoldstate,
       onClickPlayerCoinValue: 0,
       onClickTieCoinValue: 0,
       onClickBankerCoinValue: 0,
-      selectedChip: 1,
-      coinval: 1,
+      selectedchipvalue: 1,
+      coinval:1,
       playerCoinChildren: 0,
       tieCoinChildren: 0,
       bankerCoinChildren: 0,
-      activesliderchips: 1,
+      activesliderchips:1,
       totalBetAmount: 0,
       playeramount: 0,
       tieamount: 0,
-      bankeramount: 0,
-      disableControls: false
+      bankeramount: 0
     });
   };
 
   handleChangeChip = chip => {
     this.setState({ selectedChip: chip });
+  };
+
+  handleBetResult = async () => {
+    this.setState({ resultCard: true });
+  };
+
+  handleBet = async () => {
+    await this.handleGenerateNumber();
+    await this.funcToDefineNewArray();
+    await this.FuncToGetWinner();
+    await this.startGame();
+    await this.handleBetResult();
+   
   };
 
   handleAnimation = async () => {
@@ -503,7 +416,9 @@ class DicePage extends Component {
       tieamount,
       bankeramount,
       notifyStatus,
-      winammount
+      winammount,
+      ResultText,
+      resultCard
     } = this.state;
 
     const playercoinchildren = [];
@@ -535,6 +450,8 @@ class DicePage extends Component {
         stateCard={{ ...this.state }}
         winAmount={winammount}
         handleBet={this.handleBet}
+        getResultText={ResultText}
+        resultCard={resultCard}
       />
     );
   };
