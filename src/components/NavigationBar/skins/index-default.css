@@ -15,11 +15,15 @@
     padding: $spacing-8;
 
     .img{
-        width : 28px;
+        height : 22px;
     }
 
     .text{
         margin-left: $spacing-8;
+    }
+
+    .text-empty {
+        opacity: 0.8;
     }
 
     &:hover{
