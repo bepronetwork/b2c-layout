@@ -35,22 +35,3 @@
         padding: $spacing-4 $spacing-52;
     }
 }
-
-.button-kyc-container{
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.button-kyc{
-    height: 250px;
-    width: 300px;
-    display: flex;
-    align-items: center;
-    justify-content: space-around;
-    flex-direction: column;
-    padding-bottom: $spacing-20;
-    border-radius: 10px;
-    background-color: $primaryColor-8;
-}
