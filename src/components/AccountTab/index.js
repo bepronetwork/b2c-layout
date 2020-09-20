@@ -10,7 +10,9 @@ const defaultState = {
   username: "",
   email: "",
   clientId: "",
-  flowId: ""
+  flowId: "",
+  isKycAccountActive: false,
+  isKycActive: false
 };
 // const cache = new Cache({
 //   // Keep cached source failures for up to 7 days
@@ -27,20 +29,24 @@ class AccountTab extends React.Component {
 
   componentDidMount() {
     this.projectData(this.props);
-    this.getAppIntegration();
+    this.getAppIntegration(this.props);
   }
 
   componentWillReceiveProps(props) {
     this.projectData(props);
   }
 
-  getAppIntegration = () => {
+  getAppIntegration = props => {
+    const { profile } = props;
+
     const appInfo = Cache.getFromCache("appInfo");
     const kycIntegration = appInfo.integrations.kyc;
 
     this.setState({
       clientId: kycIntegration.clientId,
-      flowId: kycIntegration.flowId
+      flowId: kycIntegration.flowId,
+      isKycAccountActive:  profile.user.isActive,
+      isKycActive: kycIntegration.isActive
     });
   };
 
@@ -63,7 +69,15 @@ class AccountTab extends React.Component {
 
   render() {
     const { ln, onLogout } = this.props;
-    const { username, email, userId, clientId, flowId } = this.state;
+    const {
+      username,
+      email,
+      userId,
+      clientId,
+      flowId,
+      isKycAccountActive,
+      isKycActive
+    } = this.state;
     const copy = CopyText.registerFormIndex[ln];
     const copyLogout = CopyText.userMenuIndex[ln];
     const skin = getAppCustomization().skin.skin_type;
@@ -106,22 +120,30 @@ class AccountTab extends React.Component {
             </Typography>
           </div>
         </div>
-        <div styleName="button-kyc-container">
-          <div styleName="button-kyc">
-            <Typography variant="x-small-body" color="white">
-              Seems like we have to know a bit more about you, please do your
-              KYC to enable withdraws
-            </Typography>
-            <div>
-              <mati-button
-                clientid={clientId}
-                flowId={flowId}
-                metadata={{ user_id: userId }}
-              />
+        {isKycActive === false ? null : (
+          <div styleName="field">
+            <div styleName="label">
+              <Typography variant="small-body" color="white">
+                {copy.INDEX.INPUT_TEXT.LABEL[5]}
+              </Typography>
+            </div>
+            <div styleName="value">
+              {isKycAccountActive ? (
+                <Typography variant="small-body" color="green">
+                  {copy.INDEX.TYPOGRAPHY.TEXT[1]}
+                </Typography>
+              ) : (
+                <div>
+                  <mati-button
+                    clientid={clientId}
+                    flowId={flowId}
+                    metadata={{ user_id: userId }}
+                  />
+                </div>
+              )}
             </div>
           </div>
-        </div>
-
+        )}
         <div styleName="button" onClick={onLogout}>
           <Button size="x-small" theme="primary">
             <Typography
