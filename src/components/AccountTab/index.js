@@ -106,7 +106,7 @@ class AccountTab extends React.Component {
             </Typography>
           </div>
         </div>
-        <div styleName="button-container">
+        <div styleName="button-kyc-container">
           <div styleName="button-kyc">
             <Typography variant="x-small-body" color="white">
               Seems like we have to know a bit more about you, please do your
