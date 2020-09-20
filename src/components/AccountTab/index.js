@@ -67,10 +67,6 @@ class AccountTab extends React.Component {
     const copy = CopyText.registerFormIndex[ln];
     const copyLogout = CopyText.userMenuIndex[ln];
     const skin = getAppCustomization().skin.skin_type;
-    console.log("OLHA AQUI " + flowId)
-
-    console.log(`FLOW${flowId}`);
-    console.log(`CLIENT${clientId}`);
 
     return (
       <div styleName="box">

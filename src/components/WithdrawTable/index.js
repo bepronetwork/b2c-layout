@@ -1,7 +1,7 @@
 import React, { Component } from "react";
-import { WithdrawIcon, Typography, Table, Button } from "components";
+import { WithdrawIcon, Typography, Table } from "components";
 import { connect } from "react-redux";
-import _, { flow } from "lodash";
+import _ from "lodash";
 
 import Cache from "../../lib/cache/cache";
 import { dateToHourAndMinute, isUserSet } from "../../lib/helpers";
