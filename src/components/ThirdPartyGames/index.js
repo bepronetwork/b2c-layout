@@ -50,18 +50,23 @@ class ThirdPartyGames extends Component {
             const provider = p.name;
             const partnerId = p.partner_id;
 
-            p.list.games.map( g => { 
-                const icon = url + g.icon;
-                const game = {
-                    id: g.id,
-                    url,
-                    partnerId,
-                    provider,
-                    icon,
-                    title: g.title
-                }
-                gameList.push(game);
-            });
+            if(typeof p.list.games != "undefined") {
+                p.list.games.map( g => { 
+                    const icon = url + g.icon;
+                    const game = {
+                        id: g.id,
+                        url,
+                        partnerId,
+                        provider,
+                        icon,
+                        title: g.title
+                    }
+                    gameList.push(game);
+                });
+            }
+            else {
+                this.setState({ isLoading: false, isLoadingGames: false });
+            }
         });
 
         this.setState({ games: gameList, total: gameList.length });
