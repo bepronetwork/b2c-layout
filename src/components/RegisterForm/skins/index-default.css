@@ -34,13 +34,24 @@
 
 .agree {
   display: inline-flex;
-  align-items: flex-end;
   border-radius: $border-radius;
   margin-top: $spacing-12;
+  width: 100%;
 }
 
 .agree-right {
   margin: auto; 
   margin-left: $spacing-8;
   opacity: 0.5;
+
+  a {
+    color: $secondaryColor;
+    text-decoration: underline !important;
+  }
+}
+
+.agree-main {
+  display: inline-flex;
+  align-items: center;
+  margin: auto;
 }
