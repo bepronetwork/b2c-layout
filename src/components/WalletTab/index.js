@@ -22,9 +22,8 @@ const defaultState = {
     isConfirmationSent: false,
     clientId: "",
     flowId: "",
-    isKycAccountActive: false,
-    onClose: false,
-    blurActive: false
+    isKycAccountActive: null,
+    onClose: false
 }
 
 class WalletTab extends React.Component{
@@ -52,19 +51,6 @@ class WalletTab extends React.Component{
         this.setState({ onClose: true, tab: "deposit" });
     }
 
-    handleBlur = () => {
-        const { isEmailConfirmed, isKycAccountActive, blurActive } = this.state;
-
-        switch(blurActive){
-            case isEmailConfirmed === false:
-                return this.setState({ blurActive: true })
-            case isKycAccountActive === true:
-                return this.setState({ blurActive: true })
-            default: 
-                break;
-        }
-    }
-
     projectData = async (props) => {
         const { profile } = this.props;
 
@@ -80,7 +66,7 @@ class WalletTab extends React.Component{
 
         const userId = profile.getID();
         const isKycAccountActive = await profile.isKycConfirmed();
-        console.log(getApp());
+
         this.setState({
             ...this.state,
             clientId: kycIntegration.clientId,
@@ -92,7 +78,6 @@ class WalletTab extends React.Component{
             virtual: getApp().virtual,
             isEmailConfirmed: await user.isEmailConfirmed()
         });
-        this.handleBlur();
     }
 
     handleTabChange = name => {
@@ -170,7 +155,6 @@ class WalletTab extends React.Component{
                             
                             </div>
                             }
-
                     <div styleName="email-content">
                         <div styleName="email-text">
                             <Typography variant={'x-small-body'} color={'white'}>
@@ -196,7 +180,7 @@ class WalletTab extends React.Component{
                                             </Typography>
                                         </Button>
                                     :
-                                    <div>
+                                    <div styleName="button">
                                         <mati-button
                                             clientid={clientId}
                                             flowId={flowId}
@@ -213,14 +197,15 @@ class WalletTab extends React.Component{
 
     render(){
         const { ln, isCurrentPath } = this.props;
-        const { tab, wallets, wallet, virtual, isEmailConfirmed, isKycAccountActive, blurActive } = this.state;
+        const { tab, wallets, wallet, virtual, isEmailConfirmed, isKycAccountActive} = this.state;
         const copy = CopyText.cashierFormIndex[ln];
 
         if(!wallet) { return null };
 
         return (
             <div>
-                <Row styleName={blurActive === true ? "blur" : null}>
+                <div styleName={isKycAccountActive === true && tab === "withdraw" ? "blurWithdraw" : null} />
+                <Row styleName={isEmailConfirmed === false ? "blur" : null}>
                     <Col md={12} lg={12} xl={4}>
                         <div>
                             {wallets.map( w => {
