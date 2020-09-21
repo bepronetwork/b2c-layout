@@ -40,8 +40,6 @@ class WalletTab extends React.Component {
     if (isCurrentPath) {
       this.projectData(this.props);
     }
-
-    console.log(getApp());
   }
 
   componentWillReceiveProps(props) {
@@ -84,6 +82,11 @@ class WalletTab extends React.Component {
     this.setState({ tab: name });
   };
 
+  consoleLog = () => {
+      const {wallets } = this.state;
+    console.log(wallets);
+  }
+
   handleOpenMoonpay = () => {
     this.setState({ onOpenMoonpay: true });
   };
@@ -93,14 +96,12 @@ class WalletTab extends React.Component {
   };
 
   handleMoonpay = () => {
-    const { profile } = this.props;
+    const { profile, currency } = this.props;
     const userEmail = profile.user.email;
     const userId = profile.user.id;
-    const skin = getAppCustomization().skin.skin_type;
 
     const resultMoonpay = getApp().integrations.moonpay;
-
-    console.log(getApp());
+    const resultWalletAddress = profile.getWallet({ currency }).currency.address;
 
     return (
       <div>
@@ -115,7 +116,7 @@ class WalletTab extends React.Component {
               styleName="bg-moonpay-box"
               allow="accelerometer; autoplay; camera; gyroscope; payment"
               frameBorder="0"
-              src={`https://buy-staging.moonpay.io?apiKey=${resultMoonpay.key}&currencyCode=eth&walletAddress=&colorCode=%239898F0&email=${userEmail}&externalCustomerId=${userId}`}
+              src={`https://buy-staging.moonpay.io?apiKey=${resultMoonpay.key}&currencyCode=eth&walletAddress=${resultWalletAddress}&colorCode=%239898F0&email=${userEmail}&externalCustomerId=${userId}`}
             >
               <p>Your browser does not support iframes.</p>
             </iframe>
@@ -333,7 +334,8 @@ class WalletTab extends React.Component {
 function mapStateToProps(state) {
   return {
     profile: state.profile,
-    ln: state.language
+    ln: state.language,
+    currency: state.currency
   };
 }
 
