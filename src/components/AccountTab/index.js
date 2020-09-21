@@ -72,7 +72,7 @@ class AccountTab extends React.Component {
       userId,
       clientId,
       flowId,
-      isKycAccountActive,
+      isKycAccountActive
     } = this.state;
     const copy = CopyText.registerFormIndex[ln];
     const copyLogout = CopyText.userMenuIndex[ln];
@@ -116,30 +116,28 @@ class AccountTab extends React.Component {
             </Typography>
           </div>
         </div>
-        {isKycAccountActive === false ? null : (
-          <div styleName="field">
-            <div styleName="label">
-              <Typography variant="small-body" color="white">
-                {copy.INDEX.INPUT_TEXT.LABEL[5]}
-              </Typography>
-            </div>
-            <div styleName="value">
-              {isKycAccountActive ? (
-                <Typography variant="small-body" color="green">
-                  {copy.INDEX.TYPOGRAPHY.TEXT[1]}
-                </Typography>
-              ) : (
-                <div>
-                  <mati-button
-                    clientid={clientId}
-                    flowId={flowId}
-                    metadata={{ user_id: userId }}
-                  />
-                </div>
-              )}
-            </div>
+        <div styleName="field">
+          <div styleName="label">
+            <Typography variant="small-body" color="white">
+              {copy.INDEX.INPUT_TEXT.LABEL[5]}
+            </Typography>
           </div>
-        )}
+          <div styleName="value">
+            {isKycAccountActive === false ? (
+              <Typography variant="small-body" color="green">
+                {copy.INDEX.TYPOGRAPHY.TEXT[1]}
+              </Typography>
+            ) : (
+              <div>
+                <mati-button
+                  clientid={clientId}
+                  flowId={flowId}
+                  metadata={{ user_id: userId }}
+                />
+              </div>
+            )}
+          </div>
+        </div>
         <div styleName="button" onClick={onLogout}>
           <Button size="x-small" theme="primary">
             <Typography
