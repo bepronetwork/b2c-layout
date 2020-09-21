@@ -278,6 +278,8 @@
 }
 
 .modal-login {
+  min-height: 600px;
+
   .tabs {
     width: 100%;
   }
