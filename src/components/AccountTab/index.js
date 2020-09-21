@@ -38,14 +38,13 @@ class AccountTab extends React.Component {
 
   getAppIntegration = props => {
     const { profile } = props;
-
     const appInfo = Cache.getFromCache("appInfo");
     const kycIntegration = appInfo.integrations.kyc;
 
     this.setState({
       clientId: kycIntegration.clientId,
       flowId: kycIntegration.flowId,
-      isKycAccountActive:  profile.user.isActive,
+      isKycAccountActive: profile.user.user.security.key_needed,
       isKycActive: kycIntegration.isActive
     });
   };

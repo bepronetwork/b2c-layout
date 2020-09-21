@@ -58,7 +58,7 @@ class WalletTab extends React.Component{
         this.setState({
           clientId: kycIntegration.clientId,
           flowId: kycIntegration.flowId,
-          isKycAccountActive: profile.user.isActive,
+          isKycAccountActive: profile.user.user.security.key_needed,
           isKycActive:  kycIntegration.isActive
         });
       };
