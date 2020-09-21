@@ -11,8 +11,7 @@ const defaultState = {
   email: "",
   clientId: "",
   flowId: "",
-  isKycAccountActive: false,
-  isKycActive: false
+  isKycAccountActive: false
 };
 // const cache = new Cache({
 //   // Keep cached source failures for up to 7 days
@@ -29,32 +28,22 @@ class AccountTab extends React.Component {
 
   componentDidMount() {
     this.projectData(this.props);
-    this.getAppIntegration(this.props);
   }
 
   componentWillReceiveProps(props) {
     this.projectData(props);
   }
 
-  getAppIntegration = props => {
+  projectData = async props => {
     const { profile } = props;
     const appInfo = Cache.getFromCache("appInfo");
-    const kycIntegration = appInfo.integrations.kyc;
-
-    this.setState({
-      clientId: kycIntegration.clientId,
-      flowId: kycIntegration.flowId,
-      isKycAccountActive: profile.user.user.security.key_needed,
-      isKycActive: kycIntegration.isActive
-    });
-  };
-
-  projectData = props => {
-    const { profile } = props;
 
     if (!isUserSet(profile)) {
       return null;
     }
+
+    const kycIntegration = appInfo.integrations.kyc;
+    const isKycAccountActive = await profile.isKycConfirmed();
 
     const userId = profile.getID();
     const username = profile.getUsername();
@@ -63,7 +52,16 @@ class AccountTab extends React.Component {
       : profile.user.user.email;
     const avatar = null;
 
-    this.setState({ ...this.state, userId, username, avatar, email });
+    this.setState({
+      ...this.state,
+      userId,
+      username,
+      avatar,
+      email,
+      clientId: kycIntegration.clientId,
+      flowId: kycIntegration.flowId,
+      isKycAccountActive
+    });
   };
 
   render() {
@@ -75,7 +73,6 @@ class AccountTab extends React.Component {
       clientId,
       flowId,
       isKycAccountActive,
-      isKycActive
     } = this.state;
     const copy = CopyText.registerFormIndex[ln];
     const copyLogout = CopyText.userMenuIndex[ln];
@@ -119,7 +116,7 @@ class AccountTab extends React.Component {
             </Typography>
           </div>
         </div>
-        {isKycActive === false ? null : (
+        {isKycAccountActive === false ? null : (
           <div styleName="field">
             <div styleName="label">
               <Typography variant="small-body" color="white">

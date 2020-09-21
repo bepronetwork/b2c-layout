@@ -23,8 +23,8 @@ const defaultState = {
     clientId: "",
     flowId: "",
     isKycAccountActive: false,
-    isKycActive: false,
-    onClose: false
+    onClose: false,
+    blurActive: false
 }
 
 class WalletTab extends React.Component{
@@ -33,14 +33,12 @@ class WalletTab extends React.Component{
         this.state = defaultState;
     }
 
-    componentDidMount(){
+    async componentDidMount(){
         const { isCurrentPath } = this.props;
 
         if (isCurrentPath) {
             this.projectData(this.props);
         }
-
-        this.getAppIntegration(this.props);
     }
 
     componentWillReceiveProps(props){
@@ -50,25 +48,27 @@ class WalletTab extends React.Component{
         }
     }
 
-    getAppIntegration = props => {
-        const { profile } = props;
-        const appInfo = Cache.getFromCache("appInfo");
-        const kycIntegration = appInfo.integrations.kyc;
-  
-        this.setState({
-          clientId: kycIntegration.clientId,
-          flowId: kycIntegration.flowId,
-          isKycAccountActive: profile.user.user.security.key_needed,
-          isKycActive:  kycIntegration.isActive
-        });
-      };
-
-      onCloseTab = () => {
+    onCloseTab = () => {
         this.setState({ onClose: true, tab: "deposit" });
-      }
+    }
+
+    handleBlur = () => {
+        const { isEmailConfirmed, isKycAccountActive, blurActive } = this.state;
+
+        switch(blurActive){
+            case isEmailConfirmed === false:
+                return this.setState({ blurActive: true })
+            case isKycAccountActive === true:
+                return this.setState({ blurActive: true })
+            default: 
+                break;
+        }
+    }
 
     projectData = async (props) => {
         const { profile } = this.props;
+
+        const kycIntegration = getApp().integrations.kyc;
         let { wallet } = this.state;
         var user = !_.isEmpty(props.profile) ? props.profile : null;
         const virtual = getApp().virtual;
@@ -79,14 +79,20 @@ class WalletTab extends React.Component{
         }
 
         const userId = profile.getID();
-
-        this.setState({...this.state,
+        const isKycAccountActive = await profile.isKycConfirmed();
+        console.log(getApp());
+        this.setState({
+            ...this.state,
+            clientId: kycIntegration.clientId,
+            flowId: kycIntegration.flowId,
+            isKycAccountActive,
             userId,
             wallets,
             wallet,
-            virtual : getApp().virtual,
+            virtual: getApp().virtual,
             isEmailConfirmed: await user.isEmailConfirmed()
         });
+        this.handleBlur();
     }
 
     handleTabChange = name => {
@@ -131,13 +137,11 @@ class WalletTab extends React.Component{
 
     renderPopSendAlert = tab => {
         const { ln } = this.props;
-        const { isEmailConfirmed, isConfirmationSent, clientId, flowId, userId, isKycAccountActive } = this.state;
+        const { isConfirmationSent, clientId, flowId, userId } = this.state;
         const copyConfirmEmail = CopyText.homepage[ln];
         const skin = getAppCustomization().skin.skin_type;
 
         return(
-            isEmailConfirmed === false || isKycAccountActive === false
-            ?
                 <div styleName="email-confirmation">
                     {
                         tab === "deposit" ?
@@ -204,21 +208,19 @@ class WalletTab extends React.Component{
                         </div>
                     </div>
                 </div>
-            :
-                null  
         )
     }
 
     render(){
         const { ln, isCurrentPath } = this.props;
-        const { tab, wallets, wallet, virtual, isEmailConfirmed, isKycAccountActive } = this.state;
+        const { tab, wallets, wallet, virtual, isEmailConfirmed, isKycAccountActive, blurActive } = this.state;
         const copy = CopyText.cashierFormIndex[ln];
 
         if(!wallet) { return null };
 
         return (
             <div>
-                <Row styleName={isEmailConfirmed === false || isKycAccountActive === false ? "blur" : null}>
+                <Row styleName={blurActive === true ? "blur" : null}>
                     <Col md={12} lg={12} xl={4}>
                         <div>
                             {wallets.map( w => {
@@ -269,8 +271,8 @@ class WalletTab extends React.Component{
                         }
                     </Col>
                 </Row>
-                {tab === "deposit" ? this.renderPopSendAlert("deposit") : null}
-                {tab === "withdraw" ? this.renderPopSendAlert("withdraw") : null}
+                {isEmailConfirmed === false ? tab === "deposit" ? this.renderPopSendAlert("deposit") : null : null}
+                {isKycAccountActive === true ? tab === "withdraw" ? this.renderPopSendAlert("withdraw") : null : null}
             </div>
         )
     }
