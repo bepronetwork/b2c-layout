@@ -12,6 +12,7 @@ import DiamondSound from "assets/DiamondIcons/sound/diamond.mp3";
 import DiamondResult from "assets/DiamondIcons/sound/result.mp3";
 import images from "../../components/DiamondGame/images";
 import Cache from "../../lib/cache/cache";
+import { getAppCustomization } from "../../lib/helpers";
 
 class DiamondPage extends Component {
   static contextType = UserContext;
@@ -50,7 +51,9 @@ class DiamondPage extends Component {
     sound: false,
     soundResult: false,
     resultSpace: [],
-    isDisable: true
+    isDisable: true,
+    primaryColor: null,
+    secondaryColor: null
   };
 
   componentDidMount() {
@@ -58,10 +61,30 @@ class DiamondPage extends Component {
     this.setState({
       isHover6: true
     });
+    this.getColors();
   }
 
   setSound = async value => {
     this.setState({ sound: value });
+  };
+
+  getColors = () => {
+    const { colors } = getAppCustomization();
+
+    const primaryColor = colors.find(color => {
+      return color.type === "primaryColor";
+    });
+
+    const secondaryColor = colors.find(color => {
+      return color.type === "secondaryColor";
+    });
+
+    console.log(colors)
+
+    this.setState({
+      primaryColor: primaryColor.hex,
+      secondaryColor: secondaryColor.hex
+    });
   };
 
   handleAnimations = async idIcon => {
@@ -614,7 +637,9 @@ class DiamondPage extends Component {
       sound,
       soundResult,
       resultWinAmount,
-      resultSpace
+      resultSpace,
+      primaryColor,
+      secondaryColor
     } = this.state;
 
     return (
@@ -645,6 +670,8 @@ class DiamondPage extends Component {
           isVisible5={isVisible5}
           profitAmount={resultWinAmount}
           resultSpace={resultSpace}
+          primaryColor={primaryColor}
+          secondaryColor={secondaryColor}
         />
       </>
     );
