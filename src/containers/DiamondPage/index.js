@@ -79,8 +79,6 @@ class DiamondPage extends Component {
       return color.type === "secondaryColor";
     });
 
-    console.log(colors)
-
     this.setState({
       primaryColor: primaryColor.hex,
       secondaryColor: secondaryColor.hex
