@@ -32,6 +32,7 @@ class WalletTab extends React.Component{
         if (isCurrentPath) {
             this.projectData(this.props);
         }
+        console.log(getApp());
     }
 
     componentWillReceiveProps(props){
@@ -63,6 +64,18 @@ class WalletTab extends React.Component{
     handleTabChange = name => {
         this.setState({ tab: name });
     };
+
+    handleMoonpay = () => {
+        const resultMoonpay = getApp().integrations.moonpay;
+
+        window.moonpayWidget.initialize({
+            apiKey: resultMoonpay.key,
+            colorCode: '#f36a3d',
+            cryptoCurrencies: ['eth'],
+            fiatCurrencies: ['usd'],
+            selector: '#moonpay_widget',
+          });
+    }
 
     changeWallet = async (wallet) => {
         this.setState({ wallet });
@@ -145,7 +158,7 @@ class WalletTab extends React.Component{
         const { ln, isCurrentPath } = this.props;
         const { tab, wallets, wallet, virtual, isEmailConfirmed } = this.state;
         const copy = CopyText.cashierFormIndex[ln];
-
+        const skin = getAppCustomization().skin.skin_type;
         if(!wallet) { return null };
 
         return (
@@ -187,7 +200,17 @@ class WalletTab extends React.Component{
                         isEmailConfirmed === true
                         ?
                             tab === "deposit" ? 
-                                <div><DepositForm  wallet={wallet} onAddress={this.handleAddress}/> <DepositList isCurrentPath={isCurrentPath} /></div> 
+                            <>
+                                <div>
+                                    <DepositForm  wallet={wallet} onAddress={this.handleAddress}/>
+                                    <DepositList isCurrentPath={isCurrentPath} />
+                                </div> 
+                                <div styleName="button">
+                                    <Button size={'x-small'} theme={'action'} onClick={this.handleMoonpay}>
+                                        <Typography color={skin == "digital" ? 'secondary' : 'fixedwhite'} variant={'small-body'}>{"Buy with creditcard"}</Typography>
+                                    </Button>
+                                </div>
+                            </>
                             : 
                                 <div><WithdrawForm wallet={wallet} onAddress={this.handleAddress}/> <WithdrawList isCurrentPath={isCurrentPath} /></div>
                         :
