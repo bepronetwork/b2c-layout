@@ -8,7 +8,7 @@ import {
   Button,
   EmailIcon
 } from "components";
-import { Col, Row } from "reactstrap";
+import { Col, Row, CarouselControl } from "reactstrap";
 import _ from "lodash";
 import PaymentBox from "../PaymentBox";
 import DepositList from "./DepositList";
@@ -25,7 +25,8 @@ const defaultState = {
   wallet: null,
   isEmailConfirmed: false,
   isConfirmationSent: false,
-  onOpenMoonpay: false
+  onOpenMoonpay: false,
+  colorHexCode: null
 };
 
 class WalletTab extends React.Component {
@@ -69,8 +70,15 @@ class WalletTab extends React.Component {
       wallet = wallets.find(w => w.currency.virtual === false);
     }
 
+    const { colors } = getAppCustomization();
+
+    const primaryColor = colors.find(color => {
+      return color.type === "primaryColor";
+    });
+
     this.setState({
       ...this.state,
+      colorHexCode: primaryColor.hex,
       wallets,
       wallet,
       virtual: getApp().virtual,
@@ -82,11 +90,6 @@ class WalletTab extends React.Component {
     this.setState({ tab: name });
   };
 
-  consoleLog = () => {
-      const {wallets } = this.state;
-    console.log(wallets);
-  }
-
   handleOpenMoonpay = () => {
     this.setState({ onOpenMoonpay: true });
   };
@@ -97,17 +100,22 @@ class WalletTab extends React.Component {
 
   handleMoonpay = () => {
     const { profile, currency } = this.props;
-    const userEmail = profile.user.email;
+    const { colorHexCode } = this.state;
+    const userEmail = profile.user.user.email;
     const userId = profile.user.id;
-
     const resultMoonpay = getApp().integrations.moonpay;
-    const resultWalletAddress = profile.getWallet({ currency }).currency.address;
+    const resultWalletAddress = profile.getWallet({ currency }).currency
+      .address;
 
     return (
       <div>
         <div styleName="bg-cnt">
           <div styleName="bg-cnt-2">
-            <button onClick={() => this.handleOpenMoonpayFalse()} type="button" styleName="button-x">
+            <button
+              onClick={() => this.handleOpenMoonpayFalse()}
+              type="button"
+              styleName="button-x"
+            >
               <Typography color="secondary" variant="h2">
                 X
               </Typography>
@@ -116,7 +124,7 @@ class WalletTab extends React.Component {
               styleName="bg-moonpay-box"
               allow="accelerometer; autoplay; camera; gyroscope; payment"
               frameBorder="0"
-              src={`https://buy-staging.moonpay.io?apiKey=${resultMoonpay.key}&currencyCode=eth&walletAddress=${resultWalletAddress}&colorCode=%239898F0&email=${userEmail}&externalCustomerId=${userId}`}
+              src={`https://buy-staging.moonpay.io?apiKey=${resultMoonpay.key}&currencyCode=eth&walletAddress=${resultWalletAddress}&colorCode=%23${colorHexCode.slice(1, 7)}&email=${userEmail}&externalCustomerId=${userId}`}
             >
               <p>Your browser does not support iframes.</p>
             </iframe>
