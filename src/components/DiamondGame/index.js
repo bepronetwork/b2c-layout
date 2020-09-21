@@ -57,23 +57,23 @@ class DiamondGame extends Component {
               >
                 <div>
                   <DiamondFill
-                    color={isHover ? "white" : `${primaryColor}`}
+                    color={isHover ? "white" : `${secondaryColor}`}
                     width="18%"
                   />
                   <DiamondFill
-                    color={isHover ? "white" : `${primaryColor}`}
+                    color={isHover ? "white" : `${secondaryColor}`}
                     width="18%"
                   />
                   <DiamondFill
-                    color={isHover ? "white" : `${primaryColor}`}
+                    color={isHover ? "white" : `${secondaryColor}`}
                     width="18%"
                   />
                   <DiamondFill
-                    color={isHover ? "white" : `${primaryColor}`}
+                    color={isHover ? "white" : `${secondaryColor}`}
                     width="18%"
                   />
                   <DiamondFill
-                    color={isHover ? "white" : `${primaryColor}`}
+                    color={isHover ? "white" : `${secondaryColor}`}
                     width="18%"
                   />
                 </div>
@@ -89,19 +89,19 @@ class DiamondGame extends Component {
               >
                 <div>
                   <DiamondFill
-                    color={isHover1 ? "white" : `${primaryColor}`}
+                    color={isHover1 ? "white" : `${secondaryColor}`}
                     width="18%"
                   />
                   <DiamondFill
-                    color={isHover1 ? "white" : `${primaryColor}`}
+                    color={isHover1 ? "white" : `${secondaryColor}`}
                     width="18%"
                   />
                   <DiamondFill
-                    color={isHover1 ? "white" : `${primaryColor}`}
+                    color={isHover1 ? "white" : `${secondaryColor}`}
                     width="18%"
                   />
                   <DiamondFill
-                    color={isHover1 ? "white" : `${primaryColor}`}
+                    color={isHover1 ? "white" : `${secondaryColor}`}
                     width="18%"
                   />
                   <Diamond color={`${secondaryColor}`} width="18%" />
@@ -119,23 +119,25 @@ class DiamondGame extends Component {
               >
                 <div>
                   <DiamondFill
-                    color={isHover2 ? "white" : `${primaryColor}`}
+                    color={isHover2 ? "white" : `${secondaryColor}`}
                     width="18%"
                   />
                   <DiamondFill
-                    color={isHover2 ? "white" : `${primaryColor}`}
+                    color={isHover2 ? "white" : `${secondaryColor}`}
                     width="18%"
                   />
                   <DiamondFill
-                    color={isHover2 ? "white" : `${primaryColor}`}
-                    width="18%"
-                  />
-                  <DiamondWithBorder
                     color={isHover2 ? "white" : `${secondaryColor}`}
                     width="18%"
                   />
                   <DiamondWithBorder
                     color={isHover2 ? "white" : `${secondaryColor}`}
+                    backgroudColor={`${primaryColor}`}
+                    width="18%"
+                  />
+                  <DiamondWithBorder
+                    color={isHover2 ? "white" : `${secondaryColor}`}
+                    backgroudColor={`${primaryColor}`}
                     width="18%"
                   />
                 </div>
@@ -153,19 +155,19 @@ class DiamondGame extends Component {
               >
                 <div>
                   <DiamondFill
-                    color={isHover3 ? "white" : `${primaryColor}`}
+                    color={isHover3 ? "white" : `${secondaryColor}`}
                     width="18%"
                   />
                   <DiamondFill
-                    color={isHover3 ? "white" : `${primaryColor}`}
+                    color={isHover3 ? "white" : `${secondaryColor}`}
                     width="18%"
                   />
                   <DiamondFill
-                    color={isHover3 ? "white" : `${primaryColor}`}
+                    color={isHover3 ? "white" : `${secondaryColor}`}
                     width="18%"
                   />
-                  <Diamond color={`${secondaryColor}`} width="18%" />
-                  <Diamond color={`${secondaryColor}`} width="18%" />
+                  <Diamond color={`${primaryColor}`} width="18%" />
+                  <Diamond color={`${primaryColor}`} width="18%" />
                 </div>
 
                 <p styleName="text-result">
@@ -180,22 +182,24 @@ class DiamondGame extends Component {
               >
                 <div>
                   <DiamondFill
-                    color={isHover4 ? "white" : `${primaryColor}`}
+                    color={isHover4 ? "white" : `${secondaryColor}`}
                     width="18%"
                   />
                   <DiamondFill
-                    color={isHover4 ? "white" : `${primaryColor}`}
-                    width="18%"
-                  />
-                  <DiamondWithBorder
                     color={isHover4 ? "white" : `${secondaryColor}`}
                     width="18%"
                   />
                   <DiamondWithBorder
                     color={isHover4 ? "white" : `${secondaryColor}`}
+                    backgroudColor={`${primaryColor}`}
                     width="18%"
                   />
-                  <Diamond color={`${secondaryColor}`} width="18%" />
+                  <DiamondWithBorder
+                    color={isHover4 ? "white" : `${secondaryColor}`}
+                    backgroudColor={`${primaryColor}`}
+                    width="18%"
+                  />
+                  <Diamond color={`${primaryColor}`} width="18%" />
                 </div>
 
                 <p styleName="text-result">
@@ -210,16 +214,16 @@ class DiamondGame extends Component {
               >
                 <div>
                   <DiamondFill
-                    color={isHover5 ? "white" : `${primaryColor}`}
+                    color={isHover5 ? "white" : `${secondaryColor}`}
                     width="18%"
                   />
                   <DiamondFill
-                    color={isHover5 ? "white" : `${primaryColor}`}
+                    color={isHover5 ? "white" : `${secondaryColor}`}
                     width="18%"
                   />
-                  <Diamond color={`${secondaryColor}`} width="18%" />
-                  <Diamond color={`${secondaryColor}`} width="18%" />
-                  <Diamond color={`${secondaryColor}`} width="18%" />
+                  <Diamond color={`${primaryColor}`} width="18%" />
+                  <Diamond color={`${primaryColor}`} width="18%" />
+                  <Diamond color={`${primaryColor}`} width="18%" />
                 </div>
 
                 <p styleName="text-result">
@@ -234,11 +238,11 @@ class DiamondGame extends Component {
               onMouseEnter={handleMouseEnter6}
             >
               <div>
-                <Diamond color={`${secondaryColor}`} width="18%" />
-                <Diamond color={`${secondaryColor}`} width="18%" />
-                <Diamond color={`${secondaryColor}`} width="18%" />
-                <Diamond color={`${secondaryColor}`} width="18%" />
-                <Diamond color={`${secondaryColor}`} width="18%" />
+                <Diamond color={`${primaryColor}`} width="18%" />
+                <Diamond color={`${primaryColor}`} width="18%" />
+                <Diamond color={`${primaryColor}`} width="18%" />
+                <Diamond color={`${primaryColor}`} width="18%" />
+                <Diamond color={`${primaryColor}`} width="18%" />
               </div>
               <p styleName="text-result">
                 {`${resultSpace[0].multiplier.toFixed(2)}x`}
