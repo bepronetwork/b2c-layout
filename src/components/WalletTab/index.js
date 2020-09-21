@@ -1,6 +1,8 @@
 import React from "react";
 import { connect } from "react-redux";
 import { Tabs, DepositForm, WithdrawForm, Typography, Button, EmailIcon } from "components";
+
+import Cache from "../../lib/cache/cache";
 import PaymentBox from "../PaymentBox";
 import DepositList from "./DepositList";
 import WithdrawList from "./WithdrawList";
@@ -17,7 +19,12 @@ const defaultState = {
     wallets : [],
     wallet: null,
     isEmailConfirmed: false,
-    isConfirmationSent: false
+    isConfirmationSent: false,
+    clientId: "",
+    flowId: "",
+    isKycAccountActive: false,
+    onClose: false,
+    blurActive: false
 }
 
 class WalletTab extends React.Component{
@@ -26,7 +33,7 @@ class WalletTab extends React.Component{
         this.state = defaultState;
     }
 
-    componentDidMount(){
+    async componentDidMount(){
         const { isCurrentPath } = this.props;
 
         if (isCurrentPath) {
@@ -41,8 +48,27 @@ class WalletTab extends React.Component{
         }
     }
 
+    onCloseTab = () => {
+        this.setState({ onClose: true, tab: "deposit" });
+    }
+
+    handleBlur = () => {
+        const { isEmailConfirmed, isKycAccountActive, blurActive } = this.state;
+
+        switch(blurActive){
+            case isEmailConfirmed === false:
+                return this.setState({ blurActive: true })
+            case isKycAccountActive === true:
+                return this.setState({ blurActive: true })
+            default: 
+                break;
+        }
+    }
+
     projectData = async (props) => {
         const { profile } = this.props;
+
+        const kycIntegration = getApp().integrations.kyc;
         let { wallet } = this.state;
         var user = !_.isEmpty(props.profile) ? props.profile : null;
         const virtual = getApp().virtual;
@@ -52,12 +78,21 @@ class WalletTab extends React.Component{
             wallet = wallets.find(w => w.currency.virtual === false);
         }
 
-        this.setState({...this.state,
+        const userId = profile.getID();
+        const isKycAccountActive = await profile.isKycConfirmed();
+        console.log(getApp());
+        this.setState({
+            ...this.state,
+            clientId: kycIntegration.clientId,
+            flowId: kycIntegration.flowId,
+            isKycAccountActive,
+            userId,
             wallets,
             wallet,
-            virtual : getApp().virtual,
+            virtual: getApp().virtual,
             isEmailConfirmed: await user.isEmailConfirmed()
         });
+        this.handleBlur();
     }
 
     handleTabChange = name => {
@@ -100,57 +135,92 @@ class WalletTab extends React.Component{
 
     };
 
-    renderPopSendEmailAlert = () => {
+    renderPopSendAlert = tab => {
         const { ln } = this.props;
-        const { isEmailConfirmed, isConfirmationSent } = this.state;
+        const { isConfirmationSent, clientId, flowId, userId } = this.state;
         const copyConfirmEmail = CopyText.homepage[ln];
         const skin = getAppCustomization().skin.skin_type;
 
         return(
-            isEmailConfirmed === false
-            ?
                 <div styleName="email-confirmation">
-                    <div styleName="email-title">
-                        <span styleName="icon">
-                            <EmailIcon/>
-                        </span>
-                        <Typography variant={'small-body'} color={'grey'} weight={"bold"}>
-                            {copyConfirmEmail.CONTAINERS.APP.MODAL[2]}
-                        </Typography>
-                    </div>
+                    {
+                        tab === "deposit" ?
+                            <div styleName="email-title">
+                                <span styleName="icon">
+                                    <EmailIcon/>
+                                </span>
+                                <Typography variant={'small-body'} color={'grey'} weight={"bold"}>
+                                    {copyConfirmEmail.CONTAINERS.APP.MODAL[2]}
+                                </Typography>
+                            </div>
+                            :
+                            <div styleName="container-direction">
+                                <div styleName="center-text">
+                                    <Typography variant={'small-body'} color={'grey'} weight={"bold"}>
+                                        {"Confirm KYC"}
+                                    </Typography>
+                                </div>
+                                <div styleName="container-end">
+                                    <button styleName="close-button" onClick={() => this.onCloseTab()}>
+                                        <Typography variant={'small-body'} color={'grey'} weight={"bold"}>
+                                            X
+                                        </Typography>
+                                    </button>
+                                </div>
+                            
+                            </div>
+                            }
+
                     <div styleName="email-content">
                         <div styleName="email-text">
                             <Typography variant={'x-small-body'} color={'white'}>
-                                Your e-mail is not confirmed.
+                               {tab === "deposit" ? " Your e-mail is not confirmed." : "Your KYC account are is not confirmed."}
                             </Typography>
                             <Typography variant={'x-small-body'} color={'white'}>
-                                Please click the button to send another e-mail confirmation.
+                               {tab === "deposit" ?
+                                    "Please click the button to send another e-mail confirmation." 
+                                :
+                                    "Seems like we have to know a bit more about you, please do your KYC to enable withdraws"}
                             </Typography>
                         </div>
-                        <div styleName="email-buttons">
+                        <div styleName="email-buttons"> 
                             <div styleName="button">
-                                <Button size={'x-small'} theme={'action'} disabled={isConfirmationSent} onClick={this.handleResendConfirmEmail}>
-                                    <Typography color={skin == "digital" ? 'secondary' : 'fixedwhite'} variant={'small-body'}>{copyConfirmEmail.CONTAINERS.APP.MODAL[2]}</Typography>
-                                </Button>
+                                {
+                                    tab === "deposit" ?
+                                        <Button size={'x-small'} theme={'action'} disabled={tab === "deposit"  ? isConfirmationSent : null} onClick={this.handleResendConfirmEmail}>
+                                            <Typography
+                                                color={skin == "digital" ? 'secondary' : 'fixedwhite'}
+                                                variant={'small-body'}
+                                            >
+                                                {copyConfirmEmail.CONTAINERS.APP.MODAL[2]}
+                                            </Typography>
+                                        </Button>
+                                    :
+                                    <div>
+                                        <mati-button
+                                            clientid={clientId}
+                                            flowId={flowId}
+                                            metadata={{ user_id: userId }}
+                                        />
+                                    </div>
+                                }
                             </div>
                         </div>
                     </div>
                 </div>
-            :
-                null  
         )
     }
 
     render(){
         const { ln, isCurrentPath } = this.props;
-        const { tab, wallets, wallet, virtual, isEmailConfirmed } = this.state;
+        const { tab, wallets, wallet, virtual, isEmailConfirmed, isKycAccountActive, blurActive } = this.state;
         const copy = CopyText.cashierFormIndex[ln];
 
         if(!wallet) { return null };
 
         return (
             <div>
-                <Row styleName={isEmailConfirmed === false ? "blur" : null}>
+                <Row styleName={blurActive === true ? "blur" : null}>
                     <Col md={12} lg={12} xl={4}>
                         <div>
                             {wallets.map( w => {
@@ -187,15 +257,22 @@ class WalletTab extends React.Component{
                         isEmailConfirmed === true
                         ?
                             tab === "deposit" ? 
-                                <div><DepositForm  wallet={wallet} onAddress={this.handleAddress}/> <DepositList isCurrentPath={isCurrentPath} /></div> 
+                                <div>
+                                    <DepositForm  wallet={wallet} onAddress={this.handleAddress}/>
+                                    <DepositList isCurrentPath={isCurrentPath} />
+                                </div> 
                             : 
-                                <div><WithdrawForm wallet={wallet} onAddress={this.handleAddress}/> <WithdrawList isCurrentPath={isCurrentPath} /></div>
+                                <div>
+                                    <WithdrawForm wallet={wallet} onAddress={this.handleAddress}/>
+                                    <WithdrawList isCurrentPath={isCurrentPath} />
+                                </div>
                         :
                             null
                         }
                     </Col>
                 </Row>
-                {this.renderPopSendEmailAlert()}
+                {isEmailConfirmed === false ? tab === "deposit" ? this.renderPopSendAlert("deposit") : null : null}
+                {isKycAccountActive === true ? tab === "withdraw" ? this.renderPopSendAlert("withdraw") : null : null}
             </div>
         )
     }

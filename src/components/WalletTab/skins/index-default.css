@@ -60,3 +60,27 @@
         width: 40px;
     }
 }
+.center-text{
+    width: 100%;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.container-direction{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+}
+
+.container-end{
+    display: flex;
+    justify-content: flex-end;
+}
+
+.close-button{
+    background:none;
+    border:none;
+    cursor: pointer;
+}

@@ -492,6 +492,11 @@ export default class User {
         return this.user.email_confirmed;
     }
 
+    isKycConfirmed = async () => {
+        return this.user.kyc_needed;
+    }
+
+
     getJackpotPot = async ({currency_id}) => {
         try {
             if(!this.user_id){return []}
