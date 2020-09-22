@@ -53,6 +53,10 @@
 .reset-password-left {
   width: 40px;
   margin-right: $spacing-20;
+
+  img {
+    width: 40px;
+  }
 }
 
 .reset-password-right {

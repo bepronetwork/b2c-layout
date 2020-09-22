@@ -234,7 +234,8 @@ function getIcon(index) {
     const { icons } = Cache.getFromCache("appInfo") ? Cache.getFromCache("appInfo").customization : {};
 
     if(icons.useDefaultIcons !== true && index < icons.ids.length) {
-        return icons.ids[index].link;
+        const icon = icons.ids.find(i => (i.position == index));
+        return icon ? icon.link : null;
     }
 
     return null;

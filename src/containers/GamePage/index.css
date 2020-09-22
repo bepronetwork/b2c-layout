@@ -180,8 +180,8 @@
     cursor: pointer;
   }
 
-  svg {
-    width: 20px;
+  svg, img {
+    width: 24px;
     opacity: 0.5;
   }
 }

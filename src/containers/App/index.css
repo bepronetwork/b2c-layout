@@ -106,10 +106,14 @@
 
   div {
     margin: auto;
+    height: 100%;
+    width: 100%;
+    display: flex;
 
     img {
-      margin-top: -1px;
-      margin-left: -1px;
+      margin: auto;
+      width: 30px;
+      height: 30px;
     }
   }
 
@@ -148,10 +152,14 @@
 
   div {
     margin: auto;
+    height: 100%;
+    width: 100%;
+    display: flex;
 
     img {
-      margin-top: -1px;
-      margin-left: -1px;
+      margin: auto;
+      width: 30px;
+      height: 30px;
     }
   }
 }

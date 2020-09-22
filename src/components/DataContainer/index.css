@@ -25,6 +25,10 @@
 
 .container-image{
     width : 36px;
+    
+    img {
+        width : 30px;
+    }
 }
 
 
