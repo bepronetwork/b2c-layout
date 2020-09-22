@@ -16,7 +16,9 @@
       "TYPOGRAPHY": {
         "TEXT": [
           "Register",
-          "Your KYC have been confirmed"
+          "Your KYC have been confirmed",
+          "Waiting for manual review",
+          "Rejected"
         ]
       }
     }
@@ -36,7 +38,9 @@
       "TYPOGRAPHY": {
         "TEXT": [
           "등록",
-          "귀하의 KYC가 확인되었습니다"
+          "귀하의 KYC가 확인되었습니다",
+          "직접 검토를 기다리는 중",
+          "거부 됨"
         ]
       }
     }
@@ -56,7 +60,9 @@
       "TYPOGRAPHY": {
         "TEXT": [
           "注册",
-          "您的KYC已被确认"
+          "您的KYC已被确认",
+          "等待人工審核",
+          "拒絕"
         ]
       }
     }
@@ -76,7 +82,9 @@
       "TYPOGRAPHY": {
         "TEXT": [
           "Register",
-          "あなたのKYCは確認されました"
+          "あなたのKYCは確認されました",
+          "Waiting for manual review",
+          "Rejected"
         ]
       }
     }

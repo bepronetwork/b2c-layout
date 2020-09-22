@@ -2,6 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import { Tabs, DepositForm, WithdrawForm, Typography, Button, EmailIcon } from "components";
 
+import CloseCross from "../../components/Icons/CloseCross"
 import PaymentBox from "../PaymentBox";
 import DepositList from "./DepositList";
 import WithdrawList from "./WithdrawList";
@@ -21,7 +22,7 @@ const defaultState = {
     isConfirmationSent: false,
     clientId: "",
     flowId: "",
-    isKycAccountActive: null,
+    isKycNeeded: null,
     onClose: false
 }
 
@@ -64,13 +65,13 @@ class WalletTab extends React.Component{
         }
 
         const userId = profile.getID();
-        const isKycAccountActive = await profile.isKycConfirmed();
+        const isKycNeeded = await profile.isKycConfirmed();
 
         this.setState({
             ...this.state,
             clientId: kycIntegration.clientId,
             flowId: kycIntegration.flowId,
-            isKycAccountActive,
+            isKycNeeded,
             userId,
             wallets,
             wallet,
@@ -147,9 +148,7 @@ class WalletTab extends React.Component{
                                 </div>
                                 <div styleName="container-end">
                                     <button styleName="close-button" onClick={() => this.onCloseTab()}>
-                                        <Typography variant={'small-body'} color={'grey'} weight={"bold"}>
-                                            X
-                                        </Typography>
+                                       <CloseCross />
                                     </button>
                                 </div>
                             
@@ -158,7 +157,7 @@ class WalletTab extends React.Component{
                     <div styleName="email-content">
                         <div styleName="email-text">
                             <Typography variant={'x-small-body'} color={'white'}>
-                               {tab === "deposit" ? " Your e-mail is not confirmed." : "Your KYC account are is not confirmed."}
+                               {tab === "deposit" ? " Your e-mail is not confirmed." : "Your KYC account is not confirmed."}
                             </Typography>
                             <Typography variant={'x-small-body'} color={'white'}>
                                {tab === "deposit" ?
@@ -184,7 +183,7 @@ class WalletTab extends React.Component{
                                         <mati-button
                                             clientid={clientId}
                                             flowId={flowId}
-                                            metadata={{ user_id: userId }}
+                                            metadata={`{"id": "${userId}"}`}
                                         />
                                     </div>
                                 }
@@ -197,15 +196,16 @@ class WalletTab extends React.Component{
 
     render(){
         const { ln, isCurrentPath } = this.props;
-        const { tab, wallets, wallet, virtual, isEmailConfirmed, isKycAccountActive} = this.state;
+        const { tab, wallets, wallet, virtual, isEmailConfirmed, isKycNeeded} = this.state;
         const copy = CopyText.cashierFormIndex[ln];
 
         if(!wallet) { return null };
 
         return (
             <div>
-                <div styleName={isKycAccountActive === true && tab === "withdraw" ? "blurWithdraw" : null} />
+                <div styleName={isKycNeeded === true && tab === "withdraw" ? "blur" : null}>
                 <Row styleName={isEmailConfirmed === false ? "blur" : null}>
+                   
                     <Col md={12} lg={12} xl={4}>
                         <div>
                             {wallets.map( w => {
@@ -256,8 +256,9 @@ class WalletTab extends React.Component{
                         }
                     </Col>
                 </Row>
+                </div>
                 {isEmailConfirmed === false ? tab === "deposit" ? this.renderPopSendAlert("deposit") : null : null}
-                {isKycAccountActive === true ? tab === "withdraw" ? this.renderPopSendAlert("withdraw") : null : null}
+                {isKycNeeded === true ? tab === "withdraw" ? this.renderPopSendAlert("withdraw") : null : null}
             </div>
         )
     }
