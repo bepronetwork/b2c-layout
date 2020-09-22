@@ -117,9 +117,9 @@ class AccountTab extends React.Component {
     const copy = CopyText.registerFormIndex[ln];
     const copyLogout = CopyText.userMenuIndex[ln];
     const skin = getAppCustomization().skin.skin_type;
-
+    console.log(skin)
     return (
-      <div styleName="box">
+      <div styleName={`box ${skin == "digital" ? "box-digital-kyc" : "background-kyc"}`}>
         <div styleName="field">
           <div styleName="label">
             <Typography variant="small-body" color="white">
@@ -156,7 +156,7 @@ class AccountTab extends React.Component {
             </Typography>
           </div>
         </div>
-        <div styleName="field background-kyc">
+        <div styleName={`field ${skin == "digital" ? "background-kyc-digital" : "background-kyc"}`}>
           <div styleName={`label ${isKycStatus === "no kyc" ? "flex-kyc" : "label"}`}>
             <Typography variant="small-body" color="white">
               {copy.INDEX.INPUT_TEXT.LABEL[5]}

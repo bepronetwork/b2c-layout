@@ -58,6 +58,7 @@
 .flex-kyc{
     display: flex;
     align-items: center;
+    justify-content: flex-end;
 }
 
 .background-kyc{
@@ -66,3 +67,47 @@
     border-radius: 5px;
     flex-direction: column;
 }
+
+.background-kyc-digital{
+    background-color: hsl(244,34%,10%);
+    padding: 15px;
+    border-radius: 5px;
+    width: 3;
+    background-size: 100px;
+    width: 360px;
+    margin-left: 150px;
+}
+
+.box-digital-kyc{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding: $spacing-8 5%;
+
+    @include Breakpoint-mobileOnly {
+        padding: $spacing-8 5%;
+    }
+}
+
+@media only screen and (max-width: 768px) {
+    .background-kyc-digital{
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      background-color: hsl(244,34%,10%);
+      padding: 15px;
+      border-radius: 5px;
+      width: 3;
+      background-size: 80px;
+      width: 255px;
+      margin-left: 0px;
+    }
+    .flex-kyc{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+  }
+
+

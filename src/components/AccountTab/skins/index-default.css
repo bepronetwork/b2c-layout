@@ -1,7 +1,7 @@
 @import "../../styles/all.css";
 
 .box {
-    padding: $spacing-8 12%;
+    padding: $spacing-8 5%;
 
     @include Breakpoint-mobileOnly {
         padding: $spacing-8 5%;
@@ -9,26 +9,30 @@
 }
 
 .field{
-    grid-template-columns: auto auto;
+    grid-template-columns: 1fr 1fr;
     display: grid;
     margin-bottom: $spacing-20;
+    gap: $spacing-28;
+
+    @include Breakpoint-mobileOnly {
+        grid-template-columns: 25% 75%;
+    }
 }
 
 .label{
-    text-align: left;
+    text-align: right;
     opacity: 0.5;
 }
 
 .value{
-    justify-content: flex-end;
     display: inline-flex;
 }
 
 .button{
     margin-top : $spacing-52;
 
-    button {
-        width: 100%;
+    div {
+        padding: $spacing-4 $spacing-52;
     }
 }
 
@@ -54,6 +58,7 @@
 .flex-kyc{
     display: flex;
     align-items: center;
+    justify-content: flex-end;
 }
 
 .background-kyc{
@@ -63,3 +68,44 @@
     flex-direction: column;
 }
 
+.background-kyc-digital{
+    background-color: hsl(244,34%,10%);
+    padding: 15px;
+    border-radius: 5px;
+    width: 3;
+    background-size: 100px;
+    width: 360px;
+    margin-left: 150px;
+}
+
+.box-digital-kyc{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding: $spacing-8 5%;
+
+    @include Breakpoint-mobileOnly {
+        padding: $spacing-8 5%;
+    }
+}
+
+@media only screen and (max-width: 768px) {
+    .background-kyc-digital{
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      background-color: hsl(244,34%,10%);
+      padding: 15px;
+      border-radius: 5px;
+      width: 3;
+      background-size: 80px;
+      width: 255px;
+      margin-left: 0px;
+    }
+    .flex-kyc{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+  }
