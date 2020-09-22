@@ -10,7 +10,7 @@
           "Confirm Password",
           "Email",
           "User Id",
-          "KYC"
+          "Account Verification"
         ]
       },
       "TYPOGRAPHY": {
@@ -32,7 +32,7 @@
           "비밀번호 확인",
           "이메일",
           "User Id",
-          "KYC"
+          "Account Verification"
         ]
       },
       "TYPOGRAPHY": {
@@ -54,7 +54,7 @@
           "确认密码",
           "邮箱",
           "User Id",
-          "KYC"
+          "Account Verification"
         ]
       },
       "TYPOGRAPHY": {
@@ -76,7 +76,7 @@
           "Confirm Password",
           "Email",
           "User Id",
-          "KYC"
+          "Account Verification"
         ]
       },
       "TYPOGRAPHY": {
