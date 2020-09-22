@@ -2,7 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import { Tabs, DepositForm, WithdrawForm, Typography, Button, EmailIcon } from "components";
 
-import Cache from "../../lib/cache/cache";
+import CloseCross from "../../components/Icons/CloseCross"
 import PaymentBox from "../PaymentBox";
 import DepositList from "./DepositList";
 import WithdrawList from "./WithdrawList";
@@ -147,9 +147,7 @@ class WalletTab extends React.Component{
                                 </div>
                                 <div styleName="container-end">
                                     <button styleName="close-button" onClick={() => this.onCloseTab()}>
-                                        <Typography variant={'small-body'} color={'grey'} weight={"bold"}>
-                                            X
-                                        </Typography>
+                                       <CloseCross />
                                     </button>
                                 </div>
                             
@@ -158,7 +156,7 @@ class WalletTab extends React.Component{
                     <div styleName="email-content">
                         <div styleName="email-text">
                             <Typography variant={'x-small-body'} color={'white'}>
-                               {tab === "deposit" ? " Your e-mail is not confirmed." : "Your KYC account are is not confirmed."}
+                               {tab === "deposit" ? " Your e-mail is not confirmed." : "Your KYC account is not confirmed."}
                             </Typography>
                             <Typography variant={'x-small-body'} color={'white'}>
                                {tab === "deposit" ?
@@ -259,7 +257,7 @@ class WalletTab extends React.Component{
                 </Row>
                 </div>
                 {isEmailConfirmed === false ? tab === "deposit" ? this.renderPopSendAlert("deposit") : null : null}
-                {isKycNeeded === true ? tab === "withdraw" ? this.renderPopSendAlert("withdraw") : null : null}
+                {isKycNeeded === false ? tab === "withdraw" ? this.renderPopSendAlert("withdraw") : null : null}
             </div>
         )
     }

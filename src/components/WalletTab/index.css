@@ -104,6 +104,9 @@
     border:none;
     cursor: pointer;
     z-index: 5;
+    background-color: $backgroundColor;
+    padding: $spacing-12;
+    border-radius: 50%;
 }
 
 @media only screen and (max-width: 1024px) {
