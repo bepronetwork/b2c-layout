@@ -7,7 +7,7 @@ import LastBets from "../LastBets/GamePage";
 import Actions from "./Actions";
 import IFrame from "./IFrame";
 import Cache from "../../lib/cache/cache";
-import { getIcon } from "../../lib/helpers";
+import { getIcon, convertAmountProviderBigger } from "../../lib/helpers";
 import { Row, Col } from 'reactstrap';
 import { connect } from "react-redux";
 import classNames from "classnames";
@@ -122,18 +122,6 @@ class GamePage extends Component {
         window.scrollTo(0, 0);
     }
 
-    convertAmountProviderBigger = (ticker, value) => {
-        let tickers = {
-            "ETH": {value: 1000, ticker: "mETH"},
-            "BTC": {value: 1000000, ticker: "uBTC"}
-        };
-        if (tickers[ticker]) {
-            return {value: (value / tickers[ticker].value),  ticker: (tickers[ticker].ticker)};
-        }
-
-        return null;
-    }
-
     maximizeIframe(max) {
         this.setState({ max });
     }
@@ -196,7 +184,7 @@ class GamePage extends Component {
         const { currency, providerToken, providerGameId, providerPartnerId, providerUrl, providerExternalId, providerName, providerGameName } = this.props;
         const { max } = this.state;
 
-        const newCurrency = this.convertAmountProviderBigger(currency.ticker, 1);
+        const newCurrency = convertAmountProviderBigger(currency.ticker, 1);
 
         if(newCurrency === null) { return null };
 
