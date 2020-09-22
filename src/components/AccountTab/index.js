@@ -117,7 +117,7 @@ class AccountTab extends React.Component {
     const copy = CopyText.registerFormIndex[ln];
     const copyLogout = CopyText.userMenuIndex[ln];
     const skin = getAppCustomization().skin.skin_type;
-    console.log(skin)
+
     return (
       <div styleName={`box ${skin == "digital" ? "box-digital-kyc" : "background-kyc"}`}>
         <div styleName="field">
