@@ -230,6 +230,16 @@ function loadWheelOptions(game){
     return options;
 }
 
+function getIcon(index) {
+    const { icons } = Cache.getFromCache("appInfo") ? Cache.getFromCache("appInfo").customization : {};
+
+    if(icons.useDefaultIcons !== true && index < icons.ids.length) {
+        return icons.ids[index].link;
+    }
+
+    return null;
+}
+
 export { 
     dateToHourAndMinute, getAppCustomization, 
     fromSmartContractTimeToMinutes, getGames, 
@@ -241,5 +251,6 @@ export {
     loadFakeBets,
     getWebsite,
     getAddOn,
-    loadWheelOptions
+    loadWheelOptions,
+    getIcon
 }

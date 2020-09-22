@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import _ from "lodash";
 
 import Cache from "../../lib/cache/cache";
-import { dateToHourAndMinute, isUserSet } from "../../lib/helpers";
+import { dateToHourAndMinute, isUserSet, getIcon } from "../../lib/helpers";
 import { formatCurrency } from "../../utils/numberFormatation";
 import { Numbers, AddressConcat } from "../../lib/ethereum/lib";
 import { CopyText } from "../../copy";
@@ -141,6 +141,8 @@ class WithdrawTable extends Component {
       withdraws = await profile.getWithdraws();
     }
 
+    const withdrawIcon = getIcon(19);
+
     this.setState({
       ...this.state,
       ...options,
@@ -150,7 +152,7 @@ class WithdrawTable extends Component {
         return {
           value: new String(key).toLowerCase(),
           label: copy.TABLE[key].TITLE,
-          icon: <WithdrawIcon />
+          icon: withdrawIcon === null ? <WithdrawIcon /> : <img src={withdrawIcon} />
         };
       }),
       withdraws: {

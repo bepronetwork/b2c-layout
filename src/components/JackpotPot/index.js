@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import { Typography, JackpotPotIcon } from "components";
-import { getApp } from "../../lib/helpers";
+import { getApp, getIcon } from "../../lib/helpers";
 import { formatCurrency } from '../../utils/numberFormatation';
 import _ from 'lodash';
 import coinPng from 'assets/coin.png';
@@ -43,6 +43,7 @@ class JackpotPot extends React.Component{
 
     render(){
         const { pot, currencyImage } = this.state;
+        const jackpotPotIcon = getIcon(5);
 
         if(pot == 0) { return null };
 
@@ -52,7 +53,7 @@ class JackpotPot extends React.Component{
                     <div styleName="root">
                         <div styleName="main">
                             <div styleName="icon">
-                                <JackpotPotIcon/>
+                                { jackpotPotIcon === null ? <JackpotPotIcon /> : <img src={jackpotPotIcon} /> }
                                 <div styleName="text">
                                     <Typography variant={'h4'} color={'white'} weight={"bold"}>
                                         JACKPOT
