@@ -3,7 +3,7 @@ import { Row, Col } from 'reactstrap';
 import { Typography, CopyIcon } from 'components';
 import { connect } from "react-redux";
 import classNames from "classnames";
-import { getApp, getAppCustomization } from "../../lib/helpers";
+import { getApp, getAppCustomization, getIcon } from "../../lib/helpers";
 import { CopyText } from '../../copy';
 
 import './index.css';
@@ -54,6 +54,7 @@ class AffiliateLinkContainer extends React.Component{
         const copy = CopyText.affiliateLinkContainerIndex[ln];
         const { skin } = getAppCustomization();
         const styles = classNames("link-text-container", {"ad-copied": copied});
+        const copyIcon = getIcon(27);
 
         return (
             <div styleName={`root`}>
@@ -91,7 +92,7 @@ class AffiliateLinkContainer extends React.Component{
                                         skin.skin_type == "digital"
                                         ?
                                             <div styleName="icon">
-                                                <CopyIcon />
+                                                {copyIcon === null ? <CopyIcon /> : <img src={copyIcon} />}
                                             </div>
                                         :
                                             null

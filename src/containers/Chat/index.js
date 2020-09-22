@@ -8,7 +8,7 @@ import languages from "../../config/languages";
 import { setMessageNotification } from "../../redux/actions/message";
 import { CopyText } from "../../copy";
 import store from "../App/store";
-import { dateToHourAndMinute, getSkeletonColors, getAppCustomization } from "../../lib/helpers";
+import { dateToHourAndMinute, getSkeletonColors, getAppCustomization, getIcon } from "../../lib/helpers";
 import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 import delay from 'delay';
 
@@ -178,6 +178,9 @@ class ChatPage extends React.Component {
         const { isLoading, isGoDownVisible } = this.state;
         const copy = CopyText.shared[ln];
         const copy2 = CopyText.homepage[ln];
+
+        const usersIcon = getIcon(1);
+
         return (
             <div styleName="root">
                     <div styleName="container">
@@ -195,7 +198,7 @@ class ChatPage extends React.Component {
                                         {this.state.participants + chatUsersConst} 
                                     </Typography>
                                     <div styleName="users-icon">
-                                        <UsersIcon />
+                                        { usersIcon === null ? <UsersIcon /> : <img src={usersIcon} /> }
                                     </div>
                                 </div>
                             </div>

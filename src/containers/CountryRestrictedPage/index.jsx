@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Typography, CountryIcon, EmailIcon, AffiliateIcon } from "components";
 import { connect } from 'react-redux';
-import { getApp, getAppCustomization } from "../../lib/helpers";
+import { getApp, getAppCustomization, getIcon } from "../../lib/helpers";
 import { CopyText } from "../../copy";
 import Cache from "../../lib/cache/cache";
 import getAppInfo from "lib/api/app";
@@ -38,7 +38,8 @@ class CountryRestrictedPage extends Component {
         const { logo, appName, loading } = this.state;
         const { ln } = this.props;
         const copy = CopyText.countryRestrictedPage[ln];
-
+        const emailIcon = getIcon(11);
+        const countryIcon = getIcon(28);
 
         return (
             <div styleName="root">
@@ -62,7 +63,7 @@ class CountryRestrictedPage extends Component {
                             </div>
                             <div styleName="content">
                                     <span styleName="icon">
-                                        <CountryIcon/>
+                                        {countryIcon === null ? <CountryIcon/> : <img src={countryIcon} />}
                                     </span>
                                     <Typography variant={'body'} weight={'bold'} color={'casper'}>
                                         {copy.SUBTITLE[0]}
@@ -88,7 +89,7 @@ class CountryRestrictedPage extends Component {
                                 </div>
                                 <div styleName="content">
                                     <span styleName="icon">
-                                        <EmailIcon/>
+                                        {emailIcon === null ? <EmailIcon/> : <img src={emailIcon} />}
                                     </span>
                                     <Typography variant={'body'} weight={'bold'} color={'casper'}>
                                         {copy.SUBTITLE[2]}

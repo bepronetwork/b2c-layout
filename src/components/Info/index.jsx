@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Typography, InfoIcon } from "components";
-
+import { getIcon } from "../../lib/helpers";
 import "./index.css";
 
 export default class Info extends Component {
@@ -21,6 +21,7 @@ export default class Info extends Component {
   render() {
     const { text } = this.props;
     const { open } = this.state;
+    const infoIcon = getIcon(4);
 
     return (
       <div>
@@ -32,7 +33,7 @@ export default class Info extends Component {
             null
         }
         <span styleName="info" onClick={() => this.onInfoClick()}>
-            <InfoIcon/>
+            { infoIcon === null ? <InfoIcon /> : <img src={infoIcon} /> }
         </span>
       </div>
     );

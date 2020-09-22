@@ -4,7 +4,7 @@ import UserContext from "containers/App/UserContext";
 import { connect } from "react-redux";
 import { getLastBets, getBiggestUserWinners, getBiggestBetWinners } from "../../../lib/api/app";
 import { Numbers } from "../../../lib/ethereum/lib";
-import { dateToHourAndMinute, getGames, getSkeletonColors } from "../../../lib/helpers";
+import { dateToHourAndMinute, getGames, getSkeletonColors, getIcon } from "../../../lib/helpers";
 import Tabs from "../../../components/Tabs";
 import { SelectBox, Table, CheckIcon, RewardIcon, TrophyIcon, AffiliateIcon } from 'components';
 import _ from 'lodash';
@@ -230,6 +230,10 @@ class LastBets extends Component {
             biggest_win_users = biggest_win_users.slice(0, view_amount.value);
         }
 
+        const allBetsIcon = getIcon(6);
+        const biggestWinsIcon = getIcon(7);
+        const leaderBoarderIcon = getIcon(8);
+
         this.setState({...this.state, 
             ...options,
             isLoading : false,
@@ -241,16 +245,16 @@ class LastBets extends Component {
                 const value = new String(key).toLowerCase();
 
                 if(value === "all_bets"){
-                    icon = <CheckIcon/>;
+                    icon = allBetsIcon === null ? <CheckIcon/> : <img src={allBetsIcon} />;
                 }
                 else if(value === "my_bets"){
                     icon = <RewardIcon/>;
                 }
                 else if(value === "biggest_win_bets"){
-                    icon = <TrophyIcon/>;
+                    icon = biggestWinsIcon === null ? <TrophyIcon/> : <img src={biggestWinsIcon} />;
                 }
                 else if(value === "biggest_win_users"){
-                    icon = <AffiliateIcon/>;
+                    icon = leaderBoarderIcon === null ? <AffiliateIcon/> : <img src={leaderBoarderIcon} />;
                 }
 
                 return {

@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { Typography, EmailIcon } from "components";
 import { CopyText } from '../../copy';
 import { confirmEmail } from "../../lib/api/users";
+import { getIcon } from "../../lib/helpers";
 import "./index.css";
 import _ from "lodash";
 
@@ -52,6 +53,8 @@ class ConfirmEmail extends Component {
 
         if(!params) return null;
 
+        const emailIcon = getIcon(11);
+
         return (
             <div styleName="root">
                 <div styleName="container">
@@ -60,7 +63,7 @@ class ConfirmEmail extends Component {
                             <div styleName="box">
                                 <div styleName="confirm-title">
                                     <div styleName="confirm-left">
-                                        <EmailIcon/>
+                                        {emailIcon === null ? <EmailIcon/> : <img src={emailIcon} />}
                                     </div>
                                     <div styleName="confirm-right">
                                         <Typography color="white" variant="small-body">
