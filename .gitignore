@@ -30,6 +30,5 @@ package-lock.json
 /src/styles/serverVariables.css
 /src/styles/serverFonts.css
 /public/loading.gif
-/public/index.html
 /public/logo.ico
 /public/logo.png
