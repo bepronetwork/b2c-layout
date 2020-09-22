@@ -6,7 +6,7 @@ import { Typography, CopyIcon } from 'components';
 import classNames from "classnames";
 import building from 'assets/blockchain.png';
 import loading from 'assets/loading.gif';
-import { getApp, getAddOn, getAppCustomization } from "../../lib/helpers";
+import { getApp, getAddOn, getAppCustomization, getIcon } from "../../lib/helpers";
 import _ from 'lodash';
 import { CopyText } from '../../copy';
 
@@ -132,6 +132,7 @@ class DepositForm extends Component {
                 </div>
             )
         }
+        const copyIcon = getIcon(27);
 
         return (
             <div>
@@ -175,7 +176,7 @@ class DepositForm extends Component {
                                             skin.skin_type == "digital"
                                             ?
                                                 <div styleName="icon">
-                                                    <CopyIcon />
+                                                    {copyIcon === null ? <CopyIcon /> : <img src={copyIcon} />}
                                                 </div>
                                             :
                                                 null

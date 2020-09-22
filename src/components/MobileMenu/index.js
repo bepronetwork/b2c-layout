@@ -5,7 +5,7 @@ import {
         SettingsIcon, DepositsIcon, WithdrawIcon, BetsIcon, UserIcon, UsersIcon, ConfirmedIcon
        } from 'components';
 import { CopyText } from "../../copy";
-import { getApp, getAddOn } from "../../lib/helpers";
+import { getApp, getAddOn, getIcon } from "../../lib/helpers";
 import { formatCurrency } from "../../utils/numberFormatation";
 import _ from 'lodash';
 import "./index.css";
@@ -15,17 +15,26 @@ class MobileMenu extends Component {
 
     constructor(props){
         super(props);
+        const userIcon = getIcon(0);
+        const securityIcon = getIcon(15);
+        const betsIcon = getIcon(16);
+        const walletIcon = getIcon(17);
+        const depositsIcon = getIcon(18);
+        const withdrawIcon = getIcon(19);
+        const affiliatesIcon = getIcon(20);
+        const preferencesIcon = getIcon(21);
+
         this.state = {
             points: 0,
             itens : [
-                { path: "/settings/account",        copyValue: 6,                                       icon: <UserIcon /> },
-                { path: "/settings/security",       copyValue: 7,                                       icon: <ConfirmedIcon /> },
-                { path: "/settings/bets",           copyValue: 5,                                       icon: <BetsIcon /> },
-                { path: "/settings/wallet",         copyValue: 8,                                       icon: <WalletIcon /> },
-                { path: "/settings/deposits",       copyValue: getApp().virtual === true ? 4 : 1,       icon: <DepositsIcon /> },
-                { path: "/settings/withdraws",      copyValue: 2,                                       icon: <WithdrawIcon /> },
-                { path: "/settings/affiliate",      copyValue: 3,                                       icon: <UsersIcon /> },
-                { path: "/settings/preferences",    copyValue: 9,                                       icon: <SettingsIcon /> },
+                { path: "/settings/account",        copyValue: 6,                                       icon: userIcon === null ? <UserIcon /> : <img src={userIcon} /> },
+                { path: "/settings/security",       copyValue: 7,                                       icon: securityIcon === null ? <ConfirmedIcon /> : <img src={securityIcon} /> },
+                { path: "/settings/bets",           copyValue: 5,                                       icon: betsIcon === null ? <BetsIcon /> : <img src={betsIcon} /> },
+                { path: "/settings/wallet",         copyValue: 8,                                       icon: walletIcon === null ? <WalletIcon /> : <img src={walletIcon} /> },
+                { path: "/settings/deposits",       copyValue: getApp().virtual === true ? 4 : 1,       icon: depositsIcon === null ? <DepositsIcon /> : <img src={depositsIcon} /> },
+                { path: "/settings/withdraws",      copyValue: 2,                                       icon: withdrawIcon === null ? <WithdrawIcon /> : <img src={withdrawIcon} /> },
+                { path: "/settings/affiliate",      copyValue: 3,                                       icon: affiliatesIcon === null ? <UsersIcon /> : <img src={affiliatesIcon} /> },
+                { path: "/settings/preferences",    copyValue: 9,                                       icon: preferencesIcon === null ? <SettingsIcon /> : <img src={preferencesIcon} /> },
             ]
         }
     }

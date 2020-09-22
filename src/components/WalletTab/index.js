@@ -2,12 +2,11 @@ import React from "react";
 import { connect } from "react-redux";
 import { Tabs, DepositForm, WithdrawForm, Typography, Button, EmailIcon } from "components";
 
-import Cache from "../../lib/cache/cache";
 import PaymentBox from "../PaymentBox";
 import DepositList from "./DepositList";
 import WithdrawList from "./WithdrawList";
 import { CopyText } from '../../copy';
-import { getApp, getAppCustomization } from "../../lib/helpers";
+import { getApp, getAppCustomization, getIcon } from "../../lib/helpers";
 import { Col, Row } from 'reactstrap';
 import { setMessageNotification } from "../../redux/actions/message";
 import store from "../../containers/App/store";
@@ -125,6 +124,7 @@ class WalletTab extends React.Component{
         const { isConfirmationSent, clientId, flowId, userId } = this.state;
         const copyConfirmEmail = CopyText.homepage[ln];
         const skin = getAppCustomization().skin.skin_type;
+        const emailIcon = getIcon(11);
 
         return(
                 <div styleName="email-confirmation">
@@ -132,7 +132,7 @@ class WalletTab extends React.Component{
                         tab === "deposit" ?
                             <div styleName="email-title">
                                 <span styleName="icon">
-                                    <EmailIcon/>
+                                    {emailIcon === null ? <EmailIcon/> : <img src={emailIcon} />}
                                 </span>
                                 <Typography variant={'small-body'} color={'grey'} weight={"bold"}>
                                     {copyConfirmEmail.CONTAINERS.APP.MODAL[2]}
