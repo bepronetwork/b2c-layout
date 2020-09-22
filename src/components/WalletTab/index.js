@@ -258,7 +258,7 @@ class WalletTab extends React.Component{
                 </Row>
                 </div>
                 {isEmailConfirmed === false ? tab === "deposit" ? this.renderPopSendAlert("deposit") : null : null}
-                {isKycNeeded === false ? tab === "withdraw" ? this.renderPopSendAlert("withdraw") : null : null}
+                {isKycNeeded === true ? tab === "withdraw" ? this.renderPopSendAlert("withdraw") : null : null}
             </div>
         )
     }
