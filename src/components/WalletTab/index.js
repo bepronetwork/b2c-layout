@@ -204,8 +204,7 @@ class WalletTab extends React.Component{
 
         return (
             <div>
-                <div styleName={isKycNeeded === false && tab === "withdraw" ? "blurWithdraw" : null}></div>
-                <div styleName={isKycNeeded === false && tab === "withdraw" ? "blur" : null}>
+                <div styleName={isKycNeeded === true && tab === "withdraw" ? "blur" : null}>
                 <Row styleName={isEmailConfirmed === false ? "blur" : null}>
                    
                     <Col md={12} lg={12} xl={4}>
@@ -260,7 +259,7 @@ class WalletTab extends React.Component{
                 </Row>
                 </div>
                 {isEmailConfirmed === false ? tab === "deposit" ? this.renderPopSendAlert("deposit") : null : null}
-                {isKycNeeded === false ? tab === "withdraw" ? this.renderPopSendAlert("withdraw") : null : null}
+                {isKycNeeded === true ? tab === "withdraw" ? this.renderPopSendAlert("withdraw") : null : null}
             </div>
         )
     }

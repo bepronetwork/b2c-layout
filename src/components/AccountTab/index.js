@@ -11,7 +11,7 @@ const defaultState = {
   email: "",
   clientId: "",
   flowId: "",
-  isKycStatus: false
+  isKycStatus: null
 };
 // const cache = new Cache({
 //   // Keep cached source failures for up to 7 days
@@ -59,9 +59,10 @@ class AccountTab extends React.Component {
       email,
       clientId: kycIntegration.clientId,
       flowId: kycIntegration.flowId,
-      isKycStatus: isKycStatus === null ? isKycStatus : isKycStatus.toLowerCase()
+      isKycStatus:
+        isKycStatus === null ? isKycStatus : isKycStatus.toLowerCase()
     });
-    this.caseKycStatus(this.state);
+    this.caseKycStatus();
   };
 
   caseKycStatus = () => {
