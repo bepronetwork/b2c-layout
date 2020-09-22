@@ -31,4 +31,5 @@ package-lock.json
 /src/styles/serverFonts.css
 /public/loading.gif
 /public/logo.ico
+/public/index.html
 /public/logo.png
