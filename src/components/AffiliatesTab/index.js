@@ -77,7 +77,7 @@ class AffiliatesTab extends React.Component{
         if(!wallet) { return null };
 
         const depositsIcon = getIcon(18);
-        const affiliateReferralIcon = getIcon(18);
+        const affiliateReferralIcon = getIcon(22);
 
         return (
             <div>

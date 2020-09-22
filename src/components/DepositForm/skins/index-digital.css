@@ -148,7 +148,7 @@
 .icon {
     margin-right: $spacing-8;
 
-    svg {
+    svg, img {
         height: 20px;
     }
 }

@@ -2,7 +2,7 @@ import React from 'react';
 import ArrowDown from "components/Icons/ArrowDown";
 import ArrowUp from "components/Icons/ArrowUp";
 import { Typography, ArrowDownIcon, ArrowUpIcon } from "components";
-import { getAppCustomization } from "../../lib/helpers";
+import { getAppCustomization, getIcon } from "../../lib/helpers";
 import _ from 'lodash';
 
 import "./index.css";
@@ -71,12 +71,20 @@ class SelectBox extends React.Component{
         const { value, open } = this.state;
         const skin = getAppCustomization().skin.skin_type;
 
+        const arrowUpIcon = getIcon(24);
+        const arrowDownIcon = getIcon(25);
+
         return (
             <div styleName="label">
                 <span>
                     <Typography color="white" variant={'small-body'}>{value.text}</Typography>
                 </span>
-                {open ? skin == "digital" ? <ArrowUpIcon /> : <ArrowUp />  : skin == "digital" ? <ArrowDownIcon /> : <ArrowDown /> }
+                {open
+                ? 
+                    arrowUpIcon === null ? skin == "digital" ? <ArrowUpIcon /> : <ArrowUp /> : <img src={arrowUpIcon} /> 
+                :
+                    arrowDownIcon === null ? skin == "digital" ? <ArrowDownIcon /> : <ArrowDown /> : <img src={arrowDownIcon} /> 
+                }
             </div>
         );
     }

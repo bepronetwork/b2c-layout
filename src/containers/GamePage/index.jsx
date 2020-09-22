@@ -125,7 +125,7 @@ class GamePage extends Component {
     convertAmountProviderBigger = (ticker, value) => {
         let tickers = {
             "ETH": {value: 1000, ticker: "mETH"},
-            "BTC": {value: 1000000, ticker: "μBTC"}
+            "BTC": {value: 1000000, ticker: "uBTC"}
         };
         if (tickers[ticker]) {
             return {value: (value / tickers[ticker].value),  ticker: (tickers[ticker].ticker)};
