@@ -496,6 +496,10 @@ export default class User {
         return this.user.kyc_needed;
     }
 
+    kycStatus = async () => {
+        return this.user.kyc_status;
+    }
+
 
     getJackpotPot = async ({currency_id}) => {
         try {
