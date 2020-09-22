@@ -49,4 +49,17 @@
     padding-bottom: $spacing-20;
     border-radius: 10px;
     background-color: $primaryColor-8;
+
 }
+.flex-kyc{
+    display: flex;
+    align-items: center;
+}
+
+.background-kyc{
+    background-color: $primaryColor-2;
+    padding: 15px;
+    border-radius: 5px;
+    flex-direction: column;
+}
+
