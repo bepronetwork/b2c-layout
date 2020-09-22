@@ -5,14 +5,13 @@ import Cache from "../../lib/cache/cache";
 import { isUserSet, getAppCustomization } from "../../lib/helpers";
 import { CopyText } from "../../copy";
 import "./index.css";
-import { use } from "matter-js";
 
 const defaultState = {
   username: "",
   email: "",
   clientId: "",
   flowId: "",
-  isKycAccountActive: false
+  isKycStatus: false
 };
 // const cache = new Cache({
 //   // Keep cached source failures for up to 7 days
@@ -44,7 +43,7 @@ class AccountTab extends React.Component {
     }
 
     const kycIntegration = appInfo.integrations.kyc;
-    const isKycAccountActive = await profile.kycStatus();
+    const isKycStatus = await profile.kycStatus();
     const userId = profile.getID();
     const username = profile.getUsername();
     const email = profile.user.email
@@ -60,17 +59,17 @@ class AccountTab extends React.Component {
       email,
       clientId: kycIntegration.clientId,
       flowId: kycIntegration.flowId,
-      isKycAccountActive: isKycAccountActive.toLowerCase()
+      isKycStatus: isKycStatus === null ? isKycStatus : isKycStatus.toLowerCase()
     });
     this.caseKycStatus(this.state);
   };
 
   caseKycStatus = () => {
-    const { isKycAccountActive, clientId, flowId, userId } = this.state;
+    const { isKycStatus, clientId, flowId, userId } = this.state;
     const { ln } = this.props;
     const copy = CopyText.registerFormIndex[ln];
 
-    switch (isKycAccountActive) {
+    switch (isKycStatus) {
       case "no kyc":
         return (
           <div>
@@ -84,19 +83,26 @@ class AccountTab extends React.Component {
       case "reviewneeded":
         return (
           <Typography variant="small-body" color="orange">
-            {"MANUAL REVIEW NEEDED"}
+            {copy.INDEX.TYPOGRAPHY.TEXT[2]}
           </Typography>
         );
       case "rejected":
         return (
           <Typography variant="small-body" color="red">
-            {"REJECTED"}
+            {copy.INDEX.TYPOGRAPHY.TEXT[3]}
           </Typography>
         );
       case "verified":
         return (
-          <Typography variant="small-body" color="#green">
+          <Typography variant="small-body" color="green">
             {copy.INDEX.TYPOGRAPHY.TEXT[1]}
+          </Typography>
+        );
+
+      case null:
+        return (
+          <Typography variant="small-body" color="red">
+            {"ERROR TO GET STATUS"}
           </Typography>
         );
       default:

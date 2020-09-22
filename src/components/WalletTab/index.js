@@ -22,7 +22,6 @@ const defaultState = {
     isConfirmationSent: false,
     clientId: "",
     flowId: "",
-    isKycAccountActive: null,
     isKycNeeded: null,
     onClose: false
 }
@@ -67,13 +66,12 @@ class WalletTab extends React.Component{
 
         const userId = profile.getID();
         const isKycNeeded = await profile.isKycConfirmed();
-        const isKycAccountActive = await profile.kycStatus();
+
         this.setState({
             ...this.state,
             clientId: kycIntegration.clientId,
             flowId: kycIntegration.flowId,
             isKycNeeded,
-            isKycAccountActive,
             userId,
             wallets,
             wallet,
@@ -81,45 +79,6 @@ class WalletTab extends React.Component{
             isEmailConfirmed: await user.isEmailConfirmed()
         });
     }
-
-      caseKycStatus = () => {
-    const { isKycAccountActive, clientId, flowId, userId } = this.state;
-    const { ln } = this.props;
-    const copy = CopyText.registerFormIndex[ln];
-
-    switch (isKycAccountActive) {
-      case "no kyc":
-        return (
-          <div>
-            <mati-button
-              clientid={clientId}
-              flowId={flowId}
-              metadata={`{"id": "${userId}"}`}
-            />
-          </div>
-        );
-      case "reviewneeded":
-        return (
-          <Typography variant="small-body" color="orange">
-            {"MANUAL REVIEW NEEDED"}
-          </Typography>
-        );
-      case "rejected":
-        return (
-          <Typography variant="small-body" color="red">
-            {"REJECTED"}
-          </Typography>
-        );
-      case "verified":
-        return (
-          <Typography variant="small-body" color="#green">
-            {copy.INDEX.TYPOGRAPHY.TEXT[1]}
-          </Typography>
-        );
-      default:
-        break;
-    }
-  };
 
     handleTabChange = name => {
         this.setState({ tab: name });
@@ -245,8 +204,10 @@ class WalletTab extends React.Component{
 
         return (
             <div>
-                <div styleName={isKycNeeded === true && tab === "withdraw" ? "blurWithdraw" : null}></div>
+                <div styleName={isKycNeeded === false && tab === "withdraw" ? "blurWithdraw" : null}></div>
+                <div styleName={isKycNeeded === false && tab === "withdraw" ? "blur" : null}>
                 <Row styleName={isEmailConfirmed === false ? "blur" : null}>
+                   
                     <Col md={12} lg={12} xl={4}>
                         <div>
                             {wallets.map( w => {
@@ -297,8 +258,9 @@ class WalletTab extends React.Component{
                         }
                     </Col>
                 </Row>
+                </div>
                 {isEmailConfirmed === false ? tab === "deposit" ? this.renderPopSendAlert("deposit") : null : null}
-                {isKycNeeded === true ? tab === "withdraw" ? this.renderPopSendAlert("withdraw") : null : null}
+                {isKycNeeded === false ? tab === "withdraw" ? this.renderPopSendAlert("withdraw") : null : null}
             </div>
         )
     }

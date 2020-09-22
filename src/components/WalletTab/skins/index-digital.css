@@ -105,3 +105,10 @@
     cursor: pointer;
     z-index: 5;
 }
+
+@media only screen and (max-width: 1024px) {
+    .email-confirmation{
+        width: 300px;
+        height: 90%;
+    }
+  }
