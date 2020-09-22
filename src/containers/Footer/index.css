@@ -119,3 +119,21 @@
     margin: auto;
     text-align: center;
 }
+
+.social {
+    margin: $spacing-16;
+}
+
+.social-icons {
+    display: inline-flex;
+    margin: auto;
+    align-items: center;  
+}
+
+.social-icon {
+    margin: $spacing-12 $spacing-12 0 $spacing-12;
+    img {
+        width: 36px;
+        height: 36px;
+    }
+}
