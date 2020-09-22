@@ -9,12 +9,14 @@
           "Password",
           "Confirm Password",
           "Email",
-          "User Id"
+          "User Id",
+          "KYC"
         ]
       },
       "TYPOGRAPHY": {
         "TEXT": [
-          "Register"
+          "Register",
+          "Your KYC have been confirmed"
         ]
       }
     }
@@ -27,12 +29,14 @@
           "비밀번호",
           "비밀번호 확인",
           "이메일",
-          "User Id"
+          "User Id",
+          "KYC"
         ]
       },
       "TYPOGRAPHY": {
         "TEXT": [
-          "등록"
+          "등록",
+          "귀하의 KYC가 확인되었습니다"
         ]
       }
     }
@@ -45,12 +49,14 @@
           "密码",
           "确认密码",
           "邮箱",
-          "User Id"
+          "User Id",
+          "KYC"
         ]
       },
       "TYPOGRAPHY": {
         "TEXT": [
-          "注册"
+          "注册",
+          "您的KYC已被确认"
         ]
       }
     }
@@ -63,12 +69,14 @@
           "Password",
           "Confirm Password",
           "Email",
-          "User Id"
+          "User Id",
+          "KYC"
         ]
       },
       "TYPOGRAPHY": {
         "TEXT": [
-          "Register"
+          "Register",
+          "あなたのKYCは確認されました"
         ]
       }
     }

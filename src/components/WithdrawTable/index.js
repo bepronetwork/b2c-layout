@@ -2,8 +2,6 @@ import React, { Component } from "react";
 import { WithdrawIcon, Typography, Table } from "components";
 import { connect } from "react-redux";
 import _ from "lodash";
-
-import Cache from "../../lib/cache/cache";
 import { dateToHourAndMinute, isUserSet, getIcon } from "../../lib/helpers";
 import { formatCurrency } from "../../utils/numberFormatation";
 import { Numbers, AddressConcat } from "../../lib/ethereum/lib";
@@ -49,10 +47,7 @@ const defaultProps = {
   view: "withdraws",
   view_amount: views[0],
   isLoading: true,
-  isListLoading: true,
-  isKYCConfirmed: false,
-  clientId: "",
-  flowId: ""
+  isListLoading: true
 };
 
 class WithdrawTable extends Component {
@@ -67,8 +62,6 @@ class WithdrawTable extends Component {
     if (isCurrentPath) {
       this.projectData(this.props);
     }
-
-    this.getAppIntegration();
   }
 
   componentWillReceiveProps(props) {
@@ -76,56 +69,6 @@ class WithdrawTable extends Component {
       this.projectData(props);
     }
   }
-
-  getAppIntegration = () => {
-    const appInfo = Cache.getFromCache("appInfo");
-    const kycIntegration = appInfo.integrations.kyc;
-
-    this.setState({
-      clientId: kycIntegration.clientId,
-      flowId: kycIntegration.flowId,
-      isKYCConfirmed: kycIntegration.isActive
-    });
-  };
-
-  renderPopSendkycAlert = (clientId, flowId, userId) => {
-    const { ln } = this.props;
-    const { isKYCConfirmed } = this.state;
-    const copy = CopyText.homepage[ln];
-
-    return isKYCConfirmed === false ? (
-      <div>
-        <div styleName="kyc-confirmation-ctn" />
-        <div styleName="kyc-confirmation">
-          <div styleName="kyc-title">
-            <Typography variant="small-body" color="grey" weight="bold">
-              {copy.CONTAINERS.APP.MODAL[3]}
-            </Typography>
-          </div>
-          <div styleName="kyc-content">
-            <div styleName="kyc-text">
-              <Typography variant="x-small-body" color="white">
-                Your KYC is not confirmed.
-              </Typography>
-              <Typography variant="x-small-body" color="white">
-                Seems like we have to know a bit more about you, please do your
-                KYC to enable withdraws
-              </Typography>
-            </div>
-            <div styleName="kyc-buttons">
-              <div styleName="button">
-                <mati-button
-                  clientid={clientId}
-                  flowId={flowId}
-                  metadata={{ user_id: userId }}
-                />
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    ) : null;
-  };
 
   projectData = async (props, options = null) => {
     const { profile, ln } = props;
@@ -232,7 +175,6 @@ class WithdrawTable extends Component {
           size={this.state.view_amount.value}
           isLoading={isListLoading}
         />
-        {this.renderPopSendkycAlert(clientId, flowId, userId)}
       </div>
     );
   }
