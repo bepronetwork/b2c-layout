@@ -83,6 +83,7 @@ class SlotsPage extends Component {
     const { userDelta } = this.state.betObjectResult;
 
     await profile.updateBalance({ userDelta, amount });
+    return new Promise(resolve => setTimeout(() => resolve(), 500));
   };
 
   handleBet = async ({ amount }) => {
