@@ -37,7 +37,8 @@ Typography.propTypes = {
         "green",
         "grey",
         "fixedwhite",
-        "secondary"
+        "secondary",
+        "orange"
     ]),
     weight: PropTypes.oneOf(["regular", "semi-bold", "bold"]),
 };

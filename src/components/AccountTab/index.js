@@ -11,7 +11,7 @@ const defaultState = {
   email: "",
   clientId: "",
   flowId: "",
-  isKycAccountActive: false
+  isKycStatus: null
 };
 // const cache = new Cache({
 //   // Keep cached source failures for up to 7 days
@@ -43,8 +43,7 @@ class AccountTab extends React.Component {
     }
 
     const kycIntegration = appInfo.integrations.kyc;
-    const isKycAccountActive = await profile.isKycConfirmed();
-
+    const isKycStatus = await profile.kycStatus();
     const userId = profile.getID();
     const username = profile.getUsername();
     const email = profile.user.email
@@ -60,20 +59,61 @@ class AccountTab extends React.Component {
       email,
       clientId: kycIntegration.clientId,
       flowId: kycIntegration.flowId,
-      isKycAccountActive
+      isKycStatus:
+        isKycStatus === null ? isKycStatus : isKycStatus.toLowerCase()
     });
+    this.caseKycStatus();
+  };
+
+  caseKycStatus = () => {
+    const { isKycStatus, clientId, flowId, userId } = this.state;
+    const { ln } = this.props;
+    const copy = CopyText.registerFormIndex[ln];
+
+    switch (isKycStatus) {
+      case "no kyc":
+        return (
+          <div>
+            <mati-button
+              clientid={clientId}
+              flowId={flowId}
+              metadata={`{"id": "${userId}"}`}
+            />
+          </div>
+        );
+      case "reviewneeded":
+        return (
+          <Typography variant="small-body" color="orange">
+            {copy.INDEX.TYPOGRAPHY.TEXT[2]}
+          </Typography>
+        );
+      case "rejected":
+        return (
+          <Typography variant="small-body" color="red">
+            {copy.INDEX.TYPOGRAPHY.TEXT[3]}
+          </Typography>
+        );
+      case "verified":
+        return (
+          <Typography variant="small-body" color="green">
+            {copy.INDEX.TYPOGRAPHY.TEXT[1]}
+          </Typography>
+        );
+
+      case null:
+        return (
+          <Typography variant="small-body" color="red">
+            {"ERROR TO GET STATUS"}
+          </Typography>
+        );
+      default:
+        break;
+    }
   };
 
   render() {
     const { ln, onLogout } = this.props;
-    const {
-      username,
-      email,
-      userId,
-      clientId,
-      flowId,
-      isKycAccountActive
-    } = this.state;
+    const { username, email, userId } = this.state;
     const copy = CopyText.registerFormIndex[ln];
     const copyLogout = CopyText.userMenuIndex[ln];
     const skin = getAppCustomization().skin.skin_type;
@@ -122,21 +162,7 @@ class AccountTab extends React.Component {
               {copy.INDEX.INPUT_TEXT.LABEL[5]}
             </Typography>
           </div>
-          <div styleName="value">
-            {isKycAccountActive === false ? (
-              <Typography variant="small-body" color="green">
-                {copy.INDEX.TYPOGRAPHY.TEXT[1]}
-              </Typography>
-            ) : (
-              <div>
-                <mati-button
-                  clientid={clientId}
-                  flowId={flowId}
-                  metadata={{ user_id: userId }}
-                />
-              </div>
-            )}
-          </div>
+          <div styleName="value">{this.caseKycStatus()}</div>
         </div>
         <div styleName="button" onClick={onLogout}>
           <Button size="x-small" theme="primary">
