@@ -101,7 +101,7 @@ class WalletTab extends React.Component {
   handleMoonpay = () => {
     const { profile, currency } = this.props;
     const { colorHexCode } = this.state;
-    const userEmail = profile.user.user.email;
+    const userEmail = profile.getUserEmail();
     const userId = profile.user.id;
     const resultMoonpay = getApp().integrations.moonpay;
     const resultWalletAddress = profile.getWallet({ currency }).currency
@@ -171,12 +171,15 @@ class WalletTab extends React.Component {
   };
 
   renderPopSendEmailAlert = () => {
-    const { ln } = this.props;
+    const { ln, profile, currency  } = this.props;
     const { isEmailConfirmed, isConfirmationSent } = this.state;
     const copyConfirmEmail = CopyText.homepage[ln];
     const skin = getAppCustomization().skin.skin_type;
     const resultMoonpay = getApp().integrations.moonpay;
+    const resultWalletAddress = profile.getWallet({ currency }).currency
+    .address;
 
+    console.log(resultWalletAddress);
     return isEmailConfirmed === false ? (
       <div styleName="email-confirmation">
         <div styleName="email-title">

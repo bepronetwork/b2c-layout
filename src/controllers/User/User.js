@@ -242,6 +242,10 @@ export default class User {
         return user;
     }
 
+    getUserEmail = () => {
+        return this.user.email
+    }
+
 
     getTokenAmount = async () => {
         return 0;
