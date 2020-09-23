@@ -65,7 +65,7 @@
 }
 
 .background-kyc-digital{
-    background-color: $primaryColor-8;
+    background-color: $backgroundColor-8;
     padding: 15px;
     border-radius: $border-radius;
     background-size: 100px;
