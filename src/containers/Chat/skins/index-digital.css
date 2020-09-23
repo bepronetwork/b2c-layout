@@ -178,6 +178,10 @@
     .users-icon{
       width: 28px;
       margin-left: $spacing-8;
+
+      img {
+        height: 18px;
+      }
     }
 
     p {
