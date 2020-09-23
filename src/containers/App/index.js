@@ -894,7 +894,7 @@ class App extends Component {
                                 {
                                     cripsr && cripsr.key
                                     ?
-                                        <div styleName="chat-crisp-expand" onClick={this.openCripsrChatClick}>
+                                        <div styleName="chat-crisp-expand chat-crisp-expand-mobile" onClick={this.openCripsrChatClick}>
                                             <div>
                                                 { liveChatIcon === null ? <LiveChatIcon /> : <img src={liveChatIcon} /> }
                                             </div>
@@ -903,6 +903,17 @@ class App extends Component {
                                         null
                                 }
                                 <div styleName={chatStyles} >
+                                    {
+                                        cripsr && cripsr.key
+                                        ?
+                                            <div styleName="chat-crisp-expand" onClick={this.openCripsrChatClick}>
+                                                <div>
+                                                    { liveChatIcon === null ? <LiveChatIcon /> : <img src={liveChatIcon} /> }
+                                                </div>
+                                            </div> 
+                                        :
+                                            null
+                                    }
                                     <div styleName="chat-expand" onClick={this.expandChatClick}>
                                         <div>
                                             { chatIcon === null ? <ChatIcon /> : <img src={chatIcon} /> }
