@@ -36,6 +36,15 @@
         ]
       }
     }
+  },
+  "ru": {
+    "MESSAGE": {
+      "TYPOGRAPHY": {
+        "TEXT": [
+          "Закрыть"
+        ]
+      }
+    }
   }
 }
     export default messageFormMessageCopy;

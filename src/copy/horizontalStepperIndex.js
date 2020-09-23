@@ -76,6 +76,25 @@
         ]
       }
     }
+  },
+  "ru": {
+    "INDEX": {
+      "TYPOGRAPHY": {
+        "TEXT": [
+          "Все шаги выполнены - you&apos;re завершён",
+          "Назад",
+          "Закрыть",
+          "Назад",
+          "Следующий",
+          "Следующий"
+        ]
+      },
+      "BUTTON": {
+        "TEXT": [
+          "Сброс"
+        ]
+      }
+    }
   }
 }
     export default horizontalStepperIndexCopy;

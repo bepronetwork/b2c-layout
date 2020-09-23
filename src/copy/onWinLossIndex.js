@@ -40,6 +40,16 @@
         ]
       }
     }
+  },
+  "ru": {
+    "INDEX": {
+      "TOGGLE_BUTTON": {
+        "TITLE": [
+          "Сброс",
+          "Увеличить на"
+        ]
+      }
+    }
   }
 }
     export default onWinLossIndexCopy;

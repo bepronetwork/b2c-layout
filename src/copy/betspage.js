@@ -59,6 +59,20 @@
         ]
       }
     }
+  },
+  "ru": {
+    "TABLE": {
+      "MY_BETS": {
+        "TITLE": "Мои Ставки",
+        "ITEMS": [
+          "Игры",
+          "Id Ставки",
+          "Время",
+          "Выплата",
+          "Прибыль"
+        ]
+      }
+    }
   }
 }
     export default betspageCopy;

@@ -35,6 +35,15 @@ const affiliateLinkContainerCopy = {
                 `Not Translated.`
             ],
         }
+    },
+    'ru' : {
+        TYPOGRAPHY: {
+            TEXT : [
+                (param) => `Поделись и получи прибыль в ${param} партёрской программе!`,
+                (param) => `Получай, как минимум, ${param}% за каждого пользователя, зарегистрированного по это ссылке`,
+                `копировать`
+            ],
+        }
     }
 }
 export default affiliateLinkContainerCopy;

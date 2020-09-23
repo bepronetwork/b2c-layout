@@ -40,6 +40,16 @@ const betsdetailspageCopy =
         "Client Seed",
         "Server Hashed Seed"
     ]
+  },
+  "ru": {
+    "TEXT": [
+        "Пользователь",
+        "Ставка",
+        "Сумма выигрыша",
+        "Server Seed",
+        "Client Seed",
+        "Server Hashed Seed"
+    ]
   }
 }
 

@@ -50,7 +50,7 @@ class AccountTab extends React.Component {
       ? profile.user.email
       : profile.user.user.email;
     const avatar = null;
-    console.log(kycIntegration)
+
     this.setState({
       ...this.state,
       userId,

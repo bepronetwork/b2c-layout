@@ -36,6 +36,15 @@
         ]
       }
     }
+  },
+  "ru": {
+    "INDEX": {
+      "PAYMENTBOX": {
+        "DESCRIPTION": [
+          "Токен"
+        ]
+      }
+    }
   }
 }
     export default currencyFormIndexCopy;

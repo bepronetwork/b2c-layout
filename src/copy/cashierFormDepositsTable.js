@@ -104,6 +104,32 @@
         ]
       }
     }
+  },
+  "ru": {
+    "TABLE":{
+      "PAGE":"Rows per page"
+    },
+    "ROW": {
+      "LABEL": [
+        "Количество",
+        "Статус",
+        "Хэш Транзакции",
+        "Дата созания"
+      ]
+    },
+    "DEPOSITSTABLE": {
+      "TOOLTIP": {
+        "TITLE": [
+          "Сортировать"
+        ]
+      },
+      "TYPOGRAPHY": {
+        "TEXT": [
+          "Получение последних депозитов...",
+          "Должно занять меньше минуты"
+        ]
+      }
+    }
   }
 }
 export default cashierFormDepositsTableCopy;
