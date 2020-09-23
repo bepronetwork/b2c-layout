@@ -15,6 +15,7 @@ import CloseCross from "components/Icons/CloseCross";
 import PaymentBox from "../PaymentBox";
 import DepositList from "./DepositList";
 import WithdrawList from "./WithdrawList";
+import CreditCard from "assets/icons/credit-card.png"
 import { CopyText } from "../../copy";
 import { getApp, getAppCustomization,  getIcon } from "../../lib/helpers";
 import { setMessageNotification } from "../../redux/actions/message";
@@ -28,6 +29,7 @@ const defaultState = {
   isEmailConfirmed: false,
   isConfirmationSent: false,
   onOpenMoonpay: false,
+  isMoonpayActive: null,
   colorHexCode: null,
   clientId: "",
   flowId: "",
@@ -66,6 +68,7 @@ class WalletTab extends React.Component {
 
     const isKycStatus = await profile.kycStatus();
     const kycIntegration = getApp().integrations.kyc;
+    const moonpayIntegration = getApp().integrations.moonpay;
     const user = !_.isEmpty(props.profile) ? props.profile : null;
     const virtual = getApp().virtual;
     const wallets =
@@ -95,6 +98,7 @@ class WalletTab extends React.Component {
       ...this.state,
       clientId: kycIntegration.clientId,
       flowId: kycIntegration.flowId,
+      isMoonpayActive: moonpayIntegration.isActive,
       isKycStatus:
           isKycStatus === null ? isKycStatus : isKycStatus.toLowerCase(),
       isKycNeeded,
@@ -310,71 +314,6 @@ class WalletTab extends React.Component {
     }
   };
 
-  renderPopSendEmailAlert = () => {
-    const { ln } = this.props;
-    const { isEmailConfirmed, isConfirmationSent } = this.state;
-    const copyConfirmEmail = CopyText.homepage[ln];
-    const skin = getAppCustomization().skin.skin_type;
-    const resultMoonpay = getApp().integrations.moonpay;
-
-    return isEmailConfirmed === false ? (
-      <div styleName="email-confirmation">
-        <div styleName="email-title">
-          <span styleName="icon">
-            <EmailIcon />
-          </span>
-          <Typography variant="small-body" color="grey" weight="bold">
-            {copyConfirmEmail.CONTAINERS.APP.MODAL[2]}
-          </Typography>
-        </div>
-        <div styleName="email-content">
-          <div styleName="email-text">
-            <Typography variant="x-small-body" color="white">
-              Your e-mail is not confirmed.
-            </Typography>
-            <Typography variant="x-small-body" color="white">
-              Please click the button to send another e-mail confirmation.
-            </Typography>
-          </div>
-          <div styleName="email-buttons">
-            <div styleName="button">
-              <Button
-                size="x-small"
-                theme="action"
-                disabled={isConfirmationSent}
-                onClick={this.handleResendConfirmEmail}
-              >
-                <Typography
-                  color={skin == "digital" ? "secondary" : "fixedwhite"}
-                  variant="small-body"
-                >
-                  {copyConfirmEmail.CONTAINERS.APP.MODAL[2]}
-                </Typography>
-              </Button>
-
-              {resultMoonpay.isValid ? (
-                <div styleName="button">
-                  <Button
-                    size="x-small"
-                    theme="action"
-                    onClick={this.handleMoonpay}
-                  >
-                    <Typography
-                      color={skin == "digital" ? "secondary" : "fixedwhite"}
-                      variant="small-body"
-                    >
-                      {"Buy with creditcard"}
-                    </Typography>
-                  </Button>
-                </div>
-              ) : null}
-            </div>
-          </div>
-        </div>
-      </div>
-    ) : null;
-  };
-
   render() {
     const { ln, isCurrentPath } = this.props;
     const {
@@ -384,15 +323,15 @@ class WalletTab extends React.Component {
       virtual,
       isEmailConfirmed,
       onOpenMoonpay,
-      isKycNeeded
+      isKycNeeded,
+      isMoonpayActive
     } = this.state;
     const copy = CopyText.cashierFormIndex[ln];
-    const skin = getAppCustomization().skin.skin_type;
 
     if (!wallet) {
       return null;
     }
-
+    console.log(isMoonpayActive);
     return (
       <>
         <div>
@@ -412,6 +351,35 @@ class WalletTab extends React.Component {
                     />
                   );
                 })}
+                {isMoonpayActive ? (
+                <div styleName="container-root">
+                  <Button
+                    size="x-small"
+                    theme="action"
+                    onClick={() => this.handleOpenMoonpay()}
+                  >
+                    <Row>
+                      <Col xs={4} md={4}>
+                        <div styleName='container-image'>
+                            <img src={CreditCard} styleName='payment-image'/>
+                        </div>
+                      </Col>
+                      <Col xs={8} md={8}>
+                        <div styleName={'container-text'}>
+                          <Typography variant={'small-body'} color={'white'}>
+                              Credit Card
+                          </Typography>
+                          <div styleName='text-description'>
+                              <Typography variant={'x-small-body'} color={'white'}>
+                                Deposit with your Credit Card
+                              </Typography>
+                          </div>
+                        </div>
+                      </Col>
+                    </Row>
+                  </Button>
+                </div>
+                ) : null }
               </div>
             </Col>
             <Col md={12} lg={12} xl={8}>
@@ -444,20 +412,6 @@ class WalletTab extends React.Component {
                         wallet={wallet}
                         onAddress={this.handleAddress}
                       />
-                      <div styleName="button">
-                        <Button
-                          size="x-small"
-                          theme="action"
-                          onClick={() => this.handleOpenMoonpay()}
-                        >
-                          <Typography
-                            color={skin == "digital" ? "secondary" : "fixedwhite"}
-                            variant="small-body"
-                          >
-                            {"Buy with creditcard"}
-                          </Typography>
-                        </Button>
-                      </div>
                       <DepositList isCurrentPath={isCurrentPath} />
                     </div>
                   </>
@@ -477,7 +431,6 @@ class WalletTab extends React.Component {
           </div>
           {isEmailConfirmed === false ? tab === "deposit" ? this.renderPopSendAlert("deposit") : null : null}
           {isKycNeeded === true ? tab === "withdraw" ? this.renderPopSendAlert("withdraw") : null : null}
-          {this.renderPopSendEmailAlert()}
         </div>
         {onOpenMoonpay === true ? this.handleMoonpay() : null}
       </>

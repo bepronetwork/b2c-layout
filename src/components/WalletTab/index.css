@@ -14,6 +14,7 @@
     border-radius: $border-radius;
     box-shadow: $shadowColor 0px 0px 10px;
     z-index: 4;
+
 }
 
 .email-title{
@@ -191,3 +192,36 @@
     padding: $spacing-12;
     border-radius: 50%;
 }
+
+.container-root{
+    height: auto;
+    margin-bottom : 10px;
+    background-color: $secondaryColor;
+    border-radius : $border-radius;
+    opacity : 1;
+    transition: all 0.2s ease-in;
+
+    &:hover{
+        opacity : 0.4;
+    }
+}
+
+.text-description{
+    margin-top : $spacing-8;
+    opacity: 0.5;
+}
+
+.payment-image{
+    width: 70px;
+}
+
+.container-text{
+    text-align: left;
+    margin-top: 20px;
+}
+
+.container-image{
+    width : 100px;
+}
+
+
