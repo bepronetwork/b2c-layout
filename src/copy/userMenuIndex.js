@@ -44,6 +44,17 @@
         ]
       }
     }
+  },
+  "ru": {
+    "INDEX": {
+      "TYPOGRAPHY": {
+        "TEXT": [
+          "Касса",
+          "Учетная запись",
+          "Выйти"
+        ]
+      }
+    }
   }
 }
     export default userMenuIndexCopy;

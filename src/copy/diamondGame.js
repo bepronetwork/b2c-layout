@@ -26,6 +26,13 @@ const DiamondGameIndex = {
         TITLE: ["ペイアウト", "確率"]
       }
     }
+  },
+  ru: {
+    INDEX: {
+      INPUT_NUMBER: {
+        TITLE: ["Выплата", "Вероятность"]
+      }
+    }
   }
 };
 

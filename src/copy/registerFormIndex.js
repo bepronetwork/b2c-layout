@@ -88,6 +88,28 @@
         ]
       }
     }
+  },
+  "ru": {
+    "INDEX": {
+      "INPUT_TEXT": {
+        "LABEL": [
+          "Имя пользователя",
+          "Пароль",
+          "Подтвердите Пароль",
+          "Адрес электронной почты",
+          "Id Пользователя",
+          "Account Verification"
+        ]
+      },
+      "TYPOGRAPHY": {
+        "TEXT": [
+          "Регистрация",
+          "Your KYC have been confirmed",
+          "Waiting for manual review",
+          "Rejected"
+        ]
+      }
+    }
   }
 }
     export default registerFormIndexCopy;

@@ -36,6 +36,15 @@
         ]
       }
     }
+  },
+  "ru": {
+    "INDEX": {
+      "TYPOGRAPHY": {
+        "TEXT": [
+          "Освещение в СМИ"
+        ]
+      }
+    }
   }
 }
     export default mediaIndexCopy;

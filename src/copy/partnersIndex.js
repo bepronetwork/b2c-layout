@@ -36,6 +36,15 @@
         ]
       }
     }
+  },
+  "ru": {
+    "INDEX": {
+      "TYPOGRAPHY": {
+        "TEXT": [
+          "Партнёры"
+        ]
+      }
+    }
   }
 }
     export default partnersIndexCopy;
