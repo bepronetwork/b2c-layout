@@ -50,13 +50,14 @@ class AccountTab extends React.Component {
       ? profile.user.email
       : profile.user.user.email;
     const avatar = null;
-
+    console.log(kycIntegration)
     this.setState({
       ...this.state,
       userId,
       username,
       avatar,
       email,
+      isKycActive: kycIntegration.isActive,
       clientId: kycIntegration.clientId,
       flowId: kycIntegration.flowId,
       isKycStatus:
@@ -113,7 +114,7 @@ class AccountTab extends React.Component {
 
   render() {
     const { ln, onLogout } = this.props;
-    const { username, email, userId, isKycStatus } = this.state;
+    const { username, email, userId, isKycStatus, isKycActive } = this.state;
     const copy = CopyText.registerFormIndex[ln];
     const copyLogout = CopyText.userMenuIndex[ln];
     const skin = getAppCustomization().skin.skin_type;
@@ -156,14 +157,18 @@ class AccountTab extends React.Component {
             </Typography>
           </div>
         </div>
-        <div styleName={`field ${skin == "digital" ? "background-kyc-digital" : "background-kyc"}`}>
-          <div styleName={`label ${isKycStatus === "no kyc" ? "flex-kyc" : "label"}`}>
-            <Typography variant="small-body" color="white">
-              {copy.INDEX.INPUT_TEXT.LABEL[5]}
-            </Typography>
-          </div>
-          <div styleName="value">{this.caseKycStatus()}</div>
-        </div>
+        {
+          isKycActive ? 
+            <div styleName={`field ${skin == "digital" ? "background-kyc-digital" : "background-kyc"}`}>
+              <div styleName={`label ${isKycStatus === "no kyc" ? "flex-kyc" : "label"}`}>
+                <Typography variant="small-body" color="white">
+                  {copy.INDEX.INPUT_TEXT.LABEL[5]}
+                </Typography>
+              </div>
+              <div styleName="value">{this.caseKycStatus()}</div>
+            </div>
+          : null
+        }
         <div styleName="button" onClick={onLogout}>
           <Button size="x-small" theme="primary">
             <Typography

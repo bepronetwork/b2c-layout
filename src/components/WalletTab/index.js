@@ -53,7 +53,7 @@ class WalletTab extends React.Component{
 
     projectData = async (props) => {
         const { profile } = this.props;
-
+        const isKycStatus = await profile.kycStatus();
         const kycIntegration = getApp().integrations.kyc;
         let { wallet } = this.state;
         var user = !_.isEmpty(props.profile) ? props.profile : null;
@@ -71,6 +71,8 @@ class WalletTab extends React.Component{
             ...this.state,
             clientId: kycIntegration.clientId,
             flowId: kycIntegration.flowId,
+            isKycStatus:
+                isKycStatus === null ? isKycStatus : isKycStatus.toLowerCase(),
             isKycNeeded,
             userId,
             wallets,
@@ -78,6 +80,7 @@ class WalletTab extends React.Component{
             virtual: getApp().virtual,
             isEmailConfirmed: await user.isEmailConfirmed()
         });
+        this.caseKycStatus();
     }
 
     handleTabChange = name => {
@@ -120,9 +123,56 @@ class WalletTab extends React.Component{
 
     };
 
+    caseKycStatus = () => {
+        const { isKycStatus, clientId, flowId, userId } = this.state;
+        const { ln } = this.props;
+        const copy = CopyText.registerFormIndex[ln];
+    
+        switch (isKycStatus) {
+          case "no kyc":
+            return (
+              <div>
+                <mati-button
+                  clientid={clientId}
+                  flowId={flowId}
+                  metadata={`{"id": "${userId}"}`}
+                />
+              </div>
+            );
+          case "reviewneeded":
+            return (
+              <Typography variant="small-body" color="orange">
+                {copy.INDEX.TYPOGRAPHY.TEXT[2]}
+              </Typography>
+            );
+          case "rejected":
+            return (
+              <Typography variant="small-body" color="red">
+                {copy.INDEX.TYPOGRAPHY.TEXT[3]}
+              </Typography>
+            );
+          case "verified":
+            return (
+              <Typography variant="small-body" color="green">
+                {copy.INDEX.TYPOGRAPHY.TEXT[1]}
+              </Typography>
+            );
+    
+          case null:
+            return (
+              <Typography variant="small-body" color="red">
+                {"ERROR TO GET STATUS"}
+              </Typography>
+            );
+          default:
+            break;
+        }
+      };
+    
+
     renderPopSendAlert = tab => {
         const { ln } = this.props;
-        const { isConfirmationSent, clientId, flowId, userId } = this.state;
+        const { isConfirmationSent } = this.state;
         const copyConfirmEmail = CopyText.homepage[ln];
         const skin = getAppCustomization().skin.skin_type;
         const emailIcon = getIcon(11);
@@ -180,11 +230,7 @@ class WalletTab extends React.Component{
                                         </Button>
                                     :
                                     <div styleName="button">
-                                        <mati-button
-                                            clientid={clientId}
-                                            flowId={flowId}
-                                            metadata={`{"id": "${userId}"}`}
-                                        />
+                                        {this.caseKycStatus()}
                                     </div>
                                 }
                             </div>
