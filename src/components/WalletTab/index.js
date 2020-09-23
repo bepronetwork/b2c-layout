@@ -331,7 +331,7 @@ class WalletTab extends React.Component {
     if (!wallet) {
       return null;
     }
-    console.log(isMoonpayActive);
+
     return (
       <>
         <div>
