@@ -9,7 +9,7 @@ import { getApp } from "../../lib/helpers";
 import { setCurrencyView } from "../../redux/actions/currency";
 import Tooltip from '@material-ui/core/Tooltip';
 import { withStyles } from "@material-ui/core/styles";
-import { getAppCustomization } from "../../lib/helpers";
+import { getAppCustomization, getIcon } from "../../lib/helpers";
 import _ from 'lodash';
 
 import "./index.css";
@@ -134,6 +134,9 @@ class CurrencySelector extends Component {
             }
         })(Tooltip);
 
+        const arrowUpIcon = getIcon(24);
+        const arrowDownIcon = getIcon(25);
+
         return (
             bonusAmount > 0
             ?
@@ -147,9 +150,9 @@ class CurrencySelector extends Component {
                         </span>                    
                         {open 
                         ? 
-                            skin == "digital" ? <ArrowUpIcon /> : <ArrowUp /> 
+                            arrowUpIcon === null ? skin == "digital" ? <ArrowUpIcon /> : <ArrowUp /> : <img src={arrowUpIcon} /> 
                         : 
-                            skin == "digital" ? <ArrowDownIcon /> : <ArrowDown /> 
+                            arrowDownIcon === null ?skin == "digital" ? <ArrowDownIcon /> : <ArrowDown /> : <img src={arrowDownIcon} /> 
                         }
                     </div>
                 </SecondaryTooltip>
@@ -163,9 +166,9 @@ class CurrencySelector extends Component {
                     </span>                    
                     {open 
                     ? 
-                        skin == "digital" ? <ArrowUpIcon /> : <ArrowUp /> 
+                        arrowUpIcon === null ? skin == "digital" ? <ArrowUpIcon /> : <ArrowUp /> : <img src={arrowUpIcon} /> 
                     : 
-                        skin == "digital" ? <ArrowDownIcon /> : <ArrowDown /> 
+                        arrowDownIcon === null ?skin == "digital" ? <ArrowDownIcon /> : <ArrowDown /> : <img src={arrowDownIcon} /> 
                     }
                 </div>
         );

@@ -38,6 +38,10 @@
   text-align: center;
   width: 40px;
   margin-right: $spacing-16;
+
+  img {
+    width: 40px;
+  }
 }
 
 .confirm-right {

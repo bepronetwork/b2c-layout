@@ -89,7 +89,7 @@
 .primary:hover {
   @include Breakpoint-desktopOnly {
     .content {
-      background-color: $button-hover-color;
+      background-color: $primaryColor-13;
       transition: background-color 0.2s ease-in;
     }
   }
@@ -158,7 +158,7 @@
 .icon {
   margin-right: $spacing-4;
 
-  svg {
+  svg, img {
     height: 20px;
   }
 }

@@ -91,25 +91,30 @@
   position: relative;
   flex-direction: column;
   align-items: center;
-}
 
-.item img{
-  display: inline-block;
-  height: 1em;
-  stroke-width: 0;
-  margin-top: 0.4em;
-  margin-bottom: 0.4em;
-}
+  svg{
+    margin-left: $spacing-12;
+  }
 
-.item svg{
-  margin-left: $spacing-12;
+  img:nth-child(1) {
+    display: inline-block;
+    height: 1em;
+    stroke-width: 0;
+    margin-top: 0.4em;
+    margin-bottom: 0.4em;
+  }
+
+  img:nth-child(3) {
+    margin-left: $spacing-12;
+    width: 16px;
+  }
 }
 
 .itemHor {
   display: flex;
   flex-direction: unset;
 
-  img {
+  img:nth-child(1) {
     margin-right: $spacing-8;
   }
 }

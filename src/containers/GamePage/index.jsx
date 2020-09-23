@@ -7,8 +7,8 @@ import LastBets from "../LastBets/GamePage";
 import Actions from "./Actions";
 import IFrame from "./IFrame";
 import Cache from "../../lib/cache/cache";
+import { getIcon, convertAmountProviderBigger } from "../../lib/helpers";
 import { Row, Col } from 'reactstrap';
-import { CopyText } from "../../copy";
 import { connect } from "react-redux";
 import classNames from "classnames";
 import { find } from "lodash";
@@ -116,20 +116,10 @@ class GamePage extends Component {
         }
     }
 
-    componentDidMount = async () => {
+    componentDidMount = async () => {       
+        this.setState({ max: document.documentElement.clientWidth <= 1024 });
+
         window.scrollTo(0, 0);
-    }
-
-    convertAmountProviderBigger = (ticker, value) => {
-        let tickers = {
-            "ETH": {value: 1000, ticker: "mETH"},
-            "BTC": {value: 1000000, ticker: "μBTC"}
-        };
-        if (tickers[ticker]) {
-            return {value: (value / tickers[ticker].value),  ticker: (tickers[ticker].ticker)};
-        }
-
-        return null;
     }
 
     maximizeIframe(max) {
@@ -194,13 +184,15 @@ class GamePage extends Component {
         const { currency, providerToken, providerGameId, providerPartnerId, providerUrl, providerExternalId, providerName, providerGameName } = this.props;
         const { max } = this.state;
 
-        const newCurrency = this.convertAmountProviderBigger(currency.ticker, 1);
+        const newCurrency = convertAmountProviderBigger(currency.ticker, 1);
 
         if(newCurrency === null) { return null };
 
         const closeStyles = classNames("close-iframe", {
             "show-close": max === true
         });
+
+        const maximizeIcon = getIcon(14);
 
         return (
             <div>
@@ -218,7 +210,7 @@ class GamePage extends Component {
                         max={max}
                     />
                     <div styleName="functions">
-                        <div onClick={() => this.maximizeIframe(true)}><MaximizeIcon /></div>
+                        <div onClick={() => this.maximizeIframe(true)}>{ maximizeIcon === null ? <MaximizeIcon /> : <img src={maximizeIcon} /> }</div>
                     </div>
                 </div>
                 {this.renderBox({title: providerName, game: providerGameName, info: `1 ${newCurrency.ticker} = ${newCurrency.value} ${currency.ticker}`})}

@@ -134,3 +134,7 @@
 .secondary{
   color : $secondaryColor;
 }
+
+.orange{
+  color: rgb(242, 153, 74);
+}

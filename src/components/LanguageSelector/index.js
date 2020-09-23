@@ -6,7 +6,7 @@ import { CopyText } from '../../copy';
 import { connect } from "react-redux";
 import languages from "../../config/languages";
 import { setLanguageInfo } from "../../redux/actions/language";
-import { isUserSet, getAppCustomization } from "../../lib/helpers";
+import { isUserSet, getAppCustomization, getIcon } from "../../lib/helpers";
 import classNames from "classnames";
 
 import "./index.css";
@@ -129,6 +129,9 @@ class LanguageSelector extends Component {
             itemHor: showArrow === true
         });
 
+        const arrowUpIcon = getIcon(24);
+        const arrowDownIcon = getIcon(25);
+
         return (
             <div styleName="root">
                 <button
@@ -147,9 +150,9 @@ class LanguageSelector extends Component {
                             ?  
                                 open 
                                 ? 
-                                    skin == "digital" ? <ArrowUpIcon /> : <ArrowUp /> 
+                                    arrowUpIcon === null ? skin == "digital" ? <ArrowUpIcon /> : <ArrowUp /> : <img src={arrowUpIcon} /> 
                                 : 
-                                    skin == "digital" ? <ArrowDownIcon /> : <ArrowDown /> 
+                                    arrowDownIcon === null ?skin == "digital" ? <ArrowDownIcon /> : <ArrowDown /> : <img src={arrowDownIcon} /> 
                             : 
                                 null  
                         }

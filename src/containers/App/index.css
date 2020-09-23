@@ -41,7 +41,7 @@
 
 .chat-container-main{
     position: fixed;
-    top : 0px;
+    top: calc($navbar-height - 10px);
     right: 0;
     height: 100%;
     width: $chat-width-desktop;
@@ -106,14 +106,19 @@
 
   div {
     margin: auto;
+    height: 100%;
+    width: 100%;
+    display: flex;
 
     img {
-      margin-top: -1px;
-      margin-left: -1px;
+      margin: auto;
+      width: 30px;
+      height: 30px;
     }
   }
 
   svg {
+    margin: auto;
     width: 34px;
     height: 34px;
   }
@@ -148,10 +153,14 @@
 
   div {
     margin: auto;
+    height: 100%;
+    width: 100%;
+    display: flex;
 
     img {
-      margin-top: -1px;
-      margin-left: -1px;
+      margin: auto;
+      width: 30px;
+      height: 30px;
     }
   }
 }
@@ -278,6 +287,8 @@
 }
 
 .modal-login {
+  min-height: 600px;
+
   .tabs {
     width: 100%;
   }

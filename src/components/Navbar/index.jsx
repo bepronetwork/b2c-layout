@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { Button, SubtleButton, Typography, LanguageSelector, NavigationBar, CurrencySelector, UserIcon} from "components";
 import UserContext from "containers/App/UserContext";
 import { connect } from "react-redux";
-import { getAppCustomization, getApp, getAddOn } from "../../lib/helpers";
+import { getAppCustomization, getApp, getAddOn, getIcon } from "../../lib/helpers";
 import { formatCurrency } from "../../utils/numberFormatation";
 import { CopyText } from '../../copy';
 import Tooltip from '@material-ui/core/Tooltip';
@@ -27,7 +27,8 @@ const defaultProps = {
     betIDVerified : '',
     openSettingsMenu : false,
     currentPoints : 0,
-    isTransparent: false
+    isTransparent: false,
+    isDefaultIcon: true
 };
 
 class Navbar extends Component {
@@ -226,12 +227,13 @@ class Navbar extends Component {
 
     renderProfileMenu = () => {
         const { profile, onAccount, history } = this.props;
+        const userIcon = getIcon(0);
 
         return(
             <button styleName="profile" onClick={() => onAccount({history})} type="button">
                 <div styleName="label">
                     <div styleName="user-icon">
-                        <UserIcon/>
+                        { userIcon === null ? <UserIcon/> :  <img src={userIcon} /> }
                     </div>
                     <span>
                         <Typography color="white" variant={'small-body'}>{profile.getUsername()}</Typography>

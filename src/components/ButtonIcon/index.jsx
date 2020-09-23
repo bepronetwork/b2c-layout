@@ -2,6 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import classNames from "classnames";
 import { Typography, RotateIcon, UndoIcon, SoundIcon, CopyIcon } from "components";
+import { getIcon } from "../../lib/helpers";
 
 import "./index.css";
 
@@ -24,19 +25,19 @@ const ButtonIcon = ({
     over: rollType === "over"
   });
 
+  const rotateIcon = getIcon(31);
+  const undoIcon = getIcon(30);
+  const soundIcon = getIcon(13);
+  const copyIcon = getIcon(27);
+
   const icons = {
-    rotate: <RotateIcon color={disabled ? "pickled-bluewood" : "casper"} />,
-    undo: <UndoIcon color={disabled ? "pickled-bluewood" : "casper"} />,
+    rotate: rotateIcon === null ? <RotateIcon color={disabled ? "pickled-bluewood" : "casper"} /> : <img src={rotateIcon} />,
+    undo: undoIcon === null ? <UndoIcon color={disabled ? "pickled-bluewood" : "casper"} /> : <img src={undoIcon} />,
     sound: (
-      <SoundIcon
-        soundMode={soundMode}
-        color={disabled ? "pickled-bluewood" : "casper"}
-      />
+      soundIcon === null ? <SoundIcon soundMode={soundMode} color={disabled ? "pickled-bluewood" : "casper"} /> : <img src={soundIcon} />
     ),
     copy: (
-      <CopyIcon
-        color={disabled ? "pickled-bluewood" : "casper"}
-      />
+      copyIcon === null ? <CopyIcon color={disabled ? "pickled-bluewood" : "casper"} /> : <img src={copyIcon} />
     )
   };
 

@@ -10,7 +10,8 @@ const defaultState = {
   username: "",
   email: "",
   clientId: "",
-  flowId: ""
+  flowId: "",
+  isKycStatus: null
 };
 // const cache = new Cache({
 //   // Keep cached source failures for up to 7 days
@@ -27,30 +28,22 @@ class AccountTab extends React.Component {
 
   componentDidMount() {
     this.projectData(this.props);
-    this.getAppIntegration();
   }
 
   componentWillReceiveProps(props) {
     this.projectData(props);
   }
 
-  getAppIntegration = () => {
-    const appInfo = Cache.getFromCache("appInfo");
-    const kycIntegration = appInfo.integrations.kyc;
-
-    this.setState({
-      clientId: kycIntegration.clientId,
-      flowId: kycIntegration.flowId
-    });
-  };
-
-  projectData = props => {
+  projectData = async props => {
     const { profile } = props;
+    const appInfo = Cache.getFromCache("appInfo");
 
     if (!isUserSet(profile)) {
       return null;
     }
 
+    const kycIntegration = appInfo.integrations.kyc;
+    const isKycStatus = await profile.kycStatus();
     const userId = profile.getID();
     const username = profile.getUsername();
     const email = profile.user.email
@@ -58,18 +51,86 @@ class AccountTab extends React.Component {
       : profile.user.user.email;
     const avatar = null;
 
-    this.setState({ ...this.state, userId, username, avatar, email });
+    this.setState({
+      ...this.state,
+      userId,
+      username,
+      avatar,
+      email,
+      isKycActive: kycIntegration.isActive,
+      clientId: kycIntegration.clientId,
+      flowId: kycIntegration.flowId,
+      isKycStatus:
+        isKycStatus === null ? isKycStatus : isKycStatus.toLowerCase()
+    });
+    this.caseKycStatus();
+  };
+
+  caseKycStatus = () => {
+    const { isKycStatus, clientId, flowId, userId } = this.state;
+    const { ln } = this.props;
+    const copy = CopyText.registerFormIndex[ln];
+
+    switch (isKycStatus) {
+      case "no kyc":
+        return (
+          <div>
+            <mati-button
+              clientid={clientId}
+              flowId={flowId}
+              metadata={`{"id": "${userId}"}`}
+            />
+          </div>
+        );
+      case "reviewneeded":
+        return (
+          <div styleName="value">
+            <Typography variant="small-body" color="green">
+              {copy.INDEX.TYPOGRAPHY.TEXT[2]}
+            </Typography>
+          </div>
+        );
+      case "rejected":
+        return (
+          <div styleName="value">
+            <Typography variant="small-body" color="green">
+              {copy.INDEX.TYPOGRAPHY.TEXT[3]}
+            </Typography>
+          </div>
+        );
+      case "verified":
+        return (
+          <div styleName="value">
+            <Typography variant="small-body" color="green">
+              {copy.INDEX.TYPOGRAPHY.TEXT[1]}
+            </Typography>
+          </div>
+        );
+
+      case null:
+        return (
+          <div styleName="value">
+            <mati-button
+              clientid={clientId}
+              flowId={flowId}
+              metadata={`{"id": "${userId}"}`}
+            />
+          </div>
+        );
+      default:
+        break;
+    }
   };
 
   render() {
     const { ln, onLogout } = this.props;
-    const { username, email, userId, clientId, flowId } = this.state;
+    const { username, email, userId, isKycStatus, isKycActive } = this.state;
     const copy = CopyText.registerFormIndex[ln];
     const copyLogout = CopyText.userMenuIndex[ln];
     const skin = getAppCustomization().skin.skin_type;
 
     return (
-      <div styleName="box">
+      <div styleName={`box ${skin == "digital" ? "box-digital-kyc" : "background-kyc"}`}>
         <div styleName="field">
           <div styleName="label">
             <Typography variant="small-body" color="white">
@@ -106,22 +167,18 @@ class AccountTab extends React.Component {
             </Typography>
           </div>
         </div>
-        <div styleName="button-kyc-container">
-          <div styleName="button-kyc">
-            <Typography variant="x-small-body" color="white">
-              Seems like we have to know a bit more about you, please do your
-              KYC to enable withdraws
-            </Typography>
-            <div>
-              <mati-button
-                clientid={clientId}
-                flowId={flowId}
-                metadata={{ user_id: userId }}
-              />
+        {
+          isKycActive ? 
+            <div styleName={`field ${isKycStatus === "no kyc" || isKycStatus === null ? "background-kyc-digital margin-button-kyc" : "background-kyc-digital"}`}>
+              <div styleName={`label ${isKycStatus === "no kyc" || isKycStatus === null ? "flex-kyc " : "flex-kyc"}`}>
+                <Typography variant="small-body" color="white">
+                  {copy.INDEX.INPUT_TEXT.LABEL[5]}
+                </Typography>
+              </div>
+              {this.caseKycStatus()}
             </div>
-          </div>
-        </div>
-
+          : null
+        }
         <div styleName="button" onClick={onLogout}>
           <Button size="x-small" theme="primary">
             <Typography

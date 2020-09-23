@@ -13,10 +13,6 @@
     display: grid;
     margin-bottom: $spacing-20;
     gap: $spacing-28;
-
-    @include Breakpoint-mobileOnly {
-        grid-template-columns: 25% 75%;
-    }
 }
 
 .label{
@@ -51,6 +47,79 @@
     justify-content: space-around;
     flex-direction: column;
     padding-bottom: $spacing-20;
-    border-radius: 10px;
+    border-radius: $border-radius;
     background-color: $primaryColor-8;
 }
+
+.flex-kyc{
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.background-kyc{
+    background-color: $primaryColor-8;
+    padding: 15px;
+    border-radius: $border-radius;
+    flex-direction: column;
+}
+
+.background-kyc-digital{
+    background-color: $primaryColor-8;
+    padding: 15px;
+    border-radius: $border-radius;
+    background-size: 100px;
+    width: 320px;
+    grid-template-columns: 1fr 1fr;
+    display: grid;
+    margin-bottom: $spacing-20;
+    gap: $spacing-28;
+}
+
+.box-digital-kyc{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding: $spacing-8 5%;
+
+    @include Breakpoint-mobileOnly {
+        padding: $spacing-8 5%;
+    }
+}
+
+.margin-button-kyc{
+    margin-left: 185px;
+}
+
+@media only screen and (max-width: 768px) {
+    .background-kyc-digital{
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      background-color: $primaryColor-8;
+      padding: 15px;
+      border-radius: $border-radius;
+      background-size: 80px;
+      width: 255px;
+      margin-left: 0px;
+    }
+    .flex-kyc{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .field{
+        width: 100%;
+    }
+
+    .box-digital-kyc{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: $spacing-8 5%;
+    }
+  }
+
+

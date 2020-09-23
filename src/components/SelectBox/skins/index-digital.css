@@ -115,6 +115,10 @@
     svg {
       width: $spacing-8;
     }
+
+    img {
+      width: 16px;
+    }
   
     *:first-child {
       margin-right: $spacing-4;
