@@ -84,26 +84,26 @@ class AccountTab extends React.Component {
         );
       case "reviewneeded":
         return (
-          <Typography variant="small-body" color="orange">
+          <Typography variant="small-body" color="orange" otherStyles={{textAlign: "center"}}>
             {copy.INDEX.TYPOGRAPHY.TEXT[2]}
           </Typography>
         );
       case "rejected":
         return (
-          <Typography variant="small-body" color="red">
+          <Typography variant="small-body" color="red" otherStyles={{textAlign: "center"}}>
             {copy.INDEX.TYPOGRAPHY.TEXT[3]}
           </Typography>
         );
       case "verified":
         return (
-          <Typography variant="small-body" color="green">
+          <Typography variant="small-body" color="green" otherStyles={{textAlign: "center"}}>
             {copy.INDEX.TYPOGRAPHY.TEXT[1]}
           </Typography>
         );
 
       case null:
         return (
-          <Typography variant="small-body" color="red">
+          <Typography variant="small-body" color="red" otherStyles={{textAlign: "center"}}>
             {"ERROR TO GET STATUS"}
           </Typography>
         );
@@ -165,7 +165,9 @@ class AccountTab extends React.Component {
                   {copy.INDEX.INPUT_TEXT.LABEL[5]}
                 </Typography>
               </div>
-              <div styleName="value">{this.caseKycStatus()}</div>
+              <div styleName={`label ${isKycStatus === "no kyc" ? "align-button-kyc" : "value"}`}>
+                {this.caseKycStatus()}
+              </div>
             </div>
           : null
         }

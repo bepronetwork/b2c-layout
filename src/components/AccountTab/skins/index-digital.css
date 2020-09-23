@@ -75,7 +75,12 @@
     width: 3;
     background-size: 100px;
     width: 360px;
-    margin-left: 150px;
+    grid-template-columns: 1fr 1fr;
+    display: grid;
+    margin-bottom: $spacing-20;
+    gap: $spacing-28;
+}
+.align-button-kyc{
 }
 
 .box-digital-kyc{
@@ -95,6 +100,7 @@
       display: flex;
       flex-direction: column;
       justify-content: center;
+      align-items: center;
       background-color: hsl(244,34%,10%);
       padding: 15px;
       border-radius: 5px;
@@ -108,6 +114,26 @@
         align-items: center;
         justify-content: center;
     }
+    .field{
+        width: 70%;
+    }
+
+    .value{
+        width:120px;
+    }
+
+    .box-digital-kyc{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: $spacing-8 5%;
+    }
+    .align-button-kyc{
+        display: flex;
+        align-items: center;
+        justify-items: center;
+    }
   }
+  
 
 
