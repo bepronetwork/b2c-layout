@@ -10,6 +10,8 @@ import {
 } from "components";
 import { Col, Row, CarouselControl } from "reactstrap";
 import _ from "lodash";
+import CloseIcon from "components/Icons/CloseCross";
+
 import PaymentBox from "../PaymentBox";
 import DepositList from "./DepositList";
 import WithdrawList from "./WithdrawList";
@@ -116,9 +118,7 @@ class WalletTab extends React.Component {
               type="button"
               styleName="button-x"
             >
-              <Typography color="secondary" variant="h2">
-                X
-              </Typography>
+              <CloseIcon />
             </button>
             <iframe
               styleName="bg-moonpay-box"
