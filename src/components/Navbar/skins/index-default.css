@@ -373,6 +373,10 @@
       width: 22px;
       background-color: $primaryColor-2;
       border-radius: $border-radius;
+
+      img {
+        height: 16px;
+      }
     }
 
     .currency-icon {

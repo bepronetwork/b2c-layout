@@ -221,7 +221,7 @@ class Footer extends Component {
                         socialLink.length
                         ?
                             <div styleName="social">
-                                <div>
+                                <div styleName="follow">
                                     <Typography color={"white"} variant={"x-small-body"}> Follow us </Typography>
                                 </div>
                                 <div styleName="social-icons">

@@ -233,7 +233,7 @@ function loadWheelOptions(game){
 function getIcon(index) {
     const { icons } = Cache.getFromCache("appInfo") ? Cache.getFromCache("appInfo").customization : {};
 
-    if(icons.useDefaultIcons !== true && index < icons.ids.length) {
+    if(icons.useDefaultIcons !== true) {
         const icon = icons.ids.find(i => (i.position == index));
         return icon ? icon.link : null;
     }
