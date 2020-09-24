@@ -10,13 +10,13 @@
           "Confirm Password",
           "Email",
           "User Id",
-          "Account Verification"
+          "KYC"
         ]
       },
       "TYPOGRAPHY": {
         "TEXT": [
           "Register",
-          "Your KYC have been confirmed",
+          "Verified",
           "Waiting for manual review",
           "Rejected"
         ]
@@ -32,7 +32,7 @@
           "비밀번호 확인",
           "이메일",
           "User Id",
-          "Account Verification"
+          "KYC"
         ]
       },
       "TYPOGRAPHY": {
@@ -40,7 +40,7 @@
           "등록",
           "귀하의 KYC가 확인되었습니다",
           "직접 검토를 기다리는 중",
-          "거부 됨"
+          "KYC"
         ]
       }
     }
@@ -54,7 +54,7 @@
           "确认密码",
           "邮箱",
           "User Id",
-          "Account Verification"
+          "KYC"
         ]
       },
       "TYPOGRAPHY": {
@@ -76,7 +76,7 @@
           "Confirm Password",
           "Email",
           "User Id",
-          "Account Verification"
+          "KYC"
         ]
       },
       "TYPOGRAPHY": {

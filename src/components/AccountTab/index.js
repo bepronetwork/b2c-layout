@@ -84,28 +84,38 @@ class AccountTab extends React.Component {
         );
       case "reviewneeded":
         return (
-          <Typography variant="small-body" color="orange">
-            {copy.INDEX.TYPOGRAPHY.TEXT[2]}
-          </Typography>
+          <div styleName="value">
+            <Typography variant="small-body" color="green">
+              {copy.INDEX.TYPOGRAPHY.TEXT[2]}
+            </Typography>
+          </div>
         );
       case "rejected":
         return (
-          <Typography variant="small-body" color="red">
-            {copy.INDEX.TYPOGRAPHY.TEXT[3]}
-          </Typography>
+          <div styleName="value">
+            <Typography variant="small-body" color="green">
+              {copy.INDEX.TYPOGRAPHY.TEXT[3]}
+            </Typography>
+          </div>
         );
       case "verified":
         return (
-          <Typography variant="small-body" color="green">
-            {copy.INDEX.TYPOGRAPHY.TEXT[1]}
-          </Typography>
+          <div styleName="value">
+            <Typography variant="small-body" color="green">
+              {copy.INDEX.TYPOGRAPHY.TEXT[1]}
+            </Typography>
+          </div>
         );
 
       case null:
         return (
-          <Typography variant="small-body" color="red">
-            {"ERROR TO GET STATUS"}
-          </Typography>
+          <div styleName="value">
+            <mati-button
+              clientid={clientId}
+              flowId={flowId}
+              metadata={`{"id": "${userId}"}`}
+            />
+          </div>
         );
       default:
         break;
@@ -159,13 +169,13 @@ class AccountTab extends React.Component {
         </div>
         {
           isKycActive ? 
-            <div styleName={`field ${skin == "digital" ? "background-kyc-digital" : "background-kyc"}`}>
-              <div styleName={`label ${isKycStatus === "no kyc" ? "flex-kyc" : "label"}`}>
+            <div styleName={`field ${isKycStatus === "no kyc" || isKycStatus === null ? "background-kyc-digital margin-button-kyc" : "background-kyc-digital"}`}>
+              <div styleName={`label ${isKycStatus === "no kyc" || isKycStatus === null ? "flex-kyc " : "flex-kyc"}`}>
                 <Typography variant="small-body" color="white">
                   {copy.INDEX.INPUT_TEXT.LABEL[5]}
                 </Typography>
               </div>
-              <div styleName="value">{this.caseKycStatus()}</div>
+              {this.caseKycStatus()}
             </div>
           : null
         }

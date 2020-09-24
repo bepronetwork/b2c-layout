@@ -47,10 +47,10 @@
     justify-content: space-around;
     flex-direction: column;
     padding-bottom: $spacing-20;
-    border-radius: 10px;
+    border-radius: $border-radius;
     background-color: $primaryColor-8;
-
 }
+
 .flex-kyc{
     display: flex;
     align-items: center;
@@ -58,19 +58,18 @@
 }
 
 .background-kyc{
-    background-color: $primaryColor-2;
+    background-color: $primaryColor-8;
     padding: 15px;
-    border-radius: 5px;
+    border-radius: $border-radius;
     flex-direction: column;
 }
 
 .background-kyc-digital{
-    background-color: hsl(244,34%,10%);
+    background-color: $backgroundColor-2;
     padding: 15px;
-    border-radius: 5px;
-    width: 3;
+    border-radius: $border-radius;
     background-size: 100px;
-    width: 360px;
+    width: 320px;
     grid-template-columns: 1fr 1fr;
     display: grid;
     margin-bottom: $spacing-20;
@@ -89,16 +88,19 @@
     }
 }
 
+.margin-button-kyc{
+    margin-left: 185px;
+}
+
 @media only screen and (max-width: 768px) {
     .background-kyc-digital{
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      background-color: hsl(244,34%,10%);
+      background-color: $backgroundColor-2;
       padding: 15px;
-      border-radius: 5px;
-      width: 3;
+      border-radius: $border-radius;
       background-size: 80px;
       width: 255px;
       margin-left: 0px;
@@ -109,11 +111,7 @@
         justify-content: center;
     }
     .field{
-        width: 70%;
-    }
-
-    .value{
-        width:120px;
+        width: 100%;
     }
 
     .box-digital-kyc{
