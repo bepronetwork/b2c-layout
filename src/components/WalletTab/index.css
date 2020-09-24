@@ -14,7 +14,6 @@
     border-radius: $border-radius;
     box-shadow: $shadowColor 0px 0px 10px;
     z-index: 4;
-
 }
 
 .email-title{
@@ -188,6 +187,9 @@
     border:none;
     cursor: pointer;
     z-index: 5;
+    background-color: $backgroundColor-5;
+    padding: $spacing-12;
+    border-radius: 50%;
 }
 
 
@@ -195,8 +197,8 @@
     display: flex;
     height: auto;
     width: 100%;
-    margin-bottom : 20px;
-    background-color: $secondaryColor-5;
+    margin-bottom : 10px;
+    background-color: $secondaryColor;
     border-radius : $border-radius;
     opacity : 1;
     transition: all 0.2s ease-in;
@@ -221,7 +223,7 @@
 }
 
 .container-image{
-    width : 100px;
+    width : 80px;
 }
 
 .color-kyc{

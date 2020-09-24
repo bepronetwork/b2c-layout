@@ -65,15 +65,14 @@
 }
 
 .background-kyc-digital{
-    background-color: $backgroundColor-2;
+    background: linear-gradient($backgroundColor-2, $backgroundColor-2) right/63% 100% no-repeat;
     padding: 15px;
     border-radius: $border-radius;
-    background-size: 100px;
-    width: 320px;
     grid-template-columns: 1fr 1fr;
     display: grid;
     margin-bottom: $spacing-20;
     gap: $spacing-28;
+
 }
 
 .box-digital-kyc{
@@ -88,10 +87,6 @@
     }
 }
 
-.margin-button-kyc{
-    margin-left: 185px;
-}
-
 @media only screen and (max-width: 768px) {
     .background-kyc-digital{
       display: flex;
@@ -101,7 +96,6 @@
       background-color: $backgroundColor-2;
       padding: 15px;
       border-radius: $border-radius;
-      background-size: 80px;
       width: 255px;
       margin-left: 0px;
     }
@@ -112,6 +106,7 @@
     }
     .field{
         width: 100%;
+        grid-template-columns: 1fr 1fr;
     }
 
     .box-digital-kyc{
@@ -121,3 +116,5 @@
         padding: $spacing-8 5%;
     }
   }
+
+

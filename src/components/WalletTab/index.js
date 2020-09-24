@@ -15,7 +15,7 @@ import CloseCross from "components/Icons/CloseCross";
 import PaymentBox from "../PaymentBox";
 import DepositList from "./DepositList";
 import WithdrawList from "./WithdrawList";
-import CreditCard from "assets/icons/credit-card.png"
+import CreditCard from "assets/icons/credit-card.svg"
 import { CopyText } from "../../copy";
 import { getApp, getAppCustomization,  getIcon } from "../../lib/helpers";
 import { setMessageNotification } from "../../redux/actions/message";
@@ -200,7 +200,7 @@ class WalletTab extends React.Component {
                                 <CloseCross />
                             </button>
                         </div>
-                        <div styleName="container-direction">
+                        <div styleName="container-direction email-title">
                             <div styleName="center-text">
                                 <Typography variant={'small-body'} color={'grey'} weight={"bold"}>
                                     {"Confirm KYC"}
@@ -352,13 +352,13 @@ class WalletTab extends React.Component {
                     />
                   );
                 })}
-                {isMoonpayActive === true ? (
+                {isMoonpayActive ? (
                   <button
-                    styleName={`${skin === "digital" ? "container-root color-kyc" : "container-root"}`}
+                    styleName="container-root"
                     onClick={() => this.handleOpenMoonpay()}
                   >
                     <Row>
-                      <Col xs={3} md={3}>
+                      <Col xs={4} md={4}>
                         <div styleName='container-image'>
                             <img src={CreditCard} styleName='payment-image'/>
                         </div>

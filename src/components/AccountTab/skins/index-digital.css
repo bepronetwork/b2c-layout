@@ -9,7 +9,7 @@
 }
 
 .field{
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 120px 220px;
     display: grid;
     margin-bottom: $spacing-20;
     gap: $spacing-28;
@@ -69,8 +69,7 @@
     padding: 15px;
     border-radius: $border-radius;
     background-size: 100px;
-    width: 320px;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 120px 220px;
     display: grid;
     margin-bottom: $spacing-20;
     gap: $spacing-28;
@@ -86,10 +85,6 @@
     @include Breakpoint-mobileOnly {
         padding: $spacing-8 5%;
     }
-}
-
-.margin-button-kyc{
-    margin-left: 185px;
 }
 
 @media only screen and (max-width: 768px) {
@@ -112,6 +107,7 @@
     }
     .field{
         width: 100%;
+        grid-template-columns: 1fr 1fr;
     }
 
     .box-digital-kyc{
