@@ -77,13 +77,13 @@ class PaymentBox extends React.Component{
                                 {`${wallet.currency.name} (${wallet.currency.ticker})`}
                             </Typography>
                             <div styleName='text-description'>
-                                <Typography variant={'x-small-body'} color={'casper'}>
+                                <Typography variant={'x-small-body'} color={'white'}>
                                     {`${formatCurrency(wallet.playBalance)} ${wallet.currency.ticker}`}
                                 </Typography>
                             </div>
                             {price ? 
                                 <div styleName='text-description'>
-                                    <Typography variant={'x-small-body'} color={'mercury'}>
+                                    <Typography variant={'x-small-body'} color={'white'}>
                                         {`1 ${virtualTicker} = ${price} ${wallet.currency.ticker}`}
                                     </Typography>
                                 </div>

@@ -60,6 +60,21 @@
         ]
       }
     }
+  },
+  "ru": {
+    "INDEX": {
+      "BUTTON_ICON": {
+        "LABEL": [
+          "Обратный Ролл"
+        ]
+      },
+      "INPUT_NUMBER": {
+        "TITLE": [
+          "Выплата",
+          "Шанс выиграть"
+        ]
+      }
+    }
   }
 }
     export default diceGameCardIndexCopy;

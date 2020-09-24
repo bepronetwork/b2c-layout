@@ -5,7 +5,7 @@ import {
         SettingsIcon, DepositsIcon, WithdrawIcon, RefferalIcon, BetsIcon, UserIcon, UsersIcon, ConfirmedIcon
        } from 'components';
 import { connect } from "react-redux";
-import { getApp } from "../../lib/helpers";
+import { getApp, getIcon } from "../../lib/helpers";
 import { CopyText } from '../../copy';
 import _ from "lodash";
 
@@ -43,6 +43,14 @@ class AccountPage extends Component {
         if (!profile || _.isEmpty(profile)) return null;
 
         const virtual = getApp().virtual;
+        const userIcon = getIcon(0);
+        const securityIcon = getIcon(15);
+        const betsIcon = getIcon(16);
+        const walletIcon = getIcon(17);
+        const depositsIcon = getIcon(18);
+        const withdrawIcon = getIcon(19);
+        const affiliatesIcon = getIcon(20);
+        const preferencesIcon = getIcon(21);
 
         return (
             <div styleName='main-container'>
@@ -55,50 +63,50 @@ class AccountPage extends Component {
                                     path: "account",
                                     title : copy.CONTAINERS.ACCOUNT.TITLE[6],
                                     container : <AccountTab onLogout={onLogout} />,
-                                    icon : <UserIcon />
+                                    icon : userIcon === null ? <UserIcon/> : <img src={userIcon} />
                                 },
                                 {
                                     path: "security",
                                     title : copy.CONTAINERS.ACCOUNT.TITLE[7],
                                     container : <SecurityTab/>,
-                                    icon : <ConfirmedIcon />
+                                    icon : securityIcon === null ? <ConfirmedIcon /> : <img src={securityIcon} />
                                 },
                                 {
                                     path: "bets",
                                     title : copy.CONTAINERS.ACCOUNT.TITLE[5],
                                     container : <BetsTab onTableDetails={onTableDetails} isCurrentPath={this.isCurrentPath("bets")} />,
-                                    icon : <BetsIcon />
+                                    icon : betsIcon === null ? <BetsIcon /> : <img src={betsIcon} />
                                 },
                                 {
                                     path: "wallet",
                                     title : copy.CONTAINERS.ACCOUNT.TITLE[8],
                                     container : <WalletTab isCurrentPath={this.isCurrentPath("wallet")} />,
-                                    icon : <WalletIcon />
+                                    icon : walletIcon === null ? <WalletIcon /> : <img src={walletIcon} />
                                 },
                                 {
                                     path: "deposits",
                                     title : virtual ? copy.CONTAINERS.ACCOUNT.TITLE[4] : copy.CONTAINERS.ACCOUNT.TITLE[1],
                                     container : <DepositTab isCurrentPath={this.isCurrentPath("deposits")} />,
-                                    icon : <DepositsIcon />
+                                    icon : depositsIcon === null ? <DepositsIcon /> : <img src={depositsIcon} />
                                 },
                                 {
                                     path: "withdraws",
                                     title : copy.CONTAINERS.ACCOUNT.TITLE[2],
                                     container : <WithdrawTab  isCurrentPath={this.isCurrentPath("withdraws")} />,
-                                    icon : <WithdrawIcon />,
+                                    icon : withdrawIcon === null ? <WithdrawIcon /> : <img src={withdrawIcon} /> ,
                                     disabled: virtual
                                 },
                                 {
                                     path: "affiliate",
                                     title : copy.CONTAINERS.ACCOUNT.TITLE[3],
                                     container : <AffiliatesTab isCurrentPath={this.isCurrentPath("affiliate")} />,
-                                    icon : <UsersIcon />
+                                    icon : affiliatesIcon === null ? <UsersIcon /> : <img src={affiliatesIcon} />
                                 },
                                 {
                                     path: "preferences",
                                     title : copy.CONTAINERS.ACCOUNT.TITLE[9],
                                     container : <SettingsTab/>,
-                                    icon : <SettingsIcon />
+                                    icon : preferencesIcon === null ? <SettingsIcon /> : <img src={preferencesIcon} />
                                 }
                             ]
                         }

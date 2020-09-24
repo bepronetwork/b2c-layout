@@ -1,11 +1,14 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import { Button, SubtleButton, Typography, ProfileMenu, LanguageSelector, NavigationBar, CurrencySelector, UserIcon} from "components";
+import { Button, SubtleButton, Typography, LanguageSelector, NavigationBar, CurrencySelector, UserIcon} from "components";
 import UserContext from "containers/App/UserContext";
 import { connect } from "react-redux";
-import { getAppCustomization, getApp } from "../../lib/helpers";
+import { getAppCustomization, getApp, getAddOn, getIcon } from "../../lib/helpers";
 import { formatCurrency } from "../../utils/numberFormatation";
 import { CopyText } from '../../copy';
+import Tooltip from '@material-ui/core/Tooltip';
+import { withStyles } from "@material-ui/core/styles";
+import classNames from "classnames";
 import _ from 'lodash';
 import "./index.css";
 
@@ -22,7 +25,10 @@ const defaultProps = {
     userAddress : 'N/A',
     currentBalance : 0,
     betIDVerified : '',
-    openSettingsMenu : false
+    openSettingsMenu : false,
+    currentPoints : 0,
+    isTransparent: false,
+    isDefaultIcon: true
 };
 
 class Navbar extends Component {
@@ -45,6 +51,7 @@ class Navbar extends Component {
     
     projectData = async (props) => {
         try{
+            const { topTab } = getAppCustomization();
             var user = !_.isEmpty(props.profile) ? props.profile : null;
 
             if(user){
@@ -55,15 +62,26 @@ class Navbar extends Component {
                     opts.difference = difference;
                     opts.currentBalance = user.getBalance();
                 }
+
+                const points = await user.getPoints();
+
+                if(points) {
+                    let differencePoints = formatCurrency(points - this.state.currentPoints);
+                    if(differencePoints != 0){
+                        opts.differencePoints = differencePoints;
+                        opts.currentPoints = points;
+                    }
+                }
                 
                 this.setState({
                     ...opts,
                     user    : user,
                     userFullAddress : user.getAddress(),
-                    userAddress : user.getAddress() ? AddressConcat(user.getAddress()) : defaultProps.userAddress  
+                    userAddress : user.getAddress() ? AddressConcat(user.getAddress()) : defaultProps.userAddress,
+                    isTransparent: _.isEmpty(topTab) ? false : topTab.isTransparent
                 })
             }else{
-                this.setState({user : null})
+                this.setState({user : null, isTransparent: _.isEmpty(topTab) ? false : topTab.isTransparent})
             }
         }catch(err){
             console.log(err)
@@ -79,18 +97,20 @@ class Navbar extends Component {
 
 
     renderLoginOrRegister = () => {
+        let { user } = this.state;
         const {ln} = this.props;
         const copy = CopyText.navbarIndex[ln];
+        const skin = getAppCustomization().skin.skin_type;
 
         return(
-            <div styleName='buttons'>
+            <div styleName="buttons">
                 <div styleName="login">
-                    <SubtleButton onClick={this.handleClick} name="login" variant="x-small-body">
+                    <SubtleButton onClick={this.handleClick} name="login" variant="small-body">
                     {copy.INDEX.SUBTLE_BUTTON.TEXT[0]}
                     </SubtleButton>
                 </div>
                 <Button size="x-small" onClick={this.handleClick} name="register" theme="primary">
-                    <Typography color="fixedwhite" variant="x-small-body">{copy.INDEX.TYPOGRAPHY.TEXT[0]}</Typography>
+                    <Typography color={skin == "digital" ? "secondary" : "fixedwhite"} variant="small-body">{copy.INDEX.TYPOGRAPHY.TEXT[0]}</Typography> 
                 </Button>
             </div>
         )
@@ -110,55 +130,110 @@ class Navbar extends Component {
     }
 
     renderCurrencySelector = () => {
-        let { currentBalance, difference } = this.state;
+        let { currentBalance, difference, currentPoints, differencePoints } = this.state;
         const { onMenuItem, history, ln } = this.props;
         const copy = CopyText.navbarIndex[ln]; 
         var currencies = getApp().currencies;
         const virtual = getApp().virtual;
         currencies = currencies.filter(c => c.virtual === virtual);
 
+        const { colors } = getAppCustomization();
+
+        const primaryColor = colors.find(c => {
+            return c.type == "primaryColor"
+        })
+        const PrimaryTooltip = withStyles({
+            tooltip: {
+              color: getAppCustomization().theme === "light" ? "black" : "white",
+              backgroundColor: primaryColor.hex
+            }
+        })(Tooltip);
+
+        const isValidPoints = (getAddOn().pointSystem) ? getAddOn().pointSystem.isValid : false;
+        const logoPoints = (getAddOn().pointSystem) ? getAddOn().pointSystem.logo : null;
+        const namePoints = (getAddOn().pointSystem) ? getAddOn().pointSystem.name : null; 
+
+        const skin = getAppCustomization().skin.skin_type;
+
         return(
-            <div styleName="currency-selector">
-                 {(!currencies || _.isEmpty(currencies) || currencies.length < 0) ?
-                    <div styleName="no-coin">
-                        <Typography variant="x-small-body" color="grey">
-                            {copy.INDEX.TYPOGRAPHY.TEXT[1]}
-                        </Typography>
+            <div>
+                <div styleName="currency-selector">
+                    {(!currencies || _.isEmpty(currencies) || currencies.length < 0) ?
+                        <div styleName="no-coin">
+                            <Typography variant="x-small-body" color="grey">
+                                {copy.INDEX.TYPOGRAPHY.TEXT[1]}
+                            </Typography>
+                        </div>
+                    :
+                        <div styleName="currency">
+                            <CurrencySelector currentBalance={currentBalance}/>
+                            {difference ? (
+                                <div
+                                key={currentBalance}
+                                styleName={difference > 0 ? "diff-won" : "diff-lost"}
+                                >
+                                    <Typography variant="small-body">
+                                        {parseFloat(Math.abs(difference))}
+                                    </Typography>
+                                </div>
+                            ) : null}
+                        </div>
+                    }
+                    <div styleName='button-deposit'>
+                        <button onClick={() => onMenuItem({history, path : "/settings/wallet"})} type="submit" styleName="button">
+                            <Typography variant="small-body" color={skin == "digital" ? "secondary" : "fixedwhite"}>
+                                {virtual ? copy.INDEX.TYPOGRAPHY.TEXT[6] : copy.INDEX.TYPOGRAPHY.TEXT[2]}
+                            </Typography>
+                        </button>
                     </div>
-                :
-                    <div styleName="currency">
-                        <CurrencySelector currentBalance={currentBalance}/>
-                        {difference ? (
-                            <div
-                            key={currentBalance}
-                            styleName={difference > 0 ? "diff-won" : "diff-lost"}
-                            >
-                                <Typography variant="small-body">
-                                    {parseFloat(Math.abs(difference))}
-                                </Typography>
-                            </div>
-                        ) : null}
-                    </div>
-                 }
-                <div styleName='button-deposit'>
-                    <button onClick={() => onMenuItem({history, path : "/settings/wallet"})} type="submit" styleName="button">
-                        <Typography variant="small-body" color="fixedwhite">
-                            {virtual ? copy.INDEX.TYPOGRAPHY.TEXT[6] : copy.INDEX.TYPOGRAPHY.TEXT[2]}
-                        </Typography>
-                    </button>
                 </div>
+                {
+                    isValidPoints == true
+                    ?
+                        <div styleName="points">
+                            <PrimaryTooltip title={`${formatCurrency(currentPoints)} ${namePoints}`}>
+                                <div styleName="label-points">
+                                    {
+                                        !_.isEmpty(logoPoints)
+                                        ?
+                                            <div styleName="currency-icon">
+                                                <img src={logoPoints} height={20}/>
+                                            </div>
+                                        :
+                                            null
+                                    }
+                                    <span>
+                                        <Typography color="white" variant={'small-body'}>{formatCurrency(currentPoints)}</Typography>
+                                    </span>
+                                </div>
+                            </PrimaryTooltip>
+                            {differencePoints ? (
+                                <div
+                                key={currentPoints}
+                                styleName={"diff-won"}
+                                >
+                                    <Typography variant="small-body">
+                                        {parseFloat(Math.abs(differencePoints))}
+                                    </Typography>
+                                </div>
+                            ) : null}
+                        </div>
+                    :
+                        null
+                }
             </div>
         )
     }
 
     renderProfileMenu = () => {
         const { profile, onAccount, history } = this.props;
+        const userIcon = getIcon(0);
 
         return(
             <button styleName="profile" onClick={() => onAccount({history})} type="button">
                 <div styleName="label">
                     <div styleName="user-icon">
-                        <UserIcon/>
+                        { userIcon === null ? <UserIcon/> :  <img src={userIcon} /> }
                     </div>
                     <span>
                         <Typography color="white" variant={'small-body'}>{profile.getUsername()}</Typography>
@@ -180,6 +255,8 @@ class Navbar extends Component {
     }
 
     renderLanguageSelector = () => {
+        let { user } = this.state;
+
         return(
             <div styleName="language-container">
                 <LanguageSelector showArrow={true} expand="bottom"/>
@@ -200,32 +277,41 @@ class Navbar extends Component {
     }
 
     renderLanguageProfile = () => {
-            let { user } = this.state;
+        let { user } = this.state;
 
         return(
             <div styleName="language-profile">
-                {this.renderLanguageSelector()}
                 {user ?
-                    [this.renderSettings(), this.renderProfileMenu()]
+                    this.renderProfileMenu()
                 :
                     this.renderLoginOrRegister()
+                }
+                {this.renderLanguageSelector()}
+                {user ?
+                    this.renderSettings()
+                :
+                    null
                 }
             </div>
         )
     }
 
     render() {
-        let { user } = this.state;
+        let { user, isTransparent } = this.state;
+
+        const styles = classNames("top-menu", {
+            "top-menu-transparent": isTransparent == true
+        });
 
         return (
-                <div  styleName="top-menu">
-                    {this.renderLogo()}
-                    {user ?
-                        [ this.renderCurrencySelector(), this.renderLanguageProfile() ]
-                    :
-                        [ <div/>, this.renderLanguageProfile() ]
-                    }
-                </div>
+            <div  styleName={styles}>
+                {this.renderLogo()}
+                {user ?
+                    [ this.renderCurrencySelector(), this.renderLanguageProfile() ]
+                :
+                    [ <div/>, this.renderLanguageProfile() ]
+                }
+            </div>
         );
     }
 }

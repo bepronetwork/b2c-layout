@@ -41,7 +41,7 @@
 
 .chat-container-main{
     position: fixed;
-    top : 0px;
+    top: calc($navbar-height - 10px);
     right: 0;
     height: 100%;
     width: $chat-width-desktop;
@@ -75,6 +75,63 @@
     }
 }
 
+.chat-crisp-expand{
+  position: fixed;
+  display: flex;
+  bottom: $spacing-28;
+  right: calc($chat-width-desktop + $spacing-88);
+  z-index: 12;
+  background-color: $primaryColor;
+  height: 50px;
+  width: 50px;
+  border-radius: 40px;
+  text-align: center;
+  box-shadow: $shadowColor 0px 0px 10px;
+  cursor: pointer;
+
+  @media screen and (max-width: 1267px) and (min-width: 1024px) {
+    right: 380px;
+    bottom: $spacing-20;
+  }
+  
+  @media screen and (max-width: 1023px) and (min-width: 768px) {
+    right: 280px;
+    bottom: $spacing-20;
+  }
+
+  @media screen and (max-width: 767px) {
+    bottom: 70px;
+    right: $spacing-16;
+  }
+
+  div {
+    margin: auto;
+    height: 100%;
+    width: 100%;
+    display: flex;
+
+    img {
+      margin: auto;
+      width: 30px;
+      height: 30px;
+    }
+  }
+
+  svg {
+    margin: auto;
+    width: 34px;
+    height: 34px;
+  }
+}
+
+.chat-crisp-expand-mobile {
+  display: none;
+
+  @media screen and (max-width: 767px) {
+    display: inline;
+  }
+}
+
 .chat-expand{
   position: fixed;
   bottom: $spacing-28;
@@ -86,7 +143,7 @@
   border-radius: 40px;
   text-align: center;
   box-shadow: $shadowColor 0px 0px 10px;
-
+  cursor: pointer;
 
   @media screen and (max-width: 1267px) and (min-width: 1024px) {
     right: calc($chat-width-tablet-pro + $spacing-20);
@@ -104,10 +161,20 @@
 
   div {
     margin: auto;
+    height: 100%;
+    width: 100%;
+    display: flex;
 
     img {
-      margin-top: -1px;
-      margin-left: -1px;
+      margin: auto;
+      width: 30px;
+      height: 30px;
+    }
+
+    svg {
+      margin: auto;
+      height: 100%;
+      width: 100%;
     }
   }
 }
@@ -115,6 +182,7 @@
 .chatExpandDisplay {
   transform: translateX($chat-width-desktop);
   animation: chat-expand-animation 0.7s running;
+  top: 0;
 
   @media screen and (max-width: 1267px) and (min-width: 1024px) {
     transform: translateX($chat-width-tablet-pro);
@@ -217,15 +285,27 @@
     width: 100%;
 }
 
+.top-bars-transparent {
+  margin-top: 0px;
+}
+
 .modal {
   display: flex;
   flex-direction: column;
   align-items: center;
 
-  padding: $spacing-52 $spacing-20;
+  padding: $spacing-52 $spacing-36;
 
   .tabs {
     width: 340px;
+  }
+}
+
+.modal-login {
+  min-height: 600px;
+
+  .tabs {
+    width: 100%;
   }
 }
 

@@ -25,7 +25,7 @@
 .outer-circle {
     width: 464px;
     height: 464px;
-    border: 20px solid rgb(53, 68, 82);
+    border: 20px solid $backgroundColor-8;
     position: relative;
     border-radius: 232px;
     z-index: 3;
@@ -64,7 +64,7 @@
     transform: translate(-50%, -50%);
     z-index: 3;
     border-radius:100%;
-    border: 1px solid rgb(53, 68, 82);
+    border: 1px solid $backgroundColor-8;
 }
 
 #spin {

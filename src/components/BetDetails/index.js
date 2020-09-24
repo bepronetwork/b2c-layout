@@ -4,6 +4,17 @@ import {Typography } from "components";
 import { getBet } from "../../lib/api/app";
 import CasinoDetails from "./CasinoDetails";
 import EsportsDetails from "./EsportsDetails";
+import DiceDetails from './CasinoDetails/Game/DiceDetails';
+import FlipDetails from './CasinoDetails/Game/FlipDetails';
+import RouletteDetails from './CasinoDetails/Game/RouletteDetails';
+import WheelDetails from './CasinoDetails/Game/WheelDetails';
+import PlinkoDetails from './CasinoDetails/Game/PlinkoDetails';
+import KenoDetails from './CasinoDetails/Game/KenoDetails';
+import DiamondDetails from './CasinoDetails/Game/DiamondDetails';
+import SlotsDetails from './CasinoDetails/Game/SlotsDetails';
+import { formatCurrency } from "../../utils/numberFormatation";
+import { getApp } from "../../lib/helpers";
+
 import "./index.css";
 
 
@@ -30,6 +41,7 @@ class BetDetails extends Component {
 
     projectData = async (props) => {
         const { betId, tag } = props;
+        let component = null; 
 
         this.setState({ tag });
 
@@ -37,8 +49,55 @@ class BetDetails extends Component {
 
         if (response.status === 200) {
             const bet = response.message;
-                 
-            this.setState({ bet, isLoading: false });
+			const game = bet.game;
+
+            switch (game.metaName) {
+                case 'linear_dice_simple':
+                    component = <DiceDetails bet={bet}/>;
+                    break;
+                case 'coinflip_simple':
+                    component = <FlipDetails bet={bet}/>;
+                    break;
+                case 'european_roulette_simple':
+                    component = <RouletteDetails bet={bet}/>;
+                    break;
+                case 'wheel_simple':
+                    component = <WheelDetails bet={bet}/>;
+                    break;
+                case 'wheel_variation_1':
+                    component = <WheelDetails bet={bet}/>;
+                    break;
+                case 'plinko_variation_1':
+                    component = <PlinkoDetails bet={bet}/>;
+                    break;
+                case 'keno_simple':
+                    component = <KenoDetails bet={bet}/>;
+                    break;
+                case 'diamonds_simple':
+                    component = <DiamondDetails bet={bet}/>;
+                    break;
+                case 'slots_simple':
+                    component = <SlotsDetails bet={bet}/>;
+                    break;
+            }
+
+            const currenncy = (getApp().currencies.find(currency => currency._id == bet.currency._id));
+                
+            this.setState({
+                component,
+                clientSeed: bet.clientSeed,
+                serverHashedSeed: bet.serverHashedSeed,
+                serverSeed: bet.serverSeed,
+                timestamp: bet.timestamp.replace('Z', ' ').replace('T', ' '),
+                winAmount: formatCurrency(bet.winAmount),
+                betAmount: formatCurrency(bet.betAmount),
+                userName: bet.user.username,
+                isWon: bet.isWon,
+                currencyImage: currenncy.image,
+                game,
+                isLoading: false,
+                bet
+            });
         }
         else {
             this.setState({ isFake: true, isLoading: false });

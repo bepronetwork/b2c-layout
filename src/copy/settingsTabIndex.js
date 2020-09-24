@@ -40,6 +40,16 @@
         ]
       }
     }
+  },
+  "ru": {
+    "INDEX": {
+      "TOGGLE_FORM": {
+        "TITLE": [
+          "Фоновая музыка",
+          "2FA Аутентификация"
+        ]
+      }
+    }
   }
 }
     export default settingsTabIndexCopy;

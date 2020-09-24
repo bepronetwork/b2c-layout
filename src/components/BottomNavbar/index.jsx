@@ -4,6 +4,7 @@ import { Typography, LanguageSelector, BetsIcon, DepositIcon, ChatIcon, CasinoIc
 import UserContext from "containers/App/UserContext";
 import { connect } from "react-redux";
 import { CopyText } from '../../copy';
+import { getIcon } from "../../lib/helpers";
 import _ from 'lodash';
 import "./index.css";
 
@@ -52,6 +53,11 @@ class BottomNavbar extends Component {
         const { gameType } = this.state;
         const {ln, onChat, onBetsList} = this.props;
         const copy = CopyText.navbarIndex[ln]; 
+        const chatIcon = getIcon(2);
+        const betsIcon = getIcon(16);
+        const casinoIcon = getIcon(32);
+        const depositIcon = getIcon(18);
+        const usersIcon = getIcon(1);
 
         return (
             <div styleName="bottom-menu">
@@ -63,7 +69,7 @@ class BottomNavbar extends Component {
                                 <a href="#" onClick={() => this.homeClick("esports")}>
                                     <span styleName="item">
                                         <div styleName="icon">
-                                            <UsersIcon/>
+                                            { usersIcon === null ? <UsersIcon /> : <img src={usersIcon} /> }
                                         </div>
                                         <Typography variant="x-small-body" color="grey">
                                             Esports
@@ -74,7 +80,7 @@ class BottomNavbar extends Component {
                                 <a href="#" onClick={() => this.homeClick("casino")}>
                                     <span styleName="item">
                                         <div styleName="icon">
-                                            <CasinoIcon />
+                                            { casinoIcon === null ? <CasinoIcon /> : <img src={casinoIcon} /> }
                                         </div>
                                         <Typography variant="x-small-body" color="grey">
                                             {copy.INDEX.TYPOGRAPHY.TEXT[3]}
@@ -87,7 +93,7 @@ class BottomNavbar extends Component {
                         <a href="#" onClick={this.openDeposit}>
                             <span styleName="item">
                                 <div styleName="icon">
-                                    <DepositIcon />
+                                    { depositIcon === null ? <DepositIcon /> : <img src={depositIcon} /> }
                                 </div>
                                 <Typography variant="x-small-body" color="grey">
                                     {copy.INDEX.TYPOGRAPHY.TEXT[2]}
@@ -99,7 +105,7 @@ class BottomNavbar extends Component {
                         <a href="#" onClick={() => onBetsList()}>
                             <span styleName="item">
                                 <div styleName="icon">
-                                    <BetsIcon/>
+                                    { betsIcon === null ? <BetsIcon /> : <img src={betsIcon} /> }
                                 </div>
                                 <Typography variant="x-small-body" color="grey">
                                     {copy.INDEX.TYPOGRAPHY.TEXT[5]}
@@ -111,7 +117,7 @@ class BottomNavbar extends Component {
                         <a href="#" onClick={() => onChat()}>
                             <span styleName="item">
                                 <div styleName="icon">
-                                    <ChatIcon />
+                                    { chatIcon === null ? <ChatIcon /> : <img src={chatIcon} /> }
                                 </div>
                                 <Typography variant="x-small-body" color="grey">
                                     {copy.INDEX.TYPOGRAPHY.TEXT[4]}

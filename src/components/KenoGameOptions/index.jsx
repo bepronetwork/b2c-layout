@@ -6,7 +6,8 @@ import {
   ToggleButton,
   Button,
   Typography,
-  MultiplyMaxButton
+  MultiplyMaxButton,
+  OnWinLoss
 } from "components";
 import betSound from "assets/bet-sound.mp3";
 import Sound from "react-sound";
@@ -14,6 +15,9 @@ import Dice from "components/Icons/Dice";
 import _ from 'lodash';
 import { CopyText } from '../../copy';
 import { connect } from "react-redux";
+import { isUserSet } from "../../lib/helpers";
+import { Numbers } from "../../lib/ethereum/lib";
+import delay from 'delay';
 
 import "./index.css";
 class KenoGameOptions extends Component {
@@ -95,23 +99,20 @@ class KenoGameOptions extends Component {
 
     betAction = ({amount}) => {
         const { onBet } = this.props;
-        return new Promise( (resolve, reject) => {
+        return new Promise( async (resolve, reject) => {
             try{
-                setTimeout( async () => {
-                    let res = await onBet({ amount });
-                    resolve(res)
-                },2*1000)
+                let res = await onBet({ amount });
+                resolve(res)
             }catch(err){
-                console.log(err)
                 reject(err)
             }
 
-        })
+        });
     }
 
     handleBet = async (callback) => {
-        const { onBet } = this.props;
-        const { amount, type } = this.state;
+        const { onBet, profile } = this.props;
+        const { amount, type, bets, profitStop, lossStop, onWin, onLoss} = this.state;
         var res;
 
         if (this.isBetValid()) {
@@ -123,6 +124,35 @@ class KenoGameOptions extends Component {
                     break;
                 };
                 case 'auto' : {
+                    if(!isUserSet(profile)){return null};
+                    this.setState({isAutoBetting : true})
+                    var totalProfit = 0, totalLoss = 0, lastBet = 0, wasWon = 0;
+                    var betAmount = amount;
+                    for( var i = 0; i < bets ; i++){
+                        if(
+                            (profitStop == 0  || totalProfit <= profitStop) && // Stop Profit
+                            (lossStop == 0 || totalLoss <= lossStop) // Stop Loss
+                        ){
+                            if (i != 0) { await delay(1.5*1000); };
+                            const res = await this.betAction({amount : betAmount});
+                            if(!_.isEmpty(res)) {
+                                let { winAmount } = res;
+                                totalProfit += (winAmount-betAmount);
+                                totalLoss += (winAmount == 0) ? -Math.abs(betAmount) : 0;
+                                wasWon = (winAmount != 0);
+                                lastBet = betAmount;
+                                if(onWin && wasWon){ betAmount += Numbers.toFloat(betAmount*onWin/100) }; 
+                                if(onLoss && !wasWon){ betAmount += Numbers.toFloat(betAmount*onLoss/100) }; 
+                                await delay(3*1000);
+                                this.setState({bets : bets-(i + 1), amount: betAmount});
+                            }
+                            else {
+                                break;
+                            }
+                        }
+                            
+                    }
+                    this.setState({isAutoBetting : false})
                     break;
                 }
             }
@@ -138,8 +168,76 @@ class KenoGameOptions extends Component {
 
         onBetAmount(value);
     };
+    
+    handleOnWin = value => {
+        this.setState({ onWin: value });
+    };
+
+    handleOnLoss = value => {
+        this.setState({ onLoss: value });
+    };
+
+    handleBets = value => {
+        this.setState({ bets: value });
+    };
+
+    handleStopOnProfit = value => {
+        this.setState({ profitStop: value });
+    };
+
+    handleStopOnLoss = value => {
+        this.setState({ lossStop: value });
+    };
 
     renderAuto = () => {
+        const { bets, profitStop, lossStop, onWin, onLoss } = this.state;
+        const {ln} = this.props;
+        const copy = CopyText.plinkoGameOptionsIndex[ln];
+        return (
+            <div>
+                <div styleName="element">
+                    <InputNumber
+                        name="bets"
+                        min={1}
+                        title={copy.INDEX.INPUT_NUMBER.TITLE[0]}
+                        value={bets}
+                        onChange={this.handleBets}
+                    />
+                </div>
+                <div styleName="element">
+                    <OnWinLoss value={onWin} title={copy.INDEX.ON_WIN_LOSS.TITLE[0]} onChange={this.handleOnWin} />
+                </div>
+                <div styleName="element">
+                    <OnWinLoss
+                        value={onLoss}
+                        title={copy.INDEX.ON_WIN_LOSS.TITLE[1]}
+                        onChange={this.handleOnLoss}
+                    />
+                </div>
+                <div styleName="element">
+                    <InputNumber
+                        name="profit"
+                        step={0.01}
+                        title={copy.INDEX.INPUT_NUMBER.TITLE[1]}
+                        icon="bitcoin"
+                        precision={2}
+                        value={profitStop}
+                        onChange={this.handleStopOnProfit}
+                />
+                </div>
+                <div styleName="element">
+                    <InputNumber
+                        name="loss"
+                        step={0.01}
+                        precision={2}
+                        title={copy.INDEX.INPUT_NUMBER.TITLE[2]}
+                        icon="bitcoin"
+                        value={lossStop}
+                        onChange={this.handleStopOnLoss}
+                    />
+                </div>
+            </div>
+        );
     };
 
     handleMultiply = value => {
@@ -184,7 +282,7 @@ class KenoGameOptions extends Component {
                 <ToggleButton
                     config={{
                         left: { value: "manual", title: copy.INDEX.TOGGLE_BUTTON.TITLE[0]},
-                        right: { value: "auto", title: copy.INDEX.TOGGLE_BUTTON.TITLE[1], disabled : true}
+                        right: { value: "auto", title: copy.INDEX.TOGGLE_BUTTON.TITLE[1]}
                     }}
                     selected={type}
                     size="full"
@@ -208,6 +306,9 @@ class KenoGameOptions extends Component {
                             onChange={this.handleBetAmountChange}
                             />
                         <MultiplyMaxButton onSelect={this.handleMultiply} />
+                    </div>
+                    <div styleName="content">
+                        {type === "manual" ? null : this.renderAuto()}
                     </div>
                 </div>
             

@@ -46,6 +46,18 @@ const amountFormCopy = {
                 }
             ]
         }
+    },
+    'en' : {
+        WITHDRAW: {
+            TYPOGRAPHY: [
+                {
+                    TEXT: (params) => `Максимально доступное количество для вывода составляет ${params[0]} ${params[1]}`
+                },
+                {
+                    TEXT: 'Ваш адрес создаётся, подождите несколько минут.'
+                }
+            ]
+        }
     }
 }
 export default amountFormCopy;

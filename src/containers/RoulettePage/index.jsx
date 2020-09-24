@@ -29,7 +29,8 @@ class RoulettePage extends Component {
             edge : 0
         },
         betObjectResult : {},
-        bet: false
+        bet: false,
+        amount: 0
     };
 
     componentDidMount(){
@@ -111,7 +112,8 @@ class RoulettePage extends Component {
                 result,
                 hasWon : isWon,
                 disableControls: false,
-                betObjectResult : res
+                betObjectResult : res,
+                amount: this.getTotalBet()
             });
             return res;
         }catch(err){
@@ -127,11 +129,12 @@ class RoulettePage extends Component {
     handleAnimation = async () => {
         this.setState({ bet: false });
         const { profile } = this.props;
+        const { amount } = this.state;
         /* Update Info User View */
         const { isWon, result, winAmount, userDelta } = this.state.betObjectResult;
         setWonPopupMessageDispatcher(winAmount);
         this.addToHistory({result, won : isWon});
-        await profile.updateBalance({ userDelta });
+        await profile.updateBalance({ userDelta, amount });
     };
 
     getTotalBet = () => {

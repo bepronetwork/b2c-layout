@@ -1,0 +1,272 @@
+@import "../../styles/all.css";
+
+.root {
+  width: 100%;
+  padding-bottom: $spacing-36;
+  position: relative;
+  display: block;
+  @include Breakpoint-mobileOnly {
+    width: 100%;
+    margin: 0 auto;
+  }
+  height: 100%;
+}
+
+.container {
+    grid-template-columns: 310px 1fr;
+    box-sizing: border-box;
+    height: 100%;
+    width: 100%;
+
+    position: absolute;
+    min-height: 42vw;
+
+    @include Breakpoint-mobileOnly {
+        grid-template-columns: 100%;
+        width: 100%;
+        height: 100%;
+        margin: 0 auto;
+    }
+}
+
+.text-container{
+    height: calc(100% - 180px);
+    overflow : auto;
+    margin-right: $spacing-8;
+
+    @include Breakpoint-mobileOnly {
+      height: calc(100% - 240px);
+      margin-left: $spacing-12;
+    }
+}
+
+.info-message-container{
+    height: auto;
+    padding-top : $spacing-8;
+    width: 100%;
+}
+
+.info{
+    height: $spacing-20;
+    display: inline-flex;
+    align-items: center;
+}
+
+.message-top {
+    top: 0;
+    height: $navbar-height;
+    background-color: $primaryColor-3;
+    grid-template-columns: auto auto;
+    display: grid;
+    align-items: center;
+    border-radius: 0 0 $border-radius $border-radius;
+}
+
+.message-box{
+    padding : $spacing-8;
+    width: 100%;
+    margin : $spacing-8 auto;
+    background-color: $primaryColor;
+    border-radius : $border-radius-messsage-box;
+}
+
+.message-container{
+    padding : $spacing-12 $spacing-12 0 0;
+    border-radius : $border-radius-messsage-box;
+    width: 100%;
+
+    @include Breakpoint-mobileOnly {
+      padding-left: $spacing-12;
+    }
+}
+
+.message-container > form > div {
+  width: 75%;
+  float: left;
+
+  @include Breakpoint-tabletOnly {
+    width: 70%;
+  }
+}
+
+.message-container > form > div > div {
+    background-color: $primaryColor;
+    border: 2px solid $backgroundColor-5;
+    border-radius: $border-radius 0 0 $border-radius ;
+    height: 40px;
+
+    @include Breakpoint-mobileOnly {
+      padding: $spacing-8;
+    }
+}
+
+.options-container {
+  height: 100%;
+  background-color: $background-table-1-outer;
+
+  @include Breakpoint-mobileOnly {
+    order: 2;
+
+    width: 100%;
+  }
+}
+
+.game-container {
+  position: relative;
+
+  display: block;
+
+  width: 100%;
+  height: 100%;
+
+  @include Breakpoint-mobileOnly {
+    order: 1;
+
+    min-height: 300px;
+  }
+}
+
+.history {
+  position: absolute;
+
+  top: 0;
+
+  right: 0;
+
+  width: 100%;
+
+  overflow: hidden;
+}
+
+.sound {
+  padding-top: $spacing-8;
+  padding-right: $spacing-8;
+
+  button {
+    margin: 0 auto;
+    display: block;
+    position: relative;
+  }
+}
+
+
+.button{
+    background-color: $button-primary-color; 
+    margin : auto;
+    width: 25%;
+    padding : 10px;
+    border-radius : 0 $border-radius $border-radius 0;
+    height: 40px;
+
+    @include Breakpoint-tabletOnly {
+      width: 30%;
+    }
+}
+
+
+.container-box{
+    margin-top : $spacing-12;
+}
+
+
+.users-box{
+    margin: 6px;
+    display: flex;
+    width : max-content;
+    align-items: center;
+
+    .users-icon{
+      width: 28px;
+      margin-left: $spacing-8;
+
+      img {
+        height: 18px;
+      }
+    }
+
+    p {
+      color: $white;
+      opacity: 0.5;
+    }
+}
+
+.green-light{
+    width : $light-size;
+    border-radius: $light-size;
+    height: $light-size;
+    background-color: $green;
+    margin : $spacing-16 $spacing-20;
+
+}
+
+.red-light{
+    width : $light-size;
+    border-radius: $light-size;
+    height: $light-size;
+    background-color: $red;
+    margin : $spacing-16 $spacing-20;
+}
+
+.image-language{
+    width: 20px;
+}
+
+.online {
+    display: inline-flex;
+    margin-left: $spacing-16;
+}
+
+.right {
+    justify-content: flex-end;
+    display: inline-flex;
+    align-items: center;
+    margin-right: $spacing-28;
+}
+
+.avatar {
+  float: left;
+  background-color: $primaryColor-8;
+  border-radius: $border-radius;
+  width: $spacing-20;
+  height: $spacing-20;
+  text-align: center;
+  padding-top: $spacing-4;
+  margin-right: $spacing-12;
+}
+
+.go-down{
+  position: fixed;
+  bottom: 114px;
+  right: 40px;
+  z-index: 12;
+  border-radius: $border-radius;
+  background-color: $primaryColor-5;
+  opacity: 0.7;
+
+
+  @media screen and (max-width: 1267px) and (min-width: 1024px) {
+    bottom: 100px;
+  }
+  
+  @media screen and (max-width: 1023px) {
+    bottom: 100px;
+    right: 30px;
+  }
+
+  @media screen and (max-width: 767px) {
+    bottom: 140px;
+  }
+}
+
+.arrow{
+  height: 40px;
+  width: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  svg {
+    height: 24px;
+    width: 24px;
+  }
+}

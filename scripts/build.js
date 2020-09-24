@@ -4,6 +4,7 @@ import axios from "axios";
 import image2base64 from 'image-to-base64';
 import { html2json, json2html } from 'html2json';
 import { fieldAndChangeFromHTML } from "./helpers";
+import skinsPath from "./skinStyles";
 let indexHtml = fs.readFileSync('scripts/index.html', 'utf8');
 
 var appInfo;
@@ -111,6 +112,7 @@ async function generateHeadElements(){
     var html = html2json(indexHtml);
     html = generateNavBarName(html);
     html = generateLicenseNumber(html);
+    html = generateCripsrIntegration(html);
 
     if(appInfo.hasOwnProperty('typography')){
         const { typography } =  appInfo;
@@ -151,6 +153,18 @@ function generateLicenseNumber(html){
         let titleIndex = html.child[0].child[1].child.findIndex( c => c.tag && (c.tag.toLowerCase() == 'script') && (c.attr && c.attr.id == 'licenseID'));
         html.child[0].child[1].child[titleIndex].attr.src = src;
     }
+    return html;
+}
+
+function generateCripsrIntegration(html){
+    /* Get Cripsr Key */
+    const { cripsr } =  appInfo.integrations;
+    if (cripsr && cripsr.key) {
+        const content = `window.$crisp=[];window.CRISP_WEBSITE_ID="${cripsr.key}";(function(){d=document;s=d.createElement("script");s.src="https://client.crisp.chat/l.js";s.async=1;d.getElementsByTagName("head")[0].appendChild(s);})();$crisp.push(['do', 'chat:hide']);`;
+        let titleIndex = html.child[0].child[1].child.findIndex( c => c.tag && (c.tag.toLowerCase() == 'script') && (c.attr && c.attr.id == 'cripsr'));
+        html.child[0].child[1].child[titleIndex].child[0].text = content;
+    }
+
     return html;
 }
 
@@ -278,10 +292,25 @@ async function setColors(){
     });
 }
 
+async function saveSkinStyles(){
+    const { skin } = appInfo.customization;
+    const skinType = skin.skin_type;
+
+    skinsPath.map(s => {
+        let file = fs.readFileSync(s.path + '/skins/index-' + skinType + '.css', 'utf8');
+
+        fs.writeFile(s.path + '/index.css', file, 'utf8', () => {
+            console.log("Writing skin style:", skinType, s.path);
+        });
+    });
+}
+
 (async () => {
     try{
         /* Get App Info */
         appInfo = await getAppInfo();
+        /* Save skin style files */
+        await saveSkinStyles();
         /* Set Head Elements */
         await generateHeadElements();
         /* Set Platform Font Colors */
@@ -294,6 +323,8 @@ async function setColors(){
         await generateLogo();
         /* Set Platform Loading Gif */
         await generateLoadingGif();
+
+        
     }catch(err){
         console.log(err);
     }

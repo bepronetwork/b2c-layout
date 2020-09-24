@@ -1,0 +1,97 @@
+@import "../../styles/all.css";
+
+.col {
+    padding-right: $spacing-8;
+    padding-left: $spacing-8;
+}
+
+.root {
+    text-align: center;
+    margin : $spacing-8 0;
+    opacity: 0.8;
+
+    img {
+        border-radius: $border-radius;
+    }
+}
+
+.image-container {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    margin: 0 0 $spacing-4 0;
+    border-radius: $spacing-12;
+    transition: margin 100ms linear;
+    height: $games-box-heigth;
+    cursor: pointer;
+}
+
+.image-container:hover {
+    margin: calc($spacing-8 * -1) 0 $spacing-8 0;
+  
+    transition: margin 200ms ease-out;
+}
+
+.image-container.dice-background-color {
+    background-color: $dice-background-color;
+}
+
+.labels {
+    display: grid;
+    align-items: center;
+    width: 100%;
+    grid-template-columns: 60% 40%;
+}
+  
+.title {
+    margin: 0 $spacing-4;
+    display: flex;
+    justify-content: space-between;
+    text-transform: capitalize;
+}
+
+.icon {
+    margin: 0 auto;
+    transform: scale(1) rotate(0deg);
+    transition: transform 800ms linear;
+}
+
+.image-container:hover .icon {
+    transform: scale(1.01) rotate(-10deg);
+
+    transition: transform 500ms linear;
+}
+
+.info-holder{
+    margin-right: $spacing-8;
+    text-align: right;
+}
+
+.prov {
+    touch-action: manipulation;
+    position: relative;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0.7;
+    letter-spacing: 1px;
+}
+
+.info {
+    position: relative;
+    display: inline;
+    justify-content: center;
+    align-items: center;
+    margin-top: $spacing-4;
+
+    svg {
+        width: 1em;
+        height: 1em;
+    }
+}
+
+.name {
+    cursor: "pointer";
+    margin: 6px 0;
+    text-align: left;
+}

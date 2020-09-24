@@ -288,6 +288,29 @@ function formatDrawBet(drawId, odd, matchId, matchName, gameImage, amount) {
     return opponentBet;
 }
 
+function getIcon(index) {
+    const { icons } = Cache.getFromCache("appInfo") ? Cache.getFromCache("appInfo").customization : {};
+
+    if(icons.useDefaultIcons !== true) {
+        const icon = icons.ids.find(i => (i.position == index));
+        return icon ? icon.link : null;
+    }
+
+    return null;
+}
+
+function convertAmountProviderBigger(ticker, value) {
+    let tickers = {
+        "ETH": {value: 1000, ticker: "mETH"},
+        "BTC": {value: 1000000, ticker: "uBTC"}
+    };
+    if (tickers[ticker]) {
+        return {value: (value / tickers[ticker].value),  ticker: (tickers[ticker].ticker)};
+    }
+
+    return null;
+}
+
 export { 
     dateToHourAndMinute, formatToBeautyDate, 
     formatToSimpleDate, getAppCustomization, 
@@ -303,5 +326,7 @@ export {
     loadWheelOptions,
     formatOpponentData,
     formatOpponentBet,
-    formatDrawBet
+    formatDrawBet,
+    getIcon,
+    convertAmountProviderBigger
 }

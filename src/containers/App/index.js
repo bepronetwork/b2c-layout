@@ -25,7 +25,8 @@ import {
     Authentication2FAModal,
     PopupForm,
     BetDetails,
-    Jackpot
+    Jackpot,
+    LiveChatIcon
 } from "components";
 
 import PlinkoPage from "containers/PlinkoPage";
@@ -35,6 +36,10 @@ import RoulettePage from "containers/RoulettePage";
 import WheelPage from "../WheelPage";
 import WheelVariation1 from "../WheelVariation1Page";
 import KenoPage from "../KenoPage";
+import DiamondPage from "../DiamondPage";
+import ThirdPartyGamePage from "../ThirdPartyGamePage";
+import ThirdPartyGameList from "../ThirdPartyGameList";
+import SlotsPage from "../SlotsPage";
 
 import { login, login2FA, logout, register } from "lib/api/users";
 import getAppInfo from "lib/api/app";
@@ -55,7 +60,7 @@ import { connect } from 'react-redux';
 import _ from 'lodash';
 import { setStartLoadingProcessDispatcher } from "../../lib/redux";
 import AccountPage from "../AccountPage";
-import { getQueryVariable, getAppCustomization, getWebsite } from "../../lib/helpers";
+import { getQueryVariable, getAppCustomization, getIcon } from "../../lib/helpers";
 import ChatChannel from "../../controllers/Chat";
 import AnnouncementTab from "../../components/AnnouncementTab";
 import { getCurrencyAddress } from "../../lib/api/users";
@@ -65,6 +70,8 @@ import MobileMenu from "../../components/MobileMenu";
 
 const history = createBrowserHistory();
 class App extends Component {
+    intervalID = 0;
+
     constructor(props) {
         super(props);
         this.state = {
@@ -91,7 +98,28 @@ class App extends Component {
     componentDidMount = () => {
         this.asyncCalls();
         this.getQueryParams();
+
+        const app = Cache.getFromCache("appInfo");
+
+        if(app) {
+            const { cripsr } =  app.integrations;
+
+            if (cripsr && cripsr.key && typeof window.$crisp != "undefined") {
+                this.intervalID = setInterval( async () => {
+                    const isClosed = window.$crisp.is("chat:closed");
+        
+                    if(isClosed == true) {
+                        window.$crisp.push(['do', 'chat:hide']);
+                    }
+        
+                }, 100);
+            }
+        }
     };
+
+    componentWillUnmount() {
+        clearInterval(this.intervalID);
+    }
 
     getQueryParams = () => {
         const ref = getQueryVariable('ref');
@@ -399,6 +427,8 @@ class App extends Component {
         localStorage.removeItem("wheelHistory");
         localStorage.removeItem("wheel_variation_1History");
         localStorage.removeItem("kenoHistory");
+        localStorage.removeItem("slotsHistory");
+        localStorage.removeItem("diamondsHistory");
         localStorage.removeItem("customization");
         localStorage.removeItem("affiliate");
         localStorage.removeItem("appInfo");
@@ -419,7 +449,7 @@ class App extends Component {
         const { registerLoginModalOpen, error, has2FA} = this.state;
         return registerLoginModalOpen ? (
             <Modal onClose={this.handleRegisterLoginModalClose}>
-                <div styleName="modal">
+                <div styleName="modal modal-login">
                     <img src={logo.id} styleName="tkn_logo_login"/>
                     <div styleName="tabs">
                         <Tabs
@@ -433,6 +463,7 @@ class App extends Component {
                         ]}
                         onSelect={this.handleTabChange}
                         style="full-background"
+                        variant="body"
                         />
                     </div>
 
@@ -527,10 +558,7 @@ class App extends Component {
     };
 
     updateAppInfo = async () => {
-
-
         let app = await getAppInfo();
-
         Cache.setToCache("appInfo", app);
         this.setState({...this.state, app})
     };
@@ -547,6 +575,20 @@ class App extends Component {
         this.setState({ chatExpand : !chatExpand });
     };
 
+    openCripsrChatClick = async () => {
+        const isOpen = window.$crisp.is("chat:opened");
+
+        if(isOpen == true ) {
+            window.$crisp.push(['do', 'chat:close']);
+            window.$crisp.push(['do', 'chat:hide']);
+        }
+        else {
+            window.$crisp.push(['do', 'chat:open']);
+            window.$crisp.push(['do', 'chat:show']);
+        }
+
+        this.setState({ openCripsrChat : !isOpen });
+    };
 
     renderGamePages = ({history}) => {
         return (
@@ -644,6 +686,54 @@ class App extends Component {
                     )}
                     />
                 ) : null}
+                {this.isGameAvailable("diamonds_simple") ? (
+                    <Route
+                    exact
+                    path="/diamonds_simple"
+                    render={props => (
+                        <DiamondPage
+                        {...props}
+                        onHandleLoginOrRegister={this.handleLoginOrRegisterOpen}
+                        onTableDetails={this.handleTableDetailsOpen}
+                        />
+                    )}
+                    />
+                ) : null}
+                {this.isGameAvailable("slots_simple") ? (
+                    <Route
+                    exact
+                    path="/slots_simple"
+                    render={props => (
+                        <SlotsPage
+                        {...props}
+                        onHandleLoginOrRegister={this.handleLoginOrRegisterOpen}
+                        onTableDetails={this.handleTableDetailsOpen}
+                        />
+                    )}
+                    />
+                ) : null}
+                <Route
+                    exact
+                    path="/casino/games/:providerGameId"
+                    render={props => (
+                        <ThirdPartyGameList
+                        {...props}
+                        onHandleLoginOrRegister={this.handleLoginOrRegisterOpen}
+                        onTableDetails={this.handleTableDetailsOpen}
+                        />
+                    )}
+                    />
+                <Route
+                    exact
+                    path="/casino/game/:providerGameId"
+                    render={props => (
+                        <ThirdPartyGamePage
+                        {...props}
+                        onHandleLoginOrRegister={this.handleLoginOrRegisterOpen}
+                        onTableDetails={this.handleTableDetailsOpen}
+                        />
+                    )}
+                    />
             </>
         )
     }
@@ -657,9 +747,13 @@ class App extends Component {
         if (!app || isLoading) {return null};
         const { progress, confirmations } = startLoadingProgress;
 
+        const { cripsr } =  app.integrations;
+        const chatIcon = getIcon(2);
+        const liveChatIcon = getIcon(3);
+
         let progress100 = parseInt(progress/confirmations*100);
         let isUserLoaded = (confirmations == progress);
-        const { topBar, background } = getAppCustomization();
+        const { topBar, background, topTab } = getAppCustomization();
         const centerStyles = classNames("center", {
             centerExpand: !chatExpand
         });
@@ -673,6 +767,10 @@ class App extends Component {
         const settingsMenuStyles = classNames("settings-container-menu", {
             settingsMenuDisplay: settingsMenuOpen,
             settingsMenuHidden: !settingsMenuOpen
+        });
+
+        const topStyles = classNames("top-bars", {
+            "top-bars-transparent": _.isEmpty(topTab) ? false : topTab.isTransparent == true
         });
 
         return (
@@ -705,7 +803,7 @@ class App extends Component {
                             <NotificationForm user={user}/>
                         </header>
                         <div>
-                            <div styleName='top-bars'>
+                            <div styleName={topStyles}>
                                 <AnnouncementTab topBar={topBar}/>
                             </div>
                             <div styleName='main'>
@@ -720,6 +818,7 @@ class App extends Component {
                                                         {...props}
                                                         onHandleLoginOrRegister={this.handleLoginOrRegisterOpen}
                                                         onTableDetails={this.handleTableDetailsOpen}
+                                                        history={history}
                                                     />
                                             
                                                 )}
@@ -849,14 +948,34 @@ class App extends Component {
                                         <Footer/>
                                     </div>
                                 </div>
-                                <div styleName={chatStyles} >
-                                    <a href="#" onClick={this.expandChatClick}>
-                                        <div styleName="chat-expand">
+                                {
+                                    cripsr && cripsr.key
+                                    ?
+                                        <div styleName="chat-crisp-expand chat-crisp-expand-mobile" onClick={this.openCripsrChatClick}>
                                             <div>
-                                                <ChatIcon/> 
+                                                { liveChatIcon === null ? <LiveChatIcon /> : <img src={liveChatIcon} /> }
                                             </div>
                                         </div> 
-                                    </a>
+                                    :
+                                        null
+                                }
+                                <div styleName={chatStyles} >
+                                    {
+                                        cripsr && cripsr.key
+                                        ?
+                                            <div styleName="chat-crisp-expand" onClick={this.openCripsrChatClick}>
+                                                <div>
+                                                    { liveChatIcon === null ? <LiveChatIcon /> : <img src={liveChatIcon} /> }
+                                                </div>
+                                            </div> 
+                                        :
+                                            null
+                                    }
+                                    <div styleName="chat-expand" onClick={this.expandChatClick}>
+                                        <div>
+                                            { chatIcon === null ? <ChatIcon /> : <img src={chatIcon} /> }
+                                        </div>
+                                    </div> 
                                     <div styleName={'chat-container'}>
                                         <ChatPage/>
                                     </div>

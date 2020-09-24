@@ -1,0 +1,59 @@
+@import "../../styles/all.css";
+
+.username {
+  margin: $spacing-28 0 $spacing-16 0;
+}
+
+.password {
+  margin-bottom: $spacing-16;
+}
+
+.button {
+  margin-top: $spacing-20;
+}
+
+.button > button > div > img {
+  width: $spacing-28;
+}
+
+.button > button {
+  width: 100%;
+}
+
+.button > button > div {
+  width: 100%;
+}
+
+.error {
+  margin-top: $spacing-8;
+}
+
+.address {
+  margin-top: $spacing-16;
+}
+
+.agree {
+  display: inline-flex;
+  border-radius: $border-radius;
+  margin-top: $spacing-12;
+  background-color: $primaryColor-2;
+  padding: $spacing-8;
+  width: 100%;
+}
+
+.agree-right {
+  margin: auto; 
+  margin-left: $spacing-8;
+  opacity: 0.5;
+
+  a {
+    color: $secondaryColor;
+    text-decoration: underline !important;
+  }
+}
+
+.agree-main {
+  display: inline-flex;
+  align-items: center;
+  margin: auto;
+}

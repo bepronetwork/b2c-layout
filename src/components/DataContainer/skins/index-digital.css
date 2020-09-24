@@ -1,0 +1,40 @@
+@import "../../styles/all.css";
+
+
+
+.container-root{
+    width : 100%;
+    margin-bottom : $spacing-20;
+    border-radius: $border-radius;
+    padding : $spacing-8 $spacing-20;
+    background: $primaryColor-5;
+    opacity : 1;
+    border : none;
+    transition: all 0.2s ease-in;
+    grid-template-columns: auto 1fr auto;
+    display: grid;
+    gap: $spacing-16;
+}
+
+.container-text{
+    text-align: left;
+    display: inline-flex;
+    align-items: center;
+}
+
+
+.container-image{
+    width : 36px;
+
+    img {
+        width : 30px;
+    }
+}
+
+
+.text-message{
+    justify-content: flex-end;
+    display: inline-flex;
+    align-items: center;
+    opacity: 0.5;
+}

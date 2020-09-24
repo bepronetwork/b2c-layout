@@ -111,8 +111,10 @@
 }
 
 .title {
-  margin-left: $spacing-8;
-  text-align: left;
+  margin: 0 $spacing-4;
+  display: flex;
+  justify-content: space-between;
+  text-transform: capitalize;
 }
 
 .icon {
@@ -127,3 +129,31 @@
   transition: transform 500ms linear;
 }
 
+.prov {
+  touch-action: manipulation;
+  position: relative;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0.7;
+  letter-spacing: 1px;
+}
+
+.info {
+  position: relative;
+  display: inline;
+  justify-content: center;
+  align-items: center;
+  margin-top: $spacing-4;
+
+  svg {
+      width: 1em;
+      height: 1em;
+  }
+}
+
+.name {
+  cursor: "pointer";
+  margin: 6px 0;
+  text-align: left;
+}

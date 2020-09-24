@@ -21,15 +21,16 @@ export default class Tabs extends Component {
     };
 
     renderTabs = () => {
-        const { options, selected, style } = this.props;
+        const { options, selected, style, variant } = this.props;
         const filteredOptions = options.filter(o => !o.disabled);
 
         if (!filteredOptions) {
             return null;
         }
 
-        const styles = classNames("tabs", 
-            {"tabs-limit": filteredOptions.length > 3
+        const styles = classNames("tabs", {
+            "tabs-limit": filteredOptions.length > 3,
+            fullBackground : style === "full-background"
         });
         const selectedTab = selected || filteredOptions[0].value;
         return (
@@ -43,6 +44,7 @@ export default class Tabs extends Component {
                         onClick={this.handleTabClick}
                         selected={selectedTab === option.value}
                         style={style}
+                        variant={variant}
                     />
             ))
             }

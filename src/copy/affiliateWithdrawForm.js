@@ -54,6 +54,20 @@ const affiliateWithdrawFormCopy = {
                 }
             ]
         }
+    },
+    'ru' : {
+        HORIZONTAL_STEPPER: {
+            STEPS: [
+                {
+                    LABEL: 'Выберите',
+                    TITLE: 'Выберите валюту, в которую хотите сделать вывод'
+                },
+                {
+                    LABEL: 'Вывод',
+                    TITLE: 'Вывод'
+                }
+            ]
+        }
     }
 }
 

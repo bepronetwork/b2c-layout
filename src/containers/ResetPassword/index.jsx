@@ -5,6 +5,7 @@ import { Button, Typography, InputText, EmailIcon } from "components";
 import { CopyText } from '../../copy';
 import { askResetPassword, setNewPassword } from "../../lib/api/users";
 import handleError from "../../lib/api/handleError";
+import { getIcon } from "../../lib/helpers";
 import "./index.css";
 import _ from "lodash";
 
@@ -118,6 +119,8 @@ class ResetPassword extends Component {
 
         if((!params && mode === "new") || !mode) return null;
 
+        const emailIcon = getIcon(11);
+
         return (
             <div styleName="root">
                 <div styleName="container">
@@ -126,7 +129,7 @@ class ResetPassword extends Component {
                             <div styleName="box">
                                 <div styleName="reset-password-title">
                                     <div styleName="reset-password-left">
-                                        <EmailIcon/>
+                                        {emailIcon === null ? <EmailIcon/> : <img src={emailIcon} />}
                                     </div>
                                     <div styleName="reset-password-right">
                                         <Typography color="white" variant="small-body">
@@ -178,7 +181,7 @@ class ResetPassword extends Component {
                                     theme="primary"
                                     disabled={disabled}
                                     onClick={mode === "reset" ? this.handleResetPassword.bind(this) : this.handleSetNewPassword.bind(this)}>
-                                    <Typography color="white">{mode === "reset" ? copy.INDEX.TYPOGRAPHY.TEXT[7] : copy.INDEX.TYPOGRAPHY.TEXT[8]}</Typography>
+                                    <Typography color="fixedwhite">{mode === "reset" ? copy.INDEX.TYPOGRAPHY.TEXT[7] : copy.INDEX.TYPOGRAPHY.TEXT[8]}</Typography>
                                 </Button>
 
                             </div>

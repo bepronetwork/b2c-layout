@@ -5,6 +5,8 @@ import { connect } from "react-redux";
 import { Tab, Nav } from 'react-bootstrap';
 import { Typography } from 'components';
 import { CopyText } from '../../copy';
+import { getAddOn } from "../../lib/helpers";
+import { formatCurrency } from "../../utils/numberFormatation";
 import classNames from "classnames";
 import _ from 'lodash';
 import './index.css';
@@ -12,7 +14,29 @@ class TabedContainer extends React.Component{
 
     constructor(props){
         super(props);
-        this.state = {};
+        this.state = {
+            points: 0
+        };
+    }
+
+    componentDidMount(){
+        this.projectData(this.props);
+    }
+
+    componentWillReceiveProps(props){
+        this.projectData(props);
+    }
+
+    projectData = async (props) => {
+
+        if(!_.isEmpty(props.profile)) {
+            const user = props.profile;
+
+            this.setState({
+                points : await user.getPoints()
+            });
+        }
+
     }
 
     isCurrentPath(element) {
@@ -20,10 +44,14 @@ class TabedContainer extends React.Component{
     }
 
     render = () => {
+        const { points } = this.state;
         const { ln, items } = this.props;
         const copy = CopyText.homepage[ln];
         const pathName = this.props.location.pathname.toLowerCase();
         const filteredItems = items.filter(item => !item.disabled);
+        const isValidPoints = (getAddOn().pointSystem) ? getAddOn().pointSystem.isValid : false;
+        const logoPoints = (getAddOn().pointSystem) ? getAddOn().pointSystem.logo : null;
+        const namePoints = (getAddOn().pointSystem) ? getAddOn().pointSystem.name : null; 
 
         let mainIndex = filteredItems.findIndex(this.isCurrentPath, pathName);
         mainIndex = mainIndex > 0 ? mainIndex : 0;
@@ -36,6 +64,28 @@ class TabedContainer extends React.Component{
                 <Tab.Container id="left-tabs-example" defaultActiveKey={`item-${mainIndex}`}>
                     <Row>
                         <Col sm={0} md={0} lg={4} xl={3} styleName="container-menu">
+                            {
+                            isValidPoints == true
+                            ?
+                                <div styleName="points">
+                                    <div styleName="label-points">
+                                        {
+                                            !_.isEmpty(logoPoints)
+                                            ?
+                                                <div styleName="currency-icon">
+                                                    <img src={logoPoints} width={20}/>
+                                                </div>
+                                            :
+                                                null
+                                        }
+                                        <span>
+                                            <Typography color="white" variant={'small-body'}>{`${formatCurrency(points)} ${namePoints}`}</Typography>
+                                        </span>
+                                    </div>
+                                </div>
+                            :
+                                null
+                            }
                             <div styleName="title">
                                 <Typography variant={'small-body'} color={'white'}>{copy.CONTAINERS.ACCOUNT.TITLE[0]}</Typography>
                             </div>
@@ -52,7 +102,7 @@ class TabedContainer extends React.Component{
                                                         {item.icon}
                                                     </div>
                                                     <div styleName='text-tab'>
-                                                        <Typography variant={'small-body'} color={'casper'}>{item.title}</Typography>
+                                                        <Typography variant={'small-body'} color={mainIndex === index ? 'secondary' : 'white'}>{item.title}</Typography>
                                                     </div>
                                                 </div>
                                             </Nav.Link>

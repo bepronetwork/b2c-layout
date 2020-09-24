@@ -238,6 +238,8 @@ export async function logout() {
     localStorage.removeItem("wheelHistory");
     localStorage.removeItem("wheel_variation_1History");
     localStorage.removeItem("kenoHistory");
+    localStorage.removeItem("slotsHistory");
+    localStorage.removeItem("diamondsHistory");
     localStorage.removeItem("customization");
     localStorage.removeItem("affiliate");
     localStorage.removeItem("appInfo");
@@ -487,6 +489,46 @@ export async function getCurrencyAddress(params, bearerToken, payload) {
         let res = await fetch(`${apiUrl}/api/app/address/get`, {
             method : 'POST',
             headers : addSecurityHeader({bearerToken, payload :  payload || params.id}),
+            body : JSON.stringify(params)})
+        return res.json();
+    }catch(err){
+        throw err;
+    }    
+}
+
+/**
+ *
+ * @param {*} params
+ * @param {*} bearerToken
+ * @name Get Jackpot
+ * @use Get info about Jackpot Pot
+ */
+
+export async function getJackpotPot(params, bearerToken, payload) {
+    try{
+        let res = await fetch(`${apiUrl}/api/users/jackpot/pot`, {
+            method : 'POST',
+            headers : addSecurityHeader({bearerToken, payload :  payload || params.user}),
+            body : JSON.stringify(params)})
+        return res.json();
+    }catch(err){
+        throw err;
+    }    
+}
+
+/**
+ *
+ * @param {*} params
+ * @param {*} bearerToken
+ * @name Get Token
+ * @use Third-party games token
+ */
+
+export async function getProviderToken(params, bearerToken, payload) {
+    try{
+        let res = await fetch(`${apiUrl}/api/app/provider/token`, {
+            method : 'POST',
+            headers : addSecurityHeader({bearerToken, payload :  payload || params.user}),
             body : JSON.stringify(params)})
         return res.json();
     }catch(err){

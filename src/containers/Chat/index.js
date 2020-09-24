@@ -8,7 +8,7 @@ import languages from "../../config/languages";
 import { setMessageNotification } from "../../redux/actions/message";
 import { CopyText } from "../../copy";
 import store from "../App/store";
-import { dateToHourAndMinute, getSkeletonColors, getAppCustomization } from "../../lib/helpers";
+import { dateToHourAndMinute, getSkeletonColors, getAppCustomization, getIcon } from "../../lib/helpers";
 import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 import delay from 'delay';
 
@@ -28,6 +28,7 @@ const defaultProps = {
     isGoDownVisible: false
 }
 
+const chatUsersConst = Math.floor(Math.random() * (400 - 200) + 200);
 class ChatPage extends React.Component {
 
     constructor(props) {
@@ -177,6 +178,9 @@ class ChatPage extends React.Component {
         const { isLoading, isGoDownVisible } = this.state;
         const copy = CopyText.shared[ln];
         const copy2 = CopyText.homepage[ln];
+
+        const usersIcon = getIcon(1);
+
         return (
             <div styleName="root">
                     <div styleName="container">
@@ -191,10 +195,10 @@ class ChatPage extends React.Component {
                             <div styleName="right">
                                 <div styleName={'users-box'}>
                                     <Typography variant="small-body" color="casper">
-                                        {this.state.participants} 
+                                        {this.state.participants + chatUsersConst} 
                                     </Typography>
                                     <div styleName="users-icon">
-                                        <UsersIcon />
+                                        { usersIcon === null ? <UsersIcon /> : <img src={usersIcon} /> }
                                     </div>
                                 </div>
                             </div>

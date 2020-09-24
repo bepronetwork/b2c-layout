@@ -27,7 +27,6 @@ async function getGames(){
     }
 }
 
-
 async function getLastBets({size, game}) {
     try {
         const response = await axios.post(`${apiUrl}/api/app/lastBets`, {
@@ -128,6 +127,31 @@ async function getBet({betId, tag="casino"}) {
         return handleError(error);
     }
 }
+
+async function getProviders() {
+    try {
+        const response = await axios.get(`${apiUrl}/api/app/providerEcosystem/get`);
+            
+        return response.data.data.message;
+
+    } catch (error) {
+        return handleError(error);
+    }
+}
+
+async function getProvidersGames(params) {
+    try {
+        const response = await axios.post(`${apiUrl}/api/app/providerGame/get`, {
+            app: appId,
+            ...params
+        });
+            
+        return response.data.data.message;
+
+    } catch (error) {
+        return handleError(error);
+    }
+}
   
 export { 
     getLastBets, 
@@ -136,5 +160,7 @@ export {
     getBiggestBetWinners,
     getPopularNumbers,
     ping,
-    getBet
+    getBet,
+    getProviders,
+    getProvidersGames
 }

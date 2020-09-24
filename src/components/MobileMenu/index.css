@@ -20,6 +20,10 @@
 .icon {
     width: 30px;
     margin-right: 20px;
+
+    img {
+      width: 22px;
+    }
 }
 
 .label {
@@ -38,3 +42,41 @@
     }
 
   }
+
+.label-points {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  height: 32px;
+  cursor: pointer;
+  padding: 0 $spacing-16;
+  background-color: $backgroundColor-2;
+  border-radius: $border-radius 0 0 0;
+
+  .currency-icon {
+      margin-right: $spacing-8;
+  }
+
+  span {
+      margin-left: $spacing-8;
+  }
+}
+
+.points {
+  display: inline-flex;
+  align-items: center;
+  margin-left: $spacing-36;
+  display: none;
+
+  @media screen and (max-width: 1267px) and (min-width: 1024px) {
+      display: none;
+  }
+  
+  @media screen and (max-width: 1023px) and (min-width: 768px) {
+      display: inline;
+  }
+  
+  @media screen and (max-width: 767px) {
+      display: inline;
+  }
+}

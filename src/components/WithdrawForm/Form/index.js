@@ -271,22 +271,23 @@ class Form extends Component {
                                 </Typography>
                             </div>
                             <ul>
-                                <li>
-                                    <Typography variant={'x-small-body'} color={'grey'}>
-                                        {copy.INDEX.DISCLAIMER.LIST[0]}
-                                    </Typography>
-                                </li>
-                                <li>
-                                    <Typography variant={'x-small-body'} color={'grey'}>
-                                        {copy.INDEX.DISCLAIMER.LIST[1]}
-                                    </Typography>
-                                </li>
+                                {
+                                    copy.INDEX.DISCLAIMER.LIST.map(d => {
+                                        return (
+                                            <li>
+                                                <Typography variant={'x-small-body'} color={'grey'}>
+                                                    {d}
+                                                </Typography>
+                                            </li>
+                                        )
+                                    })
+                                }
                                 {
                                     isTxFee === true 
                                     ?
                                         <li>
                                             <Typography variant={'x-small-body'} color={'grey'}>
-                                                Fee {fee} {ticker}
+                                                {copy.INDEX.TYPOGRAPHY.NOTICE[0]} {fee} {ticker}
                                             </Typography>
                                         </li>
                                     :

@@ -56,6 +56,20 @@ const depositspageCopy =
         ]
       }
     }
+  },
+  "ru": {
+    "TABLE": {
+      "DEPOSITS": {
+        "TITLE": "Deposits",
+        "ITEMS": [
+            "Хэш транзекции",
+            "Дата создания",
+            "Количество",
+            "Бонусная сумма",
+            "Статус"
+        ]
+      }
+    }
   }
 }
 export default depositspageCopy;

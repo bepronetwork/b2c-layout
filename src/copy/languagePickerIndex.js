@@ -36,6 +36,15 @@
         ]
       }
     }
+  },
+  "ru": {
+    "INDEX": {
+      "DROP_DOWN_FIELD": {
+        "LABEL": [
+          "Язык"
+        ]
+      }
+    }
   }
 }
     export default languagePickerIndexCopy;

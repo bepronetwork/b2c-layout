@@ -1,0 +1,178 @@
+@import "../../styles/all.css";
+
+.providers {
+    margin: auto;
+    margin-top: $spacing-28;
+}
+
+.title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: $spacing-12;
+    position: relative;
+}
+
+.carousel {
+    position: relative;
+    margin-top: $spacing-20;
+}
+
+.body {
+    display: grid;
+    grid-auto-columns: 160px;
+    grid-auto-flow: column;
+    gap: 2rem;
+    margin-left: $spacing-28;
+
+    img {
+        border-radius: $border-radius;
+    }
+}
+
+.container {
+    justify-content: center;
+    grid-column-gap: $spacing-28;
+    grid-row-gap: $spacing-28;
+    grid-template-columns: repeat(3, 290px);
+    max-width: $content-width-desktop;
+    margin: auto;
+  
+    @include Breakpoint-tabletOnly {
+      grid-template-columns: 1fr;
+    }
+  
+    @include Breakpoint-mobileOnly {
+      grid-template-columns: 1fr;
+    }
+}
+
+.container-small{
+    margin: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+}
+
+.col {
+    padding-right: $spacing-8;
+    padding-left: $spacing-8;
+}
+
+.root {
+    text-align: center;
+    margin : $spacing-8 0;
+    cursor: pointer;
+    background-color: $primaryColor;
+    border-radius: $border-radius;
+    
+    div {
+        display:table-cell; 
+        vertical-align:middle; 
+        text-align:center;
+        height: 70px;
+        width: auto;
+    }
+
+    img {
+        display: inline-flex;
+        max-width: 150px;
+        max-height: 60px;
+        width: auto;
+        height: auto;
+        align-items: center;
+    }
+}
+
+.root-skeleton {
+    text-align: center;
+    margin : $spacing-8 0;
+    cursor: pointer;
+    border-radius: $border-radius;
+
+    img {
+        display: inline-flex;
+        max-width: 150px;
+        max-height: 60px;
+        width: auto;
+        height: auto;
+        align-items: center;
+    }
+}
+
+.image-container {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    margin: 0 0 $spacing-4 0;
+    border-radius: $spacing-12;
+    transition: margin 100ms linear;
+    height: $games-box-heigth;
+}
+
+.image-container:hover {
+    margin: calc($spacing-8 * -1) 0 $spacing-8 0;
+  
+    transition: margin 200ms ease-out;
+}
+  
+.image-container.firefly {
+    background-color: $firefly;
+}
+
+.image-container.dice-background-color {
+    background-color: $dice-background-color;
+}
+
+.labels {
+    display: grid;
+    align-items: center;
+    width: 100%;
+    grid-template-columns: 70% 30%;
+}
+  
+.title {
+    margin: 2px;
+    text-align: left;
+}
+
+.background-icon {
+    width: 282px;
+    height: 170px;
+    position: absolute;
+    border-radius: $spacing-12; 
+    opacity: 0.3;
+}
+
+.icon {
+    margin: 0 auto;
+    transform: scale(1) rotate(0deg);
+    transition: transform 800ms linear;
+}
+
+.image-container:hover .icon {
+    transform: scale(1.01) rotate(-10deg);
+
+    transition: transform 500ms linear;
+}
+
+.game-icon{
+    width: 170px;
+    border-radius: $border-radius;
+}
+
+.info-holder{
+    margin-right: $spacing-8;
+    text-align: right;
+}
+
+.show {
+    text-align: right;
+    margin-right: $spacing-8;
+    margin-bottom: $spacing-4;
+    cursor: pointer;
+    opacity: 0.7;
+}
+
+.show:hover {
+    opacity: 1;
+}

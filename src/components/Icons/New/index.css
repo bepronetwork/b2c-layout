@@ -32,3 +32,15 @@
 .h {
     fill: $white;
 }
+
+.i {
+    fill: $grey;
+}
+
+.j {
+    fill: $secondaryColor;
+}
+
+.l {
+    fill: $primaryColor-8;
+}

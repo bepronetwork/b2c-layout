@@ -25,6 +25,9 @@ import logoEthereum_dark from 'assets/partners/logo_ethereum-dark.png';
 import logoResponsible_light from 'assets/partners/logo_responsible_gambling.png';
 import logoResponsible_dark from 'assets/partners/logo_responsible_gambling-dark.png';
 
+const arr = window.location.href.split("/");
+const website = arr[2];
+
 const footerStaticOutput = ({props, supportLinks, communityLinks}) => {
     const info = getApp();
     const {ln} = props;
@@ -104,7 +107,8 @@ class Footer extends Component {
         this.state = {
             supportLinks : [],
             communityLinks : [],
-            logo: null
+            logo: null,
+            socialLink: []
         };
     }
 
@@ -119,12 +123,12 @@ class Footer extends Component {
 
     projectData = async () => {
         const info = getApp();
-        const { footer, logo, theme } = getAppCustomization();
-        this.setState({supportLinks : footer.supportLinks, communityLinks : footer.communityLinks, logo, info, theme})
+        const { footer, logo, theme, socialLink } = getAppCustomization();
+        this.setState({supportLinks : footer.supportLinks, communityLinks : footer.communityLinks, logo, info, theme, socialLink: socialLink.ids})
     }
 
     render() {
-        const { supportLinks, communityLinks, logo, info, theme } = this.state;
+        const { supportLinks, communityLinks, logo, info, socialLink } = this.state;
         const props = this.props;
         let footerInfo = footerStaticOutput({props, supportLinks, communityLinks});
 
@@ -216,6 +220,30 @@ class Footer extends Component {
                             )}
                         )}
                     </Row>
+                    {
+                        socialLink.length
+                        ?
+                            <div styleName="social">
+                                <div styleName="follow">
+                                    <Typography color={"white"} variant={"x-small-body"}> Follow us </Typography>
+                                </div>
+                                <div styleName="social-icons">
+                                {
+                                    socialLink.map(s => {
+                                        return (
+                                            <div styleName="social-icon">
+                                                <a href={s.href} target="_blank">
+                                                    <img src={s.image_url} alt={s.name}/>
+                                                </a>
+                                            </div>
+                                        )
+                                    })
+                                }
+                                </div>
+                            </div>
+                        : 
+                            null
+                    }
                     <div styleName='footer-partners'>
                         <Row>
                             <div className="col-md-2" styleName="col">
@@ -257,6 +285,17 @@ class Footer extends Component {
                             color={footerInfo.info.color}
                         > 
                             {footerInfo.info.text}
+                        </Typography>
+                    </div>
+                    <div styleName='footer-info'>
+                        <Typography
+                            weight={footerInfo.info.size}
+                            color={footerInfo.info.color}
+                        > 
+                            
+                            All {website} products are operated by Ignisvc B.V. registered address, Heelsumstraat 51, Willemstad, Curacao. A company licensed and 
+                            regulated by the law of Curacao under the Master License Holder Curacao eGaming with license number 1668/JAZ.
+                    
                         </Typography>
                     </div>
                     <div styleName='footer-logo'>

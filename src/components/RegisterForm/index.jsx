@@ -1,10 +1,11 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import { Button, Typography, InputText } from "components";
+import { Button, Typography, InputText, Checkbox, Toggle } from "components";
 import { connect } from "react-redux";
 import { compose } from 'lodash/fp';
 import Cache from "../../lib/cache/cache";
 import { CopyText } from '../../copy';
+import { getAppCustomization } from "../../lib/helpers";
 import loading from 'assets/loading-circle.gif';
 
 import "./index.css";
@@ -24,7 +25,8 @@ class RegisterForm extends Component {
         password: "",
         email: "",
         emailValid: false,
-        isLoading: false
+        isLoading: false,
+        isConfirmed: false
     };
 
     componentDidMount(){
@@ -48,11 +50,12 @@ class RegisterForm extends Component {
     };
 
     formIsValid = () => {
-        const { password, username, emailValid } = this.state;
+        const { password, username, emailValid, isConfirmed } = this.state;
         return (
         username !== "" &&
         emailValid &&
-        password !== ""
+        password !== "" &&
+        isConfirmed === true
         );
     };
 
@@ -79,11 +82,19 @@ class RegisterForm extends Component {
         this.setState({ address: event.target.value });
     };
 
+    onHandlerConfirm() {
+        const { isConfirmed } = this.state;
+
+        this.setState({ isConfirmed : !isConfirmed });
+    }
+
     render() {
         const { error } = this.props;
-        const { username, password, email, isLoading } = this.state;
+        const { username, password, email, isLoading, isConfirmed } = this.state;
         const {ln} = this.props;
         const copy = CopyText.registerFormIndex[ln];
+        const { skin, footer } = getAppCustomization();
+        const terms = footer.supportLinks.find(s => { return s.name.trim().toLowerCase() === "terms of service"});
 
         return (
         <form onSubmit={this.handleSubmit}>
@@ -111,6 +122,33 @@ class RegisterForm extends Component {
             value={email}
             />
 
+            <div styleName="agree">
+                <div styleName="agree-main">
+                    <div>
+                        {
+                            skin.skin_type == "digital" 
+                            ?
+                                <Toggle id={'isConfirmed'} checked={isConfirmed} onChange={() => this.onHandlerConfirm()} showText={false}/>
+                            :
+                                <Checkbox onClick={() => this.onHandlerConfirm()} isSet={isConfirmed} id={'isConfirmed'}/>
+                        }
+                    </div>
+                    <div styleName="agree-right">
+                        {
+                            terms 
+                            ?
+                            <Typography color="white" variant="x-small-body">
+                                I Agree with  <a href={terms.href} target={'_blank'}> Terms & Conditions </a>
+                            </Typography>
+                            :
+                            <Typography color="white" variant="x-small-body">
+                                I Agree with Terms & Conditions
+                            </Typography>
+                        }
+                    </div>
+                </div>
+            </div>
+
             <div styleName="error">
             {error ? (
                 <Typography color="red" variant="small-body" weight="semi-bold">
@@ -131,7 +169,7 @@ class RegisterForm extends Component {
                     ?
                         <img src={loading} />
                     :
-                        <Typography color="fixedwhite">{copy.INDEX.TYPOGRAPHY.TEXT[0]}</Typography>
+                        <Typography color={skin.skin_type == "digital" ? 'secondary' : 'fixedwhite'}>{copy.INDEX.TYPOGRAPHY.TEXT[0]}</Typography>
                 }
             </Button>
             </div>

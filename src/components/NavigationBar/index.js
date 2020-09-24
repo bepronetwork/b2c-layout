@@ -1,16 +1,20 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import { getAppCustomization } from "../../lib/helpers";
+import { Link } from "react-router-dom";
+import classNames from 'classnames';
+import { Typography, CasinoIcon, UsersIcon } from 'components';
 import _ from 'lodash';
 import "./index.css";
-import { Typography, CasinoIcon, UsersIcon } from 'components';
-import { Link } from "react-router-dom";
-import { CopyText } from '../../copy';
+
+import dots from "assets/dots.png";
 
 class NavigationBar extends Component {
     constructor(props) {
         super(props);
         this.state = {
-           
+           tabs: [],
+           open: false
         };
     }
 
@@ -21,34 +25,111 @@ class NavigationBar extends Component {
     componentWillReceiveProps(props){
         this.projectData(props);
     }
+
+    componentWillUnmount() {
+        clearInterval(this.intervalID);
+    }
     
-    projectData = async (props) => {}
+    projectData = async (props) => {
+        const { topTab } = getAppCustomization();
+
+        this.setState({ 
+            tabs: _.isEmpty(topTab) ? [] : topTab.ids
+        });
+    }
+
+    renderMenuItem = ({link_url, icon, name}) => {
+        return (
+            <Link to={link_url} styleName={'navigation-step'}>
+                {
+                    icon
+                    ?
+                        <div styleName='img'>
+                            <img src={icon} width="22" height="22"/>
+                        </div>
+                    
+                    :
+                        <div styleName='img'/>
+                }
+                <div styleName={icon ? 'text' : 'text-empty' }>
+                    <Typography variant={'small-body'} color={'white'}>
+                        {name}
+                    </Typography>
+                </div>
+            </Link>
+        )
+    }
+
+    onOpenMenu() {
+        const { open } = this.state;
+
+        this.setState({ open: !open })
+    }
 
     render() {
-        const {ln} = this.props;
-        const copy = CopyText.navigationBarIndex[ln];
+        const { tabs, open } = this.state;
+        const styles = classNames("dropdown-content", {
+            "dropdown-content-open": open == true
+        });
+
+
         return (
-            <div>
-                <Link to='/casino' styleName='navigation-step'>
-                    <div styleName='img'>
-                        <CasinoIcon/>
-                    </div>
-                    <div styleName='text'>
-                        <Typography variant={'small-body'} color={'white'}>
-                            {copy.INDEX.TYPOGRAPHY.TEXT[0]}
-                        </Typography>
-                    </div>
-                </Link>                
-                <Link to='/esports' styleName='navigation-step'>
-                    <div styleName='img'>
-                        <UsersIcon/>
-                    </div>
-                    <div styleName='text'>
-                        <Typography variant={'small-body'} color={'white'}>
-                            Esports
-                        </Typography>
-                    </div>
-                </Link>
+            <div styleName="tabs">
+                {
+                    tabs.slice(0, 2).map(t => {
+                        return (
+                            this.renderMenuItem({
+                                link_url: t.link_url,
+                                icon: t.icon,
+                                name: t.name
+                            })
+                        )
+                    })
+                }
+                {
+                    tabs.length > 2
+                    ?
+                        <div styleName="main-others">
+                            <div styleName="others">
+                            {
+                                tabs.slice(2, tabs.length).map(t => {
+                                    return (
+                                        this.renderMenuItem({
+                                            link_url: t.link_url,
+                                            icon: t.icon,
+                                            name: t.name
+                                        })
+                                    )
+                                })
+                            }
+                            </div>
+                            <div styleName="dropdown">
+                                <a onClick={() => this.onOpenMenu()}>
+                                    <div styleName="dropdown-dots" style={{ backgroundImage: 'url(' + dots + ')'}}/>
+                                </a>
+                                <div styleName={styles}>
+                                    <div styleName="dropdown-nav">
+                                        <div styleName="dropdown-column">
+                                            {
+                                                tabs.slice(2, tabs.length).map(t => {
+                                                    return (
+                                                        this.renderMenuItem({
+                                                            link_url: t.link_url,
+                                                            icon: t.icon,
+                                                            name: t.name
+                                                        })
+                                                    )
+                                                })
+                                            }
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    :
+                        null
+                }
             </div>
         );
     }

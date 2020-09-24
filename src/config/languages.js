@@ -2,6 +2,7 @@ import english  from "../assets/languages/english.png";
 import chinese  from "../assets/languages/chinese.png";
 import korea   from "../assets/languages/korea.png";
 import japan   from "../assets/languages/japan.png";
+import russia   from "../assets/languages/russia.png";
 
 const languages = [
     {
@@ -27,6 +28,12 @@ const languages = [
         nick : 'jp',
         image : japan,
         channel_id : 'japanese'
+    },
+    {
+        name : 'Russian',
+        nick : 'ru',
+        image : russia,
+        channel_id : 'russian'
     } 
 ]
 

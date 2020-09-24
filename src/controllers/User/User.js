@@ -10,7 +10,9 @@ import {
   set2FA,
   userAuth,
   getCurrencyAddress,
-  resendConfirmEmail
+  resendConfirmEmail,
+  getJackpotPot,
+  getProviderToken
 } from "lib/api/users";
 import { Numbers } from "../../lib/ethereum/lib";
 import Cache from "../../lib/cache/cache";
@@ -24,6 +26,7 @@ import _ from 'lodash';
 import Pusher from 'pusher-js';
 import { apiUrl } from "../../lib/api/apiConfig";
 import { setMessageNotification } from "../../redux/actions/message";
+import { formatCurrency } from "../../utils/numberFormatation";
 
 export default class User {
     constructor({
@@ -101,6 +104,13 @@ export default class User {
         this.channel.bind('jackpot', async (data) => {
             await store.dispatch(setModal({key : 'JackpotModal', value : data.message}));
         });
+
+        /* Listen to Update Wallet */
+        this.channel.bind('update_balance', async (data) => {
+            const resp = JSON.parse(data.message);
+            const value = formatCurrency(resp.value);
+            await this.updateBalance({ userDelta: Number(value) });
+        });
     }
 
     hasLoaded = () => this.isLoaded;
@@ -121,6 +131,8 @@ export default class User {
     getBalanceAsync = async () => Numbers.toFloat((await this.updateUser()).balance);
 
     getChat = () =>  this.chat;
+
+    getChannel = () =>  this.channel;
 
     getDeposits = () => {
         if(!this.user.deposits) { return [] };
@@ -148,7 +160,7 @@ export default class User {
         await this.updateUserState();
     }
 
-    updateBalance = async ({userDelta}) => {
+    updateBalance = async ({userDelta, amount}) => {
         const state = store.getState();
         const { currency } = state;
 
@@ -157,6 +169,12 @@ export default class User {
                 w.playBalance = w.playBalance + userDelta;
             }
         });
+
+        if(this.app.addOn.pointSystem && (this.app.addOn.pointSystem.isValid == true) && amount) {
+            const ratio = this.app.addOn.pointSystem.ratio.find( p => p.currency == currency._id ).value;
+            const points = await this.getPoints();
+            this.user.points = points + (amount * ratio);
+        }
 
         await this.updateUserState();
     }
@@ -224,6 +242,10 @@ export default class User {
 
         this.user = user;
         return user;
+    }
+
+    getUserEmail = () => {
+        return this.user.email
     }
 
 
@@ -463,4 +485,71 @@ export default class User {
             throw err;
         }
     };
+
+    getPoints = async () => {
+        return this.user.points;
+    }
+
+    getExternalId = async () => {
+        return this.user.external_id;
+    }
+
+    isEmailConfirmed = async () => {
+        return this.user.email_confirmed;
+    }
+
+    isKycConfirmed = async () => {
+        return this.user.kyc_needed;
+    }
+
+    kycStatus = async () => {
+        return this.user.kyc_status;
+    }
+
+
+    getJackpotPot = async ({currency_id}) => {
+        try {
+            if(!this.user_id){return []}
+            if(currency_id){
+                let res = await getJackpotPot({     
+                    app: this.app_id,        
+                    user: this.user_id,
+                    currency : currency_id
+                }, this.bearerToken);
+
+                //workaround to dont show "Jackpot not exist in App" error message notifitication
+                //should be removed when Jackpot will be in the addOns list
+                if(res.data.status == 56 || res.data.status == 45) {
+                    return { pot: 0 };
+                }
+                //finish
+
+                return await processResponse(res);
+            }else{
+                return [];
+            }
+      
+        }catch(err){
+            console.log(err)
+            throw err;
+        }
+    }
+
+    getProviderToken = async ({game_id, ticker}) => {
+        try {
+            if(!this.user_id){return []}
+            let res = await getProviderToken({     
+                app: this.app_id,        
+                user: this.user_id,
+                game_id,
+                ticker
+            }, this.bearerToken);
+
+            return await processResponse(res);
+      
+        }catch(err){
+            console.log(err)
+            throw err;
+        }
+    }
 }
