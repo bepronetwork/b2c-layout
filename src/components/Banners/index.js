@@ -59,7 +59,7 @@ class Banners extends Component {
                     {banners.map(banner => {
                         const styles = classNames("text-image", {"text-image-show": !(banner.title || banner.subtitle || banner.button_text)});
                         const bannerStyles = classNames("banner", { "banner-full": isFullWidth });
-                        const textStyles = classNames("text", { "text-full": isFullWidth });
+                        const textStyles = classNames("text", { "text-full": isFullWidth, "no-text": isFullWidth && !banner.title && !banner.subtitle });
                         return (
                             <Carousel.Item>
                                 <div styleName={bannerStyles} style={{background: isFullWidth == true ? "url("+banner.image_url+") center center / cover no-repeat" : null}}>
@@ -87,7 +87,7 @@ class Banners extends Component {
                                                 <div/>
                                         }
                                     </div>
-                                    <div styleName="image" style={{background: isFullWidth == false ? "url("+banner.image_url+") center center / cover no-repeat" : "linear-gradient(to right, rgba(0,0,0,0.9) 0%,rgba(0,0,0,0) 69%)"}}>
+                                    <div styleName="image" style={{background: (isFullWidth == false) ? "url("+banner.image_url+") center center / cover no-repeat" : banner.title || banner.subtitle ? "linear-gradient(to right, rgba(0,0,0,0.9) 0%,rgba(0,0,0,0) 69%)" : null }}>
                                         <div styleName={styles}>
                                             {
                                                 banner.title || banner.subtitle || banner.button_text ?

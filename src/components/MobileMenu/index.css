@@ -20,6 +20,10 @@
 .icon {
     width: 30px;
     margin-right: 20px;
+
+    img {
+      width: 22px;
+    }
 }
 
 .label {

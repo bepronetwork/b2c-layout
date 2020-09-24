@@ -81,6 +81,10 @@
   .currency-icon {
     margin-right: $spacing-8;
   }
+
+  img:nth-child(3) {
+    width: 16px;
+  }
     
   @include Breakpoint-mobileOnly {
     border-radius: $border-radius;

@@ -11,7 +11,7 @@
     @include Breakpoint-mobileOnly {
 
     }
-
+    position: relative;
 }
 
 .filters{

@@ -1,7 +1,7 @@
 @import "../../styles/all.css";
 
 .box {
-    padding: $spacing-8 12%;
+    padding: $spacing-8 5%;
 
     @include Breakpoint-mobileOnly {
         padding: $spacing-8 5%;
@@ -9,25 +9,116 @@
 }
 
 .field{
-    grid-template-columns: auto auto;
+    grid-template-columns: 80px 260px;
     display: grid;
     margin-bottom: $spacing-20;
+    gap: $spacing-28;
+    margin-left: 100px;
 }
 
 .label{
-    text-align: left;
+    text-align: right;
     opacity: 0.5;
 }
 
 .value{
-    justify-content: flex-end;
     display: inline-flex;
 }
 
 .button{
     margin-top : $spacing-52;
 
-    button {
-        width: 100%;
+    div {
+        padding: $spacing-4 $spacing-52;
     }
 }
+
+.button-kyc-container{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.button-kyc{
+    height: 250px;
+    width: 300px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    flex-direction: column;
+    padding-bottom: $spacing-20;
+    border-radius: $border-radius;
+    background-color: $primaryColor-8;
+}
+
+.flex-kyc{
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.background-kyc{
+    background-color: $primaryColor-8;
+    padding: 15px;
+    border-radius: $border-radius;
+    flex-direction: column;
+    display: flex;
+    align-items: center;
+}
+
+.background-kyc-digital{
+    background-color: $backgroundColor-2;
+    padding: 15px 0px;
+    border-radius: $border-radius;
+    grid-template-columns: 80px 260px;
+    display: grid;
+    margin-bottom: $spacing-20;
+    gap: $spacing-28;
+}
+
+.box-digital-kyc{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding: $spacing-8 5%;
+
+    @include Breakpoint-mobileOnly {
+        padding: $spacing-8 5%;
+    }
+}
+
+@media only screen and (max-width: 768px) {
+    .background-kyc-digital{
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      background-color: $backgroundColor-2;
+      padding: 15px 0px;
+      border-radius: $border-radius;
+      background-size: 80px;
+      width: 255px;
+      margin-left: 0px;
+    }
+    .flex-kyc{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .field{
+        width: 100%;
+        grid-template-columns: 1fr 1fr;
+        margin-left: 0;
+    }
+
+    .box-digital-kyc{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: $spacing-8 5%;
+    }
+  }
+
+

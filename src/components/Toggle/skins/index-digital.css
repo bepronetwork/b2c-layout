@@ -33,9 +33,19 @@
 
 .toggleOn {
     div:nth-child(2) {   
+        background-color: #1e241b;
+        border-color: #373c40;
+
         span:nth-child(3) {
             background-color: #61ae64;
         }
+    }
+}
+
+.toggleOff {
+    div:nth-child(2) {   
+        background-color: #1a1414;
+        border-color: #373c40;
     }
 }
 

@@ -56,6 +56,20 @@ const withdrawspageCopy =
         ]
       }
     }
+  },
+  "ru": {
+    "TABLE": {
+      "WITHDRAWS": {
+        "TITLE": "Вывод средств",
+        "ITEMS": [
+            "Хэш транзакции",
+            "Дата создания",
+            "Количество",
+            "Вывод",
+            "Статус"
+        ]
+      }
+    }
   }
 }
 export default withdrawspageCopy;

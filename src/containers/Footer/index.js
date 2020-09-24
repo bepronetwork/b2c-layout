@@ -107,7 +107,8 @@ class Footer extends Component {
         this.state = {
             supportLinks : [],
             communityLinks : [],
-            logo: null
+            logo: null,
+            socialLink: []
         };
     }
 
@@ -122,12 +123,12 @@ class Footer extends Component {
 
     projectData = async () => {
         const info = getApp();
-        const { footer, logo, theme } = getAppCustomization();
-        this.setState({supportLinks : footer.supportLinks, communityLinks : footer.communityLinks, logo, info, theme})
+        const { footer, logo, theme, socialLink } = getAppCustomization();
+        this.setState({supportLinks : footer.supportLinks, communityLinks : footer.communityLinks, logo, info, theme, socialLink: socialLink.ids})
     }
 
     render() {
-        const { supportLinks, communityLinks, logo, info, theme } = this.state;
+        const { supportLinks, communityLinks, logo, info, socialLink } = this.state;
         const props = this.props;
         let footerInfo = footerStaticOutput({props, supportLinks, communityLinks});
 
@@ -216,6 +217,30 @@ class Footer extends Component {
                             )}
                         )}
                     </Row>
+                    {
+                        socialLink.length
+                        ?
+                            <div styleName="social">
+                                <div styleName="follow">
+                                    <Typography color={"white"} variant={"x-small-body"}> Follow us </Typography>
+                                </div>
+                                <div styleName="social-icons">
+                                {
+                                    socialLink.map(s => {
+                                        return (
+                                            <div styleName="social-icon">
+                                                <a href={s.href} target="_blank">
+                                                    <img src={s.image_url} alt={s.name}/>
+                                                </a>
+                                            </div>
+                                        )
+                                    })
+                                }
+                                </div>
+                            </div>
+                        : 
+                            null
+                    }
                     <div styleName='footer-partners'>
                         <Row>
                             <div className="col-md-2" styleName="col">

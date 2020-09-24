@@ -23,13 +23,14 @@ class Toggle extends React.Component{
         const skin = getAppCustomization().skin.skin_type;
         
         const stylesOn = classNames("toggle", {
-            toggleOn: checked && skin == "digital"
+            "toggleOn": checked && skin == "digital",
+            "toggleOff": !checked && skin == "digital"
         });
         const stylesTextOff = classNames("toggle-text", {
-            tOff: !checked
+            "tOff": !checked
         });
         const stylesTextOn = classNames("toggle-text", {
-            tOn: checked
+            "tOn": checked
         });
 
         return (

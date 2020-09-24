@@ -60,6 +60,21 @@
         ]
       }
     }
+  },
+  "ru": {
+    "INDEX": {
+      "DATA_CONTAINER": {
+        "TITLE": [
+          "Кошелёк",
+          "Рефералы"
+        ]
+      },
+      "TYPOGRAPHY": {
+        "TEXT": [
+          "Вывести"
+        ]
+      }
+    }
   }
 }
     export default affiliatesTabIndexCopy;

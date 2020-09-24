@@ -56,7 +56,7 @@ import { connect } from 'react-redux';
 import _ from 'lodash';
 import { setStartLoadingProcessDispatcher } from "../../lib/redux";
 import AccountPage from "../AccountPage";
-import { getQueryVariable, getAppCustomization, getWebsite } from "../../lib/helpers";
+import { getQueryVariable, getAppCustomization, getIcon } from "../../lib/helpers";
 import ChatChannel from "../../controllers/Chat";
 import AnnouncementTab from "../../components/AnnouncementTab";
 import { getCurrencyAddress } from "../../lib/api/users";
@@ -746,6 +746,8 @@ class App extends Component {
         const { progress, confirmations } = startLoadingProgress;
 
         const { cripsr } =  app.integrations;
+        const chatIcon = getIcon(2);
+        const liveChatIcon = getIcon(3);
 
         let progress100 = parseInt(progress/confirmations*100);
         let isUserLoaded = (confirmations == progress);
@@ -892,18 +894,29 @@ class App extends Component {
                                 {
                                     cripsr && cripsr.key
                                     ?
-                                        <div styleName="chat-crisp-expand" onClick={this.openCripsrChatClick}>
+                                        <div styleName="chat-crisp-expand chat-crisp-expand-mobile" onClick={this.openCripsrChatClick}>
                                             <div>
-                                                <LiveChatIcon/> 
+                                                { liveChatIcon === null ? <LiveChatIcon /> : <img src={liveChatIcon} /> }
                                             </div>
                                         </div> 
                                     :
                                         null
                                 }
                                 <div styleName={chatStyles} >
+                                    {
+                                        cripsr && cripsr.key
+                                        ?
+                                            <div styleName="chat-crisp-expand" onClick={this.openCripsrChatClick}>
+                                                <div>
+                                                    { liveChatIcon === null ? <LiveChatIcon /> : <img src={liveChatIcon} /> }
+                                                </div>
+                                            </div> 
+                                        :
+                                            null
+                                    }
                                     <div styleName="chat-expand" onClick={this.expandChatClick}>
                                         <div>
-                                            <ChatIcon/> 
+                                            { chatIcon === null ? <ChatIcon /> : <img src={chatIcon} /> }
                                         </div>
                                     </div> 
                                     <div styleName={'chat-container'}>

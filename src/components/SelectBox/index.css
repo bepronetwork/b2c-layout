@@ -111,6 +111,10 @@
     align-items: center;
     height: $spacing-16;
     cursor: pointer;
+
+    img {
+      width: 16px;
+    }
   
     *:first-child {
       margin-right: $spacing-4;

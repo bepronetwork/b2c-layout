@@ -242,6 +242,10 @@ export default class User {
         return user;
     }
 
+    getUserEmail = () => {
+        return this.user.email
+    }
+
 
     getTokenAmount = async () => {
         return 0;
@@ -491,6 +495,15 @@ export default class User {
     isEmailConfirmed = async () => {
         return this.user.email_confirmed;
     }
+
+    isKycConfirmed = async () => {
+        return this.user.kyc_needed;
+    }
+
+    kycStatus = async () => {
+        return this.user.kyc_status;
+    }
+
 
     getJackpotPot = async ({currency_id}) => {
         try {

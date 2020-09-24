@@ -56,6 +56,20 @@
         ]
       }
     }
+  },
+  "ru": {
+    "WITHDRAW": {
+      "HORIZONTAL_STEPPER": {
+        "LABEL": [
+          "Выберите",
+          "Вывод"
+        ],
+        "TITLE": [
+          "Выберите валюту, в которой хотите сделать вывод",
+          "Вывод"
+        ]
+      }
+    }
   }
 }
     export default affiliateWithdrawFormWithdrawCopy;

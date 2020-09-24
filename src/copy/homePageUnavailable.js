@@ -10,6 +10,9 @@ const homePageUnavailableCopy = {
     },
     'jp' : {
         TEXT : 'Not translated.',
+    },
+    'ru' : {
+        TEXT : 'Похоже, что мы пока недоступны в вашем регионе.',
     }
 }
 

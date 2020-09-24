@@ -4,7 +4,7 @@ import { AffiliateLinkContainer, DataContainer, WithdrawForm, DepositsIcon, Affi
 import PaymentBox from "../PaymentBox";
 import { CopyText } from '../../copy';
 import { Col, Row } from 'reactstrap';
-import { getApp } from "../../lib/helpers";
+import { getApp, getIcon } from "../../lib/helpers";
 import _ from 'lodash';
 import './index.css';
 
@@ -76,6 +76,9 @@ class AffiliatesTab extends React.Component{
 
         if(!wallet) { return null };
 
+        const depositsIcon = getIcon(18);
+        const affiliateReferralIcon = getIcon(22);
+
         return (
             <div>
                 <Row>
@@ -98,8 +101,8 @@ class AffiliatesTab extends React.Component{
                         </div>
                     </Col>
                     <Col md={12} lg={12} xl={8}>
-                        <DataContainer title={copy.INDEX.DATA_CONTAINER.TITLE[1]} message={userAmount} image={<AffiliateIcon/>} />
-                        <DataContainer title={copy.INDEX.DATA_CONTAINER.TITLE[0]} message={`${wallet.playBalance} ${wallet.currency.ticker}`} image={<DepositsIcon/>} />
+                        <DataContainer title={copy.INDEX.DATA_CONTAINER.TITLE[1]} message={userAmount} image={affiliateReferralIcon === null ? <AffiliateIcon /> : <img src={affiliateReferralIcon} />} />
+                        <DataContainer title={copy.INDEX.DATA_CONTAINER.TITLE[0]} message={`${wallet.playBalance} ${wallet.currency.ticker}`} image={depositsIcon === null ? <DepositsIcon /> : <img src={depositsIcon} />} />
                         {
                         getApp().virtual !== true 
                         ?

@@ -53,9 +53,8 @@
 }
 
 .message-top {
-    margin-top: calc($navbar-height - 10px);
     top: 0;
-    height: calc($navbar-height - 10px);
+    height: $navbar-height;
     background-color: $primaryColor-3;
     grid-template-columns: auto auto;
     display: grid;
@@ -179,6 +178,10 @@
     .users-icon{
       width: 28px;
       margin-left: $spacing-8;
+
+      img {
+        height: 18px;
+      }
     }
 
     p {

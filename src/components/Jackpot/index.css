@@ -23,7 +23,7 @@
     box-sizing: border-box;
     text-align: center;
 
-    svg {
+    svg, img {
         width: 50%;
     }
 }

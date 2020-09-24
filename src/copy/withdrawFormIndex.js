@@ -48,6 +48,18 @@
         ]
       }
     }
+  },
+  "ru": {
+    "INDEX": {
+      "ACTION_BOX": {
+        "TITLE": [
+          "Сумма вывода"
+        ],
+        "DESCRIPTION": [
+          "Ваш вывод будет завершен через несколько часов"
+        ]
+      }
+    }
   }
 }
     export default withdrawFormIndexCopy;
