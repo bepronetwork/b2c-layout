@@ -40,6 +40,16 @@
         ]
       }
     }
+  },
+  "ru": {
+    "INDEX": {
+      "INPUT_NUMBER": {
+        "TITLE": [
+          "Выплата",
+          "Шанс выйграша"
+        ]
+      }
+    }
   }
 }
     export default flipGameCardIndexCopy;

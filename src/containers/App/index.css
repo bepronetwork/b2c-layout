@@ -90,12 +90,12 @@
   cursor: pointer;
 
   @media screen and (max-width: 1267px) and (min-width: 1024px) {
-    right: calc($chat-width-tablet-pro + $spacing-20);
+    right: 380px;
     bottom: $spacing-20;
   }
   
   @media screen and (max-width: 1023px) and (min-width: 768px) {
-    right: calc($chat-width-tablet + $spacing-20);
+    right: 280px;
     bottom: $spacing-20;
   }
 
@@ -121,6 +121,14 @@
     margin: auto;
     width: 34px;
     height: 34px;
+  }
+}
+
+.chat-crisp-expand-mobile {
+  display: none;
+
+  @media screen and (max-width: 767px) {
+    display: inline;
   }
 }
 
@@ -162,12 +170,19 @@
       width: 30px;
       height: 30px;
     }
+
+    svg {
+      margin: auto;
+      height: 100%;
+      width: 100%;
+    }
   }
 }
 
 .chatExpandDisplay {
   transform: translateX($chat-width-desktop);
   animation: chat-expand-animation 0.7s running;
+  top: 0;
 
   @media screen and (max-width: 1267px) and (min-width: 1024px) {
     transform: translateX($chat-width-tablet-pro);

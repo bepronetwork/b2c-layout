@@ -20,6 +20,11 @@
     "CHAT_USER_NOT_LOGGED": [
       "チャットご利用前にログインしてください"
     ]
+  },
+  "ru": {
+    "CHAT_USER_NOT_LOGGED": [
+      "Пожалуйста, войдите в систему перед использованием чата"
+    ]
   }
 }
     export default ErrorsCopy;

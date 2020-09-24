@@ -188,9 +188,6 @@
     border:none;
     cursor: pointer;
     z-index: 5;
-    background-color: $backgroundColor-5;
-    padding: $spacing-12;
-    border-radius: 50%;
 }
 
 

@@ -43,6 +43,17 @@ const affiliateLinkContainerCopy = {
             TEXT: ['copy']
         }
     }
-  }
+  },
+  'ru' : {
+    INDEX: {
+        TYPOGRAPHY: {
+            FUNC_TEXT : [
+                (param) => `Поделись и получи прибыль в ${param} партёрской программе!`,
+                (param) => `Получай, как минимум, ${param}% за каждого пользователя, зарегистрированного по это ссылке`,
+            ],
+            TEXT: ['Копировать']
+        }
+    }
+}
 }
 export default affiliateLinkContainerCopy;

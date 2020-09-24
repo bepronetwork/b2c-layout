@@ -36,6 +36,15 @@
         ]
       }
     }
+  },
+  "ru": {
+    "INDEX": {
+      "TABS": {
+        "LABEL": [
+          "Вывод"
+        ]
+      }
+    }
   }
 }
     export default affiliateWithdrawFormIndexCopy;

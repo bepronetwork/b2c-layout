@@ -387,6 +387,11 @@
       margin: 2px;
       align-items: center;
       display: flex;
+
+      img {
+        height: 16px;
+        margin: auto;
+      }
     }
 
     .currency-icon {

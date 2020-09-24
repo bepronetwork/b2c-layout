@@ -36,6 +36,15 @@
         ]
       }
     }
+  },
+  "ru": {
+    "INDEX": {
+      "TYPOGRAPHY": {
+        "TEXT": [
+          "Максимум"
+        ]
+      }
+    }
   }
 }
     export default multiplyMaxButtonIndexCopy;
