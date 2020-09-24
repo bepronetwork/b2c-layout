@@ -9,10 +9,11 @@
 }
 
 .field{
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 80px 260px;
     display: grid;
     margin-bottom: $spacing-20;
     gap: $spacing-28;
+    margin-left: 100px;
 }
 
 .label{
@@ -65,14 +66,13 @@
 }
 
 .background-kyc-digital{
-    background: linear-gradient($backgroundColor-2, $backgroundColor-2) right/63% 100% no-repeat;
+    background-color: $backgroundColor-2;
     padding: 15px;
     border-radius: $border-radius;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 80px 260px;
     display: grid;
     margin-bottom: $spacing-20;
     gap: $spacing-28;
-
 }
 
 .box-digital-kyc{
@@ -96,6 +96,7 @@
       background-color: $backgroundColor-2;
       padding: 15px;
       border-radius: $border-radius;
+      background-size: 80px;
       width: 255px;
       margin-left: 0px;
     }
@@ -107,6 +108,7 @@
     .field{
         width: 100%;
         grid-template-columns: 1fr 1fr;
+        margin-left: 0;
     }
 
     .box-digital-kyc{
