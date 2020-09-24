@@ -169,7 +169,7 @@ class AccountTab extends React.Component {
         </div>
         {
           isKycActive ? 
-            <div styleName={`field ${isKycStatus === "no kyc" || isKycStatus === null ? "background-kyc-digital margin-button-kyc" : "background-kyc-digital"}`}>
+            <div styleName={`field ${isKycStatus === "no kyc" || isKycStatus === null ? "background-kyc-digital" : "background-kyc-digital"}`}>
               <div styleName={`label ${isKycStatus === "no kyc" || isKycStatus === null ? "flex-kyc " : "flex-kyc"}`}>
                 <Typography variant="small-body" color="white">
                   {copy.INDEX.INPUT_TEXT.LABEL[5]}
