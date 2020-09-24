@@ -327,6 +327,7 @@ class WalletTab extends React.Component {
       isMoonpayActive
     } = this.state;
     const copy = CopyText.cashierFormIndex[ln];
+    const skin = getAppCustomization().skin.skin_type;
 
     if (!wallet) {
       return null;
@@ -351,11 +352,9 @@ class WalletTab extends React.Component {
                     />
                   );
                 })}
-                {isMoonpayActive ? (
-                <div styleName="container-root">
-                  <Button
-                    size="x-small"
-                    theme="action"
+                {isMoonpayActive === false ? (
+                  <button
+                    styleName={`${skin === "digital" ? "container-root color-kyc" : "container-root"}`}
                     onClick={() => this.handleOpenMoonpay()}
                   >
                     <Row>
@@ -377,8 +376,7 @@ class WalletTab extends React.Component {
                         </div>
                       </Col>
                     </Row>
-                  </Button>
-                </div>
+                  </button>
                 ) : null }
               </div>
             </Col>
