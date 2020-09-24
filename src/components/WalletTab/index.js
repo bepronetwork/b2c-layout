@@ -352,13 +352,13 @@ class WalletTab extends React.Component {
                     />
                   );
                 })}
-                {isMoonpayActive === false ? (
+                {isMoonpayActive === true ? (
                   <button
                     styleName={`${skin === "digital" ? "container-root color-kyc" : "container-root"}`}
                     onClick={() => this.handleOpenMoonpay()}
                   >
                     <Row>
-                      <Col xs={4} md={4}>
+                      <Col xs={3} md={3}>
                         <div styleName='container-image'>
                             <img src={CreditCard} styleName='payment-image'/>
                         </div>
