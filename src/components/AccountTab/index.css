@@ -67,7 +67,7 @@
 
 .background-kyc-digital{
     background-color: $backgroundColor-2;
-    padding: 15px;
+    padding: 15px 0px;
     border-radius: $border-radius;
     grid-template-columns: 80px 260px;
     display: grid;
@@ -94,7 +94,7 @@
       justify-content: center;
       align-items: center;
       background-color: $backgroundColor-2;
-      padding: 15px;
+      padding: 15px 0px;
       border-radius: $border-radius;
       background-size: 80px;
       width: 255px;
