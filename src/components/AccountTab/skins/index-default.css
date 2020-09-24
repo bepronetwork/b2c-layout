@@ -63,6 +63,8 @@
     padding: 15px;
     border-radius: $border-radius;
     flex-direction: column;
+    display: flex;
+    align-items: center;
 }
 
 .background-kyc-digital{
