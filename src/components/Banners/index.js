@@ -57,7 +57,7 @@ class Banners extends Component {
             <div styleName={bannersStyles}>
               <Carousel activeIndex={index} onSelect={this.handleSelect.bind(this)} pause="hover">
                     {banners.map(banner => {
-                        const styles = classNames("text-image", {"text-image-show": !(banner.title || banner.subtitle || banner.button_text)});
+                        const styles = classNames("text-image", {"text-image-show": !(banner.title || banner.subtitle)});
                         const bannerStyles = classNames("banner", { "banner-full": isFullWidth });
                         const textStyles = classNames("text", { "text-full": isFullWidth, "no-text": isFullWidth && !banner.title && !banner.subtitle });
                         return (
