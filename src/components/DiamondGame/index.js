@@ -104,7 +104,7 @@ class DiamondGame extends Component {
                     color={isHover1 ? "white" : `${secondaryColor}`}
                     width="18%"
                   />
-                  <Diamond color={`${secondaryColor}`} width="18%" />
+                  <Diamond color={`${primaryColor}`} width="18%" />
                 </div>
 
                 <p styleName="text-result">
