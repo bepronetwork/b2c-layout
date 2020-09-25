@@ -50,7 +50,7 @@ class Banners extends Component {
 
         const skin = getAppCustomization().skin.skin_type;
         const bannersStyles = classNames("banners", {
-            "banners-full": isFullWidth
+            "banners-full-width": isFullWidth
         });
 
         return (
@@ -62,11 +62,11 @@ class Banners extends Component {
                         const textStyles = classNames("text", { "text-full": isFullWidth, "no-text": isFullWidth && !banner.title && !banner.subtitle });
                         return (
                             <Carousel.Item>
-                                <div styleName={bannerStyles} style={{background: isFullWidth == true ? "url("+banner.image_url+") center center / cover no-repeat" : null}}>
+                                <div styleName={bannerStyles} style={{background: isFullWidth == true || (isFullWidth == false && !banner.title && !banner.subtitle) ? "url("+banner.image_url+") center center / cover no-repeat" : null}}>
                                     <div styleName={textStyles}>
                                         {
                                             banner.title || banner.subtitle || banner.button_text ?
-                                                <div style={{marginTop: isFullWidth == true ? "auto" : null}}>
+                                                <div style={{marginTop: "auto" }}>
                                                     <div styleName="fields">
                                                         <Typography color={'white'} variant={'h3'} weight={'bold'}>{banner.title}</Typography>
                                                     </div>
@@ -87,7 +87,7 @@ class Banners extends Component {
                                                 <div/>
                                         }
                                     </div>
-                                    <div styleName="image" style={{background: (isFullWidth == false) ? "url("+banner.image_url+") center center / cover no-repeat" : banner.title || banner.subtitle ? "linear-gradient(to right, rgba(0,0,0,0.9) 0%,rgba(0,0,0,0) 69%)" : null }}>
+                                    <div styleName="image" style={{background: (isFullWidth == false && (banner.title || banner.subtitle)) ? "url("+banner.image_url+") center center / cover no-repeat" : banner.title || banner.subtitle ? "linear-gradient(to right, rgba(0,0,0,0.9) 0%,rgba(0,0,0,0) 69%)" : null }}>
                                         <div styleName={styles}>
                                             {
                                                 banner.title || banner.subtitle || banner.button_text ?
