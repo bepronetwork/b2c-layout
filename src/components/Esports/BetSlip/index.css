@@ -52,7 +52,7 @@
 }
 
 .bet-slip {
-    overflow-y: auto;
+    overflow-y: hidden;
     max-height: 80vh;
     padding-right: $spacing-4;
 }
