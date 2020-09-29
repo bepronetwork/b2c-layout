@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import Typography from "../Typography";
 import { CopyText } from '../../copy';
 import { connect } from "react-redux";
+import { getAppCustomization } from "../../lib/helpers";
 
 import "./index.css";
 
@@ -19,7 +20,9 @@ class MultiplyMaxButton extends Component {
 
   render() {
     const {ln} = this.props;
-const copy = CopyText.multiplyMaxButtonIndex[ln];
+    const copy = CopyText.multiplyMaxButtonIndex[ln];
+    const skin = getAppCustomization().skin.skin_type;
+
     return (
       <div styleName="root">
         <div styleName="container">
@@ -30,7 +33,7 @@ const copy = CopyText.multiplyMaxButtonIndex[ln];
             type="button"
           >
             <div styleName="button-container">
-              <Typography weight="semi-bold" variant="small-body" color="casper">
+              <Typography weight="semi-bold" variant="small-body" color={skin == "digital" ? "secondary" : "casper"}>
                 ½
               </Typography>
             </div>
@@ -42,7 +45,7 @@ const copy = CopyText.multiplyMaxButtonIndex[ln];
             type="button"
           >
             <div styleName="button-container">
-              <Typography weight="semi-bold" variant="small-body" color="casper">
+              <Typography weight="semi-bold" variant="small-body" color={skin == "digital" ? "secondary" : "casper"}>
                 2×
               </Typography>
             </div>
@@ -57,7 +60,7 @@ const copy = CopyText.multiplyMaxButtonIndex[ln];
               <Typography
                 weight="semi-bold"
                 variant="x-small-body"
-                color="casper"
+                color={skin == "digital" ? "secondary" : "casper"}
               >
                 {copy.INDEX.TYPOGRAPHY.TEXT[0]}
               </Typography>

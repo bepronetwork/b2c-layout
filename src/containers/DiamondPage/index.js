@@ -12,6 +12,7 @@ import DiamondSound from "assets/DiamondIcons/sound/diamond.mp3";
 import DiamondResult from "assets/DiamondIcons/sound/result.mp3";
 import images from "../../components/DiamondGame/images";
 import Cache from "../../lib/cache/cache";
+import { getAppCustomization } from "../../lib/helpers";
 
 class DiamondPage extends Component {
   static contextType = UserContext;
@@ -49,7 +50,10 @@ class DiamondPage extends Component {
     isVisible5: false,
     sound: false,
     soundResult: false,
-    resultSpace: []
+    resultSpace: [],
+    isDisable: true,
+    primaryColor: null,
+    secondaryColor: null
   };
 
   componentDidMount() {
@@ -57,10 +61,28 @@ class DiamondPage extends Component {
     this.setState({
       isHover6: true
     });
+    this.getColors();
   }
 
   setSound = async value => {
     this.setState({ sound: value });
+  };
+
+  getColors = () => {
+    const { colors } = getAppCustomization();
+
+    const primaryColor = colors.find(color => {
+      return color.type === "primaryColor";
+    });
+
+    const secondaryColor = colors.find(color => {
+      return color.type === "secondaryColor";
+    });
+
+    this.setState({
+      primaryColor: primaryColor.hex,
+      secondaryColor: secondaryColor.hex
+    });
   };
 
   handleAnimations = async idIcon => {
@@ -461,94 +483,122 @@ class DiamondPage extends Component {
   };
 
   handleMouseEnter = () => {
-    this.setState({
-      isHover: true,
-      isHover1: false,
-      isHover2: false,
-      isHover3: false,
-      isHover4: false,
-      isHover5: false,
-      isHover6: false,
-      soundResult: false
-    });
+    const { disableControls } = this.state;
+
+    if (disableControls === false) {
+      this.setState({
+        isHover: true,
+        isHover1: false,
+        isHover2: false,
+        isHover3: false,
+        isHover4: false,
+        isHover5: false,
+        isHover6: false,
+        soundResult: false
+      });
+    }
   };
 
   handleMouseEnter1 = () => {
-    this.setState({
-      isHover: false,
-      isHover1: true,
-      isHover2: false,
-      isHover3: false,
-      isHover4: false,
-      isHover5: false,
-      isHover6: false,
-      soundResult: false
-    });
+    const { disableControls } = this.state;
+
+    if (disableControls === false) {
+      this.setState({
+        isHover: false,
+        isHover1: true,
+        isHover2: false,
+        isHover3: false,
+        isHover4: false,
+        isHover5: false,
+        isHover6: false,
+        soundResult: false
+      });
+    }
   };
 
   handleMouseEnter2 = () => {
-    this.setState({
-      isHover: false,
-      isHover1: false,
-      isHover2: true,
-      isHover3: false,
-      isHover4: false,
-      isHover5: false,
-      isHover6: false,
-      soundResult: false
-    });
+    const { disableControls } = this.state;
+
+    if (disableControls === false) {
+      this.setState({
+        isHover: false,
+        isHover1: false,
+        isHover2: true,
+        isHover3: false,
+        isHover4: false,
+        isHover5: false,
+        isHover6: false,
+        soundResult: false
+      });
+    }
   };
 
   handleMouseEnter3 = () => {
-    this.setState({
-      isHover: false,
-      isHover1: false,
-      isHover2: false,
-      isHover3: true,
-      isHover4: false,
-      isHover5: false,
-      isHover6: false,
-      soundResult: false
-    });
+    const { disableControls } = this.state;
+
+    if (disableControls === false) {
+      this.setState({
+        isHover: false,
+        isHover1: false,
+        isHover2: false,
+        isHover3: true,
+        isHover4: false,
+        isHover5: false,
+        isHover6: false,
+        soundResult: false
+      });
+    }
   };
 
   handleMouseEnter4 = () => {
-    this.setState({
-      isHover: false,
-      isHover1: false,
-      isHover2: false,
-      isHover3: false,
-      isHover4: true,
-      isHover5: false,
-      isHover6: false,
-      soundResult: false
-    });
+    const { disableControls } = this.state;
+
+    if (disableControls === false) {
+      this.setState({
+        isHover: false,
+        isHover1: false,
+        isHover2: false,
+        isHover3: false,
+        isHover4: true,
+        isHover5: false,
+        isHover6: false,
+        soundResult: false
+      });
+    }
   };
 
   handleMouseEnter5 = () => {
-    this.setState({
-      isHover: false,
-      isHover1: false,
-      isHover2: false,
-      isHover3: false,
-      isHover4: false,
-      isHover5: true,
-      isHover6: false,
-      soundResult: false
-    });
+    const { disableControls } = this.state;
+
+    if (disableControls === false) {
+      this.setState({
+        isHover: false,
+        isHover1: false,
+        isHover2: false,
+        isHover3: false,
+        isHover4: false,
+        isHover5: true,
+        isHover6: false,
+        soundResult: false
+      });
+    }
   };
 
   handleMouseEnter6 = () => {
-    this.setState({
-      isHover: false,
-      isHover1: false,
-      isHover2: false,
-      isHover3: false,
-      isHover4: false,
-      isHover5: false,
-      isHover6: true,
-      soundResult: false
-    });
+    const { disableControls } = this.state;
+
+    if (disableControls === false) {
+      this.setState({
+        isHover: false,
+        isHover1: false,
+        isHover2: false,
+        isHover3: false,
+        isHover4: false,
+        isHover5: false,
+        isHover6: true,
+        soundResult: false
+      });
+    }
   };
 
   getOptions = () => {
@@ -585,7 +635,9 @@ class DiamondPage extends Component {
       sound,
       soundResult,
       resultWinAmount,
-      resultSpace
+      resultSpace,
+      primaryColor,
+      secondaryColor
     } = this.state;
 
     return (
@@ -616,6 +668,8 @@ class DiamondPage extends Component {
           isVisible5={isVisible5}
           profitAmount={resultWinAmount}
           resultSpace={resultSpace}
+          primaryColor={primaryColor}
+          secondaryColor={secondaryColor}
         />
       </>
     );

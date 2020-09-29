@@ -52,7 +52,7 @@
   background-color: inherit;
 
   outline: none;
-  svg {
+  svg, img {
     width: $spacing-16;
 
     @include Breakpoint-mobileOnly {

@@ -289,7 +289,7 @@ class Form extends Component {
                                     ?
                                         <li>
                                             <Typography variant={'x-small-body'} color={'grey'}>
-                                                Fee {fee} {ticker}
+                                                {copy.INDEX.TYPOGRAPHY.NOTICE[0]} {fee} {ticker}
                                             </Typography>
                                         </li>
                                     :

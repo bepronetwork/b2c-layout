@@ -68,6 +68,23 @@
         ]
       }
     }
+  },
+  "ru": {
+    "INDEX": {
+      "INPUT_NUMBER": {
+        "TITLE": [
+          "Количество ставок",
+          "Остановить на прибыли",
+          "Остановить при убытке"
+        ]
+      },
+      "ON_WIN_LOSS": {
+        "TITLE": [
+          "На победу",
+          "На проигрыш"
+        ]
+      }
+    }
   }
 }
     export default rouletteGameOptionsIndexCopy;

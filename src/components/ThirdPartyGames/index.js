@@ -3,7 +3,7 @@ import { Typography, InfiniteCarousel, ThirdPartyGameCard } from 'components';
 import { connect } from "react-redux";
 import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
 import { getProvidersGames } from "../../lib/api/app";
-import { getSkeletonColors, getApp } from "../../lib/helpers";
+import { getSkeletonColors, getApp, getAppCustomization } from "../../lib/helpers";
 import _ from 'lodash';
 import "./index.css";
 
@@ -50,18 +50,23 @@ class ThirdPartyGames extends Component {
             const provider = p.name;
             const partnerId = p.partner_id;
 
-            p.list.games.map( g => { 
-                const icon = url + g.icon;
-                const game = {
-                    id: g.id,
-                    url,
-                    partnerId,
-                    provider,
-                    icon,
-                    title: g.title
-                }
-                gameList.push(game);
-            });
+            if(typeof p.list.games != "undefined") {
+                p.list.games.map( g => { 
+                    const icon = url + g.icon;
+                    const game = {
+                        id: g.id,
+                        url,
+                        partnerId,
+                        provider,
+                        icon,
+                        title: g.title
+                    }
+                    gameList.push(game);
+                });
+            }
+            else {
+                this.setState({ isLoading: false, isLoadingGames: false });
+            }
         });
 
         this.setState({ games: gameList, total: gameList.length });
@@ -90,7 +95,7 @@ class ThirdPartyGames extends Component {
                     <div styleName="root">
                         <a>
                             <div>
-                                <Skeleton width={"175"} height={"100"}/>
+                                <Skeleton width={"175"} height={"70"}/>
                             </div>
                         </a>
                     </div>
@@ -107,7 +112,7 @@ class ThirdPartyGames extends Component {
         for (let i = 0; i < 12; i++) {
             games.push(
                 <div class={"col"} styleName="col">
-                    <div styleName="root">
+                    <div styleName="root-skeleton">
                         <div styleName="image-container">
                             <div styleName="icon">
                                 <Skeleton width={"180"} height={"150"}/>
@@ -135,6 +140,7 @@ class ThirdPartyGames extends Component {
     render() {
         const { onHandleLoginOrRegister, history } = this.props;
         const { providers, games, isLoading, isLoadingGames, total, providerId } = this.state;
+        const skin = getAppCustomization().skin.skin_type;
 
         return (
             <div>
@@ -176,7 +182,7 @@ class ThirdPartyGames extends Component {
                                     slidesToScroll={2}
                                     slidesToShow={6}
                                     scrollOnDevice={true}
-                                    title="Providers"
+                                    title={skin == "digital" ? "Third party Games" : "Providers"}
                                     >
                                     {
                                         providers.map(p => {
@@ -185,7 +191,7 @@ class ThirdPartyGames extends Component {
                                                     <div styleName="root" onClick={() => this.onClickProvider(p.providerEco)}>
                                                         <a>
                                                             <div>
-                                                                <img width="175" height="70" alt={p.name} src={p.logo} />
+                                                                <img alt={p.name} src={p.logo} />
                                                             </div>
                                                         </a>
                                                     </div>

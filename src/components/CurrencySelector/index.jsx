@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import ArrowDown from "components/Icons/ArrowDown";
 import ArrowUp from "components/Icons/ArrowUp";
-import { Typography } from "components";
+import { Typography, ArrowDownIcon, ArrowUpIcon } from "components";
 import { map } from "lodash";
 import { formatCurrency } from '../../utils/numberFormatation';
 import { connect } from "react-redux";
@@ -9,7 +9,7 @@ import { getApp } from "../../lib/helpers";
 import { setCurrencyView } from "../../redux/actions/currency";
 import Tooltip from '@material-ui/core/Tooltip';
 import { withStyles } from "@material-ui/core/styles";
-import { getAppCustomization } from "../../lib/helpers";
+import { getAppCustomization, getIcon } from "../../lib/helpers";
 import _ from 'lodash';
 
 import "./index.css";
@@ -120,6 +120,7 @@ class CurrencySelector extends Component {
         const icon = _.isEmpty(wApp.image) ? currency.image : wApp.image;
         const bonusPlusBalance = _.isEmpty(w) ? 0 : w.bonusAmount > 0 ? Number(w.bonusAmount) + Number(balance) : balance;
         const bonusAmount = _.isEmpty(w) ? 0 : w.bonusAmount > 0 ? Number(w.bonusAmount) : 0;
+        const skin = getAppCustomization().skin.skin_type;
 
         const { colors } = getAppCustomization();
         const secondaryColor = colors.find(c => {
@@ -133,6 +134,9 @@ class CurrencySelector extends Component {
             }
         })(Tooltip);
 
+        const arrowUpIcon = getIcon(24);
+        const arrowDownIcon = getIcon(25);
+
         return (
             bonusAmount > 0
             ?
@@ -144,7 +148,12 @@ class CurrencySelector extends Component {
                         <span>
                             <Typography color="white" variant={'small-body'}>{formatCurrency(bonusPlusBalance)}</Typography>
                         </span>                    
-                        {open ? <ArrowUp /> : <ArrowDown />}
+                        {open 
+                        ? 
+                            arrowUpIcon === null ? skin == "digital" ? <ArrowUpIcon /> : <ArrowUp /> : <img src={arrowUpIcon} /> 
+                        : 
+                            arrowDownIcon === null ?skin == "digital" ? <ArrowDownIcon /> : <ArrowDown /> : <img src={arrowDownIcon} /> 
+                        }
                     </div>
                 </SecondaryTooltip>
             :
@@ -155,7 +164,12 @@ class CurrencySelector extends Component {
                     <span>
                         <Typography color="white" variant={'small-body'}>{formatCurrency(balance)}</Typography>
                     </span>                    
-                    {open ? <ArrowUp /> : <ArrowDown />}
+                    {open 
+                    ? 
+                        arrowUpIcon === null ? skin == "digital" ? <ArrowUpIcon /> : <ArrowUp /> : <img src={arrowUpIcon} /> 
+                    : 
+                        arrowDownIcon === null ?skin == "digital" ? <ArrowDownIcon /> : <ArrowDown /> : <img src={arrowDownIcon} /> 
+                    }
                 </div>
         );
     }
@@ -172,7 +186,7 @@ class CurrencySelector extends Component {
             <div styleName="currency-icon">
                 <img src={icon} width={20}/>
             </div>
-            <Typography variant="small-body" color="casper">{label}</Typography>
+            <Typography variant="small-body" color="white">{label}</Typography>
         </button>
         ));
     };

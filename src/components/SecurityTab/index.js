@@ -1,11 +1,12 @@
 import React from "react";
 import { connect } from "react-redux";
-import { Typography, Button, Toggle } from "components";
+import { Typography, Button, Toggle, EmailIcon } from "components";
 import { set2FA } from "../../redux/actions/set2FA";
 import { setModal } from "../../redux/actions/modal";
 import { CopyText } from '../../copy';
 import store from "../../containers/App/store";
 import { setMessageNotification } from "../../redux/actions/message";
+import { getIcon } from "../../lib/helpers";
 import './index.css';
 
 const defaultState = {
@@ -76,12 +77,13 @@ class SecurityTab extends React.Component{
         const { isConfirmationSent, has2FA } = this.state;
         const copy = CopyText.settingsTabIndex[ln];
         const copyConfirmEmail = CopyText.homepage[ln];
+        const emailIcon = getIcon(11);
 
         return (
             <div styleName='box'>
                 <div styleName="field">
                     <div styleName='label'>
-                        <Typography variant={'small-body'} color={'casper'}>{copy.INDEX.TOGGLE_FORM.TITLE[1]}</Typography>
+                        <Typography variant={'small-body'} color={'white'}>{copy.INDEX.TOGGLE_FORM.TITLE[1]}</Typography>
                     </div>
                     <div styleName='value'>
                         <Toggle id={'2fa-authentication'} checked={has2FA} onChange={() => this.handle2FAAuthenticationToggle()} />
@@ -90,10 +92,10 @@ class SecurityTab extends React.Component{
                 {profile.user.email_confirmed === false ?
                     <div styleName="field">
                         <div styleName='label'>
-                            <Typography variant={'small-body'} color={'casper'}>{copyConfirmEmail.CONTAINERS.APP.MODAL[2]}</Typography>
+                            <Typography variant={'small-body'} color={'white'}>{copyConfirmEmail.CONTAINERS.APP.MODAL[2]}</Typography>
                         </div>
                         <div styleName='value'>
-                            <Button size={'x-small'} theme={'action'} disabled={isConfirmationSent} onClick={this.handleResendConfirmEmail}>
+                            <Button size={'x-small'} theme={'action'} disabled={isConfirmationSent} onClick={this.handleResendConfirmEmail} icon={emailIcon === null ? <EmailIcon/> : <img src={emailIcon} />}>
                                 <Typography color={'fixedwhite'} variant={'small-body'}>{copyConfirmEmail.CONTAINERS.APP.MODAL[2]}</Typography>
                             </Button>
                         </div>
@@ -101,7 +103,7 @@ class SecurityTab extends React.Component{
                     :
                     <div styleName="field">
                         <div styleName='label'>
-                            <Typography variant={'small-body'} color={'casper'}>{copyConfirmEmail.CONTAINERS.APP.MODAL[2]}</Typography>
+                            <Typography variant={'small-body'} color={'white'}>{copyConfirmEmail.CONTAINERS.APP.MODAL[2]}</Typography>
                         </div>
                         <div styleName='value'>
                             <Toggle id={'confirm-email'} checked={true} disabled={true} />

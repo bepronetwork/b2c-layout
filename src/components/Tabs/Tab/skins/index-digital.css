@@ -1,0 +1,135 @@
+@import "../../../styles/all.css";
+
+
+.tab:not(.selected) {
+  &:hover {
+    /*background-color: $dodger-blue;*/
+    * {
+      opacity: 1;
+    }
+  }
+
+  * {
+    color: $white;
+    opacity: 0.85;
+  }
+}
+
+.tab {
+  height: 100%;
+  text-align: center;
+
+  button {
+    width: 100%;
+    padding: $spacing-4;
+    background-color: inherit;
+    cursor: pointer;
+    outline: none;
+    min-height: 40px;
+    display: inline-flex;
+    align-items: center;
+
+    * {
+      cursor: pointer;
+    }
+  }
+}
+
+.tab:hover {
+  background-color: $primaryColor-13;
+
+  * {
+    color: white;
+  }
+}
+
+.selected{
+  border-bottom: 2px solid $secondaryColor;
+
+  * {
+    color: $secondaryColor;
+    opacity: 1;
+  }
+}
+
+.selected:hover {
+  background-color: $secondaryColor-5;
+}
+
+.fullBackground {
+  background-color: $primaryColor;
+
+  button {
+    border-radius: $border-radius; 
+  }
+}
+
+.fullBackground:not(.selected) {
+  * {
+    color: $secondaryColor;
+    opacity: 1;
+  }
+}
+
+.fullBackgroundSelected {
+  background-color: $secondaryColor;
+
+  * {
+    color: $backgroundColor;
+  }
+
+  button {
+    border-radius: $border-radius; 
+  }
+
+}
+
+.fullBackgroundSelected:hover {
+  * {
+    color: white;
+  }
+
+}
+
+.main{
+  grid-template-columns: auto auto;
+  display: grid;
+  align-items: center;
+  width: 100%;
+}
+
+.icon {
+  justify-content: flex-end;
+  display: inline-flex;
+  margin-right: $spacing-4;
+  
+  svg {
+    width: 36px;
+    height: 36px;
+  }
+
+  img {
+    width: 26px;
+    height: 26px;
+  }
+
+  @media screen and (max-width: 767px) {
+    float: none;
+    margin-bottom: $spacing-8;
+    margin: auto;
+  }
+}
+
+.label {
+  text-align: left;
+
+  @media screen and (max-width: 1023px) {
+    margin-left: $spacing-8;
+  }
+
+  @media screen and (max-width: 767px) {
+    margin-left: 0;
+    float: left;
+  }
+}
+

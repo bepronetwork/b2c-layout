@@ -48,6 +48,7 @@ class Banners extends Component {
         
         if(_.isEmpty(banners)) { return null; }
 
+        const skin = getAppCustomization().skin.skin_type;
         const bannersStyles = classNames("banners", {
             "banners-full": isFullWidth
         });
@@ -56,9 +57,9 @@ class Banners extends Component {
             <div styleName={bannersStyles}>
               <Carousel activeIndex={index} onSelect={this.handleSelect.bind(this)} pause="hover">
                     {banners.map(banner => {
-                        const styles = classNames("text-image", {"text-image-show": !(banner.title || banner.subtitle || banner.button_text)});
+                        const styles = classNames("text-image", {"text-image-show": !(banner.title || banner.subtitle)});
                         const bannerStyles = classNames("banner", { "banner-full": isFullWidth });
-                        const textStyles = classNames("text", { "text-full": isFullWidth });
+                        const textStyles = classNames("text", { "text-full": isFullWidth, "no-text": isFullWidth && !banner.title && !banner.subtitle });
                         return (
                             <Carousel.Item>
                                 <div styleName={bannerStyles} style={{background: isFullWidth == true ? "url("+banner.image_url+") center center / cover no-repeat" : null}}>
@@ -76,7 +77,7 @@ class Banners extends Component {
                                                     
                                                     {banner.button_text &&  banner.link_url ?
                                                         <Button  onClick={() => this.handleClick(banner.link_url)} theme="action">
-                                                            <Typography color={'fixedwhite'} variant={'small-body'}>{banner.button_text}</Typography>
+                                                            <Typography color={skin == "digital" ? "secondary" : "fixedwhite"} variant={'small-body'}>{banner.button_text}</Typography>
                                                         </Button>
                                                     : 
                                                         null
@@ -86,7 +87,7 @@ class Banners extends Component {
                                                 <div/>
                                         }
                                     </div>
-                                    <div styleName="image" style={{background: isFullWidth == false ? "url("+banner.image_url+") center center / cover no-repeat" : "linear-gradient(to right, rgba(0,0,0,0.9) 0%,rgba(0,0,0,0) 69%)"}}>
+                                    <div styleName="image" style={{background: (isFullWidth == false) ? "url("+banner.image_url+") center center / cover no-repeat" : banner.title || banner.subtitle ? "linear-gradient(to right, rgba(0,0,0,0.9) 0%,rgba(0,0,0,0) 69%)" : null }}>
                                         <div styleName={styles}>
                                             {
                                                 banner.title || banner.subtitle || banner.button_text ?
@@ -101,7 +102,7 @@ class Banners extends Component {
                                                         
                                                         {banner.button_text &&  banner.link_url ?
                                                             <Button  onClick={() => this.handleClick(banner.link_url)} theme="action" size={'x-small'}>
-                                                                <Typography color={'fixedwhite'} variant={'body'}>{banner.button_text}</Typography>
+                                                                <Typography color={skin == "digital" ? "secondary" : "fixedwhite"} variant={'body'}>{banner.button_text}</Typography>
                                                             </Button>
                                                             : 
                                                             null

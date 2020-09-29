@@ -3,6 +3,7 @@ import GamePage from "containers/GamePage";
 import UserContext from "containers/App/UserContext";
 import { connect } from "react-redux";
 import { compose } from 'lodash/fp';
+import { convertAmountProviderBigger } from "../../lib/helpers";
 import queryString from 'query-string';
 import _ from "lodash";
 
@@ -10,7 +11,10 @@ const defaultState = {
     gameId : null,
     token: null,
     partnerId: null,
-    url: null
+    url: null,
+    externalId: null,
+    provider: null,
+    name: null
 }
 
 
@@ -27,34 +31,49 @@ class ThirdPartyGamePage extends Component {
     }
 
     componentWillReceiveProps(props){
-        this.projectData(props);
+        if(props.currency != this.props.currency) {
+            this.projectData(props);
+        }
     }
 
     projectData = async (props) => {
-        const { profile, onHandleLoginOrRegister, currency } = this.props;
+        const { profile, onHandleLoginOrRegister, currency } = props;
         const { params } = props.match;
 
         if (!profile || _.isEmpty(profile)) {
             return onHandleLoginOrRegister("login");
         }
 
-        const gameIdParam = String(params.providerGameId);
+        const gameId = String(params.providerGameId);
 
-        if(gameIdParam != null) {
+        if(gameId != null) {
             const queryParams = queryString.parse(this.props.location.search);
             const token = await profile.getProviderToken({
-                    game_id: gameIdParam,
+                    game_id: gameId,
                     ticker: currency.ticker});
 
-            this.setState({ gameId: gameIdParam, token, url: queryParams.url, partnerId: queryParams.partner_id });
+            const url = queryParams.url;
+            const partnerId = queryParams.partner_id;
+            const externalId = queryParams.external_id;
+            const provider = queryParams.provider;
+            const name = queryParams.name;
+            const ticker = convertAmountProviderBigger(currency.ticker, 1);
+
+            this.setState({ gameId, token, url, partnerId, externalId, provider, name, ticker });
         }
     }
 
 
     render() {
-        const { gameId, token, partnerId, url } = this.state;
+        const { ln } = this.props;
+        const { gameId, token, partnerId, url, externalId, provider, name, ticker } = this.state;
 
         if(gameId == null || token == null) { return null };
+
+        if (document.documentElement.clientWidth <= 768) {
+            window.location.href = `${url}/game?token=${token}&partner_id=${partnerId}&player_id=${externalId}&game_id=${gameId}&language=${ln}&currency=${ticker.ticker}`;
+            return null;
+        }
 
         return (
             <GamePage
@@ -63,6 +82,9 @@ class ThirdPartyGamePage extends Component {
                 providerToken={token}
                 providerUrl={url}
                 providerPartnerId={partnerId}
+                providerExternalId={externalId}
+                providerName={provider}
+                providerGameName={name}
             />
         );
     }

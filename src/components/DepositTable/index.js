@@ -1,8 +1,7 @@
 import React, { Component } from "react";
-import { DepositsIcon, Tabs, SelectBox, Table } from 'components';
+import { DepositsIcon, Table } from 'components';
 import { connect } from "react-redux";
-import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
-import { dateToHourAndMinute, isUserSet, getSkeletonColors } from "../../lib/helpers";
+import { dateToHourAndMinute, isUserSet, getIcon } from "../../lib/helpers";
 import { formatCurrency } from "../../utils/numberFormatation";
 import { Numbers, AddressConcat } from '../../lib/ethereum/lib';
 import { CopyText } from "../../copy";
@@ -80,6 +79,8 @@ class DepositTable extends Component {
             deposits = await profile.getDeposits();
         }
 
+        const depositsIcon = getIcon(18);
+
         this.setState({...this.state, 
             ...options,
             isLoading : false,
@@ -88,7 +89,7 @@ class DepositTable extends Component {
                 return {
                     value : new String(key).toLowerCase(),
                     label : copy.TABLE[key].TITLE,
-                    icon : <DepositsIcon/>
+                    icon : depositsIcon === null ? <DepositsIcon /> : <img src={depositsIcon} />
                 }
             }),
             deposits : {

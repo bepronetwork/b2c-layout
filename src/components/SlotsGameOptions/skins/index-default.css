@@ -1,0 +1,95 @@
+@import "../../styles/all.css";
+
+.root {
+  display: flex;
+  flex-direction: column;
+
+  box-sizing: border-box;
+
+  border-radius: $border-radius 0 0 0;
+}
+
+
+.amount-container {
+  display: grid;
+  grid-template-columns: 57% 43%;
+
+  margin-top: $spacing-4;
+}
+
+.amount {
+  order: 1;
+  margin-top: $spacing-20;
+}
+
+.button {
+  order: 4;
+
+  margin-top: $spacing-20;
+
+  @include Breakpoint-mobileOnly {
+    order: 0;
+
+    margin-top: 0;
+  }
+}
+
+.element {
+  margin-top: $spacing-20;
+}
+
+.content {
+  order: 2;
+  margin-bottom: $spacing-36;
+}
+
+.toggle {
+  order: 0;
+
+  @include Breakpoint-mobileOnly {
+    order: 4;
+
+    margin-top: $spacing-20;
+  }
+
+  div {
+    height: 38px;
+  }
+}
+
+.dropdownInput{
+  width: 100% !important;
+  height: 45px;
+  background-color: hsl(244,34%,8%);
+  border: 2px solid hsl(243,34%,13%);
+  border-radius: 5px;
+  margin-top: 5px;
+}
+
+.dropdownLabel{
+  color: hsl(235,37%,65%);
+  font-family: 'Muli', sans-serif;
+  font-weight: 600;
+}
+
+.container {
+  display: flex;
+
+  width: 100%;
+
+  margin-top: $spacing-8;
+
+  background: $background-table-1-outer-2;
+
+  border: 2px solid color($background-table-1-outer-2 alpha(50%));
+
+  border-radius: $spacing-4;
+}
+
+.input {
+  flex-grow: 1;
+}
+
+.bet-properties{
+  padding: $spacing-20;
+}

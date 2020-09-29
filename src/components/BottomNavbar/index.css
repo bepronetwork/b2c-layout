@@ -54,7 +54,10 @@
     align-items: center;
 
     .icon {
-        width: 28px;
+
+        svg, img {
+            width: 26px;
+        }
     }
 }
 

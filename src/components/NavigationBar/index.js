@@ -7,6 +7,8 @@ import classNames from 'classnames';
 import _ from 'lodash';
 import "./index.css";
 
+import dots from "assets/dots.png";
+
 class NavigationBar extends Component {
     constructor(props) {
         super(props);
@@ -39,10 +41,17 @@ class NavigationBar extends Component {
     renderMenuItem = ({link_url, icon, name}) => {
         return (
             <Link to={link_url} styleName={'navigation-step'}>
-                <div styleName='img'>
-                    <img src={icon} width="22"/>
-                </div>
-                <div styleName='text'>
+                {
+                    icon
+                    ?
+                        <div styleName='img'>
+                            <img src={icon} width="22" height="22"/>
+                        </div>
+                    
+                    :
+                        <div styleName='img'/>
+                }
+                <div styleName={icon ? 'text' : 'text-empty' }>
                     <Typography variant={'small-body'} color={'white'}>
                         {name}
                     </Typography>
@@ -80,7 +89,7 @@ class NavigationBar extends Component {
                 {
                     tabs.length > 2
                     ?
-                        <div>
+                        <div styleName="main-others">
                             <div styleName="others">
                             {
                                 tabs.slice(2, tabs.length).map(t => {
@@ -96,7 +105,7 @@ class NavigationBar extends Component {
                             </div>
                             <div styleName="dropdown">
                                 <a onClick={() => this.onOpenMenu()}>
-                                    <div styleName="dropdown-dots"/>
+                                    <div styleName="dropdown-dots" style={{ backgroundImage: 'url(' + dots + ')'}}/>
                                 </a>
                                 <div styleName={styles}>
                                     <div styleName="dropdown-nav">

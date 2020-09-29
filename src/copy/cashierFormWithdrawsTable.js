@@ -72,6 +72,24 @@
         ]
       }
     }
+  },
+  "ru": {
+    "ROW": {
+      "LABEL": [
+        "Количество",
+        "Статус",
+        "Вывод",
+        "Хэш Транзакции",
+        "Дата создания"
+      ]
+    },
+    "WITHDRAWSTABLE": {
+      "TOOLTIP": {
+        "TITLE": [
+          "Сортировать"
+        ]
+      }
+    }
   }
 }
     export default cashierFormWithdrawsTableCopy;

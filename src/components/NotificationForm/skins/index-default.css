@@ -1,0 +1,165 @@
+@import "../../styles/all.css";
+
+.notify-container {
+  z-index: 9998;
+  position: fixed;
+  overflow-y: auto;
+  max-height: 100vh;
+  top: 0;
+  right: 0;
+  flex-direction: column;
+  width: 100%;
+  max-width: 400px;
+}
+
+.notify-wrapper {
+  display: -ms-flexbox;
+  display: flex;
+  padding: 10px;
+  min-height: 0;
+  flex-direction: inherit;
+}
+
+.notification {
+  position: relative;
+  word-wrap: break-word;
+  pointer-events: auto;
+  border-radius: 5px;
+  background: $secondaryColor-3;
+  padding-left: 30px;
+  overflow: hidden;
+  z-index: 9999;
+  margin-bottom: 10px;
+  max-height: 150px;
+  min-height: 80px;
+  animation: fadeIn ease 1s;
+}
+
+@keyframes fadeIn{
+  0% { opacity:0; }
+  100% { opacity:1; }
+}
+
+@-moz-keyframes fadeIn {
+  0% { opacity:0; }
+  100% { opacity:1; }
+}
+
+@-webkit-keyframes fadeIn {
+  0% { opacity:0; }
+  100% { opacity:1; }
+}
+
+@-o-keyframes fadeIn {
+  0% { opacity:0; }
+  100% { opacity:1; }
+}
+
+@-ms-keyframes fadeIn {
+  0% { opacity:0; }
+  100% { opacity:1; }
+}
+
+.notification-success {
+  background-color: $green;
+}
+
+.notification-info {
+  background-color: $secondaryColor-3;
+}
+
+.notification-error {
+  background-color: $red;
+}
+
+.notification-icon {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  padding-top: 10px;
+  box-sizing: border-box;
+  width: 60px;
+  text-align: center;
+  background: $secondaryColor-3;
+}
+
+.icon-success {
+  background: $green;
+}
+
+.icon-info {
+  background: $secondaryColor-3;
+}
+
+.icon-error {
+  background: $red;
+}
+
+.notification-icon .icon {
+  opacity: 0.4;
+}
+
+.notification-content {
+  border-radius: 0 2px 2px 0;
+  background-color: $secondaryColor-3;
+  padding-left: 20px;
+}
+
+.content-success {
+  background-color: $green;
+}
+
+.content-info {
+  background-color: $secondaryColor-3;
+}
+
+.content-error {
+  background-color: $red;
+}
+
+.notification-title {
+  max-height: 150px;
+  overflow-y: auto;
+  border-top: none;
+  padding: 10px;
+}
+
+.notification-message {
+  max-height: 150px;
+  overflow-y: auto;
+  border-top: none;
+  padding: 10px;
+  border-top: 1px solid rgba(0,0,0,.1);
+}
+
+.notification-close {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 38px;
+  height: 38px;
+  line-height: 38px;
+  text-align: center;
+  text-shadow: none;
+  opacity: .4;
+  cursor: pointer;
+}
+
+.notification-close:before {
+  transform: rotate(45deg);
+}
+.notification-close:after, .notification-close:before {
+  position: absolute;
+  left: 18px;
+  top: 10px;
+  content: " ";
+  height: 14px;
+  width: 2px;
+  background-color: currentColor;
+}
+
+.notification-close:after {
+  transform: rotate(-45deg);
+}

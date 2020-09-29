@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { Button, SubtleButton, Typography, LanguageSelector, NavigationBar, CurrencySelector, UserIcon} from "components";
 import UserContext from "containers/App/UserContext";
 import { connect } from "react-redux";
-import { getAppCustomization, getApp, getAddOn } from "../../lib/helpers";
+import { getAppCustomization, getApp, getAddOn, getIcon } from "../../lib/helpers";
 import { formatCurrency } from "../../utils/numberFormatation";
 import { CopyText } from '../../copy';
 import Tooltip from '@material-ui/core/Tooltip';
@@ -27,7 +27,8 @@ const defaultProps = {
     betIDVerified : '',
     openSettingsMenu : false,
     currentPoints : 0,
-    isTransparent: false
+    isTransparent: false,
+    isDefaultIcon: true
 };
 
 class Navbar extends Component {
@@ -64,10 +65,12 @@ class Navbar extends Component {
 
                 const points = await user.getPoints();
 
-                let differencePoints = formatCurrency(points - this.state.currentPoints);
-                if(differencePoints != 0){
-                    opts.differencePoints = differencePoints;
-                    opts.currentPoints = points;
+                if(points) {
+                    let differencePoints = formatCurrency(points - this.state.currentPoints);
+                    if(differencePoints != 0){
+                        opts.differencePoints = differencePoints;
+                        opts.currentPoints = points;
+                    }
                 }
                 
                 this.setState({
@@ -97,6 +100,7 @@ class Navbar extends Component {
         let { user } = this.state;
         const {ln} = this.props;
         const copy = CopyText.navbarIndex[ln];
+        const skin = getAppCustomization().skin.skin_type;
 
         return(
             <div styleName="buttons">
@@ -106,7 +110,7 @@ class Navbar extends Component {
                     </SubtleButton>
                 </div>
                 <Button size="x-small" onClick={this.handleClick} name="register" theme="primary">
-                    <Typography color="fixedwhite" variant="small-body">{copy.INDEX.TYPOGRAPHY.TEXT[0]}</Typography>
+                    <Typography color={skin == "digital" ? "secondary" : "fixedwhite"} variant="small-body">{copy.INDEX.TYPOGRAPHY.TEXT[0]}</Typography> 
                 </Button>
             </div>
         )
@@ -135,19 +139,21 @@ class Navbar extends Component {
 
         const { colors } = getAppCustomization();
 
-        const secondaryColor = colors.find(c => {
-            return c.type == "secondaryColor"
+        const primaryColor = colors.find(c => {
+            return c.type == "primaryColor"
         })
-        const SecondaryTooltip = withStyles({
+        const PrimaryTooltip = withStyles({
             tooltip: {
-              color: "white",
-              backgroundColor: secondaryColor.hex
+              color: getAppCustomization().theme === "light" ? "black" : "white",
+              backgroundColor: primaryColor.hex
             }
         })(Tooltip);
 
         const isValidPoints = (getAddOn().pointSystem) ? getAddOn().pointSystem.isValid : false;
         const logoPoints = (getAddOn().pointSystem) ? getAddOn().pointSystem.logo : null;
         const namePoints = (getAddOn().pointSystem) ? getAddOn().pointSystem.name : null; 
+
+        const skin = getAppCustomization().skin.skin_type;
 
         return(
             <div>
@@ -175,7 +181,7 @@ class Navbar extends Component {
                     }
                     <div styleName='button-deposit'>
                         <button onClick={() => onMenuItem({history, path : "/settings/wallet"})} type="submit" styleName="button">
-                            <Typography variant="small-body" color="fixedwhite">
+                            <Typography variant="small-body" color={skin == "digital" ? "secondary" : "fixedwhite"}>
                                 {virtual ? copy.INDEX.TYPOGRAPHY.TEXT[6] : copy.INDEX.TYPOGRAPHY.TEXT[2]}
                             </Typography>
                         </button>
@@ -185,7 +191,7 @@ class Navbar extends Component {
                     isValidPoints == true
                     ?
                         <div styleName="points">
-                            <SecondaryTooltip title={`${formatCurrency(currentPoints)} ${namePoints}`}>
+                            <PrimaryTooltip title={`${formatCurrency(currentPoints)} ${namePoints}`}>
                                 <div styleName="label-points">
                                     {
                                         !_.isEmpty(logoPoints)
@@ -200,7 +206,7 @@ class Navbar extends Component {
                                         <Typography color="white" variant={'small-body'}>{formatCurrency(currentPoints)}</Typography>
                                     </span>
                                 </div>
-                            </SecondaryTooltip>
+                            </PrimaryTooltip>
                             {differencePoints ? (
                                 <div
                                 key={currentPoints}
@@ -221,12 +227,13 @@ class Navbar extends Component {
 
     renderProfileMenu = () => {
         const { profile, onAccount, history } = this.props;
+        const userIcon = getIcon(0);
 
         return(
             <button styleName="profile" onClick={() => onAccount({history})} type="button">
                 <div styleName="label">
                     <div styleName="user-icon">
-                        <UserIcon/>
+                        { userIcon === null ? <UserIcon/> :  <img src={userIcon} /> }
                     </div>
                     <span>
                         <Typography color="white" variant={'small-body'}>{profile.getUsername()}</Typography>

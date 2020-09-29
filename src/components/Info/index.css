@@ -9,10 +9,14 @@
   cursor: pointer;
   opacity: 0.8;
 
-  svg {
+  svg, img {
       width: 1em;
       height: 1em;
       opacity: 0.5;
+  }
+
+  img {
+    opacity: 0.7;
   }
 }
 

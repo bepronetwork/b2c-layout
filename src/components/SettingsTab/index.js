@@ -46,7 +46,7 @@ class SettingsTab extends Component {
             <div styleName='box'>
                 <div styleName="field">
                     <div styleName='label'>
-                        <Typography variant={'small-body'} color={'casper'}>{copy.INDEX.TOGGLE_FORM.TITLE[0]}</Typography>
+                        <Typography variant={'small-body'} color={'white'}>{copy.INDEX.TOGGLE_FORM.TITLE[0]}</Typography>
                     </div>
                     <div styleName='value'>
                         <Toggle id={'background-music'} checked={backgroundMusic} onChange={() => this.handleBackgroundMusicToggle()} />

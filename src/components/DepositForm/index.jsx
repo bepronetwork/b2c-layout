@@ -2,11 +2,11 @@ import React, { Component } from 'react';
 import './index.css';
 import { connect } from "react-redux";
 import  QRCode from 'qrcode.react';
-import { Typography } from 'components';
+import { Typography, CopyIcon } from 'components';
 import classNames from "classnames";
 import building from 'assets/blockchain.png';
 import loading from 'assets/loading.gif';
-import { getApp, getAddOn } from "../../lib/helpers";
+import { getApp, getAddOn, getAppCustomization, getIcon } from "../../lib/helpers";
 import _ from 'lodash';
 import { CopyText } from '../../copy';
 
@@ -117,6 +117,13 @@ class DepositForm extends Component {
         const {ln} = this.props;
         const copy = CopyText.depositFormIndex[ln];
         const addressStyles = classNames("address", {"ad-copied": copied});
+        const { colors, skin } = getAppCustomization();
+        const backgroundColor = colors.find(c => {
+            return c.type == "backgroundColor"
+        });
+        const secondaryColor = colors.find(c => {
+            return c.type == "secondaryColor"
+        });
 
         if(!isLoaded){
             return (
@@ -125,6 +132,7 @@ class DepositForm extends Component {
                 </div>
             )
         }
+        const copyIcon = getIcon(27);
 
         return (
             <div>
@@ -147,7 +155,7 @@ class DepositForm extends Component {
                                 {copy.INDEX.TYPOGRAPHY.TEXT[0]}
                             </Typography>
                             <div styleName="qrcode">
-                                <QRCode value={address} />
+                                <QRCode value={address} bgColor={skin.skin_type == "digital" ? backgroundColor.hex : "#fff" } fgColor={skin.skin_type == "digital" ? secondaryColor.hex : "#000"}/>
                             </div>
                             {copied ? (
                                 <div styleName="copied">
@@ -158,12 +166,21 @@ class DepositForm extends Component {
                             ) : null}
                             <div styleName={addressStyles}>
                                 <div styleName='link-text-container'>
-                                    <Typography variant={'x-small-body'} color={`casper`}>
+                                    <Typography variant={'x-small-body'} color={skin.skin_type == "digital" ? `white` : `casper`}>
                                         {address}
                                     </Typography>
                                 </div>
                                 <div>
                                     <button onClick={this.copyToClipboard} styleName='text-copy-container'>
+                                        {
+                                            skin.skin_type == "digital"
+                                            ?
+                                                <div styleName="icon">
+                                                    {copyIcon === null ? <CopyIcon /> : <img src={copyIcon} />}
+                                                </div>
+                                            :
+                                                null
+                                        }
                                         <Typography variant={'small-body'} color={'fixedwhite'}>
                                             {copy.INDEX.TYPOGRAPHY.TEXT[1]}
                                         </Typography>
@@ -185,7 +202,7 @@ class DepositForm extends Component {
                                             ?
                                                 <li>
                                                     <Typography variant={'x-small-body'} color={'grey'}>
-                                                        Bonus {depositBonus}% (minimum amount {minBonusDeposit} {wallet.currency.ticker} and maximum amount {maxBonusDeposit} {wallet.currency.ticker} to qualify)
+                                                        {copy.INDEX.TYPOGRAPHY.NOTICE_TEXT[0]([depositBonus, minBonusDeposit, wallet.currency.ticker, maxBonusDeposit])}
                                                     </Typography>
                                                 </li>
                                             :
@@ -196,7 +213,7 @@ class DepositForm extends Component {
                                             ?
                                                 <li>
                                                     <Typography variant={'x-small-body'} color={'grey'}>
-                                                        Fee {fee} {wallet.currency.ticker}
+                                                        {copy.INDEX.TYPOGRAPHY.NOTICE_TEXT[1]} {fee} {wallet.currency.ticker}
                                                     </Typography>
                                                 </li>
                                             :

@@ -4,6 +4,7 @@ import axios from "axios";
 import image2base64 from 'image-to-base64';
 import { html2json, json2html } from 'html2json';
 import { fieldAndChangeFromHTML } from "./helpers";
+import skinsPath from "./skinStyles";
 let indexHtml = fs.readFileSync('scripts/index.html', 'utf8');
 
 var appInfo;
@@ -291,10 +292,25 @@ async function setColors(){
     });
 }
 
+async function saveSkinStyles(){
+    const { skin } = appInfo.customization;
+    const skinType = skin.skin_type;
+
+    skinsPath.map(s => {
+        let file = fs.readFileSync(s.path + '/skins/index-' + skinType + '.css', 'utf8');
+
+        fs.writeFile(s.path + '/index.css', file, 'utf8', () => {
+            console.log("Writing skin style:", skinType, s.path);
+        });
+    });
+}
+
 (async () => {
     try{
         /* Get App Info */
         appInfo = await getAppInfo();
+        /* Save skin style files */
+        await saveSkinStyles();
         /* Set Head Elements */
         await generateHeadElements();
         /* Set Platform Font Colors */
@@ -307,6 +323,8 @@ async function setColors(){
         await generateLogo();
         /* Set Platform Loading Gif */
         await generateLoadingGif();
+
+        
     }catch(err){
         console.log(err);
     }

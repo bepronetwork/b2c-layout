@@ -60,6 +60,21 @@
     "AUTO_BET_NAME": "オートベット開始",
     "MANUAL_NAME": "マニュアル",
     "AUTO_NAME": "オート"
+  },
+  "ru": {
+    "CHIP_INFO": "Chip Value",
+    "EDGE_NAME": "Edge",
+    "PLACEHOLDER_CHAT": "Type your Message",
+    "CLEAR_NAME": "Clear",
+    "UNDO_NAME": "Undo",
+    "EVEN_NAME": "Even",
+    "ODD_NAME": "Odd",
+    "TOTAL_BET_NAME": "Total bet",
+    "BET_NAME": "Bet",
+    "DOUBLE_DOWN_NAME": "Double Down",
+    "AUTO_BET_NAME": "Start Auto Bet",
+    "MANUAL_NAME": "Manual",
+    "AUTO_NAME": "Auto"
   }
 }
     export default sharedCopy;

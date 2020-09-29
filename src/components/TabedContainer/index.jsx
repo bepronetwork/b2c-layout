@@ -102,7 +102,7 @@ class TabedContainer extends React.Component{
                                                         {item.icon}
                                                     </div>
                                                     <div styleName='text-tab'>
-                                                        <Typography variant={'small-body'} color={'casper'}>{item.title}</Typography>
+                                                        <Typography variant={'small-body'} color={mainIndex === index ? 'secondary' : 'white'}>{item.title}</Typography>
                                                     </div>
                                                 </div>
                                             </Nav.Link>
