@@ -39,7 +39,7 @@ class DicePage extends Component {
     bankerCoinChildren: 0,
     betmultiply: 2,
     winammount: 2,
-    CardAResultBack: [0, 8, 6],
+    CardAResultBack: [0, 8, 2],
     CardBResultBack: [6, 2, 1],
     CardAResult: [],
     CardBResult: [],
@@ -67,6 +67,7 @@ class DicePage extends Component {
 
   componentDidMount() {
     this.getGame();
+    this.funcToDefineNewArray();
   }
 
   getGame = () => {
@@ -201,6 +202,9 @@ class DicePage extends Component {
     await this.showCards(300, 2, "B", "translate(0%, 0%) rotateY(180deg)");
     await this.showCards(300, 3, "A", "translate(0%, 0%) rotateY(180deg)");
     await this.showCards(300, 3, "B", "translate(0%, 0%) rotateY(180deg)");
+
+
+    return new Promise(resolve => setTimeout(() => resolve(), 500));
   };
 
   showCards = async (time, val, data, rotateval) => {
@@ -361,17 +365,17 @@ class DicePage extends Component {
     this.setState({ selectedChip: chip });
   };
 
-  handleBetResult = async () => {
-    this.setState({ resultCard: true });
+  handleBetResult = async bool => {
+    this.setState({ resultCard: bool });
   };
 
   handleBet = async () => {
+    await this.handleBetResult(false);
     await this.handleGenerateNumber();
-    await this.funcToDefineNewArray();
     await this.FuncToGetWinner();
+    await this.funcToDefineNewArray();
     await this.startGame();
-    await this.handleBetResult();
-   
+    await this.handleBetResult(true);
   };
 
   handleAnimation = async () => {

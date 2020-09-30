@@ -26,7 +26,7 @@ class CardSection extends Component {
               styleName="card_block"
               style={{ borderColor: this.props.sideAborderColor }}
             >
-              {this.props.CardAResult[0] !== undefined ? (
+              {this.props.CardAResultBack[0] !== undefined ? (
                 <div
                   styleName={`card1 ${
                     this.props.sideACard1 ? `active` : ""
@@ -36,7 +36,7 @@ class CardSection extends Component {
                     opacity: this.props.sideACard1opacity
                   }}
                 >
-                  {this.props.CardAResult.slice(0, 1).map(num => {
+                  {this.props.CardAResultBack.slice(0, 1).map(num => {
                     return (
                       <div styleName="cardfront">
                         <img
@@ -50,7 +50,7 @@ class CardSection extends Component {
                 </div>
               ) : null}
 
-              {this.props.CardAResult[1] !== undefined ? (
+              {this.props.CardAResultBack[1] !== undefined ? (
                 <div
                   styleName={`card2 ${
                     this.props.sideACard2 ? `active` : ""
@@ -60,7 +60,7 @@ class CardSection extends Component {
                     opacity: this.props.sideACard2opacity
                   }}
                 >
-                  {this.props.CardAResult.slice(1, 2).map(num => {
+                  {this.props.CardAResultBack.slice(1, 2).map(num => {
                     return (
                       <div styleName="cardfront">
                         <img
@@ -74,7 +74,7 @@ class CardSection extends Component {
                 </div>
               ) : null}
 
-              {this.props.CardAResult[2] !== undefined ? (
+              {this.props.CardAResultBack[2] !== undefined ? (
                 <div
                   styleName={`card3 ${
                     this.props.sideACard3 ? `active` : ""
@@ -84,7 +84,7 @@ class CardSection extends Component {
                     opacity: this.props.sideACard3opacity
                   }}
                 >
-                  {this.props.CardAResult.slice(2, 3).map(num => {
+                  {this.props.CardAResultBack.slice(2, 3).map(num => {
                     return (
                       <div styleName="cardfront">
                         <img
@@ -118,7 +118,7 @@ class CardSection extends Component {
                     return (
                       <div styleName="cardfront">
                         <img
-                          src={images[num].img[this.props.randNumber3]}
+                          src={images[num].img[this.props.randNumber1]}
                           alt="card1"
                         />
                       </div>
@@ -142,7 +142,7 @@ class CardSection extends Component {
                     return (
                       <div styleName="cardfront">
                         <img
-                          src={images[num].img[this.props.randNumber1]}
+                          src={images[num].img[this.props.randNumber2]}
                           alt="card1"
                         />
                       </div>
@@ -166,7 +166,7 @@ class CardSection extends Component {
                     return (
                       <div styleName="cardfront">
                         <img
-                          src={images[num].img[this.props.randNumber2]}
+                          src={images[num].img[this.props.randNumber3]}
                           alt="card1"
                         />
                       </div>
