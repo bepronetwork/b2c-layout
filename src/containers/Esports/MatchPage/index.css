@@ -82,10 +82,10 @@
 .painel {
   margin: auto;
   margin-top: $spacing-16;
-  max-width: 1192px;
+  margin-right: $spacing-12;
   min-width: 300px;
   display: grid;
-  grid-template-columns: 25% 48% 25%;
+  grid-template-columns: 300px auto 300px;
   gap: 1%;
 
   @media screen and (max-width: 1267px) and (min-width: 1024px) {

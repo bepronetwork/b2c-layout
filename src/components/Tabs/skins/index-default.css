@@ -9,6 +9,7 @@
 }
 
 .fullBackground {
+    grid-template-columns: repeat(auto-fill, 50%);
 }
 
 .tabs-limit {

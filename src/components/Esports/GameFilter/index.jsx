@@ -51,10 +51,10 @@ class GameFilter extends Component {
     createSkeletonRows = () => {
         let rows = []
 
-        for (let i = 0; i < 8; i++) {
+        for (let i = 0; i < 6; i++) {
             rows.push(
                 <li styleName="skeleton-filter-match">
-                    <Skeleton circle={true} height={40} width={40}/>
+                    <Skeleton height={40} width={100}/>
                 </li>
             );
         }
@@ -96,7 +96,10 @@ class GameFilter extends Component {
                             return (
                                 
                                 <li styleName={styles} onClick={() => this.handlerGameFilterClick(game.external_id)} key={game.external_id}>
-                                    <Shield image={game.image} size={"large"} tooltip={game.name} isFull={true} />
+                                    <Shield image={game.image} size={"medium"} tooltip={game.name} isFull={true} />
+                                        <div styleName="match-name">
+                                            <Typography variant={'x-small-body'} color={'white'}>{game.name}</Typography>
+                                        </div>
                                 </li>
                             )
                         })

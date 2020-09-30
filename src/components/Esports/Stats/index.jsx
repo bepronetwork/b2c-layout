@@ -155,13 +155,13 @@ class Stats extends Component {
 
         return (
             performance.map(p => {
-                const styles1 = classNames("progress", {
+                const styles1 = classNames("progress", "progress-1", {
                     green: p.performance1 >= 60,
                     red: p.performance1 < 30,
                     yellow: p.performance1 >= 30 && p.performance1 < 60
                 });
         
-                const styles2 = classNames("progress", {
+                const styles2 = classNames("progress", "progress-2", {
                     green: p.performance2 >= 60,
                     red: p.performance2 < 30,
                     yellow: p.performance2 >= 30 && p.performance2 < 60
@@ -174,13 +174,13 @@ class Stats extends Component {
                                 <span styleName={styles1}></span>
                             </span>
                         </div>
-                        <div>
+                        <div styleName="bar-text bar-text-1">
                             <Typography variant={'x-small-body'} color={'white'}>{p.rate1Label}</Typography>
                         </div>
                         <div styleName="history-month">
                             <Typography variant={'x-small-body'} color={'grey'}>{p.month}</Typography>
                         </div>
-                        <div>
+                        <div styleName="bar-text bar-text-2">
                             <Typography variant={'x-small-body'} color={'white'}>{p.rate2Label}</Typography>
                         </div>
                         <div styleName="bar">
@@ -211,7 +211,7 @@ class Stats extends Component {
             <div styleName="stats-menu">
                 <div styleName="stats-title">
                     <Typography variant={'small-body'} color={'white'}>Team performance</Typography>
-                    <Typography variant={'x-small-body'} color={'white'}>Win rate pf the past 12 months</Typography>
+                    <Typography variant={'x-small-body'} color={'white'}>Win rate of the past 12 months</Typography>
                 </div>
                 <div styleName="stats-score">
                     <div>

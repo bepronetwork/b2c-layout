@@ -51,11 +51,11 @@
 
 .history {
     display: grid;
-    grid-template-columns: 30% 10% 10% 10% 30%;
-    gap: 0.4em;
+    grid-template-columns: auto 38px 36px 38px auto;
     align-items: center;
     padding: $spacing-8 0;
     border-bottom: 1px solid $backgroundColor;
+    margin: 0 $spacing-8;
   
     div {
       text-align: center;
@@ -67,12 +67,13 @@
 }
 
 .bar {
-    height: 2px;
+    height: 6px;
     flex: 1;
-    background-color: $primaryColor-13;
+    background-color: $backgroundColor;
     display: flex;
     justify-content: flex-start;
-    margin: 0 $spacing-8;
+    border-radius: 0 $border-radius $border-radius 0;
+    position: relative;
 
     span {
         display: block;
@@ -80,21 +81,50 @@
     }
 }
 
+.bar-text {
+    background-color: $backgroundColor;
+    height: 24px;
+    align-items: center;
+    display: flex;
+
+    p {
+        width: 100%;
+    }
+}
+
+.bar-text-1 {
+    border-radius: $border-radius 0 0 $border-radius;
+}
+
+.bar-text-2 {
+    border-radius: 0 $border-radius $border-radius 0;
+}
+
 .progress {
     animation: progressbar 1s ease-in-out;
     animation-fill-mode: both;
+    border-radius: 0 $border-radius $border-radius 0;
+    background-color: $secondaryColor;
+}
+
+.progress-1 {
+    background-color: $seventhColor;
+}
+
+.progress-2 {
+    background-color: $heightColor;
 }
 
 .progress.red {
-    background: linear-gradient(270deg, #FF1E55 3.78%, #1C202B 100%);
+    /*background: linear-gradient(270deg, #FF1E55 3.78%, #1C202B 100%);*/
 }
 
 .progress.green {
-    background: linear-gradient(270deg, #26FF81 3.78%, #1C202B 100%);
+    /*background: linear-gradient(270deg, #26FF81 3.78%, #1C202B 100%);*/
 }
 
 .progress.yellow {
-    background: linear-gradient(270deg, #FFF43C 3.78%, #1C202B 100%);
+    /*background: linear-gradient(270deg, #FFF43C 3.78%, #1C202B 100%);*/
 }
 
 @keyframes progressbar {
@@ -108,6 +138,16 @@
 
 .history-month {
     text-align: center;
+    background-color: $backgroundColor;
+    height: $spacing-28;
+    border-radius: $border-radius;
+    align-items: center;
+    display: flex;
+    opacity: 0.6;
+
+    p {
+        width: 100%;
+    }
 }
 
 .live {

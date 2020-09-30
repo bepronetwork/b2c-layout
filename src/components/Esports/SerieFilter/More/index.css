@@ -17,7 +17,7 @@
 }
 
 .tourSelected {
-  background-color: $secondaryColor;
+  border: 2px solid $secondaryColor;
 }
 
 .more {

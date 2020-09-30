@@ -150,10 +150,6 @@ class SerieFilter extends Component {
                                     <Skeleton circle={true} height={30} width={30} style={{marginRight: 12}}/>
                                     <Skeleton height={20} width={100}/>
                                 </li>
-                                <li styleName="tournament">
-                                    <Skeleton circle={true} height={30} width={30} style={{marginRight: 12}}/>
-                                    <Skeleton height={20} width={50}/>
-                                </li>
                             </div>
                         </SkeletonTheme>
                     :

@@ -13,13 +13,12 @@
 
 .game-filter {
   margin: auto;
-  align-items: center;
   max-width: 1192px;
   min-width: 300px;
   display: grid;
-  grid-template-columns: 75% 25%;
+  grid-template-columns: auto 300px;
   gap: 1.5em;
-  height: 70px;
+  min-height: 70px;
 
   @media screen and (max-width: 1267px) and (min-width: 1024px) {
       display: inline;
@@ -95,4 +94,12 @@
   @media screen and (max-width: 767px) {
     display: none
   } 
+}
+
+.tabs {
+  margin-top: $spacing-8; 
+
+  button {
+    min-height: 30px;
+  }
 }

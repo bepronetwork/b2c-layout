@@ -86,7 +86,7 @@
 .game-name {
 
     * {
-      margin: $spacing-4;
+      margin: $spacing-4 0;
     }
 
     @media screen and (max-width: 1267px) and (min-width: 1024px) {

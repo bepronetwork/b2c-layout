@@ -126,7 +126,7 @@ class AllMatches extends Component {
             ...tab == "results" && { begin_at : "all" }
         });
 
-        newMatches.push(...matches);
+        newMatches.unshift(...matches);
 
         this.setState({ matches: newMatches });
     }
@@ -162,7 +162,7 @@ class AllMatches extends Component {
                             onGameFilter={this.handleGameFilterClick}
                             isLoading={isLoading}
                         />
-                        <div>
+                        <div styleName="tabs">
                             <Tabs
                                 selected={tab}
                                 options={[

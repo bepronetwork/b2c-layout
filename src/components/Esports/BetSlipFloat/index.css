@@ -8,7 +8,7 @@
     margin: 0;
     position: fixed;
     z-index: 20;
-    right: calc($chat-width-desktop + $spacing-120);
+    right: calc($chat-width-desktop + 327px);
     bottom: 0;
     top: 0;
     width: 340px;

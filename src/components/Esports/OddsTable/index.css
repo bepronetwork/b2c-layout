@@ -17,7 +17,6 @@
     grid-template-columns: 1fr 1fr;
     gap: 1em;
     padding-bottom: $spacing-20;
-    border-bottom: 1px solid $backgroundColor;
 }
 
 .bets-placar-3 {
