@@ -214,3 +214,28 @@
     border: 4px solid #00f703;
     border-radius: 10px;
 }
+
+.result-container-top{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.result-number{
+    width: 70px;
+    height: 20px;
+    background-color: #2e4452;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.result-container-color{
+    background-color: #00f703;
+}
+
+.result-number div{
+    color: white;
+}

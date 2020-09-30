@@ -92,7 +92,6 @@ class Baccarat extends Component {
                   <Button
                     styleName="custom_bet_btn"
                     disabled={gameRunning}
-                    // onClick={this.handleCoin.bind(this, 'playerclicked')}>
                     onClick={onClickPlayer}
                   >
                     <div styleName="player">PLAYER</div>
@@ -104,7 +103,6 @@ class Baccarat extends Component {
                   <Button
                     styleName="custom_bet_btn"
                     disabled={gameRunning}
-                    // onClick={this.handleCoin.bind(this, 'tieclicked')}>
                     onClick={onClickTie}
                   >
                     <div styleName="player">TIE</div>
@@ -116,7 +114,6 @@ class Baccarat extends Component {
                 <div styleName="inner_col">
                   <Button
                     styleName="custom_bet_btn"
-                    // onClick={this.handleCoin.bind(this, 'bankerclicked')}
                     onClick={onClickBaker}
                     disabled={gameRunning}
                   >

@@ -20,7 +20,7 @@ class DicePage extends Component {
     bet: {},
     game_name: "Baccarat",
     animating: false,
-    selectedChip: 0.001,
+    selectedChip: 0.1,
     game: {
       edge: 0
     },
@@ -86,10 +86,10 @@ class DicePage extends Component {
 
   generateRandomArray = async () => {
     const result1 = Array.from({ length: 3 }, () =>
-      Math.floor(Math.random() * 13)
+      Math.floor(Math.random() * 12)
     );
     const result2 = Array.from({ length: 3 }, () =>
-      Math.floor(Math.random() * 13)
+      Math.floor(Math.random() * 12)
     );
 
     return this.setState({ CardAResult: result1, CardBResult: result2 });
@@ -151,13 +151,13 @@ class DicePage extends Component {
   cardResult = async () => {
     const { CardAResult, CardBResultBack } = this.state;
 
-    const sum = CardAResult.reduce((pv, cv) => {
+    const sum = CardAResult.map((pv, cv) => {
       const result1 = images[pv].value;
       const result2 = images[cv].value;
 
       const sumTotal = result1 + result2;
 
-      return sumTotal;
+      return console.log(result1 + result2);
     }, 0);
 
     return sum;
@@ -235,9 +235,9 @@ class DicePage extends Component {
       sideACard1transform: "translate(858%, -127%) rotateY(180deg)",
       sideACard2transform: "translate(858%, -127%) rotateY(180deg)",
       sideACard3transform: "translate(858%, -127%) rotateY(180deg)",
-      sideBCard1transform: "translate(290%, -127%) rotateY(180deg)",
-      sideBCard2transform: "translate(290%, -127%) rotateY(180deg)",
-      sideBCard3transform: "translate(290%, -127%) rotateY(180deg)"
+      sideBCard1transform: "translate(390%, -127%) rotateY(180deg)",
+      sideBCard2transform: "translate(390%, -127%) rotateY(180deg)",
+      sideBCard3transform: "translate(390%, -127%) rotateY(180deg)"
     });
     await this.showCards(500, 1, "A", "translate(0%, 0%) rotateY(180deg)");
     await this.showCards(300, 1, "B", "translate(0%, 0%) rotateY(180deg)");
@@ -409,8 +409,8 @@ class DicePage extends Component {
     this.setState({ selectedChip: chip });
   };
 
-  handleBetResult = async bool => {
-    this.setState({ resultCard: bool });
+  handleBetResult = async (bool, boolDisable) => {
+    this.setState({ resultCard: bool, gameRunning: boolDisable });
 
     if (bool === true) {
       return this.setState({ CardBResultNumber: true });
@@ -420,14 +420,14 @@ class DicePage extends Component {
   };
 
   handleBet = async () => {
-    await this.handleBetResult(false);
+    await this.handleBetResult(false, true);
     await this.generateRandomArray();
     await this.handleGenerateNumber();
     await this.FuncToGetWinner();
     await this.funcToDefineNewArray();
     await this.startGame();
     await this.resultCardFunc();
-    await this.handleBetResult(true);
+    await this.handleBetResult(true, false);
   };
 
   handleAnimation = async () => {

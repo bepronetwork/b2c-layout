@@ -36,8 +36,12 @@ main.ant-layout-content .baccarat {
 .amount{
     font-family: 'Muli', sans-serif;
 }
-.undo{}
-.clear{}
+.undo{
+    border: 0px;
+}
+.clear{
+    border: 0px;
+}
 
 .baccarat> .ant-row {
     box-shadow: rgba(25, 25, 25, 0.75) 0px 0px 10px;
@@ -379,10 +383,12 @@ input[type=number]::-webkit-outer-spin-button {
     border-image: initial;
     width: 100%;
     height: unset;
+    outline: 0;
 }
 
 .custom_bet_btn:hover {
     background: rgb(55, 82, 98)!important;
+    outline: 0;
 }
 
 .baccarat .main_section {

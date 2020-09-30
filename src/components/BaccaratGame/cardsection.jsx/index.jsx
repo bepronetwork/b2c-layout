@@ -21,13 +21,25 @@ class CardSection extends Component {
 
     return (
       <div styleName="cardsection">
+        <div styleName="result-container-top">
+          <div styleName={`result-number ${this.props.CardAResultNumber === true ? "result-container-color" : "result-number"}`}>
+            <div>
+              0
+            </div>
+        </div>
+          <div styleName={`result-number ${this.props.CardBResultNumber === true ? "result-container-color" : "result-number"}`}>
+            <div>
+              0
+            </div>
+          </div>
+        </div>
         <div styleName="card_wrapper">
+
           <div styleName="card_side_a">
             <div
               styleName="card_block"
               style={{ borderColor: this.props.sideAborderColor }}
             >
-              <div />
               {this.props.CardAResult[0] !== undefined ? (
                 <div
                   styleName={`card1 ${this.props.CardAResultNumber === true ? "result-border" : "card1"}  ${
@@ -51,7 +63,6 @@ class CardSection extends Component {
                   {cardBack}
                 </div>
               ) : null}
-              <div />
               {this.props.CardAResult[1] !== undefined ? (
                 <div
                   styleName={`card2 ${this.props.CardAResultNumber === true ? "result-border" : "card1"}  ${
@@ -75,7 +86,6 @@ class CardSection extends Component {
                   {cardBack}
                 </div>
               ) : null}
-
               {this.props.CardAResult[2] !== undefined ? (
                 <div
                   styleName={`card3 ${this.props.CardAResultNumber === true ? "result-border" : "card1"}  ${
