@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Row, Col, Button } from "antd";
+import { Row, Col, Button } from "react-bootstrap";
 
 import bgimg from "assets/images/baccarat_game_bg.svg";
 import chip_dot from "assets/images/chip_dot.svg";
@@ -32,7 +32,6 @@ class Baccarat extends Component {
       playerAmount,
       tieAmount,
       bankerAmount,
-      notifyStatus,
       stateCard,
       winAmount,
       handleBet,
@@ -126,15 +125,6 @@ class Baccarat extends Component {
                     <div styleName="coin_wrapper">{bankerCoinArr}</div>
                   </Button>
                 </div>
-                <Button
-                  className="bet-btn"
-                  block
-                  size="large"
-                  disabled={this.props.manual_tab_bet_button}
-                  onClick={handleBet}
-                >
-                  Bet
-                </Button>
               </div>
 
               <div styleName="btn_wrapper">

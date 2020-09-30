@@ -54,7 +54,7 @@ class BaccaratGameOptions extends Component {
         const { isAutoBetting } = this.state;
         const { totalBet, disableControls } = this.props;
 
-        return (totalBet > 0 && !disableControls && isAutoBetting == false) || !user;
+        return (totalBet > 0 && isAutoBetting == false) || !user;
     };
 
 
@@ -214,7 +214,7 @@ class BaccaratGameOptions extends Component {
 
     render() {
         const { type } = this.state;
-        const { onChangeChip, totalBet, ln, doubleDownBet } = this.props;
+        const { onChangeChip, totalBet, ln, doubleDownBet, handleBet } = this.props;
         const copy = CopyText.shared[ln];
 
         return (
@@ -251,8 +251,8 @@ class BaccaratGameOptions extends Component {
                     </div>
                     <div styleName="button">
                         <Button
-                            disabled={!this.isBetValid()}
-                            onClick={this.handleBet}
+                           
+                            onClick={handleBet}
                             fullWidth
                             theme="primary"
                             animation={<Dice />}
@@ -265,7 +265,7 @@ class BaccaratGameOptions extends Component {
                     <div></div>
                     <div styleName="button">
                     <Button
-                        disabled={!this.isBetValid()}
+                        
                         onClick={doubleDownBet}
                         fullWidth
                         theme="default"

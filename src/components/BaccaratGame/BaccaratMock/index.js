@@ -55,7 +55,7 @@ import spadesK from "../../../assets/cards/KS.svg";
 import spadesQ from "../../../assets/cards/QS.svg";
 
 const images = [
-  { id: 1, img: [club1, diamond1, heart1, spades1], value: 0 },
+  { id: 1, img: [club1, diamond1, heart1, spades1], value: 1 },
   { id: 2, img: [club2, diamond2, heart2, spades2], value: 2 },
   { id: 3, img: [club3, diamond3, heart3, spades3], value: 3 },
   { id: 4, img: [club4, diamond4, heart4, spades4], value: 4 },
@@ -69,9 +69,9 @@ const images = [
     img: [club10, diamond10, heart10, spades10],
     value: 0
   },
-  { id: 11, img: [clubJ, diamondJ, heartJ, spadesJ] },
-  { id: 12, img: [clubQ, diamondQ, heartQ, spadesQ] },
-  { id: 13, img: [clubK, diamondK, heartK, spadesK] }
+  { id: 11, img: [clubJ, diamondJ, heartJ, spadesJ], value: 0 },
+  { id: 12, img: [clubQ, diamondQ, heartQ, spadesQ], value: 0 },
+  { id: 13, img: [clubK, diamondK, heartK, spadesK], value: 0 }
 ];
 
 export default images;

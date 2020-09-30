@@ -80,8 +80,7 @@
     position: relative;
     transition-duration: 300ms;
     transition-property: transform;
-    width: 90px;
-   
+    width: 90px;   
 }
 
 .cardsection .card_wrapper .card_side_a .card_block div.card2.active {
@@ -137,6 +136,7 @@
     top: 0;
     left: 0;
     width: 80px;
+
   
 }
 .cardsection .card_wrapper .card_side_a .card_block div.card2{
@@ -208,4 +208,9 @@
 .active.playcard.allhc .cardfront {
     z-index: 2;
     position: relative;
+}
+
+.result-border{
+    border: 4px solid #00f703;
+    border-radius: 10px;
 }

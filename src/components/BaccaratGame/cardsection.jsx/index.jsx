@@ -18,6 +18,7 @@ class CardSection extends Component {
       />
     );
 
+
     return (
       <div styleName="cardsection">
         <div styleName="card_wrapper">
@@ -26,9 +27,10 @@ class CardSection extends Component {
               styleName="card_block"
               style={{ borderColor: this.props.sideAborderColor }}
             >
-              {this.props.CardAResultBack[0] !== undefined ? (
+              <div />
+              {this.props.CardAResult[0] !== undefined ? (
                 <div
-                  styleName={`card1 ${
+                  styleName={`card1 ${this.props.CardAResultNumber === true ? "result-border" : "card1"}  ${
                     this.props.sideACard1 ? `active` : ""
                   } playcard ${this.props.cardHide ? "allhc" : ""}`}
                   style={{
@@ -36,7 +38,7 @@ class CardSection extends Component {
                     opacity: this.props.sideACard1opacity
                   }}
                 >
-                  {this.props.CardAResultBack.slice(0, 1).map(num => {
+                  {this.props.CardAResult.slice(0, 1).map(num => {
                     return (
                       <div styleName="cardfront">
                         <img
@@ -49,10 +51,10 @@ class CardSection extends Component {
                   {cardBack}
                 </div>
               ) : null}
-
-              {this.props.CardAResultBack[1] !== undefined ? (
+              <div />
+              {this.props.CardAResult[1] !== undefined ? (
                 <div
-                  styleName={`card2 ${
+                  styleName={`card2 ${this.props.CardAResultNumber === true ? "result-border" : "card1"}  ${
                     this.props.sideACard2 ? `active` : ""
                   } playcard ${this.props.cardHide ? "allhc" : ""}`}
                   style={{
@@ -60,7 +62,7 @@ class CardSection extends Component {
                     opacity: this.props.sideACard2opacity
                   }}
                 >
-                  {this.props.CardAResultBack.slice(1, 2).map(num => {
+                  {this.props.CardAResult.slice(1, 2).map(num => {
                     return (
                       <div styleName="cardfront">
                         <img
@@ -74,9 +76,9 @@ class CardSection extends Component {
                 </div>
               ) : null}
 
-              {this.props.CardAResultBack[2] !== undefined ? (
+              {this.props.CardAResult[2] !== undefined ? (
                 <div
-                  styleName={`card3 ${
+                  styleName={`card3 ${this.props.CardAResultNumber === true ? "result-border" : "card1"}  ${
                     this.props.sideACard3 ? `active` : ""
                   } playcard ${this.props.cardHide ? "allhc" : ""}`}
                   style={{
@@ -84,11 +86,11 @@ class CardSection extends Component {
                     opacity: this.props.sideACard3opacity
                   }}
                 >
-                  {this.props.CardAResultBack.slice(2, 3).map(num => {
+                  {this.props.CardAResult.slice(2, 3).map(num => {
                     return (
                       <div styleName="cardfront">
                         <img
-                          src={images[num].img[this.props.grandNumber3]}
+                          src={images[num].img[this.props.randNumber3]}
                           alt="card1"
                         />
                       </div>
@@ -106,7 +108,7 @@ class CardSection extends Component {
             >
               {this.props.CardBResult[0] !== undefined ? (
                 <div
-                  styleName={`card1 ${
+                  styleName={`card1 ${this.props.CardBResultNumber === true ? "result-border" : "card1"} ${
                     this.props.sideBCard1 ? `active` : ""
                   } playcard ${this.props.cardHide ? "allhc" : ""}`}
                   style={{
@@ -130,7 +132,7 @@ class CardSection extends Component {
 
               {this.props.CardBResult[1] !== undefined ? (
                 <div
-                  styleName={`card2 ${
+                  styleName={`card2 ${this.props.CardBResultNumber === true ? "result-border" : "card1"}  ${
                     this.props.sideBCard2 ? `active` : ""
                   } playcard ${this.props.cardHide ? "allhc" : ""}`}
                   style={{
@@ -154,7 +156,7 @@ class CardSection extends Component {
 
               {this.props.CardBResult[2] !== undefined ? (
                 <div
-                  styleName={`card3 ${
+                  styleName={`card3 ${this.props.CardBResultNumber === true ? "result-border" : "card1"}  ${
                     this.props.sideBCard3 ? `active` : ""
                   } playcard ${this.props.cardHide ? "allhc" : ""}`}
                   style={{

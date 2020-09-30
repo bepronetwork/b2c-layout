@@ -1,10 +1,10 @@
 import React, { Component } from "react";
 import { BaccaratGame, BaccaratGameOptions } from "components";
+import images from "components/BaccaratGame/BaccaratMock";
 import UserContext from "containers/App/UserContext";
 import GamePage from "containers/GamePage";
 import _, { find, reduce } from "lodash";
 import { connect } from "react-redux";
-
 
 import Cache from "../../lib/cache/cache";
 import { setWonPopupMessageDispatcher } from "../../lib/redux";
@@ -39,8 +39,13 @@ class DicePage extends Component {
     bankerCoinChildren: 0,
     betmultiply: 2,
     winammount: 2,
-    CardAResultBack: [0, 8, 2],
-    CardBResultBack: [6, 2, 1],
+    CardAResultBack: [],
+    CardBResultBack: [],
+    CardBResultNumber: false,
+    CardAResultNumber: false,
+    resultSumA: [],
+    resultSumB: [],
+    resultSum: [],
     CardAResult: [],
     CardBResult: [],
     ResultText: "",
@@ -67,7 +72,6 @@ class DicePage extends Component {
 
   componentDidMount() {
     this.getGame();
-    this.funcToDefineNewArray();
   }
 
   getGame = () => {
@@ -78,6 +82,17 @@ class DicePage extends Component {
 
       this.setState({ ...this.state, game });
     }
+  };
+
+  generateRandomArray = async () => {
+    const result1 = Array.from({ length: 3 }, () =>
+      Math.floor(Math.random() * 13)
+    );
+    const result2 = Array.from({ length: 3 }, () =>
+      Math.floor(Math.random() * 13)
+    );
+
+    return this.setState({ CardAResult: result1, CardBResult: result2 });
   };
 
   functest = async () => {
@@ -133,6 +148,35 @@ class DicePage extends Component {
     await this.functest2();
   };
 
+  cardResult = async () => {
+    const { CardAResult, CardBResultBack } = this.state;
+
+    const sum = CardAResult.reduce((pv, cv) => {
+      const result1 = images[pv].value;
+      const result2 = images[cv].value;
+
+      const sumTotal = result1 + result2;
+
+      return sumTotal;
+    }, 0);
+
+    return sum;
+  };
+
+  makeTheSum = async () => {
+    const { resultSumA, resultSumB } = this.state;
+
+    this.setState({ resultSum: [resultSumA, resultSumB] });
+
+    const resultA = resultSumA[0] + resultSumA[1] + resultSumA[2];
+
+  }
+
+  resultCardFunc = async () => {
+    await this.cardResult();
+    await this.makeTheSum();
+  }
+
   FuncToGetWinner = async () => {
     const { cardAResult, CardBResult } = this.state;
 
@@ -143,7 +187,6 @@ class DicePage extends Component {
     // } else {
     //   this.setState({ ResultText: "PLAYER WINS" });
     // }
-    console.log(cardAResult);
   };
 
   handleGenerateNumber = async () => {
@@ -203,7 +246,6 @@ class DicePage extends Component {
     await this.showCards(300, 3, "A", "translate(0%, 0%) rotateY(180deg)");
     await this.showCards(300, 3, "B", "translate(0%, 0%) rotateY(180deg)");
 
-
     return new Promise(resolve => setTimeout(() => resolve(), 500));
   };
 
@@ -237,7 +279,8 @@ class DicePage extends Component {
     if (e === "add") {
       if (this.state.playerCoinChildren < 5) {
         this.setState({
-          playerCoinChildren: this.state.playerCoinChildren + 1
+          playerCoinChildren: this.state.playerCoinChildren + 1,
+          disableControls: true
         });
       }
     }
@@ -245,7 +288,8 @@ class DicePage extends Component {
     if (e === "remove") {
       if (this.state.onClickPlayerCoinValue < 5) {
         this.setState({
-          playerCoinChildren: this.state.onClickPlayerCoinValue
+          playerCoinChildren: this.state.onClickPlayerCoinValue,
+          disableControls: true
         });
       }
     }
@@ -256,7 +300,7 @@ class DicePage extends Component {
       if (this.state.tieCoinChildren < 5) {
         this.setState({
           tieCoinChildren: this.state.tieCoinChildren + 1,
-          disableControls: false
+          disableControls: true
         });
       }
     }
@@ -349,11 +393,11 @@ class DicePage extends Component {
       onClickTieCoinValue: 0,
       onClickBankerCoinValue: 0,
       selectedchipvalue: 1,
-      coinval:1,
+      coinval: 1,
       playerCoinChildren: 0,
       tieCoinChildren: 0,
       bankerCoinChildren: 0,
-      activesliderchips:1,
+      activesliderchips: 1,
       totalBetAmount: 0,
       playeramount: 0,
       tieamount: 0,
@@ -367,14 +411,22 @@ class DicePage extends Component {
 
   handleBetResult = async bool => {
     this.setState({ resultCard: bool });
+
+    if (bool === true) {
+      return this.setState({ CardBResultNumber: true });
+    }
+
+    return this.setState({ CardBResultNumber: false });
   };
 
   handleBet = async () => {
     await this.handleBetResult(false);
+    await this.generateRandomArray();
     await this.handleGenerateNumber();
     await this.FuncToGetWinner();
     await this.funcToDefineNewArray();
     await this.startGame();
+    await this.resultCardFunc();
     await this.handleBetResult(true);
   };
 
@@ -389,18 +441,18 @@ class DicePage extends Component {
   };
 
   getOptions = () => {
-    const { gameRunning } = this.state;
+    const { disableControls } = this.state;
     const { profile } = this.props;
 
     return (
       <BaccaratGameOptions
-        onBet={this.handleBet}
+        handleBet={this.handleBet}
         onChangeChip={this.handleChangeChip}
         totalBet={this.getTotalBet()}
         game={this.state.game}
         profile={profile}
         doubleDownBet={this.doubleDownBet}
-        disableControls={gameRunning}
+        disableControls={disableControls}
       />
     );
   };
