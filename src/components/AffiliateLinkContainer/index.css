@@ -33,15 +33,29 @@
 }
 
 .link-text-container{
-    width : auto;
-    padding: $spacing-12 $spacing-12;
+    width : 100%;
+    padding: 14px $spacing-20;
     text-align : left;
     overflow: hidden;
-    border-radius: $border-radius;
+    height: 40px;
+    border-radius : $border-radius 0 0  $border-radius;
+    background-color : white;
+
+    @media screen and (max-width: 767px) {
+        height: auto;
+    }
 }
 
 .subtitle-text{
     margin-top : 10px;
+}
+
+.address {
+    display: flex;
+
+    @media screen and (max-width: 767px) {
+        display: inline;
+    }
 }
 
 .affiliate-image{
@@ -86,15 +100,16 @@
 
 .text-copy-container{
     border : none;
-    padding: $spacing-12 $spacing-12;
+    padding: $spacing-12 24px;
     border-radius :  0 $border-radius $border-radius 0;
     background-color: $secondaryColor;
-    width : 100%;
+    width : inherit;
+    height : 40px;
     text-align : center;
 
     @media screen and (max-width: 767px) {
-        position: initial;
-        border-radius: 0 0 5px 5px;
+        margin-top: $spacing-8;
+        border-radius : $border-radius;
     }
 }
 
@@ -104,7 +119,7 @@
 
 .copied {
     position: absolute;
-    margin-left: 50%;
+    margin-left: 30%;
     margin-top: -$spacing-20;
 
     @include Breakpoint-mobileOnly {

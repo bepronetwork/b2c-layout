@@ -121,34 +121,30 @@ class RegisterForm extends Component {
             onChange={this.onEmailChange}
             value={email}
             />
-
-            <div styleName="agree">
-                <div styleName="agree-main">
-                    <div>
-                        {
-                            skin.skin_type == "digital" 
-                            ?
-                                <Toggle id={'isConfirmed'} checked={isConfirmed} onChange={() => this.onHandlerConfirm()} showText={false}/>
-                            :
-                                <Checkbox onClick={() => this.onHandlerConfirm()} isSet={isConfirmed} id={'isConfirmed'}/>
-                        }
-                    </div>
-                    <div styleName="agree-right">
-                        {
-                            terms 
-                            ?
+            {
+            terms 
+            ?
+                <div styleName="agree">
+                    <div styleName="agree-main">
+                        <div>
+                            {
+                                skin.skin_type == "digital" 
+                                ?
+                                    <Toggle id={'isConfirmed'} checked={isConfirmed} onChange={() => this.onHandlerConfirm()} showText={false}/>
+                                :
+                                    <Checkbox onClick={() => this.onHandlerConfirm()} isSet={isConfirmed} id={'isConfirmed'}/>
+                            }
+                        </div>
+                        <div styleName="agree-right">
                             <Typography color="white" variant="x-small-body">
                                 I Agree with  <a href={terms.href} target={'_blank'}> Terms & Conditions </a>
                             </Typography>
-                            :
-                            <Typography color="white" variant="x-small-body">
-                                I Agree with Terms & Conditions
-                            </Typography>
-                        }
+                        </div>
                     </div>
                 </div>
-            </div>
-
+            :
+                null
+            }
             <div styleName="error">
             {error ? (
                 <Typography color="red" variant="small-body" weight="semi-bold">
