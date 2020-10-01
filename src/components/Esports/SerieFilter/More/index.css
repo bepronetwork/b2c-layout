@@ -1,0 +1,106 @@
+@import "../../../../styles/all.css";
+
+
+.tournament {
+  display: inline-flex;
+  margin: 0 $spacing-8 $spacing-16 0;
+  background-color: $primaryColor-5;
+  padding: $spacing-4 $spacing-12;
+  border-radius: 24px;
+  align-items: center;
+  height: 36px;
+  cursor: pointer;  
+}
+
+.tournament-name {
+  margin-left: $spacing-8;
+}
+
+.tourSelected {
+  border: 2px solid $secondaryColor;
+}
+
+.more {
+  display: flex;
+  flex-direction: column;
+  height: calc(100% - 128px);
+  max-height: 712px;
+  padding: $spacing-28;
+
+  @media screen and (max-width: 1267px) and (min-width: 1024px) {
+  }
+  
+  @media screen and (max-width: 1023px) and (min-width: 768px) {
+  }
+
+  @media screen and (max-width: 767px) {
+    height: 100%;
+  }
+}
+
+.top-row {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin: $spacing-20 0 $spacing-28 0;
+}
+
+.bottom-row {
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
+  margin-top: $spacing-28;
+}
+
+.more-content {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  height: 100%;
+  flex: 1;
+  margin-right: $spacing-16;
+}
+
+.box {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  right: 0px;
+  bottom: 0px;
+  overflow: scroll;
+  margin-right: -15px;
+  margin-bottom: -15px;
+  width: 100%;
+}
+
+.more-group {
+  margin-bottom: $spacing-16;
+  margin-right: $spacing-28;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  width: 100%;
+}
+
+.more-heading {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  flex: 1;
+
+  div {
+    margin-right: $spacing-16;
+  }
+}
+
+.more-series {
+  max-width: 90%;
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: $spacing-16;
+  margin-left: $spacing-36;
+}
+
+.tournament-more {
+  background-color: $primaryColor-5;
+}

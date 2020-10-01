@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { Typography } from 'components';
 import { getAppCustomization } from "../../lib/helpers";
 import { Link } from "react-router-dom";
 import classNames from 'classnames';
+import { Typography, CasinoIcon, UsersIcon } from 'components';
 import _ from 'lodash';
 import "./index.css";
 

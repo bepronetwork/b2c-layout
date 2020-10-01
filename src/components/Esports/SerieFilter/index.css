@@ -1,0 +1,71 @@
+@import "../../../styles/all.css";
+
+
+.filter-tournaments {
+  margin: $spacing-12 0;
+  display: flex;
+}
+
+.tournament {
+  display: inline-flex;
+  margin-right: $spacing-8;
+  margin-bottom: $spacing-8;
+  background-color: $primaryColor;
+  padding: $spacing-4 $spacing-12;
+  border-radius: $border-radius;
+  align-items: center;
+  height: 36px;
+  cursor: pointer;
+  width: 306px;
+}
+
+.tournament-name {
+  margin-left: $spacing-8;
+
+  p {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 246px;
+  }
+}
+
+.tournament-more {
+  float: right;
+  background-color: $primaryColor;
+  padding: $spacing-12 $spacing-20;
+  border-radius: $border-radius;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  height: 36px;
+
+  svg {
+    height: 18px;
+    width: 18px;
+  }
+}
+
+.all {
+    float: left;
+    background-color: $primaryColor;
+    padding: $spacing-12 $spacing-20;
+    border-radius: $border-radius;
+    margin: 0 $spacing-12 0 0;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    white-space: nowrap;
+    height: 36px;
+}
+  
+.all-selected {
+    margin-left: $spacing-8;
+    background-color: $secondaryColor;
+    padding: $spacing-4;
+    border-radius: $border-radius;
+}
+
+.tourSelected {
+  border: 2px solid $secondaryColor;
+}

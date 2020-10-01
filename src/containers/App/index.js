@@ -2,7 +2,12 @@ import React, { Component } from "react";
 import { Router, Switch, Route } from "react-router-dom";
 import { createBrowserHistory } from "history";
 import { find } from "lodash";
+import CasinoHomePage from "containers/Casino";
+import EsportsHomePage from "containers/Esports";
+import EsportsMatchPage from "containers/Esports/MatchPage";
+import EsportsMatchesPage from "containers/Esports/AllMatches";
 import HomePage from "containers/HomePage";
+import Footer from "../Footer";
 import ResetPassword from "containers/ResetPassword";
 import ConfirmEmail from "containers/ConfirmEmail";
 import {
@@ -51,7 +56,6 @@ import LastBets from "../LastBets/HomePage";
 import { CopyText } from "../../copy";
 import { setCurrencyView } from "../../redux/actions/currency";
 import { setWithdrawInfo } from "../../redux/actions/withdraw";
-
 import { connect } from 'react-redux';
 import _ from 'lodash';
 import { setStartLoadingProcessDispatcher } from "../../lib/redux";
@@ -531,15 +535,13 @@ class App extends Component {
         const { tableDetailsOpen, tableDetails } = this.state;
 
         if (tableDetailsOpen) {
-            const { row } = tableDetails;
+            const { row, tag } = tableDetails;
 
             return (
                 <Modal onClose={this.handleTableDetailsModalClose}>
-                    {/*<DetailsTable onClose={this.handleTableDetailsModalClose} tableDetails={tableDetails} />*/}
-                    <BetDetails onClose={this.handleTableDetailsModalClose} tableDetails={tableDetails} betId={row.id} />
+                    <BetDetails onClose={this.handleTableDetailsModalClose} tableDetails={tableDetails} betId={row.id} tag={tag}/>
                 </Modal>
             )
-            
         }
 
         return null;
@@ -594,7 +596,7 @@ class App extends Component {
                 {this.isGameAvailable("linear_dice_simple") ? (
                     <Route
                     exact
-                    path="/linear_dice_simple"
+                    path="/casino/linear_dice_simple"
                     render={props => (
                         <DicePage
                         {...props}
@@ -607,7 +609,7 @@ class App extends Component {
                 {this.isGameAvailable("coinflip_simple") ? (
                     <Route
                     exact
-                    path="/coinflip_simple"
+                    path="/casino/coinflip_simple"
                     render={props => (
                         <FlipPage
                         {...props}
@@ -620,7 +622,7 @@ class App extends Component {
                 {this.isGameAvailable("european_roulette_simple") ? (
                     <Route
                     exact
-                    path="/european_roulette_simple"
+                    path="/casino/european_roulette_simple"
                     render={props => (
                         <RoulettePage
                         {...props}
@@ -633,7 +635,7 @@ class App extends Component {
                 {this.isGameAvailable("wheel_simple") ? (
                     <Route
                     exact
-                    path="/wheel_simple"
+                    path="/casino/wheel_simple"
                     render={props => (
                         <WheelPage
                         {...props}
@@ -647,7 +649,7 @@ class App extends Component {
                     {this.isGameAvailable("wheel_variation_1") ? (
                     <Route
                     exact
-                    path="/wheel_variation_1"
+                    path="/casino/wheel_variation_1"
                     render={props => (
                         <WheelVariation1
                             {...props}
@@ -661,7 +663,7 @@ class App extends Component {
                     {this.isGameAvailable("plinko_variation_1") ? (
                     <Route
                     exact
-                    path="/plinko_variation_1"
+                    path="/casino/plinko_variation_1"
                     render={props => (
                         <PlinkoPage
                         {...props}
@@ -674,7 +676,7 @@ class App extends Component {
                     {this.isGameAvailable("keno_simple") ? (
                     <Route
                     exact
-                    path="/keno_simple"
+                    path="/casino/keno_simple"
                     render={props => (
                         <KenoPage
                         {...props}
@@ -823,6 +825,60 @@ class App extends Component {
                                             />
 
                                             <Route
+                                                exact
+                                                path="/casino"
+                                                render={props => (
+                                                    <CasinoHomePage
+                                                        {...props}
+                                                        onHandleLoginOrRegister={this.handleLoginOrRegisterOpen}
+                                                        onTableDetails={this.handleTableDetailsOpen}
+                                                    />
+                                            
+                                                )}
+                                            />
+
+                                            <Route
+                                                exact
+                                                path="/esports"
+                                                render={props => (
+                                                    <EsportsHomePage
+                                                        {...props}
+                                                        onHandleLoginOrRegister={this.handleLoginOrRegisterOpen}
+                                                        onTableDetails={this.handleTableDetailsOpen}
+                                                        history={history}
+                                                    />
+                                            
+                                                )}
+                                            />
+
+                                            <Route
+                                                exact
+                                                path="/esports/matches"
+                                                render={props => (
+                                                    <EsportsMatchesPage
+                                                        {...props}
+                                                        onHandleLoginOrRegister={this.handleLoginOrRegisterOpen}
+                                                        onTableDetails={this.handleTableDetailsOpen}
+                                                        history={history}
+                                                    />
+                                            
+                                                )}
+                                            />  
+
+                                            <Route
+                                                exact
+                                                path="/esports/:match"
+                                                render={props => (
+                                                    <EsportsMatchPage
+                                                        {...props}
+                                                        onHandleLoginOrRegister={this.handleLoginOrRegisterOpen}
+                                                        onTableDetails={this.handleTableDetailsOpen}
+                                                    />
+                                            
+                                                )}
+                                            />
+
+                                            <Route
                                                 path="/settings"
                                                 render={({ match: { url }}) => (
                                                     <>
@@ -889,6 +945,7 @@ class App extends Component {
                                             {this.renderGamePages({history})}
 
                                         </Switch>
+                                        <Footer/>
                                     </div>
                                 </div>
                                 {

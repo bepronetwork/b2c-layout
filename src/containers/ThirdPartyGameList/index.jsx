@@ -36,7 +36,7 @@ class ThirdPartyGameList extends Component {
         this.setState({ isLoading: true });
 
         let providerId = String(params.providerGameId);
-        const games = providerId === "all" ?await getProvidersGames() : await getProvidersGames({ providerEco: providerId });
+        const games = providerId === "all" ? await getProvidersGames() : await getProvidersGames({ providerEco: providerId });
         
         this.formatGames(games, providerId);
 

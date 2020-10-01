@@ -2,20 +2,21 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import {Typography } from "components";
 import { getBet } from "../../lib/api/app";
-import DiceDetails from './Game/DiceDetails';
-import FlipDetails from './Game/FlipDetails';
-import RouletteDetails from './Game/RouletteDetails';
-import WheelDetails from './Game/WheelDetails';
-import PlinkoDetails from './Game/PlinkoDetails';
-import KenoDetails from './Game/KenoDetails';
-import DiamondDetails from './Game/DiamondDetails';
-import SlotsDetails from './Game/SlotsDetails';
+import CasinoDetails from "./CasinoDetails";
+import EsportsDetails from "./EsportsDetails";
+import DiceDetails from './CasinoDetails/Game/DiceDetails';
+import FlipDetails from './CasinoDetails/Game/FlipDetails';
+import RouletteDetails from './CasinoDetails/Game/RouletteDetails';
+import WheelDetails from './CasinoDetails/Game/WheelDetails';
+import PlinkoDetails from './CasinoDetails/Game/PlinkoDetails';
+import KenoDetails from './CasinoDetails/Game/KenoDetails';
+import DiamondDetails from './CasinoDetails/Game/DiamondDetails';
+import SlotsDetails from './CasinoDetails/Game/SlotsDetails';
 import { formatCurrency } from "../../utils/numberFormatation";
-import { getApp, getSkeletonColors } from "../../lib/helpers";
-import { CopyText } from "../../copy";
-import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
+import { getApp } from "../../lib/helpers";
 
 import "./index.css";
+
 
 class BetDetails extends Component {
 
@@ -23,19 +24,10 @@ class BetDetails extends Component {
     constructor(props){
         super(props);
         this.state = {
-            component: null,
-            clientSeed: null,
-            serverHashedSeed: null,
-            serverSeed: null,
-            timestamp: null,
-            winAmount: null,
-            betAmount: null,
-            game: null,
-            userName: null,
-            isWon: true,
-            currencyImage: null,
-            isLoading: true,
-            isFake: false
+            bet: null,
+            isFake: false,
+            tag: "casino",
+            isLoading: true
         };
     }
 
@@ -48,14 +40,16 @@ class BetDetails extends Component {
     }
 
     projectData = async (props) => {
-        const { betId } = props;
+        const { betId, tag } = props;
         let component = null; 
 
-        const response = await getBet({ betId });
+        this.setState({ tag });
+
+        const response = await getBet({ betId, tag });
 
         if (response.status === 200) {
             const bet = response.message;
-            const game = bet.game;
+			const game = bet.game;
 
             switch (game.metaName) {
                 case 'linear_dice_simple':
@@ -79,10 +73,10 @@ class BetDetails extends Component {
                 case 'keno_simple':
                     component = <KenoDetails bet={bet}/>;
                     break;
-                    case 'diamonds_simple':
+                case 'diamonds_simple':
                     component = <DiamondDetails bet={bet}/>;
                     break;
-                    case 'slots_simple':
+                case 'slots_simple':
                     component = <SlotsDetails bet={bet}/>;
                     break;
             }
@@ -101,182 +95,34 @@ class BetDetails extends Component {
                 isWon: bet.isWon,
                 currencyImage: currenncy.image,
                 game,
-                isLoading: false
+                isLoading: false,
+                bet
             });
         }
         else {
-            this.setState({
-                isLoading: false,
-                isFake: true
-            });
+            this.setState({ isFake: true, isLoading: false });
         }
     }
     
     render() {
-        const { ln } = this.props;
-        const { component, clientSeed, serverHashedSeed, serverSeed, timestamp, winAmount, betAmount, game, userName, isWon, currencyImage, isLoading, isFake } = this.state;
-        const copy = CopyText.betsdetailspage[ln];
+        const { bet, isFake, tag, isLoading } = this.state;
 
         return (
-            <div>
-                {isLoading 
-                    ?
-                        <SkeletonTheme color={ getSkeletonColors().color} highlightColor={ getSkeletonColors().highlightColor}>
-                            <div styleName="root" style={{opacity : '0.5'}}>
-                                <div styleName="game">
-                                    <div>
-                                        <h1 styleName="rule-h1">
-                                            <Skeleton width={60} height={60} circle={true}/>
-                                        </h1>
-                                    </div>
-                                    <div>
-                                        <div styleName='label'>
-                                            <Skeleton width={100} height={30}/>
-                                        </div>
-                                    </div>
-                                    <div styleName="bet">
-                                        <div styleName="amount">
-                                            <div styleName='label'>
-                                                <Skeleton width={100} height={50}/>
-                                            </div>
-                                        </div>
-                                        <div styleName="win">  
-                                            <div styleName='label'>
-                                                <Skeleton width={100} height={50}/>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <Skeleton width={300} height={50}/>
-                                    </div>
-                                </div>
-                                <div styleName="seed">
-                                    <div styleName="client">
-                                        <div>
-                                            <div styleName='label'>
-                                                <Skeleton width={150} height={30}/>
-                                            </div>
-                                        </div>
-                                        <div>
-                                            <div styleName='label'>
-                                                <Skeleton width={150} height={30}/>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <div styleName='label'>
-                                            <Skeleton width={300} height={30}/>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </SkeletonTheme>
-                    :
-                    <div>
-                        {isFake
-                            ?
-                                <div styleName="restricted">
-                                    <Typography variant={'body'} color={`casper`}>
-                                         Restricted data
-                                    </Typography>
-                                </div>
-                            :
-                                <div styleName="root">
-                                    <div styleName="game">
-                                        <div>
-                                            <h1 styleName="rule-h1">
-                                                <img styleName="image-icon" src={game.image_url}/> 
-                                                <Typography variant='small-body' color={"grey"} weight={"bold"}> {game.name} </Typography>
-                                            </h1>
-                                        </div>
-                                        <div>
-                                            <div styleName='label'>
-                                                <Typography variant={'x-small-body'} color={`casper`}>
-                                                    {copy.TEXT[0]}: {userName}
-                                                </Typography>
-                                            </div>
-                                            <div styleName='bet-text'>
-                                                <Typography variant={'x-small-body'} color={`white`}>
-                                                    {timestamp}
-                                                </Typography>
-                                            </div>
-                                        </div>
-                                        <div styleName="bet">
-                                            <div styleName="amount">
-                                                <div styleName='label'>
-                                                    <Typography variant={'x-small-body'} color={`casper`}>
-                                                        {copy.TEXT[1]}
-                                                    </Typography>
-                                                </div>
-                                                <div styleName='bet-text'>
-                                                    <Typography variant={'x-small-body'} color={`white`}>
-                                                        {betAmount}
-                                                    </Typography>
-                                                    <img src={currencyImage} width={16} height={16}/>
-                                                </div>
-                                            </div>
-                                            <div styleName="win">  
-                                                <div styleName='label'>
-                                                    <Typography variant={'x-small-body'} color={`casper`}>
-                                                        {copy.TEXT[2]}
-                                                    </Typography>
-                                                </div>
-                                                <div styleName='bet-text'>
-                                                    <Typography variant={'x-small-body'} color={isWon == true ? `green` : `white`}>
-                                                        {winAmount}
-                                                    </Typography>
-                                                    <img src={currencyImage} width={16} height={16}/>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        {component}
-                                    </div>
-                                    <div styleName="seed">
-                                        <div styleName="client">
-                                            <div>
-                                                <div styleName='label'>
-                                                    <Typography variant={'x-small-body'} color={`casper`}>
-                                                        {copy.TEXT[3]}
-                                                    </Typography>
-                                                </div>
-                                                <div styleName='text'>
-                                                    <Typography variant={'x-small-body'} color={`white`}>
-                                                        {serverSeed}
-                                                    </Typography>
-                                                </div>
-                                            </div>
-                                            <div>
-                                                <div styleName='label'>
-                                                    <Typography variant={'x-small-body'} color={`casper`}>
-                                                        {copy.TEXT[4]}
-                                                    </Typography>
-                                                </div>
-                                                <div styleName='text'>
-                                                    <Typography variant={'x-small-body'} color={`white`}>
-                                                        {clientSeed}
-                                                    </Typography>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div>
-                                            <div styleName='label'>
-                                                <Typography variant={'x-small-body'} color={`casper`}>
-                                                    {copy.TEXT[5]}
-                                                </Typography>
-                                            </div>
-                                            <div styleName='text'>
-                                                <Typography variant={'x-small-body'} color={`white`}>
-                                                    {serverHashedSeed}
-                                                </Typography>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                        }
-                    </div>
-                       
-                }
-            </div>
+
+            isFake == true
+            ?
+                <div styleName="restricted">
+                    <Typography variant={'body'} color={`casper`}>
+                            Restricted data
+                    </Typography>
+                </div>
+            :
+                tag == "casino"
+                ?
+                    <CasinoDetails bet={bet} isLoading={isLoading} />
+                : 
+                    <EsportsDetails bet={bet} isLoading={isLoading} />
+
         )
     }
 }

@@ -11,7 +11,8 @@ import {
     withdrawReducer,
     modalReducer,
     set2FAReducer,
-    currencyReducer
+    currencyReducer,
+    betSlipReducer
 } from '../../redux/reducers/index';
 
 
@@ -27,7 +28,8 @@ const reducer = combineReducers({
     startLoadingProgress : startLoadingProgressReducer,
     bet : betReducer,
     modal : modalReducer,
-    set2FA : set2FAReducer
+    set2FA : set2FAReducer,
+    betSlip : betSlipReducer
 });
 const store = createStore(reducer);
 

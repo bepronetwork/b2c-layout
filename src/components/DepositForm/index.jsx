@@ -4,8 +4,6 @@ import { connect } from "react-redux";
 import  QRCode from 'qrcode.react';
 import { Typography, CopyIcon } from 'components';
 import classNames from "classnames";
-import building from 'assets/blockchain.png';
-import loading from 'assets/loading.gif';
 import { getApp, getAddOn, getAppCustomization, getIcon } from "../../lib/helpers";
 import _ from 'lodash';
 import { CopyText } from '../../copy';
@@ -128,7 +126,7 @@ class DepositForm extends Component {
         if(!isLoaded){
             return (
                 <div>
-                    <img src={loading} styleName='loading-gif'/>
+                    <img src={process.env.PUBLIC_URL + "/loading.gif"} styleName='loading-gif'/>
                 </div>
             )
         }
@@ -166,7 +164,7 @@ class DepositForm extends Component {
                             ) : null}
                             <div styleName={addressStyles}>
                                 <div styleName='link-text-container'>
-                                    <Typography variant={'x-small-body'} color={skin.skin_type == "digital" ? `white` : `casper`}>
+                                    <Typography variant={'x-small-body'} color={skin.skin_type == "digital" ? `fixedblack` : `casper`}>
                                         {address}
                                     </Typography>
                                 </div>
@@ -228,7 +226,7 @@ class DepositForm extends Component {
                     </div>
                 :
                     <div styleName="building">
-                        <img src={building} styleName="building-img"/>
+                        <img src={process.env.PUBLIC_URL + "/logo.png"} styleName="building-img"/>
                         <div styleName="building-info">
                             <Typography variant={'small-body'} color={`white`}>
                                 {copy.INDEX.TYPOGRAPHY.TEXT[2]}

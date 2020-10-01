@@ -37,6 +37,7 @@ Typography.propTypes = {
         "green",
         "grey",
         "fixedwhite",
+        "fixedblack",
         "secondary",
         "orange"
     ]),

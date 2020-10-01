@@ -1,0 +1,81 @@
+@import "../../../styles/all.css";
+
+.player {
+    display: grid;
+    grid-template-columns: 300px auto;
+    grid-auto-flow: column;
+    gap: $spacing-36;
+    padding: $spacing-28;
+
+    @media screen and (max-width: 1267px) and (min-width: 1024px) {
+    }
+    
+    @media screen and (max-width: 1023px) and (min-width: 768px) {
+    } 
+    
+    @media screen and (max-width: 767px) {
+        display: inline;
+        grid-template-columns: unset;
+        grid-auto-flow: unset;
+        gap: unset;
+    }
+}
+
+.info {
+    background-color: $backgroundColor;
+    border-radius: $border-radius;
+    padding: $spacing-20;
+
+    @media screen and (max-width: 1267px) and (min-width: 1024px) {
+    }
+    
+    @media screen and (max-width: 1023px) and (min-width: 768px) {
+    } 
+
+    @media screen and (max-width: 767px) {
+        height: 100%;
+        padding: $spacing-36;
+    }
+}
+
+.top {
+    display: flex;
+    align-items: center;
+}
+
+.name {
+    display: flex;
+    align-items: center;
+    margin-right: $spacing-20;
+}
+
+.picture {
+    border: 1px solid $backgroundColor-5;
+    background-color: $primaryColor-2;
+    border-radius: $border-radius;
+
+    @media screen and (max-width: 1267px) and (min-width: 1024px) {
+    }
+    
+    @media screen and (max-width: 1023px) and (min-width: 768px) {
+    } 
+
+    @media screen and (max-width: 767px) {
+        margin-top: $spacing-28;
+    }
+}
+
+.flag{
+    justify-content: flex-end;
+    display: inline-flex;
+    align-items: center;
+}
+
+.field {
+    align-items: center;
+    margin-top: $spacing-20;
+    
+    div {
+        margin-bottom: $spacing-8;
+    }
+}

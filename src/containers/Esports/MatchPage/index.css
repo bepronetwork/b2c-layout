@@ -1,0 +1,161 @@
+@import "../../../styles/all.css";
+
+.root {
+  width: 100%;
+}
+
+.main {
+  width: 100%;
+  background-color: $primaryColor;
+  border-top: 1px solid $primaryColor-8;
+}
+
+.teams {
+  display: flex;
+  flex-direction: row;
+  flex: 1.2;
+  justify-content: space-between;
+}
+
+.team {
+  height: 50px;
+  display: flex;
+  align-items: center;
+  min-width: 106px;
+  flex: 1;
+  justify-self: center;
+  align-self: center;
+  position: relative;
+  background-color: $primaryColor-5;
+  border-radius: $border-radius 0 0 $border-radius;
+  white-space: nowrap;
+  text-align: left;
+  min-width: 106px;
+
+  img {
+    width: 20px;
+    height: 20px;
+    margin-right: $spacing-16;
+    margin-left: 0;
+    border-radius: 10px;
+  }
+}
+
+.teams .team:first-child {
+  flex-direction: row-reverse;
+  text-align: right;
+
+  img {
+    margin-left: $spacing-16;
+    margin-right: 0;
+  }
+}
+
+.triangle {
+  display: inline-flex;
+}
+
+.vs {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 $spacing-12;
+  max-width: 112px;
+}
+
+.left-arrow {
+	border-color: transparent $primaryColor-5;
+	border-style: solid;
+	border-width: 26px 26px 26px 0px;
+	height: 0px;
+	width: 0px;
+}
+
+.right-arrow {
+	border-color: transparent $primaryColor-5;
+	border-style: solid;
+	border-width: 26px 0px 26px 26px;
+	height: 0px;
+	width: 0px;
+}
+
+.painel {
+  margin: auto;
+  margin-top: $spacing-16;
+  margin-right: $spacing-12;
+  min-width: 300px;
+  display: grid;
+  grid-template-columns: 300px auto 300px;
+  gap: 1%;
+
+  @media screen and (max-width: 1267px) and (min-width: 1024px) {
+    grid-template-columns: 31% 34% 31%;
+    gap: 2%;
+  }
+
+  @media screen and (max-width: 1023px) and (min-width: 768px) {
+    display: grid;
+    grid-template-columns: none;
+    gap: unset;
+    margin-top: 0;
+  } 
+
+  @media screen and (max-width: 767px) {
+    display: grid;
+    grid-template-columns: none;
+    gap: unset;
+    margin-top: 0;
+  } 
+}
+
+.left {
+  width: 100%;
+
+  @media screen and (max-width: 1267px) and (min-width: 1024px) {
+  }
+
+  @media screen and (max-width: 1023px) and (min-width: 768px) {
+    order: 2;
+  } 
+
+  @media screen and (max-width: 767px) {
+    order: 2;
+  } 
+}
+
+.middle {
+  background-color: $primaryColor;
+
+  @media screen and (max-width: 1267px) and (min-width: 1024px) {
+  }
+
+  @media screen and (max-width: 1023px) and (min-width: 768px) {
+    order: 1;
+  } 
+
+  @media screen and (max-width: 767px) {
+    order: 1;
+    height: 200px;
+  } 
+}
+
+.isLive {
+  background-color: $backgroundColor;
+}
+
+.right {
+  width: 100%;
+  background-color: $primaryColor;
+  padding: $spacing-20;
+
+  @media screen and (max-width: 1267px) and (min-width: 1024px) {
+  }
+
+  @media screen and (max-width: 1023px) and (min-width: 768px) {
+    order: 3;
+  } 
+
+  @media screen and (max-width: 767px) {
+    display: none;
+  } 
+}

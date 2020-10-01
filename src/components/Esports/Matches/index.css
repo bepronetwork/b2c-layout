@@ -1,0 +1,117 @@
+@import "../../../styles/all.css";
+
+
+.match {
+  background-color: $primaryColor-2;
+  display: flex;
+  flex-direction: row;
+  padding: $spacing-8;
+  margin-bottom: $spacing-8;
+  border-radius: $border-radius;
+  align-items: center;
+  border-bottom: 1px solid $primaryColor-8;
+  cursor: pointer;
+
+  @media screen and (max-width: 767px) {
+    display: grid;
+
+    img {
+      width: 24px;
+      height: 24px;
+    }
+  } 
+}
+
+.match:hover {
+  background-color: $primaryColor-8;
+}
+
+.match-tour{
+  display: flex;
+  width: 0;
+  min-width: 0;
+  flex: 0.7;
+
+  @media screen and (max-width: 767px) {
+    width: auto;
+    min-width: auto;
+    flex: auto;
+    margin-bottom: $spacing-12;
+  } 
+}
+
+.tour-name {
+  display: flex;
+}
+
+.match-name {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-left: $spacing-8;
+
+  span {
+    padding-top: $spacing-4;
+  }
+
+  p {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}
+
+
+.date {
+  margin: $spacing-16 0 $spacing-8 $spacing-4;
+}
+
+.empty {
+  padding: $spacing-36 $spacing-12;
+  text-align: center;
+}
+
+.loading-gif {
+  width: 30px;
+  margin: $spacing-20 auto;
+
+  img {
+    width: 30px;
+  }
+}
+
+.skeleton-match {
+  background-color: $primaryColor-8;
+  display: flex;
+  flex-direction: row;
+  padding: $spacing-8;
+  margin-bottom: $spacing-8;
+  border-radius: $border-radius;
+  align-items: center;
+  border-bottom: 1px solid $primaryColor-8;
+}
+
+.skeleton-opponent {
+  margin: 0 $spacing-12;
+}
+
+.skeleton-match-tour{
+  display: flex;
+  width: 0;
+  min-width: 0;
+  flex: 0.7;
+
+  @media screen and (max-width: 767px) {
+    display: none;
+  } 
+}
+
+.skeleton-date{
+  display: flex;
+  justify-content: flex-end;
+  flex: 0.5;
+
+  @media screen and (max-width: 767px) {
+    display: none;
+  } 
+}

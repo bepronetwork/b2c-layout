@@ -174,7 +174,7 @@
     height: auto;
     width: 100%;
     margin-bottom : 10px;
-    background-color: $secondaryColor;
+    background-color: $secondaryColor-5;
     border-radius : $border-radius;
     opacity : 1;
     transition: all 0.2s ease-in;

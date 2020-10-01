@@ -205,7 +205,7 @@ class LastBets extends Component {
             biggest_win_users = await getBiggestUserWinners({size : view_amount.value, game : gameId });
 
             if(profile && !_.isEmpty(profile)){
-                my_bets = await profile.getMyBets({size : view_amount.value, game : gameId});
+                my_bets = await profile.getMyBets({size : view_amount.value, game : gameId, tag: "casino"});
             }
         }
         else {
@@ -214,7 +214,7 @@ class LastBets extends Component {
             biggest_win_users = await getBiggestUserWinners({size : view_amount.value});
 
             if(profile && !_.isEmpty(profile)){
-                my_bets = await profile.getMyBets({size : view_amount.value});
+                my_bets = await profile.getMyBets({size : view_amount.value, tag: "casino"});
             }
         }
 

@@ -113,11 +113,12 @@ async function ping() {
     }
 }
 
-async function getBet({betId}) {
+async function getBet({betId, tag="casino"}) {
     try {
         const response = await axios.post(`${apiUrl}/api/app/bet/get`, {
             app: appId,
-            bet: betId
+            bet: betId,
+            tag: tag
         });
             
         return response.data.data;
