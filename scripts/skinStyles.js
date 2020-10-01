@@ -35,7 +35,9 @@ const skinsPath = [
     { path: "src/components/WheelGameOptions" },
     { path: "src/components/WithdrawForm" },
     { path: "src/containers/Chat" },
-    { path: "src/containers/ThirdPartyGameList" }
+    { path: "src/containers/ThirdPartyGameList" },
+    { path: "src/containers/Esports" },
+    { path: "src/containers/App" }
 ]
 
 export default skinsPath;
