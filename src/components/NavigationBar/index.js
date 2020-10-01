@@ -39,25 +39,48 @@ class NavigationBar extends Component {
     }
 
     renderMenuItem = ({link_url, icon, name}) => {
-        return (
-            <Link to={link_url} styleName={'navigation-step'}>
-                {
-                    icon
-                    ?
-                        <div styleName='img'>
-                            <img src={icon} width="22" height="22"/>
-                        </div>
-                    
-                    :
-                        <div styleName='img'/>
-                }
-                <div styleName={icon ? 'text' : 'text-empty' }>
-                    <Typography variant={'small-body'} color={'white'}>
-                        {name}
-                    </Typography>
-                </div>
-            </Link>
-        )
+        if (link_url.startsWith("http")) {
+            return (
+                <a href={link_url} styleName={'navigation-step'} target={"_blank"}>
+                    {
+                        icon
+                        ?
+                            <div styleName='img'>
+                                <img src={icon} width="22" height="22"/>
+                            </div>
+                        
+                        :
+                            <div styleName='img'/>
+                    }
+                    <div styleName={icon ? 'text' : 'text-empty' }>
+                        <Typography variant={'small-body'} color={'white'}>
+                            {name}
+                        </Typography>
+                    </div>
+                </a>
+            )
+        }
+        else {
+            return (
+                <Link to={link_url} styleName={'navigation-step'}>
+                    {
+                        icon
+                        ?
+                            <div styleName='img'>
+                                <img src={icon} width="22" height="22"/>
+                            </div>
+                        
+                        :
+                            <div styleName='img'/>
+                    }
+                    <div styleName={icon ? 'text' : 'text-empty' }>
+                        <Typography variant={'small-body'} color={'white'}>
+                            {name}
+                        </Typography>
+                    </div>
+                </Link>
+            )
+        }
     }
 
     onOpenMenu() {
