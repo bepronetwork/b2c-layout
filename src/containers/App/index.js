@@ -689,7 +689,7 @@ class App extends Component {
                 {this.isGameAvailable("diamonds_simple") ? (
                     <Route
                     exact
-                    path="/diamonds_simple"
+                    path="/casino/diamonds_simple"
                     render={props => (
                         <DiamondPage
                         {...props}
@@ -702,7 +702,7 @@ class App extends Component {
                 {this.isGameAvailable("slots_simple") ? (
                     <Route
                     exact
-                    path="/slots_simple"
+                    path="/casino/slots_simple"
                     render={props => (
                         <SlotsPage
                         {...props}
