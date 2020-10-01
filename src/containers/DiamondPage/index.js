@@ -411,7 +411,7 @@ class DiamondPage extends Component {
   };
 
   handleBetAmountChange = ({ betAmount }) => {
-    this.setState({ betAmount });
+    this.setState({ betAmount, soundResult: false });
   };
 
   handleBet = async ({ amount }) => {
@@ -426,8 +426,6 @@ class DiamondPage extends Component {
 
       window.soundManager.setup({ debugMode: false });
       this.setState({ disableControls: true });
-
-      this.setState({ bet: true });
 
       const res = await diamondsBet({
         amount,
@@ -459,6 +457,7 @@ class DiamondPage extends Component {
       return res;
     } catch (err) {
       return this.setState({
+        disableControls: false,
         isActiveBottomBar: false,
         backendResult: [],
         isHover: false,
