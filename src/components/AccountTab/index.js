@@ -74,7 +74,7 @@ class AccountTab extends React.Component {
     switch (isKycStatus) {
       case "no kyc":
         return (
-          <div>
+          <div styleName="value">
             <mati-button
               clientid={clientId}
               flowId={flowId}
@@ -85,7 +85,7 @@ class AccountTab extends React.Component {
       case "reviewneeded":
         return (
           <div styleName="value">
-            <Typography variant="small-body" color="green">
+            <Typography variant="small-body" color="orange">
               {copy.INDEX.TYPOGRAPHY.TEXT[2]}
             </Typography>
           </div>
@@ -93,7 +93,7 @@ class AccountTab extends React.Component {
       case "rejected":
         return (
           <div styleName="value">
-            <Typography variant="small-body" color="green">
+            <Typography variant="small-body" color="red">
               {copy.INDEX.TYPOGRAPHY.TEXT[3]}
             </Typography>
           </div>
@@ -169,7 +169,7 @@ class AccountTab extends React.Component {
         </div>
         {
           isKycActive ? 
-            <div styleName={`field ${isKycStatus === "no kyc" || isKycStatus === null ? "background-kyc-digital margin-button-kyc" : "background-kyc-digital"}`}>
+            <div styleName={`field ${isKycStatus === "no kyc" || isKycStatus === null ? "background-kyc-digital" : "background-kyc-digital"}`}>
               <div styleName={`label ${isKycStatus === "no kyc" || isKycStatus === null ? "flex-kyc " : "flex-kyc"}`}>
                 <Typography variant="small-body" color="white">
                   {copy.INDEX.INPUT_TEXT.LABEL[5]}
