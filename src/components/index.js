@@ -147,6 +147,7 @@ import InfiniteCarousel from './InfiniteCarousel';
 import ThirdPartyGames from './ThirdPartyGames';
 import ThirdPartyGameCard from  './ThirdPartyGameCard';
 import Info from  './Info';
+import CurrencyFreeMoney from './CurrencyFreeMoney';
 
 export { LegalBox };
 export { Authentication2FAModal };
@@ -297,3 +298,4 @@ export { InfiniteCarousel };
 export { ThirdPartyGames };
 export { ThirdPartyGameCard };
 export { Info };
+export { CurrencyFreeMoney };

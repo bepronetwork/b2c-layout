@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import './index.css';
 import { connect } from "react-redux";
 import  QRCode from 'qrcode.react';
-import { Typography, CopyIcon } from 'components';
+import { Typography, CopyIcon, CurrencyFreeMoney } from 'components';
 import classNames from "classnames";
 import { getApp, getAddOn, getAppCustomization, getIcon } from "../../lib/helpers";
 import _ from 'lodash';
@@ -33,6 +33,7 @@ class DepositForm extends Component {
 
     componentDidMount(){
         this.projectData(this.props)
+        this.parseMillisecondsIntoReadableTime();
     }
 
     componentWillUnmount() {
@@ -108,6 +109,23 @@ class DepositForm extends Component {
 
         this.setState({ copied: true })
     };
+
+    parseMillisecondsIntoReadableTime = (milliseconds) => {
+        const hours = milliseconds / (1000*60*60);
+        const absoluteHours = Math.floor(hours);
+        const h = absoluteHours > 9 ? absoluteHours : '0' + absoluteHours;
+
+        const minutes = (hours - absoluteHours) * 60;
+        const absoluteMinutes = Math.floor(minutes);
+        const m = absoluteMinutes > 9 ? absoluteMinutes : '0' +  absoluteMinutes;
+
+        const seconds = (minutes - absoluteMinutes) * 60;
+        const absoluteSeconds = Math.floor(seconds);
+        const s = absoluteSeconds > 9 ? absoluteSeconds : '0' + absoluteSeconds;
+      
+      
+        return console.log(h + ':' + m + ':' + s)
+      }
 
     render() {
         const { wallet } = this.props;
@@ -185,6 +203,7 @@ class DepositForm extends Component {
                                     </button>
                                 </div>
                             </div>
+                            <CurrencyFreeMoney hour={"24"} minutes={"34"} />
                             <div styleName="notice">
                                 <div styleName="title">
                                     <Typography variant={'x-small-body'} color={'grey'} weight={'bold'}>

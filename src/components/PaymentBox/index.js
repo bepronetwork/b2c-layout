@@ -1,7 +1,7 @@
 import React from "react";
 import './index.css';
 import { Row, Col } from 'reactstrap';
-import { Typography, Checkbox } from 'components';
+import { Typography, Button } from 'components';
 import { connect } from "react-redux";
 import classNames from 'classnames';
 import { getApp } from "../../lib/helpers";
@@ -15,7 +15,8 @@ class PaymentBox extends React.Component{
             checked : false,
             price : null,
             virtualTicker: null,
-            walletImage: null
+            walletImage: null,
+            isActiveTimer: false
         }
     }
 
@@ -58,13 +59,14 @@ class PaymentBox extends React.Component{
 
     render(){
         let { isPicked, wallet} = this.props;
-        const { price, virtualTicker, walletImage } = this.state;
+        const { price, virtualTicker, walletImage, isActiveTimer } = this.state;
         const styles = classNames("container-root", {
             selected: isPicked
         });
 
         return (
             <button onClick={this.onClick} styleName={styles} disabled={wallet.currency.virtual}>
+                <Col>
                 <Row>
                     <Col xs={4} md={4}>
                         <div styleName='container-image'>
@@ -91,6 +93,21 @@ class PaymentBox extends React.Component{
                         </div>
                     </Col>
                 </Row>
+                {
+                    isActiveTimer === false ?
+                        <div styleName="bottom-line">
+                            <Col xs={4} md={4} styleName="button-padding">
+                                <div styleName="border-radius" />
+                            </Col>
+                            <Col xs={8} md={8} styleName="button-padding">
+                                <Button size={'x-small'} theme={'action'}>
+                                    <Typography color={'white'} variant={'small-body'}>Replanish</Typography>
+                                </Button>
+                            </Col>
+                        </div> 
+                    : null
+                }
+                </Col>
             </button>
         )
     }
