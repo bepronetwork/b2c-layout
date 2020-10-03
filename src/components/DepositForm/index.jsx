@@ -26,8 +26,9 @@ class DepositForm extends Component {
             isDepositBonus: false,
             depositBonus: 0,
             maxBonusDeposit: 0,
-            minBonusDeposit: 0
-
+            minBonusDeposit: 0,
+            hour: 0,
+            minute: 0
         }
     }
 
@@ -110,8 +111,8 @@ class DepositForm extends Component {
         this.setState({ copied: true })
     };
 
-    parseMillisecondsIntoReadableTime = (milliseconds) => {
-        const hours = milliseconds / (1000*60*60);
+    parseMillisecondsIntoReadableTime = () => {
+        const hours = 66877666 / (1000*60*60);
         const absoluteHours = Math.floor(hours);
         const h = absoluteHours > 9 ? absoluteHours : '0' + absoluteHours;
 
@@ -123,13 +124,13 @@ class DepositForm extends Component {
         const absoluteSeconds = Math.floor(seconds);
         const s = absoluteSeconds > 9 ? absoluteSeconds : '0' + absoluteSeconds;
       
-      
-        return console.log(h + ':' + m + ':' + s)
+        this.setState({hour: h, minute: m })
+        return console.log(h + ':' + m)
       }
 
     render() {
         const { wallet } = this.props;
-        const { addressInitialized, address, isLoaded, copied, price, virtualTicker, isTxFee, fee, isDepositBonus, depositBonus, maxBonusDeposit, minBonusDeposit } = this.state;
+        const { addressInitialized, address, isLoaded, copied, price, virtualTicker, isTxFee, fee, isDepositBonus, depositBonus, maxBonusDeposit, minBonusDeposit, hour, minute } = this.state;
         const {ln} = this.props;
         const copy = CopyText.depositFormIndex[ln];
         const addressStyles = classNames("address", {"ad-copied": copied});
@@ -182,7 +183,7 @@ class DepositForm extends Component {
                             ) : null}
                             <div styleName={addressStyles}>
                                 <div styleName='link-text-container'>
-                                    <Typography variant={'x-small-body'} color={skin.skin_type == "digital" ? `fixedblack` : `casper`}>
+                                    <Typography variant={'x-small-body'} color={skin.skin_type == "digital" ? `` : `casper`}>
                                         {address}
                                     </Typography>
                                 </div>
@@ -203,13 +204,16 @@ class DepositForm extends Component {
                                     </button>
                                 </div>
                             </div>
-                            <CurrencyFreeMoney hour={"24"} minutes={"34"} />
+                                <CurrencyFreeMoney
+                                    hour={hour}
+                                    minutes={minute}
+                                />
                             <div styleName="notice">
                                 <div styleName="title">
                                     <Typography variant={'x-small-body'} color={'grey'} weight={'bold'}>
                                         {copy.NOTICE}
                                     </Typography>
-                                </div>
+                                </div>  
                                 {
                                     isTxFee === true || isDepositBonus === true 
                                     ?
