@@ -3,21 +3,24 @@ import googleAnalytics from '@analytics/google-analytics';
 import { getApp } from "..";
 
 let analytics;
-const isAnalyticsActive = getApp().analytics.isActive;
 
-if(isAnalyticsActive === true) {
-    const googleAnalyticsKey = isAnalyticsActive === true ? getApp().analytics.google_tracking_id : null;
-    const appName = getApp().name;
-    analytics = Analytics({
-        app: appName,
-        plugins: [
-          googleAnalytics({
-            trackingId: googleAnalyticsKey
-          })
-        ]
-      });
+if(typeof getApp().analytics != "undefined") {
+    const isAnalyticsActive = getApp().analytics.isActive;
 
-    window.Analytics = analytics;
+    if(isAnalyticsActive === true) {
+        const googleAnalyticsKey = isAnalyticsActive === true ? getApp().analytics.google_tracking_id : null;
+        const appName = getApp().name;
+        analytics = Analytics({
+            app: appName,
+            plugins: [
+              googleAnalytics({
+                trackingId: googleAnalyticsKey
+              })
+            ]
+          });
+    
+        window.Analytics = analytics;
+    }
 }
 
 function analyticsIdentify(user) {
