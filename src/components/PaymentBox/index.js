@@ -2,11 +2,17 @@ import React from "react";
 import './index.css';
 import { Row, Col } from 'reactstrap';
 import { Typography, Button } from 'components';
+import _, { result } from 'lodash';
 import { connect } from "react-redux";
 import classNames from 'classnames';
+
+
 import { getApp } from "../../lib/helpers";
+import { CopyText } from "../../copy";
 import { formatCurrency } from '../../utils/numberFormatation';
-import _ from 'lodash';
+import store from "../../containers/App/store";
+
+import { setMessageNotification } from "../../redux/actions/message";
 
 class PaymentBox extends React.Component{
     constructor(props){
@@ -16,12 +22,35 @@ class PaymentBox extends React.Component{
             price : null,
             virtualTicker: null,
             walletImage: null,
-            isActiveTimer: false
+            disabledFreeButton: true,
+            minutes: 0,
+            seconds: 0
         }
     }
 
-    componentDidMount(){
-        this.projectData(this.props)
+    async componentDidMount(){
+        this.projectData(this.props);
+        await this.parseMillisecondsIntoReadableTime();
+        this.timerInterval = setInterval(() => {
+        const { seconds, minutes } = this.state;
+
+        if (seconds > 0) {
+            this.setState({ seconds: seconds - 1 });
+        }
+
+        if (seconds === 0) {
+            if (minutes === 0) {
+            clearInterval(this.timerInterval);
+            this.setState({ disabledFreeButton: false })
+            } else {
+            this.setState(({ minutes }) => ({
+                minutes: minutes - 1,
+                seconds: 59,
+                disabledFreeButton: true
+            }));
+            }
+        }
+        }, 1000);
     }
 
     componentWillReceiveProps(props){
@@ -47,8 +76,93 @@ class PaymentBox extends React.Component{
         this.setState({
             walletImage : _.isEmpty(appWallet.image) ? wallet.currency.image : appWallet.image
         });
-
     }
+
+    funcVerification = () => {
+        const { wallet } = this.props;
+
+        const freeCurrency = getApp().addOn.freeCurrency;
+
+        if(freeCurrency){
+            const wallets = freeCurrency.wallets;
+            const walletTest = wallets.find(w => w.currency === wallet.currency._id)
+
+            return walletTest ? walletTest.activated : false
+        }else{
+            return false;
+        }
+    }
+
+    funcVerificationTime = () => {
+        const { wallet } = this.props;
+
+        const freeCurrency = getApp().addOn.freeCurrency;
+
+        if(freeCurrency){
+            const wallets = freeCurrency.wallets;
+            const walletTest = wallets.find(w => w.currency === wallet.currency._id)
+
+            return walletTest ? walletTest.time : 0
+        }else{
+            return false;
+        }
+    }
+
+    funcVerificationCurrency = async () => {
+        const { wallet } = this.props;
+
+        const freeCurrency = getApp().addOn.freeCurrency;
+
+        if(freeCurrency){
+            const wallets = freeCurrency.wallets;
+            const walletTest = wallets.find(w => w.currency === wallet.currency._id)
+
+            return walletTest ? walletTest.currency : ""
+        }else{
+            return false;
+        }
+    }
+
+  handleSendCurrancyFree = async () => {
+    const { profile, ln } = this.props;
+    const resultCurrency = await this.funcVerificationCurrency();
+    const copy = CopyText.homepage[ln];
+
+    this.setState({ disabledFreeButton: true })
+    try {
+      const res = await profile.sendFreeCurrencyRequest({
+        currency_id: resultCurrency
+      });
+      const { message, status } = res.data;
+      if (status != 200) {
+        store.dispatch(setMessageNotification(message));
+        throw message;
+      }
+
+      store.dispatch(
+        setMessageNotification(copy.CONTAINERS.APP.NOTIFICATION[2])
+      );
+    } catch (err) {
+      console.log(err);
+    }
+    this.setState({ disabledFreeButton: false });
+  }
+
+    parseMillisecondsIntoReadableTime = async () => {
+        const miliseconds = this.funcVerificationTime();
+    
+        const hours = miliseconds / (1000 * 60 * 60);
+        const absoluteHours = Math.floor(hours);
+        const h = absoluteHours > 9 ? absoluteHours : absoluteHours;
+        const minutes = (hours - absoluteHours) * 60;
+        const absoluteMinutes = Math.floor(minutes);
+        const m = absoluteMinutes > 9 ? absoluteMinutes : absoluteMinutes;
+        const seconds = (minutes - absoluteMinutes) * 60;
+        const absoluteSeconds = Math.floor(seconds);
+        const s = absoluteSeconds > 9 ? absoluteSeconds : absoluteSeconds;
+
+        this.setState({ minutes: m, seconds: s })
+      };
 
     onClick = () => {
         const { id, onClick } = this.props;
@@ -58,11 +172,13 @@ class PaymentBox extends React.Component{
     }
 
     render(){
-        let { isPicked, wallet} = this.props;
-        const { price, virtualTicker, walletImage, isActiveTimer } = this.state;
+        let { isPicked, wallet } = this.props;
+        const { price, virtualTicker, walletImage, disabledFreeButton } = this.state;
         const styles = classNames("container-root", {
             selected: isPicked
         });
+
+        const walletValid = this.funcVerification();
 
         return (
             <button onClick={this.onClick} styleName={styles} disabled={wallet.currency.virtual}>
@@ -94,13 +210,13 @@ class PaymentBox extends React.Component{
                     </Col>
                 </Row>
                 {
-                    isActiveTimer === false ?
+                    walletValid ?
                         <div styleName="bottom-line">
                             <Col xs={4} md={4} styleName="button-padding">
                                 <div styleName="border-radius" />
                             </Col>
                             <Col xs={8} md={8} styleName="button-padding">
-                                <Button size={'x-small'} theme={'action'}>
+                                <Button size={'x-small'} theme={'action'} disabled={disabledFreeButton} onClick={this.handleSendCurrancyFree}>
                                     <Typography color={'white'} variant={'small-body'}>Replanish</Typography>
                                 </Button>
                             </Col>
@@ -115,7 +231,8 @@ class PaymentBox extends React.Component{
 
 function mapStateToProps(state){
     return {
-        deposit : state.deposit
+        deposit : state.deposit,
+        profile : state.profile
     };
 }
 

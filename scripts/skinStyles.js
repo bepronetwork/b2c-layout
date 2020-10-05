@@ -4,6 +4,7 @@ const skinsPath = [
     { path: "src/components/Authentication2FAModal" },
     { path: "src/components/BetsTab" },
     { path: "src/components/Button" },
+    { path: "src/components/CurrencyFreeMoney" },
     { path: "src/components/CurrencySelector" },
     { path: "src/components/DataContainer" },
     { path: "src/components/DepositForm" },

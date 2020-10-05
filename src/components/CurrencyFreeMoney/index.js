@@ -1,27 +1,58 @@
-import React from "react";
+import React, { Component } from 'react';
+import { connect } from "react-redux";
+import _ from 'lodash';
+import { Typography } from 'components';
 
-import { Typography } from "components";
+import { getApp } from "../../lib/helpers";
+
 import Timer from "assets/icons/timer.svg";
 import "./index.css";
 
-function CurrencyFreeMoney({ hour, minutes }) {
-  return (
-    <div styleName="container-root">
-      <Typography variant="small-body" color="white" weight="bold">
-        You can get ATH every 12 hours
-      </Typography>
-      <div styleName="container-button-timer">
-        <div styleName="row-container">
-          <div styleName="container-image">
-            <img src={Timer} styleName="payment-image" alt="" />
-          </div>
-          <div styleName="digital-text">{`${hour}:${minutes}`}</div>
-        </div>
-        <Typography variant="x-small-body" color="white" weight="bold">
-          To next replenish
+class CurrencyFreeMoney extends Component {
+
+  render() {
+    const { hours, seconds, minutes, title } = this.props;
+
+    return (
+      <div styleName="container-root">
+        <Typography variant="small-body" color="white" weight="bold">
+          {title}
         </Typography>
+        <div styleName="container-button-timer">
+          <div styleName="row-container">
+            <div styleName="container-image">
+              <img src={Timer} styleName="payment-image" alt="" />
+            </div>
+            { minutes === 0 && seconds === 0
+              ?
+              <div styleName="digital-text">
+                00:00
+              </div>
+              :
+              hours === 0 ?
+              <div styleName="digital-text">
+                {minutes < 10 ? `0${minutes}` : minutes}:{seconds < 10 ? `0${seconds}` : seconds}
+              </div>
+              :
+              <div styleName="digital-text">
+                {hours < 10 ? `0${hours}` : hours}:{minutes < 10 ? `0${minutes}` : minutes}:{seconds < 10 ? `0${seconds}` : seconds}
+              </div>
+            }
+          </div>
+          <Typography variant="x-small-body" color="white" weight="bold">
+            To next replenish
+          </Typography>
+        </div>
       </div>
-    </div>
-  );
+    );
+  }
 }
-export default CurrencyFreeMoney;
+
+function mapStateToProps(state){
+  return {
+      profile : state.profile,
+      ln : state.language
+  };
+}
+
+export default connect(mapStateToProps)(CurrencyFreeMoney);

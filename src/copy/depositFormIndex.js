@@ -16,6 +16,10 @@
         "NOTICE_TEXT": [
           (params) => { return `Bonus ${params[0]}% (minimum amount ${params[1]} ${params[2]} and maximum amount ${params[3]} ${params[2]} to qualify)`},
           "Fee"
+        ],
+        "FREE_TITLE": [
+          (params, hourParam, minParam) => { return `You can get ${params[0]} every ${hourParam < 10 ? `0${hourParam}` : hourParam}:${minParam < 10 ? `0${minParam}` : minParam}`},
+          "Fee"
         ]
       }
     },
@@ -37,6 +41,10 @@
         "NOTICE_TEXT": [
           (params) => { return `Bonus ${params[0]}% (minimum amount ${params[1]} ${params[2]} and maximum amount ${params[3]} ${params[2]} to qualify)`},
           "Fee"
+        ],
+        "FREE_TITLE": [
+          (params) => { return `You can get ${params[1]} every ${params[2]}`},
+          "Fee"
         ]
       }
     },
@@ -56,6 +64,10 @@
         ],
         "NOTICE_TEXT": [
           (params) => { return `Bonus ${params[0]}% (minimum amount ${params[1]} ${params[2]} and maximum amount ${params[3]} ${params[2]} to qualify)`},
+          "Fee"
+        ],
+        "FREE_TITLE": [
+          (params) => { return `You can get ${params[1]} every ${params[2]}`},
           "Fee"
         ]
       }
@@ -77,6 +89,10 @@
         "NOTICE_TEXT": [
           (params) => { return `Bonus ${params[0]}% (minimum amount ${params[1]} ${params[2]} and maximum amount ${params[3]} ${params[2]} to qualify)`},
           "Fee"
+        ],
+        "FREE_TITLE": [
+          (params) => { return `You can get ${params[1]} every ${params[2]}`},
+          "Fee"
         ]
       }
     },
@@ -96,6 +112,10 @@
         ],
         "NOTICE_TEXT": [
           (params) => { return `Bonus ${params[0]}% (minimum amount ${params[1]} ${params[2]} and maximum amount ${params[3]} ${params[2]} to qualify)`},
+          "Fee"
+        ],
+        "FREE_TITLE": [
+          (params) => { return `You can get ${params[1]} every ${params[2]}`},
           "Fee"
         ]
       }

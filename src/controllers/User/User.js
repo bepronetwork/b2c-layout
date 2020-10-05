@@ -12,7 +12,8 @@ import {
   getCurrencyAddress,
   resendConfirmEmail,
   getJackpotPot,
-  getProviderToken
+  getProviderToken,
+  sendFreeCurrencyRequest
 } from "lib/api/users";
 import { Numbers } from "../../lib/ethereum/lib";
 import Cache from "../../lib/cache/cache";
@@ -543,6 +544,23 @@ export default class User {
                 user: this.user_id,
                 game_id,
                 ticker
+            }, this.bearerToken);
+
+            return await processResponse(res);
+      
+        }catch(err){
+            console.log(err)
+            throw err;
+        }
+    }
+
+    sendFreeCurrencyRequest = async ({currency_id}) => {
+        try {
+            if(!this.user_id){return []}
+            let res = await sendFreeCurrencyRequest({     
+                app: this.app_id,        
+                user: this.user_id,
+                currency : currency_id
             }, this.bearerToken);
 
             return await processResponse(res);

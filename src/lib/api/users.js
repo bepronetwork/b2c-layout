@@ -535,3 +535,15 @@ export async function getProviderToken(params, bearerToken, payload) {
         throw err;
     }    
 }
+
+export async function sendFreeCurrencyRequest(params, bearerToken, payload) {
+    try{
+        let res = await fetch(`${apiUrl}/api/app/freeCurrency/get`, {
+            method : 'POST',
+            headers : addSecurityHeader({bearerToken, payload :  payload || params.user}),
+            body : JSON.stringify(params)})
+        return res.json();
+    }catch(err){
+        throw err;
+    }    
+}

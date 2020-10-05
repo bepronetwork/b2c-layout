@@ -27,18 +27,40 @@ class DepositForm extends Component {
             depositBonus: 0,
             maxBonusDeposit: 0,
             minBonusDeposit: 0,
-            hour: 0,
-            minute: 0
+            hours: 0,
+            minutes: 0,
+            seconds: 0,
+            staticHour: 0,
+            staticMinute: 0
         }
     }
 
-    componentDidMount(){
-        this.projectData(this.props)
-        this.parseMillisecondsIntoReadableTime();
+    async componentDidMount(){
+        await this.projectData(this.props);
+        await this.parseMillisecondsIntoReadableTime();
+        this.timerInterval = setInterval(() => {
+            const { seconds, minutes } = this.state;
+
+            if (seconds > 0) {
+                this.setState({ seconds: seconds - 1 });
+            }
+
+            if (seconds === 0) {
+                if (minutes === 0) {
+                clearInterval(this.timerInterval);
+                } else {
+                this.setState(({ minutes }) => ({
+                    minutes: minutes - 1,
+                    seconds: 59
+                }));
+                }
+            }
+            }, 1000);
     }
 
     componentWillUnmount() {
         clearInterval(this.intervalID);
+        clearInterval(this.timerInterval);
     }
 
     componentWillReceiveProps(props){
@@ -99,6 +121,56 @@ class DepositForm extends Component {
          });
     }
 
+    parseMillisecondsIntoReadableTime = async () => {
+        const miliseconds = this.funcVerificationTime();
+
+        const hours = miliseconds / (1000 * 60 * 60);
+        const absoluteHours = Math.floor(hours);
+        const h = absoluteHours > 9 ? absoluteHours : absoluteHours;
+        const minutes = (hours - absoluteHours) * 60;
+        const absoluteMinutes = Math.floor(minutes);
+        const m = absoluteMinutes > 9 ? absoluteMinutes : absoluteMinutes;
+        const seconds = (minutes - absoluteMinutes) * 60;
+        const absoluteSeconds = Math.floor(seconds);
+        const s = absoluteSeconds > 9 ? absoluteSeconds : absoluteSeconds;
+    
+        this.setState({
+            hours: h,
+            minutes: m,
+            seconds: s,
+            staticHour: h, 
+            staticMinute: m });
+      };
+
+      funcVerificationTime = () => {
+        const { wallet } = this.props;
+
+        const freeCurrency = getApp().addOn.freeCurrency;
+        if(freeCurrency){
+            const wallets = freeCurrency.wallets;
+            const walletTest = wallets.find(w => w.currency === wallet.currency._id)
+
+            return walletTest ? walletTest.time : 0
+        }else{
+            return false;
+        }
+    }
+
+    funcVerificationValid = () => {
+        const { wallet } = this.props;
+
+        const freeCurrency = getApp().addOn.freeCurrency;
+
+        if(freeCurrency){
+            const wallets = freeCurrency.wallets;
+            const walletTest = wallets.find(w => w.currency === wallet.currency._id)
+
+            return walletTest ? walletTest.activated : false
+        } else {
+            return false;
+        }
+    }
+
     copyToClipboard = (e) => {
         const { address } = this.state;
         var textField = document.createElement('textarea');
@@ -110,31 +182,33 @@ class DepositForm extends Component {
 
         this.setState({ copied: true })
     };
-
-    parseMillisecondsIntoReadableTime = () => {
-        const hours = 66877666 / (1000*60*60);
-        const absoluteHours = Math.floor(hours);
-        const h = absoluteHours > 9 ? absoluteHours : '0' + absoluteHours;
-
-        const minutes = (hours - absoluteHours) * 60;
-        const absoluteMinutes = Math.floor(minutes);
-        const m = absoluteMinutes > 9 ? absoluteMinutes : '0' +  absoluteMinutes;
-
-        const seconds = (minutes - absoluteMinutes) * 60;
-        const absoluteSeconds = Math.floor(seconds);
-        const s = absoluteSeconds > 9 ? absoluteSeconds : '0' + absoluteSeconds;
-      
-        this.setState({hour: h, minute: m })
-        return console.log(h + ':' + m)
-      }
-
     render() {
         const { wallet } = this.props;
-        const { addressInitialized, address, isLoaded, copied, price, virtualTicker, isTxFee, fee, isDepositBonus, depositBonus, maxBonusDeposit, minBonusDeposit, hour, minute } = this.state;
+        const {
+            addressInitialized,
+            address,
+            isLoaded,
+            copied,
+            price,
+            virtualTicker,
+            isTxFee,
+            fee,
+            isDepositBonus,
+            depositBonus,
+            maxBonusDeposit,
+            minBonusDeposit,
+            hours,
+            minutes,
+            seconds,
+            staticHour,
+            staticMinute
+        } = this.state;
         const {ln} = this.props;
         const copy = CopyText.depositFormIndex[ln];
         const addressStyles = classNames("address", {"ad-copied": copied});
         const { colors, skin } = getAppCustomization();
+        const isValidFree = this.funcVerificationValid();
+
         const backgroundColor = colors.find(c => {
             return c.type == "backgroundColor"
         });
@@ -164,7 +238,7 @@ class DepositForm extends Component {
                                     </Typography>
                                 </div>
                             :
-                                null    
+                                null
                             }
                             <Typography variant={'x-small-body'} color={`white`}>
                                 {copy.INDEX.TYPOGRAPHY.FUNC_TEXT[0]([wallet.currency.ticker, wallet.currency.ticker])}
@@ -204,16 +278,22 @@ class DepositForm extends Component {
                                     </button>
                                 </div>
                             </div>
+                            {
+                            isValidFree ? 
                                 <CurrencyFreeMoney
-                                    hour={hour}
-                                    minutes={minute}
+                                    hours={hours}
+                                    minutes={minutes}
+                                    seconds={seconds}
+                                    title={copy.INDEX.TYPOGRAPHY.FREE_TITLE[0]([wallet.currency.ticker], staticHour, staticMinute)}
                                 />
+                            : null
+                            }
                             <div styleName="notice">
                                 <div styleName="title">
                                     <Typography variant={'x-small-body'} color={'grey'} weight={'bold'}>
                                         {copy.NOTICE}
                                     </Typography>
-                                </div>  
+                                </div>
                                 {
                                     isTxFee === true || isDepositBonus === true 
                                     ?

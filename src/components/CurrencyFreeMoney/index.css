@@ -33,6 +33,7 @@
     width : 200px;
     height: 80px;
     padding: 10px 40px;
+    margin: $spacing-20;
 }
 
 
@@ -55,8 +56,6 @@
     font-size: 30px;
     color: white;
 }
-
-.
 
 @media screen and (max-width: 767px) {
     .container-root{
