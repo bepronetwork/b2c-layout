@@ -152,7 +152,7 @@
     border-radius: $border-radius;
     background-color: $primaryColor-8;
     width: auto;
-    padding: $spacing-12;
+    padding: $spacing-8 $spacing-12;
     max-width: 270px;
     display: inline-flex;
     align-items: center;
