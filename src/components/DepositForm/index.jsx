@@ -164,7 +164,7 @@ class DepositForm extends Component {
                             ) : null}
                             <div styleName={addressStyles}>
                                 <div styleName='link-text-container'>
-                                    <Typography variant={'x-small-body'} color={skin.skin_type == "digital" ? `fixedblack` : `casper`}>
+                                    <Typography variant={'x-small-body'} color={`secondary`}>
                                         {address}
                                     </Typography>
                                 </div>
