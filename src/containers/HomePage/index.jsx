@@ -52,7 +52,7 @@ class HomePage extends Component {
         return (
                 <div class={"col"} styleName="col">
                     <GameCard
-                        path={"casino/" + metaName}
+                        path={metaName}
                         title={name}
                         edge={edge}
                         image_url={image_url}
