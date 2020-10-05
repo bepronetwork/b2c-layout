@@ -146,6 +146,7 @@ import SlotsGameOptions from './SlotsGameOptions';
 import InfiniteCarousel from './InfiniteCarousel';
 import ThirdPartyGames from './ThirdPartyGames';
 import ThirdPartyGameCard from  './ThirdPartyGameCard';
+import ThirdPartyProviderSelector from  './ThirdPartyProviderSelector';
 import Info from  './Info';
 
 export { LegalBox };
@@ -296,4 +297,5 @@ export { SlotsGameOptions };
 export { InfiniteCarousel };
 export { ThirdPartyGames };
 export { ThirdPartyGameCard };
+export { ThirdPartyProviderSelector };
 export { Info };
