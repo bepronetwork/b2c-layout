@@ -61,14 +61,22 @@ import _ from 'lodash';
 import { setStartLoadingProcessDispatcher } from "../../lib/redux";
 import AccountPage from "../AccountPage";
 import { getQueryVariable, getAppCustomization, getIcon } from "../../lib/helpers";
+import routeChanges from "../../lib/helpers/analytics/routeChanges";
 import ChatChannel from "../../controllers/Chat";
 import AnnouncementTab from "../../components/AnnouncementTab";
 import { getCurrencyAddress } from "../../lib/api/users";
 import classNames from "classnames";
 import delay from 'delay';
 import MobileMenu from "../../components/MobileMenu";
+import { analyticsIdentify, analyticsPage } from '../../lib/helpers/analytics'
 
 const history = createBrowserHistory();
+
+routeChanges((route) => {
+    console.log('route changed', route)
+    analyticsPage();
+});
+
 class App extends Component {
     intervalID = 0;
 
@@ -163,6 +171,7 @@ class App extends Component {
             let user = await this.reloadUser(reponseUser);
             await user.updateUser();
             await this.setDefaultCurrency();
+            analyticsIdentify(user);
         }
         else {
             const app = Cache.getFromCache("appInfo");
@@ -303,6 +312,7 @@ class App extends Component {
             }else{
                 let user = await this.updateUser(response);
                 await user.updateUser();
+                analyticsIdentify(user);
                 this.setState({ registerLoginModalOpen: null, error: null});
             }
             /* Set currency */
@@ -326,6 +336,7 @@ class App extends Component {
             }else{
                 let user = await this.updateUser(response);
                 await user.updateUser();
+                analyticsIdentify(user);
                 this.setState({ registerLoginModalOpen: null, error: null, has2FA: false });
             }
             /* Set currency */
