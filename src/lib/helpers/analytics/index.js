@@ -3,9 +3,10 @@ import googleAnalytics from '@analytics/google-analytics';
 import { getApp } from "..";
 
 let analytics;
+let isAnalyticsActive = false;
 
 if(typeof getApp().analytics != "undefined") {
-    const isAnalyticsActive = getApp().analytics.isActive;
+    isAnalyticsActive = getApp().analytics.isActive;
 
     if(isAnalyticsActive === true) {
         const googleAnalyticsKey = isAnalyticsActive === true ? getApp().analytics.google_tracking_id : null;
