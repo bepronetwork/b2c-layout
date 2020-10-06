@@ -8,6 +8,7 @@
   padding-left: 15%;
   border-radius: $border-radius $border-radius 0 0;
   border-bottom: 1px solid $secondaryColor;
+  cursor: pointer;
 }
 
 .row {

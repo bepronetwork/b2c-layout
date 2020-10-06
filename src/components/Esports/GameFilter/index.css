@@ -3,7 +3,7 @@
 
 .filter-matches {
     margin-top: $spacing-8;
-    display: flex;
+    display: initial;
 }
 
 .filter-match {
@@ -18,7 +18,7 @@
     padding: $spacing-8 $spacing-8;
     border-radius: $border-radius;
     align-items: center;
-    height: 36px;
+    height: 42px;
   
     div {
       float: left;
@@ -30,12 +30,12 @@
     background-color: $primaryColor;
     padding: $spacing-12 $spacing-20;
     border-radius: $border-radius;
-    margin: 0 $spacing-12 0 0;
+    margin: 0 $spacing-12 $spacing-8 0;
     cursor: pointer;
     display: inline-flex;
     align-items: center;
     white-space: nowrap;
-    height: 36px;
+    height: 42px;
 }
   
 .all-selected {
@@ -67,10 +67,7 @@
   margin-left: $spacing-8;
 
   p {
-    overflow-wrap: break-word;
-    width: 80px;
     line-height: 1.5em;
     height: 1.5em;
-    overflow: hidden;
   }
 }

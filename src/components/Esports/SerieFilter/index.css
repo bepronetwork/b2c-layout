@@ -14,7 +14,7 @@
   padding: $spacing-4 $spacing-12;
   border-radius: $border-radius;
   align-items: center;
-  height: 36px;
+  height: 42px;
   cursor: pointer;
   width: 306px;
 }
@@ -38,7 +38,7 @@
   cursor: pointer;
   display: inline-flex;
   align-items: center;
-  height: 36px;
+  height: 42px;
 
   svg {
     height: 18px;
@@ -51,12 +51,12 @@
     background-color: $primaryColor;
     padding: $spacing-12 $spacing-20;
     border-radius: $border-radius;
-    margin: 0 $spacing-12 0 0;
+    margin: 0 $spacing-12 $spacing-8 0;
     cursor: pointer;
     display: inline-flex;
     align-items: center;
     white-space: nowrap;
-    height: 36px;
+    height: 42px;
 }
   
 .all-selected {

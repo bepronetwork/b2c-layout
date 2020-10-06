@@ -8,6 +8,7 @@ import EsportsMatchPage from "containers/Esports/MatchPage";
 import EsportsMatchesPage from "containers/Esports/AllMatches";
 import HomePage from "containers/HomePage";
 import Footer from "../Footer";
+import { LOCATION } from 'components/SubSections/properties';
 import ResetPassword from "containers/ResetPassword";
 import ConfirmEmail from "containers/ConfirmEmail";
 import {
@@ -26,7 +27,8 @@ import {
     PopupForm,
     BetDetails,
     Jackpot,
-    LiveChatIcon
+    LiveChatIcon,
+    SubSections
 } from "components";
 
 import PlinkoPage from "containers/PlinkoPage";
@@ -833,7 +835,7 @@ class App extends Component {
                                                     />
                                             
                                                 )}
-                                            />
+                                                />
                                             
                                             {/*<Route
                                                 exact
@@ -843,6 +845,7 @@ class App extends Component {
                                                         {...props}
                                                         onHandleLoginOrRegister={this.handleLoginOrRegisterOpen}
                                                         onTableDetails={this.handleTableDetailsOpen}
+                                                        history={history}
                                                     />
                                             
                                                 )}
@@ -956,7 +959,9 @@ class App extends Component {
                                             {this.renderGamePages({history})}
 
                                         </Switch>
+                                        <SubSections location={LOCATION.BEFORE_FOOTER} />
                                         <Footer/>
+                                        <SubSections location={LOCATION.AFTER_FOOTER} />
                                     </div>
                                 </div>
                                 {
