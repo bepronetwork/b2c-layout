@@ -46,7 +46,7 @@
   min-width: 300px;
 
   @media screen and (max-width: 767px) {
-    margin-top: $spacing-36;
+    margin-top: $spacing-12;
   } 
 }
 

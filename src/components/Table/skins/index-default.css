@@ -22,7 +22,7 @@
     padding: 0;
 }
 
-.td-row-status {
+.td-row-state {
 }
 
 .td-row-currency {
@@ -197,7 +197,7 @@
         justify-content: center;
       }
 
-    .table-row  .td-row-status {
+    .table-row  .td-row-state {
         margin-bottom: $spacing-12;
     }
     

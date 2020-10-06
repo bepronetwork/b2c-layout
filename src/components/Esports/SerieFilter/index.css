@@ -4,6 +4,21 @@
 .filter-tournaments {
   margin: $spacing-12 0;
   display: flex;
+
+  @media screen and (max-width: 767px) {
+    display: none;
+  }
+}
+
+.filter-tournaments-mobile {
+  display: none;
+
+  @media screen and (max-width: 767px) {
+    display: flex;
+    justify-content: flex-end;
+    margin-right: $spacing-12;
+
+  }
 }
 
 .tournament {
@@ -43,6 +58,10 @@
   svg {
     height: 18px;
     width: 18px;
+  }
+
+  p {
+    margin-right: $spacing-12;
   }
 }
 

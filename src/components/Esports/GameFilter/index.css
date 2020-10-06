@@ -4,6 +4,10 @@
 .filter-matches {
     margin-top: $spacing-8;
     display: initial;
+
+    @media screen and (max-width: 767px) {
+      display: none;
+    }
 }
 
 .filter-match {

@@ -122,40 +122,47 @@ class SerieFilter extends Component {
         const { isLoading } = this.props;
 
         return (
-            <div styleName="filter-tournaments">
+            <div>
                 {this.renderFilterMoreModal()}
-                <div styleName="all" onClick={() => this.handleCleanFilterClick()}>
-                        <Typography variant={'x-small-body'} color={'white'}>All Tournaments</Typography>
-                        {
-                        serieFilter.length 
-                        ?
-                            <span styleName="all-selected"><CloseIcon /></span>
+                <div styleName="filter-tournaments">
+                    <div styleName="all" onClick={() => this.handleCleanFilterClick()}>
+                            <Typography variant={'x-small-body'} color={'white'}>All Tournaments</Typography>
+                            {
+                            serieFilter.length 
+                            ?
+                                <span styleName="all-selected"><CloseIcon /></span>
+                            :
+                                null
+                            }
+                    </div>
+                    <ul>
+                        {isLoading ?
+                            <SkeletonTheme color={ getSkeletonColors().color} highlightColor={ getSkeletonColors().highlightColor}>
+                                <div style={{opacity : '0.5'}}> 
+                                    <li styleName="tournament">
+                                        <Skeleton circle={true} height={30} width={30} style={{marginRight: 12}}/>
+                                        <Skeleton height={20} width={150}/>
+                                    </li>
+                                    <li styleName="tournament">
+                                        <Skeleton circle={true} height={30} width={30} style={{marginRight: 12}}/>
+                                        <Skeleton height={20} width={120}/>
+                                    </li>
+                                    <li styleName="tournament">
+                                        <Skeleton circle={true} height={30} width={30} style={{marginRight: 12}}/>
+                                        <Skeleton height={20} width={100}/>
+                                    </li>
+                                </div>
+                            </SkeletonTheme>
                         :
-                            null
+                            this.renderOptions()
                         }
+                    </ul>
                 </div>
-                <ul>
-                    {isLoading ?
-                        <SkeletonTheme color={ getSkeletonColors().color} highlightColor={ getSkeletonColors().highlightColor}>
-                            <div style={{opacity : '0.5'}}> 
-                                <li styleName="tournament">
-                                    <Skeleton circle={true} height={30} width={30} style={{marginRight: 12}}/>
-                                    <Skeleton height={20} width={150}/>
-                                </li>
-                                <li styleName="tournament">
-                                    <Skeleton circle={true} height={30} width={30} style={{marginRight: 12}}/>
-                                    <Skeleton height={20} width={120}/>
-                                </li>
-                                <li styleName="tournament">
-                                    <Skeleton circle={true} height={30} width={30} style={{marginRight: 12}}/>
-                                    <Skeleton height={20} width={100}/>
-                                </li>
-                            </div>
-                        </SkeletonTheme>
-                    :
-                        this.renderOptions()
-                    }
-                </ul>
+                <div styleName="filter-tournaments-mobile">
+                    <div styleName="tournament-more" onClick={() => this.handleFilterMoreModal()}>
+                        <Typography variant={'x-small-body'} color={'white'}>Filters</Typography> <MoreIcon />
+                    </div>
+                </div>
             </div>
         );
     }
