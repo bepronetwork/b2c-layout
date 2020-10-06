@@ -22,13 +22,13 @@ class PaymentBox extends React.Component{
             disabledFreeButton: true,
             minutes: 0,
             seconds: 0,
-            amount: 0
+            amount: 0,
+            secondsToCanvas: 0
         }
     }
 
     async componentDidMount(){
         this.projectData(this.props);
-        setInterval(() => this.funcVerifyUserWalletDate() , 0)
         setInterval(() => this.parseMillisecondsIntoReadableTime() , 0)
         
         this.timerInterval = setInterval(() => {
@@ -56,7 +56,6 @@ class PaymentBox extends React.Component{
         if(props !== this.props) {
             this.projectData(props);
             this.parseMillisecondsIntoReadableTime();
-            this.funcVerifyUserWalletDate();
         }
         
     }
@@ -81,6 +80,7 @@ class PaymentBox extends React.Component{
         });
         this.funcToGetValue();
         this.verifyTime();
+        setInterval(() => this.funcVerifyUserWalletDate() , 0)
     }
 
     funcVerifyUserWalletDate = async() => {
@@ -99,13 +99,13 @@ class PaymentBox extends React.Component{
     verifyTime = () => {
         const { seconds, minutes } = this.state;
         if(seconds === 0 && minutes === 0){
-            return null;
+            this.setState({ disabledFreeButton: false });
         }else{
-            this.startCountdown(document.getElementById('canvas'));
+            this.setState({ disabledFreeButton: true });
         }
     }
 
-    funcVerification = async() => {
+    funcVerification = () => {
         const { wallet } = this.props;
 
         const freeCurrency = getApp().addOn.freeCurrency;
@@ -151,7 +151,7 @@ class PaymentBox extends React.Component{
     }
 
     startCountdown = async(canvas) => {
-        const { seconds } = this.state;
+        const { secondsToCanvas } = this.state;
         const { colors } = getAppCustomization();
 
         const secondaryColor = colors.find(c => {
@@ -174,7 +174,7 @@ class PaymentBox extends React.Component{
         const radius = Math.min(width, height) / 2;
       
         const startTime = Date.now();
-        const endTime = startTime + (60  * 1000);
+        const endTime = startTime + (secondsToCanvas  * 1000);
       
         const renderCountdown = (currentValue) => {
           const start = THREE_PI_BY_TWO;
@@ -209,7 +209,7 @@ class PaymentBox extends React.Component{
             }
       
             const elapsedTime = (Date.now() - startTime) / 1000;
-            const currentValue = DEFAULT_VALUE * Math.max(0,  60 - elapsedTime) /  60
+            const currentValue = DEFAULT_VALUE * Math.max(0, secondsToCanvas - elapsedTime) /  secondsToCanvas
             renderCountdown(currentValue);
           }, TIMER_INTERVAL);
         });
@@ -250,6 +250,7 @@ class PaymentBox extends React.Component{
 
         this.setState({ disabledFreeButton: true });
         await this.userUpdateBalance();
+        await profile.getAllData(true);
     } catch (err) {
       console.log(err);
       this.setState({ disabledFreeButton: false });
@@ -262,13 +263,16 @@ class PaymentBox extends React.Component{
         const miliseconds = resultUserDate + this.funcVerificationTime() - Date.now();
         const hours = miliseconds / (1000 * 60 * 60);
 
+
         if(hours< 0){
             this.setState({
                 hours: 0,
                 minutes: 0,
-                seconds: 0
+                seconds: 0,
+                secondsToCanvas: 0
             });
         }else{
+            const secondsToCanvas = (miliseconds / 1000);
             const hours = miliseconds / (1000 * 60 * 60);
             const absoluteHours = Math.floor(hours);
             const h = absoluteHours > 9 ? absoluteHours : absoluteHours;
@@ -282,8 +286,16 @@ class PaymentBox extends React.Component{
             this.setState({
                 hours: h,
                 minutes: m,
-                seconds: s
+                seconds: s,
+                secondsToCanvas: secondsToCanvas
             });
+
+                if(s === 0 && s === 0){
+                    this.setState({ disabledFreeButton: false });
+                }else{
+                    this.startCountdown(document.getElementById('canvas'));
+                    this.setState({ disabledFreeButton: true });
+                }
             }
         };
 
@@ -345,7 +357,7 @@ class PaymentBox extends React.Component{
                                 theme={'action'}
                                 disabled={disabledFreeButton}
                                 onClick={this.handleSendCurrancyFree}>
-                                    <Typography color={'white'} variant={'small-body'}>Replanish</Typography>
+                                    <Typography color={'white'} variant={'small-body'}>Replenish</Typography>
                                 </Button>
                             </Col>
                         </div> 
