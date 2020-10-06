@@ -96,10 +96,10 @@ class GameFilter extends Component {
                             return (
                                 
                                 <li styleName={styles} onClick={() => this.handlerGameFilterClick(game.external_id)} key={game.external_id}>
-                                    <Shield image={game.image} size={"medium"} tooltip={game.name} isFull={true} />
-                                        <div styleName="match-name">
-                                            <Typography variant={'x-small-body'} color={'white'}>{game.name}</Typography>
-                                        </div>
+                                    <Shield image={game.image} size={"small"} tooltip={game.name} isFull={true} />
+                                    <div styleName="match-name">
+                                        <Typography variant={'x-small-body'} color={'white'}>{game.name}</Typography>
+                                    </div>
                                 </li>
                             )
                         })

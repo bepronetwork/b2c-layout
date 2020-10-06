@@ -77,7 +77,7 @@ class BottomNavbar extends Component {
                                     </span>
                                 </a>  
                             :
-                                <a href="#" onClick={() => this.homeClick("casino")}>
+                                <a href="#" onClick={() => this.homeClick("")}>
                                     <span styleName="item">
                                         <div styleName="icon">
                                             { casinoIcon === null ? <CasinoIcon /> : <img src={casinoIcon} /> }

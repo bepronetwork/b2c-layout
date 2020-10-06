@@ -104,7 +104,7 @@ class MobileMenu extends Component {
 
         return (
             <div>
-                <div styleName="title" onClick={() => this.homeClick("casino")}>
+                <div styleName="title" onClick={() => this.homeClick("")}>
                     <Typography variant={'body'} color={'white'}>Casino</Typography>
                 </div>
                 <div styleName="title" onClick={() => this.homeClick("esports")}>
