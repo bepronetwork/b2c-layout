@@ -101,6 +101,7 @@ class PaymentBox extends React.Component{
         if(seconds === 0 && minutes === 0){
             this.setState({ disabledFreeButton: false });
         }else{
+            this.startCountdown(document.getElementById('canvas'));
             this.setState({ disabledFreeButton: true });
         }
     }
@@ -293,7 +294,6 @@ class PaymentBox extends React.Component{
                 if(s === 0 && s === 0){
                     this.setState({ disabledFreeButton: false });
                 }else{
-                    this.startCountdown(document.getElementById('canvas'));
                     this.setState({ disabledFreeButton: true });
                 }
             }
