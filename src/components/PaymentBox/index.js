@@ -29,7 +29,6 @@ class PaymentBox extends React.Component{
 
     async componentDidMount(){
         this.projectData(this.props);
-
         setInterval(() => this.parseMillisecondsIntoReadableTime() , 0)
         
         this.timerInterval = setInterval(() => {
@@ -102,7 +101,6 @@ class PaymentBox extends React.Component{
         if(seconds === 0 && minutes === 0){
             this.setState({ disabledFreeButton: false });
         }else{
-            this.startCountdown(document.getElementById('canvas'));
             this.setState({ disabledFreeButton: true });
         }
     }
@@ -264,7 +262,7 @@ class PaymentBox extends React.Component{
         const resultUserDate =  await this.funcVerifyUserWalletDate();
         const miliseconds = resultUserDate + this.funcVerificationTime() - Date.now();
         const hours = miliseconds / (1000 * 60 * 60);
- 
+
 
         if(hours< 0){
             this.setState({
@@ -291,6 +289,13 @@ class PaymentBox extends React.Component{
                 seconds: s,
                 secondsToCanvas: secondsToCanvas
             });
+
+                if(s === 0 && s === 0){
+                    this.setState({ disabledFreeButton: false });
+                }else{
+                    this.startCountdown(document.getElementById('canvas'));
+                    this.setState({ disabledFreeButton: true });
+                }
             }
         };
 
