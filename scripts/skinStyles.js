@@ -38,7 +38,8 @@ const skinsPath = [
     { path: "src/containers/Chat" },
     { path: "src/containers/ThirdPartyGameList" },
     { path: "src/containers/Esports" },
-    { path: "src/containers/App" }
+    { path: "src/containers/App" },
+    { path: "src/components/ThirdPartyProviderSelector" }
 ]
 
 export default skinsPath;

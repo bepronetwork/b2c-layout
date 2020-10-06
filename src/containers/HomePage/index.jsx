@@ -7,7 +7,6 @@ import UserContext from "containers/App/UserContext";
 import PlayInvitation from "components/PlayInvitation";
 import games from '../../config/games';
 import LastBets from "../LastBets/HomePage";
-import Footer from "../Footer";
 import { connect } from 'react-redux';
 import { LOCATION } from 'components/SubSections/properties';
 import { getAppCustomization } from "../../lib/helpers";
@@ -52,7 +51,7 @@ class HomePage extends Component {
         return (
                 <div class={"col"} styleName="col">
                     <GameCard
-                        path={"casino/" + metaName}
+                        path={metaName}
                         title={name}
                         edge={edge}
                         image_url={image_url}
@@ -107,9 +106,6 @@ class HomePage extends Component {
                             </div>
                     }
                     {/* <Media/> */}
-                    <SubSections location={LOCATION.BEFORE_FOOTER} />
-                    <Footer/>
-                    <SubSections location={LOCATION.AFTER_FOOTER} />
                 </div>
             </div>
         );

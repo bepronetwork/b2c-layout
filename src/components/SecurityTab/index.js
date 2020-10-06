@@ -6,7 +6,7 @@ import { setModal } from "../../redux/actions/modal";
 import { CopyText } from '../../copy';
 import store from "../../containers/App/store";
 import { setMessageNotification } from "../../redux/actions/message";
-import { getIcon } from "../../lib/helpers";
+import { getIcon, getAppCustomization } from "../../lib/helpers";
 import './index.css';
 
 const defaultState = {
@@ -78,6 +78,7 @@ class SecurityTab extends React.Component{
         const copy = CopyText.settingsTabIndex[ln];
         const copyConfirmEmail = CopyText.homepage[ln];
         const emailIcon = getIcon(11);
+        const { skin } = getAppCustomization();
 
         return (
             <div styleName='box'>
@@ -96,7 +97,7 @@ class SecurityTab extends React.Component{
                         </div>
                         <div styleName='value'>
                             <Button size={'x-small'} theme={'action'} disabled={isConfirmationSent} onClick={this.handleResendConfirmEmail} icon={emailIcon === null ? <EmailIcon/> : <img src={emailIcon} />}>
-                                <Typography color={'fixedwhite'} variant={'small-body'}>{copyConfirmEmail.CONTAINERS.APP.MODAL[2]}</Typography>
+                                <Typography variant={'small-body'} color={skin.skin_type == "digital" ? 'secondary' : 'fixedwhite'}>{copyConfirmEmail.CONTAINERS.APP.MODAL[2]}</Typography>
                             </Button>
                         </div>
                     </div>

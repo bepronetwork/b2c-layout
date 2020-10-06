@@ -80,9 +80,7 @@
 }
 
 .painel {
-  margin: auto;
-  margin-top: $spacing-16;
-  margin-right: $spacing-12;
+  margin: $spacing-16 $spacing-12 auto $spacing-12;
   min-width: 300px;
   display: grid;
   grid-template-columns: 300px auto 300px;

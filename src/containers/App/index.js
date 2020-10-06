@@ -8,6 +8,7 @@ import EsportsMatchPage from "containers/Esports/MatchPage";
 import EsportsMatchesPage from "containers/Esports/AllMatches";
 import HomePage from "containers/HomePage";
 import Footer from "../Footer";
+import { LOCATION } from 'components/SubSections/properties';
 import ResetPassword from "containers/ResetPassword";
 import ConfirmEmail from "containers/ConfirmEmail";
 import {
@@ -26,7 +27,8 @@ import {
     PopupForm,
     BetDetails,
     Jackpot,
-    LiveChatIcon
+    LiveChatIcon,
+    SubSections
 } from "components";
 
 import PlinkoPage from "containers/PlinkoPage";
@@ -61,14 +63,22 @@ import _ from 'lodash';
 import { setStartLoadingProcessDispatcher } from "../../lib/redux";
 import AccountPage from "../AccountPage";
 import { getQueryVariable, getAppCustomization, getIcon } from "../../lib/helpers";
+import routeChanges from "../../lib/helpers/analytics/routeChanges";
 import ChatChannel from "../../controllers/Chat";
 import AnnouncementTab from "../../components/AnnouncementTab";
 import { getCurrencyAddress } from "../../lib/api/users";
 import classNames from "classnames";
 import delay from 'delay';
 import MobileMenu from "../../components/MobileMenu";
+import { analyticsIdentify, analyticsPage } from '../../lib/helpers/analytics'
 
 const history = createBrowserHistory();
+
+routeChanges((route) => {
+    console.log('route changed', route)
+    analyticsPage();
+});
+
 class App extends Component {
     intervalID = 0;
 
@@ -163,6 +173,7 @@ class App extends Component {
             let user = await this.reloadUser(reponseUser);
             await user.updateUser();
             await this.setDefaultCurrency();
+            analyticsIdentify(user);
         }
         else {
             const app = Cache.getFromCache("appInfo");
@@ -303,6 +314,7 @@ class App extends Component {
             }else{
                 let user = await this.updateUser(response);
                 await user.updateUser();
+                analyticsIdentify(user);
                 this.setState({ registerLoginModalOpen: null, error: null});
             }
             /* Set currency */
@@ -326,6 +338,7 @@ class App extends Component {
             }else{
                 let user = await this.updateUser(response);
                 await user.updateUser();
+                analyticsIdentify(user);
                 this.setState({ registerLoginModalOpen: null, error: null, has2FA: false });
             }
             /* Set currency */
@@ -596,7 +609,7 @@ class App extends Component {
                 {this.isGameAvailable("linear_dice_simple") ? (
                     <Route
                     exact
-                    path="/casino/linear_dice_simple"
+                    path="/linear_dice_simple"
                     render={props => (
                         <DicePage
                         {...props}
@@ -609,7 +622,7 @@ class App extends Component {
                 {this.isGameAvailable("coinflip_simple") ? (
                     <Route
                     exact
-                    path="/casino/coinflip_simple"
+                    path="/coinflip_simple"
                     render={props => (
                         <FlipPage
                         {...props}
@@ -622,7 +635,7 @@ class App extends Component {
                 {this.isGameAvailable("european_roulette_simple") ? (
                     <Route
                     exact
-                    path="/casino/european_roulette_simple"
+                    path="/european_roulette_simple"
                     render={props => (
                         <RoulettePage
                         {...props}
@@ -635,7 +648,7 @@ class App extends Component {
                 {this.isGameAvailable("wheel_simple") ? (
                     <Route
                     exact
-                    path="/casino/wheel_simple"
+                    path="/wheel_simple"
                     render={props => (
                         <WheelPage
                         {...props}
@@ -649,7 +662,7 @@ class App extends Component {
                     {this.isGameAvailable("wheel_variation_1") ? (
                     <Route
                     exact
-                    path="/casino/wheel_variation_1"
+                    path="/wheel_variation_1"
                     render={props => (
                         <WheelVariation1
                             {...props}
@@ -663,7 +676,7 @@ class App extends Component {
                     {this.isGameAvailable("plinko_variation_1") ? (
                     <Route
                     exact
-                    path="/casino/plinko_variation_1"
+                    path="/plinko_variation_1"
                     render={props => (
                         <PlinkoPage
                         {...props}
@@ -676,7 +689,7 @@ class App extends Component {
                     {this.isGameAvailable("keno_simple") ? (
                     <Route
                     exact
-                    path="/casino/keno_simple"
+                    path="/keno_simple"
                     render={props => (
                         <KenoPage
                         {...props}
@@ -689,7 +702,7 @@ class App extends Component {
                 {this.isGameAvailable("diamonds_simple") ? (
                     <Route
                     exact
-                    path="/casino/diamonds_simple"
+                    path="/diamonds_simple"
                     render={props => (
                         <DiamondPage
                         {...props}
@@ -702,7 +715,7 @@ class App extends Component {
                 {this.isGameAvailable("slots_simple") ? (
                     <Route
                     exact
-                    path="/casino/slots_simple"
+                    path="/slots_simple"
                     render={props => (
                         <SlotsPage
                         {...props}
@@ -714,7 +727,7 @@ class App extends Component {
                 ) : null}
                 <Route
                     exact
-                    path="/casino/games/:providerGameId"
+                    path="/games/:providerGameId"
                     render={props => (
                         <ThirdPartyGameList
                         {...props}
@@ -725,7 +738,7 @@ class App extends Component {
                     />
                 <Route
                     exact
-                    path="/casino/game/:providerGameId"
+                    path="/game/:providerGameId"
                     render={props => (
                         <ThirdPartyGamePage
                         {...props}
@@ -822,9 +835,9 @@ class App extends Component {
                                                     />
                                             
                                                 )}
-                                            />
-
-                                            <Route
+                                                />
+                                            
+                                            {/*<Route
                                                 exact
                                                 path="/casino"
                                                 render={props => (
@@ -832,10 +845,11 @@ class App extends Component {
                                                         {...props}
                                                         onHandleLoginOrRegister={this.handleLoginOrRegisterOpen}
                                                         onTableDetails={this.handleTableDetailsOpen}
+                                                        history={history}
                                                     />
                                             
                                                 )}
-                                            />
+                                                />*/}
 
                                             <Route
                                                 exact
@@ -945,7 +959,9 @@ class App extends Component {
                                             {this.renderGamePages({history})}
 
                                         </Switch>
+                                        <SubSections location={LOCATION.BEFORE_FOOTER} />
                                         <Footer/>
+                                        <SubSections location={LOCATION.AFTER_FOOTER} />
                                     </div>
                                 </div>
                                 {

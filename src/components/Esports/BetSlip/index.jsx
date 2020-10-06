@@ -97,7 +97,7 @@ class BetSlip extends Component {
                         matchId: bet.matchId, 
                         marketType: bet.type, 
                         betType: bet.position, 
-                        statistic: bet.probability
+                        odd: bet.odd
                     }], 
                     user: profile.id, 
                     betAmount: bet.amount, 
@@ -116,7 +116,7 @@ class BetSlip extends Component {
                     matchId: b.matchId, 
                     marketType: b.type, 
                     betType: b.position, 
-                    statistic: b.probability
+                    odd: b.odd
                 }
             });
  
@@ -245,8 +245,8 @@ class BetSlip extends Component {
                             </div>
                             <div styleName="bet-slip">
                                 {betSlip.map(bet => {
-                                    totalSimpleAmount += (bet.amount * (1 / bet.probability));
-                                    totalMultipleOdd = totalMultipleOdd * (1 / bet.probability);
+                                    totalSimpleAmount += (bet.amount * bet.odd);
+                                    totalMultipleOdd = totalMultipleOdd * bet.odd;
                                     return (
                                         <BetSlipBox bet={bet} type={tab} />
                                     )

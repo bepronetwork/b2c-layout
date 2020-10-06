@@ -3,11 +3,11 @@
 
 .score-board {
     margin: auto;
-    max-width: 1192px;
     min-width: 300px;
     display: grid;
     grid-template-columns: 35% 30% 35%;
     height: 70px;
+    padding: 0 $spacing-16;
 
     @media screen and (max-width: 1267px) and (min-width: 1024px) {
         grid-template-columns: none;

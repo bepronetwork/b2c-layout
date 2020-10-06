@@ -16,11 +16,13 @@
     "stylelint": "stylelint src"
   },
   "dependencies": {
+    "@analytics/google-analytics": "^0.5.2",
     "@craco/craco": "^4.1.0",
     "@material-ui/core": "^4.4.2",
     "@material-ui/icons": "^4.4.1",
     "abi-decoder": "^2.2.0",
     "accounting": "^0.4.1",
+    "analytics": "^0.5.5",
     "audio-loader": "^1.0.3",
     "audio-play": "^2.2.1",
     "auto-prefixer": "^0.4.2",

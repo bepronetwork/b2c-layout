@@ -146,6 +146,7 @@ import SlotsGameOptions from './SlotsGameOptions';
 import InfiniteCarousel from './InfiniteCarousel';
 import ThirdPartyGames from './ThirdPartyGames';
 import ThirdPartyGameCard from  './ThirdPartyGameCard';
+import ThirdPartyProviderSelector from  './ThirdPartyProviderSelector';
 import Info from  './Info';
 import CurrencyFreeMoney from './CurrencyFreeMoney';
 
@@ -299,3 +300,5 @@ export { ThirdPartyGames };
 export { ThirdPartyGameCard };
 export { Info };
 export { CurrencyFreeMoney };
+export { ThirdPartyProviderSelector };
+export { Info };

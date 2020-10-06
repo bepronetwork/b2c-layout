@@ -125,7 +125,7 @@ class OddsTable extends Component {
                         <div styleName={opponent1Styles} onClick={() => isOpponent1Selected ? this.handleRemoveToBetSlip(opponent1.id) : this.handleAddToBetSlip(opponent1Bet)}>
                             <img src={opponent1.image} />
                             <Typography variant={'x-small-body'} color={'white'}>{opponent1.name}</Typography>
-                            <Typography variant={'x-small-body'} color={'white'}>{(1 / opponent1.odd.probability).toFixed(2)}</Typography>
+                            <Typography variant={'x-small-body'} color={'white'}>{opponent1.odd.odd}</Typography>
                         </div>
                         {
                             drawOdd != null 
@@ -133,7 +133,7 @@ class OddsTable extends Component {
                                 <div styleName={drawStyles} onClick={() => isDrawSelected ? this.handleRemoveToBetSlip(drawId) : this.handleAddToBetSlip(drawBet)}>
                                     <CloseIcon/>
                                     <Typography variant={'x-small-body'} color={'white'}>Draw</Typography>
-                                    <Typography variant={'x-small-body'} color={'white'}>{(1 / drawOdd.probability).toFixed(2)}</Typography>
+                                    <Typography variant={'x-small-body'} color={'white'}>{drawOdd.odd}</Typography>
                                 </div>
                             :
                                 null
@@ -141,7 +141,7 @@ class OddsTable extends Component {
                         <div styleName={opponent2Styles} onClick={() => isOpponent2Selected ? this.handleRemoveToBetSlip(opponent2.id) : this.handleAddToBetSlip(opponent2Bet)}>
                             <img src={opponent2.image} />
                             <Typography variant={'x-small-body'} color={'white'}>{opponent2.name}</Typography>
-                            <Typography variant={'x-small-body'} color={'white'}>{(1 / opponent2.odd.probability).toFixed(2)}</Typography>
+                            <Typography variant={'x-small-body'} color={'white'}>{opponent2.odd.odd}</Typography>
                         </div>
                     </div>
                 </div>

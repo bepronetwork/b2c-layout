@@ -42,7 +42,7 @@ class ThirdPartyGameCard extends Component {
             return onHandleLoginOrRegister("login");
         }
 
-        this.props.history.push(`/casino/game/${id}?partner_id=${partnerId}&url=${url}&external_id=${externalId}&name=${name}&provider=${provider}`);
+        this.props.history.push(`/game/${id}?partner_id=${partnerId}&url=${url}&external_id=${externalId}&name=${name}&provider=${provider}`);
     }
 
     render() {
