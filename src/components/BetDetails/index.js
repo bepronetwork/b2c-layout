@@ -48,56 +48,66 @@ class BetDetails extends Component {
         const response = await getBet({ betId, tag });
 
         if (response.status === 200) {
-            const bet = response.message;
-			const game = bet.game;
+            if(tag === "esports") {
+                const bet = response.message;
 
-            switch (game.metaName) {
-                case 'linear_dice_simple':
-                    component = <DiceDetails bet={bet}/>;
-                    break;
-                case 'coinflip_simple':
-                    component = <FlipDetails bet={bet}/>;
-                    break;
-                case 'european_roulette_simple':
-                    component = <RouletteDetails bet={bet}/>;
-                    break;
-                case 'wheel_simple':
-                    component = <WheelDetails bet={bet}/>;
-                    break;
-                case 'wheel_variation_1':
-                    component = <WheelDetails bet={bet}/>;
-                    break;
-                case 'plinko_variation_1':
-                    component = <PlinkoDetails bet={bet}/>;
-                    break;
-                case 'keno_simple':
-                    component = <KenoDetails bet={bet}/>;
-                    break;
-                case 'diamonds_simple':
-                    component = <DiamondDetails bet={bet}/>;
-                    break;
-                case 'slots_simple':
-                    component = <SlotsDetails bet={bet}/>;
-                    break;
+                this.setState({
+                    isLoading: false,
+                    bet
+                });
             }
-
-            const currenncy = (getApp().currencies.find(currency => currency._id == bet.currency._id));
-                
-            this.setState({
-                component,
-                clientSeed: bet.clientSeed,
-                serverHashedSeed: bet.serverHashedSeed,
-                serverSeed: bet.serverSeed,
-                timestamp: bet.timestamp.replace('Z', ' ').replace('T', ' '),
-                winAmount: formatCurrency(bet.winAmount),
-                betAmount: formatCurrency(bet.betAmount),
-                userName: bet.user.username,
-                isWon: bet.isWon,
-                currencyImage: currenncy.image,
-                game,
-                isLoading: false,
-                bet
-            });
+            else {
+                const bet = response.message;
+                const game = bet.game;
+    
+                switch (game.metaName) {
+                    case 'linear_dice_simple':
+                        component = <DiceDetails bet={bet}/>;
+                        break;
+                    case 'coinflip_simple':
+                        component = <FlipDetails bet={bet}/>;
+                        break;
+                    case 'european_roulette_simple':
+                        component = <RouletteDetails bet={bet}/>;
+                        break;
+                    case 'wheel_simple':
+                        component = <WheelDetails bet={bet}/>;
+                        break;
+                    case 'wheel_variation_1':
+                        component = <WheelDetails bet={bet}/>;
+                        break;
+                    case 'plinko_variation_1':
+                        component = <PlinkoDetails bet={bet}/>;
+                        break;
+                    case 'keno_simple':
+                        component = <KenoDetails bet={bet}/>;
+                        break;
+                    case 'diamonds_simple':
+                        component = <DiamondDetails bet={bet}/>;
+                        break;
+                    case 'slots_simple':
+                        component = <SlotsDetails bet={bet}/>;
+                        break;
+                }
+    
+                const currenncy = (getApp().currencies.find(currency => currency._id == bet.currency._id));
+                    
+                this.setState({
+                    component,
+                    clientSeed: bet.clientSeed,
+                    serverHashedSeed: bet.serverHashedSeed,
+                    serverSeed: bet.serverSeed,
+                    timestamp: bet.timestamp.replace('Z', ' ').replace('T', ' '),
+                    winAmount: formatCurrency(bet.winAmount),
+                    betAmount: formatCurrency(bet.betAmount),
+                    userName: bet.user.username,
+                    isWon: bet.isWon,
+                    currencyImage: currenncy.image,
+                    game,
+                    isLoading: false,
+                    bet
+                });
+            }
         }
         else {
             this.setState({ isFake: true, isLoading: false });

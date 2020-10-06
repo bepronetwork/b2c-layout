@@ -129,7 +129,7 @@ class TableDefault extends Component {
                                             const styles = classNames("td-row", {
                                                 'td-row-img': field.image,
                                                 'td-row-currency': field.currency,
-                                                'td-row-status': field.isStatus
+                                                'td-row-state': field.isStatus
                                             });
                                             const statusStyles = classNames("status", {
                                                 [row[field.value].color]: field.isStatus === true

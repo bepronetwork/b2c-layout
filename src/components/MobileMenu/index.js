@@ -5,7 +5,7 @@ import {
         SettingsIcon, DepositsIcon, WithdrawIcon, BetsIcon, UserIcon, UsersIcon, ConfirmedIcon
        } from 'components';
 import { CopyText } from "../../copy";
-import { getApp, getAddOn, getIcon } from "../../lib/helpers";
+import { getApp, getAddOn, getIcon, getAppCustomization } from "../../lib/helpers";
 import { formatCurrency } from "../../utils/numberFormatation";
 import _ from 'lodash';
 import "./index.css";
@@ -35,7 +35,8 @@ class MobileMenu extends Component {
                 { path: "/settings/withdraws",      copyValue: 2,                                       icon: withdrawIcon === null ? <WithdrawIcon /> : <img src={withdrawIcon} /> },
                 { path: "/settings/affiliate",      copyValue: 3,                                       icon: affiliatesIcon === null ? <UsersIcon /> : <img src={affiliatesIcon} /> },
                 { path: "/settings/preferences",    copyValue: 9,                                       icon: preferencesIcon === null ? <SettingsIcon /> : <img src={preferencesIcon} /> },
-            ]
+            ],
+            tabs: []
         }
     }
 
@@ -48,6 +49,12 @@ class MobileMenu extends Component {
     }
 
     projectData = async (props) => {
+
+        const { topTab } = getAppCustomization();
+
+        this.setState({ 
+            tabs: _.isEmpty(topTab) ? [] : topTab.ids
+        });
 
         if(!_.isEmpty(props.profile)) {
             const user = props.profile;
@@ -94,7 +101,7 @@ class MobileMenu extends Component {
     }
 
     render() {
-        const { points } = this.state;
+        const { points, tabs } = this.state;
         const { ln } = this.props;
         const copy = CopyText.homepage[ln];
 
@@ -104,12 +111,26 @@ class MobileMenu extends Component {
 
         return (
             <div>
-                <div styleName="title" onClick={() => this.homeClick("")}>
-                    <Typography variant={'body'} color={'white'}>Casino</Typography>
-                </div>
-                <div styleName="title" onClick={() => this.homeClick("esports")}>
-                    <Typography variant={'body'} color={'white'}>Esports</Typography>
-                </div>
+                {
+                    tabs.map(t => {
+                        return (
+                            <div>
+                                <div styleName="title" onClick={() => this.homeClick(t.link_url)}>
+                                    {t.icon
+                                    ?
+                                        <div styleName='img'>
+                                            <img src={t.icon} width="22" height="22"/>
+                                        </div>
+                                    
+                                    :
+                                        null
+                                    }
+                                    <Typography variant={'body'} color={'white'}>{t.name}</Typography>
+                                </div>
+                            </div>
+                        )
+                    })
+                }
                 {
                     isValidPoints == true
                     ?
