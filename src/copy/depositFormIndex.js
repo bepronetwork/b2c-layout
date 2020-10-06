@@ -18,7 +18,7 @@
           "Fee"
         ],
         "FREE_TITLE": [
-          (params, hourParam, minParam) => { return `You can get ${params[0]} every ${hourParam < 10 ? `0${hourParam}` : hourParam}:${minParam < 10 ? `0${minParam}` : minParam}`},
+          (params, hourParam, minParam) => { return `You can get ${params[0]} every ${hourParam < 10 ? `0${hourParam}` : hourParam}h:${minParam < 10 ? `0${minParam}` : minParam}min`},
           "Fee"
         ]
       }
@@ -43,7 +43,7 @@
           "Fee"
         ],
         "FREE_TITLE": [
-          (params) => { return `You can get ${params[1]} every ${params[2]}`},
+          (params, hourParam, minParam) => { return `You can get ${params[0]} every ${hourParam < 10 ? `0${hourParam}` : hourParam}h:${minParam < 10 ? `0${minParam}` : minParam}min`},
           "Fee"
         ]
       }
@@ -67,7 +67,7 @@
           "Fee"
         ],
         "FREE_TITLE": [
-          (params) => { return `You can get ${params[1]} every ${params[2]}`},
+          (params, hourParam, minParam) => { return `You can get ${params[0]} every ${hourParam < 10 ? `0${hourParam}` : hourParam}h:${minParam < 10 ? `0${minParam}` : minParam}min`},
           "Fee"
         ]
       }
@@ -91,7 +91,7 @@
           "Fee"
         ],
         "FREE_TITLE": [
-          (params) => { return `You can get ${params[1]} every ${params[2]}`},
+          (params, hourParam, minParam) => { return `You can get ${params[0]} every ${hourParam < 10 ? `0${hourParam}` : hourParam}h:${minParam < 10 ? `0${minParam}` : minParam}min`},
           "Fee"
         ]
       }
@@ -115,7 +115,7 @@
           "Fee"
         ],
         "FREE_TITLE": [
-          (params) => { return `You can get ${params[1]} every ${params[2]}`},
+          (params, hourParam, minParam) => { return `You can get ${params[0]} every ${hourParam < 10 ? `0${hourParam}` : hourParam}h:${minParam < 10 ? `0${minParam}` : minParam}min`},
           "Fee"
         ]
       }

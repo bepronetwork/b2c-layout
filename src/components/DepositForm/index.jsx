@@ -7,6 +7,7 @@ import classNames from "classnames";
 import { getApp, getAddOn, getAppCustomization, getIcon } from "../../lib/helpers";
 import _ from 'lodash';
 import { CopyText } from '../../copy';
+import { date } from 'faker';
 
 class DepositForm extends Component {
 
@@ -25,6 +26,7 @@ class DepositForm extends Component {
             isTxFee: false,
             isDepositBonus: false,
             depositBonus: 0,
+            amount: 0,
             maxBonusDeposit: 0,
             minBonusDeposit: 0,
             hours: 0,
@@ -37,10 +39,9 @@ class DepositForm extends Component {
 
     async componentDidMount(){
         await this.projectData(this.props);
-        await this.parseMillisecondsIntoReadableTime();
+        setInterval(() => this.parseMillisecondsIntoReadableTime() ,0)
         this.timerInterval = setInterval(() => {
             const { seconds, minutes } = this.state;
-
             if (seconds > 0) {
                 this.setState({ seconds: seconds - 1 });
             }
@@ -50,7 +51,7 @@ class DepositForm extends Component {
                 clearInterval(this.timerInterval);
                 } else {
                 this.setState(({ minutes }) => ({
-                    minutes: minutes - 1,
+                    minutes: minutes,
                     seconds: 59
                 }));
                 }
@@ -60,7 +61,7 @@ class DepositForm extends Component {
 
     componentWillUnmount() {
         clearInterval(this.intervalID);
-        clearInterval(this.timerInterval);
+        clearInterval(this.timerInterval)
     }
 
     componentWillReceiveProps(props){
@@ -119,27 +120,55 @@ class DepositForm extends Component {
             maxBonusDeposit: isDepositBonus === true ? getAddOn().depositBonus.max_deposit.find(d => d.currency === wallet.currency._id).amount : null,
             minBonusDeposit: isDepositBonus === true ? getAddOn().depositBonus.min_deposit.find(d => d.currency === wallet.currency._id).amount : null
          });
+         this.funcVerifyUserWalletDate();
+         this.funcVerificationTime();
+    }
+    
+    funcVerifyUserWalletDate = async() => {
+        const { wallet, profile } = this.props;
+        const resultWallet = await profile.lastTimeFree();
+
+        if(resultWallet){
+            const walletFind = resultWallet.find(w => w.currency === wallet.currency._id)
+
+            return walletFind.date
+        }else{
+            return false;
+         }
     }
 
     parseMillisecondsIntoReadableTime = async () => {
-        const miliseconds = this.funcVerificationTime();
-
-        const hours = miliseconds / (1000 * 60 * 60);
-        const absoluteHours = Math.floor(hours);
-        const h = absoluteHours > 9 ? absoluteHours : absoluteHours;
-        const minutes = (hours - absoluteHours) * 60;
-        const absoluteMinutes = Math.floor(minutes);
-        const m = absoluteMinutes > 9 ? absoluteMinutes : absoluteMinutes;
-        const seconds = (minutes - absoluteMinutes) * 60;
-        const absoluteSeconds = Math.floor(seconds);
-        const s = absoluteSeconds > 9 ? absoluteSeconds : absoluteSeconds;
+        
+            const resultUserDate =  await this.funcVerifyUserWalletDate();
+            const miliseconds = resultUserDate + this.funcVerificationTime() - Date.now();
+            const hours = miliseconds / (1000 * 60 * 60);
+            const minutesToRender = (this.funcVerificationTime() / 1000) / 60;
+            if(hours< 0){
+                this.setState({
+                    hours: 0,
+                    minutes: 0,
+                    seconds: 0,
+                    staticHour: 0, 
+                    staticMinute: minutesToRender });
+            }else{
+                const hours = miliseconds / (1000 * 60 * 60);
+                const absoluteHours = Math.floor(hours);
+                const h = absoluteHours > 9 ? absoluteHours : absoluteHours;
+                const minutes = (hours - absoluteHours) * 60;
+                const absoluteMinutes = Math.floor(minutes);
+                const m = absoluteMinutes > 9 ? absoluteMinutes : absoluteMinutes;
+                const seconds = (minutes - absoluteMinutes) * 60;
+                const absoluteSeconds = Math.floor(seconds);
+                const s = absoluteSeconds > 9 ? absoluteSeconds : absoluteSeconds;
+                this.setState({
+                    hours: h,
+                    minutes: m,
+                    seconds: s,
+                    staticHour: h, 
+                    staticMinute: minutesToRender });
     
-        this.setState({
-            hours: h,
-            minutes: m,
-            seconds: s,
-            staticHour: h, 
-            staticMinute: m });
+            }
+
       };
 
       funcVerificationTime = () => {

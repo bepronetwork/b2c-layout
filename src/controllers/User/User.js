@@ -180,8 +180,20 @@ export default class User {
         await this.updateUserState();
     }
 
+    updateBalanceWithoutBet = async ({amount}) => {
+        const state = store.getState();
+        const { currency } = state;
+
+        this.user.wallet.forEach((w) => {
+            if(new String(w.currency._id).toString().toLowerCase() == new String(currency._id).toString().toLowerCase()) {
+                w.playBalance = w.playBalance + amount;
+            }
+        });
+
+        await this.updateUserState();
+    }
+
     updateUserState = async () => {
-        /* Add Everything to the Redux State */  
         await store.dispatch(setProfileInfo(this));
     }
 
@@ -505,6 +517,10 @@ export default class User {
 
     kycStatus = async () => {
         return this.user.kyc_status;
+    }
+
+    lastTimeFree = async () => {
+        return this.user.lastTimeCurrencyFree;
     }
 
 
