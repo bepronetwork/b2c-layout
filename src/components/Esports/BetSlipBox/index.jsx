@@ -54,7 +54,7 @@ class BetSlipBox extends Component {
             "controls-one" : type == "multiple"
         });
 
-        const returnBet = bet.probability;
+        const returnBet = bet.odd;
 
         return (
             <div styleName="box">

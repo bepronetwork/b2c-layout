@@ -148,7 +148,7 @@ class Opponents extends Component {
                             opponent1.odd != null
                             ?
                                 <span>
-                                    <Typography variant={'x-small-body'} color={'grey'}>{opponent1.odd.probability}</Typography>
+                                    <Typography variant={'x-small-body'} color={'grey'}>{opponent1.odd.odd}</Typography>
                                 </span>
                             :
                                 null
@@ -179,7 +179,7 @@ class Opponents extends Component {
                                 : 
                                     <div styleName={drawStyles} onClick={(event) => {isDrawSelected ? this.handleRemoveToBetSlip(event, drawId) : this.handleAddToBetSlip(event, drawBet)}}>
                                         <Typography variant={'x-small-body'} color={'grey'}>DRAW</Typography>
-                                        <Typography variant={'x-small-body'} color={'white'}>{drawOdd.probability}</Typography>
+                                        <Typography variant={'x-small-body'} color={'white'}>{drawOdd.odd}</Typography>
                                     </div>
                             }
                             </Typography>
@@ -203,7 +203,7 @@ class Opponents extends Component {
                             opponent2.odd != null
                             ?
                                 <span>
-                                    <Typography variant={'x-small-body'} color={'grey'}>{opponent2.odd.probability}</Typography>
+                                    <Typography variant={'x-small-body'} color={'grey'}>{opponent2.odd.odd}</Typography>
                                 </span>
                             :
                                 null
