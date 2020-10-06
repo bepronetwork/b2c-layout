@@ -148,6 +148,7 @@ import ThirdPartyGames from './ThirdPartyGames';
 import ThirdPartyGameCard from  './ThirdPartyGameCard';
 import ThirdPartyProviderSelector from  './ThirdPartyProviderSelector';
 import Info from  './Info';
+import CurrencyFreeMoney from './CurrencyFreeMoney';
 
 export { LegalBox };
 export { Authentication2FAModal };
@@ -297,5 +298,6 @@ export { SlotsGameOptions };
 export { InfiniteCarousel };
 export { ThirdPartyGames };
 export { ThirdPartyGameCard };
-export { ThirdPartyProviderSelector };
 export { Info };
+export { CurrencyFreeMoney };
+export { ThirdPartyProviderSelector };

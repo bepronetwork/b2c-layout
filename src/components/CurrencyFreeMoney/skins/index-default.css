@@ -1,0 +1,147 @@
+@import "../../styles/all.css";
+
+.qrcode {
+    padding: $spacing-16;
+    background-color: white;
+    width: 160px;
+    margin: $spacing-36 auto;
+    border-radius: 4px;
+}
+  
+.qrcode canvas {
+    position: unset;
+    top: auto;
+    bottom: auto;
+    left: auto;
+    right: auto;
+}
+
+.address {
+    display: flex;
+}
+
+.ad-copied {
+    opacity: 0.6;
+}
+
+.building{
+    margin-top: $spacing-52;
+}
+
+.building-img {
+    width: 150px;
+}
+
+.building-info {
+    margin: $spacing-52 0;
+}
+
+.info {
+    margin-top: $spacing-20;
+    text-align: justify;
+    width: 100%;
+    border-radius: $border-radius $border-radius 0 0;
+    padding: $spacing-20;
+
+    @include Breakpoint-mobileOnly {
+        padding: 0;
+    }
+}
+
+.text-copy-container{
+    border : none;
+    padding: $spacing-12 24px;
+    border-radius :  0 $border-radius $border-radius 0;
+    background-color: $secondaryColor;
+    width : inherit;
+    height : 40px;
+    text-align : center;
+}
+
+.link-text-container{
+    width : 100%;
+    padding: 14px $spacing-20;
+    text-align : left;
+    overflow: hidden;
+    height: 40px;
+    border-radius : $border-radius 0 0  $border-radius;
+    background-color : white;
+}
+
+.loading-gif{
+    width: 30px;
+    margin: $spacing-64 $spacing-12;
+}
+
+.copied {
+    position: absolute;
+    margin-left: 30%;
+    margin-top: -$spacing-20;
+
+    @include Breakpoint-mobileOnly {
+        margin-left: 35%;
+    }
+
+    * {
+      opacity: 0;
+      animation: copied-animation 1s running;
+    }
+}
+
+.price {
+    margin-bottom: $spacing-28;
+    text-align: center;
+}
+
+@keyframes copied-animation {
+    0% {
+      opacity: 0;
+      transform: translateY(80%);
+    }
+  
+    50% {
+      opacity: 1;
+      transform: translateY(50%) scale(1.2);
+    }
+}
+
+.fee{
+    margin-bottom: $spacing-20;
+    text-align: center;
+}
+
+.bonus {
+    margin-bottom: $spacing-20;
+    text-align: center;
+}
+
+.notice {
+    background-color: $primaryColor-5;
+    padding: $spacing-20 $spacing-20 $spacing-16 $spacing-36;
+    margin-top: $spacing-16;
+    border-radius: $border-radius;
+    text-align: left;
+
+    ul, li {
+        list-style-type: circle !important;
+        margin: 0 0 $spacing-12 0;
+    }
+
+    ul, li::before {
+        color: $grey;
+    }
+}
+
+.title {
+    padding-bottom: $spacing-12;
+    margin-bottom: $spacing-12;
+    border-bottom: 1px solid $primaryColor-13;
+}
+
+.icon {
+    margin-right: $spacing-8;
+
+    svg, img {
+        height: 20px;
+    }
+}
