@@ -30,7 +30,7 @@ class PaymentBox extends React.Component{
         this.projectData(this.props);
         setInterval(() => this.funcVerifyUserWalletDate() , 0)
         setInterval(() => this.parseMillisecondsIntoReadableTime() , 0)
-        this.startCountdown(document.getElementById('canvas'));
+        
         this.timerInterval = setInterval(() => {
         const { seconds, minutes } = this.state;
         if (seconds > 0) {
@@ -53,8 +53,12 @@ class PaymentBox extends React.Component{
     }
 
     componentWillReceiveProps(props){
-        this.projectData(props);
-        this.parseMillisecondsIntoReadableTime();
+        if(props !== this.props) {
+            this.projectData(props);
+            this.parseMillisecondsIntoReadableTime();
+            this.funcVerifyUserWalletDate();
+        }
+        
     }
 
     projectData = async (props) => {
@@ -76,6 +80,7 @@ class PaymentBox extends React.Component{
             walletImage : _.isEmpty(appWallet.image) ? wallet.currency.image : appWallet.image
         });
         this.funcToGetValue();
+        this.verifyTime();
     }
 
     funcVerifyUserWalletDate = async() => {
@@ -89,6 +94,15 @@ class PaymentBox extends React.Component{
         }else{
             return false;
          }
+    }
+
+    verifyTime = () => {
+        const { seconds, minutes } = this.state;
+        if(seconds === 0 && minutes === 0){
+            return null;
+        }else{
+            this.startCountdown(document.getElementById('canvas'));
+        }
     }
 
     funcVerification = async() => {
@@ -160,7 +174,7 @@ class PaymentBox extends React.Component{
         const radius = Math.min(width, height) / 2;
       
         const startTime = Date.now();
-        const endTime = startTime + (this.funcVerificationTime()  * 1000);
+        const endTime = startTime + (60  * 1000);
       
         const renderCountdown = (currentValue) => {
           const start = THREE_PI_BY_TWO;
@@ -195,7 +209,7 @@ class PaymentBox extends React.Component{
             }
       
             const elapsedTime = (Date.now() - startTime) / 1000;
-            const currentValue = DEFAULT_VALUE * Math.max(0, this.funcVerificationTime() - elapsedTime) / 60
+            const currentValue = DEFAULT_VALUE * Math.max(0,  60 - elapsedTime) /  60
             renderCountdown(currentValue);
           }, TIMER_INTERVAL);
         });
@@ -235,7 +249,6 @@ class PaymentBox extends React.Component{
         });
 
         this.setState({ disabledFreeButton: true });
-        this.funcVerifyUserWalletDate();
         await this.userUpdateBalance();
     } catch (err) {
       console.log(err);
@@ -265,6 +278,7 @@ class PaymentBox extends React.Component{
             const seconds = (minutes - absoluteMinutes) * 60;
             const absoluteSeconds = Math.floor(seconds);
             const s = absoluteSeconds > 9 ? absoluteSeconds : absoluteSeconds;
+
             this.setState({
                 hours: h,
                 minutes: m,
