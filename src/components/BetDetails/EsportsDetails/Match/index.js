@@ -35,7 +35,7 @@ class Match extends Component {
     }
 
     projectData = async (props) => {
-        const { bet, match } = this.props;
+        const { bet, match } = props;
         let { opponent1, opponent2 } = this.state;
         const images = require.context('assets/esports', true);
         const gameImage = images('./' + match.videogame.slug + '-ico.png');
@@ -148,7 +148,7 @@ class Match extends Component {
                                 </div>
                             </div>
                             <div styleName="right">
-                                <Typography variant={'x-small-body'} color={'white'}>{(1 / result.statistic).toFixed(2)}</Typography>
+                                <Typography variant={'x-small-body'} color={'white'}>{result.odd}</Typography>
                             </div>
                         </div>
                     </div>
