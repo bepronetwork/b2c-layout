@@ -22,6 +22,7 @@
     justify-content: center;
 }
 
+
 .container-button-timer{
     display: flex;
     align-items: center;
@@ -53,8 +54,13 @@
 
 .digital-text{
     font-family: 'Orbitron', sans-serif;
+    color: white;
     font-size: 30px;
-    
+}
+
+.digital-text-bottom{
+    font-family: $font-family;
+    font-size: $font-size-x-small-body;
     color: white;
 }
 

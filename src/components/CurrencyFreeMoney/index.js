@@ -39,9 +39,9 @@ class CurrencyFreeMoney extends Component {
               </div>
             }
           </div>
-          <Typography variant="x-small-body" color="white" weight="bold">
-            To next replenish
-          </Typography>
+          <div styleName="digital-text-bottom">
+            To the next replenish
+          </div>
         </div>
       </div>
     );
