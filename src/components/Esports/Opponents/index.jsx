@@ -16,6 +16,7 @@ class Opponents extends Component {
         super(props);
         this.state = {
             opponent1: {
+                participant_id: 0,
                 location: null,
                 image: null,
                 name: "Team 1",
@@ -23,6 +24,7 @@ class Opponents extends Component {
                 odd: null
             },
             opponent2: {
+                participant_id: 0,
                 location: null,
                 image: null,
                 name: "Team 2",
