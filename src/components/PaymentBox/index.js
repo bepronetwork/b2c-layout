@@ -53,6 +53,7 @@ class PaymentBox extends React.Component{
     }
 
     componentWillReceiveProps(props){
+        this.setState({ isCanvasRenderer: true })
         if(props !== this.props) {
             this.projectData(props);
             this.parseMillisecondsIntoReadableTime();
@@ -63,7 +64,7 @@ class PaymentBox extends React.Component{
         const { wallet } = props;
         const { isCanvasRenderer } = this.state;
         const virtual = getApp().virtual;
-       
+        this.setState({ isCanvasRenderer: false })
         if (virtual === true) {
             const virtualCurrency = getApp().currencies.find(c => c.virtual === true);
             if(wallet.currency.virtual !== true && virtualCurrency) {
