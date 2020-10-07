@@ -3,6 +3,7 @@
 .root {
     text-align: center;
     padding: $spacing-16 0;
+    height: 100%;
 
     @include Breakpoint-mobileOnly {
       padding: 0;
@@ -44,6 +45,11 @@
 
 .image {
   height: 80px;
+
+  @include Breakpoint-mobileOnly {
+    height: auto;
+    width: 250px;
+  }  
 }
 
 .logo{

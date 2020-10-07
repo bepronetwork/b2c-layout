@@ -302,7 +302,7 @@ class Footer extends Component {
                         <Row>
                             {logo && logo.id ?
                                     <div className="col-md-3" styleName="col">
-                                        <img src={logo.id} style={{height : 40}}/>
+                                        <img src={logo.id} style={{width : 140}}/>
                                     </div>
                                 :
                                     null

@@ -68,9 +68,10 @@
     .container-root{
         display: flex;
         flex-direction: column;
+        padding-top: $spacing-28;
     }
     .container-button-timer{
-        margin-top: 10px;
+        margin-top: $spacing-12;
     }
 }
 
