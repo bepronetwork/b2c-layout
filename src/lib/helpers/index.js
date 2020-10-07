@@ -291,7 +291,7 @@ function formatDrawBet(drawId, odd, matchId, matchName, gameImage, amount) {
 function getIcon(index) {
     const { icons } = Cache.getFromCache("appInfo") ? Cache.getFromCache("appInfo").customization : {};
 
-    if(icons.useDefaultIcons !== true) {
+    if(typeof icons.useDefaultIcons != "undefined" && icons.useDefaultIcons !== true) {
         const icon = icons.ids.find(i => (i.position == index));
         return icon ? icon.link : null;
     }
