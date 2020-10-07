@@ -8,8 +8,6 @@ import { Col, Row } from 'reactstrap';
 import store from "../../../containers/App/store";
 import { setWithdrawInfo } from "../../../redux/actions/withdraw";
 import { getApp } from "../../../lib/helpers";
-import building from 'assets/blockchain.png';
-import loading from 'assets/loading.gif';
 import _ from 'lodash';
 import { CopyText } from '../../../copy';
 
@@ -97,7 +95,7 @@ class AmountWithdrawForm extends Component {
         if(!isLoaded){
             return (
                 <div>
-                    <img src={loading} styleName='loading-gif'/>
+                    <img src={process.env.PUBLIC_URL + "/loading.gif"} styleName='loading-gif'/>
                 </div>
             )
         }
@@ -151,7 +149,7 @@ class AmountWithdrawForm extends Component {
                 </div>
                 :
                 <div>
-                        <img src={building} styleName="building-img"/>
+                        <img src={process.env.PUBLIC_URL + "/logo.png"} styleName="building-img"/>
                         <div styleName="building-info">
                             <Typography variant={'small-body'} color={`white`}>
                                 {copy.INDEX.TYPOGRAPHY.TEXT[0]}

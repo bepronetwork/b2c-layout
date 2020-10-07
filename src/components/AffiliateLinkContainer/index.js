@@ -54,6 +54,7 @@ class AffiliateLinkContainer extends React.Component{
         const copy = CopyText.affiliateLinkContainerIndex[ln];
         const { skin } = getAppCustomization();
         const styles = classNames("link-text-container", {"ad-copied": copied});
+        const addressStyles = classNames("address", {"ad-copied": copied});
         const copyIcon = getIcon(27);
 
         return (
@@ -69,40 +70,35 @@ class AffiliateLinkContainer extends React.Component{
                             </Typography>
                         </div>
                     </div>
-        
-                    <div styleName='text-container'>
-                        <Row>
-                            <Col xs={12} md={10} lg={8} xl={10}>
-                                {copied ? (
-                                    <div styleName="copied">
-                                        <Typography variant="small-body" color={'white'}>
-                                            Copied
-                                        </Typography>
-                                    </div>
-                                ) : null}
-                                <div styleName={styles}>
-                                    <Typography variant={'x-small-body'} color={skin.skin_type == "digital" ? `secondary` : 'casper'}>
-                                        {URL_REF + link}
-                                    </Typography>
-                                </div>
-                            </Col>
-                            <Col xs={12} md={2} lg={4} xl={2}>
-                                <button onClick={this.copyToClipboard} styleName='text-copy-container'>
-                                    {
-                                        skin.skin_type == "digital"
-                                        ?
-                                            <div styleName="icon">
-                                                {copyIcon === null ? <CopyIcon /> : <img src={copyIcon} />}
-                                            </div>
-                                        :
-                                            null
-                                    }
-                                    <Typography variant={'x-small-body'} color={'fixedwhite'}>
-                                        {copy.INDEX.TYPOGRAPHY.TEXT[0]}
-                                    </Typography>
-                                </button>
-                            </Col>
-                        </Row>
+                    {copied ? (
+                        <div styleName="copied">
+                            <Typography variant="small-body" color={'white'}>
+                                Copied
+                            </Typography>
+                        </div>
+                    ) : null}
+                    <div styleName={addressStyles}>
+                        <div styleName='link-text-container'>
+                            <Typography variant={'x-small-body'} color={skin.skin_type == "digital" ? `white` : `casper`}>
+                                {URL_REF + link}
+                            </Typography>
+                        </div>
+                        <div>
+                            <button onClick={this.copyToClipboard} styleName='text-copy-container'>
+                                {
+                                    skin.skin_type == "digital"
+                                    ?
+                                        <div styleName="icon">
+                                            {copyIcon === null ? <CopyIcon /> : <img src={copyIcon} />}
+                                        </div>
+                                    :
+                                        null
+                                }
+                                <Typography variant={'small-body'} color={'fixedwhite'}>
+                                    {copy.INDEX.TYPOGRAPHY.TEXT[0]}
+                                </Typography>
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>

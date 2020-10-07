@@ -1,0 +1,77 @@
+@import "../../../styles/all.css";
+
+
+.filter-matches {
+    margin-top: $spacing-8;
+    display: initial;
+
+    @media screen and (max-width: 767px) {
+      display: none;
+    }
+}
+
+.filter-match {
+    display: inline;
+    cursor: pointer;
+
+    display: -webkit-inline-box;
+    display: inline-flex;
+    margin-right: $spacing-8;
+    margin-bottom: $spacing-8;
+    background-color: $primaryColor;
+    padding: $spacing-8 $spacing-8;
+    border-radius: $border-radius;
+    align-items: center;
+    height: 42px;
+  
+    div {
+      float: left;
+    }
+}
+
+.all {
+    float: left;
+    background-color: $primaryColor;
+    padding: $spacing-12 $spacing-20;
+    border-radius: $border-radius;
+    margin: 0 $spacing-12 $spacing-8 0;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    white-space: nowrap;
+    height: 42px;
+}
+  
+.all-selected {
+    margin-left: $spacing-8;
+    background-color: $secondaryColor;
+    padding: $spacing-4;
+    border-radius: $border-radius;
+}
+
+.selected {
+      border: 2px solid $secondaryColor;
+}
+
+.not-selected {
+  opacity: 0.5;
+}
+
+.skeleton-filter-match {
+  display: inline;
+  cursor: pointer;
+  margin-right: $spacing-16;
+
+  div {
+    float: left;
+  }
+}
+
+.match-name {
+  margin-left: $spacing-8;
+
+  p {
+    line-height: 1.5em;
+    height: 1.5em;
+  }
+}

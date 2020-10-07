@@ -12,7 +12,8 @@ import {
   getCurrencyAddress,
   resendConfirmEmail,
   getJackpotPot,
-  getProviderToken
+  getProviderToken,
+  sendFreeCurrencyRequest
 } from "lib/api/users";
 import { Numbers } from "../../lib/ethereum/lib";
 import Cache from "../../lib/cache/cache";
@@ -179,12 +180,24 @@ export default class User {
         await this.updateUserState();
     }
 
+    updateBalanceWithoutBet = async ({amount}) => {
+        const state = store.getState();
+        const { currency } = state;
+
+        this.user.wallet.forEach((w) => {
+            if(new String(w.currency._id).toString().toLowerCase() == new String(currency._id).toString().toLowerCase()) {
+                w.playBalance = w.playBalance + amount;
+            }
+        });
+
+        await this.updateUserState();
+    }
+
     updateUserState = async () => {
-        /* Add Everything to the Redux State */  
         await store.dispatch(setProfileInfo(this));
     }
 
-    getMyBets = async ({size, game}) => {
+    getMyBets = async ({size, game, slug, tag}) => {
         try{
             // grab current state
             const state = store.getState();
@@ -196,7 +209,9 @@ export default class User {
                     currency : currency._id,      
                     user: this.user_id,
                     size,
-                    game
+                    game,
+                    slug,
+                    tag
                 }, this.bearerToken);
                 return await processResponse(res);
             }else{
@@ -504,6 +519,10 @@ export default class User {
         return this.user.kyc_status;
     }
 
+    lastTimeFree = async () => {
+        return this.user.lastTimeCurrencyFree;
+    }
+
 
     getJackpotPot = async ({currency_id}) => {
         try {
@@ -541,6 +560,23 @@ export default class User {
                 user: this.user_id,
                 game_id,
                 ticker
+            }, this.bearerToken);
+
+            return await processResponse(res);
+      
+        }catch(err){
+            console.log(err)
+            throw err;
+        }
+    }
+
+    sendFreeCurrencyRequest = async ({currency_id}) => {
+        try {
+            if(!this.user_id){return []}
+            let res = await sendFreeCurrencyRequest({     
+                app: this.app_id,        
+                user: this.user_id,
+                currency : currency_id
             }, this.bearerToken);
 
             return await processResponse(res);

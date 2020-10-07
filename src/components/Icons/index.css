@@ -1,7 +1,7 @@
 @import "../../styles/all.css";
 
 .close-cross {
-  fill: $casper;
+  fill: white;
 }
 
 .close-cross:hover {

@@ -73,7 +73,7 @@ class ThirdPartyGames extends Component {
     }
 
     linkToGameListPage(id) {
-        const url = id === null ? `/casino/games/all` : `/casino/games/${id}`;
+        const url = id === null ? `/games/all` : `/games/${id}`;
         this.props.history.push(url);
     }
 

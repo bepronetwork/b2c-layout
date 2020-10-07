@@ -12,6 +12,13 @@ function dateToHourAndMinute(date){
     return moment(new Date(date)).fromNow();
 }
 
+function formatToBeautyDate(date) {
+    return moment(new Date(date)).format("h:mm a, MMMM Do YYYY")
+}
+
+function formatToSimpleDate(date) {
+    return moment(new Date(date)).format("Do MMMM YYYY")
+}
 
 function fromSmartContractTimeToMinutes(time){
     return moment().startOf('day')
@@ -230,6 +237,57 @@ function loadWheelOptions(game){
     return options;
 }
 
+function formatOpponentData(match, index, gameImage) {
+    const opponentId = match.opponents[index].opponent.id;
+    const oddType = _.isEmpty(match.odds) ? [] : match.odds.winnerTwoWay.length > 0 ? match.odds.winnerTwoWay : match.odds.winnerThreeWay;
+
+    const opponent = {
+        type: _.isEmpty(match.odds) ? null : match.odds.winnerTwoWay.length > 0 ? "winnerTwoWay" : "winnerThreeWay",
+        odd: oddType.find(o => o.participant_id == opponentId),
+        image: match.opponents[index].opponent.image_url != null ? match.opponents[index].opponent.image_url : gameImage,
+        name: match.opponents[index].opponent.name,
+        location: match.opponents[index].opponent.location,
+        score: match.results.find(r => r.team_id == opponentId).score,
+        id: opponentId
+    };
+
+    return opponent;
+}
+
+function formatOpponentBet(opponent, matchId, matchName, amount) {
+
+    const opponentBet = { 
+        id: opponent.odd.participant_id,
+        image: opponent.image,
+        title: matchName,
+        name: opponent.name + " - Winner, Full Match",
+        odd: opponent.odd.odd,
+        type: opponent.type,
+        position: opponent.odd.position,
+        matchId,
+        amount
+    };
+
+    return opponentBet;
+}
+
+function formatDrawBet(drawId, odd, matchId, matchName, gameImage, amount) {
+
+    const opponentBet = { 
+        id: drawId,
+        image: gameImage,
+        title: matchName,
+        name: "Draw - Winner, Full Match",
+        odd: odd.odd,
+        type: "winnerThreeWay",
+        position: odd.position,
+        matchId,
+        amount
+    }
+
+    return opponentBet;
+}
+
 function getIcon(index) {
     const { icons } = Cache.getFromCache("appInfo") ? Cache.getFromCache("appInfo").customization : {};
 
@@ -254,7 +312,8 @@ function convertAmountProviderBigger(ticker, value) {
 }
 
 export { 
-    dateToHourAndMinute, getAppCustomization, 
+    dateToHourAndMinute, formatToBeautyDate, 
+    formatToSimpleDate, getAppCustomization, 
     fromSmartContractTimeToMinutes, getGames, 
     isUserSet, getMinutesfromSeconds, 
     getQueryVariable,  getGeo,
@@ -265,6 +324,9 @@ export {
     getWebsite,
     getAddOn,
     loadWheelOptions,
+    formatOpponentData,
+    formatOpponentBet,
+    formatDrawBet,
     getIcon,
     convertAmountProviderBigger
 }

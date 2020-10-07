@@ -26,13 +26,23 @@ class RegisterForm extends Component {
         email: "",
         emailValid: false,
         isLoading: false,
-        isConfirmed: false
+        isConfirmed: false,
+        terms: null
     };
 
     componentDidMount(){
+        this.projectData(this.props)
     }
 
-    componentWillReceiveProps(){
+    componentWillReceiveProps(props){
+        this.projectData(props);
+    }
+
+    projectData = async (props) => {
+        const { footer } = getAppCustomization();
+        const terms = footer.supportLinks.find(s => { return s.name.trim().toLowerCase() === "terms of service"});
+
+        this.setState({ terms });
     }
 
     handleSubmit = async event => {
@@ -50,12 +60,12 @@ class RegisterForm extends Component {
     };
 
     formIsValid = () => {
-        const { password, username, emailValid, isConfirmed } = this.state;
+        const { password, username, emailValid, isConfirmed, terms } = this.state;
         return (
         username !== "" &&
         emailValid &&
         password !== "" &&
-        isConfirmed === true
+        (!terms || isConfirmed === true)
         );
     };
 
@@ -90,11 +100,10 @@ class RegisterForm extends Component {
 
     render() {
         const { error } = this.props;
-        const { username, password, email, isLoading, isConfirmed } = this.state;
+        const { username, password, email, isLoading, isConfirmed, terms } = this.state;
         const {ln} = this.props;
         const copy = CopyText.registerFormIndex[ln];
-        const { skin, footer } = getAppCustomization();
-        const terms = footer.supportLinks.find(s => { return s.name.trim().toLowerCase() === "terms of service"});
+        const { skin } = getAppCustomization();
 
         return (
         <form onSubmit={this.handleSubmit}>
@@ -121,34 +130,30 @@ class RegisterForm extends Component {
             onChange={this.onEmailChange}
             value={email}
             />
-
-            <div styleName="agree">
-                <div styleName="agree-main">
-                    <div>
-                        {
-                            skin.skin_type == "digital" 
-                            ?
-                                <Toggle id={'isConfirmed'} checked={isConfirmed} onChange={() => this.onHandlerConfirm()} showText={false}/>
-                            :
-                                <Checkbox onClick={() => this.onHandlerConfirm()} isSet={isConfirmed} id={'isConfirmed'}/>
-                        }
-                    </div>
-                    <div styleName="agree-right">
-                        {
-                            terms 
-                            ?
+            {
+            terms 
+            ?
+                <div styleName="agree">
+                    <div styleName="agree-main">
+                        <div>
+                            {
+                                skin.skin_type == "digital" 
+                                ?
+                                    <Toggle id={'isConfirmed'} checked={isConfirmed} onChange={() => this.onHandlerConfirm()} showText={false}/>
+                                :
+                                    <Checkbox onClick={() => this.onHandlerConfirm()} isSet={isConfirmed} id={'isConfirmed'}/>
+                            }
+                        </div>
+                        <div styleName="agree-right">
                             <Typography color="white" variant="x-small-body">
-                                I Agree with  <a href={terms.href} target={'_blank'}> Terms & Conditions </a>
+                                I Agree with the <a href={terms.href} target={'_blank'}> Terms & Conditions </a>
                             </Typography>
-                            :
-                            <Typography color="white" variant="x-small-body">
-                                I Agree with Terms & Conditions
-                            </Typography>
-                        }
+                        </div>
                     </div>
                 </div>
-            </div>
-
+            :
+                null
+            }
             <div styleName="error">
             {error ? (
                 <Typography color="red" variant="small-body" weight="semi-bold">

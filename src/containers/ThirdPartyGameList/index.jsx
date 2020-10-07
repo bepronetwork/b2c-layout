@@ -1,9 +1,9 @@
 import React, { Component } from "react";
-import { Typography, ThirdPartyGameCard, Button } from 'components';
+import { Typography, ThirdPartyGameCard, ThirdPartyProviderSelector, Button } from 'components';
 import { connect } from "react-redux";
 import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
 import { getProvidersGames } from "../../lib/api/app";
-import { getSkeletonColors } from "../../lib/helpers";
+import { getSkeletonColors, getApp } from "../../lib/helpers";
 import { LinearProgress } from '@material-ui/core';
 import queryString from 'query-string';
 import _ from 'lodash';
@@ -15,8 +15,8 @@ class ThirdPartyGameList extends Component {
         super(props);
         this.state = {
             games: [],
+            providers: [],
             providerId: null,
-            providerName: "All",
             isLoading: true,
             total: 0,
             quantity: 0
@@ -33,45 +33,53 @@ class ThirdPartyGameList extends Component {
 
     projectData = async (props) => {
         const { params } = props.match;
-        this.setState({ isLoading: true });
 
         let providerId = String(params.providerGameId);
-        const games = providerId === "all" ?await getProvidersGames() : await getProvidersGames({ providerEco: providerId });
-        
-        this.formatGames(games, providerId);
+        this.changeProvider(providerId);
+        const providers = getApp().casino_providers.filter(p => p.activated === true);
 
-        this.setState({ isLoading: false, providerId });
+        this.setState({ providerId, providers });
     }
 
-    formatGames(games, providerId) {
+    formatGames(games) {
         let { quantity } = this.state;
         let gameList = [];
-        let providerName;
 
         games.map( p => {
             const url = p.api_url;
             const provider = p.name;
             const partnerId = p.partner_id;
-            providerName = p.name;
 
-            p.list.games.map( g => { 
-                const icon = url + g.icon;
-                const game = {
-                    id: g.id,
-                    url,
-                    partnerId,
-                    provider,
-                    icon,
-                    title: g.title
-                }
-                gameList.push(game);
-            });
+            if(typeof p.list.games != "undefined") {
+                p.list.games.map( g => { 
+                    const icon = url + g.icon;
+                    const game = {
+                        id: g.id,
+                        url,
+                        partnerId,
+                        provider,
+                        icon,
+                        title: g.title
+                    }
+                    gameList.push(game);
+                });
+            }
         });
 
         const total = gameList.length;
         quantity = (quantity + 18) > total ? total : quantity + 18;
 
-        this.setState({ games: gameList, total, quantity, providerName: providerId === "all" ? "All" : providerName });
+        this.setState({ games: gameList, total, quantity });
+    }
+
+    changeProvider = async (providerId) => {
+        this.setState({ isLoading: true });
+
+        const games = providerId === "all" ? await getProvidersGames() : await getProvidersGames({ providerEco: providerId });
+        
+        this.formatGames(games, providerId);
+
+        this.setState({ isLoading: false, providerId });
     }
 
     createSkeletonGames = () => {
@@ -116,7 +124,7 @@ class ThirdPartyGameList extends Component {
 
     render() {
         const { onHandleLoginOrRegister, history } = this.props;
-        const { games, isLoading, providerName, total, quantity } = this.state;
+        const { games, isLoading, total, quantity, providerId, providers } = this.state;
 
         return (
             <div styleName="container">
@@ -133,11 +141,9 @@ class ThirdPartyGameList extends Component {
                 <div>
                     <div styleName="provider">
                         <Typography variant="x-small-body" color="white">
-                            Provider:
+                            Provider
                         </Typography>
-                        <Typography variant="small-body" color="white">
-                            {providerName}
-                        </Typography>
+                        <ThirdPartyProviderSelector providers={providers} providerId={providerId} onChangeProvider={this.changeProvider}/>  
                     </div>
                     <div styleName="container-small">
                         {games.slice(0, quantity).map(g => {

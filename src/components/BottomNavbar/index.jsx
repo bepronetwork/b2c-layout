@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
-import { Typography, LanguageSelector, BetsIcon, DepositIcon, ChatIcon, CasinoIcon } from "components";
+import { withRouter } from 'react-router-dom';
+import { Typography, LanguageSelector, BetsIcon, DepositIcon, ChatIcon, CasinoIcon, UsersIcon } from "components";
 import UserContext from "containers/App/UserContext";
 import { connect } from "react-redux";
 import { CopyText } from '../../copy';
@@ -15,7 +15,26 @@ class BottomNavbar extends Component {
 
     constructor(props) {
         super(props);
-        this.state = {  ...defaultProps };
+        this.state = {  ...defaultProps,
+            gameType: "casino"
+        };
+    }
+
+
+    componentDidMount(){
+        this.projectData(this.props)
+    }
+
+    componentWillReceiveProps(props){
+        this.projectData(props);
+    }
+    
+    projectData = async (props) => {
+        const curPath = props.location.pathname;
+
+        this.setState({
+            gameType: curPath.includes("esports") ? "esports" : "casino"
+        })
     }
 
     openDeposit = () => {
@@ -24,34 +43,51 @@ class BottomNavbar extends Component {
         !_.isEmpty(profile) ? onMenuItem({history, path : "/settings/wallet"}) : onLoginRegister('login');
     }
 
-    homeClick = () => {
-        const { onHome, history } = this.props;
-        onHome({ history });
+    homeClick = (homepage) => {
+        this.setState({ gameType: homepage })
+        this.props.history.push(`/${homepage}`);
     };
 
 
     render() {
+        const { gameType } = this.state;
         const {ln, onChat, onBetsList} = this.props;
         const copy = CopyText.navbarIndex[ln]; 
         const chatIcon = getIcon(2);
         const betsIcon = getIcon(16);
         const casinoIcon = getIcon(32);
         const depositIcon = getIcon(18);
+        const usersIcon = getIcon(1);
 
         return (
             <div styleName="bottom-menu">
                 <ul styleName="bottom-menu-list">
                     <li>
-                        <a href="#" onClick={this.homeClick}>
-                            <span styleName="item">
-                                <div styleName="icon">
-                                    { casinoIcon === null ? <CasinoIcon /> : <img src={casinoIcon} /> }
-                                </div>
-                                <Typography variant="x-small-body" color="grey">
-                                    {copy.INDEX.TYPOGRAPHY.TEXT[3]}
-                                </Typography>
-                            </span>
-                        </a>
+                        {
+                            gameType == "casino"
+                            ?
+                                <a href="#" onClick={() => this.homeClick("esports")}>
+                                    <span styleName="item">
+                                        <div styleName="icon">
+                                            { usersIcon === null ? <UsersIcon /> : <img src={usersIcon} /> }
+                                        </div>
+                                        <Typography variant="x-small-body" color="grey">
+                                            Esports
+                                        </Typography>
+                                    </span>
+                                </a>  
+                            :
+                                <a href="#" onClick={() => this.homeClick("")}>
+                                    <span styleName="item">
+                                        <div styleName="icon">
+                                            { casinoIcon === null ? <CasinoIcon /> : <img src={casinoIcon} /> }
+                                        </div>
+                                        <Typography variant="x-small-body" color="grey">
+                                            {copy.INDEX.TYPOGRAPHY.TEXT[3]}
+                                        </Typography>
+                                    </span>
+                                </a>
+                        }
                     </li>
                     <li>
                         <a href="#" onClick={this.openDeposit}>
@@ -105,4 +141,4 @@ function mapStateToProps(state){
     };
 }
 
-export default connect(mapStateToProps)(BottomNavbar);
+export default connect(mapStateToProps)(withRouter(BottomNavbar));

@@ -9,11 +9,10 @@
 }
 
 .field{
-    grid-template-columns: 80px 260px;
+    grid-template-columns: 260px 260px;
     display: grid;
     margin-bottom: $spacing-20;
     gap: $spacing-28;
-    margin-left: 100px;
 }
 
 .label{
@@ -109,7 +108,7 @@
     }
     .field{
         width: 100%;
-        grid-template-columns: 1fr 1fr;
+        grid-template-columns: 100px 150px;
         margin-left: 0;
     }
 

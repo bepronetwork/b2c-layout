@@ -2,7 +2,13 @@ import React, { Component } from "react";
 import { Router, Switch, Route } from "react-router-dom";
 import { createBrowserHistory } from "history";
 import { find } from "lodash";
+import CasinoHomePage from "containers/Casino";
+import EsportsHomePage from "containers/Esports";
+import EsportsMatchPage from "containers/Esports/MatchPage";
+import EsportsMatchesPage from "containers/Esports/AllMatches";
 import HomePage from "containers/HomePage";
+import Footer from "../Footer";
+import { LOCATION } from 'components/SubSections/properties';
 import ResetPassword from "containers/ResetPassword";
 import ConfirmEmail from "containers/ConfirmEmail";
 import {
@@ -21,7 +27,8 @@ import {
     PopupForm,
     BetDetails,
     Jackpot,
-    LiveChatIcon
+    LiveChatIcon,
+    SubSections
 } from "components";
 
 import PlinkoPage from "containers/PlinkoPage";
@@ -51,20 +58,27 @@ import LastBets from "../LastBets/HomePage";
 import { CopyText } from "../../copy";
 import { setCurrencyView } from "../../redux/actions/currency";
 import { setWithdrawInfo } from "../../redux/actions/withdraw";
-
 import { connect } from 'react-redux';
 import _ from 'lodash';
 import { setStartLoadingProcessDispatcher } from "../../lib/redux";
 import AccountPage from "../AccountPage";
 import { getQueryVariable, getAppCustomization, getIcon } from "../../lib/helpers";
+import routeChanges from "../../lib/helpers/analytics/routeChanges";
 import ChatChannel from "../../controllers/Chat";
 import AnnouncementTab from "../../components/AnnouncementTab";
 import { getCurrencyAddress } from "../../lib/api/users";
 import classNames from "classnames";
 import delay from 'delay';
 import MobileMenu from "../../components/MobileMenu";
+import { analyticsIdentify, analyticsPage } from '../../lib/helpers/analytics'
 
 const history = createBrowserHistory();
+
+routeChanges((route) => {
+    console.log('route changed', route)
+    analyticsPage();
+});
+
 class App extends Component {
     intervalID = 0;
 
@@ -159,6 +173,7 @@ class App extends Component {
             let user = await this.reloadUser(reponseUser);
             await user.updateUser();
             await this.setDefaultCurrency();
+            analyticsIdentify(user);
         }
         else {
             const app = Cache.getFromCache("appInfo");
@@ -299,6 +314,7 @@ class App extends Component {
             }else{
                 let user = await this.updateUser(response);
                 await user.updateUser();
+                analyticsIdentify(user);
                 this.setState({ registerLoginModalOpen: null, error: null});
             }
             /* Set currency */
@@ -322,6 +338,7 @@ class App extends Component {
             }else{
                 let user = await this.updateUser(response);
                 await user.updateUser();
+                analyticsIdentify(user);
                 this.setState({ registerLoginModalOpen: null, error: null, has2FA: false });
             }
             /* Set currency */
@@ -531,15 +548,13 @@ class App extends Component {
         const { tableDetailsOpen, tableDetails } = this.state;
 
         if (tableDetailsOpen) {
-            const { row } = tableDetails;
+            const { row, tag } = tableDetails;
 
             return (
                 <Modal onClose={this.handleTableDetailsModalClose}>
-                    {/*<DetailsTable onClose={this.handleTableDetailsModalClose} tableDetails={tableDetails} />*/}
-                    <BetDetails onClose={this.handleTableDetailsModalClose} tableDetails={tableDetails} betId={row.id} />
+                    <BetDetails onClose={this.handleTableDetailsModalClose} tableDetails={tableDetails} betId={row.id} tag={tag}/>
                 </Modal>
             )
-            
         }
 
         return null;
@@ -712,7 +727,7 @@ class App extends Component {
                 ) : null}
                 <Route
                     exact
-                    path="/casino/games/:providerGameId"
+                    path="/games/:providerGameId"
                     render={props => (
                         <ThirdPartyGameList
                         {...props}
@@ -723,7 +738,7 @@ class App extends Component {
                     />
                 <Route
                     exact
-                    path="/casino/game/:providerGameId"
+                    path="/game/:providerGameId"
                     render={props => (
                         <ThirdPartyGamePage
                         {...props}
@@ -820,6 +835,61 @@ class App extends Component {
                                                     />
                                             
                                                 )}
+                                                />
+                                            
+                                            {/*<Route
+                                                exact
+                                                path="/casino"
+                                                render={props => (
+                                                    <CasinoHomePage
+                                                        {...props}
+                                                        onHandleLoginOrRegister={this.handleLoginOrRegisterOpen}
+                                                        onTableDetails={this.handleTableDetailsOpen}
+                                                        history={history}
+                                                    />
+                                            
+                                                )}
+                                                />*/}
+
+                                            <Route
+                                                exact
+                                                path="/esports"
+                                                render={props => (
+                                                    <EsportsHomePage
+                                                        {...props}
+                                                        onHandleLoginOrRegister={this.handleLoginOrRegisterOpen}
+                                                        onTableDetails={this.handleTableDetailsOpen}
+                                                        history={history}
+                                                    />
+                                            
+                                                )}
+                                            />
+
+                                            <Route
+                                                exact
+                                                path="/esports/matches"
+                                                render={props => (
+                                                    <EsportsMatchesPage
+                                                        {...props}
+                                                        onHandleLoginOrRegister={this.handleLoginOrRegisterOpen}
+                                                        onTableDetails={this.handleTableDetailsOpen}
+                                                        history={history}
+                                                    />
+                                            
+                                                )}
+                                            />  
+
+                                            <Route
+                                                exact
+                                                path="/esports/:match"
+                                                render={props => (
+                                                    <EsportsMatchPage
+                                                        {...props}
+                                                        onHandleLoginOrRegister={this.handleLoginOrRegisterOpen}
+                                                        onTableDetails={this.handleTableDetailsOpen}
+                                                    />
+                                            
+                                                )}
                                             />
 
                                             <Route
@@ -889,6 +959,9 @@ class App extends Component {
                                             {this.renderGamePages({history})}
 
                                         </Switch>
+                                        <SubSections location={LOCATION.BEFORE_FOOTER} />
+                                        <Footer/>
+                                        <SubSections location={LOCATION.AFTER_FOOTER} />
                                     </div>
                                 </div>
                                 {

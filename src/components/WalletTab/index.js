@@ -184,31 +184,31 @@ class WalletTab extends React.Component {
     return(
             <div styleName="email-confirmation">
                 {
-                    tab === "deposit" ?
-                        <div styleName="email-title">
-                            <span styleName="icon">
-                                {emailIcon === null ? <EmailIcon/> : <img src={emailIcon} />}
-                            </span>
-                            <Typography variant={'small-body'} color={'grey'} weight={"bold"}>
-                                {copyConfirmEmail.CONTAINERS.APP.MODAL[2]}
-                            </Typography>
-                        </div>
-                        :
-                        <>
-                        <div styleName="container-end">
-                            <button styleName="close-button" onClick={() => this.onCloseTab()}>
-                                <CloseCross />
-                            </button>
-                        </div>
-                        <div styleName="container-direction email-title">
-                            <div styleName="center-text">
-                                <Typography variant={'small-body'} color={'grey'} weight={"bold"}>
-                                    {"Confirm KYC"}
-                                </Typography>
-                            </div>
-                        </div>
-                        </>
-                        }
+                  tab === "deposit" ?
+                      <div styleName="email-title">
+                          <span styleName="icon">
+                              {emailIcon === null ? <EmailIcon/> : <img src={emailIcon} />}
+                          </span>
+                          <Typography variant={'small-body'} color={'grey'} weight={"bold"}>
+                              {copyConfirmEmail.CONTAINERS.APP.MODAL[2]}
+                          </Typography>
+                      </div>
+                      :
+                      <>
+                      <div styleName="container-end">
+                          <button styleName="close-button" onClick={() => this.onCloseTab()}>
+                              <CloseCross />
+                          </button>
+                      </div>
+                      <div styleName="container-direction email-title">
+                          <div styleName="center-text">
+                              <Typography variant={'small-body'} color={'grey'} weight={"bold"}>
+                                  {"Confirm KYC"}
+                              </Typography>
+                          </div>
+                      </div>
+                    </>
+                }
                 <div styleName="email-content">
                     <div styleName="email-text">
                         <Typography variant={'x-small-body'} color={'white'}>
@@ -224,19 +224,19 @@ class WalletTab extends React.Component {
                     <div styleName="email-buttons"> 
                         <div styleName="button">
                             {
-                                tab === "deposit" ?
-                                    <Button size={'x-small'} theme={'action'} disabled={tab === "deposit"  ? isConfirmationSent : null} onClick={this.handleResendConfirmEmail}>
-                                        <Typography
-                                            color={skin == "digital" ? 'secondary' : 'fixedwhite'}
-                                            variant={'small-body'}
-                                        >
-                                            {copyConfirmEmail.CONTAINERS.APP.MODAL[2]}
-                                        </Typography>
-                                    </Button>
-                                :
-                                <div styleName="button">
-                                    {this.caseKycStatus()}
-                                </div>
+                              tab === "deposit" ?
+                                  <Button size={'x-small'} theme={'action'} disabled={tab === "deposit"  ? isConfirmationSent : null} onClick={this.handleResendConfirmEmail}>
+                                      <Typography
+                                          color={skin == "digital" ? 'secondary' : 'fixedwhite'}
+                                          variant={'small-body'}
+                                      >
+                                          {copyConfirmEmail.CONTAINERS.APP.MODAL[2]}
+                                      </Typography>
+                                  </Button>
+                              :
+                              <div styleName="button">
+                                  {this.caseKycStatus()}
+                              </div>
                             }
                         </div>
                     </div>

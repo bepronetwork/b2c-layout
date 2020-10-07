@@ -55,8 +55,13 @@
 
     .icon {
 
-        svg, img {
+        svg {
             width: 26px;
+        }
+
+        img {
+            width: 20px;
+            height: 20px;
         }
     }
 }

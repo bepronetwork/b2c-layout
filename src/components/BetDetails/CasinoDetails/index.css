@@ -1,0 +1,108 @@
+@import "../../../styles/all.css";
+
+.root {
+    width: 100%;
+    text-align: center;
+    display: grid;
+    grid-auto-columns: minmax(0px, 1fr);
+    overflow-y: auto;
+    min-height: 0px;
+    transform: translate3d(0px, 0px, 0px);
+    overflow-x: hidden;
+    height: 100%;
+}
+
+.rule-h1{
+    text-align: center;
+}
+
+.image-icon {
+    width : 60px;
+    margin-bottom: $spacing-12;
+}
+
+.bet {
+    display: grid;
+    width: 100%;
+    padding: 1em;
+    background: $primaryColor-2;
+    border-radius: $border-radius;
+    grid-template-columns: repeat(2, 1fr);
+}
+
+.bet-text {
+    width : 100%;
+    padding: $spacing-8 $spacing-20;
+    overflow: hidden;
+    display: inline-flex;
+    justify-content: center;
+
+    p {
+        margin-top: 2px;
+    }
+
+    img {
+        margin-left: $spacing-8;
+    }
+}
+
+.amount {
+    border-right: 1px solid $secondaryColor;
+}
+
+.win {
+}
+
+.game {
+    width: 100%;
+    display: grid;
+    grid-auto-columns: minmax(0px, 1fr);
+    justify-items: center;
+    padding: 2rem;
+    gap: 1.5rem;
+}
+
+.client {
+    grid-template-columns: auto auto;
+    display: grid;
+    gap: 4%;
+}
+
+.seed {
+    width: 100%;
+    display: grid;
+    justify-items: stretch;
+    padding: 2rem;
+    gap: 0.5em;
+    background: $primaryColor-5;
+}
+
+.element {
+    display: flex;
+    float: left;
+    width: 100%;
+}
+
+.label{
+    padding: $spacing-8 0;
+}
+
+.text{
+    width : 100%;
+    padding: $spacing-12 $spacing-20;
+    overflow: hidden;
+    border-radius : $border-radius;
+    background-color : $primaryColor-8;
+    word-break: break-all;
+    text-align: left;
+}
+
+.text-seed{
+    border : none;
+    padding: $spacing-8 $spacing-20;
+    border-radius :  $border-radius;
+    background-color: $light-background;
+    width : inherit;
+    height : $spacing-36;
+    text-align : center;
+}

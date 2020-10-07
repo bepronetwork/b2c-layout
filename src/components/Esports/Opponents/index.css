@@ -1,0 +1,161 @@
+@import "../../../styles/all.css";
+
+
+.teams {
+    display: flex;
+    flex-direction: row;
+    flex: 1.2;
+    justify-content: space-between;
+    min-width: 280px;
+  }
+
+.team {
+  height: $spacing-36;
+  display: flex;
+  align-items: center;
+  position: relative;
+  flex: 1;
+  justify-self: center;
+  align-self: center;
+  background-color: $primaryColor-5;
+  border-radius:  0 $border-radius $border-radius 0;
+  text-align: left;
+
+  img {
+    margin-right: $spacing-8;
+    margin-left: 0;
+  }
+
+  @media screen and (max-width: 767px) {
+    min-width: 86px;
+    white-space: normal;
+    padding: 0 $spacing-8;
+
+    img {
+      margin-right: $spacing-8;
+    }
+  } 
+}
+
+.team:before {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  width: 0;
+  height: 0;
+  border-top: 18px solid transparent;
+  border-bottom: 18px solid transparent;
+}
+
+.team1:before {
+  right: -20px;
+  border-left: 20px solid $primaryColor-5;
+}
+
+.team2:before {
+  left: -20px;
+  border-right: 20px solid $primaryColor-5;
+}
+
+.team1:before {
+  right: -20px;
+  border-left: 20px solid $primaryColor-5;
+}
+
+.team1:hover, .team2:hover {
+  background-color: $primaryColor-13;
+}
+
+.team1:hover:before {
+  border-left: 20px solid $primaryColor-13;
+}
+
+.team2:hover:before {
+  border-right: 20px solid $primaryColor-13;
+}
+
+.team-score-board {
+  background-color: unset;
+}
+
+.team-score-board:before {
+  border-top: unset;
+  border-bottom: unset;
+}
+
+.draw {
+  width: 56px;
+  height: 100%;
+  text-align: center;
+  background-color: $primaryColor-5;
+  border-radius: $border-radius;
+  padding: $spacing-4;
+  align-items: center;
+}
+
+.selected {
+  background-color: $secondaryColor;
+}
+
+.selected:hover {
+  background-color: $secondaryColor;
+}
+  
+.teams .team:first-child {
+    flex-direction: row-reverse;
+    text-align: right;
+    border-radius: $border-radius 0 0 $border-radius;
+  
+    img {
+      margin-left: $spacing-8;
+      margin-right: 0;
+    }
+}
+
+.team1.selected:before {
+  border-left: 20px solid $secondaryColor;
+}
+
+.team2.selected:before {
+  border-right: 20px solid $secondaryColor;
+}
+  
+.score {
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  margin: 0 $spacing-28;
+}
+  
+.vs {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 $spacing-28;
+    max-width: 112px;
+  
+    @media screen and (max-width: 1267px) and (min-width: 1024px) {
+      margin: 0 $spacing-4;
+    }
+  
+    @media screen and (max-width: 1023px) and (min-width: 768px) {
+    } 
+  
+    @media screen and (max-width: 767px) {
+    } 
+}
+
+.name {
+  margin: 0 $spacing-8;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+
+  p {
+    margin-top: 2px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 120px;
+  }
+}
