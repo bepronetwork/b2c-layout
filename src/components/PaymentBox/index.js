@@ -208,6 +208,7 @@ class PaymentBox extends React.Component{
             const now = Date.now();
             if (now > endTime) {
               clearInterval(id);
+              renderCountdown(360);
               return resolve();
             }
       
