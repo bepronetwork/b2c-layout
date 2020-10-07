@@ -23,24 +23,24 @@ class PaymentBox extends React.Component{
             minutes: 0,
             seconds: 0,
             amount: 0,
-            secondsToCanvas: 0
+            secondsToCanvas: 0,
+            isCanvasRenderer: false
         }
     }
 
     async componentDidMount(){
         this.projectData(this.props);
+        this.setState({ isCanvasRenderer: true })
         setInterval(() => this.parseMillisecondsIntoReadableTime() , 0)
-        
         this.timerInterval = setInterval(() => {
         const { seconds, minutes } = this.state;
         if (seconds > 0) {
             this.setState({ seconds: seconds - 1 });
         }
-
+        
         if (seconds === 0) {
             if (minutes === 0) {
-            clearInterval(this.timerInterval);
-            this.setState({ disabledFreeButton: false })
+
             } else {
             this.setState(({ minutes }) => ({
                 minutes: minutes - 1,
@@ -57,11 +57,11 @@ class PaymentBox extends React.Component{
             this.projectData(props);
             this.parseMillisecondsIntoReadableTime();
         }
-        
     }
 
     projectData = async (props) => {
         const { wallet } = props;
+        const { isCanvasRenderer } = this.state;
         const virtual = getApp().virtual;
        
         if (virtual === true) {
@@ -79,8 +79,10 @@ class PaymentBox extends React.Component{
             walletImage : _.isEmpty(appWallet.image) ? wallet.currency.image : appWallet.image
         });
         this.funcToGetValue();
-        this.verifyTime();
-        setInterval(() => this.funcVerifyUserWalletDate() , 0)
+        this.funcVerificationCurrency();
+        if(isCanvasRenderer){
+            this.verifyTime();
+        }
     }
 
     funcVerifyUserWalletDate = async() => {
@@ -96,12 +98,13 @@ class PaymentBox extends React.Component{
          }
     }
 
-    verifyTime = () => {
-        const { seconds, minutes } = this.state;
+    verifyTime = async() => {
+        const { seconds, minutes, isCanvasRenderer } = this.state;
+        const { wallet } = this.props;
         if(seconds === 0 && minutes === 0){
             this.setState({ disabledFreeButton: false });
         }else{
-            this.startCountdown(document.getElementById('canvas'));
+            this.startCountdown(document.getElementById(wallet.currency.name));
             this.setState({ disabledFreeButton: true });
         }
     }
@@ -199,13 +202,11 @@ class PaymentBox extends React.Component{
         }
       
         return new Promise(resolve => {
-          renderCountdown(0);
-      
+            renderCountdown(0);
           const id = setInterval(() => {
             const now = Date.now();
             if (now > endTime) {
               clearInterval(id);
-              renderCountdown(360);
               return resolve();
             }
       
@@ -252,6 +253,7 @@ class PaymentBox extends React.Component{
         this.setState({ disabledFreeButton: true });
         await this.userUpdateBalance();
         await profile.getAllData(true);
+        await this.verifyTime();
     } catch (err) {
       console.log(err);
       this.setState({ disabledFreeButton: false });
@@ -303,6 +305,7 @@ class PaymentBox extends React.Component{
         const { id, onClick } = this.props;
         if(onClick){
             onClick(id)
+            this.setState({ isCanvasRenderer: false });
         }
     }
 
@@ -314,7 +317,7 @@ class PaymentBox extends React.Component{
         });
 
         const walletValid = this.funcVerification();
-
+        
         return (
             <button onClick={this.onClick} styleName={styles} disabled={wallet.currency.virtual}>
                 <Col>
@@ -349,7 +352,7 @@ class PaymentBox extends React.Component{
                         <div styleName="bottom-line">
                             <Col xs={4} md={4} styleName="button-padding">
                                 <div styleName="border-radius">
-                                    <canvas id="canvas" width="30" height="30"></canvas>
+                                    <canvas id={wallet.currency.name} width="30" height="30"></canvas>
                                 </div>
                             </Col>
                             <Col xs={8} md={8} styleName="button-padding">
