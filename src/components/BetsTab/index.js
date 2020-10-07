@@ -6,6 +6,7 @@ import { getGames as getVideoGames } from "controllers/Esports/EsportsUser";
 import { SelectBox, Table, Tabs } from 'components';
 import { formatCurrency } from "../../utils/numberFormatation";
 import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
+import { apiUrlEsports } from "../../lib/api/apiConfig";
 import { CopyText } from "../../copy";
 import _ from 'lodash';
 import "./index.css";
@@ -102,7 +103,8 @@ const defaultProps = {
     options : [],
     view_game : allGames,
     isLoading: true,
-    isListLoading : true
+    isListLoading : true,
+    isEsportsEnabled : false
 }
 
 class BetsTab extends Component {
@@ -147,20 +149,24 @@ class BetsTab extends Component {
             casinoGamesOptions.push(n);
         });
 
+        const isEsportsEnabled = _.isEmpty(apiUrlEsports) ? false : true;
         const images = require.context('assets/esports', true);
-        esportsGames = await getVideoGames();
-        esportsGamesOptions.push(allGames);
-        esportsGames = esportsGames.filter(g => g.series.length > 0).map(g => {
-            g.image_url = images('./' + g.slug + '-ico.png');
-            return g;
-        });
-        esportsGames.map( (data) => {
-            const n = {
-                value :  data._id,
-                text : data.name
-            }
-            esportsGamesOptions.push(n);
-        });
+
+        if(isEsportsEnabled === true) {
+            esportsGames = await getVideoGames();
+            esportsGamesOptions.push(allGames);
+            esportsGames = esportsGames.filter(g => g.series.length > 0).map(g => {
+                g.image_url = images('./' + g.slug + '-ico.png');
+                return g;
+            });
+            esportsGames.map( (data) => {
+                const n = {
+                    value :  data._id,
+                    text : data.name
+                }
+                esportsGamesOptions.push(n);
+            });   
+        }
 
         games = view == "casino" ? casinoGames : esportsGames;
 
@@ -174,13 +180,16 @@ class BetsTab extends Component {
                 if(view == "casino") {
                     casinoRows = await profile.getMyBets({size : view_amount.value, game : games.find(g =>g.metaName === view_game.value)._id, tag: "casino"});
                 }
-                else if (view == "esports") {
+                else if (view == "esports" && isEsportsEnabled === true) {
                     esportsRows = await profile.getMyBets({size : view_amount.value, slug : games.find(g =>g._id === view_game.value).slug, tag: "esports"});
                 }
             }
             else {
                 casinoRows = await profile.getMyBets({size : view_amount.value, tag: "casino"});
-                esportsRows = await profile.getMyBets({size : view_amount.value, tag: "esports"});
+
+                if(isEsportsEnabled === true) {
+                    esportsRows = await profile.getMyBets({size : view_amount.value, tag: "esports"});
+                }
             }
         }
 
@@ -196,7 +205,8 @@ class BetsTab extends Component {
             esportsGamesOptions,
             casinoRows,
             esportsRows,
-            options : Object.keys(copy.TABLE).map( (key) => {
+            isEsportsEnabled,
+            options : Object.keys(copy.TABLE).filter((key) => (key != "ESPORTS" || (key === "ESPORTS" && isEsportsEnabled === true))).map( (key) => {
                 return {
                     value : new String(key).toLowerCase(),
                     label : copy.TABLE[key].TITLE
