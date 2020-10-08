@@ -66,7 +66,7 @@ class Banners extends Component {
                                     <div styleName={textStyles}>
                                         {
                                             banner.title || banner.subtitle || banner.button_text ?
-                                                <div style={{marginTop: "auto" }}>
+                                                <div styleName="banner-content">
                                                     <div styleName="fields">
                                                         <Typography color={'white'} variant={'h3'} weight={'bold'}>{banner.title}</Typography>
                                                     </div>
