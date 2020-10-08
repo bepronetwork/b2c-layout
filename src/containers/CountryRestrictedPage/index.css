@@ -40,7 +40,8 @@
 }
 
 .icon img{
-  width: 80px;
+  width: 50px;
+  margin: $spacing-8;
 }
 
 .image {

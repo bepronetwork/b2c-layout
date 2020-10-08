@@ -7,6 +7,7 @@
     box-shadow: 0 2px 4px 0 $primaryColor;
     background-color: $primaryColor-13;
     border-radius: 50%;
+    margin-left: $spacing-4;
 }
 
 .root-small {

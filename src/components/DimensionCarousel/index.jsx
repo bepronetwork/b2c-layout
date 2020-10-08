@@ -88,7 +88,7 @@ class DimensionCarousel extends React.Component {
 
         if(onMouseOver == true) { return null };
 
-        if (slideTotal > 1) {
+        if (slideTotal > 0) {
             if (slideCurrent < slideTotal) {
                 slideCurrent++;
             } else {
@@ -147,7 +147,7 @@ class DimensionCarousel extends React.Component {
     }
     slideLeft() {
         let { slideCurrent, slideTotal } = this.state;
-        if (slideTotal > 1) {
+        if (slideTotal > 0) {
             let preactiveSlide, proactiveSlide;
             let slide = this.state.slides;
             if (slideCurrent > 0) {

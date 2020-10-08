@@ -16,7 +16,10 @@ class CountryRestrictedPage extends Component {
         this.state = {
             logo: null,
             appName: null,
-            loading: true
+            loading: true,
+            emailIcon: null,
+            countryIcon: null,
+            affiliateReferralIcon: null
         };
     }
 
@@ -24,8 +27,11 @@ class CountryRestrictedPage extends Component {
         await this.updateAppInfo();
         const { logo } = await getAppCustomization();
         const info = await getApp();
+        const emailIcon = getIcon(11);
+        const countryIcon = getIcon(28);
+        const affiliateReferralIcon = getIcon(22);
 
-        this.setState({ logo : logo.id, appName : info.name, loading : false });
+        this.setState({ logo : logo.id, appName : info.name, loading : false, emailIcon, countryIcon, affiliateReferralIcon });
     };
 
     updateAppInfo = async () => {
@@ -35,11 +41,9 @@ class CountryRestrictedPage extends Component {
     };
 
     render() {
-        const { logo, appName, loading } = this.state;
+        const { logo, appName, loading, emailIcon, countryIcon, affiliateReferralIcon } = this.state;
         const { ln } = this.props;
         const copy = CopyText.countryRestrictedPage[ln];
-        const emailIcon = getIcon(11);
-        const countryIcon = getIcon(28);
 
         return (
             <div styleName="root">
@@ -76,7 +80,7 @@ class CountryRestrictedPage extends Component {
                                 </div>
                                 <div styleName="content">
                                     <span styleName="icon">
-                                        <AffiliateIcon/>
+                                        {affiliateReferralIcon === null ? <AffiliateIcon/> : <img src={affiliateReferralIcon} />}
                                     </span>
                                     <Typography variant={'body'} weight={'bold'} color={'casper'}>
                                         {copy.SUBTITLE[1](appName)}

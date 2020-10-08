@@ -30,7 +30,7 @@ class TeamsTable extends Component {
 
     projectData = async (props) => {
         let { hasPlayers } = this.state;
-        const { match } = props;
+        const { match, onShowStats } = props;
 
         const slug = match.videogame.slug;
         let team1 = match.opponents[0].opponent;
@@ -43,6 +43,9 @@ class TeamsTable extends Component {
             team2 = await getTeam(teamId2, slug);
 
             hasPlayers = true;
+        }
+        else {
+            onShowStats(false);
         }
 
         this.setState({
