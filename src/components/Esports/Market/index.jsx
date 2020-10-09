@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Typography } from 'components';
-import { OddsTable } from 'components/Esports';
+import { OddsTable, Live } from 'components/Esports';
 import { dateToHourAndMinute, formatToBeautyDate } from "../../../lib/helpers";
 import { connect } from 'react-redux';
 import _ from 'lodash';
@@ -28,6 +28,13 @@ class Market extends Component {
                             <Typography variant={'small-body'} color={'white'}>{dateToHourAndMinute(match.begin_at)}</Typography>
                         </div>
                     </div>
+                    {
+                        match.live_embed_url != null
+                        ?
+                            <Live streaming={match.live_embed_url} match={match} />
+                        :
+                            null                     
+                    }
                     <OddsTable match={match} />
                 </div>
             </div>
