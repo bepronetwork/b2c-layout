@@ -28,5 +28,8 @@ export default [
   },
   {
     metaName: "slots_simple"
+  },
+  {
+    metaName: "slide_simple"
   }
 ];
