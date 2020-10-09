@@ -1,1 +1,29 @@
 @import "../../../styles/all.css";
+
+
+.iframe {
+
+    iframe {
+        height: 338px;
+
+        @media screen and (max-width: 767px) {
+            height: 100%;
+        } 
+    }
+
+    .odds {
+
+        display: inline;
+
+        @media screen and (max-width: 1267px) and (min-width: 1024px) {
+        }
+    
+        @media screen and (max-width: 1023px) and (min-width: 768px) {
+            display: none;
+        } 
+    
+        @media screen and (max-width: 767px) {
+            display: none;
+        } 
+    }
+}
