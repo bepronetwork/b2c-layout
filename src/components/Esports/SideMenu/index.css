@@ -2,6 +2,7 @@
 
 .side-menu {
     background-color: $primaryColor;
+    height: 100%;
 
     @media screen and (max-width: 767px) {
         border-top: 1px solid $backgroundColor;
