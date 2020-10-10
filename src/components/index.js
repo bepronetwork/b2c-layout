@@ -149,6 +149,8 @@ import ThirdPartyGameCard from  './ThirdPartyGameCard';
 import ThirdPartyProviderSelector from  './ThirdPartyProviderSelector';
 import Info from  './Info';
 import CurrencyFreeMoney from './CurrencyFreeMoney';
+import SliderGame from './SliderGame';
+import SliderGameOptions from './SliderGameOptions';
 
 export { LegalBox };
 export { Authentication2FAModal };
@@ -301,3 +303,5 @@ export { ThirdPartyGameCard };
 export { Info };
 export { CurrencyFreeMoney };
 export { ThirdPartyProviderSelector };
+export { SliderGameOptions };
+export { SliderGame };

@@ -42,6 +42,7 @@ import DiamondPage from "../DiamondPage";
 import ThirdPartyGamePage from "../ThirdPartyGamePage";
 import ThirdPartyGameList from "../ThirdPartyGameList";
 import SlotsPage from "../SlotsPage";
+import SliderPage from "../SliderPage";
 
 import { login, login2FA, logout, register } from "lib/api/users";
 import getAppInfo from "lib/api/app";
@@ -760,7 +761,7 @@ class App extends Component {
                     exact
                     path="/slide_simple"
                     render={props => (
-                        <SlotsPage
+                        <SliderPage
                         {...props}
                         onHandleLoginOrRegister={this.handleLoginOrRegisterOpen}
                         onTableDetails={this.handleTableDetailsOpen}
