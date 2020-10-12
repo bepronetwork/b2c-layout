@@ -125,6 +125,18 @@
   align-items: center;
   display: flex;
   margin: 0 $spacing-28;
+    
+  @media screen and (max-width: 1267px) and (min-width: 1024px) {
+    margin: 0 $spacing-4;
+  }
+
+  @media screen and (max-width: 1023px) and (min-width: 768px) {
+    margin: 0 $spacing-4;
+  } 
+
+  @media screen and (max-width: 767px) {
+    margin: 0 $spacing-4;
+  } 
 }
   
 .vs {
@@ -139,9 +151,11 @@
     }
   
     @media screen and (max-width: 1023px) and (min-width: 768px) {
+      margin: 0 $spacing-4;
     } 
   
     @media screen and (max-width: 767px) {
+      margin: 0 $spacing-4;
     } 
 }
 
@@ -158,4 +172,16 @@
     text-overflow: ellipsis;
     max-width: 120px;
   }
+  
+  @media screen and (max-width: 1267px) and (min-width: 1024px) {
+    margin: 0 $spacing-4;
+  }
+
+  @media screen and (max-width: 1023px) and (min-width: 768px) {
+    margin: 0 $spacing-4;
+  } 
+
+  @media screen and (max-width: 767px) {
+    margin: 0 $spacing-4;
+  } 
 }

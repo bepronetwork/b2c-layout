@@ -39,7 +39,8 @@ const skinsPath = [
     { path: "src/containers/ThirdPartyGameList" },
     { path: "src/containers/Esports" },
     { path: "src/containers/App" },
-    { path: "src/components/ThirdPartyProviderSelector" }
+    { path: "src/components/ThirdPartyProviderSelector" },
+    { path: "src/components/Banners" }
 ]
 
 export default skinsPath;
