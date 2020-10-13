@@ -30,7 +30,7 @@ class Banners extends Component {
         const { ln } = this.props;
         let { banners } = getAppCustomization();
 
-        banners = banners.filter(b => b.language.isActivated === true && b.prefix === ln);
+        banners = banners.languages.find(b => b.language.isActivated === true && b.language.prefix === ln.toUpperCase());
 
         this.setState({ 
             banners : !_.isEmpty(banners) ? banners.ids : null,
