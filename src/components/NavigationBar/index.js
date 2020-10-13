@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { getAppCustomization } from "../../lib/helpers";
 import { Link } from "react-router-dom";
 import classNames from 'classnames';
-import { Typography, CasinoIcon, UsersIcon } from 'components';
+import { Typography } from 'components';
 import _ from 'lodash';
 import "./index.css";
 
@@ -31,7 +31,10 @@ class NavigationBar extends Component {
     }
     
     projectData = async (props) => {
-        const { topTab } = getAppCustomization();
+        const { ln } = props;
+        let { topTab } = getAppCustomization();
+
+        topTab = topTab.languages.find(t => t.language.isActivated === true && t.language.prefix === ln.toUpperCase());
 
         this.setState({ 
             tabs: _.isEmpty(topTab) ? [] : topTab.ids

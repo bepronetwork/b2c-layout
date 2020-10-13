@@ -121,10 +121,15 @@ class Footer extends Component {
     }
 
 
-    projectData = async () => {
+    projectData = async (props) => {
+        const { ln } = props;
         const info = getApp();
         const { footer, logo, theme, socialLink } = getAppCustomization();
-        this.setState({supportLinks : footer.supportLinks, communityLinks : footer.communityLinks, logo, info, theme, socialLink: socialLink.ids})
+
+        const supportLinks = footer.languages.find(f => f.language.isActivated === true && f.language.prefix === ln.toUpperCase()).supportLinks;
+        const communityLinks = footer.languages.find(f => f.language.isActivated === true && f.language.prefix === ln.toUpperCase()).communityLinks;
+
+        this.setState({supportLinks, communityLinks, logo, info, theme, socialLink: socialLink.ids})
     }
 
     render() {

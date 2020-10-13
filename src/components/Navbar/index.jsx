@@ -51,7 +51,9 @@ class Navbar extends Component {
     
     projectData = async (props) => {
         try{
-            const { topTab } = getAppCustomization();
+            const { ln } = props;
+            let { topTab } = getAppCustomization();
+            topTab = topTab.languages.find(t => t.language.isActivated === true && t.language.prefix === ln.toUpperCase());
             var user = !_.isEmpty(props.profile) ? props.profile : null;
 
             if(user){
