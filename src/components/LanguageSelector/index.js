@@ -8,6 +8,7 @@ import languages from "../../config/languages";
 import { setLanguageInfo } from "../../redux/actions/language";
 import { isUserSet, getAppCustomization, getIcon } from "../../lib/helpers";
 import classNames from "classnames";
+import _ from 'lodash';
 
 import "./index.css";
 
@@ -139,6 +140,8 @@ class LanguageSelector extends Component {
         const { language, open } = this.state;
         const { showArrow, size, color } = this.props;
         const skin = getAppCustomization().skin.skin_type;
+
+        if(_.isEmpty(language)) { return null };
 
         const styles = classNames("item", {
             itemHor: showArrow === true
