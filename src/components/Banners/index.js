@@ -27,7 +27,7 @@ class Banners extends Component {
     }
 
     projectData = async (props) => {
-        const { ln } = this.props;
+        const { ln } = props;
         let { banners } = getAppCustomization();
 
         banners = banners.languages.find(b => b.language.isActivated === true && b.language.prefix === ln.toUpperCase());

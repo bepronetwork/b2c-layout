@@ -26,7 +26,7 @@ class SubSections extends Component {
 
     projectData = async (props) => {
         let { subSections } = getAppCustomization();
-        const { location, ln } = this.props;
+        const { location, ln } = props;
 
         subSections = subSections.languages.find(s => s.language.isActivated === true && s.language.prefix === ln.toUpperCase());
 
