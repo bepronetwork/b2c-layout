@@ -6,6 +6,7 @@ import { connect } from "react-redux";
 import "./index.css";
 import { getAppCustomization, getApp } from "../../lib/helpers";
 import {CopyText} from "../../copy";
+import _ from 'lodash';
 
 import logoMadeByBepro_light from 'assets/media/logo_bepro.png';
 import logoMadeByBepro_dark from 'assets/media/logo_bepro-dark.png';
@@ -126,8 +127,11 @@ class Footer extends Component {
         const info = getApp();
         const { footer, logo, theme, socialLink } = getAppCustomization();
 
-        const supportLinks = footer.languages.find(f => f.language.isActivated === true && f.language.prefix === ln.toUpperCase()).supportLinks;
-        const communityLinks = footer.languages.find(f => f.language.isActivated === true && f.language.prefix === ln.toUpperCase()).communityLinks;
+        let supportLinks = footer.languages.find(f => f.language.isActivated === true && f.language.prefix === ln.toUpperCase());
+        supportLinks = (!_.isEmpty(supportLinks)) ? supportLinks.supportLinks : [];
+
+        let communityLinks = footer.languages.find(f => f.language.isActivated === true && f.language.prefix === ln.toUpperCase());
+        communityLinks = (!_.isEmpty(communityLinks)) ? communityLinks.communityLinks : [];
 
         this.setState({supportLinks, communityLinks, logo, info, theme, socialLink: socialLink.ids})
     }
