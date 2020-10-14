@@ -7,7 +7,7 @@ import http from 'http';
  class ChatChannel{
     constructor({id, name, token, publicKey}){
         this.id = id;
-        this.channel_id = languages[0].channel_id;
+        this.channel_id = languages[0].name.toLowerCase();
         this.username = name;
         this.cc = new StreamChat(publicKey, {
             timeout: 3000,
