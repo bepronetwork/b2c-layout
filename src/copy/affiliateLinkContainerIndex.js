@@ -11,7 +11,7 @@ const affiliateLinkContainerCopy = {
             }
         }
   },
-  'ko' : {
+  'kr' : {
         INDEX: {
             TYPOGRAPHY: {
                 FUNC_TEXT : [
