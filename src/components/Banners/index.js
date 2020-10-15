@@ -27,7 +27,10 @@ class Banners extends Component {
     }
 
     projectData = async (props) => {
-        const { banners } = getAppCustomization();
+        const { ln } = props;
+        let { banners } = getAppCustomization();
+
+        banners = banners.languages.find(b => b.language.isActivated === true && b.language.prefix === ln.toUpperCase());
 
         this.setState({ 
             banners : !_.isEmpty(banners) ? banners.ids : null,
@@ -127,6 +130,7 @@ class Banners extends Component {
 function mapStateToProps(state){
     return {
         profile: state.profile,
+        ln: state.language
     };
 }
 

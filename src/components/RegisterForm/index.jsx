@@ -39,8 +39,10 @@ class RegisterForm extends Component {
     }
 
     projectData = async (props) => {
+        const { ln } = props;
         const { footer } = getAppCustomization();
-        const terms = footer.supportLinks.find(s => { return s.name.trim().toLowerCase() === "terms of service"});
+        const supportLinks = footer.languages.find(f => f.language.isActivated === true && f.language.prefix === ln.toUpperCase()).supportLinks;
+        const terms = supportLinks.find(s => { return s.name.trim().toLowerCase() === "terms of service"});
 
         this.setState({ terms });
     }
