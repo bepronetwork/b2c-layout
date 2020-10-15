@@ -4,7 +4,7 @@
   "en": {
     "ROTATE": {}
   },
-  "ko": {
+  "kr": {
     "ROTATE": {}
   },
   "ch": {

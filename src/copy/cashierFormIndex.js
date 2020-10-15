@@ -15,7 +15,7 @@
       }
     }
   },
-  "ko": {
+  "kr": {
     "INDEX": {
       "TABS": {
         "LABEL": [

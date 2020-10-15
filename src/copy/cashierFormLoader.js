@@ -4,7 +4,7 @@
   "en": {
     "LOADER": {}
   },
-  "ko": {
+  "kr": {
     "LOADER": {}
   },
   "ch": {

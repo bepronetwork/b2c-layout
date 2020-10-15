@@ -4,7 +4,7 @@
   "en": {
     "LOGOUT": {}
   },
-  "ko": {
+  "kr": {
     "LOGOUT": {}
   },
   "ch": {

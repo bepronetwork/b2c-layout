@@ -4,7 +4,7 @@
   "en": {
     "GAMEOBJECT": {}
   },
-  "ko": {
+  "kr": {
     "GAMEOBJECT": {}
   },
   "ch": {

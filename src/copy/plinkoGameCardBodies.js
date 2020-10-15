@@ -4,7 +4,7 @@
   "en": {
     "BODIES": {}
   },
-  "ko": {
+  "kr": {
     "BODIES": {}
   },
   "ch": {

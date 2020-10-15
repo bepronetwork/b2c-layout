@@ -4,7 +4,7 @@
   "en": {
     "INPUT2FA": {}
   },
-  "ko": {
+  "kr": {
     "INPUT2FA": {}
   },
   "ch": {
