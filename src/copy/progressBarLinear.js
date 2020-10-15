@@ -4,7 +4,7 @@
   "en": {
     "LINEAR": {}
   },
-  "ko": {
+  "kr": {
     "LINEAR": {}
   },
   "ch": {

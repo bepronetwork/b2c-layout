@@ -13,7 +13,7 @@
       }
     }
   },
-  "ko": {
+  "kr": {
     "INDEX": {
       "ACTION_BOX": {
         "TITLE": [

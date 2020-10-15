@@ -20,7 +20,7 @@
       }
     }
   },
-  "ko": {
+  "kr": {
     "DEPOSIT": {
       "HORIZONTAL_STEPPER": {
         "ALERT_MESSAGE": [

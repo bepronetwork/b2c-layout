@@ -4,7 +4,7 @@
   "en": {
     "COINFLIP": {}
   },
-  "ko": {
+  "kr": {
     "COINFLIP": {}
   },
   "ch": {

@@ -4,7 +4,7 @@
   "en": {
     "CLOSECROSS": {}
   },
-  "ko": {
+  "kr": {
     "CLOSECROSS": {}
   },
   "ch": {

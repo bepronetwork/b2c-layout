@@ -4,7 +4,7 @@
   "en": {
     "NOTIFICATION": {}
   },
-  "ko": {
+  "kr": {
     "NOTIFICATION": {}
   },
   "ch": {

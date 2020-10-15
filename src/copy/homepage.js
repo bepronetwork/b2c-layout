@@ -116,7 +116,7 @@
     },
     "TABLE_FILTER": "All Games"
   },
-  "ko": {
+  "kr": {
     "CONTAINERS": {
       "UNAVAILABLE": {
         "TYPOGRAPHY": [

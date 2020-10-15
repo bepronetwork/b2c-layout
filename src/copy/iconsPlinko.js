@@ -4,7 +4,7 @@
   "en": {
     "PLINKO": {}
   },
-  "ko": {
+  "kr": {
     "PLINKO": {}
   },
   "ch": {

@@ -16,7 +16,7 @@
       }
     }
   },
-  "ko": {
+  "kr": {
     "INDEX": {
       "DATA_CONTAINER": {
         "TITLE": [
