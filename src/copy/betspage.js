@@ -26,7 +26,7 @@
       }
     }
   },
-  "ko": {
+  "kr": {
     "TABLE": {
       "CASINO": {
         "TITLE": "카지노",

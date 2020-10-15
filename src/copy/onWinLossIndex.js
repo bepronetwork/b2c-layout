@@ -11,7 +11,7 @@
       }
     }
   },
-  "ko": {
+  "kr": {
     "INDEX": {
       "TOGGLE_BUTTON": {
         "TITLE": [

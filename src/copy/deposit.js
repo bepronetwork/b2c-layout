@@ -25,7 +25,7 @@
       "SECOND": "Thats too high! Your maximum withdrawal amount is "
     }
   },
-  "ko": {
+  "kr": {
     "TITLE": " 당신이 가진 ",
     "SUB_TITLE": {
       "FIRST": "예금 가능한 탈중앙화 된 지갑의 토큰",

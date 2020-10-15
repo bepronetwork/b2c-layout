@@ -21,7 +21,7 @@
       }
     }
   },
-  "ko": {
+  "kr": {
     "INDEX": {
       "SUBTLE_BUTTON": {
         "TEXT": [

@@ -15,7 +15,7 @@ const withdrawspageCopy =
       }
     }
   },
-  "ko": {
+  "kr": {
     "TABLE": {
       "WITHDRAWS": {
         "TITLE": "출금",

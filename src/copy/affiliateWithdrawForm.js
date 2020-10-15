@@ -13,7 +13,7 @@ const affiliateWithdrawFormCopy = {
             ]
         }
     },
-    'ko' : {
+    'kr' : {
         HORIZONTAL_STEPPER: {
             STEPS: [
                 {

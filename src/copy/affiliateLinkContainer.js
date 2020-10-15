@@ -9,7 +9,7 @@ const affiliateLinkContainerCopy = {
             ],
         }
     },
-    'ko' : {
+    'kr' : {
         TYPOGRAPHY: {
             TEXT : [
                 (param) => `Not Translated.`,

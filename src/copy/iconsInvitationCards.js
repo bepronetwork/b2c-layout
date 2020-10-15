@@ -4,7 +4,7 @@
   "en": {
     "INVITATIONCARDS": {}
   },
-  "ko": {
+  "kr": {
     "INVITATIONCARDS": {}
   },
   "ch": {

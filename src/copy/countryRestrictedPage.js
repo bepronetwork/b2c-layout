@@ -11,7 +11,7 @@ const countryRestrictedPageCopy = {
             'Get a % amount whenever the house wins for each user registered with your link.'
         ]
     },
-    'ko' : {
+    'kr' : {
         TITLE : (param) => `Sorry about this but ${param} isn't available in your country.`,
         SUBTITLE : [
             'Not in restricted region?',

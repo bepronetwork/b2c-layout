@@ -37,7 +37,7 @@
     "RULES": "Rules",
     "LIMITS": "Limits"
   },
-  "ko": {
+  "kr": {
     "SOUND": "사운드",
     "TABLE": {
       "ALL_BETS": {

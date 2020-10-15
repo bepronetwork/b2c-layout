@@ -21,7 +21,7 @@
       "PAGE":"Rows per page"
     }
   },
-  "ko": {
+  "kr": {
     "TITLE": {
       "FIRST": " 당신이 가진 ",
       "SECOND": "토큰"

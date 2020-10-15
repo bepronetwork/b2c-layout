@@ -16,7 +16,7 @@
     "MANUAL_NAME": "Manual",
     "AUTO_NAME": "Auto"
   },
-  "ko": {
+  "kr": {
     "CHIP_INFO": "칩 가치",
     "EDGE_NAME": "하우스 엣지",
     "PLACEHOLDER_CHAT": "메시지 입력",

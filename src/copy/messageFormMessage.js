@@ -10,7 +10,7 @@
       }
     }
   },
-  "ko": {
+  "kr": {
     "MESSAGE": {
       "TYPOGRAPHY": {
         "TEXT": [

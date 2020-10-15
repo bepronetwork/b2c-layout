@@ -4,7 +4,7 @@
   "en": {
     "DIAMOND": {}
   },
-  "ko": {
+  "kr": {
     "DIAMOND": {}
   },
   "ch": {

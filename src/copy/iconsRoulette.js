@@ -4,7 +4,7 @@
   "en": {
     "ROULETTE": {}
   },
-  "ko": {
+  "kr": {
     "ROULETTE": {}
   },
   "ch": {

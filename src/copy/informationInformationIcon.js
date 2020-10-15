@@ -4,7 +4,7 @@
   "en": {
     "INFORMATIONICON": {}
   },
-  "ko": {
+  "kr": {
     "INFORMATIONICON": {}
   },
   "ch": {

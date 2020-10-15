@@ -2,7 +2,7 @@ const homePageUnavailableCopy = {
     'en' : {
         TEXT : 'Seems like we for now not available at your geography.',
     },
-    'ko' : {
+    'kr' : {
         TEXT : 'Not translated.',
     },
     'ch' : {
