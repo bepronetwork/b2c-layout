@@ -10,7 +10,7 @@
 }
 
 .main {
-    padding: $spacing-20;
+    padding: $spacing-12;
     background-color: $primaryColor-3;
 
     @media screen and (max-width: 767px) {

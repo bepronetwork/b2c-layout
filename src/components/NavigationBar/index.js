@@ -26,10 +26,6 @@ class NavigationBar extends Component {
         this.projectData(props);
     }
 
-    componentWillUnmount() {
-        clearInterval(this.intervalID);
-    }
-    
     projectData = async (props) => {
         const { ln } = props;
         let { topTab } = getAppCustomization();
