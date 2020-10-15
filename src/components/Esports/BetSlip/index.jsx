@@ -152,7 +152,12 @@ class BetSlip extends Component {
                     }
                 }
                 else if (tab == "multiple") {
-                    profile.updateBalance({ userDelta: (amount * -1)});
+                    const bet = newBetSlip.find(b => b.bid == bid);
+                    
+                    if(!_.isEmpty(bet)) {
+                        profile.updateBalance({ userDelta: (amount * -1)});
+                    }
+                    
                 }
             }
             else {
@@ -271,6 +276,7 @@ class BetSlip extends Component {
                                                             max={(user && !_.isEmpty(user)) ? user.getBalance() : null}
                                                             value={amount}
                                                             onChange={this.handleBetAmountChange}
+                                                            type="currency"
                                                         />
                                                 }
      

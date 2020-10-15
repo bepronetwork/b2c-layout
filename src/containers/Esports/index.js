@@ -57,7 +57,7 @@ class Esports extends Component {
         });
 
         let slides = matches.filter(m => !_.isEmpty(m.live_embed_url));
-        slides = slides.length === 1 ? slides.concat(matches) : slides.length > 0 ? slides : matches;
+        slides = slides.length < 3 ? slides.concat(matches) : matches;
 
         this.setState({
             games,

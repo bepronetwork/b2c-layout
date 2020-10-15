@@ -11,15 +11,17 @@ class Live extends Component {
         const { streaming, match } = this.props;
 
         return (
-            <div styleName="iframe" >
-                <iframe
-                    src={`${streaming}&muted=true&parent=${window.location.hostname}`}
-                    width="100%"
-                    frameborder="true"
-                    scrolling="true"
-                    allowfullscreen="true"
-                >
-                </iframe>
+            <div>
+                <div styleName="iframe" >
+                    <iframe
+                        src={`${streaming}&muted=true&parent=${window.location.hostname}`}
+                        width="100%"
+                        frameborder="true"
+                        scrolling="true"
+                        allowfullscreen="true"
+                    >
+                    </iframe>
+                </div>
                 <div styleName="odds">
                     <OddsTable match={match} />
                 </div>

@@ -9,6 +9,35 @@ import "./index.css";
 
 class Market extends Component {
 
+    constructor(props) {
+        super(props);
+        this.state = {
+        };
+    }
+
+    componentDidMount(){
+        this.projectData(this.props)
+    }
+
+    componentWillReceiveProps(props){
+        this.projectData(props);
+    }
+
+    componentWillUnmount() {
+        clearInterval(this.intervalID);
+    }
+    
+    projectData = async (props) => {
+        this.intervalID = setInterval(
+            () => this.tick(),
+            10000
+        );
+    }
+
+    tick() {
+        this.setState({ });
+    }
+
     render() {
         const { match } = this.props;
         const images = require.context('assets/esports', true);
@@ -33,9 +62,8 @@ class Market extends Component {
                         ?
                             <Live streaming={match.live_embed_url} match={match} />
                         :
-                            null                     
+                            <OddsTable match={match} />                     
                     }
-                    <OddsTable match={match} />
                 </div>
             </div>
         );
