@@ -1,8 +1,8 @@
 import React from "react";
 
-function emptyDiamond({  borderColor, backgroundColor }) {
+function emptyDiamond({ width, height, borderColor, backgroundColor }) {
   return (
-        <svg width="89px" height="101px" viewBox="0 0 89 101" version="1.1">
+        <svg width={width} height={height} viewBox="0 0 89 101" version="1.1">
             <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
                 <g id="AE" transform="translate(-747.000000, -272.000000)" fill-rule="nonzero">
                     <g id="Card" transform="translate(741.000000, 251.000000)">

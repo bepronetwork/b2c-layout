@@ -4,6 +4,7 @@ import CenterIndicator from "../../assets/icons/slideIcons/center-indicator.svg"
 import { getAppCustomization } from "../../lib/helpers";
 import EmptyDiamond from "../../assets/icons/slideIcons/empty";
 import './index.css';
+import slideItems from "./slideItems";
 export default class SliderGame extends Component {
 
     state = {
@@ -36,35 +37,25 @@ export default class SliderGame extends Component {
         const { primaryColor, secondaryColor } = this.state;
         return (
             <div styleName="container-init">
-                <div styleName="container-row">
-                    <div styleName="container-result">
-                        <EmptyDiamond backgroundColor={primaryColor} borderColor={secondaryColor} />
-                        <div styleName="bottom-base"></div>
-                    </div>
-                    <div styleName="container-result">
-                        <EmptyDiamond />
-                        <div styleName="bottom-base"></div>
-                    </div>
-                    <div styleName="container-result">
-                        <EmptyDiamond />
-                        <div styleName="bottom-base"></div>
-                    </div>
-                    <div styleName="container-result">
-                        <EmptyDiamond />
-                        <div styleName="bottom-base"></div>
-                    </div>
-                    <div styleName="container-result">
-                        <EmptyDiamond />
-                        <div styleName="bottom-base"></div>
-                    </div>
-                    <div styleName="container-result">
-                        <EmptyDiamond />
-                        <div styleName="bottom-base"></div>
-                    </div>
-                    <div styleName="container-result">
-                        <EmptyDiamond />
-                        <div styleName="bottom-base"></div>
-                    </div>
+                <div styleName="gradient-overlay"></div>
+                <div styleName="container-row" id="container-slide">
+                    {
+                    slideItems.map((num) => {
+                        return(
+                            <div styleName="container-result" key={num}>
+                                <EmptyDiamond
+                                    backgroundColor={primaryColor}
+                                    borderColor={secondaryColor}
+                                    height="30%"
+                                    width="100%"
+                                >
+                                    12540x
+                                </EmptyDiamond>
+                                <div styleName="bottom-base"></div>
+                            </div>
+                        );
+                    })
+                    }
                 </div>
                 <img src={CenterIndicator} alt="" styleName="indicator"/>
             </div>

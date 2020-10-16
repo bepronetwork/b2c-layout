@@ -8,7 +8,6 @@ import { SliderGameOptions, SliderGame } from "components";
 import GamePage from "containers/GamePage";
 import UserContext from "containers/App/UserContext";
 
-import slotsBet from "lib/api/slots";
 import Coin from "assets/audio/slotsaudio/coin.mp3";
 import BlueCoin from "assets/audio/slotsaudio/blue-coin.mp3";
 import Club from "assets/audio/slotsaudio/club.mp3";
@@ -23,11 +22,8 @@ import Pentagon from "assets/audio/slotsaudio/pentagon.mp3";
 import Beetle from "assets/audio/slotsaudio/beetle.mp3";
 import Esfinge from "assets/audio/slotsaudio/esfinge.mp3";
 
-import Reel from "assets/audio/slotsaudio/reels.mp3";
-import Result from "assets/audio/slotsaudio/result.mp3";
 import {
   renderSounds,
-  handleAnimation,
   randomNumber
 } from "../../lib/helpers/slotsHelpers";
 
@@ -46,7 +42,7 @@ class SlotsPage extends Component {
       line: false,
       betObjectResult: {},
       resultMultiplier: 0,
-      disableControls: false,
+      disableControls: true,
       amount: 0,
       game: {
         edge: 0
@@ -87,10 +83,8 @@ class SlotsPage extends Component {
   };
 
   handleBet = async ({ amount }) => {
-    try {
       const { user } = this.context;
       const { onHandleLoginOrRegister } = this.props;
-      const { game } = this.state;
 
       if (!user) return onHandleLoginOrRegister("register");
 
@@ -103,46 +97,9 @@ class SlotsPage extends Component {
         insertIndex: [],
         resultSound: false
       });
-      this.setState({ disableControls: true });
 
-      const res = await slotsBet({
-        amount,
-        user,
-        game_id: game._id
-      });
-
-      this.setState({
-        testArray: res.result,
-        betObjectResult: res,
-        winAmount: res.winAmount.toFixed(8),
-        resultMultiplier: (res.winAmount / res.betAmount).toFixed(2),
-        amount
-      });
-      this.setState({ soundReel: true });
-
-      await this.getcolumn();
       await this.handleAnimations();
-      this.setState({ soundReel: false });
-      await this.setSound();
-      await this.handleImage(1000);
-      await this.handleResult();
-      await this.userUpdateBalance();
-      this.setState({ disableControls: false });
 
-      return res;
-    } catch (err) {
-      return this.setState({
-        result: null,
-        resultSound: false,
-        line: false,
-        betObjectResult: {},
-        resultMultiplier: 0,
-        disableControls: false,
-        soundIcon: false,
-        soundReel: false,
-        testBol: Array(5).fill(false)
-      });
-    }
   };
 
   handleResult = async () => {
@@ -155,12 +112,26 @@ class SlotsPage extends Component {
     });
   };
 
+ handleAnimation = async (spinnerColumn, iterations) => {
+    const box = document.getElementById(spinnerColumn);
+  
+    box.animate(
+      [
+        { transform: "translate3D(-30px, 0, )" },
+        { transform: "translate3D(-1600px, 0, 0)" },
+        { transition: "transform 10000ms cubic-bezier(0.24, 0.78, 0.15, 1) 0s" }
+      ],
+      {
+        duration: 3000,
+        iterations
+      }
+    );
+  
+    return new Promise(resolve => setTimeout(() => resolve(), 100));
+  };
+
   handleAnimations = async () => {
-    handleAnimation("columnItem", 1);
-    handleAnimation("columnItem2", 1.5);
-    handleAnimation("columnItem3", 2);
-    handleAnimation("columnItem4", 2.5);
-    await handleAnimation("columnItem5", 3);
+    this.handleAnimation("container-slide", 1);
 
     await this.randomNumberResult();
 
@@ -334,7 +305,7 @@ class SlotsPage extends Component {
         onBet={this.handleBet}
         game={this.state.game}
         profile={profile}
-        disableControls={disableControls}
+
       />
     );
   };
