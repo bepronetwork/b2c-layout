@@ -10,7 +10,7 @@
       }
     }
   },
-  "ko": {
+  "kr": {
     "INDEX": {
       "DROP_DOWN_FIELD": {
         "LABEL": [

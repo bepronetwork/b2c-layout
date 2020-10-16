@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Typography } from 'components';
-import { OddsTable } from 'components/Esports';
+import { OddsTable, Live } from 'components/Esports';
 import { dateToHourAndMinute, formatToBeautyDate } from "../../../lib/helpers";
 import { connect } from 'react-redux';
 import _ from 'lodash';
@@ -8,6 +8,35 @@ import "./index.css";
 
 
 class Market extends Component {
+
+    constructor(props) {
+        super(props);
+        this.state = {
+        };
+    }
+
+    componentDidMount(){
+        this.projectData(this.props)
+    }
+
+    componentWillReceiveProps(props){
+        this.projectData(props);
+    }
+
+    componentWillUnmount() {
+        clearInterval(this.intervalID);
+    }
+    
+    projectData = async (props) => {
+        this.intervalID = setInterval(
+            () => this.tick(),
+            10000
+        );
+    }
+
+    tick() {
+        this.setState({ });
+    }
 
     render() {
         const { match } = this.props;
@@ -28,7 +57,13 @@ class Market extends Component {
                             <Typography variant={'small-body'} color={'white'}>{dateToHourAndMinute(match.begin_at)}</Typography>
                         </div>
                     </div>
-                    <OddsTable match={match} />
+                    {
+                        match.live_embed_url != null
+                        ?
+                            <Live streaming={match.live_embed_url} match={match} />
+                        :
+                            <OddsTable match={match} />                     
+                    }
                 </div>
             </div>
         );

@@ -11,7 +11,7 @@ const betsdetailspageCopy =
         "Server Hashed Seed"
     ]
   },
-  "ko": {
+  "kr": {
     "TEXT": [
         "User",
         "Bet",

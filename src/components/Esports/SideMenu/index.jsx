@@ -11,7 +11,8 @@ class SideMenu extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            tab: "stats"
+            tab: "stats",
+            showStats: true
         };
     }
 
@@ -19,13 +20,53 @@ class SideMenu extends Component {
         this.setState({ tab: name });
     };
 
-    componentDidMount() {
+    handleShowStats(value) {
+        this.setState({ showStats: value, tab: value === false ? "bets" : "stats" });
     }
 
+    componentDidMount(){
+        this.projectData(this.props)
+    }
+
+    componentWillReceiveProps(props){
+        this.projectData(props);
+    }
+
+    projectData = async (props) => {
+    }
+
+    getOptions() {
+        const { match } = this.props;
+        const { showStats } = this.state;
+
+        let options = [];
+
+        if(showStats === true) {
+            options.push({   
+                value: "stats", 
+                label: "Stats",
+            });
+        }
+
+        options.push({
+            value: "bets",
+            label: "Bets",
+            disabled: match.status == "finished" || match.status == "settled"
+        });
+
+        options.push({
+            value: "chat",
+            label: "Chat",
+            disabled: match.live_embed_url == null
+        });
+
+        return options;
+    }
+ 
 
     render() {
         const { match, onPlayerClick } = this.props;
-        const { tab } = this.state;
+        const { tab, showStats } = this.state;
 
         return (
             <div>
@@ -38,26 +79,11 @@ class SideMenu extends Component {
                 <div styleName="side-menu">
                     <Tabs
                         selected={tab}
-                        options={[
-                            {   
-                                value: "stats", 
-                                label: "Stats"
-                            },
-                            {
-                                value: "bets",
-                                label: "Bets",
-                                disabled: match.status == "finished" || match.status == "settled"
-                            },
-                            {
-                                value: "chat",
-                                label: "Chat",
-                                disabled: match.live_embed_url == null
-                            }
-                        ]}
+                        options={this.getOptions()}
                         onSelect={this.handleTabChange}
                     />
                     <div styleName="main">
-                        { tab === "stats" ? <TeamsTable match={match} onPlayerClick={onPlayerClick} /> : null }
+                        { tab === "stats" && showStats === true ? <TeamsTable match={match} onPlayerClick={onPlayerClick} onShowStats={this.handleShowStats.bind(this)} /> : null }
                         { tab === "bets" ? <OddsTable match={match} /> : null }
                         { tab === "chat" ? <Chat streaming={match.live_embed_url} /> : null }
                     </div>

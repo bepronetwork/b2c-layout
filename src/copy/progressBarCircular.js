@@ -4,7 +4,7 @@
   "en": {
     "CIRCULAR": {}
   },
-  "ko": {
+  "kr": {
     "CIRCULAR": {}
   },
   "ch": {

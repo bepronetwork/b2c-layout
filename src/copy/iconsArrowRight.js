@@ -4,7 +4,7 @@
   "en": {
     "ARROWRIGHT": {}
   },
-  "ko": {
+  "kr": {
     "ARROWRIGHT": {}
   },
   "ch": {

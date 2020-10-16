@@ -8,12 +8,14 @@ import languages from "../../config/languages";
 import { setLanguageInfo } from "../../redux/actions/language";
 import { isUserSet, getAppCustomization, getIcon } from "../../lib/helpers";
 import classNames from "classnames";
+import _ from 'lodash';
 
 import "./index.css";
 
 const defaultProps = {
     language : languages[0],
-    open: false
+    open: false,
+    languages: []
 }
 
 class LanguageSelector extends Component {
@@ -32,8 +34,21 @@ class LanguageSelector extends Component {
         }
     }
 
+    componentDidMount(){
+        this.projectData(this.props);
+    }
+
     componentWillUnmount() {
         document.removeEventListener("mousedown", this.handleClickOutside);
+    }
+
+    projectData = async (props) => {
+        let { languages } = getAppCustomization();
+
+        languages = languages.filter(l => l.isActivated === true);
+        const defaultLanguage = languages.find(l => l.prefix === "EN");
+
+        this.setState({ languages, language: defaultLanguage });
     }
 
     handleClickOutside = event => {
@@ -53,16 +68,16 @@ class LanguageSelector extends Component {
 
     changeLanguage = async (item) => {
         const { profile } = this.props;
-        const { open } = this.state;
+        const { open, languages } = this.state;
 
         item = languages.find( a => {
-            if(a.channel_id == item.channel_id){
+            if(a.name.toLowerCase() == item.name.toLowerCase()){
                 return a;
             }
         })
         
         if(isUserSet(profile)){
-            profile.getChat().changeLanguage({language : item.name, channel_id : item.channel_id});
+            profile.getChat().changeLanguage({language : item.name, channel_id : item.name.toLowerCase()});
         }
         await this.props.dispatch(setLanguageInfo(item));
         this.setState({...this.state, language : item, open: !open})
@@ -81,6 +96,7 @@ class LanguageSelector extends Component {
 
     renderOptionsLines = () => {
         const { onChange, size, color } = this.props;
+        const { languages } = this.state;
 
         return languages.map(option => (
             <button
@@ -90,7 +106,7 @@ class LanguageSelector extends Component {
                 onClick={()=>this.onDoAction(onChange, option)}
                 type="button"
             >   
-                <img src={option.image}/>
+                <img src={option.logo}/>
                 <Typography variant={size ? size : "small-body"} color={color ? color : "white"} >{option.name}</Typography>
             </button>
         ));
@@ -125,6 +141,8 @@ class LanguageSelector extends Component {
         const { showArrow, size, color } = this.props;
         const skin = getAppCustomization().skin.skin_type;
 
+        if(_.isEmpty(language)) { return null };
+
         const styles = classNames("item", {
             itemHor: showArrow === true
         });
@@ -141,7 +159,7 @@ class LanguageSelector extends Component {
                     onClick={this.handleLabelClick}
                     type="button">
                     <span styleName={styles}>
-                        <img src={language.image}/>
+                        <img src={language.logo}/>
                         <Typography variant={size ? size : "small-body"} color={color ? color : "grey"}>
                             {language.name}
                         </Typography>

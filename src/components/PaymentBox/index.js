@@ -144,7 +144,7 @@ class PaymentBox extends React.Component{
         const { wallet } = this.props;
 
         const freeCurrency = getApp().addOn.freeCurrency;
-        console.log(freeCurrency)
+
         if(freeCurrency){
             const wallets = freeCurrency.wallets;
             const walletFind = wallets.find(w => w.currency === wallet.currency._id)

@@ -4,7 +4,7 @@
   "en": {
     "DOLLAR": {}
   },
-  "ko": {
+  "kr": {
     "DOLLAR": {}
   },
   "ch": {

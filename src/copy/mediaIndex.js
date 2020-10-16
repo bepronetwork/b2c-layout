@@ -10,7 +10,7 @@
       }
     }
   },
-  "ko": {
+  "kr": {
     "INDEX": {
       "TYPOGRAPHY": {
         "TEXT": [

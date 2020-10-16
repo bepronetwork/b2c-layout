@@ -14,16 +14,20 @@
     width: 340px;
     justify-content: flex-end;
     overflow: hidden;
+    display: none;
   
     @media screen and (max-width: 1267px) and (min-width: 1024px) {
+      display: inline;
       right: calc($chat-width-tablet-pro + $spacing-36);
     }
     
     @media screen and (max-width: 1023px) and (min-width: 768px) {
+      display: inline;
       right: calc($chat-width-tablet + $spacing-36);
     }
   
     @media screen and (max-width: 767px) {
+      display: inline;
       right: 0;
       width: 100%;
       bottom: 60px;
