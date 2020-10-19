@@ -17,7 +17,7 @@ import DepositList from "./DepositList";
 import WithdrawList from "./WithdrawList";
 import CreditCard from "assets/icons/credit-card.svg"
 import { CopyText } from "../../copy";
-import { getApp, getAppCustomization,  getIcon } from "../../lib/helpers";
+import { getApp, getAppCustomization,  getIcon, getCurrencyByCompare } from "../../lib/helpers";
 import { setMessageNotification } from "../../redux/actions/message";
 import store from "../../containers/App/store";
 import "./index.css";
@@ -62,6 +62,14 @@ class WalletTab extends React.Component {
     this.setState({ onClose: true, tab: "deposit" });
 }
 
+resultFilter = (firstArray, secondArray) => {
+  return firstArray.filter(firstArrayItem =>
+    !secondArray.some(
+      secondArrayItem => firstArrayItem._user === secondArrayItem._user
+    )
+  );
+};
+
   projectData = async props => {
     const { profile } = this.props;
     let { wallet } = this.state;
@@ -71,6 +79,14 @@ class WalletTab extends React.Component {
     const moonpayIntegration = getApp().integrations.moonpay;
     const user = !_.isEmpty(props.profile) ? props.profile : null;
     const virtual = getApp().virtual;
+    const getCurrenciesApp = getApp().currencies;
+    const getUserWallet = profile.getWallets();
+
+    const resultCompare =  getUserWallet.filter(wallet =>
+      getCurrenciesApp.some(
+        getCurrenciesApp => wallet.currency._id === getCurrenciesApp._id
+      ))
+
     const wallets =
       virtual === true
         ? profile
@@ -79,12 +95,12 @@ class WalletTab extends React.Component {
               w =>
                 new String(w.currency.ticker).toString().toLowerCase() !== "eth"
             )
-        : profile.getWallets();
+        : resultCompare
 
     if (wallets && !wallet) {
       wallet = wallets.find(w => w.currency.virtual === false);
     }
-
+      
     const userId = profile.getID();
     const isKycNeeded = await profile.isKycConfirmed();
 
