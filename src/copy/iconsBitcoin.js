@@ -4,7 +4,7 @@
   "en": {
     "BITCOIN": {}
   },
-  "ko": {
+  "kr": {
     "BITCOIN": {}
   },
   "ch": {

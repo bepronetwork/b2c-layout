@@ -4,7 +4,7 @@
   "en": {
     "ACCOUNT": {}
   },
-  "ko": {
+  "kr": {
     "ACCOUNT": {}
   },
   "ch": {

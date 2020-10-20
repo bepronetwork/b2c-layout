@@ -3,5 +3,5 @@
 .restricted {
 
     text-align: center;
-    padding: 150px 0;
+    padding: 150px $spacing-52;
 }

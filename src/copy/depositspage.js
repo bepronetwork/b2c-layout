@@ -15,7 +15,7 @@ const depositspageCopy =
       }
     }
   },
-  "ko": {
+  "kr": {
     "TABLE": {
       "DEPOSITS": {
         "TITLE": "입금",

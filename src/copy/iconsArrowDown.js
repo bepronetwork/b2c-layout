@@ -4,7 +4,7 @@
   "en": {
     "ARROWDOWN": {}
   },
-  "ko": {
+  "kr": {
     "ARROWDOWN": {}
   },
   "ch": {

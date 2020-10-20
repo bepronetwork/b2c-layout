@@ -35,7 +35,7 @@
       }
     }
   },
-  "ko": {
+  "kr": {
     "INDEX": {
       "INPUT_NUMBER": {
         "TITLE": [

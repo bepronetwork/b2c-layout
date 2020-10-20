@@ -13,7 +13,7 @@
 
 .teams {
     display: grid;
-    grid-template-columns: repeat( auto-fit, 121px );
+    grid-template-columns: repeat( auto-fit, 130px );
     gap: 1em;
 
     @media screen and (max-width: 1267px) and (min-width: 1024px) {

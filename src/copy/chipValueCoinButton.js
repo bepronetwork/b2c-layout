@@ -4,7 +4,7 @@
   "en": {
     "COINBUTTON": {}
   },
-  "ko": {
+  "kr": {
     "COINBUTTON": {}
   },
   "ch": {

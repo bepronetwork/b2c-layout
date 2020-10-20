@@ -20,7 +20,7 @@
       }
     }
   },
-  "ko": {
+  "kr": {
     "WITHDRAW": {
       "HORIZONTAL_STEPPER": {
         "BUTTON_LABEL": [

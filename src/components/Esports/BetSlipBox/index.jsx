@@ -93,6 +93,7 @@ class BetSlipBox extends Component {
                                         max={(user && !_.isEmpty(user)) ? user.getBalance() : null}
                                         value={bet.amount}
                                         onChange={this.handleBetAmountChange}
+                                        type="currency"
                                     />
                                 </div>
                             :

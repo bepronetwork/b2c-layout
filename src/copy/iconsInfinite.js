@@ -4,7 +4,7 @@
   "en": {
     "INFINITE": {}
   },
-  "ko": {
+  "kr": {
     "INFINITE": {}
   },
   "ch": {

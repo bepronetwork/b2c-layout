@@ -4,7 +4,7 @@
   "en": {
     "TABLECELL": {}
   },
-  "ko": {
+  "kr": {
     "TABLECELL": {}
   },
   "ch": {

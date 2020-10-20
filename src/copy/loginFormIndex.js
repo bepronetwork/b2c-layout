@@ -30,7 +30,7 @@
       }
     }
   },
-  "ko": {
+  "kr": {
     "INDEX": {
       "INPUT_TEXT": {
         "LABEL": [

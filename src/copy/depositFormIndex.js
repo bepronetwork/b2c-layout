@@ -25,7 +25,7 @@
     },
     "NOTICE": "Notice"
   },
-  "ko": {
+  "kr": {
     "INDEX": {
       "TYPOGRAPHY": {
         "TEXT": [

@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { connect } from 'react-redux';
 import { Modal } from 'components';
 import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
-import { Market, ScoreBoard, SideMenu, Live, BetSlip, BetSlipFloat, Player } from "components/Esports";
+import { Market, ScoreBoard, SideMenu, Live, BetSlip, BetSlipFloat, Player, OddsTable } from "components/Esports";
 import { getMatch } from "controllers/Esports/EsportsUser";
 import { getSkeletonColors } from "../../../lib/helpers";
 import _ from 'lodash';
@@ -39,7 +39,7 @@ class MatchPage extends Component {
             match = await getMatch(matchId);
         }
 
-        const isLive = match.status == "live" && !_.isEmpty(match.live_embed_url);
+        const isLive = match.status == "live";
 
         this.setState({
             match,
@@ -117,14 +117,16 @@ class MatchPage extends Component {
                             isLive == true
                             ?
                                 <div styleName={isLive == true ? "isLive middle" : "middle"}>
-                                    <Live streaming={match.live_embed_url} />
+                                    <Live streaming={match.live_embed_url} match={match} />
                                 </div>
                             :
                                 match.status == "finished" || match.status == "settled"
                                 ?
                                     <div/>
                                 :
-                                    <Market match={match} />  
+                                    <div>
+                                        <Market match={match} />
+                                    </div>
                     }
                     <div styleName="right">
                         {isLoading ?

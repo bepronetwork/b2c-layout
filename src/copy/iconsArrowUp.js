@@ -4,7 +4,7 @@
   "en": {
     "ARROWUP": {}
   },
-  "ko": {
+  "kr": {
     "ARROWUP": {}
   },
   "ch": {

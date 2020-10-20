@@ -6,7 +6,7 @@
       "Please Log In before using the chat"
     ]
   },
-  "ko": {
+  "kr": {
     "CHAT_USER_NOT_LOGGED": [
       "채트 사용 전에 로그인 해 주세요"
     ]

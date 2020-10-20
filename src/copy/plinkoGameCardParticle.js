@@ -4,7 +4,7 @@
   "en": {
     "PARTICLE": {}
   },
-  "ko": {
+  "kr": {
     "PARTICLE": {}
   },
   "ch": {

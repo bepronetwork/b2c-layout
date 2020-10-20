@@ -2,6 +2,7 @@
 
 .side-menu {
     background-color: $primaryColor;
+    height: 100%;
 
     @media screen and (max-width: 767px) {
         border-top: 1px solid $backgroundColor;
@@ -9,7 +10,7 @@
 }
 
 .main {
-    padding: $spacing-20;
+    padding: $spacing-12;
     background-color: $primaryColor-3;
 
     @media screen and (max-width: 767px) {

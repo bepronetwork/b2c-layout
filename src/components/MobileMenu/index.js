@@ -49,8 +49,10 @@ class MobileMenu extends Component {
     }
 
     projectData = async (props) => {
+        const { ln } = props;
+        let { topTab } = getAppCustomization();
 
-        const { topTab } = getAppCustomization();
+        topTab = topTab.languages.find(t => t.language.isActivated === true && t.language.prefix === ln.toUpperCase());
 
         this.setState({ 
             tabs: _.isEmpty(topTab) ? [] : topTab.ids

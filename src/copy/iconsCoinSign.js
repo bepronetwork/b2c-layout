@@ -4,7 +4,7 @@
   "en": {
     "COINSIGN": {}
   },
-  "ko": {
+  "kr": {
     "COINSIGN": {}
   },
   "ch": {

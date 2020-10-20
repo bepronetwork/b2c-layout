@@ -797,7 +797,7 @@ class App extends Component {
 
     render() {
         const { user, app, isLoading, chatMobileOpen, betsListOpen, settingsMenuOpen, chatExpand } = this.state;
-        const { profile, startLoadingProgress, modal } = this.props;
+        const { profile, startLoadingProgress, modal, ln } = this.props;
         const mobileBreakpoint = 768;
         const tabletBreakpoint = 1024;
 
@@ -810,7 +810,11 @@ class App extends Component {
 
         let progress100 = parseInt(progress/confirmations*100);
         let isUserLoaded = (confirmations == progress);
-        const { topBar, background, topTab } = getAppCustomization();
+        let { topBar, background, topTab } = getAppCustomization();
+
+        topTab = topTab.languages.find(t => t.language.isActivated === true && t.language.prefix === ln.toUpperCase());
+        topBar = topBar.languages.find(t => t.language.isActivated === true && t.language.prefix === ln.toUpperCase());
+
         const centerStyles = classNames("center", {
             centerExpand: !chatExpand
         });

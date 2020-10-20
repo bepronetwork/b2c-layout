@@ -11,7 +11,7 @@ const amountFormCopy = {
             ]
         }
     },
-    'ko' : {
+    'kr' : {
         WITHDRAW: {
             TYPOGRAPHY: [
                 {

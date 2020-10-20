@@ -16,7 +16,7 @@
       }
     }
   },
-  "ko": {
+  "kr": {
     "INDEX": {
       "BUTTON_ICON": {
         "LABEL": [
