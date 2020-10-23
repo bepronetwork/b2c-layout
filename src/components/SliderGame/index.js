@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 
+import { Typography } from 'components';
 import CenterIndicator from "../../assets/icons/slideIcons/center-indicator.svg";
 import { getAppCustomization } from "../../lib/helpers";
 import EmptyDiamond from "../../assets/icons/slideIcons/empty";
@@ -48,8 +49,9 @@ export default class SliderGame extends Component {
                                     borderColor={secondaryColor}
                                     height="30%"
                                     width="100%"
+                                    value={num.value}
                                 >
-                                    12540x
+                                <Typography variant={'small-body'} color={'white'}>{num.value}</Typography>
                                 </EmptyDiamond>
                                 <div styleName="bottom-base"></div>
                             </div>
