@@ -14,143 +14,150 @@ import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 
 import "./index.css";
 
-const views = [{ text : 10, value : 10 }, { text : 25, value : 25 }, { text : 50, value : 50 }, { text : 100, value : 100 }];
-const allGames =  { text : 'All Games', value : 'all_games' };
-
-const rows = {
-    all_bets : {
-        titles : [],
-        fields : [
-            {
-                value : 'game',
-                image : true,
-            },
-            {
-                value : 'id'
-            },
-            {
-                value : 'username'
-            },
-            {
-                value : 'winAmount',
-                dependentColor : true,
-                condition : 'isWon',
-                currency: true
-            },
-            {
-                value : 'payout',
-                //dependentColor : true,
-                //condition : 'isWon'
-            }
-        ],
-        rows : []
-    },
-    my_bets : {
-        titles : [],
-        fields : [
-            {
-                value : 'game',
-                image : true
-            },
-            {
-                value : 'id'
-            },
-            {
-                value : 'winAmount',
-                dependentColor : true,
-                condition : 'isWon',
-                currency: true
-            },
-            {
-                value : 'payout',
-                //dependentColor : true,
-                //condition : 'isWon'
-            }
-        ],
-        rows : []
-    },
-    biggest_win_bets : {
-        titles : [],
-        fields : [
-            {
-                value : 'game',
-                image : true
-            },
-            {
-                value : 'id'
-            },
-            {
-                value : 'username'
-            },
-            {
-                value : 'winAmount',
-                dependentColor : true,
-                condition : 'isWon',
-                currency: true
-            },
-            {
-                value : 'payout',
-                //dependentColor : true,
-                //condition : 'isWon'
-            }
-        ],
-        rows : []
-    },
-    biggest_win_users : {
-        titles : [],
-        fields : [
-            {
-                value : 'position'
-            },
-            {
-                value : 'username'
-            },
-            {
-                value : 'winAmount',
-                dependentColor : true,
-                condition : 'isWon'
-            }
-        ],
-        rows : []
-    },
-}
-  
-
-const defaultProps = {
-    all_bets    : rows.all_bets,
-    my_bets     : rows.my_bets,
-    biggest_win_bets : rows.biggest_win_bets,
-    biggest_win_users : rows.biggest_win_users,
-    view        : 'all_bets',
-    view_amount : views[0],
-    gamesOptions : [],
-    games : [],
-    options : [],
-    view_game : allGames,
-    isLoading: true,
-    isListLoading : true
-}
-
 class LastBets extends Component {
     static contextType = UserContext;
 
     static propTypes = {
         onHandleLoginOrRegister: PropTypes.func
     };
-    
-    constructor(props){
-        super(props);
-        this.state = defaultProps;
+
+    rows = {
+        all_bets : {
+            titles : [],
+            fields : [
+                {
+                    value : 'game',
+                    image : true,
+                },
+                {
+                    value : 'id'
+                },
+                {
+                    value : 'username'
+                },
+                {
+                    value : 'winAmount',
+                    dependentColor : true,
+                    condition : 'isWon',
+                    currency: true
+                },
+                {
+                    value : 'payout',
+                    //dependentColor : true,
+                    //condition : 'isWon'
+                }
+            ],
+            rows : []
+        },
+        my_bets : {
+            titles : [],
+            fields : [
+                {
+                    value : 'game',
+                    image : true
+                },
+                {
+                    value : 'id'
+                },
+                {
+                    value : 'winAmount',
+                    dependentColor : true,
+                    condition : 'isWon',
+                    currency: true
+                },
+                {
+                    value : 'payout',
+                    //dependentColor : true,
+                    //condition : 'isWon'
+                }
+            ],
+            rows : []
+        },
+        biggest_win_bets : {
+            titles : [],
+            fields : [
+                {
+                    value : 'game',
+                    image : true
+                },
+                {
+                    value : 'id'
+                },
+                {
+                    value : 'username'
+                },
+                {
+                    value : 'winAmount',
+                    dependentColor : true,
+                    condition : 'isWon',
+                    currency: true
+                },
+                {
+                    value : 'payout',
+                    //dependentColor : true,
+                    //condition : 'isWon'
+                }
+            ],
+            rows : []
+        },
+        biggest_win_users : {
+            titles : [],
+            fields : [
+                {
+                    value : 'position'
+                },
+                {
+                    value : 'username'
+                },
+                {
+                    value : 'winAmount',
+                    dependentColor : true,
+                    condition : 'isWon'
+                }
+            ],
+            rows : []
+        },
     }
 
     componentDidMount(){
         this.projectData(this.props)
     }
-
-    componentWillReceiveProps(props){
+        componentWillReceiveProps(props){
         if(props !== this.props) {
             this.projectData(props);
         }
+    }
+
+
+    getCopy = () => {
+        const {ln} = this.props;
+        const copy = CopyText.homepage[ln];
+        
+        return copy;
+    }
+        
+    views = [{ text : 10, value : 10 }, { text : 25, value : 25 }, { text : 50, value : 50 }, { text : 100, value : 100 }];
+    allGames = { text : this.getCopy().TABLE_FILTER, value : 'all_games' };    
+      
+    
+    defaultProps = {
+        all_bets    : this.rows.all_bets,
+        my_bets     : this.rows.my_bets,
+        biggest_win_bets : this.rows.biggest_win_bets,
+        biggest_win_users : this.rows.biggest_win_users,
+        view        : 'all_bets',
+        view_amount : this.views[0],
+        gamesOptions : [],
+        games : [],
+        options : [],
+        view_game : this.allGames,
+        isLoading: true,
+        isListLoading : true
+    }
+    
+    constructor(props){
+        super(props);
+        this.state = this.defaultProps;
     }
 
     setTimer = (options) => {
@@ -177,7 +184,7 @@ class LastBets extends Component {
 
         let games = getGames();
         let gamesOptions = [];
-        gamesOptions.push(allGames);
+        gamesOptions.push(this.allGames);
 
         games.map( (data) => {
             const n = {
@@ -330,6 +337,7 @@ class LastBets extends Component {
                 })
             }
         })
+        this.getCopy();
     }
 
     render() {
@@ -365,7 +373,7 @@ class LastBets extends Component {
                             <div styleName='bets-dropdown'>
                                 <SelectBox
                                     onChange={(e) => this.changeViewBets(e)}
-                                    options={views}
+                                    options={this.views}
                                     value={this.state.view_amount}
                                 /> 
                             </div>

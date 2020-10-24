@@ -1,6 +1,9 @@
 import React, { Component } from "react";
 import {Typography } from "components";
 import PropTypes from "prop-types";
+import { connect } from "react-redux";
+
+import {CopyText} from "../../copy";
 import UserContext from "containers/App/UserContext";
 import classNames from "classnames";
 import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
@@ -95,7 +98,8 @@ class TableDefault extends Component {
 
     render() {
         let { isLoadingRow, rows } = this.state; 
-        let { titles, fields, isLoading, onTableDetails, tag } = this.props;
+        let { titles, fields, isLoading, onTableDetails, tag, ln} = this.props;
+        const copy = CopyText.tableIndex[ln];
 
         const rowStyles = classNames("tr-row", {
             addRow: isLoadingRow
@@ -224,7 +228,7 @@ class TableDefault extends Component {
                         {
                             !rows.length ?
                                 <div styleName="no-info">
-                                    <Typography variant='small-body' color={"grey"}> No Information </Typography>
+                                    <Typography variant='small-body' color={"grey"}>{copy.TITLE}</Typography>
                                 </div>
                             :
                                 null
@@ -238,5 +242,10 @@ class TableDefault extends Component {
 }
 
 
+function mapStateToProps(state){
+    return {
+        ln : state.language,
+    };
+}
 
-export default TableDefault;
+export default connect(mapStateToProps)(TableDefault);

@@ -55,13 +55,16 @@
                            degree of financial risk. Players should be aware of these risks and 
                            govern themselves accordingly.` }
           ],
+          "TEXT2": [(website)=> { return `All ${website} products are operated by Ignisvc B.V. registered address, Heelsumstraat 51, Willemstad, Curacao. A company licensed and 
+            regulated by the law of Curacao under the Master License Holder Curacao eGaming with license number 1668/JAZ.` }],
           SUPPORT: 'Support',
           COMMUNITY: 'Community',
           AFFILIATE: 'Affiliate',
           TERMS_OF_SERVICE: 'Terms Of Service',
           BLOG: 'Blog',
           TELEGRAM: 'Telegram',
-          LANGUAGE: 'Language'
+          LANGUAGE: 'Language',
+          RIGHTS: 'All Rights Reserved'
         }
       }
     },
@@ -161,13 +164,16 @@
             (param)=> { return `인터넷 복권, 도박 또는 도박장이 불법인 지역에 거주하는 경우, 이 사이트내에서 위와 관련된 그 어떤 것도 클릭하지 마십시오. 소재지에서 위의 사항들이 합법적인 경우에도 도박 관련 항목을 클릭하려면  사용자의 나이가 21세 이상이어야 합니다. 
                            자신이 속한 관할권 또는 지역 내에 존재하는 온라인 게임과 관련된 법률 및 규정의 합법성 여부를 반드시 확인하시는 것이 좋습니다. ${param}이 제공하는 게임은 공정성 및 투명성을 바탕으로한 블록체인을 기반으로 합니다. 게임을 즐기실 때에는 온라인 도박과 복권 등이 엔터테인먼트 수단이며, 경제적 손실을 가져 올 수 있다는 것을 반드시 염두해 두시길 바랍니다. 사용자는 이러한 위험을 알고, 그에 따라 스스로의 선택에 책임이 따른다는 사실을 숙지 해 주시기 바랍니다.` }
           ],
+          "TEXT2": [(website)=> { return `All ${website} products are operated by Ignisvc B.V. registered address, Heelsumstraat 51, Willemstad, Curacao. A company licensed and 
+            regulated by the law of Curacao under the Master License Holder Curacao eGaming with license number 1668/JAZ.` }],
           SUPPORT: '서포트',
           COMMUNITY: '커뮤니티',
           AFFILIATE: '추천인 제도',
           TERMS_OF_SERVICE: '서비스 약관',
           BLOG: '블로그',
           TELEGRAM: '텔레그램',
-          LANGUAGE: '언어'
+          LANGUAGE: '언어',
+          RIGHTS: 'All Rights Reserved'
         }
       }
     },
@@ -269,13 +275,16 @@
                            认识到涉及在线游戏的法律法规各地都有所不同，建议玩家务必遵守法律在他们自己的管辖权或地区内存在的以确定所涵盖活动的合法性。 提供的游戏${param}基于区块链，公平和透明。 你几时开始在玩这些游戏时，请注意，在线赌博和彩票是一种娱乐工具，它带有一定的
                            金融风险程度。 玩家应该意识到这些风险，相应地管理自己。` }
           ],
+          "TEXT2": [(website)=> { return `All ${website} products are operated by Ignisvc B.V. registered address, Heelsumstraat 51, Willemstad, Curacao. A company licensed and 
+            regulated by the law of Curacao under the Master License Holder Curacao eGaming with license number 1668/JAZ.` }],
           SUPPORT: '支持',
           COMMUNITY: '社群',
           AFFILIATE: '推荐人制度',
           TERMS_OF_SERVICE: '服务条款',
           BLOG: '博客',
           TELEGRAM: '电报',
-          LANGUAGE: '语言名称'
+          LANGUAGE: '语言名称',
+          RIGHTS: 'All Rights Reserved'
         }
       }
     },
@@ -385,13 +394,16 @@
               degree of financial risk. Players should be aware of these risks and 
               govern themselves accordingly.` }
           ],
+          "TEXT2": [(website)=> { return `All ${website} products are operated by Ignisvc B.V. registered address, Heelsumstraat 51, Willemstad, Curacao. A company licensed and 
+            regulated by the law of Curacao under the Master License Holder Curacao eGaming with license number 1668/JAZ.` }],
           SUPPORT: 'Support',
           COMMUNITY: 'Community',
           AFFILIATE: 'Affiliate',
           TERMS_OF_SERVICE: 'Terms Of Service',
           BLOG: 'Blog',
           TELEGRAM: 'Telegram',
-          LANGUAGE: 'Language'
+          LANGUAGE: 'Language',
+          RIGHTS: 'All Rights Reserved'
         }
       }
     },
@@ -459,13 +471,13 @@
           "Настройки",
           "Депозиты",
           "Вывод средств",
-          "Партнёры",
+          "Рефералы",
           "Покупки",
           "Мои ставки",
           "Учетная запись",
           "Безопасность",
           "Кошелёк",
-          "Предпочтения"
+          "Настройки"
         ]
       },
       "APP": {
@@ -489,24 +501,25 @@
       "FOOTER": {
         "INFO": {
           "TEXT": [
-            (param)=> { return `Если вы проживаете в стране, где лотереи, азартные игры или ставки 
-                           в Интернете являются незаконными, не взаимодействуйте на этом сайте с элементами, 
-                           связанными с этими. Вам должен быть 21 год, чтобы взаимодействовать с платформой, 
-                           связанной с азартными играми, даже если это разрешено законом в вашем регионе. 
-                           Признавая, что законы и правила, касающиеся онлайн-игр, повсюду различаются, 
-                           игрокам рекомендуется свериться с законами, действующими в пределах их юрисдикции или региона, 
-                           чтобы убедиться в законности действий, на которые распространяется действие этих правил. Игры, предоставляемые 
-                           ${param} основаны на блокчейне, честности и прозрачности. Когда вы начнете играть в эти игры, обратите внимание, 
-                           что азартные игры и лотереи онлайн - это средство развлечения и сопряжено с определенным финансовым риском. 
-                           Игроки должны знать об этих рисках и соответственно управлять рисками.` }
+            (param)=> { return `Некоторые игры могут быть не доступны в определенных регионах в зависимости от политики игровых провайдеров, 
+            которая может время от времени меняться.
+            Вы может принимать участие в игре, если достигли 21 года и если участие в играх не запрещено законом вашей страны.
+            Исключительной ответственностью Игрока является необходимость убедиться в том, что участвуя в Игре, он не совершает действий, 
+             которые могут быть квалифицированы как нарушение законодательства.
+             Игровая платформа ${param} основана на Блокчейне. Пользуясь платформой, игрок принимает на себя риск возможных потерь виртуальных средств,
+             внесенных на его аккаунт.` }
           ],
+          "TEXT2": [(website)=> { return `Все продукты ${website} управляются компанией Ignisvc B.V.,
+           зарегистрированной по адресу Heelsumstraat 51, Willemstad, Curacao.
+          Лицензирование и надзор за деятельностью осуществляет Master License Holder Curacao eGaming (лицензия 1668/JAZ).` }],
           SUPPORT: 'Служба поддержки',
           COMMUNITY: 'Сообщество',
           AFFILIATE: 'Пратнёры',
           TERMS_OF_SERVICE: 'Условия использования',
           BLOG: 'Блог',
           TELEGRAM: 'Телеграм',
-          LANGUAGE: 'Язык'
+          LANGUAGE: 'Язык',
+          RIGHTS: 'Все Права Защищеныd'
         }
       }
     },
@@ -541,7 +554,7 @@
         ]
       },*/
       "BIGGEST_WIN_BETS": {
-        "TITLE": "Крупнейшие победы",
+        "TITLE": "Крупнейшие Выигрыши",
         "ITEMS": [
           "Игра",
           "Id Ставки",
@@ -551,7 +564,7 @@
         ]
       },
       "BIGGEST_WIN_USERS": {
-        "TITLE": "Доска лидеров",
+        "TITLE": "Топ-Победители",
         "ITEMS": [
           "Позиция",
           "Пользователь",
@@ -559,7 +572,7 @@
         ]
       }
     },
-    "TABLE_FILTER": "Все игры"
+    "TABLE_FILTER": "Все Игры"
   }
 }
     export default homepageCopy;

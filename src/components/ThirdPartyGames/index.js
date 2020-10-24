@@ -5,6 +5,7 @@ import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
 import { getProvidersGames } from "../../lib/api/app";
 import { getSkeletonColors, getApp, getAppCustomization } from "../../lib/helpers";
 import _ from 'lodash';
+import { CopyText } from "../../copy";
 import "./index.css";
 
 class ThirdPartyGames extends Component {
@@ -138,9 +139,10 @@ class ThirdPartyGames extends Component {
     }
 
     render() {
-        const { onHandleLoginOrRegister, history } = this.props;
+        const { onHandleLoginOrRegister, history, ln } = this.props;
         const { providers, games, isLoading, isLoadingGames, total, providerId } = this.state;
         const skin = getAppCustomization().skin.skin_type;
+        const copy = CopyText.thirdPartyGamesIndex[ln];
 
         return (
             <div>
@@ -182,7 +184,7 @@ class ThirdPartyGames extends Component {
                                     slidesToScroll={2}
                                     slidesToShow={6}
                                     scrollOnDevice={true}
-                                    title={skin == "digital" ? "Third party Games" : "Providers"}
+                                    title={skin == "digital" ? copy.TITLE : copy.TITLE}
                                     >
                                     {
                                         providers.map(p => {
