@@ -37,6 +37,8 @@ const footerStaticOutput = ({props, supportLinks, communityLinks}) => {
     return {
         info : {
             text : copy.CONTAINERS.FOOTER.INFO.TEXT[0](info.name),
+            text2: copy.CONTAINERS.FOOTER.INFO.TEXT2[0](website),
+            rights: copy.CONTAINERS.FOOTER.INFO.RIGHTS,
             size : "x-small-body",
             color : 'grey',
         },
@@ -301,9 +303,7 @@ class Footer extends Component {
                             weight={footerInfo.info.size}
                             color={footerInfo.info.color}
                         > 
-                            
-                            All {website} products are operated by Ignisvc B.V. registered address, Heelsumstraat 51, Willemstad, Curacao. A company licensed and 
-                            regulated by the law of Curacao under the Master License Holder Curacao eGaming with license number 1668/JAZ.
+                            {footerInfo.info.text2}
                     
                         </Typography>
                     </div>
@@ -323,7 +323,7 @@ class Footer extends Component {
                                     :
                                         null
                                     }
-                                    <br/>All Rights Reserved
+                                    <br/>{footerInfo.info.rights}
                                 </Typography>
                             </div>
                             {info && info.licenseID && info.isValid ?

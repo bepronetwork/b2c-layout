@@ -5,6 +5,7 @@
     "INDEX": {
       "TYPOGRAPHY": {
         "TEXT": [
+          () => {return "Never send other currencies, we are not responsible for any mistake."},
           "Never send other currencies, we are not responsible for any mistake.",
           "Copy",
           "Your Deposit Address is being generated, please wait a few minutes.",
@@ -29,8 +30,8 @@
     "INDEX": {
       "TYPOGRAPHY": {
         "TEXT": [
-          `지원하지 않는 토큰을 입금하지 마십시오. 
-          지원하지 않는 토큰 입금에 대한 부분은 책임 지지 않습니다.`,
+          () => {return `지원하지 않는 토큰을 입금하지 마십시오. 
+          지원하지 않는 토큰 입금에 대한 부분은 책임 지지 않습니다.`},
           "복사",
           "Your Deposit Address is being generated, please wait a few minutes.",
           "Price"
@@ -54,7 +55,7 @@
     "INDEX": {
       "TYPOGRAPHY": {
         "TEXT": [
-          `切勿发送其他货币，我们对任何错误概不负责。`,
+          () => {return `切勿发送其他货币，我们对任何错误概不负责。`},
           "复制",
           "Your Deposit Address is being generated, please wait a few minutes.",
           "Price"
@@ -78,7 +79,7 @@
     "INDEX": {
       "TYPOGRAPHY": {
         "TEXT": [
-          "Never send other currencies, we are not responsible for any mistake.",
+          () => {return "Never send other currencies, we are not responsible for any mistake."},
           "Copy",
           "Your Deposit Address is being generated, please wait a few minutes.",
           "Price"
@@ -102,13 +103,13 @@
     "INDEX": {
       "TYPOGRAPHY": {
         "TEXT": [
-          "Никогда не отправляйте другую валюту, мы не несем ответственности за ошибки.",
+          (param) => {return `Убедитесь в том, что вы отправляете ${param[0]}. Мы не несем ответственности за средства, отправленные на ошибочные адреса.`},
           "Копировать",
           "Ваш адрес депозита создается, подождите несколько минут.",
           "Цена"
         ],
         "FUNC_TEXT": [
-          (params) => { return `Отсканируйте QR-код и отправьте ${params[0]}, внесите точно ${params[1]} на этот адрес.`}
+          (param) => { return `Отсканируйте QR-код и отправьте точное количество ${param[0]} на нижеприведенный адрес.`}
         ],
         "NOTICE_TEXT": [
           (params) => { return `Bonus ${params[0]}% (minimum amount ${params[1]} ${params[2]} and maximum amount ${params[3]} ${params[2]} to qualify)`},
@@ -120,7 +121,7 @@
         ]
       }
     },
-    "NOTICE": "Notice"
+    "NOTICE": "Комментарии"
   }
 }
     export default depositFormIndexCopy;

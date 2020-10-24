@@ -272,7 +272,7 @@ class DepositForm extends Component {
                             <Typography variant={'x-small-body'} color={`white`}>
                                 {copy.INDEX.TYPOGRAPHY.FUNC_TEXT[0]([wallet.currency.ticker, wallet.currency.ticker])}
                                 <br/><br/>
-                                {copy.INDEX.TYPOGRAPHY.TEXT[0]}
+                                {copy.INDEX.TYPOGRAPHY.TEXT[0]([wallet.currency.ticker])}
                             </Typography>
                             <div styleName="qrcode">
                                 <QRCode value={address} bgColor={skin.skin_type == "digital" ? backgroundColor.hex : "#fff" } fgColor={skin.skin_type == "digital" ? secondaryColor.hex : "#000"}/>

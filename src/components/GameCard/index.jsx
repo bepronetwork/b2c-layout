@@ -63,7 +63,7 @@ class GameCard extends Component {
                 </div>
                 <div styleName="title">
                     <div styleName="prov">
-                        <Typography variant={'x-small-body'} color={'grey'}>BetProtocol Games</Typography>
+                        <Typography variant={'x-small-body'} color={'grey'}>{`BetProtocol ${copy.GAMES_NAME}`}</Typography>
                     </div>
                 </div>
             </div>
