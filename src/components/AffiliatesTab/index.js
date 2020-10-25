@@ -40,7 +40,14 @@ class AffiliatesTab extends React.Component{
     projectData = async (props) => {
         const { profile } = this.props;
         let { wallet } = this.state;
-        const wallets = getApp().virtual === true ? profile.getAffiliateWallets().filter(w => w.currency.virtual === true) : profile.getAffiliateWallets();
+        const getCurrenciesApp = getApp().currencies;
+
+        const resultCompare =  profile.getAffiliateWallets().filter(wallet =>
+        getCurrenciesApp.some(
+          getCurrenciesApp => wallet.currency._id === getCurrenciesApp._id
+        ))
+
+        const wallets = getApp().virtual === true ? profile.getAffiliateWallets().filter(w => w.currency.virtual === true) : resultCompare;
         const { id, userAmount, percentageOnLevelOne } = profile.getAffiliateInfo();
 
         if(wallets && !wallet) {
