@@ -178,7 +178,7 @@ class RouletteBoard extends Component {
           onClick={this.handleClick}
           type="button"
         >
-          <TableCell label="19 to 36" id="range1936" betHistory={betHistory} color="pickled-bluewood-dark"/>
+          <TableCell label={`19 ${copy.TO} 36`} id="range1936" betHistory={betHistory} color="pickled-bluewood-dark"/>
         </button>
         <button
           styleName="parityOdd"
@@ -232,7 +232,7 @@ class RouletteBoard extends Component {
           onClick={this.handleClick}
           type="button"
         >
-          <TableCell label="1 to 18" id="range0118" betHistory={betHistory} color="pickled-bluewood-dark"/>
+          <TableCell label={`1 ${copy.TO} 18`} id="range0118" betHistory={betHistory} color="pickled-bluewood-dark"/>
         </button>
         <button
           styleName="range2536"
@@ -242,7 +242,7 @@ class RouletteBoard extends Component {
           onClick={this.handleClick}
           type="button"
         >
-          <TableCell label="25 to 36" id="range2536" betHistory={betHistory} color="pickled-bluewood-dark"/>
+          <TableCell label={`25 ${copy.TO} 36`} id="range2536" betHistory={betHistory} color="pickled-bluewood-dark"/>
         </button>
         <button
           styleName="range1324"
@@ -252,7 +252,7 @@ class RouletteBoard extends Component {
           onClick={this.handleClick}
           type="button"
         >
-          <TableCell label="13 to 24" id="range1324" betHistory={betHistory} color="pickled-bluewood-dark"/>
+          <TableCell label={`13 ${copy.TO} 24`} id="range1324" betHistory={betHistory} color="pickled-bluewood-dark"/>
         </button>
         <button
           styleName="range0112"
@@ -262,7 +262,7 @@ class RouletteBoard extends Component {
           onClick={this.handleClick}
           type="button"
         >
-          <TableCell label="1 to 12" id="range0112" betHistory={betHistory} color="pickled-bluewood-dark"/>
+          <TableCell label={`1 ${copy.TO} 12`} id="range0112" betHistory={betHistory} color="pickled-bluewood-dark"/>
         </button>
         <button
           styleName="row3"

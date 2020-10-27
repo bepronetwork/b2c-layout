@@ -111,3 +111,24 @@
 
 .banner-content {
 }
+
+.banner-without-text{
+    display: flex;
+    width: 100%;
+    position: relative;
+    align-items: center;
+    justify-content: center;
+    height: 300px;
+    border-radius: $border-radius;
+    background-color: $primaryColor;
+    box-shadow: rgba(0, 0, 0, 0.4) 0 5px 6px -2px;
+    padding-left: 5%;
+
+    @media screen and (max-width: 1267px) {
+        grid-template-columns: 1fr;
+    }
+
+    @media screen and (max-width: 767px) {
+        padding: 0;
+    }
+}

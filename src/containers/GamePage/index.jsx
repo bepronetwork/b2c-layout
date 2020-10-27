@@ -8,6 +8,7 @@ import Actions from "./Actions";
 import IFrame from "./IFrame";
 import Cache from "../../lib/cache/cache";
 import { getIcon, convertAmountProviderBigger } from "../../lib/helpers";
+import {CopyText} from "../../copy";
 import { Row, Col } from 'reactstrap';
 import { connect } from "react-redux";
 import classNames from "classnames";
@@ -183,7 +184,6 @@ class GamePage extends Component {
     renderIframe() {
         const { currency, providerToken, providerGameId, providerPartnerId, providerUrl, providerExternalId, providerName, providerGameName } = this.props;
         const { max } = this.state;
-
         const newCurrency = convertAmountProviderBigger(currency.ticker, 1);
 
         if(newCurrency === null) { return null };
@@ -219,8 +219,9 @@ class GamePage extends Component {
     }
 
     render() {
-        const { options, game, gameMetaName, onTableDetails, isThirdParty } = this.props;
+        const { options, game, gameMetaName, onTableDetails, isThirdParty, ln } = this.props;
         const { gameInfo } = this.state;
+        const copy = CopyText.shared[ln];
 
         if (_.isEmpty(gameMetaName) && isThirdParty != true) return null;
 
@@ -249,7 +250,7 @@ class GamePage extends Component {
                                     </Col>
                                 </Row>
                             </div>
-                            {this.renderBox({title: "BetProtocol Games", game: gameInfo ? gameInfo.description : null, showActions: true})}
+                            {this.renderBox({title: `BetProtocol ${copy.GAMES_NAME}`, game: gameInfo ? gameInfo.description : null, showActions: true})}
                         </div>
                         <LastBets gameMetaName={gameMetaName} onTableDetails={onTableDetails}/>
                     </div>

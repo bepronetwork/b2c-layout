@@ -275,7 +275,7 @@ class DiceGameCard extends Component {
                     <InputNumber
                         name="roll"
                         icon="rotate"
-                        title={`Roll ${startCase(rollType)}`}
+                        title={copy.INDEX.INPUT_NUMBER.TITLE[1]}
                         precision={2}
                         disabled
                         step={0.5}
