@@ -83,23 +83,23 @@
 }
 
 .input-slim {
-    width: 99%;
-  
-    background: none;
-  
-    border: 0;
-    color: $white;
-    outline: 0;
-  
-    font-family: $font-family;
-    font-size: $font-size-small-body;
-    line-height: $line-height-body;
-  
-    @include Breakpoint-mobileOnly {
-      font-size: $font-size-body-mobile;
-      line-height: $line-height-body-mobile;
-    }
+  width: 99%;
+
+  background: none;
+
+  border: 0;
+  color: $white;
+  outline: 0;
+
+  font-family: $font-family;
+  font-size: $font-size-small-body;
+  line-height: $line-height-body;
+
+  @include Breakpoint-mobileOnly {
+    font-size: $font-size-body-mobile;
+    line-height: $line-height-body-mobile;
   }
+}
 
 .input::placeholder {
   color: $placeHolderColor;

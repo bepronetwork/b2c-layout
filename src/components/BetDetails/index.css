@@ -1,7 +1,6 @@
 @import "../../styles/all.css";
 
 .restricted {
-
-    text-align: center;
-    padding: 150px $spacing-52;
+  text-align: center;
+  padding: 150px $spacing-52;
 }

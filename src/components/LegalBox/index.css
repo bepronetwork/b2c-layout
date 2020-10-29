@@ -1,7 +1,7 @@
 @import "../../styles/all.css";
 
 .root {
-    height: 80px;
-    padding-top : $spacing-8;
-    display: inline-flex;
+  height: 80px;
+  padding-top: $spacing-8;
+  display: inline-flex;
 }

@@ -14,7 +14,6 @@
   }
 }
 
-
 .triangle {
   position: absolute;
 
@@ -86,13 +85,13 @@
   }
 }
 
-.item{
+.item {
   display: inline-flex;
   position: relative;
   flex-direction: column;
   align-items: center;
 
-  svg{
+  svg {
     margin-left: $spacing-12;
   }
 

@@ -1,74 +1,71 @@
 @import "../../styles/all.css";
 
 .footer {
-    text-align: center;
-    padding : $spacing-16;
-    border-radius: $border-radius;
+  text-align: center;
+  padding: $spacing-16;
+  border-radius: $border-radius;
 }
-
-
 
 .container {
-    justify-content: center;
+  justify-content: center;
 
-    grid-column-gap: $spacing-28;
-    grid-row-gap: $spacing-28;
+  grid-column-gap: $spacing-28;
+  grid-row-gap: $spacing-28;
 
-    grid-template-columns: repeat(3, 290px);
+  grid-template-columns: repeat(3, 290px);
 
-    @include Breakpoint-tabletAndAbove {
-        max-width: $content-width-desktop;
-        padding-top : 10px !important;
-        padding: calc($navbar-height + $spacing-36) $spacing-8 0 $spacing-8;
-        margin: 0 auto;
-    }
+  @include Breakpoint-tabletAndAbove {
+    max-width: $content-width-desktop;
+    padding-top: 10px !important;
+    padding: calc($navbar-height + $spacing-36) $spacing-8 0 $spacing-8;
+    margin: 0 auto;
+  }
 
-    @include Breakpoint-mobileOnly {
-        width: 100%;
+  @include Breakpoint-mobileOnly {
+    width: 100%;
 
-        max-width: $content-width-mobile;
-        padding: calc($spacing-36) 0 0 0;
-        margin: 0 auto;
-    }
+    max-width: $content-width-mobile;
+    padding: calc($spacing-36) 0 0 0;
+    margin: 0 auto;
+  }
 
-    @include Breakpoint-tabletOnly {
-        padding: 0 $spacing-20 0 $spacing-20;
-        grid-template-columns: 1fr;
-    }
-
+  @include Breakpoint-tabletOnly {
+    padding: 0 $spacing-20 0 $spacing-20;
+    grid-template-columns: 1fr;
+  }
 }
 
-.left{
-    text-align: left;
+.left {
+  text-align: left;
 }
 
-.title{
-    margin : $spacing-20;
-    margin-left : 0;
+.title {
+  margin: $spacing-20;
+  margin-left: 0;
 }
 
-.item{
-    margin : $spacing-8;
-    margin-left : 0;
-    display : block;
-    position : relative;
+.item {
+  margin: $spacing-8;
+  margin-left: 0;
+  display: block;
+  position: relative;
 }
 
-.logo{
-    width : 200;
-    align-self: left;
-    float: left;
+.logo {
+  width: 200;
+  align-self: left;
+  float: left;
 }
 
-.item:hover{
-    opacity : 0.6 !important;  
+.item:hover {
+  opacity: 0.6 !important;
 }
 
-.no-hover-item{
-    margin : $spacing-8;
-    margin-left : 0;
-    display : block;
-    position : relative;
+.no-hover-item {
+  margin: $spacing-8;
+  margin-left: 0;
+  display: block;
+  position: relative;
 }
 
 .coin {
@@ -77,67 +74,67 @@
   box-shadow: inset 0 0 15px color($red alpha(50%));
 }
 
-.footer-info{
-    text-align: left;
-    margin : $spacing-28 0;
+.footer-info {
+  text-align: left;
+  margin: $spacing-28 0;
 }
 
-.footer-logo{
-    width: 60%;
-    margin : $spacing-28 0;
+.footer-logo {
+  width: 60%;
+  margin: $spacing-28 0;
 
+  @include Breakpoint-mobileOnly {
+    width: 100%;
+  }
+}
+
+.footer-partners {
+  text-align: left;
+  position: relative;
+  padding: $spacing-16 0;
+  margin: $spacing-28 0;
+  border-top: 1px solid $primaryColor-13;
+  border-bottom: 1px solid $primaryColor-13;
+
+  img {
     @include Breakpoint-mobileOnly {
-        width: 100%;
+      margin-bottom: $spacing-16;
     }
+  }
 }
 
-.footer-partners{
-    text-align: left;
-    position: relative;
-    padding: $spacing-16 0;
-    margin: $spacing-28 0;
-    border-top: 1px solid  $primaryColor-13;
-    border-bottom: 1px solid  $primaryColor-13;
+.bepro-made-by-logo {
+  width: 60px;
+  height: 60px;
 
-    img {
-        @include Breakpoint-mobileOnly {
-            margin-bottom : $spacing-16;
-        }
-    }
-}
-
-.bepro-made-by-logo{
-    width : 60px;
-    height: 60px;
-
-    @include Breakpoint-mobileOnly {
-        margin-top : $spacing-12;
-    }
+  @include Breakpoint-mobileOnly {
+    margin-top: $spacing-12;
+  }
 }
 
 .col {
-    margin: auto;
-    text-align: center;
+  margin: auto;
+  text-align: center;
 }
 
 .social {
-    margin: $spacing-16;
+  margin: $spacing-16;
 }
 
 .social-icons {
-    display: inline-flex;
-    margin: auto;
-    align-items: center;  
+  display: inline-flex;
+  margin: auto;
+  align-items: center;
 }
 
 .social-icon {
-    margin: $spacing-12 $spacing-12 0 $spacing-12;
-    img {
-        width: 36px;
-        height: 36px;
-    }
+  margin: $spacing-12 $spacing-12 0 $spacing-12;
+  img {
+    width: 36px;
+    height: 36px;
+  }
 }
 
-.follow{
-    opacity: 0.6;
+.follow {
+  opacity: 0.6;
 }

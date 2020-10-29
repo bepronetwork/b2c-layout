@@ -26,21 +26,21 @@
 
 .undo.casper,
 .sound.casper {
-    fill: $casper;
+  fill: $casper;
 }
 .undo.pickled-bluewood,
-.sound.pickled-bluewood{
-    fill: $background-table-1-outer;
+.sound.pickled-bluewood {
+  fill: $background-table-1-outer;
 }
 
-.dice-icon{
-    width: $games-dice-size;
+.dice-icon {
+  width: $games-dice-size;
 }
 
-.roulette-icon{
-    width: $games-roulette-size;
+.roulette-icon {
+  width: $games-roulette-size;
 }
 
-.coinflip-icon{
-    width: $games-coinflip-size;
+.coinflip-icon {
+  width: $games-coinflip-size;
 }

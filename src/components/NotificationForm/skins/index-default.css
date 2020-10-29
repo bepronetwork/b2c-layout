@@ -35,29 +35,49 @@
   animation: fadeIn ease 1s;
 }
 
-@keyframes fadeIn{
-  0% { opacity:0; }
-  100% { opacity:1; }
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }
 
 @-moz-keyframes fadeIn {
-  0% { opacity:0; }
-  100% { opacity:1; }
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }
 
 @-webkit-keyframes fadeIn {
-  0% { opacity:0; }
-  100% { opacity:1; }
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }
 
 @-o-keyframes fadeIn {
-  0% { opacity:0; }
-  100% { opacity:1; }
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }
 
 @-ms-keyframes fadeIn {
-  0% { opacity:0; }
-  100% { opacity:1; }
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }
 
 .notification-success {
@@ -131,7 +151,7 @@
   overflow-y: auto;
   border-top: none;
   padding: 10px;
-  border-top: 1px solid rgba(0,0,0,.1);
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
 }
 
 .notification-close {
@@ -143,14 +163,15 @@
   line-height: 38px;
   text-align: center;
   text-shadow: none;
-  opacity: .4;
+  opacity: 0.4;
   cursor: pointer;
 }
 
 .notification-close:before {
   transform: rotate(45deg);
 }
-.notification-close:after, .notification-close:before {
+.notification-close:after,
+.notification-close:before {
   position: absolute;
   left: 18px;
   top: 10px;

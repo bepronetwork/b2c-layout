@@ -6,40 +6,36 @@ import App from "./containers/App";
 import { ping } from "./lib/api/app";
 import store from "./containers/App/store";
 import CountryRestrictedPage from "./containers/CountryRestrictedPage";
-import { Provider } from 'react-redux';
+import { Provider } from "react-redux";
 
 class Main extends Component {
-    constructor() {
-      super();
-      this.state = { status: null };
-    }
-  
-    async componentDidMount() {
-      const status = await ping();
-      this.setState( { status } );
-    }
-  
-    render() {
-        const { status } = this.state;
+  constructor() {
+    super();
+    this.state = { status: null };
+  }
 
-        return (
-            <Provider store={store}>
-                <AppContainer>
-                    <BrowserRouter>
-                    {status === 200 ?
-                        <App />
-                        
-                    :
-                        status === 59 ?
-                            <CountryRestrictedPage/>
-                        :
-                            null
-                    }
-                    </BrowserRouter>
-                </AppContainer>
-            </Provider>
-        );
-    }
+  async componentDidMount() {
+    const status = await ping();
+    this.setState({ status });
+  }
+
+  render() {
+    const { status } = this.state;
+
+    return (
+      <Provider store={store}>
+        <AppContainer>
+          <BrowserRouter>
+            {status === 200 ? (
+              <App />
+            ) : status === 59 ? (
+              <CountryRestrictedPage />
+            ) : null}
+          </BrowserRouter>
+        </AppContainer>
+      </Provider>
+    );
+  }
 }
 
 export default Main;

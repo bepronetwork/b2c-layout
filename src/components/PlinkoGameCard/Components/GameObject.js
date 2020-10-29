@@ -1,5 +1,5 @@
-import shortid from 'shortid';
-import { World } from 'matter-js';
+import shortid from "shortid";
+import { World } from "matter-js";
 
 export default class GameObject {
   constructor({ id, x, y, r }) {

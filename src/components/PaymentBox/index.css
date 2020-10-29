@@ -1,61 +1,60 @@
 @import "../../styles/all.css";
 
+.container-root {
+  display: flex;
+  width: 100%;
+  height: auto;
+  margin-bottom: 10px;
+  padding: $spacing-20;
+  background: $primaryColor-5;
+  border-radius: $border-radius;
+  opacity: 1;
+  transition: all 0.2s ease-in;
 
-.container-root{
-    display: flex;
-    width : 100%;
-    height: auto;
-    margin-bottom : 10px;
-    padding : $spacing-20;
-    background: $primaryColor-5;
-    border-radius : $border-radius;
-    opacity : 1;
-    transition: all 0.2s ease-in;
-
-    &:hover{
-        opacity : 0.4;
-    }
+  &:hover {
+    opacity: 0.4;
+  }
 }
 
 .selected {
-    background: $primaryColor-13;
+  background: $primaryColor-13;
 }
 
-.text-description{
-    margin-top : $spacing-8;
-    opacity: 0.5;
+.text-description {
+  margin-top: $spacing-8;
+  opacity: 0.5;
 }
 
-.payment-image{
-    width: 40px;
+.payment-image {
+  width: 40px;
 }
 
-.container-text{
-    text-align: left;
+.container-text {
+  text-align: left;
 }
 
-.container-image{
-    width : 50px;
+.container-image {
+  width: 50px;
 }
 
-.bottom-line{
-    border-top: 1px solid $primaryColor-8;
-    width: 100%;
-    margin-top: 10px;
-    padding-top: 10px;
-    display: flex;
-    flex-direction: row;
-    align-items: flex-end;
+.bottom-line {
+  border-top: 1px solid $primaryColor-8;
+  width: 100%;
+  margin-top: 10px;
+  padding-top: 10px;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
 }
 
-.border-radius{
-    width: 30px;
-    height: 30px;
-    border-radius: 100px;
-    background-color: $primaryColor-2;
+.border-radius {
+  width: 30px;
+  height: 30px;
+  border-radius: 100px;
+  background-color: $primaryColor-2;
 }
 
-.button-padding{
-    display: flex;
-    padding: 0px 10px;
+.button-padding {
+  display: flex;
+  padding: 0px 10px;
 }

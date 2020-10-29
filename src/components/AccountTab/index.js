@@ -130,7 +130,11 @@ class AccountTab extends React.Component {
     const skin = getAppCustomization().skin.skin_type;
 
     return (
-      <div styleName={`box ${skin == "digital" ? "box-digital-kyc" : "background-kyc"}`}>
+      <div
+        styleName={`box ${
+          skin == "digital" ? "box-digital-kyc" : "background-kyc"
+        }`}
+      >
         <div styleName="field">
           <div styleName="label">
             <Typography variant="small-body" color="white">
@@ -167,18 +171,28 @@ class AccountTab extends React.Component {
             </Typography>
           </div>
         </div>
-        {
-          isKycActive ? 
-            <div styleName={`field ${isKycStatus === "no kyc" || isKycStatus === null ? "background-kyc-digital" : "background-kyc-digital"}`}>
-              <div styleName={`label ${isKycStatus === "no kyc" || isKycStatus === null ? "flex-kyc " : "flex-kyc"}`}>
-                <Typography variant="small-body" color="white">
-                  {copy.INDEX.INPUT_TEXT.LABEL[5]}
-                </Typography>
-              </div>
-              {this.caseKycStatus()}
+        {isKycActive ? (
+          <div
+            styleName={`field ${
+              isKycStatus === "no kyc" || isKycStatus === null
+                ? "background-kyc-digital"
+                : "background-kyc-digital"
+            }`}
+          >
+            <div
+              styleName={`label ${
+                isKycStatus === "no kyc" || isKycStatus === null
+                  ? "flex-kyc "
+                  : "flex-kyc"
+              }`}
+            >
+              <Typography variant="small-body" color="white">
+                {copy.INDEX.INPUT_TEXT.LABEL[5]}
+              </Typography>
             </div>
-          : null
-        }
+            {this.caseKycStatus()}
+          </div>
+        ) : null}
         <div styleName="button" onClick={onLogout}>
           <Button size="x-small" theme="primary">
             <Typography

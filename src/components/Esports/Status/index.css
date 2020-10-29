@@ -1,52 +1,52 @@
 @import "../../../styles/all.css";
 
 .match-schedule {
-    display: flex;
-    flex-direction: column;
-    text-align: right;
+  display: flex;
+  flex-direction: column;
+  text-align: right;
 
-    span {
-      padding-top: $spacing-4;
-    }
+  span {
+    padding-top: $spacing-4;
+  }
 
-    span:first-child {
-      padding-top: 0;
-    }
+  span:first-child {
+    padding-top: 0;
+  }
 }
 
 .live {
-    display: flex;
-    flex: 0.5;
-    justify-content: flex-end;
-    align-items: center;
-  
-    @media screen and (max-width: 767px) {
-      width: auto;
-      min-width: auto;
-      flex: auto;
-    } 
-  
-    svg {
-      height: 16px;
-      width: 16px;
-      margin-right: $spacing-12;
-    }
+  display: flex;
+  flex: 0.5;
+  justify-content: flex-end;
+  align-items: center;
+
+  @media screen and (max-width: 767px) {
+    width: auto;
+    min-width: auto;
+    flex: auto;
+  }
+
+  svg {
+    height: 16px;
+    width: 16px;
+    margin-right: $spacing-12;
+  }
 }
-  
+
 .live-mobile {
-    display: none;
-  
-    @media screen and (max-width: 767px) {
-      display: flex;
-    } 
-}
-  
-.live-desktop {
+  display: none;
+
+  @media screen and (max-width: 767px) {
     display: flex;
-  
-    @media screen and (max-width: 767px) {
-      display: none;
-    } 
+  }
+}
+
+.live-desktop {
+  display: flex;
+
+  @media screen and (max-width: 767px) {
+    display: none;
+  }
 }
 
 .transmition {

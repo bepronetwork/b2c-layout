@@ -1,6 +1,5 @@
 @import "../../../styles/all.css";
 
-
 .filter-tournaments {
   margin: $spacing-12 0;
   display: flex;
@@ -17,7 +16,6 @@
     display: flex;
     justify-content: flex-end;
     margin-right: $spacing-12;
-
   }
 }
 
@@ -66,23 +64,23 @@
 }
 
 .all {
-    float: left;
-    background-color: $primaryColor;
-    padding: $spacing-12 $spacing-20;
-    border-radius: $border-radius;
-    margin: 0 $spacing-12 $spacing-8 0;
-    cursor: pointer;
-    display: inline-flex;
-    align-items: center;
-    white-space: nowrap;
-    height: 42px;
+  float: left;
+  background-color: $primaryColor;
+  padding: $spacing-12 $spacing-20;
+  border-radius: $border-radius;
+  margin: 0 $spacing-12 $spacing-8 0;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  white-space: nowrap;
+  height: 42px;
 }
-  
+
 .all-selected {
-    margin-left: $spacing-8;
-    background-color: $secondaryColor;
-    padding: $spacing-4;
-    border-radius: $border-radius;
+  margin-left: $spacing-8;
+  background-color: $secondaryColor;
+  padding: $spacing-4;
+  border-radius: $border-radius;
 }
 
 .tourSelected {

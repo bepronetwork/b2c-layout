@@ -1,113 +1,111 @@
 @import "../../styles/all.css";
 
-.banners{
-    max-width: $content-width-desktop;
-    min-width: 300px;
-    margin: auto;
-    padding: $spacing-8 $spacing-8 0 $spacing-8;
+.banners {
+  max-width: $content-width-desktop;
+  min-width: 300px;
+  margin: auto;
+  padding: $spacing-8 $spacing-8 0 $spacing-8;
 }
 
 .banners-full-width {
-    max-width: 100%;
+  max-width: 100%;
 }
 
-.banner{
-    display: grid;
-    grid-template-areas: "info image";
-    width: 100%;
-    position: relative;
-    grid-template-columns: 40% 60%;
-    height: 300px;
-    border-radius: $border-radius;
-    background-color: $primaryColor;
-    box-shadow: rgba(0, 0, 0, 0.4) 0 5px 6px -2px;
-    padding-left: 5%;
+.banner {
+  display: grid;
+  grid-template-areas: "info image";
+  width: 100%;
+  position: relative;
+  grid-template-columns: 40% 60%;
+  height: 300px;
+  border-radius: $border-radius;
+  background-color: $primaryColor;
+  box-shadow: rgba(0, 0, 0, 0.4) 0 5px 6px -2px;
+  padding-left: 5%;
 
-    @media screen and (max-width: 1267px) {
-        grid-template-columns: 1fr;
-    }
+  @media screen and (max-width: 1267px) {
+    grid-template-columns: 1fr;
+  }
 
-    @media screen and (max-width: 767px) {
-        padding: 0;
-    }
+  @media screen and (max-width: 767px) {
+    padding: 0;
+  }
 }
 
 .banner-full {
-    padding-left: 0;
+  padding-left: 0;
 }
 
-.text{
-    margin: auto 0;
-    text-align: left;
-    padding: $spacing-28 $spacing-28 $spacing-28 0;
-    border-radius: $border-radius 0px 0px $border-radius;
-    height: 100%;
-    display:flex;
-    
+.text {
+  margin: auto 0;
+  text-align: left;
+  padding: $spacing-28 $spacing-28 $spacing-28 0;
+  border-radius: $border-radius 0px 0px $border-radius;
+  height: 100%;
+  display: flex;
 
-    @media screen and (max-width: 1267px) {
-        padding-left: 12%;
-    }
+  @media screen and (max-width: 1267px) {
+    padding-left: 12%;
+  }
 }
 
 .text-full {
-    padding-left: 12%;
-    height: 100%;
-    display: flex;
-    background: rgba(0, 0, 0, 0.9);
+  padding-left: 12%;
+  height: 100%;
+  display: flex;
+  background: rgba(0, 0, 0, 0.9);
 
-
-    @media screen and (max-width: 767px) {
-        opacity: 0.9;
-    }
+  @media screen and (max-width: 767px) {
+    opacity: 0.9;
+  }
 }
 
-.text-image{
-    background: rgba(0, 0, 0, 0.8);
-    position: absolute;
-    left:0;
-    top: 0;
-    bottom: 0;
-    width: 100%;
-    padding: $spacing-28;
-    text-align: left;
+.text-image {
+  background: rgba(0, 0, 0, 0.8);
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 100%;
+  padding: $spacing-28;
+  text-align: left;
+  display: none;
+
+  @media screen and (max-width: 1267px) {
+    display: inline;
+    border-radius: $border-radius;
+  }
+
+  @media screen and (max-width: 767px) {
     display: none;
-
-    @media screen and (max-width: 1267px) {
-        display: inline;
-        border-radius: $border-radius;
-    }
-
-    @media screen and (max-width: 767px) {
-        display: none;
-    }
+  }
 }
 
-.text-image-show{
-    background: rgba(0, 0, 0, 0);
+.text-image-show {
+  background: rgba(0, 0, 0, 0);
 }
 
-.fields{
-    margin-bottom: $spacing-16;
+.fields {
+  margin-bottom: $spacing-16;
 }
 
 .fields-text {
-    opacity: 0.7;
+  opacity: 0.7;
 }
 
-.image{
-    background-position: center center;
-    border-radius: 0px $border-radius $border-radius 0px;
+.image {
+  background-position: center center;
+  border-radius: 0px $border-radius $border-radius 0px;
 
-    @media screen and (max-width: 1267px) {
-        border-radius: $border-radius;
-    }
+  @media screen and (max-width: 1267px) {
+    border-radius: $border-radius;
+  }
 }
 
 .no-text {
-    background: unset;
+  background: unset;
 }
 
 .banner-content {
-    margin-top: auto;
+  margin-top: auto;
 }

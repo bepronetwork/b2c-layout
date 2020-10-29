@@ -27,21 +27,21 @@ $bet-width: $spacing-52;
 }
 
 .bet {
-    padding: $spacing-4 $spacing-8;
-    width: fit-content;
-    margin: $spacing-4;
-    display: inline-flex;
-    background-color: $background-table-1;
-    max-width : 100px;
-    border-radius: $spacing-36;
+  padding: $spacing-4 $spacing-8;
+  width: fit-content;
+  margin: $spacing-4;
+  display: inline-flex;
+  background-color: $background-table-1;
+  max-width: 100px;
+  border-radius: $spacing-36;
 
-    list-style: none;
+  list-style: none;
 
-    text-align: center;
+  text-align: center;
 
-    p {
-        margin: 0 auto;
-    }
+  p {
+    margin: 0 auto;
+  }
 }
 
 .bet.win {

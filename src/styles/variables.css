@@ -1,4 +1,4 @@
-$font-family: 'Ubuntu Mono', sans-serif;
+$font-family: "Ubuntu Mono", sans-serif;
 
 $font-weight-regular: 400;
 $font-weight-semibold: 600;
@@ -35,5 +35,5 @@ $line-height-small-body-mobile: 12px;
 $font-size-x-small-body-mobile: 12px;
 $line-height-x-small-body-mobile: 12px;
 
-$padding-height-navbar : 12px;
-$padding-width-navbar : 50px;
+$padding-height-navbar: 12px;
+$padding-width-navbar: 50px;

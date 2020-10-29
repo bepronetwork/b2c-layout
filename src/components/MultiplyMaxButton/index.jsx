@@ -1,10 +1,9 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import Typography from "../Typography";
-import { CopyText } from '../../copy';
+import { CopyText } from "../../copy";
 import { connect } from "react-redux";
 import { getAppCustomization } from "../../lib/helpers";
-
 import "./index.css";
 
 class MultiplyMaxButton extends Component {
@@ -19,7 +18,7 @@ class MultiplyMaxButton extends Component {
   };
 
   render() {
-    const {ln} = this.props;
+    const { ln } = this.props;
     const copy = CopyText.multiplyMaxButtonIndex[ln];
     const skin = getAppCustomization().skin.skin_type;
 
@@ -33,7 +32,11 @@ class MultiplyMaxButton extends Component {
             type="button"
           >
             <div styleName="button-container">
-              <Typography weight="semi-bold" variant="small-body" color={skin == "digital" ? "secondary" : "casper"}>
+              <Typography
+                weight="semi-bold"
+                variant="small-body"
+                color={skin == "digital" ? "secondary" : "casper"}
+              >
                 ½
               </Typography>
             </div>
@@ -45,7 +48,11 @@ class MultiplyMaxButton extends Component {
             type="button"
           >
             <div styleName="button-container">
-              <Typography weight="semi-bold" variant="small-body" color={skin == "digital" ? "secondary" : "casper"}>
+              <Typography
+                weight="semi-bold"
+                variant="small-body"
+                color={skin == "digital" ? "secondary" : "casper"}
+              >
                 2×
               </Typography>
             </div>
@@ -72,12 +79,11 @@ class MultiplyMaxButton extends Component {
   }
 }
 
-function mapStateToProps(state){
+function mapStateToProps(state) {
   return {
-      profile : state.profile,
-      ln: state.language
+    profile: state.profile,
+    ln: state.language
   };
 }
-
 
 export default connect(mapStateToProps)(MultiplyMaxButton);

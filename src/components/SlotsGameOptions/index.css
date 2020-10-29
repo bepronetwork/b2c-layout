@@ -9,7 +9,6 @@
   border-radius: $border-radius 0 0 0;
 }
 
-
 .amount-container {
   display: grid;
   grid-template-columns: 57% 43%;
@@ -57,18 +56,18 @@
   }
 }
 
-.dropdownInput{
+.dropdownInput {
   width: 100% !important;
   height: 45px;
-  background-color: hsl(244,34%,8%);
-  border: 2px solid hsl(243,34%,13%);
+  background-color: hsl(244, 34%, 8%);
+  border: 2px solid hsl(243, 34%, 13%);
   border-radius: 5px;
   margin-top: 5px;
 }
 
-.dropdownLabel{
-  color: hsl(235,37%,65%);
-  font-family: 'Muli', sans-serif;
+.dropdownLabel {
+  color: hsl(235, 37%, 65%);
+  font-family: "Muli", sans-serif;
   font-weight: 600;
 }
 
@@ -90,6 +89,6 @@
   flex-grow: 1;
 }
 
-.bet-properties{
+.bet-properties {
   padding: $spacing-20;
 }

@@ -30,7 +30,7 @@
   background: $primaryColor-13;
 }
 
-.card::after  {
+.card::after {
   content: "";
   display: block;
   padding-bottom: 100%;
@@ -42,12 +42,12 @@
   left: 50%;
   width: 100%;
   transform: translate(-50%, -50%);
-  box-shadow: $secondaryColor-2  0px 0.3em;
+  box-shadow: $secondaryColor-2 0px 0.3em;
   border-radius: $border-radius;
   border: 2px solid $secondaryColor-13;
 
   @include Breakpoint-mobileOnly {
-    box-shadow: $secondaryColor-2  0px 0.2em;
+    box-shadow: $secondaryColor-2 0px 0.2em;
     border: 1px solid $secondaryColor-13;
   }
 }
@@ -88,34 +88,34 @@
   left: 0px;
   bottom: 0px;
   right: 0px;
-  box-shadow: $primaryColor-8  0px 0.3em;
+  box-shadow: $primaryColor-8 0px 0.3em;
   border-radius: $border-radius;
   background: $primaryColor-13;
 
   @include Breakpoint-mobileOnly {
-    box-shadow: $primaryColor-8  0px 0.2em;
+    box-shadow: $primaryColor-8 0px 0.2em;
   }
 }
 
 .cover:hover {
   background-color: $primaryColor-8;
-  box-shadow: $primaryColor-5  0px 0.4em;
+  box-shadow: $primaryColor-5 0px 0.4em;
   transform: translateY(-0.1em);
 }
 
 .cover-picked {
-  box-shadow: $secondaryColor-8  0px 0.3em;
+  box-shadow: $secondaryColor-8 0px 0.3em;
   background: $secondaryColor-13;
   text-shadow: #000 0px 3px 2px;
 
   @include Breakpoint-mobileOnly {
-    box-shadow: $secondaryColor-8  0px 0.2em;
+    box-shadow: $secondaryColor-8 0px 0.2em;
   }
 }
 
 .cover-picked:hover {
   background-color: $secondaryColor-8;
-  box-shadow: $secondaryColor-5  0px 0.4em;
+  box-shadow: $secondaryColor-5 0px 0.4em;
 }
 
 .cover-selected {
@@ -134,7 +134,7 @@
 
 .cover-selectedd:hover {
   background-color: $primaryColor-2;
-  box-shadow: $secondaryColor-5  0px 0.4em;
+  box-shadow: $secondaryColor-5 0px 0.4em;
 }
 
 .number {

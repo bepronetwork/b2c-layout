@@ -2,175 +2,175 @@
 
 .stats-menu {
   background-color: $primaryColor-2;
-  box-shadow: 1px 1px 8px 1px rgba(0,0,0,0.41961);
+  box-shadow: 1px 1px 8px 1px rgba(0, 0, 0, 0.41961);
 }
 
 .stats-title {
-    padding: $spacing-20;
-    text-align: center;
+  padding: $spacing-20;
+  text-align: center;
 }
 
 .stats-score {
-    display: grid;
-    grid-template-columns: repeat( auto-fit, 130px );
-    gap: 1em;
-    border-bottom: 1px solid $backgroundColor;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, 130px);
+  gap: 1em;
+  border-bottom: 1px solid $backgroundColor;
 
-    @media screen and (max-width: 1267px) and (min-width: 1024px) {
-    }
-    
-    @media screen and (max-width: 1023px) and (min-width: 768px) {
-    } 
-    
-    @media screen and (max-width: 767px) {
-        grid-template-columns: 1fr 1fr; 
-    }
+  @media screen and (max-width: 1267px) and (min-width: 1024px) {
+  }
+
+  @media screen and (max-width: 1023px) and (min-width: 768px) {
+  }
+
+  @media screen and (max-width: 767px) {
+    grid-template-columns: 1fr 1fr;
+  }
 }
 
 .score-team {
-    background-color: $primaryColor-8;
-    text-align: center;
-    padding: $spacing-8;
-    border-radius: $border-radius 0 0 $border-radius;
+  background-color: $primaryColor-8;
+  text-align: center;
+  padding: $spacing-8;
+  border-radius: $border-radius 0 0 $border-radius;
 
-    p {
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-    }
+  p {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
 }
 
 .stats-score div:first-child .score-team {
-    border-radius: 0 $border-radius $border-radius 0;
+  border-radius: 0 $border-radius $border-radius 0;
 }
 
 .score-number {
-    padding: $spacing-16;
-    text-align: center;
+  padding: $spacing-16;
+  text-align: center;
 }
 
 .history {
-    display: grid;
-    grid-template-columns: auto 38px 36px 38px auto;
-    align-items: center;
-    padding: $spacing-8 0;
-    border-bottom: 1px solid $backgroundColor;
-    margin: 0 $spacing-8;
-  
-    div {
-      text-align: center;
-    }
+  display: grid;
+  grid-template-columns: auto 38px 36px 38px auto;
+  align-items: center;
+  padding: $spacing-8 0;
+  border-bottom: 1px solid $backgroundColor;
+  margin: 0 $spacing-8;
+
+  div {
+    text-align: center;
+  }
 }
 
 .history .bar:first-child {
-    transform: rotateY(180deg);
+  transform: rotateY(180deg);
 }
 
 .bar {
-    height: 6px;
-    flex: 1;
-    background-color: $backgroundColor;
-    display: flex;
-    justify-content: flex-start;
-    border-radius: 0 $border-radius $border-radius 0;
-    position: relative;
+  height: 6px;
+  flex: 1;
+  background-color: $backgroundColor;
+  display: flex;
+  justify-content: flex-start;
+  border-radius: 0 $border-radius $border-radius 0;
+  position: relative;
 
-    span {
-        display: block;
-        height: 100%;
-    }
+  span {
+    display: block;
+    height: 100%;
+  }
 }
 
 .bar-text {
-    background-color: $backgroundColor;
-    height: 24px;
-    align-items: center;
-    display: flex;
+  background-color: $backgroundColor;
+  height: 24px;
+  align-items: center;
+  display: flex;
 
-    p {
-        width: 100%;
-    }
+  p {
+    width: 100%;
+  }
 }
 
 .bar-text-1 {
-    border-radius: $border-radius 0 0 $border-radius;
+  border-radius: $border-radius 0 0 $border-radius;
 }
 
 .bar-text-2 {
-    border-radius: 0 $border-radius $border-radius 0;
+  border-radius: 0 $border-radius $border-radius 0;
 }
 
 .progress {
-    animation: progressbar 1s ease-in-out;
-    animation-fill-mode: both;
-    border-radius: 0 $border-radius $border-radius 0;
-    background-color: $secondaryColor;
+  animation: progressbar 1s ease-in-out;
+  animation-fill-mode: both;
+  border-radius: 0 $border-radius $border-radius 0;
+  background-color: $secondaryColor;
 }
 
 .progress-1 {
-    background-color: $seventhColor;
+  background-color: $seventhColor;
 }
 
 .progress-2 {
-    background-color: $heightColor;
+  background-color: $heightColor;
 }
 
 .progress.red {
-    /*background: linear-gradient(270deg, #FF1E55 3.78%, #1C202B 100%);*/
+  /*background: linear-gradient(270deg, #FF1E55 3.78%, #1C202B 100%);*/
 }
 
 .progress.green {
-    /*background: linear-gradient(270deg, #26FF81 3.78%, #1C202B 100%);*/
+  /*background: linear-gradient(270deg, #26FF81 3.78%, #1C202B 100%);*/
 }
 
 .progress.yellow {
-    /*background: linear-gradient(270deg, #FFF43C 3.78%, #1C202B 100%);*/
+  /*background: linear-gradient(270deg, #FFF43C 3.78%, #1C202B 100%);*/
 }
 
 @keyframes progressbar {
-    0% {
-        width: 0;
-    }
-    100% {
-        width: 100%;
-    }
+  0% {
+    width: 0;
+  }
+  100% {
+    width: 100%;
+  }
 }
 
 .history-month {
-    text-align: center;
-    background-color: $backgroundColor;
-    height: $spacing-28;
-    border-radius: $border-radius;
-    align-items: center;
-    display: flex;
-    opacity: 0.6;
+  text-align: center;
+  background-color: $backgroundColor;
+  height: $spacing-28;
+  border-radius: $border-radius;
+  align-items: center;
+  display: flex;
+  opacity: 0.6;
 
-    p {
-        width: 100%;
-    }
+  p {
+    width: 100%;
+  }
 }
 
 .live {
-    background-color: $primaryColor;
-    padding: $spacing-20;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
+  background-color: $primaryColor;
+  padding: $spacing-20;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
 }
 
 .cam {
-    justify-content: end;
+  justify-content: end;
 
-    svg {
-        height: 16px;
-        width: 16px;
-        margin-left: $spacing-12;
-    }
+  svg {
+    height: 16px;
+    width: 16px;
+    margin-left: $spacing-12;
+  }
 }
 
 .shield {
-    display: flex;
-    justify-content: center;
-    margin-bottom: $spacing-8;
+  display: flex;
+  justify-content: center;
+  margin-bottom: $spacing-8;
 }

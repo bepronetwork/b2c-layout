@@ -68,7 +68,7 @@
 
 .x-small-body {
   font-family: $font-family;
-  font-size: $font-size-x-small-body ;
+  font-size: $font-size-x-small-body;
   line-height: $line-height-x-small-body;
 
   @include Breakpoint-mobileOnly {
@@ -112,7 +112,7 @@
 }
 
 .casper {
-  color:  $text-secondary-color;
+  color: $text-secondary-color;
 }
 
 .green {
@@ -123,18 +123,18 @@
   color: $red;
 }
 
-.grey{
-    color : $grey;
+.grey {
+  color: $grey;
 }
 
-.fixedwhite{
-  color : white;
+.fixedwhite {
+  color: white;
 }
 
-.secondary{
-  color : $secondaryColor;
+.secondary {
+  color: $secondaryColor;
 }
 
-.orange{
+.orange {
   color: rgb(242, 153, 74);
 }

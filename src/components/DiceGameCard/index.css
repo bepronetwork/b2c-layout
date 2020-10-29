@@ -26,7 +26,6 @@ $with-without-padding: calc(100% - $spacing-20 - $spacing-20);
   @include Breakpoint-mobileOnly {
     margin: auto;
   }
-
 }
 
 .slider-container {
@@ -60,78 +59,75 @@ $with-without-padding: calc(100% - $spacing-20 - $spacing-20);
   width: 100%;
 }
 
-
-.popular-number-container{
-    padding : 10px;
-    width: 40px;
-    margin-bottom : 5px;
-    text-align: center;
-    display: inline-block;
-    border-radius : 4px;
+.popular-number-container {
+  padding: 10px;
+  width: 40px;
+  margin-bottom: 5px;
+  text-align: center;
+  display: inline-block;
+  border-radius: 4px;
 }
 
-.popular-number-container-amount{
-    padding : 10px;
-    padding-top : 5px;
-    width: 30px;
-    text-align: center;
-    display : inline-flex;
-    border-radius : 4px;
+.popular-number-container-amount {
+  padding: 10px;
+  padding-top: 5px;
+  width: 30px;
+  text-align: center;
+  display: inline-flex;
+  border-radius: 4px;
 }
 
-.popular-number-row{
-    margin-left : -30px;
+.popular-number-row {
+  margin-left: -30px;
 }
 
-
-.green-square{
-    background-color : $green;
+.green-square {
+  background-color: $green;
 }
 
-.green-square-light{
+.green-square-light {
 }
 
-.blue-square{
-    background-color : $roulette-blue-color;
+.blue-square {
+  background-color: $roulette-blue-color;
 }
 
-.blue-square-light{
-  background-color : #afafaf;
+.blue-square-light {
+  background-color: #afafaf;
 }
 
-.red-square{
-    background-color : $red;
+.red-square {
+  background-color: $red;
 }
 
-.red-square-light{
+.red-square-light {
 }
 
-.outer-popular-numbers{
-    width : 110px;
-    border : 2px solid $dark-table-color;
-    height: 40%;
-    background-color : $popular-numbers-container;
-    left : 20px;
-    border-radius : 5px;
-    text-align: center;
-    top : 20px;
-    overflow-y : auto;
-    overflow-x : hidden;
-    position : absolute;
+.outer-popular-numbers {
+  width: 110px;
+  border: 2px solid $dark-table-color;
+  height: 40%;
+  background-color: $popular-numbers-container;
+  left: 20px;
+  border-radius: 5px;
+  text-align: center;
+  top: 20px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  position: absolute;
 
-    @include Breakpoint-mobileOnly {
-      height: 45%;
-      display: none;
-    }
+  @include Breakpoint-mobileOnly {
+    height: 45%;
+    display: none;
+  }
 }
 
-.inner-popular-numbers{
-    width : 100%;
-    height: auto;
-    overflow-y: hidden;
-    margin : 6px;
-    text-align: center;
-    overflow-x: hidden;
-    position : relative;
+.inner-popular-numbers {
+  width: 100%;
+  height: auto;
+  overflow-y: hidden;
+  margin: 6px;
+  text-align: center;
+  overflow-x: hidden;
+  position: relative;
 }
-

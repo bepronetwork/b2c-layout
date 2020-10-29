@@ -1,6 +1,5 @@
 @import "../../../../styles/all.css";
 
-
 .tournament {
   display: inline-flex;
   margin: 0 $spacing-8 $spacing-16 0;
@@ -9,7 +8,7 @@
   border-radius: 24px;
   align-items: center;
   height: 36px;
-  cursor: pointer;  
+  cursor: pointer;
 }
 
 .tournament-name {
@@ -29,7 +28,7 @@
 
   @media screen and (max-width: 1267px) and (min-width: 1024px) {
   }
-  
+
   @media screen and (max-width: 1023px) and (min-width: 768px) {
   }
 

@@ -22,15 +22,14 @@
     grid-template-areas: unset;
     grid-template-columns: unset;
     gap: unset;
-  } 
+  }
 
   @media screen and (max-width: 767px) {
     grid-template-rows: auto auto;
     grid-template-areas: unset;
     grid-template-columns: unset;
     gap: unset;
-  } 
-
+  }
 }
 
 .main-unique {
@@ -41,7 +40,7 @@
   opacity: 0.9;
 
   h2 {
-    text-transform: uppercase; 
+    text-transform: uppercase;
   }
 
   @media screen and (max-width: 1267px) and (min-width: 1024px) {
@@ -55,7 +54,7 @@
   @media screen and (max-width: 767px) {
     margin-bottom: $spacing-36;
     padding: 0 $spacing-20;
-  } 
+  }
 }
 
 .intro {
@@ -68,7 +67,6 @@
 }
 
 .carousel {
-
   height: 360px;
 
   @media screen and (max-width: 1267px) and (min-width: 1024px) {
@@ -81,7 +79,7 @@
   @media screen and (max-width: 767px) {
     width: 100%;
     height: 320px;
-  } 
+  }
 }
 
 .element {
@@ -92,11 +90,11 @@
   }
 
   @media screen and (max-width: 1023px) and (min-width: 768px) {
-  } 
+  }
 
   @media screen and (max-width: 767px) {
     width: 350px;
-  } 
+  }
 }
 
 .background {
@@ -105,7 +103,7 @@
 
   @media screen and (max-width: 767px) {
     height: 200px;
-  } 
+  }
 }
 
 .text {
@@ -137,13 +135,13 @@
 
   @media screen and (max-width: 767px) {
     margin-top: $spacing-36;
-  } 
+  }
 }
 
 .filters {
 }
 
-.matches{
+.matches {
   display: grid;
   grid-template-columns: 74% 25%;
   gap: 1%;
@@ -158,13 +156,13 @@
     display: inline;
     grid-template-columns: none;
     gap: unset;
-  } 
+  }
 
   @media screen and (max-width: 767px) {
     display: inline;
     grid-template-columns: none;
     gap: unset;
-  } 
+  }
 }
 
 .tour-img {
@@ -182,16 +180,15 @@
   }
 
   @media screen and (max-width: 1023px) and (min-width: 768px) {
-    display: none
-  } 
+    display: none;
+  }
 
   @media screen and (max-width: 767px) {
-    display: none
-  } 
+    display: none;
+  }
 }
 
 .all-matches {
-
   margin-top: $spacing-12;
 
   button {

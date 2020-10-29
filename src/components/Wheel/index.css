@@ -4,221 +4,217 @@
   width: 270px;
   margin: 0 auto;
   background-repeat: no-repeat;
-  
+
   background-size: contain;
 }
 
 .containerSimple {
-    height: 80px;
+  height: 80px;
 
-    @include Breakpoint-mobileOnly {
-        height: 40px;
-    }
+  @include Breakpoint-mobileOnly {
+    height: 40px;
+  }
 }
 
-.root{
-    position: relative;
-    display: block;
-    margin : auto;
+.root {
+  position: relative;
+  display: block;
+  margin: auto;
 }
 
 .outer-circle {
-    width: 464px;
-    height: 464px;
-    border: 20px solid $backgroundColor-8;
-    position: relative;
-    border-radius: 232px;
-    z-index: 3;
-    left: -12px;
-    top: -12px;
-    filter: drop-shadow(0px 4px 2px rgba(0,0,0,0.5));
+  width: 464px;
+  height: 464px;
+  border: 20px solid $backgroundColor-8;
+  position: relative;
+  border-radius: 232px;
+  z-index: 3;
+  left: -12px;
+  top: -12px;
+  filter: drop-shadow(0px 4px 2px rgba(0, 0, 0, 0.5));
 
-    @media screen and (max-width: 1267px) and (min-width: 1024px) {
-        width: 376px;
-        height: 376px;
-    }
-      
-    @media screen and (max-width: 1023px) and (min-width: 768px) {
-        width: 384px;
-        height: 384px;
-    }
-    
-    @media screen and (max-width: 767px) {
-        width: 284px;
-        height: 284px;
-        left: -18px;
-        top: -18px;
-    }
+  @media screen and (max-width: 1267px) and (min-width: 1024px) {
+    width: 376px;
+    height: 376px;
+  }
+
+  @media screen and (max-width: 1023px) and (min-width: 768px) {
+    width: 384px;
+    height: 384px;
+  }
+
+  @media screen and (max-width: 767px) {
+    width: 284px;
+    height: 284px;
+    left: -18px;
+    top: -18px;
+  }
 }
 
 .outer-circle-light {
-    border: 20px solid $primaryColor-13;
+  border: 20px solid $primaryColor-13;
 }
 
 .circle {
-    width: 44%;
-    height: 44%;
-    left: 50%;
-    top: 50%;
-    position: absolute;
-    transform: translate(-50%, -50%);
-    z-index: 3;
-    border-radius:100%;
-    border: 1px solid $backgroundColor-8;
+  width: 44%;
+  height: 44%;
+  left: 50%;
+  top: 50%;
+  position: absolute;
+  transform: translate(-50%, -50%);
+  z-index: 3;
+  border-radius: 100%;
+  border: 1px solid $backgroundColor-8;
 }
 
 #spin {
-    cursor: pointer;
+  cursor: pointer;
 }
 
 #container {
-    height: 100vh;
-    overflow: hidden;
-    text-align: center;
+  height: 100vh;
+  overflow: hidden;
+  text-align: center;
 }
 
 #timer {
-    position: absolute;
-    top: 50%;
-    left: 0;
-    right: 0;
-    margin: auto;
-    margin-top: -50px;
-    height: 100px;
-    font-size: 80px;
-    font-weight: 100;
-    font-family: 'Alfa Slab One', cursive;
-    color: #ecf0f1;
-    text-shadow: 3px 3px 0 rgba(0,0,0,0.2);
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  margin: auto;
+  margin-top: -50px;
+  height: 100px;
+  font-size: 80px;
+  font-weight: 100;
+  font-family: "Alfa Slab One", cursive;
+  color: #ecf0f1;
+  text-shadow: 3px 3px 0 rgba(0, 0, 0, 0.2);
 }
 
 .root > span > canvas {
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    width: 440px;
-    height: 440px;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  width: 440px;
+  height: 440px;
 
-    @media screen and (max-width: 1267px) and (min-width: 1024px) {
-        width: 352px;
-        height: 352px;
-    }
-    
-    @media screen and (max-width: 1023px) and (min-width: 768px) {
-        width: 358px;
-        height: 358px;
-    }
-    
-    @media screen and (max-width: 767px) {
-        width: 250px;
-        height: 250px;
-    }
+  @media screen and (max-width: 1267px) and (min-width: 1024px) {
+    width: 352px;
+    height: 352px;
+  }
+
+  @media screen and (max-width: 1023px) and (min-width: 768px) {
+    width: 358px;
+    height: 358px;
+  }
+
+  @media screen and (max-width: 767px) {
+    width: 250px;
+    height: 250px;
+  }
 }
 
-.wheel-pointer{
-    width: 36px;
-    margin: auto;
-    position: relative;
-    display: block;
-    top: -24px;
-    z-index: 4;
-    filter: drop-shadow(0px 4px 2px rgba(0,0,0,0.5));
+.wheel-pointer {
+  width: 36px;
+  margin: auto;
+  position: relative;
+  display: block;
+  top: -24px;
+  z-index: 4;
+  filter: drop-shadow(0px 4px 2px rgba(0, 0, 0, 0.5));
 }
-
 
 .result-container {
-    grid-area: Result / Result / Result / Result;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin : auto;
-    display: block;
-    position: relative;
+  grid-area: Result / Result / Result / Result;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: auto;
+  display: block;
+  position: relative;
 }
 
 .resultContainerSimple {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 
-
-    h6 {
-        font-family: $font-family;
-        font-size: $font-size-h2;
-        font-weight: 600;
-        line-height: $line-height-h2;
-    }
-}
-  
-  .result.picked {
-    opacity: 1;
-  
-    transition: all 100ms linear;
+  h6 {
+    font-family: $font-family;
+    font-size: $font-size-h2;
+    font-weight: 600;
+    line-height: $line-height-h2;
   }
-  
-  .result.red {
-    opacity: 1;
-
-    transition: all 100ms linear;
-  }
-  
-  .result.green {
-  
-    opacity: 1;
-
-    transition: all 100ms linear;
-  }
-
-
-.multiplier-0{
-    color: $wheel-variation-1-color-1;
 }
 
-.multiplier-0-light{
-    color: $wheel-variation-1-color-1-light;
+.result.picked {
+  opacity: 1;
+
+  transition: all 100ms linear;
 }
 
-.multiplier-1{
-    color: $wheel-variation-1-color-2;
+.result.red {
+  opacity: 1;
+
+  transition: all 100ms linear;
 }
 
-.multiplier-1-light{
+.result.green {
+  opacity: 1;
+
+  transition: all 100ms linear;
 }
 
-.multiplier-2{
-    color: $wheel-variation-1-color-3;
+.multiplier-0 {
+  color: $wheel-variation-1-color-1;
 }
 
-.multiplier-2-light{
+.multiplier-0-light {
+  color: $wheel-variation-1-color-1-light;
 }
 
-.multiplier-3{
-    color: $wheel-variation-1-color-4;
+.multiplier-1 {
+  color: $wheel-variation-1-color-2;
 }
 
-.multiplier-3-light{
+.multiplier-1-light {
 }
 
-.multiplier-4{
-    color: $wheel-variation-1-color-5;
+.multiplier-2 {
+  color: $wheel-variation-1-color-3;
 }
 
-.multiplier-4-light{
+.multiplier-2-light {
 }
 
-.multiplier-5{
-    color: $wheel-variation-1-color-6;
+.multiplier-3 {
+  color: $wheel-variation-1-color-4;
 }
 
-.multiplier-5-light{
+.multiplier-3-light {
 }
 
-.multiplier-6{
-    color: $wheel-variation-1-color-7;
+.multiplier-4 {
+  color: $wheel-variation-1-color-5;
 }
 
-.multiplier-6-light{
+.multiplier-4-light {
+}
+
+.multiplier-5 {
+  color: $wheel-variation-1-color-6;
+}
+
+.multiplier-5-light {
+}
+
+.multiplier-6 {
+  color: $wheel-variation-1-color-7;
+}
+
+.multiplier-6-light {
 }

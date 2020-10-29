@@ -12,37 +12,36 @@
 }
 
 .row {
-    display: flex;
-    align-items: center;
-    height: 48px;
-    padding-left: $spacing-28; 
+  display: flex;
+  align-items: center;
+  height: 48px;
+  padding-left: $spacing-28;
 }
 
 .icon {
-    width: 30px;
-    margin-right: 20px;
+  width: 30px;
+  margin-right: 20px;
 
-    img {
-      width: 22px;
-    }
+  img {
+    width: 22px;
+  }
 }
 
 .label {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    height: 40px;
-    cursor: pointer;
-    padding: $spacing-28;
-    background-color: $backgroundColor-2;
-  
-    .user-icon {
-      width: 50px;
-      background-color: $primaryColor-2;
-      border-radius: 25px;
-    }
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  height: 40px;
+  cursor: pointer;
+  padding: $spacing-28;
+  background-color: $backgroundColor-2;
 
+  .user-icon {
+    width: 50px;
+    background-color: $primaryColor-2;
+    border-radius: 25px;
   }
+}
 
 .label-points {
   display: flex;
@@ -55,11 +54,11 @@
   border-radius: $border-radius 0 0 0;
 
   .currency-icon {
-      margin-right: $spacing-8;
+    margin-right: $spacing-8;
   }
 
   span {
-      margin-left: $spacing-8;
+    margin-left: $spacing-8;
   }
 }
 
@@ -70,19 +69,19 @@
   display: none;
 
   @media screen and (max-width: 1267px) and (min-width: 1024px) {
-      display: none;
+    display: none;
   }
-  
+
   @media screen and (max-width: 1023px) and (min-width: 768px) {
-      display: inline;
+    display: inline;
   }
-  
+
   @media screen and (max-width: 767px) {
-      display: inline;
+    display: inline;
   }
 }
 
-.img{
-  height : 22px;
+.img {
+  height: 22px;
   margin-right: $spacing-12;
 }

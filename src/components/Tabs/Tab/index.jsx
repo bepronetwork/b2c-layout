@@ -3,7 +3,6 @@ import PropTypes from "prop-types";
 import classNames from "classnames";
 import Typography from "../../Typography";
 import { getAppCustomization } from "../../../lib/helpers";
-
 import "./index.css";
 
 const tabletBreakpoint = 1267;
@@ -29,30 +28,31 @@ export default class Tab extends Component {
   };
 
   isMobileOrTablet = () => {
-    if (document.documentElement.clientWidth < tabletBreakpoint){
-        return true;
+    if (document.documentElement.clientWidth < tabletBreakpoint) {
+      return true;
     }
     return false;
   };
 
   render() {
-    const { selected, label, icon, style, variant="small-body" } = this.props;
+    const { selected, label, icon, style, variant = "small-body" } = this.props;
     const { skin } = getAppCustomization();
     const classes = classNames("tab", {
       selected,
-      fullBackground : style === "full-background",
-      fullBackgroundSelected : style === "full-background" && selected
+      fullBackground: style === "full-background",
+      fullBackgroundSelected: style === "full-background" && selected
     });
 
     return (
       <div styleName={classes}>
         <button onClick={this.handleClick} type="button">
           <div styleName="main">
-            <div styleName="icon">
-              { icon ? icon : null }
-            </div>
+            <div styleName="icon">{icon ? icon : null}</div>
             <div styleName="label">
-              <Typography variant={this.isMobileOrTablet() ? 'x-small-body' : variant} color={skin.skin_type == "digital" ? 'secondary' : 'white'}>
+              <Typography
+                variant={this.isMobileOrTablet() ? "x-small-body" : variant}
+                color={skin.skin_type == "digital" ? "secondary" : "white"}
+              >
                 {label}
               </Typography>
             </div>

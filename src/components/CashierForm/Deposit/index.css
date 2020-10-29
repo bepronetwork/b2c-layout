@@ -1,36 +1,35 @@
 @import "../../../styles/all.css";
 
-.yellow-box{
-    background-color: #f7f72e;
-    border-radius: 20px;
-    width: max-content;
-    padding: 5px 10px;
+.yellow-box {
+  background-color: #f7f72e;
+  border-radius: 20px;
+  width: max-content;
+  padding: 5px 10px;
 }
 
-.grey-box{
-    border-radius: 20px;
-    width: max-content;
-    border-radius: 5px;
-    padding: 5px 10px;
-    background-color: $grey;
+.grey-box {
+  border-radius: 20px;
+  width: max-content;
+  border-radius: 5px;
+  padding: 5px 10px;
+  background-color: $grey;
 }
 
-
-.green-box{
-    background-color: $green;
-    border-radius: 5px;
-    width: max-content;
-    text-align : center;
-    padding: 5px 10px;
+.green-box {
+  background-color: $green;
+  border-radius: 5px;
+  width: max-content;
+  text-align: center;
+  padding: 5px 10px;
 }
 
-.deposit-button{
-    width : 100px;
-    padding : 10px 20px;
-    border-radius : 10px;
-    background-color: $green;
+.deposit-button {
+  width: 100px;
+  padding: 10px 20px;
+  border-radius: 10px;
+  background-color: $green;
 
-    &:hover{
-        opacity : 0.6;
-    }
+  &:hover {
+    opacity: 0.6;
+  }
 }

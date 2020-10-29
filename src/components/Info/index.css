@@ -1,6 +1,5 @@
 @import "../../styles/all.css";
 
-
 .info {
   position: relative;
   display: inline;
@@ -9,10 +8,11 @@
   cursor: pointer;
   opacity: 0.8;
 
-  svg, img {
-      width: 1em;
-      height: 1em;
-      opacity: 0.5;
+  svg,
+  img {
+    width: 1em;
+    height: 1em;
+    opacity: 0.5;
   }
 
   img {

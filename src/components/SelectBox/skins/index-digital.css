@@ -15,7 +15,6 @@
   }
 }
 
-
 .triangle {
   position: absolute;
 
@@ -34,10 +33,9 @@
   transform: rotate(0deg);
 }
 
-
 .options {
   position: absolute;
-  left : 0;
+  left: 0;
   margin-left: calc($spacing-16 * -1);
   z-index: 2;
 
@@ -51,9 +49,7 @@
   width: auto;
 
   top: $spacing-28;
-
 }
-
 
 .option {
   flex-direction: row;
@@ -73,7 +69,7 @@
   outline: none;
 
   p {
-      display: inline;
+    display: inline;
   }
 }
 
@@ -83,9 +79,8 @@
   * {
     color: $nepal;
   }
-}*/
-
-.item{
+}
+*/ .item {
   display: inline-flex;
   position: relative;
   flex-direction: column;
@@ -93,45 +88,45 @@
   padding-top: 0.3em;
 }
 
-.item img{
+.item img {
   display: inline-block;
   height: 1em;
   stroke-width: 0;
   margin-bottom: 0.4em;
 }
 
-.item svg{
+.item svg {
   margin-left: 7px;
   margin-top: -20px;
 }
 
 .label {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    height: $spacing-16;
-    cursor: pointer;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  height: $spacing-16;
+  cursor: pointer;
 
-    svg {
-      width: $spacing-8;
-    }
+  svg {
+    width: $spacing-8;
+  }
 
-    img {
-      width: 16px;
-    }
-  
-    *:first-child {
-      margin-right: $spacing-4;
-    }
+  img {
+    width: 16px;
   }
-  
-  .label span{
-    margin-left: $spacing-4;
+
+  *:first-child {
+    margin-right: $spacing-4;
   }
-  
-  .label:hover {
-    * {
-      opacity: 0.75;
-      transition: opacity 0.1s ease-in;
-    }
+}
+
+.label span {
+  margin-left: $spacing-4;
+}
+
+.label:hover {
+  * {
+    opacity: 0.75;
+    transition: opacity 0.1s ease-in;
   }
+}

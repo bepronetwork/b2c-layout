@@ -1,24 +1,24 @@
 @import "../../styles/all.css";
 
-.tabs{
-    width: 100%;
-    grid-auto-flow: column;
-    display: grid;
-    align-items: center;
-    gap: 0;
+.tabs {
+  width: 100%;
+  grid-auto-flow: column;
+  display: grid;
+  align-items: center;
+  gap: 0;
 }
 
 .fullBackground {
-    grid-template-columns: repeat(auto-fill, 50%);
+  grid-template-columns: repeat(auto-fill, 50%);
 }
 
 .tabs-limit {
-    @media screen and (max-width: 767px) {
-        grid-template-columns: repeat(3, auto);
-        grid-auto-flow: unset;
-    }
+  @media screen and (max-width: 767px) {
+    grid-template-columns: repeat(3, auto);
+    grid-auto-flow: unset;
+  }
 }
 
 .tabs > div:first-child {
-    border-left: none;
+  border-left: none;
 }

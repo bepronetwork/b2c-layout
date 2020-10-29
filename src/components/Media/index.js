@@ -1,37 +1,30 @@
-import React, { Component } from 'react'
+import React, { Component } from "react";
 // import Carousel from './Carousel/Carousel';
-
-import { Typography } from 'components';
+import { Typography } from "components";
 import "./index.css";
-import {CopyText} from "../../copy";
+import { CopyText } from "../../copy";
 import { connect } from "react-redux";
 
-
 class Media extends Component {
+  render() {
+    const { ln } = this.props;
+    const copy = CopyText.mediaIndex[ln];
 
-    render() {
-
-        const {ln} = this.props;
-        const copy = CopyText.mediaIndex[ln];
-
-
-        return (
-            <div styleName='media-section'>
-                <Typography variant='h3' color='white' weight='bold'> 
-                    {copy.INDEX.TYPOGRAPHY.TEXT[0]}
-                </Typography>
-                <div styleName='container'>
-                   {/* Media */}
-                </div>
-            </div>
-        )
-    } 
+    return (
+      <div styleName="media-section">
+        <Typography variant="h3" color="white" weight="bold">
+          {copy.INDEX.TYPOGRAPHY.TEXT[0]}
+        </Typography>
+        <div styleName="container">{/* Media */}</div>
+      </div>
+    );
+  }
 }
-function mapStateToProps(state){
-    return {
-        profile : state.profile,
-        ln: state.language
-    };
+function mapStateToProps(state) {
+  return {
+    profile: state.profile,
+    ln: state.language
+  };
 }
 
 export default connect(mapStateToProps)(Media);

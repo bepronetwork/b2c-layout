@@ -9,67 +9,64 @@
 
 /* width */
 ::-webkit-scrollbar {
-    width: 5px;
-    height: 5px;
-    background-color: transparent;
+  width: 5px;
+  height: 5px;
+  background-color: transparent;
 }
 
 /* Track */
 ::-webkit-scrollbar-track {
-    border-radius: 10px;
-    background-color: transparent;
+  border-radius: 10px;
+  background-color: transparent;
 }
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-    background: $scroll-bar-color;
-    border-radius: 10px;
+  background: $scroll-bar-color;
+  border-radius: 10px;
 }
 
-body{
-    overflow-x : hidden;
-    background-color: $background-color-theme;
-    overflow-y: auto !important;
-    padding-bottom: 0px;
+body {
+  overflow-x: hidden;
+  background-color: $background-color-theme;
+  overflow-y: auto !important;
+  padding-bottom: 0px;
 }
 
-a{
-    text-decoration: none !important;
+a {
+  text-decoration: none !important;
 }
 
-button{
-    text-decoration: none !important;
+button {
+  text-decoration: none !important;
 }
 
 button:focus {
-    outline: none;
+  outline: none;
 }
 
 @media only screen and (max-width: 600px) {
+  .last-bets-container {
+    display: none !important;
+  }
 
-    .last-bets-container{
-        display: none !important;
-    }
+  .address-box {
+    display: none !important;
+  }
 
-    .address-box{
-        display: none !important;
-    } 
-
-    .coin{
-        margin-top : 0px !important;
-    }
-    
+  .coin {
+    margin-top: 0px !important;
+  }
 }
 
-
-.nav-link.active{
-    background-color : $background-color-theme !important;
+.nav-link.active {
+  background-color: $background-color-theme !important;
 }
 
-.mdi-icon{
-    color : $white !important;
+.mdi-icon {
+  color: $white !important;
 }
 
 :global(.carousel-indicators li) {
-    background-color: $secondaryColor !important;
+  background-color: $secondaryColor !important;
 }

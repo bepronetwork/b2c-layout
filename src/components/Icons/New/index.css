@@ -1,46 +1,45 @@
 @import "../../../styles/all.css";
 
-
 .a {
-    fill:  $seventhColor-13; /*#084eaa*/
+  fill: $seventhColor-13; /*#084eaa*/
 }
 
 .b {
-    fill: $seventhColor; /*#0b69e8;*/
+  fill: $seventhColor; /*#0b69e8;*/
 }
 
 .c {
-    fill: $heightColor-13; /*#d54bac;*/
+  fill: $heightColor-13; /*#d54bac;*/
 }
 
 .d {
-    fill: $heightColor; /*#f18fe8;*/
+  fill: $heightColor; /*#f18fe8;*/
 }
 
 .e {
-    fill: #000;
+  fill: #000;
 }
 
 .f {
-    fill: #fff;
+  fill: #fff;
 }
 
 .g {
-    fill: none;
+  fill: none;
 }
 
 .h {
-    fill: $white;
+  fill: $white;
 }
 
 .i {
-    fill: $grey;
+  fill: $grey;
 }
 
 .j {
-    fill: $secondaryColor;
+  fill: $secondaryColor;
 }
 
 .l {
-    fill: $primaryColor-8;
+  fill: $primaryColor-8;
 }

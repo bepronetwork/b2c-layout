@@ -4,7 +4,6 @@ import { Typography } from "components";
 import PropTypes from "prop-types";
 import { map, take, reverse, isEqual, cloneDeep, isNull } from "lodash";
 import classNames from "classnames";
-
 import "./index.css";
 
 const betWidth = "52px";
@@ -114,29 +113,29 @@ export default class History extends Component {
     this.setState({ anime: false });
   };
 
-    render() {
-        const { bets, anime } = this.state;
-        if (!bets) {
-            return null;
-        }
-
-        const containerStyles = classNames("container", {
-            hide: anime,
-            show: true
-        });
-
-        return (
-            <div styleName="root">
-                <div
-                    styleName={containerStyles}
-                    onAnimationEnd={this.handleAnimation}
-                    style={{
-                        gridTemplateColumns: `repeat(${bets.length}, ${betWidth})`
-                    }}
-                >
-                    {this.renderBets()}
-                </div>
-            </div>
-        );
+  render() {
+    const { bets, anime } = this.state;
+    if (!bets) {
+      return null;
     }
+
+    const containerStyles = classNames("container", {
+      hide: anime,
+      show: true
+    });
+
+    return (
+      <div styleName="root">
+        <div
+          styleName={containerStyles}
+          onAnimationEnd={this.handleAnimation}
+          style={{
+            gridTemplateColumns: `repeat(${bets.length}, ${betWidth})`
+          }}
+        >
+          {this.renderBets()}
+        </div>
+      </div>
+    );
+  }
 }

@@ -1,8 +1,6 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-
 import classNames from "classnames";
-
 import "./index.css";
 
 export default class Button extends Component {
@@ -90,28 +88,20 @@ export default class Button extends Component {
       fullwidth: fullWidth
     });
     return (
-        // eslint-disable-next-line react/button-has-type
-        <button
-            style={this.props.style}
-            styleName={rootStyles}
-            onClick={onClick ? this.handleClick : null}
-            type={type}
-            name={name}
-            disabled={disabled}
-        >
-            <div styleName={contentStyles}>
-              {
-                icon
-                ?
-                  <div styleName="icon">
-                    {icon}
-                  </div>
-                :
-                  null
-              }
-              {this.renderContent()}
-            </div>
-        </button>
+      // eslint-disable-next-line react/button-has-type
+      <button
+        style={this.props.style}
+        styleName={rootStyles}
+        onClick={onClick ? this.handleClick : null}
+        type={type}
+        name={name}
+        disabled={disabled}
+      >
+        <div styleName={contentStyles}>
+          {icon ? <div styleName="icon">{icon}</div> : null}
+          {this.renderContent()}
+        </div>
+      </button>
     );
   }
 }

@@ -2,11 +2,9 @@
 
 .root {
   text-align: center;
-
 }
 
-.user-box{
-
+.user-box {
 }
 
 .container {
@@ -34,25 +32,24 @@
   box-shadow: inset 0 0 15px color($red alpha(50%));
 }
 
-.container-small{
-    margin-top : 40px;
+.container-small {
+  margin-top: 40px;
 }
 
-.main-container{
+.main-container {
+  justify-content: center;
+  grid-column-gap: $spacing-28;
+  grid-row-gap: $spacing-28;
+  max-width: 100%;
+  margin-left: 2%;
+  grid-template-columns: repeat(3, 290px);
+  margin-top: 0px;
+  @include Breakpoint-tabletOnly {
+    margin: 0 auto;
+    margin-top: 20px;
+  }
 
-    justify-content: center;
-    grid-column-gap: $spacing-28;
-    grid-row-gap: $spacing-28;
-    max-width : 100%;
-    margin-left : 2%;
-    grid-template-columns: repeat(3, 290px);
-    margin-top : 0px;
-    @include Breakpoint-tabletOnly {
-        margin: 0 auto;
-        margin-top : 20px;
-    }
-
-    @include Breakpoint-mobileOnly {
-        margin: 0 auto;
-    }
+  @include Breakpoint-mobileOnly {
+    margin: 0 auto;
+  }
 }

@@ -3,7 +3,6 @@ import PropTypes from "prop-types";
 import uniqueId from "lodash/uniqueId";
 import classNames from "classnames";
 import { CopyIcon, Typography } from "components";
-
 import "./index.css";
 
 export default class InputText extends Component {
@@ -66,19 +65,22 @@ export default class InputText extends Component {
     this.setState({ value: event.target.value });
   };
 
-    renderLabel = () => {
-        const { label } = this.props;
+  renderLabel = () => {
+    const { label } = this.props;
 
-        if (!label) return null;
+    if (!label) return null;
 
-        return (
-        <div styleName="label">
-            <Typography color="casper" weight={this.props.weight ? this.props.weight : "semi-bold"}>
-            {label}
-            </Typography>
-        </div>
-        );
-    };
+    return (
+      <div styleName="label">
+        <Typography
+          color="casper"
+          weight={this.props.weight ? this.props.weight : "semi-bold"}
+        >
+          {label}
+        </Typography>
+      </div>
+    );
+  };
 
   render() {
     const {
@@ -117,7 +119,7 @@ export default class InputText extends Component {
                 onChange={this.handleChange}
                 name={name}
                 placeholder={placeholder}
-                styleName={this.props.type == 'slim' ? "input-slim" : "input"}
+                styleName={this.props.type == "slim" ? "input-slim" : "input"}
                 required={required}
                 type={type}
                 value={currentValue}

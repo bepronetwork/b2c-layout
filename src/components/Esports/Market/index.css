@@ -1,52 +1,50 @@
 @import "../../../styles/all.css";
 
 .middle {
-    background-color: $primaryColor;
+  background-color: $primaryColor;
 
+  @media screen and (max-width: 1267px) and (min-width: 1024px) {
+  }
 
-    @media screen and (max-width: 1267px) and (min-width: 1024px) {
-    }
+  @media screen and (max-width: 1023px) and (min-width: 768px) {
+    display: none;
+  }
 
-    @media screen and (max-width: 1023px) and (min-width: 768px) {
-        display: none;
-    } 
-
-    @media screen and (max-width: 767px) {
-        display: none;
-    } 
+  @media screen and (max-width: 767px) {
+    display: none;
+  }
 }
 
 .market {
-    background: rgba(0, 0, 0, 0.8);
-    height: 100%;
-    text-align: center;
-  }
-  
-.market > div {
+  background: rgba(0, 0, 0, 0.8);
+  height: 100%;
+  text-align: center;
+}
 
+.market > div {
 }
 
 .info {
-    padding: $spacing-20;
-    margin-bottom: $spacing-28;
+  padding: $spacing-20;
+  margin-bottom: $spacing-28;
 }
 
 .title {
-    padding: $spacing-12;
-    text-transform: uppercase;
-} 
-  
+  padding: $spacing-12;
+  text-transform: uppercase;
+}
+
 .date {
-    padding: $spacing-12;
-}  
+  padding: $spacing-12;
+}
 
 .time {
-    display: inline-block;
-    align-items: center;
-    padding: $spacing-8;
-    border-bottom: 2px solid $secondaryColor;
+  display: inline-block;
+  align-items: center;
+  padding: $spacing-8;
+  border-bottom: 2px solid $secondaryColor;
 
-    p {
-        text-align: center;
-    }
-} 
+  p {
+    text-align: center;
+  }
+}

@@ -2,92 +2,90 @@
 
 .root {
   text-align: center;
-  margin : auto;
-  margin-top : $spacing-88;
+  margin: auto;
+  margin-top: $spacing-88;
   width: 95%;
 }
 
 .container {
-    @include Breakpoint-tabletAndAbove {
-        max-width: $content-width-desktop;
+  @include Breakpoint-tabletAndAbove {
+    max-width: $content-width-desktop;
 
-        margin: 0 auto;
-    }
+    margin: 0 auto;
+  }
 
-    @include Breakpoint-mobileOnly {
-
-    }
-
+  @include Breakpoint-mobileOnly {
+  }
 }
 
-.filters{
-    justify-content: flex-end;
-    display: inline-flex;
-    align-items: center;
+.filters {
+  justify-content: flex-end;
+  display: inline-flex;
+  align-items: center;
 }
 
-.bets-dropdown{
-    margin: 0 $spacing-12;
+.bets-dropdown {
+  margin: 0 $spacing-12;
 
-    @media screen and (max-width: 767px) {
-        margin: 0 $spacing-4;
-    }
+  @media screen and (max-width: 767px) {
+    margin: 0 $spacing-4;
+  }
 }
 
-.bets-dropdown-game{
-    margin: 0 $spacing-12;
+.bets-dropdown-game {
+  margin: 0 $spacing-12;
 
-    @media screen and (max-width: 767px) {
-        margin: 0 $spacing-4;
-    }
+  @media screen and (max-width: 767px) {
+    margin: 0 $spacing-4;
+  }
 }
 
 .lastBets {
-    width: 100%;
-    grid-auto-flow: column;
-    display: grid;
-    align-items: center;
-    gap: $spacing-8;
-    margin: $spacing-28 0 0 0;
-    background-color: $primaryColor-2;
-    border-radius: $border-radius;
+  width: 100%;
+  grid-auto-flow: column;
+  display: grid;
+  align-items: center;
+  gap: $spacing-8;
+  margin: $spacing-28 0 0 0;
+  background-color: $primaryColor-2;
+  border-radius: $border-radius;
 
-    @media screen and (max-width: 767px) {
-        gap: $spacing-4;
-        margin-top: $spacing-64;
-    }
+  @media screen and (max-width: 767px) {
+    gap: $spacing-4;
+    margin-top: $spacing-64;
+  }
 }
 
 .skeleton-tabs {
-    width: 100%;
-    grid-auto-flow: column;
-    display: grid;
-    align-items: center;
-    gap: $spacing-28;
+  width: 100%;
+  grid-auto-flow: column;
+  display: grid;
+  align-items: center;
+  gap: $spacing-28;
 }
 
 .skeleton-main-item {
-    position: relative;
+  position: relative;
 }
 
 .skeleton-left-item {
-    float: left;
+  float: left;
 }
 
 .skeleton-right-item {
-    float: left;
-    width: 80%;
+  float: left;
+  width: 80%;
 
-    @include Breakpoint-tabletOnly {
-        width: 60%;
-    }
+  @include Breakpoint-tabletOnly {
+    width: 60%;
+  }
 }
 
 .loading {
-    width: 100%;
-    text-align: center;
+  width: 100%;
+  text-align: center;
 
-    img {
-        height: $spacing-28;
-    }
+  img {
+    height: $spacing-28;
+  }
 }

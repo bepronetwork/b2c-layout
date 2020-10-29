@@ -13,8 +13,8 @@
   }
 
   @include Breakpoint-mobileOnly {
-    margin-left : 20px;
-}
+    margin-left: 20px;
+  }
 }
 
 .triangle {

@@ -1,9 +1,4 @@
-class ChangeNow{
-
-
-    
-}
-
+class ChangeNow {}
 
 let ChangeNowSingleton = new ChangeNow();
 

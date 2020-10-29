@@ -95,7 +95,7 @@ $handle: 32px;
 
 :global {
   .rc-slider {
-      top : -10px;
+    top: -10px;
     position: relative;
 
     box-sizing: border-box;

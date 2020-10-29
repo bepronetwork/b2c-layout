@@ -64,19 +64,19 @@
 }
 
 .left-arrow {
-	border-color: transparent $primaryColor-5;
-	border-style: solid;
-	border-width: 26px 26px 26px 0px;
-	height: 0px;
-	width: 0px;
+  border-color: transparent $primaryColor-5;
+  border-style: solid;
+  border-width: 26px 26px 26px 0px;
+  height: 0px;
+  width: 0px;
 }
 
 .right-arrow {
-	border-color: transparent $primaryColor-5;
-	border-style: solid;
-	border-width: 26px 0px 26px 26px;
-	height: 0px;
-	width: 0px;
+  border-color: transparent $primaryColor-5;
+  border-style: solid;
+  border-width: 26px 0px 26px 26px;
+  height: 0px;
+  width: 0px;
 }
 
 .painel {
@@ -96,14 +96,14 @@
     grid-template-columns: none;
     gap: unset;
     margin-top: 0;
-  } 
+  }
 
   @media screen and (max-width: 767px) {
     display: grid;
     grid-template-columns: none;
     gap: unset;
     margin-top: 0;
-  } 
+  }
 }
 
 .left {
@@ -114,11 +114,11 @@
 
   @media screen and (max-width: 1023px) and (min-width: 768px) {
     order: 2;
-  } 
+  }
 
   @media screen and (max-width: 767px) {
     order: 2;
-  } 
+  }
 }
 
 .middle {
@@ -129,12 +129,12 @@
 
   @media screen and (max-width: 1023px) and (min-width: 768px) {
     order: 1;
-  } 
+  }
 
   @media screen and (max-width: 767px) {
     order: 1;
     height: 200px;
-  } 
+  }
 }
 
 .isLive {
@@ -151,9 +151,9 @@
 
   @media screen and (max-width: 1023px) and (min-width: 768px) {
     order: 3;
-  } 
+  }
 
   @media screen and (max-width: 767px) {
     display: none;
-  } 
+  }
 }

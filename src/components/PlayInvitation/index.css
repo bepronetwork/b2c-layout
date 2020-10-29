@@ -23,9 +23,9 @@
   }
 }
 
-.invitation-cards{
-    width: 100%;
-    margin-top : -50px;
+.invitation-cards {
+  width: 100%;
+  margin-top: -50px;
 }
 
 .invitation {
@@ -98,8 +98,7 @@
   }
 }
 
-
-.inner-text-container{
-    margin-top : 8%;
-    vertical-align: middle;    
+.inner-text-container {
+  margin-top: 8%;
+  vertical-align: middle;
 }

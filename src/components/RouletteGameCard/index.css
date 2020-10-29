@@ -23,95 +23,95 @@
   }
 }
 
-.popular-number-container{
-    padding : 10px;
-    width: 40px;
-    margin-bottom : 5px;
-    text-align: center;
-    display: inline-block;
-    border-radius : 4px;
+.popular-number-container {
+  padding: 10px;
+  width: 40px;
+  margin-bottom: 5px;
+  text-align: center;
+  display: inline-block;
+  border-radius: 4px;
 }
 
-.popular-number-container-amount{
-    padding : 10px;
-    padding-top : 5px;
-    width: 20px;
-    text-align: center;
-    display : inline-flex;
-    border-radius : 4px;
+.popular-number-container-amount {
+  padding: 10px;
+  padding-top: 5px;
+  width: 20px;
+  text-align: center;
+  display: inline-flex;
+  border-radius: 4px;
 }
 
-.popular-number-row{
-    margin-left : -30px;
+.popular-number-row {
+  margin-left: -30px;
 }
 
 .result-container {
-    grid-area: Result / Result / Result / Result;
-    display: flex;
-    margin-left: 30%;
-    align-items: center;
-    justify-content: center;
+  grid-area: Result / Result / Result / Result;
+  display: flex;
+  margin-left: 30%;
+  align-items: center;
+  justify-content: center;
 
-    @include Breakpoint-mobileOnly {
-      justify-content: unset;
-      position: absolute;
-      top: 0;
-      right: 0;
-      width: 100%;
-      overflow: hidden;
-      padding: $spacing-16;
-    }
+  @include Breakpoint-mobileOnly {
+    justify-content: unset;
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 100%;
+    overflow: hidden;
+    padding: $spacing-16;
+  }
 }
 
-.green-square{
-    background-color : $green;
+.green-square {
+  background-color: $green;
 }
 
 .green-square_light {
 }
 
-.blue-square{
-    background-color : $roulette-blue-color;
+.blue-square {
+  background-color: $roulette-blue-color;
 }
 
-.blue-square_light{
-  background-color : #757575;
+.blue-square_light {
+  background-color: #757575;
 }
 
-.red-square{
-    background-color : $red;
+.red-square {
+  background-color: $red;
 }
 
-.red-square_light{
+.red-square_light {
 }
 
-.outer-popular-numbers{
-    width : 100px;
-    border : 2px solid $dark-table-color;
-    height: 42%;
-    background-color : $popular-numbers-container;
-    left : 20px;
-    border-radius : 5px;
-    text-align: center;
-    top : 20px;
-    overflow-y : auto;
-    overflow-x : hidden;
-    position : absolute;
+.outer-popular-numbers {
+  width: 100px;
+  border: 2px solid $dark-table-color;
+  height: 42%;
+  background-color: $popular-numbers-container;
+  left: 20px;
+  border-radius: 5px;
+  text-align: center;
+  top: 20px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  position: absolute;
 
-    @include Breakpoint-mobileOnly {
-      height: 47%;
-      display: none;
-    }
+  @include Breakpoint-mobileOnly {
+    height: 47%;
+    display: none;
+  }
 }
 
-.inner-popular-numbers{
-    width : 100%;
-    height: auto;
-    overflow-y: hidden;
-    margin : 6px;
-    text-align: center;
-    overflow-x: hidden;
-    position : relative;
+.inner-popular-numbers {
+  width: 100%;
+  height: auto;
+  overflow-y: hidden;
+  margin: 6px;
+  text-align: center;
+  overflow-x: hidden;
+  position: relative;
 }
 
 .result {
@@ -199,7 +199,6 @@
     grid-area: unset;
     left: 10%;
   }
-
 }
 
 .board-top {

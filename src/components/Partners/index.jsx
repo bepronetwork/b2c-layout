@@ -1,43 +1,39 @@
-import React, { Component } from 'react'
+import React, { Component } from "react";
 // import Carousel from './Carousel/Carousel';
-
-import image_1 from 'assets/partners/cruise.png';
-import image_2 from 'assets/partners/genting.png';
-import image_3 from 'assets/partners/sands.png';
-import image_4 from 'assets/partners/waterfront.png';
-
-import { Typography } from 'components';
+import image_1 from "assets/partners/cruise.png";
+import image_2 from "assets/partners/genting.png";
+import image_3 from "assets/partners/sands.png";
+import image_4 from "assets/partners/waterfront.png";
+import { Typography } from "components";
 import "./index.css";
-import { CopyText } from '../../copy';
+import { CopyText } from "../../copy";
 import { connect } from "react-redux";
-
 
 class Partners extends Component {
   render() {
-    const {ln} = this.props;
-const copy = CopyText.partnersIndex[ln];
+    const { ln } = this.props;
+    const copy = CopyText.partnersIndex[ln];
 
     return (
-        <div styleName='partners-section'>
-            <Typography variant='h3' color='white' weight='bold'> 
-              {copy.INDEX.TYPOGRAPHY.TEXT[0]}
-            </Typography>
-            <div styleName='container'>
-                <img styleName='partner-img' src={image_1}/>
-                <img styleName='partner-img' src={image_2}/>
-                <img styleName='partner-img' src={image_3}/>
-                <img styleName='partner-img' src={image_4}/>
-            </div>
+      <div styleName="partners-section">
+        <Typography variant="h3" color="white" weight="bold">
+          {copy.INDEX.TYPOGRAPHY.TEXT[0]}
+        </Typography>
+        <div styleName="container">
+          <img styleName="partner-img" src={image_1} />
+          <img styleName="partner-img" src={image_2} />
+          <img styleName="partner-img" src={image_3} />
+          <img styleName="partner-img" src={image_4} />
         </div>
-    )
+      </div>
+    );
   }
 }
 
-
-function mapStateToProps(state){
+function mapStateToProps(state) {
   return {
-      profile : state.profile,
-      ln: state.language
+    profile: state.profile,
+    ln: state.language
   };
 }
 

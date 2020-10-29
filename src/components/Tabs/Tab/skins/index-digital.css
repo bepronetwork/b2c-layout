@@ -1,6 +1,5 @@
 @import "../../../styles/all.css";
 
-
 .tab:not(.selected) {
   &:hover {
     /*background-color: $dodger-blue;*/
@@ -43,7 +42,7 @@
   }
 }
 
-.selected{
+.selected {
   border-bottom: 2px solid $secondaryColor;
 
   * {
@@ -60,7 +59,7 @@
   background-color: $primaryColor;
 
   button {
-    border-radius: $border-radius; 
+    border-radius: $border-radius;
   }
 }
 
@@ -79,19 +78,17 @@
   }
 
   button {
-    border-radius: $border-radius; 
+    border-radius: $border-radius;
   }
-
 }
 
 .fullBackgroundSelected:hover {
   * {
     color: white;
   }
-
 }
 
-.main{
+.main {
   grid-template-columns: auto auto;
   display: grid;
   align-items: center;
@@ -102,7 +99,7 @@
   justify-content: flex-end;
   display: inline-flex;
   margin-right: $spacing-4;
-  
+
   svg {
     width: 36px;
     height: 36px;
@@ -133,4 +130,3 @@
     float: left;
   }
 }
-

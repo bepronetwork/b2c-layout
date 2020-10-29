@@ -16,220 +16,227 @@ import { Numbers } from "../../lib/ethereum/lib";
 import { formatPercentage } from "../../utils/numberFormatation";
 import { getAppCustomization } from "../../lib/helpers";
 import redColors from "./redColors";
-
 import "./index.css";
 
 const mobileBreakpoint = 768;
 
 class RouletteGameCard extends Component {
+  static propTypes = {
+    result: PropTypes.number,
+    onAddChip: PropTypes.func.isRequired,
+    betHistory: PropTypes.arrayOf(
+      PropTypes.shape({ cell: PropTypes.string, chip: PropTypes.number })
+    ).isRequired,
+    onClear: PropTypes.func.isRequired,
+    onUndo: PropTypes.func.isRequired,
+    bet: PropTypes.bool,
+    onResultAnimation: PropTypes.func.isRequired,
+    isAddChipDisabled: PropTypes.bool.isRequired
+  };
 
-    static propTypes = {
-        result: PropTypes.number,
-        onAddChip: PropTypes.func.isRequired,
-        betHistory: PropTypes.arrayOf(
-        PropTypes.shape({ cell: PropTypes.string, chip: PropTypes.number })
-        ).isRequired,
-        onClear: PropTypes.func.isRequired,
-        onUndo: PropTypes.func.isRequired,
-        bet: PropTypes.bool,
-        onResultAnimation: PropTypes.func.isRequired,
-        isAddChipDisabled: PropTypes.bool.isRequired
-    };
+  static defaultProps = {
+    result: null,
+    bet: false
+  };
 
-    static defaultProps = {
-        result: null,
-        bet: false
-    };
+  state = {
+    rotating: null
+  };
 
-    state = {
-        rotating: null
-    };
+  componentDidMount() {
+    this.projectData(this.props);
+  }
 
-    componentDidMount(){
-        this.projectData(this.props);
+  componentWillReceiveProps(props) {
+    //this.projectData(props);
+  }
+
+  projectData = async props => {
+    const { bet } = props;
+    if (bet == false) {
+      this.setPopularNumbers(props);
     }
+  };
 
-    componentWillReceiveProps(props){
-        //this.projectData(props);
-    }
-
-    
-    projectData = async (props) => {
-        const { bet } = props;
-        if(bet == false){
-            this.setPopularNumbers(props);
-        }
-    }
-
-    setPopularNumbers = async (props) => {
-        let popularNumbers = await getPopularNumbers({size : 15});
-        var gamePopularNumbers = find(popularNumbers, { game: props.game._id });
-        if(gamePopularNumbers){
-            this.setState({...this.state,
-                popularNumbers : gamePopularNumbers.numbers.sort((a, b) => b.resultAmount - a.resultAmount )   
-            })    
-        }
-    }
-    
-    handleAnimationEnd = () => {
-        const { onResultAnimation, bet } = this.props;
-        if (document.documentElement.clientWidth > mobileBreakpoint && bet){
-            onResultAnimation();
-        }
-    };
-
-
-    renderResult = () => {
-        const { result } = this.props;
-        const { rotating } = this.state;
-
-        const resultStyles = classNames("result", {
-        green: result === 0 && !rotating,
-        red: redColors.includes(result) && !rotating,
-        picked:
-            result && result !== 0 && !redColors.includes(result) && !rotating
-        });
-        
-        return (
-            <div styleName="result-container">
-                <div styleName={resultStyles} onTransitionEnd={this.handleAnimationEnd}>
-                <h4>{result}</h4>
-                </div>
-            </div>
-        );
-    };
-
-    renderClearUndo = () => {
-        const { onClear, onUndo, betHistory, ln } = this.props;
-        const { rotating } = this.state;
-        const copy = CopyText.shared[ln];
-
-        const disabled = !betHistory || isEmpty(betHistory) || rotating;
-
-        return (
-            <div styleName="chip-controls">
-                <ButtonIcon
-                icon="undo"
-                label={copy.UNDO_NAME}
-                iconAtLeft
-                onClick={onUndo}
-                disabled={disabled}
-                />
-
-                <ButtonIcon
-                icon="rotate"
-                label={copy.CLEAR_NAME}
-                onClick={onClear}
-                disabled={disabled}
-                />
-            </div>
-        );
-    };
-
-    handleRouletteAnimation = value => {
-        const { rotating } = this.state;
-        const { onResultAnimation, bet } = this.props;
-
-        if (rotating !== value) {
-        this.setState({ rotating: value }, () => {
-            if (
-            document.documentElement.clientWidth <= mobileBreakpoint &&
-            bet &&
-            !value
-            ) {
-            onResultAnimation();
-            }
-        });
-        }
-    };
-
-    renderPopularNumbers = ({popularNumbers}) => {
-        if(!popularNumbers){return null}
-        const totalAmount = popularNumbers.reduce( (acc, item) => {
-            return acc+item.resultAmount;
-        }, 0)
-        const isLight = getAppCustomization().theme === "light";
-        return(
-            <div styleName='outer-popular-numbers'>
-                <div styleName='inner-popular-numbers'>
-                    {popularNumbers.map( item => 
-                        {
-                            if(!cells[item.key]){return null}
-                            let color = cells[item.key].metadata.color;
-                            return(
-                                <div styleName='popular-number-row'>
-                                    <div styleName={`popular-number-container ${color}-square ${isLight ? `${color}-square_light`: ''}`}>
-                                        <Typography variant={'small-body'} color={'white'}>
-                                            {item.key}    
-                                        </Typography>       
-                                    </div>
-                                    <div styleName='popular-number-container-amount'>
-                                        <AnimationNumber number={formatPercentage(Numbers.toFloat(item.resultAmount/totalAmount*100))} variant={'small-body'} color={'white'} span={'%'}/>
-                                    </div>
-                                </div>
-                            )
-                        }
-                    )}
-                </div>
-            </div>
+  setPopularNumbers = async props => {
+    let popularNumbers = await getPopularNumbers({ size: 15 });
+    var gamePopularNumbers = find(popularNumbers, { game: props.game._id });
+    if (gamePopularNumbers) {
+      this.setState({
+        ...this.state,
+        popularNumbers: gamePopularNumbers.numbers.sort(
+          (a, b) => b.resultAmount - a.resultAmount
         )
+      });
     }
+  };
 
-    render() {
+  handleAnimationEnd = () => {
+    const { onResultAnimation, bet } = this.props;
+    if (document.documentElement.clientWidth > mobileBreakpoint && bet) {
+      onResultAnimation();
+    }
+  };
 
-        const {
-            result,
-            onAddChip,
-            betHistory,
-            bet,
-            isAddChipDisabled
-        } = this.props;
+  renderResult = () => {
+    const { result } = this.props;
+    const { rotating } = this.state;
 
-        const { rotating, popularNumbers } = this.state;
+    const resultStyles = classNames("result", {
+      green: result === 0 && !rotating,
+      red: redColors.includes(result) && !rotating,
+      picked: result && result !== 0 && !redColors.includes(result) && !rotating
+    });
 
-        const rootStyles = classNames("root", {
-        animation: rotating
-        });
-
-        const blockStyles = classNames("board-top", {
-            block: bet
-        });
-
-        return (
-        <div styleName={rootStyles}>
-            {this.renderResult()}
-            {this.renderPopularNumbers({popularNumbers})}
-            <div styleName="wheel">
-            <Roulette
-                bet={bet}
-                result={result}
-                onAnimation={this.handleRouletteAnimation}
-            />
-            </div>
-            <div styleName="board">
-            <div styleName={blockStyles} />
-            <RouletteBoard
-                ln={this.props.ln}
-                onAddChip={onAddChip}
-                result={result}
-                betHistory={betHistory}
-                rotating={rotating}
-                isAddChipDisabled={isAddChipDisabled}
-            />
-            </div>
-            {this.renderClearUndo()}
+    return (
+      <div styleName="result-container">
+        <div styleName={resultStyles} onTransitionEnd={this.handleAnimationEnd}>
+          <h4>{result}</h4>
         </div>
-        );
+      </div>
+    );
+  };
+
+  renderClearUndo = () => {
+    const { onClear, onUndo, betHistory, ln } = this.props;
+    const { rotating } = this.state;
+    const copy = CopyText.shared[ln];
+
+    const disabled = !betHistory || isEmpty(betHistory) || rotating;
+
+    return (
+      <div styleName="chip-controls">
+        <ButtonIcon
+          icon="undo"
+          label={copy.UNDO_NAME}
+          iconAtLeft
+          onClick={onUndo}
+          disabled={disabled}
+        />
+
+        <ButtonIcon
+          icon="rotate"
+          label={copy.CLEAR_NAME}
+          onClick={onClear}
+          disabled={disabled}
+        />
+      </div>
+    );
+  };
+
+  handleRouletteAnimation = value => {
+    const { rotating } = this.state;
+    const { onResultAnimation, bet } = this.props;
+
+    if (rotating !== value) {
+      this.setState({ rotating: value }, () => {
+        if (
+          document.documentElement.clientWidth <= mobileBreakpoint &&
+          bet &&
+          !value
+        ) {
+          onResultAnimation();
+        }
+      });
     }
+  };
+
+  renderPopularNumbers = ({ popularNumbers }) => {
+    if (!popularNumbers) {
+      return null;
+    }
+    const totalAmount = popularNumbers.reduce((acc, item) => {
+      return acc + item.resultAmount;
+    }, 0);
+    const isLight = getAppCustomization().theme === "light";
+    return (
+      <div styleName="outer-popular-numbers">
+        <div styleName="inner-popular-numbers">
+          {popularNumbers.map(item => {
+            if (!cells[item.key]) {
+              return null;
+            }
+            let color = cells[item.key].metadata.color;
+            return (
+              <div styleName="popular-number-row">
+                <div
+                  styleName={`popular-number-container ${color}-square ${
+                    isLight ? `${color}-square_light` : ""
+                  }`}
+                >
+                  <Typography variant={"small-body"} color={"white"}>
+                    {item.key}
+                  </Typography>
+                </div>
+                <div styleName="popular-number-container-amount">
+                  <AnimationNumber
+                    number={formatPercentage(
+                      Numbers.toFloat((item.resultAmount / totalAmount) * 100)
+                    )}
+                    variant={"small-body"}
+                    color={"white"}
+                    span={"%"}
+                  />
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+    );
+  };
+
+  render() {
+    const {
+      result,
+      onAddChip,
+      betHistory,
+      bet,
+      isAddChipDisabled
+    } = this.props;
+
+    const { rotating, popularNumbers } = this.state;
+
+    const rootStyles = classNames("root", {
+      animation: rotating
+    });
+
+    const blockStyles = classNames("board-top", {
+      block: bet
+    });
+
+    return (
+      <div styleName={rootStyles}>
+        {this.renderResult()}
+        {this.renderPopularNumbers({ popularNumbers })}
+        <div styleName="wheel">
+          <Roulette
+            bet={bet}
+            result={result}
+            onAnimation={this.handleRouletteAnimation}
+          />
+        </div>
+        <div styleName="board">
+          <div styleName={blockStyles} />
+          <RouletteBoard
+            ln={this.props.ln}
+            onAddChip={onAddChip}
+            result={result}
+            betHistory={betHistory}
+            rotating={rotating}
+            isAddChipDisabled={isAddChipDisabled}
+          />
+        </div>
+        {this.renderClearUndo()}
+      </div>
+    );
+  }
 }
 
-
-
-
-function mapStateToProps(state){
-    return {
-        ln : state.language
-    };
+function mapStateToProps(state) {
+  return {
+    ln: state.language
+  };
 }
 
 export default connect(mapStateToProps)(RouletteGameCard);

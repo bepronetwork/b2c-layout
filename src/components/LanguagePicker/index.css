@@ -1,8 +1,8 @@
 @import "../../styles/all.css";
 
 .root {
-    height: $navbar-height;
-    padding-top : $padding-height-navbar;
+  height: $navbar-height;
+  padding-top: $padding-height-navbar;
 }
 
 .container {
@@ -10,7 +10,7 @@
   flex-direction: row;
   align-items: center;
   width: 80px;
-  
+
   @include Breakpoint-tabletAndAbove {
     padding: 0 $spacing-12;
     margin: 0 auto;
@@ -22,6 +22,6 @@
   }
 }
 
-.image-language{
-    width: 20px;
+.image-language {
+  width: 20px;
 }

@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import classNames from "classnames";
 import { toLower } from "lodash";
-
 import "./coin.css";
 
 export default class Coin extends Component {
@@ -21,7 +20,7 @@ export default class Coin extends Component {
       [`coin${toLower(value)}`]: true
     });
 
-    console.log(rootStyles)
+    console.log(rootStyles);
 
     return (
       <svg

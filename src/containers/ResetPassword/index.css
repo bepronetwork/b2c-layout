@@ -25,8 +25,8 @@
   margin: $spacing-8;
 }
 
-.container-small{
-    margin-top : 40px;
+.container-small {
+  margin-top: 40px;
 }
 
 .username {
@@ -41,7 +41,7 @@
   width: 450px;
 
   @include Breakpoint-mobileOnly {
-    width : 100%;
+    width: 100%;
   }
 }
 

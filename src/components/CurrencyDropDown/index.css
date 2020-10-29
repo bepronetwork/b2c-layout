@@ -1,8 +1,8 @@
 @import "../../styles/all.css";
 
 .root {
-    height: $navbar-height;
-    padding-top : $padding-height-navbar;
+  height: $navbar-height;
+  padding-top: $padding-height-navbar;
 }
 
 .container {
@@ -13,31 +13,30 @@
   height: $spacing-28;
   padding: 0 0 0 $spacing-4;
   border-radius: $border-radius;
-
 }
 
-.image-coin{
-    width: 20px;
-    float: left;
+.image-coin {
+  width: 20px;
+  float: left;
 }
 
-.currency-box-top{
-    margin-top : $spacing-4;
+.currency-box-top {
+  margin-top: $spacing-4;
 }
 
-.option-text{
-    font-family: $font-family;
-    display: inline;
-    float: left;
-    position: relative;
-    margin-left : $spacing-8;
-    margin-top : 0px;
-    color : $text-secondary-color;
+.option-text {
+  font-family: $font-family;
+  display: inline;
+  float: left;
+  position: relative;
+  margin-left: $spacing-8;
+  margin-top: 0px;
+  color: $text-secondary-color;
 
-    @include Breakpoint-mobileOnly {
-      padding-top: $spacing-4;
-      padding-left: $spacing-16;
-      float: none;
-      display: block;
+  @include Breakpoint-mobileOnly {
+    padding-top: $spacing-4;
+    padding-left: $spacing-16;
+    float: none;
+    display: block;
   }
 }

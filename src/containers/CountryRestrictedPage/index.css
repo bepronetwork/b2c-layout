@@ -1,45 +1,45 @@
 @import "../../styles/all.css";
 
 .root {
-    text-align: center;
-    padding: $spacing-16 0;
-    height: 100%;
+  text-align: center;
+  padding: $spacing-16 0;
+  height: 100%;
 
-    @include Breakpoint-mobileOnly {
-      padding: 0;
-    }
+  @include Breakpoint-mobileOnly {
+    padding: 0;
+  }
 }
 
 .container {
-    max-width: $content-width-desktop;
-    margin: auto;
-    background-color: $primaryColor;
-    padding: $spacing-52;
-    border-radius: $border-radius;
-    min-height: 100%;
-  
-    @include Breakpoint-mobileOnly {
-      padding: 0;
-    }
+  max-width: $content-width-desktop;
+  margin: auto;
+  background-color: $primaryColor;
+  padding: $spacing-52;
+  border-radius: $border-radius;
+  min-height: 100%;
+
+  @include Breakpoint-mobileOnly {
+    padding: 0;
+  }
 }
 
 .content {
-    padding: $spacing-28;
+  padding: $spacing-28;
 
-    div {
-        padding: $spacing-16 0;
-    }
+  div {
+    padding: $spacing-16 0;
+  }
 
-    @include Breakpoint-mobileOnly {
-      padding: $spacing-16;
-    }
+  @include Breakpoint-mobileOnly {
+    padding: $spacing-16;
+  }
 }
 
-.icon svg{
-    width: 80px;
+.icon svg {
+  width: 80px;
 }
 
-.icon img{
+.icon img {
   width: 50px;
   margin: $spacing-8;
 }
@@ -50,13 +50,13 @@
   @include Breakpoint-mobileOnly {
     height: auto;
     width: 250px;
-  }  
+  }
 }
 
-.logo{
-    margin-bottom: $spacing-28;
+.logo {
+  margin-bottom: $spacing-28;
 
-    @include Breakpoint-mobileOnly {
-      padding-top: $spacing-28;
-    }
+  @include Breakpoint-mobileOnly {
+    padding-top: $spacing-28;
+  }
 }

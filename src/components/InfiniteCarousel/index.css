@@ -1,26 +1,26 @@
 @import "../../styles/all.css";
 
 .InfiniteCarousel {
-    position: relative;
-  }
-  
-.InfiniteCarouselTitle {
-    display: inline-flex;
-    float: left;
-    margin-bottom: $spacing-8;
-    margin-left: $spacing-16;
+  position: relative;
+}
 
-    div {
-      padding-top: 8px; 
-      margin-left: $spacing-16;
-    }
+.InfiniteCarouselTitle {
+  display: inline-flex;
+  float: left;
+  margin-bottom: $spacing-8;
+  margin-left: $spacing-16;
+
+  div {
+    padding-top: 8px;
+    margin-left: $spacing-16;
+  }
 }
 
 .InfiniteCarouselFrame {
   width: 100%;
   overflow: hidden;
 }
-  
+
 .InfiniteCarouselScrollTrack {
   overflow-x: scroll;
   overflow-y: hidden;
@@ -29,7 +29,7 @@
   overflow: -moz-scrollbars-none;
   -webkit-box-sizing: border-box;
 }
-  
+
 .InfiniteCarouselScrollTrack::-webkit-scrollbar {
   display: none;
 }
@@ -108,4 +108,3 @@
 .InfiniteCarouselArrowPrevIcon {
   transform: rotate(135deg);
 }
-  

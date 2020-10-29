@@ -1,15 +1,14 @@
-@import url('https://fonts.googleapis.com/css?family=Cairo');
+@import url("https://fonts.googleapis.com/css?family=Cairo");
 @import "../../styles/all.css";
 
 @keyframes spin {
   to {
-    transform: rotate(360deg)
+    transform: rotate(360deg);
   }
 }
 
-
 @keyframes cardJump {
-  from{
+  from {
     transform: scale(1, 1);
   }
   to {
@@ -18,21 +17,21 @@
 }
 
 @keyframes animateLine {
-  from{
+  from {
     stroke-dashoffset: 2000;
   }
-  to{
+  to {
     stroke-dashoffset: 0;
   }
 }
 
-.textButton{
+.textButton {
   font-size: 12px;
-  font-family: 'Muli', sans-serif;
+  font-family: "Muli", sans-serif;
   color: white;
 }
 
-.textButton:hover{
+.textButton:hover {
   color: white;
   cursor: pointer;
   background-color: none;
@@ -42,7 +41,7 @@ body {
   background-color: #292929;
 }
 
-.lineTest{
+.lineTest {
   position: absolute;
   z-index: 3;
   align-self: center;
@@ -50,31 +49,31 @@ body {
   width: 100%;
 }
 
-.rowContainer{
+.rowContainer {
   display: flex;
   flex-direction: row;
   width: 100%;
   justify-content: center;
 }
 
-.columnContainer{
+.columnContainer {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
 }
-.icon{
+.icon {
   width: 80px;
   height: 75px;
   z-index: 2;
-} 
+}
 
 .iconStatic {
   width: 80px;
   height: 75px;
 }
 
-.columnSpinner{
+.columnSpinner {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -82,7 +81,7 @@ body {
   margin-top: 60px;
 }
 
-.containerInit{
+.containerInit {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -90,7 +89,9 @@ body {
   flex-direction: column;
 }
 
-* { box-sizing: border-box; }
+* {
+  box-sizing: border-box;
+}
 
 .spinnerContainer {
   display: flex;
@@ -106,7 +107,7 @@ body {
   border-radius: 5px;
 }
 
-.gridContainer{
+.gridContainer {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -125,7 +126,7 @@ body {
   align-self: center;
   width: 170px;
   height: 110px;
-  background-color:  hsl(244,34%,8%);
+  background-color: hsl(244, 34%, 8%);
   border: 5px solid limegreen;
   border-radius: 5px;
   justify-content: center;
@@ -134,7 +135,7 @@ body {
 }
 
 .backgroundTransparence {
-  background-color: rgba(0,0,0,0.5);
+  background-color: rgba(0, 0, 0, 0.5);
   position: absolute;
   z-index: 1;
   align-self: center;
@@ -142,13 +143,13 @@ body {
   height: 392px;
 }
 
-.resultCardText{
+.resultCardText {
   font-size: 25px;
   color: limegreen;
   text-align: center;
   font-weight: bolder;
   margin: 5px;
-  font-family: 'Cairo', sans-serif;
+  font-family: "Cairo", sans-serif;
   animation: cardJump 0.5s forwards 0.1s;
 }
 
@@ -158,7 +159,7 @@ body {
   fill: transparent;
   stroke-dasharray: 2000;
   stroke-dashoffset: -2000;
-  -webkit-animation:  animateLine 5s linear forwards;
+  -webkit-animation: animateLine 5s linear forwards;
   -o-animation: animateLine 5s linear forwards;
   -moz-animation: animateLine 5s linear ease-in forwards;
   animation: animateLine 5s ease-in linear forwards;
@@ -171,13 +172,11 @@ body {
   z-index: 4;
   left: 0px;
   opacity: 1;
- 
-
 }
 
 /* Extra small devices (phones, 600px and down) */
 @media only screen and (max-width: 600px) {
-  .iconStatic{
+  .iconStatic {
     width: 60px;
   }
 }

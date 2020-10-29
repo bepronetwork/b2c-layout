@@ -1,9 +1,14 @@
 import React from "react";
 import PropTypes from "prop-types";
 import classNames from "classnames";
-import { Typography, RotateIcon, UndoIcon, SoundIcon, CopyIcon } from "components";
+import {
+  Typography,
+  RotateIcon,
+  UndoIcon,
+  SoundIcon,
+  CopyIcon
+} from "components";
 import { getIcon } from "../../lib/helpers";
-
 import "./index.css";
 
 const ButtonIcon = ({
@@ -18,7 +23,7 @@ const ButtonIcon = ({
 }) => {
   const rootStyles = classNames("root", {
     disabled,
-    primaryTheme : theme === "primary"
+    primaryTheme: theme === "primary"
   });
 
   const buttonStyles = classNames("button", {
@@ -31,14 +36,33 @@ const ButtonIcon = ({
   const copyIcon = getIcon(27);
 
   const icons = {
-    rotate: rotateIcon === null ? <RotateIcon color={disabled ? "pickled-bluewood" : "casper"} /> : <img src={rotateIcon} />,
-    undo: undoIcon === null ? <UndoIcon color={disabled ? "pickled-bluewood" : "casper"} /> : <img src={undoIcon} />,
-    sound: (
-      soundIcon === null ? <SoundIcon soundMode={soundMode} color={disabled ? "pickled-bluewood" : "casper"} /> : <img src={soundIcon} />
-    ),
-    copy: (
-      copyIcon === null ? <CopyIcon color={disabled ? "pickled-bluewood" : "casper"} /> : <img src={copyIcon} />
-    )
+    rotate:
+      rotateIcon === null ? (
+        <RotateIcon color={disabled ? "pickled-bluewood" : "casper"} />
+      ) : (
+        <img src={rotateIcon} />
+      ),
+    undo:
+      undoIcon === null ? (
+        <UndoIcon color={disabled ? "pickled-bluewood" : "casper"} />
+      ) : (
+        <img src={undoIcon} />
+      ),
+    sound:
+      soundIcon === null ? (
+        <SoundIcon
+          soundMode={soundMode}
+          color={disabled ? "pickled-bluewood" : "casper"}
+        />
+      ) : (
+        <img src={soundIcon} />
+      ),
+    copy:
+      copyIcon === null ? (
+        <CopyIcon color={disabled ? "pickled-bluewood" : "casper"} />
+      ) : (
+        <img src={copyIcon} />
+      )
   };
 
   return iconAtLeft ? (

@@ -15,8 +15,8 @@ $values-height: 92px;
   border-radius: 0 $border-radius $border-radius 0;
 }
 
-.logo{
-    width : 20px;
+.logo {
+  width: 20px;
 }
 
 .flip-container {
@@ -26,9 +26,7 @@ $values-height: 92px;
   justify-content: center;
 
   @include Breakpoint-mobileOnly {
-    
   }
-
 }
 
 .side-heads,
@@ -125,67 +123,63 @@ $values-height: 92px;
   border-radius: $spacing-4;
 }
 
-
-
-.popular-number-container{
-    padding : 10px;
-    width: 70px;
-    margin-bottom : 5px;
-    text-align: center;
-    display: inline-block;
-    border-radius : 4px;
-}
-
-.popular-number-container-amount{
-    padding : 10px 0px 10px 10px;
-    padding-top : 5px;
-    text-align: center;
-    display : inline-flex;
-    border-radius : 4px;
-}
-
-.popular-number-row{
-    text-align: left;
-}
-
-
-.green-square{
-    background-color : $green;
-}
-
-.blue-square{
-    background-color: $flipcoin-color-tails;
-}
-
-.red-square{
-    background-color: $flipcoin-color-head;
-}
-
-.outer-popular-numbers{
-  border : 2px solid $dark-table-color;
-  background-color : $popular-numbers-container;
-  left : 20px;
-  border-radius : 5px;
+.popular-number-container {
+  padding: 10px;
+  width: 70px;
+  margin-bottom: 5px;
   text-align: center;
-  top : 20px;
-  overflow-y : auto;
-  overflow-x : hidden;
-  position : absolute;
+  display: inline-block;
+  border-radius: 4px;
+}
+
+.popular-number-container-amount {
+  padding: 10px 0px 10px 10px;
+  padding-top: 5px;
+  text-align: center;
+  display: inline-flex;
+  border-radius: 4px;
+}
+
+.popular-number-row {
+  text-align: left;
+}
+
+.green-square {
+  background-color: $green;
+}
+
+.blue-square {
+  background-color: $flipcoin-color-tails;
+}
+
+.red-square {
+  background-color: $flipcoin-color-head;
+}
+
+.outer-popular-numbers {
+  border: 2px solid $dark-table-color;
+  background-color: $popular-numbers-container;
+  left: 20px;
+  border-radius: 5px;
+  text-align: center;
+  top: 20px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  position: absolute;
 
   @include Breakpoint-mobileOnly {
     display: none;
   }
 }
 
-.inner-popular-numbers{
+.inner-popular-numbers {
   height: auto;
   overflow-y: hidden;
   text-align: center;
   overflow-x: hidden;
-  position : relative;
+  position: relative;
   padding: 10px;
 }
-
 
 .heads {
   animation: rotate3d-heads 3s ease-out forwards;
@@ -214,12 +208,12 @@ $values-height: 92px;
 }
 
 .coin-main {
-	position: relative;
-	width: 150px;
-	height: 185px;
+  position: relative;
+  width: 150px;
+  height: 185px;
   /*animation: rotate3d 6s linear infinite;*/
 
-	transform-style: preserve-3d;
+  transform-style: preserve-3d;
   transition: transform 1s ease-in;
   margin: 0 auto;
   margin-bottom: $spacing-28;
@@ -227,21 +221,21 @@ $values-height: 92px;
 }
 
 @keyframes rotate3d {
-	0% {
-		transform: perspective(1000px) rotateY(0deg);
+  0% {
+    transform: perspective(1000px) rotateY(0deg);
   }
-  
+
   35% {
-		transform: perspective(1000px) rotateY(600deg);
+    transform: perspective(1000px) rotateY(600deg);
   }
 
   80% {
-		transform: perspective(1000px) rotateY(960deg);
+    transform: perspective(1000px) rotateY(960deg);
   }
-  
-	100% {
-		transform: perspective(1000px) rotateY(1980deg);
-	}
+
+  100% {
+    transform: perspective(1000px) rotateY(1980deg);
+  }
 }
 
 .oval-back {
@@ -249,76 +243,77 @@ $values-height: 92px;
   background: linear-gradient(90deg, #f7931a 0%, #ffb84d 100%) !important;
 }
 
-.oval, .oval-back {
-	position: absolute;
-	width: 150px;
-	height: 150px;
-	border-radius: 50%;
-	overflow: hidden;
-	background: linear-gradient(90deg, #ff2247 0%, #ff8080 100%);
-	display: inline-flex;
-	align-items: center;
-	justify-content: center;
+.oval,
+.oval-back {
+  position: absolute;
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  overflow: hidden;
+  background: linear-gradient(90deg, #ff2247 0%, #ff8080 100%);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 
-	.inner-oval {
-		background: linear-gradient(90deg, #ff2247 0%, #ff8080 100%);
-		box-shadow: inset 2px 3px 3px 0px rgba(0, 0, 0, 0.2);
-		border-radius: 50%;
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		font-weight: bold;
-		padding-top: 0.125rem;
-		width: 120px;
-		height: 120px;
-		background-size: 80%;
-		background-repeat: no-repeat;
-		background-position: center center;
-	}
+  .inner-oval {
+    background: linear-gradient(90deg, #ff2247 0%, #ff8080 100%);
+    box-shadow: inset 2px 3px 3px 0px rgba(0, 0, 0, 0.2);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    padding-top: 0.125rem;
+    width: 120px;
+    height: 120px;
+    background-size: 80%;
+    background-repeat: no-repeat;
+    background-position: center center;
+  }
 }
 
-.oval, .oval-back {
-
-	&:after {
-		content: "";
-		position: absolute;
+.oval,
+.oval-back {
+  &:after {
+    content: "";
+    position: absolute;
     bottom: 100%;
-		display: block;
-		height: 80px;
-		width: 300px;
-		background: #fff;
-		opacity: 0.4;
-		animation: shine linear 3s infinite;
-	}
+    display: block;
+    height: 80px;
+    width: 300px;
+    background: #fff;
+    opacity: 0.4;
+    animation: shine linear 3s infinite;
+  }
 }
 
 .oval-shadow {
-	position: absolute;
-	width: 150px;
-	height: 10px;
-	border-radius: 50%;
-	background: $white;
-	box-shadow: 0 0 80px 80px $white;
-	opacity: 0.125;
+  position: absolute;
+  width: 150px;
+  height: 10px;
+  border-radius: 50%;
+  background: $white;
+  box-shadow: 0 0 80px 80px $white;
+  opacity: 0.125;
 
-	transform: rotateX(90deg) translateZ(-180px) scale(0.5);
+  transform: rotateX(90deg) translateZ(-180px) scale(0.5);
 }
 
 @keyframes shine {
-	0%,
-	15% {
-		transform: translateY(300px) rotate(-40deg);
-	}
-	50% {
-		transform: translateY(-50px) rotate(-40deg);
-	}
+  0%,
+  15% {
+    transform: translateY(300px) rotate(-40deg);
+  }
+  50% {
+    transform: translateY(-50px) rotate(-40deg);
+  }
 }
 
 @keyframes turn {
-	0% {
-		transform: rotateY(-180deg);
-	}
-	100% {
-		transform: rotateY(180deg);
-	}
+  0% {
+    transform: rotateY(-180deg);
+  }
+  100% {
+    transform: rotateY(180deg);
+  }
 }

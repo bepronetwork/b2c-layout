@@ -1,27 +1,26 @@
 @import "../../styles/all.css";
 
+.toggle {
+  justify-content: flex-end;
+  display: inline-flex;
+  font-family: $font-family;
+  padding: 5px $spacing-28 5px $spacing-28;
+  background-color: $secondaryColor;
+  border-radius: $border-radius;
 
-.toggle{
-    justify-content: flex-end;
-    display: inline-flex;
-    font-family: $font-family;
-    padding: 5px $spacing-28 5px $spacing-28;
-    background-color: $secondaryColor;
-    border-radius: $border-radius;
+  @include Breakpoint-mobileOnly {
+    padding: 5px $spacing-8 5px $spacing-8;
+  }
 
-    @include Breakpoint-mobileOnly {
-        padding: 5px $spacing-8 5px $spacing-8;
-    }
-
-    div:nth-child(2) {
-        cursor: pointer;
-    }
+  div:nth-child(2) {
+    cursor: pointer;
+  }
 }
 
 .toggle-text {
-    padding-right: $spacing-28;
-    margin: auto;
-    width: 50px;
+  padding-right: $spacing-28;
+  margin: auto;
+  width: 50px;
 }
 
 .tOn {
@@ -30,8 +29,8 @@
 .tOff {
 }
 
-.toggleOn{
+.toggleOn {
 }
 
-.toggleOff{
+.toggleOff {
 }

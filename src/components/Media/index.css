@@ -8,23 +8,23 @@
 }
 
 .partner-img {
-    height: 40px;
-    width: auto;
+  height: 40px;
+  width: auto;
 }
 
 @media (max-width: 676px) {
-    .partner-img {
-        height: 20px;
-    }
-    .container {
-        margin: 1rem 3rem;
-    }
+  .partner-img {
+    height: 20px;
+  }
+  .container {
+    margin: 1rem 3rem;
+  }
 }
 
-.img-partner-full{
-    width: 100%
+.img-partner-full {
+  width: 100%;
 }
 
-.media-section{
-    margin : $spacing-52 auto;
+.media-section {
+  margin: $spacing-52 auto;
 }

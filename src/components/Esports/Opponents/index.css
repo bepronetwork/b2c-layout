@@ -1,13 +1,12 @@
 @import "../../../styles/all.css";
 
-
 .teams {
-    display: flex;
-    flex-direction: row;
-    flex: 1.2;
-    justify-content: space-between;
-    min-width: 280px;
-  }
+  display: flex;
+  flex-direction: row;
+  flex: 1.2;
+  justify-content: space-between;
+  min-width: 280px;
+}
 
 .team {
   height: $spacing-36;
@@ -18,7 +17,7 @@
   justify-self: center;
   align-self: center;
   background-color: $primaryColor-5;
-  border-radius:  0 $border-radius $border-radius 0;
+  border-radius: 0 $border-radius $border-radius 0;
   text-align: left;
 
   img {
@@ -34,7 +33,7 @@
     img {
       margin-right: $spacing-8;
     }
-  } 
+  }
 }
 
 .team:before {
@@ -62,7 +61,8 @@
   border-left: 20px solid $primaryColor-5;
 }
 
-.team1:hover, .team2:hover {
+.team1:hover,
+.team2:hover {
   background-color: $primaryColor-13;
 }
 
@@ -100,16 +100,16 @@
 .selected:hover {
   background-color: $secondaryColor;
 }
-  
+
 .teams .team:first-child {
-    flex-direction: row-reverse;
-    text-align: right;
-    border-radius: $border-radius 0 0 $border-radius;
-  
-    img {
-      margin-left: $spacing-8;
-      margin-right: 0;
-    }
+  flex-direction: row-reverse;
+  text-align: right;
+  border-radius: $border-radius 0 0 $border-radius;
+
+  img {
+    margin-left: $spacing-8;
+    margin-right: 0;
+  }
 }
 
 .team1.selected:before {
@@ -119,44 +119,44 @@
 .team2.selected:before {
   border-right: 20px solid $secondaryColor;
 }
-  
+
 .score {
   justify-content: center;
   align-items: center;
   display: flex;
   margin: 0 $spacing-28;
-    
+
   @media screen and (max-width: 1267px) and (min-width: 1024px) {
     margin: 0 $spacing-4;
   }
 
   @media screen and (max-width: 1023px) and (min-width: 768px) {
     margin: 0 $spacing-4;
-  } 
+  }
 
   @media screen and (max-width: 767px) {
     margin: 0 $spacing-4;
-  } 
+  }
 }
-  
+
 .vs {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: 0 $spacing-28;
-    max-width: 112px;
-  
-    @media screen and (max-width: 1267px) and (min-width: 1024px) {
-      margin: 0 $spacing-4;
-    }
-  
-    @media screen and (max-width: 1023px) and (min-width: 768px) {
-      margin: 0 $spacing-4;
-    } 
-  
-    @media screen and (max-width: 767px) {
-      margin: 0 $spacing-4;
-    } 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 $spacing-28;
+  max-width: 112px;
+
+  @media screen and (max-width: 1267px) and (min-width: 1024px) {
+    margin: 0 $spacing-4;
+  }
+
+  @media screen and (max-width: 1023px) and (min-width: 768px) {
+    margin: 0 $spacing-4;
+  }
+
+  @media screen and (max-width: 767px) {
+    margin: 0 $spacing-4;
+  }
 }
 
 .name {
@@ -172,16 +172,16 @@
     text-overflow: ellipsis;
     max-width: 120px;
   }
-  
+
   @media screen and (max-width: 1267px) and (min-width: 1024px) {
     margin: 0 $spacing-4;
   }
 
   @media screen and (max-width: 1023px) and (min-width: 768px) {
     margin: 0 $spacing-4;
-  } 
+  }
 
   @media screen and (max-width: 767px) {
     margin: 0 $spacing-4;
-  } 
+  }
 }

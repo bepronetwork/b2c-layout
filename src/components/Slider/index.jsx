@@ -8,7 +8,6 @@ import loseSound from "assets/lose-sound.mp3";
 import winSound from "assets/win-sound.mp3";
 import Sound from "react-sound";
 import styled, { keyframes } from "styled-components";
-
 import "./index.css";
 
 const { Handle } = RcSlider;
@@ -41,46 +40,45 @@ export default class Slider extends Component {
       value: props.value,
       result: null,
       leftP: 0,
-      bet : {},
+      bet: {},
       oldLeftP: 0,
       moving: false
     };
   }
 
-    static getDerivedStateFromProps(nextProps, prevState) {
-        if (nextProps.value !== prevState.value) {
-            return { value: nextProps.value };
-        }
-
-        if (nextProps.result !== prevState.result) {
-            let leftP = (prevState.container.clientWidth * nextProps.result) / 100;
-
-            leftP -= diamondwidth * 0.5;
-
-            let oldLeftP = (prevState.container.clientWidth * prevState.result) / 100;
-
-            oldLeftP -= diamondwidth * 0.5;
-            if (!nextProps.animating && (nextProps.bet.nonce != prevState.bet.nonce)) {
-                return {
-                    result: nextProps.result,
-                    bet : nextProps.bet,
-                    leftP,
-                    oldLeftP
-                };
-            }else{
-                return {
-                    result: nextProps.result,
-                    leftP
-                }
-            }
-
-        }
-
-        return {
-            result: null,
-            leftP: 0
-        };
+  static getDerivedStateFromProps(nextProps, prevState) {
+    if (nextProps.value !== prevState.value) {
+      return { value: nextProps.value };
     }
+
+    if (nextProps.result !== prevState.result) {
+      let leftP = (prevState.container.clientWidth * nextProps.result) / 100;
+
+      leftP -= diamondwidth * 0.5;
+
+      let oldLeftP = (prevState.container.clientWidth * prevState.result) / 100;
+
+      oldLeftP -= diamondwidth * 0.5;
+      if (!nextProps.animating && nextProps.bet.nonce != prevState.bet.nonce) {
+        return {
+          result: nextProps.result,
+          bet: nextProps.bet,
+          leftP,
+          oldLeftP
+        };
+      } else {
+        return {
+          result: nextProps.result,
+          leftP
+        };
+      }
+    }
+
+    return {
+      result: null,
+      leftP: 0
+    };
+  }
 
   handleSlide = props => {
     const { value, ...restProps } = props;
@@ -120,38 +118,26 @@ export default class Slider extends Component {
     const slide = keyframes`
       10% {
         left: ${oldLeftP}px;
-
         z-index: -1;
-
         opacity: 1;
-
         transform: scale(0.5);
       }
       15% {
         left: ${leftP}px;
-
         z-index: 2;
-
         opacity: 1;
-
         transform: scale(1);
       }
       97% {
         left: ${leftP}px;
-
         z-index: 2;
-
         opacity: 1;
-
         transform: scale(1);
       }
       100% {
         left: ${leftP}px;
-
         z-index: -1;
-
         opacity: 1;
-
         transform: scale(0.5);
       }`;
 
@@ -160,11 +146,8 @@ export default class Slider extends Component {
       top: ${-diamondwidth}px;
       left: 0;
       z-index: -1;
-
       width: ${diamondwidth}px;
-
       transform: scale(0.1);
-
       animation: ${slide} 2s linear;
     `;
 
@@ -186,9 +169,7 @@ export default class Slider extends Component {
       top: ${-diamondwidth}px;
       left: ${leftP}px;
       z-index: 1;
-
       width: ${diamondwidth}px;
-
       transform: scale(0.8);
     `;
 
@@ -255,10 +236,11 @@ export default class Slider extends Component {
     return (
       <div styleName="root">
         {this.renderSliderSound()}
-
         <div styleName="container">
           <div styleName="slider-container" ref={this.handleRef}>
-            {isBetDetails === true ? this.renderBetDetailsResult() : this.renderResult()}
+            {isBetDetails === true
+              ? this.renderBetDetailsResult()
+              : this.renderResult()}
             <div styleName="marker-0">
               <Typography weight="bold" variant="small-body" color="white">
                 0

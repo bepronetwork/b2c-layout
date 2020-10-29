@@ -48,11 +48,12 @@
   height: $spacing-20;
   z-index: 6;
   position: relative;
-  margin-top : 5px;
+  margin-top: 5px;
   background-color: inherit;
 
   outline: none;
-  svg, img {
+  svg,
+  img {
     width: $spacing-16;
 
     @include Breakpoint-mobileOnly {

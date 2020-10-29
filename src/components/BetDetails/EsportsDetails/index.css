@@ -1,171 +1,171 @@
 @import "../../../styles/all.css";
 
 .root {
-    width: 100%;
-    text-align: center;
-    overflow-y: auto;
-    min-height: 0px;
-    transform: translate3d(0px, 0px, 0px);
-    overflow-x: hidden;
-    height: 100%;
+  width: 100%;
+  text-align: center;
+  overflow-y: auto;
+  min-height: 0px;
+  transform: translate3d(0px, 0px, 0px);
+  overflow-x: hidden;
+  height: 100%;
 }
 
 .games {
-    display: flex;
+  display: flex;
 }
 
-.rule-h1{
-    text-align: center;
-    padding: 0 $spacing-12;
+.rule-h1 {
+  text-align: center;
+  padding: 0 $spacing-12;
 }
 
 .image-icon {
-    width : 40px;
-    margin-bottom: $spacing-12;
+  width: 40px;
+  margin-bottom: $spacing-12;
 }
 
 .bet {
-    display: grid;
-    width: 100%;
-    padding: $spacing-12 0;
-    background: $primaryColor-2;
-    border-radius: $border-radius;
-    grid-template-columns: repeat(5, 1fr);
+  display: grid;
+  width: 100%;
+  padding: $spacing-12 0;
+  background: $primaryColor-2;
+  border-radius: $border-radius;
+  grid-template-columns: repeat(5, 1fr);
 
-    @media screen and (max-width: 1267px) and (min-width: 1024px) {
-    }
+  @media screen and (max-width: 1267px) and (min-width: 1024px) {
+  }
 
-    @media screen and (max-width: 1023px) and (min-width: 768px) {
-    } 
+  @media screen and (max-width: 1023px) and (min-width: 768px) {
+  }
 
-    @media screen and (max-width: 767px) {
-        grid-template-columns: repeat(2, 1fr);
-    } 
+  @media screen and (max-width: 767px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
 
 .bet-text {
-    width : 100%;
-    padding: $spacing-8 $spacing-20;
-    overflow: hidden;
-    display: inline-flex;
-    justify-content: center;
+  width: 100%;
+  padding: $spacing-8 $spacing-20;
+  overflow: hidden;
+  display: inline-flex;
+  justify-content: center;
 
-    img {
-        margin-left: $spacing-8;
-    }
+  img {
+    margin-left: $spacing-8;
+  }
 }
 
 .amount {
 }
 
 .win {
-    border-left: 1px solid $secondaryColor;
-    border-right: 1px solid $secondaryColor;
+  border-left: 1px solid $secondaryColor;
+  border-right: 1px solid $secondaryColor;
 
-    @media screen and (max-width: 1267px) and (min-width: 1024px) {
-    }
+  @media screen and (max-width: 1267px) and (min-width: 1024px) {
+  }
 
-    @media screen and (max-width: 1023px) and (min-width: 768px) {
-    } 
+  @media screen and (max-width: 1023px) and (min-width: 768px) {
+  }
 
-    @media screen and (max-width: 767px) {
-        border-left: none;
-        border-right: none;
-    } 
+  @media screen and (max-width: 767px) {
+    border-left: none;
+    border-right: none;
+  }
 }
 
 .top {
-    @media screen and (max-width: 1267px) and (min-width: 1024px) {
-    }
+  @media screen and (max-width: 1267px) and (min-width: 1024px) {
+  }
 
-    @media screen and (max-width: 1023px) and (min-width: 768px) {
-    } 
+  @media screen and (max-width: 1023px) and (min-width: 768px) {
+  }
 
-    @media screen and (max-width: 767px) {
-        border-top: 1px solid $primaryColor-13;
-    } 
+  @media screen and (max-width: 767px) {
+    border-top: 1px solid $primaryColor-13;
+  }
 }
 
 .game {
-    width: 100%;
-    display: grid;
-    grid-auto-columns: minmax(0px, 1fr);
-    justify-items: center;
-    padding: 2rem;
-    gap: 1.5rem;
+  width: 100%;
+  display: grid;
+  grid-auto-columns: minmax(0px, 1fr);
+  justify-items: center;
+  padding: 2rem;
+  gap: 1.5rem;
 
-    @media screen and (max-width: 767px) {
-        padding: 2rem $spacing-8;
-    } 
+  @media screen and (max-width: 767px) {
+    padding: 2rem $spacing-8;
+  }
 }
 
 .client {
-    grid-template-columns: auto auto;
-    display: grid;
-    gap: 4%;
+  grid-template-columns: auto auto;
+  display: grid;
+  gap: 4%;
 }
 
 .matches {
-    width: 100%;
-    display: grid;
-    justify-items: stretch;
-    padding: 0 2rem 2rem 2rem;
+  width: 100%;
+  display: grid;
+  justify-items: stretch;
+  padding: 0 2rem 2rem 2rem;
 
-    @media screen and (max-width: 767px) {
-        padding: 0 $spacing-8 $spacing-8 $spacing-8;
-    } 
+  @media screen and (max-width: 767px) {
+    padding: 0 $spacing-8 $spacing-8 $spacing-8;
+  }
 }
 
 .match {
-    margin-bottom: $spacing-20;
+  margin-bottom: $spacing-20;
 
-    @media screen and (max-width: 767px) {
-        padding: 0;
-    } 
+  @media screen and (max-width: 767px) {
+    padding: 0;
+  }
 }
 
-.label{
-    padding: $spacing-8 0;
+.label {
+  padding: $spacing-8 0;
 }
 
-.text{
-    width : 100%;
-    padding: $spacing-12 $spacing-20;
-    overflow: hidden;
-    border-radius : $border-radius;
-    background-color : $primaryColor-8;
-    word-break: break-all;
-    text-align: left;
+.text {
+  width: 100%;
+  padding: $spacing-12 $spacing-20;
+  overflow: hidden;
+  border-radius: $border-radius;
+  background-color: $primaryColor-8;
+  word-break: break-all;
+  text-align: left;
 }
 
-.text-seed{
-    border : none;
-    padding: $spacing-8 $spacing-20;
-    border-radius :  $border-radius;
-    background-color: $light-background;
-    width : inherit;
-    height : $spacing-36;
-    text-align : center;
+.text-seed {
+  border: none;
+  padding: $spacing-8 $spacing-20;
+  border-radius: $border-radius;
+  background-color: $light-background;
+  width: inherit;
+  height: $spacing-36;
+  text-align: center;
 }
 
 .status {
-    padding: $spacing-4 $spacing-8;
-    border-radius: 3px;
-    text-align: center;
+  padding: $spacing-4 $spacing-8;
+  border-radius: 3px;
+  text-align: center;
 }
 
 .green {
-    background-color: #7bd389;
-  }
+  background-color: #7bd389;
+}
 
-  .red {
-    background-color: #ed5565;
-  }
+.red {
+  background-color: #ed5565;
+}
 
-  .primaryLight {
-    background-color: $primaryColor-13;
-  }
+.primaryLight {
+  background-color: $primaryColor-13;
+}
 
-  .primaryDark {
-    background-color: $primaryColor-8;
-  }
+.primaryDark {
+  background-color: $primaryColor-8;
+}

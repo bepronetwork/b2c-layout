@@ -10,96 +10,94 @@
   }
 }
 
-.box{
-    box-shadow: $shadowColor 0px 0px 10px;
-    display: flex;
-    -webkit-box-pack: center;
-    justify-content: center;
-    -webkit-box-align: center;
-    margin : 5px;
-    align-items: center;
-    font-weight: 600;
-    width: 130px;
-    position: relative;
-    cursor: help;
-    text-shadow: $shadowColor 0px 2px 4px;
-    border-radius: 6px;
-    background: $backgroundColor-8;
-    padding: 1em 0.5em;
-    overflow: hidden;
+.box {
+  box-shadow: $shadowColor 0px 0px 10px;
+  display: flex;
+  -webkit-box-pack: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  margin: 5px;
+  align-items: center;
+  font-weight: 600;
+  width: 130px;
+  position: relative;
+  cursor: help;
+  text-shadow: $shadowColor 0px 2px 4px;
+  border-radius: 6px;
+  background: $backgroundColor-8;
+  padding: 1em 0.5em;
+  overflow: hidden;
 
-    @include Breakpoint-mobileOnly {
-        width : 40px;
-    }
+  @include Breakpoint-mobileOnly {
+    width: 40px;
+  }
 }
 
-.box-light{
-    background: $primaryColor-13;
+.box-light {
+  background: $primaryColor-13;
 }
 
-
-.box::before{
-    content: "";
-    position: absolute;
-    height: 100%;
-    width: 100%;
-    left: 0px;
-    top: 0px;
-    transform: translateY(calc(100% - 6px));
-    transition-duration: 600ms;
-    transition-timing-function: ease-out;
-    transition-property: transform;
+.box::before {
+  content: "";
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  left: 0px;
+  top: 0px;
+  transform: translateY(calc(100% - 6px));
+  transition-duration: 600ms;
+  transition-timing-function: ease-out;
+  transition-property: transform;
 }
 
-.container-blocks{
-    position: relative;
-    width: 100%;
-    display: flex;
-    max-width: 600px;
+.container-blocks {
+  position: relative;
+  width: 100%;
+  display: flex;
+  max-width: 600px;
 
-    @include Breakpoint-tabletOnly {
-        max-width: 500px;
-    }
-
-    @include Breakpoint-mobileOnly {
-        margin-top : 0px;
-    }
-}
-.iconStatic{
-    width: 60px;
+  @include Breakpoint-tabletOnly {
+    max-width: 500px;
   }
 
-  .columnContainer{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-between;
+  @include Breakpoint-mobileOnly {
+    margin-top: 0px;
   }
-
-  .resultCardText{
-    font-size: 14px;
-    color: limegreen;
-    text-align: center;
-    font-weight: bolder;
-    margin: 5px;
-    font-family: 'Cairo', sans-serif;
-    animation: cardJump 0.5s forwards 0.1s;
-  }
-
-  .resultCard {
-    display: flex;
-    align-self: center;
-    width: 120px;
-    height: 70px;
-    background-color:  hsl(244,34%,8%);
-    border: 5px solid limegreen;
-    border-radius: 5px;
-    justify-content: center;
-    align-items: center;
-    margin-top: 10px;
-  }
-
-.no-transform::before{
-    transform: translateY(0px);
+}
+.iconStatic {
+  width: 60px;
 }
 
+.columnContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.resultCardText {
+  font-size: 14px;
+  color: limegreen;
+  text-align: center;
+  font-weight: bolder;
+  margin: 5px;
+  font-family: "Cairo", sans-serif;
+  animation: cardJump 0.5s forwards 0.1s;
+}
+
+.resultCard {
+  display: flex;
+  align-self: center;
+  width: 120px;
+  height: 70px;
+  background-color: hsl(244, 34%, 8%);
+  border: 5px solid limegreen;
+  border-radius: 5px;
+  justify-content: center;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.no-transform::before {
+  transform: translateY(0px);
+}

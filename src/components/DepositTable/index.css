@@ -1,52 +1,49 @@
 @import "../../styles/all.css";
 
-
 .container {
-    @include Breakpoint-tabletAndAbove {
-        max-width: $content-width-desktop;
+  @include Breakpoint-tabletAndAbove {
+    max-width: $content-width-desktop;
 
-        margin: 0 auto;
-    }
+    margin: 0 auto;
+  }
 
-    @include Breakpoint-mobileOnly {
-
-    }
-
+  @include Breakpoint-mobileOnly {
+  }
 }
 
-.filters{
-    justify-content: flex-end;
-    display: inline-flex;
-    align-items: center;
+.filters {
+  justify-content: flex-end;
+  display: inline-flex;
+  align-items: center;
 }
 
-.bets-dropdown{
-    margin: 0 $spacing-12;
+.bets-dropdown {
+  margin: 0 $spacing-12;
 }
 
-.bets-dropdown-game{
-    margin: 0 $spacing-12;
+.bets-dropdown-game {
+  margin: 0 $spacing-12;
 }
 
 .lastBets {
-    width: 100%;
-    grid-auto-flow: column;
-    display: grid;
-    align-items: center;
-    gap: $spacing-8;
-    background-color: $primaryColor-2;
-    border-radius: $border-radius;
+  width: 100%;
+  grid-auto-flow: column;
+  display: grid;
+  align-items: center;
+  gap: $spacing-8;
+  background-color: $primaryColor-2;
+  border-radius: $border-radius;
 
-    @media screen and (max-width: 767px) {
-        gap: $spacing-4;
-    }
+  @media screen and (max-width: 767px) {
+    gap: $spacing-4;
+  }
 }
 
 .loading {
-    width: 100%;
-    text-align: center;
+  width: 100%;
+  text-align: center;
 
-    img {
-        height: $spacing-28;
-    }
+  img {
+    height: $spacing-28;
+  }
 }

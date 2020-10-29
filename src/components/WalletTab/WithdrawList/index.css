@@ -1,55 +1,54 @@
 @import "../../../styles/all.css";
 
-
 .container {
-    margin: 0 $spacing-20;
+  margin: 0 $spacing-20;
 
-    @include Breakpoint-mobileOnly {
-        margin: 0;
-    }
+  @include Breakpoint-mobileOnly {
+    margin: 0;
+  }
 }
 
-.main{
-    width: 100%;
-    align-items: center;
-    margin: $spacing-28 0 $spacing-28 0 ;
+.main {
+  width: 100%;
+  align-items: center;
+  margin: $spacing-28 0 $spacing-28 0;
 }
 
 .loading {
-    width: 100%;
-    text-align: center;
+  width: 100%;
+  text-align: center;
 
-    img {
-        height: $spacing-28;
-    }
+  img {
+    height: $spacing-28;
+  }
 }
 
 .row {
-    width: 100%;
-    grid-auto-flow: column;
-    display: grid;
-    align-items: center;
-    gap: $spacing-8;
-    margin: $spacing-8 0;
-    border-radius: $border-radius;
-    background-color: $primaryColor;
+  width: 100%;
+  grid-auto-flow: column;
+  display: grid;
+  align-items: center;
+  gap: $spacing-8;
+  margin: $spacing-8 0;
+  border-radius: $border-radius;
+  background-color: $primaryColor;
 }
 
 .col-1 {
-    display: inline-flex;
-    padding: $spacing-12 $spacing-28;
+  display: inline-flex;
+  padding: $spacing-12 $spacing-28;
 }
 
 .col-2 {
-    display: inline-flex;
-    padding: $spacing-12 $spacing-28;
-    justify-content: flex-end;
+  display: inline-flex;
+  padding: $spacing-12 $spacing-28;
+  justify-content: flex-end;
 
-    p {
-        margin-top: 2px;
-    }
+  p {
+    margin-top: 2px;
+  }
 
-    img {
-        margin-left: $spacing-8;
-    }
+  img {
+    margin-left: $spacing-8;
+  }
 }

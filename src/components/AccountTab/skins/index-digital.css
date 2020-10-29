@@ -1,123 +1,121 @@
 @import "../../styles/all.css";
 
 .box {
+  padding: $spacing-8 5%;
+
+  @include Breakpoint-mobileOnly {
     padding: $spacing-8 5%;
-
-    @include Breakpoint-mobileOnly {
-        padding: $spacing-8 5%;
-    }
+  }
 }
 
-.field{
-    grid-template-columns: 260px 260px;
-    display: grid;
-    margin-bottom: $spacing-20;
-    gap: $spacing-28;
+.field {
+  grid-template-columns: 260px 260px;
+  display: grid;
+  margin-bottom: $spacing-20;
+  gap: $spacing-28;
 }
 
-.label{
-    text-align: right;
-    opacity: 0.5;
+.label {
+  text-align: right;
+  opacity: 0.5;
 }
 
-.value{
-    display: inline-flex;
+.value {
+  display: inline-flex;
 }
 
-.button{
-    margin-top : $spacing-52;
+.button {
+  margin-top: $spacing-52;
 
-    div {
-        padding: $spacing-4 $spacing-52;
-    }
+  div {
+    padding: $spacing-4 $spacing-52;
+  }
 }
 
-.button-kyc-container{
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+.button-kyc-container {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.button-kyc{
-    height: 250px;
-    width: 300px;
-    display: flex;
-    align-items: center;
-    justify-content: space-around;
-    flex-direction: column;
-    padding-bottom: $spacing-20;
-    border-radius: $border-radius;
-    background-color: $primaryColor-8;
+.button-kyc {
+  height: 250px;
+  width: 300px;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  flex-direction: column;
+  padding-bottom: $spacing-20;
+  border-radius: $border-radius;
+  background-color: $primaryColor-8;
 }
 
-.flex-kyc{
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
+.flex-kyc {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
 }
 
-.background-kyc{
-    background-color: $primaryColor-8;
-    padding: 15px;
-    border-radius: $border-radius;
-    flex-direction: column;
-    display: flex;
-    align-items: center;
+.background-kyc {
+  background-color: $primaryColor-8;
+  padding: 15px;
+  border-radius: $border-radius;
+  flex-direction: column;
+  display: flex;
+  align-items: center;
 }
 
-.background-kyc-digital{
-    background-color: $backgroundColor-2;
-    padding: 15px 0px;
-    border-radius: $border-radius;
-    grid-template-columns: 80px 260px;
-    display: grid;
-    margin-bottom: $spacing-20;
-    gap: $spacing-28;
+.background-kyc-digital {
+  background-color: $backgroundColor-2;
+  padding: 15px 0px;
+  border-radius: $border-radius;
+  grid-template-columns: 80px 260px;
+  display: grid;
+  margin-bottom: $spacing-20;
+  gap: $spacing-28;
 }
 
-.box-digital-kyc{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
+.box-digital-kyc {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding: $spacing-8 5%;
+
+  @include Breakpoint-mobileOnly {
     padding: $spacing-8 5%;
-
-    @include Breakpoint-mobileOnly {
-        padding: $spacing-8 5%;
-    }
+  }
 }
 
 @media only screen and (max-width: 768px) {
-    .background-kyc-digital{
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      background-color: $backgroundColor-2;
-      padding: 15px 0px;
-      border-radius: $border-radius;
-      background-size: 80px;
-      width: 255px;
-      margin-left: 0px;
-    }
-    .flex-kyc{
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-    .field{
-        width: 100%;
-        grid-template-columns: 100px 150px;
-        margin-left: 0;
-    }
-
-    .box-digital-kyc{
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        padding: $spacing-8 5%;
-    }
+  .background-kyc-digital {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: $backgroundColor-2;
+    padding: 15px 0px;
+    border-radius: $border-radius;
+    background-size: 80px;
+    width: 255px;
+    margin-left: 0px;
+  }
+  .flex-kyc {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .field {
+    width: 100%;
+    grid-template-columns: 100px 150px;
+    margin-left: 0;
   }
 
-
+  .box-digital-kyc {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: $spacing-8 5%;
+  }
+}

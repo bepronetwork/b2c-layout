@@ -1,4 +1,4 @@
-require('dotenv').config();
+require("dotenv").config();
 
 export const IS_PRODUCTION = process.env.REACT_APP_PRODUCTION;
 

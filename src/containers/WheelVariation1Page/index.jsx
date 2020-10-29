@@ -10,291 +10,303 @@ import { getAppCustomization } from "../../lib/helpers";
 import Cache from "../../lib/cache/cache";
 import { Numbers } from "lib/ethereum/lib";
 import { connect } from "react-redux";
-import { compose } from 'lodash/fp';
+import { compose } from "lodash/fp";
 import _ from "lodash";
 
 const resultSpaceColors = [
-    {
-        "color" : getAppCustomization().theme === 'dark' ? '#000000' : '#777777'
-    },
-    {        
-        "color" : '#406c82'
-    },
-    {
-        "color" : '#00e403'
-    },
-    {
-        "color" : '#d5e8f2'
-    },
-    {
-        "color" : '#fde905'
-    },
-    {
-        "color" : '#7f46fd'
-    },
-    {
-        "color" : '#fca32f'
-    }
-]
+  {
+    color: getAppCustomization().theme === "dark" ? "#000000" : "#777777"
+  },
+  {
+    color: "#406c82"
+  },
+  {
+    color: "#00e403"
+  },
+  {
+    color: "#d5e8f2"
+  },
+  {
+    color: "#fde905"
+  },
+  {
+    color: "#7f46fd"
+  },
+  {
+    color: "#fca32f"
+  }
+];
 
 class WheelVariationOne extends React.Component {
-    static contextType = UserContext;
+  static contextType = UserContext;
 
-    static propTypes = {
-        onHandleLoginOrRegister: PropTypes.func.isRequired
+  static propTypes = {
+    onHandleLoginOrRegister: PropTypes.func.isRequired
+  };
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      result: null,
+      selectedChip: 0.01,
+      betHistory: [],
+      game: {
+        edge: 0
+      },
+      options: [],
+      betObjectResult: {},
+      bet: false,
+      amount: 0
     };
+  }
 
-    constructor(props){
-        super(props);
-        this.state = {
-            result: null,
-            selectedChip: 0.01,
-            betHistory: [],
-            game : {
-                edge : 0
-            },
-            options : [],
-            betObjectResult : {},
-            bet: false,
-            amount: 0
-        }
+  componentDidMount() {
+    this.projectData(this.props);
+  }
+
+  componentWillReceiveProps(props) {
+    this.projectData(props);
+  }
+
+  projectData = props => {
+    let game = props.game;
+
+    if (_.isEmpty(game)) {
+      return;
+    }
+    if (!game.resultSpace) {
+      return;
     }
 
-    componentDidMount(){
-        this.projectData(this.props);
-    }
+    let options = [];
+    let indexOptions = 0;
 
-    componentWillReceiveProps(props){
-        this.projectData(props);
-    }
-
-    projectData = (props) => {
-        let game = props.game;
-
-        if(_.isEmpty(game)){return}
-        if(!game.resultSpace){return}
-
-        let options = [];
-        let indexOptions = 0;
-
-        for(var i = 0; i < game.resultSpace.length; i++){
-            let resultSpace = game.resultSpace[i];
-            let optExists = options.find( opt => opt.multiplier == resultSpace.multiplier);
-            if(!optExists){
-                let color = resultSpaceColors[indexOptions].color;
-                // Does not exist
-                options.push({
-                    index : indexOptions,
-                    probability : resultSpace.probability,
-                    multiplier : resultSpace.multiplier,
-                    amount : 1,
-                    start : i,
-                    placings : [i],
-                    color : color
-                })
-                indexOptions = indexOptions + 1;
-            }else{
-                optExists.placings.push(i)
-                // Exit update
-                options[optExists.index] = {
-                    ...optExists,
-                    amount : optExists.amount + 1,
-                    placings : optExists.placings,
-                    probability : optExists.probability + resultSpace.probability
-                }
-            }
-        }
-        this.setState({...this.state, 
-            options,
-            game
-        })
-    }
-
-    isAddChipDisabled = () => {
-        const { selectedChip } = this.state;
-        const user = this.props.profile;
-
-        if (!user || _.isEmpty(user)) return true;
-
-        return this.getTotalBet() + selectedChip > user.getBalance();
-    };
-
-    handleAddChipToBoard = cell => {
-        const { selectedChip, betHistory } = this.state;
-
-        if (this.isAddChipDisabled()) return null;
-
-        return this.setState({
-            betHistory: [...betHistory, { cell, chip: selectedChip }]
+    for (var i = 0; i < game.resultSpace.length; i++) {
+      let resultSpace = game.resultSpace[i];
+      let optExists = options.find(
+        opt => opt.multiplier == resultSpace.multiplier
+      );
+      if (!optExists) {
+        let color = resultSpaceColors[indexOptions].color;
+        // Does not exist
+        options.push({
+          index: indexOptions,
+          probability: resultSpace.probability,
+          multiplier: resultSpace.multiplier,
+          amount: 1,
+          start: i,
+          placings: [i],
+          color: color
         });
-    };
-
-    handleUndo = () => {
-        const { betHistory } = this.state;
-
-        betHistory.splice(-1, 1);
-
-        this.setState({ betHistory });
-    };
-
-    handleClear = () => {
-        this.setState({ betHistory: [] });
-    };
-
-    handleChangeChip = chip => {
-        this.setState({ selectedChip: chip });
-    };
-
-    addToHistory = ({result, won}) => {
-        try {
-            let multiplier = this.state.game.resultSpace[result].multiplier;
-            let history = Cache.getFromCache("wheel_variation_1History");
-            history = history ? history : [];
-            history.unshift({ value: `${multiplier}x`, win : won });
-            Cache.setToCache("wheel_variation_1History", history);
-        } catch (error) {
-            console.log(error);
-        }
+        indexOptions = indexOptions + 1;
+      } else {
+        optExists.placings.push(i);
+        // Exit update
+        options[optExists.index] = {
+          ...optExists,
+          amount: optExists.amount + 1,
+          placings: optExists.placings,
+          probability: optExists.probability + resultSpace.probability
+        };
+      }
     }
+    this.setState({ ...this.state, options, game });
+  };
 
+  isAddChipDisabled = () => {
+    const { selectedChip } = this.state;
+    const user = this.props.profile;
 
+    if (!user || _.isEmpty(user)) return true;
 
-    handleBet = async ({amount}) => {
-        try{
-            var { user } = this.context;
-            var { onHandleLoginOrRegister } = this.props;
-            var { betHistory, game } = this.state;
+    return this.getTotalBet() + selectedChip > user.getBalance();
+  };
 
-            if (!user) return onHandleLoginOrRegister("register");
-            
-            this.setState({ bet: true });
+  handleAddChipToBoard = cell => {
+    const { selectedChip, betHistory } = this.state;
 
-            const res = await wheelBet({
-                amount,
-                user,
-                game_id : game._id
-            });
-            const { isWon, result } = res;
+    if (this.isAddChipDisabled()) return null;
 
-            this.setState({ 
-                result,
-                inResultAnimation : true,
-                hasWon : isWon,
-                disableControls: false,
-                betObjectResult : res,
-                amount
-            });
-            return res;
-        }catch(err){
-            return this.setState({
-                bet : false,
-                flipResult : 0,
-                inResultAnimation : false,
-                hasWon : false,
-                disableControls: false
-            });        
-        }
-    };
+    return this.setState({
+      betHistory: [...betHistory, { cell, chip: selectedChip }]
+    });
+  };
 
+  handleUndo = () => {
+    const { betHistory } = this.state;
 
-    stopAnimation = async () => {
-        
+    betHistory.splice(-1, 1);
+
+    this.setState({ betHistory });
+  };
+
+  handleClear = () => {
+    this.setState({ betHistory: [] });
+  };
+
+  handleChangeChip = chip => {
+    this.setState({ selectedChip: chip });
+  };
+
+  addToHistory = ({ result, won }) => {
+    try {
+      let multiplier = this.state.game.resultSpace[result].multiplier;
+      let history = Cache.getFromCache("wheel_variation_1History");
+      history = history ? history : [];
+      history.unshift({ value: `${multiplier}x`, win: won });
+      Cache.setToCache("wheel_variation_1History", history);
+    } catch (error) {
+      console.log(error);
     }
+  };
 
-    handleAnimation = async () => {
-        this.setState({ bet: false, disableControls : false, inResultAnimation : false });
-        const { profile } = this.props;
-        const { amount } = this.state;
-        /* Update Info User View */
-        const { isWon, result, winAmount, userDelta } = this.state.betObjectResult;
-        setWonPopupMessageDispatcher(winAmount);
-        this.addToHistory({result, won : isWon});
-        await profile.updateBalance({ userDelta, amount });
-    };
+  handleBet = async ({ amount }) => {
+    try {
+      var { user } = this.context;
+      var { onHandleLoginOrRegister } = this.props;
+      var { betHistory, game } = this.state;
 
-    getTotalBet = () => {
-        const { betHistory } = this.state;
+      if (!user) return onHandleLoginOrRegister("register");
 
-        return reduce(
-            betHistory,
-            (sum, { chip }) => {
-                return sum + chip;
-        },0);
-    };
+      this.setState({ bet: true });
 
-    doubleDownBet = () => {
-        const { betHistory } = this.state;
+      const res = await wheelBet({
+        amount,
+        user,
+        game_id: game._id
+      });
+      const { isWon, result } = res;
 
-        this.setState({...this.state,
-            betHistory : betHistory.map( (item) => {
-                return {
-                    cell : item.cell,
-                    chip : Numbers.toFloat(parseFloat(item.chip)*2)
-                }
-            })
-        })
+      this.setState({
+        result,
+        inResultAnimation: true,
+        hasWon: isWon,
+        disableControls: false,
+        betObjectResult: res,
+        amount
+      });
+      return res;
+    } catch (err) {
+      return this.setState({
+        bet: false,
+        flipResult: 0,
+        inResultAnimation: false,
+        hasWon: false,
+        disableControls: false
+      });
     }
+  };
 
-    renderGameOptions = () => {
-        const { bet, options } = this.state;
-        const { profile } = this.props;
+  stopAnimation = async () => {};
 
-        return (
-            <WheelGameOptions
-                onBet={this.handleBet}
-                onChangeChip={this.handleChangeChip}
-                totalBet={this.getTotalBet()}
-                game={this.state.game}
-                options={options}
-                profile={profile}
-                doubleDownBet={this.doubleDownBet}
-                disableControls={bet}
-            />
-        );
-    };
+  handleAnimation = async () => {
+    this.setState({
+      bet: false,
+      disableControls: false,
+      inResultAnimation: false
+    });
+    const { profile } = this.props;
+    const { amount } = this.state;
+    /* Update Info User View */
+    const { isWon, result, winAmount, userDelta } = this.state.betObjectResult;
+    setWonPopupMessageDispatcher(winAmount);
+    this.addToHistory({ result, won: isWon });
+    await profile.updateBalance({ userDelta, amount });
+  };
 
-    renderGameCard = () => {
-        const { result, betHistory, bet, inResultAnimation, onAnimation, options } = this.state;
-        const { profile } = this.props;
+  getTotalBet = () => {
+    const { betHistory } = this.state;
 
-        return (
-            <WheelGameCard
-                result={result}
-                betHistory={betHistory}
-                onClear={this.handleClear}
-                options={options}
-                profile={profile}
-                inResultAnimation={inResultAnimation}
-                game={this.state.game}
-                onUndo={this.handleUndo}
-                stopAnimation={this.stopAnimation}
-                bet={bet}
-                onAnimation={onAnimation}
-                onResultAnimation={this.handleAnimation}
-                isAddChipDisabled={this.isAddChipDisabled()}
-            />
-        );
-    };
+    return reduce(
+      betHistory,
+      (sum, { chip }) => {
+        return sum + chip;
+      },
+      0
+    );
+  };
 
-    render() {
-        const { onTableDetails } = this.props;
-        return (
-            <GamePage
-                options={this.renderGameOptions()}
-                game={this.renderGameCard()}
-                history="wheel_variation_1History"
-                gameMetaName={this.state.game.metaName}
-                onTableDetails={onTableDetails}
-            />
-        );
-    }
+  doubleDownBet = () => {
+    const { betHistory } = this.state;
+
+    this.setState({
+      ...this.state,
+      betHistory: betHistory.map(item => {
+        return {
+          cell: item.cell,
+          chip: Numbers.toFloat(parseFloat(item.chip) * 2)
+        };
+      })
+    });
+  };
+
+  renderGameOptions = () => {
+    const { bet, options } = this.state;
+    const { profile } = this.props;
+
+    return (
+      <WheelGameOptions
+        onBet={this.handleBet}
+        onChangeChip={this.handleChangeChip}
+        totalBet={this.getTotalBet()}
+        game={this.state.game}
+        options={options}
+        profile={profile}
+        doubleDownBet={this.doubleDownBet}
+        disableControls={bet}
+      />
+    );
+  };
+
+  renderGameCard = () => {
+    const {
+      result,
+      betHistory,
+      bet,
+      inResultAnimation,
+      onAnimation,
+      options
+    } = this.state;
+    const { profile } = this.props;
+
+    return (
+      <WheelGameCard
+        result={result}
+        betHistory={betHistory}
+        onClear={this.handleClear}
+        options={options}
+        profile={profile}
+        inResultAnimation={inResultAnimation}
+        game={this.state.game}
+        onUndo={this.handleUndo}
+        stopAnimation={this.stopAnimation}
+        bet={bet}
+        onAnimation={onAnimation}
+        onResultAnimation={this.handleAnimation}
+        isAddChipDisabled={this.isAddChipDisabled()}
+      />
+    );
+  };
+
+  render() {
+    const { onTableDetails } = this.props;
+    return (
+      <GamePage
+        options={this.renderGameOptions()}
+        game={this.renderGameCard()}
+        history="wheel_variation_1History"
+        gameMetaName={this.state.game.metaName}
+        onTableDetails={onTableDetails}
+      />
+    );
+  }
 }
 
-function mapStateToProps(state){
-    return {
-        profile: state.profile,
-        ln : state.language
-    };
+function mapStateToProps(state) {
+  return {
+    profile: state.profile,
+    ln: state.language
+  };
 }
 
 export default compose(connect(mapStateToProps))(WheelVariationOne);

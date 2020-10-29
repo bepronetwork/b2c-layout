@@ -7,7 +7,6 @@ import Sound from "react-sound";
 import { getAppCustomization } from "../../lib/helpers";
 import rouletteSound from "assets/roulette-sound.mp3";
 import ballSound from "assets/ball-stop-sound.mp3";
-
 import "./index.css";
 
 const numberAngles = {
@@ -140,22 +139,22 @@ export default class Roulette extends Component {
   }
 
   componentDidUpdate(prevProps) {
-        const { result, bet, onAnimation } = this.props;
+    const { result, bet, onAnimation } = this.props;
 
-        if (!bet) {
-        return;
-        }
+    if (!bet) {
+      return;
+    }
 
-        if (result !== prevProps.result) {
-            anim.start();
-            onAnimation(true);
+    if (result !== prevProps.result) {
+      anim.start();
+      onAnimation(true);
 
-            setTimeout(() => {
-                anim.stop();
-                endAnim.start();
-                this.setState({ ballStop: true });
-            }, 2000);
-        }
+      setTimeout(() => {
+        anim.stop();
+        endAnim.start();
+        this.setState({ ballStop: true });
+      }, 2000);
+    }
   }
 
   renderSound = () => {
@@ -189,7 +188,11 @@ export default class Roulette extends Component {
         <div
           styleName="container"
           id="container"
-          style={{ backgroundImage: `url(${isLight ? RouletteWheelLight : RouletteWheel})` }}
+          style={{
+            backgroundImage: `url(${
+              isLight ? RouletteWheelLight : RouletteWheel
+            })`
+          }}
         />
         {this.renderSound()}
         {this.renderBallStopSound()}

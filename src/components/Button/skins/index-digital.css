@@ -45,7 +45,6 @@
       color: $secondaryColor;
     }
   }
-
 }
 
 .primary {
@@ -112,9 +111,7 @@
   cursor: default;
 
   * {
-
   }
-  
 }
 
 .fullwidth {
@@ -161,7 +158,7 @@
   svg {
     height: 20px;
   }
-  
+
   img {
     height: 16px;
     margin-right: $spacing-4;

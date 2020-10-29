@@ -26,33 +26,33 @@
 
 .undo.casper,
 .sound.casper {
-    fill: $casper;
+  fill: $casper;
 }
 .undo.pickled-bluewood,
-.sound.pickled-bluewood{
-    fill: $background-table-1-outer;
+.sound.pickled-bluewood {
+  fill: $background-table-1-outer;
 }
 
-.dice-icon{
-    width: $games-dice-size;
+.dice-icon {
+  width: $games-dice-size;
 }
 
-.roulette-icon{
-    width: $games-roulette-size;
+.roulette-icon {
+  width: $games-roulette-size;
 }
 
-.game-icon{
-    width: 170px;
+.game-icon {
+  width: 170px;
 }
 
 .root {
   text-align: center;
-  margin : $spacing-8 0;
+  margin: $spacing-8 0;
 }
 
-.info-holder{
-    margin-right: $spacing-8;
-    text-align: right;
+.info-holder {
+  margin-right: $spacing-8;
+  text-align: right;
 }
 
 .button {
@@ -85,15 +85,15 @@
 }
 
 .image-container.dice-background-color {
-    background-color: $dice-background-color;
+  background-color: $dice-background-color;
 }
 
 .image-container.roulette-background-color {
-    background-color: $roulette-background-color;
+  background-color: $roulette-background-color;
 }
 
 .image-container.coinflip-background-color {
-    background-color: $coinflip-background-color;
+  background-color: $coinflip-background-color;
 }
 
 .labels {
@@ -147,8 +147,8 @@
   margin-top: $spacing-4;
 
   svg {
-      width: 1em;
-      height: 1em;
+    width: 1em;
+    height: 1em;
   }
 }
 

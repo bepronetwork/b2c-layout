@@ -5,22 +5,21 @@ import randomHex from "randomhex";
 import { Numbers } from "../ethereum/lib";
 
 class Cryptography {
-    generateSeed(length = 32) {
-        return randomHex(length);
-    }
+  generateSeed(length = 32) {
+    return randomHex(length);
+  }
 
-    hashSeed(seed) {
-        return SHA512_HASH(seed);
-    }
+  hashSeed(seed) {
+    return SHA512_HASH(seed);
+  }
 
-    generateNonce() {
-        return Math.floor(Math.random() * 10000000000000000) + 1;
-    }
+  generateNonce() {
+    return Math.floor(Math.random() * 10000000000000000) + 1;
+  }
 
-    generateRandomResult(serverSeed, clientSeed) {
-        return SHA512(serverSeed, clientSeed);
-    }
-
+  generateRandomResult(serverSeed, clientSeed) {
+    return SHA512(serverSeed, clientSeed);
+  }
 }
 
 const CryptographySingleton = new Cryptography();

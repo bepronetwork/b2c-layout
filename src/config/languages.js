@@ -1,12 +1,11 @@
-import english  from "../assets/languages/english.png";
+import english from "../assets/languages/english.png";
 
 const languages = [
-    {
-        name : 'English',
-        logo : english,
-        prefix : 'EN'
-    }
-]
-
+  {
+    name: "English",
+    logo: english,
+    prefix: "EN"
+  }
+];
 
 export default languages;

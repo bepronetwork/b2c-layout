@@ -89,7 +89,7 @@
   img:nth-child(3) {
     width: 16px;
   }
-    
+
   @include Breakpoint-mobileOnly {
     border-radius: $border-radius;
     padding: 0 $spacing-4;

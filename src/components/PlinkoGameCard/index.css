@@ -4,22 +4,21 @@ $values-height: 22px;
 $with-without-padding: calc(100% - $spacing-20 - $spacing-20);
 
 .root {
-    display: grid;
-    grid-template-rows: 1fr $values-height;
+  display: grid;
+  grid-template-rows: 1fr $values-height;
 
-    min-width: 400px;
-  
-    padding: $spacing-20 $spacing-20 $spacing-52 $spacing-20;
-  
-    background-color: $background-main-table;
-    border-radius: 0 $border-radius $border-radius 0;
+  min-width: 400px;
 
-    @include Breakpoint-mobileOnly {
-      padding: 0;
-      min-width: 300px;
-    }
+  padding: $spacing-20 $spacing-20 $spacing-52 $spacing-20;
+
+  background-color: $background-main-table;
+  border-radius: 0 $border-radius $border-radius 0;
+
+  @include Breakpoint-mobileOnly {
+    padding: 0;
+    min-width: 300px;
   }
-  
+}
 
 .container {
   display: grid;
@@ -65,71 +64,70 @@ $with-without-padding: calc(100% - $spacing-20 - $spacing-20);
   text-align: center;
 }
 
-.popular-number-container{
-    padding : 10px;
-    width: 40px;
-    margin-bottom : 5px;
-    text-align: center;
-    display: inline-block;
-    border-radius : 4px;
+.popular-number-container {
+  padding: 10px;
+  width: 40px;
+  margin-bottom: 5px;
+  text-align: center;
+  display: inline-block;
+  border-radius: 4px;
 }
 
-.popular-number-container-amount{
-    padding : 10px;
-    padding-top : 5px;
-    width: 30px;
-    text-align: center;
-    display : inline-flex;
-    border-radius : 4px;
+.popular-number-container-amount {
+  padding: 10px;
+  padding-top: 5px;
+  width: 30px;
+  text-align: center;
+  display: inline-flex;
+  border-radius: 4px;
 }
 
-.popular-number-row{
-    margin-left : -30px;
+.popular-number-row {
+  margin-left: -30px;
 }
 
-
-.green-square{
-    background-color : $green;
+.green-square {
+  background-color: $green;
 }
 
-.blue-square{
-    background-color : $roulette-blue-color;
+.blue-square {
+  background-color: $roulette-blue-color;
 }
 
-.red-square{
-    background-color : $red;
+.red-square {
+  background-color: $red;
 }
 
-.outer-popular-numbers{
-    width : 110px;
-    border : 2px solid $dark-table-color;
-    height: 30%;
-    background-color : $popular-numbers-container;
-    left : 20px;
-    border-radius : 5px;
-    text-align: center;
-    top : 20px;
-    overflow-y : auto;
-    overflow-x : hidden;
-    position : absolute;
+.outer-popular-numbers {
+  width: 110px;
+  border: 2px solid $dark-table-color;
+  height: 30%;
+  background-color: $popular-numbers-container;
+  left: 20px;
+  border-radius: 5px;
+  text-align: center;
+  top: 20px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  position: absolute;
 
-    @include Breakpoint-mobileOnly {
-        margin-top: -50px !important;
-        display: none;
-    }
+  @include Breakpoint-mobileOnly {
+    margin-top: -50px !important;
+    display: none;
+  }
 }
 
-.inner-popular-numbers{
-    width : 100%;
-    height: auto;
-    overflow-y: hidden;
-    margin : 6px;
-    text-align: center;
-    overflow-x: hidden;
-    position : relative;
+.inner-popular-numbers {
+  width: 100%;
+  height: auto;
+  overflow-y: hidden;
+  margin: 6px;
+  text-align: center;
+  overflow-x: hidden;
+  position: relative;
 }
 
-.pegtext{
+.pegtext {
   position: absolute;
   top: 0px;
   left: 0px;
@@ -150,37 +148,34 @@ $with-without-padding: calc(100% - $spacing-20 - $spacing-20);
   margin-top: $spacing-36;
 }
 
-.ant-btn.bet-btn{
-  max-width: 350px!important;
+.ant-btn.bet-btn {
+  max-width: 350px !important;
 }
-
 
 .canvas-container > div > canvas {
   width: 680px;
 
   @media screen and (max-width: 1267px) and (min-width: 1024px) {
-      width: 480px;
+    width: 480px;
   }
-  
+
   @media screen and (max-width: 1023px) and (min-width: 768px) {
-      width: 520px;
+    width: 520px;
   }
-  
+
   @media screen and (max-width: 767px) {
-      width: 350px;
+    width: 350px;
   }
-  
 }
 
 .result {
-
   h6 {
-      color: $white;
-      font-family: $font-family;
-      font-size: $font-size-h3;
-      font-weight: 600;
-      line-height: $line-height-h2;
-      text-align: center;
-      padding-top: $spacing-8;
+    color: $white;
+    font-family: $font-family;
+    font-size: $font-size-h3;
+    font-weight: 600;
+    line-height: $line-height-h2;
+    text-align: center;
+    padding-top: $spacing-8;
   }
 }

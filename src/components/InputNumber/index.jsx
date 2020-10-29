@@ -9,7 +9,6 @@ import {
   CrossIcon,
   InfiniteIcon
 } from "components";
-
 import "./index.css";
 
 export default class InputNumber extends Component {
@@ -23,7 +22,13 @@ export default class InputNumber extends Component {
     step: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     value: PropTypes.number,
     precision: PropTypes.number,
-    icon: PropTypes.oneOf(["rotate", "bitcoin", "cross", "infinite", "customized"]),
+    icon: PropTypes.oneOf([
+      "rotate",
+      "bitcoin",
+      "cross",
+      "infinite",
+      "customized"
+    ]),
     disabled: PropTypes.bool,
     custmomizedIcon: PropTypes.string
   };
@@ -67,33 +72,33 @@ export default class InputNumber extends Component {
     if (!unit && !icon) return null;
 
     switch (icon) {
-        case "rotate":
-            return (
-            <div styleName="icon">
-                <RotateIcon />
-            </div>
-            );
-        case "bitcoin":
-            return null;
-        case "cross":
-            return (
-            <div styleName="icon">
-                <CrossIcon />
-            </div>
-            );
-        case "infinite":
-            return (
-            <div styleName="icon">
-                <InfiniteIcon />
-            </div>
-            );
-        case "customized":
-            return (
-            <div styleName="icon">
-                <img src={custmomizedIcon} width={20} />
-            </div>
-            );
-        default:
+      case "rotate":
+        return (
+          <div styleName="icon">
+            <RotateIcon />
+          </div>
+        );
+      case "bitcoin":
+        return null;
+      case "cross":
+        return (
+          <div styleName="icon">
+            <CrossIcon />
+          </div>
+        );
+      case "infinite":
+        return (
+          <div styleName="icon">
+            <InfiniteIcon />
+          </div>
+        );
+      case "customized":
+        return (
+          <div styleName="icon">
+            <img src={custmomizedIcon} width={20} />
+          </div>
+        );
+      default:
     }
 
     return (
@@ -111,11 +116,12 @@ export default class InputNumber extends Component {
 
     if (type == "currency") {
       var regex = /^(\d+(?:[\.\,]\d{0,6})?)$/;
-      if (value && !regex.test(value)) { return "" };
+      if (value && !regex.test(value)) {
+        return "";
+      }
 
       value = value.replace(",", ".");
-    }
-    else {
+    } else {
       value = Number(value);
     }
 
@@ -190,8 +196,7 @@ export default class InputNumber extends Component {
       "with-icon": icon || unit
     });
 
-    const parsedValue =
-      precision > 0 ? Number(value) : value;
+    const parsedValue = precision > 0 ? Number(value) : value;
 
     return (
       <div styleName="root">

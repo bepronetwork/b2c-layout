@@ -1,27 +1,27 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import '../index.css';
+import React from "react";
+import PropTypes from "prop-types";
+import "../index.css";
 
 function InfiniteCarouselArrow({ carouselName, next, onClick }) {
-  const arrowClassName = 'InfiniteCarouselArrow';
+  const arrowClassName = "InfiniteCarouselArrow";
   let typeClassName;
   if (next) {
-    typeClassName = 'InfiniteCarouselArrowNext';
+    typeClassName = "InfiniteCarouselArrowNext";
   } else {
-    typeClassName = 'InfiniteCarouselArrowPrev';
+    typeClassName = "InfiniteCarouselArrowPrev";
   }
 
-  const iconClassName = 'InfiniteCarouselArrowIcon';
+  const iconClassName = "InfiniteCarouselArrowIcon";
   let iconTypeClassName;
   if (next) {
-    iconTypeClassName = 'InfiniteCarouselArrowNextIcon';
+    iconTypeClassName = "InfiniteCarouselArrowNextIcon";
   } else {
-    iconTypeClassName = 'InfiniteCarouselArrowPrevIcon';
+    iconTypeClassName = "InfiniteCarouselArrowPrevIcon";
   }
 
   const className = `${arrowClassName} ${typeClassName}`;
   const classNameIcon = `${iconClassName} ${iconTypeClassName}`;
-  const buttonName = `${carouselName}-button-${next ? 'next' : 'previous'}`;
+  const buttonName = `${carouselName}-button-${next ? "next" : "previous"}`;
 
   return (
     <button
@@ -39,11 +39,11 @@ function InfiniteCarouselArrow({ carouselName, next, onClick }) {
 InfiniteCarouselArrow.propTypes = {
   carouselName: PropTypes.string.isRequired,
   next: PropTypes.bool,
-  onClick: PropTypes.func.isRequired,
+  onClick: PropTypes.func.isRequired
 };
 
 InfiniteCarouselArrow.defaultProps = {
-  next: true,
+  next: true
 };
 
 export default InfiniteCarouselArrow;

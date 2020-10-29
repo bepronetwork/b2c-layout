@@ -1,6 +1,5 @@
 @import "../../../styles/all.css";
 
-
 .match {
   background-color: $primaryColor-2;
   display: flex;
@@ -19,14 +18,14 @@
       width: 24px;
       height: 24px;
     }
-  } 
+  }
 }
 
 .match:hover {
   background-color: $primaryColor-8;
 }
 
-.match-tour{
+.match-tour {
   display: flex;
   width: 0;
   min-width: 0;
@@ -37,7 +36,7 @@
     min-width: auto;
     flex: auto;
     margin-bottom: $spacing-12;
-  } 
+  }
 }
 
 .tour-name {
@@ -60,7 +59,6 @@
     text-overflow: ellipsis;
   }
 }
-
 
 .date {
   margin: $spacing-16 0 $spacing-8 $spacing-4;
@@ -95,7 +93,7 @@
   margin: 0 $spacing-12;
 }
 
-.skeleton-match-tour{
+.skeleton-match-tour {
   display: flex;
   width: 0;
   min-width: 0;
@@ -103,15 +101,15 @@
 
   @media screen and (max-width: 767px) {
     display: none;
-  } 
+  }
 }
 
-.skeleton-date{
+.skeleton-date {
   display: flex;
   justify-content: flex-end;
   flex: 0.5;
 
   @media screen and (max-width: 767px) {
     display: none;
-  } 
+  }
 }

@@ -1,27 +1,26 @@
 @import "../../../styles/all.css";
 
 .root {
-    position: relative;
-    display: block;
-    width: 100%;
-    height: inherit;
-    display: flex;
-    flex-direction: column;
-    padding: $spacing-28 $spacing-20;
+  position: relative;
+  display: block;
+  width: 100%;
+  height: inherit;
+  display: flex;
+  flex-direction: column;
+  padding: $spacing-28 $spacing-20;
 
   @include Breakpoint-mobileOnly {
     width: 320px;
-    padding : $spacing-28 0;
+    padding: $spacing-28 0;
     margin: auto;
     position: relative;
     display: block;
     overflow-x: auto !important;
   }
-
 }
 
 .image-icon {
-  width : 60px;
+  width: 60px;
 }
 
 .rule-h1 {
@@ -29,7 +28,7 @@
 }
 
 .tabs {
-    width: 100%;
+  width: 100%;
 }
 
 .rule {

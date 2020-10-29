@@ -94,78 +94,87 @@ const boardCellsNumbers = {
 };
 
 function getBetOnEachNumber(betHistory) {
-    const totalBetOnEachCell = {};
+  const totalBetOnEachCell = {};
 
-    /* eslint-disable no-unused-expressions  */
+  /* eslint-disable no-unused-expressions  */
 
-    forEach(betHistory, ({ cell, chip }) => {
-        totalBetOnEachCell[cell]
-        ? (totalBetOnEachCell[cell] += chip)
-        : (totalBetOnEachCell[cell] = chip);
-    });
+  forEach(betHistory, ({ cell, chip }) => {
+    totalBetOnEachCell[cell]
+      ? (totalBetOnEachCell[cell] += chip)
+      : (totalBetOnEachCell[cell] = chip);
+  });
 
-    let finalBetOnEachNumber = [];
+  let finalBetOnEachNumber = [];
 
-    forEach(totalBetOnEachCell, (value, key) => {
-        !boardCellsNumbers[key]
-        ? (finalBetOnEachNumber = [
-            ...finalBetOnEachNumber,
-            { place: Number(key), value }
-            ])
-        : (finalBetOnEachNumber = [
-            ...finalBetOnEachNumber,
-            ...map(boardCellsNumbers[key], boardNumber => {
-                return {
-                    place: boardNumber,
-                    value: value / boardCellsNumbers[key].length
-                };
-            })
-            ]);
-    });
-    let distributedBetOnEachNumber = finalBetOnEachNumber.reduce( (array, el) => {
-        var equalElIndex = array.findIndex( currentEl => (currentEl.place == el.place));
-        if(equalElIndex > -1){
-            array[equalElIndex].value +=  parseFloat(el.value);
-            return array;
-        }else{
-            array.push(el);
-            return array;
-        }
-    }, []).filter( el => el != null);
+  forEach(totalBetOnEachCell, (value, key) => {
+    !boardCellsNumbers[key]
+      ? (finalBetOnEachNumber = [
+          ...finalBetOnEachNumber,
+          { place: Number(key), value }
+        ])
+      : (finalBetOnEachNumber = [
+          ...finalBetOnEachNumber,
+          ...map(boardCellsNumbers[key], boardNumber => {
+            return {
+              place: boardNumber,
+              value: value / boardCellsNumbers[key].length
+            };
+          })
+        ]);
+  });
+  let distributedBetOnEachNumber = finalBetOnEachNumber
+    .reduce((array, el) => {
+      var equalElIndex = array.findIndex(
+        currentEl => currentEl.place == el.place
+      );
+      if (equalElIndex > -1) {
+        array[equalElIndex].value += parseFloat(el.value);
+        return array;
+      } else {
+        array.push(el);
+        return array;
+      }
+    }, [])
+    .filter(el => el != null);
 
-    
-    /* eslint-enable no-unused-expressions */
-    return distributedBetOnEachNumber;
+  /* eslint-enable no-unused-expressions */
+  return distributedBetOnEachNumber;
 }
 
 export default async function bet({ betHistory, betAmount, user }) {
-    try {
-        const betOnEachNumber = getBetOnEachNumber(betHistory);
-        const appInfo = JSON.parse(localStorage.getItem("appInfo"));
-        
-        const game = find(appInfo.games, { name: "Roulette" });
-                
-        const response = await user.createBet({
-            amount: betAmount,
-            result: betOnEachNumber,
-            gameId: game._id
-        });
+  try {
+    const betOnEachNumber = getBetOnEachNumber(betHistory);
+    const appInfo = JSON.parse(localStorage.getItem("appInfo"));
 
-        await processResponse(response);
+    const game = find(appInfo.games, { name: "Roulette" });
 
-        const { winAmount, betAmount : amountBetted, _id : id, isWon, user_delta } = response.data.message;
-        const { index } = response.data.message.outcomeResultSpace;
+    const response = await user.createBet({
+      amount: betAmount,
+      result: betOnEachNumber,
+      gameId: game._id
+    });
 
-        return {
-            result : index,
-            winAmount, 
-            isWon,
-            betAmount : amountBetted,
-            id,
-            userDelta : user_delta
-        };
-    } catch (error) {
-        console.log(error);
-        throw error;
-    }
+    await processResponse(response);
+
+    const {
+      winAmount,
+      betAmount: amountBetted,
+      _id: id,
+      isWon,
+      user_delta
+    } = response.data.message;
+    const { index } = response.data.message.outcomeResultSpace;
+
+    return {
+      result: index,
+      winAmount,
+      isWon,
+      betAmount: amountBetted,
+      id,
+      userDelta: user_delta
+    };
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
 }

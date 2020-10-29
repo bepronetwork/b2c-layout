@@ -1,15 +1,12 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
 import { connect } from "react-redux";
-import _ from 'lodash';
-import { Typography } from 'components';
-
+import _ from "lodash";
+import { Typography } from "components";
 import { getApp } from "../../lib/helpers";
-
 import Timer from "assets/icons/timer.svg";
 import "./index.css";
 
 class CurrencyFreeMoney extends Component {
-
   render() {
     const { hours, seconds, minutes, title } = this.props;
 
@@ -23,35 +20,32 @@ class CurrencyFreeMoney extends Component {
             <div styleName="container-image">
               <img src={Timer} styleName="payment-image" alt="" />
             </div>
-            { minutes === 0 && seconds === 0
-              ?
+            {minutes === 0 && seconds === 0 ? (
+              <div styleName="digital-text">00:00</div>
+            ) : hours === 0 ? (
               <div styleName="digital-text">
-                00:00
+                {minutes < 10 ? `0${minutes}` : minutes}:
+                {seconds < 10 ? `0${seconds}` : seconds}
               </div>
-              :
-              hours === 0 ?
+            ) : (
               <div styleName="digital-text">
-                {minutes < 10 ? `0${minutes}` : minutes}:{seconds < 10 ? `0${seconds}` : seconds}
+                {hours < 10 ? `0${hours}` : hours}:
+                {minutes < 10 ? `0${minutes}` : minutes}:
+                {seconds < 10 ? `0${seconds}` : seconds}
               </div>
-              :
-              <div styleName="digital-text">
-                {hours < 10 ? `0${hours}` : hours}:{minutes < 10 ? `0${minutes}` : minutes}:{seconds < 10 ? `0${seconds}` : seconds}
-              </div>
-            }
+            )}
           </div>
-          <div styleName="digital-text-bottom">
-            To the next replenish
-          </div>
+          <div styleName="digital-text-bottom">To the next replenish</div>
         </div>
       </div>
     );
   }
 }
 
-function mapStateToProps(state){
+function mapStateToProps(state) {
   return {
-      profile : state.profile,
-      ln : state.language
+    profile: state.profile,
+    ln: state.language
   };
 }
 

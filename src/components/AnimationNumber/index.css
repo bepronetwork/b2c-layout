@@ -1,6 +1,6 @@
 @import "../../styles/all.css";
 
 .text {
-    color: white !important;
-    font-size : $font-size-body;
+  color: white !important;
+  font-size: $font-size-body;
 }

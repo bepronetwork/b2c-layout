@@ -76,8 +76,7 @@
   }
 }
 
-.label span{
-  
+.label span {
   @include Breakpoint-mobileOnly {
     display: none;
   }

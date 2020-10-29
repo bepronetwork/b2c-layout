@@ -1,36 +1,33 @@
 @import "../../../styles/all.css";
 
-
 .iframe {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  padding-top: 56.25%;
 
-    position: relative;
-    overflow: hidden;
+  iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
     width: 100%;
-    padding-top: 56.25%;
+    height: 100%;
+  }
 
-    iframe {
-        position: absolute;
-        top: 0;
-        left: 0;
-        bottom: 0;
-        right: 0;
-        width: 100%;
-        height: 100%;
+  .odds {
+    display: inline;
+
+    @media screen and (max-width: 1267px) and (min-width: 1024px) {
     }
 
-    .odds {
-
-        display: inline;
-
-        @media screen and (max-width: 1267px) and (min-width: 1024px) {
-        }
-    
-        @media screen and (max-width: 1023px) and (min-width: 768px) {
-            display: none;
-        } 
-    
-        @media screen and (max-width: 767px) {
-            display: none;
-        } 
+    @media screen and (max-width: 1023px) and (min-width: 768px) {
+      display: none;
     }
+
+    @media screen and (max-width: 767px) {
+      display: none;
+    }
+  }
 }

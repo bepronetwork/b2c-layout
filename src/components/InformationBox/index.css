@@ -13,85 +13,84 @@
   background: $background-table-2;
 }
 
-.container-root{
-    display: flex;
-    width : 370px;
-    height: auto;
-    margin : 10px auto;
-    padding : $spacing-20;
-    border : 1px solid $white;
-    background: $primaryColor-2;
-    border-radius : $border-radius;
-    opacity : 1;
-    transition: all 0.2s ease-in;
+.container-root {
+  display: flex;
+  width: 370px;
+  height: auto;
+  margin: 10px auto;
+  padding: $spacing-20;
+  border: 1px solid $white;
+  background: $primaryColor-2;
+  border-radius: $border-radius;
+  opacity: 1;
+  transition: all 0.2s ease-in;
 
-    @include Breakpoint-mobileOnly {
-        width : 200px;
-    }
+  @include Breakpoint-mobileOnly {
+    width: 200px;
+  }
 }
 
-.picked{
-    border : 1px solid $green;
-    box-shadow : 1px 10px 100px 10px $primaryColor;
+.picked {
+  border: 1px solid $green;
+  box-shadow: 1px 10px 100px 10px $primaryColor;
 }
 
-.text-description{
-    margin-top : 5px;
+.text-description {
+  margin-top: 5px;
 }
 
-.payment-image{
-    width: 40px;
+.payment-image {
+  width: 40px;
 }
 
-.container-text{
-    text-align: left;
+.container-text {
+  text-align: left;
 }
 
-.container-image{
-    width : 50px;
+.container-image {
+  width: 50px;
 
-    @include Breakpoint-mobileOnly {
-        width: unset;
-        margin-bottom: $spacing-20;
-        text-align: center;
-    }
+  @include Breakpoint-mobileOnly {
+    width: unset;
+    margin-bottom: $spacing-20;
+    text-align: center;
+  }
 }
 
-.nohover{
-    cursor: pointer !important;
+.nohover {
+  cursor: pointer !important;
 
-    &:hover{
-        opacity : 1 !important;
-    }
+  &:hover {
+    opacity: 1 !important;
+  }
 }
 
-.text-message{
-    margin-top : 5px;
+.text-message {
+  margin-top: 5px;
 }
 
-.alert{
-    border : 1px solid $red;
-    box-shadow : 1px 10px 100px 10px $primaryColor;
+.alert {
+  border: 1px solid $red;
+  box-shadow: 1px 10px 100px 10px $primaryColor;
 }
 
-.onLoading{
-    border : 1px solid $orange;
-    box-shadow : 1px 10px 100px 10px $primaryColor;
+.onLoading {
+  border: 1px solid $orange;
+  box-shadow: 1px 10px 100px 10px $primaryColor;
 }
 
-.loading-gif{
-    width: 30px;
-    margin-top: 15px;
-    margin-left : 10px;
+.loading-gif {
+  width: 30px;
+  margin-top: 15px;
+  margin-left: 10px;
 }
 
-
-.close-button{
-    background: transparent;
-    position: absolute;
-    margin-top: -6px;
-    z-index: 100;
-    width: 20px;
-    margin-left: 300px;
-    height: 20px;
+.close-button {
+  background: transparent;
+  position: absolute;
+  margin-top: -6px;
+  z-index: 100;
+  width: 20px;
+  margin-left: 300px;
+  height: 20px;
 }

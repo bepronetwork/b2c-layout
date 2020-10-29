@@ -19,87 +19,87 @@
 
 @media screen and (max-width: 1023px) and (min-width: 768px) {
   .root {
-      height: auto;
+    height: auto;
   }
 }
 
 @media screen and (max-width: 767px) {
   .root {
-    display : block;
+    display: block;
     grid-template-columns: auto auto;
     grid-template-areas: "Result Board" "LastBets Board" "ChipControls ChipControls";
   }
 }
 
-.popular-number-container{
-    padding : 10px;
-    width: 44px;
-    margin-bottom : 5px;
-    text-align: center;
-    display: inline-block;
-    border-radius : 4px;
+.popular-number-container {
+  padding: 10px;
+  width: 44px;
+  margin-bottom: 5px;
+  text-align: center;
+  display: inline-block;
+  border-radius: 4px;
 }
 
-.popular-number-container-amount{
-    padding : 10px 0px 10px 10px;
-    padding-top : 5px;
-    text-align: center;
-    display : inline-flex;
-    border-radius : 4px;
+.popular-number-container-amount {
+  padding: 10px 0px 10px 10px;
+  padding-top: 5px;
+  text-align: center;
+  display: inline-flex;
+  border-radius: 4px;
 }
 
-.popular-number-row{
-    text-align: left;
+.popular-number-row {
+  text-align: left;
 }
 
 .result-container {
-    grid-area: Result / Result / Result / Result;
-    display: flex;
-    margin-left: 30%;
-    align-items: center;
-    justify-content: center;
+  grid-area: Result / Result / Result / Result;
+  display: flex;
+  margin-left: 30%;
+  align-items: center;
+  justify-content: center;
 
-    @include Breakpoint-mobileOnly {
-        height: 140px;
-        margin-top : 500%
-    }
+  @include Breakpoint-mobileOnly {
+    height: 140px;
+    margin-top: 500%;
+  }
 }
 
-.green-square{
-    background-color : $green;
+.green-square {
+  background-color: $green;
 }
 
-.blue-square{
-    background-color : $roulette-blue-color;
+.blue-square {
+  background-color: $roulette-blue-color;
 }
 
-.red-square{
-    background-color : $red;
+.red-square {
+  background-color: $red;
 }
 
-.outer-popular-numbers{
-    border : 2px solid $dark-table-color;
-    background-color : $popular-numbers-container;
-    left : 20px;
-    border-radius : 5px;
-    text-align: center;
-    top : 20px;
-    overflow-y : auto;
-    overflow-x : hidden;
-    position : absolute;
+.outer-popular-numbers {
+  border: 2px solid $dark-table-color;
+  background-color: $popular-numbers-container;
+  left: 20px;
+  border-radius: 5px;
+  text-align: center;
+  top: 20px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  position: absolute;
 
-    @include Breakpoint-mobileOnly {
-      display: none;
-   }   
+  @include Breakpoint-mobileOnly {
+    display: none;
+  }
 }
 
-.inner-popular-numbers{
-    height: auto;
-    overflow-y: hidden;
-    text-align: center;
-    overflow-x: hidden;
-    position : relative;
-    padding: 10px;
+.inner-popular-numbers {
+  height: auto;
+  overflow-y: hidden;
+  text-align: center;
+  overflow-x: hidden;
+  position: relative;
+  padding: 10px;
 }
 
 .result {
@@ -145,18 +145,16 @@
 }
 
 .wheel {
-    padding-left: 60px;
-    margin-top : 60px;
-    width: 100%;
-    grid-area: Wheel / Wheel / Wheel / Wheel;
+  padding-left: 60px;
+  margin-top: 60px;
+  width: 100%;
+  grid-area: Wheel / Wheel / Wheel / Wheel;
 
-
-    @include Breakpoint-mobileOnly {
-        width: 300px;
-        padding-left: $spacing-12;
-        margin: auto;
-    }
- 
+  @include Breakpoint-mobileOnly {
+    width: 300px;
+    padding-left: $spacing-12;
+    margin: auto;
+  }
 }
 
 @keyframes rotation {
@@ -177,10 +175,9 @@
   max-width: 750px;
 
   @include Breakpoint-mobileOnly {
-    margin-top : 0px;
+    margin-top: 0px;
     padding-top: 40px;
   }
-
 }
 
 .board-top {
@@ -271,52 +268,52 @@
   }
 }
 
-.multiplier-0{
-    background-color: $wheel-variation-1-color-1;
+.multiplier-0 {
+  background-color: $wheel-variation-1-color-1;
 }
 
-.multiplier-0-light{
-  background: $wheel-variation-1-color-1-light; 
+.multiplier-0-light {
+  background: $wheel-variation-1-color-1-light;
 }
 
-.multiplier-1{
-    background-color:$wheel-variation-1-color-2;
+.multiplier-1 {
+  background-color: $wheel-variation-1-color-2;
 }
 
-.multiplier-1-light{
+.multiplier-1-light {
 }
 
-.multiplier-2{
-    background-color: $wheel-variation-1-color-3;
+.multiplier-2 {
+  background-color: $wheel-variation-1-color-3;
 }
 
-.multiplier-2-light{
+.multiplier-2-light {
 }
 
-.multiplier-3{
-    background-color: $wheel-variation-1-color-4;
+.multiplier-3 {
+  background-color: $wheel-variation-1-color-4;
 }
 
-.multiplier-3-light{
+.multiplier-3-light {
 }
 
-.multiplier-4{
-    background-color: $wheel-variation-1-color-5;
+.multiplier-4 {
+  background-color: $wheel-variation-1-color-5;
 }
 
-.multiplier-4-light{
+.multiplier-4-light {
 }
 
-.multiplier-5{
-    background-color: $wheel-variation-1-color-6;
+.multiplier-5 {
+  background-color: $wheel-variation-1-color-6;
 }
 
-.multiplier-5-light{
+.multiplier-5-light {
 }
 
-.multiplier-6{
-    background-color: $wheel-variation-1-color-7;
+.multiplier-6 {
+  background-color: $wheel-variation-1-color-7;
 }
 
-.multiplier-6-light{
+.multiplier-6-light {
 }

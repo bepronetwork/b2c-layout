@@ -13,14 +13,14 @@ $spacing-88: 84px;
 $spacing-120: 120px;
 $spacing-160: 180px;
 
-$padding-top-chat : 70px;
-$top-chat-message-percentage : 85%;
-$bot-chat-message-percentage : 15%;
-$padding-chat-box : 10px;
-$chat-width-desktop : 400px;
-$chat-width-tablet-pro : 300px;
-$chat-width-tablet : 200px;
-$border-radius-messsage-box : 5px;
+$padding-top-chat: 70px;
+$top-chat-message-percentage: 85%;
+$bot-chat-message-percentage: 15%;
+$padding-chat-box: 10px;
+$chat-width-desktop: 400px;
+$chat-width-tablet-pro: 300px;
+$chat-width-tablet: 200px;
+$border-radius-messsage-box: 5px;
 $column: 81px;
 $gutter: 20px;
 $column-spacing: calc($column + 2 * $gutter);
@@ -44,15 +44,14 @@ $navbar-height: calc($spacing-52 + $spacing-8);
 $minimum-card-height: 504px;
 $table-max-width: calc($twelve-columns - $gutter - $gutter);
 
-$border-radius : 5px;
-$light-size : 10px;
-$light-margin-top : 12px;
+$border-radius: 5px;
+$light-size: 10px;
+$light-margin-top: 12px;
 
-$games-box-heigth : 170px;
-$games-dice-size : 220px;
-$games-roulette-size : 220px;
-$games-coinflip-size : 220px;
+$games-box-heigth: 170px;
+$games-dice-size: 220px;
+$games-roulette-size: 220px;
+$games-coinflip-size: 220px;
 
-
-$box-shadow : 1px 10px 100px 10px $dark-table-color;
-$box-shadow-light : 1px 10px 100px 1px $dark-table-color;
+$box-shadow: 1px 10px 100px 10px $dark-table-color;
+$box-shadow-light: 1px 10px 100px 1px $dark-table-color;

@@ -1,69 +1,66 @@
 @import "../../styles/all.css";
 
+.toggle {
+  justify-content: flex-end;
+  display: inline-flex;
+  font-family: $font-family;
+  padding: 5px 0;
+  border-radius: $border-radius;
+  height: 30px;
 
-.toggle{
-    justify-content: flex-end;
-    display: inline-flex;
-    font-family: $font-family;
-    padding: 5px 0;
-    border-radius: $border-radius;
-    height: 30px;
+  @include Breakpoint-mobileOnly {
+    padding: 5px $spacing-8 5px $spacing-8;
+  }
 
-    @include Breakpoint-mobileOnly {
-        padding: 5px $spacing-8 5px $spacing-8;
+  div:nth-child(2) {
+    cursor: pointer;
+    border-radius: 10px;
+
+    span:nth-child(2) {
+      background-color: red;
+      opacity: 0.1;
     }
 
-    div:nth-child(2) {
-        cursor: pointer;
-        border-radius: 10px;
-        
-        span:nth-child(2) {
-            background-color: red;
-            opacity: 0.1;
-        }
-
-        span:nth-child(3) {
-            border-radius: 10px;
-            padding: .375rem 1.3rem;
-            background-color: red;
-            border: unset;
-        }
+    span:nth-child(3) {
+      border-radius: 10px;
+      padding: 0.375rem 1.3rem;
+      background-color: red;
+      border: unset;
     }
-
+  }
 }
 
 .toggleOn {
-    div:nth-child(2) {   
-        background-color: #1e241b;
-        border-color: #373c40;
+  div:nth-child(2) {
+    background-color: #1e241b;
+    border-color: #373c40;
 
-        span:nth-child(3) {
-            background-color: #61ae64;
-        }
+    span:nth-child(3) {
+      background-color: #61ae64;
     }
+  }
 }
 
 .toggleOff {
-    div:nth-child(2) {   
-        background-color: #1a1414;
-        border-color: #373c40;
-    }
+  div:nth-child(2) {
+    background-color: #1a1414;
+    border-color: #373c40;
+  }
 }
 
 .toggle-text {
-    padding: 0 $spacing-12;
-    margin: auto;
-
+  padding: 0 $spacing-12;
+  margin: auto;
 }
 
 .tOn {
-    p {
-        color: #61ae64;
-    }
+  p {
+    color: #61ae64;
+  }
 }
 
 .tOff {
-    p {
-        color: #c63734;
-    }
+  p {
+    color: #c63734;
+  }
 }
