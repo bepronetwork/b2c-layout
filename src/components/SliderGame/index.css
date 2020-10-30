@@ -25,7 +25,6 @@
     left: 0;
     height: 30px;
     border-radius: 0px 0px $border-radius $border-radius;
-    background-color: $primaryColor-13;
   }
 
   .indicator{
@@ -38,6 +37,11 @@
   .container-row{
       display: flex;
       flex-direction: row;
+  }
+
+  .class-animate{
+    transition: transform 10000ms cubic-bezier(0.24, 0.78, 0.15, 1) 0s;
+    transform: translate(-2400px, 0px)
   }
 
   .background-empty{

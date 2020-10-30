@@ -38,6 +38,7 @@ class SlotsPage extends Component {
       result: null,
       resultSound: false,
       gameName: "Slots",
+      containerAnimation: false,
       gameStore: [],
       line: false,
       betObjectResult: {},
@@ -95,7 +96,8 @@ class SlotsPage extends Component {
         testBol: Array(5).fill(false),
         insertionIndex: [],
         insertIndex: [],
-        resultSound: false
+        resultSound: false,
+        containerAnimation: true
       });
 
       await this.handleAnimations();
@@ -114,24 +116,32 @@ class SlotsPage extends Component {
 
  handleAnimation = async (spinnerColumn, iterations) => {
     const box = document.getElementById(spinnerColumn);
-  
-    box.animate(
-      [
-        { transform: "translate3D(-30px, 0, )" },
-        { transform: "translate3D(-1600px, 0, 0)" },
-        { transition: "transform 10000ms cubic-bezier(0.24, 0.78, 0.15, 1) 0s" }
-      ],
-      {
-        duration: 3000,
-        iterations
-      }
-    );
-  
-    return new Promise(resolve => setTimeout(() => resolve(), 100));
+
+    var milliSecondsTime = 1000;
+
+    const timer = setInterval(function(){
+        milliSecondsTime = milliSecondsTime + 1;
+        if(milliSecondsTime === 1000) {
+            clearTimeout(timer);
+        }
+        else {
+            return milliSecondsTime + 1
+        }
+        box.animate(
+          [
+            { transform: `translate3D(-2400px, 0, 0)` }
+          ],
+          {
+            duration: timer,
+            iterations
+          }
+        );
+    }, 1000);
   };
 
   handleAnimations = async () => {
-    this.handleAnimation("container-slide", 1);
+    const { containerAnimation } = this.state; 
+      this.handleAnimation("container-slide", 1);
 
     await this.randomNumberResult();
 
@@ -296,7 +306,7 @@ class SlotsPage extends Component {
   };
 
   renderGameOptions = () => {
-    const { disableControls } = this.state;
+    const { disableControls, containerAnimation } = this.state;
     const { profile } = this.props;
 
     return (
@@ -305,6 +315,7 @@ class SlotsPage extends Component {
         onBet={this.handleBet}
         game={this.state.game}
         profile={profile}
+        containerAnimation={containerAnimation}
 
       />
     );

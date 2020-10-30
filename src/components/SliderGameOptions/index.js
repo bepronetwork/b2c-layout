@@ -364,6 +364,9 @@ class SlotsGameOptions extends Component {
               </Typography>
             </Button>
           </div>
+          <div styleName="container-results">
+            
+          </div>
         </div>
       </div>
     );

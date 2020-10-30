@@ -32,18 +32,41 @@ export default class SliderGame extends Component {
           primaryColor: primaryColor.hex,
           secondaryColor: secondaryColor.hex
         });
-      };
+    };
+
+    switchColor = () => {
+        const { secondaryColor } = this.state;
+        slideItems.map((num) => {
+            switch (num) {
+                case num.value  >= 0:
+                    return secondaryColor;
+                case num.value  >= 2:
+                    return "#c7ccd1";
+                case num.value  >= 5:
+                    return "#2972fa";
+                case num.value  >= 10:
+                    return "#f59d15";
+                case num.value  >= 100:
+                    return "#43e900";
+                case num.value  >= 1000:
+                    return "#63ddbc";
+                default:
+                  break;
+              }
+        })
+    };
 
     render() {
         const { primaryColor, secondaryColor } = this.state;
+        const { containerAnimation } = this.props;
         return (
             <div styleName="container-init">
                 <div styleName="gradient-overlay"></div>
-                <div styleName="container-row" id="container-slide">
+                <div styleName={containerAnimation ? "class-animate container-row" : "container-row"} id="container-slide">
                     {
                     slideItems.map((num) => {
                         return(
-                            <div styleName="container-result" key={num}>
+                            <div styleName="container-result" key={num.id}>
                                 <EmptyDiamond
                                     backgroundColor={primaryColor}
                                     borderColor={secondaryColor}
@@ -53,7 +76,7 @@ export default class SliderGame extends Component {
                                 >
                                 <Typography variant={'small-body'} color={'white'}>{num.value}</Typography>
                                 </EmptyDiamond>
-                                <div styleName="bottom-base"></div>
+                                <div styleName="bottom-base" style={{backgroundColor: this.switchColor()}}></div>
                             </div>
                         );
                     })
