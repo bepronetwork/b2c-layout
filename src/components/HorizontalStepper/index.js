@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { makeStyles, withStyles } from "@material-ui/core/styles";
-import clsx from "clsx";
+import classNames from "classnames";
 import Stepper from "@material-ui/core/Stepper";
 import Step from "@material-ui/core/Step";
 import StepLabel from "@material-ui/core/StepLabel";
@@ -25,23 +25,23 @@ const QontoConnector = withStyles({
   alternativeLabel: {
     top: 10,
     left: "calc(-50% + 16px)",
-    right: "calc(50% + 16px)"
+    right: "calc(50% + 16px)",
   },
   active: {
     "& $line": {
-      borderColor: "white"
-    }
+      borderColor: "white",
+    },
   },
   completed: {
     "& $line": {
-      borderColor: "grey"
-    }
+      borderColor: "grey",
+    },
   },
   line: {
     borderColor: "white",
     borderTopWidth: 3,
-    borderRadius: 1
-  }
+    borderRadius: 1,
+  },
 })(StepConnector);
 
 const useQontoStepIconStyles = makeStyles({
@@ -49,22 +49,22 @@ const useQontoStepIconStyles = makeStyles({
     color: "transparent",
     display: "flex",
     height: 22,
-    alignItems: "center"
+    alignItems: "center",
   },
   active: {
-    color: "white"
+    color: "white",
   },
   circle: {
     width: 8,
     height: 8,
     borderRadius: "50%",
-    backgroundColor: "currentColor"
+    backgroundColor: "currentColor",
   },
   completed: {
     color: "white",
     zIndex: 1,
-    fontSize: 18
-  }
+    fontSize: 18,
+  },
 });
 
 function QontoStepIcon(props) {
@@ -73,8 +73,8 @@ function QontoStepIcon(props) {
 
   return (
     <div
-      className={clsx(classes.root, {
-        [classes.active]: active
+      className={classNames(classes.root, {
+        [classes.active]: active,
       })}
     >
       {completed ? (
@@ -88,7 +88,7 @@ function QontoStepIcon(props) {
 
 QontoStepIcon.propTypes = {
   active: PropTypes.bool,
-  completed: PropTypes.bool
+  completed: PropTypes.bool,
 };
 
 const useColorlibStepIconStyles = makeStyles({
@@ -100,12 +100,12 @@ const useColorlibStepIconStyles = makeStyles({
     display: "flex",
     borderRadius: "50%",
     justifyContent: "center",
-    alignItems: "center"
+    alignItems: "center",
   },
   active: {
-    boxShadow: "0 4px 10px 0 rgba(0,0,0,.25)"
+    boxShadow: "0 4px 10px 0 rgba(0,0,0,.25)",
   },
-  completed: {}
+  completed: {},
 });
 
 function ColorlibStepIcon(props) {
@@ -115,14 +115,14 @@ function ColorlibStepIcon(props) {
   const icons = {
     1: <SettingsIcon />,
     2: <GroupAddIcon />,
-    3: <VideoLabelIcon />
+    3: <VideoLabelIcon />,
   };
 
   return (
     <div
-      className={clsx(classes.root, {
+      className={classNames(classes.root, {
         [classes.active]: active,
-        [classes.completed]: completed
+        [classes.completed]: completed,
       })}
     >
       {icons[String(props.icon)]}
@@ -133,35 +133,35 @@ function ColorlibStepIcon(props) {
 ColorlibStepIcon.propTypes = {
   active: PropTypes.bool,
   completed: PropTypes.bool,
-  icon: PropTypes.node
+  icon: PropTypes.node,
 };
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   root: {
     width: "100%",
     margin: "auto",
-    backgroundColor: "transparent"
+    backgroundColor: "transparent",
   },
   stepLabel: {
-    color: "white"
+    color: "white",
   },
   button: {
-    marginRight: theme.spacing(1)
+    marginRight: theme.spacing(1),
   },
   instructions: {
     marginTop: theme.spacing(1),
-    marginBottom: theme.spacing(1)
-  }
+    marginBottom: theme.spacing(1),
+  },
 }));
 
-const HorizontalStepper = props => {
+const HorizontalStepper = (props) => {
   const {
     steps,
     nextStep,
     alertCondition,
     alertIcon,
     alertMessage,
-    showStepper
+    showStepper,
   } = props;
   const classes = useStyles();
   const [activeStep, setActiveStep] = React.useState(0);
@@ -176,7 +176,7 @@ const HorizontalStepper = props => {
     closeStepper,
     showCloseButton = true,
     nextButtonLabel,
-    showBackButton = true
+    showBackButton = true,
   } = step;
   const { ln } = props;
   const { skin } = getAppCustomization();
@@ -192,7 +192,7 @@ const HorizontalStepper = props => {
   }
 
   function handleNext() {
-    setActiveStep(prevActiveStep => prevActiveStep + 1);
+    setActiveStep((prevActiveStep) => prevActiveStep + 1);
   }
 
   function handleBack() {
@@ -201,9 +201,9 @@ const HorizontalStepper = props => {
     }
     let previousPass = steps[activeStep - 1].pass;
     if (previousPass) {
-      setActiveStep(prevActiveStep => prevActiveStep - 1);
+      setActiveStep((prevActiveStep) => prevActiveStep - 1);
     }
-    setActiveStep(prevActiveStep => prevActiveStep - 1);
+    setActiveStep((prevActiveStep) => prevActiveStep - 1);
   }
 
   function handleReset() {
@@ -411,7 +411,7 @@ const HorizontalStepper = props => {
 function mapStateToProps(state) {
   return {
     profile: state.profile,
-    ln: state.language
+    ln: state.language,
   };
 }
 

@@ -5,16 +5,6 @@
   "engines": {
     "node": "12.13.0"
   },
-  "scripts": {
-    "start": "node --max-old-space-size=4096 bin/www.js",
-    "dev": "npm run build-sass && craco start",
-    "build": "npm run build-sass && craco build",
-    "build-sass": "babel-node scripts/build --nopresets es2015,stage-2",
-    "test": "craco test --no-watch",
-    "eject": "react-scripts eject",
-    "lint": "eslint --ext js,jsx src",
-    "stylelint": "stylelint src"
-  },
   "dependencies": {
     "@analytics/google-analytics": "^0.5.2",
     "@craco/craco": "^4.1.0",
@@ -113,6 +103,16 @@
     "webpack": "^4.40.2",
     "whatwg-fetch-timeout": "^2.0.2-timeout"
   },
+  "scripts": {
+    "start": "node --max-old-space-size=4096 bin/www.js",
+    "dev": "npm run build-sass && craco start",
+    "build": "npm run build-sass && craco build",
+    "build-sass": "babel-node scripts/build --nopresets es2015,stage-2",
+    "test": "craco test --no-watch",
+    "eject": "react-scripts eject",
+    "lint": "eslint --ext js,jsx src",
+    "stylelint": "stylelint src"
+  },
   "lint-staged": {
     "src/**/*.{js,jsx,ts,tsx,json,css,scss,md}": [
       "prettier --write"
@@ -137,6 +137,8 @@
     "eslint-plugin-jsx-a11y": "^6.2.1",
     "eslint-plugin-prettier": "^3.0.1",
     "eslint-plugin-react": "^7.12.4",
+    "husky": "^4.3.0",
+    "lint-staged": "^10.5.0",
     "prettier": "^2.1.2",
     "stylelint": "^10.0.1",
     "stylelint-config-prettier": "^5.0.0",

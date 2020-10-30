@@ -110,7 +110,7 @@ class HomePage extends Component {
           {skin == "digital" ? (
             <div styleName="title-betprotocol">
               <Typography variant="small-body" weight="semi-bold" color="white">
-                 Games
+                BetProtocol Games
               </Typography>
             </div>
           ) : null}

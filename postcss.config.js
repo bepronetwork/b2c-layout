@@ -5,6 +5,6 @@ module.exports = {
     precss: {},
     "postcss-color-function": {},
     "postcss-simple-vars": {},
-    "postcss-calc": {}
-  }
+    "postcss-calc": {},
+  },
 };
