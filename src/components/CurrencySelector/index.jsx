@@ -151,7 +151,7 @@ class CurrencySelector extends Component {
       <SecondaryTooltip title={`Bonus: ${formatCurrency(bonusAmount)}`}>
         <div styleName="label">
           <div styleName="currency-icon">
-            <img src={icon} width={20} />
+            <img src={icon} width={20} alt='Currency Icon' />
           </div>
           <span>
             <Typography color="white" variant={"small-body"}>
@@ -166,7 +166,7 @@ class CurrencySelector extends Component {
                 <ArrowUp />
               )
             ) : (
-              <img src={arrowUpIcon} />
+              <img src={arrowUpIcon} alt='Arrow Up Icon' />
             )
           ) : arrowDownIcon === null ? (
             skin == "digital" ? (
@@ -175,14 +175,14 @@ class CurrencySelector extends Component {
               <ArrowDown />
             )
           ) : (
-            <img src={arrowDownIcon} />
+            <img src={arrowDownIcon} alt='Arrow Down Icon' />
           )}
         </div>
       </SecondaryTooltip>
     ) : (
       <div styleName="label">
         <div styleName="currency-icon">
-          <img src={icon} width={20} />
+          <img src={icon} width={20} alt='Currency Illustration' />
         </div>
         <span>
           <Typography color="white" variant={"small-body"}>
@@ -197,7 +197,7 @@ class CurrencySelector extends Component {
               <ArrowUp />
             )
           ) : (
-            <img src={arrowUpIcon} />
+            <img src={arrowUpIcon} alt='Arrow Up Icon' />
           )
         ) : arrowDownIcon === null ? (
           skin == "digital" ? (
@@ -206,7 +206,7 @@ class CurrencySelector extends Component {
             <ArrowDown />
           )
         ) : (
-          <img src={arrowDownIcon} />
+          <img src={arrowDownIcon} alt='Arrow Down Icon' />
         )}
       </div>
     );
@@ -222,7 +222,7 @@ class CurrencySelector extends Component {
         type="button"
       >
         <div styleName="currency-icon">
-          <img src={icon} width={20} />
+          <img src={icon} width={20} alt='Currency Illustration' />
         </div>
         <Typography variant="small-body" color="white">
           {label}

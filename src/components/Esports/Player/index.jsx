@@ -17,7 +17,7 @@ class Player extends Component {
     return (
       <div styleName="player">
         <div styleName="picture">
-          <img src={player.image_url} width="100%" />
+          <img src={player.image_url} width="100%" alt='Player Picture' />
         </div>
         <div styleName="info">
           <div styleName="top">

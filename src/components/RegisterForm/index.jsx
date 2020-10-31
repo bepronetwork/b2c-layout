@@ -192,7 +192,7 @@ class RegisterForm extends Component {
             type="submit"
           >
             {isLoading ? (
-              <img src={loading} />
+              <img src={loading} alt='Loading Icon' />
             ) : (
               <Typography
                 color={skin.skin_type == "digital" ? "secondary" : "fixedwhite"}

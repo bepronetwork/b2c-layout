@@ -9,14 +9,14 @@ import {
   BetsIcon,
   UserIcon,
   UsersIcon,
-  ConfirmedIcon
+  ConfirmedIcon,
 } from "components";
 import { CopyText } from "../../copy";
 import {
   getApp,
   getAddOn,
   getIcon,
-  getAppCustomization
+  getAppCustomization,
 } from "../../lib/helpers";
 import { formatCurrency } from "../../utils/numberFormatation";
 import _ from "lodash";
@@ -40,7 +40,12 @@ class MobileMenu extends Component {
         {
           path: "/settings/account",
           copyValue: 6,
-          icon: userIcon === null ? <UserIcon /> : <img src={userIcon} />
+          icon:
+            userIcon === null ? (
+              <UserIcon />
+            ) : (
+              <img src={userIcon} alt="User Icon" />
+            ),
         },
         {
           path: "/settings/security",
@@ -49,18 +54,28 @@ class MobileMenu extends Component {
             securityIcon === null ? (
               <ConfirmedIcon />
             ) : (
-              <img src={securityIcon} />
-            )
+              <img src={securityIcon} alt="Confirmed Icon" />
+            ),
         },
         {
           path: "/settings/bets",
           copyValue: 5,
-          icon: betsIcon === null ? <BetsIcon /> : <img src={betsIcon} />
+          icon:
+            betsIcon === null ? (
+              <BetsIcon />
+            ) : (
+              <img src={betsIcon} alt="Bets Icon" />
+            ),
         },
         {
           path: "/settings/wallet",
           copyValue: 8,
-          icon: walletIcon === null ? <WalletIcon /> : <img src={walletIcon} />
+          icon:
+            walletIcon === null ? (
+              <WalletIcon />
+            ) : (
+              <img src={walletIcon} alt="Wallet Icon" />
+            ),
         },
         {
           path: "/settings/deposits",
@@ -69,8 +84,8 @@ class MobileMenu extends Component {
             depositsIcon === null ? (
               <DepositsIcon />
             ) : (
-              <img src={depositsIcon} />
-            )
+              <img src={depositsIcon} alt="Deposits Icon" />
+            ),
         },
         {
           path: "/settings/withdraws",
@@ -79,8 +94,8 @@ class MobileMenu extends Component {
             withdrawIcon === null ? (
               <WithdrawIcon />
             ) : (
-              <img src={withdrawIcon} />
-            )
+              <img src={withdrawIcon} alt="Withdraw Icon" />
+            ),
         },
         {
           path: "/settings/affiliate",
@@ -89,8 +104,8 @@ class MobileMenu extends Component {
             affiliatesIcon === null ? (
               <UsersIcon />
             ) : (
-              <img src={affiliatesIcon} />
-            )
+              <img src={affiliatesIcon} alt="Users Icon" />
+            ),
         },
         {
           path: "/settings/preferences",
@@ -99,11 +114,11 @@ class MobileMenu extends Component {
             preferencesIcon === null ? (
               <SettingsIcon />
             ) : (
-              <img src={preferencesIcon} />
-            )
-        }
+              <img src={preferencesIcon} alt="Settings Icon" />
+            ),
+        },
       ],
-      tabs: []
+      tabs: [],
     };
   }
 
@@ -115,30 +130,30 @@ class MobileMenu extends Component {
     this.projectData(props);
   }
 
-  projectData = async props => {
+  projectData = async (props) => {
     const { ln } = props;
     let { topTab } = getAppCustomization();
 
     topTab = topTab.languages.find(
-      t =>
+      (t) =>
         t.language.isActivated === true &&
         t.language.prefix === ln.toUpperCase()
     );
 
     this.setState({
-      tabs: _.isEmpty(topTab) ? [] : topTab.ids
+      tabs: _.isEmpty(topTab) ? [] : topTab.ids,
     });
 
     if (!_.isEmpty(props.profile)) {
       const user = props.profile;
 
       this.setState({
-        points: await user.getPoints()
+        points: await user.getPoints(),
       });
     }
   };
 
-  homeClick = homepage => {
+  homeClick = (homepage) => {
     this.setState({ gameType: homepage });
     this.props.history.push(`/${homepage}`);
   };
@@ -150,7 +165,7 @@ class MobileMenu extends Component {
 
     return (
       <ul>
-        {itens.map(item => {
+        {itens.map((item) => {
           return (
             <li>
               <a
@@ -188,13 +203,18 @@ class MobileMenu extends Component {
 
     return (
       <div>
-        {tabs.map(t => {
+        {tabs.map((t) => {
           return (
             <div>
               <div styleName="title" onClick={() => this.homeClick(t.link_url)}>
                 {t.icon ? (
                   <div styleName="img">
-                    <img src={t.icon} width="22" height="22" />
+                    <img
+                      src={t.icon}
+                      width="22"
+                      height="22"
+                      alt="Application Logo"
+                    />
                   </div>
                 ) : null}
                 <Typography variant={"body"} color={"white"}>
@@ -209,7 +229,7 @@ class MobileMenu extends Component {
             <div styleName="label-points">
               {!_.isEmpty(logoPoints) ? (
                 <div styleName="currency-icon">
-                  <img src={logoPoints} width={20} />
+                  <img src={logoPoints} width={20} alt="Currency Icon" />
                 </div>
               ) : null}
               <span>
@@ -235,7 +255,7 @@ class MobileMenu extends Component {
 function mapStateToProps(state) {
   return {
     profile: state.profile,
-    ln: state.language
+    ln: state.language,
   };
 }
 

@@ -353,7 +353,7 @@ class DepositForm extends Component {
                         {copyIcon === null ? (
                           <CopyIcon />
                         ) : (
-                          <img src={copyIcon} />
+                          <img src={copyIcon} alt='Copy Icon' />
                         )}
                       </div>
                     ) : null}

@@ -7,11 +7,11 @@ import CloseCircleIcon from "mdi-react/CloseCircleIcon";
 
 const copy = {
   alert: {
-    title: "You can´t Procceed!"
+    title: "You can´t Procceed!",
   },
   info: {
-    title: "Information"
-  }
+    title: "Information",
+  },
 };
 
 class InformationBox extends React.Component {
@@ -19,7 +19,7 @@ class InformationBox extends React.Component {
     super(props);
     this.state = {
       checked: false,
-      closed: false
+      closed: false,
     };
   }
 
@@ -47,7 +47,7 @@ class InformationBox extends React.Component {
         <Row>
           <Col xs={12} md={3}>
             <div styleName="container-image">
-              <img src={image} styleName="payment-image" />
+              <img src={image} styleName="payment-image" alt="Payment" />
             </div>
           </Col>
           <Col xs={12} md={9}>
@@ -73,7 +73,7 @@ class InformationBox extends React.Component {
 
 function mapStateToProps(state) {
   return {
-    profile: state.profile
+    profile: state.profile,
   };
 }
 

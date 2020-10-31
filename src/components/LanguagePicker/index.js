@@ -11,7 +11,7 @@ import { setLanguageInfo } from "../../redux/actions/language";
 import { CopyText } from "../../copy";
 
 const defaultProps = {
-  language: languages[0]
+  language: languages[0],
 };
 
 class LanguagePicker extends React.Component {
@@ -28,10 +28,10 @@ class LanguagePicker extends React.Component {
     this.projectData(props);
   }
 
-  projectData = async props => {};
+  projectData = async (props) => {};
 
-  changeLanguage = async item => {
-    item = languages.find(a => {
+  changeLanguage = async (item) => {
+    item = languages.find((a) => {
       if (a.channel_id == item.value) {
         return a;
       }
@@ -55,9 +55,13 @@ class LanguagePicker extends React.Component {
             style={{ width: "80%" }}
             label={copy.INDEX.DROP_DOWN_FIELD.LABEL[0]}
           >
-            {languages.map(option => (
+            {languages.map((option) => (
               <MenuItem key={option.channel_id} value={option.channel_id}>
-                <img src={option.image} styleName="image-language" />
+                <img
+                  src={option.image}
+                  styleName="image-language"
+                  alt="Flag Illustration"
+                />
               </MenuItem>
             ))}
           </DropDownField>
@@ -71,12 +75,12 @@ function mapStateToProps(state) {
   return {
     profile: state.profile,
     chat: state.chat,
-    ln: state.language
+    ln: state.language,
   };
 }
 
 LanguagePicker.propTypes = {
-  dispatch: PropTypes.func
+  dispatch: PropTypes.func,
 };
 
 export default connect(mapStateToProps)(LanguagePicker);

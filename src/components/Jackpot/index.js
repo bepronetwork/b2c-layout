@@ -18,7 +18,7 @@ class Jackpot extends React.Component {
     this.projectData(props);
   }
 
-  projectData = async props => {};
+  projectData = async (props) => {};
 
   render() {
     const { message } = this.props;
@@ -30,7 +30,11 @@ class Jackpot extends React.Component {
           <Typography variant="h1" weight="semi-bold" color="fixedwhite">
             {"Congratulations!!!"}
           </Typography>
-          {bigWinIcon === null ? <BigWinIcon /> : <img src={bigWinIcon} />}
+          {bigWinIcon === null ? (
+            <BigWinIcon />
+          ) : (
+            <img src={bigWinIcon} alt="Big Win Icon" />
+          )}
           <Typography variant="h1" weight="semi-bold" color="fixedwhite">
             {message}
           </Typography>

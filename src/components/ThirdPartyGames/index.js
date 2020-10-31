@@ -6,7 +6,7 @@ import { getProvidersGames } from "../../lib/api/app";
 import {
   getSkeletonColors,
   getApp,
-  getAppCustomization
+  getAppCustomization,
 } from "../../lib/helpers";
 import _ from "lodash";
 import "./index.css";
@@ -21,7 +21,7 @@ class ThirdPartyGames extends Component {
       partnerId: null,
       isLoading: true,
       isLoadingGames: true,
-      total: 0
+      total: 0,
     };
   }
 
@@ -33,11 +33,11 @@ class ThirdPartyGames extends Component {
     this.projectData(props);
   }
 
-  projectData = async props => {
+  projectData = async (props) => {
     this.setState({ isLoading: true, isLoadingGames: true });
 
     const providers = getApp().casino_providers.filter(
-      p => p.activated === true
+      (p) => p.activated === true
     );
     const games = await getProvidersGames();
 
@@ -49,13 +49,13 @@ class ThirdPartyGames extends Component {
   formatGames(games) {
     let gameList = [];
 
-    games.map(p => {
+    games.map((p) => {
       const url = p.api_url;
       const provider = p.name;
       const partnerId = p.partner_id;
 
       if (typeof p.list.games != "undefined") {
-        p.list.games.map(g => {
+        p.list.games.map((g) => {
           const icon = url + g.icon;
           const game = {
             id: g.id,
@@ -63,7 +63,7 @@ class ThirdPartyGames extends Component {
             partnerId,
             provider,
             icon,
-            title: g.title
+            title: g.title,
           };
           gameList.push(game);
         });
@@ -80,7 +80,7 @@ class ThirdPartyGames extends Component {
     this.props.history.push(url);
   }
 
-  onClickProvider = async id => {
+  onClickProvider = async (id) => {
     this.setState({ isLoadingGames: true });
 
     const games = await getProvidersGames({ providerEco: id });
@@ -148,7 +148,7 @@ class ThirdPartyGames extends Component {
       isLoading,
       isLoadingGames,
       total,
-      providerId
+      providerId,
     } = this.state;
     const skin = getAppCustomization().skin.skin_type;
 
@@ -174,16 +174,16 @@ class ThirdPartyGames extends Component {
                     breakpoint: 500,
                     settings: {
                       slidesToShow: 2,
-                      slidesToScroll: 1
-                    }
+                      slidesToScroll: 1,
+                    },
                   },
                   {
                     breakpoint: 768,
                     settings: {
                       slidesToShow: 3,
-                      slidesToScroll: 2
-                    }
-                  }
+                      slidesToScroll: 2,
+                    },
+                  },
                 ]}
                 dots={false}
                 showSides={true}
@@ -194,7 +194,7 @@ class ThirdPartyGames extends Component {
                 scrollOnDevice={true}
                 title={skin == "digital" ? "Third party Games" : "Providers"}
               >
-                {providers.map(p => {
+                {providers.map((p) => {
                   return (
                     <div class={"col"} styleName="col">
                       <div
@@ -203,7 +203,11 @@ class ThirdPartyGames extends Component {
                       >
                         <a>
                           <div>
-                            <img alt={p.name} src={p.logo} />
+                            <img
+                              alt={p.name}
+                              src={p.logo}
+                              alt="Third party Games Logo"
+                            />
                           </div>
                         </a>
                       </div>
@@ -237,14 +241,14 @@ class ThirdPartyGames extends Component {
                 </Typography>
               </div>
               <div styleName="container-small">
-                {games.slice(0, 12).map(g => {
+                {games.slice(0, 12).map((g) => {
                   const game = {
                     id: g.id,
                     partnerId: g.partnerId,
                     url: g.url,
                     icon: g.icon,
                     title: g.title,
-                    provider: g.provider
+                    provider: g.provider,
                   };
                   return (
                     <ThirdPartyGameCard
@@ -266,7 +270,7 @@ class ThirdPartyGames extends Component {
 function mapStateToProps(state) {
   return {
     profile: state.profile,
-    ln: state.language
+    ln: state.language,
   };
 }
 

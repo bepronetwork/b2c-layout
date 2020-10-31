@@ -76,7 +76,7 @@ class BottomNavbar extends Component {
                     {usersIcon === null ? (
                       <UsersIcon />
                     ) : (
-                      <img src={usersIcon} />
+                      <img src={usersIcon} alt='Users Icon' />
                     )}
                   </div>
                   <Typography variant="x-small-body" color="grey">
@@ -91,7 +91,7 @@ class BottomNavbar extends Component {
                     {casinoIcon === null ? (
                       <CasinoIcon />
                     ) : (
-                      <img src={casinoIcon} />
+                      <img src={casinoIcon} alt='Casino Icon' />
                     )}
                   </div>
                   <Typography variant="x-small-body" color="grey">
@@ -108,7 +108,7 @@ class BottomNavbar extends Component {
                   {depositIcon === null ? (
                     <DepositIcon />
                   ) : (
-                    <img src={depositIcon} />
+                    <img src={depositIcon} alt='Deposit Icon' />
                   )}
                 </div>
                 <Typography variant="x-small-body" color="grey">
@@ -121,7 +121,7 @@ class BottomNavbar extends Component {
             <a href="#" onClick={() => onBetsList()}>
               <span styleName="item">
                 <div styleName="icon">
-                  {betsIcon === null ? <BetsIcon /> : <img src={betsIcon} />}
+                  {betsIcon === null ? <BetsIcon /> : <img src={betsIcon} alt='Bets Icon' />}
                 </div>
                 <Typography variant="x-small-body" color="grey">
                   {copy.INDEX.TYPOGRAPHY.TEXT[5]}
@@ -133,7 +133,7 @@ class BottomNavbar extends Component {
             <a href="#" onClick={() => onChat()}>
               <span styleName="item">
                 <div styleName="icon">
-                  {chatIcon === null ? <ChatIcon /> : <img src={chatIcon} />}
+                  {chatIcon === null ? <ChatIcon /> : <img src={chatIcon} alt='Chat Icon' />}
                 </div>
                 <Typography variant="x-small-body" color="grey">
                   {copy.INDEX.TYPOGRAPHY.TEXT[4]}

@@ -9,7 +9,7 @@ import _ from "lodash";
 import "./index.css";
 
 const defaultProps = {
-  rows: []
+  rows: [],
 };
 
 class DepositList extends Component {
@@ -32,7 +32,7 @@ class DepositList extends Component {
     }
   }
 
-  projectData = async props => {
+  projectData = async (props) => {
     const { profile } = props;
     let deposits = [];
 
@@ -44,13 +44,13 @@ class DepositList extends Component {
 
     this.setState({
       ...this.state,
-      rows: deposits.map(d => {
+      rows: deposits.map((d) => {
         return {
           amount: formatCurrency(Numbers.toFloat(d.amount)),
           creation_timestamp: dateToHourAndMinute(d.creation_timestamp),
-          currency: d.currency
+          currency: d.currency,
         };
-      })
+      }),
     });
   };
 
@@ -58,11 +58,18 @@ class DepositList extends Component {
     if (!currencyId) return null;
 
     const currencies = getApp().currencies;
-    const currenncy = currencies.find(currency => currency._id == currencyId);
+    const currenncy = currencies.find((currency) => currency._id == currencyId);
 
     if (!currenncy) return null;
 
-    return <img src={currenncy.image} width={16} height={16} />;
+    return (
+      <img
+        src={currenncy.image}
+        width={16}
+        height={16}
+        alt="Currency Illustration"
+      />
+    );
   }
 
   render() {
@@ -109,7 +116,7 @@ class DepositList extends Component {
 function mapStateToProps(state) {
   return {
     profile: state.profile,
-    ln: state.language
+    ln: state.language,
   };
 }
 

@@ -12,7 +12,7 @@ class JackpotPot extends React.Component {
     super(props);
     this.state = {
       pot: 0,
-      currencyImage: null
+      currencyImage: null,
     };
   }
 
@@ -24,12 +24,12 @@ class JackpotPot extends React.Component {
     this.projectData(props);
   }
 
-  projectData = async props => {
+  projectData = async (props) => {
     const { profile, currency } = props;
 
     if (profile && !_.isEmpty(profile)) {
       const appWallet = getApp().wallet.find(
-        w => w.currency._id === currency._id
+        (w) => w.currency._id === currency._id
       );
       const res = await profile.getJackpotPot({ currency_id: currency._id });
 
@@ -38,7 +38,7 @@ class JackpotPot extends React.Component {
           currencyImage: _.isEmpty(appWallet.image)
             ? currency.image
             : appWallet.image,
-          pot: res ? res.pot : 0
+          pot: res ? res.pot : 0,
         });
       }
     }
@@ -60,7 +60,7 @@ class JackpotPot extends React.Component {
             background: "url(" + coinPng + ")",
             backgroundPosition: "right center",
             backgroundSize: "auto 85%",
-            backgroundRepeat: "no-repeat"
+            backgroundRepeat: "no-repeat",
           }}
         >
           <div styleName="root">
@@ -69,7 +69,7 @@ class JackpotPot extends React.Component {
                 {jackpotPotIcon === null ? (
                   <JackpotPotIcon />
                 ) : (
-                  <img src={jackpotPotIcon} />
+                  <img src={jackpotPotIcon} alt="JackpotPot Icon" />
                 )}
                 <div styleName="text">
                   <Typography variant={"h4"} color={"white"} weight={"bold"}>
@@ -83,7 +83,12 @@ class JackpotPot extends React.Component {
 
               <div styleName="right">
                 <div styleName="value">
-                  <img src={currencyImage} width={"24"} heigth={"24"} />
+                  <img
+                    src={currencyImage}
+                    width={"24"}
+                    heigth={"24"}
+                    alt="Currency Icon"
+                  />
                   <Typography variant={"h4"} color={"white"} weight={"bold"}>
                     {formatCurrency(pot)}
                   </Typography>
@@ -101,7 +106,7 @@ function mapStateToProps(state) {
   return {
     profile: state.profile,
     ln: state.language,
-    currency: state.currency
+    currency: state.currency,
   };
 }
 

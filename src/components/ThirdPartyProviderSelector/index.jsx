@@ -101,7 +101,7 @@ class ThirdPartyProviderSelector extends Component {
     return (
       <div styleName="label">
         <div styleName="icon">
-          <img src={provider.logo} width={20} />
+          <img src={provider.logo} width={20} alt='Third part game logo' />
         </div>
         <span>
           <Typography color="white" variant={"small-body"}>
@@ -116,7 +116,7 @@ class ThirdPartyProviderSelector extends Component {
               <ArrowUp />
             )
           ) : (
-            <img src={arrowUpIcon} />
+            <img src={arrowUpIcon} alt='Arrow Up Icon' />
           )
         ) : arrowDownIcon === null ? (
           skin == "digital" ? (
@@ -125,7 +125,7 @@ class ThirdPartyProviderSelector extends Component {
             <ArrowDown />
           )
         ) : (
-          <img src={arrowDownIcon} />
+          <img src={arrowDownIcon} alt='Arrow Down Icon' />
         )}
       </div>
     );
@@ -141,7 +141,7 @@ class ThirdPartyProviderSelector extends Component {
         type="button"
       >
         <div styleName="icon">
-          <img src={icon} width={20} />
+          <img src={icon} width={20} alt='Button Icon' />
         </div>
         <Typography variant="small-body" color="white">
           {label}

@@ -320,7 +320,7 @@ export default class Wheel extends Component {
       <div styleName="root">
         <div>
           <div styleName={styles}>
-            <img src={pointer} styleName={"wheel-pointer"} />
+            <img src={pointer} styleName={"wheel-pointer"} alt='Wheel Pointer Illustration' />
             <div styleName={"circle"}>{this.renderResult()}</div>
           </div>
         </div>

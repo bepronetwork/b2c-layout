@@ -18,7 +18,7 @@ import {
   BetsIcon,
   UserIcon,
   UsersIcon,
-  ConfirmedIcon
+  ConfirmedIcon,
 } from "components";
 import { connect } from "react-redux";
 import { getApp, getIcon } from "../../lib/helpers";
@@ -44,7 +44,7 @@ class AccountPage extends Component {
     const pathName = this.props.location.pathname.toLowerCase();
     const pathArr = pathName.split("/");
 
-    return pathArr.some(function(elem) {
+    return pathArr.some(function (elem) {
       if (elem.toLowerCase() === path.toLowerCase()) {
         return true;
       }
@@ -77,7 +77,12 @@ class AccountPage extends Component {
                 path: "account",
                 title: copy.CONTAINERS.ACCOUNT.TITLE[6],
                 container: <AccountTab onLogout={onLogout} />,
-                icon: userIcon === null ? <UserIcon /> : <img src={userIcon} />
+                icon:
+                  userIcon === null ? (
+                    <UserIcon />
+                  ) : (
+                    <img src={userIcon} alt="User Icon" />
+                  ),
               },
               {
                 path: "security",
@@ -87,8 +92,8 @@ class AccountPage extends Component {
                   securityIcon === null ? (
                     <ConfirmedIcon />
                   ) : (
-                    <img src={securityIcon} />
-                  )
+                    <img src={securityIcon} alt="Confirmed Icon" />
+                  ),
               },
               {
                 path: "bets",
@@ -99,7 +104,7 @@ class AccountPage extends Component {
                     isCurrentPath={this.isCurrentPath("bets")}
                   />
                 ),
-                icon: betsIcon === null ? <BetsIcon /> : <img src={betsIcon} />
+                icon: betsIcon === null ? <BetsIcon /> : <img src={betsIcon} />,
               },
               {
                 path: "wallet",
@@ -111,8 +116,8 @@ class AccountPage extends Component {
                   walletIcon === null ? (
                     <WalletIcon />
                   ) : (
-                    <img src={walletIcon} />
-                  )
+                    <img src={walletIcon} alt="Wallet Icon" />
+                  ),
               },
               {
                 path: "deposits",
@@ -126,8 +131,8 @@ class AccountPage extends Component {
                   depositsIcon === null ? (
                     <DepositsIcon />
                   ) : (
-                    <img src={depositsIcon} />
-                  )
+                    <img src={depositsIcon} alt="Deposits Icon" />
+                  ),
               },
               {
                 path: "withdraws",
@@ -141,9 +146,9 @@ class AccountPage extends Component {
                   withdrawIcon === null ? (
                     <WithdrawIcon />
                   ) : (
-                    <img src={withdrawIcon} />
+                    <img src={withdrawIcon} alt="Withdraw Icon" />
                   ),
-                disabled: virtual
+                disabled: virtual,
               },
               {
                 path: "affiliate",
@@ -157,8 +162,8 @@ class AccountPage extends Component {
                   affiliatesIcon === null ? (
                     <UsersIcon />
                   ) : (
-                    <img src={affiliatesIcon} />
-                  )
+                    <img src={affiliatesIcon} alt="Users Icon" />
+                  ),
               },
               {
                 path: "preferences",
@@ -168,9 +173,9 @@ class AccountPage extends Component {
                   preferencesIcon === null ? (
                     <SettingsIcon />
                   ) : (
-                    <img src={preferencesIcon} />
-                  )
-              }
+                    <img src={preferencesIcon} alt="Settings Icon" />
+                  ),
+              },
             ]}
             {...this.props}
           />
@@ -186,7 +191,7 @@ class AccountPage extends Component {
 function mapStateToProps(state) {
   return {
     profile: state.profile,
-    ln: state.language
+    ln: state.language,
   };
 }
 

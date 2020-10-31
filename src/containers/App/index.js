@@ -28,7 +28,7 @@ import {
   BetDetails,
   Jackpot,
   LiveChatIcon,
-  SubSections
+  SubSections,
 } from "components";
 import PlinkoPage from "containers/PlinkoPage";
 import DicePage from "containers/DicePage";
@@ -63,7 +63,7 @@ import AccountPage from "../AccountPage";
 import {
   getQueryVariable,
   getAppCustomization,
-  getIcon
+  getIcon,
 } from "../../lib/helpers";
 import routeChanges from "../../lib/helpers/analytics/routeChanges";
 import ChatChannel from "../../controllers/Chat";
@@ -76,7 +76,7 @@ import { analyticsIdentify, analyticsPage } from "../../lib/helpers/analytics";
 
 const history = createBrowserHistory();
 
-routeChanges(route => {
+routeChanges((route) => {
   console.log("route changed", route);
   analyticsPage();
 });
@@ -102,7 +102,7 @@ class App extends Component {
       betsListOpen: false,
       settingsMenuOpen: false,
       chatExpand: true,
-      tableDetailsOpen: null
+      tableDetailsOpen: null,
     };
   }
 
@@ -187,7 +187,7 @@ class App extends Component {
     if (appInfo && appInfo.wallet) {
       const virtual = appInfo.virtual;
       const wallets = appInfo.wallet.filter(
-        w => w.currency.virtual === virtual
+        (w) => w.currency.virtual === virtual
       );
 
       if (wallets.length) {
@@ -204,7 +204,7 @@ class App extends Component {
       if (cache && cache.password) {
         let res = await this.handleLogin({
           username: cache.username,
-          password: cache.password
+          password: cache.password,
         });
         if (!res || res.status != 200) {
           throw new Error("Login didn´t work");
@@ -226,7 +226,7 @@ class App extends Component {
     this.setState({
       resetPasswordOpen: null,
       resetPasswordParams: null,
-      resetPasswordMode: null
+      resetPasswordMode: null,
     });
   };
 
@@ -252,11 +252,11 @@ class App extends Component {
     await store.dispatch(setModal({ key: "JackpotModal", value: null }));
   };
 
-  handleTabChange = name => {
+  handleTabChange = (name) => {
     this.setState({ registerLoginModalOpen: name, error: null });
   };
 
-  handleLoginOrRegisterOpen = tab => {
+  handleLoginOrRegisterOpen = (tab) => {
     this.setState({ registerLoginModalOpen: tab, has2FA: false, error: null });
   };
 
@@ -264,7 +264,7 @@ class App extends Component {
     this.setState({
       resetPasswordOpen: true,
       resetPasswordParams: params,
-      resetPasswordMode: mode
+      resetPasswordMode: mode,
     });
   };
 
@@ -276,7 +276,7 @@ class App extends Component {
     this.setState({ cashierOpen: true });
   };
 
-  handleTableDetailsOpen = params => {
+  handleTableDetailsOpen = (params) => {
     this.setState({ tableDetailsOpen: true, tableDetails: params });
   };
 
@@ -286,7 +286,7 @@ class App extends Component {
     this.setState({
       chatMobileOpen: !chatMobileOpen,
       betsListOpen: false,
-      settingsMenuOpen: false
+      settingsMenuOpen: false,
     });
   };
 
@@ -296,7 +296,7 @@ class App extends Component {
     this.setState({
       betsListOpen: !betsListOpen,
       chatMobileOpen: false,
-      settingsMenuOpen: false
+      settingsMenuOpen: false,
     });
   };
 
@@ -306,7 +306,7 @@ class App extends Component {
     this.setState({
       settingsMenuOpen: !settingsMenuOpen,
       chatMobileOpen: false,
-      betsListOpen: false
+      betsListOpen: false,
     });
   };
 
@@ -314,7 +314,7 @@ class App extends Component {
     this.setState({
       chatMobileOpen: false,
       betsListOpen: false,
-      settingsMenuOpen: false
+      settingsMenuOpen: false,
     });
     history.push("/");
   };
@@ -327,12 +327,12 @@ class App extends Component {
     this.setState({
       chatMobileOpen: false,
       betsListOpen: false,
-      settingsMenuOpen: false
+      settingsMenuOpen: false,
     });
     history.push(path);
   };
 
-  handleLogin = async form => {
+  handleLogin = async (form) => {
     try {
       this.setState({ error: null });
       const response = await login(form);
@@ -356,7 +356,7 @@ class App extends Component {
     }
   };
 
-  handleLogin2FA = async form => {
+  handleLogin2FA = async (form) => {
     try {
       this.setState({ error: null });
       const response = await login2FA(form);
@@ -371,7 +371,7 @@ class App extends Component {
         this.setState({
           registerLoginModalOpen: null,
           error: null,
-          has2FA: false
+          has2FA: false,
         });
       }
       /* Set currency */
@@ -390,7 +390,7 @@ class App extends Component {
     }
   };
 
-  handleRegister = async form => {
+  handleRegister = async (form) => {
     try {
       this.setState({ error: null });
       const response = await register(form);
@@ -400,14 +400,14 @@ class App extends Component {
 
       await this.handleLogin({
         username: form.username,
-        password: form.password
+        password: form.password,
       });
       const { user, app } = this.state;
       if (user) {
         const currencies = app.currencies;
         const bearerToken = user.bearerToken;
         Promise.all(
-          currencies.map(async c => {
+          currencies.map(async (c) => {
             let currency = c._id;
             getCurrencyAddress(
               { currency, id: response.id, app: app.id },
@@ -421,7 +421,7 @@ class App extends Component {
     }
   };
 
-  updateUser = async user => {
+  updateUser = async (user) => {
     /* Destory Unlogged Chat Instance */
     if (this.chat) {
       await this.chat.kill();
@@ -439,18 +439,18 @@ class App extends Component {
         user && user.integrations ? user.integrations : appInfo.integrations,
       appId: appInfo.id,
       userId: user ? user.id : null,
-      user: user
+      user: user,
     });
     await store.dispatch(setProfileInfo(userObject));
     Cache.setToCache("user", userObject);
 
     this.setState({
-      user: userObject
+      user: userObject,
     });
     return userObject;
   };
 
-  reloadUser = async user => {
+  reloadUser = async (user) => {
     /* Destory Unlogged Chat Instance */
     if (this.chat) {
       await this.chat.kill();
@@ -468,7 +468,7 @@ class App extends Component {
         user && user.integrations ? user.integrations : appInfo.integrations,
       appId: appInfo.id,
       userId: user ? user.id : null,
-      user: user
+      user: user,
     });
 
     await store.dispatch(setProfileInfo(userObject));
@@ -509,16 +509,16 @@ class App extends Component {
     return registerLoginModalOpen ? (
       <Modal onClose={this.handleRegisterLoginModalClose}>
         <div styleName="modal modal-login">
-          <img src={logo.id} styleName="tkn_logo_login" />
+          <img src={logo.id} styleName="tkn_logo_login" alt="TKN's Logo" />
           <div styleName="tabs">
             <Tabs
               selected={registerLoginModalOpen}
               options={[
                 {
                   value: "register",
-                  label: copy.CONTAINERS.APP.MODAL[0]
+                  label: copy.CONTAINERS.APP.MODAL[0],
                 },
-                { value: "login", label: copy.CONTAINERS.APP.MODAL[1] }
+                { value: "login", label: copy.CONTAINERS.APP.MODAL[1] },
               ]}
               onSelect={this.handleTabChange}
               style="full-background"
@@ -548,7 +548,7 @@ class App extends Component {
     const {
       resetPasswordOpen,
       resetPasswordParams,
-      resetPasswordMode
+      resetPasswordMode,
     } = this.state;
 
     return resetPasswordOpen ? (
@@ -558,7 +558,7 @@ class App extends Component {
             <Tabs
               selected="login"
               options={[
-                { value: "login", label: copy.CONTAINERS.APP.MODAL[1] }
+                { value: "login", label: copy.CONTAINERS.APP.MODAL[1] },
               ]}
             />
           </div>
@@ -584,7 +584,7 @@ class App extends Component {
             <Tabs
               selected="register"
               options={[
-                { value: "register", label: copy.CONTAINERS.APP.MODAL[2] }
+                { value: "register", label: copy.CONTAINERS.APP.MODAL[2] },
               ]}
             />
           </div>
@@ -644,7 +644,7 @@ class App extends Component {
     this.setState({ ...this.state, app });
   };
 
-  isGameAvailable = metaName => {
+  isGameAvailable = (metaName) => {
     const appInfo = Cache.getFromCache("appInfo");
     if (!appInfo) return null;
     return find(appInfo.games, { metaName: metaName });
@@ -677,7 +677,7 @@ class App extends Component {
           <Route
             exact
             path="/linear_dice_simple"
-            render={props => (
+            render={(props) => (
               <DicePage
                 {...props}
                 onHandleLoginOrRegister={this.handleLoginOrRegisterOpen}
@@ -690,7 +690,7 @@ class App extends Component {
           <Route
             exact
             path="/coinflip_simple"
-            render={props => (
+            render={(props) => (
               <FlipPage
                 {...props}
                 onHandleLoginOrRegister={this.handleLoginOrRegisterOpen}
@@ -703,7 +703,7 @@ class App extends Component {
           <Route
             exact
             path="/european_roulette_simple"
-            render={props => (
+            render={(props) => (
               <RoulettePage
                 {...props}
                 onHandleLoginOrRegister={this.handleLoginOrRegisterOpen}
@@ -716,7 +716,7 @@ class App extends Component {
           <Route
             exact
             path="/wheel_simple"
-            render={props => (
+            render={(props) => (
               <WheelPage
                 {...props}
                 game={this.isGameAvailable("wheel_simple")}
@@ -730,7 +730,7 @@ class App extends Component {
           <Route
             exact
             path="/wheel_variation_1"
-            render={props => (
+            render={(props) => (
               <WheelVariation1
                 {...props}
                 game={this.isGameAvailable("wheel_variation_1")}
@@ -744,7 +744,7 @@ class App extends Component {
           <Route
             exact
             path="/plinko_variation_1"
-            render={props => (
+            render={(props) => (
               <PlinkoPage
                 {...props}
                 onHandleLoginOrRegister={this.handleLoginOrRegisterOpen}
@@ -757,7 +757,7 @@ class App extends Component {
           <Route
             exact
             path="/keno_simple"
-            render={props => (
+            render={(props) => (
               <KenoPage
                 {...props}
                 onHandleLoginOrRegister={this.handleLoginOrRegisterOpen}
@@ -770,7 +770,7 @@ class App extends Component {
           <Route
             exact
             path="/diamonds_simple"
-            render={props => (
+            render={(props) => (
               <DiamondPage
                 {...props}
                 onHandleLoginOrRegister={this.handleLoginOrRegisterOpen}
@@ -783,7 +783,7 @@ class App extends Component {
           <Route
             exact
             path="/slots_simple"
-            render={props => (
+            render={(props) => (
               <SlotsPage
                 {...props}
                 onHandleLoginOrRegister={this.handleLoginOrRegisterOpen}
@@ -795,7 +795,7 @@ class App extends Component {
         <Route
           exact
           path="/games/:providerGameId"
-          render={props => (
+          render={(props) => (
             <ThirdPartyGameList
               {...props}
               onHandleLoginOrRegister={this.handleLoginOrRegisterOpen}
@@ -806,7 +806,7 @@ class App extends Component {
         <Route
           exact
           path="/game/:providerGameId"
-          render={props => (
+          render={(props) => (
             <ThirdPartyGamePage
               {...props}
               onHandleLoginOrRegister={this.handleLoginOrRegisterOpen}
@@ -826,7 +826,7 @@ class App extends Component {
       chatMobileOpen,
       betsListOpen,
       settingsMenuOpen,
-      chatExpand
+      chatExpand,
     } = this.state;
     const { profile, startLoadingProgress, modal, ln } = this.props;
     const mobileBreakpoint = 768;
@@ -846,42 +846,42 @@ class App extends Component {
     let { topBar, background, topTab } = getAppCustomization();
 
     topTab = topTab.languages.find(
-      t =>
+      (t) =>
         t.language.isActivated === true &&
         t.language.prefix === ln.toUpperCase()
     );
     topBar = topBar.languages.find(
-      t =>
+      (t) =>
         t.language.isActivated === true &&
         t.language.prefix === ln.toUpperCase()
     );
 
     const centerStyles = classNames("center", {
-      centerExpand: !chatExpand
+      centerExpand: !chatExpand,
     });
     const chatStyles = classNames("chat-container-main", {
       chatDisplay: chatMobileOpen,
-      chatExpandDisplay: !chatExpand
+      chatExpandDisplay: !chatExpand,
     });
     const betsListStyles = classNames("bets-container-main", {
-      betsListDisplay: betsListOpen
+      betsListDisplay: betsListOpen,
     });
     const settingsMenuStyles = classNames("settings-container-menu", {
       settingsMenuDisplay: settingsMenuOpen,
-      settingsMenuHidden: !settingsMenuOpen
+      settingsMenuHidden: !settingsMenuOpen,
     });
 
     const topStyles = classNames("top-bars", {
       "top-bars-transparent": _.isEmpty(topTab)
         ? false
-        : topTab.isTransparent == true
+        : topTab.isTransparent == true,
     });
 
     return (
       <UserContext.Provider
         value={{
           user,
-          setUser: () => {}
+          setUser: () => {},
         }}
       >
         <Router history={history}>
@@ -918,7 +918,7 @@ class App extends Component {
                     ? "url(" +
                       background.id +
                       ") center center / cover no-repeat"
-                    : null
+                    : null,
                 }}
               >
                 <div styleName="platform-container">
@@ -926,7 +926,7 @@ class App extends Component {
                     <Route
                       exact
                       path="/"
-                      render={props => (
+                      render={(props) => (
                         <HomePage
                           {...props}
                           onHandleLoginOrRegister={
@@ -955,7 +955,7 @@ class App extends Component {
                     <Route
                       exact
                       path="/esports"
-                      render={props => (
+                      render={(props) => (
                         <EsportsHomePage
                           {...props}
                           onHandleLoginOrRegister={
@@ -970,7 +970,7 @@ class App extends Component {
                     <Route
                       exact
                       path="/esports/matches"
-                      render={props => (
+                      render={(props) => (
                         <EsportsMatchesPage
                           {...props}
                           onHandleLoginOrRegister={
@@ -985,7 +985,7 @@ class App extends Component {
                     <Route
                       exact
                       path="/esports/:match"
-                      render={props => (
+                      render={(props) => (
                         <EsportsMatchPage
                           {...props}
                           onHandleLoginOrRegister={
@@ -1003,7 +1003,7 @@ class App extends Component {
                           <Route
                             exact
                             path={`${url}/`}
-                            render={props => (
+                            render={(props) => (
                               <AccountPage
                                 {...props}
                                 onHandleLoginOrRegister={
@@ -1015,7 +1015,7 @@ class App extends Component {
                           />
                           <Route
                             path={`${url}/account`}
-                            render={props => (
+                            render={(props) => (
                               <AccountPage
                                 {...props}
                                 onHandleLoginOrRegister={
@@ -1027,7 +1027,7 @@ class App extends Component {
                           />
                           <Route
                             path={`${url}/security`}
-                            render={props => (
+                            render={(props) => (
                               <AccountPage
                                 {...props}
                                 onHandleLoginOrRegister={
@@ -1038,7 +1038,7 @@ class App extends Component {
                           />
                           <Route
                             path={`${url}/bets`}
-                            render={props => (
+                            render={(props) => (
                               <AccountPage
                                 {...props}
                                 onHandleLoginOrRegister={
@@ -1050,7 +1050,7 @@ class App extends Component {
                           />
                           <Route
                             path={`${url}/wallet`}
-                            render={props => (
+                            render={(props) => (
                               <AccountPage
                                 {...props}
                                 onHandleLoginOrRegister={
@@ -1061,7 +1061,7 @@ class App extends Component {
                           />
                           <Route
                             path={`${url}/deposits`}
-                            render={props => (
+                            render={(props) => (
                               <AccountPage
                                 {...props}
                                 onHandleLoginOrRegister={
@@ -1072,7 +1072,7 @@ class App extends Component {
                           />
                           <Route
                             path={`${url}/withdraws`}
-                            render={props => (
+                            render={(props) => (
                               <AccountPage
                                 {...props}
                                 onHandleLoginOrRegister={
@@ -1083,7 +1083,7 @@ class App extends Component {
                           />
                           <Route
                             path={`${url}/affiliate`}
-                            render={props => (
+                            render={(props) => (
                               <AccountPage
                                 {...props}
                                 onHandleLoginOrRegister={
@@ -1094,7 +1094,7 @@ class App extends Component {
                           />
                           <Route
                             path={`${url}/preferences`}
-                            render={props => (
+                            render={(props) => (
                               <AccountPage
                                 {...props}
                                 onHandleLoginOrRegister={
@@ -1110,7 +1110,7 @@ class App extends Component {
                     <Route
                       exact
                       path="/password/reset"
-                      render={props => (
+                      render={(props) => (
                         <HomePage
                           {...props}
                           onHandleResetPassword={this.handleResetPasswordOpen}
@@ -1122,7 +1122,7 @@ class App extends Component {
                     <Route
                       exact
                       path="/confirm/:app"
-                      render={props => (
+                      render={(props) => (
                         <HomePage
                           {...props}
                           onHandleConfirmEmail={this.handleConfirmEmailOpen}
@@ -1149,7 +1149,7 @@ class App extends Component {
                     {liveChatIcon === null ? (
                       <LiveChatIcon />
                     ) : (
-                      <img src={liveChatIcon} />
+                      <img src={liveChatIcon} alt="Live Chat Icon" />
                     )}
                   </div>
                 </div>
@@ -1164,14 +1164,18 @@ class App extends Component {
                       {liveChatIcon === null ? (
                         <LiveChatIcon />
                       ) : (
-                        <img src={liveChatIcon} />
+                        <img src={liveChatIcon} alt="Live Chat Icon" />
                       )}
                     </div>
                   </div>
                 ) : null}
                 <div styleName="chat-expand" onClick={this.expandChatClick}>
                   <div>
-                    {chatIcon === null ? <ChatIcon /> : <img src={chatIcon} />}
+                    {chatIcon === null ? (
+                      <ChatIcon />
+                    ) : (
+                      <img src={chatIcon} alt="Chat Icon" />
+                    )}
                   </div>
                 </div>
                 <div styleName={"chat-container"}>
@@ -1219,7 +1223,7 @@ function mapStateToProps(state) {
     startLoadingProgress: state.startLoadingProgress,
     modal: state.modal,
     currency: state.currency,
-    ln: state.language
+    ln: state.language,
   };
 }
 

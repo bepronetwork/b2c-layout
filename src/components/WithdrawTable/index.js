@@ -12,7 +12,7 @@ const views = [
   { text: 10, value: 10 },
   { text: 25, value: 25 },
   { text: 50, value: 50 },
-  { text: 100, value: 100 }
+  { text: 100, value: 100 },
 ];
 
 const rows = {
@@ -22,24 +22,24 @@ const rows = {
       {
         value: "transactionHash",
         isLink: true,
-        linkField: "link_url"
+        linkField: "link_url",
       },
       {
-        value: "creation_timestamp"
+        value: "creation_timestamp",
       },
       {
         value: "amount",
-        currency: true
+        currency: true,
       },
       {
-        value: "done"
+        value: "done",
       },
       {
-        value: "status"
-      }
+        value: "status",
+      },
     ],
-    rows: []
-  }
+    rows: [],
+  },
 };
 
 const defaultProps = {
@@ -47,7 +47,7 @@ const defaultProps = {
   view: "withdraws",
   view_amount: views[0],
   isLoading: true,
-  isListLoading: true
+  isListLoading: true,
 };
 
 class WithdrawTable extends Component {
@@ -91,7 +91,7 @@ class WithdrawTable extends Component {
       ...options,
       isLoading: false,
       isListLoading: false,
-      options: Object.keys(copy.TABLE).map(key => {
+      options: Object.keys(copy.TABLE).map((key) => {
         return {
           value: new String(key).toLowerCase(),
           label: copy.TABLE[key].TITLE,
@@ -99,14 +99,14 @@ class WithdrawTable extends Component {
             withdrawIcon === null ? (
               <WithdrawIcon />
             ) : (
-              <img src={withdrawIcon} />
-            )
+              <img src={withdrawIcon} alt="Withdraw Icon" />
+            ),
         };
       }),
       withdraws: {
         ...this.state.withdraws,
         titles: copy.TABLE.WITHDRAWS.ITEMS,
-        rows: withdraws.map(d => {
+        rows: withdraws.map((d) => {
           return {
             amount: formatCurrency(Numbers.toFloat(d.amount)),
             transactionHash: d.transactionHash
@@ -116,14 +116,14 @@ class WithdrawTable extends Component {
             status: d.confirmed ? "Confirmed" : "Open",
             currency: d.currency,
             link_url: d.link_url,
-            done: d.confirmed ? "Done" : "Unconfirmed"
+            done: d.confirmed ? "Done" : "Unconfirmed",
           };
-        })
-      }
+        }),
+      },
     });
   };
 
-  setTimer = options => {
+  setTimer = (options) => {
     this.projectData(this.props, options);
   };
 
@@ -188,7 +188,7 @@ class WithdrawTable extends Component {
 function mapStateToProps(state) {
   return {
     profile: state.profile,
-    ln: state.language
+    ln: state.language,
   };
 }
 

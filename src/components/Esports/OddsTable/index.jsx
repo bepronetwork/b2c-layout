@@ -168,7 +168,7 @@ class OddsTable extends Component {
                   : this.handleAddToBetSlip(opponent1Bet)
               }
             >
-              <img src={opponent1.image} />
+              <img src={opponent1.image} alt='Opponent Illustration' />
               <Typography variant={"x-small-body"} color={"white"}>
                 {opponent1.name}
               </Typography>
@@ -202,7 +202,7 @@ class OddsTable extends Component {
                   : this.handleAddToBetSlip(opponent2Bet)
               }
             >
-              <img src={opponent2.image} />
+              <img src={opponent2.image} alt='Opponent Illustration' />
               <Typography variant={"x-small-body"} color={"white"}>
                 {opponent2.name}
               </Typography>

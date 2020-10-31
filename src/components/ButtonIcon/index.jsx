@@ -40,13 +40,13 @@ const ButtonIcon = ({
       rotateIcon === null ? (
         <RotateIcon color={disabled ? "pickled-bluewood" : "casper"} />
       ) : (
-        <img src={rotateIcon} />
+        <img src={rotateIcon} alt='Rotate Icon' />
       ),
     undo:
       undoIcon === null ? (
         <UndoIcon color={disabled ? "pickled-bluewood" : "casper"} />
       ) : (
-        <img src={undoIcon} />
+        <img src={undoIcon} alt='Undo Icon' />
       ),
     sound:
       soundIcon === null ? (
@@ -55,13 +55,13 @@ const ButtonIcon = ({
           color={disabled ? "pickled-bluewood" : "casper"}
         />
       ) : (
-        <img src={soundIcon} />
+        <img src={soundIcon} alt='Sound Icon' />
       ),
     copy:
       copyIcon === null ? (
         <CopyIcon color={disabled ? "pickled-bluewood" : "casper"} />
       ) : (
-        <img src={copyIcon} />
+        <img src={copyIcon} alt='Copy Icon' />
       )
   };
 

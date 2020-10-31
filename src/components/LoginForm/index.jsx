@@ -183,7 +183,7 @@ class LoginForm extends Component {
             type="submit"
           >
             {isLoading ? (
-              <img src={loading} />
+              <img src={loading} alt='Loading Illustration' />
             ) : (
               <Typography
                 color={skin.skin_type == "digital" ? "secondary" : "fixedwhite"}

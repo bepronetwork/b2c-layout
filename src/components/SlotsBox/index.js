@@ -10,9 +10,13 @@ class SlotsBox extends Component {
     return (
       <div styleName="root">
         <div styleName="container-blocks">
-          {result.map(num => {
+          {result.map((num) => {
             return (
-              <img src={images[num.index]} alt="" styleName="iconStatic" />
+              <img
+                src={images[num.index]}
+                alt="Result Illustration"
+                styleName="iconStatic"
+              />
             );
           })}
         </div>
@@ -29,7 +33,7 @@ class SlotsBox extends Component {
 
 function mapStateToProps(state) {
   return {
-    ln: state.language
+    ln: state.language,
   };
 }
 

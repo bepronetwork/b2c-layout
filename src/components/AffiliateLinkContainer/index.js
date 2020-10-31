@@ -19,7 +19,7 @@ class AffiliateLinkContainer extends React.Component {
     this.state = {
       checked: false,
       closed: false,
-      copied: false
+      copied: false,
     };
   }
 
@@ -31,7 +31,7 @@ class AffiliateLinkContainer extends React.Component {
     this.setState({ ...this.state, copied: false });
   }
 
-  copyToClipboard = e => {
+  copyToClipboard = (e) => {
     const { link } = this.props;
     var textField = document.createElement("textarea");
     textField.innerText = URL_REF + link;
@@ -89,7 +89,11 @@ class AffiliateLinkContainer extends React.Component {
               >
                 {skin.skin_type == "digital" ? (
                   <div styleName="icon">
-                    {copyIcon === null ? <CopyIcon /> : <img src={copyIcon} />}
+                    {copyIcon === null ? (
+                      <CopyIcon />
+                    ) : (
+                      <img src={copyIcon} alt="Copy Icon" />
+                    )}
                   </div>
                 ) : null}
                 <Typography variant={"small-body"} color={"fixedwhite"}>
@@ -107,7 +111,7 @@ class AffiliateLinkContainer extends React.Component {
 function mapStateToProps(state) {
   return {
     profile: state.profile,
-    ln: state.language
+    ln: state.language,
   };
 }
 

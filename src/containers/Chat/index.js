@@ -12,7 +12,7 @@ import {
   dateToHourAndMinute,
   getSkeletonColors,
   getAppCustomization,
-  getIcon
+  getIcon,
 } from "../../lib/helpers";
 import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 import delay from "delay";
@@ -29,7 +29,7 @@ const defaultProps = {
   history: "",
   language: languages[0],
   isLoading: true,
-  isGoDownVisible: false
+  isGoDownVisible: false,
 };
 const chatUsersConst = Math.floor(Math.random() * (400 - 200) + 200);
 
@@ -60,21 +60,21 @@ class ChatPage extends React.Component {
     }
   };
 
-  projectData = async props => {
+  projectData = async (props) => {
     if (props.chat.messages.length > 0) {
       this.setState({
         ...this.state,
         participants: props.chat.participants,
         messages: props.chat.messages,
         name: props.chat.name,
-        open: props.chat.open
+        open: props.chat.open,
       });
 
       this.scrollToBottom();
     }
   };
 
-  handleScroll = async event => {
+  handleScroll = async (event) => {
     const { isGoDownVisible } = this.state;
 
     if (isGoDownVisible === false && !this.isInViewport(this.messagesEnd)) {
@@ -93,7 +93,7 @@ class ChatPage extends React.Component {
     return top + offset >= 0 && top - offset <= window.innerHeight;
   }
 
-  sendMessage = async e => {
+  sendMessage = async (e) => {
     e.preventDefault();
     if (_.isEmpty(this.props.profile)) {
       await store.dispatch(
@@ -178,23 +178,21 @@ class ChatPage extends React.Component {
     return messages;
   };
 
-  changeLanguage = async item => {
-    item = languages.find(a => {
+  changeLanguage = async (item) => {
+    item = languages.find((a) => {
       if (a.name.toLowerCase() == item.name.toLowerCase()) {
         return a;
       }
     });
     let { profile } = this.props;
-    profile
-      .getChat()
-      .changeLanguage({
-        language: item.name,
-        channel_id: item.name.toLowerCase()
-      });
+    profile.getChat().changeLanguage({
+      language: item.name,
+      channel_id: item.name.toLowerCase(),
+    });
     this.setState({ ...this.state, language: item.name.toLowerCase() });
   };
 
-  changeMessage = event => {
+  changeMessage = (event) => {
     this.setState({ message: event.target.value });
   };
 
@@ -212,7 +210,7 @@ class ChatPage extends React.Component {
             styleName="message-top"
             style={{
               backgroundColor:
-                getAppCustomization().theme === "light" ? "white" : null
+                getAppCustomization().theme === "light" ? "white" : null,
             }}
           >
             <div styleName="online">
@@ -228,13 +226,17 @@ class ChatPage extends React.Component {
                   {this.state.participants + chatUsersConst}
                 </Typography>
                 <div styleName="users-icon">
-                  {usersIcon === null ? <UsersIcon /> : <img src={usersIcon} />}
+                  {usersIcon === null ? (
+                    <UsersIcon />
+                  ) : (
+                    <img src={usersIcon} alt="Users Icon" />
+                  )}
                 </div>
               </div>
             </div>
           </div>
           <div
-            ref={el => {
+            ref={(el) => {
               this.el = el;
             }}
             styleName="text-container"
@@ -242,17 +244,17 @@ class ChatPage extends React.Component {
           >
             {isLoading
               ? this.createSkeletonMessages()
-              : this.state.messages.map(item => {
+              : this.state.messages.map((item) => {
                   return this.createMessageBox({
                     username: item.user.id,
                     message: item.text,
                     id: item.id,
-                    time: new Date(item.created_at)
+                    time: new Date(item.created_at),
                   });
                 })}
             <div
               style={{ float: "left", clear: "both" }}
-              ref={el => {
+              ref={(el) => {
                 this.messagesEnd = el;
               }}
             ></div>
@@ -297,7 +299,7 @@ function mapStateToProps(state) {
   return {
     profile: state.profile,
     chat: state.chat,
-    ln: state.language
+    ln: state.language,
   };
 }
 

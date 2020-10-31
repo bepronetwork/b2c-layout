@@ -5,7 +5,7 @@ import {
   DataContainer,
   WithdrawForm,
   DepositsIcon,
-  AffiliateIcon
+  AffiliateIcon,
 } from "components";
 import PaymentBox from "../PaymentBox";
 import { CopyText } from "../../copy";
@@ -19,7 +19,7 @@ const defaultState = {
   userAmount: 0,
   id: "",
   wallets: [],
-  wallet: null
+  wallet: null,
 };
 
 class AffiliatesTab extends React.Component {
@@ -43,12 +43,14 @@ class AffiliatesTab extends React.Component {
     }
   }
 
-  projectData = async props => {
+  projectData = async (props) => {
     const { profile } = this.props;
     let { wallet } = this.state;
     const wallets =
       getApp().virtual === true
-        ? profile.getAffiliateWallets().filter(w => w.currency.virtual === true)
+        ? profile
+            .getAffiliateWallets()
+            .filter((w) => w.currency.virtual === true)
         : profile.getAffiliateWallets();
     const { id, userAmount, percentageOnLevelOne } = profile.getAffiliateInfo();
 
@@ -62,15 +64,15 @@ class AffiliatesTab extends React.Component {
       wallet,
       percentageOnLevelOne,
       userAmount,
-      id
+      id,
     });
   };
 
-  changeWallet = async wallet => {
+  changeWallet = async (wallet) => {
     this.setState({ wallet });
   };
 
-  handleAddress = address => {
+  handleAddress = (address) => {
     let { wallet } = this.state;
 
     if (wallet) {
@@ -86,7 +88,7 @@ class AffiliatesTab extends React.Component {
       wallet,
       id,
       percentageOnLevelOne,
-      userAmount
+      userAmount,
     } = this.state;
     const copy = CopyText.affiliatesTabIndex[ln];
 
@@ -110,7 +112,7 @@ class AffiliatesTab extends React.Component {
         <Row>
           <Col md={12} lg={12} xl={4}>
             <div>
-              {wallets.map(w => {
+              {wallets.map((w) => {
                 return (
                   <PaymentBox
                     onClick={() => this.changeWallet(w)}
@@ -132,7 +134,7 @@ class AffiliatesTab extends React.Component {
                 affiliateReferralIcon === null ? (
                   <AffiliateIcon />
                 ) : (
-                  <img src={affiliateReferralIcon} />
+                  <img src={affiliateReferralIcon} alt="Affiliate Icon" />
                 )
               }
             />
@@ -143,7 +145,7 @@ class AffiliatesTab extends React.Component {
                 depositsIcon === null ? (
                   <DepositsIcon />
                 ) : (
-                  <img src={depositsIcon} />
+                  <img src={depositsIcon} alt="Deposits Icon" />
                 )
               }
             />
@@ -164,7 +166,7 @@ class AffiliatesTab extends React.Component {
 function mapStateToProps(state) {
   return {
     profile: state.profile,
-    ln: state.language
+    ln: state.language,
   };
 }
 

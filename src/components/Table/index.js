@@ -13,14 +13,14 @@ class TableDefault extends Component {
   static contextType = UserContext;
 
   static propTypes = {
-    onHandleLoginOrRegister: PropTypes.func.isRequired
+    onHandleLoginOrRegister: PropTypes.func.isRequired,
   };
 
   constructor(props) {
     super(props);
     this.state = {
       rows: [],
-      isLoadingRow: false
+      isLoadingRow: false,
     };
   }
 
@@ -44,7 +44,7 @@ class TableDefault extends Component {
     clearInterval(this.intervalID);
   }
 
-  projectData = async props => {
+  projectData = async (props) => {
     this.setState({ rows: props.rows });
   };
 
@@ -77,8 +77,10 @@ class TableDefault extends Component {
     if (!isCurrency) return null;
 
     const currencies = getApp().currencies;
-    const currency = currencies.find(currency => currency._id == currencyId);
-    const appWallet = getApp().wallet.find(w => w.currency._id === currencyId);
+    const currency = currencies.find((currency) => currency._id == currencyId);
+    const appWallet = getApp().wallet.find(
+      (w) => w.currency._id === currencyId
+    );
 
     if (!currency) return null;
 
@@ -99,10 +101,14 @@ class TableDefault extends Component {
           style={{
             background: background
               ? "url(" + background + ") center center / cover no-repeat"
-              : "none"
+              : "none",
           }}
         >
-          <img styleName="image-icon" src={row.image_url} />
+          <img
+            styleName="image-icon"
+            src={row.image_url}
+            alt="Game Illustration"
+          />
         </div>
         <div styleName="image-name">
           <Typography variant="x-small-body" color={"grey"}>
@@ -119,7 +125,7 @@ class TableDefault extends Component {
     let { titles, fields, isLoading, onTableDetails, tag } = this.props;
 
     const rowStyles = classNames("tr-row", {
-      addRow: isLoadingRow
+      addRow: isLoadingRow,
     });
 
     return (
@@ -136,7 +142,7 @@ class TableDefault extends Component {
             <table styleName="table-row">
               <thead styleName="table-head">
                 <tr styleName="tr-row">
-                  {titles.map(text => (
+                  {titles.map((text) => (
                     <th styleName="th-row">
                       <Typography
                         variant="x-small-body"
@@ -151,16 +157,16 @@ class TableDefault extends Component {
                 </tr>
               </thead>
               <tbody>
-                {rows.map(row => (
+                {rows.map((row) => (
                   <tr styleName={rowStyles}>
                     {fields.map((field, index) => {
                       const styles = classNames("td-row", {
                         "td-row-img": field.image,
                         "td-row-currency": field.currency,
-                        "td-row-state": field.isStatus
+                        "td-row-state": field.isStatus,
                       });
                       const statusStyles = classNames("status", {
-                        [row[field.value].color]: field.isStatus === true
+                        [row[field.value].color]: field.isStatus === true,
                       });
 
                       if (field.dependentColor) {
@@ -173,7 +179,7 @@ class TableDefault extends Component {
                                   titles,
                                   fields,
                                   row,
-                                  tag
+                                  tag,
                                 })}
                               >
                                 <Typography
@@ -224,7 +230,7 @@ class TableDefault extends Component {
                                   titles,
                                   fields,
                                   row,
-                                  tag
+                                  tag,
                                 })}
                               >
                                 {this.renderGameColumn(
@@ -264,7 +270,7 @@ class TableDefault extends Component {
                                     titles,
                                     fields,
                                     row,
-                                    tag
+                                    tag,
                                   })}
                                 >
                                   <Typography
@@ -302,7 +308,7 @@ class TableDefault extends Component {
                                   titles,
                                   fields,
                                   row,
-                                  tag
+                                  tag,
                                 })}
                               >
                                 <Typography

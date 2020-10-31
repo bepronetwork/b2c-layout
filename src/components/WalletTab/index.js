@@ -6,7 +6,7 @@ import {
   WithdrawForm,
   Typography,
   Button,
-  EmailIcon
+  EmailIcon,
 } from "components";
 import { Col, Row } from "reactstrap";
 import _ from "lodash";
@@ -20,7 +20,7 @@ import {
   getApp,
   getAppCustomization,
   getIcon,
-  getCurrencyByCompare
+  getCurrencyByCompare,
 } from "../../lib/helpers";
 import { setMessageNotification } from "../../redux/actions/message";
 import store from "../../containers/App/store";
@@ -38,7 +38,7 @@ const defaultState = {
   clientId: "",
   flowId: "",
   isKycNeeded: null,
-  onClose: false
+  onClose: false,
 };
 
 class WalletTab extends React.Component {
@@ -68,14 +68,14 @@ class WalletTab extends React.Component {
 
   resultFilter = (firstArray, secondArray) => {
     return firstArray.filter(
-      firstArrayItem =>
+      (firstArrayItem) =>
         !secondArray.some(
-          secondArrayItem => firstArrayItem._user === secondArrayItem._user
+          (secondArrayItem) => firstArrayItem._user === secondArrayItem._user
         )
     );
   };
 
-  projectData = async props => {
+  projectData = async (props) => {
     const { profile } = this.props;
     let { wallet } = this.state;
 
@@ -87,9 +87,9 @@ class WalletTab extends React.Component {
     const getCurrenciesApp = getApp().currencies;
     const getUserWallet = profile.getWallets();
 
-    const resultCompare = getUserWallet.filter(wallet =>
+    const resultCompare = getUserWallet.filter((wallet) =>
       getCurrenciesApp.some(
-        getCurrenciesApp => wallet.currency._id === getCurrenciesApp._id
+        (getCurrenciesApp) => wallet.currency._id === getCurrenciesApp._id
       )
     );
 
@@ -98,13 +98,13 @@ class WalletTab extends React.Component {
         ? profile
             .getWallets()
             .filter(
-              w =>
+              (w) =>
                 new String(w.currency.ticker).toString().toLowerCase() !== "eth"
             )
         : resultCompare;
 
     if (wallets && !wallet) {
-      wallet = wallets.find(w => w.currency.virtual === false);
+      wallet = wallets.find((w) => w.currency.virtual === false);
     }
 
     const userId = profile.getID();
@@ -112,7 +112,7 @@ class WalletTab extends React.Component {
 
     const { colors } = getAppCustomization();
 
-    const primaryColor = colors.find(color => {
+    const primaryColor = colors.find((color) => {
       return color.type === "primaryColor";
     });
 
@@ -129,12 +129,12 @@ class WalletTab extends React.Component {
       wallets,
       wallet,
       virtual: getApp().virtual,
-      isEmailConfirmed: await user.isEmailConfirmed()
+      isEmailConfirmed: await user.isEmailConfirmed(),
     });
     this.caseKycStatus();
   };
 
-  handleTabChange = name => {
+  handleTabChange = (name) => {
     this.setState({ tab: name });
   };
 
@@ -196,7 +196,7 @@ class WalletTab extends React.Component {
     }
   };
 
-  renderPopSendAlert = tab => {
+  renderPopSendAlert = (tab) => {
     const { ln } = this.props;
     const { isConfirmationSent } = this.state;
     const copyConfirmEmail = CopyText.homepage[ln];
@@ -208,7 +208,11 @@ class WalletTab extends React.Component {
         {tab === "deposit" ? (
           <div styleName="email-title">
             <span styleName="icon">
-              {emailIcon === null ? <EmailIcon /> : <img src={emailIcon} />}
+              {emailIcon === null ? (
+                <EmailIcon />
+              ) : (
+                <img src={emailIcon} alt="Email Icon" />
+              )}
             </span>
             <Typography variant={"small-body"} color={"grey"} weight={"bold"}>
               {copyConfirmEmail.CONTAINERS.APP.MODAL[2]}
@@ -314,11 +318,11 @@ class WalletTab extends React.Component {
     );
   };
 
-  changeWallet = async wallet => {
+  changeWallet = async (wallet) => {
     this.setState({ wallet });
   };
 
-  handleAddress = address => {
+  handleAddress = (address) => {
     const { wallet } = this.state;
 
     if (wallet) {
@@ -360,7 +364,7 @@ class WalletTab extends React.Component {
       isEmailConfirmed,
       onOpenMoonpay,
       isKycNeeded,
-      isMoonpayActive
+      isMoonpayActive,
     } = this.state;
     const copy = CopyText.cashierFormIndex[ln];
     const skin = getAppCustomization().skin.skin_type;
@@ -380,7 +384,7 @@ class WalletTab extends React.Component {
             <Row styleName={isEmailConfirmed === false ? "blur" : null}>
               <Col md={12} lg={12} xl={4}>
                 <div>
-                  {wallets.map(w => {
+                  {wallets.map((w) => {
                     return (
                       <PaymentBox
                         onClick={() => this.changeWallet(w)}
@@ -400,7 +404,11 @@ class WalletTab extends React.Component {
                       <Row>
                         <Col xs={4} md={4}>
                           <div styleName="container-image">
-                            <img src={CreditCard} styleName="payment-image" />
+                            <img
+                              src={CreditCard}
+                              styleName="payment-image"
+                              alt="Credit Card Illustration"
+                            />
                           </div>
                         </Col>
                         <Col xs={8} md={8}>
@@ -433,13 +441,13 @@ class WalletTab extends React.Component {
                         label:
                           virtual === true
                             ? copy.INDEX.TABS.LABEL[2]
-                            : copy.INDEX.TABS.LABEL[0]
+                            : copy.INDEX.TABS.LABEL[0],
                       },
                       {
                         value: "withdraw",
                         label: copy.INDEX.TABS.LABEL[1],
-                        disabled: virtual === true
-                      }
+                        disabled: virtual === true,
+                      },
                     ]}
                     onSelect={this.handleTabChange}
                     style="full-background"
@@ -490,7 +498,7 @@ function mapStateToProps(state) {
   return {
     profile: state.profile,
     ln: state.language,
-    currency: state.currency
+    currency: state.currency,
   };
 }
 

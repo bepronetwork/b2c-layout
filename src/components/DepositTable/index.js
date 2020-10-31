@@ -12,7 +12,7 @@ const views = [
   { text: 10, value: 10 },
   { text: 25, value: 25 },
   { text: 50, value: 50 },
-  { text: 100, value: 100 }
+  { text: 100, value: 100 },
 ];
 
 const rows = {
@@ -22,24 +22,24 @@ const rows = {
       {
         value: "transactionHash",
         isLink: true,
-        linkField: "link_url"
+        linkField: "link_url",
       },
       {
-        value: "creation_timestamp"
+        value: "creation_timestamp",
       },
       {
         value: "amount",
-        currency: true
+        currency: true,
       },
       {
-        value: "bonusAmount"
+        value: "bonusAmount",
       },
       {
-        value: "status"
-      }
+        value: "status",
+      },
     ],
-    rows: []
-  }
+    rows: [],
+  },
 };
 
 const defaultProps = {
@@ -47,7 +47,7 @@ const defaultProps = {
   view: "deposits",
   view_amount: views[0],
   isLoading: true,
-  isListLoading: true
+  isListLoading: true,
 };
 class DepositTable extends Component {
   constructor(props) {
@@ -90,7 +90,7 @@ class DepositTable extends Component {
       ...options,
       isLoading: false,
       isListLoading: false,
-      options: Object.keys(copy.TABLE).map(key => {
+      options: Object.keys(copy.TABLE).map((key) => {
         return {
           value: new String(key).toLowerCase(),
           label: copy.TABLE[key].TITLE,
@@ -98,14 +98,14 @@ class DepositTable extends Component {
             depositsIcon === null ? (
               <DepositsIcon />
             ) : (
-              <img src={depositsIcon} />
-            )
+              <img src={depositsIcon} alt="Deposits Icon" />
+            ),
         };
       }),
       deposits: {
         ...this.state.deposits,
         titles: copy.TABLE.DEPOSITS.ITEMS,
-        rows: deposits.map(d => {
+        rows: deposits.map((d) => {
           return {
             amount: formatCurrency(Numbers.toFloat(d.amount)),
             transactionHash: d.transactionHash
@@ -115,14 +115,14 @@ class DepositTable extends Component {
             status: d.transactionHash ? "Confirmed" : "Confirm",
             currency: d.currency,
             link_url: d.link_url,
-            bonusAmount: d.bonusAmount
+            bonusAmount: d.bonusAmount,
           };
-        })
-      }
+        }),
+      },
     });
   };
 
-  setTimer = options => {
+  setTimer = (options) => {
     this.projectData(this.props, options);
   };
 
@@ -131,7 +131,7 @@ class DepositTable extends Component {
     this.setTimer({ view_amount: option });
   };
 
-  confirmDeposit = async deposit => {
+  confirmDeposit = async (deposit) => {
     try {
       const { profile } = this.props;
       /* Create Deposit Framework */
@@ -201,7 +201,7 @@ class DepositTable extends Component {
 function mapStateToProps(state) {
   return {
     profile: state.profile,
-    ln: state.language
+    ln: state.language,
   };
 }
 

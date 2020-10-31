@@ -60,7 +60,7 @@ class BetSlipBox extends Component {
       <div styleName="box">
         <div styleName="bet-header">
           <div styleName="game-section">
-            <img src={bet.image} />
+            <img src={bet.image} alt='Bet Illustration' />
           </div>
           <div>
             <Typography variant={"x-small-body"} color={"grey"}>

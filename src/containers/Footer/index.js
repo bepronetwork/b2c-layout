@@ -4,7 +4,7 @@ import {
   Typography,
   LanguagePicker,
   LegalBox,
-  LanguageSelector
+  LanguageSelector,
 } from "components";
 import { Link } from "react-dom";
 import { connect } from "react-redux";
@@ -37,7 +37,7 @@ const footerStaticOutput = ({ props, supportLinks, communityLinks }) => {
     info: {
       text: copy.CONTAINERS.FOOTER.INFO.TEXT[0](info.name),
       size: "x-small-body",
-      color: "grey"
+      color: "grey",
     },
     tabs: [
       {
@@ -48,17 +48,17 @@ const footerStaticOutput = ({ props, supportLinks, communityLinks }) => {
           color: "white",
           text: copy.CONTAINERS.FOOTER.INFO.SUPPORT,
           size: "small-body",
-          weight: "semi-bold"
+          weight: "semi-bold",
         },
-        items: supportLinks.map(s => {
+        items: supportLinks.map((s) => {
           return {
             type: "link",
             text: s.name,
             href: s.href,
             size: "small-body",
-            color: "casper"
+            color: "casper",
           };
-        })
+        }),
       },
       {
         col: 2,
@@ -68,17 +68,17 @@ const footerStaticOutput = ({ props, supportLinks, communityLinks }) => {
           color: "white",
           text: copy.CONTAINERS.FOOTER.INFO.COMMUNITY,
           size: "small-body",
-          weight: "semi-bold"
+          weight: "semi-bold",
         },
-        items: communityLinks.map(s => {
+        items: communityLinks.map((s) => {
           return {
             type: "link",
             text: s.name,
             href: s.href,
             size: "small-body",
-            color: "casper"
+            color: "casper",
           };
-        })
+        }),
       },
       {
         col: 2,
@@ -88,7 +88,7 @@ const footerStaticOutput = ({ props, supportLinks, communityLinks }) => {
           color: "white",
           text: copy.CONTAINERS.FOOTER.INFO.LANGUAGE,
           size: "small-body",
-          weight: "semi-bold"
+          weight: "semi-bold",
         },
         items: [
           {
@@ -100,11 +100,11 @@ const footerStaticOutput = ({ props, supportLinks, communityLinks }) => {
                 size="small-body"
                 color="casper"
               />
-            )
-          }
-        ]
-      }
-    ]
+            ),
+          },
+        ],
+      },
+    ],
   };
 };
 
@@ -115,7 +115,7 @@ class Footer extends Component {
       supportLinks: [],
       communityLinks: [],
       logo: null,
-      socialLink: []
+      socialLink: [],
     };
   }
 
@@ -127,20 +127,20 @@ class Footer extends Component {
     this.projectData(props);
   }
 
-  projectData = async props => {
+  projectData = async (props) => {
     const { ln } = props;
     const info = getApp();
     const { footer, logo, theme, socialLink } = getAppCustomization();
 
     let supportLinks = footer.languages.find(
-      f =>
+      (f) =>
         f.language.isActivated === true &&
         f.language.prefix === ln.toUpperCase()
     );
     supportLinks = !_.isEmpty(supportLinks) ? supportLinks.supportLinks : [];
 
     let communityLinks = footer.languages.find(
-      f =>
+      (f) =>
         f.language.isActivated === true &&
         f.language.prefix === ln.toUpperCase()
     );
@@ -154,7 +154,7 @@ class Footer extends Component {
       logo,
       info,
       theme,
-      socialLink: socialLink.ids
+      socialLink: socialLink.ids,
     });
   };
 
@@ -164,14 +164,14 @@ class Footer extends Component {
     let footerInfo = footerStaticOutput({
       props,
       supportLinks,
-      communityLinks
+      communityLinks,
     });
 
     return (
       <div styleName="container">
         <div styleName="footer">
           <Row>
-            {footerInfo.tabs.map(tab => {
+            {footerInfo.tabs.map((tab) => {
               /* If not Data don´t show */
               if (!tab.show) {
                 return null;
@@ -200,7 +200,7 @@ class Footer extends Component {
                     ) : null}
 
                     {/* Text */}
-                    {tab.items.map(col => {
+                    {tab.items.map((col) => {
                       switch (col.type) {
                         case "link": {
                           return (
@@ -272,11 +272,11 @@ class Footer extends Component {
                 </Typography>
               </div>
               <div styleName="social-icons">
-                {socialLink.map(s => {
+                {socialLink.map((s) => {
                   return (
                     <div styleName="social-icon">
                       <a href={s.href} target="_blank">
-                        <img src={s.image_url} alt={s.name} />
+                        <img src={s.image_url} alt={s.name} alt="Social Icon" />
                       </a>
                     </div>
                   );
@@ -377,7 +377,7 @@ class Footer extends Component {
             <Row>
               {logo && logo.id ? (
                 <div className="col-md-3" styleName="col">
-                  <img src={logo.id} style={{ width: 140 }} />
+                  <img src={logo.id} style={{ width: 140 }} alt="Logo Icon" />
                 </div>
               ) : null}
               <div className="col-md-3" styleName="col">
@@ -419,7 +419,7 @@ class Footer extends Component {
 function mapStateToProps(state) {
   return {
     profile: state.profile,
-    ln: state.language
+    ln: state.language,
   };
 }
 

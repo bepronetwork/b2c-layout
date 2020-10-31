@@ -221,7 +221,7 @@ class GamePage extends Component {
               {maximizeIcon === null ? (
                 <MaximizeIcon />
               ) : (
-                <img src={maximizeIcon} />
+                <img src={maximizeIcon} alt='Maximize Icon' />
               )}
             </div>
           </div>

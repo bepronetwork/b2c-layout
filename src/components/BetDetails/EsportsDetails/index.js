@@ -14,12 +14,12 @@ import "./index.css";
 const stateOptions = Object.freeze({
   won: { text: "Won", color: "green" },
   lost: { text: "Lost", color: "red" },
-  pending: { text: "Pending", color: "primaryLight" }
+  pending: { text: "Pending", color: "primaryLight" },
 });
 
 const typeOptions = Object.freeze({
   simple: { text: "Simple", color: "primaryLight" },
-  multiple: { text: "Multiple", color: "primaryDark" }
+  multiple: { text: "Multiple", color: "primaryDark" },
 });
 
 class EsportsDetails extends Component {
@@ -36,7 +36,7 @@ class EsportsDetails extends Component {
       currencyImage: null,
       type: null,
       resolved: false,
-      isLoading: true
+      isLoading: true,
     };
   }
 
@@ -48,7 +48,7 @@ class EsportsDetails extends Component {
     this.projectData(props);
   }
 
-  projectData = async props => {
+  projectData = async (props) => {
     const { bet } = props;
     const { matches } = this.state;
 
@@ -58,27 +58,27 @@ class EsportsDetails extends Component {
         match = {
           ...match,
           status: bet.result[index].status,
-          odd: bet.result[index].odd
+          odd: bet.result[index].odd,
         };
         matches.push(match);
       }
 
       const images = require.context("assets/esports", true);
       const games = await getVideoGames();
-      let videogame = bet.result.map(r => {
-        const game = games.find(g => r.match.videogame == g._id);
+      let videogame = bet.result.map((r) => {
+        const game = games.find((g) => r.match.videogame == g._id);
         return {
           id: game._id,
           name: game.name,
-          image_url: images("./" + game.slug + "-ico.png")
+          image_url: images("./" + game.slug + "-ico.png"),
         };
       });
       videogame = videogame.filter(
-        (v, i, a) => a.findIndex(t => t.id === v.id) === i
+        (v, i, a) => a.findIndex((t) => t.id === v.id) === i
       );
 
       const currenncy = getApp().currencies.find(
-        currency => currency._id == bet.currency
+        (currency) => currency._id == bet.currency
       );
 
       this.setState({
@@ -92,7 +92,7 @@ class EsportsDetails extends Component {
         game: videogame,
         type: bet.type,
         resolved: bet.resolved,
-        isLoading: false
+        isLoading: false,
       });
     }
   };
@@ -110,13 +110,13 @@ class EsportsDetails extends Component {
       currencyImage,
       type,
       resolved,
-      isLoading
+      isLoading,
     } = this.state;
     const copy = CopyText.betsdetailspage[ln];
     let totalMultipleOdd = 1;
 
     if (!_.isEmpty(bet)) {
-      bet.result.map(b => {
+      bet.result.map((b) => {
         totalMultipleOdd = totalMultipleOdd * b.odd;
       });
     }
@@ -208,10 +208,14 @@ class EsportsDetails extends Component {
             <div styleName="root">
               <div styleName="game">
                 <div styleName="games">
-                  {game.map(g => {
+                  {game.map((g) => {
                     return (
                       <h1 styleName="rule-h1">
-                        <img styleName="image-icon" src={g.image_url} />
+                        <img
+                          styleName="image-icon"
+                          src={g.image_url}
+                          alt="Game Illustration"
+                        />
                         <Typography
                           variant="small-body"
                           color={"grey"}
@@ -247,7 +251,12 @@ class EsportsDetails extends Component {
                       <Typography variant={"x-small-body"} color={`white`}>
                         {betAmount}
                       </Typography>
-                      <img src={currencyImage} width={16} height={16} />
+                      <img
+                        src={currencyImage}
+                        width={16}
+                        height={16}
+                        alt="Currency Illustration"
+                      />
                     </div>
                   </div>
                   <div styleName="win">
@@ -263,7 +272,12 @@ class EsportsDetails extends Component {
                       >
                         {winAmount}
                       </Typography>
-                      <img src={currencyImage} width={16} height={16} />
+                      <img
+                        src={currencyImage}
+                        width={16}
+                        height={16}
+                        alt="Currency Illustration"
+                      />
                     </div>
                   </div>
                   <div styleName="top">
@@ -317,7 +331,7 @@ class EsportsDetails extends Component {
                 </div>
               </div>
               <div styleName="matches">
-                {matches.map(m => {
+                {matches.map((m) => {
                   return (
                     <div styleName="match">
                       <Match bet={bet} match={m} />
@@ -336,7 +350,7 @@ class EsportsDetails extends Component {
 function mapStateToProps(state) {
   return {
     profile: state.profile,
-    ln: state.language
+    ln: state.language,
   };
 }
 

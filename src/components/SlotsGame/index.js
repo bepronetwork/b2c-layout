@@ -20,7 +20,7 @@ import Beetle from "../../assets/icons/SlotsIcons/beetle2.svg";
 import Esfinge from "../../assets/icons/SlotsIcons/esfinge2.svg";
 
 class SlotsGame extends React.Component {
-  selectNumber = num => {
+  selectNumber = (num) => {
     switch (num) {
       case 0:
         return BlueCoin;
@@ -67,7 +67,7 @@ class SlotsGame extends React.Component {
       resultFiveColumn,
       insertIndex,
       winAmount,
-      multiplier
+      multiplier,
     } = this.props;
 
     return (
@@ -112,7 +112,11 @@ class SlotsGame extends React.Component {
                     svg-animation
                   </object>
                 ) : (
-                  <img src={images[num]} alt="" className={styles.iconStatic} />
+                  <img
+                    src={images[num]}
+                    alt="Result Illustration"
+                    className={styles.iconStatic}
+                  />
                 );
               })}
             </div>
@@ -128,7 +132,11 @@ class SlotsGame extends React.Component {
                     svg-animation
                   </object>
                 ) : (
-                  <img src={images[num]} alt="" className={styles.iconStatic} />
+                  <img
+                    src={images[num]}
+                    alt="Result Illustration"
+                    className={styles.iconStatic}
+                  />
                 );
               })}
             </div>
@@ -144,7 +152,11 @@ class SlotsGame extends React.Component {
                     svg-animation
                   </object>
                 ) : (
-                  <img src={images[num]} alt="" className={styles.iconStatic} />
+                  <img
+                    src={images[num]}
+                    alt="Result Illustration"
+                    className={styles.iconStatic}
+                  />
                 );
               })}
             </div>
@@ -160,7 +172,11 @@ class SlotsGame extends React.Component {
                     svg-animation
                   </object>
                 ) : (
-                  <img src={images[num]} alt="" className={styles.iconStatic} />
+                  <img
+                    src={images[num]}
+                    alt="Result Illustration"
+                    className={styles.iconStatic}
+                  />
                 );
               })}
             </div>
@@ -176,7 +192,11 @@ class SlotsGame extends React.Component {
                     svg-animation
                   </object>
                 ) : (
-                  <img src={images[num]} alt="" className={styles.iconStatic} />
+                  <img
+                    src={images[num]}
+                    alt="Result Illustration"
+                    className={styles.iconStatic}
+                  />
                 );
               })}
             </div>
@@ -199,7 +219,7 @@ SlotsGame.propTypes = {
   resultFiveColumn: propTypes.arrayOf(propTypes.number).isRequired,
   insertIndex: propTypes.arrayOf(propTypes.number).isRequired,
   winAmount: propTypes.string.isRequired,
-  multiplier: propTypes.string.isRequired
+  multiplier: propTypes.string.isRequired,
 };
 
 export default SlotsGame;

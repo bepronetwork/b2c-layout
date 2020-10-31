@@ -18,7 +18,7 @@ class LoadingBanner extends React.Component {
     this.projectData(props);
   }
 
-  projectData = async props => {};
+  projectData = async (props) => {};
 
   render() {
     const { isLoaded } = this.props;
@@ -30,7 +30,11 @@ class LoadingBanner extends React.Component {
     return (
       <div styleName="back-loading-banner">
         <div styleName="loading">
-          <img src={logo.id} styleName={"image-loading"} />
+          <img
+            src={logo.id}
+            styleName={"image-loading"}
+            alt="Loading Illustration"
+          />
         </div>
       </div>
     );
@@ -39,7 +43,7 @@ class LoadingBanner extends React.Component {
 
 function mapStateToProps(state) {
   return {
-    profile: state.profile
+    profile: state.profile,
   };
 }
 

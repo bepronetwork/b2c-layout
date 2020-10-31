@@ -8,7 +8,7 @@ import {
   dateToHourAndMinute,
   getGames,
   getSkeletonColors,
-  getIcon
+  getIcon,
 } from "../../../lib/helpers";
 import Tabs from "../../../components/Tabs";
 import {
@@ -16,7 +16,7 @@ import {
   Table,
   CheckIcon,
   RewardIcon,
-  TrophyIcon
+  TrophyIcon,
 } from "components";
 import { formatCurrency } from "../../../utils/numberFormatation";
 import _ from "lodash";
@@ -28,7 +28,7 @@ const views = [
   { text: 10, value: 10 },
   { text: 25, value: 25 },
   { text: 50, value: 50 },
-  { text: 100, value: 100 }
+  { text: 100, value: 100 },
 ];
 
 const rows = {
@@ -37,79 +37,79 @@ const rows = {
     fields: [
       {
         value: "game",
-        image: true
+        image: true,
       },
       {
-        value: "id"
+        value: "id",
       },
       {
-        value: "username"
+        value: "username",
       },
       {
         value: "winAmount",
         dependentColor: true,
         condition: "isWon",
-        currency: true
+        currency: true,
       },
       {
-        value: "payout"
+        value: "payout",
         //dependentColor : true,
         //condition : 'isWon'
-      }
+      },
     ],
-    rows: []
+    rows: [],
   },
   my_bets: {
     titles: [],
     fields: [
       {
         value: "game",
-        image: true
+        image: true,
       },
       {
-        value: "id"
+        value: "id",
       },
       {
         value: "winAmount",
         dependentColor: true,
         condition: "isWon",
-        currency: true
+        currency: true,
       },
       {
-        value: "payout"
+        value: "payout",
         //dependentColor : true,
         //condition : 'isWon'
-      }
+      },
     ],
-    rows: []
+    rows: [],
   },
   biggest_win_bets: {
     titles: [],
     fields: [
       {
         value: "game",
-        image: true
+        image: true,
       },
       {
-        value: "id"
+        value: "id",
       },
       {
-        value: "username"
+        value: "username",
       },
       {
         value: "winAmount",
         dependentColor: true,
         condition: "isWon",
-        currency: true
+        currency: true,
       },
       {
-        value: "payout"
+        value: "payout",
         //dependentColor : true,
         //condition : 'isWon'
-      }
+      },
     ],
-    rows: []
-  }
+    rows: [],
+  },
 };
 
 const defaultProps = {
@@ -122,14 +122,14 @@ const defaultProps = {
   options: [],
   gameMetaName: null,
   isLoading: true,
-  isListLoading: true
+  isListLoading: true,
 };
 
 class LastBets extends Component {
   static contextType = UserContext;
 
   static propTypes = {
-    onHandleLoginOrRegister: PropTypes.func.isRequired
+    onHandleLoginOrRegister: PropTypes.func.isRequired,
   };
 
   constructor(props) {
@@ -147,11 +147,11 @@ class LastBets extends Component {
         }*/
   }
 
-  setTimer = options => {
+  setTimer = (options) => {
     this.projectData(this.props, options);
   };
 
-  handleTabChange = name => {
+  handleTabChange = (name) => {
     this.setState({ ...this.state, view: name });
   };
 
@@ -170,12 +170,12 @@ class LastBets extends Component {
       view_amount = options.view_amount ? options.view_amount : view_amount;
     }
     const copy = CopyText.homepagegame[ln];
-    const gameId = games.find(g => g.metaName === gameMetaName)._id;
+    const gameId = games.find((g) => g.metaName === gameMetaName)._id;
 
     let all_bets = await getLastBets({ size: view_amount.value, game: gameId });
     let biggest_winners_bets = await getBiggestBetWinners({
       size: view_amount.value,
-      game: gameId
+      game: gameId,
     });
 
     if (all_bets.length > view_amount.value) {
@@ -192,7 +192,7 @@ class LastBets extends Component {
       my_bets = await profile.getMyBets({
         size: view_amount.value,
         game: gameId,
-        tag: "casino"
+        tag: "casino",
       });
     }
 
@@ -207,7 +207,7 @@ class LastBets extends Component {
       isListLoading: false,
       gameMetaName,
       games,
-      options: Object.keys(copy.TABLE).map(key => {
+      options: Object.keys(copy.TABLE).map((key) => {
         let icon = null;
         const value = new String(key).toLowerCase();
 
@@ -216,37 +216,37 @@ class LastBets extends Component {
             latestWinsIcon === null ? (
               <RewardIcon />
             ) : (
-              <img src={latestWinsIcon} />
+              <img src={latestWinsIcon} alt="Reward Icon" />
             );
         } else if (value === "my_bets") {
           icon =
             latestBetsIcon === null ? (
               <CheckIcon />
             ) : (
-              <img src={latestBetsIcon} />
+              <img src={latestBetsIcon} alt="Check Icon" />
             );
         } else if (value === "biggest_win_bets") {
           icon =
             biggestWinsIcon === null ? (
               <TrophyIcon />
             ) : (
-              <img src={biggestWinsIcon} />
+              <img src={biggestWinsIcon} alt="Trophy Icon" />
             );
         }
 
         return {
           value,
           label: copy.TABLE[key].TITLE,
-          icon
+          icon,
         };
       }),
       all_bets: {
         ...this.state.all_bets,
         titles: copy.TABLE.ALL_BETS.ITEMS,
         rows: all_bets
-          .map(bet => {
+          .map((bet) => {
             return {
-              game: games.find(game => game._id === bet.game._id),
+              game: games.find((game) => game._id === bet.game._id),
               id: bet._id,
               username:
                 bet.user.username.length > 10
@@ -264,18 +264,18 @@ class LastBets extends Component {
               payout: `${formatCurrency(
                 Numbers.toFloat(bet.bet.winAmount / bet.bet.betAmount)
               )}x`,
-              currency: bet.currency._id
+              currency: bet.currency._id,
             };
           })
-          .filter(el => el.isWon === true),
-        onTableDetails: onTableDetails ? onTableDetails : null
+          .filter((el) => el.isWon === true),
+        onTableDetails: onTableDetails ? onTableDetails : null,
       },
       my_bets: {
         ...this.state.my_bets,
         titles: copy.TABLE.MY_BETS.ITEMS,
-        rows: my_bets.map(bet => {
+        rows: my_bets.map((bet) => {
           return {
-            game: games.find(game => game._id === bet.game),
+            game: games.find((game) => game._id === bet.game),
             id: bet._id,
             timestamp: dateToHourAndMinute(bet.timestamp),
             betAmount: formatCurrency(Numbers.toFloat(bet.betAmount)),
@@ -284,17 +284,17 @@ class LastBets extends Component {
             payout: `${formatCurrency(
               Numbers.toFloat(bet.winAmount / bet.betAmount)
             )}x`,
-            currency: bet.currency
+            currency: bet.currency,
           };
         }),
-        onTableDetails: onTableDetails ? onTableDetails : null
+        onTableDetails: onTableDetails ? onTableDetails : null,
       },
       biggest_win_bets: {
         ...this.state.biggest_win_bets,
         titles: copy.TABLE.BIGGEST_WIN_BETS.ITEMS,
-        rows: biggest_winners_bets.map(bet => {
+        rows: biggest_winners_bets.map((bet) => {
           return {
-            game: games.find(game => game._id === bet.game._id),
+            game: games.find((game) => game._id === bet.game._id),
             id: bet._id,
             username:
               bet.user.username.length > 10
@@ -312,10 +312,10 @@ class LastBets extends Component {
             payout: `${formatCurrency(
               Numbers.toFloat(bet.bet.winAmount / bet.bet.betAmount)
             )}x`,
-            currency: bet.currency._id
+            currency: bet.currency._id,
           };
-        })
-      }
+        }),
+      },
     });
   };
 
@@ -347,7 +347,7 @@ class LastBets extends Component {
             <div styleName="filters">
               <div styleName="bets-dropdown">
                 <SelectBox
-                  onChange={e => this.changeViewBets(e)}
+                  onChange={(e) => this.changeViewBets(e)}
                   options={views}
                   value={this.state.view_amount}
                 />
@@ -362,10 +362,10 @@ class LastBets extends Component {
           showRealTimeLoading={this.state.view == "all_bets" ? true : false}
           size={this.state.view_amount.value}
           games={games
-            .filter(function(g) {
+            .filter(function (g) {
               return g.metaName == gameMetaName;
             })
-            .map(function(g) {
+            .map(function (g) {
               return g;
             })}
           isLoading={isListLoading}
@@ -379,7 +379,7 @@ class LastBets extends Component {
 function mapStateToProps(state) {
   return {
     profile: state.profile,
-    ln: state.language
+    ln: state.language,
   };
 }
 

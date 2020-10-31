@@ -7,7 +7,7 @@ import {
   JackpotPot,
   SubSections,
   ThirdPartyGames,
-  Typography
+  Typography,
 } from "components";
 import PropTypes from "prop-types";
 import UserContext from "containers/App/UserContext";
@@ -26,14 +26,14 @@ class HomePage extends Component {
   static propTypes = {
     onHandleLoginOrRegister: PropTypes.func.isRequired,
     onHandleResetPassword: PropTypes.func,
-    onHandleConfirmEmail: PropTypes.func
+    onHandleConfirmEmail: PropTypes.func,
   };
 
   componentDidMount = () => {
     const {
       onHandleResetPassword,
       onHandleConfirmEmail,
-      match: { params }
+      match: { params },
     } = this.props;
 
     let queryParams = queryString.parse(this.props.location.search);
@@ -59,7 +59,7 @@ class HomePage extends Component {
     );
   };
 
-  isGameAvailable = metaName => {
+  isGameAvailable = (metaName) => {
     return find(games, { metaName: metaName });
   };
 
@@ -69,12 +69,14 @@ class HomePage extends Component {
     edge,
     image_url,
     tableLimit,
-    background_url
+    background_url,
   }) => {
     const { onTableDetails } = this.props;
+
     if (!this.isGameAvailable(metaName)) {
       return null;
     }
+
     return (
       <div class={"col"} styleName="col">
         <GameCard
@@ -94,11 +96,11 @@ class HomePage extends Component {
     const { onTableDetails, history, onHandleLoginOrRegister } = this.props;
     const mobileBreakpoint = 768;
     const appInfo = JSON.parse(localStorage.getItem("appInfo"));
+    const skin = getAppCustomization().skin.skin_type;
+
     if (!appInfo) {
       return null;
     }
-
-    const skin = getAppCustomization().skin.skin_type;
 
     return (
       <div styleName="root">
@@ -115,7 +117,7 @@ class HomePage extends Component {
             </div>
           ) : null}
           <div styleName="container-small">
-            {appInfo.games.map(item => this.renderGame(item))}
+            {appInfo.games.map((item) => this.renderGame(item))}
           </div>
           <ThirdPartyGames
             history={history}
@@ -138,7 +140,7 @@ class HomePage extends Component {
 function mapStateToProps(state) {
   return {
     profile: state.profile,
-    ln: state.language
+    ln: state.language,
   };
 }
 

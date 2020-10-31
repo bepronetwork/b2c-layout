@@ -18,7 +18,11 @@ class CurrencyFreeMoney extends Component {
         <div styleName="container-button-timer">
           <div styleName="row-container">
             <div styleName="container-image">
-              <img src={Timer} styleName="payment-image" alt="" />
+              <img
+                src={Timer}
+                styleName="payment-image"
+                alt="Payment Illustration"
+              />
             </div>
             {minutes === 0 && seconds === 0 ? (
               <div styleName="digital-text">00:00</div>
@@ -45,7 +49,7 @@ class CurrencyFreeMoney extends Component {
 function mapStateToProps(state) {
   return {
     profile: state.profile,
-    ln: state.language
+    ln: state.language,
   };
 }
 

@@ -44,7 +44,7 @@ class DepositWithdrawForm extends Component {
                   depositIcon === null ? (
                     <DepositIcon />
                   ) : (
-                    <img src={depositIcon} />
+                    <img src={depositIcon} alt='Deposit Icon' />
                   )
               },
               {
@@ -55,7 +55,7 @@ class DepositWithdrawForm extends Component {
                   withdrawIcon === null ? (
                     <WithdrawIcon />
                   ) : (
-                    <img src={withdrawIcon} />
+                    <img src={withdrawIcon} alt='Withdraw Icon' />
                   )
               }
             ]}

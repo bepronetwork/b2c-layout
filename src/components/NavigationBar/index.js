@@ -13,7 +13,7 @@ class NavigationBar extends Component {
     super(props);
     this.state = {
       tabs: [],
-      open: false
+      open: false,
     };
   }
 
@@ -25,18 +25,18 @@ class NavigationBar extends Component {
     this.projectData(props);
   }
 
-  projectData = async props => {
+  projectData = async (props) => {
     const { ln } = props;
     let { topTab } = getAppCustomization();
 
     topTab = topTab.languages.find(
-      t =>
+      (t) =>
         t.language.isActivated === true &&
         t.language.prefix === ln.toUpperCase()
     );
 
     this.setState({
-      tabs: _.isEmpty(topTab) ? [] : topTab.ids
+      tabs: _.isEmpty(topTab) ? [] : topTab.ids,
     });
   };
 
@@ -46,7 +46,12 @@ class NavigationBar extends Component {
         <a href={link_url} styleName={"navigation-step"} target={"_blank"}>
           {icon ? (
             <div styleName="img">
-              <img src={icon} width="22" height="22" />
+              <img
+                src={icon}
+                width="22"
+                height="22"
+                alt={`${name} navigation Icon`}
+              />
             </div>
           ) : (
             <div styleName="img" />
@@ -63,7 +68,12 @@ class NavigationBar extends Component {
         <Link to={link_url} styleName={"navigation-step"}>
           {icon ? (
             <div styleName="img">
-              <img src={icon} width="22" height="22" />
+              <img
+                src={icon}
+                width="22"
+                height="22"
+                alt={`${name} navigation Icon`}
+              />
             </div>
           ) : (
             <div styleName="img" />
@@ -87,26 +97,26 @@ class NavigationBar extends Component {
   render() {
     const { tabs, open } = this.state;
     const styles = classNames("dropdown-content", {
-      "dropdown-content-open": open == true
+      "dropdown-content-open": open == true,
     });
 
     return (
       <div styleName="tabs">
-        {tabs.slice(0, 2).map(t => {
+        {tabs.slice(0, 2).map((t) => {
           return this.renderMenuItem({
             link_url: t.link_url,
             icon: t.icon,
-            name: t.name
+            name: t.name,
           });
         })}
         {tabs.length > 2 ? (
           <div styleName="main-others">
             <div styleName="others">
-              {tabs.slice(2, tabs.length).map(t => {
+              {tabs.slice(2, tabs.length).map((t) => {
                 return this.renderMenuItem({
                   link_url: t.link_url,
                   icon: t.icon,
-                  name: t.name
+                  name: t.name,
                 });
               })}
             </div>
@@ -120,11 +130,11 @@ class NavigationBar extends Component {
               <div styleName={styles}>
                 <div styleName="dropdown-nav">
                   <div styleName="dropdown-column">
-                    {tabs.slice(2, tabs.length).map(t => {
+                    {tabs.slice(2, tabs.length).map((t) => {
                       return this.renderMenuItem({
                         link_url: t.link_url,
                         icon: t.icon,
-                        name: t.name
+                        name: t.name,
                       });
                     })}
                   </div>
@@ -141,7 +151,7 @@ class NavigationBar extends Component {
 function mapStateToProps(state) {
   return {
     profile: state.profile,
-    ln: state.language
+    ln: state.language,
   };
 }
 

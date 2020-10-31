@@ -14,12 +14,12 @@ import "./index.css";
 const defaultProps = {
   language: languages[0],
   open: false,
-  languages: []
+  languages: [],
 };
 
 class LanguageSelector extends Component {
   state = {
-    ...defaultProps
+    ...defaultProps,
   };
 
   componentDidUpdate() {
@@ -40,16 +40,16 @@ class LanguageSelector extends Component {
     document.removeEventListener("mousedown", this.handleClickOutside);
   }
 
-  projectData = async props => {
+  projectData = async (props) => {
     let { languages } = getAppCustomization();
 
-    languages = languages.filter(l => l.isActivated === true);
-    const defaultLanguage = languages.find(l => l.prefix === "EN");
+    languages = languages.filter((l) => l.isActivated === true);
+    const defaultLanguage = languages.find((l) => l.prefix === "EN");
 
     this.setState({ languages, language: defaultLanguage });
   };
 
-  handleClickOutside = event => {
+  handleClickOutside = (event) => {
     const isOutsideClick = !this.optionsRef.contains(event.target);
     const isLabelClick = this.labelRef.contains(event.target);
 
@@ -64,23 +64,21 @@ class LanguageSelector extends Component {
     this.setState({ open: !open });
   };
 
-  changeLanguage = async item => {
+  changeLanguage = async (item) => {
     const { profile } = this.props;
     const { open, languages } = this.state;
 
-    item = languages.find(a => {
+    item = languages.find((a) => {
       if (a.name.toLowerCase() == item.name.toLowerCase()) {
         return a;
       }
     });
 
     if (isUserSet(profile)) {
-      profile
-        .getChat()
-        .changeLanguage({
-          language: item.name,
-          channel_id: item.name.toLowerCase()
-        });
+      profile.getChat().changeLanguage({
+        language: item.name,
+        channel_id: item.name.toLowerCase(),
+      });
     }
     await this.props.dispatch(setLanguageInfo(item));
     this.setState({ ...this.state, language: item, open: !open });
@@ -100,7 +98,7 @@ class LanguageSelector extends Component {
     const { onChange, size, color } = this.props;
     const { languages } = this.state;
 
-    return languages.map(option => (
+    return languages.map((option) => (
       <button
         styleName="option"
         key={option.channel_id}
@@ -108,7 +106,7 @@ class LanguageSelector extends Component {
         onClick={() => this.onDoAction(onChange, option)}
         type="button"
       >
-        <img src={option.logo} />
+        <img src={option.logo} alt="Button Icon" />
         <Typography
           variant={size ? size : "small-body"}
           color={color ? color : "white"}
@@ -126,11 +124,11 @@ class LanguageSelector extends Component {
     if (!open) return null;
 
     const optionsStyles = classNames("options", {
-      expandBottom: expand === "bottom"
+      expandBottom: expand === "bottom",
     });
 
     const triangleStyles = classNames("triangle", {
-      triangleBottom: expand === "bottom"
+      triangleBottom: expand === "bottom",
     });
 
     return (
@@ -153,7 +151,7 @@ class LanguageSelector extends Component {
     }
 
     const styles = classNames("item", {
-      itemHor: showArrow === true
+      itemHor: showArrow === true,
     });
 
     const arrowUpIcon = getIcon(24);
@@ -162,14 +160,14 @@ class LanguageSelector extends Component {
     return (
       <div styleName="root">
         <button
-          ref={el => {
+          ref={(el) => {
             this.labelRef = el;
           }}
           onClick={this.handleLabelClick}
           type="button"
         >
           <span styleName={styles}>
-            <img src={language.logo} />
+            <img src={language.logo} alt="Button Icon" />
             <Typography
               variant={size ? size : "small-body"}
               color={color ? color : "grey"}
@@ -185,7 +183,7 @@ class LanguageSelector extends Component {
                     <ArrowUp />
                   )
                 ) : (
-                  <img src={arrowUpIcon} />
+                  <img src={arrowUpIcon} alt="Arrow Up Icon" />
                 )
               ) : arrowDownIcon === null ? (
                 skin == "digital" ? (
@@ -194,14 +192,14 @@ class LanguageSelector extends Component {
                   <ArrowDown />
                 )
               ) : (
-                <img src={arrowDownIcon} />
+                <img src={arrowDownIcon} alt="Arrow Down Icon" />
               )
             ) : null}
           </span>
         </button>
 
         <div
-          ref={el => {
+          ref={(el) => {
             this.optionsRef = el;
           }}
         >
@@ -215,7 +213,7 @@ class LanguageSelector extends Component {
 function mapStateToProps(state) {
   return {
     profile: state.profile,
-    ln: state.language
+    ln: state.language,
   };
 }
 

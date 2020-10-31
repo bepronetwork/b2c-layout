@@ -63,7 +63,7 @@ class CountryRestrictedPage extends Component {
           <div styleName="container">
             <div styleName="logo">
               {logo ? (
-                <img styleName="image" alt="bet protocol logo" src={logo} />
+                <img styleName="image" alt="bet protocol logo" src={logo} alt='BetProtocol Logo' />
               ) : null}
             </div>
             <div styleName="content">
@@ -76,7 +76,7 @@ class CountryRestrictedPage extends Component {
                 {countryIcon === null ? (
                   <CountryIcon />
                 ) : (
-                  <img src={countryIcon} />
+                  <img src={countryIcon} alt='Country Icon' />
                 )}
               </span>
               <Typography variant={"body"} weight={"bold"} color={"casper"}>
@@ -93,7 +93,7 @@ class CountryRestrictedPage extends Component {
                 {affiliateReferralIcon === null ? (
                   <AffiliateIcon />
                 ) : (
-                  <img src={affiliateReferralIcon} />
+                  <img src={affiliateReferralIcon} alt='Affiliate Icon' />
                 )}
               </span>
               <Typography variant={"body"} weight={"bold"} color={"casper"}>
@@ -107,7 +107,7 @@ class CountryRestrictedPage extends Component {
             </div>
             <div styleName="content">
               <span styleName="icon">
-                {emailIcon === null ? <EmailIcon /> : <img src={emailIcon} />}
+                {emailIcon === null ? <EmailIcon /> : <img src={emailIcon} alt='Email Icon' />}
               </span>
               <Typography variant={"body"} weight={"bold"} color={"casper"}>
                 {copy.SUBTITLE[2]}

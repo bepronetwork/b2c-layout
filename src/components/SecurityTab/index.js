@@ -10,7 +10,7 @@ import { getIcon, getAppCustomization } from "../../lib/helpers";
 import "./index.css";
 
 const defaultState = {
-  isConfirmationSent: false
+  isConfirmationSent: false,
 };
 
 class SecurityTab extends React.Component {
@@ -27,7 +27,7 @@ class SecurityTab extends React.Component {
     this.projectData(props);
   }
 
-  projectData = props => {
+  projectData = (props) => {
     const { profile, set2FA } = props;
     let { isActive } = set2FA;
     let has2FA = profile.user.hasOwnProperty("security")
@@ -114,7 +114,11 @@ class SecurityTab extends React.Component {
                 disabled={isConfirmationSent}
                 onClick={this.handleResendConfirmEmail}
                 icon={
-                  emailIcon === null ? <EmailIcon /> : <img src={emailIcon} />
+                  emailIcon === null ? (
+                    <EmailIcon />
+                  ) : (
+                    <img src={emailIcon} alt="Email Icon" />
+                  )
                 }
               >
                 <Typography
@@ -149,7 +153,7 @@ function mapStateToProps(state) {
   return {
     profile: state.profile,
     set2FA: state.set2FA,
-    ln: state.language
+    ln: state.language,
   };
 }
 

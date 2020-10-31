@@ -22,7 +22,7 @@ class PaymentBox extends React.Component {
       seconds: 0,
       amount: 0,
       secondsToCanvas: 0,
-      isCanvasRenderer: false
+      isCanvasRenderer: false,
     };
   }
 
@@ -42,7 +42,7 @@ class PaymentBox extends React.Component {
           this.setState(({ minutes }) => ({
             minutes: minutes - 1,
             seconds: 59,
-            disabledFreeButton: true
+            disabledFreeButton: true,
           }));
         }
       }
@@ -57,19 +57,21 @@ class PaymentBox extends React.Component {
     }
   }
 
-  projectData = async props => {
+  projectData = async (props) => {
     const { wallet } = props;
     const { isCanvasRenderer } = this.state;
     const virtual = getApp().virtual;
     this.setState({ isCanvasRenderer: false });
     if (virtual === true) {
-      const virtualCurrency = getApp().currencies.find(c => c.virtual === true);
+      const virtualCurrency = getApp().currencies.find(
+        (c) => c.virtual === true
+      );
       if (wallet.currency.virtual !== true && virtualCurrency) {
         const virtualWallet = getApp().wallet.find(
-          w => w.currency._id === virtualCurrency._id
+          (w) => w.currency._id === virtualCurrency._id
         );
         const price = virtualWallet
-          ? virtualWallet.price.find(p => p.currency === wallet.currency._id)
+          ? virtualWallet.price.find((p) => p.currency === wallet.currency._id)
               .amount
           : null;
         this.setState({ price, virtualTicker: virtualCurrency.ticker });
@@ -77,13 +79,13 @@ class PaymentBox extends React.Component {
     }
 
     const appWallet = getApp().wallet.find(
-      w => w.currency._id === wallet.currency._id
+      (w) => w.currency._id === wallet.currency._id
     );
 
     this.setState({
       walletImage: _.isEmpty(appWallet.image)
         ? wallet.currency.image
-        : appWallet.image
+        : appWallet.image,
     });
     this.funcToGetValue();
     this.funcVerificationCurrency();
@@ -98,7 +100,7 @@ class PaymentBox extends React.Component {
 
     if (resultWallet) {
       const walletFind = resultWallet.find(
-        w => w.currency === wallet.currency._id
+        (w) => w.currency === wallet.currency._id
       );
 
       return walletFind.date;
@@ -125,7 +127,9 @@ class PaymentBox extends React.Component {
 
     if (freeCurrency) {
       const wallets = freeCurrency.wallets;
-      const walletFind = wallets.find(w => w.currency === wallet.currency._id);
+      const walletFind = wallets.find(
+        (w) => w.currency === wallet.currency._id
+      );
 
       return walletFind ? walletFind.activated : false;
     } else {
@@ -140,7 +144,9 @@ class PaymentBox extends React.Component {
 
     if (freeCurrency) {
       const wallets = freeCurrency.wallets;
-      const walletFind = wallets.find(w => w.currency === wallet.currency._id);
+      const walletFind = wallets.find(
+        (w) => w.currency === wallet.currency._id
+      );
 
       return walletFind ? walletFind.time : 0;
     } else {
@@ -155,7 +161,9 @@ class PaymentBox extends React.Component {
 
     if (freeCurrency) {
       const wallets = freeCurrency.wallets;
-      const walletFind = wallets.find(w => w.currency === wallet.currency._id);
+      const walletFind = wallets.find(
+        (w) => w.currency === wallet.currency._id
+      );
 
       return walletFind ? walletFind.currency : "";
     } else {
@@ -163,11 +171,11 @@ class PaymentBox extends React.Component {
     }
   };
 
-  startCountdown = async canvas => {
+  startCountdown = async (canvas) => {
     const { secondsToCanvas } = this.state;
     const { colors } = getAppCustomization();
 
-    const secondaryColor = colors.find(c => {
+    const secondaryColor = colors.find((c) => {
       return c.type == "secondaryColor";
     });
 
@@ -186,7 +194,7 @@ class PaymentBox extends React.Component {
     const startTime = Date.now();
     const endTime = startTime + secondsToCanvas * 1000;
 
-    const renderCountdown = currentValue => {
+    const renderCountdown = (currentValue) => {
       const start = THREE_PI_BY_TWO;
 
       ringTimer.clearRect(0, 0, width, height);
@@ -207,7 +215,7 @@ class PaymentBox extends React.Component {
       ringTimer.fill();
     };
 
-    return new Promise(resolve => {
+    return new Promise((resolve) => {
       renderCountdown(0);
       const id = setInterval(() => {
         const now = Date.now();
@@ -232,7 +240,9 @@ class PaymentBox extends React.Component {
     const freeCurrency = getApp().addOn.freeCurrency;
     if (freeCurrency) {
       const wallets = freeCurrency.wallets;
-      const walletTest = wallets.find(w => w.currency === wallet.currency._id);
+      const walletTest = wallets.find(
+        (w) => w.currency === wallet.currency._id
+      );
 
       return this.setState({ amount: walletTest ? walletTest.value : 0 });
     } else {
@@ -245,7 +255,7 @@ class PaymentBox extends React.Component {
     const { amount } = this.state;
 
     await profile.updateBalanceWithoutBet({ amount });
-    return new Promise(resolve => setTimeout(() => resolve(), 500));
+    return new Promise((resolve) => setTimeout(() => resolve(), 500));
   };
 
   handleSendCurrancyFree = async () => {
@@ -254,7 +264,7 @@ class PaymentBox extends React.Component {
       const resultCurrency = await this.funcVerificationCurrency();
 
       await profile.sendFreeCurrencyRequest({
-        currency_id: resultCurrency
+        currency_id: resultCurrency,
       });
 
       this.setState({ disabledFreeButton: true });
@@ -278,7 +288,7 @@ class PaymentBox extends React.Component {
         hours: 0,
         minutes: 0,
         seconds: 0,
-        secondsToCanvas: 0
+        secondsToCanvas: 0,
       });
     } else {
       const secondsToCanvas = miliseconds / 1000;
@@ -296,7 +306,7 @@ class PaymentBox extends React.Component {
         hours: h,
         minutes: m,
         seconds: s,
-        secondsToCanvas: secondsToCanvas
+        secondsToCanvas: secondsToCanvas,
       });
 
       if (s === 0 && s === 0) {
@@ -321,10 +331,10 @@ class PaymentBox extends React.Component {
       price,
       virtualTicker,
       walletImage,
-      disabledFreeButton
+      disabledFreeButton,
     } = this.state;
     const styles = classNames("container-root", {
-      selected: isPicked
+      selected: isPicked,
     });
 
     const walletValid = this.funcVerification();
@@ -339,7 +349,11 @@ class PaymentBox extends React.Component {
           <Row>
             <Col xs={4} md={4}>
               <div styleName="container-image">
-                <img src={walletImage} styleName="payment-image" />
+                <img
+                  src={walletImage}
+                  styleName="payment-image"
+                  alt="Payment Illustration"
+                />
               </div>
             </Col>
             <Col xs={8} md={8}>
@@ -398,7 +412,7 @@ class PaymentBox extends React.Component {
 function mapStateToProps(state) {
   return {
     deposit: state.deposit,
-    profile: state.profile
+    profile: state.profile,
   };
 }
 

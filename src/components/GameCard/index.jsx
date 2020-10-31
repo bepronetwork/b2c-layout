@@ -32,7 +32,7 @@ class GameCard extends Component {
 
     return (
       <div styleName="image-container">
-        <img alt="menu" src={image} />
+        <img alt="menu" src={image} alt='Unavailable slider carrousel image' />
       </div>
     );
   };
@@ -53,7 +53,7 @@ class GameCard extends Component {
             }}
           >
             <div styleName="icon">
-              <img src={image_url} styleName="game-icon" />
+              <img src={image_url} styleName="game-icon" alt='Game Icon' />
             </div>
           </div>
         </Link>
