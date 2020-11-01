@@ -22,10 +22,7 @@ import Pentagon from "assets/audio/slotsaudio/pentagon.mp3";
 import Beetle from "assets/audio/slotsaudio/beetle.mp3";
 import Esfinge from "assets/audio/slotsaudio/esfinge.mp3";
 
-import {
-  renderSounds,
-  randomNumber
-} from "../../lib/helpers/slotsHelpers";
+import { renderSounds, randomNumber } from "../../lib/helpers/slotsHelpers";
 
 import Cache from "../../lib/cache/cache";
 
@@ -79,27 +76,27 @@ class SlotsPage extends Component {
     const { userDelta } = this.state.betObjectResult;
 
     await profile.updateBalance({ userDelta, amount });
+
     return new Promise(resolve => setTimeout(() => resolve(), 500));
   };
 
   handleBet = async ({ amount }) => {
-      const { user } = this.context;
-      const { onHandleLoginOrRegister } = this.props;
+    const { user } = this.context;
+    const { onHandleLoginOrRegister } = this.props;
 
-      if (!user) return onHandleLoginOrRegister("register");
+    if (!user) return onHandleLoginOrRegister("register");
 
-      this.setState({
-        line: false,
-        result: false,
-        soundIcon: false,
-        testBol: Array(5).fill(false),
-        insertionIndex: [],
-        insertIndex: [],
-        resultSound: false
-      });
+    this.setState({
+      line: false,
+      result: false,
+      soundIcon: false,
+      testBol: Array(5).fill(false),
+      insertionIndex: [],
+      insertIndex: [],
+      resultSound: false
+    });
 
-      await this.handleAnimations();
-
+    await this.handleAnimations();
   };
 
   handleResult = async () => {
@@ -112,9 +109,9 @@ class SlotsPage extends Component {
     });
   };
 
- handleAnimation = async (spinnerColumn, iterations) => {
+  handleAnimation = async (spinnerColumn, iterations) => {
     const box = document.getElementById(spinnerColumn);
-  
+
     box.animate(
       [
         { transform: "translate3D(-30px, 0, )" },
@@ -126,7 +123,7 @@ class SlotsPage extends Component {
         iterations
       }
     );
-  
+
     return new Promise(resolve => setTimeout(() => resolve(), 100));
   };
 
@@ -282,11 +279,7 @@ class SlotsPage extends Component {
   };
 
   renderGameCard = () => {
-    const {
-      soundIcon,
-      soundReel,
-      resultSound,
-    } = this.state;
+    const { soundIcon, soundReel, resultSound } = this.state;
 
     return (
       <>
@@ -305,7 +298,6 @@ class SlotsPage extends Component {
         onBet={this.handleBet}
         game={this.state.game}
         profile={profile}
-
       />
     );
   };
