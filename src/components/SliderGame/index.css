@@ -40,6 +40,19 @@
       flex-direction: row;
   }
 
+  .reset-animation{
+    -webkit-transform: translate(0, 0) translate3d(0, 0, 0);
+    -moz-transform: none;
+    -ms-transform: none;
+    -o-transform: none;
+    transform: translate(0, 0) translate3d(0, 0, 0);
+  }
+
+  .container-animation{
+    transition: transform 10000ms cubic-bezier(0.24, 0.78, 0.15, 1) 0s;
+    transform: translate(-2615px, 0px)
+  }
+
   .background-empty{
     background-color: blue;
   }

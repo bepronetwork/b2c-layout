@@ -36,7 +36,7 @@ class SlotsPage extends Component {
       resultSound: false,
       gameName: "Slots",
       gameStore: [],
-      line: false,
+      animation: false,
       betObjectResult: {},
       resultMultiplier: 0,
       disableControls: true,
@@ -80,9 +80,17 @@ class SlotsPage extends Component {
     return new Promise(resolve => setTimeout(() => resolve(), 500));
   };
 
+  animationFalse = async () => {
+    this.setState({
+      animation: false
+    });
+  };
+
   handleBet = async ({ amount }) => {
     const { user } = this.context;
     const { onHandleLoginOrRegister } = this.props;
+
+    await this.animationFalse();
 
     if (!user) return onHandleLoginOrRegister("register");
 
@@ -93,10 +101,8 @@ class SlotsPage extends Component {
       testBol: Array(5).fill(false),
       insertionIndex: [],
       insertIndex: [],
-      resultSound: false
+      animation: true
     });
-
-    await this.handleAnimations();
   };
 
   handleResult = async () => {
@@ -109,26 +115,8 @@ class SlotsPage extends Component {
     });
   };
 
-  handleAnimation = async (spinnerColumn, iterations) => {
-    const box = document.getElementById(spinnerColumn);
-
-    box.animate(
-      [
-        { transform: "translate3D(-30px, 0, )" },
-        { transform: "translate3D(-1600px, 0, 0)" },
-        { transition: "transform 10000ms cubic-bezier(0.24, 0.78, 0.15, 1) 0s" }
-      ],
-      {
-        duration: 3000,
-        iterations
-      }
-    );
-
-    return new Promise(resolve => setTimeout(() => resolve(), 100));
-  };
-
   handleAnimations = async () => {
-    this.handleAnimation("container-slide", 1);
+    setInterval(this.handleAnimation(), 1000 / 60);
 
     await this.randomNumberResult();
 
@@ -279,11 +267,11 @@ class SlotsPage extends Component {
   };
 
   renderGameCard = () => {
-    const { soundIcon, soundReel, resultSound } = this.state;
+    const { soundIcon, soundReel, resultSound, animation } = this.state;
 
     return (
       <>
-        <SliderGame />
+        <SliderGame animation={animation} />
       </>
     );
   };
