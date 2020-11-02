@@ -14,7 +14,7 @@ const defaultState = {
   url: null,
   externalId: null,
   provider: null,
-  name: null
+  name: null,
 };
 
 class ThirdPartyGamePage extends Component {
@@ -35,7 +35,7 @@ class ThirdPartyGamePage extends Component {
     }
   }
 
-  projectData = async props => {
+  projectData = async (props) => {
     const { profile, onHandleLoginOrRegister, currency } = props;
     const { params } = props.match;
 
@@ -49,7 +49,7 @@ class ThirdPartyGamePage extends Component {
       const queryParams = queryString.parse(this.props.location.search);
       const token = await profile.getProviderToken({
         game_id: gameId,
-        ticker: currency.ticker
+        ticker: currency.ticker,
       });
 
       const url = queryParams.url;
@@ -67,7 +67,7 @@ class ThirdPartyGamePage extends Component {
         externalId,
         provider,
         name,
-        ticker
+        ticker,
       });
     }
   };
@@ -82,7 +82,7 @@ class ThirdPartyGamePage extends Component {
       externalId,
       provider,
       name,
-      ticker
+      ticker,
     } = this.state;
 
     if (gameId == null || token == null) {
@@ -113,7 +113,7 @@ function mapStateToProps(state) {
   return {
     profile: state.profile,
     ln: state.language,
-    currency: state.currency
+    currency: state.currency,
   };
 }
 

@@ -7,7 +7,7 @@ import "./index.css";
 class KenoBoard extends Component {
   static propTypes = {
     cards: PropTypes.array,
-    isDetailsPage: PropTypes.bool
+    isDetailsPage: PropTypes.bool,
   };
 
   constructor(props) {
@@ -26,7 +26,7 @@ class KenoBoard extends Component {
 
   async projectData(props) {}
 
-  handleCardClick = index => {
+  handleCardClick = (index) => {
     const { onCardClick, isDetailsPage = false } = this.props;
 
     if (!isDetailsPage) {
@@ -37,7 +37,7 @@ class KenoBoard extends Component {
   render() {
     const { cards, isDetailsPage } = this.props;
     const boardStyles = classNames("board", {
-      "board-details": isDetailsPage === true
+      "board-details": isDetailsPage === true,
     });
 
     return (
@@ -46,7 +46,7 @@ class KenoBoard extends Component {
           const styles = classNames("cover", {
             "cover-picked": card.isPicked === true,
             "cover-selected":
-              card.isSelected === true && card.isPicked === false
+              card.isSelected === true && card.isPicked === false,
           });
           return (
             <button
@@ -70,7 +70,7 @@ class KenoBoard extends Component {
                 styleName={styles}
                 style={{
                   opacity:
-                    card.isSelected === true && card.isPicked === true ? 0 : 1
+                    card.isSelected === true && card.isPicked === true ? 0 : 1,
                 }}
               >
                 <span styleName="number">

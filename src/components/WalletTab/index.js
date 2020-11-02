@@ -16,12 +16,7 @@ import DepositList from "./DepositList";
 import WithdrawList from "./WithdrawList";
 import CreditCard from "assets/icons/credit-card.svg";
 import { CopyText } from "../../copy";
-import {
-  getApp,
-  getAppCustomization,
-  getIcon,
-  getCurrencyByCompare,
-} from "../../lib/helpers";
+import { getApp, getAppCustomization, getIcon } from "../../lib/helpers";
 import { setMessageNotification } from "../../redux/actions/message";
 import store from "../../containers/App/store";
 import "./index.css";
@@ -367,7 +362,6 @@ class WalletTab extends React.Component {
       isMoonpayActive,
     } = this.state;
     const copy = CopyText.cashierFormIndex[ln];
-    const skin = getAppCustomization().skin.skin_type;
 
     if (!wallet) {
       return null;

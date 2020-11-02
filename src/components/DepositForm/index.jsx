@@ -4,15 +4,14 @@ import { connect } from "react-redux";
 import QRCode from "qrcode.react";
 import { Typography, CopyIcon, CurrencyFreeMoney } from "components";
 import classNames from "classnames";
+import _ from "lodash";
 import {
   getApp,
   getAddOn,
   getAppCustomization,
-  getIcon
+  getIcon,
 } from "../../lib/helpers";
-import _ from "lodash";
 import { CopyText } from "../../copy";
-import { date } from "faker";
 
 class DepositForm extends Component {
   intervalID = 0;
@@ -30,14 +29,13 @@ class DepositForm extends Component {
       isTxFee: false,
       isDepositBonus: false,
       depositBonus: 0,
-      amount: 0,
       maxBonusDeposit: 0,
       minBonusDeposit: 0,
       hours: 0,
       minutes: 0,
       seconds: 0,
       staticHour: 0,
-      staticMinute: 0
+      staticMinute: 0,
     };
   }
 
@@ -46,6 +44,7 @@ class DepositForm extends Component {
     setInterval(() => this.parseMillisecondsIntoReadableTime(), 0);
     this.timerInterval = setInterval(() => {
       const { seconds, minutes } = this.state;
+
       if (seconds > 0) {
         this.setState({ seconds: seconds - 1 });
       }
@@ -55,8 +54,8 @@ class DepositForm extends Component {
           clearInterval(this.timerInterval);
         } else {
           this.setState(({ minutes }) => ({
-            minutes: minutes,
-            seconds: 59
+            minutes,
+            seconds: 59,
           }));
         }
       }
@@ -73,11 +72,11 @@ class DepositForm extends Component {
     this.projectData(props);
   }
 
-  getCurrencyAddress = async wallet => {
+  getCurrencyAddress = async (wallet) => {
     const { profile, onAddress } = this.props;
 
-    let response = await profile.getCurrencyAddress({
-      currency_id: wallet.currency._id
+    const response = await profile.getCurrencyAddress({
+      currency_id: wallet.currency._id,
     });
 
     if (!_.isEmpty(response) && _.isEmpty(response.message)) {
@@ -89,7 +88,7 @@ class DepositForm extends Component {
     this.setState({ isLoaded: true });
   };
 
-  projectData = async props => {
+  projectData = async (props) => {
     const { wallet } = props;
     const isTxFee = getAddOn().txFee ? getAddOn().txFee.isTxFee : false;
     const isDepositBonus = getAddOn().depositBonus
@@ -107,14 +106,16 @@ class DepositForm extends Component {
     }
 
     if (getApp().virtual === true) {
-      const virtualCurrency = getApp().currencies.find(c => c.virtual === true);
+      const virtualCurrency = getApp().currencies.find(
+        (c) => c.virtual === true
+      );
 
       if (wallet.currency && virtualCurrency) {
         const virtualWallet = getApp().wallet.find(
-          w => w.currency._id === virtualCurrency._id
+          (w) => w.currency._id === virtualCurrency._id
         );
         const price = virtualWallet
-          ? virtualWallet.price.find(p => p.currency === wallet.currency._id)
+          ? virtualWallet.price.find((p) => p.currency === wallet.currency._id)
               .amount
           : null;
 
@@ -129,28 +130,28 @@ class DepositForm extends Component {
       fee:
         isTxFee === true
           ? getAddOn().txFee.deposit_fee.find(
-              f => f.currency === wallet.currency._id
+              (f) => f.currency === wallet.currency._id
             ).amount
           : null,
       isDepositBonus,
       depositBonus:
         isDepositBonus === true
           ? getAddOn().depositBonus.percentage.find(
-              d => d.currency === wallet.currency._id
+              (d) => d.currency === wallet.currency._id
             ).amount
           : null,
       maxBonusDeposit:
         isDepositBonus === true
           ? getAddOn().depositBonus.max_deposit.find(
-              d => d.currency === wallet.currency._id
+              (d) => d.currency === wallet.currency._id
             ).amount
           : null,
       minBonusDeposit:
         isDepositBonus === true
           ? getAddOn().depositBonus.min_deposit.find(
-              d => d.currency === wallet.currency._id
+              (d) => d.currency === wallet.currency._id
             ).amount
-          : null
+          : null,
     });
     this.funcVerifyUserWalletDate();
     this.funcVerificationTime();
@@ -162,13 +163,13 @@ class DepositForm extends Component {
 
     if (resultWallet) {
       const walletFind = resultWallet.find(
-        w => w.currency === wallet.currency._id
+        (w) => w.currency === wallet.currency._id
       );
 
       return walletFind.date;
-    } else {
-      return false;
     }
+
+    return false;
   };
 
   parseMillisecondsIntoReadableTime = async () => {
@@ -177,13 +178,14 @@ class DepositForm extends Component {
       resultUserDate + this.funcVerificationTime() - Date.now();
     const hours = miliseconds / (1000 * 60 * 60);
     const minutesToRender = this.funcVerificationTime() / 1000 / 60;
+
     if (hours < 0) {
       this.setState({
         hours: 0,
         minutes: 0,
         seconds: 0,
         staticHour: 0,
-        staticMinute: minutesToRender
+        staticMinute: minutesToRender,
       });
     } else {
       const hours = miliseconds / (1000 * 60 * 60);
@@ -195,12 +197,13 @@ class DepositForm extends Component {
       const seconds = (minutes - absoluteMinutes) * 60;
       const absoluteSeconds = Math.floor(seconds);
       const s = absoluteSeconds > 9 ? absoluteSeconds : absoluteSeconds;
+
       this.setState({
         hours: h,
         minutes: m,
         seconds: s,
         staticHour: h,
-        staticMinute: minutesToRender
+        staticMinute: minutesToRender,
       });
     }
   };
@@ -209,14 +212,17 @@ class DepositForm extends Component {
     const { wallet } = this.props;
 
     const freeCurrency = getApp().addOn.freeCurrency;
+
     if (freeCurrency) {
       const wallets = freeCurrency.wallets;
-      const walletTest = wallets.find(w => w.currency === wallet.currency._id);
+      const walletTest = wallets.find(
+        (w) => w.currency === wallet.currency._id
+      );
 
       return walletTest ? walletTest.time : 0;
-    } else {
-      return false;
     }
+
+    return false;
   };
 
   funcVerificationValid = () => {
@@ -226,17 +232,20 @@ class DepositForm extends Component {
 
     if (freeCurrency) {
       const wallets = freeCurrency.wallets;
-      const walletTest = wallets.find(w => w.currency === wallet.currency._id);
+      const walletTest = wallets.find(
+        (w) => w.currency === wallet.currency._id
+      );
 
       return walletTest ? walletTest.activated : false;
-    } else {
-      return false;
     }
+
+    return false;
   };
 
-  copyToClipboard = e => {
+  copyToClipboard = () => {
     const { address } = this.state;
-    var textField = document.createElement("textarea");
+    const textField = document.createElement("textarea");
+
     textField.innerText = address;
     document.body.appendChild(textField);
     textField.select();
@@ -245,6 +254,7 @@ class DepositForm extends Component {
 
     this.setState({ copied: true });
   };
+
   render() {
     const { wallet } = this.props;
     const {
@@ -264,7 +274,7 @@ class DepositForm extends Component {
       minutes,
       seconds,
       staticHour,
-      staticMinute
+      staticMinute,
     } = this.state;
     const { ln } = this.props;
     const copy = CopyText.depositFormIndex[ln];
@@ -272,24 +282,25 @@ class DepositForm extends Component {
     const { colors, skin } = getAppCustomization();
     const isValidFree = this.funcVerificationValid();
 
-    const backgroundColor = colors.find(c => {
+    const backgroundColor = colors.find((c) => {
       return c.type == "backgroundColor";
     });
-    const secondaryColor = colors.find(c => {
+    const secondaryColor = colors.find((c) => {
       return c.type == "secondaryColor";
     });
+    const copyIcon = getIcon(27);
 
     if (!isLoaded) {
       return (
         <div>
           <img
-            src={process.env.PUBLIC_URL + "/loading.gif"}
+            src={`${process.env.PUBLIC_URL}/loading.gif`}
             styleName="loading-gif"
+            alt="Loading GIF"
           />
         </div>
       );
     }
-    const copyIcon = getIcon(27);
 
     return (
       <div>
@@ -298,19 +309,15 @@ class DepositForm extends Component {
             <div styleName="info">
               {price ? (
                 <div styleName="price">
-                  <Typography
-                    variant={"small-body"}
-                    color={`white`}
-                    weight={`bold`}
-                  >
+                  <Typography variant="small-body" color="white" weight="bold">
                     {`1 ${virtualTicker} = ${price} ${wallet.currency.ticker}`}
                   </Typography>
                 </div>
               ) : null}
-              <Typography variant={"x-small-body"} color={`white`}>
+              <Typography variant="x-small-body" color="white">
                 {copy.INDEX.TYPOGRAPHY.FUNC_TEXT[0]([
                   wallet.currency.ticker,
-                  wallet.currency.ticker
+                  wallet.currency.ticker,
                 ])}
                 <br />
                 <br />
@@ -329,7 +336,7 @@ class DepositForm extends Component {
               </div>
               {copied ? (
                 <div styleName="copied">
-                  <Typography variant="small-body" color={"white"}>
+                  <Typography variant="small-body" color="white">
                     Copied
                   </Typography>
                 </div>
@@ -337,7 +344,7 @@ class DepositForm extends Component {
               <div styleName={addressStyles}>
                 <div styleName="link-text-container">
                   <Typography
-                    variant={"x-small-body"}
+                    variant="x-small-body"
                     color={skin.skin_type == "digital" ? `secondary` : `casper`}
                   >
                     {address}
@@ -353,11 +360,11 @@ class DepositForm extends Component {
                         {copyIcon === null ? (
                           <CopyIcon />
                         ) : (
-                          <img src={copyIcon} alt='Copy Icon' />
+                          <img src={copyIcon} alt="Copy Icon" />
                         )}
                       </div>
                     ) : null}
-                    <Typography variant={"small-body"} color={"fixedwhite"}>
+                    <Typography variant="small-body" color="fixedwhite">
                       {copy.INDEX.TYPOGRAPHY.TEXT[1]}
                     </Typography>
                   </button>
@@ -377,11 +384,7 @@ class DepositForm extends Component {
               ) : null}
               <div styleName="notice">
                 <div styleName="title">
-                  <Typography
-                    variant={"x-small-body"}
-                    color={"grey"}
-                    weight={"bold"}
-                  >
+                  <Typography variant="x-small-body" color="grey" weight="bold">
                     {copy.NOTICE}
                   </Typography>
                 </div>
@@ -389,19 +392,19 @@ class DepositForm extends Component {
                   <ul>
                     {isDepositBonus === true && depositBonus > 0 ? (
                       <li>
-                        <Typography variant={"x-small-body"} color={"grey"}>
+                        <Typography variant="x-small-body" color="grey">
                           {copy.INDEX.TYPOGRAPHY.NOTICE_TEXT[0]([
                             depositBonus,
                             minBonusDeposit,
                             wallet.currency.ticker,
-                            maxBonusDeposit
+                            maxBonusDeposit,
                           ])}
                         </Typography>
                       </li>
                     ) : null}
                     {isTxFee === true && fee > 0 ? (
                       <li>
-                        <Typography variant={"x-small-body"} color={"grey"}>
+                        <Typography variant="x-small-body" color="grey">
                           {copy.INDEX.TYPOGRAPHY.NOTICE_TEXT[1]} {fee}{" "}
                           {wallet.currency.ticker}
                         </Typography>
@@ -415,11 +418,12 @@ class DepositForm extends Component {
         ) : (
           <div styleName="building">
             <img
-              src={process.env.PUBLIC_URL + "/logo.png"}
+              src={`${process.env.PUBLIC_URL}/logo.png`}
               styleName="building-img"
+              alt="Building Illustration"
             />
             <div styleName="building-info">
-              <Typography variant={"small-body"} color={`white`}>
+              <Typography variant="small-body" color="white">
                 {copy.INDEX.TYPOGRAPHY.TEXT[2]}
               </Typography>
             </div>
@@ -433,7 +437,7 @@ class DepositForm extends Component {
 function mapStateToProps(state) {
   return {
     profile: state.profile,
-    ln: state.language
+    ln: state.language,
   };
 }
 

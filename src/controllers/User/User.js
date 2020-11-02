@@ -3,7 +3,6 @@ import {
   updateUserWallet,
   requestWithdraw,
   finalizeWithdraw,
-  cancelWithdraw,
   requestWithdrawAffiliate,
   createBet,
   getMyBets,
@@ -13,9 +12,8 @@ import {
   resendConfirmEmail,
   getJackpotPot,
   getProviderToken,
-  sendFreeCurrencyRequest
+  sendFreeCurrencyRequest,
 } from "lib/api/users";
-import { Numbers } from "../../lib/ethereum/lib";
 import Cache from "../../lib/cache/cache";
 import ChatChannel from "../Chat";
 import store from "../../containers/App/store";
@@ -49,7 +47,7 @@ export default class User {
     this.isLoaded = false;
     this.app = Cache.getFromCache("appInfo");
     this.params = {
-      deposits: []
+      deposits: [],
     };
     this.__init__();
   }
@@ -79,28 +77,28 @@ export default class User {
     this.pusher = new Pusher(this.getPusherAPIKey(), {
       cluster: "eu",
       forceTLS: true,
-      authEndpoint: `${apiUrl}/api/users/pusher/auth`
+      authEndpoint: `${apiUrl}/api/users/pusher/auth`,
     });
     this.channel = this.pusher.subscribe(`private-${this.id}`);
 
     /* Listen to Deposits */
-    this.channel.bind("deposit", async data => {
+    this.channel.bind("deposit", async (data) => {
       await store.dispatch(setMessageNotification(data.message));
       this.getAllData(true);
     });
 
     /* Listen to Withdraws */
-    this.channel.bind("withdraw", data => {});
+    this.channel.bind("withdraw", () => {});
 
     /* Listen to Jackpot */
-    this.channel.bind("jackpot", async data => {
+    this.channel.bind("jackpot", async (data) => {
       await store.dispatch(
         setModal({ key: "JackpotModal", value: data.message })
       );
     });
 
     /* Listen to Update Wallet */
-    this.channel.bind("update_balance", async data => {
+    this.channel.bind("update_balance", async (data) => {
       const resp = JSON.parse(data.message);
       const value = formatCurrency(resp.value);
       await this.updateBalance({ userDelta: Number(value) });
@@ -109,7 +107,7 @@ export default class User {
 
   hasLoaded = () => this.isLoaded;
 
-  getBalance = currency => {
+  getBalance = (currency) => {
     const state = store.getState();
     currency = currency ? currency : state.currency;
     if (_.isEmpty(currency)) {
@@ -124,7 +122,7 @@ export default class User {
   };
   getWallet = ({ currency }) => {
     return this.user.wallet.find(
-      w =>
+      (w) =>
         new String(w.currency._id).toString().toLowerCase() ==
         new String(currency._id).toString().toLowerCase()
     );
@@ -134,19 +132,14 @@ export default class User {
     return this.user.wallet;
   };
 
-  getBalanceAsync = async () =>
-    Numbers.toFloat((await this.updateUser()).balance);
-
   getChat = () => this.chat;
-
-  getChannel = () => this.channel;
 
   getDeposits = () => {
     if (!this.user.deposits) {
       return [];
     }
 
-    return this.user.deposits.sort(function(a, b) {
+    return this.user.deposits.sort(function (a, b) {
       return new Date(b.creation_timestamp) - new Date(a.creation_timestamp);
     });
   };
@@ -166,16 +159,11 @@ export default class User {
     await this.updateUserState();
   };
 
-  getBalanceData = async () => {
-    await this.updateUser();
-    await this.updateUserState();
-  };
-
   updateBalance = async ({ userDelta, amount }) => {
     const state = store.getState();
     const { currency } = state;
 
-    this.user.wallet.forEach(w => {
+    this.user.wallet.forEach((w) => {
       if (
         new String(w.currency._id).toString().toLowerCase() ==
         new String(currency._id).toString().toLowerCase()
@@ -190,7 +178,7 @@ export default class User {
       amount
     ) {
       const ratio = this.app.addOn.pointSystem.ratio.find(
-        p => p.currency == currency._id
+        (p) => p.currency == currency._id
       ).value;
       const points = await this.getPoints();
       this.user.points = points + amount * ratio;
@@ -203,7 +191,7 @@ export default class User {
     const state = store.getState();
     const { currency } = state;
 
-    this.user.wallet.forEach(w => {
+    this.user.wallet.forEach((w) => {
       if (
         new String(w.currency._id).toString().toLowerCase() ==
         new String(currency._id).toString().toLowerCase()
@@ -236,7 +224,7 @@ export default class User {
             size,
             game,
             slug,
-            tag
+            tag,
           },
           this.bearerToken
         );
@@ -255,7 +243,7 @@ export default class User {
       id: this.id,
       name: this.username,
       publicKey: this.integrations.chat.publicKey,
-      token: this.user.integrations.chat.token
+      token: this.user.integrations.chat.token,
     });
     await this.chat.__init__();
   };
@@ -276,7 +264,7 @@ export default class User {
     let user = await userAuth(
       {
         user: this.user_id,
-        app: this.app_id
+        app: this.app_id,
       },
       this.bearerToken
     );
@@ -287,10 +275,6 @@ export default class User {
 
   getUserEmail = () => {
     return this.user.email;
-  };
-
-  getTokenAmount = async () => {
-    return 0;
   };
 
   confirmDeposit = async ({ amount, transactionHash, currency }) => {
@@ -304,7 +288,7 @@ export default class User {
           app: this.app_id,
           nonce: nonce,
           transactionHash: transactionHash,
-          currency: currency._id
+          currency: currency._id,
         },
         this.bearerToken
       );
@@ -321,8 +305,8 @@ export default class User {
 
   askForWithdraw = async ({ amount, currency, address }) => {
     try {
-      var nonce = getNonce();
-      var res = {};
+      const nonce = getNonce();
+      let res = {};
       let timeout = false;
 
       try {
@@ -334,7 +318,7 @@ export default class User {
             address,
             tokenAmount: parseFloat(amount),
             currency: currency._id,
-            nonce
+            nonce,
           },
           this.bearerToken
         );
@@ -358,8 +342,8 @@ export default class User {
 
   askForWithdrawAffiliate = async ({ amount, currency, address }) => {
     try {
-      var nonce = getNonce();
-      var res = {};
+      const nonce = getNonce();
+      let res = {};
       let timeout = false;
 
       try {
@@ -371,7 +355,7 @@ export default class User {
             address,
             tokenAmount: parseFloat(amount),
             currency: currency._id,
-            nonce
+            nonce,
           },
           this.bearerToken
         );
@@ -397,7 +381,7 @@ export default class User {
       id: this.user.affiliateId,
       userAmount: this.user.affiliateInfo.affiliatedLinks.length,
       percentageOnLevelOne: this.user.affilateLinkInfo.affiliateStructure
-        .percentageOnLoss
+        .percentageOnLoss,
     };
   };
 
@@ -422,7 +406,7 @@ export default class User {
           app: this.app_id,
           withdraw_id: withdraw_id,
           user: this.user_id,
-          transactionHash: tx
+          transactionHash: tx,
         },
         this.bearerToken
       );
@@ -435,7 +419,7 @@ export default class User {
       return [];
     }
 
-    return this.user.withdraws.sort(function(a, b) {
+    return this.user.withdraws.sort(function (a, b) {
       return new Date(b.creation_timestamp) - new Date(a.creation_timestamp);
     });
   };
@@ -459,7 +443,7 @@ export default class User {
           app: this.app_id,
           game: gameId,
           result,
-          nonce
+          nonce,
         },
         this.bearerToken
       );
@@ -473,7 +457,7 @@ export default class User {
     return this.message;
   };
 
-  setMessage = message => {
+  setMessage = (message) => {
     this.message = message;
   };
 
@@ -483,7 +467,7 @@ export default class User {
         {
           "2fa_secret": secret,
           "2fa_token": token,
-          user: this.user_id
+          user: this.user_id,
         },
         this.bearerToken
       );
@@ -503,7 +487,7 @@ export default class User {
           {
             currency: currency_id,
             id: this.user_id,
-            app: this.app_id
+            app: this.app_id,
           },
           this.bearerToken
         );
@@ -522,7 +506,7 @@ export default class User {
       return await resendConfirmEmail(
         {
           app: this.app_id,
-          user: this.user_id
+          user: this.user_id,
         },
         this.bearerToken
       );
@@ -565,7 +549,7 @@ export default class User {
           {
             app: this.app_id,
             user: this.user_id,
-            currency: currency_id
+            currency: currency_id,
           },
           this.bearerToken
         );
@@ -597,7 +581,7 @@ export default class User {
           app: this.app_id,
           user: this.user_id,
           game_id,
-          ticker
+          ticker,
         },
         this.bearerToken
       );
@@ -618,7 +602,7 @@ export default class User {
         {
           app: this.app_id,
           user: this.user_id,
-          currency: currency_id
+          currency: currency_id,
         },
         this.bearerToken
       );

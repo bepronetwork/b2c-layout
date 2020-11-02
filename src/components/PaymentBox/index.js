@@ -2,11 +2,10 @@ import React from "react";
 import "./index.css";
 import { Row, Col } from "reactstrap";
 import { Typography, Button } from "components";
-import _, { result } from "lodash";
+import _ from "lodash";
 import { connect } from "react-redux";
 import classNames from "classnames";
 import { getApp, getAppCustomization } from "../../lib/helpers";
-import { CopyText } from "../../copy";
 import { formatCurrency } from "../../utils/numberFormatation";
 
 class PaymentBox extends React.Component {
@@ -110,7 +109,7 @@ class PaymentBox extends React.Component {
   };
 
   verifyTime = async () => {
-    const { seconds, minutes, isCanvasRenderer } = this.state;
+    const { seconds, minutes } = this.state;
     const { wallet } = this.props;
     if (seconds === 0 && minutes === 0) {
       this.setState({ disabledFreeButton: false });
@@ -260,7 +259,7 @@ class PaymentBox extends React.Component {
 
   handleSendCurrancyFree = async () => {
     try {
-      const { profile, ln } = this.props;
+      const { profile } = this.props;
       const resultCurrency = await this.funcVerificationCurrency();
 
       await profile.sendFreeCurrencyRequest({
@@ -382,11 +381,7 @@ class PaymentBox extends React.Component {
             <div styleName="bottom-line">
               <Col xs={4} md={4} styleName="button-padding">
                 <div styleName="border-radius">
-                  <canvas
-                    id={wallet.currency.name}
-                    width="30"
-                    height="30"
-                  ></canvas>
+                  <canvas id={wallet.currency.name} width="30" height="30" />
                 </div>
               </Col>
               <Col xs={8} md={8} styleName="button-padding">

@@ -5,7 +5,6 @@ import store from "../../containers/App/store";
 import { setMessageNotification } from "../../redux/actions/message";
 import faker from "faker";
 import { formatCurrency } from "../../utils/numberFormatation";
-//import 'moment/locale/pt-br';
 
 function dateToHourAndMinute(date) {
   return moment(new Date(date)).fromNow();
@@ -20,10 +19,7 @@ function formatToSimpleDate(date) {
 }
 
 function fromSmartContractTimeToMinutes(time) {
-  return moment()
-    .startOf("day")
-    .seconds(time)
-    .format("mm.ss");
+  return moment().startOf("day").seconds(time).format("mm.ss");
 }
 
 function getGames() {
@@ -40,13 +36,9 @@ function isUserSet(profile) {
   }
 }
 
-function getMinutesfromSeconds(seconds) {
-  return Math.floor(seconds / 60);
-}
-
 function getQueryVariable(variable) {
-  var query = window.location.search.substring(1);
-  var vars = query.split("&");
+  const query = window.location.search.substring(1);
+  const vars = query.split("&");
   for (var i = 0; i < vars.length; i++) {
     var pair = vars[i].split("=");
     if (pair[0] == variable) {
@@ -66,50 +58,18 @@ function getSkeletonColors() {
   const { colors } = Cache.getFromCache("appInfo")
     ? Cache.getFromCache("appInfo").customization
     : {};
-  const skeletonColors = {
-    color: colors ? colors.find(c => c.type === "primaryColor").hex : "#0f0e1d",
+  return {
+    color: colors
+      ? colors.find((c) => c.type === "primaryColor").hex
+      : "#0f0e1d",
     highlightColor: colors
-      ? colors.find(c => c.type === "backgroundColor").hex
-      : "#17162d"
+      ? colors.find((c) => c.type === "backgroundColor").hex
+      : "#17162d",
   };
-
-  return skeletonColors;
 }
 
 function getApp() {
   return Cache.getFromCache("appInfo") ? Cache.getFromCache("appInfo") : {};
-}
-
-async function getGeo() {
-  return new Promise((resolve, reject) => {
-    if (!navigator.geolocation) {
-      console.log("Geolocation is not supported by your browser");
-      return;
-    }
-    alert("c");
-
-    function error() {
-      alert("hh");
-      console.log("Unable to retrieve your location");
-    }
-
-    navigator.geolocation.getCurrentPosition(position => {
-      var latitude = position.coords.latitude;
-      var longitude = position.coords.longitude;
-      fetch(`https://maps.googleapis.com/maps/api/geocode/json?
-                latlng=${latitude},${longitude}&key=${"AIzaSyBPbFrvt8RmLg6TqXtk_9E1YRs1YK4iBvM"}`)
-        .then(res => res.json())
-        .then(response => {
-          alert("a");
-          resolve(response);
-          console.log("User's Location Info: ", response);
-        })
-        .catch(status => {
-          reject(status);
-          console.log("Request failed.  Returned status of", status);
-        });
-    }, error);
-  });
 }
 
 async function processResponse(response) {
@@ -132,19 +92,16 @@ async function processResponse(response) {
 
 function loadFakeBets(rows, games, size) {
   /* fake random value */
-  var game = games[Math.floor(Math.random() * games.length)];
-  var row = rows[Math.floor(Math.random() * rows.length)];
+  const game = games[Math.floor(Math.random() * games.length)];
+  const row = rows[Math.floor(Math.random() * rows.length)];
   let currency = row ? row.currency : null;
   const virtual = getApp().virtual;
   if (virtual === true) {
-    currency = getApp().currencies.find(c => c.virtual === true)._id;
+    currency = getApp().currencies.find((c) => c.virtual === true)._id;
   }
 
   let fakeUserName = faker.internet.userName();
-  let fakeId = faker.random
-    .uuid()
-    .replace(/-/g, "")
-    .substring(0, 24);
+  let fakeId = faker.random.uuid().replace(/-/g, "").substring(0, 24);
   let randomArray = [];
   let lostValue = { isWon: false, payout: "0.000000", winAmount: "0.000000" };
   var i = 0;
@@ -162,7 +119,7 @@ function loadFakeBets(rows, games, size) {
     const winValue = {
       isWon: true,
       payout: formatCurrency(payout),
-      winAmount: formatCurrency(winAmount)
+      winAmount: formatCurrency(winAmount),
     };
     randomArray.push(winValue);
   } while (i < 6);
@@ -182,7 +139,7 @@ function loadFakeBets(rows, games, size) {
             fakeUserName.substring(fakeUserName.length - 3, fakeUserName.length)
           : fakeUserName,
       winAmount: randomValue.winAmount,
-      currency
+      currency,
     };
 
     rows.unshift(newRow);
@@ -211,26 +168,26 @@ function getAddOn() {
 function loadWheelOptions(game) {
   const resultSpaceColors = [
     {
-      color: "#000000"
+      color: "#000000",
     },
     {
-      color: "#406c82"
+      color: "#406c82",
     },
     {
-      color: "#00e403"
+      color: "#00e403",
     },
     {
-      color: "#d5e8f2"
+      color: "#d5e8f2",
     },
     {
-      color: "#fde905"
+      color: "#fde905",
     },
     {
-      color: "#7f46fd"
+      color: "#7f46fd",
     },
     {
-      color: "#fca32f"
-    }
+      color: "#fca32f",
+    },
   ];
 
   let options = [];
@@ -239,7 +196,7 @@ function loadWheelOptions(game) {
   for (var i = 0; i < game.resultSpace.length; i++) {
     let resultSpace = game.resultSpace[i];
     let optExists = options.find(
-      opt => opt.multiplier == resultSpace.multiplier
+      (opt) => opt.multiplier == resultSpace.multiplier
     );
     if (!optExists) {
       let color = resultSpaceColors[indexOptions].color;
@@ -251,7 +208,7 @@ function loadWheelOptions(game) {
         amount: 1,
         start: i,
         placings: [i],
-        color: color
+        color: color,
       });
       indexOptions = indexOptions + 1;
     } else {
@@ -261,7 +218,7 @@ function loadWheelOptions(game) {
         ...optExists,
         amount: optExists.amount + 1,
         placings: optExists.placings,
-        probability: optExists.probability + resultSpace.probability
+        probability: optExists.probability + resultSpace.probability,
       };
     }
   }
@@ -283,15 +240,15 @@ function formatOpponentData(match, index, gameImage) {
       : match.odds.winnerTwoWay.length > 0
       ? "winnerTwoWay"
       : "winnerThreeWay",
-    odd: oddType.find(o => o.participant_id == opponentId),
+    odd: oddType.find((o) => o.participant_id == opponentId),
     image:
       match.opponents[index].opponent.image_url != null
         ? match.opponents[index].opponent.image_url
         : gameImage,
     name: match.opponents[index].opponent.name,
     location: match.opponents[index].opponent.location,
-    score: match.results.find(r => r.team_id == opponentId).score,
-    id: opponentId
+    score: match.results.find((r) => r.team_id == opponentId).score,
+    id: opponentId,
   };
 
   return opponent;
@@ -307,7 +264,7 @@ function formatOpponentBet(opponent, matchId, matchName, amount) {
     type: opponent.type,
     position: opponent.odd.position,
     matchId,
-    amount
+    amount,
   };
 
   return opponentBet;
@@ -323,7 +280,7 @@ function formatDrawBet(drawId, odd, matchId, matchName, gameImage, amount) {
     type: "winnerThreeWay",
     position: odd.position,
     matchId,
-    amount
+    amount,
   };
 
   return opponentBet;
@@ -338,7 +295,7 @@ function getIcon(index) {
     typeof icons.useDefaultIcons != "undefined" &&
     icons.useDefaultIcons !== true
   ) {
-    const icon = icons.ids.find(i => i.position == index);
+    const icon = icons.ids.find((i) => i.position == index);
     return icon ? icon.link : null;
   }
 
@@ -348,12 +305,12 @@ function getIcon(index) {
 function convertAmountProviderBigger(ticker, value) {
   let tickers = {
     ETH: { value: 1000, ticker: "mETH" },
-    BTC: { value: 1000000, ticker: "uBTC" }
+    BTC: { value: 1000000, ticker: "uBTC" },
   };
   if (tickers[ticker]) {
     return {
       value: value / tickers[ticker].value,
-      ticker: tickers[ticker].ticker
+      ticker: tickers[ticker].ticker,
     };
   }
 
@@ -368,9 +325,7 @@ export {
   fromSmartContractTimeToMinutes,
   getGames,
   isUserSet,
-  getMinutesfromSeconds,
   getQueryVariable,
-  getGeo,
   getApp,
   processResponse,
   getSkeletonColors,
@@ -382,5 +337,5 @@ export {
   formatOpponentBet,
   formatDrawBet,
   getIcon,
-  convertAmountProviderBigger
+  convertAmountProviderBigger,
 };

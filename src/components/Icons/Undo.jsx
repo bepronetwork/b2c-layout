@@ -1,12 +1,11 @@
 import React from "react";
 import PropTypes from "prop-types";
 import classNames from "classnames";
-
 import "./index.css";
 
 const Undo = ({ color }) => {
   const styles = classNames("undo", {
-    [color]: true
+    [color]: true,
   });
 
   return (
@@ -20,11 +19,11 @@ const Undo = ({ color }) => {
 };
 
 Undo.propTypes = {
-  color: PropTypes.oneOf(["casper", "pickled-bluewood"])
+  color: PropTypes.oneOf(["casper", "pickled-bluewood"]),
 };
 
 Undo.defaultProps = {
-  color: "casper"
+  color: "casper",
 };
 
 export default Undo;

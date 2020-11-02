@@ -7,7 +7,6 @@ import diamondsBet from "lib/api/diamonds";
 import _, { find } from "lodash";
 import { connect } from "react-redux";
 import Sound from "react-sound";
-
 import DiamondSound from "assets/DiamondIcons/sound/diamond.mp3";
 import DiamondResult from "assets/DiamondIcons/sound/result.mp3";
 import images from "../../components/DiamondGame/images";
@@ -29,7 +28,7 @@ class DiamondPage extends Component {
     animating: false,
     amount: 0,
     game: {
-      edge: 0
+      edge: 0,
     },
     betAmount: 0,
     betObjectResult: {},
@@ -53,39 +52,39 @@ class DiamondPage extends Component {
     resultSpace: [],
     isDisable: true,
     primaryColor: null,
-    secondaryColor: null
+    secondaryColor: null,
   };
 
   componentDidMount() {
     this.getGame();
     this.setState({
-      isHover6: true
+      isHover6: true,
     });
     this.getColors();
   }
 
-  setSound = async value => {
+  setSound = async (value) => {
     this.setState({ sound: value });
   };
 
   getColors = () => {
     const { colors } = getAppCustomization();
 
-    const primaryColor = colors.find(color => {
+    const primaryColor = colors.find((color) => {
       return color.type === "primaryColor";
     });
 
-    const secondaryColor = colors.find(color => {
+    const secondaryColor = colors.find((color) => {
       return color.type === "secondaryColor";
     });
 
     this.setState({
       primaryColor: primaryColor.hex,
-      secondaryColor: secondaryColor.hex
+      secondaryColor: secondaryColor.hex,
     });
   };
 
-  handleAnimations = async idIcon => {
+  handleAnimations = async (idIcon) => {
     const box = document.getElementById(idIcon);
 
     this.setSound(true);
@@ -93,45 +92,45 @@ class DiamondPage extends Component {
     box.animate(
       [
         { transform: "translate3D(0, -20px, 0)" },
-        { transform: "translate3D(0, 0px, 0)" }
+        { transform: "translate3D(0, 0px, 0)" },
       ],
       {
         duration: 100,
-        iterations: 1
+        iterations: 1,
       }
     );
 
     if (idIcon === "svg-diamond-animated-1") {
       this.setState({
-        isVisible1: true
+        isVisible1: true,
       });
     }
 
     if (idIcon === "svg-diamond-animated-2") {
       this.setState({
-        isVisible2: true
+        isVisible2: true,
       });
     }
 
     if (idIcon === "svg-diamond-animated-3") {
       this.setState({
-        isVisible3: true
+        isVisible3: true,
       });
     }
 
     if (idIcon === "svg-diamond-animated-4") {
       this.setState({
-        isVisible4: true
+        isVisible4: true,
       });
     }
 
     if (idIcon === "svg-diamond-animated-5") {
       this.setState({
-        isVisible5: true
+        isVisible5: true,
       });
     }
 
-    return new Promise(resolve => setTimeout(() => resolve(), 500));
+    return new Promise((resolve) => setTimeout(() => resolve(), 500));
   };
 
   checkArray = (item, value) => {
@@ -149,37 +148,37 @@ class DiamondPage extends Component {
     switch (resultBack) {
       case 0:
         return this.setState({
-          isHover6: true
+          isHover6: true,
         });
       case 1:
         return this.setState({
           isHover5: true,
           isHover6: false,
-          soundResult: true
+          soundResult: true,
         });
       case 2:
         return this.setState({
           isHover4: true,
           isHover6: false,
-          soundResult: true
+          soundResult: true,
         });
       case 3:
         return this.setState({
           isHover3: true,
           isHover6: false,
-          soundResult: true
+          soundResult: true,
         });
       case 4:
         return this.setState({
           isHover2: true,
           isHover6: false,
-          soundResult: true
+          soundResult: true,
         });
       case 5:
         return this.setState({
           isHover1: true,
           isHover6: false,
-          soundResult: true
+          soundResult: true,
         });
       default:
         break;
@@ -189,7 +188,7 @@ class DiamondPage extends Component {
   changeColorBottom = async (searchImage, number) => {
     const { backendResult } = this.state;
 
-    const count = backendResult.filter(x => x === searchImage).length;
+    const count = backendResult.filter((x) => x === searchImage).length;
 
     if (count >= 2) {
       images[number].isActive = true;
@@ -200,7 +199,7 @@ class DiamondPage extends Component {
     }
   };
 
-  SoundComponent = urlParam => {
+  SoundComponent = (urlParam) => {
     return (
       <Sound
         volume={100}
@@ -260,14 +259,14 @@ class DiamondPage extends Component {
             this.randBetween(1, 2),
             this.randBetween(2, 3),
             this.randBetween(3, 4),
-            this.randBetween(4, 6)
-          ].sort(() => Math.random() - 0.5)
+            this.randBetween(4, 6),
+          ].sort(() => Math.random() - 0.5),
         });
       case 1:
         return this.setState({
           backendResult: [result1, result1, result3, result4, result5].sort(
             () => Math.random() - 0.5
-          )
+          ),
         });
       case 2:
         return this.setState({
@@ -276,8 +275,8 @@ class DiamondPage extends Component {
             result1,
             result2,
             result1,
-            result2
-          ].sort(() => Math.random() - 0.5)
+            result2,
+          ].sort(() => Math.random() - 0.5),
         });
       case 3:
         return this.setState({
@@ -286,8 +285,8 @@ class DiamondPage extends Component {
             resultest,
             resultest1,
             resultest,
-            resultest2
-          ].sort(() => Math.random() - 0.5)
+            resultest2,
+          ].sort(() => Math.random() - 0.5),
         });
       case 4:
         return this.setState({
@@ -296,8 +295,8 @@ class DiamondPage extends Component {
             resultTest2,
             resultTest,
             resultTest2,
-            resultTest
-          ].sort(() => Math.random() - 0.5)
+            resultTest,
+          ].sort(() => Math.random() - 0.5),
         });
       case 5:
         return this.setState({
@@ -306,8 +305,8 @@ class DiamondPage extends Component {
             result1,
             result1,
             this.randBetween(3, 6),
-            result1
-          ].sort(() => Math.random() - 0.5)
+            result1,
+          ].sort(() => Math.random() - 0.5),
         });
       case 6:
         return this.setState({
@@ -316,8 +315,8 @@ class DiamondPage extends Component {
             resultEqual,
             resultEqual,
             resultEqual,
-            resultEqual
-          ].sort(() => Math.random() - 0.5)
+            resultEqual,
+          ].sort(() => Math.random() - 0.5),
         });
       default:
         break;
@@ -330,7 +329,7 @@ class DiamondPage extends Component {
     );
 
     this.setState({
-      backendResult: resultGen
+      backendResult: resultGen,
     });
   };
 
@@ -376,7 +375,7 @@ class DiamondPage extends Component {
       soundResult: false,
       winAmount: 0,
       resultWinAmount: 0,
-      resultBack: 0
+      resultBack: 0,
     });
   };
 
@@ -391,13 +390,13 @@ class DiamondPage extends Component {
       this.setState({ bet: true });
 
       this.setState({
-        resultWinAmount: winAmount.toFixed(8)
+        resultWinAmount: winAmount.toFixed(8),
       });
     } catch (err) {
       return this.setState({
         bet: false,
         hasWon: false,
-        disableControls: false
+        disableControls: false,
       });
     }
   };
@@ -430,7 +429,7 @@ class DiamondPage extends Component {
       const res = await diamondsBet({
         amount,
         user,
-        game_id: game._id
+        game_id: game._id,
       });
 
       this.setState({
@@ -439,7 +438,7 @@ class DiamondPage extends Component {
         animating: true,
         betObjectResult: res,
         winAmount: res.winAmount,
-        amount
+        amount,
       });
 
       await this.generateRandArray();
@@ -476,7 +475,7 @@ class DiamondPage extends Component {
         soundResult: false,
         winAmount: 0,
         resultWinAmount: 0,
-        resultBack: 0
+        resultBack: 0,
       });
     }
   };
@@ -493,7 +492,7 @@ class DiamondPage extends Component {
         isHover4: false,
         isHover5: false,
         isHover6: false,
-        soundResult: false
+        soundResult: false,
       });
     }
   };
@@ -510,7 +509,7 @@ class DiamondPage extends Component {
         isHover4: false,
         isHover5: false,
         isHover6: false,
-        soundResult: false
+        soundResult: false,
       });
     }
   };
@@ -527,7 +526,7 @@ class DiamondPage extends Component {
         isHover4: false,
         isHover5: false,
         isHover6: false,
-        soundResult: false
+        soundResult: false,
       });
     }
   };
@@ -544,7 +543,7 @@ class DiamondPage extends Component {
         isHover4: false,
         isHover5: false,
         isHover6: false,
-        soundResult: false
+        soundResult: false,
       });
     }
   };
@@ -561,7 +560,7 @@ class DiamondPage extends Component {
         isHover4: true,
         isHover5: false,
         isHover6: false,
-        soundResult: false
+        soundResult: false,
       });
     }
   };
@@ -578,7 +577,7 @@ class DiamondPage extends Component {
         isHover4: false,
         isHover5: true,
         isHover6: false,
-        soundResult: false
+        soundResult: false,
       });
     }
   };
@@ -595,7 +594,7 @@ class DiamondPage extends Component {
         isHover4: false,
         isHover5: false,
         isHover6: true,
-        soundResult: false
+        soundResult: false,
       });
     }
   };
@@ -636,7 +635,7 @@ class DiamondPage extends Component {
       resultWinAmount,
       resultSpace,
       primaryColor,
-      secondaryColor
+      secondaryColor,
     } = this.state;
 
     return (
@@ -692,13 +691,13 @@ class DiamondPage extends Component {
 DiamondPage.propTypes = {
   profile: PropTypes.arrayOf.isRequired,
   onHandleLoginOrRegister: PropTypes.objectOf.isRequired,
-  onTableDetails: PropTypes.objectOf.isRequired
+  onTableDetails: PropTypes.objectOf.isRequired,
 };
 
 function mapStateToProps(state) {
   return {
     profile: state.profile,
-    ln: state.language
+    ln: state.language,
   };
 }
 

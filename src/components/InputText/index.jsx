@@ -16,7 +16,7 @@ export default class InputText extends Component {
     placeholder: PropTypes.string,
     disabled: PropTypes.bool,
     icon: PropTypes.oneOf(["copy"]),
-    maxlength: PropTypes.number
+    maxlength: PropTypes.number,
   };
 
   static defaultProps = {
@@ -28,18 +28,17 @@ export default class InputText extends Component {
     placeholder: "",
     disabled: false,
     icon: null,
-    maxlength: ""
+    maxlength: "",
   };
 
   state = {
-    value: ""
+    value: "",
   };
 
   static getDerivedStateFromProps(nextProps, prevState) {
     if (nextProps.value !== prevState.value) {
       return { value: nextProps.value };
     }
-
     return null;
   }
 
@@ -57,7 +56,7 @@ export default class InputText extends Component {
     );
   }
 
-  handleChange = event => {
+  handleChange = (event) => {
     const { onChange } = this.props;
 
     if (onChange) onChange(event);
@@ -84,7 +83,6 @@ export default class InputText extends Component {
 
   render() {
     const {
-      label,
       name,
       placeholder,
       required,
@@ -92,20 +90,18 @@ export default class InputText extends Component {
       disabled,
       type,
       icon,
-      maxlength
+      maxlength,
     } = this.props;
     const { value } = this.state;
-
     const currentValue =
       defaultValue || defaultValue === "" ? defaultValue : value;
-
     const containerClasses = classNames("container", {
       disabled: disabled === true,
-      "with-icon": icon
+      "with-icon": icon,
     });
 
     const inputContainerClasses = classNames("input-container", {
-      "with-icon": icon
+      "with-icon": icon,
     });
 
     return (
@@ -124,7 +120,7 @@ export default class InputText extends Component {
                 type={type}
                 value={currentValue}
                 disabled={disabled}
-                maxlength={maxlength}
+                maxLength={maxlength}
               />
             </div>
             {this.icon}

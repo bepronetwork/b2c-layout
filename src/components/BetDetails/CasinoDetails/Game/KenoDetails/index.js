@@ -11,7 +11,7 @@ class KenoDetails extends Component {
     this.state = {
       selected: [],
       result: [],
-      cards: defaultCards
+      cards: defaultCards,
     };
   }
 
@@ -23,27 +23,27 @@ class KenoDetails extends Component {
     this.projectData(props);
   }
 
-  projectData = async props => {
+  projectData = async (props) => {
     const { bet } = this.props;
     const { cards } = this.state;
 
-    cards.forEach(c => {
+    cards.forEach((c) => {
       c.isSelected = false;
     });
-    cards.forEach(c => {
+    cards.forEach((c) => {
       c.isPicked = false;
     });
 
-    bet.outcomeResultSpace.map(r => {
-      cards.find(c => {
+    bet.outcomeResultSpace.map((r) => {
+      cards.find((c) => {
         if (c.id === r.index) {
           c.isSelected = true;
         }
       });
     });
 
-    bet.result.map(r => {
-      cards.find(c => {
+    bet.result.map((r) => {
+      cards.find((c) => {
         if (c.id === parseInt(r._id.place)) {
           c.isPicked = true;
         }
@@ -51,7 +51,7 @@ class KenoDetails extends Component {
     });
 
     this.setState({
-      cards
+      cards,
     });
   };
 
@@ -64,7 +64,7 @@ class KenoDetails extends Component {
 function mapStateToProps(state) {
   return {
     profile: state.profile,
-    ln: state.language
+    ln: state.language,
   };
 }
 

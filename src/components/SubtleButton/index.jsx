@@ -15,16 +15,16 @@ export default class SubtleButton extends Component {
       "h4",
       "body",
       "small-body",
-      "x-small-body"
+      "x-small-body",
     ]),
-    name: PropTypes.string
+    name: PropTypes.string,
   };
 
   static defaultProps = {
     children: "Subtle Link Button",
     onClick: null,
     variant: "body",
-    name: null
+    name: null,
   };
 
   render() {

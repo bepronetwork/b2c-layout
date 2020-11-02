@@ -12,11 +12,11 @@ class ProfileMenu extends Component {
   static propTypes = {
     username: PropTypes.string.isRequired,
     onLogout: PropTypes.func.isRequired,
-    onCashier: PropTypes.func.isRequired
+    onCashier: PropTypes.func.isRequired,
   };
 
   state = {
-    open: false
+    open: false,
   };
 
   componentDidUpdate() {
@@ -43,24 +43,24 @@ class ProfileMenu extends Component {
         value: "cashier",
         label: copy.INDEX.TYPOGRAPHY.TEXT[0],
         icon: <CashierIcon />,
-        action: onCashier
+        action: onCashier,
       },
       {
         value: "account",
         label: copy.INDEX.TYPOGRAPHY.TEXT[1],
         icon: <UserIcon />,
-        action: onAccount
+        action: onAccount,
       },
       {
         value: "logout",
         label: copy.INDEX.TYPOGRAPHY.TEXT[2],
         icon: <LogoutIcon />,
-        action: onLogout
-      }
+        action: onLogout,
+      },
     ];
   };
 
-  handleClickOutside = event => {
+  handleClickOutside = (event) => {
     const isOutsideClick = !this.optionsRef.contains(event.target);
     const isLabelClick = this.labelRef.contains(event.target);
 
@@ -94,7 +94,7 @@ class ProfileMenu extends Component {
     );
   }
 
-  onDoAction = async onAction => {
+  onDoAction = async (onAction) => {
     this.setState({ open: false });
     onAction();
   };
@@ -133,7 +133,7 @@ class ProfileMenu extends Component {
     return (
       <div styleName="root">
         <button
-          ref={el => {
+          ref={(el) => {
             this.labelRef = el;
           }}
           onClick={this.handleLabelClick}
@@ -143,7 +143,7 @@ class ProfileMenu extends Component {
         </button>
 
         <div
-          ref={el => {
+          ref={(el) => {
             this.optionsRef = el;
           }}
         >
@@ -157,7 +157,7 @@ class ProfileMenu extends Component {
 function mapStateToProps(state) {
   return {
     profile: state.profile,
-    ln: state.language
+    ln: state.language,
   };
 }
 

@@ -13,14 +13,14 @@ class GameCard extends Component {
     image: PropTypes.string,
     path: PropTypes.string.isRequired,
     children: PropTypes.node.isRequired,
-    width: PropTypes.string
+    width: PropTypes.string,
   };
 
   static defaultProps = {
     edge: null,
     image: "",
     width: null,
-    color: "firefly"
+    color: "firefly",
   };
 
   renderImage = () => {
@@ -32,7 +32,7 @@ class GameCard extends Component {
 
     return (
       <div styleName="image-container">
-        <img alt="menu" src={image} alt='Unavailable slider carrousel image' />
+        <img src={image} alt="Unavailable slider carrousel image" />
       </div>
     );
   };
@@ -49,11 +49,11 @@ class GameCard extends Component {
             style={{
               background: background_url
                 ? "url(" + background_url + ") center center / cover no-repeat"
-                : null
+                : null,
             }}
           >
             <div styleName="icon">
-              <img src={image_url} styleName="game-icon" alt='Game Icon' />
+              <img src={image_url} styleName="game-icon" alt="Game Icon" />
             </div>
           </div>
         </Link>
@@ -81,7 +81,7 @@ class GameCard extends Component {
 
 function mapStateToProps(state) {
   return {
-    ln: state.language
+    ln: state.language,
   };
 }
 

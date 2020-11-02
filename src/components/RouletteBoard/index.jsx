@@ -16,12 +16,12 @@ class RouletteBoard extends Component {
       PropTypes.shape({ cell: PropTypes.string, chip: PropTypes.number })
     ).isRequired,
     rotating: PropTypes.bool,
-    isAddChipDisabled: PropTypes.bool.isRequired
+    isAddChipDisabled: PropTypes.bool.isRequired,
   };
 
   static defaultProps = {
     result: null,
-    rotating: null
+    rotating: null,
   };
 
   constructor(props) {
@@ -40,11 +40,11 @@ class RouletteBoard extends Component {
       row1Focused: false,
       row2Focused: false,
       row3Focused: false,
-      sound: false
+      sound: false,
     };
   }
 
-  handleMouseEnter = event => {
+  handleMouseEnter = (event) => {
     switch (event.currentTarget.id) {
       case "colorBlack":
         this.setState({ blackFocused: true });
@@ -99,11 +99,11 @@ class RouletteBoard extends Component {
       range2536Focused: false,
       row1Focused: false,
       row2Focused: false,
-      row3Focused: false
+      row3Focused: false,
     });
   };
 
-  handleClick = event => {
+  handleClick = (event) => {
     const { onAddChip, isAddChipDisabled } = this.props;
     const { sound } = this.state;
 
@@ -158,7 +158,7 @@ class RouletteBoard extends Component {
       range2536Focused,
       row1Focused,
       row2Focused,
-      row3Focused
+      row3Focused,
     } = this.state;
 
     const { result, betHistory, rotating, ln } = this.props;
@@ -1082,7 +1082,7 @@ class RouletteBoard extends Component {
 function mapStateToProps(state) {
   return {
     profile: state.profile,
-    ln: state.language
+    ln: state.language,
   };
 }
 

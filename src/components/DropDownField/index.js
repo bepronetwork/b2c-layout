@@ -1,12 +1,11 @@
 import React from "react";
 import { TextField } from "@material-ui/core";
-import _ from "lodash";
 
 class DropDownField extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      value: props.value
+      value: props.value,
     };
   }
 
@@ -18,17 +17,17 @@ class DropDownField extends React.Component {
     this.projectData(props);
   }
 
-  projectData = props => {
+  projectData = (props) => {
     if (props.value) {
       this.setState({ ...this.state, value: props.value });
     }
   };
 
-  onChange = e => {
+  onChange = (e) => {
     this.setState({ ...this.state, value: e.target.value });
     this.props.onChange({
       type: this.props.type,
-      value: e.target.value
+      value: e.target.value,
     });
   };
 
@@ -40,7 +39,7 @@ class DropDownField extends React.Component {
         style={{
           width: this.props.width ? this.props.width : "80%",
           height: this.props.height ? this.props.height : 60,
-          marginTop: 20
+          marginTop: 20,
         }}
         className={this.props.className}
         select

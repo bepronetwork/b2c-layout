@@ -6,14 +6,12 @@ import {
   getAllMatchesBySeries,
   getSpecificMatch,
   getSpecificTeam,
-  createBet
 } from "lib/api/esports";
-import _ from "lodash";
 
 export async function getGames() {
   try {
     let res = await getVideoGames({
-      app: appId
+      app: appId,
     });
 
     return await processResponse(res);
@@ -27,7 +25,7 @@ export async function getMatches(params) {
   try {
     let res = await getAllMatches({
       app: appId,
-      ...params
+      ...params,
     });
 
     return await processResponse(res);
@@ -41,7 +39,7 @@ export async function getMatchesBySeries(params) {
   try {
     let res = await getAllMatchesBySeries({
       app: appId,
-      ...params
+      ...params,
     });
 
     return await processResponse(res);
@@ -55,7 +53,7 @@ export async function getMatch(matchId) {
   try {
     let res = await getSpecificMatch({
       app: appId,
-      match_id: matchId
+      match_id: matchId,
     });
 
     return await processResponse(res);
@@ -70,7 +68,7 @@ export async function getTeam(teamId, slug) {
     let res = await getSpecificTeam({
       app: appId,
       team_id: teamId,
-      slug
+      slug,
     });
 
     return await processResponse(res);

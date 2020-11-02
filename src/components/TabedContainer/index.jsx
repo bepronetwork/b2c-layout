@@ -15,7 +15,7 @@ class TabedContainer extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      points: 0
+      points: 0,
     };
   }
 
@@ -27,12 +27,12 @@ class TabedContainer extends React.Component {
     this.projectData(props);
   }
 
-  projectData = async props => {
+  projectData = async (props) => {
     if (!_.isEmpty(props.profile)) {
       const user = props.profile;
 
       this.setState({
-        points: await user.getPoints()
+        points: await user.getPoints(),
       });
     }
   };
@@ -46,7 +46,7 @@ class TabedContainer extends React.Component {
     const { ln, items } = this.props;
     const copy = CopyText.homepage[ln];
     const pathName = this.props.location.pathname.toLowerCase();
-    const filteredItems = items.filter(item => !item.disabled);
+    const filteredItems = items.filter((item) => !item.disabled);
     const isValidPoints = getAddOn().pointSystem
       ? getAddOn().pointSystem.isValid
       : false;
@@ -79,7 +79,11 @@ class TabedContainer extends React.Component {
                   <div styleName="label-points">
                     {!_.isEmpty(logoPoints) ? (
                       <div styleName="currency-icon">
-                        <img src={logoPoints} width={20} alt='Points Illustration' />
+                        <img
+                          src={logoPoints}
+                          width={20}
+                          alt="Points Illustration"
+                        />
                       </div>
                     ) : null}
                     <span>
@@ -99,7 +103,7 @@ class TabedContainer extends React.Component {
               <Nav variant="pills" className="flex-column" styleName="menu">
                 {filteredItems.map((item, index) => {
                   const styles = classNames("row", {
-                    active: mainIndex === index
+                    active: mainIndex === index,
                   });
                   return (
                     <Nav.Item>
@@ -153,7 +157,7 @@ class TabedContainer extends React.Component {
 function mapStateToProps(state) {
   return {
     profile: state.profile,
-    ln: state.language
+    ln: state.language,
   };
 }
 

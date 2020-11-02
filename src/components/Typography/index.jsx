@@ -8,7 +8,7 @@ const Typography = ({ children, variant, color, weight, otherStyles = {} }) => {
   const styles = classNames({
     [variant]: true,
     [color]: true,
-    [weight]: true
+    [weight]: true,
   });
   const TextComponent = includes(variant, "body") ? "p" : variant;
 
@@ -28,7 +28,7 @@ Typography.propTypes = {
     "h4",
     "body",
     "small-body",
-    "x-small-body"
+    "x-small-body",
   ]),
   color: PropTypes.oneOf([
     "gable-green",
@@ -41,15 +41,15 @@ Typography.propTypes = {
     "grey",
     "fixedwhite",
     "secondary",
-    "orange"
+    "orange",
   ]),
-  weight: PropTypes.oneOf(["regular", "semi-bold", "bold"])
+  weight: PropTypes.oneOf(["regular", "semi-bold", "bold"]),
 };
 
 Typography.defaultProps = {
   variant: "body",
   color: "gable-green",
-  weight: "regular"
+  weight: "regular",
 };
 
 export default Typography;

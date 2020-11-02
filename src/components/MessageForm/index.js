@@ -9,7 +9,7 @@ export default class MessageForm extends Component {
     this.state = {};
   }
 
-  handleTabChange = name => {
+  handleTabChange = (name) => {
     this.setState({ tab: name });
   };
 

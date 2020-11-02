@@ -12,11 +12,11 @@ import "./index.css";
 class RegisterForm extends Component {
   static propTypes = {
     onSubmit: PropTypes.func.isRequired,
-    error: PropTypes.number
+    error: PropTypes.number,
   };
 
   static defaultProps = {
-    error: null
+    error: null,
   };
 
   state = {
@@ -26,7 +26,7 @@ class RegisterForm extends Component {
     emailValid: false,
     isLoading: false,
     isConfirmed: false,
-    terms: null
+    terms: null,
   };
 
   componentDidMount() {
@@ -37,22 +37,22 @@ class RegisterForm extends Component {
     this.projectData(props);
   }
 
-  projectData = async props => {
+  projectData = async (props) => {
     const { ln } = props;
     const { footer } = getAppCustomization();
     const supportLinks = footer.languages.find(
-      f =>
+      (f) =>
         f.language.isActivated === true &&
         f.language.prefix === ln.toUpperCase()
     ).supportLinks;
-    const terms = supportLinks.find(s => {
+    const terms = supportLinks.find((s) => {
       return s.name.trim().toLowerCase() === "terms of service";
     });
 
     this.setState({ terms });
   };
 
-  handleSubmit = async event => {
+  handleSubmit = async (event) => {
     this.setState({ ...this.state, isLoading: true });
 
     event.preventDefault();
@@ -76,26 +76,26 @@ class RegisterForm extends Component {
     );
   };
 
-  onEmailChange = event => {
+  onEmailChange = (event) => {
     const email = event.target.value;
     const emailValid = email.match(/^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/i);
 
     this.setState({ email, emailValid });
   };
 
-  onChange = event => {
+  onChange = (event) => {
     this.setState({ [event.target.name]: event.target.value });
   };
 
-  onUsernameChange = event => {
+  onUsernameChange = (event) => {
     this.setState({ username: event.target.value });
   };
 
-  onPasswordChange = event => {
+  onPasswordChange = (event) => {
     this.setState({ password: event.target.value });
   };
 
-  onAddressChange = event => {
+  onAddressChange = (event) => {
     this.setState({ address: event.target.value });
   };
 
@@ -113,7 +113,7 @@ class RegisterForm extends Component {
       email,
       isLoading,
       isConfirmed,
-      terms
+      terms,
     } = this.state;
     const { ln } = this.props;
     const copy = CopyText.registerFormIndex[ln];
@@ -192,7 +192,7 @@ class RegisterForm extends Component {
             type="submit"
           >
             {isLoading ? (
-              <img src={loading} alt='Loading Icon' />
+              <img src={loading} alt="Loading Icon" />
             ) : (
               <Typography
                 color={skin.skin_type == "digital" ? "secondary" : "fixedwhite"}
@@ -210,7 +210,7 @@ class RegisterForm extends Component {
 function mapStateToProps(state) {
   return {
     profile: state.profile,
-    ln: state.language
+    ln: state.language,
   };
 }
 

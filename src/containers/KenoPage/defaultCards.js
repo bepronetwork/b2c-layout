@@ -38,7 +38,7 @@ const defaultCards = [
   { id: 36, display: 37, isPicked: false, isSelected: false },
   { id: 37, display: 38, isPicked: false, isSelected: false },
   { id: 38, display: 39, isPicked: false, isSelected: false },
-  { id: 39, display: 40, isPicked: false, isSelected: false }
+  { id: 39, display: 40, isPicked: false, isSelected: false },
 ];
 
 export default defaultCards;

@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { WithdrawIcon, Typography, Table } from "components";
+import { WithdrawIcon, Table } from "components";
 import { connect } from "react-redux";
 import _ from "lodash";
 import { dateToHourAndMinute, isUserSet, getIcon } from "../../lib/helpers";
@@ -72,19 +72,13 @@ class WithdrawTable extends Component {
 
   projectData = async (props, options = null) => {
     const { profile, ln } = props;
-    let { view_amount } = this.state;
     const copy = CopyText.withdrawspage[ln];
     let withdraws = [];
-
-    if (options) {
-      view_amount = options.view_amount ? options.view_amount : view_amount;
-    }
+    const withdrawIcon = getIcon(19);
 
     if (profile && !_.isEmpty(profile)) {
       withdraws = await profile.getWithdraws();
     }
-
-    const withdrawIcon = getIcon(19);
 
     this.setState({
       ...this.state,
@@ -133,9 +127,8 @@ class WithdrawTable extends Component {
   };
 
   render() {
-    const { isLoading, isListLoading, clientId, view, flowId } = this.state;
+    const { isListLoading, view } = this.state;
     const { profile } = this.props;
-    const userId = profile.getID();
 
     if (!isUserSet(profile)) {
       return;
@@ -143,36 +136,6 @@ class WithdrawTable extends Component {
 
     return (
       <div styleName="container">
-        {/* isLoading ?
-                    <SkeletonTheme color={ getSkeletonColors().color} highlightColor={ getSkeletonColors().highlightColor}>
-                        <div styleName='lastBets' style={{opacity : '0.5'}}>
-                            <div styleName='filters'>
-                                <div styleName='bets-dropdown-game'>
-                                    <Skeleton width={100} height={30}/>
-                                </div>
-                                <div styleName='bets-dropdown'>
-                                    <Skeleton width={50} height={30}/>
-                                </div>
-                            </div>
-                        </div>
-                    </SkeletonTheme>
-                :
-                    <div styleName='lastBets'>
-                        <Tabs
-                            selected={view}
-                            options={options}
-                        />
-                        <div styleName="filters">
-                            <div styleName='bets-dropdown'>
-                                <SelectBox
-                                    onChange={(e) => this.changeView(e)}
-                                    options={views}
-                                    value={this.state.view_amount}
-                                /> 
-                            </div>
-                        </div>
-                    </div>
-                */}
         <Table
           rows={this.state[view].rows}
           titles={this.state[view].titles}

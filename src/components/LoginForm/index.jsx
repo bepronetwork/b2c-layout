@@ -12,22 +12,22 @@ class LoginForm extends Component {
     onSubmit: PropTypes.func.isRequired,
     has2FA: PropTypes.bool,
     error: PropTypes.string,
-    onClose: PropTypes.func
+    onClose: PropTypes.func,
   };
 
   static defaultProps = {
     error: null,
-    has2FA: false
+    has2FA: false,
   };
 
   state = {
     username: "",
     password: "",
     token: "",
-    isLoading: false
+    isLoading: false,
   };
 
-  handleSubmit = async event => {
+  handleSubmit = async (event) => {
     this.setState({ ...this.state, isLoading: true });
 
     event.preventDefault();
@@ -46,20 +46,16 @@ class LoginForm extends Component {
     onHandleResetPassword({ mode: "reset" });
   };
 
-  on2FATokenChange = event => {
+  on2FATokenChange = (event) => {
     this.setState({ token: event.target.value });
   };
 
-  onUsernameChange = event => {
+  onUsernameChange = (event) => {
     this.setState({ username: event.target.value });
   };
 
-  onPasswordChange = event => {
+  onPasswordChange = (event) => {
     this.setState({ password: event.target.value });
-  };
-
-  onUserChange = event => {
-    this.setState({ username_or_email: event.target.value });
   };
 
   formIsValid = () => {
@@ -183,7 +179,7 @@ class LoginForm extends Component {
             type="submit"
           >
             {isLoading ? (
-              <img src={loading} alt='Loading Illustration' />
+              <img src={loading} alt="Loading Illustration" />
             ) : (
               <Typography
                 color={skin.skin_type == "digital" ? "secondary" : "fixedwhite"}
@@ -209,7 +205,7 @@ class LoginForm extends Component {
 function mapStateToProps(state) {
   return {
     profile: state.profile,
-    ln: state.language
+    ln: state.language,
   };
 }
 

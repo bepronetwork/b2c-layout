@@ -18,8 +18,6 @@ class Jackpot extends React.Component {
     this.projectData(props);
   }
 
-  projectData = async (props) => {};
-
   render() {
     const { message } = this.props;
     const bigWinIcon = getIcon(26);

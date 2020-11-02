@@ -1,23 +1,20 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import classNames from "classnames";
-import Dollar from "components/Icons/Dollar";
-import Bitcoin from "components/Icons/Bitcoin";
 import { Typography, InputNumber, AnimationNumber } from "components";
 import Sound from "react-sound";
-import { upperFirst } from "lodash";
+import { upperFirst, find } from "lodash";
 import UserContext from "containers/App/UserContext";
 import coinSound from "assets/coin-sound.mp3";
 import winSound from "assets/win-sound.mp3";
 import loseSound from "assets/lose-sound.mp3";
-import { find } from "lodash";
-import "./index.css";
+import { connect } from "react-redux";
+import letterlogo from "assets/letter-logo.svg";
 import { Numbers } from "../../lib/ethereum/lib";
 import { getPopularNumbers } from "../../lib/api/app";
 import { formatPercentage } from "../../utils/numberFormatation";
 import { CopyText } from "../../copy";
-import { connect } from "react-redux";
-import letterlogo from "assets/letter-logo.svg";
+import "./index.css";
 
 const defaultState = {
   payout: 2,
@@ -25,7 +22,7 @@ const defaultState = {
   isCoinSpinning: false,
   result: null,
   popularNumbers: [],
-  edge: 0
+  edge: 0,
 };
 
 class FlipGameCard extends Component {
@@ -35,12 +32,12 @@ class FlipGameCard extends Component {
     flipResult: PropTypes.string,
     hasWon: PropTypes.bool,
     updateBalance: PropTypes.func.isRequired,
-    onResult: PropTypes.func.isRequired
+    onResult: PropTypes.func.isRequired,
   };
 
   static defaultProps = {
     flipResult: null,
-    hasWon: null
+    hasWon: null,
   };
 
   constructor(props) {
@@ -60,14 +57,17 @@ class FlipGameCard extends Component {
   }
 
   async getBets(props) {
-    let res_popularNumbers = await getPopularNumbers({ size: 15 });
-    var gamePopularNumbers = find(res_popularNumbers, { game: props.game._id });
+    const res_popularNumbers = await getPopularNumbers({ size: 15 });
+    const gamePopularNumbers = find(res_popularNumbers, {
+      game: props.game._id,
+    });
+
     if (gamePopularNumbers) {
       this.setState({
         ...this.state,
         popularNumbers: gamePopularNumbers.numbers.sort(
           (a, b) => b.resultAmount - a.resultAmount
-        )
+        ),
       });
     }
   }
@@ -78,6 +78,7 @@ class FlipGameCard extends Component {
     if (props.flipResult && this.state.result !== props.flipResult) {
       result = props.flipResult;
     }
+
     if (this.state.result && props.flipResult) {
       result = null;
     }
@@ -87,6 +88,7 @@ class FlipGameCard extends Component {
 
   renderWinLost = () => {
     const { flipResult, hasWon } = this.props;
+
     return hasWon
       ? `You won, ${upperFirst(flipResult)}`
       : `You lost, ${upperFirst(flipResult)}`;
@@ -94,9 +96,11 @@ class FlipGameCard extends Component {
 
   renderCoinSound = () => {
     const { flipResult, isCoinSpinning } = this.props;
+
     if (!flipResult || !isCoinSpinning) {
       return null;
     }
+
     return <Sound volume={100} url={coinSound} playStatus="PLAYING" autoLoad />;
   };
 
@@ -120,6 +124,7 @@ class FlipGameCard extends Component {
 
   handleWinLoseFinished = () => {
     const { onResult } = this.props;
+
     onResult();
   };
 
@@ -135,21 +140,25 @@ class FlipGameCard extends Component {
     if (!popularNumbers || (popularNumbers && popularNumbers.length < 1)) {
       return null;
     }
+
     const totalAmount = popularNumbers.reduce((acc, item) => {
       return acc + item.resultAmount;
     }, 0);
+
     return (
       <div styleName="outer-popular-numbers">
         <div styleName="inner-popular-numbers">
-          {popularNumbers.map(item => {
+          {popularNumbers.map((item) => {
             if (!item.key) {
               return null;
             }
-            let color = item.key != "Head" ? "blue" : "red";
+
+            const color = item.key != "Head" ? "blue" : "red";
+
             return (
               <div styleName="popular-number-row">
                 <div styleName={`popular-number-container ${color}-square`}>
-                  <Typography variant={"small-body"} color={"white"}>
+                  <Typography variant="small-body" color="white">
                     {item.key}
                   </Typography>
                 </div>
@@ -158,9 +167,9 @@ class FlipGameCard extends Component {
                     number={formatPercentage(
                       Numbers.toFloat((item.resultAmount / totalAmount) * 100)
                     )}
-                    variant={"small-body"}
-                    color={"white"}
-                    span={"%"}
+                    variant="small-body"
+                    color="white"
+                    span="%"
                   />
                 </div>
               </div>
@@ -179,8 +188,8 @@ class FlipGameCard extends Component {
       "coin-main",
       flipResult ? { [flipResult]: true } : null
     );
-    let winEdge = (100 - this.state.edge) / 100;
-    let payout = this.state.payout * winEdge;
+    const winEdge = (100 - this.state.edge) / 100;
+    const payout = this.state.payout * winEdge;
     const { ln } = this.props;
     const copy = CopyText.flipGameCardIndex[ln];
 
@@ -199,21 +208,21 @@ class FlipGameCard extends Component {
             styleName={coinStyles}
             onAnimationStart={this.handleAnimationStart}
             onAnimationEnd={this.handleAnimationEnd}
-          ></div>
+          />
           <div styleName={coinMainStyles}>
             <div styleName="oval">
               <div
                 styleName="inner-oval"
-                style={{ backgroundImage: "url(" + letterlogo + ")" }}
-              ></div>
+                style={{ backgroundImage: `url(${letterlogo})` }}
+              />
             </div>
             <div styleName="oval-back">
               <div
                 styleName="inner-oval"
-                style={{ backgroundImage: "url(" + letterlogo + ")" }}
-              ></div>
+                style={{ backgroundImage: `url(${letterlogo})` }}
+              />
             </div>
-            <div styleName="oval-shadow"></div>
+            <div styleName="oval-shadow" />
           </div>
         </div>
         <div styleName="values">
@@ -241,7 +250,7 @@ class FlipGameCard extends Component {
 function mapStateToProps(state) {
   return {
     profile: state.profile,
-    ln: state.language
+    ln: state.language,
   };
 }
 

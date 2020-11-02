@@ -15,18 +15,19 @@ import {
   PEG6,
   PEG7,
   PEG8,
-  PEG9
+  PEG9,
 } from "./Components/bars";
 import plockSound from "assets/plock.mp3";
 import congratsSound from "assets/congrats.mp3";
 import Pegs from "./Components/Pegs";
 import "./index.css";
 
-const MS_IN_SECOND = 2000;
-const FPS = 60;
-const plock = new Audio(plockSound);
-const congrats = new Audio(congratsSound);
-class PlinkoGameCard extends React.Component {
+let MS_IN_SECOND = 2000;
+let FPS = 60;
+let plock = new Audio(plockSound);
+let congrats = new Audio(congratsSound);
+
+class PlinkoGameCard extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -40,14 +41,13 @@ class PlinkoGameCard extends React.Component {
       CANVAS_HEIGHT: 440,
       CANVAS_COLOR: "",
       TIMESTEP: MS_IN_SECOND / FPS,
-      PARTICLE: PARTICLE
+      PARTICLE: PARTICLE,
     };
   }
 
   init(ROWS, r) {
     this.particles = {};
     this.plinkos = {};
-    this.lastParticleId = 0;
     this.walls = {};
     this.isRunning = false;
     this.createEnvironment(ROWS, r);
@@ -116,17 +116,15 @@ class PlinkoGameCard extends React.Component {
   }
 
   createBars(pegBars) {
-    pegBars.map(el => {
+    pegBars.map((el) => {
       this.createBar(el.x, el.y, el.w, el.a, "bar");
     });
   }
 
   createBar(x, y, w, angle, label) {
-    const r = this.state.particleradius;
-
     let body = Bodies.rectangle(x, y, 2, w, {
       isStatic: true,
-      label: label
+      label: label,
     });
 
     body.render.opacity = 0;
@@ -137,10 +135,10 @@ class PlinkoGameCard extends React.Component {
     return body;
   }
 
-  _createParticle = result => {
+  _createParticle = (result) => {
     this.engine.world.bodies
-      .filter(el => el.label === "bar")
-      .map((el, i) => {
+      .filter((el) => el.label === "bar")
+      .map((el) => {
         World.remove(this.engine.world, el);
       });
 
@@ -152,7 +150,7 @@ class PlinkoGameCard extends React.Component {
     const r = this.state.particleradius;
 
     if (
-      !this.engine.world.bodies.filter(el => el.label === "particle").length
+      !this.engine.world.bodies.filter((el) => el.label === "particle").length
     ) {
       let particle = new Particle({ id, x, y, r });
       particle.recentlyDropped = true;
@@ -161,7 +159,7 @@ class PlinkoGameCard extends React.Component {
       Engine.update(this.engine, this.state.TIMESTEP);
 
       let checkParticleStatus = setInterval(() => {
-        this.engine.world.bodies.forEach(dt => {
+        this.engine.world.bodies.forEach((dt) => {
           if (
             dt.label === "particle" &&
             dt.position.y >
@@ -171,7 +169,7 @@ class PlinkoGameCard extends React.Component {
             let newARr = [];
             let count = 0;
             let arr = this.engine.world.bodies.filter(
-              el => el.label === "plinko"
+              (el) => el.label === "plinko"
             );
             for (let i = arr.length - 1; i >= 0; i--) {
               count = count + 1;
@@ -195,12 +193,12 @@ class PlinkoGameCard extends React.Component {
                 let pgd = `peg${index}`;
                 this.setState(
                   {
-                    [pgd]: true
+                    [pgd]: true,
                   },
                   () => {
                     setTimeout(() => {
                       this.setState({
-                        [pgd]: false
+                        [pgd]: false,
                       });
                     }, 100);
                   }
@@ -210,7 +208,7 @@ class PlinkoGameCard extends React.Component {
 
             World.remove(this.engine.world, particle.body);
             let checkParticle = this.engine.world.bodies.filter(
-              el => el.label === "particle"
+              (el) => el.label === "particle"
             );
             setTimeout(() => {
               if (checkParticle.length === 0) {
@@ -225,7 +223,7 @@ class PlinkoGameCard extends React.Component {
     }
   };
 
-  onCollisionStart = event => {
+  onCollisionStart = (event) => {
     const pairs = event.pairs;
 
     for (let i = 0; i < pairs.length; i++) {
@@ -275,10 +273,12 @@ class PlinkoGameCard extends React.Component {
   _createWalls = () => {
     const leftWall = new VerticalWall({ x: 178, y: 310 });
     const rightWall = new VerticalWall({ x: 582, y: 310 });
-    [leftWall, rightWall].forEach(wall => wall.addToEngine(this.engine.world));
+    [leftWall, rightWall].forEach((wall) =>
+      wall.addToEngine(this.engine.world)
+    );
     this.engine.world.bodies
-      .filter(el => el.label === "wall")
-      .forEach((dt, i) => {
+      .filter((el) => el.label === "wall")
+      .forEach((dt) => {
         dt.render.opacity = 0;
         if (dt.position.x < 250) {
           Body.rotate(dt.parent, 0.56);
@@ -330,7 +330,7 @@ class PlinkoGameCard extends React.Component {
       peg7,
       peg8,
       peg9,
-      peg10
+      peg10,
     } = this.state;
 
     return (

@@ -17,7 +17,7 @@ class ResetPassword extends Component {
       user: "",
       token: "",
       error: "",
-      disabled: true
+      disabled: true,
     };
   }
 
@@ -66,9 +66,6 @@ class ResetPassword extends Component {
   };
 
   renderError(error) {
-    const { ln } = this.props;
-    const copy = CopyText.loginFormIndex[ln];
-
     return (
       <div styleName="error">
         {error ? (
@@ -80,14 +77,14 @@ class ResetPassword extends Component {
     );
   }
 
-  onUserChange = event => {
+  onUserChange = (event) => {
     this.setState({
       user: event.target.value,
-      disabled: !_.isEmpty(event.target.value) ? false : true
+      disabled: !_.isEmpty(event.target.value) ? false : true,
     });
   };
 
-  onPasswordChange = event => {
+  onPasswordChange = (event) => {
     const { confirmPassword } = this.state;
     let disabled = true;
 
@@ -101,7 +98,7 @@ class ResetPassword extends Component {
     this.setState({ password: event.target.value, disabled });
   };
 
-  onConfirmPasswordChange = event => {
+  onConfirmPasswordChange = (event) => {
     const { password } = this.state;
     let disabled = true;
 
@@ -132,7 +129,7 @@ class ResetPassword extends Component {
                     {emailIcon === null ? (
                       <EmailIcon />
                     ) : (
-                      <img src={emailIcon} alt='Email Icon' />
+                      <img src={emailIcon} alt="Email Icon" />
                     )}
                   </div>
                   <div styleName="reset-password-right">
@@ -203,7 +200,7 @@ class ResetPassword extends Component {
 
 function mapStateToProps(state) {
   return {
-    ln: state.language
+    ln: state.language,
   };
 }
 

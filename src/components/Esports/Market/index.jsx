@@ -3,7 +3,6 @@ import { Typography } from "components";
 import { OddsTable, Live } from "components/Esports";
 import { dateToHourAndMinute, formatToBeautyDate } from "../../../lib/helpers";
 import { connect } from "react-redux";
-import _ from "lodash";
 import "./index.css";
 
 class Market extends Component {
@@ -24,7 +23,7 @@ class Market extends Component {
     clearInterval(this.intervalID);
   }
 
-  projectData = async props => {
+  projectData = async () => {
     this.intervalID = setInterval(() => this.tick(), 10000);
   };
 
@@ -41,7 +40,7 @@ class Market extends Component {
       <div
         styleName="middle"
         style={{
-          background: "url('" + image + "') center center / cover no-repeat"
+          background: "url('" + image + "') center center / cover no-repeat",
         }}
       >
         <div styleName="market">
@@ -76,7 +75,7 @@ class Market extends Component {
 function mapStateToProps(state) {
   return {
     profile: state.profile,
-    ln: state.language
+    ln: state.language,
   };
 }
 

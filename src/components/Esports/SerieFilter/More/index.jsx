@@ -3,14 +3,13 @@ import { connect } from "react-redux";
 import { Typography, Button } from "components";
 import { Shield } from "components/Esports";
 import classNames from "classnames";
-import _ from "lodash";
 import "./index.css";
 
 class SerieFilterMore extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      serieFilter: []
+      serieFilter: [],
     };
   }
 
@@ -22,17 +21,17 @@ class SerieFilterMore extends Component {
     this.projectData(props);
   }
 
-  projectData = async props => {
+  projectData = async (props) => {
     const { serieFilter } = props;
 
     this.setState({
-      serieFilter
+      serieFilter,
     });
   };
 
-  handleFilterClick = async id => {
+  handleFilterClick = async (id) => {
     const { serieFilter } = this.state;
-    const exist = serieFilter.some(el => el === id);
+    const exist = serieFilter.some((el) => el === id);
 
     if (exist) {
       const index = serieFilter.indexOf(id);
@@ -66,11 +65,11 @@ class SerieFilterMore extends Component {
           <div styleName="box">
             {games
               .filter(
-                game =>
+                (game) =>
                   gameFilter.includes(game.external_id) ||
                   gameFilter.length == 0
               )
-              .map(game => {
+              .map((game) => {
                 return (
                   <div styleName="more-group" data-order="1">
                     <div styleName="more-heading">
@@ -85,10 +84,12 @@ class SerieFilterMore extends Component {
                     </div>
                     <div styleName="more-series">
                       <ul>
-                        {game.series.map(serie => {
-                          const exist = serieFilter.some(el => el === serie.id);
+                        {game.series.map((serie) => {
+                          const exist = serieFilter.some(
+                            (el) => el === serie.id
+                          );
                           const styles = classNames("tournament", {
-                            tourSelected: exist
+                            tourSelected: exist,
                           });
                           return (
                             <li
@@ -130,7 +131,7 @@ class SerieFilterMore extends Component {
 function mapStateToProps(state) {
   return {
     profile: state.profile,
-    ln: state.language
+    ln: state.language,
   };
 }
 

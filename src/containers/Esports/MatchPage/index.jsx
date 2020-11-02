@@ -10,11 +10,9 @@ import {
   BetSlip,
   BetSlipFloat,
   Player,
-  OddsTable
 } from "components/Esports";
 import { getMatch } from "controllers/Esports/EsportsUser";
 import { getSkeletonColors } from "../../../lib/helpers";
-import _ from "lodash";
 import "./index.css";
 
 class MatchPage extends Component {
@@ -25,7 +23,7 @@ class MatchPage extends Component {
       isLoading: true,
       openPlayer: false,
       player: null,
-      isLive: false
+      isLive: false,
     };
   }
 
@@ -37,7 +35,7 @@ class MatchPage extends Component {
     this.projectData(props);
   }
 
-  projectData = async props => {
+  projectData = async (props) => {
     const { params } = props.match;
     let match = null;
 
@@ -47,19 +45,19 @@ class MatchPage extends Component {
       match = await getMatch(matchId);
     }
 
-    const isLive = match.status == "live";
+    const isLive = match.status === "live";
 
     this.setState({
       match,
       isLoading: false,
-      isLive
+      isLive,
     });
   };
 
-  handlePlayerClick = async player => {
+  handlePlayerClick = async (player) => {
     this.setState({
       openPlayer: true,
-      player
+      player,
     });
   };
 
@@ -164,7 +162,7 @@ class MatchPage extends Component {
 function mapStateToProps(state) {
   return {
     profile: state.profile,
-    ln: state.language
+    ln: state.language,
   };
 }
 

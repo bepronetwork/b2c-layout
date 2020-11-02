@@ -1,6 +1,5 @@
 import React from "react";
-import { Row, Col } from "reactstrap";
-import { Typography, Checkbox } from "components";
+import { Typography } from "components";
 import { connect } from "react-redux";
 import "./index.css";
 
@@ -9,7 +8,7 @@ class DataContainer extends React.Component {
     super(props);
     this.state = {
       checked: false,
-      closed: false
+      closed: false,
     };
   }
 
@@ -36,7 +35,7 @@ class DataContainer extends React.Component {
 
 function mapStateToProps(state) {
   return {
-    profile: state.profile
+    profile: state.profile,
   };
 }
 

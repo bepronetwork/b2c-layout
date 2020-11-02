@@ -9,7 +9,7 @@ class WheelBox extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      options: []
+      options: [],
     };
   }
 
@@ -49,10 +49,10 @@ class WheelBox extends Component {
     return (
       <div styleName="root">
         <div styleName="container-blocks">
-          {options.map(opt => {
+          {options.map((opt) => {
             return this.renderContainer({
               multiplier: opt.multiplier,
-              index: opt.index
+              index: opt.index,
             });
           })}
         </div>
@@ -63,7 +63,7 @@ class WheelBox extends Component {
 
 function mapStateToProps(state) {
   return {
-    ln: state.language
+    ln: state.language,
   };
 }
 

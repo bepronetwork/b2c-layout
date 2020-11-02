@@ -17,7 +17,6 @@ import LastBets from "../LastBets/HomePage";
 import { connect } from "react-redux";
 import { LOCATION } from "components/SubSections/properties";
 import { getAppCustomization } from "../../lib/helpers";
-import _ from "lodash";
 import "./index.css";
 
 class HomePage extends Component {
@@ -48,7 +47,6 @@ class HomePage extends Component {
   };
 
   renderPlayNow = () => {
-    const { user } = this.context;
     const { onHandleLoginOrRegister } = this.props;
 
     return (
@@ -78,7 +76,7 @@ class HomePage extends Component {
     }
 
     return (
-      <div class={"col"} styleName="col">
+      <div styleName="col">
         <GameCard
           path={metaName}
           title={name}
@@ -87,7 +85,7 @@ class HomePage extends Component {
           tableLimit={tableLimit}
           background_url={background_url}
           onTableDetails={onTableDetails}
-        ></GameCard>
+        />
       </div>
     );
   };

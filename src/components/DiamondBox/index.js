@@ -14,7 +14,7 @@ class DiamondBox extends Component {
     isHover3: false,
     isHover4: false,
     isHover5: false,
-    isHover6: false
+    isHover6: false,
   };
 
   componentDidMount() {
@@ -27,37 +27,37 @@ class DiamondBox extends Component {
     switch (resultBack) {
       case 0:
         return this.setState({
-          isHover6: true
+          isHover6: true,
         });
       case 1:
         return this.setState({
           isHover5: true,
-          isHover6: false
+          isHover6: false,
         });
       case 2:
         return this.setState({
           isHover4: true,
-          isHover6: false
+          isHover6: false,
         });
       case 3:
         return this.setState({
           isHover3: true,
-          isHover6: false
+          isHover6: false,
         });
       case 4:
         return this.setState({
           isHover2: true,
-          isHover6: false
+          isHover6: false,
         });
       case 5:
         return this.setState({
           isHover1: true,
-          isHover6: false
+          isHover6: false,
         });
       case 6:
         return this.setState({
           isHover: true,
-          isHover6: false
+          isHover6: false,
         });
       default:
         break;
@@ -73,7 +73,7 @@ class DiamondBox extends Component {
       isHover3,
       isHover4,
       isHover5,
-      isHover6
+      isHover6,
     } = this.state;
 
     return (
@@ -346,7 +346,7 @@ class DiamondBox extends Component {
 
 function mapStateToProps(state) {
   return {
-    ln: state.language
+    ln: state.language,
   };
 }
 

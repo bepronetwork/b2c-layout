@@ -12,7 +12,7 @@ class ChatChannel {
     this.cc = new StreamChat(publicKey, {
       timeout: 3000,
       httpAgent: new http.Agent({ keepAlive: 3000 }),
-      httpsAgent: new http.Agent({ keepAlive: 3000 })
+      httpsAgent: new http.Agent({ keepAlive: 3000 }),
     });
     this.publicKey = publicKey;
     this.token = token;
@@ -60,7 +60,7 @@ class ChatChannel {
           name: this.chatName,
           participants: this.participants,
           open: this.open,
-          messages: this.messages
+          messages: this.messages,
         })
       );
     }
@@ -85,7 +85,7 @@ class ChatChannel {
     this.messages = conversationState.messages;
     await this.updateReduxState();
 
-    this.conversation.on("message.new", async event => {
+    this.conversation.on("message.new", async (event) => {
       this.participants = event.watcher_count;
       this.messages.push(event.message);
 
@@ -97,7 +97,7 @@ class ChatChannel {
     if (!this.isGuest) {
       await this.cc.setUser(
         {
-          id: this.username
+          id: this.username,
         },
         this.token
       );
@@ -106,10 +106,10 @@ class ChatChannel {
     }
   };
 
-  sendMessage = async ({ message, data }) => {
+  sendMessage = async ({ message }) => {
     try {
       return await this.conversation.sendMessage({
-        text: message
+        text: message,
       });
     } catch (err) {
       console.log(err);

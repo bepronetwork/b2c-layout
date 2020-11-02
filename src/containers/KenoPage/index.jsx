@@ -15,7 +15,7 @@ class KenoPage extends Component {
   static contextType = UserContext;
 
   static propTypes = {
-    onHandleLoginOrRegister: PropTypes.func.isRequired
+    onHandleLoginOrRegister: PropTypes.func.isRequired,
   };
 
   state = {
@@ -25,10 +25,10 @@ class KenoPage extends Component {
     game_name: "Keno",
     animating: false,
     game: {
-      edge: 0
+      edge: 0,
     },
     betAmount: 0,
-    cards: JSON.parse(JSON.stringify(defaultCards))
+    cards: JSON.parse(JSON.stringify(defaultCards)),
   };
 
   componentDidMount() {
@@ -43,11 +43,11 @@ class KenoPage extends Component {
     }
   };
 
-  handleBetAmountChange = betAmount => {
+  handleBetAmountChange = (betAmount) => {
     this.setState({ betAmount });
   };
 
-  handleChooseCards = cards => {
+  handleChooseCards = (cards) => {
     this.setState({ cards, isWon: false, result: null });
   };
 
@@ -59,14 +59,14 @@ class KenoPage extends Component {
       this.setState({ disableControls: true, isWon: false, result: null });
       if (!user || _.isEmpty(user)) return onHandleLoginOrRegister("register");
 
-      const pickedCards = cards.filter(function(card) {
+      const pickedCards = cards.filter(function (card) {
         return card.isPicked === true;
       });
 
       const res = await kenoBet({
         cards: pickedCards,
         betAmount: amount,
-        user
+        user,
       });
 
       this.changeCardsFromResult(res.result);
@@ -78,7 +78,7 @@ class KenoPage extends Component {
         animating: true,
         betObjectResult: res,
         disableControls: false,
-        winAmount: res.winAmount
+        winAmount: res.winAmount,
       });
       return res;
     } catch (err) {
@@ -89,12 +89,12 @@ class KenoPage extends Component {
   changeCardsFromResult(result) {
     const { cards } = this.state;
 
-    cards.map(card => {
+    cards.map((card) => {
       card.isSelected = result.includes(card.id) ? true : false;
     });
 
     this.setState({
-      cards
+      cards,
     });
   }
 
@@ -110,7 +110,7 @@ class KenoPage extends Component {
   getOptions = () => {
     const { disableControls, cards, animating } = this.state;
     const { profile } = this.props;
-    const pickedCards = cards.filter(function(card) {
+    const pickedCards = cards.filter(function (card) {
       return card.isPicked === true;
     });
 
@@ -136,7 +136,7 @@ class KenoPage extends Component {
       betAmount,
       isWon,
       winAmount,
-      cards
+      cards,
     } = this.state;
     const { profile } = this.props;
 
@@ -175,7 +175,7 @@ class KenoPage extends Component {
 function mapStateToProps(state) {
   return {
     profile: state.profile,
-    ln: state.language
+    ln: state.language,
   };
 }
 

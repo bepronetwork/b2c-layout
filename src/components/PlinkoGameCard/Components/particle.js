@@ -23,7 +23,7 @@ export default class Particle extends GameObject {
   createPhysics() {
     const options = {
       restitution: PARTICLE.RESTITUTION,
-      friction: PARTICLE.FRICTION
+      friction: PARTICLE.FRICTION,
     };
 
     this.body = Bodies.circle(this.x, this.y, this.r, options);

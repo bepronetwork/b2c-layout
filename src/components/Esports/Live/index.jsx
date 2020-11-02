@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { OddsTable } from "components/Esports";
 import { connect } from "react-redux";
-import _ from "lodash";
 import "./index.css";
 
 class Live extends Component {
@@ -14,10 +13,10 @@ class Live extends Component {
           <iframe
             src={`${streaming}&muted=true&parent=${window.location.hostname}`}
             width="100%"
-            frameborder="true"
+            frameBorder="true"
             scrolling="true"
-            allowfullscreen="true"
-          ></iframe>
+            allowFullScreen="true"
+          />
         </div>
         <div styleName="odds">
           <OddsTable match={match} />
@@ -30,7 +29,7 @@ class Live extends Component {
 function mapStateToProps(state) {
   return {
     profile: state.profile,
-    ln: state.language
+    ln: state.language,
   };
 }
 

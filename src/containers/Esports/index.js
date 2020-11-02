@@ -8,13 +8,13 @@ import {
   SerieFilter,
   Matches,
   Shield,
-  BetSlipFloat
+  BetSlipFloat,
 } from "components/Esports";
 import { connect } from "react-redux";
 import {
   getGames,
   getMatches,
-  getMatchesBySeries
+  getMatchesBySeries,
 } from "controllers/Esports/EsportsUser";
 import { getSkeletonColors, getAppCustomization } from "../../lib/helpers";
 import classNames from "classnames";
@@ -35,7 +35,7 @@ class Esports extends Component {
       isLoading: true,
       isLoadingMatches: true,
       hasHighlight: true,
-      highlight: null
+      highlight: null,
     };
   }
 
@@ -47,7 +47,7 @@ class Esports extends Component {
     this.projectData(props);
   }
 
-  projectData = async props => {
+  projectData = async () => {
     const { status, size } = this.state;
 
     this.setState({ isLoading: true, isLoadingMatches: true });
@@ -63,18 +63,18 @@ class Esports extends Component {
 
     let games = await getGames();
     games = games
-      .filter(g => g.series.length > 0)
-      .map(g => {
+      .filter((g) => g.series.length > 0)
+      .map((g) => {
         g.image = images("./" + g.slug + "-ico.png");
         return g;
       });
 
     const matches = await getMatches({
       status,
-      size
+      size,
     });
 
-    let slides = matches.filter(m => !_.isEmpty(m.live_embed_url));
+    let slides = matches.filter((m) => !_.isEmpty(m.live_embed_url));
     slides = slides.length < 3 ? slides.concat(matches) : matches;
 
     this.setState({
@@ -84,50 +84,52 @@ class Esports extends Component {
       hasHighlight,
       highlight: esportsScrenner,
       isLoading: false,
-      isLoadingMatches: false
+      isLoadingMatches: false,
     });
   };
 
-  handlerGameFilterClick = async gameFilter => {
-    let { games, matches, status, size } = this.state;
+  handlerGameFilterClick = async (gameFilter) => {
+    let { games, status, size } = this.state;
+    let matches;
 
     this.setState({ isLoadingMatches: true });
 
     if (gameFilter.length > 0) {
-      const filtered = games.filter(g => gameFilter.includes(g.external_id));
-      const series = filtered.flatMap(item => item.series);
-      const serieFilter = series.map(s => {
+      const filtered = games.filter((g) => gameFilter.includes(g.external_id));
+      const series = filtered.flatMap((item) => item.series);
+      const serieFilter = series.map((s) => {
         return s.id;
       });
+
       matches = await getMatchesBySeries({
         serie_id: serieFilter,
         status,
-        size
+        size,
       });
     } else {
       matches = await getMatches({
         status,
-        size
+        size,
       });
     }
 
     this.setState({ gameFilter, matches, isLoadingMatches: false });
   };
 
-  handlerCleanGameFilterClick = async gameFilter => {
+  handlerCleanGameFilterClick = async (gameFilter) => {
     const { status, size } = this.state;
 
     this.setState({ isLoadingMatches: true });
 
     const matches = await getMatches({
       status,
-      size
+      size,
     });
 
     this.setState({ gameFilter, matches, isLoadingMatches: false });
   };
 
-  handlerSerieFilterClick = async serieFilter => {
+  handlerSerieFilterClick = async (serieFilter) => {
     const { status } = this.state;
 
     this.setState({ isLoadingMatches: true });
@@ -140,14 +142,14 @@ class Esports extends Component {
     this.setState({ serieFilter, matches, isLoadingMatches: false });
   };
 
-  handlerCleanSerieFilterClick = async serieFilter => {
+  handlerCleanSerieFilterClick = async (serieFilter) => {
     const { status, size } = this.state;
 
     this.setState({ isLoadingMatches: true });
 
     const matches = await getMatches({
       status,
-      size
+      size,
     });
 
     this.setState({ serieFilter, matches, isLoadingMatches: false });
@@ -196,7 +198,6 @@ class Esports extends Component {
         <div styleName="button">
           {highlight.button_text && highlight.link_url ? (
             <Button
-              theme="action"
               onClick={() => this.onHighlightClick(highlight.link_url)}
               theme="action"
             >
@@ -214,8 +215,8 @@ class Esports extends Component {
     const { slides, games } = this.state;
     let slidesElements = [];
 
-    slides.slice(0, 3).map(match => {
-      const gameImage = games.find(g => g.external_id === match.videogame.id)
+    slides.slice(0, 3).map((match) => {
+      const gameImage = games.find((g) => g.external_id === match.videogame.id)
         .image;
       const images = require.context("assets/esports", true);
       const backgroundImage = images("./" + match.videogame.slug + ".jpg");
@@ -231,10 +232,10 @@ class Esports extends Component {
                 src={`${match.live_embed_url}&muted=true&parent=${window.location.hostname}`}
                 height="250"
                 width="100%"
-                frameborder="false"
+                frameBorder="false"
                 scrolling="false"
-                allowfullscreen="false"
-              ></iframe>
+                allowFullScreen="false"
+              />
             </div>
           ) : (
             <div
@@ -243,7 +244,7 @@ class Esports extends Component {
                 background:
                   "url('" +
                   backgroundImage +
-                  "') center center / cover no-repeat"
+                  "') center center / cover no-repeat",
               }}
             />
           )}
@@ -275,8 +276,8 @@ class Esports extends Component {
       pathname: "/esports/matches",
       state: {
         games,
-        matches
-      }
+        matches,
+      },
     });
   }
 
@@ -289,11 +290,11 @@ class Esports extends Component {
       isLoading,
       isLoadingMatches,
       gameFilter,
-      hasHighlight
+      hasHighlight,
     } = this.state;
 
     const mainStyles = classNames("main", {
-      "main-unique": hasHighlight == false
+      "main-unique": hasHighlight == false,
     });
 
     return (
@@ -370,7 +371,7 @@ class Esports extends Component {
 function mapStateToProps(state) {
   return {
     profile: state.profile,
-    ln: state.language
+    ln: state.language,
   };
 }
 

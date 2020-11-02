@@ -2,9 +2,7 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import Coin from "components/Icons/Coin";
 import classNames from "classnames";
-
 import { Typography } from "components";
-
 import "./CoinButton.css";
 
 export default class CoinButton extends Component {
@@ -13,12 +11,12 @@ export default class CoinButton extends Component {
     label: PropTypes.string.isRequired,
     onSelect: PropTypes.func.isRequired,
     selected: PropTypes.bool,
-    disabled: PropTypes.bool
+    disabled: PropTypes.bool,
   };
 
   static defaultProps = {
     selected: false,
-    disabled: false
+    disabled: false,
   };
 
   handleSelect = () => {
@@ -34,7 +32,7 @@ export default class CoinButton extends Component {
 
     const containerClasses = classNames("container", {
       disabled,
-      selected
+      selected,
     });
 
     return (

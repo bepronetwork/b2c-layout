@@ -23,7 +23,7 @@ class BetDetails extends Component {
       bet: null,
       isFake: false,
       tag: "casino",
-      isLoading: true
+      isLoading: true,
     };
   }
 
@@ -35,7 +35,7 @@ class BetDetails extends Component {
     this.projectData(props);
   }
 
-  projectData = async props => {
+  projectData = async (props) => {
     const { betId, tag } = props;
     let component = null;
 
@@ -49,7 +49,7 @@ class BetDetails extends Component {
 
         this.setState({
           isLoading: false,
-          bet
+          bet,
         });
       } else {
         const bet = response.message;
@@ -86,7 +86,7 @@ class BetDetails extends Component {
         }
 
         const currenncy = getApp().currencies.find(
-          currency => currency._id == bet.currency._id
+          (currency) => currency._id == bet.currency._id
         );
 
         this.setState({
@@ -102,7 +102,7 @@ class BetDetails extends Component {
           currencyImage: currenncy.image,
           game,
           isLoading: false,
-          bet
+          bet,
         });
       }
     } else {
@@ -130,7 +130,7 @@ class BetDetails extends Component {
 function mapStateToProps(state) {
   return {
     profile: state.profile,
-    ln: state.language
+    ln: state.language,
   };
 }
 

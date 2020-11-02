@@ -1,13 +1,10 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import classNames from "classnames";
-import { ButtonIcon, Typography } from "components";
-import { isEmpty } from "lodash";
+import { Typography } from "components";
 import { connect } from "react-redux";
 import { find } from "lodash";
-import _ from "lodash";
 import { getAppCustomization } from "../../lib/helpers";
-import { CopyText } from "../../copy";
 import { getPopularNumbers } from "../../lib/api/app";
 import AnimationNumber from "../AnimationNumber";
 import Wheel from "../Wheel";
@@ -15,8 +12,6 @@ import WheelBox from "../WheelBox";
 import { Numbers } from "../../lib/ethereum/lib";
 import { formatPercentage } from "../../utils/numberFormatation";
 import "./index.css";
-
-const mobileBreakpoint = 768;
 
 class WheelGameCard extends Component {
   redColors = [1, 3, 5, 7, 9, 12, 14, 18, 16, 21, 23, 27, 25, 30, 32, 36, 34];
@@ -31,27 +26,23 @@ class WheelGameCard extends Component {
     onUndo: PropTypes.func.isRequired,
     bet: PropTypes.bool,
     onResultAnimation: PropTypes.func.isRequired,
-    isAddChipDisabled: PropTypes.bool.isRequired
+    isAddChipDisabled: PropTypes.bool.isRequired,
   };
 
   static defaultProps = {
     result: null,
-    bet: false
+    bet: false,
   };
 
   state = {
-    rotating: null
+    rotating: null,
   };
 
   componentDidMount() {
     this.projectData(this.props);
   }
 
-  componentWillReceiveProps(props) {
-    //this.projectData(props);
-  }
-
-  projectData = async props => {
+  projectData = async (props) => {
     const { bet } = props;
 
     if (bet == false) {
@@ -59,15 +50,15 @@ class WheelGameCard extends Component {
     }
   };
 
-  setPopularNumbers = async props => {
+  setPopularNumbers = async (props) => {
     let popularNumbers = await getPopularNumbers({ size: 15 });
-    var gamePopularNumbers = find(popularNumbers, { game: props.game._id });
+    const gamePopularNumbers = find(popularNumbers, { game: props.game._id });
     if (gamePopularNumbers) {
       this.setState({
         ...this.state,
         popularNumbers: gamePopularNumbers.numbers.sort(
           (a, b) => b.resultAmount - a.resultAmount
-        )
+        ),
       });
     }
   };
@@ -87,7 +78,7 @@ class WheelGameCard extends Component {
       green: result === 0 && !rotating,
       red: this.redColors.includes(result) && !rotating,
       picked:
-        result && result !== 0 && !this.redColors.includes(result) && !rotating
+        result && result !== 0 && !this.redColors.includes(result) && !rotating,
     });
 
     return (
@@ -99,36 +90,8 @@ class WheelGameCard extends Component {
     );
   };
 
-  renderClearUndo = () => {
-    const { onClear, onUndo, betHistory, ln } = this.props;
+  handleRouletteAnimation = (value) => {
     const { rotating } = this.state;
-    const copy = CopyText.shared[ln];
-
-    const disabled = !betHistory || isEmpty(betHistory) || rotating;
-
-    return (
-      <div styleName="chip-controls">
-        <ButtonIcon
-          icon="undo"
-          label={copy.UNDO_NAME}
-          iconAtLeft
-          onClick={onUndo}
-          disabled={disabled}
-        />
-
-        <ButtonIcon
-          icon="rotate"
-          label={copy.CLEAR_NAME}
-          onClick={onClear}
-          disabled={disabled}
-        />
-      </div>
-    );
-  };
-
-  handleRouletteAnimation = value => {
-    const { rotating } = this.state;
-    const { bet } = this.props;
 
     if (rotating !== value) {
       this.setState({ rotating: value });
@@ -147,9 +110,9 @@ class WheelGameCard extends Component {
       return acc + item.resultAmount;
     }, 0);
     let popularSpaces = options
-      .map(opt => {
+      .map((opt) => {
         let resultAmount = popularNumbers.reduce((acc, item) => {
-          if (opt.placings.find(placing => placing == item.key)) {
+          if (opt.placings.find((placing) => placing == item.key)) {
             return acc + item.resultAmount;
           } else {
             return acc;
@@ -158,15 +121,15 @@ class WheelGameCard extends Component {
         return {
           resultAmount,
           multiplier: opt.multiplier,
-          index: opt.index
+          index: opt.index,
         };
       })
-      .filter(el => el != null)
+      .filter((el) => el != null)
       .sort((a, b) => b.resultAmount - a.resultAmount);
     return (
       <div styleName="outer-popular-numbers">
         <div styleName="inner-popular-numbers">
-          {popularSpaces.map(item => {
+          {popularSpaces.map((item) => {
             return (
               <div styleName="popular-number-row">
                 <div
@@ -204,20 +167,15 @@ class WheelGameCard extends Component {
     const {
       result,
       bet,
-      onAnimation,
       game,
       inResultAnimation,
       colors,
-      options
+      options,
     } = this.props;
 
     const { rotating, popularNumbers } = this.state;
     const rootStyles = classNames("root", {
-      animation: rotating
-    });
-
-    const blockStyles = classNames("board-top", {
-      block: bet
+      animation: rotating,
     });
 
     return (
@@ -239,7 +197,6 @@ class WheelGameCard extends Component {
         <div styleName="board">
           <WheelBox
             options={options}
-            game={this.props.game}
             result={result}
             inResultAnimation={inResultAnimation}
             game={game}
@@ -252,7 +209,7 @@ class WheelGameCard extends Component {
 
 function mapStateToProps(state) {
   return {
-    ln: state.language
+    ln: state.language,
   };
 }
 

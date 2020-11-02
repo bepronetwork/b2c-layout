@@ -3,11 +3,9 @@ import propTypes from "prop-types";
 import { compose } from "lodash/fp";
 import { connect } from "react-redux";
 import { find } from "lodash";
-
-import { SlotsGameOptions, SlotsGame } from "components";
+import { SlotsGame, SlotsGameOptions } from "components";
 import GamePage from "containers/GamePage";
 import UserContext from "containers/App/UserContext";
-
 import slotsBet from "lib/api/slots";
 import Coin from "assets/audio/slotsaudio/coin.mp3";
 import BlueCoin from "assets/audio/slotsaudio/blue-coin.mp3";
@@ -22,13 +20,12 @@ import Triangle from "assets/audio/slotsaudio/triangle.mp3";
 import Pentagon from "assets/audio/slotsaudio/pentagon.mp3";
 import Beetle from "assets/audio/slotsaudio/beetle.mp3";
 import Esfinge from "assets/audio/slotsaudio/esfinge.mp3";
-
 import Reel from "assets/audio/slotsaudio/reels.mp3";
 import Result from "assets/audio/slotsaudio/result.mp3";
 import {
-  renderSounds,
   handleAnimation,
-  randomNumber
+  randomNumber,
+  renderSounds,
 } from "../../lib/helpers/slotsHelpers";
 
 import Cache from "../../lib/cache/cache";
@@ -49,7 +46,7 @@ class SlotsPage extends Component {
       disableControls: false,
       amount: 0,
       game: {
-        edge: 0
+        edge: 0,
       },
       matrixResult: [],
       soundIcon: false,
@@ -62,7 +59,7 @@ class SlotsPage extends Component {
       resultFourthColumn: [],
       resultFiveColumn: [],
       insertionIndex: [],
-      insertIndex: []
+      insertIndex: [],
     };
   }
 
@@ -83,7 +80,7 @@ class SlotsPage extends Component {
     const { userDelta } = this.state.betObjectResult;
 
     await profile.updateBalance({ userDelta, amount });
-    return new Promise(resolve => setTimeout(() => resolve(), 500));
+    return new Promise((resolve) => setTimeout(() => resolve(), 500));
   };
 
   handleBet = async ({ amount }) => {
@@ -101,14 +98,14 @@ class SlotsPage extends Component {
         testBol: Array(5).fill(false),
         insertionIndex: [],
         insertIndex: [],
-        resultSound: false
+        resultSound: false,
       });
       this.setState({ disableControls: true });
 
       const res = await slotsBet({
         amount,
         user,
-        game_id: game._id
+        game_id: game._id,
       });
 
       this.setState({
@@ -116,7 +113,7 @@ class SlotsPage extends Component {
         betObjectResult: res,
         winAmount: res.winAmount.toFixed(8),
         resultMultiplier: (res.winAmount / res.betAmount).toFixed(2),
-        amount
+        amount,
       });
       this.setState({ soundReel: true });
 
@@ -140,7 +137,7 @@ class SlotsPage extends Component {
         disableControls: false,
         soundIcon: false,
         soundReel: false,
-        testBol: Array(5).fill(false)
+        testBol: Array(5).fill(false),
       });
     }
   };
@@ -148,7 +145,7 @@ class SlotsPage extends Component {
   handleResult = async () => {
     const { testBol } = this.state;
 
-    testBol.map(async result => {
+    testBol.map(async (result) => {
       if (result) {
         await this.setResult();
       }
@@ -164,7 +161,7 @@ class SlotsPage extends Component {
 
     await this.randomNumberResult();
 
-    return new Promise(resolve => setTimeout(() => resolve(), 500));
+    return new Promise((resolve) => setTimeout(() => resolve(), 500));
   };
 
   setNewRandomMatrix = async () => {
@@ -184,7 +181,7 @@ class SlotsPage extends Component {
   getcolumn = async () => {
     const { matrixResult } = this.state;
     const arrayColumn = (arr, n) => {
-      return arr.map(x => x[n]);
+      return arr.map((x) => x[n]);
     };
 
     await this.setNewRandomMatrix();
@@ -200,7 +197,7 @@ class SlotsPage extends Component {
       resultSecondColumn,
       resultThirstColumn,
       resultFourthColumn,
-      resultFiveColumn
+      resultFiveColumn,
     });
   };
 
@@ -211,7 +208,7 @@ class SlotsPage extends Component {
       resultSecondColumn,
       resultThirstColumn,
       resultFourthColumn,
-      resultFiveColumn
+      resultFiveColumn,
     } = this.state;
 
     const randNum = randomNumber(18, 20);
@@ -228,18 +225,15 @@ class SlotsPage extends Component {
     resultFiveColumn.splice(randNum5, 1, testArr[4]);
 
     this.setState({
-      insertionIndex: [randNum, randNum2, randNum3, randNum4, randNum5]
+      insertionIndex: [randNum, randNum2, randNum3, randNum4, randNum5],
     });
 
-    return new Promise(resolve => setTimeout(() => resolve(), 1500));
+    return new Promise((resolve) => setTimeout(() => resolve(), 1500));
   };
 
   handleIconAudio = () => {
     const { testArray } = this.state;
-
-    const testArr = testArray;
-
-    const switchCondit = testArr[0];
+    const switchCondit = testArray[0];
 
     switch (switchCondit) {
       case 0:
@@ -278,7 +272,7 @@ class SlotsPage extends Component {
     this.setState({ line: true });
   };
 
-  handleImage = async setTimeOut => {
+  handleImage = async (setTimeOut) => {
     const { isWon } = this.state.betObjectResult;
     const { insertionIndex } = this.state;
 
@@ -288,10 +282,10 @@ class SlotsPage extends Component {
 
     this.handleLine();
     this.setState({
-      insertIndex: insertionIndex
+      insertIndex: insertionIndex,
     });
 
-    return new Promise(resolve => setTimeout(() => resolve(), setTimeOut));
+    return new Promise((resolve) => setTimeout(() => resolve(), setTimeOut));
   };
 
   getGame = () => {
@@ -306,7 +300,7 @@ class SlotsPage extends Component {
     }
   };
 
-  handleBetAmountChange = betAmount => {
+  handleBetAmountChange = (betAmount) => {
     this.setState({ betAmount, soundIcon: false, resultSound: false });
   };
 
@@ -326,7 +320,7 @@ class SlotsPage extends Component {
       resultFiveColumn,
       insertIndex,
       winAmount,
-      resultMultiplier
+      resultMultiplier,
     } = this.state;
 
     return (
@@ -386,13 +380,13 @@ class SlotsPage extends Component {
 SlotsPage.propTypes = {
   profile: propTypes.objectOf.isRequired,
   onTableDetails: propTypes.string.isRequired,
-  onHandleLoginOrRegister: propTypes.func.isRequired
+  onHandleLoginOrRegister: propTypes.func.isRequired,
 };
 
 function mapStateToProps(state) {
   return {
     profile: state.profile,
-    ln: state.language
+    ln: state.language,
   };
 }
 

@@ -5,7 +5,7 @@ import { apiUrl, appId } from "./apiConfig";
 export default async function getAppInfo() {
   try {
     const response = await axios.post(`${apiUrl}/api/app/get`, {
-      app: appId
+      app: appId,
     });
 
     return response.data.data.message;
@@ -17,7 +17,7 @@ export default async function getAppInfo() {
 async function getGames() {
   try {
     const response = await axios.post(`${apiUrl}/api/app/games/getAll`, {
-      app: appId
+      app: appId,
     });
 
     return response.data.data.message;
@@ -31,7 +31,7 @@ async function getLastBets({ size, game }) {
     const response = await axios.post(`${apiUrl}/api/app/lastBets`, {
       app: appId,
       size,
-      game
+      game,
     });
 
     if (response.data.data.message.hasOwnProperty("lastBets")) {
@@ -49,7 +49,7 @@ async function getBiggestBetWinners({ size, game }) {
     const response = await axios.post(`${apiUrl}/api/app/biggestBetWinners`, {
       app: appId,
       size,
-      game
+      game,
     });
 
     if (response.data.data.message.hasOwnProperty("biggestBetWinner")) {
@@ -67,7 +67,7 @@ async function getBiggestUserWinners({ size, game }) {
     const response = await axios.post(`${apiUrl}/api/app/biggestUserWinners`, {
       app: appId,
       size,
-      game
+      game,
     });
 
     if (response.data.data.message.hasOwnProperty("biggestUserWinner")) {
@@ -84,7 +84,7 @@ async function getPopularNumbers({ size }) {
   try {
     const response = await axios.post(`${apiUrl}/api/app/popularNumbers`, {
       app: appId,
-      size
+      size,
     });
     return response.data.data.message;
   } catch (error) {
@@ -96,7 +96,7 @@ async function ping() {
   try {
     const response = await axios.post(`${apiUrl}/api/status/post`, {
       app: appId,
-      type: "user"
+      type: "user",
     });
 
     return response.data.data.status;
@@ -110,7 +110,7 @@ async function getBet({ betId, tag = "casino" }) {
     const response = await axios.post(`${apiUrl}/api/app/bet/get`, {
       app: appId,
       bet: betId,
-      tag: tag
+      tag: tag,
     });
 
     return response.data.data;
@@ -133,7 +133,7 @@ async function getProvidersGames(params) {
   try {
     const response = await axios.post(`${apiUrl}/api/app/providerGame/get`, {
       app: appId,
-      ...params
+      ...params,
     });
 
     return response.data.data.message;
@@ -151,5 +151,5 @@ export {
   ping,
   getBet,
   getProviders,
-  getProvidersGames
+  getProvidersGames,
 };

@@ -1,8 +1,7 @@
 import React, { Component } from "react";
-// eslint-disable-next-line import/no-cycle
 import { Typography } from "components";
 import PropTypes from "prop-types";
-import { map, take, reverse, isEqual, cloneDeep, isNull } from "lodash";
+import { map, take, reverse, isEqual, cloneDeep } from "lodash";
 import classNames from "classnames";
 import "./index.css";
 
@@ -10,7 +9,6 @@ const betWidth = "52px";
 
 export default class History extends Component {
   static propTypes = {
-    // eslint-disable-next-line react/no-unused-prop-types
     game: PropTypes.oneOf([
       "diceHistory",
       "rouletteHistory",
@@ -20,8 +18,8 @@ export default class History extends Component {
       "wheel_variation_1History",
       "kenoHistory",
       "diamondsHistory",
-      "slotsHistory"
-    ]).isRequired
+      "slotsHistory",
+    ]).isRequired,
   };
 
   constructor(props) {
@@ -33,7 +31,7 @@ export default class History extends Component {
 
     this.state = {
       anime: null,
-      bets: bets ? take(bets, 5) : null
+      bets: bets ? take(bets, 5) : null,
     };
   }
 
@@ -48,7 +46,7 @@ export default class History extends Component {
 
     if (!isEqual(take(bets, 5), prevState.bets) && !prevState.anime) {
       return {
-        anime: true
+        anime: true,
       };
     }
 
@@ -87,7 +85,7 @@ export default class History extends Component {
 
     return map(betsArray, ({ value, win }, index) => {
       const betStyles = classNames("bet", {
-        win
+        win,
       });
 
       const node = (
@@ -121,7 +119,7 @@ export default class History extends Component {
 
     const containerStyles = classNames("container", {
       hide: anime,
-      show: true
+      show: true,
     });
 
     return (
@@ -130,7 +128,7 @@ export default class History extends Component {
           styleName={containerStyles}
           onAnimationEnd={this.handleAnimation}
           style={{
-            gridTemplateColumns: `repeat(${bets.length}, ${betWidth})`
+            gridTemplateColumns: `repeat(${bets.length}, ${betWidth})`,
           }}
         >
           {this.renderBets()}

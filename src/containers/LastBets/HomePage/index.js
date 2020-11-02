@@ -23,7 +23,6 @@ import {
   TrophyIcon,
   AffiliateIcon,
 } from "components";
-import _ from "lodash";
 import { CopyText } from "../../../copy";
 import { formatCurrency } from "../../../utils/numberFormatation";
 import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
@@ -59,8 +58,6 @@ const rows = {
       },
       {
         value: "payout",
-        //dependentColor : true,
-        //condition : 'isWon'
       },
     ],
     rows: [],
@@ -83,8 +80,6 @@ const rows = {
       },
       {
         value: "payout",
-        //dependentColor : true,
-        //condition : 'isWon'
       },
     ],
     rows: [],
@@ -110,8 +105,6 @@ const rows = {
       },
       {
         value: "payout",
-        //dependentColor : true,
-        //condition : 'isWon'
       },
     ],
     rows: [],
@@ -211,10 +204,9 @@ class LastBets extends Component {
       view_game = options.view_game ? options.view_game : view_game;
     }
     const copy = CopyText.homepage[ln];
-    let all_bets = [];
-    let biggest_winners_bets = [];
-    let biggest_win_users = [];
-    let my_bets = [];
+    let all_bets;
+    let biggest_winners_bets;
+    let biggest_win_users;
 
     if (view_game.value != "all_games") {
       const gameId = games.find((g) => g.metaName === view_game.value)._id;
@@ -228,14 +220,6 @@ class LastBets extends Component {
         size: view_amount.value,
         game: gameId,
       });
-
-      if (profile && !_.isEmpty(profile)) {
-        my_bets = await profile.getMyBets({
-          size: view_amount.value,
-          game: gameId,
-          tag: "casino",
-        });
-      }
     } else {
       all_bets = await getLastBets({ size: view_amount.value });
       biggest_winners_bets = await getBiggestBetWinners({
@@ -244,13 +228,6 @@ class LastBets extends Component {
       biggest_win_users = await getBiggestUserWinners({
         size: view_amount.value,
       });
-
-      if (profile && !_.isEmpty(profile)) {
-        my_bets = await profile.getMyBets({
-          size: view_amount.value,
-          tag: "casino",
-        });
-      }
     }
 
     if (all_bets.length > view_amount.value) {
@@ -339,24 +316,6 @@ class LastBets extends Component {
         }),
         onTableDetails: onTableDetails ? onTableDetails : null,
       },
-      /*my_bets : {
-                ...this.state.my_bets,
-
-                titles : copy.TABLE.MY_BETS.ITEMS,
-                rows : my_bets.map( (bet) =>  {
-                    return {
-                        game: (games.find(game => game._id === bet.game)),
-                        id: bet._id,
-                        timestamp: dateToHourAndMinute(bet.timestamp),
-                        betAmount: formatCurrency(Numbers.toFloat(bet.betAmount)),
-                        winAmount: formatCurrency(Numbers.toFloat(bet.winAmount)),
-                        isWon : bet.isWon,
-                        payout : `${formatCurrency(Numbers.toFloat(bet.winAmount/bet.betAmount))}x`,
-                        currency: bet.currency
-                    }
-                }),
-                onTableDetails : onTableDetails ? onTableDetails : null
-            },*/
       biggest_win_bets: {
         ...this.state.biggest_win_bets,
         titles: copy.TABLE.BIGGEST_WIN_BETS.ITEMS,
@@ -409,7 +368,6 @@ class LastBets extends Component {
   };
 
   render() {
-    const { onTableDetails } = this.props;
     const {
       games,
       gamesOptions,

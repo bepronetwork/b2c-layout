@@ -11,22 +11,15 @@ import TablePagination from "@material-ui/core/TablePagination";
 import TableRow from "@material-ui/core/TableRow";
 import TableSortLabel from "@material-ui/core/TableSortLabel";
 import Toolbar from "@material-ui/core/Toolbar";
-import Paper from "@material-ui/core/Paper";
-import Checkbox from "@material-ui/core/Checkbox";
-import IconButton from "@material-ui/core/IconButton";
 import Tooltip from "@material-ui/core/Tooltip";
 import { lighten } from "@material-ui/core/styles/colorManipulator";
-import FilterListIcon from "mdi-react/FilterListIcon";
-import { Numbers, AddressConcat } from "../../../lib/ethereum/lib";
+import { AddressConcat, Numbers } from "../../../lib/ethereum/lib";
 import withdrawStatus from "./codes";
-import { Button, Typography } from "components";
+import { Typography } from "components";
 import "./index.css";
 import { CopyText } from "../../../copy";
-import { Row, Col } from "reactstrap";
-import { fromSmartContractTimeToMinutes } from "../../../lib/helpers";
 import { connect } from "react-redux";
 
-let counter = 0;
 let propsGlobal = null;
 
 function desc(a, b, orderBy) {
@@ -46,7 +39,7 @@ function stableSort(array, cmp) {
     if (order !== 0) return order;
     return a[1] - b[1];
   });
-  return stabilizedThis.map(el => el[0]);
+  return stabilizedThis.map((el) => el[0]);
 }
 
 function getSorting(order, orderBy) {
@@ -55,14 +48,16 @@ function getSorting(order, orderBy) {
     : (a, b) => -desc(a, b, orderBy);
 }
 
-const fromDatabasetoTable = data => {
+const fromDatabasetoTable = (data) => {
   if (!data) {
     return null;
   }
+
   let sortedByTimestamp = data.sort((a, b) => {
     return new Date(b.creation_timestamp) - new Date(a.creation_timestamp);
   });
-  let res = sortedByTimestamp.map(data => {
+
+  return sortedByTimestamp.map((data) => {
     return {
       id: data._id,
       amount: Numbers.toFloat(data.amount),
@@ -73,25 +68,18 @@ const fromDatabasetoTable = data => {
       creation_date: new Date(data.creation_timestamp).toDateString(),
       address: data.address,
       nonce: data.nonce,
-      link_url: data.link_url
+      link_url: data.link_url,
     };
   });
-  return res;
 };
 
 class EnhancedTableHead extends React.Component {
-  createSortHandler = property => event => {
+  createSortHandler = (property) => (event) => {
     this.props.onRequestSort(event, property);
   };
 
   render() {
-    const {
-      onSelectAllClick,
-      order,
-      orderBy,
-      numSelected,
-      rowCount
-    } = this.props;
+    const { order, orderBy } = this.props;
     const { ln } = propsGlobal;
     const copy = CopyText.cashierFormWithdrawsTable[ln];
 
@@ -99,35 +87,35 @@ class EnhancedTableHead extends React.Component {
       {
         id: "amount",
         label: copy.ROW.LABEL[0],
-        numeric: false
+        numeric: false,
       },
       {
         id: "confirmed",
         label: copy.ROW.LABEL[1],
-        numeric: false
+        numeric: false,
       },
       {
         id: "withdraw",
         label: copy.ROW.LABEL[2],
-        numeric: false
+        numeric: false,
       },
       {
         id: "transactionHash",
         label: copy.ROW.LABEL[3],
-        numeric: false
+        numeric: false,
       },
       {
         id: "creation_date",
         label: copy.ROW.LABEL[4],
-        numeric: false
-      }
+        numeric: false,
+      },
     ];
 
     return (
       <TableHead>
         <TableRow style={{ backgroundColor: "#0a031b" }}>
           {rows.map(
-            row => (
+            (row) => (
               <StyledTableCell
                 key={row.id}
                 align={row.align ? row.align : row.numeric ? "right" : "left"}
@@ -139,7 +127,7 @@ class EnhancedTableHead extends React.Component {
                   paddingLeft: 40,
                   paddingTop: 7,
                   paddingBottom: 7,
-                  paddingRight: 0
+                  paddingRight: 0,
                 }}
               >
                 <Tooltip
@@ -177,59 +165,59 @@ EnhancedTableHead.propTypes = {
   onSelectAllClick: PropTypes.func.isRequired,
   order: PropTypes.string.isRequired,
   orderBy: PropTypes.string.isRequired,
-  rowCount: PropTypes.number.isRequired
+  rowCount: PropTypes.number.isRequired,
 };
 
-const toolbarStyles = theme => ({
+const toolbarStyles = (theme) => ({
   root: {
     paddingRight: theme.spacing.unit,
-    color: "white"
+    color: "white",
   },
   highlight:
     theme.palette.type === "light"
       ? {
           color: "white",
-          backgroundColor: lighten(theme.palette.secondary.light, 0.85)
+          backgroundColor: lighten(theme.palette.secondary.light, 0.85),
         }
       : {
           color: "white",
-          backgroundColor: theme.palette.secondary.dark
+          backgroundColor: theme.palette.secondary.dark,
         },
   spacer: {
-    flex: "1 1 100%"
+    flex: "1 1 100%",
   },
   actions: {
-    color: theme.palette.text.secondary
+    color: theme.palette.text.secondary,
   },
   title: {
     flex: "0 0 auto",
-    color: "white"
-  }
+    color: "white",
+  },
 });
 
-let EnhancedTableToolbar = props => {
-  const { numSelected, classes, time } = props;
+let EnhancedTableToolbar = (props) => {
+  const { numSelected, classes } = props;
 
   return (
     <Toolbar
       className={classNames(classes.root, {
-        [classes.highlight]: numSelected > 0
+        [classes.highlight]: numSelected > 0,
       })}
     >
       <div className={classes.spacer} />
-      <div className={classes.actions}></div>
+      <div className={classes.actions} />
     </Toolbar>
   );
 };
 
 EnhancedTableToolbar.propTypes = {
   classes: PropTypes.object.isRequired,
-  numSelected: PropTypes.number.isRequired
+  numSelected: PropTypes.number.isRequired,
 };
 
 EnhancedTableToolbar = withStyles(toolbarStyles)(EnhancedTableToolbar);
 
-const styles = theme => ({
+const styles = () => ({
   root: {
     width: "100%",
     margin: "auto",
@@ -238,39 +226,39 @@ const styles = theme => ({
     marginTop: 40,
     marginBottom: 20,
     border: "2px solid white",
-    overflowX: "auto"
+    overflowX: "auto",
   },
   head: {
-    color: "white"
+    color: "white",
   },
   pagination: {
-    color: "white"
+    color: "white",
   },
   body: {
-    color: "white"
+    color: "white",
   },
   table: {
     height: 200,
-    color: "white"
+    color: "white",
   },
   tableWrapper: {
     color: "white",
-    overflowX: "auto"
-  }
+    overflowX: "auto",
+  },
 });
 
 const defaultProps = {
   profit: "0",
-  ticker: "N/A"
+  ticker: "N/A",
 };
 
-const StyledTableCell = withStyles(theme => ({
+const StyledTableCell = withStyles(() => ({
   head: {
-    color: "white"
+    color: "white",
   },
   body: {
-    color: "white"
-  }
+    color: "white",
+  },
 }))(TableCell);
 
 class WithdrawTable extends React.Component {
@@ -283,7 +271,7 @@ class WithdrawTable extends React.Component {
       data: props.data ? fromDatabasetoTable(props.data) : [],
       page: 0,
       rowsPerPage: 5,
-      ...defaultProps
+      ...defaultProps,
     };
     propsGlobal = props;
   }
@@ -296,13 +284,13 @@ class WithdrawTable extends React.Component {
     this.projectData(props);
   }
 
-  projectData = props => {
+  projectData = (props) => {
     let data = props.data;
 
     this.setState({
       ...this.state,
       data: fromDatabasetoTable(data),
-      ticker: "DAI"
+      ticker: "DAI",
     });
   };
 
@@ -319,9 +307,9 @@ class WithdrawTable extends React.Component {
     this.setState({ order, orderBy });
   };
 
-  handleSelectAllClick = event => {
+  handleSelectAllClick = (event) => {
     if (event.target.checked) {
-      this.setState(state => ({ selected: state.data.map(n => n.id) }));
+      this.setState((state) => ({ selected: state.data.map((n) => n.id) }));
       return;
     }
     this.setState({ selected: [] });
@@ -331,14 +319,14 @@ class WithdrawTable extends React.Component {
     this.setState({ page });
   };
 
-  handleChangeRowsPerPage = event => {
+  handleChangeRowsPerPage = (event) => {
     this.setState({ rowsPerPage: event.target.value });
   };
 
-  isSelected = id => this.state.selected.indexOf(id) !== -1;
+  isSelected = (id) => this.state.selected.indexOf(id) !== -1;
 
   render() {
-    const { classes, ln, time } = this.props;
+    const { classes, ln } = this.props;
     const { data, order, orderBy, selected, rowsPerPage, page } = this.state;
     const emptyRows =
       rowsPerPage - Math.min(rowsPerPage, data.length - page * rowsPerPage);
@@ -363,7 +351,7 @@ class WithdrawTable extends React.Component {
             <TableBody style={{ color: "white" }}>
               {stableSort(data, getSorting(order, orderBy))
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                .map(n => {
+                .map((n) => {
                   const isSelected = this.isSelected(n.id);
                   return (
                     <TableRow
@@ -372,7 +360,7 @@ class WithdrawTable extends React.Component {
                       style={{
                         padding: 0,
                         color: "white",
-                        backgroundColor: "#0f0e1d"
+                        backgroundColor: "#0f0e1d",
                       }}
                       aria-checked={isSelected}
                       tabIndex={-1}
@@ -383,7 +371,7 @@ class WithdrawTable extends React.Component {
                         style={{
                           width: 130,
                           borderBottom: "1px solid #192c38",
-                          paddingLeft: 40
+                          paddingLeft: 40,
                         }}
                         align="left"
                       >
@@ -395,7 +383,7 @@ class WithdrawTable extends React.Component {
                         style={{
                           width: 130,
                           borderBottom: "1px solid #192c38",
-                          paddingLeft: 20
+                          paddingLeft: 20,
                         }}
                         align="left"
                       >
@@ -411,7 +399,7 @@ class WithdrawTable extends React.Component {
                         style={{
                           width: 130,
                           borderBottom: "1px solid #192c38",
-                          paddingLeft: 30
+                          paddingLeft: 30,
                         }}
                         align="left"
                       >
@@ -424,7 +412,7 @@ class WithdrawTable extends React.Component {
                         style={{
                           width: 130,
                           borderBottom: "1px solid #192c38",
-                          paddingLeft: 30
+                          paddingLeft: 30,
                         }}
                         align="left"
                       >
@@ -441,7 +429,7 @@ class WithdrawTable extends React.Component {
                       <StyledTableCell
                         style={{
                           borderBottom: "1px solid #192c38",
-                          paddingLeft: 30
+                          paddingLeft: 30,
                         }}
                         align="left"
                       >
@@ -472,10 +460,10 @@ class WithdrawTable extends React.Component {
           rowsPerPage={rowsPerPage}
           page={page}
           backIconButtonProps={{
-            "aria-label": "Previous Page"
+            "aria-label": "Previous Page",
           }}
           nextIconButtonProps={{
-            "aria-label": "Next Page"
+            "aria-label": "Next Page",
           }}
           onChangePage={this.handleChangePage}
           onChangeRowsPerPage={this.handleChangeRowsPerPage}
@@ -486,14 +474,14 @@ class WithdrawTable extends React.Component {
 }
 
 WithdrawTable.propTypes = {
-  classes: PropTypes.object.isRequired
+  classes: PropTypes.object.isRequired,
 };
 
 function mapStateToProps(state) {
   return {
     deposit: state.deposit,
     profile: state.profile,
-    ln: state.language
+    ln: state.language,
   };
 }
 

@@ -7,7 +7,7 @@ import {
   Button,
   Typography,
   MultiplyMaxButton,
-  OnWinLoss
+  OnWinLoss,
 } from "components";
 import betSound from "assets/bet-sound.mp3";
 import Sound from "react-sound";
@@ -27,11 +27,11 @@ class WheelGameOptions extends Component {
     onBet: PropTypes.func.isRequired,
     disableControls: PropTypes.bool,
     rollType: PropTypes.number.isRequired,
-    rollNumber: PropTypes.number.isRequired
+    rollNumber: PropTypes.number.isRequired,
   };
 
   static defaultProps = {
-    disableControls: false
+    disableControls: false,
   };
 
   constructor(props) {
@@ -47,11 +47,11 @@ class WheelGameOptions extends Component {
       onWin: null,
       edge: 0,
       onLoss: null,
-      sound: false
+      sound: false,
     };
   }
 
-  handleType = type => {
+  handleType = (type) => {
     this.setState({ type });
   };
 
@@ -114,7 +114,7 @@ class WheelGameOptions extends Component {
     });
   };
 
-  handleBet = async callback => {
+  handleBet = async () => {
     const { onBet, profile } = this.props;
     const {
       amount,
@@ -123,9 +123,9 @@ class WheelGameOptions extends Component {
       profitStop,
       lossStop,
       onWin,
-      onLoss
+      onLoss,
     } = this.state;
-    var res;
+    let res;
 
     if (this.isBetValid()) {
       // to be completed with the other options
@@ -140,12 +140,12 @@ class WheelGameOptions extends Component {
             return null;
           }
           this.setState({ isAutoBetting: true });
-          var totalProfit = 0,
+          let totalProfit = 0,
             totalLoss = 0,
             lastBet = 0,
             wasWon = 0;
-          var betAmount = amount;
-          for (var i = 0; i < bets; i++) {
+          let betAmount = amount;
+          for (let i = 0; i < bets; i++) {
             if (
               (profitStop == 0 || totalProfit <= profitStop) && // Stop Profit
               (lossStop == 0 || totalLoss <= lossStop) // Stop Loss
@@ -176,29 +176,29 @@ class WheelGameOptions extends Component {
     return true;
   };
 
-  handleBetAmountChange = value => {
+  handleBetAmountChange = (value) => {
     this.setState({
-      amount: value
+      amount: value,
     });
   };
 
-  handleOnWin = value => {
+  handleOnWin = (value) => {
     this.setState({ onWin: value });
   };
 
-  handleOnLoss = value => {
+  handleOnLoss = (value) => {
     this.setState({ onLoss: value });
   };
 
-  handleBets = value => {
+  handleBets = (value) => {
     this.setState({ bets: value });
   };
 
-  handleStopOnProfit = value => {
+  handleStopOnProfit = (value) => {
     this.setState({ profitStop: value });
   };
 
-  handleStopOnLoss = value => {
+  handleStopOnLoss = (value) => {
     this.setState({ lossStop: value });
   };
 
@@ -260,7 +260,7 @@ class WheelGameOptions extends Component {
 
   getPayout = () => {
     const { rollNumber, rollType } = this.props;
-    let payout = 0;
+    let payout;
 
     const middlePayout = 2;
     const middleRoll = 50;
@@ -300,7 +300,7 @@ class WheelGameOptions extends Component {
     );
   };
 
-  handleMultiply = value => {
+  handleMultiply = (value) => {
     const { profile } = this.props;
     const { amount } = this.state;
     let newAmount = amount;
@@ -331,7 +331,7 @@ class WheelGameOptions extends Component {
   };
 
   render() {
-    const { type, amount, isAutoBetting } = this.state;
+    const { type, amount } = this.state;
     const { ln } = this.props;
 
     const user = this.props.profile;
@@ -352,7 +352,7 @@ class WheelGameOptions extends Component {
           <ToggleButton
             config={{
               left: { value: "manual", title: copy.MANUAL_NAME },
-              right: { value: "auto", title: copy.AUTO_NAME }
+              right: { value: "auto", title: copy.AUTO_NAME },
             }}
             selected={type}
             size="full"
@@ -404,7 +404,7 @@ class WheelGameOptions extends Component {
 
 function mapStateToProps(state) {
   return {
-    ln: state.language
+    ln: state.language,
   };
 }
 

@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import CloseCircleIcon from "mdi-react/CloseCircleIcon";
 import {
   removeBetSlipFromResult,
-  setBetSlipResult
+  setBetSlipResult,
 } from "../../../redux/actions/betSlip";
 import { formatCurrency } from "../../../utils/numberFormatation";
 import classNames from "classnames";
@@ -15,7 +15,7 @@ class BetSlipBox extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      amount: 0
+      amount: 0,
     };
   }
 
@@ -27,16 +27,16 @@ class BetSlipBox extends Component {
 
   async handleAddBetToBetSlip(amount) {
     const { bet, betSlip } = this.props;
-    const newBetSlip = betSlip.map(b =>
+    const newBetSlip = betSlip.map((b) =>
       b.id == bet.id ? { ...b, amount: amount } : b
     );
 
     await this.props.dispatch(setBetSlipResult(newBetSlip));
   }
 
-  handleBetAmountChange = value => {
+  handleBetAmountChange = (value) => {
     this.setState({
-      amount: value
+      amount: value,
     });
 
     this.handleAddBetToBetSlip(value);
@@ -48,10 +48,10 @@ class BetSlipBox extends Component {
     const { amount } = this.state;
 
     const styles = classNames("section", "odds-section", {
-      "section-one": type == "multiple"
+      "section-one": type == "multiple",
     });
     const stylesControls = classNames("controls", {
-      "controls-one": type == "multiple"
+      "controls-one": type == "multiple",
     });
 
     const returnBet = bet.odd;
@@ -60,7 +60,7 @@ class BetSlipBox extends Component {
       <div styleName="box">
         <div styleName="bet-header">
           <div styleName="game-section">
-            <img src={bet.image} alt='Bet Illustration' />
+            <img src={bet.image} alt="Bet Illustration" />
           </div>
           <div>
             <Typography variant={"x-small-body"} color={"grey"}>
@@ -128,7 +128,7 @@ function mapStateToProps(state) {
   return {
     profile: state.profile,
     ln: state.language,
-    betSlip: state.betSlip
+    betSlip: state.betSlip,
   };
 }
 

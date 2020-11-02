@@ -3,7 +3,6 @@ import { Typography, Toggle } from "components";
 import { connect } from "react-redux";
 import Cache from "../../lib/cache/cache";
 import { CopyText } from "../../copy";
-import _ from "lodash";
 import "./index.css";
 
 class SettingsTab extends Component {
@@ -20,7 +19,7 @@ class SettingsTab extends Component {
     this.projectData(props);
   }
 
-  projectData = async props => {
+  projectData = async () => {
     let cacheCustomization = Cache.getFromCache("customization");
 
     this.setState({ ...this.state, ...cacheCustomization });
@@ -30,7 +29,7 @@ class SettingsTab extends Component {
     const { profile } = this.props;
     Cache.handleCustomizationToggleBinary({
       objectName: "customization",
-      key: "backgroundMusic"
+      key: "backgroundMusic",
     });
     await profile.updateUserState();
     this.projectData(this.props);
@@ -65,7 +64,7 @@ class SettingsTab extends Component {
 function mapStateToProps(state) {
   return {
     profile: state.profile,
-    ln: state.language
+    ln: state.language,
   };
 }
 

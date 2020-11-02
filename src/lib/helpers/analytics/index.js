@@ -16,9 +16,9 @@ if (typeof getApp().analytics != "undefined") {
       app: appName,
       plugins: [
         googleAnalytics({
-          trackingId: googleAnalyticsKey
-        })
-      ]
+          trackingId: googleAnalyticsKey,
+        }),
+      ],
     });
 
     window.Analytics = analytics;
@@ -28,7 +28,7 @@ if (typeof getApp().analytics != "undefined") {
 function analyticsIdentify(user) {
   if (isAnalyticsActive === true) {
     analytics.identify(user.id, {
-      name: user.username
+      name: user.username,
     });
   }
 }

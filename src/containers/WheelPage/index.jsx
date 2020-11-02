@@ -14,11 +14,11 @@ import { compose } from "lodash/fp";
 import { loadWheelOptions } from "../../lib/helpers";
 import _ from "lodash";
 
-class WheelPage extends React.Component {
+class WheelPage extends Component {
   static contextType = UserContext;
 
   static propTypes = {
-    onHandleLoginOrRegister: PropTypes.func.isRequired
+    onHandleLoginOrRegister: PropTypes.func.isRequired,
   };
 
   constructor(props) {
@@ -29,12 +29,12 @@ class WheelPage extends React.Component {
       betHistory: [],
       game_name: "Wheel",
       game: {
-        edge: 0
+        edge: 0,
       },
       options: [],
       betObjectResult: {},
       bet: false,
-      amount: 0
+      amount: 0,
     };
   }
 
@@ -46,7 +46,7 @@ class WheelPage extends React.Component {
     this.projectData(props);
   }
 
-  projectData = props => {
+  projectData = () => {
     const appInfo = Cache.getFromCache("appInfo");
     let game = null;
     if (appInfo) {
@@ -74,13 +74,13 @@ class WheelPage extends React.Component {
     return this.getTotalBet() + selectedChip > user.getBalance();
   };
 
-  handleAddChipToBoard = cell => {
+  handleAddChipToBoard = (cell) => {
     const { selectedChip, betHistory } = this.state;
 
     if (this.isAddChipDisabled()) return null;
 
     return this.setState({
-      betHistory: [...betHistory, { cell, chip: selectedChip }]
+      betHistory: [...betHistory, { cell, chip: selectedChip }],
     });
   };
 
@@ -96,7 +96,7 @@ class WheelPage extends React.Component {
     this.setState({ betHistory: [] });
   };
 
-  handleChangeChip = chip => {
+  handleChangeChip = (chip) => {
     this.setState({ selectedChip: chip });
   };
 
@@ -114,9 +114,9 @@ class WheelPage extends React.Component {
 
   handleBet = async ({ amount }) => {
     try {
-      var { user } = this.context;
-      var { onHandleLoginOrRegister } = this.props;
-      var { betHistory, game } = this.state;
+      const { user } = this.context;
+      const { onHandleLoginOrRegister } = this.props;
+      const { game } = this.state;
 
       if (!user) return onHandleLoginOrRegister("register");
 
@@ -125,7 +125,7 @@ class WheelPage extends React.Component {
       const res = await wheelBet({
         amount,
         user,
-        game_id: game._id
+        game_id: game._id,
       });
       const { isWon, result } = res;
 
@@ -135,7 +135,7 @@ class WheelPage extends React.Component {
         hasWon: isWon,
         disableControls: false,
         betObjectResult: res,
-        amount
+        amount,
       });
       return res;
     } catch (err) {
@@ -144,7 +144,7 @@ class WheelPage extends React.Component {
         flipResult: 0,
         inResultAnimation: false,
         hasWon: false,
-        disableControls: false
+        disableControls: false,
       });
     }
   };
@@ -155,7 +155,7 @@ class WheelPage extends React.Component {
     this.setState({
       bet: false,
       disableControls: false,
-      inResultAnimation: false
+      inResultAnimation: false,
     });
     const { profile } = this.props;
     const { amount } = this.state;
@@ -183,12 +183,12 @@ class WheelPage extends React.Component {
 
     this.setState({
       ...this.state,
-      betHistory: betHistory.map(item => {
+      betHistory: betHistory.map((item) => {
         return {
           cell: item.cell,
-          chip: Numbers.toFloat(parseFloat(item.chip) * 2)
+          chip: Numbers.toFloat(parseFloat(item.chip) * 2),
         };
-      })
+      }),
     });
   };
 
@@ -217,7 +217,7 @@ class WheelPage extends React.Component {
       bet,
       inResultAnimation,
       onAnimation,
-      options
+      options,
     } = this.state;
     const { profile } = this.props;
 
@@ -257,7 +257,7 @@ class WheelPage extends React.Component {
 function mapStateToProps(state) {
   return {
     profile: state.profile,
-    ln: state.language
+    ln: state.language,
   };
 }
 

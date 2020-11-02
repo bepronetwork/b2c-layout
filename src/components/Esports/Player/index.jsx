@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import { Typography } from "components";
 import ReactCountryFlag from "react-country-flag";
 import { connect } from "react-redux";
-import _ from "lodash";
 import "./index.css";
 
 class Player extends Component {
@@ -17,7 +16,7 @@ class Player extends Component {
     return (
       <div styleName="player">
         <div styleName="picture">
-          <img src={player.image_url} width="100%" alt='Player Picture' />
+          <img src={player.image_url} width="100%" alt="Player Picture" />
         </div>
         <div styleName="info">
           <div styleName="top">
@@ -32,7 +31,7 @@ class Player extends Component {
                 className="emojiFlag"
                 style={{
                   width: "1em",
-                  height: "1em"
+                  height: "1em",
                 }}
                 title={player.hometown}
               />
@@ -83,7 +82,7 @@ class Player extends Component {
 function mapStateToProps(state) {
   return {
     profile: state.profile,
-    ln: state.language
+    ln: state.language,
   };
 }
 

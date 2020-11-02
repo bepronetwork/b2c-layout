@@ -1,5 +1,4 @@
 import React from "react";
-
 import Line from "components/SlotsLines";
 import styles from "../SlotsGame/index.css";
 
@@ -16,14 +15,13 @@ const funcHandle = (
   numb4,
   numb5
 ) => {
-  const option4 =
+  return (
     insert1 === numb1 &&
     insert2 === numb2 &&
     insert3 === numb3 &&
     insert4 === numb4 &&
-    insert5 === numb5;
-
-  return option4;
+    insert5 === numb5
+  );
 };
 
 const HandleLines = ({
@@ -32,7 +30,7 @@ const HandleLines = ({
   insertion2,
   insertion3,
   insertion4,
-  insertion5
+  insertion5,
 }) => {
   return (
     <div className={styles.lineTest}>

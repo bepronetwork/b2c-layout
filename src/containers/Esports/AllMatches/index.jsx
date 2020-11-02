@@ -5,15 +5,14 @@ import {
   SerieFilter,
   GameFilter,
   BetSlip,
-  BetSlipFloat
+  BetSlipFloat,
 } from "components/Esports";
 import { connect } from "react-redux";
 import {
   getGames,
   getMatches,
-  getMatchesBySeries
+  getMatchesBySeries,
 } from "controllers/Esports/EsportsUser";
-import _ from "lodash";
 import "./index.css";
 
 class AllMatches extends Component {
@@ -27,7 +26,7 @@ class AllMatches extends Component {
       status: ["pre_match", "live"],
       size: 10,
       isLoading: true,
-      tab: "upcoming"
+      tab: "upcoming",
     };
   }
 
@@ -39,71 +38,72 @@ class AllMatches extends Component {
     this.projectData(props);
   }
 
-  projectData = async props => {
+  projectData = async () => {
     const { status, size } = this.state;
 
     const images = require.context("assets/esports", true);
 
     let games = await getGames();
     games = games
-      .filter(g => g.series.length > 0)
-      .map(g => {
+      .filter((g) => g.series.length > 0)
+      .map((g) => {
         g.image = images("./" + g.slug + "-ico.png");
         return g;
       });
 
     const matches = await getMatches({
       status,
-      size
+      size,
     });
 
     this.setState({
       games,
       matches,
-      isLoading: false
+      isLoading: false,
     });
   };
 
-  handleGameFilterClick = async gameFilter => {
-    let { games, matches, status, size } = this.state;
+  handleGameFilterClick = async (gameFilter) => {
+    let { games, status, size } = this.state;
+    let matches;
 
     this.setState({ isLoading: true });
 
     if (gameFilter.length > 0) {
-      const filtered = games.filter(g => gameFilter.includes(g.external_id));
-      const series = filtered.flatMap(item => item.series);
-      const serieFilter = series.map(s => {
+      const filtered = games.filter((g) => gameFilter.includes(g.external_id));
+      const series = filtered.flatMap((item) => item.series);
+      const serieFilter = series.map((s) => {
         return s.id;
       });
       matches = await getMatchesBySeries({
         serie_id: serieFilter,
         status,
-        size
+        size,
       });
     } else {
       matches = await getMatches({
         status,
-        size
+        size,
       });
     }
 
     this.setState({ gameFilter, matches, isLoading: false });
   };
 
-  handleCleanGameFilterClick = async gameFilter => {
+  handleCleanGameFilterClick = async (gameFilter) => {
     const { status, size } = this.state;
 
     this.setState({ isLoading: true });
 
     const matches = await getMatches({
       status,
-      size
+      size,
     });
 
     this.setState({ gameFilter, matches, isLoading: false });
   };
 
-  handleSerieFilterClick = async serieFilter => {
+  handleSerieFilterClick = async (serieFilter) => {
     const { status } = this.state;
 
     this.setState({ isLoading: true });
@@ -116,14 +116,14 @@ class AllMatches extends Component {
     this.setState({ serieFilter, matches, isLoading: false });
   };
 
-  handleCleanSerieFilterClick = async serieFilter => {
+  handleCleanSerieFilterClick = async (serieFilter) => {
     const { status, size } = this.state;
 
     this.setState({ isLoading: true });
 
     const matches = await getMatches({
       status,
-      size
+      size,
     });
 
     this.setState({ serieFilter, matches, isLoading: false });
@@ -137,7 +137,7 @@ class AllMatches extends Component {
       status,
       size,
       offset,
-      ...(tab == "results" && { begin_at: "all" })
+      ...(tab == "results" && { begin_at: "all" }),
     });
 
     newMatches.unshift(...matches);
@@ -145,7 +145,7 @@ class AllMatches extends Component {
     this.setState({ matches: newMatches });
   };
 
-  handleTabChange = async name => {
+  handleTabChange = async (name) => {
     const { size } = this.state;
     const status =
       name == "results" ? ["finished", "settled"] : ["pre_match", "live"];
@@ -155,7 +155,7 @@ class AllMatches extends Component {
     const matches = await getMatches({
       status,
       size,
-      ...(name == "results" && { begin_at: "all" })
+      ...(name == "results" && { begin_at: "all" }),
     });
 
     this.setState({ matches, isLoading: false });
@@ -182,12 +182,12 @@ class AllMatches extends Component {
                 options={[
                   {
                     value: "upcoming",
-                    label: "Upcoming"
+                    label: "Upcoming",
                   },
                   {
                     value: "results",
-                    label: "Results"
-                  }
+                    label: "Results",
+                  },
                 ]}
                 onSelect={this.handleTabChange}
                 style="full-background"
@@ -230,7 +230,7 @@ class AllMatches extends Component {
 function mapStateToProps(state) {
   return {
     profile: state.profile,
-    ln: state.language
+    ln: state.language,
   };
 }
 

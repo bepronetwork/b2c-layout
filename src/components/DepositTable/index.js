@@ -71,13 +71,8 @@ class DepositTable extends Component {
 
   projectData = async (props, options = null) => {
     const { profile, ln } = props;
-    let { view_amount } = this.state;
     const copy = CopyText.depositspage[ln];
     let deposits = [];
-
-    if (options) {
-      view_amount = options.view_amount ? options.view_amount : view_amount;
-    }
 
     if (profile && !_.isEmpty(profile)) {
       deposits = await profile.getDeposits();
@@ -148,7 +143,7 @@ class DepositTable extends Component {
   };
 
   render() {
-    const { isLoading, isListLoading, options, view } = this.state;
+    const { isListLoading, view } = this.state;
     const { profile } = this.props;
     if (!isUserSet(profile)) {
       return;
@@ -156,36 +151,6 @@ class DepositTable extends Component {
 
     return (
       <div styleName="container">
-        {/*isLoading ?
-                    <SkeletonTheme color={ getSkeletonColors().color} highlightColor={ getSkeletonColors().highlightColor}>
-                        <div styleName='lastBets' style={{opacity : '0.5'}}>
-                            <div styleName='filters'>
-                                <div styleName='bets-dropdown-game'>
-                                    <Skeleton width={100} height={30}/>
-                                </div>
-                                <div styleName='bets-dropdown'>
-                                    <Skeleton width={50} height={30}/>
-                                </div>
-                            </div>
-                        </div>
-                    </SkeletonTheme>
-                :
-                    <div styleName='lastBets'>
-                        <Tabs
-                            selected={view}
-                            options={options}
-                        />
-                        <div styleName="filters">
-                            <div styleName='bets-dropdown'>
-                                <SelectBox
-                                    onChange={(e) => this.changeView(e)}
-                                    options={views}
-                                    value={this.state.view_amount}
-                                /> 
-                            </div>
-                        </div>
-                    </div>
-                */}
         <Table
           rows={this.state[view].rows}
           titles={this.state[view].titles}

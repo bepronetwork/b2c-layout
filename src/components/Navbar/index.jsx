@@ -7,7 +7,7 @@ import {
   LanguageSelector,
   NavigationBar,
   CurrencySelector,
-  UserIcon
+  UserIcon,
 } from "components";
 import UserContext from "containers/App/UserContext";
 import { connect } from "react-redux";
@@ -15,7 +15,7 @@ import {
   getAppCustomization,
   getApp,
   getAddOn,
-  getIcon
+  getIcon,
 } from "../../lib/helpers";
 import { formatCurrency } from "../../utils/numberFormatation";
 import { CopyText } from "../../copy";
@@ -39,7 +39,7 @@ const defaultProps = {
   openSettingsMenu: false,
   currentPoints: 0,
   isTransparent: false,
-  isDefaultIcon: true
+  isDefaultIcon: true,
 };
 
 class Navbar extends Component {
@@ -48,7 +48,7 @@ class Navbar extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      ...defaultProps
+      ...defaultProps,
     };
   }
 
@@ -60,23 +60,23 @@ class Navbar extends Component {
     this.projectData(props);
   }
 
-  projectData = async props => {
+  projectData = async (props) => {
     try {
       const { ln } = props;
       let { topTab } = getAppCustomization();
       topTab = topTab.languages.find(
-        t =>
+        (t) =>
           t.language.isActivated === true &&
           t.language.prefix === ln.toUpperCase()
       );
-      var user = !_.isEmpty(props.profile) ? props.profile : null;
+      const user = !_.isEmpty(props.profile) ? props.profile : null;
 
       if (user) {
         let difference = formatCurrency(
           user.getBalance() - this.state.currentBalance
         );
         // To not exist failed animation of difference and number animation
-        var opts = {};
+        let opts = {};
         if (difference != 0) {
           opts.difference = difference;
           opts.currentBalance = user.getBalance();
@@ -101,12 +101,12 @@ class Navbar extends Component {
           userAddress: user.getAddress()
             ? AddressConcat(user.getAddress())
             : defaultProps.userAddress,
-          isTransparent: _.isEmpty(topTab) ? false : topTab.isTransparent
+          isTransparent: _.isEmpty(topTab) ? false : topTab.isTransparent,
         });
       } else {
         this.setState({
           user: null,
-          isTransparent: _.isEmpty(topTab) ? false : topTab.isTransparent
+          isTransparent: _.isEmpty(topTab) ? false : topTab.isTransparent,
         });
       }
     } catch (err) {
@@ -115,13 +115,12 @@ class Navbar extends Component {
     }
   };
 
-  handleClick = event => {
+  handleClick = (event) => {
     const { onLoginRegister } = this.props;
     if (onLoginRegister) onLoginRegister(event.currentTarget.name);
   };
 
   renderLoginOrRegister = () => {
-    let { user } = this.state;
     const { ln } = this.props;
     const copy = CopyText.navbarIndex[ln];
     const skin = getAppCustomization().skin.skin_type;
@@ -172,24 +171,24 @@ class Navbar extends Component {
       currentBalance,
       difference,
       currentPoints,
-      differencePoints
+      differencePoints,
     } = this.state;
     const { onMenuItem, history, ln } = this.props;
     const copy = CopyText.navbarIndex[ln];
-    var currencies = getApp().currencies;
+    let currencies = getApp().currencies;
     const virtual = getApp().virtual;
-    currencies = currencies.filter(c => c.virtual === virtual);
+    currencies = currencies.filter((c) => c.virtual === virtual);
 
     const { colors } = getAppCustomization();
 
-    const primaryColor = colors.find(c => {
+    const primaryColor = colors.find((c) => {
       return c.type == "primaryColor";
     });
     const PrimaryTooltip = withStyles({
       tooltip: {
         color: getAppCustomization().theme === "light" ? "black" : "white",
-        backgroundColor: primaryColor.hex
-      }
+        backgroundColor: primaryColor.hex,
+      },
     })(Tooltip);
 
     const isValidPoints = getAddOn().pointSystem
@@ -253,7 +252,7 @@ class Navbar extends Component {
               <div styleName="label-points">
                 {!_.isEmpty(logoPoints) ? (
                   <div styleName="currency-icon">
-                    <img src={logoPoints} height={20} />
+                    <img src={logoPoints} height={20} alt="Currency Icon" />
                   </div>
                 ) : null}
                 <span>
@@ -288,7 +287,11 @@ class Navbar extends Component {
       >
         <div styleName="label">
           <div styleName="user-icon">
-            {userIcon === null ? <UserIcon /> : <img src={userIcon} />}
+            {userIcon === null ? (
+              <UserIcon />
+            ) : (
+              <img src={userIcon} alt="User Icon" />
+            )}
           </div>
           <span>
             <Typography color="white" variant={"small-body"}>
@@ -313,6 +316,7 @@ class Navbar extends Component {
             src={
               getAppCustomization().theme === "light" ? nineDotsLight : nineDots
             }
+            alt="Settings Icon"
           />
         </div>
       </button>
@@ -320,8 +324,6 @@ class Navbar extends Component {
   };
 
   renderLanguageSelector = () => {
-    let { user } = this.state;
-
     return (
       <div styleName="language-container">
         <LanguageSelector showArrow={true} expand="bottom" />
@@ -357,7 +359,7 @@ class Navbar extends Component {
     let { user, isTransparent } = this.state;
 
     const styles = classNames("top-menu", {
-      "top-menu-transparent": isTransparent == true
+      "top-menu-transparent": isTransparent == true,
     });
 
     return (
@@ -374,7 +376,7 @@ class Navbar extends Component {
 function mapStateToProps(state) {
   return {
     profile: state.profile,
-    ln: state.language
+    ln: state.language,
   };
 }
 

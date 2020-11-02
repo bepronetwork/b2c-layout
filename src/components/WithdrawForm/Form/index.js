@@ -3,15 +3,15 @@ import { connect } from "react-redux";
 import { compose } from "lodash/fp";
 import { InputNumber, Typography, InputText } from "components";
 import { Col, Row } from "reactstrap";
+import { ProgressBar } from "react-bootstrap";
+import store from "containers/App/store";
+import _ from "lodash";
+import loadingIco from "assets/loading-circle.gif";
 import { getApp, getAddOn } from "../../../lib/helpers";
 import { setMessageNotification } from "../../../redux/actions/message";
 import { setWithdrawInfo } from "../../../redux/actions/withdraw";
-import { ProgressBar } from "react-bootstrap";
-import store from "containers/App/store";
 import { CopyText } from "../../../copy";
 import { formatCurrency } from "../../../utils/numberFormatation";
-import _ from "lodash";
-import loadingIco from "assets/loading-circle.gif";
 import "../index.css";
 
 const defaultProps = {
@@ -31,7 +31,7 @@ const defaultProps = {
   minBalance: 0,
   isAsking: false,
   minBetAmountForBonusUnlocked: 0,
-  incrementBetAmountForBonus: 0
+  incrementBetAmountForBonus: 0,
 };
 
 class Form extends Component {
@@ -46,23 +46,23 @@ class Form extends Component {
     this.projectData(this.props);
   }
 
-  componentWillUnmount() {
-    clearInterval(this.intervalID);
-  }
-
   componentWillReceiveProps(props) {
     this.setState({ isLoaded: false, addressInitialized: false });
     this.projectData(props);
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.intervalID);
   }
 
   setWithdrawInfoInRedux = async ({ id }) => {
     await store.dispatch(setWithdrawInfo({ key: "id", value: id }));
   };
 
-  getCurrencyAddress = async wallet => {
+  getCurrencyAddress = async (wallet) => {
     const { profile, onAddress } = this.props;
     const response = await profile.getCurrencyAddress({
-      currency_id: wallet.currency._id
+      currency_id: wallet.currency._id,
     });
 
     if (!_.isEmpty(response) && _.isEmpty(response.message)) {
@@ -74,7 +74,7 @@ class Form extends Component {
     this.setState({ isLoaded: true });
   };
 
-  projectData = async props => {
+  projectData = async (props) => {
     const { wallet, isAffiliate } = props;
     const { currency } = wallet;
     const isTxFee = getAddOn().txFee ? getAddOn().txFee.isTxFee : false;
@@ -92,7 +92,7 @@ class Form extends Component {
     const appWallet =
       isAffiliate === true
         ? wallet
-        : getApp().wallet.find(w => w.currency._id === currency._id);
+        : getApp().wallet.find((w) => w.currency._id === currency._id);
 
     this.setState({
       ticker: currency.ticker,
@@ -102,8 +102,9 @@ class Form extends Component {
       isTxFee,
       fee:
         isTxFee === true
-          ? getAddOn().txFee.withdraw_fee.find(f => f.currency === currency._id)
-              .amount
+          ? getAddOn().txFee.withdraw_fee.find(
+              (f) => f.currency === currency._id
+            ).amount
           : null,
       maxBalance: formatCurrency(
         appWallet.max_withdraw > wallet.playBalance
@@ -117,22 +118,24 @@ class Form extends Component {
       ),
       minBetAmountForBonusUnlocked: wallet.minBetAmountForBonusUnlocked,
       incrementBetAmountForBonus: wallet.incrementBetAmountForBonus,
-      bonusAmount: wallet.bonusAmount
+      bonusAmount: wallet.bonusAmount,
     });
   };
 
-  onChangeAmount = async amount => {
+  onChangeAmount = async (amount) => {
     const { toAddress } = this.state;
+
     this.setState({ ...this.state, amount, disabled: !(amount && toAddress) });
   };
 
-  onToAddressChange = async event => {
+  onToAddressChange = async (event) => {
     const { amount } = this.state;
     const toAddress = event.target.value;
+
     this.setState({
       ...this.state,
       toAddress,
-      disabled: !(amount && toAddress)
+      disabled: !(amount && toAddress),
     });
   };
 
@@ -144,22 +147,21 @@ class Form extends Component {
 
       this.setState({ ...this.state, disabled: true, isAsking: true });
 
-      var res;
       if (isAffiliate === true) {
         /* Create Withdraw Framework */
         await profile.askForWithdrawAffiliate({
           amount: parseFloat(amount),
           currency,
-          address: toAddress
+          address: toAddress,
         });
       } else {
         /* Create Withdraw Framework */
         await profile.askForWithdraw({
           amount: parseFloat(amount),
           currency,
-          address: toAddress
+          address: toAddress,
         });
-        //await profile.updateBalance({ userDelta: parseFloat(-amount) });
+        // await profile.updateBalance({ userDelta: parseFloat(-amount) });
         await profile.getAllData(true);
       }
 
@@ -174,9 +176,9 @@ class Form extends Component {
         amount: 0,
         toAddress: "",
         isAsking: false,
-        disabled: false
+        disabled: false,
       });
-      //await this.setWithdrawInfoInRedux({id : res.withdraw._id});
+      // await this.setWithdrawInfoInRedux({id : res.withdraw._id});
     } catch (err) {
       this.setState({ ...this.state, isAsking: false, disabled: false });
       console.log(err);
@@ -200,7 +202,7 @@ class Form extends Component {
       fee,
       isAsking,
       minBetAmountForBonusUnlocked,
-      incrementBetAmountForBonus
+      incrementBetAmountForBonus,
     } = this.state;
     const { ln, isAffiliate } = this.props;
     const copy = CopyText.amountFormIndex[ln];
@@ -209,8 +211,9 @@ class Form extends Component {
       return (
         <div>
           <img
-            src={process.env.PUBLIC_URL + "/loading.gif"}
+            src={`${process.env.PUBLIC_URL}/loading.gif`}
             styleName="loading-gif"
+            alt="Loading GIF"
           />
         </div>
       );
@@ -226,16 +229,16 @@ class Form extends Component {
             {minBetAmountForBonusUnlocked > 0 ? (
               <div styleName="pb">
                 <div styleName="pb-text">
-                  <Typography variant={"x-small-body"} color={"white"}>
+                  <Typography variant="x-small-body" color="white">
                     Betting needed to allow the bonus withdraw.
                   </Typography>
                 </div>
                 <div styleName="pb-main">
                   <div styleName="pb-left">
                     <Typography
-                      variant={"x-small-body"}
-                      color={"white"}
-                      weight={"bold"}
+                      variant="x-small-body"
+                      color="white"
+                      weight="bold"
                     >
                       {`Progress (${percenteToBonus.toFixed(0)}%)`}
                     </Typography>
@@ -251,16 +254,16 @@ class Form extends Component {
                 </div>
                 <div styleName="pb-main">
                   <div styleName="pb-left">
-                    <Typography variant={"x-small-body"} color={"white"}>
+                    <Typography variant="x-small-body" color="white">
                       {`${formatCurrency(incrementBetAmountForBonus)}`}
                     </Typography>
-                    <img src={image} />
+                    <img src={image} alt="Increment Illustration" />
                   </div>
                   <div styleName="pb-right">
-                    <Typography variant={"x-small-body"} color={"white"}>
+                    <Typography variant="x-small-body" color="white">
                       {`${formatCurrency(minBetAmountForBonusUnlocked)}`}
                     </Typography>
-                    <img src={image} />
+                    <img src={image} alt="Bonus Unlocked Illustration" />
                   </div>
                 </div>
               </div>
@@ -270,7 +273,6 @@ class Form extends Component {
                 <div style={{ marginBottom: 20, marginTop: 10 }}>
                   <InputText
                     name="toAddress"
-                    onChange={toAddress => this.onToAddressChange(toAddress)}
                     onChange={this.onToAddressChange}
                     value={toAddress}
                     placeholder={copy.INDEX.INPUT_TEXT.PLACEHOLDER[0]}
@@ -289,7 +291,7 @@ class Form extends Component {
                     max={maxWithdraw}
                     precision={6}
                     title=""
-                    onChange={amount => this.onChangeAmount(amount)}
+                    onChange={(amount) => this.onChangeAmount(amount)}
                     icon="customized"
                     value={amount}
                     type="currency"
@@ -299,7 +301,7 @@ class Form extends Component {
                     styleName="min-max"
                     onClick={() => this.onChangeAmount(minBalance)}
                   >
-                    <Typography variant={"x-small-body"} color={"grey"}>
+                    <Typography variant="x-small-body" color="grey">
                       Min
                     </Typography>
                   </div>
@@ -307,7 +309,7 @@ class Form extends Component {
                     styleName="min-max"
                     onClick={() => this.onChangeAmount(maxBalance)}
                   >
-                    <Typography variant={"x-small-body"} color={"grey"}>
+                    <Typography variant="x-small-body" color="grey">
                       Max
                     </Typography>
                   </div>
@@ -321,9 +323,9 @@ class Form extends Component {
                 disabled={disabled || isAsking}
               >
                 {isAsking ? (
-                  <img src={loadingIco} />
+                  <img src={loadingIco} alt="Loading Icon" />
                 ) : (
-                  <Typography variant={"small-body"} color={"fixedwhite"}>
+                  <Typography variant="small-body" color="fixedwhite">
                     {copy.INDEX.TYPOGRAPHY.TEXT[1]} Withdraw
                   </Typography>
                 )}
@@ -331,19 +333,15 @@ class Form extends Component {
             </div>
             <div styleName="disclaimer">
               <div styleName="title">
-                <Typography
-                  variant={"x-small-body"}
-                  color={"grey"}
-                  weight={"bold"}
-                >
+                <Typography variant="x-small-body" color="grey" weight="bold">
                   {copy.INDEX.DISCLAIMER.NOTICE}
                 </Typography>
               </div>
               <ul>
-                {copy.INDEX.DISCLAIMER.LIST.map(d => {
+                {copy.INDEX.DISCLAIMER.LIST.map((d) => {
                   return (
                     <li>
-                      <Typography variant={"x-small-body"} color={"grey"}>
+                      <Typography variant="x-small-body" color="grey">
                         {d}
                       </Typography>
                     </li>
@@ -351,23 +349,23 @@ class Form extends Component {
                 })}
                 {isTxFee === true ? (
                   <li>
-                    <Typography variant={"x-small-body"} color={"grey"}>
+                    <Typography variant="x-small-body" color="grey">
                       {copy.INDEX.TYPOGRAPHY.NOTICE[0]} {fee} {ticker}
                     </Typography>
                   </li>
                 ) : null}
                 {isAffiliate !== true ? (
                   <li>
-                    <Typography variant={"x-small-body"} color={"grey"}>
+                    <Typography variant="x-small-body" color="grey">
                       {copy.INDEX.TYPOGRAPHY.FUNC_TEXT[1]([
                         maxWithdraw,
-                        ticker
+                        ticker,
                       ])}
                     </Typography>
                   </li>
                 ) : null}
                 <li>
-                  <Typography variant={"x-small-body"} color={"grey"}>
+                  <Typography variant="x-small-body" color="grey">
                     {copy.INDEX.TYPOGRAPHY.FUNC_TEXT[2]([minWithdraw, ticker])}
                   </Typography>
                 </li>
@@ -377,11 +375,12 @@ class Form extends Component {
         ) : (
           <div styleName="building">
             <img
-              src={process.env.PUBLIC_URL + "/logo.png"}
+              src={`${process.env.PUBLIC_URL}/logo.png`}
               styleName="building-img"
+              alt="Building Illustration"
             />
             <div styleName="building-info">
-              <Typography variant={"small-body"} color={`white`}>
+              <Typography variant="small-body" color="white">
                 {copy.INDEX.TYPOGRAPHY.TEXT[0]}
               </Typography>
             </div>
@@ -395,7 +394,7 @@ class Form extends Component {
 function mapStateToProps(state) {
   return {
     profile: state.profile,
-    ln: state.language
+    ln: state.language,
   };
 }
 

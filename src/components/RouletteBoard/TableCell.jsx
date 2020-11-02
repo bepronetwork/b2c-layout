@@ -16,13 +16,13 @@ export default class TableCell extends Component {
       "japanese-laurel",
       "pickled-bluewood",
       "pickled-bluewood-light",
-      "pickled-bluewood-dark"
+      "pickled-bluewood-dark",
     ]),
     isResult: PropTypes.bool,
     betHistory: PropTypes.arrayOf(
       PropTypes.shape({ cell: PropTypes.string, chip: PropTypes.number })
     ).isRequired,
-    id: PropTypes.string
+    id: PropTypes.string,
   };
 
   static defaultProps = {
@@ -30,7 +30,7 @@ export default class TableCell extends Component {
     color: "auto",
     focused: false,
     isResult: false,
-    id: null
+    id: null,
   };
 
   getRoundChipValue = (chipSelected, denominator, fixed) => {
@@ -41,7 +41,7 @@ export default class TableCell extends Component {
     return amount - parseInt(amount, 10) === 0 ? parseInt(amount, 10) : amount;
   };
 
-  getChipValue = chipSelected => {
+  getChipValue = (chipSelected) => {
     if (!chipSelected) return null;
 
     if (chipSelected >= 10000) {
@@ -97,7 +97,7 @@ export default class TableCell extends Component {
       focused,
       "is-result": isResult,
       active: chipSelected,
-      zero: label == "0"
+      zero: label == "0",
     });
 
     return (

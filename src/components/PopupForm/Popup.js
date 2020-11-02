@@ -1,11 +1,9 @@
 import React, { Component } from "react";
-// eslint-disable-next-line import/no-cycle
 import PropTypes from "prop-types";
 import { Typography } from "components";
 import EmojiEventsIcon from "@material-ui/icons/EmojiEvents";
 import { setMessagePopup } from "../../redux/actions/popup";
 import classNames from "classnames";
-import _ from "lodash";
 import "./index.css";
 
 class Popup extends Component {
@@ -14,7 +12,7 @@ class Popup extends Component {
     title: PropTypes.string,
     messages: PropTypes.arrayOf(PropTypes.string),
     message: PropTypes.string,
-    type: PropTypes.oneOf(["congrats"])
+    type: PropTypes.oneOf(["congrats"]),
   };
 
   static defaultProps = {
@@ -22,7 +20,7 @@ class Popup extends Component {
     title: "Congratulations!",
     messages: [],
     message: "",
-    type: "congrats"
+    type: "congrats",
   };
 
   componentDidMount() {
@@ -31,7 +29,7 @@ class Popup extends Component {
 
   closeWindow = async () => {
     let filteredArray = this.props.messages.filter(
-      item => item.id !== this.props.id
+      (item) => item.id !== this.props.id
     );
     await this.props.dispatch(setMessagePopup(filteredArray));
   };
@@ -74,7 +72,7 @@ class Popup extends Component {
             </Typography>
           </div>
         </div>
-        <div styleName="popup-close" onClick={this.closeWindow}></div>
+        <div styleName="popup-close" onClick={this.closeWindow} />
       </div>
     );
   }

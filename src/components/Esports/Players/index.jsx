@@ -3,7 +3,6 @@ import { Typography } from "components";
 import { connect } from "react-redux";
 import { Shield } from "components/Esports";
 import ReactCountryFlag from "react-country-flag";
-import _ from "lodash";
 import "./index.css";
 
 class Players extends Component {
@@ -24,7 +23,7 @@ class Players extends Component {
     return (
       <div styleName="players">
         <div styleName="left-column">
-          {team1.players.map(p => {
+          {team1.players.map((p) => {
             return (
               <div
                 styleName="player"
@@ -49,7 +48,7 @@ class Players extends Component {
                     className="emojiFlag"
                     style={{
                       width: "1em",
-                      height: "1em"
+                      height: "1em",
                     }}
                     title={p.hometown}
                   />
@@ -59,7 +58,7 @@ class Players extends Component {
           })}
         </div>
         <div styleName="right-column">
-          {team2.players.map(p => {
+          {team2.players.map((p) => {
             return (
               <div
                 styleName="player"
@@ -84,7 +83,7 @@ class Players extends Component {
                     className="emojiFlag"
                     style={{
                       width: "1em",
-                      height: "1em"
+                      height: "1em",
                     }}
                     title={p.hometown}
                   />
@@ -151,7 +150,7 @@ class Players extends Component {
 function mapStateToProps(state) {
   return {
     profile: state.profile,
-    ln: state.language
+    ln: state.language,
   };
 }
 

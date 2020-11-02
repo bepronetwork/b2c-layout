@@ -5,7 +5,7 @@ import Typography from "../../Typography";
 import { getAppCustomization } from "../../../lib/helpers";
 import "./index.css";
 
-const tabletBreakpoint = 1267;
+let tabletBreakpoint = 1267;
 
 export default class Tab extends Component {
   static propTypes = {
@@ -13,12 +13,13 @@ export default class Tab extends Component {
     name: PropTypes.string.isRequired,
     onClick: PropTypes.func,
     selected: PropTypes.bool,
-    style: PropTypes.oneOf(["full-background", "default"])
+    style: PropTypes.oneOf(["full-background", "default"]),
   };
 
   static defaultProps = {
     selected: false,
-    onClick: Function.prototype
+    onClick: Function.prototype,
+    variant: "small-body",
   };
 
   handleClick = () => {
@@ -28,19 +29,16 @@ export default class Tab extends Component {
   };
 
   isMobileOrTablet = () => {
-    if (document.documentElement.clientWidth < tabletBreakpoint) {
-      return true;
-    }
-    return false;
+    return document.documentElement.clientWidth < tabletBreakpoint;
   };
 
   render() {
-    const { selected, label, icon, style, variant = "small-body" } = this.props;
+    const { selected, label, icon, style, variant } = this.props;
     const { skin } = getAppCustomization();
     const classes = classNames("tab", {
       selected,
       fullBackground: style === "full-background",
-      fullBackgroundSelected: style === "full-background" && selected
+      fullBackgroundSelected: style === "full-background" && selected,
     });
 
     return (

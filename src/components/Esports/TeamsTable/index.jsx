@@ -4,7 +4,6 @@ import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 import { getTeam } from "controllers/Esports/EsportsUser";
 import { getSkeletonColors } from "../../../lib/helpers";
 import { connect } from "react-redux";
-import _ from "lodash";
 import "./index.css";
 
 class TeamsTable extends Component {
@@ -14,7 +13,7 @@ class TeamsTable extends Component {
       team1: null,
       team2: null,
       hasPlayers: false,
-      isLoading: true
+      isLoading: true,
     };
   }
 
@@ -26,7 +25,7 @@ class TeamsTable extends Component {
     this.projectData(props);
   }
 
-  projectData = async props => {
+  projectData = async (props) => {
     let { hasPlayers } = this.state;
     const { match, onShowStats } = props;
 
@@ -49,7 +48,7 @@ class TeamsTable extends Component {
       team1,
       team2,
       hasPlayers,
-      isLoading: false
+      isLoading: false,
     });
   };
 
@@ -89,7 +88,7 @@ class TeamsTable extends Component {
 function mapStateToProps(state) {
   return {
     profile: state.profile,
-    ln: state.language
+    ln: state.language,
   };
 }
 

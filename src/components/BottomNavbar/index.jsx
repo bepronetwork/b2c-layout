@@ -7,7 +7,7 @@ import {
   DepositIcon,
   ChatIcon,
   CasinoIcon,
-  UsersIcon
+  UsersIcon,
 } from "components";
 import UserContext from "containers/App/UserContext";
 import { connect } from "react-redux";
@@ -34,11 +34,11 @@ class BottomNavbar extends Component {
     this.projectData(props);
   }
 
-  projectData = async props => {
+  projectData = async (props) => {
     const curPath = props.location.pathname;
 
     this.setState({
-      gameType: curPath.includes("esports") ? "esports" : "casino"
+      gameType: curPath.includes("esports") ? "esports" : "casino",
     });
   };
 
@@ -50,7 +50,7 @@ class BottomNavbar extends Component {
       : onLoginRegister("login");
   };
 
-  homeClick = homepage => {
+  homeClick = (homepage) => {
     this.setState({ gameType: homepage });
     this.props.history.push(`/${homepage}`);
   };
@@ -76,7 +76,7 @@ class BottomNavbar extends Component {
                     {usersIcon === null ? (
                       <UsersIcon />
                     ) : (
-                      <img src={usersIcon} alt='Users Icon' />
+                      <img src={usersIcon} alt="Users Icon" />
                     )}
                   </div>
                   <Typography variant="x-small-body" color="grey">
@@ -91,7 +91,7 @@ class BottomNavbar extends Component {
                     {casinoIcon === null ? (
                       <CasinoIcon />
                     ) : (
-                      <img src={casinoIcon} alt='Casino Icon' />
+                      <img src={casinoIcon} alt="Casino Icon" />
                     )}
                   </div>
                   <Typography variant="x-small-body" color="grey">
@@ -108,7 +108,7 @@ class BottomNavbar extends Component {
                   {depositIcon === null ? (
                     <DepositIcon />
                   ) : (
-                    <img src={depositIcon} alt='Deposit Icon' />
+                    <img src={depositIcon} alt="Deposit Icon" />
                   )}
                 </div>
                 <Typography variant="x-small-body" color="grey">
@@ -121,7 +121,11 @@ class BottomNavbar extends Component {
             <a href="#" onClick={() => onBetsList()}>
               <span styleName="item">
                 <div styleName="icon">
-                  {betsIcon === null ? <BetsIcon /> : <img src={betsIcon} alt='Bets Icon' />}
+                  {betsIcon === null ? (
+                    <BetsIcon />
+                  ) : (
+                    <img src={betsIcon} alt="Bets Icon" />
+                  )}
                 </div>
                 <Typography variant="x-small-body" color="grey">
                   {copy.INDEX.TYPOGRAPHY.TEXT[5]}
@@ -133,7 +137,11 @@ class BottomNavbar extends Component {
             <a href="#" onClick={() => onChat()}>
               <span styleName="item">
                 <div styleName="icon">
-                  {chatIcon === null ? <ChatIcon /> : <img src={chatIcon} alt='Chat Icon' />}
+                  {chatIcon === null ? (
+                    <ChatIcon />
+                  ) : (
+                    <img src={chatIcon} alt="Chat Icon" />
+                  )}
                 </div>
                 <Typography variant="x-small-body" color="grey">
                   {copy.INDEX.TYPOGRAPHY.TEXT[4]}
@@ -153,7 +161,7 @@ class BottomNavbar extends Component {
 function mapStateToProps(state) {
   return {
     profile: state.profile,
-    ln: state.language
+    ln: state.language,
   };
 }
 

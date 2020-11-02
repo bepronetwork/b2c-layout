@@ -4,7 +4,7 @@ import { Numbers } from "../../lib/ethereum/lib";
 import {
   dateToHourAndMinute,
   getGames,
-  getSkeletonColors
+  getSkeletonColors,
 } from "../../lib/helpers";
 import { getGames as getVideoGames } from "controllers/Esports/EsportsUser";
 import { SelectBox, Table, Tabs } from "components";
@@ -19,19 +19,19 @@ const views = [
   { text: 10, value: 10 },
   { text: 25, value: 25 },
   { text: 50, value: 50 },
-  { text: 100, value: 100 }
+  { text: 100, value: 100 },
 ];
 const allGames = { text: "All Games", value: "all_games" };
 
 const stateOptions = Object.freeze({
   won: { text: "Won", color: "green" },
   lost: { text: "Lost", color: "red" },
-  pending: { text: "Pending", color: "primaryLight" }
+  pending: { text: "Pending", color: "primaryLight" },
 });
 
 const typeOptions = Object.freeze({
   simple: { text: "Simple", color: "primaryLight" },
-  multiple: { text: "Multiple", color: "primaryDark" }
+  multiple: { text: "Multiple", color: "primaryDark" },
 });
 
 const rows = {
@@ -40,58 +40,58 @@ const rows = {
     fields: [
       {
         value: "game",
-        image: true
+        image: true,
       },
       {
-        value: "id"
+        value: "id",
       },
       {
-        value: "timestamp"
+        value: "timestamp",
       },
       {
         value: "winAmount",
         dependentColor: true,
         condition: "isWon",
-        currency: true
+        currency: true,
       },
       {
-        value: "payout"
+        value: "payout",
         //dependentColor : true,
         //condition : 'isWon'
-      }
+      },
     ],
-    rows: []
+    rows: [],
   },
   esports: {
     titles: [],
     fields: [
       {
         value: "game",
-        image: true
+        image: true,
       },
       {
-        value: "id"
+        value: "id",
       },
       {
-        value: "timestamp"
+        value: "timestamp",
       },
       {
         value: "winAmount",
         dependentColor: true,
         condition: "isWon",
-        currency: true
+        currency: true,
       },
       {
         value: "type",
-        isStatus: true
+        isStatus: true,
       },
       {
         value: "state",
-        isStatus: true
-      }
+        isStatus: true,
+      },
     ],
-    rows: []
-  }
+    rows: [],
+  },
 };
 
 const defaultProps = {
@@ -111,7 +111,7 @@ const defaultProps = {
   view_game: allGames,
   isLoading: true,
   isListLoading: true,
-  isEsportsEnabled: false
+  isEsportsEnabled: false,
 };
 
 class BetsTab extends Component {
@@ -141,16 +141,16 @@ class BetsTab extends Component {
     const copy = CopyText.betspage[ln];
     let casinoGames = [];
     let esportsGames = [];
-    let games = [];
+    let games;
     let casinoGamesOptions = [];
     let esportsGamesOptions = [];
 
     casinoGames = await getGames();
     casinoGamesOptions.push(allGames);
-    casinoGames.map(data => {
+    casinoGames.map((data) => {
       const n = {
         value: data.metaName,
-        text: data.name
+        text: data.name,
       };
       casinoGamesOptions.push(n);
     });
@@ -162,15 +162,15 @@ class BetsTab extends Component {
       esportsGames = await getVideoGames();
       esportsGamesOptions.push(allGames);
       esportsGames = esportsGames
-        .filter(g => g.series.length > 0)
-        .map(g => {
+        .filter((g) => g.series.length > 0)
+        .map((g) => {
           g.image_url = images("./" + g.slug + "-ico.png");
           return g;
         });
-      esportsGames.map(data => {
+      esportsGames.map((data) => {
         const n = {
           value: data._id,
-          text: data.name
+          text: data.name,
         };
         esportsGamesOptions.push(n);
       });
@@ -188,26 +188,26 @@ class BetsTab extends Component {
         if (view == "casino") {
           casinoRows = await profile.getMyBets({
             size: view_amount.value,
-            game: games.find(g => g.metaName === view_game.value)._id,
-            tag: "casino"
+            game: games.find((g) => g.metaName === view_game.value)._id,
+            tag: "casino",
           });
         } else if (view == "esports" && isEsportsEnabled === true) {
           esportsRows = await profile.getMyBets({
             size: view_amount.value,
-            slug: games.find(g => g._id === view_game.value).slug,
-            tag: "esports"
+            slug: games.find((g) => g._id === view_game.value).slug,
+            tag: "esports",
           });
         }
       } else {
         casinoRows = await profile.getMyBets({
           size: view_amount.value,
-          tag: "casino"
+          tag: "casino",
         });
 
         if (isEsportsEnabled === true) {
           esportsRows = await profile.getMyBets({
             size: view_amount.value,
-            tag: "esports"
+            tag: "esports",
           });
         }
       }
@@ -229,21 +229,21 @@ class BetsTab extends Component {
       isEsportsEnabled,
       options: Object.keys(copy.TABLE)
         .filter(
-          key =>
+          (key) =>
             key != "ESPORTS" || (key === "ESPORTS" && isEsportsEnabled === true)
         )
-        .map(key => {
+        .map((key) => {
           return {
             value: new String(key).toLowerCase(),
-            label: copy.TABLE[key].TITLE
+            label: copy.TABLE[key].TITLE,
           };
         }),
       casino: {
         ...this.state.casino,
         titles: copy.TABLE.CASINO.ITEMS,
-        rows: casinoRows.map(bet => {
+        rows: casinoRows.map((bet) => {
           return {
-            game: casinoGames.find(game => game._id === bet.game),
+            game: casinoGames.find((game) => game._id === bet.game),
             id: bet._id,
             timestamp: dateToHourAndMinute(bet.timestamp),
             betAmount: formatCurrency(Numbers.toFloat(bet.betAmount)),
@@ -252,30 +252,30 @@ class BetsTab extends Component {
             isWon: bet.isWon,
             payout: `${formatCurrency(
               Numbers.toFloat(bet.winAmount / bet.betAmount)
-            )}x`
+            )}x`,
           };
         }),
-        onTableDetails: onTableDetails ? onTableDetails : null
+        onTableDetails: onTableDetails ? onTableDetails : null,
       },
       esports: {
         ...this.state.esports,
         titles: copy.TABLE.ESPORTS.ITEMS,
-        rows: esportsRows.map(bet => {
-          let game = "";
+        rows: esportsRows.map((bet) => {
+          let game;
           if (bet.videogames.length > 1) {
             let name = "";
-            bet.videogames.map(g => {
+            bet.videogames.map((g) => {
               name = name + " " + g.name;
             });
 
             game = {
               name: name,
-              image_url: images("./all-ico.png")
+              image_url: images("./all-ico.png"),
             };
           } else {
             game = {
               name: bet.videogames[0].name,
-              image_url: images("./" + bet.videogames[0].slug + "-ico.png")
+              image_url: images("./" + bet.videogames[0].slug + "-ico.png"),
             };
           }
 
@@ -297,15 +297,15 @@ class BetsTab extends Component {
             currency: bet.currency,
             isWon: bet.isWon,
             type: type,
-            state: state
+            state: state,
           };
         }),
-        onTableDetails: onTableDetails ? onTableDetails : null
-      }
+        onTableDetails: onTableDetails ? onTableDetails : null,
+      },
     });
   };
 
-  setTimer = options => {
+  setTimer = (options) => {
     this.projectData(this.props, options);
   };
 
@@ -319,18 +319,18 @@ class BetsTab extends Component {
     this.setTimer({ view_game: option });
   };
 
-  handleTabChange = async name => {
+  handleTabChange = async (name) => {
     const {
       casinoGamesOptions,
       esportsGamesOptions,
       casinoGames,
-      esportsGames
+      esportsGames,
     } = this.state;
     this.setState({
       ...this.state,
       view: name,
       gamesOptions: name == "casino" ? casinoGamesOptions : esportsGamesOptions,
-      games: name == "casino" ? casinoGames : esportsGames
+      games: name == "casino" ? casinoGames : esportsGames,
     });
   };
 
@@ -342,7 +342,7 @@ class BetsTab extends Component {
       isListLoading,
       view_game,
       options,
-      view
+      view,
     } = this.state;
 
     return (
@@ -374,7 +374,7 @@ class BetsTab extends Component {
             <div styleName="filters">
               <div styleName="bets-dropdown-game">
                 <SelectBox
-                  onChange={e => this.changeViewGames(e)}
+                  onChange={(e) => this.changeViewGames(e)}
                   options={gamesOptions}
                   value={this.state.view_game}
                 />
@@ -382,7 +382,7 @@ class BetsTab extends Component {
 
               <div styleName="bets-dropdown">
                 <SelectBox
-                  onChange={e => this.changeViewBets(e)}
+                  onChange={(e) => this.changeViewBets(e)}
                   options={views}
                   value={this.state.view_amount}
                 />
@@ -396,12 +396,12 @@ class BetsTab extends Component {
           fields={this.state[view].fields}
           size={this.state.view_amount.value}
           games={games
-            .filter(function(g) {
+            .filter(function (g) {
               return (
                 view_game.value == "all_games" || g.metaName == view_game.value
               );
             })
-            .map(function(g) {
+            .map(function (g) {
               return g;
             })}
           isLoading={isListLoading}
@@ -416,7 +416,7 @@ class BetsTab extends Component {
 function mapStateToProps(state) {
   return {
     profile: state.profile,
-    ln: state.language
+    ln: state.language,
   };
 }
 

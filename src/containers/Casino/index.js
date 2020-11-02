@@ -8,7 +8,6 @@ import PlayInvitation from "components/PlayInvitation";
 import games from "../../config/games";
 import LastBets from "../LastBets/HomePage";
 import { connect } from "react-redux";
-import _ from "lodash";
 import "./index.css";
 
 class HomePage extends Component {
@@ -17,14 +16,14 @@ class HomePage extends Component {
   static propTypes = {
     onHandleLoginOrRegister: PropTypes.func.isRequired,
     onHandleResetPassword: PropTypes.func,
-    onHandleConfirmEmail: PropTypes.func
+    onHandleConfirmEmail: PropTypes.func,
   };
 
   componentDidMount = () => {
     const {
       onHandleResetPassword,
       onHandleConfirmEmail,
-      match: { params }
+      match: { params },
     } = this.props;
 
     let queryParams = queryString.parse(this.props.location.search);
@@ -39,7 +38,6 @@ class HomePage extends Component {
   };
 
   renderPlayNow = () => {
-    const { user } = this.context;
     const { onHandleLoginOrRegister } = this.props;
 
     return (
@@ -50,7 +48,7 @@ class HomePage extends Component {
     );
   };
 
-  isGameAvailable = metaName => {
+  isGameAvailable = (metaName) => {
     return find(games, { metaName: metaName });
   };
 
@@ -60,14 +58,14 @@ class HomePage extends Component {
     edge,
     image_url,
     tableLimit,
-    background_url
+    background_url,
   }) => {
     const { onTableDetails } = this.props;
     if (!this.isGameAvailable(metaName)) {
       return null;
     }
     return (
-      <div class={"col"} styleName="col">
+      <div styleName="col">
         <GameCard
           path={metaName}
           title={name}
@@ -76,7 +74,7 @@ class HomePage extends Component {
           tableLimit={tableLimit}
           background_url={background_url}
           onTableDetails={onTableDetails}
-        ></GameCard>
+        />
       </div>
     );
   };
@@ -95,7 +93,7 @@ class HomePage extends Component {
         {/* this.renderPlayNow() */}
         <div styleName="container">
           <div styleName="container-small">
-            {appInfo.games.map(item => this.renderGame(item))}
+            {appInfo.games.map((item) => this.renderGame(item))}
           </div>
           {document.documentElement.clientWidth <= mobileBreakpoint ? null : (
             <div styleName="last-bets">
@@ -112,7 +110,7 @@ class HomePage extends Component {
 function mapStateToProps(state) {
   return {
     profile: state.profile,
-    ln: state.language
+    ln: state.language,
   };
 }
 

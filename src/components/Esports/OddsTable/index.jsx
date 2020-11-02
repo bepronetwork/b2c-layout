@@ -5,12 +5,12 @@ import classNames from "classnames";
 import CloseIcon from "components/Icons/CloseCross";
 import {
   setBetSlipResult,
-  removeBetSlipFromResult
+  removeBetSlipFromResult,
 } from "../../../redux/actions/betSlip";
 import {
   formatOpponentData,
   formatOpponentBet,
-  formatDrawBet
+  formatDrawBet,
 } from "../../../lib/helpers";
 import _ from "lodash";
 import "./index.css";
@@ -23,19 +23,19 @@ class OddsTable extends Component {
         id: null,
         image: "https://dummyimage.com/50/e2e2e2/fff.png",
         name: "Team 1",
-        odd: null
+        odd: null,
       },
       opponent2: {
         id: null,
         image: "https://dummyimage.com/50/e2e2e2/fff.png",
         name: "Team 2",
-        odd: null
+        odd: null,
       },
       drawOdd: null,
       matchName: "Team 1 x Team 2",
       matchId: null,
       gameImage: null,
-      isLoaded: false
+      isLoaded: false,
     };
   }
 
@@ -47,7 +47,7 @@ class OddsTable extends Component {
     this.projectData(props);
   }
 
-  projectData = async props => {
+  projectData = async (props) => {
     const { match } = props;
     let { opponent1, opponent2, drawOdd } = this.state;
 
@@ -61,7 +61,7 @@ class OddsTable extends Component {
           : match.odds.winnerThreeWay;
       drawOdd =
         match.odds.winnerThreeWay.length > 0
-          ? oddType.find(o => o.participant_id == null)
+          ? oddType.find((o) => o.participant_id == null)
           : null;
 
       opponent1 = formatOpponentData(match, 0, gameImage);
@@ -76,7 +76,7 @@ class OddsTable extends Component {
       matchName: match.name,
       matchId: match.match_id,
       gameImage,
-      isLoaded: true
+      isLoaded: true,
     });
   };
 
@@ -102,7 +102,7 @@ class OddsTable extends Component {
       matchId,
       gameImage,
       isLoaded,
-      drawOdd
+      drawOdd,
     } = this.state;
 
     if (!isLoaded) {
@@ -114,32 +114,32 @@ class OddsTable extends Component {
     );
 
     const mainStyles = classNames("bets-placar", {
-      "bets-placar-3": drawOdd != null
+      "bets-placar-3": drawOdd != null,
     });
 
     const isOpponent1Selected = !_.isEmpty(betSlip)
       ? betSlip.some(
-          b => b.id === opponent1.odd.participant_id && b.matchId === matchId
+          (b) => b.id === opponent1.odd.participant_id && b.matchId === matchId
         )
       : false;
     const opponent1Styles = classNames("bets-team", {
-      selected: isOpponent1Selected
+      selected: isOpponent1Selected,
     });
 
     const isOpponent2Selected = !_.isEmpty(betSlip)
       ? betSlip.some(
-          b => b.id === opponent2.odd.participant_id && b.matchId === matchId
+          (b) => b.id === opponent2.odd.participant_id && b.matchId === matchId
         )
       : false;
     const opponent2Styles = classNames("bets-team", {
-      selected: isOpponent2Selected
+      selected: isOpponent2Selected,
     });
 
     const isDrawSelected = !_.isEmpty(betSlip)
-      ? betSlip.some(b => b.id === drawId && b.matchId === matchId)
+      ? betSlip.some((b) => b.id === drawId && b.matchId === matchId)
       : false;
     const drawStyles = classNames("bets-team", {
-      selected: isDrawSelected
+      selected: isDrawSelected,
     });
 
     const opponent1Bet = formatOpponentBet(opponent1, matchId, matchName, 0);
@@ -168,7 +168,7 @@ class OddsTable extends Component {
                   : this.handleAddToBetSlip(opponent1Bet)
               }
             >
-              <img src={opponent1.image} alt='Opponent Illustration' />
+              <img src={opponent1.image} alt="Opponent Illustration" />
               <Typography variant={"x-small-body"} color={"white"}>
                 {opponent1.name}
               </Typography>
@@ -202,7 +202,7 @@ class OddsTable extends Component {
                   : this.handleAddToBetSlip(opponent2Bet)
               }
             >
-              <img src={opponent2.image} alt='Opponent Illustration' />
+              <img src={opponent2.image} alt="Opponent Illustration" />
               <Typography variant={"x-small-body"} color={"white"}>
                 {opponent2.name}
               </Typography>
@@ -221,7 +221,7 @@ function mapStateToProps(state) {
   return {
     profile: state.profile,
     ln: state.language,
-    betSlip: state.betSlip
+    betSlip: state.betSlip,
   };
 }
 

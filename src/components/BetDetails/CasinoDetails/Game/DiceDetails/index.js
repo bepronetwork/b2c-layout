@@ -9,7 +9,7 @@ class DiceDetails extends Component {
     super(props);
     this.state = {
       value: 0,
-      result: null
+      result: null,
     };
   }
 
@@ -21,19 +21,19 @@ class DiceDetails extends Component {
     this.projectData(props);
   }
 
-  projectData = async props => {
+  projectData = async (props) => {
     const { bet } = this.props;
 
     const value = bet.result.length;
     const result = bet.outcomeResultSpace.key;
 
     this.setState({
-      value
+      value,
     });
 
     setTimeout(() => {
       this.setState({
-        result
+        result,
       });
     }, 300);
   };
@@ -56,7 +56,7 @@ class DiceDetails extends Component {
 function mapStateToProps(state) {
   return {
     profile: state.profile,
-    ln: state.language
+    ln: state.language,
   };
 }
 

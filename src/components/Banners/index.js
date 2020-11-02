@@ -2,9 +2,9 @@ import React, { Component } from "react";
 import Carousel from "react-bootstrap/Carousel";
 import { Typography, Button } from "components";
 import { connect } from "react-redux";
-import { getAppCustomization } from "../../lib/helpers";
 import classNames from "classnames";
 import _ from "lodash";
+import { getAppCustomization } from "../../lib/helpers";
 import "./index.css";
 
 class Banners extends Component {
@@ -13,7 +13,7 @@ class Banners extends Component {
     this.state = {
       banners: [],
       index: 0,
-      isFullWidth: false
+      isFullWidth: false,
     };
   }
 
@@ -25,23 +25,23 @@ class Banners extends Component {
     this.projectData(props);
   }
 
-  projectData = async props => {
+  projectData = async (props) => {
     const { ln } = props;
     let { banners } = getAppCustomization();
 
     banners = banners.languages.find(
-      b =>
+      (b) =>
         b.language.isActivated === true &&
         b.language.prefix === ln.toUpperCase()
     );
 
     this.setState({
       banners: !_.isEmpty(banners) ? banners.ids : null,
-      isFullWidth: !_.isEmpty(banners) ? banners.fullWidth : false
+      isFullWidth: !_.isEmpty(banners) ? banners.fullWidth : false,
     });
   };
 
-  handleSelect(selectedIndex, e) {
+  handleSelect(selectedIndex) {
     this.setState({ index: selectedIndex });
   }
 
@@ -58,7 +58,7 @@ class Banners extends Component {
 
     const skin = getAppCustomization().skin.skin_type;
     const bannersStyles = classNames("banners", {
-      "banners-full-width": isFullWidth
+      "banners-full-width": isFullWidth,
     });
 
     return (
@@ -68,17 +68,18 @@ class Banners extends Component {
           onSelect={this.handleSelect.bind(this)}
           pause="hover"
         >
-          {banners.map(banner => {
+          {banners.map((banner) => {
             const styles = classNames("text-image", {
-              "text-image-show": !(banner.title || banner.subtitle)
+              "text-image-show": !(banner.title || banner.subtitle),
             });
             const bannerStyles = classNames("banner", {
-              "banner-full": isFullWidth
+              "banner-full": isFullWidth,
             });
             const textStyles = classNames("text", {
               "text-full": isFullWidth,
-              "no-text": isFullWidth && !banner.title && !banner.subtitle
+              "no-text": isFullWidth && !banner.title && !banner.subtitle,
             });
+
             return (
               <Carousel.Item>
                 <div
@@ -89,27 +90,21 @@ class Banners extends Component {
                       (isFullWidth == false &&
                         !banner.title &&
                         !banner.subtitle)
-                        ? "url(" +
-                          banner.image_url +
-                          ") center center / cover no-repeat"
-                        : null
+                        ? `url(${banner.image_url}) center center / cover no-repeat`
+                        : null,
                   }}
                 >
                   <div styleName={textStyles}>
                     {banner.title || banner.subtitle || banner.button_text ? (
                       <div styleName="banner-content">
                         <div styleName="fields">
-                          <Typography
-                            color={"white"}
-                            variant={"h3"}
-                            weight={"bold"}
-                          >
+                          <Typography color="white" variant="h3" weight="bold">
                             {banner.title}
                           </Typography>
                         </div>
 
                         <div styleName="fields fields-text">
-                          <Typography color={"white"} variant={"small-body"}>
+                          <Typography color="white" variant="small-body">
                             {banner.subtitle}
                           </Typography>
                         </div>
@@ -123,7 +118,7 @@ class Banners extends Component {
                               color={
                                 skin == "digital" ? "secondary" : "fixedwhite"
                               }
-                              variant={"small-body"}
+                              variant="small-body"
                             >
                               {banner.button_text}
                             </Typography>
@@ -140,12 +135,10 @@ class Banners extends Component {
                       background:
                         isFullWidth == false &&
                         (banner.title || banner.subtitle)
-                          ? "url(" +
-                            banner.image_url +
-                            ") center center / cover no-repeat"
+                          ? `url(${banner.image_url}) center center / cover no-repeat`
                           : banner.title || banner.subtitle
                           ? "linear-gradient(to right, rgba(0,0,0,0.9) 0%,rgba(0,0,0,0) 69%)"
-                          : null
+                          : null,
                     }}
                   >
                     <div styleName={styles}>
@@ -153,16 +146,16 @@ class Banners extends Component {
                         <div>
                           <div styleName="fields">
                             <Typography
-                              color={"fixedwhite"}
-                              variant={"h3"}
-                              weight={"bold"}
+                              color="fixedwhite"
+                              variant="h3"
+                              weight="bold"
                             >
                               {banner.title}
                             </Typography>
                           </div>
 
                           <div styleName="fields fields-text">
-                            <Typography color={"fixedwhite"} variant={"body"}>
+                            <Typography color="fixedwhite" variant="body">
                               {banner.subtitle}
                             </Typography>
                           </div>
@@ -171,13 +164,13 @@ class Banners extends Component {
                             <Button
                               onClick={() => this.handleClick(banner.link_url)}
                               theme="action"
-                              size={"x-small"}
+                              size="x-small"
                             >
                               <Typography
                                 color={
                                   skin == "digital" ? "secondary" : "fixedwhite"
                                 }
-                                variant={"body"}
+                                variant="body"
                               >
                                 {banner.button_text}
                               </Typography>
@@ -202,7 +195,7 @@ class Banners extends Component {
 function mapStateToProps(state) {
   return {
     profile: state.profile,
-    ln: state.language
+    ln: state.language,
   };
 }
 

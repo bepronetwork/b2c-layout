@@ -5,7 +5,6 @@ import { connect } from "react-redux";
 import { compose } from "lodash/fp";
 import _ from "lodash";
 import "./index.css";
-import { CopyText } from "../../copy";
 
 class NotificationForm extends Component {
   constructor(props) {
@@ -15,10 +14,10 @@ class NotificationForm extends Component {
   }
 
   static propTypes = {
-    user: PropTypes.shape({})
+    user: PropTypes.shape({}),
   };
 
-  handleTabChange = name => {
+  handleTabChange = (name) => {
     this.setState({ tab: name });
   };
 
@@ -34,7 +33,7 @@ class NotificationForm extends Component {
     return (
       <div styleName="notify-container">
         <div styleName="notify-wrapper">
-          {notificationArray.map(notification => {
+          {notificationArray.map((notification) => {
             return (
               <Notification
                 {...this.props}
@@ -55,12 +54,12 @@ class NotificationForm extends Component {
 function mapStateToProps(state) {
   return {
     profile: state.profile,
-    message: state.message
+    message: state.message,
   };
 }
 
 NotificationForm.propTypes = {
-  dispatch: PropTypes.func
+  dispatch: PropTypes.func,
 };
 
 export default compose(connect(mapStateToProps))(NotificationForm);

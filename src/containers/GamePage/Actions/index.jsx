@@ -10,11 +10,11 @@ class Actions extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      tab: "rules"
+      tab: "rules",
     };
   }
 
-  handleTabChange = name => {
+  handleTabChange = (name) => {
     this.setState({ tab: name });
   };
 
@@ -29,7 +29,7 @@ class Actions extends Component {
     let tableLimit;
     if (profile && !_.isEmpty(profile)) {
       const gameWallet = game.wallets.find(
-        w =>
+        (w) =>
           new String(w.currency).toString() ==
           new String(currency._id).toString()
       );
@@ -45,19 +45,23 @@ class Actions extends Component {
             options={[
               {
                 value: "rules",
-                label: rulesLabel
+                label: rulesLabel,
               },
               {
                 value: "limits",
-                label: limitsLabel
-              }
+                label: limitsLabel,
+              },
             ]}
           />
         </div>
         {tab === "rules" ? (
           <div styleName="rule">
             <h1 styleName="rule-h1">
-              <img styleName="image-icon" src={game.image_url} alt='Game Icon' />
+              <img
+                styleName="image-icon"
+                src={game.image_url}
+                alt="Game Icon"
+              />
               <Typography variant="x-small-body" color={"grey"}>
                 {" "}
                 {game.name}{" "}
@@ -100,7 +104,7 @@ function mapStateToProps(state) {
   return {
     profile: state.profile,
     ln: state.language,
-    currency: state.currency
+    currency: state.currency,
   };
 }
 

@@ -10,13 +10,12 @@ import { CopyText } from "../../copy";
 class DepositWithdrawForm extends Component {
   constructor(props) {
     super(props);
-    // this.props = props;
     this.state = {
-      tab: "deposit"
+      tab: "deposit",
     };
   }
 
-  handleTabChange = name => {
+  handleTabChange = (name) => {
     this.setState({ tab: name });
   };
 
@@ -44,8 +43,8 @@ class DepositWithdrawForm extends Component {
                   depositIcon === null ? (
                     <DepositIcon />
                   ) : (
-                    <img src={depositIcon} alt='Deposit Icon' />
-                  )
+                    <img src={depositIcon} alt="Deposit Icon" />
+                  ),
               },
               {
                 value: "withdraw",
@@ -55,9 +54,9 @@ class DepositWithdrawForm extends Component {
                   withdrawIcon === null ? (
                     <WithdrawIcon />
                   ) : (
-                    <img src={withdrawIcon} alt='Withdraw Icon' />
-                  )
-              }
+                    <img src={withdrawIcon} alt="Withdraw Icon" />
+                  ),
+              },
             ]}
             onSelect={this.handleTabChange}
           />
@@ -75,7 +74,7 @@ class DepositWithdrawForm extends Component {
 function mapStateToProps(state) {
   return {
     profile: state.profile,
-    ln: state.language
+    ln: state.language,
   };
 }
 

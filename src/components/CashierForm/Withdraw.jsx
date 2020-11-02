@@ -7,7 +7,7 @@ import {
   HorizontalStepper,
   AmountWithdrawForm,
   CurrencyWithdrawForm,
-  WithdrawForm
+  WithdrawForm,
 } from "components";
 import store from "../../containers/App/store";
 import { setMessageNotification } from "../../redux/actions/message";
@@ -18,7 +18,7 @@ const defaultProps = {
   amount: 1,
   ticker: "N/A",
   deposits: [],
-  mounted: false
+  mounted: false,
 };
 
 class Withdraw extends Component {
@@ -56,7 +56,7 @@ class Withdraw extends Component {
   render() {
     const { withdraw } = this.props;
     const { userBalance } = this.state;
-    const { currency, nextStep, amount, tx, _id, toAddress } = withdraw;
+    const { currency, nextStep, amount, _id, toAddress } = withdraw;
     const { ln } = this.props;
     const copy = CopyText.cashierFormWithdraw[ln];
 
@@ -72,17 +72,18 @@ class Withdraw extends Component {
                   label: copy.WITHDRAW.HORIZONTAL_STEPPER.LABEL[0],
                   title: copy.WITHDRAW.HORIZONTAL_STEPPER.TITLE[0],
                   condition: !_.isEmpty(currency),
-                  content: <CurrencyWithdrawForm />
+                  content: <CurrencyWithdrawForm />,
                 },
                 {
                   label: copy.WITHDRAW.HORIZONTAL_STEPPER.LABEL[1],
                   title: copy.WITHDRAW.HORIZONTAL_STEPPER.TITLE[1],
                   condition:
                     amount >= 0.0001 &&
-                    amount <= parseFloat(userBalance) && toAddress,
+                    amount <= parseFloat(userBalance) &&
+                    toAddress,
                   nextButtonLabel:
                     copy.WITHDRAW.HORIZONTAL_STEPPER.BUTTON_LABEL[0],
-                  content: <AmountWithdrawForm />
+                  content: <AmountWithdrawForm />,
                 },
                 {
                   label: copy.WITHDRAW.HORIZONTAL_STEPPER.LABEL[2],
@@ -91,8 +92,8 @@ class Withdraw extends Component {
                   content: <WithdrawForm closeStepper={this.closeDeposit} />,
                   last: true,
                   showCloseButton: false,
-                  closeStepper: this.closeDeposit
-                }
+                  closeStepper: this.closeDeposit,
+                },
               ]}
             />
           </div>
@@ -106,7 +107,7 @@ function mapStateToProps(state) {
   return {
     withdraw: state.withdraw,
     profile: state.profile,
-    ln: state.language
+    ln: state.language,
   };
 }
 

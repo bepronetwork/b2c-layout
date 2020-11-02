@@ -13,20 +13,20 @@ export default class ToggleButton extends Component {
       left: PropTypes.shape({
         value: PropTypes.string.isRequired,
         title: PropTypes.string.isRequired,
-        color: PropTypes.string
+        color: PropTypes.string,
       }),
       right: PropTypes.shape({
         value: PropTypes.string.isRequired,
-        title: PropTypes.string.isRequired
-      })
+        title: PropTypes.string.isRequired,
+      }),
     }).isRequired,
-    onSelect: PropTypes.func.isRequired
+    onSelect: PropTypes.func.isRequired,
   };
 
   static defaultProps = {
     selected: null,
     size: "auto",
-    differentBorders: false
+    differentBorders: false,
   };
 
   constructor(props) {
@@ -35,16 +35,16 @@ export default class ToggleButton extends Component {
     const {
       selected,
       config: {
-        left: { value }
-      }
+        left: { value },
+      },
     } = props;
 
     this.state = {
-      selected: selected || value
+      selected: selected || value,
     };
   }
 
-  onClick = side => () => {
+  onClick = (side) => () => {
     const { onSelect } = this.props;
 
     this.setState({ selected: side }, () => {
@@ -56,7 +56,7 @@ export default class ToggleButton extends Component {
     const {
       size,
       differentBorders,
-      config: { left, right }
+      config: { left, right },
     } = this.props;
     const { selected } = this.state;
 
@@ -64,14 +64,14 @@ export default class ToggleButton extends Component {
       "toggle-left": differentBorders,
       selected: selected === left.value,
       [size]: true,
-      [left.color]: left.color && selected === left.value ? true : null
+      [left.color]: left.color && selected === left.value ? true : null,
     });
 
     const rightToggleStyles = classNames("toggle", {
       "toggle-right": differentBorders,
       selected: selected === right.value,
       [size]: true,
-      [right.color]: right.color && selected === right.value ? true : null
+      [right.color]: right.color && selected === right.value ? true : null,
     });
 
     return (

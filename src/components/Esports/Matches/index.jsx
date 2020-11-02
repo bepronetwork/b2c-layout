@@ -14,7 +14,7 @@ class Matches extends Component {
     this.state = {};
   }
 
-  createSkeletonRows = size => {
+  createSkeletonRows = (size) => {
     let rows = [];
 
     for (let i = 0; i < size; i++) {
@@ -49,7 +49,7 @@ class Matches extends Component {
 
   renderMatch(match, beginDate) {
     const { games } = this.props;
-    const gameImage = games.find(g => g.external_id === match.videogame.id)
+    const gameImage = games.find((g) => g.external_id === match.videogame.id)
       .image;
 
     return (
@@ -113,7 +113,7 @@ class Matches extends Component {
       onFetchMoreData,
       size,
       showInfiniteScroll = false,
-      isLoading
+      isLoading,
     } = this.props;
 
     let beginDate = null;
@@ -144,14 +144,14 @@ class Matches extends Component {
                 </SkeletonTheme>
               }
             >
-              {matches.map(match => {
+              {matches.map((match) => {
                 const renderMatch = this.renderMatch(match, beginDate);
                 beginDate = formatToSimpleDate(match.begin_at);
                 return renderMatch;
               })}
             </InfiniteScroll>
           ) : (
-            matches.map(match => {
+            matches.map((match) => {
               const renderMatch = this.renderMatch(match, beginDate);
               beginDate = formatToSimpleDate(match.begin_at);
               return renderMatch;
@@ -172,7 +172,7 @@ class Matches extends Component {
 function mapStateToProps(state) {
   return {
     profile: state.profile,
-    ln: state.language
+    ln: state.language,
   };
 }
 

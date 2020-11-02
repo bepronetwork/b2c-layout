@@ -7,7 +7,7 @@ export default class Info extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      open: false
+      open: false,
     };
   }
 
@@ -25,16 +25,20 @@ export default class Info extends Component {
       <div>
         {open == true
           ? [
-              <span styleName="triangle"></span>,
+              <span styleName="triangle" />,
               <div styleName="window">
                 <Typography variant={"x-small-body"} color={"white"}>
                   {text}
                 </Typography>
-              </div>
+              </div>,
             ]
           : null}
         <span styleName="info" onClick={() => this.onInfoClick()}>
-          {infoIcon === null ? <InfoIcon /> : <img src={infoIcon} alt='Info Icon' />}
+          {infoIcon === null ? (
+            <InfoIcon />
+          ) : (
+            <img src={infoIcon} alt="Info Icon" />
+          )}
         </span>
       </div>
     );

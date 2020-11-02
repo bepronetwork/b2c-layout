@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-// import Carousel from './Carousel/Carousel';
 import { Typography } from "components";
 import "./index.css";
 import { CopyText } from "../../copy";
@@ -20,10 +19,11 @@ class Media extends Component {
     );
   }
 }
+
 function mapStateToProps(state) {
   return {
     profile: state.profile,
-    ln: state.language
+    ln: state.language,
   };
 }
 

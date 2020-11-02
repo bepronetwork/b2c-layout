@@ -6,12 +6,12 @@ export default async function bet({ betAmount, side, user }) {
     const appInfo = JSON.parse(localStorage.getItem("appInfo"));
     const game = find(appInfo.games, { name: "CoinFlip" });
     const result = [
-      { place: side === "tails" ? 0 : 1, value: Number(betAmount) }
+      { place: side === "tails" ? 0 : 1, value: Number(betAmount) },
     ];
     const response = await user.createBet({
       amount: betAmount,
       result,
-      gameId: game._id
+      gameId: game._id,
     });
     await processResponse(response);
     const { message } = response.data;
@@ -21,7 +21,7 @@ export default async function bet({ betAmount, side, user }) {
       _id: id,
       isWon,
       outcomeResultSpace,
-      user_delta
+      user_delta,
     } = message;
     const { index } = outcomeResultSpace;
 
@@ -31,7 +31,7 @@ export default async function bet({ betAmount, side, user }) {
       winAmount,
       betAmount: amountBetted,
       id,
-      userDelta: user_delta
+      userDelta: user_delta,
     };
   } catch (error) {
     throw error;

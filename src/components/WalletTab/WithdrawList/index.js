@@ -9,7 +9,7 @@ import _ from "lodash";
 import "./index.css";
 
 const defaultProps = {
-  rows: []
+  rows: [],
 };
 
 class WithdrawList extends Component {
@@ -30,7 +30,7 @@ class WithdrawList extends Component {
     this.projectData(props);
   }
 
-  projectData = async props => {
+  projectData = async (props) => {
     const { profile } = props;
     let withdraws = [];
 
@@ -41,13 +41,13 @@ class WithdrawList extends Component {
 
     this.setState({
       ...this.state,
-      rows: withdraws.map(w => {
+      rows: withdraws.map((w) => {
         return {
           amount: formatCurrency(Numbers.toFloat(w.amount)),
           creation_timestamp: dateToHourAndMinute(w.creation_timestamp),
-          currency: w.currency
+          currency: w.currency,
         };
-      })
+      }),
     });
   };
 
@@ -55,11 +55,18 @@ class WithdrawList extends Component {
     if (!currencyId) return null;
 
     const currencies = getApp().currencies;
-    const currenncy = currencies.find(currency => currency._id == currencyId);
+    const currenncy = currencies.find((currency) => currency._id == currencyId);
 
     if (!currenncy) return null;
 
-    return <img src={currenncy.image} width={16} height={16} />;
+    return (
+      <img
+        src={currenncy.image}
+        width={16}
+        height={16}
+        alt="Currency Illustration"
+      />
+    );
   }
 
   render() {
@@ -79,7 +86,7 @@ class WithdrawList extends Component {
           </Typography>
         </div>
         <div>
-          {rows.map((row, index) => (
+          {rows.map((row) => (
             <div styleName="row">
               <div styleName="col-1">
                 <Typography variant="x-small-body" color={"grey"}>
@@ -105,7 +112,7 @@ class WithdrawList extends Component {
 function mapStateToProps(state) {
   return {
     profile: state.profile,
-    ln: state.language
+    ln: state.language,
   };
 }
 

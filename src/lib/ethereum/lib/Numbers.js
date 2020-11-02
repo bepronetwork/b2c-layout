@@ -1,10 +1,10 @@
 import accounting from "accounting";
 
-Number.prototype.noExponents = function() {
-  var data = String(this).split(/[eE]/);
+Number.prototype.noExponents = function () {
+  const data = String(this).split(/[eE]/);
   if (data.length == 1) return data[0];
 
-  var z = "",
+  let z = "",
     sign = this < 0 ? "-" : "",
     str = data[0].replace(".", ""),
     mag = Number(data[1]) + 1;
@@ -24,19 +24,12 @@ class NumbersObject {
     return parseFloat(parseFloat(number));
   }
 
-  toMoney(number) {
-    return accounting.formatMoney(number, { symbol: "EUR", format: "%v" });
-  }
-
   formatNumber(number) {
     return accounting.formatNumber(number);
   }
 
   toSmartContractDecimals(value, decimals) {
-    let numberWithNoExponents = new Number(
-      value * 10 ** decimals
-    ).noExponents();
-    return numberWithNoExponents;
+    return new Number(value * 10 ** decimals).noExponents();
   }
 
   fromBigNumberToInteger(value, decimals = 18) {

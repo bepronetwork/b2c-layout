@@ -10,7 +10,7 @@ import "./index.css";
 const defaultProps = {
   providers: [],
   providerId: {},
-  open: false
+  open: false,
 };
 
 class ThirdPartyProviderSelector extends Component {
@@ -41,7 +41,7 @@ class ThirdPartyProviderSelector extends Component {
     document.removeEventListener("mousedown", this.handleClickOutside);
   }
 
-  projectData = async props => {
+  projectData = async (props) => {
     const { providerId, providers } = props;
 
     this.setState({ providers, providerId });
@@ -57,18 +57,18 @@ class ThirdPartyProviderSelector extends Component {
     let nProviders = [];
     nProviders.push({ value: "all", label: "All" });
 
-    providers.map(p => {
+    providers.map((p) => {
       nProviders.push({
         value: p.providerEco,
         label: p.name,
-        icon: p.logo
+        icon: p.logo,
       });
     });
 
     return nProviders;
   };
 
-  handleClickOutside = event => {
+  handleClickOutside = (event) => {
     const isOutsideClick = !this.optionsRef.contains(event.target);
     const isLabelClick = this.labelRef.contains(event.target);
 
@@ -88,7 +88,7 @@ class ThirdPartyProviderSelector extends Component {
 
     if (_.isEmpty(providerId)) return null;
 
-    let provider = providers.find(p => p.providerEco === providerId);
+    let provider = providers.find((p) => p.providerEco === providerId);
 
     if (_.isEmpty(provider)) {
       provider = { name: "All", icon: null };
@@ -101,7 +101,7 @@ class ThirdPartyProviderSelector extends Component {
     return (
       <div styleName="label">
         <div styleName="icon">
-          <img src={provider.logo} width={20} alt='Third part game logo' />
+          <img src={provider.logo} width={20} alt="Third part game logo" />
         </div>
         <span>
           <Typography color="white" variant={"small-body"}>
@@ -116,7 +116,7 @@ class ThirdPartyProviderSelector extends Component {
               <ArrowUp />
             )
           ) : (
-            <img src={arrowUpIcon} alt='Arrow Up Icon' />
+            <img src={arrowUpIcon} alt="Arrow Up Icon" />
           )
         ) : arrowDownIcon === null ? (
           skin == "digital" ? (
@@ -125,7 +125,7 @@ class ThirdPartyProviderSelector extends Component {
             <ArrowDown />
           )
         ) : (
-          <img src={arrowDownIcon} alt='Arrow Down Icon' />
+          <img src={arrowDownIcon} alt="Arrow Down Icon" />
         )}
       </div>
     );
@@ -141,7 +141,7 @@ class ThirdPartyProviderSelector extends Component {
         type="button"
       >
         <div styleName="icon">
-          <img src={icon} width={20} alt='Button Icon' />
+          <img src={icon} width={20} alt="Button Icon" />
         </div>
         <Typography variant="small-body" color="white">
           {label}
@@ -163,7 +163,7 @@ class ThirdPartyProviderSelector extends Component {
     );
   }
 
-  changeProvider = async providerId => {
+  changeProvider = async (providerId) => {
     const { onChangeProvider } = this.props;
 
     onChangeProvider(providerId);
@@ -175,7 +175,7 @@ class ThirdPartyProviderSelector extends Component {
     return (
       <div styleName="root">
         <button
-          ref={el => {
+          ref={(el) => {
             this.labelRef = el;
           }}
           onClick={this.handleLabelClick}
@@ -185,7 +185,7 @@ class ThirdPartyProviderSelector extends Component {
         </button>
 
         <div
-          ref={el => {
+          ref={(el) => {
             this.optionsRef = el;
           }}
         >

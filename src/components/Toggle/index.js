@@ -10,7 +10,7 @@ class Toggle extends React.Component {
     super(props);
     this.state = {
       checked: false,
-      showText: true
+      showText: true,
     };
   }
 
@@ -22,13 +22,13 @@ class Toggle extends React.Component {
 
     const stylesOn = classNames("toggle", {
       toggleOn: checked && skin == "digital",
-      toggleOff: !checked && skin == "digital"
+      toggleOff: !checked && skin == "digital",
     });
     const stylesTextOff = classNames("toggle-text", {
-      tOff: !checked
+      tOff: !checked,
     });
     const stylesTextOn = classNames("toggle-text", {
-      tOn: checked
+      tOn: checked,
     });
 
     return (

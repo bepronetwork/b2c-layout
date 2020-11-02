@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { isUserSet } from "../../lib/helpers";
 import WithdrawTable from "../WithdrawTable";
-import _ from "lodash";
 import "./index.css";
 
 class WithdrawTab extends Component {
@@ -19,8 +18,6 @@ class WithdrawTab extends Component {
     this.projectData(props);
   }
 
-  projectData = async props => {};
-
   render() {
     const { profile, isCurrentPath } = this.props;
     if (!isUserSet(profile)) {
@@ -34,7 +31,7 @@ class WithdrawTab extends Component {
 function mapStateToProps(state) {
   return {
     profile: state.profile,
-    ln: state.language
+    ln: state.language,
   };
 }
 

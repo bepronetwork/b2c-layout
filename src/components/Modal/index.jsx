@@ -3,13 +3,12 @@ import PropTypes from "prop-types";
 import keyCode from "utils/keyCode";
 import CloseIcon from "components/Icons/CloseCross";
 import withSetWindowListeners from "containers/withSetWindowListener";
-
 import styles from "./index.css";
 
 class Modal extends React.Component {
   static propTypes = {
     children: PropTypes.node.isRequired,
-    onClose: PropTypes.func.isRequired
+    onClose: PropTypes.func.isRequired,
   };
 
   componentDidMount() {
@@ -22,7 +21,7 @@ class Modal extends React.Component {
     document.documentElement.style.width = null;
   }
 
-  handleOutsideClick = event => {
+  handleOutsideClick = (event) => {
     const { onClose } = this.props;
 
     event.stopPropagation();
@@ -30,7 +29,7 @@ class Modal extends React.Component {
     if (onClose) onClose();
   };
 
-  handleContentClick = event => {
+  handleContentClick = (event) => {
     event.stopPropagation();
   };
 
@@ -68,5 +67,5 @@ export default withSetWindowListeners(Modal, {
     if (event.which === keyCode.ESC) {
       this.props.onClose();
     }
-  }
+  },
 });

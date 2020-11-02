@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { DropDownField } from "components";
 import { connect } from "react-redux";
-import _ from "lodash";
 import "./index.css";
 import { MenuItem } from "@material-ui/core";
 import languages from "../../config/languages";
@@ -14,7 +13,7 @@ const defaultProps = {
   language: languages[0],
 };
 
-class LanguagePicker extends React.Component {
+class LanguagePicker extends Component {
   constructor(props) {
     super(props);
     this.state = { ...defaultProps };
@@ -28,7 +27,7 @@ class LanguagePicker extends React.Component {
     this.projectData(props);
   }
 
-  projectData = async (props) => {};
+  projectData = async () => {};
 
   changeLanguage = async (item) => {
     item = languages.find((a) => {

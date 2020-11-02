@@ -7,7 +7,7 @@ import {
   Button,
   Typography,
   MultiplyMaxButton,
-  OnWinLoss
+  OnWinLoss,
 } from "components";
 import betSound from "assets/bet-sound.mp3";
 import Sound from "react-sound";
@@ -18,7 +18,6 @@ import delay from "delay";
 import { CopyText } from "../../copy";
 import { isUserSet } from "../../lib/helpers";
 import { Numbers } from "../../lib/ethereum/lib";
-
 import "./index.css";
 
 class SlotsGameOptions extends Component {
@@ -26,7 +25,7 @@ class SlotsGameOptions extends Component {
 
   static propTypes = {
     onBet: PropTypes.func.isRequired,
-    disableControls: PropTypes.bool
+    disableControls: PropTypes.bool,
   };
 
   constructor(props) {
@@ -42,11 +41,11 @@ class SlotsGameOptions extends Component {
       onWin: null,
       edge: 0,
       onLoss: null,
-      sound: false
+      sound: false,
     };
   }
 
-  handleType = type => {
+  handleType = (type) => {
     this.setState({ type });
   };
 
@@ -108,7 +107,7 @@ class SlotsGameOptions extends Component {
     });
   };
 
-  handleBet = async callback => {
+  handleBet = async () => {
     const { onBet, profile } = this.props;
     const {
       amount,
@@ -117,7 +116,7 @@ class SlotsGameOptions extends Component {
       profitStop,
       lossStop,
       onWin,
-      onLoss
+      onLoss,
     } = this.state;
     let res;
 
@@ -187,33 +186,33 @@ class SlotsGameOptions extends Component {
     return true;
   };
 
-  handleBetAmountChange = value => {
+  handleBetAmountChange = (value) => {
     const { onBetAmount } = this.props;
 
     this.setState({
-      amount: value
+      amount: value,
     });
 
     onBetAmount(value);
   };
 
-  handleOnWin = value => {
+  handleOnWin = (value) => {
     this.setState({ onWin: value });
   };
 
-  handleOnLoss = value => {
+  handleOnLoss = (value) => {
     this.setState({ onLoss: value });
   };
 
-  handleBets = value => {
+  handleBets = (value) => {
     this.setState({ bets: value });
   };
 
-  handleStopOnProfit = value => {
+  handleStopOnProfit = (value) => {
     this.setState({ profitStop: value });
   };
 
-  handleStopOnLoss = value => {
+  handleStopOnLoss = (value) => {
     this.setState({ lossStop: value });
   };
 
@@ -273,7 +272,7 @@ class SlotsGameOptions extends Component {
     );
   };
 
-  handleMultiply = value => {
+  handleMultiply = (value) => {
     const { profile, onBetAmount } = this.props;
     const { amount } = this.state;
     let newAmount = amount;
@@ -305,7 +304,7 @@ class SlotsGameOptions extends Component {
   };
 
   render() {
-    const { type, amount, isAutoBetting } = this.state;
+    const { type, amount } = this.state;
     const user = this.props.profile;
     const { ln } = this.props;
     const copy = CopyText.kenoGameOptionsIndex[ln];
@@ -318,9 +317,12 @@ class SlotsGameOptions extends Component {
             config={{
               left: {
                 value: "manual",
-                title: copy.INDEX.TOGGLE_BUTTON.TITLE[0]
+                title: copy.INDEX.TOGGLE_BUTTON.TITLE[0],
               },
-              right: { value: "auto", title: copy.INDEX.TOGGLE_BUTTON.TITLE[1] }
+              right: {
+                value: "auto",
+                title: copy.INDEX.TOGGLE_BUTTON.TITLE[1],
+              },
             }}
             selected={type}
             size="full"
@@ -374,7 +376,7 @@ class SlotsGameOptions extends Component {
 function mapStateToProps(state) {
   return {
     profile: state.profile,
-    ln: state.language
+    ln: state.language,
   };
 }
 

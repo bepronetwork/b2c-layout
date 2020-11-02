@@ -11,7 +11,7 @@ class CurrencyDepositForm extends React.Component {
     super(props);
     this.state = {
       updated: false,
-      wallets: []
+      wallets: [],
     };
   }
 
@@ -23,12 +23,12 @@ class CurrencyDepositForm extends React.Component {
     this.projectData(props);
   }
 
-  projectData = async props => {
-    const wallets = getApp().wallet.filter(w => w.currency.virtual === false);
+  projectData = async (props) => {
+    const wallets = getApp().wallet.filter((w) => w.currency.virtual === false);
 
     this.setState({ ...this.state, wallets });
   };
-  changeCurrency = async c => {
+  changeCurrency = async (c) => {
     await store.dispatch(setDepositInfo({ key: "currency", value: c }));
   };
 
@@ -40,7 +40,7 @@ class CurrencyDepositForm extends React.Component {
 
     return (
       <div>
-        {wallets.map(w => {
+        {wallets.map((w) => {
           return (
             <PaymentBox
               onClick={() => this.changeCurrency(w.currency)}
@@ -65,7 +65,7 @@ function mapStateToProps(state) {
   return {
     deposit: state.deposit,
     profile: state.profile,
-    ln: state.language
+    ln: state.language,
   };
 }
 

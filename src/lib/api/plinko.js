@@ -1,5 +1,4 @@
-import { find, map, range } from "lodash";
-import handleError from "./handleError";
+import { find } from "lodash";
 import { processResponse } from "../helpers";
 
 export default async function bet({ betAmount, user }) {
@@ -14,13 +13,13 @@ export default async function bet({ betAmount, user }) {
       .map((value, index) => {
         return {
           place: index,
-          value: parseFloat(parseFloat(betAmount / gameResultSpaceLength))
+          value: parseFloat(parseFloat(betAmount / gameResultSpaceLength)),
         };
       });
     const response = await user.createBet({
       amount: betAmount,
       result,
-      gameId: game._id
+      gameId: game._id,
     });
 
     await processResponse(response);
@@ -30,7 +29,7 @@ export default async function bet({ betAmount, user }) {
       _id: id,
       nonce,
       isWon,
-      user_delta
+      user_delta,
     } = response.data.message;
     const { index } = response.data.message.outcomeResultSpace;
 
@@ -41,7 +40,7 @@ export default async function bet({ betAmount, user }) {
       nonce,
       betAmount: amountBetted,
       id,
-      userDelta: user_delta
+      userDelta: user_delta,
     };
   } catch (error) {
     throw error;

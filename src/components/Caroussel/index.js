@@ -5,14 +5,14 @@ import _ from "lodash";
 import "./index.css";
 import { getAppCustomization } from "../../lib/helpers";
 
-var gallery = null;
+let gallery = null;
 
 class CarousselContainer extends Component {
   constructor(props) {
     super(props);
     this.state = {
       images: [],
-      links: []
+      links: [],
     };
   }
 
@@ -24,16 +24,16 @@ class CarousselContainer extends Component {
     this.projectData(props);
   }
 
-  projectData = async props => {
+  projectData = async () => {
     const { banners } = getAppCustomization();
-    const images = banners.ids.map(id => {
+    const images = banners.ids.map((id) => {
       return {
-        srcSet: id.image_url
+        srcSet: id.image_url,
       };
     });
-    const links = banners.ids.map(id => {
+    const links = banners.ids.map((id) => {
       return {
-        url: id.link_url
+        url: id.link_url,
       };
     });
     this.setState({ images, links });
@@ -41,7 +41,7 @@ class CarousselContainer extends Component {
 
   _onImageClick() {
     const { links } = this.state;
-    var link = links[gallery.getCurrentIndex()];
+    const link = links[gallery.getCurrentIndex()];
 
     if (link.url) {
       window.open(link.url, "_blank");
@@ -56,7 +56,7 @@ class CarousselContainer extends Component {
     gallery.play();
   }
 
-  galleryRef = element => {
+  galleryRef = (element) => {
     gallery = element;
   };
 
@@ -89,7 +89,7 @@ class CarousselContainer extends Component {
 
 function mapStateToProps(state) {
   return {
-    profile: state.profile
+    profile: state.profile,
   };
 }
 

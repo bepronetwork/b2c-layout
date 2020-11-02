@@ -3,15 +3,13 @@ import {
   Typography,
   ThirdPartyGameCard,
   ThirdPartyProviderSelector,
-  Button
+  Button,
 } from "components";
 import { connect } from "react-redux";
 import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 import { getProvidersGames } from "../../lib/api/app";
 import { getSkeletonColors, getApp } from "../../lib/helpers";
 import { LinearProgress } from "@material-ui/core";
-import queryString from "query-string";
-import _ from "lodash";
 import "./index.css";
 
 class ThirdPartyGameList extends Component {
@@ -23,7 +21,7 @@ class ThirdPartyGameList extends Component {
       providerId: null,
       isLoading: true,
       total: 0,
-      quantity: 0
+      quantity: 0,
     };
   }
 
@@ -35,13 +33,13 @@ class ThirdPartyGameList extends Component {
     this.projectData(props);
   }
 
-  projectData = async props => {
+  projectData = async (props) => {
     const { params } = props.match;
 
     let providerId = String(params.providerGameId);
     this.changeProvider(providerId);
     const providers = getApp().casino_providers.filter(
-      p => p.activated === true
+      (p) => p.activated === true
     );
 
     this.setState({ providerId, providers });
@@ -51,13 +49,13 @@ class ThirdPartyGameList extends Component {
     let { quantity } = this.state;
     let gameList = [];
 
-    games.map(p => {
+    games.map((p) => {
       const url = p.api_url;
       const provider = p.name;
       const partnerId = p.partner_id;
 
       if (typeof p.list.games != "undefined") {
-        p.list.games.map(g => {
+        p.list.games.map((g) => {
           const icon = url + g.icon;
           const game = {
             id: g.id,
@@ -65,7 +63,7 @@ class ThirdPartyGameList extends Component {
             partnerId,
             provider,
             icon,
-            title: g.title
+            title: g.title,
           };
           gameList.push(game);
         });
@@ -78,7 +76,7 @@ class ThirdPartyGameList extends Component {
     this.setState({ games: gameList, total, quantity });
   }
 
-  changeProvider = async providerId => {
+  changeProvider = async (providerId) => {
     this.setState({ isLoading: true });
 
     const games =
@@ -96,7 +94,7 @@ class ThirdPartyGameList extends Component {
 
     for (let i = 0; i < 18; i++) {
       games.push(
-        <div class={"col"} styleName="col">
+        <div styleName="col">
           <div styleName="root">
             <div styleName="image-container dice-background-color">
               <div styleName="icon">
@@ -122,7 +120,7 @@ class ThirdPartyGameList extends Component {
     return games;
   };
 
-  onLoadMoreGames = async id => {
+  onLoadMoreGames = async () => {
     let { quantity, total } = this.state;
 
     quantity = quantity + 18 > total ? total : quantity + 18;
@@ -138,7 +136,7 @@ class ThirdPartyGameList extends Component {
       total,
       quantity,
       providerId,
-      providers
+      providers,
     } = this.state;
 
     return (
@@ -167,14 +165,14 @@ class ThirdPartyGameList extends Component {
               />
             </div>
             <div styleName="container-small">
-              {games.slice(0, quantity).map(g => {
+              {games.slice(0, quantity).map((g) => {
                 const game = {
                   id: g.id,
                   partnerId: g.partnerId,
                   url: g.url,
                   icon: g.icon,
                   title: g.title,
-                  provider: g.provider
+                  provider: g.provider,
                 };
                 return (
                   <ThirdPartyGameCard
@@ -219,7 +217,7 @@ class ThirdPartyGameList extends Component {
 function mapStateToProps(state) {
   return {
     profile: state.profile,
-    ln: state.language
+    ln: state.language,
   };
 }
 

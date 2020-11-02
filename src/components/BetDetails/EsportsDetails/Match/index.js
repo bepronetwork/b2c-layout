@@ -4,7 +4,7 @@ import { Typography } from "components";
 import { Shield } from "components/Esports";
 import {
   formatOpponentData,
-  formatToBeautyDate
+  formatToBeautyDate,
 } from "../../../../lib/helpers";
 import classNames from "classnames";
 import _ from "lodash";
@@ -13,7 +13,7 @@ import "./index.css";
 const stateOptions = Object.freeze({
   won: { text: "Won", color: "green" },
   lost: { text: "Lost", color: "red" },
-  pending: { text: "Pending", color: "primaryLight" }
+  pending: { text: "Pending", color: "primaryLight" },
 });
 
 class Match extends Component {
@@ -24,7 +24,7 @@ class Match extends Component {
       match: null,
       opponent1: null,
       opponent2: null,
-      isLoaded: false
+      isLoaded: false,
     };
   }
 
@@ -36,7 +36,7 @@ class Match extends Component {
     this.projectData(props);
   }
 
-  projectData = async props => {
+  projectData = async (props) => {
     const { bet, match } = props;
     let { opponent1, opponent2 } = this.state;
     const images = require.context("assets/esports", true);
@@ -51,7 +51,7 @@ class Match extends Component {
       match,
       opponent1,
       opponent2,
-      isLoaded: true
+      isLoaded: true,
     });
   };
 
@@ -62,14 +62,14 @@ class Match extends Component {
       return null;
     }
 
-    const result = bet.result.find(r => r.match.external_id == match.id);
+    const result = bet.result.find((r) => r.match.external_id == match.id);
 
     const team1Styles = classNames("team", "team1", {
-      selected: result.participantId == opponent1.id
+      selected: result.participantId == opponent1.id,
     });
 
     const team2Styles = classNames("team", "team2", {
-      selected: result.participantId == opponent2.id
+      selected: result.participantId == opponent2.id,
     });
 
     const isDraw = result.participantId == 0;
@@ -211,7 +211,7 @@ class Match extends Component {
 function mapStateToProps(state) {
   return {
     profile: state.profile,
-    ln: state.language
+    ln: state.language,
   };
 }
 

@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { Typography } from "components";
-import _ from "lodash";
 import "./index.css";
 
 class Pegs extends Component {

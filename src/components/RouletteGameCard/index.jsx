@@ -11,14 +11,13 @@ import { CopyText } from "../../copy";
 import { getPopularNumbers } from "../../lib/api/app";
 import AnimationNumber from "../AnimationNumber";
 import cells from "../RouletteBoard/cells";
-import Cache from "../../lib/cache/cache";
 import { Numbers } from "../../lib/ethereum/lib";
 import { formatPercentage } from "../../utils/numberFormatation";
 import { getAppCustomization } from "../../lib/helpers";
 import redColors from "./redColors";
 import "./index.css";
 
-const mobileBreakpoint = 768;
+let mobileBreakpoint = 768;
 
 class RouletteGameCard extends Component {
   static propTypes = {
@@ -31,16 +30,16 @@ class RouletteGameCard extends Component {
     onUndo: PropTypes.func.isRequired,
     bet: PropTypes.bool,
     onResultAnimation: PropTypes.func.isRequired,
-    isAddChipDisabled: PropTypes.bool.isRequired
+    isAddChipDisabled: PropTypes.bool.isRequired,
   };
 
   static defaultProps = {
     result: null,
-    bet: false
+    bet: false,
   };
 
   state = {
-    rotating: null
+    rotating: null,
   };
 
   componentDidMount() {
@@ -51,22 +50,22 @@ class RouletteGameCard extends Component {
     //this.projectData(props);
   }
 
-  projectData = async props => {
+  projectData = async (props) => {
     const { bet } = props;
     if (bet == false) {
       this.setPopularNumbers(props);
     }
   };
 
-  setPopularNumbers = async props => {
+  setPopularNumbers = async (props) => {
     let popularNumbers = await getPopularNumbers({ size: 15 });
-    var gamePopularNumbers = find(popularNumbers, { game: props.game._id });
+    const gamePopularNumbers = find(popularNumbers, { game: props.game._id });
     if (gamePopularNumbers) {
       this.setState({
         ...this.state,
         popularNumbers: gamePopularNumbers.numbers.sort(
           (a, b) => b.resultAmount - a.resultAmount
-        )
+        ),
       });
     }
   };
@@ -85,7 +84,8 @@ class RouletteGameCard extends Component {
     const resultStyles = classNames("result", {
       green: result === 0 && !rotating,
       red: redColors.includes(result) && !rotating,
-      picked: result && result !== 0 && !redColors.includes(result) && !rotating
+      picked:
+        result && result !== 0 && !redColors.includes(result) && !rotating,
     });
 
     return (
@@ -124,7 +124,7 @@ class RouletteGameCard extends Component {
     );
   };
 
-  handleRouletteAnimation = value => {
+  handleRouletteAnimation = (value) => {
     const { rotating } = this.state;
     const { onResultAnimation, bet } = this.props;
 
@@ -152,7 +152,7 @@ class RouletteGameCard extends Component {
     return (
       <div styleName="outer-popular-numbers">
         <div styleName="inner-popular-numbers">
-          {popularNumbers.map(item => {
+          {popularNumbers.map((item) => {
             if (!cells[item.key]) {
               return null;
             }
@@ -192,17 +192,17 @@ class RouletteGameCard extends Component {
       onAddChip,
       betHistory,
       bet,
-      isAddChipDisabled
+      isAddChipDisabled,
     } = this.props;
 
     const { rotating, popularNumbers } = this.state;
 
     const rootStyles = classNames("root", {
-      animation: rotating
+      animation: rotating,
     });
 
     const blockStyles = classNames("board-top", {
-      block: bet
+      block: bet,
     });
 
     return (
@@ -235,7 +235,7 @@ class RouletteGameCard extends Component {
 
 function mapStateToProps(state) {
   return {
-    ln: state.language
+    ln: state.language,
   };
 }
 

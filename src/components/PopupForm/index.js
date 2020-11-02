@@ -5,7 +5,6 @@ import { connect } from "react-redux";
 import { compose } from "lodash/fp";
 import _ from "lodash";
 import "./index.css";
-import { CopyText } from "../../copy";
 
 class PopupForm extends Component {
   constructor(props) {
@@ -15,10 +14,10 @@ class PopupForm extends Component {
   }
 
   static propTypes = {
-    user: PropTypes.shape({})
+    user: PropTypes.shape({}),
   };
 
-  handleTabChange = name => {
+  handleTabChange = (name) => {
     this.setState({ tab: name });
   };
 
@@ -30,12 +29,11 @@ class PopupForm extends Component {
     let notificationArray = _.isArray(this.props.popup)
       ? this.props.popup
       : [this.props.popup];
-    const { ln } = this.props;
-    const copy = CopyText.popupFormIndex[ln];
+
     return (
       <div styleName="popup-container">
         <div styleName="popup-wrapper">
-          {notificationArray.map(notification => {
+          {notificationArray.map((notification) => {
             return (
               <Popup
                 {...this.props}
@@ -56,12 +54,12 @@ class PopupForm extends Component {
 function mapStateToProps(state) {
   return {
     profile: state.profile,
-    popup: state.popup
+    popup: state.popup,
   };
 }
 
 PopupForm.propTypes = {
-  dispatch: PropTypes.func
+  dispatch: PropTypes.func,
 };
 
 export default compose(connect(mapStateToProps))(PopupForm);

@@ -5,7 +5,7 @@ import {
   Slider,
   ButtonIcon,
   Typography,
-  AnimationNumber
+  AnimationNumber,
 } from "components";
 import { startCase } from "lodash";
 import { find } from "lodash";
@@ -17,17 +17,17 @@ import { formatPercentage } from "../../utils/numberFormatation";
 import { CopyText } from "../../copy";
 import "./index.css";
 
-const minPayout = 1.0102;
-const maxPayout = 49.5;
-const middlePayout = 2;
-const middleRoll = 50;
+let minPayout = 1.0102;
+let maxPayout = 49.5;
+let middlePayout = 2;
+let middleRoll = 50;
 
 const defaultState = {
   rollType: "under",
   chance: Number("49.5000"),
   payout: Number("2.0000"),
   edge: 0,
-  popularNumbers: []
+  popularNumbers: [],
 };
 
 class DiceGameCard extends Component {
@@ -35,11 +35,11 @@ class DiceGameCard extends Component {
     result: PropTypes.number,
     disableControls: PropTypes.bool,
     onResultAnimation: PropTypes.func.isRequired,
-    onChangeRollAndRollType: PropTypes.func.isRequired
+    onChangeRollAndRollType: PropTypes.func.isRequired,
   };
 
   static defaultProps = {
-    result: null
+    result: null,
   };
 
   constructor(props) {
@@ -47,7 +47,7 @@ class DiceGameCard extends Component {
 
     this.state = {
       ...defaultState,
-      result: props.result
+      result: props.result,
     };
   }
 
@@ -58,18 +58,19 @@ class DiceGameCard extends Component {
 
   componentWillReceiveProps(props) {
     this.projectData(props);
-    //this.getBets(props);
   }
 
   async getBets(props) {
-    let res_popularNumbers = await getPopularNumbers({ size: 15 });
-    var gamePopularNumbers = find(res_popularNumbers, { game: props.game._id });
+    const res_popularNumbers = await getPopularNumbers({ size: 15 });
+    const gamePopularNumbers = find(res_popularNumbers, {
+      game: props.game._id,
+    });
     if (gamePopularNumbers) {
       this.setState({
         ...this.state,
         popularNumbers: gamePopularNumbers.numbers.sort(
           (a, b) => b.resultAmount - a.resultAmount
-        )
+        ),
       });
     }
   }
@@ -93,17 +94,15 @@ class DiceGameCard extends Component {
       this.setState({ ...this.state, result });
     } else {
       this.setState({
-        edge: props.game.edge
+        edge: props.game.edge,
       });
-      // Nothing
     }
   }
 
-  handlePayout = payout => {
+  handlePayout = (payout) => {
     const { onChangeRollAndRollType } = this.props;
     const { rollType } = this.state;
-
-    let newRoll = 0;
+    let newRoll;
 
     if (payout === middlePayout) {
       newRoll = middleRoll;
@@ -116,23 +115,21 @@ class DiceGameCard extends Component {
 
     this.setState({
       payout,
-      chance: rollType === "over" ? 100 - newRoll : newRoll
+      chance: rollType === "over" ? 100 - newRoll : newRoll,
     });
 
     onChangeRollAndRollType(newRoll, rollType);
   };
 
-  handleChance = value => {
+  handleChance = (value) => {
     const { onChangeRollAndRollType } = this.props;
     const { rollType } = this.state;
-
     const newRoll = rollType === "over" ? 100 - value : value;
-
     const payout = this.getPayout(newRoll);
 
     this.setState({
       chance: value,
-      payout
+      payout,
     });
 
     onChangeRollAndRollType(newRoll, rollType);
@@ -141,21 +138,20 @@ class DiceGameCard extends Component {
   handleRoll = () => {
     const { onChangeRollAndRollType, rollNumber } = this.props;
     const { rollType } = this.state;
-
     const newRollType = rollType === "over" ? "under" : "over";
     const newRoll = 100 - rollNumber;
 
     this.setState({
       rollType: newRollType,
-      chance: rollType === "over" ? newRoll : rollNumber
+      chance: rollType === "over" ? newRoll : rollNumber,
     });
 
     onChangeRollAndRollType(newRoll, newRollType);
   };
 
-  getPayout = roll => {
+  getPayout = (roll) => {
     const { rollType } = this.state;
-    let payout = 0;
+    let payout;
 
     if (roll === middleRoll) {
       payout = middlePayout;
@@ -169,14 +165,14 @@ class DiceGameCard extends Component {
     return payout;
   };
 
-  handleSlider = value => {
+  handleSlider = (value) => {
     const { onChangeRollAndRollType } = this.props;
     const { rollType } = this.state;
     const payout = this.getPayout(value);
     let chance = rollType === "over" ? 100 - value : value;
     this.setState({
       chance: chance,
-      payout
+      payout,
     });
 
     onChangeRollAndRollType(value, rollType);
@@ -188,16 +184,12 @@ class DiceGameCard extends Component {
 
     if (rollType === "over") {
       if (rollNumber < 50) return 0.1;
-
       if (rollNumber < 75) return 0.5;
-
       return 2;
     }
 
     if (rollNumber < 25) return 2;
-
     if (rollNumber < 50) return 0.5;
-
     return 0.1;
   };
 
@@ -205,15 +197,17 @@ class DiceGameCard extends Component {
     if (!popularNumbers || (popularNumbers && popularNumbers.length < 1)) {
       return null;
     }
+
     const darkColor =
       getAppCustomization().theme === "light" ? "blue-square-light" : "";
     const totalAmount = popularNumbers.reduce((acc, item) => {
       return acc + item.resultAmount;
     }, 0);
+
     return (
       <div styleName="outer-popular-numbers">
         <div styleName="inner-popular-numbers">
-          {popularNumbers.map(item => {
+          {popularNumbers.map((item) => {
             return (
               <div styleName="popular-number-row">
                 <div
@@ -249,7 +243,7 @@ class DiceGameCard extends Component {
       onResultAnimation,
       rollNumber,
       bet,
-      animating
+      animating,
     } = this.props;
     let winEdge = (100 - this.state.edge) / 100;
     payout = payout * winEdge;
@@ -323,7 +317,7 @@ class DiceGameCard extends Component {
 function mapStateToProps(state) {
   return {
     profile: state.profile,
-    ln: state.language
+    ln: state.language,
   };
 }
 

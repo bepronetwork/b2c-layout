@@ -11,7 +11,6 @@ import Triangle from "../../assets/icons/SlotsIcons/triangle.svg";
 import Pentagon from "../../assets/icons/SlotsIcons/pentagon.svg";
 import Beetle from "../../assets/icons/SlotsIcons/beetle.svg";
 import Esfinge from "../../assets/icons/SlotsIcons/esfinge.svg";
-
 import Coin2 from "../../assets/icons/SlotsIcons/coin2.svg";
 import BlueCoin2 from "../../assets/icons/SlotsIcons/bluecoin2.svg";
 import Club2 from "../../assets/icons/SlotsIcons/club2.svg";
@@ -39,7 +38,7 @@ export const images = [
   Triangle,
   Pentagon,
   Beetle,
-  Esfinge
+  Esfinge,
 ];
 
 export const slotsRules = [
@@ -49,7 +48,7 @@ export const slotsRules = [
     value5: "500",
     value4: "100",
     value3: "10",
-    value2: "0.50"
+    value2: "0.50",
   },
   {
     id: 2,
@@ -57,7 +56,7 @@ export const slotsRules = [
     value5: "500",
     value4: "100",
     value3: "10",
-    value2: "0.50"
+    value2: "0.50",
   },
   {
     id: 3,
@@ -65,7 +64,7 @@ export const slotsRules = [
     value5: "500",
     value4: "100",
     value3: "10",
-    value2: "0.50"
+    value2: "0.50",
   },
   {
     id: 4,
@@ -73,7 +72,7 @@ export const slotsRules = [
     value5: "500",
     value4: "100",
     value3: "10",
-    value2: "0.50"
+    value2: "0.50",
   },
   {
     id: 5,
@@ -81,7 +80,7 @@ export const slotsRules = [
     value5: "500",
     value4: "100",
     value3: "10",
-    value2: "0.50"
+    value2: "0.50",
   },
   {
     id: 6,
@@ -89,7 +88,7 @@ export const slotsRules = [
     value5: "500",
     value4: "100",
     value3: "10",
-    value2: "0.50"
+    value2: "0.50",
   },
   {
     id: 7,
@@ -97,7 +96,7 @@ export const slotsRules = [
     value5: "500",
     value4: "100",
     value3: "10",
-    value2: "0.50"
+    value2: "0.50",
   },
   {
     id: 8,
@@ -105,7 +104,7 @@ export const slotsRules = [
     value5: "500",
     value4: "100",
     value3: "10",
-    value2: "0.50"
+    value2: "0.50",
   },
   {
     id: 9,
@@ -113,7 +112,7 @@ export const slotsRules = [
     value5: "500",
     value4: "100",
     value3: "10",
-    value2: "0.50"
+    value2: "0.50",
   },
   {
     id: 10,
@@ -121,7 +120,7 @@ export const slotsRules = [
     value5: "500",
     value4: "100",
     value3: "10",
-    value2: "0.50"
+    value2: "0.50",
   },
   {
     id: 11,
@@ -129,7 +128,7 @@ export const slotsRules = [
     value5: "500",
     value4: "100",
     value3: "10",
-    value2: "0.50"
+    value2: "0.50",
   },
   {
     id: 12,
@@ -137,7 +136,7 @@ export const slotsRules = [
     value5: "500",
     value4: "100",
     value3: "10",
-    value2: "0.50"
+    value2: "0.50",
   },
   {
     id: 13,
@@ -145,6 +144,6 @@ export const slotsRules = [
     value5: "500",
     value4: "100",
     value3: "10",
-    value2: "0.50"
-  }
+    value2: "0.50",
+  },
 ];

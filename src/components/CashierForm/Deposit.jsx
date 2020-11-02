@@ -6,7 +6,7 @@ import { compose } from "lodash/fp";
 import {
   CurrencyDepositForm,
   HorizontalStepper,
-  DepositForm
+  DepositForm,
 } from "components";
 import { CopyText } from "../../copy";
 import { getApp } from "../../lib/helpers";
@@ -20,7 +20,7 @@ class Deposit extends Component {
     this.projectData(props);
   }
 
-  async projectData(props) {
+  async projectData() {
     this.setState({ ...this.state });
   }
 
@@ -54,7 +54,7 @@ class Deposit extends Component {
                     ? copy.DEPOSIT.HORIZONTAL_STEPPER.TITLE[2]
                     : copy.DEPOSIT.HORIZONTAL_STEPPER.TITLE[0],
                   condition: currency != "",
-                  content: <CurrencyDepositForm />
+                  content: <CurrencyDepositForm />,
                 },
                 {
                   label: virtual
@@ -69,8 +69,8 @@ class Deposit extends Component {
                   content: <DepositForm />,
                   last: true,
                   showCloseButton: false,
-                  closeStepper: this.closeDeposit
-                }
+                  closeStepper: this.closeDeposit,
+                },
               ]}
             />
           </div>
@@ -84,7 +84,7 @@ function mapStateToProps(state) {
   return {
     deposit: state.deposit,
     profile: state.profile,
-    ln: state.language
+    ln: state.language,
   };
 }
 

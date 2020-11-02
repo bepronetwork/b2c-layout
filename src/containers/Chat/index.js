@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Typography, InputText, UsersIcon, LanguageSelector } from "components";
+import { Typography, InputText, UsersIcon } from "components";
 import ArrowDown from "components/Icons/ArrowDown";
 import { connect } from "react-redux";
 import _ from "lodash";
@@ -33,7 +33,7 @@ const defaultProps = {
 };
 const chatUsersConst = Math.floor(Math.random() * (400 - 200) + 200);
 
-class ChatPage extends React.Component {
+class ChatPage extends Component {
   constructor(props) {
     super(props);
     this.state = defaultProps;
@@ -74,7 +74,7 @@ class ChatPage extends React.Component {
     }
   };
 
-  handleScroll = async (event) => {
+  handleScroll = async () => {
     const { isGoDownVisible } = this.state;
 
     if (isGoDownVisible === false && !this.isInViewport(this.messagesEnd)) {
@@ -257,7 +257,7 @@ class ChatPage extends React.Component {
               ref={(el) => {
                 this.messagesEnd = el;
               }}
-            ></div>
+            />
           </div>
           {isGoDownVisible === true ? (
             <div styleName="go-down">

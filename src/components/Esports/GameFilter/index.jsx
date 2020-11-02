@@ -6,21 +6,20 @@ import { Shield } from "components/Esports";
 import { connect } from "react-redux";
 import classNames from "classnames";
 import { getSkeletonColors } from "../../../lib/helpers";
-import _ from "lodash";
 import "./index.css";
 
 class GameFilter extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      gameFilter: []
+      gameFilter: [],
     };
   }
 
-  handlerGameFilterClick = async id => {
+  handlerGameFilterClick = async (id) => {
     const { onGameFilter } = this.props;
     let { gameFilter } = this.state;
-    const exist = gameFilter.some(el => el === id);
+    const exist = gameFilter.some((el) => el === id);
 
     if (exist) {
       const index = gameFilter.indexOf(id);
@@ -84,11 +83,11 @@ class GameFilter extends Component {
               <div style={{ opacity: "0.5" }}>{this.createSkeletonRows()}</div>
             </SkeletonTheme>
           ) : (
-            games.map(game => {
-              const exist = gameFilter.some(el => el === game.external_id);
+            games.map((game) => {
+              const exist = gameFilter.some((el) => el === game.external_id);
               const styles = classNames("filter-match", {
                 selected: exist,
-                "not-selected": gameFilter.length && !exist
+                "not-selected": gameFilter.length && !exist,
               });
               return (
                 <li
@@ -120,7 +119,7 @@ class GameFilter extends Component {
 function mapStateToProps(state) {
   return {
     profile: state.profile,
-    ln: state.language
+    ln: state.language,
   };
 }
 

@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import { Typography, ArrowDownIcon, ArrowUpIcon } from "components";
 import ArrowDown from "components/Icons/ArrowDown";
 import ArrowUp from "components/Icons/ArrowUp";
-import { CopyText } from "../../copy";
 import { connect } from "react-redux";
 import languages from "../../config/languages";
 import { setLanguageInfo } from "../../redux/actions/language";
@@ -40,7 +39,7 @@ class LanguageSelector extends Component {
     document.removeEventListener("mousedown", this.handleClickOutside);
   }
 
-  projectData = async (props) => {
+  projectData = async () => {
     let { languages } = getAppCustomization();
 
     languages = languages.filter((l) => l.isActivated === true);
@@ -140,8 +139,6 @@ class LanguageSelector extends Component {
   }
 
   render() {
-    const ln = defaultProps.language.nick;
-    const copy = CopyText.languagePickerIndex[ln];
     const { language, open } = this.state;
     const { showArrow, size, color } = this.props;
     const skin = getAppCustomization().skin.skin_type;

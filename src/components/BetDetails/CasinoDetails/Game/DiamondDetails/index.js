@@ -10,7 +10,7 @@ class SlotsDetails extends Component {
     this.state = {
       value: 0,
       result: 0,
-      game: null
+      game: null,
     };
   }
 
@@ -22,7 +22,7 @@ class SlotsDetails extends Component {
     this.projectData(props);
   }
 
-  projectData = async props => {
+  projectData = async (props) => {
     const { bet } = this.props;
     const result = bet.outcomeResultSpace.index;
     const game = bet.game;
@@ -33,7 +33,7 @@ class SlotsDetails extends Component {
       winAmount,
       resultSpace,
       result,
-      game
+      game,
     });
   };
 
@@ -57,7 +57,7 @@ class SlotsDetails extends Component {
 function mapStateToProps(state) {
   return {
     profile: state.profile,
-    ln: state.language
+    ln: state.language,
   };
 }
 

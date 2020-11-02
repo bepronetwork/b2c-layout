@@ -4,8 +4,8 @@ const languages = [
   {
     name: "English",
     logo: english,
-    prefix: "EN"
-  }
+    prefix: "EN",
+  },
 ];
 
 export default languages;

@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import { dateToHourAndMinute, formatToBeautyDate } from "../../../lib/helpers";
 import { Typography, Button, LiveIcon } from "components";
 import classNames from "classnames";
-import _ from "lodash";
 import "./index.css";
 
 export default class Status extends Component {
@@ -12,7 +11,7 @@ export default class Status extends Component {
       date: null,
       status: null,
       hasLiveTransmition: false,
-      isMobile: false
+      isMobile: false,
     };
   }
 
@@ -24,14 +23,14 @@ export default class Status extends Component {
     this.projectData(props);
   }
 
-  projectData = async props => {
+  projectData = async (props) => {
     const { hasLiveTransmition, status, date, isMobile } = props;
 
     this.setState({
       date,
       status,
       hasLiveTransmition,
-      isMobile
+      isMobile,
     });
   };
 
@@ -54,11 +53,6 @@ export default class Status extends Component {
     );
   }
 
-  renderFinished() {
-    "finished";
-    return null;
-  }
-
   renderLive() {
     const { hasLiveTransmition } = this.state;
 
@@ -79,7 +73,7 @@ export default class Status extends Component {
 
     const styles = classNames("live", {
       "live-desktop": isMobile != true,
-      "live-mobile": isMobile == true
+      "live-mobile": isMobile == true,
     });
 
     return (

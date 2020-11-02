@@ -7,7 +7,7 @@ class Input2FA extends React.Component {
     this.state = {};
   }
 
-  onChange = e => {
+  onChange = (e) => {
     if (e.length === 6) {
       this.props.confirm({ token: e });
     }
@@ -19,7 +19,7 @@ class Input2FA extends React.Component {
         autoFocus={true}
         type="number"
         fields={6}
-        onChange={e => this.onChange(e)}
+        onChange={(e) => this.onChange(e)}
       />
     );
   };

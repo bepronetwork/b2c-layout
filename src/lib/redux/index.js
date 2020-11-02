@@ -9,7 +9,7 @@ export async function setStartLoadingProcessDispatcher(step) {
 export async function setWonPopupMessageDispatcher(winAmount) {
   const state = store.getState();
   const ticker = state.currency ? state.currency.ticker : null;
-  const amountToShow = function(ticker) {
+  const amountToShow = function (ticker) {
     switch (ticker) {
       case "ETH":
         return 1;

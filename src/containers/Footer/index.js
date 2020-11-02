@@ -1,11 +1,6 @@
 import React, { Component } from "react";
 import { Row, Col } from "reactstrap";
-import {
-  Typography,
-  LanguagePicker,
-  LegalBox,
-  LanguageSelector,
-} from "components";
+import { Typography, LegalBox, LanguageSelector } from "components";
 import { Link } from "react-dom";
 import { connect } from "react-redux";
 import "./index.css";
@@ -222,7 +217,11 @@ class Footer extends Component {
                         }
                         case "image": {
                           return (
-                            <img src={col.image} style={{ width: col.width }} />
+                            <img
+                              src={col.image}
+                              style={{ width: col.width }}
+                              alt="Col Table Illustration"
+                            />
                           );
                         }
                         case "text": {
@@ -276,7 +275,7 @@ class Footer extends Component {
                   return (
                     <div styleName="social-icon">
                       <a href={s.href} target="_blank">
-                        <img src={s.image_url} alt={s.name} alt="Social Icon" />
+                        <img src={s.image_url} alt={s.name} />
                       </a>
                     </div>
                   );
@@ -295,6 +294,7 @@ class Footer extends Component {
                         : logobBitGo_light
                     }
                     style={{ height: 40 }}
+                    alt="BitGo Logo"
                   />
                 </a>
               </div>
@@ -307,6 +307,7 @@ class Footer extends Component {
                         : logoBetProtocol_light
                     }
                     style={{ height: 46 }}
+                    alt="BetProtocol Logo"
                   />
                 </a>
               </div>
@@ -319,6 +320,7 @@ class Footer extends Component {
                         : logoBitCoin_light
                     }
                     style={{ height: 40 }}
+                    alt="BitCoin Logo"
                   />
                 </a>
               </div>
@@ -331,6 +333,7 @@ class Footer extends Component {
                         : logoEthereum_light
                     }
                     style={{ height: 26 }}
+                    alt="Ethereum Logo"
                   />
                 </a>
               </div>
@@ -343,6 +346,7 @@ class Footer extends Component {
                         : logoResponsible_light
                     }
                     style={{ height: 30 }}
+                    alt="Responsible Logo"
                   />
                 </a>
               </div>
@@ -405,6 +409,7 @@ class Footer extends Component {
                         : logoMadeByBepro_light
                     }
                     styleName="bepro-made-by-logo"
+                    alt="Made By BePro Logo"
                   />
                 </a>
               </div>

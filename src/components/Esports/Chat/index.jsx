@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import _ from "lodash";
 import "./index.css";
 
 class Chat extends Component {
@@ -10,13 +9,13 @@ class Chat extends Component {
 
     return (
       <iframe
-        frameborder="0"
+        frameBorder="0"
         scrolling="no"
         id="chat_embed"
         src={`https://www.twitch.tv/embed/${channel}/chat?parent=${window.location.hostname}&te-theme=dark&darkpopout`}
         height="500"
         width="100%"
-      ></iframe>
+      />
     );
   }
 }
@@ -24,7 +23,7 @@ class Chat extends Component {
 function mapStateToProps(state) {
   return {
     profile: state.profile,
-    ln: state.language
+    ln: state.language,
   };
 }
 

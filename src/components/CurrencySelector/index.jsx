@@ -16,7 +16,7 @@ import "./index.css";
 const defaultProps = {
   currencies: [],
   currency: {},
-  open: false
+  open: false,
 };
 
 class CurrencySelector extends Component {
@@ -47,27 +47,27 @@ class CurrencySelector extends Component {
     document.removeEventListener("mousedown", this.handleClickOutside);
   }
 
-  projectData = async props => {
+  projectData = async (props) => {
     const { profile, currency } = props;
     const virtual = getApp().virtual;
-    var currencies = getApp().currencies.filter(c => c.virtual === virtual);
+    let currencies = getApp().currencies.filter((c) => c.virtual === virtual);
 
     if (!currencies || _.isEmpty(currencies) || currencies.length < 0) {
       return;
     }
-    currencies = currencies.map(c => {
+    currencies = currencies.map((c) => {
       const w = profile.getWallet({ currency: c });
-      const wApp = getApp().wallet.find(w => w.currency._id === c._id);
+      const wApp = getApp().wallet.find((w) => w.currency._id === c._id);
       return {
         ...c,
         balance: _.isEmpty(w) ? 0 : w.playBalance,
-        image: _.isEmpty(wApp.image) ? c.image : wApp.image
+        image: _.isEmpty(wApp.image) ? c.image : wApp.image,
       };
     });
 
     this.setState({
       currencies,
-      currency: !_.isEmpty(currency) ? currency : currencies[0]
+      currency: !_.isEmpty(currency) ? currency : currencies[0],
     });
   };
 
@@ -78,7 +78,7 @@ class CurrencySelector extends Component {
     if (!currencies || _.isEmpty(currencies) || currencies.length < 0) {
       return;
     }
-    currencies = currencies.map(c => {
+    currencies = currencies.map((c) => {
       const w = profile.getWallet({ currency: c });
       return {
         value: c._id,
@@ -88,14 +88,14 @@ class CurrencySelector extends Component {
           ? formatCurrency(w.playBalance + w.bonusAmount)
           : formatCurrency(w.playBalance),
         icon: c.image,
-        currency: c
+        currency: c,
       };
     });
 
     return currencies;
   };
 
-  handleClickOutside = event => {
+  handleClickOutside = (event) => {
     const isOutsideClick = !this.optionsRef.contains(event.target);
     const isLabelClick = this.labelRef.contains(event.target);
 
@@ -118,7 +118,7 @@ class CurrencySelector extends Component {
 
     const w = profile.getWallet({ currency });
     const balance = _.isEmpty(w) ? 0 : formatCurrency(w.playBalance);
-    const wApp = getApp().wallet.find(w => w.currency._id === currency._id);
+    const wApp = getApp().wallet.find((w) => w.currency._id === currency._id);
     const icon = _.isEmpty(wApp.image) ? currency.image : wApp.image;
     const bonusPlusBalance = _.isEmpty(w)
       ? 0
@@ -133,15 +133,15 @@ class CurrencySelector extends Component {
     const skin = getAppCustomization().skin.skin_type;
 
     const { colors } = getAppCustomization();
-    const secondaryColor = colors.find(c => {
+    const secondaryColor = colors.find((c) => {
       return c.type == "secondaryColor";
     });
 
     const SecondaryTooltip = withStyles({
       tooltip: {
         color: "white",
-        backgroundColor: secondaryColor.hex
-      }
+        backgroundColor: secondaryColor.hex,
+      },
     })(Tooltip);
 
     const arrowUpIcon = getIcon(24);
@@ -151,7 +151,7 @@ class CurrencySelector extends Component {
       <SecondaryTooltip title={`Bonus: ${formatCurrency(bonusAmount)}`}>
         <div styleName="label">
           <div styleName="currency-icon">
-            <img src={icon} width={20} alt='Currency Icon' />
+            <img src={icon} width={20} alt="Currency Icon" />
           </div>
           <span>
             <Typography color="white" variant={"small-body"}>
@@ -166,7 +166,7 @@ class CurrencySelector extends Component {
                 <ArrowUp />
               )
             ) : (
-              <img src={arrowUpIcon} alt='Arrow Up Icon' />
+              <img src={arrowUpIcon} alt="Arrow Up Icon" />
             )
           ) : arrowDownIcon === null ? (
             skin == "digital" ? (
@@ -175,14 +175,14 @@ class CurrencySelector extends Component {
               <ArrowDown />
             )
           ) : (
-            <img src={arrowDownIcon} alt='Arrow Down Icon' />
+            <img src={arrowDownIcon} alt="Arrow Down Icon" />
           )}
         </div>
       </SecondaryTooltip>
     ) : (
       <div styleName="label">
         <div styleName="currency-icon">
-          <img src={icon} width={20} alt='Currency Illustration' />
+          <img src={icon} width={20} alt="Currency Illustration" />
         </div>
         <span>
           <Typography color="white" variant={"small-body"}>
@@ -197,7 +197,7 @@ class CurrencySelector extends Component {
               <ArrowUp />
             )
           ) : (
-            <img src={arrowUpIcon} alt='Arrow Up Icon' />
+            <img src={arrowUpIcon} alt="Arrow Up Icon" />
           )
         ) : arrowDownIcon === null ? (
           skin == "digital" ? (
@@ -206,7 +206,7 @@ class CurrencySelector extends Component {
             <ArrowDown />
           )
         ) : (
-          <img src={arrowDownIcon} alt='Arrow Down Icon' />
+          <img src={arrowDownIcon} alt="Arrow Down Icon" />
         )}
       </div>
     );
@@ -222,7 +222,7 @@ class CurrencySelector extends Component {
         type="button"
       >
         <div styleName="currency-icon">
-          <img src={icon} width={20} alt='Currency Illustration' />
+          <img src={icon} width={20} alt="Currency Illustration" />
         </div>
         <Typography variant="small-body" color="white">
           {label}
@@ -244,7 +244,7 @@ class CurrencySelector extends Component {
     );
   }
 
-  changeCurrency = async item => {
+  changeCurrency = async (item) => {
     await this.props.dispatch(setCurrencyView(item));
     this.setState({ ...this.state, currency: item, open: false });
   };
@@ -253,7 +253,7 @@ class CurrencySelector extends Component {
     return (
       <div styleName="root">
         <button
-          ref={el => {
+          ref={(el) => {
             this.labelRef = el;
           }}
           onClick={this.handleLabelClick}
@@ -263,7 +263,7 @@ class CurrencySelector extends Component {
         </button>
 
         <div
-          ref={el => {
+          ref={(el) => {
             this.optionsRef = el;
           }}
         >
@@ -278,7 +278,7 @@ function mapStateToProps(state) {
   return {
     profile: state.profile,
     ln: state.language,
-    currency: state.currency
+    currency: state.currency,
   };
 }
 

@@ -10,8 +10,8 @@ import Sound from "react-sound";
 import styled, { keyframes } from "styled-components";
 import "./index.css";
 
-const { Handle } = RcSlider;
-const diamondwidth = 72;
+let { Handle } = RcSlider;
+let diamondwidth = 72;
 
 export default class Slider extends Component {
   static propTypes = {
@@ -21,7 +21,7 @@ export default class Slider extends Component {
     result: PropTypes.number,
     disableControls: PropTypes.bool,
     onResultAnimation: PropTypes.func.isRequired,
-    isBetDetails: PropTypes.bool
+    isBetDetails: PropTypes.bool,
   };
 
   static defaultProps = {
@@ -30,7 +30,7 @@ export default class Slider extends Component {
     onChange: null,
     result: null,
     disableControls: false,
-    isBetDetails: false
+    isBetDetails: false,
   };
 
   constructor(props) {
@@ -42,7 +42,7 @@ export default class Slider extends Component {
       leftP: 0,
       bet: {},
       oldLeftP: 0,
-      moving: false
+      moving: false,
     };
   }
 
@@ -64,35 +64,35 @@ export default class Slider extends Component {
           result: nextProps.result,
           bet: nextProps.bet,
           leftP,
-          oldLeftP
+          oldLeftP,
         };
       } else {
         return {
           result: nextProps.result,
-          leftP
+          leftP,
         };
       }
     }
 
     return {
       result: null,
-      leftP: 0
+      leftP: 0,
     };
   }
 
-  handleSlide = props => {
+  handleSlide = (props) => {
     const { value, ...restProps } = props;
 
     return <Handle value={value} {...restProps} />;
   };
 
-  handleChange = type => value => {
+  handleChange = (type) => (value) => {
     const { onChange } = this.props;
 
     this.setState({
       value,
       moving: type === "slider",
-      result: null
+      result: null,
     });
 
     if (onChange) onChange(value);
@@ -102,7 +102,7 @@ export default class Slider extends Component {
     this.setState({ moving: false });
   };
 
-  handleRef = element => {
+  handleRef = (element) => {
     const { container } = this.state;
 
     if (!container) {

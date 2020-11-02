@@ -28,7 +28,7 @@ class CasinoDetails extends Component {
       game: null,
       userName: null,
       isWon: true,
-      currencyImage: null
+      currencyImage: null,
     };
   }
 
@@ -40,7 +40,7 @@ class CasinoDetails extends Component {
     this.projectData(props);
   }
 
-  projectData = async props => {
+  projectData = async (props) => {
     const { bet } = props;
     let component = null;
 
@@ -72,7 +72,7 @@ class CasinoDetails extends Component {
       }
 
       const currenncy = getApp().currencies.find(
-        currency => currency._id == bet.currency._id
+        (currency) => currency._id == bet.currency._id
       );
 
       this.setState({
@@ -86,7 +86,7 @@ class CasinoDetails extends Component {
         userName: bet.user.username,
         isWon: bet.isWon,
         currencyImage: currenncy.image,
-        game
+        game,
       });
     }
   };
@@ -104,7 +104,7 @@ class CasinoDetails extends Component {
       game,
       userName,
       isWon,
-      currencyImage
+      currencyImage,
     } = this.state;
     const copy = CopyText.betsdetailspage[ln];
 
@@ -277,7 +277,7 @@ class CasinoDetails extends Component {
 function mapStateToProps(state) {
   return {
     profile: state.profile,
-    ln: state.language
+    ln: state.language,
   };
 }
 

@@ -1,4 +1,4 @@
-var twoFactor = require("node-2fa");
+import twoFactor from "node-2fa";
 
 class Security2FA {
   generateSecret2FA({ name, account_id }) {

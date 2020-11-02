@@ -46,7 +46,7 @@ const numberAngles = {
   33: 214,
   34: 88,
   35: 330,
-  36: 126
+  36: 126,
 };
 const mobileBreakpoint = 768;
 let anim = null;
@@ -56,16 +56,16 @@ export default class Roulette extends Component {
   static propTypes = {
     result: PropTypes.number,
     bet: PropTypes.bool,
-    onAnimation: PropTypes.func.isRequired
+    onAnimation: PropTypes.func.isRequired,
   };
 
   static defaultProps = {
     result: null,
-    bet: false
+    bet: false,
   };
 
   state = {
-    ballStop: false
+    ballStop: false,
   };
 
   componentDidMount() {
@@ -74,7 +74,7 @@ export default class Roulette extends Component {
     const stage = new Konva.Stage({
       container: "container",
       width: stageSize,
-      height: stageSize
+      height: stageSize,
     });
 
     const layer = new Konva.Layer();
@@ -87,9 +87,9 @@ export default class Roulette extends Component {
       fill: "white",
       offset: {
         x: 0,
-        y: 84
+        y: 84,
       },
-      opacity: 0
+      opacity: 0,
     });
 
     layer.add(ball);
@@ -191,7 +191,7 @@ export default class Roulette extends Component {
           style={{
             backgroundImage: `url(${
               isLight ? RouletteWheelLight : RouletteWheel
-            })`
+            })`,
           }}
         />
         {this.renderSound()}

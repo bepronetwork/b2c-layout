@@ -4,14 +4,13 @@ import { BetSlip } from "components/Esports";
 import { Typography } from "components";
 import { BetsIcon } from "components";
 import classNames from "classnames";
-import _ from "lodash";
 import "./index.css";
 
 class BetSlipFloat extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      expand: false
+      expand: false,
     };
   }
 
@@ -19,17 +18,16 @@ class BetSlipFloat extends Component {
     const { expand } = this.state;
 
     this.setState({
-      expand: !expand
+      expand: !expand,
     });
   }
 
   render() {
     const { betSlip, onHandleLoginOrRegister } = this.props;
     const { expand } = this.state;
-
     const styles = classNames("wrapper", {
       betExpandDisplay: expand,
-      betCollapseDisplay: !expand
+      betCollapseDisplay: !expand,
     });
 
     return (
@@ -62,7 +60,7 @@ function mapStateToProps(state) {
   return {
     profile: state.profile,
     ln: state.language,
-    betSlip: state.betSlip
+    betSlip: state.betSlip,
   };
 }
 

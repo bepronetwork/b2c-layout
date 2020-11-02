@@ -6,7 +6,6 @@ const slotsLine = ({ svgClass, polylineClass, points, viewBox }) => {
     <svg viewBox={viewBox} preserveAspectRatio="none" className={svgClass}>
       <polyline
         points={points}
-        // points="12 15, 31 15, 50 50, 69 85, 87 50, 100 42"
         shapeRendering="geometricPrecision"
         className={polylineClass}
       />
@@ -18,7 +17,7 @@ slotsLine.propTypes = {
   svgClass: PropTypes.string.isRequired,
   polylineClass: PropTypes.string.isRequired,
   points: PropTypes.string.isRequired,
-  viewBox: PropTypes.string.isRequired
+  viewBox: PropTypes.string.isRequired,
 };
 
 export default slotsLine;

@@ -1,5 +1,3 @@
-var cookies = require("browser-cookies");
-
 class cache {
   /**
    * @type Authentication
@@ -12,7 +10,7 @@ class cache {
     }
   };
 
-  getFromCache = type => {
+  getFromCache = (type) => {
     let result = localStorage.getItem(type);
     return result ? JSON.parse(result) : null;
   };

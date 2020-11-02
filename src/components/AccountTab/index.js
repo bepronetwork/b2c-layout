@@ -11,14 +11,8 @@ const defaultState = {
   email: "",
   clientId: "",
   flowId: "",
-  isKycStatus: null
+  isKycStatus: null,
 };
-// const cache = new Cache({
-//   // Keep cached source failures for up to 7 days
-//   sourceTTL: 7 * 24 * 3600 * 1000,
-//   // Keep a maximum of 20 entries in the source cache
-//   sourceSize: 20
-// });
 
 class AccountTab extends React.Component {
   constructor(props) {
@@ -34,7 +28,7 @@ class AccountTab extends React.Component {
     this.projectData(props);
   }
 
-  projectData = async props => {
+  projectData = async (props) => {
     const { profile } = props;
     const appInfo = Cache.getFromCache("appInfo");
 
@@ -61,7 +55,7 @@ class AccountTab extends React.Component {
       clientId: kycIntegration.clientId,
       flowId: kycIntegration.flowId,
       isKycStatus:
-        isKycStatus === null ? isKycStatus : isKycStatus.toLowerCase()
+        isKycStatus === null ? isKycStatus : isKycStatus.toLowerCase(),
     });
     this.caseKycStatus();
   };
@@ -211,7 +205,7 @@ class AccountTab extends React.Component {
 function mapStateToProps(state) {
   return {
     profile: state.profile,
-    ln: state.language
+    ln: state.language,
   };
 }
 

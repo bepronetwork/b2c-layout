@@ -6,7 +6,7 @@ import {
   Button,
   Typography,
   OnWinLoss,
-  ChipValue
+  ChipValue,
 } from "components";
 import UserContext from "containers/App/UserContext";
 import Sound from "react-sound";
@@ -27,12 +27,12 @@ class RouletteGameOptions extends Component {
     onBet: PropTypes.func.isRequired,
     onChangeChip: PropTypes.func.isRequired,
     totalBet: PropTypes.number,
-    disableControls: PropTypes.bool
+    disableControls: PropTypes.bool,
   };
 
   static defaultProps = {
     totalBet: 0,
-    disableControls: false
+    disableControls: false,
   };
 
   state = {
@@ -42,10 +42,10 @@ class RouletteGameOptions extends Component {
     onWin: null,
     onLoss: null,
     sound: false,
-    isAutoBetting: false
+    isAutoBetting: false,
   };
 
-  handleType = type => {
+  handleType = (type) => {
     this.setState({ type });
   };
 
@@ -59,7 +59,7 @@ class RouletteGameOptions extends Component {
     );
   };
 
-  handleBet = async callback => {
+  handleBet = async () => {
     const { onBet, profile } = this.props;
     const {
       amount,
@@ -68,9 +68,9 @@ class RouletteGameOptions extends Component {
       profitStop,
       lossStop,
       onWin,
-      onLoss
+      onLoss,
     } = this.state;
-    var res;
+    let res;
     if (this.isBetValid()) {
       // to be completed with the other options
       this.setState({ sound: true });
@@ -84,12 +84,12 @@ class RouletteGameOptions extends Component {
             return null;
           }
           this.setState({ isAutoBetting: true });
-          var totalProfit = 0,
+          let totalProfit = 0,
             totalLoss = 0,
             lastBet = 0,
             wasWon = 0;
-          var betAmount = amount;
-          for (var i = 0; i < bets; i++) {
+          let betAmount = amount;
+          for (let i = 0; i < bets; i++) {
             if (
               (profitStop == 0 || totalProfit <= profitStop) && // Stop Profit
               (lossStop == 0 || totalLoss <= lossStop) // Stop Loss
@@ -190,23 +190,23 @@ class RouletteGameOptions extends Component {
     );
   };
 
-  handleOnWin = value => {
+  handleOnWin = (value) => {
     this.setState({ onWin: value });
   };
 
-  handleOnLoss = value => {
+  handleOnLoss = (value) => {
     this.setState({ onLoss: value });
   };
 
-  handleBets = value => {
+  handleBets = (value) => {
     this.setState({ bets: value });
   };
 
-  handleStopOnProfit = value => {
+  handleStopOnProfit = (value) => {
     this.setState({ profitStop: value });
   };
 
-  handleStopOnLoss = value => {
+  handleStopOnLoss = (value) => {
     this.setState({ lossStop: value });
   };
 
@@ -246,7 +246,7 @@ class RouletteGameOptions extends Component {
           <ToggleButton
             config={{
               left: { value: "manual", title: copy.MANUAL_NAME },
-              right: { value: "auto", title: copy.AUTO_NAME }
+              right: { value: "auto", title: copy.AUTO_NAME },
             }}
             selected={type}
             size="full"
@@ -304,7 +304,7 @@ class RouletteGameOptions extends Component {
 
 function mapStateToProps(state) {
   return {
-    ln: state.language
+    ln: state.language,
   };
 }
 

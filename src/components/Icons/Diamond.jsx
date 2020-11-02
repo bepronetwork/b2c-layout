@@ -1,14 +1,13 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { getAppCustomization } from "../../lib/helpers";
-
 import "./diamond.css";
 
 export default class Diamond extends Component {
   static propTypes = {
     result: PropTypes.number.isRequired,
     value: PropTypes.number.isRequired,
-    roll: PropTypes.oneOf(["under", "over"]).isRequired
+    roll: PropTypes.oneOf(["under", "over"]).isRequired,
   };
 
   render() {

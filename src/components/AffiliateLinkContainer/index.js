@@ -1,5 +1,4 @@
 import React from "react";
-import { Row, Col } from "reactstrap";
 import { Typography, CopyIcon } from "components";
 import { connect } from "react-redux";
 import classNames from "classnames";
@@ -8,7 +7,6 @@ import { CopyText } from "../../copy";
 import "./index.css";
 
 const info = getApp();
-
 const arr = window.location.href.split("/");
 const url = arr[0] + "//" + arr[2];
 const URL_REF = url + `/?ref=`;
@@ -27,13 +25,14 @@ class AffiliateLinkContainer extends React.Component {
     this.setState({ ...this.state, copied: false });
   }
 
-  componentWillReceiveProps(props) {
+  componentWillReceiveProps() {
     this.setState({ ...this.state, copied: false });
   }
 
-  copyToClipboard = (e) => {
+  copyToClipboard = () => {
     const { link } = this.props;
-    var textField = document.createElement("textarea");
+    const textField = document.createElement("textarea");
+
     textField.innerText = URL_REF + link;
     document.body.appendChild(textField);
     textField.select();
@@ -49,7 +48,6 @@ class AffiliateLinkContainer extends React.Component {
     const { ln } = this.props;
     const copy = CopyText.affiliateLinkContainerIndex[ln];
     const { skin } = getAppCustomization();
-    const styles = classNames("link-text-container", { "ad-copied": copied });
     const addressStyles = classNames("address", { "ad-copied": copied });
     const copyIcon = getIcon(27);
 

@@ -17,7 +17,7 @@ class RoulettePage extends Component {
   static contextType = UserContext;
 
   static propTypes = {
-    onHandleLoginOrRegister: PropTypes.func.isRequired
+    onHandleLoginOrRegister: PropTypes.func.isRequired,
   };
 
   state = {
@@ -26,11 +26,11 @@ class RoulettePage extends Component {
     betHistory: [],
     game_name: "Roulette",
     game: {
-      edge: 0
+      edge: 0,
     },
     betObjectResult: {},
     bet: false,
-    amount: 0
+    amount: 0,
   };
 
   componentDidMount() {
@@ -53,13 +53,13 @@ class RoulettePage extends Component {
     return this.getTotalBet() + selectedChip > user.getBalance();
   };
 
-  handleAddChipToBoard = cell => {
+  handleAddChipToBoard = (cell) => {
     const { selectedChip, betHistory } = this.state;
 
     if (this.isAddChipDisabled()) return null;
 
     return this.setState({
-      betHistory: [...betHistory, { cell, chip: selectedChip }]
+      betHistory: [...betHistory, { cell, chip: selectedChip }],
     });
   };
 
@@ -75,7 +75,7 @@ class RoulettePage extends Component {
     this.setState({ betHistory: [] });
   };
 
-  handleChangeChip = chip => {
+  handleChangeChip = (chip) => {
     this.setState({ selectedChip: chip });
   };
 
@@ -92,9 +92,9 @@ class RoulettePage extends Component {
 
   handleBet = async () => {
     try {
-      var { user } = this.context;
-      var { onHandleLoginOrRegister } = this.props;
-      var { betHistory } = this.state;
+      const { user } = this.context;
+      const { onHandleLoginOrRegister } = this.props;
+      const { betHistory } = this.state;
 
       if (!user) return onHandleLoginOrRegister("register");
 
@@ -102,7 +102,7 @@ class RoulettePage extends Component {
       const res = await rouletteBet({
         betHistory,
         betAmount: this.getTotalBet(),
-        user
+        user,
       });
       const { isWon, result } = res;
 
@@ -111,7 +111,7 @@ class RoulettePage extends Component {
         hasWon: isWon,
         disableControls: false,
         betObjectResult: res,
-        amount: this.getTotalBet()
+        amount: this.getTotalBet(),
       });
       return res;
     } catch (err) {
@@ -119,7 +119,7 @@ class RoulettePage extends Component {
         bet: false,
         flipResult: 0,
         hasWon: false,
-        disableControls: false
+        disableControls: false,
       });
     }
   };
@@ -152,12 +152,12 @@ class RoulettePage extends Component {
 
     this.setState({
       ...this.state,
-      betHistory: betHistory.map(item => {
+      betHistory: betHistory.map((item) => {
         return {
           cell: item.cell,
-          chip: Numbers.toFloat(parseFloat(item.chip) * 2)
+          chip: Numbers.toFloat(parseFloat(item.chip) * 2),
         };
-      })
+      }),
     });
   };
 
@@ -215,7 +215,7 @@ class RoulettePage extends Component {
 function mapStateToProps(state) {
   return {
     profile: state.profile,
-    ln: state.language
+    ln: state.language,
   };
 }
 

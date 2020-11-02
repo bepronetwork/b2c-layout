@@ -1,13 +1,9 @@
 import React, { Component } from "react";
-// eslint-disable-next-line import/no-cycle
 import PropTypes from "prop-types";
 import { Typography, Button, Modal } from "components";
 import UserContext from "containers/App/UserContext";
 import "./index.css";
-import {
-  setMessageNotification,
-  SET_MESSAGE_INFO
-} from "../../redux/actions/message";
+import { setMessageNotification } from "../../redux/actions/message";
 import { connect } from "react-redux";
 import { compose } from "lodash/fp";
 import _ from "lodash";
@@ -17,7 +13,7 @@ class Message extends Component {
   static contextType = UserContext;
 
   static propTypes = {
-    user: PropTypes.shape({})
+    user: PropTypes.shape({}),
   };
 
   state = {};
@@ -28,20 +24,21 @@ class Message extends Component {
 
   render() {
     let hasMessage = !_.isEmpty(this.props.message);
-    if (!hasMessage) {
-      return null;
-    }
     let messageArray = _.isArray(this.props.message)
       ? this.props.message
       : [this.props.message];
     const { ln } = this.props;
     const copy = CopyText.messageFormMessage[ln];
 
+    if (!hasMessage) {
+      return null;
+    }
+
     return (
       <Modal>
         <div styleName="root">
           <div styleName="title">
-            {messageArray.map(text => {
+            {messageArray.map((text) => {
               return (
                 <Typography variant="h4" color="white">
                   {text}
@@ -68,12 +65,12 @@ class Message extends Component {
 function mapStateToProps(state) {
   return {
     profile: state.profile,
-    message: state.message
+    message: state.message,
   };
 }
 
 Message.propTypes = {
-  dispatch: PropTypes.func
+  dispatch: PropTypes.func,
 };
 
 export default compose(connect(mapStateToProps))(Message);

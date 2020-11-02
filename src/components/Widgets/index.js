@@ -18,7 +18,7 @@ class Widgets extends React.Component {
     this.projectData(props);
   }
 
-  projectData(props) {
+  projectData() {
     let cacheCustomization = Cache.getFromCache("customization");
     if (!cacheCustomization) {
       cacheCustomization = {};
@@ -39,7 +39,7 @@ class Widgets extends React.Component {
 
 function mapStateToProps(state) {
   return {
-    profile: state.profile
+    profile: state.profile,
   };
 }
 

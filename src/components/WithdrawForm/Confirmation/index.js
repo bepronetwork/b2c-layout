@@ -3,11 +3,10 @@ import { Checkbox, Typography } from "../../../components";
 import { connect } from "react-redux";
 import { compose } from "lodash/fp";
 import { CopyText } from "../../../copy";
-import _ from "lodash";
 import "../index.css";
 
 const defaultProps = {
-  isConfirmed: false
+  isConfirmed: false,
 };
 
 class Confirmation extends Component {
@@ -63,7 +62,7 @@ class Confirmation extends Component {
 function mapStateToProps(state) {
   return {
     profile: state.profile,
-    ln: state.language
+    ln: state.language,
   };
 }
 

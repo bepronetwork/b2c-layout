@@ -1,7 +1,7 @@
 import React from "react";
 import Sound from "react-sound";
 
-export const renderSounds = urlSound => {
+export const renderSounds = (urlSound) => {
   window.soundManager.setup({ debugMode: false });
 
   return <Sound volume={80} url={urlSound} playStatus="PLAYING" autoLoad />;
@@ -14,15 +14,15 @@ export const handleAnimation = async (spinnerColumn, iterations) => {
     [
       { transform: "translate3D(0, -30px, 0)" },
       { transform: "translate3D(0, 600px, 0)" },
-      { transform: "translate3D(0, 30px, 0)" }
+      { transform: "translate3D(0, 30px, 0)" },
     ],
     {
       duration: 500,
-      iterations
+      iterations,
     }
   );
 
-  return new Promise(resolve => setTimeout(() => resolve(), 100));
+  return new Promise((resolve) => setTimeout(() => resolve(), 100));
 };
 
 export const randomNumber = (min, max) => {

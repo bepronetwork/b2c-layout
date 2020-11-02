@@ -30,8 +30,8 @@ export const WHEEL_SIMPLE = {
     18,
     19,
     20,
-    21
-  ]
+    21,
+  ],
 };
 export const WHEEL_CLASSIC = {
   INITIAL_OFFSET_ROTATION: 22,
@@ -65,6 +65,6 @@ export const WHEEL_CLASSIC = {
     14,
     29,
     15,
-    0
-  ]
+    0,
+  ],
 };

@@ -6,18 +6,18 @@ import "./coin.css";
 
 export default class Coin extends Component {
   static propTypes = {
-    value: PropTypes.string
+    value: PropTypes.string,
   };
 
   static defaultProps = {
-    value: "1"
+    value: "1",
   };
 
   render() {
     const { value } = this.props;
 
     const rootStyles = classNames("root", {
-      [`coin${toLower(value)}`]: true
+      [`coin${toLower(value)}`]: true,
     });
 
     console.log(rootStyles);

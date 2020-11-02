@@ -6,12 +6,12 @@ import classNames from "classnames";
 import {
   formatOpponentData,
   formatOpponentBet,
-  formatDrawBet
+  formatDrawBet,
 } from "../../../lib/helpers";
 import ReactCountryFlag from "react-country-flag";
 import {
   setBetSlipResult,
-  removeBetSlipFromResult
+  removeBetSlipFromResult,
 } from "../../../redux/actions/betSlip";
 import _ from "lodash";
 import "./index.css";
@@ -26,7 +26,7 @@ class Opponents extends Component {
         image: null,
         name: "Team 1",
         score: 0,
-        odd: null
+        odd: null,
       },
       opponent2: {
         participant_id: 0,
@@ -34,7 +34,7 @@ class Opponents extends Component {
         image: null,
         name: "Team 2",
         score: 0,
-        odd: null
+        odd: null,
       },
       drawOdd: null,
       matchName: "Team 1 x Team 2",
@@ -42,7 +42,7 @@ class Opponents extends Component {
       gameImage: null,
       isScoreBoard: false,
       isLoaded: false,
-      status: null
+      status: null,
     };
   }
 
@@ -54,7 +54,7 @@ class Opponents extends Component {
     this.projectData(props);
   }
 
-  projectData = async props => {
+  projectData = async (props) => {
     const { match, isScoreBoard } = props;
     let { opponent1, opponent2, drawOdd } = this.state;
 
@@ -71,7 +71,7 @@ class Opponents extends Component {
           : match.odds.winnerThreeWay;
       drawOdd =
         match.odds.winnerThreeWay.length > 0
-          ? oddType.find(o => o.participant_id == null)
+          ? oddType.find((o) => o.participant_id == null)
           : null;
 
       opponent1 = formatOpponentData(match, 0, gameImage);
@@ -88,7 +88,7 @@ class Opponents extends Component {
       gameImage,
       isScoreBoard: isScoreBoard === true ? true : false,
       isLoaded: true,
-      status: match.status
+      status: match.status,
     });
   };
 
@@ -119,7 +119,7 @@ class Opponents extends Component {
       matchId,
       gameImage,
       isLoaded,
-      status
+      status,
     } = this.state;
 
     if (!isLoaded) {
@@ -132,31 +132,31 @@ class Opponents extends Component {
 
     const isOpponent1Selected = !_.isEmpty(betSlip)
       ? betSlip.some(
-          b => b.id === opponent1.odd.participant_id && b.matchId === matchId
+          (b) => b.id === opponent1.odd.participant_id && b.matchId === matchId
         )
       : false;
     const team1Styles = classNames("team", {
       team1: !isScoreBoard,
       "team-score-board": isScoreBoard,
-      selected: !isScoreBoard && isOpponent1Selected
+      selected: !isScoreBoard && isOpponent1Selected,
     });
 
     const isOpponent2Selected = !_.isEmpty(betSlip)
       ? betSlip.some(
-          b => b.id === opponent2.odd.participant_id && b.matchId === matchId
+          (b) => b.id === opponent2.odd.participant_id && b.matchId === matchId
         )
       : false;
     const team2Styles = classNames("team", {
       team2: !isScoreBoard,
       "team-score-board": isScoreBoard,
-      selected: !isScoreBoard && isOpponent2Selected
+      selected: !isScoreBoard && isOpponent2Selected,
     });
 
     const isDrawSelected = !_.isEmpty(betSlip)
-      ? betSlip.some(b => b.id === drawId && b.matchId === matchId)
+      ? betSlip.some((b) => b.id === drawId && b.matchId === matchId)
       : false;
     const drawStyles = classNames("draw", {
-      selected: !isScoreBoard && isDrawSelected
+      selected: !isScoreBoard && isDrawSelected,
     });
 
     const opponent1Bet = formatOpponentBet(opponent1, matchId, matchName, 0);
@@ -172,7 +172,7 @@ class Opponents extends Component {
       <div styleName="teams">
         <div
           styleName={team1Styles}
-          onClick={event => {
+          onClick={(event) => {
             isOpponent1Selected
               ? this.handleRemoveToBetSlip(event, opponent1.id)
               : this.handleAddToBetSlip(event, opponent1Bet);
@@ -183,7 +183,7 @@ class Opponents extends Component {
             svg
             style={{
               width: "0.9em",
-              height: "0.9em"
+              height: "0.9em",
             }}
             title={opponent1.location}
           />
@@ -245,7 +245,7 @@ class Opponents extends Component {
               ) : (
                 <div
                   styleName={drawStyles}
-                  onClick={event => {
+                  onClick={(event) => {
                     isDrawSelected
                       ? this.handleRemoveToBetSlip(event, drawId)
                       : this.handleAddToBetSlip(event, drawBet);
@@ -264,7 +264,7 @@ class Opponents extends Component {
         )}
         <div
           styleName={team2Styles}
-          onClick={event => {
+          onClick={(event) => {
             isOpponent2Selected
               ? this.handleRemoveToBetSlip(event, opponent2.id)
               : this.handleAddToBetSlip(event, opponent2Bet);
@@ -275,7 +275,7 @@ class Opponents extends Component {
             svg
             style={{
               width: "0.9em",
-              height: "0.9em"
+              height: "0.9em",
             }}
             title={opponent2.location}
           />
@@ -302,7 +302,7 @@ function mapStateToProps(state) {
   return {
     profile: state.profile,
     ln: state.language,
-    betSlip: state.betSlip
+    betSlip: state.betSlip,
   };
 }
 

@@ -5,7 +5,7 @@ import {
   History,
   Modal,
   Typography,
-  MaximizeIcon
+  MaximizeIcon,
 } from "components";
 import CloseIcon from "components/Icons/CloseCross";
 import UserContext from "containers/App/UserContext";
@@ -36,28 +36,25 @@ class GamePage extends Component {
       "wheel_variation_1History",
       "kenoHistory",
       "diamondsHistory",
-      "slotsHistory"
-    ])
+      "slotsHistory",
+    ]),
   };
 
   static defaultProps = {
     options: null,
     game: null,
     history: "",
-    gameMetaName: null
+    gameMetaName: null,
   };
 
   constructor(props) {
     super(props);
-
-    const { ln } = this.props;
     const sound = localStorage.getItem("sound");
-
     this.state = {
       soundMode: sound || "off",
       actionsOpen: false,
       gameInfo: null,
-      max: false
+      max: false,
     };
   }
 
@@ -185,7 +182,7 @@ class GamePage extends Component {
       providerUrl,
       providerExternalId,
       providerName,
-      providerGameName
+      providerGameName,
     } = this.props;
     const { max } = this.state;
 
@@ -196,7 +193,7 @@ class GamePage extends Component {
     }
 
     const closeStyles = classNames("close-iframe", {
-      "show-close": max === true
+      "show-close": max === true,
     });
 
     const maximizeIcon = getIcon(14);
@@ -221,7 +218,7 @@ class GamePage extends Component {
               {maximizeIcon === null ? (
                 <MaximizeIcon />
               ) : (
-                <img src={maximizeIcon} alt='Maximize Icon' />
+                <img src={maximizeIcon} alt="Maximize Icon" />
               )}
             </div>
           </div>
@@ -229,7 +226,7 @@ class GamePage extends Component {
         {this.renderBox({
           title: providerName,
           game: providerGameName,
-          info: `1 ${newCurrency.ticker} = ${newCurrency.value} ${currency.ticker}`
+          info: `1 ${newCurrency.ticker} = ${newCurrency.value} ${currency.ticker}`,
         })}
       </div>
     );
@@ -241,7 +238,7 @@ class GamePage extends Component {
       game,
       gameMetaName,
       onTableDetails,
-      isThirdParty
+      isThirdParty,
     } = this.props;
     const { gameInfo } = this.state;
 
@@ -271,7 +268,7 @@ class GamePage extends Component {
               {this.renderBox({
                 title: "BetProtocol Games",
                 game: gameInfo ? gameInfo.description : null,
-                showActions: true
+                showActions: true,
               })}
             </div>
             <LastBets
@@ -290,7 +287,7 @@ function mapStateToProps(state) {
     ln: state.language,
     modal: state.modal,
     profile: state.profile,
-    currency: state.currency
+    currency: state.currency,
   };
 }
 

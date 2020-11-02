@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import classNames from "classnames";
 import Tooltip from "@material-ui/core/Tooltip";
-import _ from "lodash";
 import "./index.css";
 
 export default class Shield extends Component {
@@ -11,11 +10,11 @@ export default class Shield extends Component {
       "root-small": size == "small",
       "root-medium": size == "medium",
       "root-large": size == "large",
-      "root-full": size == "full"
+      "root-full": size == "full",
     });
 
     const shieldStyles = classNames("shield", {
-      "shield-full": isFull == true
+      "shield-full": isFull == true,
     });
 
     return (

@@ -14,14 +14,14 @@ class SerieFilter extends Component {
     super(props);
     this.state = {
       serieFilter: [],
-      moreWindowOpen: false
+      moreWindowOpen: false,
     };
   }
 
-  handleFilterClick = async id => {
+  handleFilterClick = async (id) => {
     const { onSerieFilter } = this.props;
     const { serieFilter } = this.state;
-    const exist = serieFilter.some(el => el === id);
+    const exist = serieFilter.some((el) => el === id);
 
     if (exist) {
       const index = serieFilter.indexOf(id);
@@ -46,7 +46,7 @@ class SerieFilter extends Component {
     onCleanSerieFilter(serieFilter);
   };
 
-  handleFilterMoreClick = async serieFilter => {
+  handleFilterMoreClick = async (serieFilter) => {
     const { onSerieFilter } = this.props;
 
     this.setState({ serieFilter });
@@ -86,14 +86,15 @@ class SerieFilter extends Component {
 
     games
       .filter(
-        game => gameFilter.includes(game.external_id) || gameFilter.length == 0
+        (game) =>
+          gameFilter.includes(game.external_id) || gameFilter.length == 0
       )
       .slice(0, 3)
-      .map(game => {
+      .map((game) => {
         if (!_.isEmpty(game.series)) {
-          const exist = serieFilter.some(el => el === game.series[0].id);
+          const exist = serieFilter.some((el) => el === game.series[0].id);
           const styles = classNames("tournament", {
-            tourSelected: exist
+            tourSelected: exist,
           });
           series.push(
             <li
@@ -205,7 +206,7 @@ class SerieFilter extends Component {
 function mapStateToProps(state) {
   return {
     profile: state.profile,
-    ln: state.language
+    ln: state.language,
   };
 }
 

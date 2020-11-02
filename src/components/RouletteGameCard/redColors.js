@@ -16,7 +16,7 @@ const redColors = [
   30,
   32,
   34,
-  36
+  36,
 ];
 
 export default redColors;

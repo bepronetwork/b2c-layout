@@ -14,7 +14,6 @@ import {
   SettingsIcon,
   DepositsIcon,
   WithdrawIcon,
-  RefferalIcon,
   BetsIcon,
   UserIcon,
   UsersIcon,
@@ -70,7 +69,7 @@ class AccountPage extends Component {
     return (
       <div styleName="main-container">
         <div styleName="root">
-          <hr></hr>
+          <hr />
           <TabedContainer
             items={[
               {
@@ -104,7 +103,12 @@ class AccountPage extends Component {
                     isCurrentPath={this.isCurrentPath("bets")}
                   />
                 ),
-                icon: betsIcon === null ? <BetsIcon /> : <img src={betsIcon} />,
+                icon:
+                  betsIcon === null ? (
+                    <BetsIcon />
+                  ) : (
+                    <img src={betsIcon} alt="Bets Icon" />
+                  ),
               },
               {
                 path: "wallet",

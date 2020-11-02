@@ -6,7 +6,7 @@ import {
   RotateIcon,
   UndoIcon,
   SoundIcon,
-  CopyIcon
+  CopyIcon,
 } from "components";
 import { getIcon } from "../../lib/helpers";
 import "./index.css";
@@ -19,17 +19,15 @@ const ButtonIcon = ({
   disabled,
   rollType,
   soundMode,
-  theme
+  theme,
 }) => {
   const rootStyles = classNames("root", {
     disabled,
-    primaryTheme: theme === "primary"
+    primaryTheme: theme === "primary",
   });
-
   const buttonStyles = classNames("button", {
-    over: rollType === "over"
+    over: rollType === "over",
   });
-
   const rotateIcon = getIcon(31);
   const undoIcon = getIcon(30);
   const soundIcon = getIcon(13);
@@ -40,13 +38,13 @@ const ButtonIcon = ({
       rotateIcon === null ? (
         <RotateIcon color={disabled ? "pickled-bluewood" : "casper"} />
       ) : (
-        <img src={rotateIcon} alt='Rotate Icon' />
+        <img src={rotateIcon} alt="Rotate Icon" />
       ),
     undo:
       undoIcon === null ? (
         <UndoIcon color={disabled ? "pickled-bluewood" : "casper"} />
       ) : (
-        <img src={undoIcon} alt='Undo Icon' />
+        <img src={undoIcon} alt="Undo Icon" />
       ),
     sound:
       soundIcon === null ? (
@@ -55,14 +53,14 @@ const ButtonIcon = ({
           color={disabled ? "pickled-bluewood" : "casper"}
         />
       ) : (
-        <img src={soundIcon} alt='Sound Icon' />
+        <img src={soundIcon} alt="Sound Icon" />
       ),
     copy:
       copyIcon === null ? (
         <CopyIcon color={disabled ? "pickled-bluewood" : "casper"} />
       ) : (
-        <img src={copyIcon} alt='Copy Icon' />
-      )
+        <img src={copyIcon} alt="Copy Icon" />
+      ),
   };
 
   return iconAtLeft ? (
@@ -100,7 +98,7 @@ ButtonIcon.propTypes = {
   rollType: PropTypes.oneOf(["over", "under", "sound", null]),
   icon: PropTypes.string,
   soundMode: PropTypes.oneOf(["on", "off"]),
-  theme: PropTypes.oneOf(["default", "primary"])
+  theme: PropTypes.oneOf(["default", "primary"]),
 };
 
 ButtonIcon.defaultProps = {
@@ -111,7 +109,7 @@ ButtonIcon.defaultProps = {
   icon: null,
   rollType: null,
   soundMode: "off",
-  theme: "default"
+  theme: "default",
 };
 
 export default ButtonIcon;

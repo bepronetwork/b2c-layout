@@ -5,14 +5,13 @@ import { CopyText } from "../../copy";
 import { confirmEmail } from "../../lib/api/users";
 import { getIcon } from "../../lib/helpers";
 import "./index.css";
-import _ from "lodash";
 
 class ConfirmEmail extends Component {
   constructor(props) {
     super(props);
     this.state = {
       confirmed: false,
-      confirmedMessage: false
+      confirmedMessage: false,
     };
   }
 
@@ -39,7 +38,7 @@ class ConfirmEmail extends Component {
 
       this.setState({
         confirmed: true,
-        confirmedMessage: copy.CONTAINERS.APP.NOTIFICATION[1]
+        confirmedMessage: copy.CONTAINERS.APP.NOTIFICATION[1],
       });
     } catch (err) {
       console.log(err);
@@ -65,7 +64,7 @@ class ConfirmEmail extends Component {
                     {emailIcon === null ? (
                       <EmailIcon />
                     ) : (
-                      <img src={emailIcon} alt='Email Icon' />
+                      <img src={emailIcon} alt="Email Icon" />
                     )}
                   </div>
                   <div styleName="confirm-right">
@@ -86,7 +85,7 @@ class ConfirmEmail extends Component {
 function mapStateToProps(state) {
   return {
     profile: state.profile,
-    ln: state.language
+    ln: state.language,
   };
 }
 

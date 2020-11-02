@@ -17,16 +17,16 @@ const defaultState = {
   game_name: "CoinFlip",
   isCoinSpinning: false,
   game: {
-    edge: 0
+    edge: 0,
   },
-  amount: 0
+  amount: 0,
 };
 
 class FlipPage extends Component {
   static contextType = UserContext;
 
   static propTypes = {
-    onHandleLoginOrRegister: propTypes.func.isRequired
+    onHandleLoginOrRegister: propTypes.func.isRequired,
   };
 
   constructor(props) {
@@ -72,7 +72,7 @@ class FlipPage extends Component {
     }
   };
 
-  onBet = async form => {
+  onBet = async (form) => {
     this.setState({ onBet: true, disableControls: true });
     let res = await this.handleBet(form);
     this.setState({ onBet: false });
@@ -89,7 +89,7 @@ class FlipPage extends Component {
       const res = await coinFlipBet({
         betAmount: amount,
         side,
-        user
+        user,
       });
 
       const { result, hasWon } = res;
@@ -99,7 +99,7 @@ class FlipPage extends Component {
         betObjectResult: res,
         hasWon,
         isCoinSpinning: true,
-        amount
+        amount,
       });
 
       return res;
@@ -107,7 +107,7 @@ class FlipPage extends Component {
       return this.setState({
         flipResult: 0,
         hasWon: false,
-        disableControls: false
+        disableControls: false,
       });
     }
   };
@@ -172,7 +172,7 @@ class FlipPage extends Component {
 function mapStateToProps(state) {
   return {
     profile: state.profile,
-    ln: state.language
+    ln: state.language,
   };
 }
 

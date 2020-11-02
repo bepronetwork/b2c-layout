@@ -3,7 +3,6 @@ import ArrowDown from "components/Icons/ArrowDown";
 import ArrowUp from "components/Icons/ArrowUp";
 import { Typography, ArrowDownIcon, ArrowUpIcon } from "components";
 import { getAppCustomization, getIcon } from "../../lib/helpers";
-import _ from "lodash";
 import "./index.css";
 
 class SelectBox extends React.Component {
@@ -11,7 +10,7 @@ class SelectBox extends React.Component {
     super(props);
     this.state = {
       open: false,
-      value: props.value
+      value: props.value,
     };
   }
 
@@ -37,8 +36,7 @@ class SelectBox extends React.Component {
     this.projectData(props);
   }
 
-  handleClickOutside = event => {
-    const isOutsideClick = !this.optionsRef.contains(event.target);
+  handleClickOutside = (event) => {
     const isLabelClick = this.labelRef.contains(event.target);
 
     if (!isLabelClick) {
@@ -48,7 +46,7 @@ class SelectBox extends React.Component {
     }
   };
 
-  projectData = props => {
+  projectData = (props) => {
     if (props.value) {
       this.setState({ ...this.state, value: props.value });
     }
@@ -60,7 +58,7 @@ class SelectBox extends React.Component {
     this.setState({ open: !open });
   };
 
-  onChange = option => {
+  onChange = (option) => {
     this.setState({ ...this.state, value: option, open: false });
     this.props.onChange({ option });
   };
@@ -87,7 +85,7 @@ class SelectBox extends React.Component {
               <ArrowUp />
             )
           ) : (
-            <img src={arrowUpIcon} />
+            <img src={arrowUpIcon} alt="Arrow Up Icon" />
           )
         ) : arrowDownIcon === null ? (
           skin == "digital" ? (
@@ -96,7 +94,7 @@ class SelectBox extends React.Component {
             <ArrowDown />
           )
         ) : (
-          <img src={arrowDownIcon} />
+          <img src={arrowDownIcon} alt="Arrow Down Icon" />
         )}
       </div>
     );
@@ -104,7 +102,7 @@ class SelectBox extends React.Component {
 
   renderOptionsLines = () => {
     const { options } = this.props;
-    return options.map(option => (
+    return options.map((option) => (
       <button
         styleName="option"
         key={option.channel_id}
@@ -138,7 +136,7 @@ class SelectBox extends React.Component {
     return (
       <div styleName="root">
         <button
-          ref={el => {
+          ref={(el) => {
             this.labelRef = el;
           }}
           onClick={this.handleLabelClick}
@@ -148,7 +146,7 @@ class SelectBox extends React.Component {
         </button>
 
         <div
-          ref={el => {
+          ref={(el) => {
             this.optionsRef = el;
           }}
         >

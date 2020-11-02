@@ -1,10 +1,8 @@
 import React from "react";
 import propTypes from "prop-types";
-
 import styles from "./index.css";
 import { images } from "./images";
 import HandleLines from "../SlotsLines/Lines";
-
 import Coin from "../../assets/icons/SlotsIcons/coin2.svg";
 import BlueCoin from "../../assets/icons/SlotsIcons/bluecoin2.svg";
 import Club from "../../assets/icons/SlotsIcons/club2.svg";
@@ -48,7 +46,6 @@ class SlotsGame extends React.Component {
         return Beetle;
       case 12:
         return Esfinge;
-
       default:
         break;
     }

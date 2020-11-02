@@ -22,7 +22,7 @@ class LegalBox extends Component {
           data-ceg-seal-id={licenseID}
           data-ceg-image-size="72"
           data-ceg-image-type="basic-small"
-        ></div>
+        />
       </div>
     );
   }
@@ -30,7 +30,7 @@ class LegalBox extends Component {
 
 function mapStateToProps(state) {
   return {
-    ln: state.language
+    ln: state.language,
   };
 }
 

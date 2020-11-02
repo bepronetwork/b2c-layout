@@ -12,7 +12,7 @@ import {
   modalReducer,
   set2FAReducer,
   currencyReducer,
-  betSlipReducer
+  betSlipReducer,
 } from "../../redux/reducers/index";
 
 const reducer = combineReducers({
@@ -28,7 +28,7 @@ const reducer = combineReducers({
   bet: betReducer,
   modal: modalReducer,
   set2FA: set2FAReducer,
-  betSlip: betSlipReducer
+  betSlip: betSlipReducer,
 });
 const store = createStore(reducer);
 

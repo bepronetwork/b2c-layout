@@ -8,10 +8,10 @@ import "./index.css";
 
 class MultiplyMaxButton extends Component {
   static propTypes = {
-    onSelect: PropTypes.func.isRequired
+    onSelect: PropTypes.func.isRequired,
   };
 
-  handleClick = event => {
+  handleClick = (event) => {
     const { onSelect } = this.props;
 
     onSelect(event.currentTarget.name);
@@ -82,7 +82,7 @@ class MultiplyMaxButton extends Component {
 function mapStateToProps(state) {
   return {
     profile: state.profile,
-    ln: state.language
+    ln: state.language,
   };
 }
 

@@ -10,7 +10,7 @@ class CurrencyWithdrawForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      wallets: []
+      wallets: [],
     };
   }
 
@@ -22,13 +22,13 @@ class CurrencyWithdrawForm extends React.Component {
     this.projectData(props);
   }
 
-  projectData = async props => {
+  projectData = async () => {
     let wallets = getApp().wallet;
 
     this.setState({ ...this.state, wallets });
   };
 
-  changeCurrency = async c => {
+  changeCurrency = async (c) => {
     await store.dispatch(setWithdrawInfo({ key: "currency", value: c }));
   };
 
@@ -40,7 +40,7 @@ class CurrencyWithdrawForm extends React.Component {
 
     return (
       <div>
-        {wallets.map(w => {
+        {wallets.map((w) => {
           return (
             <PaymentBox
               onClick={() => this.changeCurrency(w.currency)}
@@ -48,7 +48,6 @@ class CurrencyWithdrawForm extends React.Component {
                 new String(withdraw.currency._id).toString() ==
                 new String(w.currency._id).toString()
               }
-              id={`${w.currency.ticker}`}
               image={w.image ? w.image : w.currency.image}
               type={`${w.currency.name}`}
               description={copy.INDEX.PAYMENTBOX.DESCRIPTION[0]}
@@ -66,7 +65,7 @@ function mapStateToProps(state) {
   return {
     withdraw: state.withdraw,
     profile: state.profile,
-    ln: state.language
+    ln: state.language,
   };
 }
 

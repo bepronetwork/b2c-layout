@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Tabs, Modal } from "components";
-import Withdraw from "./Withdraw";
 import { connect } from "react-redux";
+import Withdraw from "./Withdraw";
 import "./index.css";
 import store from "../../containers/App/store";
 import { setModal } from "../../redux/actions/modal";
@@ -12,11 +12,11 @@ class AffiliateWithdrawForm extends Component {
     super(props);
 
     this.state = {
-      tab: "withdraw"
+      tab: "withdraw",
     };
   }
 
-  handleTabChange = name => {
+  handleTabChange = (name) => {
     this.setState({ tab: name });
   };
 
@@ -31,6 +31,7 @@ class AffiliateWithdrawForm extends Component {
     const { tab } = this.state;
     const { ln } = this.props;
     const copy = CopyText.affiliateWithdrawFormIndex[ln];
+
     if (!modal.AffiliateWithdrawForm) {
       return null;
     }
@@ -59,7 +60,7 @@ function mapStateToProps(state) {
   return {
     profile: state.profile,
     modal: state.modal,
-    ln: state.language
+    ln: state.language,
   };
 }
 

@@ -1,7 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
 import "./index.css";
-import { ProgressBarLinear } from "../ProgressBar";
 import { getAppCustomization } from "../../lib/helpers";
 
 class LoadingBanner extends React.Component {
@@ -18,8 +17,6 @@ class LoadingBanner extends React.Component {
     this.projectData(props);
   }
 
-  projectData = async (props) => {};
-
   render() {
     const { isLoaded } = this.props;
     const { logo } = getAppCustomization();
@@ -27,6 +24,7 @@ class LoadingBanner extends React.Component {
     if (isLoaded) {
       return null;
     }
+
     return (
       <div styleName="back-loading-banner">
         <div styleName="loading">

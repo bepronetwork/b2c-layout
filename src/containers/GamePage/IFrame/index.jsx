@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import classNames from "classnames";
-import _ from "lodash";
 import "./index.css";
 
 class IFrame extends Component {
@@ -27,10 +26,10 @@ class IFrame extends Component {
       gameId,
       ln,
       ticker,
-      max
+      max,
     } = this.props;
     const thirdStyles = classNames("iframe", {
-      max: max === true
+      max: max === true,
     });
 
     return (
@@ -40,7 +39,7 @@ class IFrame extends Component {
         allowFullScreen=""
         src={`${providerUrl}/game?token=${token}&partner_id=${partnerId}&player_id=${playerId}&game_id=${gameId}&language=${ln}&currency=${ticker}`}
         frameBorder="0"
-      ></iframe>
+      />
     );
   }
 }
@@ -48,7 +47,7 @@ class IFrame extends Component {
 function mapStateToProps(state) {
   return {
     profile: state.profile,
-    ln: state.language
+    ln: state.language,
   };
 }
 

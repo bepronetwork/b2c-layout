@@ -14,7 +14,7 @@ export default class Button extends Component {
     size: PropTypes.oneOf(["x-small", "small", "medium", "large"]),
     name: PropTypes.string,
     animation: PropTypes.node,
-    icon: PropTypes.string
+    icon: PropTypes.string,
   };
 
   static defaultProps = {
@@ -25,14 +25,14 @@ export default class Button extends Component {
     disabled: false,
     size: "small",
     name: null,
-    animation: null
+    animation: null,
   };
 
   state = {
-    isAnimating: false
+    isAnimating: false,
   };
 
-  handleClick = event => {
+  handleClick = (event) => {
     const { onClick, animation } = this.props;
 
     if (!animation) {
@@ -75,20 +75,19 @@ export default class Button extends Component {
       type,
       name,
       onClick,
-      icon
+      icon,
     } = this.props;
     const rootStyles = classNames("root", {
       [theme]: true,
       fullwidth: fullWidth,
-      disabled
+      disabled,
     });
-
     const contentStyles = classNames("content", {
       [size]: true,
-      fullwidth: fullWidth
+      fullwidth: fullWidth,
     });
+
     return (
-      // eslint-disable-next-line react/button-has-type
       <button
         style={this.props.style}
         styleName={rootStyles}

@@ -11,7 +11,7 @@ class WheelDetails extends Component {
     this.state = {
       value: 0,
       result: null,
-      game: null
+      game: null,
     };
   }
 
@@ -23,7 +23,7 @@ class WheelDetails extends Component {
     this.projectData(props);
   }
 
-  projectData = async props => {
+  projectData = async (props) => {
     const { bet } = this.props;
     const result = bet.outcomeResultSpace.key;
     const game = bet.game;
@@ -32,7 +32,7 @@ class WheelDetails extends Component {
     this.setState({
       value,
       game,
-      result
+      result,
     });
   };
 
@@ -50,7 +50,7 @@ class WheelDetails extends Component {
 function mapStateToProps(state) {
   return {
     profile: state.profile,
-    ln: state.language
+    ln: state.language,
   };
 }
 

@@ -1,12 +1,11 @@
 import React from "react";
 import PropTypes from "prop-types";
 import classNames from "classnames";
-
 import "./index.css";
 
 const Sound = ({ color, soundMode }) => {
   const styles = classNames("sound", {
-    [color]: true
+    [color]: true,
   });
 
   if (!soundMode || soundMode === "off") {
@@ -44,12 +43,12 @@ const Sound = ({ color, soundMode }) => {
 
 Sound.propTypes = {
   color: PropTypes.oneOf(["casper", "pickled-bluewood"]),
-  soundMode: PropTypes.oneOf(["on", "off"])
+  soundMode: PropTypes.oneOf(["on", "off"]),
 };
 
 Sound.defaultProps = {
   color: "casper",
-  soundMode: "off"
+  soundMode: "off",
 };
 
 export default Sound;

@@ -12,7 +12,7 @@ export default class Plinko extends GameObject {
   createPhysics() {
     let options = {
       friction: PLINKO.FRICTION,
-      restitution: PLINKO.RESTITUTION
+      restitution: PLINKO.RESTITUTION,
     };
 
     this.body = Bodies.circle(this.x, this.y, this.r, options);

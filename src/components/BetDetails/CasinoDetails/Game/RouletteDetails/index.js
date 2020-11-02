@@ -12,7 +12,7 @@ class RouletteDetails extends Component {
     super(props);
     this.state = {
       betHistory: [],
-      number: null
+      number: null,
     };
   }
 
@@ -24,18 +24,18 @@ class RouletteDetails extends Component {
     this.projectData(props);
   }
 
-  projectData = async props => {
+  projectData = async (props) => {
     const { bet } = this.props;
 
     const number = bet.outcomeResultSpace.index;
     const result = bet.result;
-    const betHistory = result.map(el => {
+    const betHistory = result.map((el) => {
       return { cell: el._id.place, chip: el._id.value.toFixed(3) };
     });
 
     this.setState({
       betHistory,
-      number
+      number,
     });
   };
 
@@ -43,7 +43,7 @@ class RouletteDetails extends Component {
     const { betHistory, number } = this.state;
     const resultStyles = classNames("result", {
       green: number == 0,
-      red: redColors.includes(number)
+      red: redColors.includes(number),
     });
 
     return (
@@ -66,7 +66,7 @@ class RouletteDetails extends Component {
 function mapStateToProps(state) {
   return {
     profile: state.profile,
-    ln: state.language
+    ln: state.language,
   };
 }
 

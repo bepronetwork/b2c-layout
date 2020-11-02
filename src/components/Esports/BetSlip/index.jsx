@@ -1,10 +1,12 @@
 import React, { Component } from "react";
-import { Typography, Button, Tabs, InputNumber } from "components";
+import { Button, InputNumber, Tabs, Typography } from "components";
 import { BetSlipBox } from "components/Esports";
-import { removeAllFromResult } from "../../../redux/actions/betSlip";
+import {
+  removeAllFromResult,
+  setBetSlipResult,
+} from "../../../redux/actions/betSlip";
 import { formatCurrency } from "../../../utils/numberFormatation";
 import { websocketUrlEsports } from "../../../lib/api/apiConfig";
-import { setBetSlipResult } from "../../../redux/actions/betSlip";
 import { setMessageNotification } from "../../../redux/actions/message";
 import store from "../../../containers/App/store";
 import Dice from "components/Icons/Dice";
@@ -22,7 +24,7 @@ class BetSlip extends Component {
       tab: "simple",
       betType: null,
       amount: 0,
-      isBetting: false
+      isBetting: false,
     };
   }
 
@@ -34,15 +36,15 @@ class BetSlip extends Component {
     this.projectData(props);
   }
 
-  projectData = props => {
+  projectData = (props) => {
     const { betSlip } = props;
 
     this.setState({
-      betSlip
+      betSlip,
     });
   };
 
-  handleTabChange = async name => {
+  handleTabChange = async (name) => {
     this.setState({ tab: name });
   };
 
@@ -50,9 +52,9 @@ class BetSlip extends Component {
     await this.props.dispatch(removeAllFromResult(null));
   }
 
-  handleBetAmountChange = value => {
+  handleBetAmountChange = (value) => {
     this.setState({
-      amount: value
+      amount: value,
     });
   };
 
@@ -64,7 +66,7 @@ class BetSlip extends Component {
       return onHandleLoginOrRegister("register");
 
     this.setState({
-      isBetting: true
+      isBetting: true,
     });
 
     const websocket = openSocket(websocketUrlEsports);
@@ -75,7 +77,7 @@ class BetSlip extends Component {
         .on("authenticated", () => {
           console.log("connected to websocket");
         })
-        .on("unauthorized", msg => {
+        .on("unauthorized", (msg) => {
           console.log(`unauthorized: ${JSON.stringify(msg.data)}`);
           throw new Error(msg.data.type);
         });
@@ -84,13 +86,13 @@ class BetSlip extends Component {
     let newBetSlip = betSlip;
 
     if (tab == "simple") {
-      newBetSlip = betSlip.map(b => {
+      newBetSlip = betSlip.map((b) => {
         return { ...b, bid: uuidv4() };
       });
 
       newBetSlip
-        .filter(bet => bet.success != true)
-        .map(bet => {
+        .filter((bet) => bet.success != true)
+        .map((bet) => {
           websocket.emit("createBet", {
             bid: bet.bid,
             app: profile.app_id,
@@ -99,28 +101,28 @@ class BetSlip extends Component {
                 matchId: bet.matchId,
                 marketType: bet.type,
                 betType: bet.position,
-                odd: bet.odd
-              }
+                odd: bet.odd,
+              },
             ],
             user: profile.id,
             betAmount: bet.amount,
-            currency: currency._id
+            currency: currency._id,
           });
         });
     } else if (tab == "multiple") {
       const bid = uuidv4();
       newBetSlip = betSlip
-        .filter(bet => bet.success != true)
-        .map(b => {
+        .filter((bet) => bet.success != true)
+        .map((b) => {
           return { ...b, bid };
         });
 
-      const resultSpace = newBetSlip.map(b => {
+      const resultSpace = newBetSlip.map((b) => {
         return {
           matchId: b.matchId,
           marketType: b.type,
           betType: b.position,
-          odd: b.odd
+          odd: b.odd,
         };
       });
 
@@ -130,18 +132,18 @@ class BetSlip extends Component {
         resultSpace: resultSpace,
         user: profile.id,
         betAmount: amount,
-        currency: currency._id
+        currency: currency._id,
       });
     }
 
     this.setState({ betSlip: newBetSlip });
     await this.props.dispatch(setBetSlipResult(newBetSlip));
 
-    websocket.on("createBetReturn", res => {
+    websocket.on("createBetReturn", (res) => {
       const bid = res.bid;
 
       if (res.success == true) {
-        newBetSlip = newBetSlip.map(b =>
+        newBetSlip = newBetSlip.map((b) =>
           b.bid == bid ? { ...b, success: res.success } : b
         );
 
@@ -149,20 +151,20 @@ class BetSlip extends Component {
         this.setState({ betSlip: newBetSlip });
 
         if (tab == "simple") {
-          const bet = newBetSlip.find(b => b.bid == bid);
+          const bet = newBetSlip.find((b) => b.bid == bid);
 
           if (!_.isEmpty(bet)) {
             profile.updateBalance({ userDelta: bet.amount * -1 });
           }
         } else if (tab == "multiple") {
-          const bet = newBetSlip.find(b => b.bid == bid);
+          const bet = newBetSlip.find((b) => b.bid == bid);
 
           if (!_.isEmpty(bet)) {
             profile.updateBalance({ userDelta: amount * -1 });
           }
         }
       } else {
-        const bet = newBetSlip.find(b => b.bid == bid);
+        const bet = newBetSlip.find((b) => b.bid == bid);
 
         if (!_.isEmpty(bet)) {
           const message =
@@ -190,28 +192,26 @@ class BetSlip extends Component {
       return false;
     }
 
-    var valueArr = betSlip
-      .filter(b => b.success != true)
-      .map(function(bet) {
+    const valueArr = betSlip
+      .filter((b) => b.success != true)
+      .map(function (bet) {
         return bet.matchId;
       });
-    var isDuplicate = valueArr.some(function(bet, idx) {
+    return valueArr.some(function (bet, idx) {
       return valueArr.indexOf(bet) != idx;
     });
-
-    return isDuplicate;
   }
 
   isBetValid = () => {
     const { betSlip, amount, tab, isBetting } = this.state;
     const isNotAllSuccessBet = _.isEmpty(betSlip)
       ? false
-      : betSlip.filter(b => b.success != true).length > 0;
+      : betSlip.filter((b) => b.success != true).length > 0;
     let isValid = false;
 
     if (tab == "simple") {
       const isNotFilledAllAmount =
-        betSlip.filter(b => b.amount <= 0).length > 0;
+        betSlip.filter((b) => b.amount <= 0).length > 0;
 
       isValid = !isNotFilledAllAmount;
     } else if (tab == "multiple") {
@@ -223,13 +223,13 @@ class BetSlip extends Component {
 
   render() {
     const user = this.props.profile;
-    const { betSlip, tab, amount, betType } = this.state;
+    const { betSlip, tab, amount } = this.state;
     let totalSimpleAmount = 0;
     let totalMultipleOdd = 1;
 
     const isSuccessBet = _.isEmpty(betSlip)
       ? false
-      : betSlip.filter(b => b.success == true).length > 0;
+      : betSlip.filter((b) => b.success == true).length > 0;
 
     return (
       <div>
@@ -246,12 +246,12 @@ class BetSlip extends Component {
               options={[
                 {
                   value: "simple",
-                  label: `Simple (${betSlip.length})`
+                  label: `Simple (${betSlip.length})`,
                 },
                 {
                   value: "multiple",
-                  label: "Multiple"
-                }
+                  label: "Multiple",
+                },
               ]}
               onSelect={this.handleTabChange}
               style="full-background"
@@ -269,7 +269,7 @@ class BetSlip extends Component {
                 </button>
               </div>
               <div styleName="bet-slip">
-                {betSlip.map(bet => {
+                {betSlip.map((bet) => {
                   totalSimpleAmount += bet.amount * bet.odd;
                   totalMultipleOdd = totalMultipleOdd * bet.odd;
                   return <BetSlipBox bet={bet} type={tab} />;
@@ -359,7 +359,7 @@ function mapStateToProps(state) {
     profile: state.profile,
     ln: state.language,
     betSlip: state.betSlip,
-    currency: state.currency
+    currency: state.currency,
   };
 }
 

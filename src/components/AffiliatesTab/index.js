@@ -7,11 +7,10 @@ import {
   DepositsIcon,
   AffiliateIcon,
 } from "components";
+import { Col, Row } from "reactstrap";
 import PaymentBox from "../PaymentBox";
 import { CopyText } from "../../copy";
-import { Col, Row } from "reactstrap";
 import { getApp, getIcon } from "../../lib/helpers";
-import _ from "lodash";
 import "./index.css";
 
 const defaultState = {
@@ -38,12 +37,13 @@ class AffiliatesTab extends React.Component {
 
   componentWillReceiveProps(props) {
     const { isCurrentPath } = props;
+
     if (props !== this.props && isCurrentPath) {
       this.projectData(props);
     }
   }
 
-  projectData = async (props) => {
+  projectData = async () => {
     const { profile } = this.props;
     let { wallet } = this.state;
     const wallets =

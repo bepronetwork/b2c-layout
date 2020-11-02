@@ -14,7 +14,7 @@ class DicePage extends Component {
   static contextType = UserContext;
 
   static propTypes = {
-    onHandleLoginOrRegister: PropTypes.func.isRequired
+    onHandleLoginOrRegister: PropTypes.func.isRequired,
   };
 
   state = {
@@ -26,9 +26,9 @@ class DicePage extends Component {
     game_name: "Linear Dice",
     animating: false,
     game: {
-      edge: 0
+      edge: 0,
     },
-    amount: 0
+    amount: 0,
   };
 
   componentDidMount() {
@@ -62,14 +62,14 @@ class DicePage extends Component {
         rollNumber,
         rollType,
         betAmount: amount,
-        user
+        user,
       });
       this.setState({
         result: res.result,
         bet: res,
         animating: true,
         betObjectResult: res,
-        amount
+        amount,
       });
       return res;
     } catch (err) {
@@ -139,7 +139,7 @@ class DicePage extends Component {
 function mapStateToProps(state) {
   return {
     profile: state.profile,
-    ln: state.language
+    ln: state.language,
   };
 }
 

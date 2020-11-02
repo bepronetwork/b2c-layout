@@ -21,7 +21,7 @@ const SetWindowListeners = (
     }
 
     boundListeners() {
-      return mapValues(otherListeners, listener => listener.bind(this));
+      return mapValues(otherListeners, (listener) => listener.bind(this));
     }
 
     render() {

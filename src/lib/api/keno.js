@@ -1,23 +1,18 @@
-import { find, map, range } from "lodash";
+import { find } from "lodash";
 import { processResponse } from "../helpers";
 
 export default async function bet({ cards, betAmount, user }) {
   try {
     const appInfo = JSON.parse(localStorage.getItem("appInfo"));
-
     const game = find(appInfo.games, { name: "Keno" });
-
-    const result = cards.map(card => {
+    const result = cards.map((card) => {
       return { place: card.id, value: betAmount / cards.length };
     });
-
     const response = await user.createBet({
       amount: betAmount,
       result,
-      gameId: game._id
+      gameId: game._id,
     });
-
-    await processResponse(response);
     const {
       winAmount,
       isWon,
@@ -25,12 +20,15 @@ export default async function bet({ cards, betAmount, user }) {
       _id: id,
       nonce,
       user_delta,
-      outcomeResultSpace
+      outcomeResultSpace,
     } = response.data.message;
 
-    const index = outcomeResultSpace.map(r => {
+    const index = outcomeResultSpace.map((r) => {
       return r.index;
     });
+
+    await processResponse(response);
+
     return {
       result: index,
       winAmount,
@@ -38,7 +36,7 @@ export default async function bet({ cards, betAmount, user }) {
       nonce,
       betAmount: amountBetted,
       id,
-      userDelta: user_delta
+      userDelta: user_delta,
     };
   } catch (error) {
     throw error;

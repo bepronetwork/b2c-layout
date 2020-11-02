@@ -1,15 +1,12 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-
 import { CopyText } from "../../copy";
 import handleCardResult from "./resultCard";
 import Diamond from "../../assets/DiamondIcons/diamond";
 import DiamondFill from "../../assets/DiamondIcons/diamond-fill";
 import DiamondWithBorder from "../../assets/DiamondIcons/diamond-with-border";
-
 import images from "./images";
-
 import "./index.css";
 
 class DiamondGame extends Component {
@@ -40,7 +37,7 @@ class DiamondGame extends Component {
       handleMouseEnter5,
       handleMouseEnter6,
       primaryColor,
-      secondaryColor
+      secondaryColor,
     } = this.props;
     const copy = CopyText.DiamondGamePage[ln];
 
@@ -339,7 +336,7 @@ class DiamondGame extends Component {
                   styleName="svg-animated-container container-center"
                   id="svg-diamond-animated-1"
                 >
-                  {backendResult.slice(0, 1).map(num => {
+                  {backendResult.slice(0, 1).map((num) => {
                     return isVisible1 ? (
                       <div styleName="svg-animated">
                         <object
@@ -357,7 +354,7 @@ class DiamondGame extends Component {
                   styleName="svg-animated-container container-center"
                   id="svg-diamond-animated-2"
                 >
-                  {backendResult.slice(1, 2).map(num => {
+                  {backendResult.slice(1, 2).map((num) => {
                     return isVisible2 ? (
                       <div styleName="svg-animated">
                         <object
@@ -375,7 +372,7 @@ class DiamondGame extends Component {
                   styleName="svg-animated-container container-center"
                   id="svg-diamond-animated-3"
                 >
-                  {backendResult.slice(2, 3).map(num => {
+                  {backendResult.slice(2, 3).map((num) => {
                     return isVisible3 ? (
                       <div styleName="svg-animated">
                         <object
@@ -393,7 +390,7 @@ class DiamondGame extends Component {
                   styleName="svg-animated-container container-center"
                   id="svg-diamond-animated-4"
                 >
-                  {backendResult.slice(3, 4).map(num => {
+                  {backendResult.slice(3, 4).map((num) => {
                     return isVisible4 ? (
                       <div styleName="svg-animated">
                         <object
@@ -411,7 +408,7 @@ class DiamondGame extends Component {
                   styleName="svg-animated-container container-center"
                   id="svg-diamond-animated-5"
                 >
-                  {backendResult.slice(4, 5).map(num => {
+                  {backendResult.slice(4, 5).map((num) => {
                     return isVisible5 ? (
                       <div styleName="svg-animated">
                         <object
@@ -428,7 +425,7 @@ class DiamondGame extends Component {
               </div>
               <div styleName="row-container container-center">
                 {isActiveBottomBar ? (
-                  backendResult.map(num => {
+                  backendResult.map((num) => {
                     return (
                       <div
                         styleName="bottom-base-svg"
@@ -436,7 +433,7 @@ class DiamondGame extends Component {
                         style={{
                           backgroundColor: images[num].isActive
                             ? images[num].color
-                            : "rgb(29, 26, 55)"
+                            : "rgb(29, 26, 55)",
                         }}
                       />
                     );
@@ -482,12 +479,12 @@ DiamondGame.propTypes = {
   isVisible4: PropTypes.bool.isRequired,
   isVisible5: PropTypes.bool.isRequired,
   profitAmount: PropTypes.number.isRequired,
-  resultSpace: PropTypes.number.isRequired
+  resultSpace: PropTypes.number.isRequired,
 };
 
 function mapStateToProps(state) {
   return {
-    ln: state.language
+    ln: state.language,
   };
 }
 

@@ -11,7 +11,7 @@ class SubSections extends Component {
     super(props);
     this.state = {
       subSections: [],
-      component: null
+      component: null,
     };
   }
 
@@ -23,26 +23,26 @@ class SubSections extends Component {
     this.projectData(props);
   }
 
-  projectData = async props => {
+  projectData = async (props) => {
     let { subSections } = getAppCustomization();
     const { location, ln } = props;
 
     subSections = subSections.languages.find(
-      s =>
+      (s) =>
         s.language.isActivated === true &&
         s.language.prefix === ln.toUpperCase()
     );
 
     if (!_.isEmpty(subSections)) {
-      subSections = subSections.ids.filter(s => s.location == location);
+      subSections = subSections.ids.filter((s) => s.location == location);
     }
 
     this.setState({
-      subSections
+      subSections,
     });
   };
 
-  renderSubSection = subSection => {
+  renderSubSection = (subSection) => {
     switch (subSection.position) {
       case POSITION.LEFT:
         return <LayoutLeft data={subSection} />;
@@ -64,7 +64,7 @@ class SubSections extends Component {
 
     return (
       <div styleName="sub-sections">
-        {subSections.map(s => {
+        {subSections.map((s) => {
           if (!_.isEmpty(s.title) && !_.isEmpty(s.text)) {
             return this.renderSubSection(s);
           }
@@ -77,7 +77,7 @@ class SubSections extends Component {
 function mapStateToProps(state) {
   return {
     profile: state.profile,
-    ln: state.language
+    ln: state.language,
   };
 }
 

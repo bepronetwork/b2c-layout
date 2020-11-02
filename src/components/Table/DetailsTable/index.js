@@ -16,8 +16,6 @@ class DetailsTable extends Component {
     this.projectData(props);
   }
 
-  projectData = async props => {};
-
   render() {
     const { tableDetails } = this.props;
     const { fields, row, titles } = tableDetails;

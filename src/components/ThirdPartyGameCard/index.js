@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Typography, Info } from "components";
+import { Typography } from "components";
 import { connect } from "react-redux";
 import _ from "lodash";
 import "./index.css";
@@ -8,7 +8,7 @@ class ThirdPartyGameCard extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      externalId: null
+      externalId: null,
     };
   }
 
@@ -20,12 +20,12 @@ class ThirdPartyGameCard extends Component {
     this.projectData(props);
   }
 
-  projectData = async props => {
+  projectData = async (props) => {
     if (!_.isEmpty(props.profile)) {
       const user = props.profile;
 
       this.setState({
-        externalId: await user.getExternalId()
+        externalId: await user.getExternalId(),
       });
     }
   };
@@ -47,7 +47,7 @@ class ThirdPartyGameCard extends Component {
     const { game } = this.props;
 
     return (
-      <div class={"col"} styleName="col">
+      <div styleName="col">
         <div styleName="root">
           <div
             styleName="image-container dice-background-color"
@@ -57,14 +57,14 @@ class ThirdPartyGameCard extends Component {
                 partnerId: game.partnerId,
                 url: game.url,
                 provider: game.provider,
-                name: game.title
+                name: game.title,
               })
             }
             style={{
               background:
-                "url(" + game.icon + ") center center / cover no-repeat"
+                "url(" + game.icon + ") center center / cover no-repeat",
             }}
-          ></div>
+          />
           <div styleName="title">
             <div
               styleName="name"
@@ -72,7 +72,7 @@ class ThirdPartyGameCard extends Component {
                 this.linkToGamePage({
                   id: game.id,
                   partnerId: game.partnerId,
-                  url: game.url
+                  url: game.url,
                 })
               }
             >
@@ -104,7 +104,7 @@ class ThirdPartyGameCard extends Component {
 function mapStateToProps(state) {
   return {
     profile: state.profile,
-    ln: state.language
+    ln: state.language,
   };
 }
 

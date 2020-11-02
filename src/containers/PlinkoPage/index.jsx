@@ -14,7 +14,7 @@ class PlinkoPage extends Component {
   static contextType = UserContext;
 
   static propTypes = {
-    onHandleLoginOrRegister: PropTypes.func.isRequired
+    onHandleLoginOrRegister: PropTypes.func.isRequired,
   };
 
   state = {
@@ -24,9 +24,9 @@ class PlinkoPage extends Component {
     game_name: "plinko_variation_1",
     animating: false,
     game: {
-      edge: 0
+      edge: 0,
     },
-    amount: 0
+    amount: 0,
   };
 
   triggerChildGameCard(result) {
@@ -54,7 +54,7 @@ class PlinkoPage extends Component {
 
       const res = await plinkoBet({
         betAmount: amount,
-        user
+        user,
       });
       this.triggerChildGameCard(res.result);
       this.setState({
@@ -64,7 +64,7 @@ class PlinkoPage extends Component {
         bet: res,
         animating: true,
         betObjectResult: res,
-        amount
+        amount,
       });
 
       return res;
@@ -75,14 +75,14 @@ class PlinkoPage extends Component {
 
   addToHistory = () => {
     try {
-      var { result, isWon, game } = this.state;
+      const { result, game } = this.state;
       let history = localStorage.getItem("plinko_variation_1History");
       const { resultSpace } = game;
       history = history ? JSON.parse(history) : [];
-      let value = resultSpace.find(r => r.formType == result);
+      let value = resultSpace.find((r) => r.formType == result);
       history.unshift({
         value: `${value.multiplier}x`,
-        win: value.multiplier >= 1
+        win: value.multiplier >= 1,
       });
       localStorage.setItem(
         "plinko_variation_1History",
@@ -153,7 +153,7 @@ class PlinkoPage extends Component {
 function mapStateToProps(state) {
   return {
     profile: state.profile,
-    ln: state.language
+    ln: state.language,
   };
 }
 

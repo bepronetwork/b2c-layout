@@ -9,10 +9,9 @@ import classNames from "classnames";
 import "./index.css";
 import { WHEEL_SIMPLE, WHEEL_CLASSIC } from "./types";
 
-let endAnim = null;
-const TOTAL_SPACES = 30;
-const ANIMATION_INTERVAL = 20;
-const TOTAL_ANIMATION_TIME = 4 * 1000;
+let TOTAL_SPACES = 30;
+let ANIMATION_INTERVAL = 20;
+let TOTAL_ANIMATION_TIME = 4 * 1000;
 let volume = 100;
 
 export default class Wheel extends Component {
@@ -20,7 +19,7 @@ export default class Wheel extends Component {
     result: PropTypes.number,
     bet: PropTypes.bool,
     onAnimation: PropTypes.func.isRequired,
-    metaName: PropTypes.string
+    metaName: PropTypes.string,
   };
 
   constructor(props) {
@@ -28,7 +27,7 @@ export default class Wheel extends Component {
     this.state = {
       ballStop: false,
       metaName: props.game ? props.game.metaName : null,
-      anim: false
+      anim: false,
     };
   }
 
@@ -42,7 +41,6 @@ export default class Wheel extends Component {
     this.isFirstRotation = true;
     this.spinTimeTotal = 0;
     this.offset = 0;
-    this.current_user_status = {};
     this.spinMovement = null;
     this.spin_results = null;
     this.spinAngleStart = null;
@@ -88,19 +86,13 @@ export default class Wheel extends Component {
     }
   }
 
-  /**
-   *
-   * @method Draw Methods
-   * @memberof Wheel
-   */
-
   spin() {
     let { result } = this.props;
     const ONE_ARC_ANGLE = 12 / 49.5;
     const ONE_SPIN = 360 / 49.5;
     let SPINS = 3 * ONE_SPIN; // Represents the AMount of 49.5 Angules
     this.desiredSpin = 360;
-    let indexPlace = this.wheel_draw.findIndex((e, i) => e == result);
+    let indexPlace = this.wheel_draw.findIndex((e) => e == result);
     this.spinAngleStart =
       -SPINS - indexPlace * ONE_ARC_ANGLE + this.offset * ONE_ARC_ANGLE;
     this.offset = indexPlace;
@@ -118,7 +110,7 @@ export default class Wheel extends Component {
       this.stopRotateWheel();
       return;
     }
-    var spinAngle =
+    const spinAngle =
       this.spinAngleStart -
       this.easeOut(this.spinTime, 0, this.spinAngleStart, this.spinTimeTotal);
     this.acc = this.acc + spinAngle;
@@ -139,34 +131,28 @@ export default class Wheel extends Component {
   }
 
   easeOut(t, b, c, d) {
-    var ts = (t /= d) * t;
-    var tc = ts * t;
+    const ts = (t /= d) * t;
+    const tc = ts * t;
     return b + c * (tc + -3 * ts + 3 * t);
   }
 
-  /** DRAW TYPES */
-
-  /**
-   *
-   * @type Draws
-   * @memberof Wheel
-   */
-
   classicDraw(options) {
-    var canvas = document.getElementById("canvas");
+    const canvas = document.getElementById("canvas");
+
     if (options.length < 1) {
       return null;
     }
+
     if (canvas.getContext) {
-      var outsideRadius = 500;
-      var insideRadius = 442;
+      const outsideRadius = 500;
+      const insideRadius = 442;
       this.wheel = canvas.getContext("2d");
       this.wheel.clearRect(0, 0, 1000, 1000);
-
       this.wheel.lineWidth = 5;
-      for (var i = 0; i < TOTAL_SPACES; i++) {
+
+      for (let i = 0; i < TOTAL_SPACES; i++) {
         let placeWheel = this.wheel_draw[i];
-        var angle;
+        let angle;
         if (this.isFirstRotation) {
           angle =
             this.startAngle + i * this.arc + this.initialRotation * this.arc;
@@ -174,21 +160,21 @@ export default class Wheel extends Component {
           angle = this.startAngle + i * this.arc;
         }
 
-        let place = options.find(opt => {
-          let placing = opt.placings.find(placing => {
+        let place = options.find((opt) => {
+          let placing = opt.placings.find((placing) => {
             return placing == placeWheel;
           });
           if (placing != null) {
             return opt;
           }
         });
+
         this.wheel.fillStyle = place.color;
         this.wheel.beginPath();
         this.wheel.arc(500, 500, outsideRadius, angle, angle + this.arc, false);
         this.wheel.arc(500, 500, insideRadius, angle + this.arc, angle, true);
         this.wheel.stroke();
         this.wheel.fill();
-
         this.wheel.save();
         this.wheel.shadowBlur = 0;
         this.wheel.shadowColor = "rgb(220,220,220)";
@@ -202,24 +188,24 @@ export default class Wheel extends Component {
   }
 
   simpleDraw(options) {
-    var canvas = document.getElementById("canvas");
+    const canvas = document.getElementById("canvas");
 
     if (options.length < 1) {
       return null;
     }
 
     if (canvas.getContext) {
-      var outsideRadius = 500;
-      var insideRadius = 442;
+      const outsideRadius = 500;
+      const insideRadius = 442;
       this.wheel = canvas.getContext("2d");
       this.wheel.clearRect(0, 0, 1000, 1000);
 
       this.wheel.lineWidth = 5;
 
-      for (var i = 0; i < 30; i++) {
-        var angle = this.startAngle + i * this.arc;
-        let place = options.find(opt => {
-          let placing = opt.placings.find(placing => {
+      for (let i = 0; i < 30; i++) {
+        const angle = this.startAngle + i * this.arc;
+        let place = options.find((opt) => {
+          let placing = opt.placings.find((placing) => {
             return placing == i;
           });
           if (placing != null) {
@@ -245,12 +231,6 @@ export default class Wheel extends Component {
       this.wheel.fill();
     }
   }
-
-  /**
-   *
-   * @type Renders
-   * @memberof Wheel
-   */
 
   renderSound = () => {
     const { anim } = this.state;
@@ -283,19 +263,19 @@ export default class Wheel extends Component {
   };
 
   renderResult = () => {
-    const { result, rotating, game, inResultAnimation, options } = this.props;
+    const { result, game, inResultAnimation, options } = this.props;
     const { metaName } = this.state;
     const isLight = getAppCustomization().theme === "light";
     const containerStyles = classNames("result-container", {
       resultContainerSimple:
-        metaName === "wheel_simple" || metaName === "wheel_variation_1"
+        metaName === "wheel_simple" || metaName === "wheel_variation_1",
     });
     if (!result || !game.resultSpace || inResultAnimation) {
       return <div styleName={containerStyles} />;
     }
 
     let multiplier = game.resultSpace[result].multiplier;
-    let colorMultiplier = options.find(opt => opt.multiplier == multiplier)
+    let colorMultiplier = options.find((opt) => opt.multiplier == multiplier)
       .index;
     let styleName = `multiplier-${new String(colorMultiplier)
       .toString()
@@ -313,25 +293,29 @@ export default class Wheel extends Component {
 
   render() {
     const styles = classNames("outer-circle", {
-      "outer-circle-light": getAppCustomization().theme === "light"
+      "outer-circle-light": getAppCustomization().theme === "light",
     });
 
     return (
       <div styleName="root">
         <div>
           <div styleName={styles}>
-            <img src={pointer} styleName={"wheel-pointer"} alt='Wheel Pointer Illustration' />
+            <img
+              src={pointer}
+              styleName={"wheel-pointer"}
+              alt="Wheel Pointer Illustration"
+            />
             <div styleName={"circle"}>{this.renderResult()}</div>
           </div>
         </div>
         {/* Canvas */}
         <span
-          ref={el => {
+          ref={(el) => {
             this.el = el;
           }}
           id={`spin`}
         >
-          <canvas id="canvas" width="1000" height="1000"></canvas>
+          <canvas id="canvas" width="1000" height="1000" />
         </span>
         {this.renderSound()}
         {this.renderBallStopSound()}

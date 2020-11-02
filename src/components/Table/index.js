@@ -89,6 +89,7 @@ class TableDefault extends Component {
         src={appWallet.image != null ? appWallet.image : currency.image}
         width={16}
         height={16}
+        alt="Currency Illustration"
       />
     );
   }

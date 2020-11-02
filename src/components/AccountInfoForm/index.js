@@ -10,13 +10,14 @@ import "./index.css";
 
 const defaultState = {
   username: "",
-  isConfirmationSent: false
+  isConfirmationSent: false,
 };
+
 const cache = new Cache({
   // Keep cached source failures for up to 7 days
   sourceTTL: 7 * 24 * 3600 * 1000,
   // Keep a maximum of 20 entries in the source cache
-  sourceSize: 20
+  sourceSize: 20,
 });
 
 class AccountInfoForm extends React.Component {
@@ -33,12 +34,13 @@ class AccountInfoForm extends React.Component {
     this.projectData(props);
   }
 
-  projectData = props => {
+  projectData = (props) => {
     const { profile } = props;
 
     if (!isUserSet(profile)) {
       return null;
     }
+
     const id = profile.getID();
     const username = profile.getUsername();
     const avatar = null;
@@ -52,8 +54,8 @@ class AccountInfoForm extends React.Component {
 
     try {
       this.setState({ isConfirmationSent: true });
-      let res = await profile.resendConfirmEmail();
-      let { message, status } = res.data;
+      const res = await profile.resendConfirmEmail();
+      const { message, status } = res.data;
 
       if (status != 200) {
         store.dispatch(setMessageNotification(message));
@@ -79,7 +81,7 @@ class AccountInfoForm extends React.Component {
           <Avatar name={username} cache={cache} size="90" />
         </div>
         <div styleName="username-box">
-          <Typography variant={"body"} color={"white"}>
+          <Typography variant="body" color="white">
             @{username}
           </Typography>
         </div>
@@ -88,12 +90,8 @@ class AccountInfoForm extends React.Component {
             styleName="confirm-email"
             onClick={this.handleResendConfirmEmail}
           >
-            <Button
-              size={"x-small"}
-              theme={"action"}
-              disabled={isConfirmationSent}
-            >
-              <Typography color={"white"} variant={"small-body"}>
+            <Button size="x-small" theme="action" disabled={isConfirmationSent}>
+              <Typography color="white" variant="small-body">
                 Confirm E-mail
               </Typography>
             </Button>
@@ -107,7 +105,7 @@ class AccountInfoForm extends React.Component {
 function mapStateToProps(state) {
   return {
     profile: state.profile,
-    ln: state.language
+    ln: state.language,
   };
 }
 

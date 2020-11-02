@@ -1,14 +1,20 @@
 import React, { Component } from "react";
 import { Router, Switch, Route } from "react-router-dom";
 import { createBrowserHistory } from "history";
-import { find } from "lodash";
-import CasinoHomePage from "containers/Casino";
+import _, { find } from "lodash";
+import classNames from "classnames";
 import EsportsHomePage from "containers/Esports";
 import EsportsMatchPage from "containers/Esports/MatchPage";
 import EsportsMatchesPage from "containers/Esports/AllMatches";
 import HomePage from "containers/HomePage";
-import Footer from "../Footer";
 import { LOCATION } from "components/SubSections/properties";
+import { login, login2FA, register } from "lib/api/users";
+import getAppInfo from "lib/api/app";
+import handleError from "lib/api/handleError";
+import PlinkoPage from "containers/PlinkoPage";
+import DicePage from "containers/DicePage";
+import FlipPage from "containers/FlipPage";
+import RoulettePage from "containers/RoulettePage";
 import ResetPassword from "containers/ResetPassword";
 import ConfirmEmail from "containers/ConfirmEmail";
 import {
@@ -30,10 +36,10 @@ import {
   LiveChatIcon,
   SubSections,
 } from "components";
-import PlinkoPage from "containers/PlinkoPage";
-import DicePage from "containers/DicePage";
-import FlipPage from "containers/FlipPage";
-import RoulettePage from "containers/RoulettePage";
+import User from "controllers/User/User";
+import { connect } from "react-redux";
+import delay from "delay";
+import Footer from "../Footer";
 import WheelPage from "../WheelPage";
 import WheelVariation1 from "../WheelVariation1Page";
 import KenoPage from "../KenoPage";
@@ -41,12 +47,7 @@ import DiamondPage from "../DiamondPage";
 import ThirdPartyGamePage from "../ThirdPartyGamePage";
 import ThirdPartyGameList from "../ThirdPartyGameList";
 import SlotsPage from "../SlotsPage";
-import { login, login2FA, logout, register } from "lib/api/users";
-import getAppInfo from "lib/api/app";
-import handleError from "lib/api/handleError";
-import User from "controllers/User/User";
 import UserContext from "./UserContext";
-import "./index.css";
 import { setProfileInfo } from "../../redux/actions/profile";
 import { setModal } from "../../redux/actions/modal";
 import store from "./store";
@@ -56,8 +57,6 @@ import LastBets from "../LastBets/HomePage";
 import { CopyText } from "../../copy";
 import { setCurrencyView } from "../../redux/actions/currency";
 import { setWithdrawInfo } from "../../redux/actions/withdraw";
-import { connect } from "react-redux";
-import _ from "lodash";
 import { setStartLoadingProcessDispatcher } from "../../lib/redux";
 import AccountPage from "../AccountPage";
 import {
@@ -69,10 +68,9 @@ import routeChanges from "../../lib/helpers/analytics/routeChanges";
 import ChatChannel from "../../controllers/Chat";
 import AnnouncementTab from "../../components/AnnouncementTab";
 import { getCurrencyAddress } from "../../lib/api/users";
-import classNames from "classnames";
-import delay from "delay";
 import MobileMenu from "../../components/MobileMenu";
 import { analyticsIdentify, analyticsPage } from "../../lib/helpers/analytics";
+import "./index.css";
 
 const history = createBrowserHistory();
 
@@ -166,16 +164,18 @@ class App extends Component {
   };
 
   automaticLoginFromCache = async () => {
-    let reponseUser = Cache.getFromCache("user");
+    const reponseUser = Cache.getFromCache("user");
 
     if (reponseUser) {
-      let user = await this.reloadUser(reponseUser);
+      const user = await this.reloadUser(reponseUser);
+
       await user.updateUser();
       await this.setDefaultCurrency();
       analyticsIdentify(user);
     } else {
       const app = Cache.getFromCache("appInfo");
       const { publicKey } = app.integrations.chat;
+
       this.chat = new ChatChannel({ publicKey });
       this.chat.__init__();
       setStartLoadingProcessDispatcher(6);
@@ -184,6 +184,7 @@ class App extends Component {
 
   setDefaultCurrency = async () => {
     const appInfo = Cache.getFromCache("appInfo");
+
     if (appInfo && appInfo.wallet) {
       const virtual = appInfo.virtual;
       const wallets = appInfo.wallet.filter(
@@ -192,6 +193,7 @@ class App extends Component {
 
       if (wallets.length) {
         const currency = wallets[0].currency;
+
         await store.dispatch(setCurrencyView(currency));
       }
     }
@@ -200,12 +202,14 @@ class App extends Component {
   loginAccount = async () => {
     // Get App Ino
     try {
-      let cache = Cache.getFromCache("Authentication");
+      const cache = Cache.getFromCache("Authentication");
+
       if (cache && cache.password) {
-        let res = await this.handleLogin({
+        const res = await this.handleLogin({
           username: cache.username,
           password: cache.password,
         });
+
         if (!res || res.status != 200) {
           throw new Error("Login didn´t work");
         }
@@ -336,16 +340,21 @@ class App extends Component {
     try {
       this.setState({ error: null });
       const response = await login(form);
+
       Cache.setToCache("Authentication", form);
+
       if (response.status != 200) {
         let has2FA = response.status === 37 ? true : false;
+
         this.setState({ error: response.status, has2FA });
       } else {
-        let user = await this.updateUser(response);
+        const user = await this.updateUser(response);
+
         await user.updateUser();
         analyticsIdentify(user);
         this.setState({ registerLoginModalOpen: null, error: null });
       }
+
       /* Set currency */
       this.setDefaultCurrency();
 
@@ -362,10 +371,10 @@ class App extends Component {
       const response = await login2FA(form);
       Cache.setToCache("Authentication", form);
       if (response.status != 200) {
-        let has2FA = response.status === 36 ? true : false;
+        const has2FA = response.status === 36 ? true : false;
         this.setState({ error: response.status, has2FA });
       } else {
-        let user = await this.updateUser(response);
+        const user = await this.updateUser(response);
         await user.updateUser();
         analyticsIdentify(user);
         this.setState({
@@ -380,7 +389,7 @@ class App extends Component {
         response.wallet.length > 0 &&
         response.wallet[0].currency
       ) {
-        let currency = response.wallet[0].currency;
+        const currency = response.wallet[0].currency;
         await store.dispatch(setCurrencyView(currency));
       }
       return response;
@@ -409,6 +418,7 @@ class App extends Component {
         Promise.all(
           currencies.map(async (c) => {
             let currency = c._id;
+
             getCurrencyAddress(
               { currency, id: response.id, app: app.id },
               bearerToken
@@ -429,8 +439,7 @@ class App extends Component {
     }
 
     const appInfo = this.state.app;
-
-    let userObject = new User({
+    const userObject = new User({
       app: appInfo,
       platformAddress: appInfo.platformAddress,
       tokenAddress: appInfo.platformTokenAddress,
@@ -441,12 +450,14 @@ class App extends Component {
       userId: user ? user.id : null,
       user: user,
     });
+
     await store.dispatch(setProfileInfo(userObject));
     Cache.setToCache("user", userObject);
 
     this.setState({
       user: userObject,
     });
+
     return userObject;
   };
 
@@ -459,7 +470,7 @@ class App extends Component {
 
     const appInfo = this.state.app;
 
-    let userObject = new User({
+    const userObject = new User({
       app: appInfo,
       platformAddress: appInfo.platformAddress,
       tokenAddress: appInfo.platformTokenAddress,
@@ -474,6 +485,7 @@ class App extends Component {
     await store.dispatch(setProfileInfo(userObject));
 
     this.setState({ user: userObject });
+
     return userObject;
   };
 
@@ -504,8 +516,8 @@ class App extends Component {
     const { ln } = this.props;
     const copy = CopyText.homepage[ln];
     const { logo } = getAppCustomization();
-
     const { registerLoginModalOpen, error, has2FA } = this.state;
+
     return registerLoginModalOpen ? (
       <Modal onClose={this.handleRegisterLoginModalClose}>
         <div styleName="modal modal-login">
@@ -639,14 +651,17 @@ class App extends Component {
   };
 
   updateAppInfo = async () => {
-    let app = await getAppInfo();
+    const app = await getAppInfo();
+
     Cache.setToCache("appInfo", app);
     this.setState({ ...this.state, app });
   };
 
   isGameAvailable = (metaName) => {
     const appInfo = Cache.getFromCache("appInfo");
+
     if (!appInfo) return null;
+
     return find(appInfo.games, { metaName: metaName });
   };
 
@@ -670,7 +685,7 @@ class App extends Component {
     this.setState({ openCripsrChat: !isOpen });
   };
 
-  renderGamePages = ({ history }) => {
+  renderGamePages = () => {
     return (
       <>
         {this.isGameAvailable("linear_dice_simple") ? (
@@ -828,22 +843,18 @@ class App extends Component {
       settingsMenuOpen,
       chatExpand,
     } = this.state;
-    const { profile, startLoadingProgress, modal, ln } = this.props;
+    const { ln } = this.props;
     const mobileBreakpoint = 768;
     const tabletBreakpoint = 1024;
+    const { cripsr } = app.integrations;
+    const chatIcon = getIcon(2);
+    const liveChatIcon = getIcon(3);
+    let { topBar, topTab } = getAppCustomization();
+    const { background } = getAppCustomization();
 
     if (!app || isLoading) {
       return null;
     }
-    const { progress, confirmations } = startLoadingProgress;
-
-    const { cripsr } = app.integrations;
-    const chatIcon = getIcon(2);
-    const liveChatIcon = getIcon(3);
-
-    let progress100 = parseInt((progress / confirmations) * 100);
-    let isUserLoaded = confirmations == progress;
-    let { topBar, background, topTab } = getAppCustomization();
 
     topTab = topTab.languages.find(
       (t) =>
@@ -915,9 +926,7 @@ class App extends Component {
                 styleName={centerStyles}
                 style={{
                   background: background
-                    ? "url(" +
-                      background.id +
-                      ") center center / cover no-repeat"
+                    ? `url("${background.id}") center center / cover no-repeat`
                     : null,
                 }}
               >
@@ -937,21 +946,6 @@ class App extends Component {
                         />
                       )}
                     />
-
-                    {/*<Route
-                                                exact
-                                                path="/casino"
-                                                render={props => (
-                                                    <CasinoHomePage
-                                                        {...props}
-                                                        onHandleLoginOrRegister={this.handleLoginOrRegisterOpen}
-                                                        onTableDetails={this.handleTableDetailsOpen}
-                                                        history={history}
-                                                    />
-                                            
-                                                )}
-                                                />*/}
-
                     <Route
                       exact
                       path="/esports"
@@ -966,7 +960,6 @@ class App extends Component {
                         />
                       )}
                     />
-
                     <Route
                       exact
                       path="/esports/matches"
@@ -981,7 +974,6 @@ class App extends Component {
                         />
                       )}
                     />
-
                     <Route
                       exact
                       path="/esports/:match"
@@ -995,7 +987,6 @@ class App extends Component {
                         />
                       )}
                     />
-
                     <Route
                       path="/settings"
                       render={({ match: { url } }) => (
@@ -1106,7 +1097,6 @@ class App extends Component {
                         </>
                       )}
                     />
-
                     <Route
                       exact
                       path="/password/reset"
@@ -1118,7 +1108,6 @@ class App extends Component {
                         />
                       )}
                     />
-
                     <Route
                       exact
                       path="/confirm/:app"
@@ -1130,9 +1119,7 @@ class App extends Component {
                         />
                       )}
                     />
-
                     {/* New routes need to be add here, before renderGamePages */}
-
                     {this.renderGamePages({ history })}
                   </Switch>
                   <SubSections location={LOCATION.BEFORE_FOOTER} />

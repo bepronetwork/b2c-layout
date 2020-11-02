@@ -6,7 +6,7 @@ function InfiniteCarouselDots({
   carouselName,
   numberOfDots,
   activePage,
-  onClick
+  onClick,
 }) {
   const dots = [];
   let classNameIcon;
@@ -29,7 +29,7 @@ function InfiniteCarouselDots({
       >
         <i styleName={classNameIcon} />
       </button>
-    ); // eslint-disable-line react/jsx-closing-tag-location
+    );
   }
 
   return (
@@ -43,7 +43,7 @@ InfiniteCarouselDots.propTypes = {
   carouselName: PropTypes.string.isRequired,
   numberOfDots: PropTypes.number.isRequired,
   activePage: PropTypes.number.isRequired,
-  onClick: PropTypes.func.isRequired
+  onClick: PropTypes.func.isRequired,
 };
 
 export default InfiniteCarouselDots;

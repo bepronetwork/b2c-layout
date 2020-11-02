@@ -7,18 +7,18 @@ import {
   Button,
   Typography,
   MultiplyMaxButton,
-  OnWinLoss
+  OnWinLoss,
 } from "components";
 import betSound from "assets/bet-sound.mp3";
 import Sound from "react-sound";
 import Dice from "components/Icons/Dice";
 import delay from "delay";
 import "./index.css";
-import { Numbers } from "../../lib/ethereum/lib";
 import _ from "lodash";
+import { connect } from "react-redux";
+import { Numbers } from "../../lib/ethereum/lib";
 import { isUserSet } from "../../lib/helpers";
 import { CopyText } from "../../copy";
-import { connect } from "react-redux";
 
 class DiceGameOptions extends Component {
   static contextType = UserContext;
@@ -27,7 +27,7 @@ class DiceGameOptions extends Component {
     onBet: PropTypes.func.isRequired,
     disableControls: PropTypes.bool,
     rollType: PropTypes.number.isRequired,
-    rollNumber: PropTypes.number.isRequired
+    rollNumber: PropTypes.number.isRequired,
   };
 
   constructor(props) {
@@ -43,11 +43,11 @@ class DiceGameOptions extends Component {
       onWin: null,
       edge: 0,
       onLoss: null,
-      sound: false
+      sound: false,
     };
   }
 
-  handleType = type => {
+  handleType = (type) => {
     this.setState({ type });
   };
 
@@ -100,9 +100,11 @@ class DiceGameOptions extends Component {
 
   betAction = ({ amount }) => {
     const { onBet } = this.props;
+
     return new Promise(async (resolve, reject) => {
       try {
-        let res = await onBet({ amount });
+        const res = await onBet({ amount });
+
         resolve(res);
       } catch (err) {
         reject(err);
@@ -110,7 +112,7 @@ class DiceGameOptions extends Component {
     });
   };
 
-  handleBet = async callback => {
+  handleBet = async () => {
     const { onBet, profile } = this.props;
     const {
       amount,
@@ -119,9 +121,9 @@ class DiceGameOptions extends Component {
       profitStop,
       lossStop,
       onWin,
-      onLoss
+      onLoss,
     } = this.state;
-    var res;
+    let res;
 
     if (this.isBetValid()) {
       // to be completed with the other options
@@ -135,13 +137,18 @@ class DiceGameOptions extends Component {
           if (!isUserSet(profile)) {
             return null;
           }
+
           this.setState({ isAutoBetting: true });
-          var totalProfit = 0,
-            totalLoss = 0,
-            lastBet = 0,
-            wasWon = 0;
-          var betAmount = amount;
-          for (var i = 0; i < bets; i++) {
+          let totalProfit = 0;
+
+          let totalLoss = 0;
+
+          let lastBet = 0;
+
+          let wasWon = 0;
+          let betAmount = amount;
+
+          for (let i = 0; i < bets; i++) {
             if (
               (profitStop == 0 || totalProfit <= profitStop) && // Stop Profit
               (lossStop == 0 || totalLoss <= lossStop) // Stop Loss
@@ -149,17 +156,22 @@ class DiceGameOptions extends Component {
               if (i != 0) {
                 await delay(1 * 1000);
               }
-              let { winAmount } = await this.betAction({ amount: betAmount });
+
+              const { winAmount } = await this.betAction({ amount: betAmount });
+
               totalProfit += winAmount - betAmount;
               totalLoss += winAmount == 0 ? -Math.abs(betAmount) : 0;
               wasWon = winAmount != 0;
               lastBet = betAmount;
+
               if (onWin && wasWon) {
                 betAmount += Numbers.toFloat((betAmount * onWin) / 100);
               }
+
               if (onLoss && !wasWon) {
                 betAmount += Numbers.toFloat((betAmount * onLoss) / 100);
               }
+
               await delay(1.5 * 1000);
               this.setState({ bets: bets - (i + 1), amount: betAmount });
             }
@@ -169,32 +181,33 @@ class DiceGameOptions extends Component {
         }
       }
     }
+
     return true;
   };
 
-  handleBetAmountChange = value => {
+  handleBetAmountChange = (value) => {
     this.setState({
-      amount: value
+      amount: value,
     });
   };
 
-  handleOnWin = value => {
+  handleOnWin = (value) => {
     this.setState({ onWin: value });
   };
 
-  handleOnLoss = value => {
+  handleOnLoss = (value) => {
     this.setState({ onLoss: value });
   };
 
-  handleBets = value => {
+  handleBets = (value) => {
     this.setState({ bets: value });
   };
 
-  handleStopOnProfit = value => {
+  handleStopOnProfit = (value) => {
     this.setState({ profitStop: value });
   };
 
-  handleStopOnLoss = value => {
+  handleStopOnLoss = (value) => {
     this.setState({ lossStop: value });
   };
 
@@ -256,7 +269,7 @@ class DiceGameOptions extends Component {
 
   getPayout = () => {
     const { rollNumber, rollType } = this.props;
-    let payout = 0;
+    let payout;
 
     const middlePayout = 2;
     const middleRoll = 50;
@@ -270,8 +283,10 @@ class DiceGameOptions extends Component {
           : (middleRoll * middlePayout) / rollNumber;
     }
 
-    let winEdge = (100 - this.state.edge) / 100;
-    payout = payout * winEdge;
+    const winEdge = (100 - this.state.edge) / 100;
+
+    payout *= winEdge;
+
     return Numbers.toFloat(payout);
   };
 
@@ -306,7 +321,7 @@ class DiceGameOptions extends Component {
           <InputNumber
             name="roll-number"
             title={copy.INDEX.INPUT_NUMBER.TITLE[4]}
-            onChange={e => this.props.onChangeRollAndRollType(e)}
+            onChange={(e) => this.props.onChangeRollAndRollType(e)}
             max={98}
             min={2}
             step={1}
@@ -318,7 +333,7 @@ class DiceGameOptions extends Component {
     );
   };
 
-  handleMultiply = value => {
+  handleMultiply = (value) => {
     const { profile } = this.props;
     const { amount } = this.state;
     let newAmount = amount;
@@ -327,7 +342,7 @@ class DiceGameOptions extends Component {
       return null;
     }
 
-    let balance = profile.getBalance();
+    const balance = profile.getBalance();
 
     if (value === "max") {
       newAmount = balance;
@@ -349,10 +364,11 @@ class DiceGameOptions extends Component {
   };
 
   render() {
-    const { type, amount, isAutoBetting } = this.state;
+    const { type, amount } = this.state;
     const user = this.props.profile;
     const { ln } = this.props;
     const copy = CopyText.diceGameOptionsIndex[ln];
+
     return (
       <div styleName="root">
         {this.renderSound()}
@@ -361,9 +377,12 @@ class DiceGameOptions extends Component {
             config={{
               left: {
                 value: "manual",
-                title: copy.INDEX.TOGGLE_BUTTON.TITLE[0]
+                title: copy.INDEX.TOGGLE_BUTTON.TITLE[0],
               },
-              right: { value: "auto", title: copy.INDEX.TOGGLE_BUTTON.TITLE[1] }
+              right: {
+                value: "auto",
+                title: copy.INDEX.TOGGLE_BUTTON.TITLE[1],
+              },
             }}
             selected={type}
             size="full"
@@ -418,7 +437,7 @@ class DiceGameOptions extends Component {
 function mapStateToProps(state) {
   return {
     profile: state.profile,
-    ln: state.language
+    ln: state.language,
   };
 }
 

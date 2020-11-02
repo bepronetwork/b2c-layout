@@ -1,8 +1,6 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import InvitationCards from "components/Icons/InvitationCards";
 import { Button, Typography } from "components";
-import config from "config";
 import { map } from "lodash";
 import { connect } from "react-redux";
 import _ from "lodash";
@@ -12,7 +10,7 @@ import { CopyText } from "../../copy";
 
 class PlayInvitation extends Component {
   static propTypes = {
-    onLoginRegister: PropTypes.func.isRequired
+    onLoginRegister: PropTypes.func.isRequired,
   };
 
   handleClick = () => {
@@ -22,10 +20,10 @@ class PlayInvitation extends Component {
     } else if (onLoginRegister) onLoginRegister("register");
   };
 
-  renderLabels = labels => {
+  renderLabels = (labels) => {
     return (
       <ul styleName="labels">
-        {map(labels, label => {
+        {map(labels, (label) => {
           return (
             <li key={label}>
               <Typography weight="regular" color="casper">
@@ -82,7 +80,7 @@ class PlayInvitation extends Component {
 function mapStateToProps(state) {
   return {
     profile: state.profile,
-    ln: state.language
+    ln: state.language,
   };
 }
 

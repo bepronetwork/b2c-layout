@@ -320,7 +320,6 @@ class LastBets extends Component {
   };
 
   render() {
-    const { onTableDetails } = this.props;
     const { isLoading, isListLoading, gameMetaName, games } = this.state;
 
     return (

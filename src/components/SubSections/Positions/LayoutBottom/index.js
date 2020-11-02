@@ -33,7 +33,7 @@ class LayoutBottom extends Component {
           style={{
             background: data.image_url
               ? "url(" + data.image_url + ") center center / cover no-repeat"
-              : null
+              : null,
           }}
         />
       </div>

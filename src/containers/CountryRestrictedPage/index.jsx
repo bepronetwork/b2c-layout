@@ -5,7 +5,6 @@ import { getApp, getAppCustomization, getIcon } from "../../lib/helpers";
 import { CopyText } from "../../copy";
 import Cache from "../../lib/cache/cache";
 import getAppInfo from "lib/api/app";
-import _ from "lodash";
 import "./index.css";
 
 class CountryRestrictedPage extends Component {
@@ -17,7 +16,7 @@ class CountryRestrictedPage extends Component {
       loading: true,
       emailIcon: null,
       countryIcon: null,
-      affiliateReferralIcon: null
+      affiliateReferralIcon: null,
     };
   }
 
@@ -35,7 +34,7 @@ class CountryRestrictedPage extends Component {
       loading: false,
       emailIcon,
       countryIcon,
-      affiliateReferralIcon
+      affiliateReferralIcon,
     });
   };
 
@@ -52,7 +51,7 @@ class CountryRestrictedPage extends Component {
       loading,
       emailIcon,
       countryIcon,
-      affiliateReferralIcon
+      affiliateReferralIcon,
     } = this.state;
     const { ln } = this.props;
     const copy = CopyText.countryRestrictedPage[ln];
@@ -63,7 +62,7 @@ class CountryRestrictedPage extends Component {
           <div styleName="container">
             <div styleName="logo">
               {logo ? (
-                <img styleName="image" alt="bet protocol logo" src={logo} alt='BetProtocol Logo' />
+                <img styleName="image" src={logo} alt="BetProtocol Logo" />
               ) : null}
             </div>
             <div styleName="content">
@@ -76,7 +75,7 @@ class CountryRestrictedPage extends Component {
                 {countryIcon === null ? (
                   <CountryIcon />
                 ) : (
-                  <img src={countryIcon} alt='Country Icon' />
+                  <img src={countryIcon} alt="Country Icon" />
                 )}
               </span>
               <Typography variant={"body"} weight={"bold"} color={"casper"}>
@@ -93,7 +92,7 @@ class CountryRestrictedPage extends Component {
                 {affiliateReferralIcon === null ? (
                   <AffiliateIcon />
                 ) : (
-                  <img src={affiliateReferralIcon} alt='Affiliate Icon' />
+                  <img src={affiliateReferralIcon} alt="Affiliate Icon" />
                 )}
               </span>
               <Typography variant={"body"} weight={"bold"} color={"casper"}>
@@ -107,7 +106,11 @@ class CountryRestrictedPage extends Component {
             </div>
             <div styleName="content">
               <span styleName="icon">
-                {emailIcon === null ? <EmailIcon /> : <img src={emailIcon} alt='Email Icon' />}
+                {emailIcon === null ? (
+                  <EmailIcon />
+                ) : (
+                  <img src={emailIcon} alt="Email Icon" />
+                )}
               </span>
               <Typography variant={"body"} weight={"bold"} color={"casper"}>
                 {copy.SUBTITLE[2]}
@@ -122,7 +125,7 @@ class CountryRestrictedPage extends Component {
 
 function mapStateToProps(state) {
   return {
-    ln: state.language
+    ln: state.language,
   };
 }
 

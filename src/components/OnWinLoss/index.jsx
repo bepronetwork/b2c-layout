@@ -9,11 +9,11 @@ class OnWinLoss extends Component {
   static propTypes = {
     title: PropTypes.string.isRequired,
     onChange: PropTypes.func.isRequired,
-    value: PropTypes.number
+    value: PropTypes.number,
   };
 
   static defaultProps = {
-    value: 0
+    value: 0,
   };
 
   constructor(props) {
@@ -21,11 +21,11 @@ class OnWinLoss extends Component {
 
     this.state = {
       side: "reset",
-      value: props.value ? props.value : 0
+      value: props.value ? props.value : 0,
     };
   }
 
-  handleSelect = side => {
+  handleSelect = (side) => {
     const { onChange } = this.props;
 
     this.setState({ side }, () => {
@@ -35,7 +35,7 @@ class OnWinLoss extends Component {
     });
   };
 
-  handleChange = sideValue => {
+  handleChange = (sideValue) => {
     const { onChange } = this.props;
 
     this.setState({ value: sideValue }, () => {
@@ -61,12 +61,12 @@ class OnWinLoss extends Component {
             config={{
               left: {
                 value: "reset",
-                title: copy.INDEX.TOGGLE_BUTTON.TITLE[0]
+                title: copy.INDEX.TOGGLE_BUTTON.TITLE[0],
               },
               right: {
                 value: "increase",
-                title: copy.INDEX.TOGGLE_BUTTON.TITLE[1]
-              }
+                title: copy.INDEX.TOGGLE_BUTTON.TITLE[1],
+              },
             }}
             variant="x-small-body"
             selected={side}
@@ -95,7 +95,7 @@ class OnWinLoss extends Component {
 function mapStateToProps(state) {
   return {
     profile: state.profile,
-    ln: state.language
+    ln: state.language,
   };
 }
 

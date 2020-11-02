@@ -1,263 +1,263 @@
 const cells = {
-  "0": {
+  0: {
     formType: 0,
     probability: 0.028,
     metadata: {
-      color: "green"
-    }
+      color: "green",
+    },
   },
-  "1": {
+  1: {
     formType: 1,
     probability: 0.027,
     metadata: {
-      color: "red"
-    }
+      color: "red",
+    },
   },
-  "2": {
+  2: {
     formType: 2,
     probability: 0.027,
     metadata: {
-      color: "blue"
-    }
+      color: "blue",
+    },
   },
-  "3": {
+  3: {
     formType: 3,
     probability: 0.027,
     metadata: {
-      color: "red"
-    }
+      color: "red",
+    },
   },
-  "4": {
+  4: {
     formType: 4,
     probability: 0.027,
     metadata: {
-      color: "blue"
-    }
+      color: "blue",
+    },
   },
-  "5": {
+  5: {
     formType: 5,
     probability: 0.027,
     metadata: {
-      color: "red"
-    }
+      color: "red",
+    },
   },
-  "6": {
+  6: {
     formType: 6,
     probability: 0.027,
     metadata: {
-      color: "blue"
-    }
+      color: "blue",
+    },
   },
-  "7": {
+  7: {
     formType: 7,
     probability: 0.027,
     metadata: {
-      color: "red"
-    }
+      color: "red",
+    },
   },
-  "8": {
+  8: {
     formType: 8,
     probability: 0.027,
     metadata: {
-      color: "blue"
-    }
+      color: "blue",
+    },
   },
-  "9": {
+  9: {
     formType: 9,
     probability: 0.027,
     metadata: {
-      color: "red"
-    }
+      color: "red",
+    },
   },
-  "10": {
+  10: {
     formType: 10,
     probability: 0.027,
     metadata: {
-      color: "blue"
-    }
+      color: "blue",
+    },
   },
-  "11": {
+  11: {
     formType: 11,
     probability: 0.027,
     metadata: {
-      color: "blue"
-    }
+      color: "blue",
+    },
   },
-  "12": {
+  12: {
     formType: 12,
     probability: 0.027,
     metadata: {
-      color: "red"
-    }
+      color: "red",
+    },
   },
-  "13": {
+  13: {
     formType: 13,
     probability: 0.027,
     metadata: {
-      color: "blue"
-    }
+      color: "blue",
+    },
   },
-  "14": {
+  14: {
     formType: 14,
     probability: 0.027,
     metadata: {
-      color: "red"
-    }
+      color: "red",
+    },
   },
-  "15": {
+  15: {
     formType: 15,
     probability: 0.027,
     metadata: {
-      color: "blue"
-    }
+      color: "blue",
+    },
   },
-  "16": {
+  16: {
     formType: 16,
     probability: 0.027,
     metadata: {
-      color: "red"
-    }
+      color: "red",
+    },
   },
-  "17": {
+  17: {
     formType: 17,
     probability: 0.027,
     metadata: {
-      color: "blue"
-    }
+      color: "blue",
+    },
   },
-  "18": {
+  18: {
     formType: 18,
     probability: 0.027,
     metadata: {
-      color: "red"
-    }
+      color: "red",
+    },
   },
-  "19": {
+  19: {
     formType: 19,
     probability: 0.027,
     metadata: {
-      color: "red"
-    }
+      color: "red",
+    },
   },
-  "20": {
+  20: {
     formType: 20,
     probability: 0.027,
     metadata: {
-      color: "blue"
-    }
+      color: "blue",
+    },
   },
-  "21": {
+  21: {
     formType: 21,
     probability: 0.027,
     metadata: {
-      color: "red"
-    }
+      color: "red",
+    },
   },
-  "22": {
+  22: {
     formType: 22,
     probability: 0.027,
     metadata: {
-      color: "blue"
-    }
+      color: "blue",
+    },
   },
-  "23": {
+  23: {
     formType: 23,
     probability: 0.027,
     metadata: {
-      color: "red"
-    }
+      color: "red",
+    },
   },
-  "24": {
+  24: {
     formType: 24,
     probability: 0.027,
     metadata: {
-      color: "blue"
-    }
+      color: "blue",
+    },
   },
-  "25": {
+  25: {
     formType: 25,
     probability: 0.027,
     metadata: {
-      color: "red"
-    }
+      color: "red",
+    },
   },
-  "26": {
+  26: {
     formType: 26,
     probability: 0.027,
     metadata: {
-      color: "blue"
-    }
+      color: "blue",
+    },
   },
-  "27": {
+  27: {
     formType: 27,
     probability: 0.027,
     metadata: {
-      color: "red"
-    }
+      color: "red",
+    },
   },
-  "28": {
+  28: {
     formType: 28,
     probability: 0.027,
     metadata: {
-      color: "blue"
-    }
+      color: "blue",
+    },
   },
-  "29": {
+  29: {
     formType: 29,
     probability: 0.027,
     metadata: {
-      color: "blue"
-    }
+      color: "blue",
+    },
   },
-  "30": {
+  30: {
     formType: 30,
     probability: 0.027,
     metadata: {
-      color: "red"
-    }
+      color: "red",
+    },
   },
-  "31": {
+  31: {
     formType: 31,
     probability: 0.027,
     metadata: {
-      color: "blue"
-    }
+      color: "blue",
+    },
   },
-  "32": {
+  32: {
     formType: 32,
     probability: 0.027,
     metadata: {
-      color: "red"
-    }
+      color: "red",
+    },
   },
-  "33": {
+  33: {
     formType: 33,
     probability: 0.027,
     metadata: {
-      color: "blue"
-    }
+      color: "blue",
+    },
   },
-  "34": {
+  34: {
     formType: 34,
     probability: 0.027,
     metadata: {
-      color: "red"
-    }
+      color: "red",
+    },
   },
-  "35": {
+  35: {
     formType: 35,
     probability: 0.027,
     metadata: {
-      color: "blue"
-    }
+      color: "blue",
+    },
   },
-  "36": {
+  36: {
     formType: 36,
     probability: 0.027,
     metadata: {
-      color: "red"
-    }
-  }
+      color: "red",
+    },
+  },
 };
 
 export default cells;

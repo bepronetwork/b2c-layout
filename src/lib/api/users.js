@@ -3,9 +3,9 @@ import handleError from "./handleError";
 import { setProfileInfo } from "../../redux/actions/profile";
 import { setMessageNotification } from "../../redux/actions/message";
 import Cache from "../../lib/cache/cache";
-import store from ".../../containers/App/store";
+import store from "../../containers/App/store";
 import { apiUrl, appId, apiUrlWithdraw } from "./apiConfig";
-import { getWebsite } from "../../lib/helpers";
+import { getWebsite } from "../helpers";
 import delay from "delay";
 
 // Create an instance using the config defaults provided by the library
@@ -21,7 +21,7 @@ export async function register({
   password,
   email,
   address,
-  affiliateLink
+  affiliateLink,
 }) {
   const postData = {
     username,
@@ -30,7 +30,7 @@ export async function register({
     name: username,
     app: appId,
     address: address,
-    affiliateLink: affiliateLink ? new String(affiliateLink).toString() : ""
+    affiliateLink: affiliateLink ? new String(affiliateLink).toString() : "",
   };
   if (postData.affiliateLink == false) {
     delete postData.affiliateLink;
@@ -52,7 +52,7 @@ export async function register({
       status,
       balance: message.wallet.playBalance,
       id: message._id,
-      username: message.username
+      username: message.username,
     };
   } catch (error) {
     return handleError(error);
@@ -64,7 +64,7 @@ export async function login({ username, password }) {
     const response = await axios.post(`${apiUrl}/api/users/login`, {
       username,
       password,
-      app: appId
+      app: appId,
     });
     const { status, message } = response.data.data;
 
@@ -85,7 +85,7 @@ export async function login({ username, password }) {
       username: message.username,
       withdraws: message.withdraws,
       deposits: message.deposits,
-      ...message
+      ...message,
     };
   } catch (error) {
     return handleError(error);
@@ -98,7 +98,7 @@ export async function login2FA({ username, password, token }) {
       username,
       password,
       "2fa_token": token,
-      app: appId
+      app: appId,
     });
 
     const { status, message } = response.data.data;
@@ -120,7 +120,7 @@ export async function login2FA({ username, password, token }) {
       username: message.username,
       withdraws: message.withdraws,
       deposits: message.deposits,
-      ...message
+      ...message,
     };
   } catch (error) {
     return handleError(error);
@@ -132,7 +132,7 @@ export async function askResetPassword(username_or_email) {
     const response = await axios.post(
       `${apiUrl}/api/users/password/reset/ask`,
       {
-        username_or_email
+        username_or_email,
       }
     );
 
@@ -153,7 +153,7 @@ export async function setNewPassword(user_id, token, password) {
       {
         user_id,
         token,
-        password
+        password,
       }
     );
 
@@ -171,7 +171,7 @@ export async function confirmEmail(app, token) {
   try {
     const response = await axios.post(`${apiUrl}/api/users/email/confirm`, {
       app,
-      token
+      token,
     });
 
     if (response.data.data.status !== 200) {
@@ -199,9 +199,9 @@ export async function resendConfirmEmail(params, bearerToken, payload) {
       timeout: 1000 * 1000,
       headers: addSecurityHeader({
         bearerToken,
-        payload: payload || params.user
+        payload: payload || params.user,
       }),
-      body: JSON.stringify(params)
+      body: JSON.stringify(params),
     });
     return res.json();
   } catch (err) {
@@ -212,32 +212,6 @@ export async function resendConfirmEmail(params, bearerToken, payload) {
 export async function getCurrentUser() {
   try {
     return JSON.parse(localStorage.getItem("user"));
-  } catch (error) {
-    return handleError(error);
-  }
-}
-
-export async function updateUserBalance(user, setUser) {
-  try {
-    const res = await fetch(`${apiUrl}/api/users/summary`, {
-      method: "POST",
-      timeout: 1000 * 1000,
-      headers: addSecurityHeader({
-        bearerToken: user.bearerToken,
-        payload: user.id
-      }),
-      body: JSON.stringify({
-        user: user.id,
-        type: "WALLET"
-      })
-    });
-    let response = await res.json();
-    const newUser = {
-      ...user,
-      balance: response.data.message["0"].playBalance
-    };
-
-    return setUser(newUser);
   } catch (error) {
     return handleError(error);
   }
@@ -280,9 +254,9 @@ export async function requestWithdraw(params, bearerToken, payload) {
       timeout: 1000 * 1000,
       headers: addSecurityHeader({
         bearerToken,
-        payload: payload || params.user
+        payload: payload || params.user,
       }),
-      body: JSON.stringify(params)
+      body: JSON.stringify(params),
     });
     return res.json();
   } catch (err) {
@@ -307,9 +281,9 @@ export async function requestWithdrawAffiliate(params, bearerToken, payload) {
         timeout: 1000 * 1000,
         headers: addSecurityHeader({
           bearerToken,
-          payload: payload || params.user
+          payload: payload || params.user,
         }),
-        body: JSON.stringify(params)
+        body: JSON.stringify(params),
       }
     );
     return res.json();
@@ -332,9 +306,9 @@ export async function cancelWithdraw(params, bearerToken, payload) {
       method: "POST",
       headers: addSecurityHeader({
         bearerToken,
-        payload: payload || params.user
+        payload: payload || params.user,
       }),
-      body: JSON.stringify(params)
+      body: JSON.stringify(params),
     });
     return res.json();
   } catch (err) {
@@ -357,9 +331,9 @@ export async function finalizeWithdraw(params, bearerToken, payload) {
       timeout: 1000 * 1000,
       headers: addSecurityHeader({
         bearerToken,
-        payload: payload || params.user
+        payload: payload || params.user,
       }),
-      body: JSON.stringify(params)
+      body: JSON.stringify(params),
     });
     return res.json();
   } catch (err) {
@@ -382,9 +356,9 @@ export async function createBet(params, bearerToken, payload) {
       timeout: 1000 * 1000,
       headers: addSecurityHeader({
         bearerToken,
-        payload: payload || params.user
+        payload: payload || params.user,
       }),
-      body: JSON.stringify(params)
+      body: JSON.stringify(params),
     });
     return res.json();
   } catch (err) {
@@ -407,9 +381,9 @@ export async function getMyBets(params, bearerToken, payload) {
       method: "POST",
       headers: addSecurityHeader({
         bearerToken,
-        payload: payload || params.user
+        payload: payload || params.user,
       }),
-      body: JSON.stringify(params)
+      body: JSON.stringify(params),
     });
     return res.json();
   } catch (err) {
@@ -431,9 +405,9 @@ export async function updateUserWallet(params, bearerToken, payload) {
     timeout: 1000 * 1000,
     headers: addSecurityHeader({
       bearerToken,
-      payload: payload || params.user
+      payload: payload || params.user,
     }),
-    body: JSON.stringify(params)
+    body: JSON.stringify(params),
   });
   return res.json();
 }
@@ -442,7 +416,7 @@ function addSecurityHeader({ bearerToken, payload }) {
   return {
     "Content-Type": "application/json",
     authorization: `Bearer ${bearerToken}`,
-    payload: JSON.stringify({ id: payload })
+    payload: JSON.stringify({ id: payload }),
   };
 }
 
@@ -461,9 +435,9 @@ export async function set2FA(params, bearerToken, payload) {
       timeout: 1000 * 1000,
       headers: addSecurityHeader({
         bearerToken,
-        payload: payload || params.user
+        payload: payload || params.user,
       }),
-      body: JSON.stringify(params)
+      body: JSON.stringify(params),
     });
     return res.json();
   } catch (err) {
@@ -485,9 +459,9 @@ export async function userAuth(params, bearerToken, payload) {
       method: "POST",
       headers: addSecurityHeader({
         bearerToken,
-        payload: payload || params.user
+        payload: payload || params.user,
       }),
-      body: JSON.stringify(params)
+      body: JSON.stringify(params),
     });
 
     let response = await res.json();
@@ -513,10 +487,8 @@ export async function userAuth(params, bearerToken, payload) {
       username: message.username,
       withdraws: message.withdraws,
       deposits: message.deposits,
-      ...message
+      ...message,
     };
-
-    return null;
   } catch (error) {
     return handleError(error);
   }
@@ -536,9 +508,9 @@ export async function getCurrencyAddress(params, bearerToken, payload) {
       method: "POST",
       headers: addSecurityHeader({
         bearerToken,
-        payload: payload || params.id
+        payload: payload || params.id,
       }),
-      body: JSON.stringify(params)
+      body: JSON.stringify(params),
     });
     return res.json();
   } catch (err) {
@@ -560,9 +532,9 @@ export async function getJackpotPot(params, bearerToken, payload) {
       method: "POST",
       headers: addSecurityHeader({
         bearerToken,
-        payload: payload || params.user
+        payload: payload || params.user,
       }),
-      body: JSON.stringify(params)
+      body: JSON.stringify(params),
     });
     return res.json();
   } catch (err) {
@@ -584,9 +556,9 @@ export async function getProviderToken(params, bearerToken, payload) {
       method: "POST",
       headers: addSecurityHeader({
         bearerToken,
-        payload: payload || params.user
+        payload: payload || params.user,
       }),
-      body: JSON.stringify(params)
+      body: JSON.stringify(params),
     });
     return res.json();
   } catch (err) {
@@ -600,9 +572,9 @@ export async function sendFreeCurrencyRequest(params, bearerToken, payload) {
       method: "POST",
       headers: addSecurityHeader({
         bearerToken,
-        payload: payload || params.user
+        payload: payload || params.user,
       }),
-      body: JSON.stringify(params)
+      body: JSON.stringify(params),
     });
     return res.json();
   } catch (err) {

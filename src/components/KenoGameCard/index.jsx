@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import { Typography, AnimationNumber, StarIcon, DiamondIcon } from "components";
+import { Typography, AnimationNumber, DiamondIcon } from "components";
 import { find } from "lodash";
 import { connect } from "react-redux";
 import classNames from "classnames";
@@ -17,11 +17,11 @@ import tickSound from "assets/keno-tick.mp3";
 import "./index.css";
 import { KenoBoard } from "..";
 
-const plock = new Audio(plockSound);
-const congrats = new Audio(congratsSound);
-const tick = new Audio(tickSound);
-const totalOfCards = 40;
-const maxPickedCards = 10;
+let plock = new Audio(plockSound);
+let congrats = new Audio(congratsSound);
+let tick = new Audio(tickSound);
+let totalOfCards = 40;
+let maxPickedCards = 10;
 
 const defaultState = {
   popularNumbers: [],
@@ -31,18 +31,18 @@ const defaultState = {
   showChance: false,
   chanceProfit: null,
   chancePayout: null,
-  chanceWinChance: null
+  chanceWinChance: null,
 };
 
 class KenoGameCard extends Component {
   static propTypes = {
     result: PropTypes.array,
     disableControls: PropTypes.bool,
-    onResultAnimation: PropTypes.func.isRequired
+    onResultAnimation: PropTypes.func.isRequired,
   };
 
   static defaultProps = {
-    result: null
+    result: null,
   };
 
   constructor(props) {
@@ -51,7 +51,7 @@ class KenoGameCard extends Component {
     this.state = {
       ...defaultState,
       result: props.result,
-      localCards: props.cards
+      localCards: props.cards,
     };
   }
 
@@ -62,18 +62,17 @@ class KenoGameCard extends Component {
 
   async componentWillReceiveProps(props) {
     await this.projectData(props);
-    //this.getBets(props);
   }
 
   async getBets(props) {
     let res_popularNumbers = await getPopularNumbers({ size: 15 });
-    var gamePopularNumbers = find(res_popularNumbers, { game: props.game._id });
+    let gamePopularNumbers = find(res_popularNumbers, { game: props.game._id });
     if (gamePopularNumbers) {
       this.setState({
         ...this.state,
         popularNumbers: gamePopularNumbers.numbers.sort(
           (a, b) => b.resultAmount - a.resultAmount
-        )
+        ),
       });
     }
   }
@@ -97,13 +96,13 @@ class KenoGameCard extends Component {
     const { localCards } = this.state;
     let numberOfDiamonds = 0;
 
-    localCards.forEach(c => {
+    localCards.forEach((c) => {
       c.isSelected = false;
     });
     if (!_.isEmpty(result)) {
       result.forEach((r, i) => {
         setTimeout(() => {
-          const card = localCards.find(c => {
+          const card = localCards.find((c) => {
             if (c.id === r) {
               return c;
             }
@@ -118,7 +117,7 @@ class KenoGameCard extends Component {
 
           this.setState({
             result,
-            numberOfDiamonds
+            numberOfDiamonds,
           });
         }, i * 200);
       });
@@ -143,7 +142,7 @@ class KenoGameCard extends Component {
     }, timeout);
   };
 
-  onCardClick = index => {
+  onCardClick = (index) => {
     const { onChooseCards, animating, cards } = this.props;
     const localCards = cards;
     const isPicked = localCards[index].isPicked;
@@ -152,11 +151,11 @@ class KenoGameCard extends Component {
       return null;
     }
 
-    localCards.map(card => {
+    localCards.map((card) => {
       card.isSelected = false;
     });
 
-    const total = localCards.filter(function(card) {
+    const total = localCards.filter(function (card) {
       return card.isPicked === true;
     }).length;
 
@@ -166,12 +165,12 @@ class KenoGameCard extends Component {
       this.playSound(tick, 100);
 
       this.setState({
-        numberOfCardsPicked
+        numberOfCardsPicked,
       });
     }
 
     this.setState({
-      result: null
+      result: null,
     });
 
     onChooseCards(localCards);
@@ -208,7 +207,7 @@ class KenoGameCard extends Component {
         n: totalOfCards,
         d: maxPickedCards,
         x: numberOfCardsPicked,
-        y: index
+        y: index,
       });
       const probability = this.getGameProbablityNormalizer(
         keno.probability(),
@@ -248,7 +247,7 @@ class KenoGameCard extends Component {
       n: totalOfCards,
       d: maxPickedCards,
       x: numberOfCardsPicked,
-      y: index
+      y: index,
     });
     let probability = this.getGameProbablityNormalizer(
       keno.probability(),
@@ -269,7 +268,7 @@ class KenoGameCard extends Component {
       showChance: true,
       chanceProfit: formatCurrency(profit),
       chancePayout: this.formatPayout(payout.toFixed(2)),
-      chanceWinChance: (keno.probability() * 100).toFixed(8)
+      chanceWinChance: (keno.probability() * 100).toFixed(8),
     });
   }
 
@@ -486,7 +485,7 @@ class KenoGameCard extends Component {
 
   handleMouseOut() {
     this.setState({
-      showChance: false
+      showChance: false,
     });
   }
 
@@ -497,7 +496,7 @@ class KenoGameCard extends Component {
       showChance,
       chanceProfit,
       chancePayout,
-      chanceWinChance
+      chanceWinChance,
     } = this.state;
     const { ln, currency } = this.props;
     const copy = CopyText.kenoGameCardIndex[ln];
@@ -510,7 +509,7 @@ class KenoGameCard extends Component {
 
     for (let index = 0; index <= numberOfCardsPicked; index++) {
       const styles = classNames("hit", {
-        highlight: index == numberOfDiamonds
+        highlight: index == numberOfDiamonds,
       });
       hits.push(
         <div
@@ -518,10 +517,9 @@ class KenoGameCard extends Component {
           onMouseOver={() => this.handleChances(index)}
           onMouseOut={() => this.handleMouseOut()}
         >
-          <Typography
-            variant={"x-small-body"}
-            color={"grey"}
-          >{`${index}x`}</Typography>{" "}
+          <Typography variant="x-small-body" color={"grey"}>
+            {index}
+          </Typography>
           <DiamondIcon />
         </div>
       );
@@ -562,7 +560,12 @@ class KenoGameCard extends Component {
                 <Typography variant={"x-small-body"} color={`white`}>
                   {chanceProfit}
                 </Typography>
-                <img src={currency.image} width={14} height={14} />
+                <img
+                  src={currency.image}
+                  width={14}
+                  height={14}
+                  alt="Currency Illustration"
+                />
               </div>
             </div>
             <div>
@@ -597,7 +600,7 @@ class KenoGameCard extends Component {
     return (
       <div styleName="outer-popular-numbers">
         <div styleName="inner-popular-numbers">
-          {popularNumbers.map(item => {
+          {popularNumbers.map((item) => {
             return (
               <div styleName="popular-number-row">
                 <div styleName={`popular-number-container blue-square`}>
@@ -628,7 +631,7 @@ class KenoGameCard extends Component {
       popularNumbers,
       localCards,
       numberOfCardsPicked,
-      numberOfDiamonds
+      numberOfDiamonds,
     } = this.state;
     const { isWon, winAmount, currency, animating, betAmount } = this.props;
 
@@ -636,7 +639,7 @@ class KenoGameCard extends Component {
       n: totalOfCards,
       d: maxPickedCards,
       x: numberOfCardsPicked,
-      y: numberOfDiamonds
+      y: numberOfDiamonds,
     });
     let probability = this.getGameProbablityNormalizer(
       keno.probability(),
@@ -663,7 +666,12 @@ class KenoGameCard extends Component {
                   >
                     {formatCurrency(winAmount)}
                   </Typography>
-                  <img src={currency.image} width={16} height={16} />
+                  <img
+                    src={currency.image}
+                    width={16}
+                    height={16}
+                    alt="Currency Illustration"
+                  />
                 </div>
               </div>
             </div>
@@ -682,7 +690,7 @@ function mapStateToProps(state) {
   return {
     profile: state.profile,
     ln: state.language,
-    currency: state.currency
+    currency: state.currency,
   };
 }
 

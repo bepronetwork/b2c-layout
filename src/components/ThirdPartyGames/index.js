@@ -8,7 +8,6 @@ import {
   getApp,
   getAppCustomization,
 } from "../../lib/helpers";
-import _ from "lodash";
 import "./index.css";
 
 class ThirdPartyGames extends Component {
@@ -33,7 +32,7 @@ class ThirdPartyGames extends Component {
     this.projectData(props);
   }
 
-  projectData = async (props) => {
+  projectData = async () => {
     this.setState({ isLoading: true, isLoadingGames: true });
 
     const providers = getApp().casino_providers.filter(
@@ -94,7 +93,7 @@ class ThirdPartyGames extends Component {
 
     for (let i = 0; i < 6; i++) {
       providers.push(
-        <div class={"col"} styleName="col">
+        <div styleName="col">
           <div styleName="root">
             <a>
               <div>
@@ -114,7 +113,7 @@ class ThirdPartyGames extends Component {
 
     for (let i = 0; i < 12; i++) {
       games.push(
-        <div class={"col"} styleName="col">
+        <div styleName="col">
           <div styleName="root-skeleton">
             <div styleName="image-container">
               <div styleName="icon">
@@ -196,18 +195,14 @@ class ThirdPartyGames extends Component {
               >
                 {providers.map((p) => {
                   return (
-                    <div class={"col"} styleName="col">
+                    <div styleName="col">
                       <div
                         styleName="root"
                         onClick={() => this.onClickProvider(p.providerEco)}
                       >
                         <a>
                           <div>
-                            <img
-                              alt={p.name}
-                              src={p.logo}
-                              alt="Third party Games Logo"
-                            />
+                            <img alt={p.name} src={p.logo} />
                           </div>
                         </a>
                       </div>

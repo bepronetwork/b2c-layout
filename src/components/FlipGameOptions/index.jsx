@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import {
   InputNumber,
@@ -6,7 +7,7 @@ import {
   Button,
   Typography,
   MultiplyMaxButton,
-  OnWinLoss
+  OnWinLoss,
 } from "components";
 import UserContext from "containers/App/UserContext";
 import betSound from "assets/bet-sound.mp3";
@@ -14,19 +15,18 @@ import Sound from "react-sound";
 import Dice from "components/Icons/Dice";
 import delay from "delay";
 import "./index.css";
-import { Numbers } from "../../lib/ethereum/lib";
 import _ from "lodash";
+import { Numbers } from "../../lib/ethereum/lib";
 import { isUserSet } from "../../lib/helpers";
 import { formatCurrency } from "../../utils/numberFormatation";
 import { CopyText } from "../../copy";
-import { connect } from "react-redux";
 
 class FlipGameOptions extends Component {
   static contextType = UserContext;
 
   static propTypes = {
     onBet: PropTypes.func.isRequired,
-    disableControls: PropTypes.bool
+    disableControls: PropTypes.bool,
   };
 
   state = {
@@ -40,7 +40,7 @@ class FlipGameOptions extends Component {
     onBet: false,
     onWin: null,
     onLoss: null,
-    sound: false
+    sound: false,
   };
 
   componentDidMount() {
@@ -55,26 +55,27 @@ class FlipGameOptions extends Component {
     this.setState({ ...this.state, edge: props.game.edge });
   }
 
-  handleType = type => {
+  handleType = (type) => {
     this.setState({ type });
   };
 
-  handleSide = side => {
+  handleSide = (side) => {
     this.setState({ side });
   };
 
-  handleBetAmountChange = value => {
+  handleBetAmountChange = (value) => {
     this.setState({
-      betAmount: value
+      betAmount: value,
     });
   };
 
-  handleMultiply = value => {
+  handleMultiply = (value) => {
     const user = this.props.profile;
     const { betAmount } = this.state;
+
     if (!user || _.isEmpty(user)) return true;
 
-    let balance = user.getBalance();
+    const balance = user.getBalance();
 
     let newAmount = betAmount;
 
@@ -114,9 +115,9 @@ class FlipGameOptions extends Component {
       lossStop,
       onWin,
       onLoss,
-      side
+      side,
     } = this.state;
-    var betAmount = this.state.betAmount;
+    let betAmount = this.state.betAmount;
 
     if (this.isBetValid()) {
       // to be completed with the other options
@@ -130,12 +131,17 @@ class FlipGameOptions extends Component {
           if (!isUserSet(profile)) {
             return null;
           }
+
           this.setState({ isAutoBetting: true });
-          var totalProfit = 0,
-            totalLoss = 0,
-            lastBet = 0,
-            wasWon = 0;
-          for (var i = 0; i < bets; i++) {
+          let totalProfit = 0;
+
+          let totalLoss = 0;
+
+          let lastBet = 0;
+
+          let wasWon = 0;
+
+          for (let i = 0; i < bets; i++) {
             if (
               (profitStop == 0 || totalProfit <= profitStop) && // Stop Profit
               (lossStop == 0 || totalLoss <= lossStop) // Stop Loss
@@ -143,17 +149,22 @@ class FlipGameOptions extends Component {
               if (i != 0) {
                 await delay(2.5 * 1000);
               }
-              let { winAmount } = await onBet({ amount: betAmount, side });
+
+              const { winAmount } = await onBet({ amount: betAmount, side });
+
               totalProfit += winAmount - betAmount;
               totalLoss += winAmount == 0 ? -Math.abs(betAmount) : 0;
               wasWon = winAmount != 0;
               lastBet = betAmount;
+
               if (onWin && wasWon) {
                 betAmount += Numbers.toFloat((betAmount * onWin) / 100);
               }
+
               if (onLoss && !wasWon) {
                 betAmount += Numbers.toFloat((betAmount * onLoss) / 100);
               }
+
               await delay(5 * 1000);
               this.setState({ bets: bets - (i + 1), betAmount });
             }
@@ -163,26 +174,27 @@ class FlipGameOptions extends Component {
         }
       }
     }
+
     return true;
   };
 
-  handleOnWin = value => {
+  handleOnWin = (value) => {
     this.setState({ onWin: value });
   };
 
-  handleOnLoss = value => {
+  handleOnLoss = (value) => {
     this.setState({ onLoss: value });
   };
 
-  handleBets = value => {
+  handleBets = (value) => {
     this.setState({ bets: value });
   };
 
-  handleStopOnProfit = value => {
+  handleStopOnProfit = (value) => {
     this.setState({ profitStop: value });
   };
 
-  handleStopOnLoss = value => {
+  handleStopOnLoss = (value) => {
     this.setState({ lossStop: value });
   };
 
@@ -190,6 +202,7 @@ class FlipGameOptions extends Component {
     const { bets, profitStop, lossStop, onWin, onLoss } = this.state;
     const { ln } = this.props;
     const copy = CopyText.flipGameOptionsIndex[ln];
+
     return (
       <div>
         <div styleName="element">
@@ -243,10 +256,11 @@ class FlipGameOptions extends Component {
 
   renderManual = () => {
     const { betAmount } = this.state;
-    let winEdge = (100 - this.state.edge) / 100;
-    let winAmount = betAmount * winEdge;
+    const winEdge = (100 - this.state.edge) / 100;
+    const winAmount = betAmount * winEdge;
     const { ln } = this.props;
     const copy = CopyText.flipGameOptionsIndex[ln];
+
     return (
       <div>
         <div styleName="element">
@@ -301,9 +315,12 @@ class FlipGameOptions extends Component {
             config={{
               left: {
                 value: "manual",
-                title: copy.INDEX.TOGGLE_BUTTON.TITLE[0]
+                title: copy.INDEX.TOGGLE_BUTTON.TITLE[0],
               },
-              right: { value: "auto", title: copy.INDEX.TOGGLE_BUTTON.TITLE[1] }
+              right: {
+                value: "auto",
+                title: copy.INDEX.TOGGLE_BUTTON.TITLE[1],
+              },
             }}
             selected={type}
             size="full"
@@ -348,13 +365,13 @@ class FlipGameOptions extends Component {
                 left: {
                   value: "heads",
                   title: copy.INDEX.TOGGLE_BUTTON.TITLE[2],
-                  color: "red"
+                  color: "red",
                 },
                 right: {
                   value: "tails",
                   title: copy.INDEX.TOGGLE_BUTTON.TITLE[3],
-                  color: "tree-poppy"
-                }
+                  color: "tree-poppy",
+                },
               }}
               selected={side}
               differentBorders
@@ -386,7 +403,7 @@ class FlipGameOptions extends Component {
 function mapStateToProps(state) {
   return {
     profile: state.profile,
-    ln: state.language
+    ln: state.language,
   };
 }
 

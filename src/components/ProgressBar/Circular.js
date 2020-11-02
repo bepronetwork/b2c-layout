@@ -3,11 +3,9 @@ import { Circle } from "rc-progress";
 import "./index.css";
 
 class ProgressBarCircular extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
   }
-
-  changeState() {}
 
   render() {
     const { progress } = this.props;

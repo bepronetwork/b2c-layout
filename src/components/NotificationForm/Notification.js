@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-// eslint-disable-next-line import/no-cycle
 import PropTypes from "prop-types";
 import { Typography } from "components";
 import AlertCircleIcon from "mdi-react/AlertCircleIcon";
@@ -7,7 +6,6 @@ import CheckCircleIcon from "mdi-react/CheckCircleIcon";
 import CloseCircleIcon from "mdi-react/CloseCircleIcon";
 import { setMessageNotification } from "../../redux/actions/message";
 import classNames from "classnames";
-import _ from "lodash";
 import "./index.css";
 
 class Notification extends Component {
@@ -16,7 +14,7 @@ class Notification extends Component {
     title: PropTypes.string,
     messages: PropTypes.arrayOf(PropTypes.string),
     message: PropTypes.string,
-    type: PropTypes.oneOf(["success", "info", "error"])
+    type: PropTypes.oneOf(["success", "info", "error"]),
   };
 
   static defaultProps = {
@@ -24,7 +22,7 @@ class Notification extends Component {
     title: "Info!",
     messages: [],
     message: "",
-    type: "info"
+    type: "info",
   };
 
   componentDidMount() {
@@ -33,7 +31,7 @@ class Notification extends Component {
 
   closeWindow = async () => {
     let filteredArray = this.props.messages.filter(
-      item => item.id !== this.props.id
+      (item) => item.id !== this.props.id
     );
     await this.props.dispatch(setMessageNotification(filteredArray));
   };
@@ -83,7 +81,7 @@ class Notification extends Component {
             </Typography>
           </div>
         </div>
-        <div styleName="notification-close" onClick={this.closeWindow}></div>
+        <div styleName="notification-close" onClick={this.closeWindow} />
       </div>
     );
   }

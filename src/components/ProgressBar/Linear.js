@@ -3,8 +3,8 @@ import { Line } from "rc-progress";
 import "./index.css";
 
 class ProgressBarLinear extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
   }
 
   render() {

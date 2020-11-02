@@ -10,7 +10,7 @@ class FlipDetails extends Component {
     super(props);
     this.state = {
       result: null,
-      isWon: false
+      isWon: false,
     };
   }
 
@@ -22,7 +22,7 @@ class FlipDetails extends Component {
     this.projectData(props);
   }
 
-  projectData = async props => {
+  projectData = async (props) => {
     const { bet } = this.props;
 
     const result = bet.outcomeResultSpace.key;
@@ -30,7 +30,7 @@ class FlipDetails extends Component {
 
     this.setState({
       result,
-      isWon
+      isWon,
     });
   };
 
@@ -71,7 +71,7 @@ class FlipDetails extends Component {
 function mapStateToProps(state) {
   return {
     profile: state.profile,
-    ln: state.language
+    ln: state.language,
   };
 }
 

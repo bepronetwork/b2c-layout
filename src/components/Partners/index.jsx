@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-// import Carousel from './Carousel/Carousel';
 import image_1 from "assets/partners/cruise.png";
 import image_2 from "assets/partners/genting.png";
 import image_3 from "assets/partners/sands.png";
@@ -20,10 +19,10 @@ class Partners extends Component {
           {copy.INDEX.TYPOGRAPHY.TEXT[0]}
         </Typography>
         <div styleName="container">
-          <img styleName="partner-img" src={image_1} alt='Partner Logo' />
-          <img styleName="partner-img" src={image_2} alt='Partner Logo' />
-          <img styleName="partner-img" src={image_3} alt='Partner Logo' />
-          <img styleName="partner-img" src={image_4} alt='Partner Logo' />
+          <img styleName="partner-img" src={image_1} alt="Partner Logo" />
+          <img styleName="partner-img" src={image_2} alt="Partner Logo" />
+          <img styleName="partner-img" src={image_3} alt="Partner Logo" />
+          <img styleName="partner-img" src={image_4} alt="Partner Logo" />
         </div>
       </div>
     );
@@ -33,7 +32,7 @@ class Partners extends Component {
 function mapStateToProps(state) {
   return {
     profile: state.profile,
-    ln: state.language
+    ln: state.language,
   };
 }
 

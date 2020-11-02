@@ -25,5 +25,5 @@ export {
   depositReducer,
   betReducer,
   set2FAReducer,
-  betSlipReducer
+  betSlipReducer,
 };

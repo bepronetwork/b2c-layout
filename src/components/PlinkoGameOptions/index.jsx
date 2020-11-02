@@ -7,7 +7,6 @@ import {
   Button,
   Typography,
   MultiplyMaxButton,
-  OnWinLoss
 } from "components";
 import betSound from "assets/bet-sound.mp3";
 import Sound from "react-sound";
@@ -25,11 +24,11 @@ class PlinkoGameOptions extends Component {
 
   static propTypes = {
     onBet: PropTypes.func.isRequired,
-    disableControls: PropTypes.bool
+    disableControls: PropTypes.bool,
   };
 
   static defaultProps = {
-    disableControls: false
+    disableControls: false,
   };
 
   constructor(props) {
@@ -45,11 +44,11 @@ class PlinkoGameOptions extends Component {
       onWin: null,
       edge: 0,
       onLoss: null,
-      sound: false
+      sound: false,
     };
   }
 
-  handleType = type => {
+  handleType = (type) => {
     this.setState({ type });
   };
 
@@ -112,7 +111,7 @@ class PlinkoGameOptions extends Component {
     });
   };
 
-  handleBet = async callback => {
+  handleBet = async () => {
     const { onBet, profile } = this.props;
     const {
       amount,
@@ -121,9 +120,9 @@ class PlinkoGameOptions extends Component {
       profitStop,
       lossStop,
       onWin,
-      onLoss
+      onLoss,
     } = this.state;
-    var res;
+    let res;
 
     if (this.isBetValid()) {
       // to be completed with the other options
@@ -138,12 +137,12 @@ class PlinkoGameOptions extends Component {
             return null;
           }
           this.setState({ isAutoBetting: true });
-          var totalProfit = 0,
+          let totalProfit = 0,
             totalLoss = 0,
             lastBet = 0,
             wasWon = 0;
-          var betAmount = amount;
-          for (var i = 0; i < bets; i++) {
+          let betAmount = amount;
+          for (let i = 0; i < bets; i++) {
             if (
               (profitStop == 0 || totalProfit <= profitStop) && // Stop Profit
               (lossStop == 0 || totalLoss <= lossStop) // Stop Loss
@@ -179,29 +178,29 @@ class PlinkoGameOptions extends Component {
     return true;
   };
 
-  handleBetAmountChange = value => {
+  handleBetAmountChange = (value) => {
     this.setState({
-      amount: value
+      amount: value,
     });
   };
 
-  handleOnWin = value => {
+  handleOnWin = (value) => {
     this.setState({ onWin: value });
   };
 
-  handleOnLoss = value => {
+  handleOnLoss = (value) => {
     this.setState({ onLoss: value });
   };
 
-  handleBets = value => {
+  handleBets = (value) => {
     this.setState({ bets: value });
   };
 
-  handleStopOnProfit = value => {
+  handleStopOnProfit = (value) => {
     this.setState({ profitStop: value });
   };
 
-  handleStopOnLoss = value => {
+  handleStopOnLoss = (value) => {
     this.setState({ lossStop: value });
   };
 
@@ -216,13 +215,11 @@ class PlinkoGameOptions extends Component {
   };
 
   renderManual = () => {
-    const { amount } = this.state;
-
-    return <div></div>;
+    return null;
   };
 
   renderAuto = () => {
-    const { bets, profitStop, lossStop, onWin, onLoss } = this.state;
+    const { bets } = this.state;
     const { ln } = this.props;
     const copy = CopyText.plinkoGameOptionsIndex[ln];
     return (
@@ -236,43 +233,11 @@ class PlinkoGameOptions extends Component {
             onChange={this.handleBets}
           />
         </div>
-        {/*<div styleName="element">
-            <OnWinLoss value={onWin} title={copy.INDEX.ON_WIN_LOSS.TITLE[0]} onChange={this.handleOnWin} />
-            </div>
-            <div styleName="element">
-            <OnWinLoss
-                value={onLoss}
-                title={copy.INDEX.ON_WIN_LOSS.TITLE[1]}
-                onChange={this.handleOnLoss}
-            />
-            </div>
-            <div styleName="element">
-            <InputNumber
-                name="profit"
-                step={0.01}
-                title={copy.INDEX.INPUT_NUMBER.TITLE[1]}
-                icon="bitcoin"
-                precision={2}
-                value={profitStop}
-                onChange={this.handleStopOnProfit}
-            />
-            </div>
-            <div styleName="element">
-            <InputNumber
-                name="loss"
-                step={0.01}
-                precision={2}
-                title={copy.INDEX.INPUT_NUMBER.TITLE[2]}
-                icon="bitcoin"
-                value={lossStop}
-                onChange={this.handleStopOnLoss}
-            />
-            </div>*/}
       </div>
     );
   };
 
-  handleMultiply = value => {
+  handleMultiply = (value) => {
     const { profile } = this.props;
     const { amount } = this.state;
     let newAmount = amount;
@@ -303,7 +268,7 @@ class PlinkoGameOptions extends Component {
   };
 
   render() {
-    const { type, amount, isAutoBetting } = this.state;
+    const { type, amount } = this.state;
     const user = this.props.profile;
     const { ln } = this.props;
     const copy = CopyText.plinkoGameOptionsIndex[ln];
@@ -316,9 +281,12 @@ class PlinkoGameOptions extends Component {
             config={{
               left: {
                 value: "manual",
-                title: copy.INDEX.TOGGLE_BUTTON.TITLE[0]
+                title: copy.INDEX.TOGGLE_BUTTON.TITLE[0],
               },
-              right: { value: "auto", title: copy.INDEX.TOGGLE_BUTTON.TITLE[1] }
+              right: {
+                value: "auto",
+                title: copy.INDEX.TOGGLE_BUTTON.TITLE[1],
+              },
             }}
             selected={type}
             size="full"
@@ -371,7 +339,7 @@ class PlinkoGameOptions extends Component {
 function mapStateToProps(state) {
   return {
     profile: state.profile,
-    ln: state.language
+    ln: state.language,
   };
 }
 

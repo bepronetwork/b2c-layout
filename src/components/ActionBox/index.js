@@ -8,9 +8,6 @@ import loading from "assets/loading.gif";
 class ActionBox extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      checked: false
-    };
   }
 
   onClick = () => {
@@ -31,7 +28,7 @@ class ActionBox extends React.Component {
       loadingMessage,
       disabled,
       alertMessage,
-      alertCondition
+      alertCondition,
     } = this.props;
     return (
       <button
@@ -44,7 +41,11 @@ class ActionBox extends React.Component {
         <Row>
           <Col xs={3} md={3}>
             <div styleName="container-image">
-              <img src={image} styleName="payment-image" />
+              <img
+                src={image}
+                styleName="payment-image"
+                alt="Payment Illustration"
+              />
             </div>
           </Col>
           <Col xs={5} md={7}>
@@ -78,7 +79,7 @@ class ActionBox extends React.Component {
               {!onLoading ? (
                 <Checkbox isSet={completed} id={id} />
               ) : (
-                <img src={loading} styleName="loading-gif" />
+                <img src={loading} styleName="loading-gif" alt="Loading GIF" />
               )}
             </div>
           </Col>
@@ -91,7 +92,7 @@ class ActionBox extends React.Component {
 function mapStateToProps(state) {
   return {
     profile: state.profile,
-    deposit: state.deposit
+    deposit: state.deposit,
   };
 }
 

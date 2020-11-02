@@ -2,10 +2,9 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import ArrowLeft from "components/Icons/ArrowLeft";
 import ArrowRight from "components/Icons/ArrowRight";
-import { Typography, BitcoinIcon, Dollar } from "components";
+import { Typography } from "components";
 import UserContext from "containers/App/UserContext";
 import { connect } from "react-redux";
-import { Numbers } from "../../lib/ethereum/lib";
 import Coin from "./CoinButton";
 import "./index.css";
 import { CopyText } from "../../copy";
@@ -16,17 +15,17 @@ class ChipValue extends Component {
 
   static propTypes = {
     onChangeChip: PropTypes.func.isRequired,
-    totalBet: PropTypes.number
+    totalBet: PropTypes.number,
   };
 
   static defaultProps = {
-    totalBet: 0
+    totalBet: 0,
   };
 
   state = {
     coin: 0.001,
     coinsPosition: 0,
-    balance: 0
+    balance: 0,
   };
 
   componentDidMount() {
@@ -37,7 +36,7 @@ class ChipValue extends Component {
     this.projectData(props);
   }
 
-  projectData = async props => {
+  projectData = async (props) => {
     let user = props.profile;
 
     if (!user || _.isEmpty(user)) {
@@ -49,29 +48,28 @@ class ChipValue extends Component {
     this.setState({ ...this.state, balance: balance });
   };
 
-  handlerCoinRef = element => {
+  handlerCoinRef = (element) => {
     this.coins = element;
   };
 
-  handlerContainerRef = element => {
+  handlerContainerRef = (element) => {
     this.container = element;
   };
 
-  getDisabled = value => {
-    const { user } = this.context;
+  getDisabled = (value) => {
     const { totalBet } = this.props;
     const balance = this.state.balance;
     return balance ? totalBet + value > balance : true;
   };
 
-  handleArrow = side => {
+  handleArrow = (side) => {
     const { coinsPosition } = this.state;
     const width = this.coins.clientWidth;
     const maxWidth = this.container.clientWidth;
     const position =
       side === "right" ? coinsPosition - width : coinsPosition + width;
 
-    let newP = position;
+    let newP;
 
     if (side === "left") {
       newP = position <= 0 ? position : 0;
@@ -80,11 +78,11 @@ class ChipValue extends Component {
     }
 
     this.setState({
-      coinsPosition: newP
+      coinsPosition: newP,
     });
   };
 
-  handleCoin = value => {
+  handleCoin = (value) => {
     const { onChangeChip } = this.props;
 
     this.setState({ coin: value });
@@ -117,7 +115,7 @@ class ChipValue extends Component {
             <div
               styleName="coins-container"
               style={{
-                marginLeft: `${coinsPosition}px`
+                marginLeft: `${coinsPosition}px`,
               }}
               ref={this.handlerContainerRef}
             >
@@ -197,7 +195,7 @@ function mapStateToProps(state) {
   return {
     ln: state.language,
     profile: state.profile,
-    currency: state.currency
+    currency: state.currency,
   };
 }
 

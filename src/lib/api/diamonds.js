@@ -8,14 +8,14 @@ export default async function bet({ amount, user, game_id }) {
     const result = new Array(7).fill(0).map((value, index) => {
       return {
         place: index,
-        value: amount / 7
+        value: amount / 7,
       };
     });
 
     const response = await user.createBet({
       amount,
       result,
-      gameId: game._id
+      gameId: game._id,
     });
 
     await processResponse(response);
@@ -24,7 +24,7 @@ export default async function bet({ amount, user, game_id }) {
       betAmount: amountBetted,
       _id: id,
       nonce,
-      user_delta
+      user_delta,
     } = response.data.message;
 
     const { index } = response.data.message.outcomeResultSpace;
@@ -36,7 +36,7 @@ export default async function bet({ amount, user, game_id }) {
       isWon: parseFloat(winAmount) !== 0,
       betAmount: amountBetted,
       id,
-      userDelta: user_delta
+      userDelta: user_delta,
     };
   } catch (error) {
     throw error;

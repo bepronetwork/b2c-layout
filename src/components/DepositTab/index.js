@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { isUserSet } from "../../lib/helpers";
 import DepositTable from "../DepositTable";
-import _ from "lodash";
 import "./index.css";
 
 class DepositTab extends Component {
@@ -19,7 +18,7 @@ class DepositTab extends Component {
     this.projectData(props);
   }
 
-  projectData = async props => {};
+  projectData = async () => {};
 
   render() {
     const { profile, isCurrentPath } = this.props;
@@ -34,7 +33,7 @@ class DepositTab extends Component {
 function mapStateToProps(state) {
   return {
     profile: state.profile,
-    ln: state.language
+    ln: state.language,
   };
 }
 

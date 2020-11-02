@@ -13,7 +13,7 @@ const images = [
   { id: 4, img: quadrilateralDiamond, color: "#6BF9FF", isActive: false },
   { id: 5, img: quadrilateralDiamondGreen, color: "#1CE61D", isActive: false },
   { id: 6, img: CircleDiamond, color: "#FF3658", isActive: false },
-  { id: 7, img: PurpleDiamond, color: "#AB83FA", isActive: false }
+  { id: 7, img: PurpleDiamond, color: "#AB83FA", isActive: false },
 ];
 
 export default images;

@@ -5,10 +5,10 @@ const initialState = {
   amount: 0,
   neededTrade: false,
   confirmations: 0,
-  tx: null
+  tx: null,
 };
 
-export default function(state = initialState, action) {
+export default function (state = initialState, action) {
   switch (action.type) {
     case SET_DEPOSIT_INFO: {
       if (action.action.key == "isConfirmed" && action.action.value == true) {

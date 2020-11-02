@@ -12,10 +12,10 @@ import { getApp } from "../../lib/helpers";
 
 const defaultProps = {
   currencies: [],
-  currency: {}
+  currency: {},
 };
 
-class CurrencyDropDown extends React.Component {
+class CurrencyDropDown extends Component {
   constructor(props) {
     super(props);
     this.state = { ...defaultProps };
@@ -29,31 +29,31 @@ class CurrencyDropDown extends React.Component {
     this.projectData(props);
   }
 
-  projectData = async props => {
+  projectData = async (props) => {
     const { profile, currency } = props;
     const virtual = getApp().virtual;
-    var currencies = getApp().currencies.filter(c => c.virtual === virtual);
+    let currencies = getApp().currencies.filter((c) => c.virtual === virtual);
 
     if (!currencies || _.isEmpty(currencies) || currencies.length < 0) {
       return;
     }
-    currencies = currencies.map(c => {
+    currencies = currencies.map((c) => {
       const w = profile.getWallet({ currency: c });
       return {
         ...c,
         balance: _.isEmpty(w) ? 0 : w.playBalance,
-        walletImage: _.isEmpty(w) ? null : w.image
+        walletImage: _.isEmpty(w) ? null : w.image,
       };
     });
     this.setState({
       currencies,
-      currency: !_.isEmpty(currency) ? currency : currencies[0]
+      currency: !_.isEmpty(currency) ? currency : currencies[0],
     });
   };
 
-  changeCurrency = async item => {
+  changeCurrency = async (item) => {
     const { currencies } = this.state;
-    item = currencies.find(a => {
+    item = currencies.find((a) => {
       if (new String(a._id).toString() == new String(item.value).toString()) {
         return a;
       }
@@ -79,12 +79,13 @@ class CurrencyDropDown extends React.Component {
           height={30}
           width="100%"
         >
-          {currencies.map(option => (
+          {currencies.map((option) => (
             <MenuItem key={option._id} value={option._id}>
               <div styleName={"currency-box-top"}>
                 <img
                   src={option.walletImage ? option.walletImage : option.image}
                   styleName="image-coin"
+                  alt="Coin Illustration"
                 />
                 <p styleName="option-text">
                   <AnimationNumber
@@ -106,12 +107,12 @@ class CurrencyDropDown extends React.Component {
 function mapStateToProps(state) {
   return {
     profile: state.profile,
-    currency: state.currency
+    currency: state.currency,
   };
 }
 
 CurrencyDropDown.propTypes = {
-  dispatch: PropTypes.func
+  dispatch: PropTypes.func,
 };
 
 export default connect(mapStateToProps)(CurrencyDropDown);

@@ -86,7 +86,7 @@ class JackpotPot extends React.Component {
                   <img
                     src={currencyImage}
                     width={"24"}
-                    heigth={"24"}
+                    height={"24"}
                     alt="Currency Icon"
                   />
                   <Typography variant={"h4"} color={"white"} weight={"bold"}>

@@ -4,17 +4,17 @@ import Tabs from "..";
 const options = [
   {
     value: "register",
-    label: "Register"
+    label: "Register",
   },
-  { value: "login", label: "Login" }
+  { value: "login", label: "Login" },
 ];
 
 export default class TabsExample extends Component {
   state = {
-    selected: "login"
+    selected: "login",
   };
 
-  handleChange = name => {
+  handleChange = (name) => {
     this.setState({ selected: name });
   };
 

@@ -18,7 +18,7 @@ class Authentication2FAModal extends Component {
     super(props);
 
     this.state = {
-      error: null
+      error: null,
     };
   }
 
@@ -54,7 +54,7 @@ class Authentication2FAModal extends Component {
 
       let res = await profile.set2FA({
         token,
-        secret
+        secret,
       });
 
       if (res.data.status === 200) {
@@ -72,11 +72,11 @@ class Authentication2FAModal extends Component {
     }
   };
 
-  onChange = e => {
+  onChange = (e) => {
     this.setState({ ...this.state, input: e });
   };
 
-  projectData = async props => {
+  projectData = async (props) => {
     const { profile } = props;
 
     if (!profile || _.isEmpty(profile)) {
@@ -91,11 +91,11 @@ class Authentication2FAModal extends Component {
       const secret2FAName = getApp().name + ":" + profile.getUsername();
       let res = Security2FASingleton.generateSecret2FA({
         name: secret2FAName,
-        account_id: profile.user_id
+        account_id: profile.user_id,
       });
       auth_2fa = {
         uri: decodeURIComponent(res.uri),
-        secret: res.secret
+        secret: res.secret,
       };
     }
     this.setState({ ...this.state, auth_2fa });
@@ -107,10 +107,10 @@ class Authentication2FAModal extends Component {
     const { ln } = this.props;
     const copy = CopyText.authentication2FAModalIndex[ln];
     const { colors, skin } = getAppCustomization();
-    const backgroundColor = colors.find(c => {
+    const backgroundColor = colors.find((c) => {
       return c.type == "backgroundColor";
     });
-    const secondaryColor = colors.find(c => {
+    const secondaryColor = colors.find((c) => {
       return c.type == "secondaryColor";
     });
 
@@ -158,7 +158,7 @@ class Authentication2FAModal extends Component {
                           }
                         />
                       </div>
-                    )
+                    ),
                   },
                   {
                     label: copy.INDEX.HORIZONTAL_STEPPER.LABEL[1],
@@ -173,8 +173,8 @@ class Authentication2FAModal extends Component {
                       </div>
                     ),
                     last: true,
-                    closeStepper: this.onClose
-                  }
+                    closeStepper: this.onClose,
+                  },
                 ]}
               />
             </div>
@@ -190,7 +190,7 @@ function mapStateToProps(state) {
     profile: state.profile,
     modal: state.modal,
     set2FA: state.set2FA,
-    ln: state.language
+    ln: state.language,
   };
 }
 

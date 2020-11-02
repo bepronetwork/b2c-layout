@@ -39,11 +39,11 @@ function InfiniteCarouselArrow({ carouselName, next, onClick }) {
 InfiniteCarouselArrow.propTypes = {
   carouselName: PropTypes.string.isRequired,
   next: PropTypes.bool,
-  onClick: PropTypes.func.isRequired
+  onClick: PropTypes.func.isRequired,
 };
 
 InfiniteCarouselArrow.defaultProps = {
-  next: true
+  next: true,
 };
 
 export default InfiniteCarouselArrow;

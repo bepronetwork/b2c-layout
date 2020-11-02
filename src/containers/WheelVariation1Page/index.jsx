@@ -15,33 +15,33 @@ import _ from "lodash";
 
 const resultSpaceColors = [
   {
-    color: getAppCustomization().theme === "dark" ? "#000000" : "#777777"
+    color: getAppCustomization().theme === "dark" ? "#000000" : "#777777",
   },
   {
-    color: "#406c82"
+    color: "#406c82",
   },
   {
-    color: "#00e403"
+    color: "#00e403",
   },
   {
-    color: "#d5e8f2"
+    color: "#d5e8f2",
   },
   {
-    color: "#fde905"
+    color: "#fde905",
   },
   {
-    color: "#7f46fd"
+    color: "#7f46fd",
   },
   {
-    color: "#fca32f"
-  }
+    color: "#fca32f",
+  },
 ];
 
-class WheelVariationOne extends React.Component {
+class WheelVariationOne extends Component {
   static contextType = UserContext;
 
   static propTypes = {
-    onHandleLoginOrRegister: PropTypes.func.isRequired
+    onHandleLoginOrRegister: PropTypes.func.isRequired,
   };
 
   constructor(props) {
@@ -51,12 +51,12 @@ class WheelVariationOne extends React.Component {
       selectedChip: 0.01,
       betHistory: [],
       game: {
-        edge: 0
+        edge: 0,
       },
       options: [],
       betObjectResult: {},
       bet: false,
-      amount: 0
+      amount: 0,
     };
   }
 
@@ -68,12 +68,13 @@ class WheelVariationOne extends React.Component {
     this.projectData(props);
   }
 
-  projectData = props => {
+  projectData = (props) => {
     let game = props.game;
 
     if (_.isEmpty(game)) {
       return;
     }
+
     if (!game.resultSpace) {
       return;
     }
@@ -81,10 +82,10 @@ class WheelVariationOne extends React.Component {
     let options = [];
     let indexOptions = 0;
 
-    for (var i = 0; i < game.resultSpace.length; i++) {
+    for (let i = 0; i < game.resultSpace.length; i++) {
       let resultSpace = game.resultSpace[i];
       let optExists = options.find(
-        opt => opt.multiplier == resultSpace.multiplier
+        (opt) => opt.multiplier == resultSpace.multiplier
       );
       if (!optExists) {
         let color = resultSpaceColors[indexOptions].color;
@@ -96,7 +97,7 @@ class WheelVariationOne extends React.Component {
           amount: 1,
           start: i,
           placings: [i],
-          color: color
+          color: color,
         });
         indexOptions = indexOptions + 1;
       } else {
@@ -106,7 +107,7 @@ class WheelVariationOne extends React.Component {
           ...optExists,
           amount: optExists.amount + 1,
           placings: optExists.placings,
-          probability: optExists.probability + resultSpace.probability
+          probability: optExists.probability + resultSpace.probability,
         };
       }
     }
@@ -122,13 +123,13 @@ class WheelVariationOne extends React.Component {
     return this.getTotalBet() + selectedChip > user.getBalance();
   };
 
-  handleAddChipToBoard = cell => {
+  handleAddChipToBoard = (cell) => {
     const { selectedChip, betHistory } = this.state;
 
     if (this.isAddChipDisabled()) return null;
 
     return this.setState({
-      betHistory: [...betHistory, { cell, chip: selectedChip }]
+      betHistory: [...betHistory, { cell, chip: selectedChip }],
     });
   };
 
@@ -144,7 +145,7 @@ class WheelVariationOne extends React.Component {
     this.setState({ betHistory: [] });
   };
 
-  handleChangeChip = chip => {
+  handleChangeChip = (chip) => {
     this.setState({ selectedChip: chip });
   };
 
@@ -162,9 +163,9 @@ class WheelVariationOne extends React.Component {
 
   handleBet = async ({ amount }) => {
     try {
-      var { user } = this.context;
-      var { onHandleLoginOrRegister } = this.props;
-      var { betHistory, game } = this.state;
+      const { user } = this.context;
+      const { onHandleLoginOrRegister } = this.props;
+      const { game } = this.state;
 
       if (!user) return onHandleLoginOrRegister("register");
 
@@ -173,7 +174,7 @@ class WheelVariationOne extends React.Component {
       const res = await wheelBet({
         amount,
         user,
-        game_id: game._id
+        game_id: game._id,
       });
       const { isWon, result } = res;
 
@@ -183,7 +184,7 @@ class WheelVariationOne extends React.Component {
         hasWon: isWon,
         disableControls: false,
         betObjectResult: res,
-        amount
+        amount,
       });
       return res;
     } catch (err) {
@@ -192,7 +193,7 @@ class WheelVariationOne extends React.Component {
         flipResult: 0,
         inResultAnimation: false,
         hasWon: false,
-        disableControls: false
+        disableControls: false,
       });
     }
   };
@@ -203,7 +204,7 @@ class WheelVariationOne extends React.Component {
     this.setState({
       bet: false,
       disableControls: false,
-      inResultAnimation: false
+      inResultAnimation: false,
     });
     const { profile } = this.props;
     const { amount } = this.state;
@@ -231,12 +232,12 @@ class WheelVariationOne extends React.Component {
 
     this.setState({
       ...this.state,
-      betHistory: betHistory.map(item => {
+      betHistory: betHistory.map((item) => {
         return {
           cell: item.cell,
-          chip: Numbers.toFloat(parseFloat(item.chip) * 2)
+          chip: Numbers.toFloat(parseFloat(item.chip) * 2),
         };
-      })
+      }),
     });
   };
 
@@ -265,7 +266,7 @@ class WheelVariationOne extends React.Component {
       bet,
       inResultAnimation,
       onAnimation,
-      options
+      options,
     } = this.state;
     const { profile } = this.props;
 
@@ -305,7 +306,7 @@ class WheelVariationOne extends React.Component {
 function mapStateToProps(state) {
   return {
     profile: state.profile,
-    ln: state.language
+    ln: state.language,
   };
 }
 

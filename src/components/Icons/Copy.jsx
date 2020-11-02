@@ -6,7 +6,7 @@ export default class Copy extends Component {
   render() {
     const { color } = this.props;
     const styles = classNames("sound", {
-      [color]: true
+      [color]: true,
     });
 
     return (
