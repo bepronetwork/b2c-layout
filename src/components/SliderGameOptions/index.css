@@ -16,6 +16,9 @@
 
   margin-top: $spacing-4;
 }
+.amount-container-2 {
+  width: 100%;
+}
 
 .amount {
   order: 1;
@@ -92,4 +95,11 @@
 
 .bet-properties{
   padding: $spacing-20;
+}
+
+.result-container{
+  width: 100%;
+  height: 300px;
+  background-color: $primaryColor-2;
+  margin-top: $spacing-20;
 }

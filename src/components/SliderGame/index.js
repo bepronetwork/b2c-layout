@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 
+import { Typography } from "components";
+
 import CenterIndicator from "../../assets/icons/slideIcons/center-indicator.svg";
 import { getAppCustomization } from "../../lib/helpers";
 import EmptyDiamond from "../../assets/icons/slideIcons/empty";
@@ -52,14 +54,23 @@ export default class SliderGame extends Component {
                 key={num}
                 id="card"
               >
-                <EmptyDiamond
-                  backgroundColor={primaryColor}
-                  borderColor={secondaryColor}
-                  height="30%"
-                  width="100%"
-                >
-                  12540x
-                </EmptyDiamond>
+                <div className="svg-container">
+                  <EmptyDiamond
+                    backgroundColor={primaryColor}
+                    borderColor={secondaryColor}
+                    height="30%"
+                    width="100%"
+                  />
+                </div>
+                <div styleName="span-style">
+                  <Typography
+                    variant="x-small-body"
+                    weight="semi-bold"
+                    color="white"
+                  >
+                    {`${num.value}x`}
+                  </Typography>
+                </div>
                 <div styleName="bottom-base" />
               </div>
             );

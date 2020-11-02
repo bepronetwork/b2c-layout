@@ -50,7 +50,7 @@
 
   .container-animation{
     transition: transform 10000ms cubic-bezier(0.24, 0.78, 0.15, 1) 0s;
-    transform: translate(-2615px, 0px)
+    transform: translate(-3615px, 0px)
   }
 
   .background-empty{
@@ -58,6 +58,19 @@
   }
   .border-empty{
       color: red;
+  }
+
+  .svg-container{
+    position: absolute;
+    transform: translate(-50%, -50%);
+  }
+
+  .span-style{
+    z-index: 4;
+    position: absolute;
+    top: 17%;
+    left: 50%;
+    transform: translate(calc(-50% + 0.15ch), -50%);
   }
 
   .gradient-overlay{

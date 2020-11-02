@@ -98,14 +98,15 @@ class SlotsGameOptions extends Component {
 
   betAction = ({ amount }) => {
     const { onBet } = this.props;
-    return new Promise( async (resolve, reject) => {
-        try{
-            let res = await onBet({ amount });
-            resolve(res)
-        }catch(err){
-            reject(err)
-        }
 
+    return new Promise(async (resolve, reject) => {
+      try {
+        const res = await onBet({ amount });
+
+        resolve(res);
+      } catch (err) {
+        reject(err);
+      }
     });
   };
 
@@ -150,7 +151,10 @@ class SlotsGameOptions extends Component {
               (profitStop == 0 || totalProfit <= profitStop) && // Stop Profit
               (lossStop == 0 || totalLoss <= lossStop) // Stop Loss
             ) {
-              if (i != 0) { await delay(1.5 * 1000); };
+              if (i != 0) {
+                await delay(1.5 * 1000);
+              }
+
               const res = await this.betAction({ amount: betAmount });
 
               if (!_.isEmpty(res)) {
@@ -168,8 +172,9 @@ class SlotsGameOptions extends Component {
                 if (onLoss && !wasWon) {
                   betAmount += Numbers.toFloat((betAmount * onLoss) / 100);
                 }
-                await delay(1.5*1000);
-                this.setState({bets : bets-(i + 1), amount: betAmount});
+
+                await delay(1.5 * 1000);
+                this.setState({ bets: bets - (i + 1), amount: betAmount });
               } else {
                 break;
               }
@@ -349,6 +354,22 @@ class SlotsGameOptions extends Component {
             </div>
           </div>
 
+          <div styleName="amount">
+            <Typography variant="small-body" weight="semi-bold" color="casper">
+              Target Multiplier
+            </Typography>
+            <div styleName="amount-container-2">
+              <InputNumber
+                name="amount"
+                value={amount}
+                max={user && !_.isEmpty(user) ? user.getBalance() : null}
+                step={0.01}
+                icon="bitcoin"
+                precision={2}
+                onChange={this.handleBetAmountChange}
+              />
+            </div>
+          </div>
           <div styleName="button">
             <Button
               disabled={!this.isBetValid() || this.isInAutoBet()}
@@ -363,6 +384,9 @@ class SlotsGameOptions extends Component {
                   : copy.INDEX.TYPOGRAPHY.TEXT[2]}
               </Typography>
             </Button>
+          </div>
+          <div styleName="result-container">
+            <p>test</p>
           </div>
         </div>
       </div>

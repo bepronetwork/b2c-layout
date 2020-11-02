@@ -124,199 +124,199 @@ const slotsRules = [
     value: "0.50"
   },
   {
-    id: 31,
+    id: 32,
     value: "0.50"
   },
   {
-    id: 31,
+    id: 33,
     value: "0.50"
   },
   {
-    id: 31,
+    id: 34,
     value: "0.50"
   },
   {
-    id: 31,
+    id: 35,
     value: "0.50"
   },
   {
-    id: 31,
+    id: 36,
     value: "0.50"
   },
   {
-    id: 31,
+    id: 37,
     value: "0.50"
   },
   {
-    id: 31,
+    id: 38,
     value: "0.50"
   },
   {
-    id: 31,
+    id: 39,
     value: "0.50"
   },
   {
-    id: 31,
+    id: 40,
     value: "0.50"
   },
   {
-    id: 31,
+    id: 41,
     value: "0.50"
   },
   {
-    id: 31,
+    id: 42,
     value: "0.50"
   },
   {
-    id: 31,
+    id: 43,
     value: "0.50"
   },
   {
-    id: 31,
+    id: 44,
     value: "0.50"
   },
   {
-    id: 31,
+    id: 45,
     value: "0.50"
   },
   {
-    id: 31,
+    id: 46,
     value: "0.50"
   },
   {
-    id: 31,
+    id: 47,
     value: "0.50"
   },
   {
-    id: 31,
+    id: 48,
     value: "0.50"
   },
   {
-    id: 31,
+    id: 49,
     value: "0.50"
   },
   {
-    id: 31,
+    id: 50,
     value: "0.50"
   },
   {
-    id: 31,
+    id: 51,
     value: "0.50"
   },
   {
-    id: 31,
+    id: 52,
     value: "0.50"
   },
   {
-    id: 31,
+    id: 53,
     value: "0.50"
   },
   {
-    id: 31,
+    id: 54,
     value: "0.50"
   },
   {
-    id: 31,
+    id: 55,
     value: "0.50"
   },
   {
-    id: 31,
+    id: 56,
     value: "0.50"
   },
   {
-    id: 31,
+    id: 57,
     value: "0.50"
   },
   {
-    id: 31,
+    id: 58,
     value: "0.50"
   },
   {
-    id: 31,
+    id: 59,
     value: "0.50"
   },
   {
-    id: 31,
+    id: 60,
     value: "0.50"
   },
   {
-    id: 31,
+    id: 61,
     value: "0.50"
   },
   {
-    id: 31,
+    id: 62,
     value: "0.50"
   },
   {
-    id: 31,
+    id: 63,
     value: "0.50"
   },
   {
-    id: 31,
+    id: 64,
     value: "0.50"
   },
   {
-    id: 31,
+    id: 65,
     value: "0.50"
   },
   {
-    id: 31,
+    id: 66,
     value: "0.50"
   },
   {
-    id: 31,
+    id: 67,
     value: "0.50"
   },
   {
-    id: 31,
+    id: 68,
     value: "0.50"
   },
   {
-    id: 31,
+    id: 69,
     value: "0.50"
   },
   {
-    id: 31,
+    id: 70,
     value: "0.50"
   },
   {
-    id: 31,
+    id: 71,
     value: "0.50"
   },
   {
-    id: 31,
+    id: 72,
     value: "0.50"
   },
   {
-    id: 31,
+    id: 73,
     value: "0.50"
   },
   {
-    id: 31,
+    id: 74,
     value: "0.50"
   },
   {
-    id: 31,
+    id: 75,
     value: "0.50"
   },
   {
-    id: 31,
+    id: 76,
     value: "0.50"
   },
   {
-    id: 31,
+    id: 77,
     value: "0.50"
   },
   {
-    id: 31,
+    id: 78,
     value: "0.50"
   },
   {
-    id: 31,
+    id: 79,
     value: "0.50"
   },
   {
-    id: 31,
+    id: 80,
     value: "0.50"
   },
   {
