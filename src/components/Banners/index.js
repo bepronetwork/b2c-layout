@@ -51,108 +51,86 @@ class Banners extends Component {
 
   render() {
     const { banners, index, isFullWidth } = this.state;
+    const skin = getAppCustomization().skin.skin_type;
 
     if (_.isEmpty(banners)) {
       return null;
     }
 
-    const skin = getAppCustomization().skin.skin_type;
-    const bannersStyles = classNames("banners", {
-      "banners-full-width": isFullWidth
-    });
-
     return (
-      <div styleName={bannersStyles}>
+      <div
+        styleName={classNames("banners", {
+          "banners-full-width": isFullWidth
+        })}
+      >
         <Carousel
           activeIndex={index}
           onSelect={this.handleSelect}
           pause="hover"
         >
           {banners.map(
-            ({ title, subtitle, image_url, link_url, button_text }) => {
-              const styles = classNames("text-image", {
-                "text-image-show": !(title || subtitle)
-              });
-              const bannerStyles = classNames("banner", {
-                "banner-full": isFullWidth
-              });
-              const textStyles = classNames("text", {
-                "text-full": isFullWidth,
-                "no-text": isFullWidth && !title && !subtitle
-              });
-
-              return (
-                <Carousel.Item>
-                  <div
-                    styleName={
-                      !title && !subtitle ? "banner-without-text" : bannerStyles
-                    }
-                    style={{
-                      background:
-                        isFullWidth || (!isFullWidth && !title && !subtitle)
-                          ? `url(${image_url}) center center / cover no-repeat`
-                          : null
-                    }}
-                  >
-                    <div styleName={textStyles}>
-                      {title || subtitle || button_text ? (
-                        <div>
-                          <div styleName="fields">
-                            <Typography
-                              color="white"
-                              variant="h3"
-                              weight="bold"
-                            >
-                              {title}
-                            </Typography>
-                          </div>
-                          <div styleName="fields fields-text">
-                            <Typography color="white" variant="small-body">
-                              {subtitle}
-                            </Typography>
-                          </div>
-                          {button_text && link_url ? (
-                            <Button
-                              onClick={() => this.handleClick(link_url)}
-                              theme="action"
-                            >
-                              <Typography
-                                color={
-                                  skin === "digital"
-                                    ? "secondary"
-                                    : "fixedwhite"
-                                }
-                                variant="small-body"
-                              >
-                                {button_text}
-                              </Typography>
-                            </Button>
-                          ) : null}
+            ({ title, subtitle, image_url, link_url, button_text }) => (
+              <Carousel.Item>
+                <div
+                  styleName={classNames(
+                    "banner",
+                    { "banner-full": isFullWidth },
+                    { "banner-without-text": !title && !subtitle }
+                  )}
+                  style={{
+                    background:
+                      isFullWidth || (!isFullWidth && !title && !subtitle)
+                        ? `url(${image_url}) center center / cover no-repeat`
+                        : null
+                  }}
+                >
+                  {(title || subtitle || button_text) && (
+                    <div
+                      styleName={classNames("text", {
+                        "text-full": isFullWidth,
+                        "no-text": isFullWidth && !title && !subtitle
+                      })}
+                    >
+                      <div>
+                        <div styleName="fields">
+                          <Typography color="white" variant="h3" weight="bold">
+                            {title}
+                          </Typography>
                         </div>
-                      ) : (
-                        <div />
-                      )}
+                        <div styleName="fields fields-text">
+                          <Typography color="white" variant="small-body">
+                            {subtitle}
+                          </Typography>
+                        </div>
+                        {button_text && link_url && (
+                          <Button
+                            onClick={() => this.handleClick(link_url)}
+                            theme="action"
+                          >
+                            <Typography
+                              color={
+                                skin === "digital" ? "secondary" : "fixedwhite"
+                              }
+                              variant="small-body"
+                            >
+                              {button_text}
+                            </Typography>
+                          </Button>
+                        )}
+                      </div>
                     </div>
+                  )}
+                  {!(isFullWidth || (!isFullWidth && !title && !subtitle)) && (
                     <div
                       styleName="image"
                       style={{
-                        background:
-                          // eslint-disable-next-line no-nested-ternary
-                          !isFullWidth && (title || subtitle)
-                            ? `url(${image_url}) center center / cover no-repeat`
-                            : title || subtitle
-                            ? "linear-gradient(to right, rgba(0,0,0,0.9) 0%,rgba(0,0,0,0) 69%)"
-                            : null
+                        background: `url(${image_url}) center center / cover no-repeat`
                       }}
-                    >
-                      <div styleName={styles}>
-                        {title || subtitle || button_text ? <div /> : <div />}
-                      </div>
-                    </div>
-                  </div>
-                </Carousel.Item>
-              );
-            }
+                    />
+                  )}
+                </div>
+              </Carousel.Item>
+            )
           )}
         </Carousel>
       </div>
