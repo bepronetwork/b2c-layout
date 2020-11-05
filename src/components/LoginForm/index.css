@@ -1,11 +1,7 @@
 @import "../../styles/all.css";
 
-.username {
-  margin: $spacing-28 0 $spacing-16 0;
-}
-
-.token2FA {
-  margin: $spacing-20 0;
+.root {
+  margin-top: $spacing-16;
 }
 
 .token2FA-info {
@@ -17,28 +13,12 @@
   margin: 50px;
 }
 
-.button {
-  margin-top: $spacing-20;
-}
-
-.button > button > div > img {
-  width: $spacing-28;
-}
-
-.button > button {
-  width: 100%;
-}
-
-.button > button > div {
-  width: 100%;
-}
-
 .error {
-  margin: $spacing-8;
+  margin: $spacing-16 0;
 }
 
 .disabled {
-  opacity : 0.5;
+  opacity: 0.5;
 }
 
 .forgot {

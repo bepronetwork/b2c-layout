@@ -1,31 +1,11 @@
 @import "../../styles/all.css";
 
-.username {
-  margin: $spacing-28 0 $spacing-16 0;
-}
-
-.password {
-  margin-bottom: $spacing-16;
-}
-
-.button {
-  margin-top: $spacing-20;
-}
-
-.button > button > div > img {
-  width: $spacing-28;
-}
-
-.button > button {
-  width: 100%;
-}
-
-.button > button > div {
-  width: 100%;
+.root {
+  margin-top: $spacing-16;
 }
 
 .error {
-  margin-top: $spacing-8;
+  margin-bottom: $spacing-16;
 }
 
 .address {
@@ -42,7 +22,7 @@
 }
 
 .agree-right {
-  margin: auto; 
+  margin: auto;
   margin-left: $spacing-8;
   opacity: 0.5;
 

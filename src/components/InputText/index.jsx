@@ -3,10 +3,11 @@ import PropTypes from "prop-types";
 import uniqueId from "lodash/uniqueId";
 import classNames from "classnames";
 import { CopyIcon, Typography } from "components";
-
 import "./index.css";
 
 export default class InputText extends Component {
+  inputId = uniqueId();
+
   static propTypes = {
     defaultValue: PropTypes.string,
     name: PropTypes.string.isRequired,
@@ -17,7 +18,9 @@ export default class InputText extends Component {
     placeholder: PropTypes.string,
     disabled: PropTypes.bool,
     icon: PropTypes.oneOf(["copy"]),
-    maxlength: PropTypes.number
+    maxlength: PropTypes.number,
+    gutterBottom: PropTypes.bool,
+    weight: PropTypes.string
   };
 
   static defaultProps = {
@@ -29,7 +32,9 @@ export default class InputText extends Component {
     placeholder: "",
     disabled: false,
     icon: null,
-    maxlength: ""
+    maxlength: "",
+    gutterBottom: false,
+    weight: null
   };
 
   state = {
@@ -43,8 +48,6 @@ export default class InputText extends Component {
 
     return null;
   }
-
-  inputId = uniqueId();
 
   get icon() {
     const { icon } = this.props;
@@ -66,23 +69,22 @@ export default class InputText extends Component {
     this.setState({ value: event.target.value });
   };
 
-    renderLabel = () => {
-        const { label } = this.props;
+  renderLabel = () => {
+    const { label, weight } = this.props;
 
-        if (!label) return null;
+    if (!label) return null;
 
-        return (
-        <div styleName="label">
-            <Typography color="casper" weight={this.props.weight ? this.props.weight : "semi-bold"}>
-            {label}
-            </Typography>
-        </div>
-        );
-    };
+    return (
+      <div styleName="label">
+        <Typography color="casper" weight={weight || "semi-bold"}>
+          {label}
+        </Typography>
+      </div>
+    );
+  };
 
   render() {
     const {
-      label,
       name,
       placeholder,
       required,
@@ -90,39 +92,41 @@ export default class InputText extends Component {
       disabled,
       type,
       icon,
-      maxlength
+      maxlength,
+      gutterBottom
     } = this.props;
     const { value } = this.state;
 
     const currentValue =
       defaultValue || defaultValue === "" ? defaultValue : value;
 
-    const containerClasses = classNames("container", {
-      disabled: disabled === true,
-      "with-icon": icon
-    });
-
-    const inputContainerClasses = classNames("input-container", {
-      "with-icon": icon
-    });
-
     return (
-      <div styleName="root">
+      <div styleName={classNames("root", { gutterBottom: gutterBottom })}>
         {this.renderLabel()}
-        <div styleName={containerClasses}>
-          <label styleName={inputContainerClasses} htmlFor={this.inputId}>
+        <div
+          styleName={classNames("container", {
+            disabled: disabled,
+            "with-icon": icon
+          })}
+        >
+          <label
+            styleName={classNames("input-container", {
+              "with-icon": icon
+            })}
+            htmlFor={this.inputId}
+          >
             <div styleName="input">
               <input
                 id={this.inputId}
                 onChange={this.handleChange}
                 name={name}
                 placeholder={placeholder}
-                styleName={this.props.type == 'slim' ? "input-slim" : "input"}
+                styleName={type === "slim" ? "input-slim" : "input"}
                 required={required}
                 type={type}
                 value={currentValue}
                 disabled={disabled}
-                maxlength={maxlength}
+                maxLength={maxlength}
               />
             </div>
             {this.icon}

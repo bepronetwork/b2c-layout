@@ -8,19 +8,19 @@
   }
 }
 
+.gutterBottom {
+  margin-bottom: $spacing-16;
+}
+
 .container {
   padding: $spacing-8;
-
   background-color: $background-main-table;
-
   border: 2px solid $primaryColor-8;
-
   border-radius: $spacing-4;
 }
 
 .container:hover {
   border: 2px solid $light-background-table-1-outer;
-
   transition: border 200ms ease-out 0s;
 
   svg {
@@ -42,19 +42,14 @@
 
 .label {
   margin-bottom: $spacing-8;
-
   text-align: left;
 }
 
 .input-container {
   position: relative;
-
   display: grid;
-
   align-items: center;
-
   grid-template-columns: 100%;
-
   min-width: $column;
 }
 
@@ -64,13 +59,10 @@
 
 .input {
   width: 99%;
-
   background: none;
-
   border: 0;
   color: $white;
   outline: 0;
-
   font-family: $font-family;
   font-size: $font-size-body;
   font-weight: $font-weight-semibold;
@@ -83,35 +75,29 @@
 }
 
 .input-slim {
-    width: 99%;
-  
-    background: none;
-  
-    border: 0;
-    color: $white;
-    outline: 0;
-  
-    font-family: $font-family;
-    font-size: $font-size-small-body;
-    line-height: $line-height-body;
-  
-    @include Breakpoint-mobileOnly {
-      font-size: $font-size-body-mobile;
-      line-height: $line-height-body-mobile;
-    }
+  width: 99%;
+  background: none;
+  border: 0;
+  color: $white;
+  outline: 0;
+  font-family: $font-family;
+  font-size: $font-size-small-body;
+  line-height: $line-height-body;
+
+  @include Breakpoint-mobileOnly {
+    font-size: $font-size-body-mobile;
+    line-height: $line-height-body-mobile;
   }
+}
 
 .input::placeholder {
   color: $placeHolderColor;
-
   font-size: $font-size-body;
 }
 
 .icon {
   width: 100%;
-
   cursor: pointer;
-
   text-align: center;
 
   svg {
