@@ -43,7 +43,7 @@ class RegisterForm extends Component {
       month: { text: "Month" },
       day: { text: "Day" },
       year: "",
-      age: "",
+      birthdate: "",
       isValidBirthdate: false
     };
     this.onChange = this.onChange.bind(this);
@@ -94,33 +94,34 @@ class RegisterForm extends Component {
     const thisYear = thisMoment.getFullYear();
     const thisMonth = thisMoment.getMonth();
     const thisDay = thisMoment.getDay();
-    const dateFx = moment(
+    const birthdateFx = moment(`${year}-${month.value}-${day.value}`);
+    const ageFx = moment(
       `${thisYear}-${leadingWithZero(thisMonth)}-${leadingWithZero(thisDay)}`
-    ).diff(moment(`${year}-${month.value}-${day.value}`), "years");
-    const isLegalAge = dateFx >= 18;
-    const isUndefinedAge = dateFx > 50;
+    ).diff(birthdateFx, "years");
+    const isLegalAge = ageFx >= 18;
+    const isUndefinedAge = ageFx > 50;
     const isValidDate = year.length === 4 && !isUndefinedAge && isLegalAge;
+    const birthdate = birthdateFx.format("L");
 
-    if (isValidDate) {
-      this.setState({ age: dateFx });
-    }
-
-    this.setState({ isValidBirthdate: isValidDate });
+    this.setState({
+      isValidBirthdate: isValidDate,
+      birthdate
+    });
   };
 
   handleSubmit = async event => {
-    this.setState({ ...this.state, isLoading: true });
-
-    event.preventDefault();
+    const { username, password, email, birthdate } = this.state;
     const { onSubmit } = this.props;
     const affiliateLink = Cache.getFromCache("affiliate");
-    const data = { ...this.state, affiliateLink };
+
+    this.setState({ isLoading: true });
+    event.preventDefault();
 
     if (onSubmit && this.isValidForm()) {
-      await onSubmit(data);
+      await onSubmit({ username, password, email, birthdate, affiliateLink });
     }
 
-    this.setState({ ...this.state, isLoading: false });
+    this.setState({ isLoading: false });
   };
 
   isValidForm = () => {
