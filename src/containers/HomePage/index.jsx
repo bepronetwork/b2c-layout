@@ -18,7 +18,6 @@ import games from "../../config/games";
 import LastBets from "../LastBets/HomePage";
 import { getAppCustomization } from "../../lib/helpers";
 import "./index.css";
-import ThirdPartyGameList from "../ThirdPartyGameList";
 
 class HomePage extends Component {
   static propTypes = {

@@ -37,14 +37,12 @@
 }
 
 .birth-fields {
-  display: flex;
+  margin: calc($spacing-8 * -1);
   margin-bottom: $spacing-16;
+  display: flex;
 
   > * {
-    margin-right: $spacing-16;
-  }
-
-  > *:last-child {
-    margin: 0;
+    flex: 1;
+    margin: $spacing-8;
   }
 }

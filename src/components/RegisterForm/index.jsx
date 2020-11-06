@@ -11,12 +11,14 @@ import {
 import { connect } from "react-redux";
 import { compose } from "lodash/fp";
 import loading from "assets/loading-circle.gif";
+import moment from "moment";
 import Cache from "../../lib/cache/cache";
 import { CopyText } from "../../copy";
 import { getAppCustomization } from "../../lib/helpers";
 import "./index.css";
 import generateMonths from "../../utils/generateMonths";
 import generateIntegers from "../../utils/generateIntegers";
+import leadingWithZero from "../../utils/leadingWithZero";
 
 class RegisterForm extends Component {
   static propTypes = {
@@ -34,13 +36,14 @@ class RegisterForm extends Component {
       username: "",
       password: "",
       email: "",
-      emailValid: false,
+      isValidEmail: false,
       isLoading: false,
       isConfirmed: false,
       terms: null,
       month: { text: "Month" },
       day: { text: "Day" },
-      year: { text: "Year" }
+      year: "",
+      isValidBirthdate: false
     };
     this.onChange = this.onChange.bind(this);
   }
@@ -54,25 +57,28 @@ class RegisterForm extends Component {
   }
 
   onChange = event => {
-    const isEmail = event && event.target.name === "email";
+    const isEmail = event.target.name === "email";
     const email = event.target.value;
-    const emailValid = email.match(/^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/i);
+    const isValidEmail = email.match(/^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/i);
 
-    this.setState({
-      [event.target.name]: event.target.value
-    });
+    this.setState(
+      {
+        [event.target.name]: event.target.value
+      },
+      this.checkAge
+    );
 
     if (isEmail) {
-      this.setState({ email, emailValid });
+      this.setState({ email, isValidEmail });
     }
   };
 
   onDayChange = ({ option }) => {
-    this.setState({ day: option });
+    this.setState({ day: option }, this.checkAge);
   };
 
   onMonthChange = ({ option }) => {
-    this.setState({ month: option });
+    this.setState({ month: option }, this.checkAge);
   };
 
   onHandlerConfirm() {
@@ -80,6 +86,22 @@ class RegisterForm extends Component {
 
     this.setState({ isConfirmed: !isConfirmed });
   }
+
+  checkAge = () => {
+    const { year, month, day } = this.state;
+    const thisMoment = new Date();
+    const thisYear = thisMoment.getFullYear();
+    const thisMonth = thisMoment.getMonth();
+    const thisDay = thisMoment.getDay();
+    const dateFx = moment(
+      `${thisYear}-${leadingWithZero(thisMonth)}-${leadingWithZero(thisDay)}`
+    ).diff(moment(`${year}-${month.value}-${day.value}`), "years");
+    const isLegalAge = dateFx >= 18;
+    const isUndefinedAge = dateFx > 50;
+    const isValidDate = year.length === 4 && !isUndefinedAge && isLegalAge;
+
+    this.setState({ isValidBirthdate: isValidDate });
+  };
 
   handleSubmit = async event => {
     this.setState({ ...this.state, isLoading: true });
@@ -89,21 +111,31 @@ class RegisterForm extends Component {
     const affiliateLink = Cache.getFromCache("affiliate");
     const data = { ...this.state, affiliateLink };
 
-    if (onSubmit && this.formIsValid()) {
+    if (onSubmit && this.isValidForm()) {
       await onSubmit(data);
     }
 
     this.setState({ ...this.state, isLoading: false });
   };
 
-  formIsValid = () => {
-    const { password, username, emailValid, isConfirmed, terms } = this.state;
+  isValidForm = () => {
+    const {
+      password,
+      username,
+      isValidEmail,
+      isConfirmed,
+      terms,
+      isValidBirthdate
+    } = this.state;
+    const isValidUsername = username !== "";
+    const isValidPassword = password !== "";
 
     return (
-      username !== "" &&
-      emailValid &&
-      password !== "" &&
-      (!terms || isConfirmed === true)
+      isValidUsername &&
+      isValidPassword &&
+      isValidEmail &&
+      isValidBirthdate &&
+      (!terms || isConfirmed)
     );
   };
 
@@ -138,22 +170,6 @@ class RegisterForm extends Component {
     } = this.state;
     const copy = CopyText.registerFormIndex[ln];
     const { skin } = getAppCustomization();
-    const date = new Date();
-
-    date.getFullYear(date.getFullYear() - 18);
-
-    const months = () =>
-      generateMonths("en-US", "MMM").map(monthToObj => ({
-        text: monthToObj,
-        value: monthToObj.toLowerCase(),
-        channel_id: monthToObj
-      }));
-    const days = () =>
-      generateIntegers().map(dayToObj => ({
-        text: dayToObj,
-        value: dayToObj,
-        channel_id: dayToObj
-      }));
 
     return (
       <form onSubmit={this.handleSubmit} styleName="root">
@@ -182,18 +198,30 @@ class RegisterForm extends Component {
         <div styleName="birth-fields">
           <SelectBox
             onChange={event => this.onDayChange(event)}
-            options={days()}
+            options={generateIntegers(1, 31).map(dayToObj => ({
+              text: dayToObj,
+              value: dayToObj,
+              channel_id: dayToObj
+            }))}
             value={day}
           />
           <SelectBox
             onChange={event => this.onMonthChange(event)}
-            options={months()}
+            options={generateMonths("en-US", "MMM").map(
+              (monthToObj, index) => ({
+                text: monthToObj,
+                value: leadingWithZero(index),
+                channel_id: monthToObj
+              })
+            )}
             value={month}
           />
-          <SelectBox
-            onChange={event => this.onYearChange(event)}
-            options={months()}
+          <InputText
+            name="year"
+            placeholder="Year"
+            onChange={this.onChange}
             value={year}
+            maxlength={4}
           />
         </div>
         {terms && (
@@ -241,7 +269,7 @@ class RegisterForm extends Component {
           size="medium"
           theme="primary"
           onClick={this.handleSubmit}
-          disabled={!this.formIsValid() || isLoading}
+          disabled={!this.isValidForm() || isLoading}
           type="submit"
           fullWidth
         >

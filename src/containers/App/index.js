@@ -419,7 +419,7 @@ class App extends Component {
     try {
       this.setState({ error: null });
       const response = await register(form);
-
+      console.log(form);
       if (response.status !== 200) {
         return this.setState({ error: response });
       }
@@ -563,7 +563,6 @@ class App extends Component {
               variant="body"
             />
           </div>
-
           {registerLoginModalOpen === "login" ? (
             <LoginForm
               onSubmit={has2FA ? this.handleLogin2FA : this.handleLogin}

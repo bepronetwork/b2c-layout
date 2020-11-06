@@ -1,8 +1,8 @@
-const generateIntegers = (from = 1, to = 31) => {
+const generateIntegers = (from, to) => {
   const integers = [];
 
   for (let index = from; index < to + 1; index += 1) {
-    integers.push(`${index}`);
+    integers.push(`0${index}`.slice(-2));
   }
 
   return integers;

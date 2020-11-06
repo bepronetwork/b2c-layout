@@ -33,3 +33,11 @@ package-lock.json
 /public/logo.ico
 /public/index.html
 /public/logo.png
+/.idea/.gitignore
+/.idea/codeStyles/codeStyleConfig.xml
+/.idea/jsLibraryMappings.xml
+/.idea/layout-1.iml
+/.idea/misc.xml
+/.idea/modules.xml
+/.idea/inspectionProfiles/Project_Default.xml
+/.idea/vcs.xml
