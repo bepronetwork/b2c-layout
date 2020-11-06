@@ -43,6 +43,7 @@ class RegisterForm extends Component {
       month: { text: "Month" },
       day: { text: "Day" },
       year: "",
+      age: "",
       isValidBirthdate: false
     };
     this.onChange = this.onChange.bind(this);
@@ -99,6 +100,10 @@ class RegisterForm extends Component {
     const isLegalAge = dateFx >= 18;
     const isUndefinedAge = dateFx > 50;
     const isValidDate = year.length === 4 && !isUndefinedAge && isLegalAge;
+
+    if (isValidDate) {
+      this.setState({ age: dateFx });
+    }
 
     this.setState({ isValidBirthdate: isValidDate });
   };
