@@ -42,6 +42,7 @@
     "browser-cookies": "^1.2.0",
     "chatcamp": "^2.3.6",
     "classnames": "^2.2.6",
+    "countries-list": "^2.5.6",
     "crypto-js": "^3.1.9-1",
     "css-loader": "^2.1.1",
     "css-to-javascript": "^1.0.2",

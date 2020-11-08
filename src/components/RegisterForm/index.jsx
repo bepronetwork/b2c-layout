@@ -12,9 +12,10 @@ import { connect } from "react-redux";
 import { compose } from "lodash/fp";
 import loading from "assets/loading-circle.gif";
 import moment from "moment";
+import { countries } from "countries-list";
 import Cache from "../../lib/cache/cache";
 import { CopyText } from "../../copy";
-import { getAppCustomization } from "../../lib/helpers";
+import { getAppCustomization, getApp } from "../../lib/helpers";
 import "./index.css";
 import generateMonths from "../../utils/generateMonths";
 import generateIntegers from "../../utils/generateIntegers";
@@ -23,11 +24,13 @@ import leadingWithZero from "../../utils/leadingWithZero";
 class RegisterForm extends Component {
   static propTypes = {
     onSubmit: PropTypes.func.isRequired,
-    error: PropTypes.number
+    error: PropTypes.number,
+    ln: PropTypes.string
   };
 
   static defaultProps = {
-    error: null
+    error: null,
+    ln: ""
   };
 
   constructor(props) {
@@ -43,15 +46,22 @@ class RegisterForm extends Component {
       month: { text: "Month" },
       day: { text: "Day" },
       year: "",
-      birthdate: "",
-      isValidBirthdate: false
+      birthDate: "",
+      restrictedCountries: [],
+      isValidBirthdate: false,
+      userCountry: { text: "Country" }
     };
     this.onChange = this.onChange.bind(this);
   }
 
-  componentDidMount() {
+  componentDidMount() {}
+
+  componentDidMount = async () => {
+    const app = await getApp();
+
     this.projectData(this.props);
-  }
+    this.setState({ restrictedCountries: app.restrictedCountries });
+  };
 
   componentWillReceiveProps(props) {
     this.projectData(props);
@@ -82,6 +92,10 @@ class RegisterForm extends Component {
     this.setState({ month: option }, this.checkAge);
   };
 
+  onCountryChange = ({ option }) => {
+    this.setState({ userCountry: option }, this.checkAge);
+  };
+
   onHandlerConfirm() {
     const { isConfirmed } = this.state;
 
@@ -94,23 +108,23 @@ class RegisterForm extends Component {
     const thisYear = thisMoment.getFullYear();
     const thisMonth = thisMoment.getMonth();
     const thisDay = thisMoment.getDay();
-    const birthdateFx = moment(`${year}-${month.value}-${day.value}`);
+    const birthDateFx = moment(`${year}-${month.value}-${day.value}`);
     const ageFx = moment(
       `${thisYear}-${leadingWithZero(thisMonth)}-${leadingWithZero(thisDay)}`
-    ).diff(birthdateFx, "years");
-    const isLegalAge = ageFx >= 18;
-    const isUndefinedAge = ageFx > 50;
+    ).diff(birthDateFx, "years");
+    const isLegalAge = ageFx >= 18; // legal age
+    const isUndefinedAge = ageFx > 72; // life expectancy
     const isValidDate = year.length === 4 && !isUndefinedAge && isLegalAge;
-    const birthdate = birthdateFx.format("L");
+    const birthDate = birthDateFx.format("L");
 
     this.setState({
       isValidBirthdate: isValidDate,
-      birthdate
+      birthDate
     });
   };
 
   handleSubmit = async event => {
-    const { username, password, email, birthdate } = this.state;
+    const { username, password, email, birthDate, userCountry } = this.state;
     const { onSubmit } = this.props;
     const affiliateLink = Cache.getFromCache("affiliate");
 
@@ -118,7 +132,14 @@ class RegisterForm extends Component {
     event.preventDefault();
 
     if (onSubmit && this.isValidForm()) {
-      await onSubmit({ username, password, email, birthdate, affiliateLink });
+      await onSubmit({
+        username,
+        password,
+        email,
+        birthDate,
+        affiliateLink,
+        userCountry
+      });
     }
 
     this.setState({ isLoading: false });
@@ -131,22 +152,24 @@ class RegisterForm extends Component {
       isValidEmail,
       isConfirmed,
       terms,
-      isValidBirthdate
+      isValidBirthdate,
+      userCountry
     } = this.state;
     const isValidUsername = username !== "";
     const isValidPassword = password !== "";
+    const isValidUserCountry = userCountry.value;
 
     return (
       isValidUsername &&
       isValidPassword &&
       isValidEmail &&
       isValidBirthdate &&
+      isValidUserCountry &&
       (!terms || isConfirmed)
     );
   };
 
-  projectData = async props => {
-    const { ln } = props;
+  projectData = async ({ ln }) => {
     const { footer } = getAppCustomization();
     const { languages } = footer;
     const supportLinks = languages.find(({ language }) => {
@@ -172,10 +195,24 @@ class RegisterForm extends Component {
       terms,
       month,
       day,
-      year
+      year,
+      restrictedCountries,
+      userCountry
     } = this.state;
     const copy = CopyText.registerFormIndex[ln];
     const { skin } = getAppCustomization();
+    const countriesEntries = [];
+
+    Object.entries(countries).forEach(([key, value]) => {
+      return countriesEntries.push({
+        country: key,
+        data: value
+      });
+    });
+
+    const availableCountries = countriesEntries.filter(
+      ({ country }) => !restrictedCountries.includes(country)
+    );
 
     return (
       <form onSubmit={this.handleSubmit} styleName="root">
@@ -230,6 +267,16 @@ class RegisterForm extends Component {
             maxlength={4}
           />
         </div>
+        <SelectBox
+          gutterBottom
+          onChange={event => this.onCountryChange(event)}
+          options={availableCountries.map(({ country, data }) => ({
+            text: data.name,
+            value: country,
+            channel_id: country
+          }))}
+          value={userCountry}
+        />
         {terms && (
           <div styleName="agree">
             <div styleName="agree-main">

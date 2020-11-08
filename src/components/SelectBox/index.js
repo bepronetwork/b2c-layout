@@ -20,6 +20,10 @@ class SelectBox extends React.Component {
     this.projectData(this.props);
   }
 
+  componentWillReceiveProps(props) {
+    this.projectData(props);
+  }
+
   componentDidUpdate() {
     const { open } = this.state;
 
@@ -32,10 +36,6 @@ class SelectBox extends React.Component {
 
   componentWillUnmount() {
     document.removeEventListener("mousedown", this.handleClickOutside);
-  }
-
-  componentWillReceiveProps(props) {
-    this.projectData(props);
   }
 
   handleClickOutside = event => {
@@ -51,7 +51,7 @@ class SelectBox extends React.Component {
 
   projectData = props => {
     if (props.value) {
-      this.setState({ ...this.state, value: props.value });
+      this.setState({ value: props.value });
     }
   };
 
@@ -64,67 +64,49 @@ class SelectBox extends React.Component {
   onChange = option => {
     const { onChange } = this.props;
 
-    this.setState({ ...this.state, value: option, open: false });
+    this.setState({ value: option, open: false });
 
     onChange({ option });
   };
 
-  renderLabel() {
+  render() {
     const { value, open } = this.state;
+    const { options, gutterBottom, name } = this.props;
     const skin = getAppCustomization().skin.skin_type;
     const arrowUpIcon = getIcon(24);
     const arrowDownIcon = getIcon(25);
+    const iconButtonSkin = (digitalOne, another) =>
+      skin === "digital" ? digitalOne : another;
+    const iconFallback = (condition, render, fallback) =>
+      condition ? render : fallback;
 
     return (
-      <div styleName="label">
-        {value.text}
-        {open ? (
-          arrowUpIcon === null ? (
-            skin == "digital" ? (
-              <ArrowUpIcon />
-            ) : (
-              <ArrowUp />
-            )
-          ) : (
-            <img src={arrowUpIcon} />
-          )
-        ) : arrowDownIcon === null ? (
-          skin == "digital" ? (
-            <ArrowDownIcon />
-          ) : (
-            <ArrowDown />
-          )
-        ) : (
-          <img src={arrowDownIcon} />
-        )}
-      </div>
-    );
-  }
-
-  render() {
-    const { open } = this.state;
-    const { options, gutterBottom, name } = this.props;
-
-    return (
-      <div
-        styleName={classNames("root", { gutterBottom: gutterBottom })}
-        onClick={this.handleClick}
-      >
+      <div styleName={classNames("root", { gutterBottom })}>
         <button
+          onClick={this.handleClick}
+          type="button"
           ref={el => {
             this.labelRef = el;
           }}
-          type="button"
+          styleName="label"
         >
-          {this.renderLabel()}
+          {value.text}
+          {open
+            ? iconFallback(
+                arrowUpIcon,
+                <img src={arrowUpIcon} alt="Arrow Up Icon" />,
+                iconButtonSkin(<ArrowUpIcon />, <ArrowUp />)
+              )
+            : iconFallback(
+                arrowDownIcon,
+                <img src={arrowDownIcon} alt="Arrow Down Icon" />,
+                iconButtonSkin(<ArrowDownIcon />, <ArrowDown />)
+              )}
         </button>
         {open && (
           <div styleName="options">
             <span styleName="triangle" />
             <div
-              ref={el => {
-                this.optionsRef = el;
-              }}
               style={{
                 maxHeight: 192,
                 overflow: "auto"
@@ -138,6 +120,9 @@ class SelectBox extends React.Component {
                   onClick={() => this.onChange(option)}
                   type="button"
                   name={name}
+                  ref={el => {
+                    this.optionsRef = el;
+                  }}
                 >
                   <Typography variant="small-body" color="grey">
                     {option.text}

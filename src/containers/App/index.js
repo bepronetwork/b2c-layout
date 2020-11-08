@@ -546,7 +546,11 @@ class App extends Component {
     return registerLoginModalOpen ? (
       <Modal onClose={this.handleRegisterLoginModalClose}>
         <div styleName="modal modal-login">
-          <img src={logo.id} styleName="tkn_logo_login" alt="TKN Logo Login" />
+          <img
+            src={`${logo.id}`}
+            styleName="tkn_logo_login"
+            alt="TKN Logo Login"
+          />
 
           <div styleName="tabs">
             <Tabs
