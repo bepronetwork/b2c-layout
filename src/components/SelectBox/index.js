@@ -81,15 +81,15 @@ class SelectBox extends React.Component {
       condition ? render : fallback;
 
     return (
-      <div styleName={classNames("root", { gutterBottom })}>
-        <button
-          onClick={this.handleClick}
-          type="button"
-          ref={el => {
-            this.labelRef = el;
-          }}
-          styleName="label"
-        >
+      <div
+        styleName={classNames("root", { gutterBottom })}
+        onClick={this.handleClick}
+        ref={el => {
+          this.labelRef = el;
+        }}
+        role="button"
+      >
+        <span styleName="label">
           {value.text}
           {open
             ? iconFallback(
@@ -102,7 +102,7 @@ class SelectBox extends React.Component {
                 <img src={arrowDownIcon} alt="Arrow Down Icon" />,
                 iconButtonSkin(<ArrowDownIcon />, <ArrowDown />)
               )}
-        </button>
+        </span>
         {open && (
           <div styleName="options">
             <span styleName="triangle" />
@@ -119,7 +119,6 @@ class SelectBox extends React.Component {
                   id={option.channel_id}
                   onClick={() => this.onChange(option)}
                   type="button"
-                  name={name}
                   ref={el => {
                     this.optionsRef = el;
                   }}

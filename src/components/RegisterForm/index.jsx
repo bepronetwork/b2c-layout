@@ -35,6 +35,9 @@ class RegisterForm extends Component {
 
   constructor(props) {
     super(props);
+    const { ln } = this.props;
+    const copy = CopyText.registerFormIndex[ln];
+
     this.state = {
       username: "",
       password: "",
@@ -43,18 +46,16 @@ class RegisterForm extends Component {
       isLoading: false,
       isConfirmed: false,
       terms: null,
-      month: { text: "Month" },
-      day: { text: "Day" },
+      month: { text: copy.INDEX.INPUT_TEXT.LABEL[7] },
+      day: { text: copy.INDEX.INPUT_TEXT.LABEL[6] },
       year: "",
       birthDate: "",
       restrictedCountries: [],
       isValidBirthdate: false,
-      userCountry: { text: "Country" }
+      userCountry: { text: copy.INDEX.INPUT_TEXT.LABEL[9] }
     };
     this.onChange = this.onChange.bind(this);
   }
-
-  componentDidMount() {}
 
   componentDidMount = async () => {
     const app = await getApp();
@@ -184,23 +185,8 @@ class RegisterForm extends Component {
     this.setState({ terms });
   };
 
-  render() {
-    const { error, ln } = this.props;
-    const {
-      username,
-      password,
-      email,
-      isLoading,
-      isConfirmed,
-      terms,
-      month,
-      day,
-      year,
-      restrictedCountries,
-      userCountry
-    } = this.state;
-    const copy = CopyText.registerFormIndex[ln];
-    const { skin } = getAppCustomization();
+  availableCountries = () => {
+    const { restrictedCountries } = this.state;
     const countriesEntries = [];
 
     Object.entries(countries).forEach(([key, value]) => {
@@ -213,6 +199,26 @@ class RegisterForm extends Component {
     const availableCountries = countriesEntries.filter(
       ({ country }) => !restrictedCountries.includes(country)
     );
+
+    return availableCountries;
+  };
+
+  render() {
+    const { error, ln } = this.props;
+    const {
+      username,
+      password,
+      email,
+      isLoading,
+      isConfirmed,
+      terms,
+      month,
+      day,
+      year,
+      userCountry
+    } = this.state;
+    const copy = CopyText.registerFormIndex[ln];
+    const { skin } = getAppCustomization();
 
     return (
       <form onSubmit={this.handleSubmit} styleName="root">
@@ -250,18 +256,16 @@ class RegisterForm extends Component {
           />
           <SelectBox
             onChange={event => this.onMonthChange(event)}
-            options={generateMonths("en-US", "MMM").map(
-              (monthToObj, index) => ({
-                text: monthToObj,
-                value: leadingWithZero(index),
-                channel_id: monthToObj
-              })
-            )}
+            options={generateMonths(ln, "MMM").map((monthToObj, index) => ({
+              text: monthToObj,
+              value: leadingWithZero(index),
+              channel_id: monthToObj
+            }))}
             value={month}
           />
           <InputText
             name="year"
-            placeholder="Year"
+            placeholder={copy.INDEX.INPUT_TEXT.LABEL[8]}
             onChange={this.onChange}
             value={year}
             maxlength={4}
@@ -270,7 +274,7 @@ class RegisterForm extends Component {
         <SelectBox
           gutterBottom
           onChange={event => this.onCountryChange(event)}
-          options={availableCountries.map(({ country, data }) => ({
+          options={this.availableCountries().map(({ country, data }) => ({
             text: data.name,
             value: country,
             channel_id: country

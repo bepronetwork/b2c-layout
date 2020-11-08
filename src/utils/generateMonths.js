@@ -1,5 +1,5 @@
 import moment from "moment";
-import "moment/locale/pt-br";
+import "moment/min/locales";
 
 const generateMonths = (locale, format) => {
   moment.locale(locale);
