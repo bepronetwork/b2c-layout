@@ -551,7 +551,6 @@ class App extends Component {
             styleName="tkn_logo_login"
             alt="TKN Logo Login"
           />
-
           <div styleName="tabs">
             <Tabs
               selected={registerLoginModalOpen}

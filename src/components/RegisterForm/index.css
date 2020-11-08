@@ -37,8 +37,7 @@
 }
 
 .birth-fields {
-  margin: calc($spacing-8 * -1);
-  margin-bottom: $spacing-8;
+  margin: $spacing-8 calc($spacing-8 * -1) $spacing-8;
   display: flex;
 
   > * {

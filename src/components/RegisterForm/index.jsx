@@ -244,6 +244,9 @@ class RegisterForm extends Component {
           onChange={this.onChange}
           value={email}
         />
+        <Typography color="grey" variant="small-body">
+          {copy.INDEX.TYPOGRAPHY.TEXT[4]}
+        </Typography>
         <div styleName="birth-fields">
           <SelectBox
             onChange={event => this.onDayChange(event)}

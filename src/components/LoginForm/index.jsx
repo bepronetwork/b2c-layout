@@ -173,6 +173,7 @@ class LoginForm extends Component {
           theme="primary"
           disabled={!this.formIsValid() || isLoading}
           type="submit"
+          fullWidth
         >
           {isLoading ? (
             <img src={loading} alt="Loading GIF" style={{ width: 24 }} />
