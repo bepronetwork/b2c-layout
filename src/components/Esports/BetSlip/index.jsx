@@ -52,7 +52,7 @@ class BetSlip extends Component {
     updateMatch = async (data) => {
         const { betSlip } = this.state;
 
-        const ids = betSlip ? [...betSlip.map(bet => bet.externalMatchId)] : [];
+        const ids = betSlip && _.isArray(betSlip) ? betSlip.map(bet => bet.externalMatchId) : [];
 
         if (ids.includes(data.message)) {
             const match = await getMatch(data.message);
