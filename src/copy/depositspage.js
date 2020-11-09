@@ -62,7 +62,7 @@ const depositspageCopy =
       "DEPOSITS": {
         "TITLE": "Deposits",
         "ITEMS": [
-            "Хэш транзекции",
+            "Хеш транзакции",
             "Дата создания",
             "Количество",
             "Бонусная сумма",

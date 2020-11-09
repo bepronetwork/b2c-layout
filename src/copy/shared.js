@@ -9,12 +9,14 @@
     "UNDO_NAME": "Undo",
     "EVEN_NAME": "Even",
     "ODD_NAME": "Odd",
+    "TO": "to",
     "TOTAL_BET_NAME": "Total bet",
     "BET_NAME": "Bet",
     "DOUBLE_DOWN_NAME": "Double Down",
     "AUTO_BET_NAME": "Start Auto Bet",
     "MANUAL_NAME": "Manual",
-    "AUTO_NAME": "Auto"
+    "AUTO_NAME": "Auto",
+    "GAMES_NAME": "Games"
   },
   "kr": {
     "CHIP_INFO": "칩 가치",
@@ -24,12 +26,14 @@
     "UNDO_NAME": "취소",
     "EVEN_NAME": "짝수",
     "ODD_NAME": "홀수",
+    "TO": "to",
     "TOTAL_BET_NAME": "총 베트",
     "DOUBLE_DOWN_NAME": "2배 베팅",
     "BET_NAME": "베트",
     "AUTO_BET_NAME": "자동 베트 시작",
     "MANUAL_NAME": "수동",
-    "AUTO_NAME": "자동"
+    "AUTO_NAME": "자동",
+    "GAMES_NAME": "Games"
   },
   "ch": {
     "CHIP_INFO": "筹码值",
@@ -40,11 +44,13 @@
     "UNDO_NAME": "取消",
     "EVEN_NAME": "偶数",
     "ODD_NAME": "奇数",
+    "TO": "to",
     "TOTAL_BET_NAME": "总投注",
     "BET_NAME": "下注",
     "AUTO_BET_NAME": "开始自动下注",
     "MANUAL_NAME": "手动",
-    "AUTO_NAME": "自动"
+    "AUTO_NAME": "自动",
+    "GAMES_NAME": "Games"
   },
   "jp": {
     "CHIP_INFO": "チップバリュー",
@@ -55,26 +61,30 @@
     "UNDO_NAME": "アンドゥ(取消)",
     "EVEN_NAME": "イーブン(偶数)",
     "ODD_NAME": "オッド(奇数）",
+    "TO": "to",
     "TOTAL_BET_NAME": "トータルベッド",
     "BET_NAME": "ベット",
     "AUTO_BET_NAME": "オートベット開始",
     "MANUAL_NAME": "マニュアル",
-    "AUTO_NAME": "オート"
+    "AUTO_NAME": "オート",
+    "GAMES_NAME": "Games"
   },
   "ru": {
-    "CHIP_INFO": "Chip Value",
+    "CHIP_INFO": "Номинал Фишки",
     "EDGE_NAME": "Edge",
     "PLACEHOLDER_CHAT": "Type your Message",
-    "CLEAR_NAME": "Clear",
-    "UNDO_NAME": "Undo",
-    "EVEN_NAME": "Even",
-    "ODD_NAME": "Odd",
-    "TOTAL_BET_NAME": "Total bet",
-    "BET_NAME": "Bet",
-    "DOUBLE_DOWN_NAME": "Double Down",
+    "CLEAR_NAME": "Очистить",
+    "UNDO_NAME": "Отменить",
+    "EVEN_NAME": "Чет",
+    "ODD_NAME": "Нечет",
+    "TO": "до",
+    "TOTAL_BET_NAME": "Всего Ставок",
+    "BET_NAME": "Ставка",
+    "DOUBLE_DOWN_NAME": "Удвоить Ставку",
     "AUTO_BET_NAME": "Start Auto Bet",
-    "MANUAL_NAME": "Manual",
-    "AUTO_NAME": "Auto"
+    "MANUAL_NAME": "Вручную",
+    "AUTO_NAME": "Авто",
+    "GAMES_NAME": "Игры"
   }
 }
     export default sharedCopy;

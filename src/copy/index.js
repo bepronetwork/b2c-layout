@@ -140,6 +140,8 @@ import depositspageCopy from './depositspage';
 import withdrawspageCopy from './withdrawspage';
 import countryRestrictedPageCopy from './countryRestrictedPage';
 import DiamondGamePageCopy from "./diamondGame";
+import ThirdPartyCopy from "./thirdPartyGames";
+import tableInfoCopy from "./table";
 
 const CopyText = {
     Errors: errorsCopy,
@@ -258,7 +260,9 @@ const CopyText = {
     subtleButtonIndex: subtleButtonIndexCopy,
     tabedContainerIndex: tabedContainerIndexCopy,
     tabsIndex: tabsIndexCopy,
+    tableIndex: tableInfoCopy,
     textContainerIndex: textContainerIndexCopy,
+    thirdPartyGamesIndex: ThirdPartyCopy,
     toggleButtonIndex: toggleButtonIndexCopy,
     toggleFormIndex: toggleFormIndexCopy,
     typographyIndex: typographyIndexCopy,

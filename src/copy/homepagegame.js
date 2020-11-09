@@ -171,7 +171,7 @@
         ]
       },
       "BIGGEST_WIN_BETS": {
-        "TITLE": "Biggest Wins",
+        "TITLE": "Крупнейшие Выигрыши",
         "ITEMS": [
           "Игра",
           "Id Ставки",

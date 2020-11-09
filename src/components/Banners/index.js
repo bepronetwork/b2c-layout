@@ -65,7 +65,7 @@ class Banners extends Component {
                         const textStyles = classNames("text", { "text-full": isFullWidth, "no-text": isFullWidth && !banner.title && !banner.subtitle });
                         return (
                             <Carousel.Item>
-                                <div styleName={bannerStyles} style={{background: isFullWidth == true || (isFullWidth == false && !banner.title && !banner.subtitle) ? "url("+banner.image_url+") center center / cover no-repeat" : null}}>
+                                <div styleName={!banner.title && !banner.subtitle ?"banner-without-text" : bannerStyles} style={{background: isFullWidth == true || (isFullWidth == false && !banner.title && !banner.subtitle) ? "url("+banner.image_url+") center center / cover no-repeat" : null}}>
                                     <div styleName={textStyles}>
                                         {
                                             banner.title || banner.subtitle || banner.button_text ?
@@ -94,23 +94,7 @@ class Banners extends Component {
                                         <div styleName={styles}>
                                             {
                                                 banner.title || banner.subtitle || banner.button_text ?
-                                                    <div>
-                                                        <div styleName="fields">
-                                                            <Typography color={'fixedwhite'} variant={'h3'} weight={'bold'}>{banner.title}</Typography>
-                                                        </div>
-
-                                                        <div styleName="fields fields-text">
-                                                            <Typography color={'fixedwhite'} variant={'body'}>{banner.subtitle}</Typography>
-                                                        </div>
-                                                        
-                                                        {banner.button_text &&  banner.link_url ?
-                                                            <Button  onClick={() => this.handleClick(banner.link_url)} theme="action" size={'x-small'}>
-                                                                <Typography color={skin == "digital" ? "secondary" : "fixedwhite"} variant={'body'}>{banner.button_text}</Typography>
-                                                            </Button>
-                                                            : 
-                                                            null
-                                                        }
-                                                    </div>
+                                                    <div/>
                                                 :
                                                     <div/>
                                             }

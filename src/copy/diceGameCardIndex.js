@@ -11,6 +11,7 @@
       "INPUT_NUMBER": {
         "TITLE": [
           "Payout",
+          "Roll Under",
           "Win Chance"
         ]
       }
@@ -26,6 +27,7 @@
       "INPUT_NUMBER": {
         "TITLE": [
           "수익",
+          "Roll Under",
           "승률"
         ]
       }
@@ -41,6 +43,7 @@
       "INPUT_NUMBER": {
         "TITLE": [
           "花费",
+          "Roll Under",
           "胜率(奇数)"
         ]
       }
@@ -56,6 +59,7 @@
       "INPUT_NUMBER": {
         "TITLE": [
           "Payout",
+          "Roll Under",
           "Win Chance"
         ]
       }
@@ -71,6 +75,7 @@
       "INPUT_NUMBER": {
         "TITLE": [
           "Выплата",
+          "Крутить До",
           "Шанс выиграть"
         ]
       }
