@@ -65,8 +65,8 @@ class Banners extends Component {
                         const textStyles = classNames("text", { "text-full": isFullWidth, "no-text": isFullWidth && !banner.title && !banner.subtitle });
                         return (
                             <Carousel.Item>
-                                <div styleName={!banner.title && !banner.subtitle ?"banner-without-text" : bannerStyles} style={{background: isFullWidth == true || (isFullWidth == false && !banner.title && !banner.subtitle) ? "url("+banner.image_url+") center center / cover no-repeat" : null}}>
-                                    <div styleName={textStyles}>
+                                <div styleName={!banner.title && !banner.subtitle ? "banner-without-text" : bannerStyles} style={{background: isFullWidth == true || (isFullWidth == false && !banner.title && !banner.subtitle) ? "url("+banner.image_url+") center center / cover no-repeat" : null}}>
+                                    <div styleName={banner.title &&  banner.subtitle ? textStyles : "text-full-without-padding"}>
                                         {
                                             banner.title || banner.subtitle || banner.button_text ?
                                                 <div styleName="banner-content">
