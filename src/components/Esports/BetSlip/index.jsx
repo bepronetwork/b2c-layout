@@ -14,8 +14,12 @@ import { v4 as uuidv4 } from 'uuid';
 import _ from 'lodash';
 import "./index.css";
 
+import { getMatch } from '../../../controllers/Esports/EsportsUser'
+
+import socketConnection from '../../../containers/Esports/WebSocket'
 
 class BetSlip extends Component {
+    static contextType = socketConnection;
 
     constructor(props){
         super(props);
@@ -30,10 +34,44 @@ class BetSlip extends Component {
 
     componentDidMount() {
         this.projectData(this.props)
+        this.createSocketConnection(this.props);
     }
 
     componentWillReceiveProps(props){
         this.projectData(props);
+    }
+
+    createSocketConnection = () => {
+        const { connection } = this.context;
+
+        if (connection) {
+            connection.on("matchUpdate", _.debounce(this.updateMatch, 1000));
+        }
+    }
+
+    updateMatch = async (data) => {
+        const { betSlip } = this.state;
+
+        const ids = betSlip ? [...betSlip.map(bet => bet.externalMatchId)] : [];
+
+        if (ids.includes(data.message)) {
+            const match = await getMatch(data.message);
+
+            let newBetSlip = [...betSlip];
+
+            const betSlipArr = newBetSlip.map(bet => {
+                if (bet.externalMatchId === match.id && !_.isEmpty(match.odds)) {
+
+                    const opponent = match.odds[bet.type].find(opponent => opponent.participant_id === bet.id);
+
+                    return {...bet, odd: opponent.odd }
+                } else {
+                    return bet
+                }
+            })
+
+            await this.props.dispatch(setBetSlipResult(betSlipArr))
+        }
     }
 
     projectData = (props) => {

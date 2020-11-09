@@ -8,7 +8,10 @@ import { getSkeletonColors } from "../../../lib/helpers";
 import _ from 'lodash';
 import "./index.css";
 
+import socketConnection from '../WebSocket'
+
 class MatchPage extends Component {
+    static contextType = socketConnection;
 
     constructor(props){
         super(props);
@@ -23,10 +26,38 @@ class MatchPage extends Component {
 
     componentDidMount(){
         this.projectData(this.props)
+        this.createSocketConnection(this.props);
     }
 
     componentWillReceiveProps(props){
         this.projectData(props);
+    }
+
+    
+    createSocketConnection = () => {
+        const { connection } = this.context;
+
+        if (connection) {
+            connection.on("matchUpdate", _.debounce(this.updateMatch, 1000));
+        }
+    }
+
+    updateMatch = async (data) => {
+        const { match } = this.state;
+
+        if (match && match.id === data.message) {
+            const matchUpdated = await getMatch(data.message);
+
+            if (matchUpdated && !_.isEmpty(matchUpdated.odds)) {
+                const isLive = matchUpdated.status == "live";
+    
+                this.setState({
+                    match: matchUpdated,
+                    isLoading: false,
+                    isLive
+                });
+            }
+        }
     }
 
     projectData = async (props) => {

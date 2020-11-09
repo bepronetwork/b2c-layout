@@ -70,6 +70,7 @@ class Opponents extends Component {
         }
 
         this.setState({
+            id: match.id,
             opponent1,
             opponent2,
             drawOdd,            
@@ -100,7 +101,7 @@ class Opponents extends Component {
 
     render() {
         const { betSlip } = this.props;
-        const { opponent1, opponent2, isScoreBoard, drawOdd, matchName, matchId, gameImage, isLoaded, status } = this.state;
+        const { opponent1, opponent2, isScoreBoard, drawOdd, matchName, matchId, gameImage, id, isLoaded, status } = this.state;
 
         if(!isLoaded) { return null };
 
@@ -125,9 +126,9 @@ class Opponents extends Component {
             "selected" : !isScoreBoard && isDrawSelected
         });
 
-        const opponent1Bet = formatOpponentBet(opponent1, matchId, matchName, 0);
+        const opponent1Bet = formatOpponentBet(opponent1, matchId, matchName, 0, id);
 
-        const opponent2Bet = formatOpponentBet(opponent2, matchId, matchName, 0);
+        const opponent2Bet = formatOpponentBet(opponent2, matchId, matchName, 0, id);
 
         const drawBet = drawOdd != null ? formatDrawBet(drawId, drawOdd, matchId, matchName, gameImage, 0) : null;
 

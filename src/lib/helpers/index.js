@@ -254,7 +254,7 @@ function formatOpponentData(match, index, gameImage) {
     return opponent;
 }
 
-function formatOpponentBet(opponent, matchId, matchName, amount) {
+function formatOpponentBet(opponent, matchId, matchName, amount, id) {
 
     const opponentBet = { 
         id: opponent.odd.participant_id,
@@ -265,6 +265,7 @@ function formatOpponentBet(opponent, matchId, matchName, amount) {
         type: opponent.type,
         position: opponent.odd.position,
         matchId,
+        externalMatchId: id,
         amount
     };
 
