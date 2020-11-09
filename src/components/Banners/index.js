@@ -78,6 +78,8 @@ class Banners extends Component {
                                                         <Typography color={'white'} variant={'small-body'}>{banner.subtitle}</Typography>
                                                     </div>
                                                     
+                                                    <div styleName={!banner.title && !banner.subtitle ? "button-container" : null}>
+                                                        
                                                     {banner.button_text &&  banner.link_url ?
                                                         <Button  onClick={() => this.handleClick(banner.link_url)} theme="action">
                                                             <Typography color={skin == "digital" ? "secondary" : "fixedwhite"} variant={'small-body'}>{banner.button_text}</Typography>
@@ -85,6 +87,7 @@ class Banners extends Component {
                                                     : 
                                                         null
                                                     }
+                                                    </div>
                                                 </div>
                                             :
                                                 <div/>

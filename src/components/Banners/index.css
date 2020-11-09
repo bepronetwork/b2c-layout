@@ -63,7 +63,8 @@
 }
 
 .text-full-without-padding {
-    width: 100%;
+    width: 50%;
+    height: 100%;
 }
 
 .text-image{
@@ -126,4 +127,11 @@
     border-radius: $border-radius;
     background-color: $primaryColor;
     box-shadow: rgba(0, 0, 0, 0.4) 0 5px 6px -2px;
+}
+
+.button-container{
+    position: absolute;
+    bottom: 40;
+    right: 0;
+    left: 0;
 }
