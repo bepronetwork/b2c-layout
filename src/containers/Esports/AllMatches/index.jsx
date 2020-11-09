@@ -2,11 +2,14 @@ import React, { Component } from "react";
 import { Tabs } from "components";
 import { Matches, SerieFilter, GameFilter, BetSlip, BetSlipFloat } from "components/Esports";
 import { connect } from 'react-redux';
-import { getGames, getMatches, getMatchesBySeries } from "controllers/Esports/EsportsUser";
+import { getGames, getMatches, getMatchesBySeries, getMatch } from "controllers/Esports/EsportsUser";
 import _ from 'lodash';
 import "./index.css";
 
+import socketConnection from '../WebSocket'
+
 class AllMatches extends Component {
+    static contextType = socketConnection;
 
     constructor(props){
         super(props);
@@ -24,10 +27,39 @@ class AllMatches extends Component {
 
     componentDidMount(){
         this.projectData(this.props)
+        this.createSocketConnection(this.props);
     }
 
     componentWillReceiveProps(props){
         this.projectData(props);
+    }
+
+    createSocketConnection = () => {
+        const { connection } = this.context;
+
+        if (connection) {
+            connection.on("matchUpdate", _.debounce(this.updateMatch, 1000));
+        }
+    }
+
+    updateMatch = async (data) => {
+        const { matches } = this.state;
+
+        const match = matches.find(match => match.id === data.message);
+
+        if (match) {
+            const matchUpdated = await getMatch(data.message);
+
+            if (matchUpdated && !_.isEmpty(matchUpdated.odds)) {
+                const index = matches.indexOf(match)
+
+                let newMatches = [...matches];
+    
+                newMatches[index] = matchUpdated;
+    
+                this.setState({ matches: newMatches });
+            }
+        }
     }
 
     projectData = async (props) => {

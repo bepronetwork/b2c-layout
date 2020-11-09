@@ -5,9 +5,9 @@ import classNames from "classnames";
 import CloseIcon from "components/Icons/CloseCross";
 import { setBetSlipResult, removeBetSlipFromResult } from "../../../redux/actions/betSlip";
 import { formatOpponentData, formatOpponentBet, formatDrawBet } from "../../../lib/helpers";
+import { getMatch } from '../../../controllers/Esports/EsportsUser'
 import _ from 'lodash';
 import "./index.css";
-
 
 class OddsTable extends Component {
 
@@ -35,7 +35,7 @@ class OddsTable extends Component {
     }
 
     componentDidMount(){
-        this.projectData(this.props)
+        this.projectData(this.props);
     }
 
     componentWillReceiveProps(props){
@@ -49,7 +49,7 @@ class OddsTable extends Component {
         const images = require.context('assets/esports', true);
         const gameImage = images('./' + match.videogame.slug + '-ico.png');
 
-        if(match.odds != null) {
+        if(match.odds != null && !_.isEmpty(match.odds)) {
             const oddType = match.odds.winnerTwoWay.length > 0 ? match.odds.winnerTwoWay : match.odds.winnerThreeWay;
             drawOdd = match.odds.winnerThreeWay.length > 0 ? oddType.find(o => o.participant_id == null) : null;
 
@@ -64,6 +64,7 @@ class OddsTable extends Component {
             drawOdd,
             matchName: match.name,
             matchId: match.match_id,
+            id: match.id,
             gameImage,
             isLoaded: true
         });
