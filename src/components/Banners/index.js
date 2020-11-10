@@ -65,8 +65,8 @@ class Banners extends Component {
                         const textStyles = classNames("text", { "text-full": isFullWidth, "no-text": isFullWidth && !banner.title && !banner.subtitle });
                         return (
                             <Carousel.Item>
-                                <div styleName={!banner.title && !banner.subtitle ?"banner-without-text" : bannerStyles} style={{background: isFullWidth == true || (isFullWidth == false && !banner.title && !banner.subtitle) ? "url("+banner.image_url+") center center / cover no-repeat" : null}}>
-                                    <div styleName={textStyles}>
+                                <div styleName={!banner.title && !banner.subtitle ? "banner-without-text" : bannerStyles} style={{background: isFullWidth == true || (isFullWidth == false && !banner.title && !banner.subtitle) ? "url("+banner.image_url+") center center / cover no-repeat" : null}}>
+                                    <div styleName={banner.title &&  banner.subtitle ? textStyles : "text-full-without-padding"}>
                                         {
                                             banner.title || banner.subtitle || banner.button_text ?
                                                 <div styleName="banner-content">
@@ -78,6 +78,8 @@ class Banners extends Component {
                                                         <Typography color={'white'} variant={'small-body'}>{banner.subtitle}</Typography>
                                                     </div>
                                                     
+                                                    <div styleName={!banner.title && !banner.subtitle ? "button-container" : null}>
+                                                        
                                                     {banner.button_text &&  banner.link_url ?
                                                         <Button  onClick={() => this.handleClick(banner.link_url)} theme="action">
                                                             <Typography color={skin == "digital" ? "secondary" : "fixedwhite"} variant={'small-body'}>{banner.button_text}</Typography>
@@ -85,6 +87,7 @@ class Banners extends Component {
                                                     : 
                                                         null
                                                     }
+                                                    </div>
                                                 </div>
                                             :
                                                 <div/>
