@@ -301,7 +301,7 @@ class DepositForm extends Component {
                                             :
                                                 null
                                         }
-                                        <Typography variant={'small-body'} color={'fixedwhite'}>
+                                        <Typography variant={'x-small-body'} color={'fixedwhite'}>
                                             {copy.INDEX.TYPOGRAPHY.TEXT[1]}
                                         </Typography>
                                     </button>
