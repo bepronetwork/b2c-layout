@@ -237,13 +237,28 @@ function loadWheelOptions(game){
     return options;
 }
 
-function formatOpponentData(match, index, gameImage) {
+function formatOpponentData(match, index, gameImage, odd) {
     const opponentId = match.opponents[index].opponent.id;
     const oddType = _.isEmpty(match.odds) ? [] : match.odds.winnerTwoWay.length > 0 ? match.odds.winnerTwoWay : match.odds.winnerThreeWay;
 
+    const opponentOdd = oddType.find(o => o.participant_id == opponentId);
+
+    let status;
+
+    if (odd && odd.odd !== null) {
+        if (parseFloat(opponentOdd.odd) === parseFloat(odd.odd)) {
+            status = 'stable'
+        } else if (parseFloat(opponentOdd.odd) < parseFloat(odd.odd)) {
+            status = 'down'
+        } else {
+            status = 'up'
+        }
+    }
+
     const opponent = {
         type: _.isEmpty(match.odds) ? null : match.odds.winnerTwoWay.length > 0 ? "winnerTwoWay" : "winnerThreeWay",
-        odd: oddType.find(o => o.participant_id == opponentId),
+        odd: opponentOdd,
+        status: odd && odd != null ? status : 'stable',
         image: match.opponents[index].opponent.image_url != null ? match.opponents[index].opponent.image_url : gameImage,
         name: match.opponents[index].opponent.name,
         location: match.opponents[index].opponent.location,
