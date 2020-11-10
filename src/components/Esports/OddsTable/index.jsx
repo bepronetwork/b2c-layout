@@ -53,9 +53,9 @@ class OddsTable extends Component {
             const oddType = match.odds.winnerTwoWay.length > 0 ? match.odds.winnerTwoWay : match.odds.winnerThreeWay;
             drawOdd = match.odds.winnerThreeWay.length > 0 ? oddType.find(o => o.participant_id == null) : null;
 
-            opponent1 = formatOpponentData(match, 0, gameImage);
+            opponent1 = formatOpponentData(match, 0, gameImage, opponent1.odd);
 
-            opponent2 = formatOpponentData(match, 1, gameImage);
+            opponent2 = formatOpponentData(match, 1, gameImage, opponent2.odd);
         }
 
         this.setState({
@@ -126,7 +126,9 @@ class OddsTable extends Component {
                         <div styleName={opponent1Styles} onClick={() => isOpponent1Selected ? this.handleRemoveToBetSlip(opponent1.id) : this.handleAddToBetSlip(opponent1Bet)}>
                             <img src={opponent1.image} />
                             <Typography variant={'x-small-body'} color={'white'}>{opponent1.name}</Typography>
-                            <Typography variant={'x-small-body'} color={'white'}>{opponent1.odd.odd}</Typography>
+                            <span styleName="group left">
+                                { opponent1.status !== 'stable' && <div styleName={`arrow ${opponent1.status}`}/> } <Typography variant={'x-small-body'} color={'white'}>{opponent1.odd.odd}</Typography>
+                            </span>
                         </div>
                         {
                             drawOdd != null 
@@ -142,7 +144,9 @@ class OddsTable extends Component {
                         <div styleName={opponent2Styles} onClick={() => isOpponent2Selected ? this.handleRemoveToBetSlip(opponent2.id) : this.handleAddToBetSlip(opponent2Bet)}>
                             <img src={opponent2.image} />
                             <Typography variant={'x-small-body'} color={'white'}>{opponent2.name}</Typography>
-                            <Typography variant={'x-small-body'} color={'white'}>{opponent2.odd.odd}</Typography>
+                            <span styleName="group right">
+                                <Typography variant={'x-small-body'} color={'white'}>{opponent2.odd.odd}</Typography> { opponent2.status !== 'stable' && <div styleName={`arrow ${opponent2.status}`}/> }
+                            </span>
                         </div>
                     </div>
                 </div>

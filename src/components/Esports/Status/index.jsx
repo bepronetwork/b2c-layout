@@ -1,10 +1,13 @@
 import React, { Component } from "react";
 import { dateToHourAndMinute, formatToBeautyDate } from "../../../lib/helpers";
+import Countdown from 'react-countdown';
+
 import { Typography, Button, LiveIcon } from 'components';
 import classNames from "classnames";
 import _ from 'lodash';
 import "./index.css";
 
+import moment from 'moment'
 
 export default class Status extends Component {
 
@@ -40,10 +43,16 @@ export default class Status extends Component {
     renderPreMatch() {
         const { date } = this.state;
 
+        const renderer = ({ total }) => {
+            return (    
+                <Typography color={'grey'} variant={'x-small-body'}>{dateToHourAndMinute(moment().add(total, 'milliseconds'))}</Typography>
+            )
+        }
+
         return (
             <div styleName="match-schedule">
                 <span>
-                    <Typography color={'grey'} variant={'x-small-body'}>{dateToHourAndMinute(date)}</Typography>
+                    <Countdown date={date} renderer={renderer}/>
                 </span>
                 <span>
                     <Typography color={'grey'} variant={'x-small-body'}>{formatToBeautyDate(date)}</Typography>

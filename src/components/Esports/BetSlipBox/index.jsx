@@ -109,9 +109,12 @@ class BetSlipBox extends Component {
                         bet.success != true
                         ?
                             <div styleName={styles}>
-                                <Typography variant={'small-body'} color={'casper'}>
-                                    {returnBet}
-                                </Typography>
+                                <span styleName="group right">
+                                    <Typography variant={'small-body'} color={'casper'}>
+                                        {returnBet}
+                                    </Typography>
+                                    { bet.status && bet.status !== 'stable' && <div styleName={`arrow ${bet.status}`}/> }
+                                </span>
                             </div>
                         : 
                             null
