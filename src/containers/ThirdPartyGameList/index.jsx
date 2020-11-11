@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Typography, ThirdPartyGameCard, ThirdPartyProviderSelector, Button } from 'components';
+import { Typography, ThirdPartyGameCard, ThirdPartyProviderSelector, Button, GameCounter } from 'components';
 import { connect } from "react-redux";
 import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
 import { getProvidersGames } from "../../lib/api/app";
@@ -162,25 +162,11 @@ class ThirdPartyGameList extends Component {
                     </div>
                 </div>
                 }
-                {
-                    quantity < total
-                    ?
-                        <div styleName="progress">
-                            <div styleName="line">
-                                <LinearProgress variant="determinate" value={(quantity / total) * 100} />
-                            </div>
-                            <div styleName="text">
-                                <Typography variant="x-small-body" color="white">
-                                    {`Displaying ${quantity} of ${total} games`}
-                                </Typography>
-                            </div>
-                            <Button size={'x-small'} theme={'action'} onClick={() => this.onLoadMoreGames()}>
-                                <Typography color={'white'} variant={'small-body'}>Load More</Typography>
-                            </Button>
-                        </div>
-                    :
-                        null
-                }
+                <GameCounter
+                    quantity={quantity}
+                    total={total}
+                    onClick={() => this.onLoadMoreGames()}
+                />  
             </div>
         );
     }
