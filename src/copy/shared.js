@@ -16,7 +16,8 @@
     "AUTO_BET_NAME": "Start Auto Bet",
     "MANUAL_NAME": "Manual",
     "AUTO_NAME": "Auto",
-    "GAMES_NAME": "Games"
+    "GAMES_NAME": "Games",
+    "FOLLOW_US": "Follow us"
   },
   "kr": {
     "CHIP_INFO": "칩 가치",
@@ -33,7 +34,8 @@
     "AUTO_BET_NAME": "자동 베트 시작",
     "MANUAL_NAME": "수동",
     "AUTO_NAME": "자동",
-    "GAMES_NAME": "Games"
+    "GAMES_NAME": "Games",
+    "FOLLOW_US": "Follow us"
   },
   "ch": {
     "CHIP_INFO": "筹码值",
@@ -50,7 +52,8 @@
     "AUTO_BET_NAME": "开始自动下注",
     "MANUAL_NAME": "手动",
     "AUTO_NAME": "自动",
-    "GAMES_NAME": "Games"
+    "GAMES_NAME": "Games",
+    "FOLLOW_US": "Follow us"
   },
   "jp": {
     "CHIP_INFO": "チップバリュー",
@@ -67,12 +70,13 @@
     "AUTO_BET_NAME": "オートベット開始",
     "MANUAL_NAME": "マニュアル",
     "AUTO_NAME": "オート",
-    "GAMES_NAME": "Games"
+    "GAMES_NAME": "Games",
+    "FOLLOW_US": "Follow us"
   },
   "ru": {
     "CHIP_INFO": "Номинал Фишки",
     "EDGE_NAME": "Edge",
-    "PLACEHOLDER_CHAT": "Type your Message",
+    "PLACEHOLDER_CHAT": "Отправить сообщение",
     "CLEAR_NAME": "Очистить",
     "UNDO_NAME": "Отменить",
     "EVEN_NAME": "Чет",
@@ -84,7 +88,8 @@
     "AUTO_BET_NAME": "Start Auto Bet",
     "MANUAL_NAME": "Вручную",
     "AUTO_NAME": "Авто",
-    "GAMES_NAME": "Игры"
+    "GAMES_NAME": "Игры",
+    "FOLLOW_US": "Соцсети"
   }
 }
     export default sharedCopy;

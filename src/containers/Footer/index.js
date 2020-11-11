@@ -141,7 +141,9 @@ class Footer extends Component {
     render() {
         const { supportLinks, communityLinks, logo, info, socialLink } = this.state;
         const props = this.props;
+        const {ln} = this.props;
         let footerInfo = footerStaticOutput({props, supportLinks, communityLinks});
+        const copyShared = CopyText.shared[ln];
 
         return (
             <div styleName="container">
@@ -236,7 +238,7 @@ class Footer extends Component {
                         ?
                             <div styleName="social">
                                 <div styleName="follow">
-                                    <Typography color={"white"} variant={"x-small-body"}> Follow us </Typography>
+                                <Typography color={"white"} variant={"x-small-body"}>{copyShared.FOLLOW_US}</Typography>
                                 </div>
                                 <div styleName="social-icons">
                                 {
