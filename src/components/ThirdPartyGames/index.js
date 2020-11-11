@@ -223,7 +223,7 @@ class ThirdPartyGames extends Component {
                         <div>
                             <div styleName="show" onClick={() => this.linkToGameListPage(providerId)}>
                                 <Typography variant="small-body" color="white">
-                                    {`Show All (${total})`}
+                                    {`${copy.ALL} (${total})`}
                                 </Typography>
                             </div>
                             <div styleName="container-small">
