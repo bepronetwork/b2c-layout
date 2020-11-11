@@ -6,6 +6,8 @@ import { connect } from 'react-redux';
 import _ from 'lodash';
 import "./index.css";
 
+import Countdown from 'react-countdown';
+import moment from 'moment'
 
 class Market extends Component {
 
@@ -38,6 +40,12 @@ class Market extends Component {
         this.setState({ });
     }
 
+    renderer = ({ total }) => {
+        return (    
+            <Typography variant={'small-body'} color={'white'}>{dateToHourAndMinute(moment().add(total, 'milliseconds'))}</Typography>
+        )
+    }
+
     render() {
         const { match } = this.props;
         const images = require.context('assets/esports', true);
@@ -54,7 +62,7 @@ class Market extends Component {
                             <Typography variant={'x-small-body'} color={'grey'}>{formatToBeautyDate(match.begin_at)}</Typography>
                         </div>
                         <div styleName="time">
-                            <Typography variant={'small-body'} color={'white'}>{dateToHourAndMinute(match.begin_at)}</Typography>
+                            <Countdown date={match.begin_at} renderer={this.renderer}/>
                         </div>
                     </div>
                     {

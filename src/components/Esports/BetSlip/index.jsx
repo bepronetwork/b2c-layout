@@ -64,7 +64,17 @@ class BetSlip extends Component {
 
                     const opponent = match.odds[bet.type].find(opponent => opponent.participant_id === bet.id);
 
-                    return {...bet, odd: opponent.odd }
+                    let status;
+
+                    if (parseFloat(opponent.odd) === parseFloat(bet.odd)) {
+                        status = 'stable'
+                    } else if (parseFloat(opponent.odd) < parseFloat(bet.odd)) {
+                        status = 'down'
+                    } else {
+                        status = 'up'
+                    }
+
+                    return {...bet, odd: opponent.odd, status: status }
                 } else {
                     return bet
                 }

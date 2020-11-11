@@ -21,7 +21,8 @@ class Opponents extends Component {
                 image: null,
                 name: "Team 1",
                 score: 0,
-                odd: null
+                odd: null,
+                status: 'stable'
             },
             opponent2: {
                 participant_id: 0,
@@ -29,7 +30,8 @@ class Opponents extends Component {
                 image: null,
                 name: "Team 2",
                 score: 0,
-                odd: null
+                odd: null,
+                status: 'stable'
             },
             drawOdd: null,
             matchName: "Team 1 x Team 2",
@@ -64,9 +66,9 @@ class Opponents extends Component {
             const oddType = match.odds.winnerTwoWay.length > 0 ? match.odds.winnerTwoWay : match.odds.winnerThreeWay;
             drawOdd = match.odds.winnerThreeWay.length > 0 ? oddType.find(o => o.participant_id == null) : null;
 
-            opponent1 = formatOpponentData(match, 0, gameImage);
+            opponent1 = formatOpponentData(match, 0, gameImage, opponent1.odd);
             
-            opponent2 = formatOpponentData(match, 1, gameImage);
+            opponent2 = formatOpponentData(match, 1, gameImage, opponent2.odd);
         }
 
         this.setState({
@@ -150,8 +152,8 @@ class Opponents extends Component {
                         {
                             opponent1.odd != null
                             ?
-                                <span>
-                                    <Typography variant={'x-small-body'} color={'grey'}>{opponent1.odd.odd}</Typography>
+                                <span styleName="group left">
+                                    { opponent1.status !== 'stable' && <div styleName={`arrow ${opponent1.status}`}/> } <Typography variant={'x-small-body'} color={'grey'}>{opponent1.odd.odd}</Typography>
                                 </span>
                             :
                                 null
@@ -205,8 +207,8 @@ class Opponents extends Component {
                         {
                             opponent2.odd != null
                             ?
-                                <span>
-                                    <Typography variant={'x-small-body'} color={'grey'}>{opponent2.odd.odd}</Typography>
+                                <span styleName="group right">
+                                    <Typography variant={'x-small-body'} color={'grey'}>{opponent2.odd.odd}</Typography> { opponent2.status !== 'stable' && <div styleName={`arrow ${opponent2.status}`}/> }
                                 </span>
                             :
                                 null
