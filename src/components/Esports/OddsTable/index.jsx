@@ -114,7 +114,7 @@ class OddsTable extends Component {
 
         const opponent2Bet = formatOpponentBet(opponent2, matchId, matchName, 0, id);
 
-        const drawBet = drawOdd != null ? formatDrawBet(drawId, drawOdd, matchId, matchName, gameImage, 0) : null;
+        const drawBet = drawOdd != null ? formatDrawBet(drawId, drawOdd, matchId, matchName, gameImage, 0, id) : null;
 
         return (
             <div styleName="bets-menu">
