@@ -37,7 +37,8 @@
       },
       "CHAT": {
         "TYPOGRAPHY": [
-          "Send"
+          "Send",
+          "Type your message"
         ]
       },
       "FOOTER": {
@@ -155,7 +156,8 @@
       },
       "CHAT": {
         "TYPOGRAPHY": [
-          "입력"
+          "입력",
+          "Type your message"
         ]
       },
       "FOOTER": {
@@ -265,7 +267,8 @@
       },
       "CHAT": {
         "TYPOGRAPHY": [
-          "输入"
+          "输入",
+          "Type your message"
         ]
       },
       "FOOTER": {
@@ -376,7 +379,8 @@
       },
       "CHAT": {
         "TYPOGRAPHY": [
-          "Send"
+          "Send",
+          "Type your message"
         ]
       },
       "FOOTER": {
@@ -495,7 +499,8 @@
       },
       "CHAT": {
         "TYPOGRAPHY": [
-          "Отправить"
+          "Отправить",
+          "Отправить сообщение"
         ]
       },
       "FOOTER": {
@@ -519,7 +524,7 @@
           BLOG: 'Блог',
           TELEGRAM: 'Телеграм',
           LANGUAGE: 'Язык',
-          RIGHTS: 'Все Права Защищеныd'
+          RIGHTS: 'Все Права Защищены'
         }
       }
     },

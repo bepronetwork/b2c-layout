@@ -15,9 +15,11 @@ class CurrencyFreeMoney extends Component {
 
     return (
       <div styleName="container-root">
-        <Typography variant="small-body" color="white" weight="bold">
-          {title}
-        </Typography>
+        <div styleName="text-align">
+          <Typography variant="small-body" color="white" weight="bold">
+            {title}
+          </Typography>
+        </div>
         <div styleName="container-button-timer">
           <div styleName="row-container">
             <div styleName="container-image">

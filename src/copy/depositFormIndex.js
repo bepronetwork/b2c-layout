@@ -6,7 +6,6 @@
       "TYPOGRAPHY": {
         "TEXT": [
           () => {return "Never send other currencies, we are not responsible for any mistake."},
-          "Never send other currencies, we are not responsible for any mistake.",
           "Copy",
           "Your Deposit Address is being generated, please wait a few minutes.",
           "Price"
