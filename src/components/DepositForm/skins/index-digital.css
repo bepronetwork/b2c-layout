@@ -166,9 +166,31 @@
     width: 100%;
 }
 
+.button-text-container{
+    width: 130px;
+}
+
 @media screen and (max-width: 545px) {
     .text-copy-container{
         width: 130px;
     }
-    
+
+    .flex-row{
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        align-items: center;
+    }
+
+    .link-text-container{
+        border-radius : $border-radius $border-radius 0 0;
+    }
+
+    .text-copy-container{
+        border-radius : 0 0 $border-radius $border-radius;
+        width: 100%;
+    }
+    .button-text-container{
+        width: 100%;
+    }
 }

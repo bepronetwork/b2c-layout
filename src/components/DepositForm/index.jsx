@@ -291,7 +291,7 @@ class DepositForm extends Component {
                                             {address}
                                         </Typography>
                                     </div>
-                                    <div>
+                                    <div styleName="button-text-container">
                                         <button onClick={this.copyToClipboard} styleName='text-copy-container'>
                                             {
                                                 skin.skin_type == "digital"
