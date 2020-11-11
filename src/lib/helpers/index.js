@@ -287,7 +287,7 @@ function formatOpponentBet(opponent, matchId, matchName, amount, id) {
     return opponentBet;
 }
 
-function formatDrawBet(drawId, odd, matchId, matchName, gameImage, amount) {
+function formatDrawBet(drawId, odd, matchId, matchName, gameImage, amount, id) {
 
     const opponentBet = { 
         id: drawId,
@@ -295,6 +295,7 @@ function formatDrawBet(drawId, odd, matchId, matchName, gameImage, amount) {
         title: matchName,
         name: "Draw - Winner, Full Match",
         odd: odd.odd,
+        externalMatchId: id,
         type: "winnerThreeWay",
         position: odd.position,
         matchId,
