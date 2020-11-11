@@ -145,3 +145,13 @@
         height: 20px;
     }
 }
+
+.flex-row{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+}
+
+.copy{
+    margin: $spacing-8;
+}
