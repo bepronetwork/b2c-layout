@@ -58,7 +58,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 200px;
+    width: 130px;
 }
 
 .link-text-container{
@@ -157,7 +157,7 @@
 
 .copy{
     margin: $spacing-8;
-    width: 40%;
+    width: 100%;
 }
 
 @media screen and (max-width: 545px) {

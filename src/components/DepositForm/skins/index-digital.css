@@ -57,8 +57,10 @@
     height : 40px;
     text-align : center;
     border: 1px solid $secondaryColor;
-    display: inline-flex;
+    display: flex;
     align-items: center;
+    justify-content: center;
+    width: 130px;
 
     p {
         color: $secondaryColor;
@@ -161,4 +163,12 @@
 
 .copy{
     margin: $spacing-8;
+    width: 100%;
+}
+
+@media screen and (max-width: 545px) {
+    .text-copy-container{
+        width: 130px;
+    }
+    
 }
