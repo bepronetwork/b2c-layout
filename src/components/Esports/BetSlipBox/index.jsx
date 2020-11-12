@@ -19,6 +19,15 @@ class BetSlipBox extends Component {
     }
 
     componentDidMount() {
+        this.projectData(this.props);
+    }
+
+    projectData = (props) => {
+        const { bet } = props;
+
+        this.setState({
+            amount: bet.amount
+        })
     }
 
     async handleRemoveToBetSlip(id) {
@@ -45,7 +54,6 @@ class BetSlipBox extends Component {
     render() {
         const { bet, type } = this.props;
         const user = this.props.profile;
-        const { amount } = this.state;
 
         const styles = classNames("section", "odds-section", {
             "section-one" : type == "multiple"
@@ -125,7 +133,7 @@ class BetSlipBox extends Component {
                     ?
                         <div styleName="return">
                             <Typography variant={'x-small-body'} color={'grey'}>
-                                to return: {formatCurrency(amount * returnBet)}
+                                to return: {formatCurrency(bet.amount * returnBet)}
                             </Typography>
                         </div>
                     :
