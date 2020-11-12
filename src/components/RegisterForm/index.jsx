@@ -24,20 +24,25 @@ class RegisterForm extends Component {
         error: null
     };
 
-    state = {
-        username: "",
-        password: "",
-        email: "",
-        emailValid: false,
-        isLoading: false,
-        isConfirmed: false,
-        terms: null,
-        month: { text: 'Month' },
-        day: { text: 'Day' },
-        year: { text: 'Year' },
-        restrictedCountries: [],
-        userCountry: { text: 'Country' }
-    };
+    constructor({ ln, ...props }) {
+        super(props);
+        const copy = CopyText.registerFormIndex[ln];
+        
+        this.state = {
+            username: "",
+            password: "",
+            email: "",
+            emailValid: false,
+            isLoading: false,
+            isConfirmed: false,
+            terms: null,
+            month: { text: copy.INDEX.INPUT_TEXT.LABEL[7] },
+            day: { text: copy.INDEX.INPUT_TEXT.LABEL[6] },
+            year: { text: copy.INDEX.INPUT_TEXT.LABEL[8] },
+            restrictedCountries: [],
+            userCountry: { text: copy.INDEX.INPUT_TEXT.LABEL[9] }
+        };
+    }
 
     componentDidMount = async () => {
         const { restrictedCountries } = await getApp();
