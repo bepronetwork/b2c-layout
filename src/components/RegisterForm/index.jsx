@@ -34,14 +34,12 @@ class RegisterForm extends Component {
         terms: null,
         month: { text: 'Month' },
         day: { text: 'Day' },
-        year: "",
-        birthDate: "",
+        year: { text: 'Year' },
         restrictedCountries: [],
-        isValidBirthdate: false,
         userCountry: { text: 'Country' }
     };
 
-     componentDidMount = async () => {
+    componentDidMount = async () => {
         const { restrictedCountries } = await getApp();
 
         this.projectData(this.props)
@@ -54,7 +52,7 @@ class RegisterForm extends Component {
 
     projectData = async (props) => {
         const { ln } = props;
-        const { footer } = getAppCustomization();
+        const { footer } = await getAppCustomization();
         const supportLinks = footer.languages.find(f => f.language.isActivated === true && f.language.prefix === ln.toUpperCase()).supportLinks;
         const terms = supportLinks.find(s => { return s.name.trim().toLowerCase() === "terms of service"});
 
@@ -62,7 +60,8 @@ class RegisterForm extends Component {
     }
 
     handleSubmit = async event => {
-        const { username, password, email, birthDate, userCountry } = this.state;
+        const { username, password, email, day, month, year, userCountry } = this.state;
+        const birthDate = moment(`${year.value}-${month.value}-${day.value}`).format("L")
         this.setState({...this.state, isLoading : true });
 
         event.preventDefault();
@@ -83,13 +82,15 @@ class RegisterForm extends Component {
     };
 
     formIsValid = () => {
-        const { password, username, emailValid, isConfirmed, terms, isValidBirthdate, userCountry } = this.state;
+        const { password, username, emailValid, isConfirmed, terms, userCountry, day, month, year } = this.state;
 
         return (
         username !== "" &&
         emailValid &&
         password !== "" &&
-        isValidBirthdate && 
+        day.value &&
+        month.value &&
+        year.value && 
         userCountry.value && 
         (!terms || isConfirmed === true)
         );
@@ -103,7 +104,7 @@ class RegisterForm extends Component {
     };
 
     onChange = event => {
-        this.setState({ [event.target.name]: event.target.value }, this.checkAge);
+        this.setState({ [event.target.name]: event.target.value });
     };
 
     onUsernameChange = event => {
@@ -115,19 +116,23 @@ class RegisterForm extends Component {
     };
  
     onAddressChange = event => {
-        this.setState({ address: event.target.value }, this.checkAge);
+        this.setState({ address: event.target.value });
     };
 
     onDayChange = ({ option }) => {
-    this.setState({ day: option }, this.checkAge);
+        this.setState({ day: option });
     };
 
     onMonthChange = ({ option }) => {
-    this.setState({ month: option }, this.checkAge);
+        this.setState({ month: option });
+    };
+    
+    onYearChange = ({ option }) => {
+        this.setState({ year: option });
     };
 
     onCountryChange = ({ option }) => {
-    this.setState({ userCountry: option }, this.checkAge);
+        this.setState({ userCountry: option });
     };
 
     onHandlerConfirm() {
@@ -135,27 +140,6 @@ class RegisterForm extends Component {
 
         this.setState({ isConfirmed : !isConfirmed });
     }
-
-    checkAge = () => {
-        const { year, month, day } = this.state;
-        const thisMoment = new Date();
-        const thisYear = thisMoment.getFullYear();
-        const thisMonth = thisMoment.getMonth();
-        const thisDay = thisMoment.getDay();
-        const birthDateFx = moment(`${year}-${month.value}-${day.value}`);
-        const ageFx = moment(
-            `${thisYear}-${leadingWithZero(thisMonth)}-${leadingWithZero(thisDay)}`
-        ).diff(birthDateFx, "years");
-        const isLegalAge = ageFx >= 18; // legal age
-        const isUndefinedAge = ageFx > 72; // life expectancy
-        const isValidDate = year.length === 4 && !isUndefinedAge && isLegalAge;
-        const birthDate = birthDateFx.format("L");
-
-        this.setState({
-            isValidBirthdate: isValidDate,
-            birthDate
-        });
-    };
 
     availableCountries = () => {
         const { restrictedCountries } = this.state;
@@ -181,6 +165,7 @@ class RegisterForm extends Component {
         const {ln} = this.props;
         const copy = CopyText.registerFormIndex[ln];
         const { skin } = getAppCustomization();
+        console.log(month, day, year)
  
         return (
         <form onSubmit={this.handleSubmit}>
@@ -202,43 +187,45 @@ class RegisterForm extends Component {
             />
             </div>
             <InputText
-            name="email"
-            placeholder={copy.INDEX.INPUT_TEXT.LABEL[3]}
-            onChange={this.onEmailChange}
-            value={email}
+                name="email"
+                placeholder={copy.INDEX.INPUT_TEXT.LABEL[3]}
+                onChange={this.onEmailChange}
+                value={email}
             />
-            <Typography color="grey" variant="small-body">
+            <Typography color="grey" variant="small-body" otherStyles={{ marginTop: 16}}>
                 Birth Date
             </Typography>
             <div styleName="birth-fields">
-            <SelectBox
-                onChange={event => this.onDayChange(event)}
-                options={generateIntegers(1, 31).map(dayToObj => ({
-                text: dayToObj,
-                value: dayToObj,
-                channel_id: dayToObj
-                }))}
-                value={day}
-            />
-            <SelectBox
-                onChange={event => this.onMonthChange(event)}
-                options={generateMonths(ln, "MMM").map((monthToObj, index) => ({
-                text: monthToObj,
-                value: leadingWithZero(index),
-                channel_id: monthToObj
-                }))}
-                value={month}
-            />
-            <InputText
-                name="year"
-                placeholder='Year'
-                onChange={this.onChange}
-                value={year}
-                maxlength={4}
-            />
+                <SelectBox
+                    onChange={event => this.onDayChange(event)}
+                    options={generateIntegers(1, 31).map(dayToObj => ({
+                        text: dayToObj,
+                        value: dayToObj,
+                        channel_id: dayToObj 
+                    }))}
+                    value={day}
+                />
+                <SelectBox
+                    onChange={event => this.onMonthChange(event)}
+                    options={generateMonths(ln, "MMM").map((monthToObj, index) => ({
+                        text: monthToObj,
+                        value: leadingWithZero(index),
+                        channel_id: monthToObj
+                    }))}
+                    value={month}
+                />
+                <SelectBox
+                    onChange={event => this.onYearChange(event)}
+                    options={generateIntegers(1930, 2002).map(yearToObj => ({
+                        text: yearToObj,
+                        value: yearToObj,
+                        channel_id: yearToObj
+                    }))}
+                    value={year}
+                />
             </div>
             <SelectBox
-                gutterBottom
+                fullWidth
                 onChange={event => this.onCountryChange(event)}
                 options={this.availableCountries().map(({ country, data }) => ({
                     text: data.name,
