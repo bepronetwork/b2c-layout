@@ -71,6 +71,8 @@ class Opponents extends Component {
             opponent2 = formatOpponentData(match, 1, gameImage, opponent2.odd);
         }
 
+        const marketStatus = match.market ? match.market.status : 'finished';
+
         this.setState({
             id: match.id,
             opponent1,
@@ -81,7 +83,8 @@ class Opponents extends Component {
             gameImage,
             isScoreBoard: isScoreBoard === true ? true : false,
             isLoaded: true,
-            status: match.status
+            status: match.status,
+            marketStatus: marketStatus
         });
     }
 
@@ -103,7 +106,7 @@ class Opponents extends Component {
 
     render() {
         const { betSlip } = this.props;
-        const { opponent1, opponent2, isScoreBoard, drawOdd, matchName, matchId, gameImage, id, isLoaded, status } = this.state;
+        const { opponent1, opponent2, isScoreBoard, drawOdd, matchName, matchId, gameImage, id, isLoaded, status, marketStatus } = this.state;
 
         if(!isLoaded) { return null };
 
@@ -132,11 +135,11 @@ class Opponents extends Component {
 
         const opponent2Bet = formatOpponentBet(opponent2, matchId, matchName, 0, id);
 
-        const drawBet = drawOdd != null ? formatDrawBet(drawId, drawOdd, matchId, matchName, gameImage, 0) : null;
+        const drawBet = drawOdd != null ? formatDrawBet(drawId, drawOdd, matchId, matchName, gameImage, 0, id) : null;
 
         return (
             <div styleName="teams">
-                <div styleName={team1Styles} onClick={(event) => {isOpponent1Selected ? this.handleRemoveToBetSlip(event, opponent1.id) : this.handleAddToBetSlip(event, opponent1Bet)}}>
+                <div styleName={team1Styles} onClick={(event) => {isOpponent1Selected ? this.handleRemoveToBetSlip(event, opponent1.id) : this.handleAddToBetSlip(event, opponent1Bet)}} style={{ pointerEvents: marketStatus !== 'active' ? 'none' : 'unset' }}>
                     <ReactCountryFlag
                         countryCode={opponent1.location}
                         svg
@@ -182,7 +185,7 @@ class Opponents extends Component {
                                 ? 
                                     "VS" 
                                 : 
-                                    <div styleName={drawStyles} onClick={(event) => {isDrawSelected ? this.handleRemoveToBetSlip(event, drawId) : this.handleAddToBetSlip(event, drawBet)}}>
+                                    <div styleName={drawStyles} onClick={(event) => {isDrawSelected ? this.handleRemoveToBetSlip(event, drawId) : this.handleAddToBetSlip(event, drawBet)}} style={{ pointerEvents: marketStatus !== 'active' ? 'none' : 'unset' }}>
                                         <Typography variant={'x-small-body'} color={'grey'}>DRAW</Typography>
                                         <Typography variant={'x-small-body'} color={'white'}>{drawOdd.odd}</Typography>
                                     </div>
@@ -191,7 +194,7 @@ class Opponents extends Component {
                         </div>
 
                 }
-                 <div styleName={team2Styles} onClick={(event) => {isOpponent2Selected ? this.handleRemoveToBetSlip(event, opponent2.id) : this.handleAddToBetSlip(event, opponent2Bet)}}>
+                 <div styleName={team2Styles} onClick={(event) => {isOpponent2Selected ? this.handleRemoveToBetSlip(event, opponent2.id) : this.handleAddToBetSlip(event, opponent2Bet)}} style={{ pointerEvents: marketStatus !== 'active' ? 'none' : 'unset' }}>
                     <ReactCountryFlag
                         countryCode={opponent2.location}
                         svg
