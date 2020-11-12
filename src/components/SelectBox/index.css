@@ -6,7 +6,6 @@
   cursor: pointer;
   outline: none;
   display: inline-block;
-  margin-top: $spacing-4;
   padding: $spacing-12;
   background-color: $background-main-table;
   border: 2px solid $primaryColor-8;

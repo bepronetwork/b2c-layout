@@ -60,8 +60,25 @@
   margin: $spacing-8 calc($spacing-8 * -1) $spacing-8;
   display: flex;
 
+  @include Breakpoint-mobileOnly {
+    display: block;
+    margin: 0;
+  }
+
   > * {
     flex: 1;
     margin: $spacing-8;
+
+    @include Breakpoint-mobileOnly {
+      flex: unset;
+      width: 100%;
+      margin: $spacing-8 0 0 0;
+    }
+  }
+
+  > *:last-child {
+    @include Breakpoint-mobileOnly {
+      margin: $spacing-8 0 $spacing-16 0;
+    }
   }
 }
