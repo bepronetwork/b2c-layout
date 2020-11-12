@@ -7,6 +7,10 @@ import "./index.css";
 
 class Live extends Component {
 
+    convertToHTTPS = (url) => {
+        return url.replace(/http|https/g, "https");
+    }
+
     render() {
         const { streaming, match } = this.props;
 
@@ -14,7 +18,7 @@ class Live extends Component {
             <div>
                 <div styleName="iframe" >
                     <iframe
-                        src={`${streaming}&muted=true&parent=${window.location.hostname}`}
+                        src={`${this.convertToHTTPS(streaming)}&muted=true&parent=${window.location.hostname}`}
                         width="100%"
                         frameborder="true"
                         scrolling="true"
