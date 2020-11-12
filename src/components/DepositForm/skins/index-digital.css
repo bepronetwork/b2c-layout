@@ -2,7 +2,7 @@
 
 .qrcode {
     padding: $spacing-16;
-    background-color: $backgroundColor;
+    background-color: white;
     width: 160px;
     margin: $spacing-36 auto;
     border-radius: 4px;
