@@ -68,7 +68,7 @@ class RegisterForm extends Component {
 
     handleSubmit = async event => {
         const { username, password, email, day, month, year, userCountry } = this.state;
-        const birthDate = moment(`${year.value}-${month.value}-${day.value}`).format("L")
+        const birthDate = `${year.value}-${month.value}-${day.value}`;
         this.setState({...this.state, isLoading : true });
 
         event.preventDefault();
