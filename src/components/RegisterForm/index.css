@@ -61,8 +61,7 @@
   display: flex;
 
   @include Breakpoint-mobileOnly {
-    display: block;
-    margin: 0;
+    margin: $spacing-8 calc($spacing-4 * -1) $spacing-8;
   }
 
   > * {
@@ -70,15 +69,15 @@
     margin: $spacing-8;
 
     @include Breakpoint-mobileOnly {
-      flex: unset;
-      width: 100%;
-      margin: $spacing-8 0 0 0;
+      min-width: auto !important;
+      margin: $spacing-4;
     }
   }
 
+  > *:first-child,
   > *:last-child {
     @include Breakpoint-mobileOnly {
-      margin: $spacing-8 0 $spacing-16 0;
+      width: 65px;
     }
   }
 }
