@@ -8,7 +8,7 @@ import classNames from "classnames";
 import { setLanguageInfo } from "../../redux/actions/language";
 import { isUserSet, getAppCustomization, getIcon } from "../../lib/helpers";
 import "./index.css";
-import LanguageContext from "../../containers/App/LanguageContext";
+import { LanguageContext } from "../../containers/App/LanguageContext";
 
 class LanguageSelector extends Component {
   static contextType = LanguageContext;

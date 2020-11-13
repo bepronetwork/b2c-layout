@@ -48,7 +48,7 @@ import getAppInfo from "lib/api/app";
 import handleError from "lib/api/handleError";
 import User from "controllers/User/User";
 import UserContext from "./UserContext";
-import { LanguageProvider } from "./LanguageContext";
+import LanguageProvider from "./LanguageContext";
 import "./index.css";
 import { setProfileInfo } from "../../redux/actions/profile";
 import { setModal } from "../../redux/actions/modal";
