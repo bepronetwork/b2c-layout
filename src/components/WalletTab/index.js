@@ -123,7 +123,7 @@ resultFilter = (firstArray, secondArray) => {
       wallets,
       wallet,
       virtual: getApp().virtual,
-      isEmailConfirmed: await user.isEmailConfirmed()
+      isEmailConfirmed: await profile.user.email_confirmed
     });
     this.caseKycStatus();
   };
