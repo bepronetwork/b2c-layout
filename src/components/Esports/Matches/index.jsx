@@ -54,7 +54,7 @@ class Matches extends Component {
         const game = games.find(g => g.external_id === match.videogame.id);
         if(!game){return null};
         const gameImage = game.image;
-        
+
         return (
             <div>
                 {
