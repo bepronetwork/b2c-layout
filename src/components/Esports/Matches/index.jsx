@@ -51,7 +51,9 @@ class Matches extends Component {
 
     renderMatch(match, beginDate) {
         const { games } = this.props;
-        const gameImage = games.find(g => g.external_id === match.videogame.id).image;
+        const game = games.find(g => g.external_id === match.videogame.id);
+        if(!game){return null};
+        const gameImage = game.image;
 
         return (
             <div>

@@ -9,6 +9,18 @@ import { setBetSlipResult, removeBetSlipFromResult } from "../../../redux/action
 import _ from 'lodash';
 import "./index.css";
 
+import LockTwoToneIcon from '@material-ui/icons/LockTwoTone';
+
+const buttonStyles = {
+    open: {
+        "pointerEvents": "unset",
+        "opacity": 1
+    },
+    locked: {
+        "pointerEvents": "none",
+        "opacity": 0.3
+    }
+}
 
 class Opponents extends Component {
 
@@ -71,7 +83,7 @@ class Opponents extends Component {
             opponent2 = formatOpponentData(match, 1, gameImage, opponent2.odd);
         }
 
-        const marketStatus = match.market ? match.market.status : 'finished';
+        const activeMarket = match.market ? match.market.status === 'active' : false;
 
         this.setState({
             id: match.id,
@@ -84,7 +96,7 @@ class Opponents extends Component {
             isScoreBoard: isScoreBoard === true ? true : false,
             isLoaded: true,
             status: match.status,
-            marketStatus: marketStatus
+            activeMarket
         });
     }
 
@@ -106,7 +118,7 @@ class Opponents extends Component {
 
     render() {
         const { betSlip } = this.props;
-        const { opponent1, opponent2, isScoreBoard, drawOdd, matchName, matchId, gameImage, id, isLoaded, status, marketStatus } = this.state;
+        const { opponent1, opponent2, isScoreBoard, drawOdd, matchName, matchId, gameImage, id, isLoaded, status, activeMarket } = this.state;
 
         if(!isLoaded) { return null };
 
@@ -139,7 +151,7 @@ class Opponents extends Component {
 
         return (
             <div styleName="teams">
-                <div styleName={team1Styles} onClick={(event) => {isOpponent1Selected ? this.handleRemoveToBetSlip(event, opponent1.id) : this.handleAddToBetSlip(event, opponent1Bet)}} style={{ pointerEvents: marketStatus !== 'active' ? 'none' : 'unset' }}>
+                <div styleName={team1Styles} onClick={(event) => {isOpponent1Selected ? this.handleRemoveToBetSlip(event, opponent1.id) : this.handleAddToBetSlip(event, opponent1Bet)}} style={ activeMarket ? buttonStyles.open : buttonStyles.locked }>
                     <ReactCountryFlag
                         countryCode={opponent1.location}
                         svg
@@ -185,7 +197,7 @@ class Opponents extends Component {
                                 ? 
                                     "VS" 
                                 : 
-                                    <div styleName={drawStyles} onClick={(event) => {isDrawSelected ? this.handleRemoveToBetSlip(event, drawId) : this.handleAddToBetSlip(event, drawBet)}} style={{ pointerEvents: marketStatus !== 'active' ? 'none' : 'unset' }}>
+                                    <div styleName={drawStyles} onClick={(event) => {isDrawSelected ? this.handleRemoveToBetSlip(event, drawId) : this.handleAddToBetSlip(event, drawBet)}} style={ activeMarket ? buttonStyles.open : buttonStyles.locked }>
                                         <Typography variant={'x-small-body'} color={'grey'}>DRAW</Typography>
                                         <Typography variant={'x-small-body'} color={'white'}>{drawOdd.odd}</Typography>
                                     </div>
@@ -194,7 +206,7 @@ class Opponents extends Component {
                         </div>
 
                 }
-                 <div styleName={team2Styles} onClick={(event) => {isOpponent2Selected ? this.handleRemoveToBetSlip(event, opponent2.id) : this.handleAddToBetSlip(event, opponent2Bet)}} style={{ pointerEvents: marketStatus !== 'active' ? 'none' : 'unset' }}>
+                 <div styleName={team2Styles} onClick={(event) => {isOpponent2Selected ? this.handleRemoveToBetSlip(event, opponent2.id) : this.handleAddToBetSlip(event, opponent2Bet)}} style={ activeMarket ? buttonStyles.open : buttonStyles.locked }>
                     <ReactCountryFlag
                         countryCode={opponent2.location}
                         svg
@@ -218,6 +230,9 @@ class Opponents extends Component {
                         }
                     </div>
                 </div>
+                { !activeMarket && !isScoreBoard && <div styleName="lock-icon-background">
+                    <LockTwoToneIcon style={{ color: 'white' }} fontSize="inherit"/>
+                </div> }
             </div>
         )
     }
