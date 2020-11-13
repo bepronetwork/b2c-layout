@@ -287,7 +287,7 @@ class DiceGameCard extends Component {
                         min={2}
                         max={98}
                         unit="%"
-                        title={copy.INDEX.INPUT_NUMBER.TITLE[1]}
+                        title={copy.INDEX.INPUT_NUMBER.TITLE[2]}
                         onChange={this.handleChance}
                         value={chance}
                         step="any"

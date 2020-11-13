@@ -64,6 +64,17 @@
     color: white;
 }
 
+.text-bottom-container{
+    width: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.text-align{
+    text-align: left;
+}
+
 @media screen and (max-width: 767px) {
     .container-root{
         display: flex;
