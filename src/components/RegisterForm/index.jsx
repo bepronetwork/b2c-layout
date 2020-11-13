@@ -13,6 +13,8 @@ import leadingWithZero from "../../utils/leadingWithZero";
 import moment from "moment";
 import { countries } from "countries-list"; 
 import "./index.css";
+import getYearsAgo from '../../utils/getYearsAgo';
+import stringToNumber from '../../utils/stringToNumber';
 
 class RegisterForm extends Component {
     static propTypes = {
@@ -170,8 +172,7 @@ class RegisterForm extends Component {
         const {ln} = this.props;
         const copy = CopyText.registerFormIndex[ln];
         const { skin } = getAppCustomization();
-        console.log(month, day, year)
- 
+
         return (
         <form onSubmit={this.handleSubmit}>
             <div styleName="username">
@@ -221,7 +222,7 @@ class RegisterForm extends Component {
                 />
                 <SelectBox
                     onChange={event => this.onYearChange(event)}
-                    options={generateIntegers(1930, 2002).map(yearToObj => ({
+                    options={generateIntegers(stringToNumber(getYearsAgo(72)), stringToNumber(getYearsAgo(18))).map(yearToObj => ({
                         text: yearToObj,
                         value: yearToObj,
                         channel_id: yearToObj
