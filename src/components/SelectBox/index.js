@@ -4,7 +4,7 @@ import ArrowUp from "components/Icons/ArrowUp";
 import { Typography, ArrowDownIcon, ArrowUpIcon } from "components";
 import { getAppCustomization, getIcon } from "../../lib/helpers";
 import _ from 'lodash';
-
+import classNames from 'classnames'
 import "./index.css";
 
 class SelectBox extends React.Component{
@@ -76,9 +76,7 @@ class SelectBox extends React.Component{
 
         return (
             <div styleName="label">
-                <span>
-                    <Typography color="white" variant={'small-body'}>{value.text}</Typography>
-                </span>
+                {value.text}
                 {open
                 ? 
                     arrowUpIcon === null ? skin == "digital" ? <ArrowUpIcon /> : <ArrowUp /> : <img src={arrowUpIcon} /> 
@@ -119,15 +117,14 @@ class SelectBox extends React.Component{
 
     render = () => {
 
-        const {  } = this.props;
+        const { fullWidth } = this.props;
 
         return (
-            <div styleName="root">
+            <div styleName={classNames('root', { fullWidth })} onClick={this.handleLabelClick}>
                 <button
                     ref={el => {
                         this.labelRef = el;
                     }}
-                    onClick={this.handleLabelClick}
                     type="button">
                     {this.renderLabel()}
                 </button>

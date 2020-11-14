@@ -1,14 +1,20 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import { Button, Typography, InputText, Checkbox, Toggle } from "components";
+import { Button, Typography, InputText, Checkbox, Toggle, SelectBox } from "components";
 import { connect } from "react-redux";
 import { compose } from 'lodash/fp';
 import Cache from "../../lib/cache/cache";
 import { CopyText } from '../../copy';
-import { getAppCustomization } from "../../lib/helpers";
+import { getAppCustomization, getApp } from "../../lib/helpers";
 import loading from 'assets/loading-circle.gif';
-
+import generateMonths from "../../utils/generateMonths";
+import generateIntegers from "../../utils/generateIntegers";
+import leadingWithZero from "../../utils/leadingWithZero";
+import moment from "moment";
+import { countries } from "countries-list"; 
 import "./index.css";
+import getYearsAgo from '../../utils/getYearsAgo';
+import stringToNumber from '../../utils/stringToNumber';
 
 class RegisterForm extends Component {
     static propTypes = {
@@ -20,18 +26,31 @@ class RegisterForm extends Component {
         error: null
     };
 
-    state = {
-        username: "",
-        password: "",
-        email: "",
-        emailValid: false,
-        isLoading: false,
-        isConfirmed: false,
-        terms: null
-    };
+    constructor({ ln, ...props }) {
+        super(props);
+        const copy = CopyText.registerFormIndex[ln];
+        
+        this.state = {
+            username: "",
+            password: "",
+            email: "",
+            emailValid: false,
+            isLoading: false,
+            isConfirmed: false,
+            terms: null,
+            month: { text: copy.INDEX.INPUT_TEXT.LABEL[7] },
+            day: { text: copy.INDEX.INPUT_TEXT.LABEL[6] },
+            year: { text: copy.INDEX.INPUT_TEXT.LABEL[8] },
+            restrictedCountries: [],
+            userCountry: { text: copy.INDEX.INPUT_TEXT.LABEL[9] }
+        };
+    }
 
-    componentDidMount(){
+    componentDidMount = async () => {
+        const { restrictedCountries } = await getApp();
+
         this.projectData(this.props)
+        this.setState({ restrictedCountries });
     }
 
     componentWillReceiveProps(props){
@@ -40,7 +59,7 @@ class RegisterForm extends Component {
 
     projectData = async (props) => {
         const { ln } = props;
-        const { footer } = getAppCustomization();
+        const { footer } = await getAppCustomization();
         const supportLinks = footer.languages.find(f => f.language.isActivated === true && f.language.prefix === ln.toUpperCase()).supportLinks;
         const terms = supportLinks.find(s => { return s.name.trim().toLowerCase() === "terms of service"});
 
@@ -48,25 +67,38 @@ class RegisterForm extends Component {
     }
 
     handleSubmit = async event => {
+        const { username, password, email, day, month, year, userCountry } = this.state;
+        const birthDate = `${year.value}-${month.value}-${day.value}`;
         this.setState({...this.state, isLoading : true });
 
         event.preventDefault();
         const { onSubmit } = this.props;
         const affiliateLink = Cache.getFromCache('affiliate');
-        let data = {...this.state, affiliateLink : affiliateLink}
         if (onSubmit && this.formIsValid()) {
-            await onSubmit(data);
+            await onSubmit({
+                username,
+                password,
+                email,
+                birthDate,
+                affiliateLink,
+                userCountry
+              });
         }
 
         this.setState({...this.state, isLoading : false});
     };
 
     formIsValid = () => {
-        const { password, username, emailValid, isConfirmed, terms } = this.state;
+        const { password, username, emailValid, isConfirmed, terms, userCountry, day, month, year } = this.state;
+
         return (
         username !== "" &&
         emailValid &&
         password !== "" &&
+        day.value &&
+        month.value &&
+        year.value && 
+        userCountry.value && 
         (!terms || isConfirmed === true)
         );
     };
@@ -89,9 +121,25 @@ class RegisterForm extends Component {
     onPasswordChange = event => {
         this.setState({ password: event.target.value });
     };
-
+ 
     onAddressChange = event => {
         this.setState({ address: event.target.value });
+    };
+
+    onDayChange = ({ option }) => {
+        this.setState({ day: option });
+    };
+
+    onMonthChange = ({ option }) => {
+        this.setState({ month: option });
+    };
+    
+    onYearChange = ({ option }) => {
+        this.setState({ year: option });
+    };
+
+    onCountryChange = ({ option }) => {
+        this.setState({ userCountry: option });
     };
 
     onHandlerConfirm() {
@@ -100,9 +148,27 @@ class RegisterForm extends Component {
         this.setState({ isConfirmed : !isConfirmed });
     }
 
+    availableCountries = () => {
+        const { restrictedCountries } = this.state;
+        const countriesEntries = [];
+    
+        Object.entries(countries).forEach(([key, value]) => {
+          return countriesEntries.push({
+            country: key,
+            data: value
+          });
+        });
+    
+        const availableCountries = countriesEntries.filter(
+          ({ country }) => !restrictedCountries.includes(country)
+        );
+    
+        return availableCountries;
+      };
+
     render() {
         const { error } = this.props;
-        const { username, password, email, isLoading, isConfirmed, terms } = this.state;
+        const { username, password, email, isLoading, isConfirmed, terms, month, day, year, userCountry } = this.state;
         const {ln} = this.props;
         const copy = CopyText.registerFormIndex[ln];
         const { skin } = getAppCustomization();
@@ -127,10 +193,52 @@ class RegisterForm extends Component {
             />
             </div>
             <InputText
-            name="email"
-            placeholder={copy.INDEX.INPUT_TEXT.LABEL[3]}
-            onChange={this.onEmailChange}
-            value={email}
+                name="email"
+                placeholder={copy.INDEX.INPUT_TEXT.LABEL[3]}
+                onChange={this.onEmailChange}
+                value={email}
+            />
+            <Typography color="grey" variant="small-body" otherStyles={{ marginTop: 16}}>
+                Birth Date
+            </Typography>
+            <div styleName="birth-fields">
+                <SelectBox
+                    onChange={event => this.onDayChange(event)}
+                    options={generateIntegers(1, 31).map(dayToObj => ({
+                        text: dayToObj,
+                        value: dayToObj,
+                        channel_id: dayToObj 
+                    }))}
+                    value={day}
+                />
+                <SelectBox
+                    onChange={event => this.onMonthChange(event)}
+                    options={generateMonths(ln, "MMM").map((monthToObj, index) => ({
+                        text: monthToObj,
+                        value: leadingWithZero(index),
+                        channel_id: monthToObj
+                    }))}
+                    value={month}
+                />
+                <SelectBox
+                    onChange={event => this.onYearChange(event)}
+                    options={generateIntegers(stringToNumber(getYearsAgo(72)), stringToNumber(getYearsAgo(18))).map(yearToObj => ({
+                        text: yearToObj,
+                        value: yearToObj,
+                        channel_id: yearToObj
+                    }))}
+                    value={year}
+                />
+            </div>
+            <SelectBox
+                fullWidth
+                onChange={event => this.onCountryChange(event)}
+                options={this.availableCountries().map(({ country, data }) => ({
+                    text: data.name,
+                    value: country,
+                    channel_id: country
+                }))}
+                value={userCountry}
             />
             {
             terms 
