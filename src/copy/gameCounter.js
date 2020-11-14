@@ -17,7 +17,7 @@ const gameCardCopy = {
   },
   ru: {
     DESCRIPTION: "Показано quantity из total игр.",
-    BUTTON: "Загрузи больше"
+    BUTTON: "Больше Игр"
   }
 };
 
