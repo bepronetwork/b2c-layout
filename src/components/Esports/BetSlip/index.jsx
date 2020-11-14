@@ -63,6 +63,7 @@ class BetSlip extends Component {
                 if (bet.externalMatchId === match.id && !_.isEmpty(match.odds)) {
 
                     const opponent = match.odds[bet.type].find(opponent => opponent.participant_id === bet.id);
+                    const marketActive = match.market ? match.market === 'active' : false;
 
                     let status;
 
@@ -74,7 +75,7 @@ class BetSlip extends Component {
                         status = 'up'
                     }
 
-                    return {...bet, odd: opponent.odd, status: status }
+                    return {...bet, odd: opponent.odd, status: status, marketActive: marketActive }
                 } else {
                     return bet
                 }
@@ -262,6 +263,8 @@ class BetSlip extends Component {
    
         const isSuccessBet = _.isEmpty(betSlip) ? false : (betSlip.filter(b => b.success == true).length > 0);
 
+        const hasInvalidOdd = !_.isEmpty(betSlip) ? !!betSlip.find(bet => bet.marketActive && bet.marketActive === false) : false;
+
         return (
             <div>
                 {(_.isEmpty(betSlip)) 
@@ -320,7 +323,7 @@ class BetSlip extends Component {
                                                             name="amount"
                                                             title="Bet Amount"
                                                             precision={2}
-                                                            disabled={false}
+                                                            disabled={hasInvalidOdd}
                                                             max={(user && !_.isEmpty(user)) ? user.getBalance() : null}
                                                             value={amount}
                                                             onChange={this.handleBetAmountChange}
@@ -371,7 +374,7 @@ class BetSlip extends Component {
                                     <Button fullWidth 
                                             theme="primary" 
                                             onClick={() => this.handleCreateBet()} 
-                                            disabled={!this.isBetValid()}
+                                            disabled={!this.isBetValid() || hasInvalidOdd}
                                             animation={<Dice />}
                                     >
                                         <Typography weight="semi-bold" color="pickled-bluewood">
