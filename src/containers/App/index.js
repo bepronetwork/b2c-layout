@@ -100,7 +100,7 @@ class App extends Component {
             chatMobileOpen : false,
             betsListOpen : false,
             settingsMenuOpen : false,
-            chatExpand : true,
+            chatExpand : false,
             tableDetailsOpen : null
         }
     }
