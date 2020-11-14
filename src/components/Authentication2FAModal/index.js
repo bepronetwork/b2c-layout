@@ -131,7 +131,7 @@ class Authentication2FAModal extends Component {
                                         title : copy.INDEX.HORIZONTAL_STEPPER.TITLE[0],
                                         first : true,
                                         condition : true,
-                                        content : <div styleName="qrcode"><QRCode value={auth_2fa.uri} bgColor={skin.skin_type == "digital" ? secondaryColor.hex : "#fff"} fgColor={skin.skin_type == "digital" ? backgroundColor.hex : "#000"} /></div>
+                                        content : <div styleName="qrcode"><QRCode value={auth_2fa.uri} bgColor={"#fff"} fgColor={"#000"} /></div>
                                     },
                                     {
                                         label : copy.INDEX.HORIZONTAL_STEPPER.LABEL[1],
