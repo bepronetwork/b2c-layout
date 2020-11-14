@@ -8,7 +8,11 @@ import "./index.css";
 class Live extends Component {
 
     convertToHTTPS = (url) => {
-        return url.replace(/http:/g, "https:");
+        if (!_.isEmpty(url)) {
+            return url.replace(/http:/g, "https:");
+        } else {
+            return url
+        }
     }
 
     render() {

@@ -159,4 +159,18 @@
     border-top: 0.5em solid #ed5968;
     animation-fill-mode: forwards;
 }
+
+.lock-icon-background {
+    padding: 5px;
+  
+    border-radius: 50%;
+  
+    background-color: $secondaryColor;
+    opacity: 0.8;
+
+    align-self: flex-start;
+    cursor: pointer;
+
+    margin-top: 10px;
+}
   

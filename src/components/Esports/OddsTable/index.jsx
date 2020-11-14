@@ -13,7 +13,8 @@ import LockTwoToneIcon from '@material-ui/icons/LockTwoTone';
 const buttonStyles = {
     open: {
         "pointerEvents": "unset",
-        "opacity": 1
+        "opacity": 1,
+        "cursor": "pointer"
     },
     locked: {
         "pointerEvents": "none",
