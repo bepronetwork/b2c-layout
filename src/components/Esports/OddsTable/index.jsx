@@ -5,9 +5,21 @@ import classNames from "classnames";
 import CloseIcon from "components/Icons/CloseCross";
 import { setBetSlipResult, removeBetSlipFromResult } from "../../../redux/actions/betSlip";
 import { formatOpponentData, formatOpponentBet, formatDrawBet } from "../../../lib/helpers";
-import { getMatch } from '../../../controllers/Esports/EsportsUser'
 import _ from 'lodash';
 import "./index.css";
+
+import LockTwoToneIcon from '@material-ui/icons/LockTwoTone';
+
+const buttonStyles = {
+    open: {
+        "pointerEvents": "unset",
+        "opacity": 1
+    },
+    locked: {
+        "pointerEvents": "none",
+        "opacity": 0.3
+    }
+}
 
 class OddsTable extends Component {
 
@@ -58,7 +70,7 @@ class OddsTable extends Component {
             opponent2 = formatOpponentData(match, 1, gameImage, opponent2.odd);
         }
 
-        const marketStatus = match.market ? match.market.status : 'finished';
+        const activeMarket = match.market ? match.market.status === 'active' : false;
 
         this.setState({
             opponent1,
@@ -69,7 +81,7 @@ class OddsTable extends Component {
             id: match.id,
             gameImage,
             isLoaded: true,
-            marketStatus: marketStatus
+            activeMarket
         });
     }
 
@@ -88,7 +100,7 @@ class OddsTable extends Component {
 
     render() {
         const { betSlip } = this.props;
-        const { opponent1, opponent2, matchName, matchId, gameImage, id, isLoaded, drawOdd, marketStatus } = this.state;
+        const { opponent1, opponent2, matchName, matchId, gameImage, id, isLoaded, drawOdd, activeMarket } = this.state;
 
         if(!isLoaded) { return null };
 
@@ -123,10 +135,13 @@ class OddsTable extends Component {
             <div styleName="bets-menu">
                 <div>
                     <div styleName="bets-title">
+                        { !activeMarket && <div styleName="lock-icon-background">
+                                <LockTwoToneIcon style={{ color: 'white' }} fontSize="inherit"/>
+                        </div> }
                         <Typography variant={'small-body'} color={'white'}>Winner, Full Match</Typography>
                     </div>
                     <div styleName={mainStyles}>
-                        <div styleName={opponent1Styles} onClick={() => isOpponent1Selected ? this.handleRemoveToBetSlip(opponent1.id) : this.handleAddToBetSlip(opponent1Bet)} style={{ pointerEvents: marketStatus !== 'active' ? 'none' : 'unset' }}>
+                        <div styleName={opponent1Styles} onClick={() => isOpponent1Selected ? this.handleRemoveToBetSlip(opponent1.id) : this.handleAddToBetSlip(opponent1Bet)} style={ activeMarket ? buttonStyles.open : buttonStyles.locked }>
                             <img src={opponent1.image} />
                             <Typography variant={'x-small-body'} color={'white'}>{opponent1.name}</Typography>
                             <span styleName="group left">
@@ -136,7 +151,7 @@ class OddsTable extends Component {
                         {
                             drawOdd != null 
                             ?
-                                <div styleName={drawStyles} onClick={() => isDrawSelected ? this.handleRemoveToBetSlip(drawId) : this.handleAddToBetSlip(drawBet)} style={{ pointerEvents: marketStatus !== 'active' ? 'none' : 'unset' }}>
+                                <div styleName={drawStyles} onClick={() => isDrawSelected ? this.handleRemoveToBetSlip(drawId) : this.handleAddToBetSlip(drawBet)} style={ activeMarket ? buttonStyles.open : buttonStyles.locked }>
                                     <CloseIcon/>
                                     <Typography variant={'x-small-body'} color={'white'}>Draw</Typography>
                                     <Typography variant={'x-small-body'} color={'white'}>{drawOdd.odd}</Typography>
@@ -144,7 +159,7 @@ class OddsTable extends Component {
                             :
                                 null
                         }
-                        <div styleName={opponent2Styles} onClick={() => isOpponent2Selected ? this.handleRemoveToBetSlip(opponent2.id) : this.handleAddToBetSlip(opponent2Bet)} style={{ pointerEvents: marketStatus !== 'active' ? 'none' : 'unset' }}>
+                        <div styleName={opponent2Styles} onClick={() => isOpponent2Selected ? this.handleRemoveToBetSlip(opponent2.id) : this.handleAddToBetSlip(opponent2Bet)} style={ activeMarket ? buttonStyles.open : buttonStyles.locked }>
                             <img src={opponent2.image} />
                             <Typography variant={'x-small-body'} color={'white'}>{opponent2.name}</Typography>
                             <span styleName="group right">

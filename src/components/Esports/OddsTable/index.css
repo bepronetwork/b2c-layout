@@ -8,8 +8,14 @@
 }
   
 .bets-title {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
     padding: $spacing-20;
     text-align: center;
+
+    gap: 10px;
 }
 
 .bets-placar {
@@ -122,4 +128,12 @@
     border-top: 0.5em solid #ed5968;
     animation-fill-mode: forwards;
 }
+
+.lock-icon-background {
+    padding: 5px;
   
+    border-radius: 50%;
+  
+    background-color: $secondaryColor;
+    opacity: 0.8;
+}
