@@ -156,6 +156,7 @@ class Form extends Component {
         } = this.state;
         const {ln, isAffiliate} = this.props;
         const copy = CopyText.amountFormIndex[ln];
+        const affiliatesCopy = CopyText.affiliatesTabIndex[ln];
 
         if(!isLoaded){
             return (
@@ -259,7 +260,7 @@ class Form extends Component {
                                     <img src={loadingIco} />
                                 :
                                     <Typography variant={'small-body'} color={'fixedwhite'}>
-                                        {copy.INDEX.TYPOGRAPHY.TEXT[1]} Withdraw
+                                        {affiliatesCopy.INDEX.TYPOGRAPHY.TEXT[0]}
                                     </Typography>
                             }
                             </button>

@@ -50,12 +50,15 @@
 
 .text-copy-container{
     border : none;
-    padding: $spacing-12 24px;
+    padding: 0 2px;
     border-radius :  0 $border-radius $border-radius 0;
     background-color: $secondaryColor;
-    width : inherit;
     height : 40px;
     text-align : center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 130px;
 }
 
 .link-text-container{
@@ -143,5 +146,44 @@
 
     svg, img {
         height: 20px;
+    }
+}
+
+.flex-row{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+}
+
+.copy{
+    margin: $spacing-8;
+}
+
+.button-text-container{
+    width: 130px;
+}
+
+@media screen and (max-width: 545px) {
+    .text-copy-container{
+        width: 130px;
+    }
+
+    .flex-row{
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        align-items: center;
+    }
+
+    .link-text-container{
+        border-radius : $border-radius $border-radius 0 0;
+    }
+
+    .text-copy-container{
+        border-radius : 0 0 $border-radius $border-radius;
+        width: 100%;
+    }
+    .button-text-container{
+        width: 100%;
     }
 }

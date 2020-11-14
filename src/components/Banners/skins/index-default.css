@@ -44,7 +44,6 @@
     height: 100%;
     display:flex;
     align-items: center;
-    
 
     @media screen and (max-width: 1267px) {
         padding-left: 12%;
@@ -61,6 +60,11 @@
     @media screen and (max-width: 767px) {
         opacity: 0.9;
     }
+}
+
+.text-full-without-padding {
+    width: 50%;
+    height: 100%;
 }
 
 .text-image{
@@ -118,17 +122,16 @@
     position: relative;
     align-items: center;
     justify-content: center;
+    padding-right: 0%;
     height: 300px;
     border-radius: $border-radius;
     background-color: $primaryColor;
     box-shadow: rgba(0, 0, 0, 0.4) 0 5px 6px -2px;
-    padding-left: 5%;
+}
 
-    @media screen and (max-width: 1267px) {
-        grid-template-columns: 1fr;
-    }
-
-    @media screen and (max-width: 767px) {
-        padding: 0;
-    }
+.button-container{
+    position: absolute;
+    bottom: 25;
+    right: 0;
+    left: 0;
 }
