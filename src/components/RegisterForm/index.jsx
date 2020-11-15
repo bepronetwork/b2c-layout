@@ -15,6 +15,7 @@ import { countries } from "countries-list";
 import "./index.css";
 import getYearsAgo from '../../utils/getYearsAgo';
 import stringToNumber from '../../utils/stringToNumber';
+import checkAge from "../../utils/checkAge";
 
 class RegisterForm extends Component {
     static propTypes = {
@@ -90,14 +91,13 @@ class RegisterForm extends Component {
 
     formIsValid = () => {
         const { password, username, emailValid, isConfirmed, terms, userCountry, day, month, year } = this.state;
+        const birthDate = `${year.value}-${month.value}-${day.value}`;
 
         return (
         username !== "" &&
         emailValid &&
         password !== "" &&
-        day.value &&
-        month.value &&
-        year.value && 
+        checkAge(birthDate) && 
         userCountry.value && 
         (!terms || isConfirmed === true)
         );
@@ -204,10 +204,10 @@ class RegisterForm extends Component {
             <div styleName="birth-fields">
                 <SelectBox
                     onChange={event => this.onDayChange(event)}
-                    options={generateIntegers(1, 31).map(dayToObj => ({
-                        text: dayToObj,
-                        value: dayToObj,
-                        channel_id: dayToObj 
+                    options={generateIntegers(0, 30).map(dayToObj => ({
+                        text: leadingWithZero(dayToObj),
+                        value: leadingWithZero(dayToObj),
+                        channel_id: leadingWithZero(dayToObj) 
                     }))}
                     value={day}
                 />
