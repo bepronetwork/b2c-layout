@@ -1,6 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import { Typography, Button } from "components";
+import moment from "moment";
 import Cache from "../../lib/cache/cache";
 import { isUserSet, getAppCustomization } from "../../lib/helpers";
 import { CopyText } from "../../copy";
@@ -55,12 +56,18 @@ class AccountTab extends React.Component {
       : profile.user.user.email;
     const avatar = null;
 
+    const birthDateFormat = birthDate
+      .split("")
+      .splice(0, 10)
+      .join("");
+    const birthDateReformated = moment(birthDateFormat).format("L");
+
     this.setState({
       ...this.state,
       userId,
       username,
       userCountry,
-      birthDate,
+      birthDate: birthDateReformated,
       avatar,
       email,
       isKycActive: kycIntegration.isActive,
