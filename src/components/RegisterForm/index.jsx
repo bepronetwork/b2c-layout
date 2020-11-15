@@ -199,7 +199,7 @@ class RegisterForm extends Component {
                 value={email}
             />
             <Typography color="grey" variant="small-body" otherStyles={{ marginTop: 16}}>
-                Birth Date
+                {copy.INDEX.TYPOGRAPHY.TEXT[4]}
             </Typography>
             <div styleName="birth-fields">
                 <SelectBox
