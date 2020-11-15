@@ -1,6 +1,8 @@
 import React from "react";
 import { connect } from "react-redux";
 import { Typography, Button } from "components";
+import moment from "moment";
+import ReactCountryFlag from "react-country-flag";
 import Cache from "../../lib/cache/cache";
 import { isUserSet, getAppCustomization } from "../../lib/helpers";
 import { CopyText } from "../../copy";
@@ -9,6 +11,8 @@ import "./index.css";
 const defaultState = {
   username: "",
   email: "",
+  userCountry: {},
+  birthDate: "",
   clientId: "",
   flowId: "",
   isKycStatus: null
@@ -46,15 +50,31 @@ class AccountTab extends React.Component {
     const isKycStatus = await profile.kycStatus();
     const userId = profile.getID();
     const username = profile.getUsername();
+    const userCountry = await profile.getUserCountry();
+    const birthDate = await profile.getBirthDate();
     const email = profile.user.email
       ? profile.user.email
       : profile.user.user.email;
     const avatar = null;
 
+    const birthDateFormat = birthDate
+      .split("")
+      .splice(0, 10)
+      .join("");
+    const birthDateReformated = moment(birthDateFormat).format("L");
+
+    const { text, value } = userCountry;
+    const countryTextFormat = text.toLowerCase();
+
     this.setState({
       ...this.state,
       userId,
       username,
+      userCountry: {
+        text: countryTextFormat,
+        value
+      },
+      birthDate: birthDateReformated,
       avatar,
       email,
       isKycActive: kycIntegration.isActive,
@@ -124,7 +144,7 @@ class AccountTab extends React.Component {
 
   render() {
     const { ln, onLogout } = this.props;
-    const { username, email, userId, isKycStatus, isKycActive } = this.state;
+    const { username, email, userId, isKycStatus, isKycActive, userCountry, birthDate } = this.state;
     const copy = CopyText.registerFormIndex[ln];
     const copyLogout = CopyText.userMenuIndex[ln];
     const skin = getAppCustomization().skin.skin_type;
@@ -164,6 +184,39 @@ class AccountTab extends React.Component {
           <div styleName="value">
             <Typography variant="small-body" color="white">
               {email}
+            </Typography>
+          </div>
+        </div>
+        <div styleName="field">
+          <div styleName="label">
+            <Typography variant="small-body" color="white">
+            {copy.INDEX.TYPOGRAPHY.TEXT[4]}
+            </Typography>
+          </div>
+          <div styleName="value">
+            <Typography variant="small-body" color="white">
+              {birthDate}
+            </Typography>
+          </div>
+        </div>
+        <div styleName="field">
+          <div styleName="label">
+            <Typography variant="small-body" color="white">
+              {copy.INDEX.INPUT_TEXT.LABEL[9]}
+            </Typography>
+          </div>
+          <div styleName="value field-label-country">
+            <ReactCountryFlag
+                svg
+                countryCode={userCountry.value}
+                style={{
+                    width: '24px',
+                    height: '24px',
+                    marginRight: '16px'
+                }} 
+              />
+            <Typography variant="small-body" color="white">
+              {userCountry.text}
             </Typography>
           </div>
         </div>

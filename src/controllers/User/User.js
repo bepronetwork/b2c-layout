@@ -129,6 +129,21 @@ export default class User {
 
     getWallets = () => {return this.user.wallet};
     
+    getUserCountry = async () => {
+        const { country, country_acronym } = await this.updateUser();
+
+        return {
+            value: country_acronym,
+            text: country
+        };
+    };
+
+    getBirthDate = async () => {
+        const { birthday } = await this.updateUser();
+
+        return birthday;
+    }
+
     getBalanceAsync = async () => Numbers.toFloat((await this.updateUser()).balance);
 
     getChat = () =>  this.chat;
