@@ -9,6 +9,8 @@ import "./index.css";
 const defaultState = {
   username: "",
   email: "",
+  userCountry: {},
+  birthDate: "",
   clientId: "",
   flowId: "",
   isKycStatus: null
@@ -46,6 +48,8 @@ class AccountTab extends React.Component {
     const isKycStatus = await profile.kycStatus();
     const userId = profile.getID();
     const username = profile.getUsername();
+    const userCountry = await profile.getUserCountry();
+    const birthDate = await profile.getBirthDate();
     const email = profile.user.email
       ? profile.user.email
       : profile.user.user.email;
@@ -55,6 +59,8 @@ class AccountTab extends React.Component {
       ...this.state,
       userId,
       username,
+      userCountry,
+      birthDate,
       avatar,
       email,
       isKycActive: kycIntegration.isActive,
@@ -124,7 +130,7 @@ class AccountTab extends React.Component {
 
   render() {
     const { ln, onLogout } = this.props;
-    const { username, email, userId, isKycStatus, isKycActive } = this.state;
+    const { username, email, userId, isKycStatus, isKycActive, userCountry, birthDate } = this.state;
     const copy = CopyText.registerFormIndex[ln];
     const copyLogout = CopyText.userMenuIndex[ln];
     const skin = getAppCustomization().skin.skin_type;
@@ -164,6 +170,30 @@ class AccountTab extends React.Component {
           <div styleName="value">
             <Typography variant="small-body" color="white">
               {email}
+            </Typography>
+          </div>
+        </div>
+        <div styleName="field">
+          <div styleName="label">
+            <Typography variant="small-body" color="white">
+              Birth Date
+            </Typography>
+          </div>
+          <div styleName="value">
+            <Typography variant="small-body" color="white">
+              {birthDate}
+            </Typography>
+          </div>
+        </div>
+        <div styleName="field">
+          <div styleName="label">
+            <Typography variant="small-body" color="white">
+              Country
+            </Typography>
+          </div>
+          <div styleName="value">
+            <Typography variant="small-body" color="white">
+              {userCountry.text}
             </Typography>
           </div>
         </div>
