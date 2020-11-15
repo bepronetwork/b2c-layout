@@ -149,8 +149,6 @@ class AccountTab extends React.Component {
     const copyLogout = CopyText.userMenuIndex[ln];
     const skin = getAppCustomization().skin.skin_type;
 
-    console.log(`${userCountry.value}`,'userCountry.value');
-
     return (
       <div styleName={`box ${skin == "digital" ? "box-digital-kyc" : "background-kyc"}`}>
         <div styleName="field">
@@ -192,7 +190,7 @@ class AccountTab extends React.Component {
         <div styleName="field">
           <div styleName="label">
             <Typography variant="small-body" color="white">
-              Birth Date
+            {copy.INDEX.TYPOGRAPHY.TEXT[4]}
             </Typography>
           </div>
           <div styleName="value">
@@ -204,7 +202,7 @@ class AccountTab extends React.Component {
         <div styleName="field">
           <div styleName="label">
             <Typography variant="small-body" color="white">
-              Country
+              {copy.INDEX.INPUT_TEXT.LABEL[9]}
             </Typography>
           </div>
           <div styleName="value field-label-country">
