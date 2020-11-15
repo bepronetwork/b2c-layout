@@ -2,6 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import { Typography, Button } from "components";
 import moment from "moment";
+import ReactCountryFlag from "react-country-flag";
 import Cache from "../../lib/cache/cache";
 import { isUserSet, getAppCustomization } from "../../lib/helpers";
 import { CopyText } from "../../copy";
@@ -62,11 +63,17 @@ class AccountTab extends React.Component {
       .join("");
     const birthDateReformated = moment(birthDateFormat).format("L");
 
+    const { text, value } = userCountry;
+    const countryTextFormat = text.toLowerCase();
+
     this.setState({
       ...this.state,
       userId,
       username,
-      userCountry,
+      userCountry: {
+        text: countryTextFormat,
+        value
+      },
       birthDate: birthDateReformated,
       avatar,
       email,
@@ -142,6 +149,8 @@ class AccountTab extends React.Component {
     const copyLogout = CopyText.userMenuIndex[ln];
     const skin = getAppCustomization().skin.skin_type;
 
+    console.log(`${userCountry.value}`,'userCountry.value');
+
     return (
       <div styleName={`box ${skin == "digital" ? "box-digital-kyc" : "background-kyc"}`}>
         <div styleName="field">
@@ -198,7 +207,16 @@ class AccountTab extends React.Component {
               Country
             </Typography>
           </div>
-          <div styleName="value">
+          <div styleName="value field-label-country">
+            <ReactCountryFlag
+                svg
+                countryCode={userCountry.value}
+                style={{
+                    width: '24px',
+                    height: '24px',
+                    marginRight: '16px'
+                }} 
+              />
             <Typography variant="small-body" color="white">
               {userCountry.text}
             </Typography>
