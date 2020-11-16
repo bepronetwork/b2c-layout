@@ -57,24 +57,12 @@ class AccountTab extends React.Component {
       : profile.user.user.email;
     const avatar = null;
 
-    const birthDateFormat = birthDate
-      .split("")
-      .splice(0, 10)
-      .join("");
-    const birthDateReformated = moment(birthDateFormat).format("L");
-
-    const { text, value } = userCountry;
-    const countryTextFormat = text.toLowerCase();
-
     this.setState({
       ...this.state,
       userId,
       username,
-      userCountry: {
-        text: countryTextFormat,
-        value
-      },
-      birthDate: birthDateReformated,
+      userCountry,
+      birthDate,
       avatar,
       email,
       isKycActive: kycIntegration.isActive,
@@ -187,39 +175,43 @@ class AccountTab extends React.Component {
             </Typography>
           </div>
         </div>
-        <div styleName="field">
-          <div styleName="label">
-            <Typography variant="small-body" color="white">
-            {copy.INDEX.TYPOGRAPHY.TEXT[4]}
-            </Typography>
+        {birthDate && (
+          <div styleName="field">
+            <div styleName="label">
+              <Typography variant="small-body" color="white">
+              {copy.INDEX.TYPOGRAPHY.TEXT[4]}
+              </Typography>
+            </div>
+            <div styleName="value">
+              <Typography variant="small-body" color="white">
+                {birthDate}
+              </Typography>
+            </div>
           </div>
-          <div styleName="value">
-            <Typography variant="small-body" color="white">
-              {birthDate}
-            </Typography>
+        )}
+        {userCountry.text && (
+          <div styleName="field">
+            <div styleName="label">
+              <Typography variant="small-body" color="white">
+                {copy.INDEX.INPUT_TEXT.LABEL[9]}
+              </Typography>
+            </div>
+            <div styleName="value field-label-country">
+              <ReactCountryFlag
+                  svg
+                  countryCode={userCountry.value}
+                  style={{
+                      width: '24px',
+                      height: '24px',
+                      marginRight: '16px'
+                  }} 
+                />
+              <Typography variant="small-body" color="white">
+                {userCountry.text}
+              </Typography>
+            </div>
           </div>
-        </div>
-        <div styleName="field">
-          <div styleName="label">
-            <Typography variant="small-body" color="white">
-              {copy.INDEX.INPUT_TEXT.LABEL[9]}
-            </Typography>
-          </div>
-          <div styleName="value field-label-country">
-            <ReactCountryFlag
-                svg
-                countryCode={userCountry.value}
-                style={{
-                    width: '24px',
-                    height: '24px',
-                    marginRight: '16px'
-                }} 
-              />
-            <Typography variant="small-body" color="white">
-              {userCountry.text}
-            </Typography>
-          </div>
-        </div>
+        )}
         {
           isKycActive ? 
             <div styleName={`field ${isKycStatus === "no kyc" || isKycStatus === null ? "background-kyc-digital" : "background-kyc-digital"}`}>

@@ -15,6 +15,7 @@ import {
   getProviderToken,
   sendFreeCurrencyRequest
 } from "lib/api/users";
+import moment from "moment";
 import { Numbers } from "../../lib/ethereum/lib";
 import Cache from "../../lib/cache/cache";
 import ChatChannel from "../Chat";
@@ -132,16 +133,29 @@ export default class User {
     getUserCountry = async () => {
         const { country, country_acronym } = await this.updateUser();
 
-        return {
-            value: country_acronym,
-            text: country
-        };
+        if (country && country_acronym) {
+            return {
+                value: country_acronym,
+                text: _.startCase(country.toLowerCase())
+            };
+        }
+
+        return false;
     };
 
     getBirthDate = async () => {
         const { birthday } = await this.updateUser();
 
-        return birthday;
+        if (birthday) {
+            birthday
+            .split("")
+            .splice(0, 10)
+            .join("");
+
+            return moment(birthday).format("L");
+        }
+
+        return false;
     }
 
     getBalanceAsync = async () => Numbers.toFloat((await this.updateUser()).balance);
