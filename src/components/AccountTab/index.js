@@ -137,6 +137,8 @@ class AccountTab extends React.Component {
     const copyLogout = CopyText.userMenuIndex[ln];
     const skin = getAppCustomization().skin.skin_type;
 
+    console.log(userCountry, 'userCountry')
+
     return (
       <div styleName={`box ${skin == "digital" ? "box-digital-kyc" : "background-kyc"}`}>
         <div styleName="field">

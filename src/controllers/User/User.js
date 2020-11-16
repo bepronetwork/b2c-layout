@@ -129,34 +129,6 @@ export default class User {
     getWallet = ({currency}) => {return this.user.wallet.find( w => new String(w.currency._id).toString().toLowerCase() == new String(currency._id).toString().toLowerCase())};
 
     getWallets = () => {return this.user.wallet};
-    
-    getUserCountry = async () => {
-        const { country, country_acronym } = await this.updateUser();
-
-        if (country && country_acronym) {
-            return {
-                value: country_acronym,
-                text: _.startCase(country.toLowerCase())
-            };
-        }
-
-        return false;
-    };
-
-    getBirthDate = async () => {
-        const { birthday } = await this.updateUser();
-
-        if (birthday) {
-            birthday
-            .split("")
-            .splice(0, 10)
-            .join("");
-
-            return moment(birthday).format("L");
-        }
-
-        return false;
-    }
 
     getBalanceAsync = async () => Numbers.toFloat((await this.updateUser()).balance);
 
@@ -611,6 +583,36 @@ export default class User {
             return await processResponse(res);
       
         }catch(err){
+            console.log(err)
+            throw err;
+        }
+    }
+    
+    getUserCountry = async () => {
+        try {
+            const { country, country_acronym } = await this.updateUser();
+            if (country && country_acronym) {
+                return {
+                    value: country_acronym,
+                    text: _.startCase(country.toLowerCase())
+                };
+            }
+            return false;
+        } catch(err) {
+            console.log(err)
+            throw err;
+        }
+    };
+
+    getBirthDate = async () => {
+        try {
+            const { birthday } = await this.updateUser();
+            if (birthday) {
+                const birthdayReformat = birthday.split("").splice(0, 10).join("");
+                return moment(birthdayReformat).format("L");
+            }
+            return false;
+        } catch(err) {
             console.log(err)
             throw err;
         }
