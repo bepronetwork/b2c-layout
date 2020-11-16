@@ -247,6 +247,36 @@ export default class User {
             throw err;
         }
     }
+        
+    getUserCountry = async () => {
+        try {
+            const { country, country_acronym } = await this.updateUser();
+            if (country && country_acronym) {
+                return {
+                    value: country_acronym,
+                    text: _.startCase(country.toLowerCase())
+                };
+            }
+            return false;
+        } catch(err) {
+            console.log(err)
+            throw err;
+        }
+    };
+
+    getBirthDate = async () => {
+        try {
+            const { birthday } = await this.updateUser();
+            if (birthday) {
+                const birthdayReformat = birthday.split("").splice(0, 10).join("");
+                return moment(birthdayReformat).locale("pt").format("L");
+            }
+            return false;
+        } catch(err) {
+            console.log(err)
+            throw err;
+        }
+    }
 
     updateUser = async () => {
         let user = await userAuth({
@@ -583,36 +613,6 @@ export default class User {
             return await processResponse(res);
       
         }catch(err){
-            console.log(err)
-            throw err;
-        }
-    }
-    
-    getUserCountry = async () => {
-        try {
-            const { country, country_acronym } = await this.updateUser();
-            if (country && country_acronym) {
-                return {
-                    value: country_acronym,
-                    text: _.startCase(country.toLowerCase())
-                };
-            }
-            return false;
-        } catch(err) {
-            console.log(err)
-            throw err;
-        }
-    };
-
-    getBirthDate = async () => {
-        try {
-            const { birthday } = await this.updateUser();
-            if (birthday) {
-                const birthdayReformat = birthday.split("").splice(0, 10).join("");
-                return moment(birthdayReformat).format("L");
-            }
-            return false;
-        } catch(err) {
             console.log(err)
             throw err;
         }
