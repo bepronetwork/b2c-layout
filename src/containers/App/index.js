@@ -358,7 +358,7 @@ class App extends Component {
             this.setState({ error: null });
             const response = await register(form);
             if (response.status !== 200) { return this.setState({ error: response }); }
-
+console.log(form, 'form')
             await this.handleLogin({username : form.username, password : form.password});
             const { user, app } = this.state;
             if (user) {

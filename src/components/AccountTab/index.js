@@ -1,6 +1,8 @@
 import React from "react";
 import { connect } from "react-redux";
 import { Typography, Button } from "components";
+import moment from "moment";
+import ReactCountryFlag from "react-country-flag";
 import Cache from "../../lib/cache/cache";
 import { isUserSet, getAppCustomization } from "../../lib/helpers";
 import { CopyText } from "../../copy";
@@ -9,6 +11,8 @@ import "./index.css";
 const defaultState = {
   username: "",
   email: "",
+  userCountry: {},
+  birthDate: "",
   clientId: "",
   flowId: "",
   isKycStatus: null
@@ -46,6 +50,8 @@ class AccountTab extends React.Component {
     const isKycStatus = await profile.kycStatus();
     const userId = profile.getID();
     const username = profile.getUsername();
+    const userCountry = await profile.getUserCountry();
+    const birthDate = await profile.getBirthDate();
     const email = profile.user.email
       ? profile.user.email
       : profile.user.user.email;
@@ -55,6 +61,8 @@ class AccountTab extends React.Component {
       ...this.state,
       userId,
       username,
+      userCountry,
+      birthDate,
       avatar,
       email,
       isKycActive: kycIntegration.isActive,
@@ -124,10 +132,12 @@ class AccountTab extends React.Component {
 
   render() {
     const { ln, onLogout } = this.props;
-    const { username, email, userId, isKycStatus, isKycActive } = this.state;
+    const { username, email, userId, isKycStatus, isKycActive, userCountry, birthDate } = this.state;
     const copy = CopyText.registerFormIndex[ln];
     const copyLogout = CopyText.userMenuIndex[ln];
     const skin = getAppCustomization().skin.skin_type;
+
+    console.log(userCountry, 'userCountry')
 
     return (
       <div styleName={`box ${skin == "digital" ? "box-digital-kyc" : "background-kyc"}`}>
@@ -167,6 +177,43 @@ class AccountTab extends React.Component {
             </Typography>
           </div>
         </div>
+        {birthDate && (
+          <div styleName="field">
+            <div styleName="label">
+              <Typography variant="small-body" color="white">
+              {copy.INDEX.TYPOGRAPHY.TEXT[4]}
+              </Typography>
+            </div>
+            <div styleName="value">
+              <Typography variant="small-body" color="white">
+                {birthDate}
+              </Typography>
+            </div>
+          </div>
+        )}
+        {userCountry.text && (
+          <div styleName="field">
+            <div styleName="label">
+              <Typography variant="small-body" color="white">
+                {copy.INDEX.INPUT_TEXT.LABEL[9]}
+              </Typography>
+            </div>
+            <div styleName="value field-label-country">
+              <ReactCountryFlag
+                  svg
+                  countryCode={userCountry.value}
+                  style={{
+                      width: '24px',
+                      height: '24px',
+                      marginRight: '16px'
+                  }} 
+                />
+              <Typography variant="small-body" color="white">
+                {userCountry.text}
+              </Typography>
+            </div>
+          </div>
+        )}
         {
           isKycActive ? 
             <div styleName={`field ${isKycStatus === "no kyc" || isKycStatus === null ? "background-kyc-digital" : "background-kyc-digital"}`}>

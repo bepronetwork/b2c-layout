@@ -16,7 +16,7 @@ let SEC = 200;
 // Now all requests using this instance will wait 2.5 seconds before timing out
 instance.defaults.timeout = SEC*1000;
 
-export async function register({ username, password, email, address, affiliateLink}) {
+export async function register({ username, password, email, address, affiliateLink, birthDate, userCountry }) {
     const postData = {
         username,
         email,
@@ -24,6 +24,9 @@ export async function register({ username, password, email, address, affiliateLi
         name: username,
         app: appId,
         address: address,
+        birthday: birthDate,
+        country: userCountry.text,
+        country_acronym: userCountry.value,
         affiliateLink : (affiliateLink) ? new String(affiliateLink).toString() : ''
     }
     if(postData.affiliateLink == false){

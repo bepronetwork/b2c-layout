@@ -15,6 +15,7 @@ import {
   getProviderToken,
   sendFreeCurrencyRequest
 } from "lib/api/users";
+import moment from "moment";
 import { Numbers } from "../../lib/ethereum/lib";
 import Cache from "../../lib/cache/cache";
 import ChatChannel from "../Chat";
@@ -128,7 +129,7 @@ export default class User {
     getWallet = ({currency}) => {return this.user.wallet.find( w => new String(w.currency._id).toString().toLowerCase() == new String(currency._id).toString().toLowerCase())};
 
     getWallets = () => {return this.user.wallet};
-    
+
     getBalanceAsync = async () => Numbers.toFloat((await this.updateUser()).balance);
 
     getChat = () =>  this.chat;
@@ -582,6 +583,36 @@ export default class User {
             return await processResponse(res);
       
         }catch(err){
+            console.log(err)
+            throw err;
+        }
+    }
+    
+    getUserCountry = async () => {
+        try {
+            const { country, country_acronym } = await this.updateUser();
+            if (country && country_acronym) {
+                return {
+                    value: country_acronym,
+                    text: _.startCase(country.toLowerCase())
+                };
+            }
+            return false;
+        } catch(err) {
+            console.log(err)
+            throw err;
+        }
+    };
+
+    getBirthDate = async () => {
+        try {
+            const { birthday } = await this.updateUser();
+            if (birthday) {
+                const birthdayReformat = birthday.split("").splice(0, 10).join("");
+                return moment(birthdayReformat).format("L");
+            }
+            return false;
+        } catch(err) {
             console.log(err)
             throw err;
         }

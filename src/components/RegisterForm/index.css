@@ -40,7 +40,7 @@
 }
 
 .agree-right {
-  margin: auto; 
+  margin: auto;
   margin-left: $spacing-8;
   opacity: 0.5;
 
@@ -54,4 +54,30 @@
   display: inline-flex;
   align-items: center;
   margin: auto;
+}
+
+.birth-fields {
+  margin: $spacing-8 calc($spacing-8 * -1) $spacing-8;
+  display: flex;
+
+  @include Breakpoint-mobileOnly {
+    margin: $spacing-8 calc($spacing-4 * -1) $spacing-8;
+  }
+
+  > * {
+    flex: 1;
+    margin: $spacing-8;
+
+    @include Breakpoint-mobileOnly {
+      min-width: auto !important;
+      margin: $spacing-4;
+    }
+  }
+
+  > *:first-child,
+  > *:last-child {
+    @include Breakpoint-mobileOnly {
+      width: 65px;
+    }
+  }
 }
