@@ -70,7 +70,7 @@ class MobileMenu extends Component {
 
     homeClick = (homepage) => {
         this.setState({ gameType: homepage })
-        this.props.history.push(`/${homepage}`);
+        this.props.history.push(`${homepage}`);
     };
 
     renderItens() {
