@@ -122,7 +122,6 @@
   }
 
 .field-label-country {
-    text-transform: capitalize;
     display: flex;
     align-items: center;
 }

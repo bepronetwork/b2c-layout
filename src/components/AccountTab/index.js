@@ -57,29 +57,12 @@ class AccountTab extends React.Component {
       : profile.user.user.email;
     const avatar = null;
 
-    let birthDateReformated;
-    let countryTextFormat;
-    const { value } = userCountry;
-
-    if (birthDate && userCountry) {
-      const { text } = userCountry;
-      const birthDateFormat = birthDate
-      .split("")
-      .splice(0, 10)
-      .join("");
-      birthDateReformated = moment(birthDateFormat).format("L");
-      countryTextFormat = text.toLowerCase();
-    }
-
     this.setState({
       ...this.state,
       userId,
       username,
-      userCountry: {
-        text: countryTextFormat,
-        value
-      },
-      birthDate: birthDateReformated,
+      userCountry,
+      birthDate,
       avatar,
       email,
       isKycActive: kycIntegration.isActive,
