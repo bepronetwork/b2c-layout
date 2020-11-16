@@ -120,4 +120,7 @@
     }
   }
 
-
+  .field-label-country {
+    display: flex;
+    align-items: center;
+}
