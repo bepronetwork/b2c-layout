@@ -13,6 +13,10 @@
     cursor: pointer;
     outline: none;
   }
+
+  > button {
+    width: 100%;
+  }
 }
 
 
@@ -66,7 +70,6 @@
 
   *:first-child {
     width: $spacing-16;
-    margin-right: $spacing-8;
   }
 
   cursor: pointer;
@@ -83,7 +86,7 @@
   * {
     color: $nepal;
   }
-}*/
+}
 
 .item{
   display: inline-flex;
@@ -111,6 +114,7 @@
     align-items: center;
     height: $spacing-16;
     cursor: pointer;
+    justify-content: space-between;
 
     svg {
       width: $spacing-8;
@@ -135,3 +139,7 @@
       transition: opacity 0.1s ease-in;
     }
   }
+  
+.fullWidth {
+  width: 100%;
+}

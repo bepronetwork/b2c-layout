@@ -16,6 +16,10 @@
     cursor: pointer;
     outline: none;
   }
+
+  > button {
+    width: 100%;
+  }
 }
 
 .root:hover {
@@ -77,7 +81,6 @@
 
   *:first-child {
     width: $spacing-16;
-    margin-right: $spacing-8;
   }
 
   cursor: pointer;
@@ -121,6 +124,7 @@
   flex-direction: row;
   align-items: center;
   height: $spacing-16;
+  justify-content: space-between;
   cursor: pointer;
   color: $placeHolderColor;
   font-family: $font-family;
@@ -130,10 +134,6 @@
 
   img {
     width: 16px;
-  }
-
-  *:first-child {
-    margin-right: $spacing-4;
   }
 }
 
