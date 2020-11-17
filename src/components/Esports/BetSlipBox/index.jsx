@@ -65,10 +65,10 @@ class BetSlipBox extends Component {
         });
 
         const returnBet = bet.odd;
-        const marketActive = bet.marketActive ? bet.marketActive : true;
+        const marketActive = bet.marketActive !== undefined ? bet.marketActive === true : true;
 
         return (
-            <div styleName="box">
+            <div styleName={marketActive ? "box" : "box with-border"}>
                 <div styleName="bet-header">
                     <div styleName="game-section">
                         <img src={bet.image}/>
@@ -100,7 +100,7 @@ class BetSlipBox extends Component {
                                         name="amount"
                                         title="Bet Amount"
                                         precision={2}
-                                        disabled={!marketActive}
+                                        disabled={marketActive === false}
                                         max={(user && !_.isEmpty(user)) ? user.getBalance() : null}
                                         value={bet.amount}
                                         onChange={this.handleBetAmountChange}
@@ -142,7 +142,7 @@ class BetSlipBox extends Component {
                     :
                         null
                 }
-                { !marketActive && <Tooltip title="This odd is no longer available, please remove it" placement="top">
+                { marketActive === false && <Tooltip title="This game is blocked, please remove it" placement="top">
                     <div styleName="lock-icon-background">
                         <LockTwoToneIcon style={{ color: 'white' }} fontSize="default"/>
                     </div>

@@ -22,6 +22,10 @@
     } 
 }
 
+.with-border {
+    border: 1px solid red;
+}
+
 .bet-header {
     display: grid;
     grid-template-columns: 30px auto auto;
