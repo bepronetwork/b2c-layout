@@ -1,22 +1,20 @@
 import React from "react";
 import { connect } from "react-redux";
 import { Typography, Button } from "components";
-import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 import ReactCountryFlag from "react-country-flag";
 import Cache from "../../lib/cache/cache";
-import { isUserSet, getAppCustomization, getSkeletonColors } from "../../lib/helpers";
+import { isUserSet, getAppCustomization } from "../../lib/helpers";
 import { CopyText } from "../../copy";
 import "./index.css";
 
 const defaultState = {
   username: "",
   email: "",
-  userCountry: {},
+  country: {},
   birthDate: "",
   clientId: "",
   flowId: "",
-  isKycStatus: null,
-  isLoading: false
+  isKycStatus: null
 };
 // const cache = new Cache({
 //   // Keep cached source failures for up to 7 days
@@ -42,7 +40,6 @@ class AccountTab extends React.Component {
   projectData = async props => {
     const { profile } = props;
     const appInfo = Cache.getFromCache("appInfo");
-    this.setState({ isLoading: true })
 
     if (!isUserSet(profile)) {
       return null;
@@ -52,8 +49,8 @@ class AccountTab extends React.Component {
     const isKycStatus = await profile.kycStatus();
     const userId = profile.getID();
     const username = profile.getUsername();
-    const userCountry = await profile.getUserCountry();
-    const birthDate = await profile.getBirthDate();
+    const country = profile.getCountry();
+    const birthDate = profile.getBirthDate();
     const email = profile.user.email
       ? profile.user.email
       : profile.user.user.email;
@@ -63,7 +60,7 @@ class AccountTab extends React.Component {
       ...this.state,
       userId,
       username,
-      userCountry,
+      country,
       birthDate,
       avatar,
       email,
@@ -71,8 +68,7 @@ class AccountTab extends React.Component {
       clientId: kycIntegration.clientId,
       flowId: kycIntegration.flowId,
       isKycStatus:
-        isKycStatus === null ? isKycStatus : isKycStatus.toLowerCase(),
-      isLoading: false
+        isKycStatus === null ? isKycStatus : isKycStatus.toLowerCase()
     });
     this.caseKycStatus();
   };
@@ -135,151 +131,108 @@ class AccountTab extends React.Component {
 
   render() {
     const { ln, onLogout } = this.props;
-    const { username, email, userId, isKycStatus, isKycActive, userCountry, birthDate, isLoading } = this.state;
+    const { username, email, userId, isKycStatus, isKycActive, country, birthDate } = this.state;
     const copy = CopyText.registerFormIndex[ln];
     const copyLogout = CopyText.userMenuIndex[ln];
     const skin = getAppCustomization().skin.skin_type;
 
-    console.log(userCountry, 'userCountry')
-
     return (
       <div styleName={`box ${skin == "digital" ? "box-digital-kyc" : "background-kyc"}`}>
-        {isLoading ?
-          <SkeletonTheme color={ getSkeletonColors().color} highlightColor={ getSkeletonColors().highlightColor}>
-               <div styleName="field">
-                  <div styleName="label">
-                    <Skeleton width={100} height={30}/>
-                  </div>
-                  <div styleName="value">
-                    <Skeleton width={100} height={30}/>
-                  </div>
-              </div>
-              <div styleName="field">
-                  <div styleName="label">
-                    <Skeleton width={100} height={30}/>
-                  </div>
-                  <div styleName="value">
-                    <Skeleton width={100} height={30}/>
-                  </div>
-              </div>
-              <div styleName="field">
-                  <div styleName="label">
-                    <Skeleton width={100} height={30}/>
-                  </div>
-                  <div styleName="value">
-                    <Skeleton width={100} height={30}/>
-                  </div>
-              </div>
-              <div styleName="field">
-                  <div styleName="label">
-                    <Skeleton width={100} height={30}/>
-                  </div>
-                  <div styleName="value">
-                    <Skeleton width={100} height={30}/>
-                  </div>  
-              </div>
-          </SkeletonTheme>
-                :
-          (          
-            <>
+        <div styleName="field">
+            <div styleName="label">
+              <Typography variant="small-body" color="white">
+                {copy.INDEX.INPUT_TEXT.LABEL[4]}
+              </Typography>
+            </div>
+            <div styleName="value">
+              <Typography variant="small-body" color="white">
+                {userId}
+              </Typography>
+            </div>
+          </div>
+          <div styleName="field">
+            <div styleName="label">
+              <Typography variant="small-body" color="white">
+                {copy.INDEX.INPUT_TEXT.LABEL[0]}
+              </Typography>
+            </div>
+            <div styleName="value">
+              <Typography variant="small-body" color="white">
+                @{username}
+              </Typography>
+            </div>
+          </div>
+          <div styleName="field">
+            <div styleName="label">
+              <Typography variant="small-body" color="white">
+                {copy.INDEX.INPUT_TEXT.LABEL[3]}
+              </Typography>
+            </div>
+            <div styleName="value">
+              <Typography variant="small-body" color="white">
+                {email}
+              </Typography>
+            </div>
+          </div>
+          {birthDate && (
             <div styleName="field">
               <div styleName="label">
                 <Typography variant="small-body" color="white">
-                  {copy.INDEX.INPUT_TEXT.LABEL[4]}
+                {copy.INDEX.TYPOGRAPHY.TEXT[4]}
                 </Typography>
               </div>
               <div styleName="value">
                 <Typography variant="small-body" color="white">
-                  {userId}
+                  {birthDate}
                 </Typography>
               </div>
             </div>
+          )}
+          {country.text && (
             <div styleName="field">
               <div styleName="label">
                 <Typography variant="small-body" color="white">
-                  {copy.INDEX.INPUT_TEXT.LABEL[0]}
+                  {copy.INDEX.INPUT_TEXT.LABEL[9]}
                 </Typography>
               </div>
-              <div styleName="value">
+              <div styleName="value field-label-country">
+                <ReactCountryFlag
+                    svg
+                    countryCode={country.value}
+                    style={{
+                        width: '24px',
+                        height: '24px',
+                        marginRight: '16px'
+                    }} 
+                  />
                 <Typography variant="small-body" color="white">
-                  @{username}
+                  {country.text}
                 </Typography>
               </div>
             </div>
-            <div styleName="field">
-              <div styleName="label">
-                <Typography variant="small-body" color="white">
-                  {copy.INDEX.INPUT_TEXT.LABEL[3]}
-                </Typography>
-              </div>
-              <div styleName="value">
-                <Typography variant="small-body" color="white">
-                  {email}
-                </Typography>
-              </div>
-            </div>
-            {birthDate && (
-              <div styleName="field">
-                <div styleName="label">
+          )}
+          {
+            isKycActive ? 
+              <div styleName={`field ${isKycStatus === "no kyc" || isKycStatus === null ? "background-kyc-digital" : "background-kyc-digital"}`}>
+                <div styleName={`label ${isKycStatus === "no kyc" || isKycStatus === null ? "flex-kyc " : "flex-kyc"}`}>
                   <Typography variant="small-body" color="white">
-                  {copy.INDEX.TYPOGRAPHY.TEXT[4]}
+                    {copy.INDEX.INPUT_TEXT.LABEL[5]}
                   </Typography>
                 </div>
-                <div styleName="value">
-                  <Typography variant="small-body" color="white">
-                    {birthDate}
-                  </Typography>
-                </div>
+                {this.caseKycStatus()}
               </div>
-            )}
-            {userCountry.text && (
-              <div styleName="field">
-                <div styleName="label">
-                  <Typography variant="small-body" color="white">
-                    {copy.INDEX.INPUT_TEXT.LABEL[9]}
-                  </Typography>
-                </div>
-                <div styleName="value field-label-country">
-                  <ReactCountryFlag
-                      svg
-                      countryCode={userCountry.value}
-                      style={{
-                          width: '24px',
-                          height: '24px',
-                          marginRight: '16px'
-                      }} 
-                    />
-                  <Typography variant="small-body" color="white">
-                    {userCountry.text}
-                  </Typography>
-                </div>
-              </div>
-            )}
-            {
-              isKycActive ? 
-                <div styleName={`field ${isKycStatus === "no kyc" || isKycStatus === null ? "background-kyc-digital" : "background-kyc-digital"}`}>
-                  <div styleName={`label ${isKycStatus === "no kyc" || isKycStatus === null ? "flex-kyc " : "flex-kyc"}`}>
-                    <Typography variant="small-body" color="white">
-                      {copy.INDEX.INPUT_TEXT.LABEL[5]}
-                    </Typography>
-                  </div>
-                  {this.caseKycStatus()}
-                </div>
-              : null
-            }
-            <div styleName="button" onClick={onLogout}>
-              <Button size="x-small" theme="primary">
-                <Typography
-                  color={skin == "digital" ? "secondary" : "fixedwhite"}
-                  variant="small-body"
-                >
-                  {copyLogout.INDEX.TYPOGRAPHY.TEXT[2]}
-                </Typography>
-              </Button>
-            </div>
-            </>
-          )
-        }
+            : null
+          }
+          <div styleName="button" onClick={onLogout}>
+            <Button size="x-small" theme="primary">
+              <Typography
+                color={skin == "digital" ? "secondary" : "fixedwhite"}
+                variant="small-body"
+              >
+                {copyLogout.INDEX.TYPOGRAPHY.TEXT[2]}
+              </Typography>
+            </Button>
+          </div>
       </div>
     );
   }
