@@ -149,7 +149,8 @@ import ThirdPartyGameCard from  './ThirdPartyGameCard';
 import ThirdPartyProviderSelector from  './ThirdPartyProviderSelector';
 import Info from  './Info';
 import CurrencyFreeMoney from './CurrencyFreeMoney';
-import GameCounter from './GameCounter'
+import GameCounter from './GameCounter';
+import Select from './Select';
 
 export { LegalBox };
 export { Authentication2FAModal };
@@ -302,4 +303,5 @@ export { ThirdPartyGameCard };
 export { Info };
 export { CurrencyFreeMoney };
 export { ThirdPartyProviderSelector };
-export {GameCounter}
+export { GameCounter };
+export { Select };
