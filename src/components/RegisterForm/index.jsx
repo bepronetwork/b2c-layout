@@ -198,7 +198,7 @@ class RegisterForm extends Component {
                 onChange={this.onEmailChange}
                 value={email}
             />
-            <Typography color="grey" variant="small-body" otherStyles={{ marginTop: 16}}>
+            <Typography weight="semi-bold" color="grey" otherStyles={{ marginTop: 16, opacity: '0.5' }}>
                 {copy.INDEX.TYPOGRAPHY.TEXT[4]}
             </Typography>
             <div styleName="birth-fields">
