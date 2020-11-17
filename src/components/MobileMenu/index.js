@@ -120,7 +120,7 @@ class MobileMenu extends Component {
         const isValidPoints = (getAddOn().pointSystem) ? getAddOn().pointSystem.isValid : false;
         const logoPoints = (getAddOn().pointSystem) ? getAddOn().pointSystem.logo : null;
         const namePoints = (getAddOn().pointSystem) ? getAddOn().pointSystem.name : null; 
-        console.log(blankBool)
+
         return (
             <div>
                 {
