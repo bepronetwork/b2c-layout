@@ -1,0 +1,185 @@
+@import "../../styles/all.css";
+
+.root {
+  position: relative;
+  min-width: 128px;
+  cursor: pointer;
+  outline: none;
+  display: inline-block;
+  padding: $spacing-12;
+  background-color: $background-main-table;
+  border: 2px solid $primaryColor-8;
+  border-radius: $spacing-4;
+
+  * {
+    background-color: transparent;
+    cursor: pointer;
+    outline: none;
+  }
+
+  > button {
+    width: 100%;
+  }
+}
+
+.root:hover {
+  border: 2px solid $light-background-table-1-outer;
+
+  transition: border 200ms ease-out 0s;
+
+  svg {
+    fill: white;
+  }
+}
+
+.triangle {
+  position: absolute;
+
+  top: calc($spacing-4 * -1);
+  left: 50%;
+
+  width: 0;
+  height: 0;
+
+  border-right: $spacing-4 solid transparent;
+
+  border-bottom: $spacing-4 solid $primaryColor-5;
+
+  border-left: $spacing-4 solid transparent;
+
+  transform: rotate(0deg);
+}
+
+
+.options {
+  position: absolute;
+  left : 0;
+  margin-left: calc($spacing-16 * -1);
+  z-index: 2;
+
+  display: inline-block;
+
+  margin-top: $spacing-12;
+
+  background: $primaryColor-5;
+
+  border-radius: $spacing-4;
+  width: auto;
+
+  top: $spacing-28;
+  max-height: 128px;
+  overflow-y: auto;
+}
+
+
+.option {
+  flex-direction: row;
+  align-items: center;
+  width: 100%;
+
+  padding: $spacing-8 $spacing-16;
+
+  border-radius: $spacing-4;
+
+  *:first-child {
+    width: $spacing-16;
+  }
+
+  cursor: pointer;
+  outline: none;
+
+  p {
+      display: inline;
+  }
+}
+
+.option:hover {
+  background-color: $concrete;
+
+  * {
+    color: $nepal;
+  }
+}
+
+.item{
+  display: inline-flex;
+  position: relative;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 0.3em;
+}
+
+.item img{
+  display: inline-block;
+  height: 1em;
+  stroke-width: 0;
+  margin-bottom: 0.4em;
+}
+
+.item svg{
+  margin-left: 7px;
+  margin-top: -20px;
+}
+
+.label {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: inherit;
+    height: $spacing-16;
+    cursor: pointer;
+    justify-content: space-between;
+    font-family: $font-family;
+    font-size: $font-size-body;
+    font-weight: $font-weight-semibold;
+    line-height: $line-height-body;
+    color: $placeHolderColor;
+
+    @include Breakpoint-mobileOnly {
+      font-size: $font-size-body-mobile;
+      line-height: $line-height-body-mobile;
+    }
+
+    svg {
+      width: $spacing-16;
+    }
+
+    img {
+      width: 16px;
+    }
+  
+    *:first-child {
+      margin-right: $spacing-4;
+    }
+  }
+  
+  .label span{
+    margin-left: $spacing-4;
+  }
+  
+  .label:hover {
+    * {
+      opacity: 0.75;
+      transition: opacity 0.1s ease-in;
+    }
+  }
+  
+.fullWidth {
+  width: 100%;
+}
+
+.root.checked .label {
+  color: $white;
+}
+
+.root.small {
+  padding: 6px;
+}
+
+.root.small .label {
+  font-size: unset;
+}
+
+.gutterBottom {
+  margin-bottom: $spacing-16;
+}
