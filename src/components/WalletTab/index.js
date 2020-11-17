@@ -72,7 +72,7 @@ resultFilter = (firstArray, secondArray) => {
 
   projectData = async props => {
     const { profile } = this.props;
-    let { wallet } = this.state;
+    let { wallet, isEmailConfirmed } = this.state;
 
     const isKycStatus = await profile.kycStatus();
     const kycIntegration = getApp().integrations.kyc;
@@ -100,6 +100,10 @@ resultFilter = (firstArray, secondArray) => {
     if (wallets && !wallet) {
       wallet = wallets.find(w => w.currency.virtual === false);
     }
+
+    if(isEmailConfirmed !== user.isEmailConfirmed()){
+      this.setState({ isEmailConfirmed: await user.isEmailConfirmed() })
+    }
       
     const userId = profile.getID();
     const isKycNeeded = await profile.isKycConfirmed();
@@ -123,7 +127,6 @@ resultFilter = (firstArray, secondArray) => {
       wallets,
       wallet,
       virtual: getApp().virtual,
-      isEmailConfirmed: profile.user.email_confirmed
     });
     this.caseKycStatus();
   };
