@@ -364,6 +364,7 @@ class LastBets extends Component {
                         <div styleName="filters">
                             <div styleName='bets-dropdown-game'>
                                 <SelectBox
+                                    size='small'
                                     onChange={(e) => this.changeViewGames(e)}
                                     options={gamesOptions}
                                     value={this.state.view_game}
@@ -372,6 +373,7 @@ class LastBets extends Component {
 
                             <div styleName='bets-dropdown'>
                                 <SelectBox
+                                    size='small'
                                     onChange={(e) => this.changeViewBets(e)}
                                     options={this.views}
                                     value={this.state.view_amount}

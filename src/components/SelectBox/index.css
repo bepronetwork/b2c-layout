@@ -140,15 +140,15 @@
     }
 
     svg {
-      width: $spacing-16;
+      width: $spacing-12;
     }
 
     img {
-      width: 16px;
+      width: 12px;
     }
   
     *:first-child {
-      margin-right: $spacing-4;
+      margin-left: $spacing-4;
     }
   }
   
@@ -165,4 +165,20 @@
   
 .fullWidth {
   width: 100%;
+}
+
+.root.checked .label {
+  color: $white;
+}
+
+.root.small {
+  padding: 6px;
+}
+
+.root.small .label {
+  font-size: unset;
+}
+
+.gutterBottom {
+  margin-bottom: $spacing-16;
 }

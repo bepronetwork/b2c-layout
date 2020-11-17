@@ -167,3 +167,19 @@
 .fullWidth {
   width: 100%;
 }
+
+.root.checked .label {
+  color: $white;
+}
+
+.root.small {
+  padding: 6px;
+}
+
+.root.small .label {
+  font-size: unset;
+}
+
+.gutterBottom {
+  margin-bottom: $spacing-16;
+}

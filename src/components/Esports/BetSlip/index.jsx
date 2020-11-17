@@ -63,7 +63,7 @@ class BetSlip extends Component {
                 if (bet.externalMatchId === match.id && !_.isEmpty(match.odds)) {
 
                     const opponent = match.odds[bet.type].find(opponent => opponent.participant_id === bet.id);
-                    const marketActive = match.market ? match.market === 'active' : false;
+                    const marketActive = match.market ? match.market.status === 'active' : false;
 
                     let status;
 
@@ -263,7 +263,7 @@ class BetSlip extends Component {
    
         const isSuccessBet = _.isEmpty(betSlip) ? false : (betSlip.filter(b => b.success == true).length > 0);
 
-        const hasInvalidOdd = !_.isEmpty(betSlip) ? !!betSlip.find(bet => bet.marketActive && bet.marketActive === false) : false;
+        const hasInvalidOdd = !_.isEmpty(betSlip) ? !!betSlip.find(bet => bet.marketActive !== undefined && bet.marketActive === false) : false;
 
         return (
             <div>

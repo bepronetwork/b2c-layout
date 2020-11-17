@@ -324,6 +324,7 @@ class BetsTab extends Component {
                         <div styleName="filters">
                             <div styleName='bets-dropdown-game'>
                                 <SelectBox
+                                    size='small'
                                     onChange={(e) => this.changeViewGames(e)}
                                     options={gamesOptions}
                                     value={this.state.view_game}
@@ -332,6 +333,7 @@ class BetsTab extends Component {
 
                             <div styleName='bets-dropdown'>
                                 <SelectBox
+                                    size='small'
                                     onChange={(e) => this.changeViewBets(e)}
                                     options={views}
                                     value={this.state.view_amount}
