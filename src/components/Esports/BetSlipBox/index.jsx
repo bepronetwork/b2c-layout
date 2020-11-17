@@ -135,18 +135,22 @@ class BetSlipBox extends Component {
                     type == "simple"
                     ?
                         <div styleName="return">
+                            { marketActive === false ? <Tooltip title="This game is blocked, please remove it" placement="top">
+                                <div styleName="lock-icon-background">
+                                    <LockTwoToneIcon style={{ color: 'white' }} fontSize="small"/>
+                                </div>
+                            </Tooltip> : <div/> }
                             <Typography variant={'x-small-body'} color={'grey'}>
                                 to return: {formatCurrency(bet.amount * returnBet)}
                             </Typography>
                         </div>
                     :
-                        null
+                    marketActive === false ? <Tooltip title="This game is blocked, please remove it" placement="top">
+                        <div styleName="lock-icon-background">
+                            <LockTwoToneIcon style={{ color: 'white' }} fontSize="small"/>
+                        </div>
+                    </Tooltip> : null
                 }
-                { marketActive === false && <Tooltip title="This game is blocked, please remove it" placement="top">
-                    <div styleName="lock-icon-background">
-                        <LockTwoToneIcon style={{ color: 'white' }} fontSize="default"/>
-                    </div>
-                    </Tooltip> }
             </div>
         )
 
