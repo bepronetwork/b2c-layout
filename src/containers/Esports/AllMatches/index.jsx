@@ -7,6 +7,8 @@ import _ from 'lodash';
 import "./index.css";
 
 import socketConnection from '../WebSocket'
+import store from "../../App/store";
+import { setBetSlipResult } from "../../../redux/actions/betSlip";
 
 class AllMatches extends Component {
     static contextType = socketConnection;
@@ -38,7 +40,7 @@ class AllMatches extends Component {
         const { connection } = this.context;
 
         if (connection) {
-            connection.on("matchUpdate", _.debounce(this.updateMatch, 1000));
+            connection.on("matchUpdate", this.updateMatch);
         }
     }
 
@@ -58,7 +60,44 @@ class AllMatches extends Component {
                 newMatches[index] = matchUpdated;
     
                 this.setState({ matches: newMatches });
+
+                this.updateBetSlip(matchUpdated, data.message);
             }
+        }
+    }
+
+    updateBetSlip = (match, id) => {
+        const state = store.getState();
+        const { betSlip } = state;
+
+        const ids = betSlip && _.isArray(betSlip) ? betSlip.map(bet => bet.externalMatchId) : [];
+
+        if (ids.includes(id)) {
+            let newBetSlip = [...betSlip];
+
+            const betSlipArr = newBetSlip.map(bet => {
+                if (bet.externalMatchId === match.id && !_.isEmpty(match.odds)) {
+
+                    const opponent = match.odds[bet.type].find(opponent => opponent.participant_id === bet.id);
+                    const marketActive = match.market ? match.market.status === 'active' : false;
+
+                    let status;
+
+                    if (parseFloat(opponent.odd) === parseFloat(bet.odd)) {
+                        status = 'stable'
+                    } else if (parseFloat(opponent.odd) < parseFloat(bet.odd)) {
+                        status = 'down'
+                    } else {
+                        status = 'up'
+                    }
+
+                    return {...bet, odd: opponent.odd, status: status, marketActive: marketActive }
+                } else {
+                    return bet
+                }
+            })
+
+            store.dispatch(setBetSlipResult(betSlipArr))
         }
     }
 

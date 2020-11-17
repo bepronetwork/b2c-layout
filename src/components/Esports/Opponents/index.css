@@ -217,6 +217,8 @@
   height: 10px;
   transform-origin: 50% 50%;
   width: 10px;
+
+  z-index: 30;
 }
 .up {
   -webkit-animation: uparrow 0.6s 5 alternate ease-in-out;

@@ -9,6 +9,7 @@ import { getApp, getAddOn, getIcon, getAppCustomization } from "../../lib/helper
 import { formatCurrency } from "../../utils/numberFormatation";
 import _ from 'lodash';
 import "./index.css";
+import { ThumbUpSharp } from "@material-ui/icons";
 
 
 class MobileMenu extends Component {
@@ -25,6 +26,7 @@ class MobileMenu extends Component {
         const preferencesIcon = getIcon(21);
 
         this.state = {
+            blankBool: false,
             points: 0,
             itens : [
                 { path: "/settings/account",        copyValue: 6,                                       icon: userIcon === null ? <UserIcon /> : <img src={userIcon} /> },
@@ -71,6 +73,14 @@ class MobileMenu extends Component {
     homeClick = (homepage) => {
         this.setState({ gameType: homepage })
         this.props.history.push(`${homepage}`);
+
+        const result = homepage.search("http")
+
+        if(result >= 0 ){
+            this.setState({ blankBool: true })
+        }else{
+            this.setState({ blankBool: false })
+        }
     };
 
     renderItens() {
@@ -103,7 +113,7 @@ class MobileMenu extends Component {
     }
 
     render() {
-        const { points, tabs } = this.state;
+        const { points, tabs, blankBool } = this.state;
         const { ln } = this.props;
         const copy = CopyText.homepage[ln];
 
@@ -117,7 +127,7 @@ class MobileMenu extends Component {
                     tabs.map(t => {
                         return (
                             <div>
-                                <div styleName="title" onClick={() => this.homeClick(t.link_url)}>
+                                <a styleName="title" href={blankBool ? t.link_url : null} onClick={() => this.homeClick(t.link_url)} target={blankBool ? "_blank" : null} rel="noopener">
                                     {t.icon
                                     ?
                                         <div styleName='img'>
@@ -128,7 +138,7 @@ class MobileMenu extends Component {
                                         null
                                     }
                                     <Typography variant={'body'} color={'white'}>{t.name}</Typography>
-                                </div>
+                                </a>
                             </div>
                         )
                     })
