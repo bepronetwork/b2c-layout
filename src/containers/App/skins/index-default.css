@@ -307,6 +307,14 @@
   .tabs {
     width: 100%;
   }
+
+  > form {
+    width: 286px;
+
+    @include Breakpoint-mobileOnly {
+      width: auto;
+    } 
+  }
 }
 
 .gif{

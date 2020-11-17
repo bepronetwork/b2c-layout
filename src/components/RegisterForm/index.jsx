@@ -220,16 +220,18 @@ class RegisterForm extends Component {
                     }))}
                     value={month}
                 />
-                <SelectBox
-                    onChange={event => this.onYearChange(event)}
-                    options={generateIntegers(stringToNumber(getYearsAgo(72)), stringToNumber(getYearsAgo(18))).map(yearToObj => ({
-                        text: yearToObj,
-                        value: yearToObj,
-                        channel_id: yearToObj
-                    }))}
-                    value={year}
-                />
             </div>
+            <SelectBox
+                gutterBottom
+                fullWidth
+                onChange={event => this.onYearChange(event)}
+                options={generateIntegers(stringToNumber(getYearsAgo(72)), stringToNumber(getYearsAgo(18))).map(yearToObj => ({
+                    text: yearToObj,
+                    value: yearToObj,
+                    channel_id: yearToObj
+                }))}
+                value={year}
+            />
             <SelectBox
                 fullWidth
                 onChange={event => this.onCountryChange(event)}

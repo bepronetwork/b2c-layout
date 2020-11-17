@@ -170,3 +170,7 @@
 .checked .label {
   color: $white;
 }
+
+.gutterBottom {
+  margin-bottom: $spacing-16;
+}
