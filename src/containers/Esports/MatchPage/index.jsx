@@ -145,7 +145,7 @@ class MatchPage extends Component {
                                 </div>
                             </SkeletonTheme>
                         :
-                            isLive == true
+                            isLive == true && match.live_embed_url !== null
                             ?
                                 <div styleName={isLive == true ? "isLive middle" : "middle"}>
                                     <Live streaming={match.live_embed_url} match={match} />
