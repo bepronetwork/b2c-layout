@@ -178,3 +178,7 @@
 .root.small .label {
   font-size: unset;
 }
+
+.gutterBottom {
+  margin-bottom: $spacing-16;
+}

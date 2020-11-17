@@ -198,7 +198,7 @@ class RegisterForm extends Component {
                 onChange={this.onEmailChange}
                 value={email}
             />
-            <Typography color="grey" variant="small-body" otherStyles={{ marginTop: 16}}>
+            <Typography weight="semi-bold" color="white" otherStyles={{ marginTop: 16, opacity: '0.5' }}>
                 {copy.INDEX.TYPOGRAPHY.TEXT[4]}
             </Typography>
             <div styleName="birth-fields">
@@ -220,16 +220,21 @@ class RegisterForm extends Component {
                     }))}
                     value={month}
                 />
-                <SelectBox
-                    onChange={event => this.onYearChange(event)}
-                    options={generateIntegers(stringToNumber(getYearsAgo(72)), stringToNumber(getYearsAgo(18))).map(yearToObj => ({
-                        text: yearToObj,
-                        value: yearToObj,
-                        channel_id: yearToObj
-                    }))}
-                    value={year}
-                />
             </div>
+            <SelectBox
+                gutterBottom
+                fullWidth
+                onChange={event => this.onYearChange(event)}
+                options={generateIntegers(stringToNumber(getYearsAgo(72)), stringToNumber(getYearsAgo(18))).map(yearToObj => ({
+                    text: yearToObj,
+                    value: yearToObj,
+                    channel_id: yearToObj
+                }))}
+                value={year}
+            />
+            <Typography weight="semi-bold" color="white" otherStyles={{ margin: "0 0 8px 0", opacity: '0.5' }}>
+                {copy.INDEX.TYPOGRAPHY.TEXT[5]}
+            </Typography>
             <SelectBox
                 fullWidth
                 onChange={event => this.onCountryChange(event)}

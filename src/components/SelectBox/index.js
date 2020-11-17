@@ -117,12 +117,11 @@ class SelectBox extends React.Component{
     }
 
     render = () => {
-
-        const { fullWidth, size } = this.props;
+        const { fullWidth, size, gutterBottom } = this.props;
         const { value } = this.state;
 
         return (
-            <div styleName={classNames('root', { fullWidth }, { 'checked': value.value }, { 'small': size === 'small' })} onClick={this.handleLabelClick}>
+            <div styleName={classNames('root', { fullWidth }, { 'checked': value.value }, { 'small': size === 'small' }, { gutterBottom })} onClick={this.handleLabelClick}>
                 <button
                     ref={el => {
                         this.labelRef = el;
