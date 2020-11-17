@@ -23,7 +23,8 @@
           "Verified",
           "Waiting for manual review",
           "Rejected",
-          "Date of Birth"
+          "Date of Birth",
+          "Nationality"
         ]
       }
     }
@@ -50,7 +51,8 @@
           "귀하의 KYC가 확인되었습니다",
           "직접 검토를 기다리는 중",
           "KYC",
-          "생년월일"
+          "생년월일",
+          "국적"
         ]
       }
     }
@@ -77,7 +79,8 @@
           "您的KYC已被确认",
           "等待人工審核",
           "拒絕",
-          "出生日期"
+          "出生日期",
+          "國籍"
         ]
       }
     }
@@ -104,7 +107,8 @@
           "あなたのKYCは確認されました",
           "Waiting for manual review",
           "Rejected",
-          "生年月日"
+          "生年月日",
+          "国籍"
         ]
       }
     }
@@ -131,7 +135,8 @@
           "Your KYC have been confirmed",
           "Waiting for manual review",
           "Rejected",
-          "Дата рождения"
+          "Дата рождения",
+          "Национальность"
         ]
       }
     }

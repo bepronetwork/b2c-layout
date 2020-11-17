@@ -24,7 +24,7 @@ import { setProfileInfo } from "../../redux/actions/profile";
 import { setStartLoadingProcessDispatcher } from "../../lib/redux";
 import { setModal } from "../../redux/actions/modal";
 import { processResponse } from "../../lib/helpers";
-import _ from 'lodash';
+import _, { startCase } from 'lodash';
 import Pusher from 'pusher-js';
 import { apiUrl } from "../../lib/api/apiConfig";
 import { setMessageNotification } from "../../redux/actions/message";
@@ -247,35 +247,33 @@ export default class User {
             throw err;
         }
     }
-        
-    getUserCountry = async () => {
-        try {
-            const { country, country_acronym } = await this.updateUser();
-            if (country && country_acronym) {
-                return {
-                    value: country_acronym,
-                    text: _.startCase(country.toLowerCase())
-                };
-            }
-            return false;
-        } catch(err) {
-            console.log(err)
-            throw err;
+    
+    getCountry = () => {
+        const { country, country_acronym } = this.user;
+
+        if (country && country_acronym) {
+            const countryRefactor = startCase(country.toLowerCase());
+
+            return {
+                value: country_acronym,
+                text: countryRefactor
+            };
         }
+
+        return false;
     };
 
-    getBirthDate = async () => {
-        try {
-            const { birthday } = await this.updateUser();
-            if (birthday) {
-                const birthdayReformat = birthday.split("").splice(0, 10).join("");
-                return moment(birthdayReformat).locale("pt").format("L");
-            }
-            return false;
-        } catch(err) {
-            console.log(err)
-            throw err;
+    getBirthDate = () => {
+        const { birthday } = this.user;
+
+        if (birthday) {
+            const birthDateRefactor = birthday.split("").splice(0, 10).join("");
+            const birthDateReformat = moment(birthDateRefactor).locale("pt").format("L");
+
+            return birthDateReformat;
         }
+
+        return false;
     }
 
     updateUser = async () => {
