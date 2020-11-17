@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import { Button, Typography, InputText, Checkbox, Toggle, SelectBox } from "components";
+import { Button, Typography, InputText, Checkbox, Toggle, Select } from "components";
 import { connect } from "react-redux";
 import { compose } from 'lodash/fp';
 import Cache from "../../lib/cache/cache";
@@ -202,7 +202,7 @@ class RegisterForm extends Component {
                 {copy.INDEX.TYPOGRAPHY.TEXT[4]}
             </Typography>
             <div styleName="birth-fields">
-                <SelectBox
+                <Select
                     onChange={event => this.onDayChange(event)}
                     options={generateIntegers(0, 30).map(dayToObj => ({
                         text: leadingWithZero(dayToObj),
@@ -211,7 +211,7 @@ class RegisterForm extends Component {
                     }))}
                     value={day}
                 />
-                <SelectBox
+                <Select
                     onChange={event => this.onMonthChange(event)}
                     options={generateMonths(ln, "MMM").map((monthToObj, index) => ({
                         text: monthToObj,
@@ -221,7 +221,7 @@ class RegisterForm extends Component {
                     value={month}
                 />
             </div>
-            <SelectBox
+            <Select
                 gutterBottom
                 fullWidth
                 onChange={event => this.onYearChange(event)}
@@ -235,7 +235,7 @@ class RegisterForm extends Component {
             <Typography weight="semi-bold" color="white" otherStyles={{ margin: "0 0 8px 0", opacity: '0.5' }}>
                 {copy.INDEX.TYPOGRAPHY.TEXT[5]}
             </Typography>
-            <SelectBox
+            <Select
                 fullWidth
                 onChange={event => this.onCountryChange(event)}
                 options={this.availableCountries().map(({ country, data }) => ({
