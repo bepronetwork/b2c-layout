@@ -57,13 +57,9 @@
 }
 
 .birth-fields {
-  margin: $spacing-8 calc($spacing-4 * -1) $spacing-4;
+  margin: $spacing-4 calc($spacing-4 * -1);
   display: flex;
-
-  @include Breakpoint-mobileOnly {
-    margin: $spacing-8 calc($spacing-4 * -1) $spacing-4;
-  }
-
+  
   > * {
     flex: 1;
     margin: $spacing-4;

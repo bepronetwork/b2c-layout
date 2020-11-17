@@ -198,7 +198,7 @@ class RegisterForm extends Component {
                 onChange={this.onEmailChange}
                 value={email}
             />
-            <Typography weight="semi-bold" color="grey" otherStyles={{ marginTop: 16, opacity: '0.5' }}>
+            <Typography weight="semi-bold" color="white" otherStyles={{ marginTop: 16, opacity: '0.5' }}>
                 {copy.INDEX.TYPOGRAPHY.TEXT[4]}
             </Typography>
             <div styleName="birth-fields">
@@ -232,6 +232,9 @@ class RegisterForm extends Component {
                 }))}
                 value={year}
             />
+            <Typography weight="semi-bold" color="white" otherStyles={{ margin: "0 0 8px 0", opacity: '0.5' }}>
+                {copy.INDEX.TYPOGRAPHY.TEXT[5]}
+            </Typography>
             <SelectBox
                 fullWidth
                 onChange={event => this.onCountryChange(event)}
