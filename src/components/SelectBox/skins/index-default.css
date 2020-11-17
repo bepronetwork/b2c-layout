@@ -167,3 +167,7 @@
 .fullWidth {
   width: 100%;
 }
+
+.checked .label {
+  color: $white;
+}
