@@ -168,8 +168,16 @@
   width: 100%;
 }
 
-.checked .label {
+.root.checked .label {
   color: $white;
+}
+
+.root.small {
+  padding: 6px;
+}
+
+.root.small .label {
+  font-size: unset;
 }
 
 .gutterBottom {

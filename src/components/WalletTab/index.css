@@ -42,7 +42,7 @@
 
 .email-buttons{
     display: flex;
-    margin: $spacing-28 0 $spacing-8 0;
+    margin: $spacing-28 0;
 }
 
 .button{

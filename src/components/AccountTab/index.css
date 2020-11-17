@@ -9,7 +9,7 @@
 }
 
 .field{
-    grid-template-columns: 80px 260px;
+    grid-template-columns: minmax(80px, 180px) 260px;
     display: grid;
     margin-bottom: $spacing-20;
     gap: $spacing-28;
@@ -121,4 +121,7 @@
     }
   }
 
-
+.field-label-country {
+    display: flex;
+    align-items: center;
+}

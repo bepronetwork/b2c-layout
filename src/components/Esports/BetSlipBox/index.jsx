@@ -8,6 +8,8 @@ import classNames from "classnames";
 import _ from 'lodash';
 import "./index.css";
 
+import LockTwoToneIcon from '@material-ui/icons/LockTwoTone';
+import { Tooltip } from "@material-ui/core";
 
 class BetSlipBox extends Component {
 
@@ -19,6 +21,15 @@ class BetSlipBox extends Component {
     }
 
     componentDidMount() {
+        this.projectData(this.props);
+    }
+
+    projectData = (props) => {
+        const { bet } = props;
+
+        this.setState({
+            amount: bet.amount
+        })
     }
 
     async handleRemoveToBetSlip(id) {
@@ -45,7 +56,6 @@ class BetSlipBox extends Component {
     render() {
         const { bet, type } = this.props;
         const user = this.props.profile;
-        const { amount } = this.state;
 
         const styles = classNames("section", "odds-section", {
             "section-one" : type == "multiple"
@@ -55,6 +65,7 @@ class BetSlipBox extends Component {
         });
 
         const returnBet = bet.odd;
+        const marketActive = bet.marketActive ? bet.marketActive : true;
 
         return (
             <div styleName="box">
@@ -89,7 +100,7 @@ class BetSlipBox extends Component {
                                         name="amount"
                                         title="Bet Amount"
                                         precision={2}
-                                        disabled={false}
+                                        disabled={!marketActive}
                                         max={(user && !_.isEmpty(user)) ? user.getBalance() : null}
                                         value={bet.amount}
                                         onChange={this.handleBetAmountChange}
@@ -125,12 +136,17 @@ class BetSlipBox extends Component {
                     ?
                         <div styleName="return">
                             <Typography variant={'x-small-body'} color={'grey'}>
-                                to return: {formatCurrency(amount * returnBet)}
+                                to return: {formatCurrency(bet.amount * returnBet)}
                             </Typography>
                         </div>
                     :
                         null
                 }
+                { !marketActive && <Tooltip title="This odd is no longer available, please remove it" placement="top">
+                    <div styleName="lock-icon-background">
+                        <LockTwoToneIcon style={{ color: 'white' }} fontSize="default"/>
+                    </div>
+                    </Tooltip> }
             </div>
         )
 

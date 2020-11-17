@@ -15,9 +15,11 @@ class CurrencyFreeMoney extends Component {
 
     return (
       <div styleName="container-root">
-        <Typography variant="small-body" color="white" weight="bold">
-          {title}
-        </Typography>
+        <div styleName="text-align">
+          <Typography variant="small-body" color="white" weight="bold">
+            {title}
+          </Typography>
+        </div>
         <div styleName="container-button-timer">
           <div styleName="row-container">
             <div styleName="container-image">
@@ -39,8 +41,10 @@ class CurrencyFreeMoney extends Component {
               </div>
             }
           </div>
-          <div styleName="digital-text-bottom">
-            To the next replenish
+          <div styleName="text-bottom-container">
+            <Typography variant={'x-small-body'} color={'fixedwhite'}>
+              To the next replenish
+            </Typography>
           </div>
         </div>
       </div>

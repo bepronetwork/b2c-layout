@@ -275,7 +275,7 @@ class DepositForm extends Component {
                                 {copy.INDEX.TYPOGRAPHY.TEXT[0]([wallet.currency.ticker])}
                             </Typography>
                             <div styleName="qrcode">
-                                <QRCode value={address} bgColor={skin.skin_type == "digital" ? backgroundColor.hex : "#fff" } fgColor={skin.skin_type == "digital" ? secondaryColor.hex : "#000"}/>
+                                <QRCode value={address} bgColor={"#fff"} fgColor={"#000"}/>
                             </div>
                             {copied ? (
                                 <div styleName="copied">
@@ -285,26 +285,30 @@ class DepositForm extends Component {
                                 </div>
                             ) : null}
                             <div styleName={addressStyles}>
-                                <div styleName='link-text-container'>
-                                    <Typography variant={'x-small-body'} color={skin.skin_type == "digital" ? `secondary` : `casper`}>
-                                        {address}
-                                    </Typography>
-                                </div>
-                                <div>
-                                    <button onClick={this.copyToClipboard} styleName='text-copy-container'>
-                                        {
-                                            skin.skin_type == "digital"
-                                            ?
-                                                <div styleName="icon">
-                                                    {copyIcon === null ? <CopyIcon /> : <img src={copyIcon} />}
-                                                </div>
-                                            :
-                                                null
-                                        }
-                                        <Typography variant={'small-body'} color={'fixedwhite'}>
-                                            {copy.INDEX.TYPOGRAPHY.TEXT[1]}
+                                <div styleName="flex-row">
+                                    <div styleName='link-text-container'>
+                                        <Typography variant={'x-small-body'} color={skin.skin_type == "digital" ? `secondary` : `casper`}>
+                                            {address}
                                         </Typography>
-                                    </button>
+                                    </div>
+                                    <div styleName="button-text-container">
+                                        <button onClick={this.copyToClipboard} styleName='text-copy-container'>
+                                            {
+                                                skin.skin_type == "digital"
+                                                ?
+                                                    <div styleName="icon">
+                                                        {copyIcon === null ? <CopyIcon /> : <img src={copyIcon} />}
+                                                    </div>
+                                                :
+                                                    null
+                                            }
+                                            <div styleName="copy">
+                                                <Typography variant={'small-body'} color={'fixedwhite'}>
+                                                {copy.INDEX.TYPOGRAPHY.TEXT[1]}
+                                                </Typography>
+                                            </div>
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
                             {

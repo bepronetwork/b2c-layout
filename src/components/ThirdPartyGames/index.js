@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Typography, InfiniteCarousel, ThirdPartyGameCard } from 'components';
+import { Typography, InfiniteCarousel, ThirdPartyGameCard, GameCounter } from 'components';
 import { connect } from "react-redux";
 import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
 import { getProvidersGames } from "../../lib/api/app";
@@ -19,7 +19,8 @@ class ThirdPartyGames extends Component {
             partnerId: null,
             isLoading: true,
             isLoadingGames: true,
-            total: 0
+            total: 0,
+            quantity: 0
         };
     }
 
@@ -45,6 +46,7 @@ class ThirdPartyGames extends Component {
 
     formatGames(games) {
         let gameList = [];
+        let { quantity } = this.state;
 
         games.map( p => {
             const url = p.api_url;
@@ -70,7 +72,11 @@ class ThirdPartyGames extends Component {
             }
         });
 
-        this.setState({ games: gameList, total: gameList.length });
+        const total = gameList.length;
+
+        quantity = quantity + 18 > total ? total : quantity + 18;
+
+        this.setState({ games: gameList, total, quantity });
     }
 
     linkToGameListPage(id) {
@@ -138,9 +144,17 @@ class ThirdPartyGames extends Component {
         return games;
     }
 
+    onLoadMoreGames = async () => {
+        let { quantity } = this.state;
+        const { total } = this.state;
+        quantity = quantity + 18 > total ? total : quantity + 18;
+
+        this.setState({ quantity });
+    };    
+
     render() {
         const { onHandleLoginOrRegister, history, ln } = this.props;
-        const { providers, games, isLoading, isLoadingGames, total, providerId } = this.state;
+        const { providers, games, isLoading, isLoadingGames, total,  quantity, providerId } = this.state;
         const skin = getAppCustomization().skin.skin_type;
         const copy = CopyText.thirdPartyGamesIndex[ln];
 
@@ -223,11 +237,11 @@ class ThirdPartyGames extends Component {
                         <div>
                             <div styleName="show" onClick={() => this.linkToGameListPage(providerId)}>
                                 <Typography variant="small-body" color="white">
-                                    {`Show All (${total})`}
+                                    {`${copy.ALL} (${total})`}
                                 </Typography>
                             </div>
                             <div styleName="container-small">
-                                {games.slice(0, 12).map(g => {
+                                {games.slice(0, quantity).map(g => {
                                     const game = {
                                         id: g.id, 
                                         partnerId: g.partnerId, 
@@ -245,6 +259,11 @@ class ThirdPartyGames extends Component {
                     : 
                         null
                 }
+                <GameCounter
+                    quantity={quantity}
+                    total={total}
+                    onClick={() => this.onLoadMoreGames()}
+                />
                 </div>
             </div>
         );
