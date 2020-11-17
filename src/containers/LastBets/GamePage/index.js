@@ -287,6 +287,7 @@ class LastBets extends Component {
                         <div styleName="filters">
                             <div styleName='bets-dropdown'>
                                 <SelectBox
+                                    size='small'
                                     onChange={(e) => this.changeViewBets(e)}
                                     options={views}
                                     value={this.state.view_amount}

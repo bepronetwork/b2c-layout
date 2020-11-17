@@ -6,6 +6,7 @@ import { getAppCustomization, getIcon } from "../../lib/helpers";
 import _ from 'lodash';
 import classNames from 'classnames'
 import "./index.css";
+import PropTypes from 'prop-types';
 
 class SelectBox extends React.Component{
 
@@ -117,11 +118,11 @@ class SelectBox extends React.Component{
 
     render = () => {
 
-        const { fullWidth } = this.props;
+        const { fullWidth, size } = this.props;
         const { value } = this.state;
 
         return (
-            <div styleName={classNames('root', { fullWidth }, { 'checked': value.value })} onClick={this.handleLabelClick}>
+            <div styleName={classNames('root', { fullWidth }, { 'checked': value.value }, { 'small': size === 'small' })} onClick={this.handleLabelClick}>
                 <button
                     ref={el => {
                         this.labelRef = el;
@@ -140,6 +141,10 @@ class SelectBox extends React.Component{
         );
     }
 
+}
+
+SelectBox.propTypes = {
+    size: PropTypes.oneOf(['small'])
 }
 
 

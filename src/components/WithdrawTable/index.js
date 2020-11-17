@@ -160,6 +160,7 @@ class WithdrawTable extends Component {
                         <div styleName="filters">
                             <div styleName='bets-dropdown'>
                                 <SelectBox
+                                    size='small'
                                     onChange={(e) => this.changeView(e)}
                                     options={views}
                                     value={this.state.view_amount}
