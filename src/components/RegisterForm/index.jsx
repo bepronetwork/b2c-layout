@@ -182,6 +182,7 @@ class RegisterForm extends Component {
                 placeholder={copy.INDEX.INPUT_TEXT.LABEL[0]}
                 onChange={this.onChange}
                 value={username}
+                maxlength={12}
             />
             </div>
             <div styleName="password">
@@ -191,6 +192,7 @@ class RegisterForm extends Component {
                 placeholder={copy.INDEX.INPUT_TEXT.LABEL[1]}
                 onChange={this.onChange}
                 value={password}
+                maxlength={15}
             />
             </div>
             <InputText
@@ -198,6 +200,7 @@ class RegisterForm extends Component {
                 placeholder={copy.INDEX.INPUT_TEXT.LABEL[3]}
                 onChange={this.onEmailChange}
                 value={email}
+                maxlength={25}
             />
             <Typography weight="semi-bold" color="white" otherStyles={{ marginTop: 16, opacity: '0.5' }}>
                 {copy.INDEX.TYPOGRAPHY.TEXT[4]}
