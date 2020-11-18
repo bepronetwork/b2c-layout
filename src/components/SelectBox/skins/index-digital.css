@@ -2,19 +2,39 @@
 
 .root {
   position: relative;
-
+  min-width: 128px;
   cursor: pointer;
   outline: none;
   display: inline-block;
-  margin-top: $spacing-4;
+  padding: $spacing-4 6px;
+  background-color: $background-main-table;
+  border: 2px solid $primaryColor-8;
+  border-radius: $spacing-4;
+
+  @include Breakpoint-mobileOnly {
+    min-width: auto;
+  }
 
   * {
     background-color: transparent;
     cursor: pointer;
     outline: none;
   }
+
+  > button {
+    width: 100%;
+  }
 }
 
+.root:hover {
+  border: 2px solid $light-background-table-1-outer;
+
+  transition: border 200ms ease-out 0s;
+
+  svg {
+    fill: white;
+  }
+}
 
 .triangle {
   position: absolute;
@@ -54,7 +74,6 @@
 
 }
 
-
 .option {
   flex-direction: row;
   align-items: center;
@@ -66,14 +85,13 @@
 
   *:first-child {
     width: $spacing-16;
-    margin-right: $spacing-8;
   }
 
   cursor: pointer;
   outline: none;
 
   p {
-      display: inline;
+    display: inline;
   }
 }
 
@@ -83,7 +101,7 @@
   * {
     color: $nepal;
   }
-}*/
+}
 
 .item{
   display: inline-flex;
@@ -106,32 +124,40 @@
 }
 
 .label {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    height: $spacing-16;
-    cursor: pointer;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: inherit;
+  height: $spacing-16;
+  cursor: pointer;
+  justify-content: space-between;
+  font-family: $font-family;
+  font-size: $font-size-body;
+  font-weight: $font-weight-semibold;
+  line-height: $line-height-body;
+  color: $placeHolderColor;
 
-    svg {
-      width: $spacing-8;
-    }
+  @include Breakpoint-mobileOnly {
+    font-size: $font-size-body-mobile;
+    line-height: $line-height-body-mobile;
+  }
 
-    img {
-      width: 16px;
-    }
-  
-    *:first-child {
-      margin-right: $spacing-4;
-    }
+  svg {
+    width: $spacing-8;
   }
-  
-  .label span{
-    margin-left: $spacing-4;
+
+  img {
+    width: 8px;
   }
-  
-  .label:hover {
-    * {
-      opacity: 0.75;
-      transition: opacity 0.1s ease-in;
-    }
+
+  span {
+    margin-right: $spacing-4;
   }
+}
+
+.label:hover {
+  * {
+    opacity: 0.75;
+    transition: opacity 0.1s ease-in;
+  }
+}
