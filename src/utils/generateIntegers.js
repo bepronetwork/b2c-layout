@@ -1,11 +1,11 @@
-const generateIntegers = (from, to) => {
+const generateIntegers = (from, to, descend) => {
   const integers = [];
 
-  for (let index = from; index < to + 1; index += 1) {
+  for (let index = from; index < to; index += 1) {
     integers.push(index);
   }
 
-  return integers;
+  return descend ? integers.reverse() : integers;
 };
 
 export default generateIntegers;

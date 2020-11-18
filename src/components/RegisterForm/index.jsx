@@ -16,6 +16,7 @@ import "./index.css";
 import getYearsAgo from '../../utils/getYearsAgo';
 import stringToNumber from '../../utils/stringToNumber';
 import checkAge from "../../utils/checkAge";
+import { stubTrue } from "lodash";
 
 class RegisterForm extends Component {
     static propTypes = {
@@ -225,7 +226,7 @@ class RegisterForm extends Component {
                 gutterBottom
                 fullWidth
                 onChange={event => this.onYearChange(event)}
-                options={generateIntegers(stringToNumber(getYearsAgo(72)), stringToNumber(getYearsAgo(18))).map(yearToObj => ({
+                options={generateIntegers(stringToNumber(getYearsAgo(72)), stringToNumber(getYearsAgo(18)), true).map(yearToObj => ({
                     text: yearToObj,
                     value: yearToObj,
                     channel_id: yearToObj
