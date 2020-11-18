@@ -1,7 +1,7 @@
 const generateIntegers = (from, to, descend) => {
   const integers = [];
 
-  for (let index = from; index < to; index += 1) {
+  for (let index = from; index < to + 1; index += 1) {
     integers.push(index);
   }
 
