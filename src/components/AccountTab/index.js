@@ -113,7 +113,14 @@ class AccountTab extends React.Component {
             </Typography>
           </div>
         );
-
+      case "country not allowed":
+        return (
+          <div styleName="value">
+            <Typography variant="small-body" color="white">
+              {copy.INDEX.TYPOGRAPHY.TEXT[6]}
+            </Typography>
+          </div>
+        );
       case null:
         return (
           <div styleName="value">
