@@ -2,10 +2,12 @@ import React from "react";
 import { connect } from "react-redux";
 import { Typography, Button } from "components";
 import ReactCountryFlag from "react-country-flag";
+import openSocket from "socket.io-client";
 import Cache from "../../lib/cache/cache";
 import { isUserSet, getAppCustomization } from "../../lib/helpers";
 import { CopyText } from "../../copy";
 import "./index.css";
+import socketKycConnection from "./WebSocket";
 
 const defaultState = {
   username: "",
@@ -14,7 +16,8 @@ const defaultState = {
   birthDate: "",
   clientId: "",
   flowId: "",
-  isKycStatus: null
+  isKycStatus: null,
+  isKycVerifying: false
 };
 // const cache = new Cache({
 //   // Keep cached source failures for up to 7 days
@@ -24,6 +27,8 @@ const defaultState = {
 // });
 
 class AccountTab extends React.Component {
+  static contextType = socketKycConnection;
+
   constructor(props) {
     super(props);
     this.state = defaultState;
@@ -31,11 +36,26 @@ class AccountTab extends React.Component {
 
   componentDidMount() {
     this.projectData(this.props);
+    this.createSocketConnection(this.props);
   }
 
   componentWillReceiveProps(props) {
     this.projectData(props);
   }
+
+  createSocketConnection = props => {
+    const { connection } = this.context;
+    const { profile } = props;
+
+    if (connection) {
+      connection
+        .emit("authenticate", { token: profile.bearerToken })
+        .on("authenticated", () => {
+          console.log("conectado");
+        })
+        .on("updateKYC", profile.updateUserState());
+    }
+  };
 
   projectData = async props => {
     const { profile } = props;
@@ -113,7 +133,7 @@ class AccountTab extends React.Component {
             </Typography>
           </div>
         );
-      case "country not allowed":
+      case "country other than registration":
         return (
           <div styleName="value">
             <Typography variant="small-body" color="white">
@@ -138,10 +158,12 @@ class AccountTab extends React.Component {
 
   render() {
     const { ln, onLogout } = this.props;
-    const { username, email, userId, isKycStatus, isKycActive, country, birthDate } = this.state;
+    const { username, email, userId, isKycStatus, isKycActive, country, birthDate, isKycVerifying } = this.state;
     const copy = CopyText.registerFormIndex[ln];
     const copyLogout = CopyText.userMenuIndex[ln];
     const skin = getAppCustomization().skin.skin_type;
+
+    console.log(isKycVerifying, 'isKycVerifying')
 
     return (
       <div styleName={`box ${skin == "digital" ? "box-digital-kyc" : "background-kyc"}`}>
