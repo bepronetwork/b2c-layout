@@ -8,6 +8,7 @@ import { CopyText } from "../../copy";
 import "./index.css";
 import classNames from 'classnames';
 import { CircularProgress } from "@material-ui/core";
+import { KYC_IN_REVIEW } from "../../config/kyc";
 
 const defaultState = {
   username: "",
@@ -44,13 +45,16 @@ class AccountTab extends React.Component {
   projectData = async props => {
     const { profile } = props;
     const appInfo = Cache.getFromCache("appInfo");
+    const isKycOnStorage = Cache.getFromCache("kyc");
 
     if (!isUserSet(profile)) {
       return null;
     }
 
     const kycIntegration = appInfo.integrations.kyc;
-    const isKycStatus = await profile.kycStatus();
+    const isKycStatus = isKycOnStorage
+      ? isKycOnStorage.status
+      : await profile.kycStatus();
     const userId = profile.getID();
     const username = profile.getUsername();
     const country = profile.getCountry();
@@ -127,7 +131,7 @@ class AccountTab extends React.Component {
             {copy.INDEX.TYPOGRAPHY.TEXT[8]}
           </Typography>
         );
-      case "kyc in review":
+      case KYC_IN_REVIEW:
         return (
           <>
             <CircularProgress size={24} style={{ marginRight: 16 }} />
@@ -149,8 +153,12 @@ class AccountTab extends React.Component {
     }
   };
 
-  handleKycVerification = () =>
-    this.props.profile.updateKYCStatus("kyc in review");
+  handleKycVerification = () => {
+    const { profile } = this.props;
+
+    profile.updateKYCStatus(KYC_IN_REVIEW);
+    Cache.setToCache("kyc", { status: KYC_IN_REVIEW });
+  }
 
   render() {
     const { ln, onLogout } = this.props;

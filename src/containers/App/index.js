@@ -165,6 +165,7 @@ class App extends Component {
         const { status } = data;
 
         profile.updateKYCStatus(status);
+        localStorage.removeItem("kyc");
     }
 
     getQueryParams = () => {
