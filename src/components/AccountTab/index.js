@@ -7,7 +7,6 @@ import Cache from "../../lib/cache/cache";
 import { isUserSet, getAppCustomization } from "../../lib/helpers";
 import { CopyText } from "../../copy";
 import "./index.css";
-import socketKycConnection from "./WebSocket";
 
 const defaultState = {
   username: "",
@@ -27,7 +26,6 @@ const defaultState = {
 // });
 
 class AccountTab extends React.Component {
-  static contextType = socketKycConnection;
 
   constructor(props) {
     super(props);
@@ -36,26 +34,11 @@ class AccountTab extends React.Component {
 
   componentDidMount() {
     this.projectData(this.props);
-    this.createSocketConnection(this.props);
   }
 
   componentWillReceiveProps(props) {
     this.projectData(props);
   }
-
-  createSocketConnection = props => {
-    const { connection } = this.context;
-    const { profile } = props;
-
-    if (connection) {
-      connection
-        .emit("authenticate", { token: profile.bearerToken })
-        .on("authenticated", () => {
-          console.log("conectado");
-        })
-        .on("updateKYC", profile.updateUserState());
-    }
-  };
 
   projectData = async props => {
     const { profile } = props;
@@ -133,7 +116,7 @@ class AccountTab extends React.Component {
             </Typography>
           </div>
         );
-      case "country other than registration":
+      case "country not allowed":
         return (
           <div styleName="value">
             <Typography variant="small-body" color="white">
@@ -162,8 +145,6 @@ class AccountTab extends React.Component {
     const copy = CopyText.registerFormIndex[ln];
     const copyLogout = CopyText.userMenuIndex[ln];
     const skin = getAppCustomization().skin.skin_type;
-
-    console.log(isKycVerifying, 'isKycVerifying')
 
     return (
       <div styleName={`box ${skin == "digital" ? "box-digital-kyc" : "background-kyc"}`}>
