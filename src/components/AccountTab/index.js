@@ -2,6 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import { Typography, Button } from "components";
 import ReactCountryFlag from "react-country-flag";
+import openSocket from "socket.io-client";
 import Cache from "../../lib/cache/cache";
 import { isUserSet, getAppCustomization } from "../../lib/helpers";
 import { CopyText } from "../../copy";
@@ -14,7 +15,8 @@ const defaultState = {
   birthDate: "",
   clientId: "",
   flowId: "",
-  isKycStatus: null
+  isKycStatus: null,
+  isKycVerifying: false
 };
 // const cache = new Cache({
 //   // Keep cached source failures for up to 7 days
@@ -24,6 +26,7 @@ const defaultState = {
 // });
 
 class AccountTab extends React.Component {
+
   constructor(props) {
     super(props);
     this.state = defaultState;
@@ -113,7 +116,14 @@ class AccountTab extends React.Component {
             </Typography>
           </div>
         );
-
+      case "country not allowed":
+        return (
+          <div styleName="value">
+            <Typography variant="small-body" color="white">
+              {copy.INDEX.TYPOGRAPHY.TEXT[6]}
+            </Typography>
+          </div>
+        );
       case null:
         return (
           <div styleName="value">
@@ -131,7 +141,7 @@ class AccountTab extends React.Component {
 
   render() {
     const { ln, onLogout } = this.props;
-    const { username, email, userId, isKycStatus, isKycActive, country, birthDate } = this.state;
+    const { username, email, userId, isKycStatus, isKycActive, country, birthDate, isKycVerifying } = this.state;
     const copy = CopyText.registerFormIndex[ln];
     const copyLogout = CopyText.userMenuIndex[ln];
     const skin = getAppCustomization().skin.skin_type;

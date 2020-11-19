@@ -198,6 +198,14 @@ export default class User {
         await store.dispatch(setProfileInfo(this));
     }
 
+    updateKYCStatus = status => {
+        const verified = status.toLowerCase() === 'verified';
+
+        this.user = {...this.user, kyc_needed: !verified, kyc_status: status };
+        
+        this.updateUserState();
+    }
+
     getMyBets = async ({size, game, slug, tag}) => {
         try{
             // grab current state
