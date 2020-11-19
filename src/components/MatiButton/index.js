@@ -11,8 +11,7 @@ function MatiButton(props) {
   const handleLoaded = useCallback(() => {}, []);
 
   // When user sends their info fires this.
-  const handleFinished = useCallback(({ detail }) => {
-    console.log("finished payload", detail);
+  const handleFinished = useCallback(() => {
     const { profile } = props;
 
     profile.updateKYCStatus(KYC_IN_REVIEW);
