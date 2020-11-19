@@ -130,8 +130,6 @@ class App extends Component {
                 }, 100);
             }
         }
-
-        this.handleKycVerification()
     };
 
     componentWillReceiveProps(props) {
