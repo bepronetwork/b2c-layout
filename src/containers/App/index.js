@@ -129,10 +129,6 @@ class App extends Component {
         
                 }, 100);
             }
-
-            if (user) {
-                this.createSocketConnection(this.props);
-            }
         }
     };
 
@@ -194,6 +190,7 @@ class App extends Component {
             await this.automaticLoginFromCache();
             await delay(1000);
             this.closeStaticLoading();
+            this.createSocketConnection(this.props);
         }catch(err){
             console.log(err);
             const app = Cache.getFromCache("appInfo");
