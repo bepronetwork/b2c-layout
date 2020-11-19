@@ -9,6 +9,7 @@ import "./index.css";
 import classNames from 'classnames';
 import { CircularProgress } from "@material-ui/core";
 import { KYC_IN_REVIEW } from "../../config/kyc";
+import MatiButton from "../MatiButton";
 
 const defaultState = {
   username: "",
@@ -31,7 +32,6 @@ class AccountTab extends React.Component {
   constructor(props) {
     super(props);
     this.state = defaultState;
-    this.handleKycVerification = this.handleKycVerification.bind(this);
   }
 
   componentDidMount() {
@@ -89,7 +89,7 @@ class AccountTab extends React.Component {
     switch (isKycStatus) {
       case "no kyc":
         return (
-          <mati-button
+          <MatiButton
             clientid={clientId}
             flowId={flowId}
             metadata={`{"id": "${userId}"}`}
@@ -142,7 +142,7 @@ class AccountTab extends React.Component {
         );
       case null:
         return (
-          <mati-button
+          <MatiButton
             clientid={clientId}
             flowId={flowId}
             metadata={`{"id": "${userId}"}`}
@@ -152,13 +152,6 @@ class AccountTab extends React.Component {
         break;
     }
   };
-
-  handleKycVerification = () => {
-    const { profile } = this.props;
-
-    profile.updateKYCStatus(KYC_IN_REVIEW);
-    Cache.setToCache("kyc", { status: KYC_IN_REVIEW });
-  }
 
   render() {
     const { ln, onLogout } = this.props;
@@ -252,7 +245,7 @@ class AccountTab extends React.Component {
                     {copy.INDEX.INPUT_TEXT.LABEL[5]}
                   </Typography>
                 </div>
-                <div styleName={classNames("value", { "flex": isKycVerifying })} onClick={noKyc ? this.handleKycVerification : null}>
+                <div styleName={classNames("value", { "flex": isKycVerifying })}>
                   {this.caseKycStatus()}
                 </div>
               </div>
