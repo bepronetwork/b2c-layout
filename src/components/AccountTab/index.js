@@ -136,7 +136,7 @@ class AccountTab extends React.Component {
           <>
             <CircularProgress size={24} style={{ marginRight: 16 }} />
             <Typography variant="small-body" color="white">
-            {copy.INDEX.TYPOGRAPHY.TEXT[9]}
+              {copy.INDEX.TYPOGRAPHY.TEXT[9]}
             </Typography>
           </>
         );
@@ -159,7 +159,6 @@ class AccountTab extends React.Component {
     const copy = CopyText.registerFormIndex[ln];
     const copyLogout = CopyText.userMenuIndex[ln];
     const skin = getAppCustomization().skin.skin_type;
-    const noKyc = isKycStatus === "no kyc" || isKycStatus === null;
     const isKycVerifying = isKycStatus === "kyc in review";
 
     return (
