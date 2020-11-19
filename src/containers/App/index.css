@@ -307,6 +307,12 @@
   .tabs {
     width: 100%;
   }
+
+  @include Breakpoint-tabletAndAbove {
+    > form {	
+      width: 286px;
+    }
+  }
 }
 
 .gif{
