@@ -124,6 +124,22 @@ class AccountTab extends React.Component {
             </Typography>
           </div>
         );
+      case "country other than registration":
+        return (
+          <div styleName="value">
+            <Typography variant="small-body" color="white">
+              {copy.INDEX.TYPOGRAPHY.TEXT[6]}
+            </Typography>
+          </div>
+        );
+      case "different birthday data":
+        return (
+          <div styleName="value">
+            <Typography variant="small-body" color="white">
+              {copy.INDEX.TYPOGRAPHY.TEXT[6]}
+            </Typography>
+          </div>
+        );
       case null:
         return (
           <div styleName="value">
