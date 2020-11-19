@@ -136,7 +136,7 @@ class AccountTab extends React.Component {
           <>
             <CircularProgress size={24} style={{ marginRight: 16 }} />
             <Typography variant="small-body" color="white">
-              KYC in review
+            {copy.INDEX.TYPOGRAPHY.TEXT[9]}
             </Typography>
           </>
         );
