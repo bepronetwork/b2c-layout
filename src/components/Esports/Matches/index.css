@@ -115,3 +115,14 @@
     display: none;
   } 
 }
+
+.lock-icon-background {
+  padding: 5px;
+
+  border-radius: 50%;
+
+  background-color: $secondaryColor;
+  opacity: 0.8;
+
+  margin: 0px 8px;
+}

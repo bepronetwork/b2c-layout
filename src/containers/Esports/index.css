@@ -206,3 +206,22 @@
     }
   }
 }
+
+.group-left {
+  display: flex;
+  flex-direction: row;
+
+  justify-content: space-between;
+  align-items: center;
+
+  gap: 8px;
+}
+
+.lock-icon-background {
+  padding: 5px;
+
+  border-radius: 50%;
+
+  background-color: $secondaryColor;
+  opacity: 0.8;
+}
