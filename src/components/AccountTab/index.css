@@ -121,7 +121,7 @@
     }
   }
 
-.field-label-country {
+.field .value.flex {
     display: flex;
     align-items: center;
 }

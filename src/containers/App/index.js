@@ -130,6 +130,8 @@ class App extends Component {
                 }, 100);
             }
         }
+
+        this.handleKycVerification()
     };
 
     componentWillReceiveProps(props) {
@@ -165,6 +167,13 @@ class App extends Component {
         const { status } = data;
 
         profile.updateKYCStatus(status);
+        localStorage.removeItem("kyc");
+    }
+
+    handleKycVerification = event => {
+        const matiFrame = document.getElementsByTagName("mati-frame");
+
+        console.log(matiFrame, 'matiFrame')
     }
 
     getQueryParams = () => {

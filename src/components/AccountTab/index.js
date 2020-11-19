@@ -2,11 +2,14 @@ import React from "react";
 import { connect } from "react-redux";
 import { Typography, Button } from "components";
 import ReactCountryFlag from "react-country-flag";
-import openSocket from "socket.io-client";
 import Cache from "../../lib/cache/cache";
 import { isUserSet, getAppCustomization } from "../../lib/helpers";
 import { CopyText } from "../../copy";
 import "./index.css";
+import classNames from 'classnames';
+import { CircularProgress } from "@material-ui/core";
+import { KYC_IN_REVIEW } from "../../config/kyc";
+import MatiButton from "../MatiButton";
 
 const defaultState = {
   username: "",
@@ -15,8 +18,7 @@ const defaultState = {
   birthDate: "",
   clientId: "",
   flowId: "",
-  isKycStatus: null,
-  isKycVerifying: false
+  isKycStatus: null
 };
 // const cache = new Cache({
 //   // Keep cached source failures for up to 7 days
@@ -43,13 +45,16 @@ class AccountTab extends React.Component {
   projectData = async props => {
     const { profile } = props;
     const appInfo = Cache.getFromCache("appInfo");
+    const isKycOnStorage = Cache.getFromCache("kyc");
 
     if (!isUserSet(profile)) {
       return null;
     }
 
     const kycIntegration = appInfo.integrations.kyc;
-    const isKycStatus = await profile.kycStatus();
+    const isKycStatus = isKycOnStorage
+      ? isKycOnStorage.status
+      : await profile.kycStatus();
     const userId = profile.getID();
     const username = profile.getUsername();
     const country = profile.getCountry();
@@ -84,71 +89,64 @@ class AccountTab extends React.Component {
     switch (isKycStatus) {
       case "no kyc":
         return (
-          <div styleName="value">
-            <mati-button
-              clientid={clientId}
-              flowId={flowId}
-              metadata={`{"id": "${userId}"}`}
-            />
-          </div>
+          <MatiButton
+            clientid={clientId}
+            flowId={flowId}
+            metadata={`{"id": "${userId}"}`}
+          />
         );
       case "reviewneeded":
         return (
-          <div styleName="value">
-            <Typography variant="small-body" color="orange">
-              {copy.INDEX.TYPOGRAPHY.TEXT[2]}
-            </Typography>
-          </div>
+          <Typography variant="small-body" color="orange">
+            {copy.INDEX.TYPOGRAPHY.TEXT[2]}
+          </Typography>
         );
       case "rejected":
         return (
-          <div styleName="value">
-            <Typography variant="small-body" color="red">
-              {copy.INDEX.TYPOGRAPHY.TEXT[3]}
-            </Typography>
-          </div>
+          <Typography variant="small-body" color="red">
+            {copy.INDEX.TYPOGRAPHY.TEXT[3]}
+          </Typography>
         );
       case "verified":
         return (
-          <div styleName="value">
-            <Typography variant="small-body" color="green">
-              {copy.INDEX.TYPOGRAPHY.TEXT[1]}
-            </Typography>
-          </div>
+          <Typography variant="small-body" color="green">
+            {copy.INDEX.TYPOGRAPHY.TEXT[1]}
+          </Typography>
         );
       case "country not allowed":
         return (
-          <div styleName="value">
-            <Typography variant="small-body" color="white">
-              {copy.INDEX.TYPOGRAPHY.TEXT[6]}
-            </Typography>
-          </div>
+          <Typography variant="small-body" color="white">
+            {copy.INDEX.TYPOGRAPHY.TEXT[6]}
+          </Typography>
         );
       case "country other than registration":
         return (
-          <div styleName="value">
-            <Typography variant="small-body" color="white">
-              {copy.INDEX.TYPOGRAPHY.TEXT[7]}
-            </Typography>
-          </div>
+          <Typography variant="small-body" color="white">
+            {copy.INDEX.TYPOGRAPHY.TEXT[7]}
+          </Typography>
         );
       case "different birthday data":
         return (
-          <div styleName="value">
+          <Typography variant="small-body" color="white">
+            {copy.INDEX.TYPOGRAPHY.TEXT[8]}
+          </Typography>
+        );
+      case KYC_IN_REVIEW:
+        return (
+          <>
+            <CircularProgress size={24} style={{ marginRight: 16 }} />
             <Typography variant="small-body" color="white">
-              {copy.INDEX.TYPOGRAPHY.TEXT[8]}
+            {copy.INDEX.TYPOGRAPHY.TEXT[9]}
             </Typography>
-          </div>
+          </>
         );
       case null:
         return (
-          <div styleName="value">
-            <mati-button
-              clientid={clientId}
-              flowId={flowId}
-              metadata={`{"id": "${userId}"}`}
-            />
-          </div>
+          <MatiButton
+            clientid={clientId}
+            flowId={flowId}
+            metadata={`{"id": "${userId}"}`}
+          />
         );
       default:
         break;
@@ -157,10 +155,12 @@ class AccountTab extends React.Component {
 
   render() {
     const { ln, onLogout } = this.props;
-    const { username, email, userId, isKycStatus, isKycActive, country, birthDate, isKycVerifying } = this.state;
+    const { username, email, userId, isKycStatus, isKycActive, country, birthDate } = this.state;
     const copy = CopyText.registerFormIndex[ln];
     const copyLogout = CopyText.userMenuIndex[ln];
     const skin = getAppCustomization().skin.skin_type;
+    const noKyc = isKycStatus === "no kyc" || isKycStatus === null;
+    const isKycVerifying = isKycStatus === "kyc in review";
 
     return (
       <div styleName={`box ${skin == "digital" ? "box-digital-kyc" : "background-kyc"}`}>
@@ -221,7 +221,7 @@ class AccountTab extends React.Component {
                   {copy.INDEX.INPUT_TEXT.LABEL[9]}
                 </Typography>
               </div>
-              <div styleName="value field-label-country">
+              <div styleName="value flex">
                 <ReactCountryFlag
                     svg
                     countryCode={country.value}
@@ -239,13 +239,15 @@ class AccountTab extends React.Component {
           )}
           {
             isKycActive ? 
-              <div styleName={`field ${isKycStatus === "no kyc" || isKycStatus === null ? "background-kyc-digital" : "background-kyc-digital"}`}>
-                <div styleName={`label ${isKycStatus === "no kyc" || isKycStatus === null ? "flex-kyc " : "flex-kyc"}`}>
+              <div styleName='field background-kyc-digital'>
+                <div styleName='label flex-kyc'>
                   <Typography variant="small-body" color="white">
                     {copy.INDEX.INPUT_TEXT.LABEL[5]}
                   </Typography>
                 </div>
-                {this.caseKycStatus()}
+                <div styleName={classNames("value", { "flex": isKycVerifying })}>
+                  {this.caseKycStatus()}
+                </div>
               </div>
             : null
           }
