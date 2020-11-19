@@ -128,7 +128,7 @@ class AccountTab extends React.Component {
         return (
           <div styleName="value">
             <Typography variant="small-body" color="white">
-              {copy.INDEX.TYPOGRAPHY.TEXT[6]}
+              {copy.INDEX.TYPOGRAPHY.TEXT[7]}
             </Typography>
           </div>
         );
@@ -136,7 +136,7 @@ class AccountTab extends React.Component {
         return (
           <div styleName="value">
             <Typography variant="small-body" color="white">
-              {copy.INDEX.TYPOGRAPHY.TEXT[6]}
+              {copy.INDEX.TYPOGRAPHY.TEXT[8]}
             </Typography>
           </div>
         );
