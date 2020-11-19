@@ -8,6 +8,8 @@ import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
 import _ from 'lodash';
 import "./index.css";
 
+import LockTwoToneIcon from '@material-ui/icons/LockTwoTone';
+
 class Matches extends Component {
 
     constructor(props) {
@@ -55,6 +57,8 @@ class Matches extends Component {
         if(!game){return null};
         const gameImage = game.image;
 
+        const activeMarket = match.market ? match.market.status === 'active' : false;
+
         return (
             <div>
                 {
@@ -85,6 +89,9 @@ class Matches extends Component {
                             hasLiveTransmition={!_.isEmpty(match.live_embed_url)} 
                         />
                     </div>
+                    { !activeMarket && <div styleName="lock-icon-background">
+                        <LockTwoToneIcon style={{ color: 'white' }} fontSize="inherit"/>
+                    </div> }
                     <Opponents 
                         gameImage={gameImage} 
                         isScoreBoard={match.status == "finished" || match.status == "settled" ? true : false}
