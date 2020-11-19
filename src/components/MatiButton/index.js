@@ -7,21 +7,19 @@ import Cache from "../../lib/cache/cache";
 function MatiButton(props) {
   const button = React.createRef(null);
 
-  const handleLoaded = useCallback(() => {
-    console.log("loaded" /* no payload */);
-  }, []);
+  // When user loads its modal fires this.
+  const handleLoaded = useCallback(() => {}, []);
 
-  const handleFinished = useCallback(({ detail }) => {
-    console.log("finished payload", detail);
+  // When user sends their info fires this.
+  const handleFinished = useCallback(() => {
     const { profile } = props;
 
     profile.updateKYCStatus(KYC_IN_REVIEW);
     Cache.setToCache("kyc", { status: KYC_IN_REVIEW });
   }, []);
 
-  const handleExited = useCallback(() => {
-    console.log("exited" /* no payload */);
-  }, []);
+  // When user closes its modal fires this.
+  const handleExited = useCallback(() => {}, []);
 
   useEffect(() => {
     const ref = button.current;
