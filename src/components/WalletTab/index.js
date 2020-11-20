@@ -21,6 +21,7 @@ import { getApp, getAppCustomization,  getIcon } from "../../lib/helpers";
 import { setMessageNotification } from "../../redux/actions/message";
 import store from "../../containers/App/store";
 import "./index.css";
+import KycStatus from "../KycStatus";
 
 const defaultState = {
   tab: "deposit",
@@ -31,8 +32,6 @@ const defaultState = {
   onOpenMoonpay: false,
   isMoonpayActive: null,
   colorHexCode: null,
-  clientId: "",
-  flowId: "",
   isKycNeeded: null,
   onClose: false
 };
@@ -74,8 +73,6 @@ resultFilter = (firstArray, secondArray) => {
     const { profile } = this.props;
     let { wallet, isEmailConfirmed } = this.state;
 
-    const isKycStatus = await profile.kycStatus();
-    const kycIntegration = getApp().integrations.kyc;
     const moonpayIntegration = getApp().integrations.moonpay;
     const user = !_.isEmpty(props.profile) ? props.profile : null;
     const virtual = getApp().virtual;
@@ -105,7 +102,6 @@ resultFilter = (firstArray, secondArray) => {
       this.setState({ isEmailConfirmed: await user.isEmailConfirmed() })
     }
       
-    const userId = profile.getID();
     const isKycNeeded = await profile.isKycConfirmed();
 
     const { colors } = getAppCustomization();
@@ -116,19 +112,13 @@ resultFilter = (firstArray, secondArray) => {
 
     this.setState({
       ...this.state,
-      clientId: kycIntegration.clientId,
-      flowId: kycIntegration.flowId,
       isMoonpayActive: moonpayIntegration.isActive,
-      isKycStatus:
-          isKycStatus === null ? isKycStatus : isKycStatus.toLowerCase(),
       isKycNeeded,
-      userId,
       colorHexCode: primaryColor.hex,
       wallets,
       wallet,
-      virtual: getApp().virtual,
+      virtual: getApp().virtual
     });
-    this.caseKycStatus();
   };
 
   handleTabChange = name => {
@@ -141,56 +131,6 @@ resultFilter = (firstArray, secondArray) => {
 
   handleOpenMoonpayFalse = () => {
     this.setState({ onOpenMoonpay: false });
-  };
-
-  caseKycStatus = () => {
-    const { isKycStatus, clientId, flowId, userId } = this.state;
-    const { ln } = this.props;
-    const copy = CopyText.registerFormIndex[ln];
-
-    switch (isKycStatus) {
-      case "no kyc":
-        return (
-          <div>
-            <mati-button
-              clientid={clientId}
-              flowId={flowId}
-              metadata={`{"id": "${userId}"}`}
-            />
-          </div>
-        );
-      case "reviewneeded":
-        return (
-          <Typography variant="small-body" color="orange">
-            {copy.INDEX.TYPOGRAPHY.TEXT[2]}
-          </Typography>
-        );
-      case "rejected":
-        return (
-          <Typography variant="small-body" color="red">
-            {copy.INDEX.TYPOGRAPHY.TEXT[3]}
-          </Typography>
-        );
-      case "verified":
-        return (
-          <Typography variant="small-body" color="green">
-            {copy.INDEX.TYPOGRAPHY.TEXT[1]}
-          </Typography>
-        );
-
-      case null:
-        return (
-          <div>
-            <mati-button
-              clientid={clientId}
-              flowId={flowId}
-              metadata={`{"id": "${userId}"}`}
-            />
-          </div>
-        );
-      default:
-        break;
-    }
   };
 
   renderPopSendAlert = tab => {
@@ -254,7 +194,7 @@ resultFilter = (firstArray, secondArray) => {
                                   </Button>
                               :
                               <div styleName="button">
-                                  {this.caseKycStatus()}
+                                <KycStatus />
                               </div>
                             }
                         </div>

@@ -1,24 +1,17 @@
 import React from "react";
 import { connect } from "react-redux";
-import { Typography, Button } from "components";
+import { Typography, Button, KycStatus } from "components";
 import ReactCountryFlag from "react-country-flag";
 import Cache from "../../lib/cache/cache";
 import { isUserSet, getAppCustomization } from "../../lib/helpers";
 import { CopyText } from "../../copy";
 import "./index.css";
-import classNames from 'classnames';
-import { CircularProgress } from "@material-ui/core";
-import { KYC_IN_REVIEW } from "../../config/kyc";
-import MatiButton from "../MatiButton";
 
 const defaultState = {
   username: "",
   email: "",
   country: {},
-  birthDate: "",
-  clientId: "",
-  flowId: "",
-  isKycStatus: null
+  birthDate: ""
 };
 // const cache = new Cache({
 //   // Keep cached source failures for up to 7 days
@@ -45,16 +38,12 @@ class AccountTab extends React.Component {
   projectData = async props => {
     const { profile } = props;
     const appInfo = Cache.getFromCache("appInfo");
-    const isKycOnStorage = Cache.getFromCache("kyc");
 
     if (!isUserSet(profile)) {
       return null;
     }
 
     const kycIntegration = appInfo.integrations.kyc;
-    const isKycStatus = isKycOnStorage
-      ? isKycOnStorage.status
-      : await profile.kycStatus();
     const userId = profile.getID();
     const username = profile.getUsername();
     const country = profile.getCountry();
@@ -72,94 +61,16 @@ class AccountTab extends React.Component {
       birthDate,
       avatar,
       email,
-      isKycActive: kycIntegration.isActive,
-      clientId: kycIntegration.clientId,
-      flowId: kycIntegration.flowId,
-      isKycStatus:
-        isKycStatus === null ? isKycStatus : isKycStatus.toLowerCase()
+      isKycActive: kycIntegration.isActive
     });
-    this.caseKycStatus();
-  };
-
-  caseKycStatus = () => {
-    const { isKycStatus, clientId, flowId, userId } = this.state;
-    const { ln } = this.props;
-    const copy = CopyText.registerFormIndex[ln];
-
-    switch (isKycStatus) {
-      case "no kyc":
-        return (
-          <MatiButton
-            clientid={clientId}
-            flowId={flowId}
-            metadata={`{"id": "${userId}"}`}
-          />
-        );
-      case "reviewneeded":
-        return (
-          <Typography variant="small-body" color="orange">
-            {copy.INDEX.TYPOGRAPHY.TEXT[2]}
-          </Typography>
-        );
-      case "rejected":
-        return (
-          <Typography variant="small-body" color="red">
-            {copy.INDEX.TYPOGRAPHY.TEXT[3]}
-          </Typography>
-        );
-      case "verified":
-        return (
-          <Typography variant="small-body" color="green">
-            {copy.INDEX.TYPOGRAPHY.TEXT[1]}
-          </Typography>
-        );
-      case "country not allowed":
-        return (
-          <Typography variant="small-body" color="white">
-            {copy.INDEX.TYPOGRAPHY.TEXT[6]}
-          </Typography>
-        );
-      case "country other than registration":
-        return (
-          <Typography variant="small-body" color="white">
-            {copy.INDEX.TYPOGRAPHY.TEXT[7]}
-          </Typography>
-        );
-      case "different birthday data":
-        return (
-          <Typography variant="small-body" color="white">
-            {copy.INDEX.TYPOGRAPHY.TEXT[8]}
-          </Typography>
-        );
-      case KYC_IN_REVIEW:
-        return (
-          <>
-            <CircularProgress size={24} style={{ marginRight: 16 }} />
-            <Typography variant="small-body" color="white">
-              {copy.INDEX.TYPOGRAPHY.TEXT[9]}
-            </Typography>
-          </>
-        );
-      case null:
-        return (
-          <MatiButton
-            clientid={clientId}
-            flowId={flowId}
-            metadata={`{"id": "${userId}"}`}
-          />
-        );
-      default:
-        break;
-    }
   };
 
   render() {
     const { ln, onLogout } = this.props;
-    const { username, email, userId, isKycStatus, isKycActive, country, birthDate } = this.state;
+    const { username, email, userId, isKycActive, country, birthDate } = this.state;
     const copy = CopyText.registerFormIndex[ln];
     const copyLogout = CopyText.userMenuIndex[ln];
     const skin = getAppCustomization().skin.skin_type;
-    const isKycVerifying = isKycStatus === "kyc in review";
 
     return (
       <div styleName={`box ${skin == "digital" ? "box-digital-kyc" : "background-kyc"}`}>
@@ -244,8 +155,8 @@ class AccountTab extends React.Component {
                     {copy.INDEX.INPUT_TEXT.LABEL[5]}
                   </Typography>
                 </div>
-                <div styleName={classNames("value", { "flex": isKycVerifying })}>
-                  {this.caseKycStatus()}
+                <div styleName="value flex">
+                  <KycStatus />
                 </div>
               </div>
             : null

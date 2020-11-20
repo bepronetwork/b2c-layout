@@ -151,6 +151,8 @@ import Info from  './Info';
 import CurrencyFreeMoney from './CurrencyFreeMoney';
 import GameCounter from './GameCounter';
 import Select from './Select';
+import KycStatus from './KycStatus';
+import MatiButton from './MatiButton';
 
 export { LegalBox };
 export { Authentication2FAModal };
@@ -305,3 +307,5 @@ export { CurrencyFreeMoney };
 export { ThirdPartyProviderSelector };
 export { GameCounter };
 export { Select };
+export { KycStatus };
+export { MatiButton }
