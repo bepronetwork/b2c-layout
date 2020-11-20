@@ -1,12 +1,11 @@
 import React from "react";
 import { connect } from "react-redux";
-import { Typography, Button } from "components";
+import { Typography, Button, KycStatus } from "components";
 import ReactCountryFlag from "react-country-flag";
 import Cache from "../../lib/cache/cache";
 import { isUserSet, getAppCustomization } from "../../lib/helpers";
 import { CopyText } from "../../copy";
 import "./index.css";
-import KycStatus from "../KycStatus";
 
 const defaultState = {
   username: "",
