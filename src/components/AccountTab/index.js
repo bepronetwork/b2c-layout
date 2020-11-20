@@ -1,15 +1,12 @@
 import React from "react";
 import { connect } from "react-redux";
-import { Typography, Button } from "components";
+import { Typography, Button, KycStatus } from "components";
 import ReactCountryFlag from "react-country-flag";
+import classNames from "classnames";
 import Cache from "../../lib/cache/cache";
 import { isUserSet, getAppCustomization } from "../../lib/helpers";
 import { CopyText } from "../../copy";
 import "./index.css";
-import classNames from 'classnames';
-import { CircularProgress } from "@material-ui/core";
-import { KYC_IN_REVIEW } from "../../config/kyc";
-import MatiButton from "../MatiButton";
 
 const defaultState = {
   username: "",
@@ -78,84 +75,11 @@ class AccountTab extends React.Component {
       isKycStatus:
         isKycStatus === null ? isKycStatus : isKycStatus.toLowerCase()
     });
-    this.caseKycStatus();
-  };
-
-  caseKycStatus = () => {
-    const { isKycStatus, clientId, flowId, userId } = this.state;
-    const { ln } = this.props;
-    const copy = CopyText.registerFormIndex[ln];
-
-    switch (isKycStatus) {
-      case "no kyc":
-        return (
-          <MatiButton
-            clientid={clientId}
-            flowId={flowId}
-            metadata={`{"id": "${userId}"}`}
-          />
-        );
-      case "reviewneeded":
-        return (
-          <Typography variant="small-body" color="orange">
-            {copy.INDEX.TYPOGRAPHY.TEXT[2]}
-          </Typography>
-        );
-      case "rejected":
-        return (
-          <Typography variant="small-body" color="red">
-            {copy.INDEX.TYPOGRAPHY.TEXT[3]}
-          </Typography>
-        );
-      case "verified":
-        return (
-          <Typography variant="small-body" color="green">
-            {copy.INDEX.TYPOGRAPHY.TEXT[1]}
-          </Typography>
-        );
-      case "country not allowed":
-        return (
-          <Typography variant="small-body" color="white">
-            {copy.INDEX.TYPOGRAPHY.TEXT[6]}
-          </Typography>
-        );
-      case "country other than registration":
-        return (
-          <Typography variant="small-body" color="white">
-            {copy.INDEX.TYPOGRAPHY.TEXT[7]}
-          </Typography>
-        );
-      case "different birthday data":
-        return (
-          <Typography variant="small-body" color="white">
-            {copy.INDEX.TYPOGRAPHY.TEXT[8]}
-          </Typography>
-        );
-      case KYC_IN_REVIEW:
-        return (
-          <>
-            <CircularProgress size={24} style={{ marginRight: 16 }} />
-            <Typography variant="small-body" color="white">
-              {copy.INDEX.TYPOGRAPHY.TEXT[9]}
-            </Typography>
-          </>
-        );
-      case null:
-        return (
-          <MatiButton
-            clientid={clientId}
-            flowId={flowId}
-            metadata={`{"id": "${userId}"}`}
-          />
-        );
-      default:
-        break;
-    }
   };
 
   render() {
     const { ln, onLogout } = this.props;
-    const { username, email, userId, isKycStatus, isKycActive, country, birthDate } = this.state;
+    const { username, email, userId, isKycStatus, isKycActive, country, birthDate, clientId, flowId } = this.state;
     const copy = CopyText.registerFormIndex[ln];
     const copyLogout = CopyText.userMenuIndex[ln];
     const skin = getAppCustomization().skin.skin_type;
@@ -245,7 +169,12 @@ class AccountTab extends React.Component {
                   </Typography>
                 </div>
                 <div styleName={classNames("value", { "flex": isKycVerifying })}>
-                  {this.caseKycStatus()}
+                  <KycStatus
+                    isKycStatus={isKycStatus}
+                    clientId={clientId}
+                    flowId={flowId}
+                    userId={userId}
+                  />
                 </div>
               </div>
             : null

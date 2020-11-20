@@ -1,7 +1,7 @@
 // Source https://github.com/MatiFace/mati-web-button
 import React, { useEffect, useCallback } from "react";
 import { connect } from "react-redux";
-import { KYC_IN_REVIEW } from "../../config/kyc";
+import { KYC_IN_REVIEW } from "../../config/kycStatus";
 import Cache from "../../lib/cache/cache";
 
 function MatiButton(props) {
