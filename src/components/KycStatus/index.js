@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Component } from "react";
 import { Typography } from "components";
 import { CircularProgress } from "@material-ui/core";
 import { connect } from "react-redux";
@@ -15,95 +15,124 @@ import {
   KYC_VERIFIED,
   NO_KYC
 } from "../../config/kycStatus";
+import Cache from "../../lib/cache/cache";
 
-const KycStatus = ({ isKycStatus, clientId, flowId, userId, ln }) => {
-  const copy = CopyText.registerFormIndex[ln];
+class KycStatus extends Component {
+  static propTypes = {
+    ln: PropTypes.string.isRequired
+  };
 
-  switch (isKycStatus) {
-    case NO_KYC:
-      return (
-        <MatiButton
-          clientid={clientId}
-          flowId={flowId}
-          metadata={`{"id": "${userId}"}`}
-        />
-      );
-    case KYC_REVIEW_NEEDED:
-      return (
-        <Typography variant="small-body" color="orange">
-          {copy.INDEX.TYPOGRAPHY.TEXT[2]}
-        </Typography>
-      );
-    case KYC_REJECTED:
-      return (
-        <Typography variant="small-body" color="red">
-          {copy.INDEX.TYPOGRAPHY.TEXT[3]}
-        </Typography>
-      );
-    case KYC_VERIFIED:
-      return (
-        <Typography variant="small-body" color="green">
-          {copy.INDEX.TYPOGRAPHY.TEXT[1]}
-        </Typography>
-      );
-    case KYC_COUNTRY_NOT_ALLOWED:
-      return (
-        <Typography variant="small-body" color="white">
-          {copy.INDEX.TYPOGRAPHY.TEXT[6]}
-        </Typography>
-      );
-    case KYC_INCONSISTENT_COUNTRY:
-      return (
-        <Typography variant="small-body" color="white">
-          {copy.INDEX.TYPOGRAPHY.TEXT[7]}
-        </Typography>
-      );
-    case KYC_INCONSISTENT_BIRTHDATE:
-      return (
-        <Typography variant="small-body" color="white">
-          {copy.INDEX.TYPOGRAPHY.TEXT[8]}
-        </Typography>
-      );
-    case KYC_IN_REVIEW:
-      return (
-        <>
-          <CircularProgress size={24} style={{ marginRight: 16 }} />
-          <Typography variant="small-body" color="white">
-            {copy.INDEX.TYPOGRAPHY.TEXT[9]}
-          </Typography>
-        </>
-      );
-    case null:
-      return (
-        <MatiButton
-          clientid={clientId}
-          flowId={flowId}
-          metadata={`{"id": "${userId}"}`}
-        />
-      );
-    default:
-      break;
+  constructor(props) {
+    super(props);
+    this.state = {
+      clientId: "",
+      flowId: "",
+      userId: "",
+      status: null
+    };
   }
 
-  return null;
-};
+  componentDidMount() {
+    this.projectData(this.props);
+  }
 
-KycStatus.propTypes = {
-  isKycStatus: PropTypes.string,
-  clientId: PropTypes.string.isRequired,
-  flowId: PropTypes.string.isRequired,
-  userId: PropTypes.string.isRequired,
-  ln: PropTypes.string.isRequired
-};
+  componentWillReceiveProps(props) {
+    this.projectData(props);
+  }
 
-KycStatus.defaultProps = {
-  isKycStatus: NO_KYC
-};
+  projectData = async props => {
+    const { profile } = props;
+    const isKycOnStorage = Cache.getFromCache("kyc");
+    const appInfo = Cache.getFromCache("appInfo");
+    const kycIntegration = appInfo.integrations.kyc;
+    const status = isKycOnStorage
+      ? isKycOnStorage.status
+      : await profile.kycStatus();
+    const userId = profile.getID();
 
-function mapStateToProps({ language }) {
-  return {
-    ln: language
+
+    this.setState({
+      userId,
+      clientId: kycIntegration.clientId,
+      flowId: kycIntegration.flowId,
+      status: status === null ? status : status.toLowerCase()
+    });
   };
+
+  render() {
+    const { ln } = this.props;
+    const { status, clientId, flowId, userId } = this.state;
+    const copy = CopyText.registerFormIndex[ln];
+
+    const matiButton = () => (
+      <MatiButton
+        clientid={clientId}
+        flowId={flowId}
+        metadata={`{"id": "${userId}"}`}
+      />
+    );
+
+    switch (status) {
+      case NO_KYC:
+        return matiButton();
+      case KYC_REVIEW_NEEDED:
+        return (
+          <Typography variant="small-body" color="orange">
+            {copy.INDEX.TYPOGRAPHY.TEXT[2]}
+          </Typography>
+        );
+      case KYC_REJECTED:
+        return (
+          <Typography variant="small-body" color="red">
+            {copy.INDEX.TYPOGRAPHY.TEXT[3]}
+          </Typography>
+        );
+      case KYC_VERIFIED:
+        return (
+          <Typography variant="small-body" color="green">
+            {copy.INDEX.TYPOGRAPHY.TEXT[1]}
+          </Typography>
+        );
+      case KYC_COUNTRY_NOT_ALLOWED:
+        return (
+          <Typography variant="small-body" color="white">
+            {copy.INDEX.TYPOGRAPHY.TEXT[6]}
+          </Typography>
+        );
+      case KYC_INCONSISTENT_COUNTRY:
+        return (
+          <Typography variant="small-body" color="white">
+            {copy.INDEX.TYPOGRAPHY.TEXT[7]}
+          </Typography>
+        );
+      case KYC_INCONSISTENT_BIRTHDATE:
+        return (
+          <Typography variant="small-body" color="white">
+            {copy.INDEX.TYPOGRAPHY.TEXT[8]}
+          </Typography>
+        );
+      case KYC_IN_REVIEW:
+        return (
+          <>
+            <CircularProgress size={24} style={{ marginRight: 16 }} />
+            <Typography variant="small-body" color="white">
+              {copy.INDEX.TYPOGRAPHY.TEXT[9]}
+            </Typography>
+          </>
+        );
+      case null:
+        return matiButton();
+      default:
+        break;
+    }
+
+    return null;
+  }
 }
+
+const mapStateToProps = ({ language, profile }) => ({
+  profile,
+  ln: language
+});
 
 export default connect(mapStateToProps)(KycStatus);

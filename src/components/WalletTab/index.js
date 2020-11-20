@@ -6,8 +6,7 @@ import {
   WithdrawForm,
   Typography,
   Button,
-  EmailIcon,
-  KycStatus
+  EmailIcon
 } from "components";
 import { Col, Row } from "reactstrap";
 import _ from "lodash";
@@ -22,6 +21,7 @@ import { getApp, getAppCustomization,  getIcon } from "../../lib/helpers";
 import { setMessageNotification } from "../../redux/actions/message";
 import store from "../../containers/App/store";
 import "./index.css";
+import KycStatus from "../KycStatus";
 
 const defaultState = {
   tab: "deposit",
@@ -32,8 +32,6 @@ const defaultState = {
   onOpenMoonpay: false,
   isMoonpayActive: null,
   colorHexCode: null,
-  clientId: "",
-  flowId: "",
   isKycNeeded: null,
   onClose: false
 };
@@ -75,8 +73,6 @@ resultFilter = (firstArray, secondArray) => {
     const { profile } = this.props;
     let { wallet, isEmailConfirmed } = this.state;
 
-    const isKycStatus = await profile.kycStatus();
-    const kycIntegration = getApp().integrations.kyc;
     const moonpayIntegration = getApp().integrations.moonpay;
     const user = !_.isEmpty(props.profile) ? props.profile : null;
     const virtual = getApp().virtual;
@@ -106,7 +102,6 @@ resultFilter = (firstArray, secondArray) => {
       this.setState({ isEmailConfirmed: await user.isEmailConfirmed() })
     }
       
-    const userId = profile.getID();
     const isKycNeeded = await profile.isKycConfirmed();
 
     const { colors } = getAppCustomization();
@@ -117,13 +112,8 @@ resultFilter = (firstArray, secondArray) => {
 
     this.setState({
       ...this.state,
-      clientId: kycIntegration.clientId,
-      flowId: kycIntegration.flowId,
       isMoonpayActive: moonpayIntegration.isActive,
-      isKycStatus:
-          isKycStatus === null ? isKycStatus : isKycStatus.toLowerCase(),
       isKycNeeded,
-      userId,
       colorHexCode: primaryColor.hex,
       wallets,
       wallet,
@@ -145,13 +135,7 @@ resultFilter = (firstArray, secondArray) => {
 
   renderPopSendAlert = tab => {
     const { ln } = this.props;
-    const {
-      isConfirmationSent,
-      isKycStatus,
-      clientId,
-      flowId,
-      userId
-    } = this.state;
+    const { isConfirmationSent } = this.state;
     const copyConfirmEmail = CopyText.homepage[ln];
     const skin = getAppCustomization().skin.skin_type;
     const emailIcon = getIcon(11);
@@ -210,12 +194,7 @@ resultFilter = (firstArray, secondArray) => {
                                   </Button>
                               :
                               <div styleName="button">
-                                <KycStatus
-                                  isKycStatus={isKycStatus}
-                                  clientId={clientId}
-                                  flowId={flowId}
-                                  userId={userId}
-                                />
+                                <KycStatus />
                               </div>
                             }
                         </div>

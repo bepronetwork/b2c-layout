@@ -1,21 +1,18 @@
 import React from "react";
 import { connect } from "react-redux";
-import { Typography, Button, KycStatus } from "components";
+import { Typography, Button } from "components";
 import ReactCountryFlag from "react-country-flag";
-import classNames from "classnames";
 import Cache from "../../lib/cache/cache";
 import { isUserSet, getAppCustomization } from "../../lib/helpers";
 import { CopyText } from "../../copy";
 import "./index.css";
+import KycStatus from "../KycStatus";
 
 const defaultState = {
   username: "",
   email: "",
   country: {},
-  birthDate: "",
-  clientId: "",
-  flowId: "",
-  isKycStatus: null
+  birthDate: ""
 };
 // const cache = new Cache({
 //   // Keep cached source failures for up to 7 days
@@ -42,16 +39,12 @@ class AccountTab extends React.Component {
   projectData = async props => {
     const { profile } = props;
     const appInfo = Cache.getFromCache("appInfo");
-    const isKycOnStorage = Cache.getFromCache("kyc");
 
     if (!isUserSet(profile)) {
       return null;
     }
 
     const kycIntegration = appInfo.integrations.kyc;
-    const isKycStatus = isKycOnStorage
-      ? isKycOnStorage.status
-      : await profile.kycStatus();
     const userId = profile.getID();
     const username = profile.getUsername();
     const country = profile.getCountry();
@@ -69,21 +62,16 @@ class AccountTab extends React.Component {
       birthDate,
       avatar,
       email,
-      isKycActive: kycIntegration.isActive,
-      clientId: kycIntegration.clientId,
-      flowId: kycIntegration.flowId,
-      isKycStatus:
-        isKycStatus === null ? isKycStatus : isKycStatus.toLowerCase()
+      isKycActive: kycIntegration.isActive
     });
   };
 
   render() {
     const { ln, onLogout } = this.props;
-    const { username, email, userId, isKycStatus, isKycActive, country, birthDate, clientId, flowId } = this.state;
+    const { username, email, userId, isKycActive, country, birthDate } = this.state;
     const copy = CopyText.registerFormIndex[ln];
     const copyLogout = CopyText.userMenuIndex[ln];
     const skin = getAppCustomization().skin.skin_type;
-    const isKycVerifying = isKycStatus === "kyc in review";
 
     return (
       <div styleName={`box ${skin == "digital" ? "box-digital-kyc" : "background-kyc"}`}>
@@ -168,13 +156,8 @@ class AccountTab extends React.Component {
                     {copy.INDEX.INPUT_TEXT.LABEL[5]}
                   </Typography>
                 </div>
-                <div styleName={classNames("value", { "flex": isKycVerifying })}>
-                  <KycStatus
-                    isKycStatus={isKycStatus}
-                    clientId={clientId}
-                    flowId={flowId}
-                    userId={userId}
-                  />
+                <div styleName="value flex">
+                  <KycStatus />
                 </div>
               </div>
             : null
