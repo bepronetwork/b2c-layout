@@ -142,7 +142,8 @@ import countryRestrictedPageCopy from './countryRestrictedPage';
 import DiamondGamePageCopy from "./diamondGame";
 import ThirdPartyCopy from "./thirdPartyGames";
 import tableInfoCopy from "./table";
-import gameCounterCopy from './gameCounter'
+import gameCounterCopy from './gameCounter';
+import walletTabCopy from './walletTab';
 
 const CopyText = {
     Errors: errorsCopy,
@@ -282,7 +283,8 @@ const CopyText = {
     withdrawspage: withdrawspageCopy,
     countryRestrictedPage: countryRestrictedPageCopy,
     DiamondGamePage: DiamondGamePageCopy,
-    gameCounter: gameCounterCopy
+    gameCounter: gameCounterCopy,
+    walletTab: walletTabCopy
 }
 
 export { CopyText }

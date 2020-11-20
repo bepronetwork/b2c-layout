@@ -6,7 +6,8 @@ import {
   WithdrawForm,
   Typography,
   Button,
-  EmailIcon
+  EmailIcon,
+  KycStatus
 } from "components";
 import { Col, Row } from "reactstrap";
 import _ from "lodash";
@@ -21,7 +22,6 @@ import { getApp, getAppCustomization,  getIcon } from "../../lib/helpers";
 import { setMessageNotification } from "../../redux/actions/message";
 import store from "../../containers/App/store";
 import "./index.css";
-import KycStatus from "../KycStatus";
 
 const defaultState = {
   tab: "deposit",
@@ -137,6 +137,7 @@ resultFilter = (firstArray, secondArray) => {
     const { ln } = this.props;
     const { isConfirmationSent } = this.state;
     const copyConfirmEmail = CopyText.homepage[ln];
+    const copy = CopyText.walletTab[ln];
     const skin = getAppCustomization().skin.skin_type;
     const emailIcon = getIcon(11);
 
@@ -162,7 +163,7 @@ resultFilter = (firstArray, secondArray) => {
                       <div styleName="container-direction email-title">
                           <div styleName="center-text">
                               <Typography variant={'small-body'} color={'grey'} weight={"bold"}>
-                                  {"Confirm KYC"}
+                                  {copy.INDEX.TEXT[0]}
                               </Typography>
                           </div>
                       </div>
@@ -174,10 +175,7 @@ resultFilter = (firstArray, secondArray) => {
                            {tab === "deposit" ? " Your e-mail is not confirmed." : "Your KYC account is not confirmed."}
                         </Typography>
                         <Typography variant={'x-small-body'} color={'white'}>
-                           {tab === "deposit" ?
-                                "Please click the button to send another e-mail confirmation." 
-                            :
-                                "Seems like we have to know a bit more about you, please do your KYC to enable withdraws"}
+                           {tab === "deposit" ? copy.INDEX.TEXT[1] : copy.INDEX.TEXT[2]}
                         </Typography>
                     </div>
                     <div styleName="email-buttons"> 
@@ -194,6 +192,13 @@ resultFilter = (firstArray, secondArray) => {
                                   </Button>
                               :
                               <div styleName="button">
+                                <Typography
+                                    color={'red'}
+                                    variant={'small-body'}
+                                    style={{ display: 'block', marginBottom: 16 }}
+                                  >
+                                    {copy.INDEX.TEXT[3]}
+                                </Typography>
                                 <KycStatus />
                               </div>
                             }
