@@ -1,10 +1,9 @@
 import React, { Component } from "react";
-import { Typography } from "components";
+import { Typography, MatiButton } from "components";
 import { CircularProgress } from "@material-ui/core";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { CopyText } from "../../copy";
-import MatiButton from "../MatiButton";
 import {
   KYC_COUNTRY_NOT_ALLOWED,
   KYC_INCONSISTENT_BIRTHDATE,
@@ -49,7 +48,6 @@ class KycStatus extends Component {
       ? isKycOnStorage.status
       : await profile.kycStatus();
     const userId = profile.getID();
-
 
     this.setState({
       userId,
