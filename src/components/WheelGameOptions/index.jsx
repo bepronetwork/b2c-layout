@@ -299,7 +299,7 @@ class WheelGameOptions extends Component {
         }
 
         if (value === "0.5") {
-            newAmount = newAmount <= 0.000001 ? 0 : newAmount * 0.5;
+            newAmount = newAmount <= 0.00001 ? 0 : newAmount * 0.5;
         }
 
         if (newAmount > balance) {
