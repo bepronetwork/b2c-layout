@@ -36,6 +36,7 @@ class SlotsPage extends Component {
       resultSound: false,
       gameName: "Slots",
       gameStore: [],
+      arrayObjects: [],
       animation: false,
       betObjectResult: {},
       resultMultiplier: 0,
@@ -44,26 +45,28 @@ class SlotsPage extends Component {
       game: {
         edge: 0
       },
-      matrixResult: [],
       soundIcon: false,
       soundReel: false,
-      testBol: Array(5).fill(false),
-      testArray: [],
-      resultFirstColumn: [],
-      resultSecondColumn: [],
-      resultThirstColumn: [],
-      resultFourthColumn: [],
-      resultFiveColumn: [],
-      insertionIndex: [],
-      insertIndex: []
+      timer: 0
     };
   }
 
   async componentDidMount() {
     this.getGame();
-    await this.setNewRandomMatrix();
-    this.getcolumn();
+    await this.arrayOfObjects();
+    this.countdownTimer();
   }
+
+  arrayOfObjects = async () => {
+    this.setState({
+      arrayObjects: new Array(201).fill().map(() => {
+        return {
+          id: Array.from(Array(201).keys()),
+          value: (Math.random() * (10 - 0) + 0).toFixed(2) * 1
+        };
+      })
+    });
+  };
 
   randomTable = (rows, cols) =>
     Array.from({ length: rows }, () =>
@@ -82,112 +85,71 @@ class SlotsPage extends Component {
 
   animationFalse = async () => {
     this.setState({
-      animation: false
+      animation: true
     });
+
+    return new Promise(resolve => setTimeout(() => resolve(), 10000));
+  };
+
+  setResult = async () => {
+    this.setState({ result: false });
+  };
+
+  countdownTimer = () => {
+    const timerInterval = setInterval(() => {
+      const seconds = 10;
+
+      if (seconds === 0) {
+        clearInterval(this.timerInterval);
+      } else {
+        this.setState(() => ({
+          timer: seconds - 1,
+          disabledFreeButton: true
+        }));
+      }
+    }, 1000);
+
+    return console.log(timerInterval);
+  };
+
+  handleAnimation = async () => {
+    const box = document.getElementById("card");
+  
+    box.animate(
+      [
+        { transform: "translate3D(0, -30px, 0)" }
+      ],
+      {
+        duration: 500,
+        iterations: 1
+      }
+    );
+  
+    return new Promise(resolve => setTimeout(() => resolve(), 100));
   };
 
   handleBet = async ({ amount }) => {
     const { user } = this.context;
     const { onHandleLoginOrRegister } = this.props;
+    this.handleAnimation();
 
-    await this.animationFalse();
-
-    if (!user) return onHandleLoginOrRegister("register");
+    await this.arrayOfObjects();
 
     this.setState({
       line: false,
       result: false,
       soundIcon: false,
-      testBol: Array(5).fill(false),
-      insertionIndex: [],
-      insertIndex: [],
-      animation: true
+      animation: false
     });
-  };
 
-  handleResult = async () => {
-    const { testBol } = this.state;
+    if (!user) return onHandleLoginOrRegister("register");
 
-    testBol.map(async result => {
-      if (result) {
-        await this.setResult();
-      }
-    });
-  };
-
-  handleAnimations = async () => {
-    setInterval(this.handleAnimation(), 1000 / 60);
-
-    await this.randomNumberResult();
-
-    return new Promise(resolve => setTimeout(() => resolve(), 500));
-  };
-
-  setNewRandomMatrix = async () => {
-    const resultRow = this.randomTable(40, 5);
-
-    this.setState({ matrixResult: resultRow });
-  };
-
-  setResult = async () => {
-    this.setState({ result: true, resultSound: true });
+    await this.animationFalse();
+    await this.setResult();
   };
 
   setSound = async () => {
     this.setState({ soundIcon: true });
-  };
-
-  getcolumn = async () => {
-    const { matrixResult } = this.state;
-    const arrayColumn = (arr, n) => {
-      return arr.map(x => x[n]);
-    };
-
-    await this.setNewRandomMatrix();
-
-    const resultFirstColumn = arrayColumn(matrixResult, 0);
-    const resultSecondColumn = arrayColumn(matrixResult, 1);
-    const resultThirstColumn = arrayColumn(matrixResult, 2);
-    const resultFourthColumn = arrayColumn(matrixResult, 3);
-    const resultFiveColumn = arrayColumn(matrixResult, 4);
-
-    this.setState({
-      resultFirstColumn,
-      resultSecondColumn,
-      resultThirstColumn,
-      resultFourthColumn,
-      resultFiveColumn
-    });
-  };
-
-  randomNumberResult = async () => {
-    const {
-      testArray,
-      resultFirstColumn,
-      resultSecondColumn,
-      resultThirstColumn,
-      resultFourthColumn,
-      resultFiveColumn
-    } = this.state;
-
-    const randNum = randomNumber(18, 20);
-    const randNum2 = randomNumber(18, 20);
-    const randNum3 = randomNumber(18, 20);
-    const randNum4 = randomNumber(18, 20);
-    const randNum5 = randomNumber(18, 20);
-    const testArr = testArray;
-
-    resultFirstColumn.splice(randNum, 1, testArr[0]);
-    resultSecondColumn.splice(randNum2, 1, testArr[1]);
-    resultThirstColumn.splice(randNum3, 1, testArr[2]);
-    resultFourthColumn.splice(randNum4, 1, testArr[3]);
-    resultFiveColumn.splice(randNum5, 1, testArr[4]);
-
-    this.setState({
-      insertionIndex: [randNum, randNum2, randNum3, randNum4, randNum5]
-    });
-
-    return new Promise(resolve => setTimeout(() => resolve(), 1500));
   };
 
   handleIconAudio = () => {
@@ -230,26 +192,6 @@ class SlotsPage extends Component {
     }
   };
 
-  handleLine = () => {
-    this.setState({ line: true });
-  };
-
-  handleImage = async setTimeOut => {
-    const { isWon } = this.state.betObjectResult;
-    const { insertionIndex } = this.state;
-
-    if (isWon === true) {
-      this.setState({ testBol: Array(5).fill(true) });
-    }
-
-    this.handleLine();
-    this.setState({
-      insertIndex: insertionIndex
-    });
-
-    return new Promise(resolve => setTimeout(() => resolve(), setTimeOut));
-  };
-
   getGame = () => {
     const { gameName } = this.state;
 
@@ -267,11 +209,16 @@ class SlotsPage extends Component {
   };
 
   renderGameCard = () => {
-    const { soundIcon, soundReel, resultSound, animation } = this.state;
+    const { animation, result, arrayObjects, timer } = this.state;
 
     return (
       <>
-        <SliderGame animation={animation} />
+        <SliderGame
+          animation={animation}
+          result={result}
+          slideItems={arrayObjects}
+          timer={timer}
+        />
       </>
     );
   };

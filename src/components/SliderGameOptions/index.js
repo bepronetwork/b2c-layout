@@ -386,7 +386,26 @@ class SlotsGameOptions extends Component {
             </Button>
           </div>
           <div styleName="result-container">
-            <p>test</p>
+            <div styleName="text-container">
+              <Typography
+              weight="semi-bold"
+              color="white"
+              variant="x-small-body">
+                alisson
+              </Typography>
+              <Typography
+              weight="semi-bold"
+              color="white"
+              variant="x-small-body">
+                1,16x
+              </Typography>
+              <Typography
+              weight="semi-bold"
+              color="white"
+              variant="x-small-body">
+                0,000004
+              </Typography>
+            </div>
           </div>
         </div>
       </div>

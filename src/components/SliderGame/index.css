@@ -3,7 +3,7 @@
 .container-init {
     display: flex;
     align-items: center;
-    padding: 200px;
+    padding: 80px 0px;
     justify-content: center;
     overflow: hidden;
   }
@@ -29,7 +29,7 @@
   }
 
   .indicator{
-      top: 370;
+      top: 250;
       bottom: 0;
       z-index: 1;
       position: absolute;
@@ -45,12 +45,12 @@
     -moz-transform: none;
     -ms-transform: none;
     -o-transform: none;
-    transform: translate(0, 0) translate3d(0, 0, 0);
+    transform: translate(0px, 0px) translate3d(0px, 0px, 0px);
   }
 
   .container-animation{
     transition: transform 10000ms cubic-bezier(0.24, 0.78, 0.15, 1) 0s;
-    transform: translate(-3615px, 0px)
+    transform: translate(-3615px, 0px);
   }
 
   .background-empty{

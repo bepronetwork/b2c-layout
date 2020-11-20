@@ -102,4 +102,13 @@
   height: 300px;
   background-color: $primaryColor-2;
   margin-top: $spacing-20;
+  padding: $spacing-8;
+}
+
+.text-container{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
 }
