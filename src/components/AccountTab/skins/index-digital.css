@@ -118,9 +118,9 @@
         align-items: center;
         padding: $spacing-8 5%;
     }
-  }
+}
 
-  .field-label-country {
+.field .value.flex {
     display: flex;
     align-items: center;
 }

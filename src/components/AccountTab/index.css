@@ -119,7 +119,7 @@
         align-items: center;
         padding: $spacing-8 5%;
     }
-  }
+}
 
 .field .value.flex {
     display: flex;
