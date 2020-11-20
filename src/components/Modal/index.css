@@ -48,6 +48,7 @@ $icon-index: calc($root-index + 1);
 .content {
   position: relative;
   height: auto;
+  max-height: calc(100% - 64px);
   width: auto;
   z-index: 100;
   margin: 32px 0;
@@ -58,5 +59,6 @@ $icon-index: calc($root-index + 1);
   @include Breakpoint-mobileOnly {
     height: 100%;
     width: 100%;
+    max-height: none;
   }
 }
