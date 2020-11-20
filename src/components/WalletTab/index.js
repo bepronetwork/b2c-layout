@@ -6,7 +6,8 @@ import {
   WithdrawForm,
   Typography,
   Button,
-  EmailIcon
+  EmailIcon,
+  KycStatus
 } from "components";
 import { Col, Row } from "reactstrap";
 import _ from "lodash";
@@ -126,9 +127,8 @@ resultFilter = (firstArray, secondArray) => {
       colorHexCode: primaryColor.hex,
       wallets,
       wallet,
-      virtual: getApp().virtual,
+      virtual: getApp().virtual
     });
-    this.caseKycStatus();
   };
 
   handleTabChange = name => {
@@ -143,59 +143,15 @@ resultFilter = (firstArray, secondArray) => {
     this.setState({ onOpenMoonpay: false });
   };
 
-  caseKycStatus = () => {
-    const { isKycStatus, clientId, flowId, userId } = this.state;
-    const { ln } = this.props;
-    const copy = CopyText.registerFormIndex[ln];
-
-    switch (isKycStatus) {
-      case "no kyc":
-        return (
-          <div>
-            <mati-button
-              clientid={clientId}
-              flowId={flowId}
-              metadata={`{"id": "${userId}"}`}
-            />
-          </div>
-        );
-      case "reviewneeded":
-        return (
-          <Typography variant="small-body" color="orange">
-            {copy.INDEX.TYPOGRAPHY.TEXT[2]}
-          </Typography>
-        );
-      case "rejected":
-        return (
-          <Typography variant="small-body" color="red">
-            {copy.INDEX.TYPOGRAPHY.TEXT[3]}
-          </Typography>
-        );
-      case "verified":
-        return (
-          <Typography variant="small-body" color="green">
-            {copy.INDEX.TYPOGRAPHY.TEXT[1]}
-          </Typography>
-        );
-
-      case null:
-        return (
-          <div>
-            <mati-button
-              clientid={clientId}
-              flowId={flowId}
-              metadata={`{"id": "${userId}"}`}
-            />
-          </div>
-        );
-      default:
-        break;
-    }
-  };
-
   renderPopSendAlert = tab => {
     const { ln } = this.props;
-    const { isConfirmationSent } = this.state;
+    const {
+      isConfirmationSent,
+      isKycStatus,
+      clientId,
+      flowId,
+      userId
+    } = this.state;
     const copyConfirmEmail = CopyText.homepage[ln];
     const skin = getAppCustomization().skin.skin_type;
     const emailIcon = getIcon(11);
@@ -254,7 +210,12 @@ resultFilter = (firstArray, secondArray) => {
                                   </Button>
                               :
                               <div styleName="button">
-                                  {this.caseKycStatus()}
+                                <KycStatus
+                                  isKycStatus={isKycStatus}
+                                  clientId={clientId}
+                                  flowId={flowId}
+                                  userId={userId}
+                                />
                               </div>
                             }
                         </div>
