@@ -22,7 +22,7 @@ import { getApp, getAppCustomization,  getIcon } from "../../lib/helpers";
 import { setMessageNotification } from "../../redux/actions/message";
 import store from "../../containers/App/store";
 import "./index.css";
-import { KYC_IN_REVIEW, NO_KYC } from "../../config/kycStatus";
+import { KYC_IN_REVIEW, KYC_VERIFIED, NO_KYC } from "../../config/kycStatus";
 
 const defaultState = {
   tab: "deposit",
@@ -144,7 +144,10 @@ resultFilter = (firstArray, secondArray) => {
     const skin = getAppCustomization().skin.skin_type;
     const emailIcon = getIcon(11);
     const kycStatusError =
-      kycStatus !== NO_KYC && kycStatus !== null && kycStatus !== KYC_IN_REVIEW;
+      kycStatus !== NO_KYC &&
+      kycStatus !== null &&
+      kycStatus !== KYC_IN_REVIEW &&
+      kycStatus !== KYC_VERIFIED;
 
     const renderKycStatus = status => {
       return status === KYC_IN_REVIEW ? (
