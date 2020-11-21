@@ -118,6 +118,7 @@ export default class User {
     hasLoaded = () => this.isLoaded;
 
     getBalance = (currency) => {
+
         const state = store.getState();
         currency = currency ? currency : state.currency;
         if(_.isEmpty(currency)){ return 0;}
@@ -128,8 +129,6 @@ export default class User {
     };
 
     getBonusAmount = async (currency) => {
-        await this.updateUser();
-        await this.updateUserState();
 
         const state = store.getState();
         currency = currency ? currency : state.currency;
