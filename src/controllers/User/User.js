@@ -455,13 +455,15 @@ export default class User {
     }
 
     createBet = async ({ result, gameId }) => {
+        let res;
+
         try {
             const nonce = getNonce();
             // grab current state
             const state = store.getState();
             const { currency } = state;
             /* Create Bet API Setup */
-            let res = await createBet(
+            res = await createBet(
                 {
                     currency : currency._id,
                     user: this.user_id,
@@ -475,9 +477,34 @@ export default class User {
             return res;
         } catch (err) {
             throw err;
+        } finally {
+            setTimeout(() => {
+                this.handleCreateBetResponse(res);
+            }, 5000)
         }
     };
 
+    handleCreateBetResponse = (res) => {
+        const response = JSON.parse(res);
+        
+        if (parseInt(response.data.status) === 200) {
+            const wallets = this.user.wallet;
+            const wallet = this.getWallet({ currency });
+
+            const { currency, totalBetAmount } = response.data.message;
+    
+            if (!_.isEmpty(wallet) && _.has(wallet, 'incrementBetAmountForBonus')) {
+                const walletIndex = wallets.findIndex((obj => obj.currency._id === currency));
+    
+                let newWallets = [...wallets];
+                newWallets[walletIndex] = { ...wallet, incrementBetAmountForBonus: wallet.incrementBetAmountForBonus + totalBetAmount };
+    
+                this.user.wallet = newWallets;
+    
+                this.updateUserState();
+            }
+        }
+    }
 
     getMessage = () => {
         return this.message;
