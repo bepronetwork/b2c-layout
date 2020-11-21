@@ -265,43 +265,43 @@ class PlinkoGameOptions extends Component {
         );
     };
 
-    handleMultiply = value => {
+    handleMultiply = async value => {
         const { profile, onBetAmount } = this.props;
         const { amount } = this.state;
         let newAmount = amount;
         let newAmountBonus = amount;
     
+        const balance = profile.getBalance();
+        const bonusBalance = profile.getBonusAmount();
+
         if (_.isEmpty(profile)) {
           return null;
         }
-    
-        const balance = profile.getBalance();
-        const bonusBalance = profile.getBonusAmount();
-        console.log(bonusBalance)
-        console.log(balance)
-    
-        if (value === "max") {
-          if (bonusBalance > 0){
-            newAmountBonus = bonusBalance;
-          }else{
-            newAmount = balance;
-          }
-        }
-    
-        if (value === "2") {
-          if(bonusBalance > 0){
-            newAmountBonus = newAmountBonus === 0 ? 0.01 : newAmountBonus * 2;
-          }else{
-            newAmount = newAmount === 0 ? 0.01 : newAmount * 2;
-          }
-        }
-    
-        if (value === "0.5") {
-          if(bonusBalance > 0){
-            newAmountBonus = newAmountBonus <= 0.00001 ? 0 : newAmountBonus * 0.5;
-          }else{
-            newAmount = newAmount <= 0.00001 ? 0 : newAmount * 0.5;
-          }
+
+        if(bonusBalance > balance){
+            if (value === "max") {
+                  newAmountBonus = bonusBalance;
+              }
+          
+              if (value === "2") {
+                  newAmountBonus = newAmountBonus === 0 ? 0.01 : newAmountBonus * 2;
+              }
+          
+              if (value === "0.5") {
+                  newAmountBonus = newAmountBonus <= 0.00001 ? 0 : newAmountBonus * 0.5;
+              }
+        }else{
+            if (value === "max") {
+                newAmount = balance;
+            }
+        
+            if (value === "2") {
+                newAmount = newAmount === 0 ? 0.01 : newAmount * 2;
+            }
+        
+            if (value === "0.5") {
+                newAmount = newAmount <= 0.00001 ? 0 : newAmount * 0.5;
+            }
         }
     
         if (newAmountBonus > bonusBalance) {
@@ -311,7 +311,6 @@ class PlinkoGameOptions extends Component {
         if (newAmount > balance) {
           newAmount = balance;
         }
-    
     
         this.setState({ amount: newAmount || newAmountBonus });
         onBetAmount(newAmount || newAmountBonus);

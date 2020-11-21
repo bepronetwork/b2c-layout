@@ -73,20 +73,20 @@ class FlipGameOptions extends Component {
         });
     };
 
-    handleMultiply = value => {
+    handleMultiply = async value => {
         const { profile, onBetAmount } = this.props;
         const { amount } = this.state;
         let newAmount = amount;
         let newAmountBonus = amount;
     
+        const balance = profile.getBalance();
+        const bonusBalance = profile.getBonusAmount();
+        console.log(balance)
+    
         if (_.isEmpty(profile)) {
           return null;
         }
     
-        const balance = profile.getBalance();
-        const bonusBalance = profile.getBonusAmount();
-        console.log(bonusBalance)
-        console.log(balance)
     
         if (value === "max") {
           if (bonusBalance > 0){
@@ -119,7 +119,6 @@ class FlipGameOptions extends Component {
         if (newAmount > balance) {
           newAmount = balance;
         }
-    
     
         this.setState({ amount: newAmount || newAmountBonus });
         onBetAmount(newAmount || newAmountBonus);
