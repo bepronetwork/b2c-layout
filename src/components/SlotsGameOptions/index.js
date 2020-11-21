@@ -279,14 +279,14 @@ class SlotsGameOptions extends Component {
     let newAmountBonus = amount;
 
     const balance = profile.getBalance();
-    const bonusBalance = profile.getBonusAmount();
+    const bonusBalance =  await profile.getBonusAmount();
     console.log(balance)
-
+    console.log(bonusBalance)
     if (_.isEmpty(profile)) {
       return null;
     }
 
-    if(bonusBalance > balance){
+    if(bonusBalance >= 0){
       if (value === "max") {
             newAmountBonus = bonusBalance;
         }
@@ -312,14 +312,6 @@ class SlotsGameOptions extends Component {
       }
   }
 
-  if (newAmountBonus > bonusBalance) {
-    newAmountBonus = bonusBalance;
-  }
-
-  if (newAmount > balance) {
-    newAmount = balance;
-  }
-
     if (newAmountBonus > bonusBalance) {
       newAmountBonus = bonusBalance;
     }
@@ -328,8 +320,9 @@ class SlotsGameOptions extends Component {
       newAmount = balance;
     }
 
-    this.setState({ amount: newAmount || newAmountBonus });
+    this.setState({ amount: newAmountBonus || newAmount });
     onBetAmount(newAmount || newAmountBonus);
+    console.log(amount)
   };
 
   render() {

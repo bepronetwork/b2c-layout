@@ -265,56 +265,33 @@ class PlinkoGameOptions extends Component {
         );
     };
 
-    handleMultiply = async value => {
-        const { profile, onBetAmount } = this.props;
+    handleMultiply = value => {
+        const { profile } = this.props;
         const { amount } = this.state;
         let newAmount = amount;
-        let newAmountBonus = amount;
-    
-        const balance = profile.getBalance();
-        const bonusBalance = profile.getBonusAmount();
 
-        if (_.isEmpty(profile)) {
-          return null;
+        if(_.isEmpty(profile)) { return null };
+        
+        let balance = profile.getBalance();
+
+        if (value === "max") {
+        newAmount = balance;
         }
 
-        if(bonusBalance > balance){
-            if (value === "max") {
-                  newAmountBonus = bonusBalance;
-              }
-          
-              if (value === "2") {
-                  newAmountBonus = newAmountBonus === 0 ? 0.01 : newAmountBonus * 2;
-              }
-          
-              if (value === "0.5") {
-                  newAmountBonus = newAmountBonus <= 0.00001 ? 0 : newAmountBonus * 0.5;
-              }
-        }else{
-            if (value === "max") {
-                newAmount = balance;
-            }
-        
-            if (value === "2") {
-                newAmount = newAmount === 0 ? 0.01 : newAmount * 2;
-            }
-        
-            if (value === "0.5") {
-                newAmount = newAmount <= 0.00001 ? 0 : newAmount * 0.5;
-            }
+        if (value === "2") {
+        newAmount = newAmount === 0 ? 0.01 : newAmount * 2;
         }
-    
-        if (newAmountBonus > bonusBalance) {
-          newAmountBonus = bonusBalance;
+
+        if (value === "0.5") {
+            newAmount = newAmount <= 0.00001 ? 0 : newAmount * 0.5;
         }
-    
+
         if (newAmount > balance) {
-          newAmount = balance;
+        newAmount = balance;
         }
-    
-        this.setState({ amount: newAmount || newAmountBonus });
-        onBetAmount(newAmount || newAmountBonus);
-      };
+
+        this.setState({ amount: newAmount });
+    };
 
     render() {
         const { type, amount, isAutoBetting } = this.state;
