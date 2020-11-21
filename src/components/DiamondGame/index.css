@@ -221,3 +221,13 @@
 
 /* Extra large devices (large laptops and desktops, 1200px and up) */
 @media only screen and (min-width: 1200px) {}
+
+.result-container-right div:first-child .result-right {
+  min-width: 140px;
+  width: auto;
+
+  & > .text-result {
+    min-width: 120px;
+    width: auto;
+  }
+}
