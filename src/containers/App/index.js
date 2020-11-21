@@ -1061,7 +1061,7 @@ console.log(form, 'form')
                                         null
                                 }
                             </div>
-                            <PopupForm user={user}/>
+                            <PopupForm />
                         </div>
                         <BottomNavbar
                             history={history}

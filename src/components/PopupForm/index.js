@@ -2,40 +2,67 @@ import React, { Component } from "react";
 import Popup from './Popup';
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { compose } from 'lodash/fp'
-import _ from 'lodash';
-
+import { isArray, isEmpty } from 'lodash';
 import "./index.css";
-import {CopyText} from "../../copy";
 
 
 class PopupForm extends Component {
     constructor(props) {
         super(props);
 
-        this.state = {};
+        this.state = {
+            notification: {},
+            hasNotification: false
+        };
     }
 
-    static propTypes = {
-        user: PropTypes.shape({})
-    };
+    componentDidMount() {
+        this.projectData(this.props);
+    }
+
+    componentWillUnmount() {
+        this.projectData(this.props);
+    }
 
     handleTabChange = name => {
         this.setState({ tab: name });
     };
 
+    projectData = props => {
+        const { popup } = props;
+        const notification = isArray(popup) ? popup : [popup];
+        const hasNotification = !isEmpty(notification);
+
+        this.setState({ notification, hasNotification });
+    }
+
     render() {
-        let hasNotification = !_.isEmpty(this.props.popup);
-        if(!hasNotification){return null};
-        let notificationArray = _.isArray(this.props.popup) ? this.props.popup : [this.props.popup];
-        const {ln} = this.props;
-const copy = CopyText.popupFormIndex[ln];
+        const { notification, hasNotification } = this.state;
+
+        // let hasNotification = !_.isEmpty(this.props.popup);
+
+        if(!hasNotification) {
+            return null
+        };
+
+        //         let notificationArray = _.isArray(this.props.popup) ? this.props.popup : [this.props.popup];
+        //         const {ln} = this.props;
+        // const copy = CopyText.popupFormIndex[ln];
+        //         console.log(notificationArray, 'notificationArray');
+
         return (
             <div styleName="popup-container">
                 <div styleName="popup-wrapper">
-                    {notificationArray.map( notification => {
+                    {notification.map(({id, title, message, type}) => {
                         return (
-                            <Popup {...this.props} id={notification.id} title={notification.title} message={notification.message} type={notification.type} messages={notificationArray}/> 
+                            <Popup
+                                id={id}
+                                title={title}
+                                message={message} 
+                                type={type} 
+                                messages={notification}
+                                {...this.props}
+                            /> 
                         );
                     })}
                 </div>
@@ -55,4 +82,4 @@ PopupForm.propTypes = {
     dispatch: PropTypes.func
 };
 
-export default compose(connect(mapStateToProps))(PopupForm);
+export default connect(mapStateToProps)(PopupForm);
