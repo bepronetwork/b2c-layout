@@ -293,7 +293,7 @@ class DiamondGameOptions extends Component {
     }
 
     if (value === "0.5") {
-      newAmount = newAmount === 0.01 ? 0 : newAmount * 0.5;
+      newAmount = newAmount <= 0.00001 ? 0 : newAmount * 0.5;
     }
 
     if (newAmount > balance) {
