@@ -255,7 +255,7 @@ class Form extends Component {
                             </Col>
                         </Row>
                         <div>
-                            <button onClick={this.askForWithdraw} styleName='withdraw' disabled={bonusAmount < 0 && (disabled || isAsking)}>
+                            <button onClick={this.askForWithdraw} styleName='withdraw' disabled={bonusAmount > 0 || disabled || isAsking}>
                             {isAsking 
                                 ?
                                     <img src={loadingIco} />
