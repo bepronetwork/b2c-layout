@@ -31,7 +31,8 @@ const defaultProps = {
     minBalance: 0,
     isAsking: false,
     minBetAmountForBonusUnlocked: 0,
-    incrementBetAmountForBonus: 0  
+    incrementBetAmountForBonus: 0,
+    bonusAmount: 0
 }
 
 class Form extends Component {
@@ -152,7 +153,7 @@ class Form extends Component {
     render() {
         const { amount, image, maxWithdraw, minWithdraw, maxBalance, minBalance, ticker, 
                 addressInitialized, isLoaded, toAddress, disabled, isTxFee, fee, isAsking,
-                minBetAmountForBonusUnlocked, incrementBetAmountForBonus
+                minBetAmountForBonusUnlocked, incrementBetAmountForBonus, bonusAmount
         } = this.state;
         const {ln, isAffiliate} = this.props;
         const copy = CopyText.amountFormIndex[ln];
@@ -254,7 +255,7 @@ class Form extends Component {
                             </Col>
                         </Row>
                         <div>
-                            <button onClick={this.askForWithdraw} styleName='withdraw' disabled={disabled || isAsking}>
+                            <button onClick={this.askForWithdraw} styleName='withdraw' disabled={bonusAmount < 0 && (disabled || isAsking)}>
                             {isAsking 
                                 ?
                                     <img src={loadingIco} />
