@@ -301,32 +301,56 @@ class DiceGameOptions extends Component {
 
 
     handleMultiply = value => {
-        const { profile } = this.props;
+        const { profile, onBetAmount } = this.props;
         const { amount } = this.state;
         let newAmount = amount;
-
-        if(_.isEmpty(profile)) { return null };
-
-        let balance = profile.getBalance();
-
+        let newAmountBonus = amount;
+    
+        if (_.isEmpty(profile)) {
+          return null;
+        }
+    
+        const balance = profile.getBalance();
+        const bonusBalance = profile.getBonusAmount();
+        console.log(bonusBalance)
+        console.log(balance)
+    
         if (value === "max") {
-        newAmount = balance;
+          if (bonusBalance > 0){
+            newAmountBonus = bonusBalance;
+          }else{
+            newAmount = balance;
+          }
         }
-
+    
         if (value === "2") {
-        newAmount = newAmount === 0 ? 0.01 : newAmount * 2;
+          if(bonusBalance > 0){
+            newAmountBonus = newAmountBonus === 0 ? 0.01 : newAmountBonus * 2;
+          }else{
+            newAmount = newAmount === 0 ? 0.01 : newAmount * 2;
+          }
         }
-
+    
         if (value === "0.5") {
-         newAmount = newAmount <= 0.00001 ? 0 : newAmount * 0.5;
+          if(bonusBalance > 0){
+            newAmountBonus = newAmountBonus <= 0.00001 ? 0 : newAmountBonus * 0.5;
+          }else{
+            newAmount = newAmount <= 0.00001 ? 0 : newAmount * 0.5;
+          }
         }
-
+    
+        if (newAmountBonus > bonusBalance) {
+          newAmountBonus = bonusBalance;
+        }
+    
         if (newAmount > balance) {
-        newAmount = balance;
+          newAmount = balance;
         }
-
-        this.setState({ amount: newAmount });
-    };
+    
+    
+        this.setState({ amount: newAmount || newAmountBonus });
+        onBetAmount(newAmount || newAmountBonus);
+      };
 
     render() {
         const { type, amount, isAutoBetting } = this.state;

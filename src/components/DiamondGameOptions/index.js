@@ -88,7 +88,7 @@ class DiamondGameOptions extends Component {
     this.projectData(props);
   }
 
-  projectData(props) {
+  async projectData(props) {
     this.setState({ ...this.state, edge: props.game.edge });
   }
 
@@ -183,7 +183,7 @@ class DiamondGameOptions extends Component {
           break;
       }
     }
-
+  
     return true;
   };
 
@@ -273,37 +273,57 @@ class DiamondGameOptions extends Component {
     );
   };
 
-  handleMultiply = value => {
+  handleMultiply = async value => {
     const { profile, onBetAmount } = this.props;
     const { amount } = this.state;
     let newAmount = amount;
+    let newAmountBonus = amount;
+
+    const balance = profile.getBalance();
+    const bonusBalance = profile.getBonusAmount();
+    console.log(balance)
 
     if (_.isEmpty(profile)) {
       return null;
     }
 
-    const balance = profile.getBalance();
 
     if (value === "max") {
-      newAmount = balance;
+      if (bonusBalance > 0){
+        newAmountBonus = bonusBalance;
+      }else{
+        newAmount = balance;
+      }
     }
 
     if (value === "2") {
-      newAmount = newAmount === 0 ? 0.01 : newAmount * 2;
+      if(bonusBalance > 0){
+        newAmountBonus = newAmountBonus === 0 ? 0.01 : newAmountBonus * 2;
+      }else{
+        newAmount = newAmount === 0 ? 0.01 : newAmount * 2;
+      }
     }
 
     if (value === "0.5") {
-      newAmount = newAmount <= 0.00001 ? 0 : newAmount * 0.5;
+      if(bonusBalance > 0){
+        newAmountBonus = newAmountBonus <= 0.00001 ? 0 : newAmountBonus * 0.5;
+      }else{
+        newAmount = newAmount <= 0.00001 ? 0 : newAmount * 0.5;
+      }
+    }
+
+    if (newAmountBonus > bonusBalance) {
+      newAmountBonus = bonusBalance;
     }
 
     if (newAmount > balance) {
       newAmount = balance;
     }
 
-    this.setState({ amount: newAmount });
-    onBetAmount(newAmount);
+    this.setState({ amount: newAmount || newAmountBonus });
+    onBetAmount(newAmount || newAmountBonus);
   };
-
+  
   render() {
     const { type, amount, isAutoBetting } = this.state;
     const user = this.props.profile;
