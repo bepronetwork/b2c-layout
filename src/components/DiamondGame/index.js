@@ -253,7 +253,7 @@ class DiamondGame extends Component {
             ? handleCardResult(
                 "0px",
                 backendResult.length > 0
-                  ? profitAmount * resultSpace[6].multiplier.toFixed(2)
+                  ? profitAmount * resultSpace[6].multiplier.toFixed(6)
                   : "0",
                 (resultSpace[6].probability * 100).toFixed(2),
                 copy.INDEX.INPUT_NUMBER.TITLE[0],
@@ -264,7 +264,7 @@ class DiamondGame extends Component {
             ? handleCardResult(
                 "40px",
                 backendResult.length > 0
-                  ? profitAmount * resultSpace[5].multiplier.toFixed(2)
+                  ? profitAmount * resultSpace[5].multiplier.toFixed(6)
                   : "0",
                 (resultSpace[5].probability * 100).toFixed(2),
                 copy.INDEX.INPUT_NUMBER.TITLE[0],
@@ -275,7 +275,7 @@ class DiamondGame extends Component {
             ? handleCardResult(
                 "80px",
                 backendResult.length > 0
-                  ? profitAmount * resultSpace[4].multiplier.toFixed(2)
+                  ? profitAmount * resultSpace[4].multiplier.toFixed(6)
                   : "0",
                 (resultSpace[4].probability * 100).toFixed(2),
                 copy.INDEX.INPUT_NUMBER.TITLE[0],
@@ -286,7 +286,7 @@ class DiamondGame extends Component {
             ? handleCardResult(
                 "120px",
                 backendResult.length > 0
-                  ? profitAmount * resultSpace[3].multiplier.toFixed(2)
+                  ? profitAmount * resultSpace[3].multiplier.toFixed(6)
                   : "0",
                 (resultSpace[3].probability * 100).toFixed(2),
                 copy.INDEX.INPUT_NUMBER.TITLE[0],
@@ -297,7 +297,7 @@ class DiamondGame extends Component {
             ? handleCardResult(
                 "160px",
                 backendResult.length > 0
-                  ? profitAmount * resultSpace[2].multiplier.toFixed(2)
+                  ? profitAmount * resultSpace[2].multiplier.toFixed(6)
                   : "0",
                 (resultSpace[2].probability * 100).toFixed(2),
                 copy.INDEX.INPUT_NUMBER.TITLE[0],
@@ -308,7 +308,7 @@ class DiamondGame extends Component {
             ? handleCardResult(
                 "180px",
                 backendResult.length > 0
-                  ? profitAmount * resultSpace[1].multiplier.toFixed(2)
+                  ? profitAmount * resultSpace[1].multiplier.toFixed(6)
                   : "0",
                 (resultSpace[1].probability * 100).toFixed(2),
                 copy.INDEX.INPUT_NUMBER.TITLE[0],
@@ -319,7 +319,7 @@ class DiamondGame extends Component {
             ? handleCardResult(
                 "190px",
                 backendResult.length > 0
-                  ? profitAmount * resultSpace[0].multiplier.toFixed(2)
+                  ? profitAmount * resultSpace[0].multiplier.toFixed(6)
                   : "0",
                 (resultSpace[0].probability * 100).toFixed(2),
                 copy.INDEX.INPUT_NUMBER.TITLE[0],
