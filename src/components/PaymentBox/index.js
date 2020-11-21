@@ -317,7 +317,7 @@ class PaymentBox extends React.Component{
         const styles = classNames("container-root", {
             selected: isPicked
         });
-
+        const { bonusAmount } = wallet;
         const walletValid = this.funcVerification();
         
         return (
@@ -339,6 +339,13 @@ class PaymentBox extends React.Component{
                                     {`${formatCurrency(wallet.playBalance)} ${wallet.currency.ticker}`}
                                 </Typography>
                             </div>
+                            {bonusAmount >= 0 &&
+                                <div styleName='text-description'>
+                                    <Typography variant={'x-small-body'} color={'white'}>
+                                        Bonus: {formatCurrency(bonusAmount)}
+                                    </Typography>
+                                </div>
+                            }
                             {price ? 
                                 <div styleName='text-description'>
                                     <Typography variant={'x-small-body'} color={'white'}>
