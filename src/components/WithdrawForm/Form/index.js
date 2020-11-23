@@ -75,9 +75,13 @@ class Form extends Component {
     }
 
     projectData = async (props) => {
-        const { wallet, isAffiliate } = props;
+        const { wallet, isAffiliate, profile, currencyProfile } = props;
         const { currency } = wallet;
         const isTxFee = (getAddOn().txFee) ? getAddOn().txFee.isTxFee : false;
+
+        const walletProfile = profile.getWallet({ currencyProfile });
+        const balance =  _.isEmpty(walletProfile) ? 0 : formatCurrency(walletProfile.playBalance);
+        const bonusPlusBalance = _.isEmpty(walletProfile) ? 0 : walletProfile.bonusAmount > 0 ? Number(walletProfile.bonusAmount) + Number(balance) : balance;
 
         if(wallet && !wallet.address) {
             this.getCurrencyAddress(wallet);
@@ -103,7 +107,7 @@ class Form extends Component {
             minBalance : formatCurrency(appWallet.min_withdraw > wallet.playBalance ? wallet.playBalance : appWallet.min_withdraw),
             minBetAmountForBonusUnlocked : wallet.minBetAmountForBonusUnlocked,
             incrementBetAmountForBonus : wallet.incrementBetAmountForBonus,
-            bonusAmount : wallet.bonusAmount
+            bonusAmount : bonusPlusBalance
         })
     }
 
@@ -333,7 +337,8 @@ class Form extends Component {
 function mapStateToProps(state){
     return {
         profile : state.profile,
-        ln : state.language
+        ln : state.language,
+        currencyProfile: state.profile
     };
 }
 
