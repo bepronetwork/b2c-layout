@@ -11,6 +11,7 @@ import _ from "lodash";
 class MultiplyMaxButton extends Component {
   static propTypes = {
     onResult: PropTypes.func.isRequired,
+    onBetAmount: PropTypes.func.isRequired,
     amount: PropTypes.number.isRequired
   };
 
@@ -20,7 +21,7 @@ class MultiplyMaxButton extends Component {
   }
 
   handleClick = event => {
-    const { profile, currency, onResult, amount } = this.props;
+    const { profile, currency, onResult, amount, onBetAmount } = this.props;
     const { name } = event.currentTarget;
     const wallet = profile.getWallet({ currency });
     const balance = _.isEmpty(wallet) ? 0 : wallet.playBalance;
@@ -42,10 +43,9 @@ class MultiplyMaxButton extends Component {
       newAmount = gameOperations(name, amount, balance);
     }
 
-    console.log(
-      amount,
-      "profile() handleMultiply"
-    );
+    if (onBetAmount) {
+      onBetAmount(newAmount);
+    }
 
     return onResult(newAmount);
   };
