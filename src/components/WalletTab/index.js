@@ -22,7 +22,7 @@ import { getApp, getAppCustomization,  getIcon } from "../../lib/helpers";
 import { setMessageNotification } from "../../redux/actions/message";
 import store from "../../containers/App/store";
 import "./index.css";
-import { NO_KYC } from "../../config/kycStatus";
+import { KYC_IN_REVIEW, KYC_VERIFIED, NO_KYC } from "../../config/kycStatus";
 
 const defaultState = {
   tab: "deposit",
@@ -74,7 +74,7 @@ resultFilter = (firstArray, secondArray) => {
   projectData = async props => {
     const { profile } = this.props;
     let { wallet, isEmailConfirmed } = this.state;
-    const userInfo = Cache.getFromCache("user").user;
+    const kycStatus = await profile.kycStatus();
     const moonpayIntegration = getApp().integrations.moonpay;
     const user = !_.isEmpty(props.profile) ? props.profile : null;
     const virtual = getApp().virtual;
@@ -120,7 +120,7 @@ resultFilter = (firstArray, secondArray) => {
       wallets,
       wallet,
       virtual: getApp().virtual,
-      kycStatus: userInfo.kyc_status
+      kycStatus
     });
   };
 
@@ -143,9 +143,24 @@ resultFilter = (firstArray, secondArray) => {
     const copy = CopyText.walletTab[ln];
     const skin = getAppCustomization().skin.skin_type;
     const emailIcon = getIcon(11);
-    
-    console.log(kycStatus, 'kycStatus');
+    const kycStatusError =
+      kycStatus !== NO_KYC &&
+      kycStatus !== null &&
+      kycStatus !== KYC_IN_REVIEW &&
+      kycStatus !== KYC_VERIFIED;
 
+    const renderKycStatus = status => {
+      return status === KYC_IN_REVIEW ? (
+        <div
+          style={{ display: "inline-flex", alignItems: "center", width: 180 }}
+        >
+          <KycStatus />
+        </div>
+      ) : (
+        <KycStatus />
+      )
+    };
+    
     return(
             <div styleName="email-confirmation">
                 {
@@ -197,7 +212,7 @@ resultFilter = (firstArray, secondArray) => {
                                   </Button>
                               :
                               <>
-                                {kycStatus !== NO_KYC && kycStatus !== null &&
+                                {kycStatusError &&
                                   <Typography
                                     color={'red'}
                                     variant={'small-body'}
@@ -206,7 +221,7 @@ resultFilter = (firstArray, secondArray) => {
                                     {copy.INDEX.TEXT[3]}
                                   </Typography>
                                 }
-                                <KycStatus />
+                                {renderKycStatus(kycStatus)}
                               </>
                             }
                         </div>
