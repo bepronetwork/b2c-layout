@@ -162,13 +162,17 @@ export default class User {
         await this.updateUserState();
     }
 
-    updateBalance = async ({userDelta, amount}) => {
+    updateBalance = async ({userDelta, amount, totalBetAmount}) => {
         const state = store.getState();
         const { currency } = state;
 
         this.user.wallet.forEach((w) => {
             if(new String(w.currency._id).toString().toLowerCase() == new String(currency._id).toString().toLowerCase()) {
                 w.playBalance = w.playBalance + userDelta;
+
+                if (_.has(w, 'incrementBetAmountForBonus')) {
+                    w.incrementBetAmountForBonus = w.incrementBetAmountForBonus + totalBetAmount;
+                }
             }
         });
 
@@ -455,13 +459,15 @@ export default class User {
     }
 
     createBet = async ({ result, gameId }) => {
+        let res;
+
         try {
             const nonce = getNonce();
             // grab current state
             const state = store.getState();
             const { currency } = state;
             /* Create Bet API Setup */
-            let res = await createBet(
+            res = await createBet(
                 {
                     currency : currency._id,
                     user: this.user_id,
@@ -477,7 +483,6 @@ export default class User {
             throw err;
         }
     };
-
 
     getMessage = () => {
         return this.message;

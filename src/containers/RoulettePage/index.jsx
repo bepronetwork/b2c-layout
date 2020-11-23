@@ -131,10 +131,10 @@ class RoulettePage extends Component {
         const { profile } = this.props;
         const { amount } = this.state;
         /* Update Info User View */
-        const { isWon, result, winAmount, userDelta } = this.state.betObjectResult;
+        const { isWon, result, winAmount, userDelta, totalBetAmount } = this.state.betObjectResult;
         setWonPopupMessageDispatcher(winAmount);
         this.addToHistory({result, won : isWon});
-        await profile.updateBalance({ userDelta, amount });
+        await profile.updateBalance({ userDelta, amount, totalBetAmount });
     };
 
     getTotalBet = () => {
