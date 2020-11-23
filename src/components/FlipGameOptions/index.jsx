@@ -74,7 +74,7 @@ class FlipGameOptions extends Component {
     };
 
     handleMultiplyResult = result => {
-        this.setState({ amount: result });
+        this.setState({ betAmount: result });
       }
 
     isBetValid = () => {
