@@ -17,8 +17,7 @@ import "./index.css";
 const defaultProps = {
     currencies : [],
     currency : {},
-    open: false,
-    wallet: []
+    open: false
 }
 
 class CurrencySelector extends Component {
@@ -50,21 +49,19 @@ class CurrencySelector extends Component {
         document.removeEventListener("mousedown", this.handleClickOutside);
     }
 
-
     projectData = async (props) => {
         const { profile, currency } = props;
-        const wallet = profile.getWallet({ currency });
         const virtual = getApp().virtual;
         var currencies = getApp().currencies.filter(c => c.virtual === virtual);
         
         if(!currencies || _.isEmpty(currencies) || currencies.length < 0){return}
         currencies = currencies.map( 
             c => {
-                const wallet = profile.getWallet({currency : c});
-                const wApp = getApp().wallet.find(wallet => wallet.currency._id === c._id);
+                const w = profile.getWallet({currency : c});
+                const wApp = getApp().wallet.find(w => w.currency._id === c._id);
                 return {
                     ...c,
-                    balance : _.isEmpty(wallet) ? 0 : wallet.playBalance,
+                    balance : _.isEmpty(w) ? 0 : w.playBalance,
                     image : _.isEmpty(wApp.image) ? c.image : wApp.image
                 }
             }
@@ -72,11 +69,9 @@ class CurrencySelector extends Component {
 
         this.setState({
             currencies,
-            currency : !_.isEmpty(currency) ? currency : currencies[0],
-            wallet
+            currency : !_.isEmpty(currency) ? currency : currencies[0]
         })
     }
-    
 
     getOptions = () => {
         const { profile } = this.props;
@@ -85,10 +80,10 @@ class CurrencySelector extends Component {
         if(!currencies || _.isEmpty(currencies) || currencies.length < 0){return}
         currencies = currencies.map( 
             c => {
-                const wallet = profile.getWallet({currency : c});
+                const w = profile.getWallet({currency : c});
                 return {
                     value: c._id,
-                    label: _.isEmpty(wallet) ? 0 : wallet.bonusAmount > 0 ? formatCurrency(wallet.playBalance + wallet.bonusAmount) : formatCurrency(wallet.playBalance),
+                    label: _.isEmpty(w) ? 0 : w.bonusAmount > 0 ? formatCurrency(w.playBalance + w.bonusAmount) : formatCurrency(w.playBalance),
                     icon: c.image,
                     currency: c
                 }
@@ -114,16 +109,19 @@ class CurrencySelector extends Component {
     };
 
     renderLabel() {
-        const { open, currency, wallet } = this.state;
+        const { open, currency } = this.state;
         const { profile } = this.props;
 
         if (_.isEmpty(currency)) return null;
 
-        const balance =  _.isEmpty(wallet) ? 0 : formatCurrency(wallet.playBalance);
-        const wApp = getApp().wallet.find(wallet => wallet.currency._id === currency._id);
+        const w = profile.getWallet({ currency });
+        const balance =  _.isEmpty(w) ? 0 : formatCurrency(w.playBalance);
+        const wApp = getApp().wallet.find(w => w.currency._id === currency._id);
         const icon = _.isEmpty(wApp.image) ? currency.image : wApp.image;
-        const bonusPlusBalance = _.isEmpty(wallet) ? 0 : wallet.bonusAmount > 0 ? Number(wallet.bonusAmount) + Number(balance) : balance;
-        const bonusAmount = _.isEmpty(wallet) ? 0 : wallet.bonusAmount > 0 ? Number(wallet.bonusAmount) : 0;
+        const bonusPlusBalance = _.isEmpty(w) ? 0 : w.bonusAmount > 0 ? Number(w.bonusAmount) + Number(balance) : balance;
+        const bonusAmount = _.isEmpty(w) ? 0 : w.bonusAmount > 0 ? Number(w.bonusAmount) : 0;
+
+        console.log(w, 'w');
         const skin = getAppCustomization().skin.skin_type;
 
         const { colors } = getAppCustomization();
@@ -144,7 +142,7 @@ class CurrencySelector extends Component {
         return (
             bonusAmount > 0
             ?
-                <SecondaryTooltip title={`Bonus: ${formatCurrency(bonusAmount)}`}>
+                <SecondaryTooltip title={`Bonus: ${formatCurrency(bonusPlusBalance)}`}>
                     <div styleName="label">
                         <div styleName="currency-icon">
                             <img src={icon} width={20}/>

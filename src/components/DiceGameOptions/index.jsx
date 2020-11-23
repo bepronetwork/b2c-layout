@@ -300,33 +300,9 @@ class DiceGameOptions extends Component {
     };
 
 
-    handleMultiply = value => {
-        const { profile } = this.props;
-        const { amount } = this.state;
-        let newAmount = amount;
-
-        if(_.isEmpty(profile)) { return null };
-
-        let balance = profile.getBalance();
-
-        if (value === "max") {
-        newAmount = balance;
-        }
-
-        if (value === "2") {
-        newAmount = newAmount === 0 ? 0.01 : newAmount * 2;
-        }
-
-        if (value === "0.5") {
-         newAmount = newAmount <= 0.00001 ? 0 : newAmount * 0.5;
-        }
-
-        if (newAmount > balance) {
-        newAmount = balance;
-        }
-
-        this.setState({ amount: newAmount });
-    };
+    handleMultiplyResult = result => {
+        this.setState({ amount: result });
+      }
 
     render() {
         const { type, amount, isAutoBetting } = this.state;
@@ -363,7 +339,7 @@ class DiceGameOptions extends Component {
                             precision={2}
                             onChange={this.handleBetAmountChange}
                             />
-                        <MultiplyMaxButton onSelect={this.handleMultiply} />
+                        <MultiplyMaxButton amount={amount} onResult={this.handleMultiplyResult} />
                     </div>
                 </div>
                 <div styleName="content">
