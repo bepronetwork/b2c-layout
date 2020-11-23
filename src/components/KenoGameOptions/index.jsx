@@ -247,7 +247,7 @@ class KenoGameOptions extends Component {
     render() {
         const { type, amount, isAutoBetting } = this.state;
         const user = this.props.profile;
-        const { ln } = this.props;
+        const { ln, onBetAmount } = this.props;
         const copy = CopyText.kenoGameOptionsIndex[ln];
 
         return (
@@ -279,8 +279,12 @@ class KenoGameOptions extends Component {
                             icon="bitcoin"
                             precision={2}
                             onChange={this.handleBetAmountChange}
-                            />
-                        <MultiplyMaxButton amount={amount} onResult={this.handleMultiplyResult} />
+                        />
+                        <MultiplyMaxButton
+                            onBetAmount={onBetAmount}
+                            amount={amount}
+                            onResult={this.handleMultiplyResult}
+                        />
                     </div>
                     <div styleName="content">
                         {type === "manual" ? null : this.renderAuto()}
