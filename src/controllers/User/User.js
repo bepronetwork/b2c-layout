@@ -162,13 +162,17 @@ export default class User {
         await this.updateUserState();
     }
 
-    updateBalance = async ({userDelta, amount}) => {
+    updateBalance = async ({userDelta, amount, totalBetAmount}) => {
         const state = store.getState();
         const { currency } = state;
 
         this.user.wallet.forEach((w) => {
             if(new String(w.currency._id).toString().toLowerCase() == new String(currency._id).toString().toLowerCase()) {
                 w.playBalance = w.playBalance + userDelta;
+
+                if (_.has(w, 'incrementBetAmountForBonus')) {
+                    w.incrementBetAmountForBonus = w.incrementBetAmountForBonus + totalBetAmount;
+                }
             }
         });
 
@@ -477,34 +481,8 @@ export default class User {
             return res;
         } catch (err) {
             throw err;
-        } finally {
-            setTimeout(() => {
-                this.handleCreateBetResponse(res);
-            }, 5000)
         }
     };
-
-    handleCreateBetResponse = (res) => {
-        const response = JSON.parse(res);
-        
-        if (parseInt(response.data.status) === 200) {
-            const wallets = this.user.wallet;
-            const wallet = this.getWallet({ currency });
-
-            const { currency, totalBetAmount } = response.data.message;
-    
-            if (!_.isEmpty(wallet) && _.has(wallet, 'incrementBetAmountForBonus')) {
-                const walletIndex = wallets.findIndex((obj => obj.currency._id === currency));
-    
-                let newWallets = [...wallets];
-                newWallets[walletIndex] = { ...wallet, incrementBetAmountForBonus: wallet.incrementBetAmountForBonus + totalBetAmount };
-    
-                this.user.wallet = newWallets;
-    
-                this.updateUserState();
-            }
-        }
-    }
 
     getMessage = () => {
         return this.message;
