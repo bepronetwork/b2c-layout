@@ -294,13 +294,7 @@ async function setColors(){
 
 async function saveSkinStyles(){
     const { skin } = appInfo.customization;
-    var skinType;
-    
-    if(skin){
-        skinType = skin.skin_type;
-    }else{
-        skinType = 'default';
-    }
+    const skinType = skin.skin_type;
 
     skinsPath.map(s => {
         let file = fs.readFileSync(s.path + '/skins/index-' + skinType + '.css', 'utf8');

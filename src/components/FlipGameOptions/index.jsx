@@ -73,9 +73,33 @@ class FlipGameOptions extends Component {
         });
     };
 
-    handleMultiplyResult = result => {
-        this.setState({ amount: result });
-      }
+    handleMultiply = value => {
+        const user = this.props.profile;
+        const { betAmount } = this.state;
+        if (!user || _.isEmpty(user)) return true;
+
+        let balance = user.getBalance();
+
+        let newAmount = betAmount;
+
+        if (value === "max") {
+        newAmount = balance;
+        }
+
+        if (value === "2") {
+        newAmount = newAmount === 0 ? 0.01 : newAmount * 2;
+        }
+
+        if (value === "0.5") {
+            newAmount = newAmount <= 0.00001 ? 0 : newAmount * 0.5;
+        }
+
+        if (newAmount > balance) {
+        newAmount = balance;
+        }
+
+        this.setState({ betAmount : newAmount });
+    };
 
     isBetValid = () => {
         const { profile } = this.props;
@@ -282,7 +306,7 @@ const copy = CopyText.flipGameOptionsIndex[ln];
                         value={betAmount}
                         onChange={this.handleBetAmountChange}
                         />
-                        <MultiplyMaxButton amount={betAmount} onResult={this.handleMultiplyResult} />
+                        <MultiplyMaxButton onSelect={this.handleMultiply} />
                     </div>
                 </div>
                 <div styleName="content">

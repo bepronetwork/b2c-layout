@@ -18,8 +18,8 @@ import delay from "delay";
 import { CopyText } from "../../copy";
 import { isUserSet } from "../../lib/helpers";
 import { Numbers } from "../../lib/ethereum/lib";
+
 import "./index.css";
-import gameOperations from "../../utils/gameOperations";
 
 class SlotsGameOptions extends Component {
   static contextType = UserContext;
@@ -169,10 +169,7 @@ class SlotsGameOptions extends Component {
                   betAmount += Numbers.toFloat((betAmount * onLoss) / 100);
                 }
                 await delay(1.5*1000);
-                this.setState(
-                  { bets: bets - (i + 1), amount: betAmount },
-                  this.handleMultiply
-                );
+                this.setState({bets : bets-(i + 1), amount: betAmount});
               } else {
                 break;
               }
@@ -192,7 +189,9 @@ class SlotsGameOptions extends Component {
   handleBetAmountChange = value => {
     const { onBetAmount } = this.props;
 
-    this.setState({ amount: value });
+    this.setState({
+      amount: value
+    });
 
     onBetAmount(value);
   };
@@ -273,9 +272,36 @@ class SlotsGameOptions extends Component {
     );
   };
 
-  handleMultiplyResult = result => {
-    this.setState({ amount: result });
-  }
+  handleMultiply = value => {
+    const { profile, onBetAmount } = this.props;
+    const { amount } = this.state;
+    let newAmount = amount;
+
+    if (_.isEmpty(profile)) {
+      return null;
+    }
+
+    const balance = profile.getBalance();
+
+    if (value === "max") {
+      newAmount = balance;
+    }
+
+    if (value === "2") {
+      newAmount = newAmount === 0 ? 0.01 : newAmount * 2;
+    }
+
+    if (value === "0.5") {
+      newAmount = newAmount <= 0.00001 ? 0 : newAmount * 0.5;
+    }
+
+    if (newAmount > balance) {
+      newAmount = balance;
+    }
+
+    this.setState({ amount: newAmount });
+    onBetAmount(newAmount);
+  };
 
   render() {
     const { type, amount, isAutoBetting } = this.state;
@@ -316,10 +342,7 @@ class SlotsGameOptions extends Component {
                 precision={2}
                 onChange={this.handleBetAmountChange}
               />
-              <MultiplyMaxButton
-                amount={amount}
-                onResult={this.handleMultiplyResult}
-              />
+              <MultiplyMaxButton onSelect={this.handleMultiply} />
             </div>
             <div styleName="content">
               {type === "manual" ? null : this.renderAuto()}
@@ -350,8 +373,7 @@ class SlotsGameOptions extends Component {
 function mapStateToProps(state) {
   return {
     profile: state.profile,
-    ln: state.language,
-    currency: state.currency
+    ln: state.language
   };
 }
 
