@@ -52,9 +52,9 @@ class FlipPage extends Component {
     handleUpdateBalance = async () => {
         const { profile } = this.props;
         const { amount } = this.state;
-        const { result, hasWon, winAmount, userDelta } = this.state.betObjectResult;
+        const { result, hasWon, winAmount, userDelta, totalBetAmount } = this.state.betObjectResult;
         setWonPopupMessageDispatcher(winAmount);
-        await profile.updateBalance({ userDelta, amount });
+        await profile.updateBalance({ userDelta, amount, totalBetAmount });
         this.addToHistory({result : `${result} `, won : hasWon})
     };
 
