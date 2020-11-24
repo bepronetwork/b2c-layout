@@ -190,11 +190,7 @@ class SlotsGameOptions extends Component {
   };
 
   handleBetAmountChange = value => {
-    const { onBetAmount } = this.props;
-
     this.setState({ amount: value });
-
-    onBetAmount(value);
   };
 
   handleOnWin = value => {
