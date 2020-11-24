@@ -26,18 +26,19 @@ class MultiplyMaxButton extends Component {
 
     if (_.isEmpty(profile)) {
       return null;
-    }    
-    
+    }
+
     const wallet = profile.getWallet({ currency });
-    const balance = _.isEmpty(wallet) ? 0 : wallet.playBalance;
+    const balance = profile.getBalance();
+    const playBalance = _.isEmpty(wallet) ? 0 : wallet.playBalance;
     const hadBonus =
       wallet.bonusAmount > 0
-        ? Number(wallet.bonusAmount) + Number(balance)
-        : balance;
+        ? Number(wallet.bonusAmount) + Number(playBalance)
+        : playBalance;
     const bonusPlusBalance = _.isEmpty(wallet) ? 0 : hadBonus;
     let newAmount;
 
-    if (balance <= 0) {
+    if (wallet.bonusAmount > 0) {
       newAmount = gameOperations(name, amount, bonusPlusBalance);
     } else {
       newAmount = gameOperations(name, amount, balance);
