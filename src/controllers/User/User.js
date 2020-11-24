@@ -173,16 +173,57 @@ export default class User {
         await this.updateUserState();
     }
 
-    updateBalance = async ({userDelta, amount, totalBetAmount}) => {
+    updateBalance = async ({ userDelta, amount, totalBetAmount }) => {
         const state = store.getState();
         const { currency } = state;
 
         this.user.wallet.forEach((w) => {
-            if(new String(w.currency._id).toString().toLowerCase() == new String(currency._id).toString().toLowerCase()) {
-                w.playBalance = w.playBalance + userDelta;
+            if (new String(w.currency._id).toString().toLowerCase() == new String(currency._id).toString().toLowerCase()) {
+                
+                if (userDelta < 0) {
 
-                if (_.has(w, 'incrementBetAmountForBonus')) {
-                    w.incrementBetAmountForBonus = w.incrementBetAmountForBonus + totalBetAmount;
+                    const delta = w.playBalance + userDelta;
+
+                    if (_.has(w, 'bonusAmount') && w.bonusAmount > 0) {
+                        const newPlayBalance = delta < 0 ? 0 : delta;
+                        const newBonusAmount = delta < 0 ? w.bonusAmount + delta : w.bonusAmount;
+
+                        w.playBalance = Math.max(0, newPlayBalance);
+                        w.bonusAmount = Math.max(0, newBonusAmount);
+
+                    } else {
+                        const newPlayBalance = delta < 0 ? 0 : delta;
+
+                        w.playBalance = Math.max(0, newPlayBalance);
+                    }
+
+                } else {
+
+                    if (_.has(w, 'bonusAmount') && w.bonusAmount > 0) {
+                        const newBonusAmount = w.bonusAmount + userDelta;
+
+                        w.bonusAmount = Math.max(0, newBonusAmount);
+
+                    } else {
+                        const newPlayBalance = w.playBalance + userDelta;
+
+                        w.playBalance = Math.max(0, newPlayBalance);
+                    }
+                }
+
+                if (w.incrementBetAmountForBonus > w.minBetAmountForBonusUnlocked) {
+
+                    const newPlayBalance = w.playBalance + w.bonusAmount;
+
+                    w.bonusAmount = 0;
+                    w.playBalance = Math.max(0, newPlayBalance);
+                    w.incrementBetAmountForBonus = 0;
+
+                } else if (_.has(w, 'incrementBetAmountForBonus')) {
+
+                    const newIncrementBetAmountForBonus = w.incrementBetAmountForBonus + totalBetAmount;
+
+                    w.incrementBetAmountForBonus = Math.max(0, newIncrementBetAmountForBonus);
                 }
             }
         });
