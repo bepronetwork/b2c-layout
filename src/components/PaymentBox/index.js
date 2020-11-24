@@ -61,7 +61,7 @@ class PaymentBox extends React.Component{
     }
 
     projectData = async (props) => {
-        const { wallet } = props;
+        const { wallet, profile} = props;
         const { isCanvasRenderer } = this.state;
         const virtual = getApp().virtual;
         this.setState({ isCanvasRenderer: false })
@@ -84,6 +84,11 @@ class PaymentBox extends React.Component{
         if(isCanvasRenderer){
             this.verifyTime();
         }
+
+        if(profile.user.email_confirmed === false){
+            this.setState({ disabledFreeButton: true})
+        }
+       
     }
 
     funcVerifyUserWalletDate = async() => {
