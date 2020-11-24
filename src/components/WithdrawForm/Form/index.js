@@ -146,7 +146,6 @@ class Form extends Component {
 
         }catch(err){
             this.setState({...this.state, isAsking : false, disabled : false });
-            console.log(err);
         }
     }
 
@@ -168,8 +167,6 @@ class Form extends Component {
         }
 
         const percenteToBonus = 100 * (incrementBetAmountForBonus / minBetAmountForBonusUnlocked);
-
-        console.log(percenteToBonus, 'percenteToBonus');
 
         return (
             <div>
