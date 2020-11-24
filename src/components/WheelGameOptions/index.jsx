@@ -274,7 +274,10 @@ class SlotsGameOptions extends Component {
   };
 
   handleMultiplyResult = result => {
-    this.setState({ amount: result });
+    result.toString().length > 6 ?
+      this.setState({ amount: result.toFixed(6) })
+      :
+      this.setState({ amount: result });
   }
 
   render() {
