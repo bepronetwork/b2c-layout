@@ -174,7 +174,7 @@ class Form extends Component {
                 ?
                     <div styleName="box">
                         {
-                            minBetAmountForBonusUnlocked > 0 
+                            minBetAmountForBonusUnlocked > 0 && percenteToBonus <= 100
                             ?
                                 <div styleName="pb">
                                     <div styleName="pb-text">
