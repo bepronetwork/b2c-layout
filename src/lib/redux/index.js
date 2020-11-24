@@ -1,6 +1,7 @@
 import store from "../../containers/App/store";
 import { setStartLoadingProgress } from "../../redux/actions/startLoadingProgress";
 import { setMessagePopup } from "../../redux/actions/popup";
+import { formatCurrency } from "../../utils/numberFormatation";
 
 export async function setStartLoadingProcessDispatcher(step){
     await store.dispatch(setStartLoadingProgress({progress : step}));
@@ -23,6 +24,6 @@ export async function setWonPopupMessageDispatcher(winAmount){
     });
     
     if (winAmount > amountToShow(ticker)) {
-        await store.dispatch(setMessagePopup(new String(`You won  ${winAmount} ${ticker}!`).toString()));
+        await store.dispatch(setMessagePopup(new String(`You won  ${formatCurrency(winAmount)} ${ticker}!`).toString()));
     }
 }
