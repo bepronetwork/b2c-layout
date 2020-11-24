@@ -169,6 +169,8 @@ class Form extends Component {
 
         const percenteToBonus = 100 * (incrementBetAmountForBonus / minBetAmountForBonusUnlocked);
 
+        console.log(percenteToBonus, 'percenteToBonus');
+
         return (
             <div>
                 {addressInitialized 
@@ -186,7 +188,7 @@ class Form extends Component {
                                     <div styleName="pb-main">
                                         <div styleName="pb-left">
                                             <Typography variant={'x-small-body'} color={'white'} weight={'bold'}>
-                                                {`Progress (${percenteToBonus.toFixed(0)}%)`}
+                                                {`Progress (${percenteToBonus <= 100 ? percenteToBonus.toFixed(0) : 100}%)`}
                                             </Typography>
                                         </div>
                                     </div>
