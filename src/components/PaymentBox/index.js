@@ -346,7 +346,7 @@ class PaymentBox extends React.Component{
                                     {`${formatCurrency(wallet.playBalance)} ${wallet.currency.ticker}`}
                                 </Typography>
                             </div>
-                            {bonusAmount > 0 &&
+                            {bonusAmount !== 0 &&
                                 <div styleName='text-description'>
                                     <Typography variant={'x-small-body'} color={'white'}>
                                         Bonus: {formatCurrency(bonusPlusBalance)}
