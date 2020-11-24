@@ -146,7 +146,6 @@ class Form extends Component {
 
         }catch(err){
             this.setState({...this.state, isAsking : false, disabled : false });
-            console.log(err);
         }
     }
 
@@ -186,7 +185,7 @@ class Form extends Component {
                                     <div styleName="pb-main">
                                         <div styleName="pb-left">
                                             <Typography variant={'x-small-body'} color={'white'} weight={'bold'}>
-                                                {`Progress (${percenteToBonus.toFixed(0)}%)`}
+                                                {`Progress (${percenteToBonus <= 100 ? percenteToBonus.toFixed(0) : 100}%)`}
                                             </Typography>
                                         </div>
                                     </div>
