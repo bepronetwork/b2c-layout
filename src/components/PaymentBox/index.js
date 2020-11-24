@@ -318,6 +318,13 @@ class PaymentBox extends React.Component{
             selected: isPicked
         });
         const { bonusAmount } = wallet;
+        const balance = _.isEmpty(wallet) ? 0 : wallet.playBalance;
+        const hadBonus =
+          wallet.bonusAmount > 0
+            ? Number(wallet.bonusAmount) + Number(balance)
+            : balance;
+        const bonusPlusBalance = _.isEmpty(wallet) ? 0 : hadBonus;
+    
         const walletValid = this.funcVerification();
         
         return (
@@ -342,7 +349,7 @@ class PaymentBox extends React.Component{
                             {bonusAmount > 0 &&
                                 <div styleName='text-description'>
                                     <Typography variant={'x-small-body'} color={'white'}>
-                                        Bonus: {formatCurrency(bonusAmount)}
+                                        Bonus: {formatCurrency(bonusPlusBalance)}
                                     </Typography>
                                 </div>
                             }
