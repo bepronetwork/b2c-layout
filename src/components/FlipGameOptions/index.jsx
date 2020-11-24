@@ -157,7 +157,7 @@ class FlipGameOptions extends Component {
     renderAuto = () => {
         const { bets, profitStop, lossStop, onWin, onLoss } = this.state;
         const {ln} = this.props;
-const copy = CopyText.flipGameOptionsIndex[ln];
+        const copy = CopyText.flipGameOptionsIndex[ln];
         return (
         <div>
             <div styleName="element">
@@ -282,7 +282,7 @@ const copy = CopyText.flipGameOptionsIndex[ln];
                         name="amount"
                         step={0.01}
                         icon="bitcoin"
-                        max={(user && !_.isEmpty(user)) ? user.getBalance() : null}
+                        max={(user && !_.isEmpty(user)) ? user.getBalanceWithBonus().toFixed(6) : null}
                         precision={2}
                         value={betAmount}
                         onChange={this.handleBetAmountChange}
