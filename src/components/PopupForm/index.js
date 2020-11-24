@@ -2,58 +2,42 @@ import React, { Component } from "react";
 import Popup from './Popup';
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { compose } from 'lodash/fp';
-import { isArray, isEmpty } from 'lodash';
+import { compose } from 'lodash/fp'
+import _ from 'lodash';
+
 import "./index.css";
+import {CopyText} from "../../copy";
+
 
 class PopupForm extends Component {
     constructor(props) {
         super(props);
 
-        this.state = {
-            notification: {},
-            hasNotification: false
-        };
+        this.state = {};
     }
 
-    componentDidMount() {
-        this.projectData(this.props);
-    }
+    static propTypes = {
+        user: PropTypes.shape({})
+    };
 
-    projectData = props => {
-        const { popup } = props;
-        const notification = isArray(popup) ? popup : [popup];
-        const hasNotification = !isEmpty(popup);
-
-        this.setState({ notification, hasNotification });
-    }
+    handleTabChange = name => {
+        this.setState({ tab: name });
+    };
 
     render() {
-        const { notification, hasNotification } = this.state;
-        const { id, title, message, type } = notification;
-
-        // let hasNotification = !_.isEmpty(this.props.popup);
-
-        if (!hasNotification) {
-            return null;
-        };
-
-        //         let notificationArray = _.isArray(this.props.popup) ? this.props.popup : [this.props.popup];
-        //         const {ln} = this.props;
-        // const copy = CopyText.popupFormIndex[ln];
-        //         console.log(notificationArray, 'notificationArray');
-
+        let hasNotification = !_.isEmpty(this.props.popup);
+        if(!hasNotification){return null};
+        let notificationArray = _.isArray(this.props.popup) ? this.props.popup : [this.props.popup];
+        const {ln} = this.props;
+const copy = CopyText.popupFormIndex[ln];
         return (
             <div styleName="popup-container">
                 <div styleName="popup-wrapper">
-                    <Popup
-                        id={id}
-                        title={title}
-                        message={message} 
-                        type={type} 
-                        messages={notification}
-                        {...this.props}
-                    />
+                    {notificationArray.map( notification => {
+                        return (
+                            <Popup {...this.props} id={notification.id} title={notification.title} message={notification.message} type={notification.type} messages={notificationArray}/> 
+                        );
+                    })}
                 </div>
             </div>
         );
