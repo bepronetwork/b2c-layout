@@ -126,6 +126,17 @@ export default class User {
         if(_.isEmpty(wallet)){ return 0;}
         return wallet.playBalance;
     };
+
+    getBalanceWithBonus = (currency) => {
+        const state = store.getState();
+        currency = currency ? currency : state.currency;
+        if(_.isEmpty(currency)){ return 0;}
+
+        const wallet = this.getWallet({currency});
+        if(_.isEmpty(wallet)){ return 0;}
+        return wallet.playBalance + wallet.bonusAmount;
+    };
+
     getWallet = ({currency}) => {return this.user.wallet.find( w => new String(w.currency._id).toString().toLowerCase() == new String(currency._id).toString().toLowerCase())};
 
     getWallets = () => {return this.user.wallet};

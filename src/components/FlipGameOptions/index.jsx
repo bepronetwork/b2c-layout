@@ -282,7 +282,7 @@ class FlipGameOptions extends Component {
                         name="amount"
                         step={0.01}
                         icon="bitcoin"
-                        max={(user && !_.isEmpty(user)) ? user.getBalance().toFixed(6) : null}
+                        max={(user && !_.isEmpty(user)) ? user.getBalanceWithBonus().toFixed(6) : null}
                         precision={2}
                         value={betAmount}
                         onChange={this.handleBetAmountChange}

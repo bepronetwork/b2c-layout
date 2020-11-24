@@ -314,7 +314,7 @@ class SlotsGameOptions extends Component {
               <InputNumber
                 name="amount"
                 value={amount}
-                max={user && !_.isEmpty(user) ? user.getBalance().toFixed(6) : null}
+                max={user && !_.isEmpty(user) ? user.getBalanceWithBonus().toFixed(6) : null}
                 step={0.01}
                 icon="bitcoin"
                 precision={2}
