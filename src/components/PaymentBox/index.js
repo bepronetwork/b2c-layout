@@ -326,7 +326,7 @@ class PaymentBox extends React.Component{
 
     render(){
         let { isPicked, wallet } = this.props;
-        const { price, virtualTicker, walletImage, disabledFreeButton, balance, bonusPlusBalance, bonusAmount } = this.state;
+        const { price, virtualTicker, walletImage, disabledFreeButton, balance, bonusAmount } = this.state;
         const styles = classNames("container-root", {
             selected: isPicked
         });
@@ -355,7 +355,7 @@ class PaymentBox extends React.Component{
                             {bonusAmount !== 0 &&
                                 <div styleName='text-description'>
                                     <Typography variant={'x-small-body'} color={'white'}>
-                                        Bonus: {formatCurrency(bonusPlusBalance)}
+                                        Bonus: {formatCurrency(bonusAmount)}
                                     </Typography>
                                 </div>
                             }
