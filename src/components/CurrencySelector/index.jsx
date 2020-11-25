@@ -115,40 +115,30 @@ class CurrencySelector extends Component {
         if (_.isEmpty(currency)) return null;
 
         const w = profile.getWallet({ currency });
-        const balance =  _.isEmpty(w) ? 0 : formatCurrency(w.playBalance);
         const wApp = getApp().wallet.find(w => w.currency._id === currency._id);
         const icon = _.isEmpty(wApp.image) ? currency.image : wApp.image;
-        const bonusPlusBalance = _.isEmpty(w) ? 0 : w.bonusAmount > 0 ? Number(w.bonusAmount) + Number(balance) : balance;
-        const bonusAmount = _.isEmpty(w) ? 0 : w.bonusAmount > 0 ? Number(w.bonusAmount) : 0;
-
-        console.log(w, 'w');
         const skin = getAppCustomization().skin.skin_type;
-
         const { colors } = getAppCustomization();
-        const secondaryColor = colors.find(c => {
-            return c.type == "secondaryColor"
-        })
-
+        const secondaryColor = colors.find(({ type }) => type == "secondaryColor")
         const SecondaryTooltip = withStyles({
             tooltip: {
               color: "white",
               backgroundColor: secondaryColor.hex
             }
         })(Tooltip);
-
         const arrowUpIcon = getIcon(24);
         const arrowDownIcon = getIcon(25);
 
         return (
-            bonusAmount > 0
+            w.bonusAmount > 0
             ?
-                <SecondaryTooltip title={`Bonus: ${formatCurrency(bonusPlusBalance)}`}>
+                <SecondaryTooltip title={`Bonus: ${formatCurrency(w.bonusAmount)}`}>
                     <div styleName="label">
                         <div styleName="currency-icon">
                             <img src={icon} width={20}/>
                         </div>
                         <span>
-                            <Typography color="white" variant={'small-body'}>{formatCurrency(bonusPlusBalance)}</Typography>
+                            <Typography color="white" variant={'small-body'}>{formatCurrency(w.bonusAmount)}</Typography>
                         </span>                    
                         {open 
                         ? 
@@ -164,7 +154,7 @@ class CurrencySelector extends Component {
                         <img src={icon} width={20}/>
                     </div>
                     <span>
-                        <Typography color="white" variant={'small-body'}>{formatCurrency(balance)}</Typography>
+                        <Typography color="white" variant={'small-body'}>{formatCurrency(w.playBalance)}</Typography>
                     </span>                    
                     {open 
                     ? 
