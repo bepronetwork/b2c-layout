@@ -28,7 +28,8 @@ export default async function bet({ amount, user, game_id }) {
       _id: id,
       nonce,
       user_delta,
-      outcomeResultSpace
+      outcomeResultSpace,
+      totalBetAmount
     } = response.data.message;
 
     const index = outcomeResultSpace.map(r => {
@@ -42,7 +43,8 @@ export default async function bet({ amount, user, game_id }) {
       nonce,
       betAmount: amountBetted,
       id,
-      userDelta: user_delta
+      userDelta: user_delta,
+      totalBetAmount
     };
   } catch (error) {
     throw error;

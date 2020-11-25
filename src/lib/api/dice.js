@@ -21,7 +21,7 @@ export default async function bet({ rollNumber, rollType, betAmount, user }) {
         }); 
 
         await processResponse(response);
-        const { winAmount, betAmount : amountBetted, _id : id, nonce, user_delta } = response.data.message;
+        const { winAmount, betAmount : amountBetted, _id : id, nonce, user_delta, totalBetAmount } = response.data.message;
         const { key } = response.data.message.outcomeResultSpace;
 
         return {
@@ -30,7 +30,8 @@ export default async function bet({ rollNumber, rollType, betAmount, user }) {
             nonce,
             betAmount : amountBetted,
             id,
-            userDelta : user_delta
+            userDelta : user_delta,
+            totalBetAmount
         };
     } catch (error) {
         throw error;

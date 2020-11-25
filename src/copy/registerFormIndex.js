@@ -24,7 +24,11 @@
           "Waiting for manual review",
           "Rejected",
           "Date of Birth",
-          "Nationality"
+          "Nationality",
+          "Country not allowed",
+          "Country other than registration",
+          "Different birthday data",
+          "KYC in review"
         ]
       }
     }
@@ -52,7 +56,11 @@
           "직접 검토를 기다리는 중",
           "KYC",
           "생년월일",
-          "국적"
+          "국적",
+          "허용되지 않는 국가",
+          "등록 이외의 국가",
+          "다른 생일 데이터",
+          "KYC 검토 중"
         ]
       }
     }
@@ -80,7 +88,11 @@
           "等待人工審核",
           "拒絕",
           "出生日期",
-          "國籍"
+          "國籍",
+          "不允許的國家",
+          "註冊以外的國家",
+          "不同的生日數據",
+          "KYC評論"
         ]
       }
     }
@@ -108,7 +120,11 @@
           "Waiting for manual review",
           "Rejected",
           "生年月日",
-          "国籍"
+          "国籍",
+          "国は許可されていません",
+          "登録以外の国",
+          "別の誕生日データ",
+          "KYCのレビュー"
         ]
       }
     }
@@ -136,7 +152,11 @@
           "Waiting for manual review",
           "Rejected",
           "Дата рождения",
-          "Национальность"
+          "Национальность",
+          "Страна не разрешена",
+          "страна кроме регистрации",
+          "разные данные о днях рождения",
+          "KYC в обзоре"
         ]
       }
     }

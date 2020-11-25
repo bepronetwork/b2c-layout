@@ -18,7 +18,7 @@ export default async function bet({ cards, betAmount, user }) {
         }); 
 
         await processResponse(response);
-        const { winAmount, isWon, betAmount : amountBetted, _id : id, nonce, user_delta, outcomeResultSpace } = response.data.message;
+        const { winAmount, isWon, betAmount : amountBetted, _id : id, nonce, user_delta, outcomeResultSpace, totalBetAmount } = response.data.message;
 
         const index = outcomeResultSpace.map( r => {
             return r.index;
@@ -30,7 +30,8 @@ export default async function bet({ cards, betAmount, user }) {
             nonce,
             betAmount : amountBetted,
             id,
-            userDelta : user_delta
+            userDelta : user_delta,
+            totalBetAmount
         };
     } catch (error) {
         throw error;

@@ -22,10 +22,18 @@
 
 .bets-dropdown{
     margin: 0 $spacing-12;
+    
+    @include Breakpoint-mobileOnly {
+        margin: 0 6px;
+    }
 }
 
 .bets-dropdown-game{
     margin: 0 $spacing-12;
+    
+    @include Breakpoint-mobileOnly {
+        margin: 0 6px;
+    }
 }
 
 .lastBets {

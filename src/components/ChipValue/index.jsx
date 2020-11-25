@@ -43,10 +43,10 @@ class ChipValue extends Component {
         
         if(!user || _.isEmpty(user)){return null}
 
-        let balance = parseFloat(user.getBalance());
+        let balance = parseFloat(user.getBalanceWithBonus());
 
         this.setState({...this.state, 
-            balance : balance,
+            balance : balance
         })
     }
 
@@ -62,6 +62,7 @@ class ChipValue extends Component {
         const { user } = this.context;
         const { totalBet } = this.props;
         const balance = this.state.balance;
+
         return balance ? totalBet + value > balance : true;
     };
 

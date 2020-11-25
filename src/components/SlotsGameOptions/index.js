@@ -18,8 +18,8 @@ import delay from "delay";
 import { CopyText } from "../../copy";
 import { isUserSet } from "../../lib/helpers";
 import { Numbers } from "../../lib/ethereum/lib";
-
 import "./index.css";
+import gameOperations from "../../utils/gameOperations";
 
 class SlotsGameOptions extends Component {
   static contextType = UserContext;
@@ -169,7 +169,10 @@ class SlotsGameOptions extends Component {
                   betAmount += Numbers.toFloat((betAmount * onLoss) / 100);
                 }
                 await delay(1.5*1000);
-                this.setState({bets : bets-(i + 1), amount: betAmount});
+                this.setState(
+                  { bets: bets - (i + 1), amount: betAmount },
+                  this.handleMultiply
+                );
               } else {
                 break;
               }
@@ -189,9 +192,7 @@ class SlotsGameOptions extends Component {
   handleBetAmountChange = value => {
     const { onBetAmount } = this.props;
 
-    this.setState({
-      amount: value
-    });
+    this.setState({ amount: value });
 
     onBetAmount(value);
   };
@@ -272,41 +273,18 @@ class SlotsGameOptions extends Component {
     );
   };
 
-  handleMultiply = value => {
-    const { profile, onBetAmount } = this.props;
-    const { amount } = this.state;
-    let newAmount = amount;
+  handleMultiplyResult = result => {
+    result.toString().length > 6 ?
+      this.setState({ amount: result.toFixed(6) })
+      :
+      this.setState({ amount: result });
+  }
 
-    if (_.isEmpty(profile)) {
-      return null;
-    }
-
-    const balance = profile.getBalance();
-
-    if (value === "max") {
-      newAmount = balance;
-    }
-
-    if (value === "2") {
-      newAmount = newAmount === 0 ? 0.01 : newAmount * 2;
-    }
-
-    if (value === "0.5") {
-      newAmount = newAmount === 0.01 ? 0 : newAmount * 0.5;
-    }
-
-    if (newAmount > balance) {
-      newAmount = balance;
-    }
-
-    this.setState({ amount: newAmount });
-    onBetAmount(newAmount);
-  };
 
   render() {
     const { type, amount, isAutoBetting } = this.state;
     const user = this.props.profile;
-    const { ln } = this.props;
+    const { ln, onBetAmount } = this.props;
     const copy = CopyText.kenoGameOptionsIndex[ln];
 
     return (
@@ -336,13 +314,18 @@ class SlotsGameOptions extends Component {
               <InputNumber
                 name="amount"
                 value={amount}
-                max={user && !_.isEmpty(user) ? user.getBalance() : null}
+                max={user && !_.isEmpty(user) ? user.getBalanceWithBonus().toFixed(6) : null}
                 step={0.01}
                 icon="bitcoin"
                 precision={2}
+                maxlength={"6"}
                 onChange={this.handleBetAmountChange}
               />
-              <MultiplyMaxButton onSelect={this.handleMultiply} />
+              <MultiplyMaxButton
+                onBetAmount={onBetAmount}
+                amount={amount}
+                onResult={this.handleMultiplyResult}
+              />
             </div>
             <div styleName="content">
               {type === "manual" ? null : this.renderAuto()}
@@ -373,7 +356,8 @@ class SlotsGameOptions extends Component {
 function mapStateToProps(state) {
   return {
     profile: state.profile,
-    ln: state.language
+    ln: state.language,
+    currency: state.currency
   };
 }
 

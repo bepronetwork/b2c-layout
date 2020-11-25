@@ -6,12 +6,13 @@ import {
   WithdrawForm,
   Typography,
   Button,
-  EmailIcon
+  EmailIcon,
+  KycStatus
 } from "components";
 import { Col, Row } from "reactstrap";
 import _ from "lodash";
 import CloseCross from "components/Icons/CloseCross";
-
+import Cache from "../../lib/cache/cache";
 import PaymentBox from "../PaymentBox";
 import DepositList from "./DepositList";
 import WithdrawList from "./WithdrawList";
@@ -21,6 +22,7 @@ import { getApp, getAppCustomization,  getIcon } from "../../lib/helpers";
 import { setMessageNotification } from "../../redux/actions/message";
 import store from "../../containers/App/store";
 import "./index.css";
+import { KYC_IN_REVIEW, KYC_VERIFIED, NO_KYC } from "../../config/kycStatus";
 
 const defaultState = {
   tab: "deposit",
@@ -31,10 +33,9 @@ const defaultState = {
   onOpenMoonpay: false,
   isMoonpayActive: null,
   colorHexCode: null,
-  clientId: "",
-  flowId: "",
   isKycNeeded: null,
-  onClose: false
+  onClose: false,
+  kycStatus: ""
 };
 
 class WalletTab extends React.Component {
@@ -73,9 +74,7 @@ resultFilter = (firstArray, secondArray) => {
   projectData = async props => {
     const { profile } = this.props;
     let { wallet, isEmailConfirmed } = this.state;
-
-    const isKycStatus = await profile.kycStatus();
-    const kycIntegration = getApp().integrations.kyc;
+    const kycStatus = await profile.kycStatus();
     const moonpayIntegration = getApp().integrations.moonpay;
     const user = !_.isEmpty(props.profile) ? props.profile : null;
     const virtual = getApp().virtual;
@@ -105,7 +104,6 @@ resultFilter = (firstArray, secondArray) => {
       this.setState({ isEmailConfirmed: await user.isEmailConfirmed() })
     }
       
-    const userId = profile.getID();
     const isKycNeeded = await profile.isKycConfirmed();
 
     const { colors } = getAppCustomization();
@@ -116,19 +114,14 @@ resultFilter = (firstArray, secondArray) => {
 
     this.setState({
       ...this.state,
-      clientId: kycIntegration.clientId,
-      flowId: kycIntegration.flowId,
       isMoonpayActive: moonpayIntegration.isActive,
-      isKycStatus:
-          isKycStatus === null ? isKycStatus : isKycStatus.toLowerCase(),
       isKycNeeded,
-      userId,
       colorHexCode: primaryColor.hex,
       wallets,
       wallet,
       virtual: getApp().virtual,
+      kycStatus
     });
-    this.caseKycStatus();
   };
 
   handleTabChange = name => {
@@ -143,63 +136,31 @@ resultFilter = (firstArray, secondArray) => {
     this.setState({ onOpenMoonpay: false });
   };
 
-  caseKycStatus = () => {
-    const { isKycStatus, clientId, flowId, userId } = this.state;
-    const { ln } = this.props;
-    const copy = CopyText.registerFormIndex[ln];
-
-    switch (isKycStatus) {
-      case "no kyc":
-        return (
-          <div>
-            <mati-button
-              clientid={clientId}
-              flowId={flowId}
-              metadata={`{"id": "${userId}"}`}
-            />
-          </div>
-        );
-      case "reviewneeded":
-        return (
-          <Typography variant="small-body" color="orange">
-            {copy.INDEX.TYPOGRAPHY.TEXT[2]}
-          </Typography>
-        );
-      case "rejected":
-        return (
-          <Typography variant="small-body" color="red">
-            {copy.INDEX.TYPOGRAPHY.TEXT[3]}
-          </Typography>
-        );
-      case "verified":
-        return (
-          <Typography variant="small-body" color="green">
-            {copy.INDEX.TYPOGRAPHY.TEXT[1]}
-          </Typography>
-        );
-
-      case null:
-        return (
-          <div>
-            <mati-button
-              clientid={clientId}
-              flowId={flowId}
-              metadata={`{"id": "${userId}"}`}
-            />
-          </div>
-        );
-      default:
-        break;
-    }
-  };
-
   renderPopSendAlert = tab => {
     const { ln } = this.props;
-    const { isConfirmationSent } = this.state;
+    const { isConfirmationSent, kycStatus } = this.state;
     const copyConfirmEmail = CopyText.homepage[ln];
+    const copy = CopyText.walletTab[ln];
     const skin = getAppCustomization().skin.skin_type;
     const emailIcon = getIcon(11);
+    const kycStatusError =
+      kycStatus !== NO_KYC &&
+      kycStatus !== null &&
+      kycStatus !== KYC_IN_REVIEW &&
+      kycStatus !== KYC_VERIFIED;
 
+    const renderKycStatus = status => {
+      return status === KYC_IN_REVIEW ? (
+        <div
+          style={{ display: "inline-flex", alignItems: "center", width: 180 }}
+        >
+          <KycStatus />
+        </div>
+      ) : (
+        <KycStatus />
+      )
+    };
+    
     return(
             <div styleName="email-confirmation">
                 {
@@ -222,7 +183,7 @@ resultFilter = (firstArray, secondArray) => {
                       <div styleName="container-direction email-title">
                           <div styleName="center-text">
                               <Typography variant={'small-body'} color={'grey'} weight={"bold"}>
-                                  {"Confirm KYC"}
+                                  {copy.INDEX.TEXT[0]}
                               </Typography>
                           </div>
                       </div>
@@ -231,13 +192,10 @@ resultFilter = (firstArray, secondArray) => {
                 <div styleName="email-content">
                     <div styleName="email-text">
                         <Typography variant={'x-small-body'} color={'white'}>
-                           {tab === "deposit" ? " Your e-mail is not confirmed." : "Your KYC account is not confirmed."}
+                           {tab === "deposit" ? copy.INDEX.TEXT[4] : copy.INDEX.TEXT[5]}
                         </Typography>
                         <Typography variant={'x-small-body'} color={'white'}>
-                           {tab === "deposit" ?
-                                "Please click the button to send another e-mail confirmation." 
-                            :
-                                "Seems like we have to know a bit more about you, please do your KYC to enable withdraws"}
+                           {tab === "deposit" ? copy.INDEX.TEXT[1] : copy.INDEX.TEXT[2]}
                         </Typography>
                     </div>
                     <div styleName="email-buttons"> 
@@ -253,9 +211,18 @@ resultFilter = (firstArray, secondArray) => {
                                       </Typography>
                                   </Button>
                               :
-                              <div styleName="button">
-                                  {this.caseKycStatus()}
-                              </div>
+                              <>
+                                {kycStatusError &&
+                                  <Typography
+                                    color={'red'}
+                                    variant={'small-body'}
+                                    otherStyles={{ display: 'block', marginBottom: 16 }}
+                                  >
+                                    {copy.INDEX.TEXT[3]}
+                                  </Typography>
+                                }
+                                {renderKycStatus(kycStatus)}
+                              </>
                             }
                         </div>
                     </div>

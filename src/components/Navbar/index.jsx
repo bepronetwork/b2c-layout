@@ -9,7 +9,7 @@ import { CopyText } from '../../copy';
 import Tooltip from '@material-ui/core/Tooltip';
 import { withStyles } from "@material-ui/core/styles";
 import classNames from "classnames";
-import _ from 'lodash';
+import _, { isEqual } from 'lodash';
 import "./index.css";
 
 import nineDots from "assets/icons/nine.png";
@@ -51,18 +51,21 @@ class Navbar extends Component {
     
     projectData = async (props) => {
         try{
-            const { ln } = props;
+            const { ln, profile } = props;
+            const { currentBalance } = this.state;
             let { topTab } = getAppCustomization();
             topTab = topTab.languages.find(t => t.language.isActivated === true && t.language.prefix === ln.toUpperCase());
-            var user = !_.isEmpty(props.profile) ? props.profile : null;
+            const user = !_.isEmpty(profile) ? profile : null;
+            const balance = parseFloat(user.getBalanceWithBonus());
 
             if(user){
-                let difference = formatCurrency(user.getBalance() - this.state.currentBalance);
+                const difference = Number(formatCurrency(balance - currentBalance));
+                const isDifferent = !isEqual(difference, 0);
                 // To not exist failed animation of difference and number animation
                 var opts = {};
-                if(difference != 0){
+                if (isDifferent || isDifferent && currentBalance > balance) {
                     opts.difference = difference;
-                    opts.currentBalance = user.getBalance();
+                    opts.currentBalance = balance;
                 }
 
                 const points = await user.getPoints();
@@ -171,8 +174,8 @@ class Navbar extends Component {
                             <CurrencySelector currentBalance={currentBalance}/>
                             {difference ? (
                                 <div
-                                key={currentBalance}
-                                styleName={difference > 0 ? "diff-won" : "diff-lost"}
+                                    key={currentBalance}
+                                    styleName={difference > 0 ? "diff-won" : "diff-lost"}
                                 >
                                     <Typography variant="small-body">
                                         {parseFloat(Math.abs(difference))}
@@ -211,8 +214,8 @@ class Navbar extends Component {
                             </PrimaryTooltip>
                             {differencePoints ? (
                                 <div
-                                key={currentPoints}
-                                styleName={"diff-won"}
+                                    key={currentPoints}
+                                    styleName={"diff-won"}
                                 >
                                     <Typography variant="small-body">
                                         {parseFloat(Math.abs(differencePoints))}

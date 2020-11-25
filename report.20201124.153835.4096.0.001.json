@@ -4,17 +4,17 @@
     "reportVersion": 1,
     "event": "Allocation failed - JavaScript heap out of memory",
     "trigger": "FatalError",
-    "filename": "report.20201006.165137.3534.0.001.json",
-    "dumpEventTime": "2020-10-06T16:51:37Z",
-    "dumpEventTimeStamp": "1602013897214",
-    "processId": 3534,
-    "cwd": "/home/alissonblaas/Área de Trabalho/TRABALHO REAL/layout-1",
+    "filename": "report.20201124.153835.4096.0.001.json",
+    "dumpEventTime": "2020-11-24T15:38:35Z",
+    "dumpEventTimeStamp": "1606243115778",
+    "processId": 4096,
+    "cwd": "/home/alissonblaas/Área de Trabalho/layout-1",
     "commandLine": [
       "node",
-      "/home/alissonblaas/Área de Trabalho/TRABALHO REAL/layout-1/node_modules/@craco/craco/scripts/start.js"
+      "/home/alissonblaas/Área de Trabalho/layout-1/node_modules/@craco/craco/scripts/start.js"
     ],
     "nodejsVersion": "v12.13.0",
-    "glibcVersionRuntime": "2.31",
+    "glibcVersionRuntime": "2.27",
     "glibcVersionCompiler": "2.17",
     "wordSize": 64,
     "arch": "x64",
@@ -44,62 +44,44 @@
       "sourceUrl": "https://nodejs.org/download/release/v12.13.0/node-v12.13.0.tar.gz"
     },
     "osName": "Linux",
-    "osRelease": "5.4.0-48-generic",
-    "osVersion": "#52-Ubuntu SMP Thu Sep 10 10:58:49 UTC 2020",
+    "osRelease": "4.15.0-123-generic",
+    "osVersion": "#126-Ubuntu SMP Wed Oct 21 09:40:11 UTC 2020",
     "osMachine": "x86_64",
     "cpus": [
       {
-        "model": "Intel(R) Core(TM) i5-9400F CPU @ 2.90GHz",
-        "speed": 3899,
-        "user": 37061200,
-        "nice": 74200,
-        "sys": 10025300,
-        "idle": 404450900,
+        "model": "Intel(R) Core(TM) i5-4210U CPU @ 1.70GHz",
+        "speed": 2394,
+        "user": 33136200,
+        "nice": 196000,
+        "sys": 7674300,
+        "idle": 50835900,
         "irq": 0
       },
       {
-        "model": "Intel(R) Core(TM) i5-9400F CPU @ 2.90GHz",
-        "speed": 3900,
-        "user": 36398500,
-        "nice": 60900,
-        "sys": 10493500,
-        "idle": 405087600,
+        "model": "Intel(R) Core(TM) i5-4210U CPU @ 1.70GHz",
+        "speed": 2394,
+        "user": 33621000,
+        "nice": 185900,
+        "sys": 7589400,
+        "idle": 50442600,
         "irq": 0
       },
       {
-        "model": "Intel(R) Core(TM) i5-9400F CPU @ 2.90GHz",
-        "speed": 3899,
-        "user": 36298400,
-        "nice": 71200,
-        "sys": 10340600,
-        "idle": 405539600,
+        "model": "Intel(R) Core(TM) i5-4210U CPU @ 1.70GHz",
+        "speed": 2394,
+        "user": 32607500,
+        "nice": 179600,
+        "sys": 7647400,
+        "idle": 50979800,
         "irq": 0
       },
       {
-        "model": "Intel(R) Core(TM) i5-9400F CPU @ 2.90GHz",
-        "speed": 3899,
-        "user": 35887800,
-        "nice": 62200,
-        "sys": 11183400,
-        "idle": 404227800,
-        "irq": 0
-      },
-      {
-        "model": "Intel(R) Core(TM) i5-9400F CPU @ 2.90GHz",
-        "speed": 3899,
-        "user": 36368000,
-        "nice": 61400,
-        "sys": 11719300,
-        "idle": 402189300,
-        "irq": 0
-      },
-      {
-        "model": "Intel(R) Core(TM) i5-9400F CPU @ 2.90GHz",
-        "speed": 3900,
-        "user": 36997500,
-        "nice": 96600,
-        "sys": 11513200,
-        "idle": 402513000,
+        "model": "Intel(R) Core(TM) i5-4210U CPU @ 1.70GHz",
+        "speed": 2394,
+        "user": 33652000,
+        "nice": 176200,
+        "sys": 7588500,
+        "idle": 50419200,
         "irq": 0
       }
     ],
@@ -113,10 +95,10 @@
         "family": "IPv4"
       },
       {
-        "name": "enp4s0",
+        "name": "wlp6s0",
         "internal": false,
-        "mac": "04:d9:f5:63:1c:7d",
-        "address": "192.168.0.14",
+        "mac": "c0:38:96:3d:45:49",
+        "address": "192.168.0.17",
         "netmask": "255.255.255.0",
         "family": "IPv4"
       },
@@ -130,43 +112,43 @@
         "scopeid": 0
       },
       {
-        "name": "enp4s0",
+        "name": "wlp6s0",
         "internal": false,
-        "mac": "04:d9:f5:63:1c:7d",
-        "address": "2804:14d:4082:9b95::1003",
+        "mac": "c0:38:96:3d:45:49",
+        "address": "2804:14d:4082:9e58::1006",
         "netmask": "ffff:ffff:ffff:ffff:ffff:ffff:ffff:ffff",
         "family": "IPv6",
         "scopeid": 0
       },
       {
-        "name": "enp4s0",
+        "name": "wlp6s0",
         "internal": false,
-        "mac": "04:d9:f5:63:1c:7d",
-        "address": "2804:14d:4082:9b95:cd23:32aa:e772:de09",
+        "mac": "c0:38:96:3d:45:49",
+        "address": "2804:14d:4082:9e58:f1d7:cb00:8e5d:efd0",
         "netmask": "ffff:ffff:ffff:ffff::",
         "family": "IPv6",
         "scopeid": 0
       },
       {
-        "name": "enp4s0",
+        "name": "wlp6s0",
         "internal": false,
-        "mac": "04:d9:f5:63:1c:7d",
-        "address": "2804:14d:4082:9b95:a6c7:8ff2:7e31:61ad",
+        "mac": "c0:38:96:3d:45:49",
+        "address": "2804:14d:4082:9e58:9c18:db4b:54b3:23d2",
         "netmask": "ffff:ffff:ffff:ffff::",
         "family": "IPv6",
         "scopeid": 0
       },
       {
-        "name": "enp4s0",
+        "name": "wlp6s0",
         "internal": false,
-        "mac": "04:d9:f5:63:1c:7d",
-        "address": "fe80::f2de:4eba:1591:fc11",
+        "mac": "c0:38:96:3d:45:49",
+        "address": "fe80::f47c:dcc0:6469:49c2",
         "netmask": "ffff:ffff:ffff:ffff::",
         "family": "IPv6",
-        "scopeid": 2
+        "scopeid": 3
       }
     ],
-    "host": "alissonblaas"
+    "host": "alissonblaas-Inspiron-3442"
   },
   "javascriptStack": {
     "message": "No stack.",
@@ -196,7 +178,19 @@
       "symbol": " [node]"
     },
     {
-      "pc": "0x0000000000cf33bd",
+      "pc": "0x0000000000ce3b86",
+      "symbol": "v8::internal::Heap::RecomputeLimits(v8::internal::GarbageCollector) [node]"
+    },
+    {
+      "pc": "0x0000000000cefa1a",
+      "symbol": "v8::internal::Heap::PerformGarbageCollection(v8::internal::GarbageCollector, v8::GCCallbackFlags) [node]"
+    },
+    {
+      "pc": "0x0000000000cf0925",
+      "symbol": "v8::internal::Heap::CollectGarbage(v8::internal::AllocationSpace, v8::internal::GarbageCollectionReason, v8::GCCallbackFlags) [node]"
+    },
+    {
+      "pc": "0x0000000000cf3338",
       "symbol": "v8::internal::Heap::AllocateRawWithRetryOrFail(int, v8::internal::AllocationType, v8::internal::AllocationAlignment) [node]"
     },
     {
@@ -204,8 +198,8 @@
       "symbol": "v8::internal::Factory::NewFillerObject(int, bool, v8::internal::AllocationType) [node]"
     },
     {
-      "pc": "0x0000000000fefb9b",
-      "symbol": "v8::internal::Runtime_AllocateInYoungGeneration(int, unsigned long*, v8::internal::Isolate*) [node]"
+      "pc": "0x0000000000fefcf9",
+      "symbol": "v8::internal::Runtime_AllocateInOldGeneration(int, unsigned long*, v8::internal::Isolate*) [node]"
     },
     {
       "pc": "0x00000000013725d9",
@@ -213,10 +207,10 @@
     }
   ],
   "javascriptHeap": {
-    "totalMemory": 2153615360,
-    "totalCommittedMemory": 2152121696,
-    "usedMemory": 2122679792,
-    "availableMemory": 53166336,
+    "totalMemory": 2152402944,
+    "totalCommittedMemory": 2150468504,
+    "usedMemory": 2119324264,
+    "availableMemory": 53777376,
     "memoryLimit": 2197815296,
     "heapSpaces": {
       "read_only_space": {
@@ -227,38 +221,38 @@
         "available": 229576
       },
       "new_space": {
-        "memorySize": 1048576,
-        "committedMemory": 1088,
+        "memorySize": 2097152,
+        "committedMemory": 889728,
         "capacity": 1047488,
-        "used": 0,
-        "available": 1047488
+        "used": 118816,
+        "available": 928672
       },
       "old_space": {
-        "memorySize": 420327424,
-        "committedMemory": 420319656,
-        "capacity": 419188248,
-        "used": 413129920,
-        "available": 6058328
+        "memorySize": 588886016,
+        "committedMemory": 588780752,
+        "capacity": 584286344,
+        "used": 578127056,
+        "available": 6159288
       },
       "code_space": {
-        "memorySize": 5406720,
-        "committedMemory": 5201024,
-        "capacity": 5148672,
-        "used": 4565152,
-        "available": 583520
+        "memorySize": 4358144,
+        "committedMemory": 4170176,
+        "capacity": 3741696,
+        "used": 3741696,
+        "available": 0
       },
       "map_space": {
-        "memorySize": 25169920,
-        "committedMemory": 25166784,
-        "capacity": 4350240,
-        "used": 4350240,
+        "memorySize": 25432064,
+        "committedMemory": 25227856,
+        "capacity": 7524560,
+        "used": 7524560,
         "available": 0
       },
       "large_object_space": {
-        "memorySize": 1700777984,
-        "committedMemory": 1700777984,
-        "capacity": 1700051528,
-        "used": 1700051528,
+        "memorySize": 1530744832,
+        "committedMemory": 1530744832,
+        "capacity": 1529229184,
+        "used": 1529229184,
         "available": 0
       },
       "code_large_object_space": {
@@ -278,25 +272,25 @@
     }
   },
   "resourceUsage": {
-    "userCpuSeconds": 1288.8,
-    "kernelCpuSeconds": 39.9957,
-    "cpuConsumptionPercent": 2.92262,
-    "maxRss": 2404843520,
+    "userCpuSeconds": 1005.6,
+    "kernelCpuSeconds": 27.2134,
+    "cpuConsumptionPercent": 11.2679,
+    "maxRss": 2446028800,
     "pageFaults": {
-      "IORequired": 15,
-      "IONotRequired": 20589966
+      "IORequired": 409,
+      "IONotRequired": 5013655
     },
     "fsActivity": {
-      "reads": 253664,
-      "writes": 39968
+      "reads": 327848,
+      "writes": 7056
     }
   },
   "uvthreadResourceUsage": {
-    "userCpuSeconds": 648.449,
-    "kernelCpuSeconds": 23.7037,
-    "cpuConsumptionPercent": 1.47836,
+    "userCpuSeconds": 545.721,
+    "kernelCpuSeconds": 13.98,
+    "cpuConsumptionPercent": 6.10627,
     "fsActivity": {
-      "reads": 115744,
+      "reads": 87968,
       "writes": 0
     }
   },
@@ -337,7 +331,7 @@
     "npm_package_dependencies_uniqid": "^5.2.0",
     "npm_config_prefer_online": "",
     "npm_config_noproxy": "",
-    "HOME": "/root",
+    "HOME": "/home/alissonblaas",
     "npm_package_dependencies_moment_timezone": "^0.5.27",
     "npm_config_force": "",
     "npm_package_dependencies_react_responsive_mixin": "^0.4.0",
@@ -360,9 +354,10 @@
     "npm_package_dependencies_webpack": "^4.40.2",
     "npm_config_cache_max": "Infinity",
     "npm_config_timing": "",
-    "npm_config_userconfig": "/root/.npmrc",
+    "npm_config_userconfig": "/home/alissonblaas/.npmrc",
+    "npm_package_dependencies_analytics": "^0.5.5",
     "npm_package_dependencies_html2json": "^1.0.2",
-    "npm_package_dependencies_moment": "^2.24.0",
+    "npm_package_dependencies_moment": "^2.29.1",
     "npm_package_dependencies_precss": "^4.0.0",
     "npm_package_dependencies_stream_chat": "^1.1.5",
     "npm_package_babel_sourceMaps": "true",
@@ -413,9 +408,9 @@
     "npm_package_dependencies_express": "^4.17.1",
     "npm_package_dependencies_query_string": "^6.8.3",
     "npm_package_devDependencies_babel_register": "^6.26.0",
+    "npm_config_prefix": "/home/alissonblaas/.npm-global",
     "npm_config_dry_run": "",
     "npm_config_format_package_lock": "true",
-    "npm_config_prefix": "/usr/local",
     "npm_package_scripts_lint": "eslint --ext js,jsx src",
     "npm_config_scope": "",
     "npm_config_browser": "",
@@ -426,6 +421,7 @@
     "npm_config_searchopts": "",
     "npm_config_versions": "",
     "TERM": "xterm-256color",
+    "USERNAME": "root",
     "npm_package_dependencies_babel_preset_stage_2": "^6.24.1",
     "npm_package_dependencies_mdi_react": "^5.6.0",
     "npm_package_dependencies_postcss_simple_vars": "^5.0.2",
@@ -433,7 +429,7 @@
     "npm_package_dependencies_whatwg_fetch_timeout": "^2.0.2-timeout",
     "npm_package_devDependencies__babel_core": "^7.5.5",
     "npm_package_devDependencies_stylelint": "^10.0.1",
-    "npm_config_cache": "/root/.npm",
+    "npm_config_cache": "/home/alissonblaas/.npm",
     "npm_config_proxy": "",
     "npm_config_send_metrics": "",
     "npm_package_scripts_start": "node --max-old-space-size=4096 bin/www.js",
@@ -448,7 +444,7 @@
     "npm_config_local_address": "",
     "npm_config_viewer": "man",
     "npm_config_node_gyp": "/usr/local/lib/node_modules/npm/node_modules/node-gyp/bin/node-gyp.js",
-    "PATH": "/usr/local/lib/node_modules/npm/node_modules/npm-lifecycle/node-gyp-bin:/home/alissonblaas/Área de Trabalho/TRABALHO REAL/layout-1/node_modules/.bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/snap/bin",
+    "PATH": "/usr/local/lib/node_modules/npm/node_modules/npm-lifecycle/node-gyp-bin:/home/alissonblaas/Área de Trabalho/layout-1/node_modules/.bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/snap/bin",
     "npm_package_name": "betprotocol-casino",
     "npm_package_dependencies_babel_preset_env": "^1.6.1",
     "npm_config_audit_level": "low",
@@ -471,18 +467,19 @@
     "npm_config_offline": "",
     "npm_config_sso_poll_frequency": "500",
     "LANG": "pt_BR.UTF-8",
+    "npm_package_dependencies_countries_list": "^2.5.6",
     "npm_package_dependencies_history": "^4.9.0",
     "npm_package_dependencies_image_to_base64": "^2.0.1",
     "npm_package_dependencies_react_dom": "^16.8.6",
     "npm_package_dependencies_redux": "^4.0.1",
     "npm_config_umask": "0022",
     "XAUTHORITY": "/run/user/1000/gdm/Xauthority",
-    "LS_COLORS": "rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:",
+    "LS_COLORS": "rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.Z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:",
     "npm_package_dependencies_babel_plugin_inline_dotenv": "^1.3.3",
     "npm_package_dependencies_postcss_color_function": "^4.1.0",
     "npm_package_browserslist_0": ">0.2%",
     "npm_package_babel_retainLines": "true",
-    "npm_package_gitHead": "52c7b78b9e755e2dff36727fe690a853601fae94",
+    "npm_package_gitHead": "b2ec715960ec3f373549a99ae137d9e7f8b63db4",
     "npm_config_fetch_retry_maxtimeout": "60000",
     "npm_config_loglevel": "notice",
     "npm_config_logs_max": "10",
@@ -521,6 +518,7 @@
     "npm_config_unsafe_perm": "",
     "npm_config_update_notifier": "true",
     "SUDO_USER": "alissonblaas",
+    "npm_package_dependencies__analytics_google_analytics": "^0.5.2",
     "npm_package_dependencies_lodash": "^4.17.11",
     "npm_package_dependencies_postcss_preset_env": "^6.7.0",
     "npm_package_dependencies_react_code_input": "^3.8.1",
@@ -550,15 +548,16 @@
     "npm_package_dependencies_faker": "^4.1.0",
     "npm_package_devDependencies_eslint_plugin_prettier": "^3.0.1",
     "npm_config_dev": "",
-    "npm_config_globalconfig": "/usr/local/etc/npmrc",
-    "npm_config_init_module": "/root/.npm-init.js",
+    "npm_config_globalconfig": "/home/alissonblaas/.npm-global/etc/npmrc",
+    "npm_config_init_module": "/home/alissonblaas/.npm-init.js",
     "npm_config_parseable": "",
     "npm_package_dependencies_bootstrap": "^4.3.1",
     "npm_package_dependencies_rc_slider": "^8.6.9",
-    "npm_config_globalignorefile": "/usr/local/etc/npmignore",
+    "npm_config_globalignorefile": "/home/alissonblaas/.npm-global/etc/npmignore",
     "npm_execpath": "/usr/local/lib/node_modules/npm/bin/npm-cli.js",
-    "PWD": "/home/alissonblaas/Área de Trabalho/TRABALHO REAL/layout-1",
+    "PWD": "/home/alissonblaas/Área de Trabalho/layout-1",
     "npm_package_dependencies_react_announcement_bar": "0.0.1",
+    "npm_package_dependencies_react_countdown": "^2.3.1",
     "npm_package_devDependencies_craco_plugin_react_hot_reload": "0.0.3",
     "npm_config_cache_lock_retries": "10",
     "npm_config_searchstaleness": "900",
@@ -588,18 +587,20 @@
     "npm_package_dependencies_localforage": "^1.7.3",
     "npm_package_dependencies_react": "^16.8.6",
     "npm_config_json": "",
-    "INIT_CWD": "/home/alissonblaas/Área de Trabalho/TRABALHO REAL/layout-1",
+    "INIT_CWD": "/home/alissonblaas/Área de Trabalho/layout-1",
     "NODE_ENV": "development",
+    "NODE_PATH": "/home/alissonblaas/Área de Trabalho/layout-1/src",
     "SKIP_PREFLIGHT_CHECK": "true",
-    "NODE_OPTIONS": "--max-old-space-size=4596",
-    "REACT_APP_PRODUCTION": "true",
+    "REACT_APP_PRODUCTION": "false",
+    "REACT_APP_ETH_NETWORK": "rinkeby",
     "REACT_APP_API_MASTER": "https://ms-master-dev.herokuapp.com",
     "REACT_APP_API_WITHDRAW": "https://sandbox-ms-withdraw.betprotocol.com",
+    "REACT_APP_API_ESPORTS": "https://ms-esports-dev.herokuapp.com",
+    "REACT_APP_WEBSOCKET_ESPORTS": "wss://ms-esports-dev.herokuapp.com",
     "REACT_APP_SENDBIRD_CHANNEL_ID": "sendbird_open_channel_51613_f8772d56dac01afcd52d678af9037c355546420f",
     "REACT_APP_SENDBIRD_APP_ID": "5C37E8D5-1425-4B2B-ADB5-16251995E685",
     "REACT_APP_APP_ID": "5f4bf4a8986f7c00279e634f",
-    "REACT_APP_INFURA_API": "https://undefined.infura.io/v3/811fe4fa5c4b41cb9b92f9656aaeaa3b",
-    "NODE_PATH": "/home/alissonblaas/Área de Trabalho/TRABALHO REAL/layout-1/src",
+    "REACT_APP_INFURA_API": "https://mainnet.infura.io/v3/811fe4fa5c4b41cb9b92f9656aaeaa3b",
     "BABEL_ENV": "development"
   },
   "userLimits": {
@@ -616,8 +617,8 @@
       "hard": "unlimited"
     },
     "max_locked_memory_bytes": {
-      "soft": 67108864,
-      "hard": 67108864
+      "soft": 16777216,
+      "hard": 16777216
     },
     "max_memory_size_kbytes": {
       "soft": "unlimited",
@@ -636,8 +637,8 @@
       "hard": "unlimited"
     },
     "max_user_processes": {
-      "soft": 63573,
-      "hard": 63573
+      "soft": 30587,
+      "hard": 30587
     },
     "virtual_memory_kbytes": {
       "soft": "unlimited",
@@ -647,7 +648,7 @@
   "sharedObjects": [
     "linux-vdso.so.1",
     "/lib/x86_64-linux-gnu/libdl.so.2",
-    "/lib/x86_64-linux-gnu/libstdc++.so.6",
+    "/usr/lib/x86_64-linux-gnu/libstdc++.so.6",
     "/lib/x86_64-linux-gnu/libm.so.6",
     "/lib/x86_64-linux-gnu/libgcc_s.so.1",
     "/lib/x86_64-linux-gnu/libpthread.so.0",

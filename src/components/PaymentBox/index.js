@@ -24,7 +24,9 @@ class PaymentBox extends React.Component{
             seconds: 0,
             amount: 0,
             secondsToCanvas: 0,
-            isCanvasRenderer: false
+            isCanvasRenderer: false,
+            balance: 0,
+            bonusPlusBalance: 0
         }
     }
 
@@ -61,10 +63,21 @@ class PaymentBox extends React.Component{
     }
 
     projectData = async (props) => {
-        const { wallet } = props;
+        const { wallet, profile} = props;
         const { isCanvasRenderer } = this.state;
         const virtual = getApp().virtual;
-        this.setState({ isCanvasRenderer: false })
+
+        const { bonusAmount } = wallet;
+        const hadBalance = wallet.playBalance > 0 ? wallet.playBalance : 0;
+        const balance = _.isEmpty(wallet) ? 0 : hadBalance;
+        const hadBonus =
+          wallet.bonusAmount > 0
+            ? Number(wallet.bonusAmount) + Number(balance)
+            : balance;
+        const bonusPlusBalance = _.isEmpty(wallet) ? 0 : hadBonus;
+
+        this.setState({ isCanvasRenderer: false, balance, bonusPlusBalance, bonusAmount });
+
         if (virtual === true) {
             const virtualCurrency = getApp().currencies.find(c => c.virtual === true);
             if(wallet.currency.virtual !== true && virtualCurrency) {
@@ -84,6 +97,11 @@ class PaymentBox extends React.Component{
         if(isCanvasRenderer){
             this.verifyTime();
         }
+
+        if(profile.user.email_confirmed === false){
+            this.setState({ disabledFreeButton: true})
+        }
+       
     }
 
     funcVerifyUserWalletDate = async() => {
@@ -313,11 +331,11 @@ class PaymentBox extends React.Component{
 
     render(){
         let { isPicked, wallet } = this.props;
-        const { price, virtualTicker, walletImage, disabledFreeButton } = this.state;
+        const { price, virtualTicker, walletImage, disabledFreeButton, balance, bonusAmount } = this.state;
         const styles = classNames("container-root", {
             selected: isPicked
         });
-
+    
         const walletValid = this.funcVerification();
         
         return (
@@ -336,9 +354,16 @@ class PaymentBox extends React.Component{
                             </Typography>
                             <div styleName='text-description'>
                                 <Typography variant={'x-small-body'} color={'white'}>
-                                    {`${formatCurrency(wallet.playBalance)} ${wallet.currency.ticker}`}
+                                    {`${formatCurrency(balance)} ${wallet.currency.ticker}`}
                                 </Typography>
                             </div>
+                            {bonusAmount !== 0 &&
+                                <div styleName='text-description'>
+                                    <Typography variant={'x-small-body'} color={'white'}>
+                                        Bonus: {formatCurrency(bonusAmount)}
+                                    </Typography>
+                                </div>
+                            }
                             {price ? 
                                 <div styleName='text-description'>
                                     <Typography variant={'x-small-body'} color={'white'}>

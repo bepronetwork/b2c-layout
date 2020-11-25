@@ -50,7 +50,7 @@ class RoulettePage extends Component {
         const user = this.props.profile;
         if (!user || _.isEmpty(user)) return true;
 
-        return this.getTotalBet() + selectedChip > user.getBalance();
+        return this.getTotalBet() + selectedChip > user.getBalanceWithBonus();
     };
 
     handleAddChipToBoard = cell => {
@@ -65,10 +65,13 @@ class RoulettePage extends Component {
 
     handleUndo = () => {
         const { betHistory } = this.state;
+        let betHistoryCopy;
 
-        betHistory.splice(-1, 1);
+        betHistoryCopy = [...betHistory];
 
-        this.setState({ betHistory });
+        betHistoryCopy.splice(-1, 1);
+
+        this.setState({ betHistory: betHistoryCopy });
     };
 
     handleClear = () => {
@@ -131,10 +134,10 @@ class RoulettePage extends Component {
         const { profile } = this.props;
         const { amount } = this.state;
         /* Update Info User View */
-        const { isWon, result, winAmount, userDelta } = this.state.betObjectResult;
+        const { isWon, result, winAmount, userDelta, totalBetAmount } = this.state.betObjectResult;
         setWonPopupMessageDispatcher(winAmount);
         this.addToHistory({result, won : isWon});
-        await profile.updateBalance({ userDelta, amount });
+        await profile.updateBalance({ userDelta, amount, totalBetAmount });
     };
 
     getTotalBet = () => {

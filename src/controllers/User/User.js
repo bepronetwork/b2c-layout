@@ -126,6 +126,17 @@ export default class User {
         if(_.isEmpty(wallet)){ return 0;}
         return wallet.playBalance;
     };
+
+    getBalanceWithBonus = (currency) => {
+        const state = store.getState();
+        currency = currency ? currency : state.currency;
+        if(_.isEmpty(currency)){ return 0;}
+
+        const wallet = this.getWallet({currency});
+        if(_.isEmpty(wallet)){ return 0;}
+        return wallet.playBalance + wallet.bonusAmount;
+    };
+
     getWallet = ({currency}) => {return this.user.wallet.find( w => new String(w.currency._id).toString().toLowerCase() == new String(currency._id).toString().toLowerCase())};
 
     getWallets = () => {return this.user.wallet};
@@ -162,13 +173,58 @@ export default class User {
         await this.updateUserState();
     }
 
-    updateBalance = async ({userDelta, amount}) => {
+    updateBalance = async ({ userDelta, amount, totalBetAmount }) => {
         const state = store.getState();
         const { currency } = state;
 
         this.user.wallet.forEach((w) => {
-            if(new String(w.currency._id).toString().toLowerCase() == new String(currency._id).toString().toLowerCase()) {
-                w.playBalance = w.playBalance + userDelta;
+            if (new String(w.currency._id).toString().toLowerCase() == new String(currency._id).toString().toLowerCase()) {
+                
+                if (userDelta < 0) {
+
+                    const delta = w.playBalance + userDelta;
+
+                    if (_.has(w, 'bonusAmount') && w.bonusAmount > 0) {
+                        const newPlayBalance = delta < 0 ? 0 : delta;
+                        const newBonusAmount = delta < 0 ? w.bonusAmount + delta : w.bonusAmount;
+
+                        w.playBalance = Math.max(0, newPlayBalance);
+                        w.bonusAmount = Math.max(0, newBonusAmount);
+
+                    } else {
+                        const newPlayBalance = delta < 0 ? 0 : delta;
+
+                        w.playBalance = Math.max(0, newPlayBalance);
+                    }
+
+                } else {
+
+                    if (_.has(w, 'bonusAmount') && w.bonusAmount > 0) {
+                        const newBonusAmount = w.bonusAmount + userDelta;
+
+                        w.bonusAmount = Math.max(0, newBonusAmount);
+
+                    } else {
+                        const newPlayBalance = w.playBalance + userDelta;
+
+                        w.playBalance = Math.max(0, newPlayBalance);
+                    }
+                }
+
+                if (w.incrementBetAmountForBonus > w.minBetAmountForBonusUnlocked) {
+
+                    const newPlayBalance = w.playBalance + w.bonusAmount;
+
+                    w.bonusAmount = 0;
+                    w.playBalance = Math.max(0, newPlayBalance);
+                    w.incrementBetAmountForBonus = 0;
+
+                } else if (_.has(w, 'incrementBetAmountForBonus')) {
+
+                    const newIncrementBetAmountForBonus = w.incrementBetAmountForBonus + totalBetAmount;
+
+                    w.incrementBetAmountForBonus = Math.max(0, newIncrementBetAmountForBonus);
+                }
             }
         });
 
@@ -196,6 +252,14 @@ export default class User {
 
     updateUserState = async () => {
         await store.dispatch(setProfileInfo(this));
+    }
+
+    updateKYCStatus = status => {
+        const verified = status.toLowerCase() === 'verified';
+
+        this.user = {...this.user, kyc_needed: !verified, kyc_status: status };
+        
+        this.updateUserState();
     }
 
     getMyBets = async ({size, game, slug, tag}) => {
@@ -447,13 +511,15 @@ export default class User {
     }
 
     createBet = async ({ result, gameId }) => {
+        let res;
+
         try {
             const nonce = getNonce();
             // grab current state
             const state = store.getState();
             const { currency } = state;
             /* Create Bet API Setup */
-            let res = await createBet(
+            res = await createBet(
                 {
                     currency : currency._id,
                     user: this.user_id,
@@ -469,7 +535,6 @@ export default class User {
             throw err;
         }
     };
-
 
     getMessage = () => {
         return this.message;

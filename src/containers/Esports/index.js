@@ -9,6 +9,8 @@ import classNames from "classnames";
 import _ from 'lodash';
 import "./index.css";
 
+import LockTwoToneIcon from '@material-ui/icons/LockTwoTone';
+
 class Esports extends Component {
 
     constructor(props){
@@ -180,6 +182,10 @@ class Esports extends Component {
         );
     }
 
+    isActiveMarket = match => {
+        return match.market ? match.market.status === 'active' : false;
+    }
+
     renderSlides() {
         const { slides, games } = this.state;
         let slidesElements = [];
@@ -217,7 +223,12 @@ class Esports extends Component {
                                 <Typography variant={'x-small-body'} color={'white'}>{`${match.league.name} - ${match.serie.full_name}`}</Typography>
                             </div>
                         </div>
-                        <Opponents gameImage={gameImage} match={match}/>
+                        <div styleName="group-left">
+                            { !this.isActiveMarket(match) && <div styleName="lock-icon-background">
+                                <LockTwoToneIcon style={{ color: 'white' }} fontSize="inherit"/>
+                            </div> }    
+                            <Opponents gameImage={gameImage} match={match}/>
+                        </div>
                     </div>
                 </div>
             );

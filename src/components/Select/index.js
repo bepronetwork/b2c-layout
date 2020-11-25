@@ -4,10 +4,11 @@ import ArrowUp from "components/Icons/ArrowUp";
 import { Typography, ArrowDownIcon, ArrowUpIcon } from "components";
 import { getAppCustomization, getIcon } from "../../lib/helpers";
 import _ from 'lodash';
-
+import classNames from 'classnames'
 import "./index.css";
+import PropTypes from 'prop-types';
 
-class SelectBox extends React.Component{
+class Select extends React.Component{
 
     constructor(props){
         super(props);
@@ -76,9 +77,7 @@ class SelectBox extends React.Component{
 
         return (
             <div styleName="label">
-                <span>
-                    <Typography color="white" variant={'small-body'}>{value.text}</Typography>
-                </span>
+                {value.text}
                 {open
                 ? 
                     arrowUpIcon === null ? skin == "digital" ? <ArrowUpIcon /> : <ArrowUp /> : <img src={arrowUpIcon} /> 
@@ -118,16 +117,15 @@ class SelectBox extends React.Component{
     }
 
     render = () => {
-
-        const {  } = this.props;
+        const { fullWidth, size, gutterBottom } = this.props;
+        const { value } = this.state;
 
         return (
-            <div styleName="root">
+            <div styleName={classNames('root', { fullWidth }, { 'checked': value.value }, { 'small': size === 'small' }, { gutterBottom })} onClick={this.handleLabelClick}>
                 <button
                     ref={el => {
                         this.labelRef = el;
                     }}
-                    onClick={this.handleLabelClick}
                     type="button">
                     {this.renderLabel()}
                 </button>
@@ -144,5 +142,9 @@ class SelectBox extends React.Component{
 
 }
 
+Select.propTypes = {
+    size: PropTypes.oneOf(['small'])
+}
 
-export default SelectBox;
+
+export default Select;

@@ -231,9 +231,6 @@ class Opponents extends Component {
                         }
                     </div>
                 </div>
-                { !activeMarket && !isScoreBoard && <div styleName="lock-icon-background">
-                    <LockTwoToneIcon style={{ color: 'white' }} fontSize="inherit"/>
-                </div> }
             </div>
         )
     }

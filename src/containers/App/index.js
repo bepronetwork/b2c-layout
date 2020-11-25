@@ -72,6 +72,8 @@ import delay from 'delay';
 import MobileMenu from "../../components/MobileMenu";
 import { analyticsIdentify, analyticsPage } from '../../lib/helpers/analytics'
 
+import socketKycConnection from './WebSocket'
+
 const history = createBrowserHistory();
 
 routeChanges((route) => {
@@ -81,6 +83,8 @@ routeChanges((route) => {
 
 class App extends Component {
     intervalID = 0;
+
+    static contextType = socketKycConnection;
 
     constructor(props) {
         super(props);
@@ -110,6 +114,7 @@ class App extends Component {
         this.getQueryParams();
 
         const app = Cache.getFromCache("appInfo");
+        const { user } = this.state;
 
         if(app) {
             const { cripsr } =  app.integrations;
@@ -127,10 +132,42 @@ class App extends Component {
         }
     };
 
-    componentWillUnmount() {
-        clearInterval(this.intervalID);
+    componentWillReceiveProps(props) {
+        const { user } = this.state;
+
+        if (user) {
+            this.createSocketConnection(props);
+        }
     }
 
+    componentWillUnmount() {
+        clearInterval(this.intervalID);
+
+        const { connection } = this.context;
+
+        connection.disconnect();
+    }
+
+    createSocketConnection = props => {
+        const { connection } = this.context;
+        const { profile } = props;
+    
+        if (connection) {
+          connection
+            .emit("authenticate", { token: profile.bearerToken })
+            .on("authenticated", () => {})
+            .on("updateKYC", this.updateKYCStatus);
+        }
+    };
+
+    updateKYCStatus = data => {
+        const { profile } = this.props;
+        const { status } = data;
+
+        profile.updateKYCStatus(status);
+        localStorage.removeItem("kyc");
+    }
+    
     getQueryParams = () => {
         const ref = getQueryVariable('ref');
         Cache.setToCache('affiliate', ref);
@@ -154,6 +191,7 @@ class App extends Component {
             await this.automaticLoginFromCache();
             await delay(1000);
             this.closeStaticLoading();
+            this.createSocketConnection(this.props);
         }catch(err){
             console.log(err);
             const app = Cache.getFromCache("appInfo");

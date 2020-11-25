@@ -149,7 +149,10 @@ import ThirdPartyGameCard from  './ThirdPartyGameCard';
 import ThirdPartyProviderSelector from  './ThirdPartyProviderSelector';
 import Info from  './Info';
 import CurrencyFreeMoney from './CurrencyFreeMoney';
-import GameCounter from './GameCounter'
+import GameCounter from './GameCounter';
+import Select from './Select';
+import KycStatus from './KycStatus';
+import MatiButton from './MatiButton';
 
 export { LegalBox };
 export { Authentication2FAModal };
@@ -302,4 +305,7 @@ export { ThirdPartyGameCard };
 export { Info };
 export { CurrencyFreeMoney };
 export { ThirdPartyProviderSelector };
-export {GameCounter}
+export { GameCounter };
+export { Select };
+export { KycStatus };
+export { MatiButton }
