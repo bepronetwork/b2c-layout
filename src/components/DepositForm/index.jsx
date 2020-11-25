@@ -86,7 +86,10 @@ class DepositForm extends Component {
     projectData = async (props) => {
         const { wallet } = props;
         const isTxFee = (getAddOn().txFee) ? getAddOn().txFee.isTxFee : false;
-        const isDepositBonus = (getAddOn().depositBonus) ? getAddOn().depositBonus.isDepositBonus : false;
+
+        const depositBonus = getAddOn().depositBonus;
+
+        const isDepositBonus = depositBonus && !_.isEmpty(depositBonus.isDepositBonus) ? depositBonus.isDepositBonus.find(w => w.currency === wallet.currency._id).value : false;
 
         if(wallet && !wallet.address) {
             this.getCurrencyAddress(wallet);
