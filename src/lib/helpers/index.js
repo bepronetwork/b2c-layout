@@ -325,7 +325,7 @@ function convertAmountProviderBigger(ticker, value) {
         return {value: (value / tickers[ticker].value),  ticker: (tickers[ticker].ticker)};
     }
 
-    return null;
+    return {value, ticker};
 }
 
 export { 
