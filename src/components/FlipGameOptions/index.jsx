@@ -75,9 +75,9 @@ class FlipGameOptions extends Component {
 
     handleMultiplyResult = result => {
         result.toString().length > 6 ?
-          this.setState({ amount: result.toFixed(6) })
+          this.setState({ betAmount: result.toFixed(6) })
           :
-          this.setState({ amount: result });
+          this.setState({ betAmount: result });
       }
     
     
@@ -157,7 +157,7 @@ class FlipGameOptions extends Component {
     renderAuto = () => {
         const { bets, profitStop, lossStop, onWin, onLoss } = this.state;
         const {ln} = this.props;
-        const copy = CopyText.flipGameOptionsIndex[ln];
+const copy = CopyText.flipGameOptionsIndex[ln];
         return (
         <div>
             <div styleName="element">
@@ -254,7 +254,7 @@ class FlipGameOptions extends Component {
         const { type, betAmount, side, isAutoBetting } = this.state;
         const { isCoinSpinning } = this.props;
         const user = this.props.profile;
-        const {ln} = this.props;
+        const {ln, onBetAmount} = this.props;
         const copy = CopyText.flipGameOptionsIndex[ln];
 
         return (
@@ -282,12 +282,16 @@ class FlipGameOptions extends Component {
                         name="amount"
                         step={0.01}
                         icon="bitcoin"
-                        max={(user && !_.isEmpty(user)) ? user.getBalanceWithBonus().toFixed(6) : null}
+                        max={(user && !_.isEmpty(user)) ? user.getBalance() : null}
                         precision={2}
                         value={betAmount}
                         onChange={this.handleBetAmountChange}
                         />
-                        <MultiplyMaxButton amount={betAmount} onResult={this.handleMultiplyResult} />
+                        <MultiplyMaxButton
+                            onBetAmount={onBetAmount}
+                            amount={betAmount}
+                            onResult={this.handleMultiplyResult}
+                        />
                     </div>
                 </div>
                 <div styleName="content">
