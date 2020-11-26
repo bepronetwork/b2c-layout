@@ -26,10 +26,6 @@ class ThirdPartyGameList extends Component {
         this.projectData(this.props);
     }
 
-    componentWillReceiveProps(props){
-        this.projectData(props);
-    }
-
     projectData = async (props) => {
         const { params } = props.match;
 
@@ -41,7 +37,6 @@ class ThirdPartyGameList extends Component {
     }
 
     formatGames(games) {
-        let { quantity } = this.state;
         let gameList = [];
 
         games.map( p => {
@@ -170,7 +165,6 @@ class ThirdPartyGameList extends Component {
 
 function mapStateToProps(state){
     return {
-        profile: state.profile,
         ln : state.language
     };
 }

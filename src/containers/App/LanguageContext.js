@@ -20,9 +20,7 @@ class LanguageProvider extends Component {
 
   componentDidMount = async () => {
     const language = Cache.getFromCache("language");
-    const setLanguageBasedOnCache = isNull
-      ? this.initialState.language
-      : language;
+    const setLanguageBasedOnCache = isNull(language) ? this.initialState.language : language;
     const { dispatch } = this.props;
 
     this.setState(setLanguageBasedOnCache);
