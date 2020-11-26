@@ -1,6 +1,7 @@
 import React, { Component, createContext } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
+import { isNull } from "lodash";
 import languages from "../../config/languages";
 import Cache from "../../lib/cache/cache";
 import { setLanguageInfo } from "../../redux/actions/language";
@@ -19,15 +20,11 @@ class LanguageProvider extends Component {
 
   componentDidMount = async () => {
     const language = Cache.getFromCache("language");
+    const setLanguageBasedOnCache = isNull(language) ? this.initialState.language : language;
     const { dispatch } = this.props;
 
-    if (language) {
-      this.setState({ language });
-      await dispatch(setLanguageInfo(language));
-    } else {
-      this.setState(this.initialState.language);
-      await dispatch(setLanguageInfo(this.initialState.language));
-    }
+    this.setState(setLanguageBasedOnCache);
+    await dispatch(setLanguageInfo(setLanguageBasedOnCache));
   };
 
   setLanguage = language => {
