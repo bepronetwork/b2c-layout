@@ -4,8 +4,7 @@ import { connect } from "react-redux";
 import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
 import { getProvidersGames } from "../../lib/api/app";
 import { getSkeletonColors, getApp } from "../../lib/helpers";
-import { LinearProgress } from '@material-ui/core';
-import queryString from 'query-string';
+import { CopyText } from "../../copy";
 import _ from 'lodash';
 import "./index.css";
 
@@ -67,9 +66,8 @@ class ThirdPartyGameList extends Component {
         });
 
         const total = gameList.length;
-        quantity = (quantity + 18) > total ? total : quantity + 18;
 
-        this.setState({ games: gameList, total, quantity });
+        this.setState({ games: gameList, total });
     }
 
     changeProvider = async (providerId) => {
@@ -113,17 +111,12 @@ class ThirdPartyGameList extends Component {
         return games;
     }
 
-    onLoadMoreGames = async (id) => {
-        let { quantity, total } = this.state;
-
-        quantity = (quantity + 18) > total ? total : quantity + 18;
-
+    onLoadMoreGames = quantity => {
         this.setState({ quantity });
     }
 
-
     render() {
-        const { onHandleLoginOrRegister, history } = this.props;
+        const { onHandleLoginOrRegister, history, ln } = this.props;
         const { games, isLoading, total, quantity, providerId, providers } = this.state;
 
         return (
@@ -163,10 +156,12 @@ class ThirdPartyGameList extends Component {
                 </div>
                 }
                 <GameCounter
-                    quantity={quantity}
                     total={total}
-                    onClick={() => this.onLoadMoreGames()}
-                />  
+                    label={CopyText.gameCounter[ln].DESCRIPTION}
+                    buttonText={CopyText.gameCounter[ln].BUTTON}
+                    factorBase={18}
+                    onMore={this.onLoadMoreGames}
+                />
             </div>
         );
     }
