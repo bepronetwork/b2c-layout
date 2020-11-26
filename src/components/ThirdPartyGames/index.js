@@ -256,7 +256,7 @@ class ThirdPartyGames extends Component {
                 <GameCounter
                     total={total}
                     label={CopyText.gameCounter[ln].DESCRIPTION}
-                    buttonText={CopyText.gameCounter[ln].BUTTON}
+                    buttonLabel={CopyText.gameCounter[ln].BUTTON}
                     factorBase={18}
                     onMore={this.onLoadMoreGames}
                 />
