@@ -25,8 +25,8 @@ class LanguageProvider extends Component {
       this.setState({ language });
       await dispatch(setLanguageInfo(language));
     } else {
-      this.setState(this.initialState);
-      await dispatch(setLanguageInfo(this.initialState));
+      this.setState(this.initialState.language);
+      await dispatch(setLanguageInfo(this.initialState.language));
     }
   };
 
