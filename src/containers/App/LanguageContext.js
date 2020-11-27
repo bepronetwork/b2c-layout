@@ -1,8 +1,8 @@
 import React, { Component, createContext } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { isNull } from "lodash";
-import languages from "../../config/languages";
+import { isNull, isUndefined } from "lodash";
+import languages, { LANGUAGE_KEY } from "../../config/languages";
 import Cache from "../../lib/cache/cache";
 import { setLanguageInfo } from "../../redux/actions/language";
 
@@ -12,26 +12,36 @@ class LanguageProvider extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      language: languages[0]
+      language: {}
     };
     this.setLanguage = this.setLanguage.bind(this);
-    this.initialState = this.state;
+    this.storedLanguage = Cache.getFromCache(LANGUAGE_KEY);
+    this.defaultLanguage = languages.find(({ prefix }) => prefix === "EN");
   }
 
-  componentDidMount = async () => {
-    const language = Cache.getFromCache("language");
-    const preferStoredLanguage = isNull(language)
-      ? this.initialState.language
-      : { ...language };
+  componentDidMount() {
+    const { storedLanguage, defaultLanguage, setLanguage } = this;
+
+    if (isUndefined(storedLanguage)) {
+      localStorage.removeItem(LANGUAGE_KEY);
+    }
+
+    if (isNull(storedLanguage)) {
+      setLanguage(defaultLanguage, false);
+    } else {
+      setLanguage(storedLanguage, false);
+    }
+  }
+
+  setLanguage = async (language, store) => {
     const { dispatch } = this.props;
 
-    this.setState({ language: preferStoredLanguage });
-    await dispatch(setLanguageInfo(preferStoredLanguage));
-  };
-
-  setLanguage = language => {
     this.setState({ language });
-    Cache.setToCache("language", language);
+    await dispatch(setLanguageInfo(language));
+
+    if (store) {
+      Cache.setToCache(LANGUAGE_KEY, language);
+    }
   };
 
   render() {
@@ -52,11 +62,8 @@ LanguageProvider.propTypes = {
   dispatch: PropTypes.func.isRequired
 };
 
-function mapStateToProps({ language }) {
-  return {
-    ln: language
-  };
-}
+LanguageProvider.displayName = "Language.Context";
+LanguageContext.displayName = "Language";
 
 export { LanguageContext };
-export default connect(mapStateToProps)(LanguageProvider);
+export default connect()(LanguageProvider);
