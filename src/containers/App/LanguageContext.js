@@ -19,7 +19,7 @@ class LanguageProvider extends Component {
     this.defaultLanguage = languages.find(({ prefix }) => prefix === "EN");
   }
 
-  componentDidMount = () => {
+  componentDidMount() {
     const { storedLanguage, defaultLanguage, setLanguage } = this;
 
     if (isUndefined(storedLanguage)) {
@@ -31,7 +31,7 @@ class LanguageProvider extends Component {
     } else {
       setLanguage(storedLanguage, false);
     }
-  };
+  }
 
   setLanguage = async (language, store) => {
     const { dispatch } = this.props;
