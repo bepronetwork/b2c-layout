@@ -5,7 +5,6 @@ import ArrowUp from "components/Icons/ArrowUp";
 import _ from "lodash";
 import { connect } from "react-redux";
 import classNames from "classnames";
-import { setLanguageInfo } from "../../redux/actions/language";
 import { isUserSet, getAppCustomization, getIcon } from "../../lib/helpers";
 import "./index.css";
 import { LanguageContext } from "../../containers/App/LanguageContext";
@@ -62,8 +61,8 @@ class LanguageSelector extends Component {
     this.setState({ open: !open });
   };
 
-  changeLanguage = async item => {
-    const { profile, dispatch } = this.props;
+  changeLanguage = item => {
+    const { profile } = this.props;
     const { setLanguage } = this.context;
     const { languages, open } = this.state;
 
@@ -80,8 +79,7 @@ class LanguageSelector extends Component {
       });
     }
 
-    setLanguage(item);
-    await dispatch(setLanguageInfo(item));
+    setLanguage(item, true);
     this.setState({ open: !open });
   };
 
