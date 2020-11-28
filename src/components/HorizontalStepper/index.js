@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
-import clsx from 'clsx';
 import Stepper from '@material-ui/core/Stepper';
 import Step from '@material-ui/core/Step';
 import StepLabel from '@material-ui/core/StepLabel';
@@ -20,6 +19,7 @@ import './index.css';
 import allow from 'assets/allow.png';
 import { CopyText } from '../../copy';
 import { connect } from "react-redux";
+import classNames from 'classnames';
 
 
 const QontoConnector = withStyles({
@@ -74,7 +74,7 @@ function QontoStepIcon(props) {
 
   return (
     <div
-      className={clsx(classes.root, {
+      className={classNames(classes.root, {
         [classes.active]: active,
       })}
     >
@@ -120,7 +120,7 @@ function ColorlibStepIcon(props) {
 
   return (
     <div
-      className={clsx(classes.root, {
+      className={classNames(classes.root, {
         [classes.active]: active,
         [classes.completed]: completed,
       })}
