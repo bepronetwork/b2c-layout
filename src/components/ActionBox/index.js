@@ -28,7 +28,7 @@ class ActionBox extends React.Component{
                 <Row>
                     <Col xs={3} md={3}>
                         <div styleName='container-image'>
-                            <img src={image} styleName='payment-image' alt="payment-image" />
+                            <img src={image} styleName='payment-image' alt="Payment" />
                         </div>
                     </Col>
                     <Col xs={5} md={7}>
@@ -64,7 +64,7 @@ class ActionBox extends React.Component{
                             ?
                                 <Checkbox isSet={completed} id={id}/>
                             : 
-                                <img src={loading} styleName='loading-gif' alt="loading-gif" />
+                                <img src={loading} styleName='loading-gif' alt="Loading" />
                             }
                         </div>
                     </Col>
