@@ -69,7 +69,7 @@ class BottomNavbar extends Component {
                                 <a href="#" onClick={() => this.homeClick("esports")}>
                                     <span styleName="item">
                                         <div styleName="icon">
-                                            { usersIcon === null ? <UsersIcon /> : <img src={usersIcon} /> }
+                                            { usersIcon === null ? <UsersIcon /> : <img src={usersIcon} alt="Users Icon" /> }
                                         </div>
                                         <Typography variant="x-small-body" color="grey">
                                             Esports
@@ -80,7 +80,7 @@ class BottomNavbar extends Component {
                                 <a href="#" onClick={() => this.homeClick("")}>
                                     <span styleName="item">
                                         <div styleName="icon">
-                                            { casinoIcon === null ? <CasinoIcon /> : <img src={casinoIcon} /> }
+                                            { casinoIcon === null ? <CasinoIcon /> : <img src={casinoIcon} alt="Casino Icon" /> }
                                         </div>
                                         <Typography variant="x-small-body" color="grey">
                                             {copy.INDEX.TYPOGRAPHY.TEXT[3]}
@@ -93,7 +93,7 @@ class BottomNavbar extends Component {
                         <a href="#" onClick={this.openDeposit}>
                             <span styleName="item">
                                 <div styleName="icon">
-                                    { depositIcon === null ? <DepositIcon /> : <img src={depositIcon} /> }
+                                    { depositIcon === null ? <DepositIcon /> : <img src={depositIcon} alt="Deposit Icon" /> }
                                 </div>
                                 <Typography variant="x-small-body" color="grey">
                                     {copy.INDEX.TYPOGRAPHY.TEXT[2]}
@@ -105,7 +105,7 @@ class BottomNavbar extends Component {
                         <a href="#" onClick={() => onBetsList()}>
                             <span styleName="item">
                                 <div styleName="icon">
-                                    { betsIcon === null ? <BetsIcon /> : <img src={betsIcon} /> }
+                                    { betsIcon === null ? <BetsIcon /> : <img src={betsIcon} alt="Deposit Icon" /> }
                                 </div>
                                 <Typography variant="x-small-body" color="grey">
                                     {copy.INDEX.TYPOGRAPHY.TEXT[5]}
@@ -117,7 +117,7 @@ class BottomNavbar extends Component {
                         <a href="#" onClick={() => onChat()}>
                             <span styleName="item">
                                 <div styleName="icon">
-                                    { chatIcon === null ? <ChatIcon /> : <img src={chatIcon} /> }
+                                    { chatIcon === null ? <ChatIcon /> : <img src={chatIcon} alt="Chat Icon" /> }
                                 </div>
                                 <Typography variant="x-small-body" color="grey">
                                     {copy.INDEX.TYPOGRAPHY.TEXT[4]}
