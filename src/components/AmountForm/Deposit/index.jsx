@@ -76,7 +76,7 @@ class AmountDepositForm extends Component {
                             />
                         </Col>
                         <Col md={2}>
-                            <img src={dollar} styleName='dollar-image'/>
+                            <img src={dollar} styleName='dollar-image' alt="Dollar" />
                         </Col>
                     </Row>
                     <div styleName='text-info-deposit'>
