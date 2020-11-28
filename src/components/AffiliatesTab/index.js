@@ -108,8 +108,8 @@ class AffiliatesTab extends React.Component{
                         </div>
                     </Col>
                     <Col md={12} lg={12} xl={8}>
-                        <DataContainer title={copy.INDEX.DATA_CONTAINER.TITLE[1]} message={userAmount} image={affiliateReferralIcon === null ? <AffiliateIcon /> : <img src={affiliateReferralIcon} />} />
-                        <DataContainer title={copy.INDEX.DATA_CONTAINER.TITLE[0]} message={`${wallet.playBalance} ${wallet.currency.ticker}`} image={depositsIcon === null ? <DepositsIcon /> : <img src={depositsIcon} />} />
+                        <DataContainer title={copy.INDEX.DATA_CONTAINER.TITLE[1]} message={userAmount} image={affiliateReferralIcon === null ? <AffiliateIcon /> : <img src={affiliateReferralIcon} alt="Affiliate Referral Icon" />} />
+                        <DataContainer title={copy.INDEX.DATA_CONTAINER.TITLE[0]} message={`${wallet.playBalance} ${wallet.currency.ticker}`} image={depositsIcon === null ? <DepositsIcon /> : <img src={depositsIcon} alt="Deposits Icon" />} />
                         {
                         getApp().virtual !== true 
                         ?
