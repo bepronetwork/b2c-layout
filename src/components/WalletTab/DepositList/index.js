@@ -63,7 +63,7 @@ class DepositList extends Component {
         if(!currenncy) return null;
 
         return (
-            <img src={currenncy.image} width={16} height={16}/>
+            <img src={currenncy.image} width={16} height={16} alt="Currency Icon" />
         )
     }
 

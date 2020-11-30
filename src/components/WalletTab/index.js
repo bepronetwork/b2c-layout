@@ -167,7 +167,7 @@ resultFilter = (firstArray, secondArray) => {
                   tab === "deposit" ?
                       <div styleName="email-title">
                           <span styleName="icon">
-                              {emailIcon === null ? <EmailIcon/> : <img src={emailIcon} />}
+                              {emailIcon === null ? <EmailIcon/> : <img src={emailIcon} alt="Email Icon" />}
                           </span>
                           <Typography variant={'small-body'} color={'grey'} weight={"bold"}>
                               {copyConfirmEmail.CONTAINERS.APP.MODAL[2]}
@@ -346,7 +346,7 @@ resultFilter = (firstArray, secondArray) => {
                     <Row>
                       <Col xs={4} md={4}>
                         <div styleName='container-image'>
-                            <img src={CreditCard} styleName='payment-image'/>
+                            <img src={CreditCard} styleName='payment-image' alt="Payment" />
                         </div>
                       </Col>
                       <Col xs={8} md={8}>
