@@ -95,7 +95,7 @@ class WithdrawTable extends Component {
         return {
           value: new String(key).toLowerCase(),
           label: copy.TABLE[key].TITLE,
-          icon: withdrawIcon === null ? <WithdrawIcon /> : <img src={withdrawIcon} />
+          icon: withdrawIcon === null ? <WithdrawIcon /> : <img src={withdrawIcon} alt="Withdraw Icon" />
         };
       }),
       withdraws: {

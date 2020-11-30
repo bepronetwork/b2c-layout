@@ -161,7 +161,7 @@ class Form extends Component {
         if(!isLoaded){
             return (
                 <div>
-                    <img src={process.env.PUBLIC_URL + "/loading.gif"} styleName='loading-gif'/>
+                    <img src={process.env.PUBLIC_URL + "/loading.gif"} styleName='loading-gif' alt="Loading" />
                 </div>
             )
         }
@@ -197,13 +197,13 @@ class Form extends Component {
                                             <Typography variant={'x-small-body'} color={'white'}>
                                                 {`${formatCurrency(incrementBetAmountForBonus)}`}
                                             </Typography>
-                                            <img src={image} />
+                                            <img src={image} alt="Percentage" />
                                         </div>
                                         <div styleName="pb-right">
                                             <Typography variant={'x-small-body'} color={'white'}>
                                                 {`${formatCurrency(minBetAmountForBonusUnlocked)}`}
                                             </Typography>
-                                            <img src={image} />
+                                            <img src={image} alt="Percentage" />
                                         </div>
                                     </div>
                                 </div>
@@ -257,7 +257,7 @@ class Form extends Component {
                             <button onClick={this.askForWithdraw} styleName='withdraw' disabled={bonusAmount > 0 || disabled || isAsking}>
                             {isAsking 
                                 ?
-                                    <img src={loadingIco} />
+                                    <img src={loadingIco} alt="Loading Icon" />
                                 :
                                     <Typography variant={'small-body'} color={'fixedwhite'}>
                                         {affiliatesCopy.INDEX.TYPOGRAPHY.TEXT[0]}
@@ -315,7 +315,7 @@ class Form extends Component {
                     </div>
                     :
                     <div styleName="building">
-                        <img src={process.env.PUBLIC_URL + "/logo.png"} styleName="building-img"/>
+                        <img src={process.env.PUBLIC_URL + "/logo.png"} styleName="building-img" alt="Building" />
                         <div styleName="building-info">
                             <Typography variant={'small-body'} color={`white`}>
                                 {copy.INDEX.TYPOGRAPHY.TEXT[0]}
