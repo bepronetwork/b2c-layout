@@ -81,9 +81,9 @@ class SelectBox extends React.Component{
                 </span>
                 {open
                 ? 
-                    arrowUpIcon === null ? skin == "digital" ? <ArrowUpIcon /> : <ArrowUp /> : <img src={arrowUpIcon} /> 
+                    arrowUpIcon === null ? skin == "digital" ? <ArrowUpIcon /> : <ArrowUp /> : <img src={arrowUpIcon} alt="Arrow Up Icon" /> 
                 :
-                    arrowDownIcon === null ? skin == "digital" ? <ArrowDownIcon /> : <ArrowDown /> : <img src={arrowDownIcon} /> 
+                    arrowDownIcon === null ? skin == "digital" ? <ArrowDownIcon /> : <ArrowDown /> : <img src={arrowDownIcon} alt="Arrow Down Icon" /> 
                 }
             </div>
         );
