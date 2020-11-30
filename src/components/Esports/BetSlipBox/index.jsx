@@ -71,7 +71,7 @@ class BetSlipBox extends Component {
             <div styleName={marketActive ? "box" : "box with-border"}>
                 <div styleName="bet-header">
                     <div styleName="game-section">
-                        <img src={bet.image}/>
+                        <img src={bet.image} alt="Bet" />
                     </div>
                     <div>
                         <Typography variant={'x-small-body'} color={'grey'}>
