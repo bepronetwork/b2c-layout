@@ -35,7 +35,7 @@ class LoadingBanner extends React.Component{
 
             <div styleName='back-loading-banner'>
                 <div styleName="loading">
-                    <img src={logo.id} styleName={'image-loading'}/>
+                    <img src={logo.id} styleName={'image-loading'} alt="Placeholder" />
                 </div>
             </div>
         )
