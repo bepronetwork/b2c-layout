@@ -73,7 +73,7 @@ class TabedContainer extends React.Component{
                                             !_.isEmpty(logoPoints)
                                             ?
                                                 <div styleName="currency-icon">
-                                                    <img src={logoPoints} width={20}/>
+                                                    <img src={logoPoints} width={20} alt="Points" />
                                                 </div>
                                             :
                                                 null
