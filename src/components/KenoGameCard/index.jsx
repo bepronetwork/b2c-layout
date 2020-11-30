@@ -383,7 +383,7 @@ class KenoGameCard extends Component {
                                     <Typography variant={'x-small-body'} color={`white`}>
                                         {chanceProfit}
                                     </Typography>
-                                    <img src={currency.image} width={14} height={14}/>
+                                    <img src={currency.image} width={14} height={14} alt="Currency Icon" />
                                 </div>
                             </div>
                             <div>
@@ -460,7 +460,7 @@ class KenoGameCard extends Component {
                                     <Typography variant={'small-body'} color={'white'} weight={"bold"}>
                                         {formatCurrency(winAmount)}
                                     </Typography> 
-                                    <img src={currency.image} width={16} height={16}/>
+                                    <img src={currency.image} width={16} height={16} alt="Currency Icon" />
                                 </div>
                             </div>
                         </div>
