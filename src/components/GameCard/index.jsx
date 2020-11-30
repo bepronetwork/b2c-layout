@@ -33,7 +33,7 @@ class GameCard extends Component {
 
         return (
         <div styleName="image-container">
-            <img alt="menu" src={image} alt="Game" />
+            <img alt="menu" src={image} />
         </div>
         );
     };
