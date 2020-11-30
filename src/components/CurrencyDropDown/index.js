@@ -83,7 +83,7 @@ class CurrencyDropDown extends React.Component {
                     {currencies.map(option => (
                         <MenuItem key={option._id} value={option._id}>
                             <div styleName={'currency-box-top'}>
-                                <img src={option.walletImage ? option.walletImage : option.image} styleName='image-coin'/> 
+                                <img src={option.walletImage ? option.walletImage : option.image} styleName='image-coin' alt="Coin" /> 
                                 <p styleName='option-text'>  
                                     <AnimationNumber variant={'small-body'} decimals={6} number={formatCurrency(option.balance)} isCurrency={true}/>
                                 </p>

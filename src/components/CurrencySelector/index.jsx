@@ -135,32 +135,32 @@ class CurrencySelector extends Component {
                 <SecondaryTooltip title={`Bonus: ${formatCurrency(w.bonusAmount)}`}>
                     <div styleName="label">
                         <div styleName="currency-icon">
-                            <img src={icon} width={20}/>
+                            <img src={icon} width={20} alt="Currency Icon" />
                         </div>
                         <span>
                             <Typography color="white" variant={'small-body'}>{formatCurrency(w.bonusAmount)}</Typography>
                         </span>                    
                         {open 
                         ? 
-                            arrowUpIcon === null ? skin == "digital" ? <ArrowUpIcon /> : <ArrowUp /> : <img src={arrowUpIcon} /> 
+                            arrowUpIcon === null ? skin == "digital" ? <ArrowUpIcon /> : <ArrowUp /> : <img src={arrowUpIcon} alt="Arrow Up Icon" /> 
                         : 
-                            arrowDownIcon === null ?skin == "digital" ? <ArrowDownIcon /> : <ArrowDown /> : <img src={arrowDownIcon} /> 
+                            arrowDownIcon === null ?skin == "digital" ? <ArrowDownIcon /> : <ArrowDown /> : <img src={arrowDownIcon} alt="Arrow Down Icon" /> 
                         }
                     </div>
                 </SecondaryTooltip>
             :
                 <div styleName="label">
                     <div styleName="currency-icon">
-                        <img src={icon} width={20}/>
+                        <img src={icon} width={20} alt="Currency Icon" />
                     </div>
                     <span>
                         <Typography color="white" variant={'small-body'}>{formatCurrency(w.playBalance)}</Typography>
                     </span>                    
                     {open 
                     ? 
-                        arrowUpIcon === null ? skin == "digital" ? <ArrowUpIcon /> : <ArrowUp /> : <img src={arrowUpIcon} /> 
+                        arrowUpIcon === null ? skin == "digital" ? <ArrowUpIcon /> : <ArrowUp /> : <img src={arrowUpIcon} alt="Arrow Up Icon" /> 
                     : 
-                        arrowDownIcon === null ?skin == "digital" ? <ArrowDownIcon /> : <ArrowDown /> : <img src={arrowDownIcon} /> 
+                        arrowDownIcon === null ?skin == "digital" ? <ArrowDownIcon /> : <ArrowDown /> : <img src={arrowDownIcon} alt="Arrow Down Icon" /> 
                     }
                 </div>
         );
@@ -176,7 +176,7 @@ class CurrencySelector extends Component {
             type="button"
         >
             <div styleName="currency-icon">
-                <img src={icon} width={20}/>
+                <img src={icon} width={20} alt="Currency Icon" />
             </div>
             <Typography variant="small-body" color="white">{label}</Typography>
         </button>

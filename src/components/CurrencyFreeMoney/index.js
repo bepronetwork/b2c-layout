@@ -23,7 +23,7 @@ class CurrencyFreeMoney extends Component {
         <div styleName="container-button-timer">
           <div styleName="row-container">
             <div styleName="container-image">
-              <img src={Timer} styleName="payment-image" alt="" />
+              <img src={Timer} styleName="payment-image" alt="Payment" />
             </div>
             { minutes === 0 && seconds === 0
               ?
