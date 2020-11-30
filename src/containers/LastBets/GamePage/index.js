@@ -191,13 +191,13 @@ class LastBets extends Component {
                 const value = new String(key).toLowerCase();
 
                 if(value === "all_bets"){
-                    icon = latestWinsIcon === null ? <RewardIcon /> : <img src={latestWinsIcon} />;
+                    icon = latestWinsIcon === null ? <RewardIcon /> : <img src={latestWinsIcon} alt="Reward Icon" />;
                 }
                 else if(value === "my_bets"){
-                    icon = latestBetsIcon === null ? <CheckIcon /> : <img src={latestBetsIcon} />;
+                    icon = latestBetsIcon === null ? <CheckIcon /> : <img src={latestBetsIcon} alt="Check Icon" />;
                 }
                 else if(value === "biggest_win_bets"){
-                    icon = biggestWinsIcon === null ? <TrophyIcon /> : <img src={biggestWinsIcon} />;
+                    icon = biggestWinsIcon === null ? <TrophyIcon /> : <img src={biggestWinsIcon} alt="Trophy Icon" />;
                 }
 
                 return {
