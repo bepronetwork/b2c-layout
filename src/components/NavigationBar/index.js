@@ -45,7 +45,7 @@ class NavigationBar extends Component {
                         icon
                         ?
                             <div styleName='img'>
-                                <img src={icon} width="22" height="22"/>
+                                <img src={icon} width="22" height="22" alt="Navigation Bar Item Icon" />
                             </div>
                         
                         :
@@ -66,7 +66,7 @@ class NavigationBar extends Component {
                         icon
                         ?
                             <div styleName='img'>
-                                <img src={icon} width="22" height="22"/>
+                                <img src={icon} width="22" height="22" alt="Navigation Bar Step Icon" />
                             </div>
                         
                         :

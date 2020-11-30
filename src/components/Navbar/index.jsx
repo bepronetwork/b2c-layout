@@ -202,7 +202,7 @@ class Navbar extends Component {
                                         !_.isEmpty(logoPoints)
                                         ?
                                             <div styleName="currency-icon">
-                                                <img src={logoPoints} height={20}/>
+                                                <img src={logoPoints} height={20} alt="Currency Icon" />
                                             </div>
                                         :
                                             null
@@ -238,7 +238,7 @@ class Navbar extends Component {
             <button styleName="profile" onClick={() => onAccount({history})} type="button">
                 <div styleName="label">
                     <div styleName="user-icon">
-                        { userIcon === null ? <UserIcon/> :  <img src={userIcon} /> }
+                        { userIcon === null ? <UserIcon/> :  <img src={userIcon} alt="User Icon" /> }
                     </div>
                     <span>
                         <Typography color="white" variant={'small-body'}>{profile.getUsername()}</Typography>
@@ -253,7 +253,7 @@ class Navbar extends Component {
         return(
             <button styleName="settings" onClick={() => onSettingsMenu()} type="button">
                 <div styleName="settings-icon">
-                    <img src={getAppCustomization().theme === "light" ? nineDotsLight : nineDots} />
+                    <img src={getAppCustomization().theme === "light" ? nineDotsLight : nineDots} alt="Settings Icon" />
                 </div>
             </button>
         )
