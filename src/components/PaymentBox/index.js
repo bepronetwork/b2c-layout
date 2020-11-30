@@ -344,7 +344,7 @@ class PaymentBox extends React.Component{
                 <Row>
                     <Col xs={4} md={4}>
                         <div styleName='container-image'>
-                            <img src={walletImage} styleName='payment-image'/>
+                            <img src={walletImage} styleName='payment-image' alt="Payment" />
                         </div>
                     </Col>
                     <Col xs={8} md={8}>
