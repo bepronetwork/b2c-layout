@@ -251,7 +251,7 @@ class DepositForm extends Component {
         if(!isLoaded){
             return (
                 <div>
-                    <img src={process.env.PUBLIC_URL + "/loading.gif"} styleName='loading-gif'/>
+                    <img src={process.env.PUBLIC_URL + "/loading.gif"} styleName='loading-gif' alt="Loading" />
                 </div>
             )
         }
@@ -300,7 +300,7 @@ class DepositForm extends Component {
                                                 skin.skin_type == "digital"
                                                 ?
                                                     <div styleName="icon">
-                                                        {copyIcon === null ? <CopyIcon /> : <img src={copyIcon} />}
+                                                        {copyIcon === null ? <CopyIcon /> : <img src={copyIcon} alt="Copy Icon" />}
                                                     </div>
                                                 :
                                                     null
@@ -365,7 +365,7 @@ class DepositForm extends Component {
                     </div>
                 :
                     <div styleName="building">
-                        <img src={process.env.PUBLIC_URL + "/logo.png"} styleName="building-img"/>
+                        <img src={process.env.PUBLIC_URL + "/logo.png"} styleName="building-img" alt="Building" />
                         <div styleName="building-info">
                             <Typography variant={'small-body'} color={`white`}>
                                 {copy.INDEX.TYPOGRAPHY.TEXT[2]}
