@@ -29,14 +29,14 @@ class MobileMenu extends Component {
             blankBool: false,
             points: 0,
             itens : [
-                { path: "/settings/account",        copyValue: 6,                                       icon: userIcon === null ? <UserIcon /> : <img src={userIcon} /> },
-                { path: "/settings/security",       copyValue: 7,                                       icon: securityIcon === null ? <ConfirmedIcon /> : <img src={securityIcon} /> },
-                { path: "/settings/bets",           copyValue: 5,                                       icon: betsIcon === null ? <BetsIcon /> : <img src={betsIcon} /> },
-                { path: "/settings/wallet",         copyValue: 8,                                       icon: walletIcon === null ? <WalletIcon /> : <img src={walletIcon} /> },
-                { path: "/settings/deposits",       copyValue: getApp().virtual === true ? 4 : 1,       icon: depositsIcon === null ? <DepositsIcon /> : <img src={depositsIcon} /> },
-                { path: "/settings/withdraws",      copyValue: 2,                                       icon: withdrawIcon === null ? <WithdrawIcon /> : <img src={withdrawIcon} /> },
-                { path: "/settings/affiliate",      copyValue: 3,                                       icon: affiliatesIcon === null ? <UsersIcon /> : <img src={affiliatesIcon} /> },
-                { path: "/settings/preferences",    copyValue: 9,                                       icon: preferencesIcon === null ? <SettingsIcon /> : <img src={preferencesIcon} /> },
+                { path: "/settings/account",        copyValue: 6,                                       icon: userIcon === null ? <UserIcon /> : <img src={userIcon} alt="User Icon" /> },
+                { path: "/settings/security",       copyValue: 7,                                       icon: securityIcon === null ? <ConfirmedIcon /> : <img src={securityIcon} alt="Confirmed Icon" /> },
+                { path: "/settings/bets",           copyValue: 5,                                       icon: betsIcon === null ? <BetsIcon /> : <img src={betsIcon} alt="Bets Icon" /> },
+                { path: "/settings/wallet",         copyValue: 8,                                       icon: walletIcon === null ? <WalletIcon /> : <img src={walletIcon} alt="Wallet Icon" /> },
+                { path: "/settings/deposits",       copyValue: getApp().virtual === true ? 4 : 1,       icon: depositsIcon === null ? <DepositsIcon /> : <img src={depositsIcon} alt="Deposits Icon" /> },
+                { path: "/settings/withdraws",      copyValue: 2,                                       icon: withdrawIcon === null ? <WithdrawIcon /> : <img src={withdrawIcon} alt="Withdraw Icon" /> },
+                { path: "/settings/affiliate",      copyValue: 3,                                       icon: affiliatesIcon === null ? <UsersIcon /> : <img src={affiliatesIcon} alt="Users Icon" /> },
+                { path: "/settings/preferences",    copyValue: 9,                                       icon: preferencesIcon === null ? <SettingsIcon /> : <img src={preferencesIcon} alt="Settings Icon" /> },
             ],
             tabs: []
         }
@@ -131,7 +131,7 @@ class MobileMenu extends Component {
                                     {t.icon
                                     ?
                                         <div styleName='img'>
-                                            <img src={t.icon} width="22" height="22"/>
+                                            <img src={t.icon} width="22" height="22" alt="Tab's Icon" />
                                         </div>
                                     
                                     :
@@ -152,7 +152,7 @@ class MobileMenu extends Component {
                                     !_.isEmpty(logoPoints)
                                     ?
                                         <div styleName="currency-icon">
-                                            <img src={logoPoints} width={20}/>
+                                            <img src={logoPoints} width={20} alt="Currency Icon" />
                                         </div>
                                     :
                                         null
