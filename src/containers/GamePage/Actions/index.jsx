@@ -54,7 +54,7 @@ class Actions extends Component {
                 tab === "rules" ? 
                     <div styleName="rule">
                         <h1 styleName="rule-h1">
-                            <img styleName="image-icon" src={game.image_url}/> 
+                            <img styleName="image-icon" src={game.image_url} alt="Game" /> 
                             <Typography variant='x-small-body' color={"grey"}> {game.name} </Typography>
                         </h1>
                         <div styleName="content">
