@@ -33,7 +33,7 @@ export default class Info extends Component {
             null
         }
         <span styleName="info" onClick={() => this.onInfoClick()}>
-            { infoIcon === null ? <InfoIcon /> : <img src={infoIcon} /> }
+            { infoIcon === null ? <InfoIcon /> : <img src={infoIcon} alt="Info Icon" /> }
         </span>
       </div>
     );
