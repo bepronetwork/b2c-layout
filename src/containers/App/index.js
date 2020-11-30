@@ -504,7 +504,7 @@ console.log(form, 'form')
         return registerLoginModalOpen ? (
             <Modal onClose={this.handleRegisterLoginModalClose}>
                 <div styleName="modal modal-login">
-                    <img src={logo.id} styleName="tkn_logo_login"/>
+                    <img src={logo.id} styleName="tkn_logo_login" alt="Application Logo" />
                     <div styleName="tabs">
                         <Tabs
                         selected={registerLoginModalOpen}
@@ -1015,7 +1015,7 @@ console.log(form, 'form')
                                     ?
                                         <div styleName="chat-crisp-expand chat-crisp-expand-mobile" onClick={this.openCripsrChatClick}>
                                             <div>
-                                                { liveChatIcon === null ? <LiveChatIcon /> : <img src={liveChatIcon} /> }
+                                                { liveChatIcon === null ? <LiveChatIcon /> : <img src={liveChatIcon} alt="Live Chat Icon" /> }
                                             </div>
                                         </div> 
                                     :
@@ -1027,7 +1027,7 @@ console.log(form, 'form')
                                         ?
                                             <div styleName="chat-crisp-expand" onClick={this.openCripsrChatClick}>
                                                 <div>
-                                                    { liveChatIcon === null ? <LiveChatIcon /> : <img src={liveChatIcon} /> }
+                                                    { liveChatIcon === null ? <LiveChatIcon /> : <img src={liveChatIcon} alt="Live Chat Icon" /> }
                                                 </div>
                                             </div> 
                                         :
@@ -1035,7 +1035,7 @@ console.log(form, 'form')
                                     }
                                     <div styleName="chat-expand" onClick={this.expandChatClick}>
                                         <div>
-                                            { chatIcon === null ? <ChatIcon /> : <img src={chatIcon} /> }
+                                            { chatIcon === null ? <ChatIcon /> : <img src={chatIcon} alt="Chat Icon" /> }
                                         </div>
                                     </div> 
                                     <div styleName={'chat-container'}>
