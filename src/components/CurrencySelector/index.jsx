@@ -61,7 +61,7 @@ class CurrencySelector extends Component {
                 const wApp = getApp().wallet.find(w => w.currency._id === c._id);
                 return {
                     ...c,
-                    balanceWithBonus : _.isEmpty(w) ? 0 : w.playBalance,
+                    balance : _.isEmpty(w) ? 0 : w.playBalance,
                     image : _.isEmpty(wApp.image) ? c.image : wApp.image
                 }
             }
