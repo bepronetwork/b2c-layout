@@ -138,7 +138,7 @@ class CurrencySelector extends Component {
                             <img src={icon} width={20}/>
                         </div>
                         <span>
-                            <Typography color="white" variant={'small-body'}>{formatCurrency(w.bonusAmount)}</Typography>
+                            <Typography color="white" variant={'small-body'}>{formatCurrency(w.playBalance)}</Typography>
                         </span>                    
                         {open 
                         ? 
