@@ -96,8 +96,6 @@ const boardCellsNumbers = {
 function getBetOnEachNumber(betHistory) {
     const totalBetOnEachCell = {};
 
-    /* eslint-disable no-unused-expressions  */
-
     forEach(betHistory, ({ cell, chip }) => {
         totalBetOnEachCell[cell]
         ? (totalBetOnEachCell[cell] += chip)
@@ -133,8 +131,6 @@ function getBetOnEachNumber(betHistory) {
         }
     }, []).filter( el => el != null);
 
-    
-    /* eslint-enable no-unused-expressions */
     return distributedBetOnEachNumber;
 }
 

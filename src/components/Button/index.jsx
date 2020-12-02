@@ -90,7 +90,6 @@ export default class Button extends Component {
       fullwidth: fullWidth
     });
     return (
-        // eslint-disable-next-line react/button-has-type
         <button
             style={this.props.style}
             styleName={rootStyles}

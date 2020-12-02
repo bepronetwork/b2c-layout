@@ -1,5 +1,3 @@
-/* eslint-disable no-console */
-
 const CACHE = "betprotocol-casino";
 const offlineFallbackPage = "offline.html";
 const { self, caches, Request, fetch } = global;
@@ -52,5 +50,3 @@ self.addEventListener("refreshOffline", () => {
     });
   });
 });
-
-/* eslint-enable no-console */

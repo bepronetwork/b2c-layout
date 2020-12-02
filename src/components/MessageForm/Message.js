@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-// eslint-disable-next-line import/no-cycle
 import PropTypes from "prop-types";
 import { Typography, Button, Modal } from "components";
 import UserContext from "containers/App/UserContext";

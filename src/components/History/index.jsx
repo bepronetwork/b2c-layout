@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-// eslint-disable-next-line import/no-cycle
 import { Typography } from "components";
 import PropTypes from "prop-types";
 import { map, take, reverse, isEqual, cloneDeep, isNull } from "lodash";
@@ -11,7 +10,6 @@ const betWidth = "52px";
 
 export default class History extends Component {
   static propTypes = {
-    // eslint-disable-next-line react/no-unused-prop-types
     game: PropTypes.oneOf([
       "diceHistory",
       "rouletteHistory",

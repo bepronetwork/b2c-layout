@@ -6,7 +6,7 @@ export default function routeChange(callback) {
     })
     // Observe manual navigation
     const methods = ['push', 'replace']
-    methods.map(type => { // eslint-disable-line
+    methods.map(type => {
       const state = `${type}State`;
       const historyState = history[state];
       history[state] = function() {

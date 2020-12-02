@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-// eslint-disable-next-line import/no-cycle
 import PropTypes from "prop-types";
 import { Typography } from "components";
 import AlertCircleIcon from 'mdi-react/AlertCircleIcon';

@@ -24,7 +24,7 @@ function InfiniteCarouselDots({ carouselName, numberOfDots, activePage, onClick 
       >
         <i styleName={classNameIcon} />
       </button>
-    ); // eslint-disable-line react/jsx-closing-tag-location
+    )
   }
 
   return (

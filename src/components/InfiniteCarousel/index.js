@@ -119,7 +119,7 @@ class InfiniteCarousel extends Component {
             ...scrollOnDeviceProps,
           };
           const children = this.getChildrenList(propChildren, newSettings.slidesToShow);
-          const slideUniqueIds = children.map(child => uniqid('slide-')); // eslint-disable-line  no-unused-vars
+          const slideUniqueIds = children.map(child => uniqid('slide-'));
           this.setState(
             {
               settings: newSettings,
@@ -145,7 +145,7 @@ class InfiniteCarousel extends Component {
           ...scrollOnDeviceProps,
         };
         const children = this.getChildrenList(propChildren, newSettings.slidesToShow);
-        const slideUniqueIds = children.map(child => uniqid('slide-')); // eslint-disable-line  no-unused-vars
+        const slideUniqueIds = children.map(child => uniqid('slide-'));
         this.setState(
           {
             settings: newSettings,
@@ -198,7 +198,7 @@ class InfiniteCarousel extends Component {
     let visibleSlideList;
     if (singlePage || scrollOnDevice) {
       // jshint unused:true
-      lazyLoadedList = children.map((_child, index) => index); // eslint-disable-line no-unused-vars
+      lazyLoadedList = children.map((_child, index) => index);
       visibleSlideList = [].concat(lazyLoadedList);
     } else {
       lazyLoadedList = this.getLazyLoadedIndexes(propChildren, currentIndex);
@@ -828,7 +828,7 @@ class InfiniteCarousel extends Component {
       const settings = this.getSettingsForScrollOnDevice();
       const { slidesToShow } = settings;
       const newChildren = this.getChildrenList(children, slidesToShow);
-      const slideUniqueIds = newChildren.map(child => uniqid('slide-')); // eslint-disable-line  no-unused-vars
+      const slideUniqueIds = newChildren.map(child => uniqid('slide-'));
       this.setState(
         {
           children: newChildren,
@@ -962,29 +962,29 @@ class InfiniteCarousel extends Component {
 InfiniteCarousel.propTypes = {
   children: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.node), PropTypes.node]),
   name: PropTypes.string,
-  arrows: PropTypes.bool, // eslint-disable-line react/no-unused-prop-types
-  dots: PropTypes.bool, // eslint-disable-line react/no-unused-prop-types
-  paging: PropTypes.bool, // eslint-disable-line react/no-unused-prop-types
+  arrows: PropTypes.bool,
+  dots: PropTypes.bool,
+  paging: PropTypes.bool,
   pagingSeparator: PropTypes.string,
-  lazyLoad: PropTypes.bool, // eslint-disable-line react/no-unused-prop-types
-  swipe: PropTypes.bool, // eslint-disable-line react/no-unused-prop-types
-  draggable: PropTypes.bool, // eslint-disable-line react/no-unused-prop-types
-  animationDuration: PropTypes.number, // eslint-disable-line react/no-unused-prop-types
-  slidesToShow: PropTypes.number, // eslint-disable-line react/no-unused-prop-types
-  slidesToScroll: PropTypes.number, // eslint-disable-line react/no-unused-prop-types
-  slidesSpacing: PropTypes.number, // eslint-disable-line react/no-unused-prop-types
-  autoCycle: PropTypes.bool, // eslint-disable-line react/no-unused-prop-types
-  cycleInterval: PropTypes.number, // eslint-disable-line react/no-unused-prop-types
-  pauseOnHover: PropTypes.bool, // eslint-disable-line react/no-unused-prop-types
+  lazyLoad: PropTypes.bool,
+  swipe: PropTypes.bool,
+  draggable: PropTypes.bool,
+  animationDuration: PropTypes.number,
+  slidesToShow: PropTypes.number,
+  slidesToScroll: PropTypes.number,
+  slidesSpacing: PropTypes.number,
+  autoCycle: PropTypes.bool,
+  cycleInterval: PropTypes.number,
+  pauseOnHover: PropTypes.bool,
   breakpoints: PropTypes.arrayOf(PropTypes.object),
-  placeholderImageSrc: PropTypes.string, // eslint-disable-line react/no-unused-prop-types
-  nextArrow: PropTypes.element, // eslint-disable-line react/no-unused-prop-types
-  prevArrow: PropTypes.element, // eslint-disable-line react/no-unused-prop-types
+  placeholderImageSrc: PropTypes.string,
+  nextArrow: PropTypes.element,
+  prevArrow: PropTypes.element,
   scrollOnDevice: PropTypes.bool,
   showSides: PropTypes.bool,
-  sidesOpacity: PropTypes.number, // eslint-disable-line react/no-unused-prop-types
-  sideSize: PropTypes.number, // eslint-disable-line react/no-unused-prop-types
-  incrementalSides: PropTypes.bool, // eslint-disable-line react/no-unused-prop-types,
+  sidesOpacity: PropTypes.number,
+  sideSize: PropTypes.number,
+  incrementalSides: PropTypes.bool,
   onSlideChange: PropTypes.func,
   onNextClick: PropTypes.func,
   onPreviousClick: PropTypes.func,

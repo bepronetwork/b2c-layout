@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-// eslint-disable-next-line import/no-cycle
 import "./index.css";
 import { connect } from "react-redux";
 import { compose } from 'lodash/fp';
