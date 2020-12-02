@@ -56,7 +56,7 @@
                            degree of financial risk. Players should be aware of these risks and 
                            govern themselves accordingly.` }
           ],
-          "TEXT2": [(website)=> { return `All ${website} products are operated by Ignisvc B.V. registered address, Heelsumstraat 51, Willemstad, Curacao. A company licensed and 
+          "TEXT2": [(website)=> { return `All ${website} products are operated by Ignisvc B.V. registered address, Landhuis Groot Kwartier Groot Kwartierweg 12, Curacao. A company licensed and 
             regulated by the law of Curacao under the Master License Holder Curacao eGaming with license number 1668/JAZ.` }],
           SUPPORT: 'Support',
           COMMUNITY: 'Community',
@@ -166,7 +166,7 @@
             (param)=> { return `인터넷 복권, 도박 또는 도박장이 불법인 지역에 거주하는 경우, 이 사이트내에서 위와 관련된 그 어떤 것도 클릭하지 마십시오. 소재지에서 위의 사항들이 합법적인 경우에도 도박 관련 항목을 클릭하려면  사용자의 나이가 21세 이상이어야 합니다. 
                            자신이 속한 관할권 또는 지역 내에 존재하는 온라인 게임과 관련된 법률 및 규정의 합법성 여부를 반드시 확인하시는 것이 좋습니다. ${param}이 제공하는 게임은 공정성 및 투명성을 바탕으로한 블록체인을 기반으로 합니다. 게임을 즐기실 때에는 온라인 도박과 복권 등이 엔터테인먼트 수단이며, 경제적 손실을 가져 올 수 있다는 것을 반드시 염두해 두시길 바랍니다. 사용자는 이러한 위험을 알고, 그에 따라 스스로의 선택에 책임이 따른다는 사실을 숙지 해 주시기 바랍니다.` }
           ],
-          "TEXT2": [(website)=> { return `All ${website} products are operated by Ignisvc B.V. registered address, Heelsumstraat 51, Willemstad, Curacao. A company licensed and 
+          "TEXT2": [(website)=> { return `All ${website} products are operated by Ignisvc B.V. registered address, Landhuis Groot Kwartier Groot Kwartierweg 12, Curacao. A company licensed and 
             regulated by the law of Curacao under the Master License Holder Curacao eGaming with license number 1668/JAZ.` }],
           SUPPORT: '서포트',
           COMMUNITY: '커뮤니티',
@@ -278,7 +278,7 @@
                            认识到涉及在线游戏的法律法规各地都有所不同，建议玩家务必遵守法律在他们自己的管辖权或地区内存在的以确定所涵盖活动的合法性。 提供的游戏${param}基于区块链，公平和透明。 你几时开始在玩这些游戏时，请注意，在线赌博和彩票是一种娱乐工具，它带有一定的
                            金融风险程度。 玩家应该意识到这些风险，相应地管理自己。` }
           ],
-          "TEXT2": [(website)=> { return `All ${website} products are operated by Ignisvc B.V. registered address, Heelsumstraat 51, Willemstad, Curacao. A company licensed and 
+          "TEXT2": [(website)=> { return `All ${website} products are operated by Ignisvc B.V. registered address, Landhuis Groot Kwartier Groot Kwartierweg 12, Curacao. A company licensed and 
             regulated by the law of Curacao under the Master License Holder Curacao eGaming with license number 1668/JAZ.` }],
           SUPPORT: '支持',
           COMMUNITY: '社群',
@@ -398,7 +398,7 @@
               degree of financial risk. Players should be aware of these risks and 
               govern themselves accordingly.` }
           ],
-          "TEXT2": [(website)=> { return `All ${website} products are operated by Ignisvc B.V. registered address, Heelsumstraat 51, Willemstad, Curacao. A company licensed and 
+          "TEXT2": [(website)=> { return `All ${website} products are operated by Ignisvc B.V. registered address, Landhuis Groot Kwartier Groot Kwartierweg 12, Curacao. A company licensed and 
             regulated by the law of Curacao under the Master License Holder Curacao eGaming with license number 1668/JAZ.` }],
           SUPPORT: 'Support',
           COMMUNITY: 'Community',
@@ -515,7 +515,7 @@
              внесенных на его аккаунт.` }
           ],
           "TEXT2": [(website)=> { return `Все продукты ${website} управляются компанией Ignisvc B.V.,
-           зарегистрированной по адресу Heelsumstraat 51, Willemstad, Curacao.
+           зарегистрированной по адресу Landhuis Groot Kwartier Groot Kwartierweg 12, Curacao.
           Лицензирование и надзор за деятельностью осуществляет Master License Holder Curacao eGaming (лицензия 1668/JAZ).` }],
           SUPPORT: 'Служба поддержки',
           COMMUNITY: 'Сообщество',
