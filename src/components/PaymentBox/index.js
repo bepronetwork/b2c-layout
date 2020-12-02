@@ -24,9 +24,7 @@ class PaymentBox extends React.Component{
             seconds: 0,
             amount: 0,
             secondsToCanvas: 0,
-            isCanvasRenderer: false,
-            balance: 0,
-            bonusPlusBalance: 0
+            isCanvasRenderer: false
         }
     }
 
@@ -67,16 +65,7 @@ class PaymentBox extends React.Component{
         const { isCanvasRenderer } = this.state;
         const virtual = getApp().virtual;
 
-        const { bonusAmount } = wallet;
-        const hadBalance = wallet.playBalance > 0 ? wallet.playBalance : 0;
-        const balance = _.isEmpty(wallet) ? 0 : hadBalance;
-        const hadBonus =
-          wallet.bonusAmount > 0
-            ? Number(wallet.bonusAmount) + Number(balance)
-            : balance;
-        const bonusPlusBalance = _.isEmpty(wallet) ? 0 : hadBonus;
-
-        this.setState({ isCanvasRenderer: false, balance, bonusPlusBalance, bonusAmount });
+        this.setState({ isCanvasRenderer: false });
 
         if (virtual === true) {
             const virtualCurrency = getApp().currencies.find(c => c.virtual === true);
@@ -331,11 +320,12 @@ class PaymentBox extends React.Component{
 
     render(){
         let { isPicked, wallet } = this.props;
-        const { price, virtualTicker, walletImage, disabledFreeButton, balance, bonusAmount } = this.state;
+        const { price, virtualTicker, walletImage, disabledFreeButton } = this.state;
         const styles = classNames("container-root", {
             selected: isPicked
         });
-    
+        const { bonusAmount } = wallet;
+        const hasBonus = !Number.isNaN(bonusAmount) && Number(bonusAmount) > 0;
         const walletValid = this.funcVerification();
         
         return (
@@ -354,10 +344,10 @@ class PaymentBox extends React.Component{
                             </Typography>
                             <div styleName='text-description'>
                                 <Typography variant={'x-small-body'} color={'white'}>
-                                    {`${formatCurrency(balance)} ${wallet.currency.ticker}`}
+                                    {`${formatCurrency(wallet.playBalance)} ${wallet.currency.ticker}`}
                                 </Typography>
                             </div>
-                            { typeof bonusAmount !== 'undefined' && bonusAmount > 0 &&
+                            {hasBonus &&
                                 <div styleName='text-description'>
                                     <Typography variant={'x-small-body'} color={'white'}>
                                         Bonus: {formatCurrency(bonusAmount)}
