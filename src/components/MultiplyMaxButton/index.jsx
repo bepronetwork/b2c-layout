@@ -6,48 +6,43 @@ import { connect } from "react-redux";
 import { getAppCustomization } from "../../lib/helpers";
 import "./index.css";
 import gameOperations from "../../utils/gameOperations";
-import _ from "lodash";
+import { isEmpty } from "lodash";
+
+const propTypes = {
+  onResult: PropTypes.func.isRequired,
+  onBetAmount: PropTypes.func.isRequired,
+  amount: PropTypes.number.isRequired,
+  language: PropTypes.string.isRequired,
+  profile: PropTypes.objectOf([PropTypes.object]).isRequired
+};
 
 class MultiplyMaxButton extends Component {
-  static propTypes = {
-    onResult: PropTypes.func.isRequired,
-    onBetAmount: PropTypes.func.isRequired,
-    amount: PropTypes.number.isRequired
-  };
-
   constructor(props) {
     super(props);
     this.handleClick = this.handleClick.bind(this);
   }
 
-  handleClick = event => {
-    const { profile, currency, onResult, amount, onBetAmount } = this.props;
+  handleClick(event) {
+    const { profile, onResult, amount, onBetAmount } = this.props;
     const { name } = event.currentTarget;
 
-    if (_.isEmpty(profile)) {
+    if (isEmpty(profile)) {
       return null;
-    }    
-    
-    const wallet = profile.getWallet({ currency });
-    const balance = _.isEmpty(wallet) ? 0 : wallet.playBalance;
-    const hadBonus =
-      wallet.bonusAmount > 0
-        ? Number(wallet.bonusAmount) + Number(balance)
-        : balance;
-    const bonusPlusBalance = _.isEmpty(wallet) ? 0 : hadBonus;
+    }
 
-      const newAmount = gameOperations(name, amount, bonusPlusBalance);
+    const balance = parseFloat(profile.getBalanceWithBonus());
+    const newAmount = gameOperations(name, amount, balance);
 
     if (onBetAmount) {
       onBetAmount(newAmount);
     }
 
     return onResult(newAmount);
-  };
+  }
 
   render() {
-    const { ln } = this.props;
-    const copy = CopyText.multiplyMaxButtonIndex[ln];
+    const { language } = this.props;
+    const copy = CopyText.multiplyMaxButtonIndex[language];
     const skin = getAppCustomization().skin.skin_type;
 
     return (
@@ -55,7 +50,7 @@ class MultiplyMaxButton extends Component {
         <div styleName="container">
           <button
             name={0.5}
-            onClick={event => this.handleClick(event)}
+            onClick={this.handleClick}
             styleName="button"
             type="button"
           >
@@ -71,7 +66,7 @@ class MultiplyMaxButton extends Component {
           </button>
           <button
             name={2}
-            onClick={event => this.handleClick(event)}
+            onClick={this.handleClick}
             styleName="button"
             type="button"
           >
@@ -87,7 +82,7 @@ class MultiplyMaxButton extends Component {
           </button>
           <button
             name="max"
-            onClick={event => this.handleClick(event)}
+            onClick={this.handleClick}
             styleName="button"
             type="button"
           >
@@ -107,12 +102,8 @@ class MultiplyMaxButton extends Component {
   }
 }
 
-function mapStateToProps(state) {
-  return {
-    profile: state.profile,
-    ln: state.language,
-    currency: state.currency
-  };
-}
+const mapStateToProps = ({ profile, language }) => ({ profile, language });
+
+MultiplyMaxButton.propTypes = propTypes;
 
 export default connect(mapStateToProps)(MultiplyMaxButton);
