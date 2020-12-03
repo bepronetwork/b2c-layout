@@ -1,6 +1,4 @@
 import React, { Component } from 'react'
-// import Carousel from './Carousel/Carousel';
-
 import { Typography } from 'components';
 import "./index.css";
 import {CopyText} from "../../copy";

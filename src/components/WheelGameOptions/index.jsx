@@ -19,7 +19,6 @@ import { CopyText } from "../../copy";
 import { isUserSet } from "../../lib/helpers";
 import { Numbers } from "../../lib/ethereum/lib";
 import "./index.css";
-import gameOperations from "../../utils/gameOperations";
 
 class SlotsGameOptions extends Component {
   static contextType = UserContext;

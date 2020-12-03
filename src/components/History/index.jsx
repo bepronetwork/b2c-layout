@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Typography } from "components";
 import PropTypes from "prop-types";
-import { map, take, reverse, isEqual, cloneDeep, isNull } from "lodash";
+import { map, take, reverse, isEqual, cloneDeep } from "lodash";
 import classNames from "classnames";
 
 import "./index.css";

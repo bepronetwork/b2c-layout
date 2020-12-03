@@ -11,7 +11,6 @@ import { CopyText } from "../../copy";
 import { getPopularNumbers } from "../../lib/api/app";
 import AnimationNumber from "../AnimationNumber";
 import cells from "../RouletteBoard/cells";
-import Cache from "../../lib/cache/cache";
 import { Numbers } from "../../lib/ethereum/lib";
 import { formatPercentage } from "../../utils/numberFormatation";
 import { getAppCustomization } from "../../lib/helpers";

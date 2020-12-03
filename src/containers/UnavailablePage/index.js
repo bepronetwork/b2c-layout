@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import "./index.css";
 import { Typography } from 'components';
-import axios from 'axios';
 import { CopyText } from '../../copy';
 
 class UnavailablePage extends Component {

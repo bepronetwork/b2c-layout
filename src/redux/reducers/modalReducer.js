@@ -1,8 +1,3 @@
-import {
-    SET_MODAL
-} from '../actions/modal';
-
-
 const initialState = {
 
 };

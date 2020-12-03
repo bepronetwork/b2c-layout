@@ -5,7 +5,6 @@ import classNames from "classnames";
 import {
   Typography,
   RotateIcon,
-  BitcoinIcon,
   CrossIcon,
   InfiniteIcon
 } from "components";

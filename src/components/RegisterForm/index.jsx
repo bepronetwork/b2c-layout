@@ -10,13 +10,11 @@ import loading from 'assets/loading-circle.gif';
 import generateMonths from "../../utils/generateMonths";
 import generateIntegers from "../../utils/generateIntegers";
 import leadingWithZero from "../../utils/leadingWithZero";
-import moment from "moment";
 import { countries } from "countries-list"; 
 import "./index.css";
 import getYearsAgo from '../../utils/getYearsAgo';
 import stringToNumber from '../../utils/stringToNumber';
 import checkAge from "../../utils/checkAge";
-import { stubTrue } from "lodash";
 
 class RegisterForm extends Component {
     static propTypes = {

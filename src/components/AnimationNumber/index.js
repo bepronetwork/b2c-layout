@@ -1,6 +1,5 @@
 import React from 'react';
 import AnimatedNumber from 'react-animated-number';
-import { Numbers } from '../../lib/ethereum/lib';
 import { Typography } from 'components';
 import { formatCurrency } from '../../utils/numberFormatation';
 import "./index.css";

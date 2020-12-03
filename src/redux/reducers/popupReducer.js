@@ -1,6 +1,3 @@
-import {
-    SET_MESSAGE_INFO
-} from '../actions/message';
 import newId from '../../utils/newId';
 import _ from 'lodash';
 

@@ -1,8 +1,6 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import classNames from "classnames";
-import Dollar from "components/Icons/Dollar";
-import Bitcoin from "components/Icons/Bitcoin";
 import { Typography, InputNumber, AnimationNumber } from "components";
 import Sound from "react-sound";
 import { upperFirst } from "lodash";

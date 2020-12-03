@@ -1,6 +1,4 @@
 import React, { Component } from 'react'
-// import Carousel from './Carousel/Carousel';
-
 import image_1 from 'assets/partners/cruise.png';
 import image_2 from 'assets/partners/genting.png';
 import image_3 from 'assets/partners/sands.png';

@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import { Typography } from 'components';
 
 import './index.css';
 

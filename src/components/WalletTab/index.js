@@ -12,7 +12,6 @@ import {
 import { Col, Row } from "reactstrap";
 import _ from "lodash";
 import CloseCross from "components/Icons/CloseCross";
-import Cache from "../../lib/cache/cache";
 import PaymentBox from "../PaymentBox";
 import DepositList from "./DepositList";
 import WithdrawList from "./WithdrawList";

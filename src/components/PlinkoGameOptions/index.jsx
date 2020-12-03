@@ -6,8 +6,7 @@ import {
   ToggleButton,
   Button,
   Typography,
-  MultiplyMaxButton,
-  OnWinLoss
+  MultiplyMaxButton
 } from "components";
 import betSound from "assets/bet-sound.mp3";
 import Sound from "react-sound";

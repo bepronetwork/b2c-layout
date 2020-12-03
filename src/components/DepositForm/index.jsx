@@ -7,7 +7,6 @@ import classNames from "classnames";
 import { getApp, getAddOn, getAppCustomization, getIcon } from "../../lib/helpers";
 import _ from 'lodash';
 import { CopyText } from '../../copy';
-import { date } from 'faker';
 
 class DepositForm extends Component {
 

@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { InputNumber, Slider, ButtonIcon, Typography, AnimationNumber } from "components";
-import { startCase } from "lodash";
 import { find } from "lodash";
 import { connect } from "react-redux";
 import { getAppCustomization } from "../../lib/helpers";

@@ -1,6 +1,5 @@
 import React from "react";
-import { Row, Col } from 'reactstrap';
-import { Typography, Checkbox } from 'components';
+import { Typography } from 'components';
 import { connect } from "react-redux";
 import './index.css';
 

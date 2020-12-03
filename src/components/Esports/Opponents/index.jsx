@@ -9,8 +9,6 @@ import { setBetSlipResult, removeBetSlipFromResult } from "../../../redux/action
 import _ from 'lodash';
 import "./index.css";
 
-import LockTwoToneIcon from '@material-ui/icons/LockTwoTone';
-
 const buttonStyles = {
     open: {
         "pointerEvents": "unset",

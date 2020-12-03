@@ -5,8 +5,6 @@ import ArrowRight from "components/Icons/ArrowRight";
 import "./index.css";
 
 
-const isEqual = require("react-fast-compare");
-
 class DimensionCarousel extends React.Component {
 
     constructor(props) {
