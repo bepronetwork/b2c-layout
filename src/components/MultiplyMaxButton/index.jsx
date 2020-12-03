@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { isEmpty } from "lodash";
+import { isEmpty, uniqueId } from "lodash";
 import Typography from "../Typography";
 import { CopyText } from "../../copy";
 import { getAppCustomization } from "../../lib/helpers";
@@ -39,52 +39,43 @@ export const MultiplyMaxButton = ({
     return onResult(newAmount);
   };
 
+  const multiplyButtons = [
+    {
+      name: 0.5,
+      typography: "½"
+    },
+    {
+      name: 2,
+      typography: "2×"
+    },
+    {
+      name: "max",
+      typography: copy.INDEX.TYPOGRAPHY.TEXT[0]
+    }
+  ];
+
   return (
     <div styleName="root">
       <div styleName="container">
-        <button
-          name={0.5}
-          onClick={handleClick}
-          styleName="button"
-          type="button"
-        >
-          <div styleName="button-container">
-            <Typography
-              weight="semi-bold"
-              variant="small-body"
-              color={skin === "digital" ? "secondary" : "casper"}
-            >
-              ½
-            </Typography>
-          </div>
-        </button>
-        <button name={2} onClick={handleClick} styleName="button" type="button">
-          <div styleName="button-container">
-            <Typography
-              weight="semi-bold"
-              variant="small-body"
-              color={skin === "digital" ? "secondary" : "casper"}
-            >
-              2×
-            </Typography>
-          </div>
-        </button>
-        <button
-          name="max"
-          onClick={handleClick}
-          styleName="button"
-          type="button"
-        >
-          <div styleName="button-container">
-            <Typography
-              weight="semi-bold"
-              variant="x-small-body"
-              color={skin === "digital" ? "secondary" : "casper"}
-            >
-              {copy.INDEX.TYPOGRAPHY.TEXT[0]}
-            </Typography>
-          </div>
-        </button>
+        {multiplyButtons.map(({ name, typography }) => (
+          <button
+            key={uniqueId("multiply_max_button_")}
+            name={name}
+            onClick={handleClick}
+            styleName="button"
+            type="button"
+          >
+            <div styleName="button-container">
+              <Typography
+                weight="semi-bold"
+                variant="small-body"
+                color={skin === "digital" ? "secondary" : "casper"}
+              >
+                {typography}
+              </Typography>
+            </div>
+          </button>
+        ))}
       </div>
     </div>
   );
