@@ -25,13 +25,19 @@ class MultiplyMaxButton extends Component {
   handleClick(event) {
     const { profile, onResult, amount, onBetAmount } = this.props;
     const { name } = event.currentTarget;
+    let newAmount;
 
     if (isEmpty(profile)) {
       return null;
     }
 
     const balance = parseFloat(profile.getBalanceWithBonus());
-    const newAmount = gameOperations(name, amount, balance);
+
+    newAmount = gameOperations(name, amount, balance);
+
+    if (newAmount.toString().length > 6) {
+      newAmount = Number(newAmount.toFixed(6));
+    }
 
     if (onBetAmount) {
       onBetAmount(newAmount);
