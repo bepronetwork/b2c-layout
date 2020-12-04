@@ -6,9 +6,7 @@ import { Shield } from "components/Esports";
 import { connect } from 'react-redux';
 import classNames from "classnames";
 import { getSkeletonColors } from "../../../lib/helpers";
-import _ from 'lodash';
 import "./index.css";
-
 
 class GameFilter extends Component {
 

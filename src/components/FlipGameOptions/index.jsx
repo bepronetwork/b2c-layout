@@ -19,7 +19,6 @@ import _ from 'lodash';
 import { isUserSet } from "../../lib/helpers";
 import { formatCurrency } from "../../utils/numberFormatation";
 import { CopyText } from '../../copy';
-
 import { connect } from "react-redux";
 
 class FlipGameOptions extends Component {

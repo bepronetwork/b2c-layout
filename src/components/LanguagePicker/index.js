@@ -1,15 +1,13 @@
-import React, { Component } from "react";
-import {  DropDownField } from "components";
+import React from "react";
+import { DropDownField } from "components";
 import { connect } from "react-redux";
-import _ from 'lodash';
 import "./index.css";
 import { MenuItem } from '@material-ui/core';
 import languages from "../../config/languages";
 import PropTypes from "prop-types";
-
-import "./index.css"
 import { setLanguageInfo } from "../../redux/actions/language";
 import { CopyText } from '../../copy';
+
 const defaultProps = {
     language : languages[0]
 }

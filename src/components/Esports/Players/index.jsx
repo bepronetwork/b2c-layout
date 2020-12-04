@@ -3,9 +3,7 @@ import { Typography } from 'components';
 import { connect } from 'react-redux';
 import { Shield } from "components/Esports";
 import ReactCountryFlag from "react-country-flag"
-import _ from 'lodash';
 import "./index.css";
-
 
 class Players extends Component {
 

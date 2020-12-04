@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import _ from 'lodash';
 import "./index.css";
 
-
 class Live extends Component {
 
     convertToHTTPS = (url) => {

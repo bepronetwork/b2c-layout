@@ -7,7 +7,6 @@ import { Opponents, Shield, Status } from 'components/Esports';
 import _ from 'lodash';
 import "./index.css";
 
-
 class ScoreBoard extends Component {
 
     render() {

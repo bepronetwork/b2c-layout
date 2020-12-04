@@ -2,13 +2,10 @@ import React from "react";
 import './index.css';
 import { Row, Col } from 'reactstrap';
 import { Typography, Button } from 'components';
-import _, { result } from 'lodash';
+import _ from 'lodash';
 import { connect } from "react-redux";
 import classNames from 'classnames';
-
-
 import { getApp, getAppCustomization } from "../../lib/helpers";
-import { CopyText } from "../../copy";
 import { formatCurrency } from '../../utils/numberFormatation';
 
 class PaymentBox extends React.Component{

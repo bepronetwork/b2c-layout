@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import WheelBox from "../../../../WheelBox";
 import { loadWheelOptions } from "../../../../../lib/helpers";
-import _ from 'lodash';
 import "./index.css";
 
 class WheelDetails extends Component {

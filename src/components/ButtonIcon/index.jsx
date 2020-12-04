@@ -3,7 +3,6 @@ import PropTypes from "prop-types";
 import classNames from "classnames";
 import { Typography, RotateIcon, UndoIcon, SoundIcon, CopyIcon } from "components";
 import { getIcon } from "../../lib/helpers";
-
 import "./index.css";
 
 const ButtonIcon = ({

@@ -5,7 +5,6 @@ import coinSound from "assets/coin-board-sound.mp3";
 import TableCell from "./TableCell";
 import { getAppCustomization } from "../../lib/helpers";
 import { connect } from "react-redux";
-
 import "./index.css";
 import { CopyText } from "../../copy";
 

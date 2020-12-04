@@ -1,11 +1,8 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import InvitationCards from "components/Icons/InvitationCards";
 import { Button, Typography } from "components";
-import config from "config";
-import { map } from "lodash";
+import _, { map } from "lodash";
 import { connect } from "react-redux";
-import _ from 'lodash';
 import "./index.css";
 import { Row, Col } from 'reactstrap';
 import { CopyText } from "../../copy";

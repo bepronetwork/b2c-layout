@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import "./index.css";
 import { connect } from "react-redux";
 import { compose } from 'lodash/fp';
-import { InputNumber,  Typography, InformationBox, InputText } from 'components';
+import { InputNumber,  Typography, InputText } from 'components';
 import { Col, Row } from 'reactstrap';
 import store from "../../../containers/App/store";
 import { setWithdrawInfo } from "../../../redux/actions/withdraw";

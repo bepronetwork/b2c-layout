@@ -14,9 +14,7 @@ import DiamondDetails from './CasinoDetails/Game/DiamondDetails';
 import SlotsDetails from './CasinoDetails/Game/SlotsDetails';
 import { formatCurrency } from "../../utils/numberFormatation";
 import { getApp } from "../../lib/helpers";
-
 import "./index.css";
-
 
 class BetDetails extends Component {
 

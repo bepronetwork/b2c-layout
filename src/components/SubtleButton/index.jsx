@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import Typography from "../Typography";
 import { getAppCustomization } from "../../lib/helpers";
-
 import "./index.css";
 
 export default class SubtleButton extends Component {

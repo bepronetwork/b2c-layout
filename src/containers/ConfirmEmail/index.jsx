@@ -5,7 +5,6 @@ import { CopyText } from '../../copy';
 import { confirmEmail } from "../../lib/api/users";
 import { getIcon } from "../../lib/helpers";
 import "./index.css";
-import _ from "lodash";
 
 class ConfirmEmail extends Component {
 

@@ -5,10 +5,8 @@ import {
     getAllMatches,
     getAllMatchesBySeries,
     getSpecificMatch,
-    getSpecificTeam,
-    createBet
+    getSpecificTeam
   } from "lib/api/esports";
-import _ from 'lodash';
 
 export async function getGames() {
     try {

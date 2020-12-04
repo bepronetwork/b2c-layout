@@ -15,7 +15,6 @@ import { Numbers } from "../../lib/ethereum/lib";
 import { formatPercentage } from "../../utils/numberFormatation";
 import { getAppCustomization } from "../../lib/helpers";
 import redColors from "./redColors";
-
 import "./index.css";
 
 const mobileBreakpoint = 768;

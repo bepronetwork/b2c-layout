@@ -4,7 +4,6 @@ import { Typography } from "components";
 import EmojiEventsIcon from '@material-ui/icons/EmojiEvents';
 import { setMessagePopup } from "../../redux/actions/popup";
 import classNames from "classnames";
-import _ from 'lodash';
 import "./index.css";
 
 class Popup extends Component {

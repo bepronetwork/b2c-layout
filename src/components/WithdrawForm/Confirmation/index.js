@@ -3,7 +3,6 @@ import { Checkbox, Typography } from "../../../components";
 import { connect } from "react-redux";
 import { compose } from 'lodash/fp';
 import { CopyText } from '../../../copy';
-import _ from 'lodash';
 import "../index.css";
 
 const defaultProps = {

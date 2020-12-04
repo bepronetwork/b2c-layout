@@ -6,10 +6,9 @@ import UserContext from "containers/App/UserContext";
 import GamePage from "containers/GamePage";
 import kenoBet from "lib/api/keno";
 import Cache from "../../lib/cache/cache";
-import { find } from "lodash";
+import _, { find } from "lodash";
 import { connect } from "react-redux";
 import defaultCards from "./defaultCards";
-import _ from "lodash";
 
 class KenoPage extends Component {
     static contextType = UserContext;

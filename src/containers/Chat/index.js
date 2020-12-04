@@ -1,5 +1,5 @@
-import React, { Component } from "react";
-import { Typography, InputText, UsersIcon, LanguageSelector } from "components";
+import React from "react";
+import { Typography, InputText, UsersIcon } from "components";
 import ArrowDown from "components/Icons/ArrowDown";
 import { connect } from "react-redux";
 import _ from 'lodash';

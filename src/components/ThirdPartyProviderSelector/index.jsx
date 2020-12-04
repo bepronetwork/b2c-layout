@@ -5,7 +5,6 @@ import { Typography, ArrowDownIcon, ArrowUpIcon } from "components";
 import { map } from "lodash";
 import { getAppCustomization, getIcon } from "../../lib/helpers";
 import _ from 'lodash';
-
 import "./index.css";
 
 const defaultProps = {

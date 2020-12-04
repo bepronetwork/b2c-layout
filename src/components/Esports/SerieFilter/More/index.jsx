@@ -3,9 +3,7 @@ import { connect } from 'react-redux';
 import { Typography, Button } from 'components';
 import { Shield } from "components/Esports";
 import classNames from "classnames";
-import _ from 'lodash';
 import "./index.css";
-
 
 class SerieFilterMore extends Component {
 

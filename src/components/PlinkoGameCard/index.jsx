@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import { World, Engine, Events, Body, Bodies } from 'matter-js';
 import Particle from './Components/particle';
 import Plinko from './Components/plinko';
@@ -9,13 +9,13 @@ import {PEG0, PEG1, PEG2, PEG3, PEG4, PEG5, PEG6, PEG7, PEG8, PEG9} from './Comp
 import plockSound from "assets/plock.mp3";
 import congratsSound from "assets/congrats.mp3";
 import Pegs from "./Components/Pegs";
-
 import "./index.css";
 
 const MS_IN_SECOND = 2000;
 const FPS = 60;
 const plock = new Audio(plockSound);
 const congrats = new Audio(congratsSound);
+
 class PlinkoGameCard extends React.Component {
     constructor(props) {
         super(props);

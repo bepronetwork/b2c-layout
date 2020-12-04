@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import classNames from "classnames";
-
 import "./index.css";
 
 export default class Copy extends Component {

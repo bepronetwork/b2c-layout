@@ -8,7 +8,6 @@ import loseSound from "assets/lose-sound.mp3";
 import winSound from "assets/win-sound.mp3";
 import Sound from "react-sound";
 import styled, { keyframes } from "styled-components";
-
 import "./index.css";
 
 const { Handle } = RcSlider;

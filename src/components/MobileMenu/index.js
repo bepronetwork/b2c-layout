@@ -11,7 +11,6 @@ import _ from 'lodash';
 import "./index.css";
 import { ThumbUpSharp } from "@material-ui/icons";
 
-
 class MobileMenu extends Component {
 
     constructor(props){

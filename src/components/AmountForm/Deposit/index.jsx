@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import "./index.css";
 import { connect } from "react-redux";
 import { compose } from 'lodash/fp';
-import { InputNumber, Button, Typography } from 'components';
+import { InputNumber, Typography } from 'components';
 import { CopyText } from "../../../copy";
 import { Col, Row } from 'reactstrap';
 import dollar from 'assets/dollar.png';

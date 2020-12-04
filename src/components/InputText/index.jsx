@@ -3,7 +3,6 @@ import PropTypes from "prop-types";
 import uniqueId from "lodash/uniqueId";
 import classNames from "classnames";
 import { CopyIcon, Typography } from "components";
-
 import "./index.css";
 
 export default class InputText extends Component {

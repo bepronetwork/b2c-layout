@@ -4,7 +4,6 @@ import "./index.css";
 import {CopyText} from "../../copy";
 import { connect } from "react-redux";
 
-
 class Media extends Component {
 
     render() {

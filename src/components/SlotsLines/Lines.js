@@ -1,5 +1,4 @@
 import React from "react";
-
 import Line from "components/SlotsLines";
 import styles from "../SlotsGame/index.css";
 

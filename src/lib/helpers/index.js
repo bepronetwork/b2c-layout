@@ -6,8 +6,6 @@ import { setMessageNotification } from '../../redux/actions/message';
 import faker from 'faker';
 import { formatCurrency } from "../../utils/numberFormatation";
 
-//import 'moment/locale/pt-br';
-
 function dateToHourAndMinute(date){
     return moment(new Date(date)).fromNow();
 }

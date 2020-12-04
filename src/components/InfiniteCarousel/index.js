@@ -12,7 +12,6 @@ import {
 } from './helpers';
 import InfiniteCarouselArrow from './InfiniteCarouselArrow';
 import InfiniteCarouselDots from './InfiniteCarouselDots';
-
 import './index.css';
 
 class InfiniteCarousel extends Component {

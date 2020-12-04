@@ -10,7 +10,6 @@ import Logout from "components/Icons/Logout";
 import { map } from "lodash";
 import { CopyText } from '../../copy';
 import { connect } from "react-redux";
-
 import "./index.css";
 
 class UserMenu extends Component {

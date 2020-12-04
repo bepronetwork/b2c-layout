@@ -3,7 +3,6 @@ import ArrowDown from "components/Icons/ArrowDown";
 import ArrowUp from "components/Icons/ArrowUp";
 import { Typography, ArrowDownIcon, ArrowUpIcon } from "components";
 import { getAppCustomization, getIcon } from "../../lib/helpers";
-import _ from 'lodash';
 import classNames from 'classnames'
 import "./index.css";
 import PropTypes from 'prop-types';

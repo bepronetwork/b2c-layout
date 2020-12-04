@@ -6,9 +6,8 @@ import UserContext from "containers/App/UserContext";
 import GamePage from "containers/GamePage";
 import diceBet from "lib/api/dice";
 import Cache from "../../lib/cache/cache";
-import { find } from "lodash";
+import _, { find } from "lodash";
 import { connect } from "react-redux";
-import _ from "lodash";
 
 class DicePage extends Component {
     static contextType = UserContext;

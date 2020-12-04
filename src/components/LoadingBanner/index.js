@@ -1,7 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
 import './index.css';
-import { ProgressBarLinear } from "../ProgressBar";
 import { getAppCustomization } from "../../lib/helpers";
 
 class LoadingBanner extends React.Component{

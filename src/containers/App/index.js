@@ -1,8 +1,7 @@
 import React, { Component } from "react";
 import { Router, Switch, Route } from "react-router-dom";
 import { createBrowserHistory } from "history";
-import { find } from "lodash";
-import CasinoHomePage from "containers/Casino";
+import _, { find } from "lodash";
 import EsportsHomePage from "containers/Esports";
 import EsportsMatchPage from "containers/Esports/MatchPage";
 import EsportsMatchesPage from "containers/Esports/AllMatches";
@@ -30,7 +29,6 @@ import {
     LiveChatIcon,
     SubSections
 } from "components";
-
 import PlinkoPage from "containers/PlinkoPage";
 import DicePage from "containers/DicePage";
 import FlipPage from "containers/FlipPage";
@@ -42,7 +40,6 @@ import DiamondPage from "../DiamondPage";
 import ThirdPartyGamePage from "../ThirdPartyGamePage";
 import ThirdPartyGameList from "../ThirdPartyGameList";
 import SlotsPage from "../SlotsPage";
-
 import { login, login2FA, logout, register } from "lib/api/users";
 import getAppInfo from "lib/api/app";
 import handleError from "lib/api/handleError";
@@ -60,7 +57,6 @@ import { CopyText } from "../../copy";
 import { setCurrencyView } from "../../redux/actions/currency";
 import { setWithdrawInfo } from "../../redux/actions/withdraw";
 import { connect } from 'react-redux';
-import _ from 'lodash';
 import { setStartLoadingProcessDispatcher } from "../../lib/redux";
 import AccountPage from "../AccountPage";
 import { getQueryVariable, getAppCustomization, getIcon } from "../../lib/helpers";
@@ -72,9 +68,7 @@ import classNames from "classnames";
 import delay from 'delay';
 import MobileMenu from "../../components/MobileMenu";
 import { analyticsIdentify, analyticsPage } from '../../lib/helpers/analytics'
-import languages from "../../config/languages";
-
-import socketKycConnection from './WebSocket'
+import socketKycConnection from './WebSocket';
 
 const history = createBrowserHistory();
 

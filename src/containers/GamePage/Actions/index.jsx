@@ -4,8 +4,8 @@ import { escapedNewLineToLineBreakTag } from '../../../utils/br';
 import { connect } from "react-redux";
 import { CopyText } from "../../../copy";
 import _ from 'lodash';
-
 import "./index.css";
+
 class Actions extends Component {
     constructor(props) {
         super(props);

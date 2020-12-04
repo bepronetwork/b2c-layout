@@ -7,7 +7,6 @@ import { getMatch } from "controllers/Esports/EsportsUser";
 import { getSkeletonColors } from "../../../lib/helpers";
 import _ from 'lodash';
 import "./index.css";
-
 import socketConnection from '../WebSocket'
 import store from "../../App/store";
 import { setBetSlipResult } from "../../../redux/actions/betSlip";
