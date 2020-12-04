@@ -288,24 +288,7 @@ class LastBets extends Component {
                 }),
                 onTableDetails : onTableDetails ? onTableDetails : null
             },
-            /*my_bets : {
-                ...this.state.my_bets,
 
-                titles : copy.TABLE.MY_BETS.ITEMS,
-                rows : my_bets.map( (bet) =>  {
-                    return {
-                        game: (games.find(game => game._id === bet.game)),
-                        id: bet._id,
-                        timestamp: dateToHourAndMinute(bet.timestamp),
-                        betAmount: formatCurrency(Numbers.toFloat(bet.betAmount)),
-                        winAmount: formatCurrency(Numbers.toFloat(bet.winAmount)),
-                        isWon : bet.isWon,
-                        payout : `${formatCurrency(Numbers.toFloat(bet.winAmount/bet.betAmount))}x`,
-                        currency: bet.currency
-                    }
-                }),
-                onTableDetails : onTableDetails ? onTableDetails : null
-            },*/
             biggest_win_bets  : {
                 ...this.state.biggest_win_bets,
                 titles : copy.TABLE.BIGGEST_WIN_BETS.ITEMS,

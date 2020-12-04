@@ -11,7 +11,6 @@ import { CopyText } from '../../copy';
 class DepositWithdrawForm extends Component {
     constructor(props) {
         super(props);
-        // this.props = props;
         this.state = {
         tab: "deposit"
         };

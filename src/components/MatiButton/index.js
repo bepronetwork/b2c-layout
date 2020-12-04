@@ -1,4 +1,3 @@
-// Source https://github.com/MatiFace/mati-web-button
 import React, { useEffect, useCallback } from "react";
 import { connect } from "react-redux";
 import { KYC_IN_REVIEW } from "../../config/kycStatus";
@@ -7,10 +6,8 @@ import Cache from "../../lib/cache/cache";
 function MatiButton(props) {
   const button = React.createRef(null);
 
-  // When user loads its modal fires this.
   const handleLoaded = useCallback(() => {}, []);
 
-  // When user sends their info fires this.
   const handleFinished = useCallback(() => {
     const { profile } = props;
 
@@ -18,14 +15,12 @@ function MatiButton(props) {
     Cache.setToCache("kyc", { status: KYC_IN_REVIEW });
   }, []);
 
-  // When user closes its modal fires this.
   const handleExited = useCallback(() => {}, []);
 
   useEffect(() => {
     const ref = button.current;
 
     if (ref) {
-      // subscribe to callbacks
       ref.addEventListener("mati:loaded", handleLoaded);
       ref.addEventListener("mati:userFinishedSdk", handleFinished);
       ref.addEventListener("mati:exitedSdk", handleExited);
@@ -33,7 +28,6 @@ function MatiButton(props) {
 
     return () => {
       if (ref) {
-        // unsubscribe from callbacks
         ref.removeEventListener("mati:loaded", handleLoaded);
         ref.removeEventListener("mati:userFinishedSdk", handleFinished);
         ref.removeEventListener("mati:exitedSdk", handleExited);

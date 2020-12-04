@@ -105,14 +105,13 @@ export default class Wheel extends Component {
         let { result } = this.props;
         const ONE_ARC_ANGLE = 12/49.5;
         const ONE_SPIN = 360/49.5;
-        let SPINS =  3*ONE_SPIN; // Represents the AMount of 49.5 Angules
+        let SPINS =  3*ONE_SPIN;
         this.desiredSpin = 360;
         let indexPlace = this.wheel_draw.findIndex( (e, i) => e == result);
         this.spinAngleStart = -SPINS - indexPlace*ONE_ARC_ANGLE + this.offset*ONE_ARC_ANGLE;
         this.offset = indexPlace;
         this.spinTime = 0;
         this.acc = 0;
-        /* miliseconds of Spin Time */
         this.spinTimeTotal = TOTAL_ANIMATION_TIME;
         this.rotateWheel();
     }

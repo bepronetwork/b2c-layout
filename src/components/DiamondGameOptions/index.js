@@ -123,7 +123,6 @@ class DiamondGameOptions extends Component {
     let res;
 
     if (this.isBetValid()) {
-      // to be completed with the other options
       this.setState({ sound: true });
       switch (type) {
         case "manual": {
@@ -147,8 +146,8 @@ class DiamondGameOptions extends Component {
 
           for (let i = 0; i < bets; i++) {
             if (
-              (profitStop == 0 || totalProfit <= profitStop) && // Stop Profit
-              (lossStop == 0 || totalLoss <= lossStop) // Stop Loss
+              (profitStop == 0 || totalProfit <= profitStop) &&
+              (lossStop == 0 || totalLoss <= lossStop)
             ) {
               if (i != 0) { await delay(1.5 * 1000); };
               const res = await this.betAction({ amount: betAmount });

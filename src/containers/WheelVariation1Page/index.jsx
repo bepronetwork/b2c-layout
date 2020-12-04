@@ -82,7 +82,6 @@ class WheelVariationOne extends React.Component {
             let optExists = options.find( opt => opt.multiplier == resultSpace.multiplier);
             if(!optExists){
                 let color = resultSpaceColors[indexOptions].color;
-                // Does not exist
                 options.push({
                     index : indexOptions,
                     probability : resultSpace.probability,
@@ -95,7 +94,6 @@ class WheelVariationOne extends React.Component {
                 indexOptions = indexOptions + 1;
             }else{
                 optExists.placings.push(i)
-                // Exit update
                 options[optExists.index] = {
                     ...optExists,
                     amount : optExists.amount + 1,
@@ -205,7 +203,6 @@ class WheelVariationOne extends React.Component {
         this.setState({ bet: false, disableControls : false, inResultAnimation : false });
         const { profile } = this.props;
         const { amount } = this.state;
-        /* Update Info User View */
         const { isWon, result, winAmount, userDelta, totalBetAmount } = this.state.betObjectResult;
         setWonPopupMessageDispatcher(winAmount);
         this.addToHistory({result, won : isWon});

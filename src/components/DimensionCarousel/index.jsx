@@ -45,37 +45,6 @@ class DimensionCarousel extends React.Component {
 
     }
     componentDidUpdate(prevProps, prevState, snapshot) {
-        /*if (prevProps.slides && prevProps.slides[0] && this.props.slides[0]) {
-            if (!isEqual(prevProps.slides[0], this.props.slides[0])) {
-                let slides = [];
-                this.props.slides.forEach((slide) => {
-                    let slideobject = {
-                        class: "slider-single proactivede",
-                        element: slide
-                    }
-                    slides.push(slideobject);
-                });
-                this.setState((prevState, props) => {
-                    return {
-                        slides,
-                        slideTotal: this.props.slides.length - 1,
-                        slideCurrent: -1
-                    }
-                });
-                this.setState((prevState, props) => {
-                    return { ...prevState }
-                });
-                setTimeout(() => {
-                    this.slideRight();
-                    if (this.props.autoplay) {
-                        clearTimeout(this.interval);
-                        this.interval = setTimeout(() => {
-                            this.slideRight();
-                        }, this.props.interval);
-                    }
-                }, 500);
-            }
-        }*/
     }
 
     slideRight() {

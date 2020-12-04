@@ -52,7 +52,6 @@
     border-radius: $border-radius;
     height: auto;
     min-height: 100%;
-    /*box-shadow: color(#000 alpha(75%)) 0px 0px 10px;*/
 
     @media screen and (max-width: 1267px) and (min-width: 1024px) {
 

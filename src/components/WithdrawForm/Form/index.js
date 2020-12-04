@@ -128,12 +128,9 @@ class Form extends Component {
 
             var res;
             if(isAffiliate === true){
-                /* Create Withdraw Framework */
                 await profile.askForWithdrawAffiliate({amount : parseFloat(amount), currency, address : toAddress});
             }else{
-                /* Create Withdraw Framework */
                 await profile.askForWithdraw({amount : parseFloat(amount), currency, address : toAddress});
-                //await profile.updateBalance({ userDelta: parseFloat(-amount) });
                 await profile.getAllData(true);
             }
 

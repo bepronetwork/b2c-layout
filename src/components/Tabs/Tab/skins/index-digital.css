@@ -3,7 +3,6 @@
 
 .tab:not(.selected) {
   &:hover {
-    /*background-color: $dodger-blue;*/
     * {
       opacity: 1;
     }

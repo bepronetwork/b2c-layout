@@ -23,18 +23,14 @@
     background-color : inherit;
     width: 100%;
 }
-
-/* Turn off number input spinners */
-
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
-    /* display: none; <- Crashes Chrome on hover */
     -webkit-appearance: none;
-    margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
+    margin: 0;
 }
 
 input[type=number] {
-    -moz-appearance:textfield; /* Firefox */
+    -moz-appearance:textfield;
 }
 
 .image-gallery-fullscreen-button::before,

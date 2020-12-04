@@ -61,7 +61,6 @@ class Navbar extends Component {
             if(user){
                 const difference = Number(formatCurrency(balance - currentBalance));
                 const isDifferent = !isEqual(difference, 0);
-                // To not exist failed animation of difference and number animation
                 var opts = {};
                 if (isDifferent || isDifferent && currentBalance > balance) {
                     opts.difference = difference;

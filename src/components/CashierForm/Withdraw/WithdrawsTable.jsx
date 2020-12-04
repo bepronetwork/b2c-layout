@@ -444,5 +444,3 @@ function mapStateToProps(state){
 }
 
 export default compose(connect(mapStateToProps))( withStyles(styles)(WithdrawTable) );
-
-// export default withStyles(styles)(  compose(connect(mapStateToProps))(WithdrawTable) );

@@ -460,6 +460,4 @@ function mapStateToProps(state){
     };
 }
 
-// export default withStyles(styles)(  compose(connect(mapStateToProps))(DepositsTable) );
 export default compose(connect(mapStateToProps))( withStyles(styles)(DepositsTable) );
-// export default withStyles(styles)(DepositsTable);

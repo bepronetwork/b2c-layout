@@ -120,7 +120,7 @@ async function processResponse(response){
 }
 
 function loadFakeBets(rows, games, size) {
-    /* fake random value */
+
     var game = games[Math.floor(Math.random() * games.length)];
     var row = rows[Math.floor(Math.random() * rows.length)];
     let currency = row ? row.currency : null;
@@ -211,7 +211,6 @@ function loadWheelOptions(game){
         let optExists = options.find( opt => opt.multiplier == resultSpace.multiplier);
         if(!optExists){
             let color = resultSpaceColors[indexOptions].color;
-            // Does not exist
             options.push({
                 index : indexOptions,
                 probability : resultSpace.probability,
@@ -224,7 +223,6 @@ function loadWheelOptions(game){
             indexOptions = indexOptions + 1;
         }else{
             optExists.placings.push(i)
-            // Exit update
             options[optExists.index] = {
                 ...optExists,
                 amount : optExists.amount + 1,

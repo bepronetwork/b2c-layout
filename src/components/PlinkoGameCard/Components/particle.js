@@ -11,7 +11,7 @@ export default class Particle extends GameObject {
     this.type = 'particle';  
     this.diameter = PARTICLE.DIAMETER;
     this.fillStyle = Particle.fillStyles[Math.floor(Math.random() * Particle.fillStyles.length)];
-    this.angle = 0; // stored in radians  
+    this.angle = 0; 
     this.createPhysics();    
     this.body.parentObject = this;
     Particle.count++;

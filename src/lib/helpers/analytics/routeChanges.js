@@ -1,10 +1,8 @@
 export default function routeChange(callback) {
     const { addEventListener, history, location } = window
-    // Observe native navigation
     addEventListener('popstate', () => {
       callback(location.pathname)
     })
-    // Observe manual navigation
     const methods = ['push', 'replace']
     methods.map(type => {
       const state = `${type}State`;

@@ -26,7 +26,6 @@
 }
 
 .image {
-    /*width: 120px;*/
     height: 40px;
 }
 
@@ -211,7 +210,6 @@
     padding-top: 4px;
 
     @include Breakpoint-mobileOnly {
-        /*display: none;*/
         padding-left: 18px;
     }
 

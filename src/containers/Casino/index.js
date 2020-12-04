@@ -71,7 +71,6 @@ class HomePage extends Component {
         return (
             <div styleName="root">
                <Banners/> 
-                {/* this.renderPlayNow() */}
                 <div styleName="container">
                     <div styleName='container-small'>                       
                         {appInfo.games.map( (item) => this.renderGame(item))}
@@ -85,7 +84,6 @@ class HomePage extends Component {
                                 <LastBets onTableDetails={onTableDetails} />
                             </div>
                     }
-                    {/* <Media/> */}
                 </div>
             </div>
         );

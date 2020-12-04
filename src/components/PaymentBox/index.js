@@ -193,7 +193,6 @@ class PaymentBox extends React.Component{
       
           ringTimer.clearRect(0, 0, width, height);
       
-          // Draw outer track ring
           ringTimer.beginPath();
           ringTimer.moveTo(centerX, centerY);
           ringTimer.arc(
@@ -202,7 +201,7 @@ class PaymentBox extends React.Component{
             radius,
             start - (360 - currentValue) * PI_BY_180,
             start,
-            true // counter-clockwise
+            true
           );
           ringTimer.closePath();
           ringTimer.fillStyle = secondaryColor.hex;

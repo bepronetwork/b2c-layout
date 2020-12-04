@@ -39,7 +39,6 @@ export default class User {
         user,
         app
     }) {
-        // Logged
         this.id = user.id;
         this.user_id = user.id;
         this.app_id = appId;
@@ -59,10 +58,6 @@ export default class User {
         }
         this.__init__();
     }
-
-    /**
-     * @use Initialization Function
-     */
 
     __init__ = async () =>  {
         try{
@@ -91,23 +86,20 @@ export default class User {
         }); 
         this.channel = this.pusher.subscribe(`private-${this.id}`);
 
-        /* Listen to Deposits */
         this.channel.bind('deposit', async (data) => {
             await store.dispatch(setMessageNotification(data.message));
             this.getAllData(true);
         });
         
-        /* Listen to Withdraws */
         this.channel.bind('withdraw', (data) => {
 
         });
 
-        /* Listen to Jackpot */
+
         this.channel.bind('jackpot', async (data) => {
             await store.dispatch(setModal({key : 'JackpotModal', value : data.message}));
         });
 
-        /* Listen to Update Wallet */
         this.channel.bind('update_balance', async (data) => {
             const resp = JSON.parse(data.message);
             const value = formatCurrency(resp.value);
@@ -264,7 +256,6 @@ export default class User {
 
     getMyBets = async ({size, game, slug, tag}) => {
         try{
-            // grab current state
             const state = store.getState();
             const { currency } = state;
 
@@ -406,14 +397,8 @@ export default class User {
                 );
 
             }catch(err){
-                //Timeout Error - But Worked
                 timeout = true;
             }
-            
-            // Get Withdraw
-            //let withdraws = await this.getWithdrawsAsync();
-            //let withdraw = withdraws[withdraws.length-1];
-            // Process Ask Withdraw API Call since can have errors
             if(!timeout){
                 res = await processResponse(res);
             }
@@ -444,13 +429,10 @@ export default class User {
                 );
 
             }catch(err){
-                //Timeout Error - But Worked
                 timeout = true;
             }
-            // Get Withdraw
             let withdraws = await this.getWithdrawsAsync();
             let withdraw = withdraws[withdraws.length-1];
-            // Process Ask Withdraw API Call since can have errors
             if(!timeout){
                 res = await processResponse(res);
             }
@@ -515,10 +497,8 @@ export default class User {
 
         try {
             const nonce = getNonce();
-            // grab current state
             const state = store.getState();
             const { currency } = state;
-            /* Create Bet API Setup */
             res = await createBet(
                 {
                     currency : currency._id,

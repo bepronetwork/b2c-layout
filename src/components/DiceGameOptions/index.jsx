@@ -119,7 +119,6 @@ class DiceGameOptions extends Component {
         var res;
 
         if (this.isBetValid()) {
-            // to be completed with the other options
             this.setState({ sound: true });
             switch(type){
                 case 'manual' : {
@@ -133,8 +132,8 @@ class DiceGameOptions extends Component {
                     var betAmount = amount;
                     for( var i = 0; i < bets ; i++){
                         if(
-                            (profitStop == 0  || totalProfit <= profitStop) && // Stop Profit
-                            (lossStop == 0 || totalLoss <= lossStop) // Stop Loss
+                            (profitStop == 0  || totalProfit <= profitStop) &&
+                            (lossStop == 0 || totalLoss <= lossStop)
                         ){
                             if (i != 0) { await delay(1 * 1000); };
                             let { winAmount } = await this.betAction({amount : betAmount});

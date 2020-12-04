@@ -187,9 +187,7 @@ class App extends Component {
 
 	asyncCalls = async () => {
         try{
-            /* Get App Info */
             await this.updateAppInfo();
-            //await this.loginAccount();
             await this.automaticLoginFromCache();
             await delay(1000);
             this.closeStaticLoading();
@@ -237,8 +235,7 @@ class App extends Component {
         }
     }
 
-    loginAccount = async () => {
-        // Get App Ino    
+    loginAccount = async () => {   
         try{
             let cache = Cache.getFromCache('Authentication');
             if(cache && cache.password){
@@ -251,7 +248,6 @@ class App extends Component {
                 throw new Error('Login didn´t work')
             }
         }catch(err){
-            // TO DO
             throw err;
 		}
 
@@ -357,7 +353,6 @@ class App extends Component {
                 analyticsIdentify(user);
                 this.setState({ registerLoginModalOpen: null, error: null});
             }
-            /* Set currency */
             this.setDefaultCurrency();
 
             return response;
@@ -381,7 +376,7 @@ class App extends Component {
                 analyticsIdentify(user);
                 this.setState({ registerLoginModalOpen: null, error: null, has2FA: false });
             }
-            /* Set currency */
+
             if(response.wallet && response.wallet.length > 0 && response.wallet[0].currency) {
                 let currency = response.wallet[0].currency;
                 await store.dispatch(setCurrencyView(currency));
@@ -416,7 +411,6 @@ console.log(form, 'form')
 
     updateUser = async user => {
         
-        /* Destory Unlogged Chat Instance */
         if(this.chat){
             await this.chat.kill();
             this.chat = null;
@@ -445,7 +439,6 @@ console.log(form, 'form')
 
     reloadUser = async user => {
         
-        /* Destory Unlogged Chat Instance */
         if(this.chat){
             await this.chat.kill();
             this.chat = null;
@@ -491,7 +484,6 @@ console.log(form, 'form')
         this.setState({ user: null });
         window.location.reload();
         window.location.href = '/'
-        // language do not need to be removed due to human context reasons (user can be still in the application even if not logged on) 
     };
 
     renderLoginRegisterModal = () => {
@@ -882,20 +874,6 @@ console.log(form, 'form')
                                             
                                                 )}
                                                 />
-                                            
-                                            {/*<Route
-                                                exact
-                                                path="/casino"
-                                                render={props => (
-                                                    <CasinoHomePage
-                                                        {...props}
-                                                        onHandleLoginOrRegister={this.handleLoginOrRegisterOpen}
-                                                        onTableDetails={this.handleTableDetailsOpen}
-                                                        history={history}
-                                                    />
-                                            
-                                                )}
-                                                />*/}
 
                                             <Route
                                                 exact
@@ -999,8 +977,6 @@ console.log(form, 'form')
                                             
                                                 )}
                                             /> 
-
-                                            {/* New routes need to be add here, before renderGamePages */}
 
                                             {this.renderGamePages({history})}
 

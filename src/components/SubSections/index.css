@@ -1,7 +1,6 @@
 @import "../../styles/all.css";
 
 .sub-sections {
-    /*display: inline-flex;*/
     width: 100%;
     max-width: 1192px;
     margin: auto;

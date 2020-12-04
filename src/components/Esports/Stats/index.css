@@ -116,15 +116,12 @@
 }
 
 .progress.red {
-    /*background: linear-gradient(270deg, #FF1E55 3.78%, #1C202B 100%);*/
 }
 
 .progress.green {
-    /*background: linear-gradient(270deg, #26FF81 3.78%, #1C202B 100%);*/
 }
 
 .progress.yellow {
-    /*background: linear-gradient(270deg, #FFF43C 3.78%, #1C202B 100%);*/
 }
 
 @keyframes progressbar {

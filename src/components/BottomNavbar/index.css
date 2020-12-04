@@ -23,7 +23,6 @@
     display: grid;
     grid-template-rows: 1fr;
     grid-auto-columns: 1fr;
-    /*gap: 1em 1em;*/
     height: $navbar-height;
 }
 

@@ -150,10 +150,8 @@ class Footer extends Component {
                 <div styleName="footer">
                     <Row>
                         {footerInfo.tabs.map( tab =>  {
-                            /* If not Data don´t show */
                             if(!tab.show){return null}
 
-                            /* If there is an object to return */
                             if(tab.return){
                                 return(
                                     <Col md={tab.col}>
@@ -162,7 +160,6 @@ class Footer extends Component {
                                 )
                             }
 
-                            /* If normal List of links */
                             return(
                                 <Col md={tab.col}>
                                     <div styleName={tab.align}>

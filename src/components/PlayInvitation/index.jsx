@@ -47,7 +47,6 @@ class PlayInvitation extends Component {
                 <Row>
                     <Col md={6}>
                         <div styleName="invitation">
-                        {/* <InvitationCards /> */}
                         <div styleName="play-button">
                             <Button onClick={this.handleClick} theme="primary">
                                 {_.isEmpty(this.props.profile) ?

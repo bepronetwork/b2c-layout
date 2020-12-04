@@ -1,7 +1,4 @@
 import React from "react";
-// import propTypes from "prop-types";
-
-// import { Container } from './styles';
 
 const DogJS = () => {
   return (
@@ -220,9 +217,5 @@ const DogJS = () => {
     </svg>
   );
 };
-
-// Dog.propTypes = {
-//   pathSound: propTypes.string.isRequired
-// };
 
 export default DogJS;

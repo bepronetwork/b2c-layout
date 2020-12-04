@@ -34,7 +34,6 @@ import http from 'http';
         }catch(err){
             console.log(err)
             this.isWorking = false;
-            // Nothing
         }
     }
 
@@ -77,7 +76,6 @@ import http from 'http';
     }
 
     listenChannelUpdates = async () => {
-        // Get Messages
             const conversationState = await this.conversation.watch();
             this.open = true;
             this.chatName = conversationState.channel.id;

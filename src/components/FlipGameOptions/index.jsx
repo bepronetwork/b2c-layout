@@ -96,7 +96,6 @@ class FlipGameOptions extends Component {
         var betAmount = this.state.betAmount;
         
         if (this.isBetValid()) {
-            // to be completed with the other options
             this.setState({ sound: true });
             switch(type){
                 case 'manual' : {
@@ -109,8 +108,8 @@ class FlipGameOptions extends Component {
                     var totalProfit = 0, totalLoss = 0, lastBet = 0, wasWon = 0;
                     for( var i = 0; i < bets ; i++){
                         if(
-                            (profitStop == 0  || totalProfit <= profitStop) && // Stop Profit
-                            (lossStop == 0 || totalLoss <= lossStop) // Stop Loss
+                            (profitStop == 0  || totalProfit <= profitStop) &&
+                            (lossStop == 0 || totalLoss <= lossStop)
                         ){
                             if (i != 0) { await delay(2.5*1000); };
                             let { winAmount } = await onBet({amount : betAmount, side});

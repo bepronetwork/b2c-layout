@@ -91,7 +91,6 @@ class DiceGameCard extends Component {
             this.setState({
                 edge : props.game.edge
             });
-            // Nothing
         }
     }
 

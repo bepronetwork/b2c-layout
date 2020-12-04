@@ -1,7 +1,4 @@
 import React from "react";
-// import propTypes from "prop-types";
-
-// import { Container } from './styles';
 
 const HexagonJS = () => {
   return (
@@ -82,9 +79,5 @@ const HexagonJS = () => {
     </svg>
   );
 };
-
-// Dog.propTypes = {
-//   pathSound: propTypes.string.isRequired
-// };
 
 export default HexagonJS;

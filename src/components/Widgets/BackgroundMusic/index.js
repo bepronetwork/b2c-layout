@@ -7,7 +7,6 @@ class BackgroundMusic extends React.Component{
         super(props);
     }
 
-    // This sound file may not work due to cross-origin setting
     render () {
         const { mute } = this.props;
         return (

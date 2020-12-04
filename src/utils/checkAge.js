@@ -9,8 +9,8 @@ const checkAge = birthDate => {
   const ageFx = moment(
     `${thisYear}-${leadingWithZero(thisMonth)}-${thisDay}`
   ).diff(birthDate, "years");
-  const isLegalAge = ageFx >= 18; // legal age
-  const isUndefinedAge = ageFx > 72; // life expectancy
+  const isLegalAge = ageFx >= 18;
+  const isUndefinedAge = ageFx > 72;
   const isValid = !isUndefinedAge && isLegalAge;
 
   return isValid;

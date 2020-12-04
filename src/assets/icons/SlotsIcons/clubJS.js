@@ -1,7 +1,4 @@
 import React from "react";
-// import propTypes from "prop-types";
-
-// import { Container } from './styles';
 
 const ClubJS = () => {
   return (
@@ -38,9 +35,5 @@ const ClubJS = () => {
     </svg>
   );
 };
-
-// Dog.propTypes = {
-//   pathSound: propTypes.string.isRequired
-// };
 
 export default ClubJS;

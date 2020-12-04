@@ -28,8 +28,6 @@ class Widgets extends React.Component{
         this.setState({...this.state, ...cacheCustomization});
     }
 
-    
-    // This sound file may not work due to cross-origin setting
     render () {
         const { backgroundMusic } = this.state;
         return (

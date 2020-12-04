@@ -76,7 +76,6 @@ class HomePage extends Component {
             <div styleName="root">
                <SubSections location={LOCATION.BEFORE_BANNER} />
                <Banners/> 
-                {/* this.renderPlayNow() */}
                 <SubSections location={LOCATION.BEFORE_GAMES} />
                 <div styleName="container">
                     {

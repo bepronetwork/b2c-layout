@@ -70,12 +70,6 @@ class SideMenu extends Component {
 
         return (
             <div>
-               {/*<div styleName="live">
-                    <Typography variant={'x-small-body'} color={'white'}>Live Strumming will be available</Typography>
-                    <div styleName="cam">
-                        <LiveIcon/>
-                    </div>
-                </div>*/}
                 <div styleName="side-menu">
                     <Tabs
                         selected={tab}

@@ -1,7 +1,4 @@
 import React from "react";
-// import propTypes from "prop-types";
-
-// import { Container } from './styles';
 
 const BlueCoinJS = () => {
   return (
@@ -66,9 +63,5 @@ const BlueCoinJS = () => {
     </svg>
   );
 };
-
-// Dog.propTypes = {
-//   pathSound: propTypes.string.isRequired
-// };
 
 export default BlueCoinJS;

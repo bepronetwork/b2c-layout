@@ -170,12 +170,10 @@ class PlinkoGameCard extends React.Component {
                             if (el.position.x > particle.body.position.x) {
                                 if (index === null) {
                                     index = i
-                                    //return el
                                 }
                             }
 
                             if(index !== null){
-                                // End of Animation
                                 let pgd = `peg${index}`;
                                 this.setState({
                                     [pgd]:true

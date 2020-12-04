@@ -117,9 +117,6 @@ class TabedContainer extends React.Component{
                                     return (
                                         <Tab.Pane eventKey={`item-${index}`}>
                                             <div styleName="content">
-                                                {/*<div styleName="page">
-                                                    <Typography variant={'h4'} color={'white'}>{item.title}</Typography>
-                                                </div>*/}
                                                 {item.container}
                                             </div>
                                         </Tab.Pane>

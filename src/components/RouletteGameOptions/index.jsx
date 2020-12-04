@@ -63,7 +63,6 @@ class RouletteGameOptions extends Component {
         const { amount, type, bets, profitStop, lossStop, onWin, onLoss} = this.state;
         var res;
         if (this.isBetValid()) {
-            // to be completed with the other options
             this.setState({ sound: true });
             switch(type){
                 case 'manual' : {
@@ -77,8 +76,8 @@ class RouletteGameOptions extends Component {
                     var betAmount = amount;
                     for( var i = 0; i < bets ; i++){
                         if(
-                            (profitStop == 0  || totalProfit <= profitStop) && // Stop Profit
-                            (lossStop == 0 || totalLoss <= lossStop) // Stop Loss
+                            (profitStop == 0  || totalProfit <= profitStop) &&
+                            (lossStop == 0 || totalLoss <= lossStop)
                         ){
                             if (i != 0) { await delay(3*1000); };
                             const res = await this.betAction({amount : betAmount});

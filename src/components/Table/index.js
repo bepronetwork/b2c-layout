@@ -201,7 +201,6 @@ class TableDefault extends Component {
                                             }
                                             else{
                                                 return (
-                                                    // Normal
                                                     <td styleName={styles} data-label={titles[index]}>
                                                         {onTableDetails 
                                                         ?

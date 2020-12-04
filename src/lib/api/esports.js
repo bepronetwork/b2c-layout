@@ -2,13 +2,8 @@ import axios from "axios";
 import { apiUrlEsports } from "./apiConfig";
 import openSocket from 'socket.io-client';
 
-
-// Create an instance using the config defaults provided by the library
-// At this point the timeout config value is `0` as is the default for the library
 const instance = axios.create();
 let SEC = 200;
-// Override timeout default for the library
-// Now all requests using this instance will wait 2.5 seconds before timing out
 instance.defaults.timeout = SEC*1000;
 
 /**

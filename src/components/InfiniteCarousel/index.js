@@ -19,7 +19,6 @@ class InfiniteCarousel extends Component {
   constructor(props) {
     super(props);
 
-    // initial state
     this.state = {
       currentIndex: 0,
       activePage: 0,
@@ -94,7 +93,6 @@ class InfiniteCarousel extends Component {
     });
     if (breakpoints.length > 0) {
       breakpoints.sort(sortNumber);
-      // Register responsive media queries in settings
       breakpoints.forEach((element, index) => {
         let lowerBreakpoint;
         let higherBreakpoint;
@@ -106,7 +104,6 @@ class InfiniteCarousel extends Component {
           higherBreakpoint = element - 1;
         }
 
-        // assign breakpoints properties
         const query = { minWidth: lowerBreakpoint, maxWidth: higherBreakpoint };
 
         media(query, () => {
@@ -133,7 +130,6 @@ class InfiniteCarousel extends Component {
         });
       });
 
-      // Resize from small to large
       breakpoints.reverse();
       const query = { minWidth: breakpoints[0] };
       media(query, () => {
@@ -197,7 +193,6 @@ class InfiniteCarousel extends Component {
     let lazyLoadedList;
     let visibleSlideList;
     if (singlePage || scrollOnDevice) {
-      // jshint unused:true
       lazyLoadedList = children.map((_child, index) => index);
       visibleSlideList = [].concat(lazyLoadedList);
     } else {
@@ -481,11 +476,9 @@ class InfiniteCarousel extends Component {
       let targetIndex;
       let nextCurrentIndex;
       if (touchObject.direction === 1) {
-        // Next
         targetIndex = currentIndex + settings.slidesToScroll;
         nextCurrentIndex = this.getTargetIndex(targetIndex, settings.slidesToScroll);
       } else {
-        // Previous
         targetIndex = currentIndex - settings.slidesToScroll;
         nextCurrentIndex = this.getTargetIndex(targetIndex, settings.slidesToScroll);
         if (targetIndex < 0 && currentIndex !== 0) {

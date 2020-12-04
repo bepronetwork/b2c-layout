@@ -121,7 +121,6 @@ class PlinkoGameOptions extends Component {
         var res;
 
         if (this.isBetValid()) {
-            // to be completed with the other options
             this.setState({ sound: true });
             switch(type){
                 case 'manual' : {
@@ -135,8 +134,8 @@ class PlinkoGameOptions extends Component {
                     var betAmount = amount;
                     for( var i = 0; i < bets ; i++){
                         if(
-                            (profitStop == 0  || totalProfit <= profitStop) && // Stop Profit
-                            (lossStop == 0 || totalLoss <= lossStop) // Stop Loss
+                            (profitStop == 0  || totalProfit <= profitStop) &&
+                            (lossStop == 0 || totalLoss <= lossStop)
                         ){
                             if (i != 0) { await delay(4*1000); };
                             const res = await this.betAction({amount : betAmount});
@@ -228,38 +227,6 @@ class PlinkoGameOptions extends Component {
                 onChange={this.handleBets}
             />
             </div>
-            {/*<div styleName="element">
-            <OnWinLoss value={onWin} title={copy.INDEX.ON_WIN_LOSS.TITLE[0]} onChange={this.handleOnWin} />
-            </div>
-            <div styleName="element">
-            <OnWinLoss
-                value={onLoss}
-                title={copy.INDEX.ON_WIN_LOSS.TITLE[1]}
-                onChange={this.handleOnLoss}
-            />
-            </div>
-            <div styleName="element">
-            <InputNumber
-                name="profit"
-                step={0.01}
-                title={copy.INDEX.INPUT_NUMBER.TITLE[1]}
-                icon="bitcoin"
-                precision={2}
-                value={profitStop}
-                onChange={this.handleStopOnProfit}
-            />
-            </div>
-            <div styleName="element">
-            <InputNumber
-                name="loss"
-                step={0.01}
-                precision={2}
-                title={copy.INDEX.INPUT_NUMBER.TITLE[2]}
-                icon="bitcoin"
-                value={lossStop}
-                onChange={this.handleStopOnLoss}
-            />
-            </div>*/}
         </div>
         );
     };

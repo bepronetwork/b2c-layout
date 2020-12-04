@@ -112,10 +112,6 @@ class AccountPage extends Component {
                         }
                         {...this.props}
                     />
-                    {/* <div styleName='mati-kyc-setup'>
-                        <ReactMati clientId={'5d3ebd1ec2ca36001b912f42'} metadata={{ userId: id }} />}
-                    </div> */
-                    }
                 </div>
             </div>
         );

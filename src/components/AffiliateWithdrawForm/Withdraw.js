@@ -26,7 +26,6 @@ class Withdraw extends Component {
     state = { ...defaultProps };
 
     componentDidMount(){
-        /* Set Affiliate */
         const { profile } = this.props;
         const { wallet : userBalance } = profile.getAffiliateInfo();
         store.dispatch(setWithdrawInfo({key : "amount", value : parseFloat(userBalance)}));
