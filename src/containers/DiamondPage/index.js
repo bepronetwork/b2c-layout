@@ -7,7 +7,6 @@ import diamondsBet from "lib/api/diamonds";
 import _, { find } from "lodash";
 import { connect } from "react-redux";
 import Sound from "react-sound";
-
 import DiamondSound from "assets/DiamondIcons/sound/diamond.mp3";
 import DiamondResult from "assets/DiamondIcons/sound/result.mp3";
 import images from "../../components/DiamondGame/images";

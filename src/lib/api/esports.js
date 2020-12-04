@@ -1,7 +1,13 @@
 import axios from "axios";
 import { apiUrlEsports } from "./apiConfig";
+<<<<<<< HEAD
 import openSocket from 'socket.io-client';
 
+=======
+
+// Create an instance using the config defaults provided by the library
+// At this point the timeout config value is `0` as is the default for the library
+>>>>>>> 70cdd8765733b0314181c4dce3280122af74cd49
 const instance = axios.create();
 let SEC = 200;
 instance.defaults.timeout = SEC*1000;

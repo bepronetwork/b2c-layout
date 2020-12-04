@@ -7,7 +7,6 @@ import { setBetSlipResult, removeBetSlipFromResult } from "../../../redux/action
 import { formatOpponentData, formatOpponentBet, formatDrawBet } from "../../../lib/helpers";
 import _ from 'lodash';
 import "./index.css";
-
 import LockTwoToneIcon from '@material-ui/icons/LockTwoTone';
 
 const buttonStyles = {

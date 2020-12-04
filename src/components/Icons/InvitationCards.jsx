@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-
 import "./InvitationCards.css";
 
 export default class InvitationCards extends Component {

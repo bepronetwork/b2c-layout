@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import Bitcoin from "components/Icons/Bitcoin";
 import { Typography } from "components";
-import _ from 'lodash';
 import "./index.css";
 
 class FlipDetails extends Component {

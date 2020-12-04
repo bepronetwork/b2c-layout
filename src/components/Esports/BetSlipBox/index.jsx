@@ -7,7 +7,6 @@ import { formatCurrency } from "../../../utils/numberFormatation";
 import classNames from "classnames";
 import _ from 'lodash';
 import "./index.css";
-
 import LockTwoToneIcon from '@material-ui/icons/LockTwoTone';
 import { Tooltip } from "@material-ui/core";
 

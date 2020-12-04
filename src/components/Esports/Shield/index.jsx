@@ -1,9 +1,7 @@
 import React, { Component } from "react";
 import classNames from "classnames";
 import Tooltip from '@material-ui/core/Tooltip';
-import _ from 'lodash';
 import "./index.css";
-
 
 export default class Shield extends Component {
 

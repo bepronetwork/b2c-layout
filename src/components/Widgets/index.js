@@ -4,7 +4,6 @@ import './index.css';
 import Cache from '../../lib/cache/cache';
 import { connect } from "react-redux";
 
-
 class Widgets extends React.Component{
     
     constructor(props){

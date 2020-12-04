@@ -9,7 +9,6 @@ import classNames from "classnames";
 import _ from 'lodash';
 import "./index.css";
 
-
 class SerieFilter extends Component {
 
     constructor(props) {

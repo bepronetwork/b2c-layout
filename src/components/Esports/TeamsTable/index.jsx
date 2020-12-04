@@ -4,9 +4,7 @@ import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
 import { getTeam } from "controllers/Esports/EsportsUser";
 import { getSkeletonColors } from "../../../lib/helpers";
 import { connect } from 'react-redux';
-import _ from 'lodash';
 import "./index.css";
-
 
 class TeamsTable extends Component {
 

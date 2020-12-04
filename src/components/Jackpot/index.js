@@ -2,7 +2,6 @@ import React from "react";
 import { connect } from "react-redux";
 import { BigWinIcon, Typography } from "components";
 import { getIcon } from "../../lib/helpers";
-
 import './index.css';
 
 class Jackpot extends React.Component{

@@ -10,6 +10,7 @@ import { formatCurrency } from "../../utils/numberFormatation";
 import classNames from "classnames";
 import _ from 'lodash';
 import './index.css';
+
 class TabedContainer extends React.Component{
 
     constructor(props){

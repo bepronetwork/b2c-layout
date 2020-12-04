@@ -4,7 +4,6 @@ import ArrowLeft from "components/Icons/ArrowLeft";
 import ArrowRight from "components/Icons/ArrowRight";
 import "./index.css";
 
-
 class DimensionCarousel extends React.Component {
 
     constructor(props) {

@@ -4,7 +4,6 @@ import { connect } from "react-redux";
 import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
 import { getProvidersGames } from "../../lib/api/app";
 import { getSkeletonColors, getApp, getAppCustomization } from "../../lib/helpers";
-import _ from 'lodash';
 import { CopyText } from "../../copy";
 import "./index.css";
 

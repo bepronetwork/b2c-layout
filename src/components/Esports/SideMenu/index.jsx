@@ -2,9 +2,7 @@ import React, { Component } from "react";
 import { Tabs } from 'components';
 import { OddsTable, TeamsTable, Chat } from 'components/Esports';
 import { connect } from 'react-redux';
-import _ from 'lodash';
 import "./index.css";
-
 
 class SideMenu extends Component {
 

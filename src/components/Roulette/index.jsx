@@ -7,7 +7,6 @@ import Sound from "react-sound";
 import { getAppCustomization } from "../../lib/helpers";
 import rouletteSound from "assets/roulette-sound.mp3";
 import ballSound from "assets/ball-stop-sound.mp3";
-
 import "./index.css";
 
 const numberAngles = {

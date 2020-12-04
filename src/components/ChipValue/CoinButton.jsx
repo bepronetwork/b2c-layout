@@ -2,9 +2,7 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import Coin from "components/Icons/Coin";
 import classNames from "classnames";
-
 import { Typography } from "components";
-
 import "./CoinButton.css";
 
 export default class CoinButton extends Component {

@@ -1,15 +1,12 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-
 import { CopyText } from "../../copy";
 import handleCardResult from "./resultCard";
 import Diamond from "../../assets/DiamondIcons/diamond";
 import DiamondFill from "../../assets/DiamondIcons/diamond-fill";
 import DiamondWithBorder from "../../assets/DiamondIcons/diamond-with-border";
-
 import images from "./images";
-
 import "./index.css";
 
 class DiamondGame extends Component {

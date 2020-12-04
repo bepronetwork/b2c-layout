@@ -3,9 +3,7 @@ import { Typography } from 'components';
 import { OddsTable, Live } from 'components/Esports';
 import { dateToHourAndMinute, formatToBeautyDate } from "../../../lib/helpers";
 import { connect } from 'react-redux';
-import _ from 'lodash';
 import "./index.css";
-
 import Countdown from 'react-countdown';
 import moment from 'moment'
 

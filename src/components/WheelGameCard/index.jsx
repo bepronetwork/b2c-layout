@@ -5,7 +5,6 @@ import { ButtonIcon, Typography } from "components";
 import { isEmpty } from "lodash";
 import { connect } from "react-redux";
 import { find } from "lodash";
-import _ from "lodash";
 import { getAppCustomization } from "../../lib/helpers";
 import { CopyText } from "../../copy";
 import { getPopularNumbers } from "../../lib/api/app";

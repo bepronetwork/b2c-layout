@@ -9,7 +9,6 @@ import coinSound from "assets/coin-sound.mp3";
 import winSound from "assets/win-sound.mp3";
 import loseSound from "assets/lose-sound.mp3";
 import { find } from 'lodash';
-
 import "./index.css";
 import { Numbers } from "../../lib/ethereum/lib";
 import { getPopularNumbers } from "../../lib/api/app";

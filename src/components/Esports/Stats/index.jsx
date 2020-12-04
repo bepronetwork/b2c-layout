@@ -7,7 +7,6 @@ import moment from 'moment-timezone';
 import _ from 'lodash';
 import "./index.css";
 
-
 class Stats extends Component {
 
     constructor(props){

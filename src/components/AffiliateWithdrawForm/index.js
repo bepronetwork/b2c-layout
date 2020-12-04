@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import { Tabs, Modal } from "components";
 import Withdraw from "./Withdraw";
 import { connect } from "react-redux";
-
 import "./index.css";
 import store from "../../containers/App/store";
 import { setModal } from "../../redux/actions/modal";

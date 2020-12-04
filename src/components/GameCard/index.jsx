@@ -3,7 +3,6 @@ import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import { Typography, Info } from "components";
 import { connect } from "react-redux";
-
 import "./index.css";
 import { CopyText } from "../../copy";
 

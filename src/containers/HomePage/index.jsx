@@ -12,6 +12,7 @@ import { LOCATION } from 'components/SubSections/properties';
 import { getAppCustomization } from "../../lib/helpers";
 import _ from 'lodash';
 import "./index.css";
+
 class HomePage extends Component {
     static contextType = UserContext;
 

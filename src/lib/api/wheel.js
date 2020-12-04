@@ -1,4 +1,4 @@
-import { find, map, range } from "lodash";
+import { find } from "lodash";
 import { processResponse } from "../helpers";
 
 export default async function bet({ amount, user, game_id }) {

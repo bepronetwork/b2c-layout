@@ -6,7 +6,6 @@ import classNames from 'classnames';
 import { Typography } from 'components';
 import _ from 'lodash';
 import "./index.css";
-
 import dots from "assets/dots.png";
 
 class NavigationBar extends Component {

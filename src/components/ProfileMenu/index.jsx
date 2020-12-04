@@ -8,7 +8,6 @@ import {
 import { map } from "lodash";
 import { CopyText } from '../../copy';
 import { connect } from "react-redux";
-
 import "./index.css";
 
 class ProfileMenu extends Component {

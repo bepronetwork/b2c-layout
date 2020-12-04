@@ -1,10 +1,8 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-
 import { Typography, ToggleButton, InputNumber } from "components";
 import { CopyText } from '../../copy';
 import { connect } from "react-redux";
-
 import "./index.css";
 
 class OnWinLoss extends Component {

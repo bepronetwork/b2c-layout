@@ -2,9 +2,7 @@ import React, { Component } from "react";
 import { Typography } from 'components';
 import ReactCountryFlag from "react-country-flag"
 import { connect } from 'react-redux';
-import _ from 'lodash';
 import "./index.css";
-
 
 class Player extends Component {
 

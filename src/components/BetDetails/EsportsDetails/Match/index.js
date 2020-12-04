@@ -4,7 +4,6 @@ import { Typography } from 'components';
 import { Shield } from "components/Esports";
 import { formatOpponentData, formatToBeautyDate } from "../../../../lib/helpers";
 import classNames from "classnames";
-import _ from 'lodash';
 import "./index.css";
 
 const stateOptions = Object.freeze({

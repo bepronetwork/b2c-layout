@@ -1,7 +1,6 @@
 import newId from '../../utils/newId';
 import _ from 'lodash';
 
-
 const initialState = {
 };
 

@@ -2,7 +2,6 @@ import React from "react";
 import PropTypes from "prop-types";
 import classNames from "classnames";
 import { includes } from "lodash";
-
 import "./index.css";
 
 const Typography = ({ children, variant, color, weight, otherStyles={}}) => {

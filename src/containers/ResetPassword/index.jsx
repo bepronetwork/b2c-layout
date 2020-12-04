@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-
 import { Button, Typography, InputText, EmailIcon } from "components";
 import { CopyText } from '../../copy';
 import { askResetPassword, setNewPassword } from "../../lib/api/users";

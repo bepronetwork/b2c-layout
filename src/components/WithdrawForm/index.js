@@ -2,10 +2,8 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { compose } from 'lodash/fp';
 import { HorizontalStepper} from 'components';
-import Confirmation from "./Confirmation"
 import Form from "./Form"
 import { CopyText } from '../../copy';
-import _ from 'lodash';
 import "./index.css";
 
 const defaultProps = {

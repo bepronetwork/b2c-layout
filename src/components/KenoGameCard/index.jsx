@@ -14,7 +14,6 @@ import _ from 'lodash';
 import plockSound from "assets/keno-selected.mp3";
 import congratsSound from "assets/keno-diamond.mp3";
 import tickSound from "assets/keno-tick.mp3";
-
 import "./index.css";
 import { KenoBoard } from "..";
 

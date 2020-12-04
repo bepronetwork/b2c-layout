@@ -2,17 +2,15 @@ import React from "react";
 import PropTypes from "prop-types";
 import { WheelGameOptions, WheelGameCard } from "components";
 import GamePage from "containers/GamePage";
-import { reduce } from "lodash";
 import UserContext from "containers/App/UserContext";
 import { setWonPopupMessageDispatcher } from "../../lib/redux";
 import wheelBet from "lib/api/wheel";
 import Cache from "../../lib/cache/cache";
-import { find } from "lodash";
+import _, { find, reduce } from "lodash";
 import { Numbers } from "lib/ethereum/lib";
 import { connect } from "react-redux";
 import { compose } from 'lodash/fp';
 import { loadWheelOptions } from "../../lib/helpers";
-import _ from "lodash";
 
 class WheelPage extends React.Component {
     static contextType = UserContext;

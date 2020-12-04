@@ -5,8 +5,6 @@ import { getApp, getAppCustomization, getIcon } from "../../lib/helpers";
 import { CopyText } from "../../copy";
 import Cache from "../../lib/cache/cache";
 import getAppInfo from "lib/api/app";
-import _ from 'lodash';
-
 import "./index.css";
 
 class CountryRestrictedPage extends Component {

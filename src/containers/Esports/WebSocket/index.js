@@ -1,6 +1,5 @@
 import io from 'socket.io-client';
 import { createContext } from 'react';
-
 import _ from 'lodash'
 
 export const WEBSOCKET_ESPORTS_URL = process.env.REACT_APP_WEBSOCKET_ESPORTS_LISTENER;

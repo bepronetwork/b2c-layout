@@ -21,7 +21,6 @@ import allow from 'assets/allow.png';
 import { CopyText } from '../../copy';
 import { connect } from "react-redux";
 
-
 const QontoConnector = withStyles({
   alternativeLabel: {
     top: 10,

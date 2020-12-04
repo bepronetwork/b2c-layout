@@ -11,7 +11,6 @@ import Triangle from "../../assets/icons/SlotsIcons/triangle.svg";
 import Pentagon from "../../assets/icons/SlotsIcons/pentagon.svg";
 import Beetle from "../../assets/icons/SlotsIcons/beetle.svg";
 import Esfinge from "../../assets/icons/SlotsIcons/esfinge.svg";
-
 import Coin2 from "../../assets/icons/SlotsIcons/coin2.svg";
 import BlueCoin2 from "../../assets/icons/SlotsIcons/bluecoin2.svg";
 import Club2 from "../../assets/icons/SlotsIcons/club2.svg";

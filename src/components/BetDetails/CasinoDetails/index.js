@@ -12,7 +12,6 @@ import { getApp, getSkeletonColors } from "../../../lib/helpers";
 import { CopyText } from "../../../copy";
 import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 import _ from 'lodash';
-
 import "./index.css";
 
 class CasinoDetails extends Component {
