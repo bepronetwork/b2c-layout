@@ -107,13 +107,9 @@ class Form extends Component {
         })
     }
 
-    handleAmount = event => {
-        this.setState({ amount: event.target.value });
-    }
-
-    handleAmountBalance = amount => {
+    handleAmount = amount => {
         const { toAddress } = this.state;
-        this.setState({ amount, disabled: !(amount && toAddress)});
+        this.setState({...this.state, amount, disabled: !(amount && toAddress)});
     }
 
     onToAddressChange = async event => {
@@ -238,18 +234,18 @@ class Form extends Component {
                                         max={maxWithdraw}
                                         precision={6}
                                         title=""
-                                        onChange={this.handleAmount}
+                                        onChange={(amount) => this.handleAmount(amount)}
                                         icon="customized"
                                         value={amount}
                                         type="currency"
                                         custmomizedIcon={image}
                                     />
-                                    <div styleName="min-max" onClick={() => this.handleAmountBalance(minBalance)}>
+                                    <div styleName="min-max" onClick={() => this.handleAmount(minBalance)}>
                                         <Typography variant={'x-small-body'} color={'grey'}>
                                             Min
                                         </Typography>
                                     </div>
-                                    <div styleName="min-max" onClick={() => this.handleAmountBalance(maxBalance)}>
+                                    <div styleName="min-max" onClick={() => this.handleAmount(maxBalance)}>
                                         <Typography variant={'x-small-body'} color={'grey'}>
                                             Max
                                         </Typography>
