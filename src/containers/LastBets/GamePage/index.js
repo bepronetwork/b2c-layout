@@ -13,7 +13,6 @@ import { CopyText } from "../../../copy";
 import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 import "./index.css";
 
-
 const views = [{ text : 10, value : 10 }, { text : 25, value : 25 }, { text : 50, value : 50 }, { text : 100, value : 100 }];
 
 const rows = {

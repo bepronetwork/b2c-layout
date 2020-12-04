@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import "./index.css";
 import { 
         TabedContainer, DepositTab, WithdrawTab, BetsTab, SecurityTab, SettingsTab, AffiliatesTab, AccountTab, WalletTab, WalletIcon,
-        SettingsIcon, DepositsIcon, WithdrawIcon, RefferalIcon, BetsIcon, UserIcon, UsersIcon, ConfirmedIcon
+        SettingsIcon, DepositsIcon, WithdrawIcon, BetsIcon, UserIcon, UsersIcon, ConfirmedIcon
        } from 'components';
 import { connect } from "react-redux";
 import { getApp, getIcon } from "../../lib/helpers";

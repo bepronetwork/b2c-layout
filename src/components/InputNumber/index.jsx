@@ -8,7 +8,6 @@ import {
   CrossIcon,
   InfiniteIcon
 } from "components";
-
 import "./index.css";
 
 export default class InputNumber extends Component {

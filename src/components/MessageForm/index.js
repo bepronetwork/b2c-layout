@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import Message from './Message';
-
 import "./index.css";
 
 export default class MessageForm extends Component {

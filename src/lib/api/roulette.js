@@ -1,5 +1,4 @@
 import { forEach, map, find } from "lodash";
-import handleError from "./handleError";
 import { processResponse } from "../helpers";
 
 const boardCellsNumbers = {

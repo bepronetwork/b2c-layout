@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { connect } from "react-redux";
 import _ from 'lodash';
 import { Typography } from 'components';
-
 import Timer from "assets/icons/timer.svg";
 import "./index.css";
 

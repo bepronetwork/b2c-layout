@@ -1,12 +1,9 @@
 import React, { Component } from "react";
 import { dateToHourAndMinute, formatToBeautyDate } from "../../../lib/helpers";
 import Countdown from 'react-countdown';
-
 import { Typography, Button, LiveIcon } from 'components';
 import classNames from "classnames";
-import _ from 'lodash';
 import "./index.css";
-
 import moment from 'moment'
 
 export default class Status extends Component {

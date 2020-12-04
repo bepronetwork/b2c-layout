@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { getAppCustomization } from "../../lib/helpers";
-
 import "./diamond.css";
 
 export default class Diamond extends Component {

@@ -1,28 +1,22 @@
 import React, { Component } from "react";
 import { Row, Col} from 'reactstrap';
-import { Typography, LanguagePicker, LegalBox, LanguageSelector } from 'components';
+import { Typography, LegalBox, LanguageSelector } from 'components';
 import { Link } from 'react-dom';
 import { connect } from "react-redux";
 import "./index.css";
 import { getAppCustomization, getApp } from "../../lib/helpers";
 import {CopyText} from "../../copy";
 import _ from 'lodash';
-
 import logoMadeByBepro_light from 'assets/media/logo_bepro.png';
 import logoMadeByBepro_dark from 'assets/media/logo_bepro-dark.png';
-
 import logobBitGo_light from 'assets/partners/logo_bitgo.png';
 import logobBitGo_dark from 'assets/partners/logo_bitgo-dark.png';
-
 import logoBetProtocol_light from 'assets/partners/logo_betprotocol.png';
 import logoBetProtocol_dark from 'assets/partners/logo_betprotocol-dark.png';
-
 import logoBitCoin_light from 'assets/partners/logo_bitcoin.png';
 import logoBitCoin_dark from 'assets/partners/logo_bitcoin-dark.png';
-
 import logoEthereum_light from 'assets/partners/logo_ethereum.png';
 import logoEthereum_dark from 'assets/partners/logo_ethereum-dark.png';
-
 import logoResponsible_light from 'assets/partners/logo_responsible_gambling.png';
 import logoResponsible_dark from 'assets/partners/logo_responsible_gambling-dark.png';
 

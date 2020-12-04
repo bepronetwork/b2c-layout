@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { WithdrawIcon, Typography, Table } from "components";
+import { WithdrawIcon, Table } from "components";
 import { connect } from "react-redux";
 import _ from "lodash";
 import { dateToHourAndMinute, isUserSet, getIcon } from "../../lib/helpers";

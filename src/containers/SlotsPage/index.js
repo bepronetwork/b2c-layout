@@ -3,11 +3,9 @@ import propTypes from "prop-types";
 import { compose } from "lodash/fp";
 import { connect } from "react-redux";
 import { find } from "lodash";
-
 import { SlotsGameOptions, SlotsGame } from "components";
 import GamePage from "containers/GamePage";
 import UserContext from "containers/App/UserContext";
-
 import slotsBet from "lib/api/slots";
 import Coin from "assets/audio/slotsaudio/coin.mp3";
 import BlueCoin from "assets/audio/slotsaudio/blue-coin.mp3";
@@ -22,7 +20,6 @@ import Triangle from "assets/audio/slotsaudio/triangle.mp3";
 import Pentagon from "assets/audio/slotsaudio/pentagon.mp3";
 import Beetle from "assets/audio/slotsaudio/beetle.mp3";
 import Esfinge from "assets/audio/slotsaudio/esfinge.mp3";
-
 import Reel from "assets/audio/slotsaudio/reels.mp3";
 import Result from "assets/audio/slotsaudio/result.mp3";
 import {
@@ -30,7 +27,6 @@ import {
   handleAnimation,
   randomNumber
 } from "../../lib/helpers/slotsHelpers";
-
 import Cache from "../../lib/cache/cache";
 
 class SlotsPage extends Component {

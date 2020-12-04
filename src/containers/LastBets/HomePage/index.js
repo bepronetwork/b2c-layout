@@ -11,7 +11,6 @@ import _ from 'lodash';
 import { CopyText } from "../../../copy";
 import { formatCurrency } from "../../../utils/numberFormatation";
 import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
-
 import "./index.css";
 
 class LastBets extends Component {

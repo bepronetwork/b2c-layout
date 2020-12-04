@@ -8,7 +8,6 @@ import { getSkeletonColors, getAppCustomization } from "../../lib/helpers";
 import classNames from "classnames";
 import _ from 'lodash';
 import "./index.css";
-
 import LockTwoToneIcon from '@material-ui/icons/LockTwoTone';
 
 class Esports extends Component {

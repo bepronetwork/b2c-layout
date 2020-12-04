@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { WheelGameOptions, WheelGameCard } from "components";
 import GamePage from "containers/GamePage";
-import { reduce } from "lodash";
+import _, { reduce } from "lodash";
 import UserContext from "containers/App/UserContext";
 import { setWonPopupMessageDispatcher } from "../../lib/redux";
 import wheelBet from "lib/api/wheel";
@@ -11,7 +11,6 @@ import Cache from "../../lib/cache/cache";
 import { Numbers } from "lib/ethereum/lib";
 import { connect } from "react-redux";
 import { compose } from 'lodash/fp';
-import _ from "lodash";
 
 const resultSpaceColors = [
     {

@@ -5,7 +5,6 @@ import { connect } from "react-redux";
 import { compose } from 'lodash/fp'
 import _ from 'lodash';
 import "./index.css";
-import { CopyText } from '../../copy';
 
 class NotificationForm extends Component {
     constructor(props) {

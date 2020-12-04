@@ -2,14 +2,12 @@ import React, { Component } from "react";
 import {Typography } from "components";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-
 import {CopyText} from "../../copy";
 import UserContext from "containers/App/UserContext";
 import classNames from "classnames";
 import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
 import { getSkeletonColors, loadFakeBets, getApp } from "../../lib/helpers";
 import delay from 'delay';
-
 import "./index.css";
 
 class TableDefault extends Component {

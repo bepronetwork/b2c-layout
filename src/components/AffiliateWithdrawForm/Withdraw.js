@@ -6,7 +6,6 @@ import {
     HorizontalStepper, AmountWithdrawForm, CurrencyWithdrawForm, 
     WithdrawForm
 } from 'components';
-import { Numbers } from 'lib/ethereum/lib';
 import store from "../../containers/App/store";
 import { setWithdrawInfo } from "../../redux/actions/withdraw";
 import { CopyText } from '../../copy';

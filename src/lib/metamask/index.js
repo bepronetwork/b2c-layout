@@ -1,4 +1,3 @@
-
 const NONCE_MIN = 1346;
 const NONCE_MAX = 45374598679192; 
 

@@ -1,10 +1,7 @@
-import map from "lodash/map";
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import classNames from 'classnames';
-import _ from 'lodash';
 import Tab from "./Tab";
-
 import "./index.css";
 
 export default class Tabs extends Component {

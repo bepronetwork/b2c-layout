@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { isUserSet } from "../../lib/helpers";
 import DepositTable from "../DepositTable";
-import _ from 'lodash';
 import "./index.css";
 
 class DepositTab extends Component {

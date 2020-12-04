@@ -5,8 +5,8 @@ import { CopyText } from '../../copy';
 import { connect } from "react-redux";
 import { getAppCustomization } from "../../lib/helpers";
 import loading from 'assets/loading-circle.gif';
-
 import "./index.css";
+
 class LoginForm extends Component {
     static propTypes = {
         onSubmit: PropTypes.func.isRequired,

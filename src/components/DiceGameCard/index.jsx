@@ -8,7 +8,6 @@ import { getPopularNumbers } from "../../lib/api/app";
 import { Numbers } from "../../lib/ethereum/lib";
 import { formatPercentage } from "../../utils/numberFormatation";
 import { CopyText } from '../../copy';
-
 import "./index.css";
 
 const minPayout = 1.0102;

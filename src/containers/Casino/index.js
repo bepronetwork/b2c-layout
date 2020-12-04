@@ -8,8 +8,8 @@ import PlayInvitation from "components/PlayInvitation";
 import games from '../../config/games';
 import LastBets from "../LastBets/HomePage";
 import { connect } from 'react-redux';
-import _ from 'lodash';
 import "./index.css";
+
 class HomePage extends Component {
     static contextType = UserContext;
 

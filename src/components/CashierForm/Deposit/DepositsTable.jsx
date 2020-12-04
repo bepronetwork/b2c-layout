@@ -1,4 +1,3 @@
-
 import { connect } from "react-redux";
 import { compose } from 'lodash/fp';
 import React from 'react';
@@ -21,6 +20,7 @@ import { Typography } from "components";
 import "./index.css";
 import { CopyText } from '../../../copy';
 import { getApp } from "../../../lib/helpers";
+
 let counter = 0;
 let globalProps = null;
 

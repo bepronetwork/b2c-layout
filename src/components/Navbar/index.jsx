@@ -11,10 +11,8 @@ import { withStyles } from "@material-ui/core/styles";
 import classNames from "classnames";
 import _, { isEqual } from 'lodash';
 import "./index.css";
-
 import nineDots from "assets/icons/nine.png";
 import nineDotsLight from "assets/icons/nine-light.png";
-
 
 function AddressConcat(string){
     return  `${string.substring(0, 6)}...${string.substring(string.length - 2)}`;

@@ -1,11 +1,9 @@
 import React from "react";
-import { Row, Col } from 'reactstrap';
 import { Typography, CopyIcon } from 'components';
 import { connect } from "react-redux";
 import classNames from "classnames";
 import { getApp, getAppCustomization, getIcon } from "../../lib/helpers";
 import { CopyText } from '../../copy';
-
 import './index.css';
 
 const info = getApp();

@@ -7,7 +7,6 @@ import { formatToSimpleDate, getSkeletonColors } from "../../../lib/helpers";
 import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
 import _ from 'lodash';
 import "./index.css";
-
 import LockTwoToneIcon from '@material-ui/icons/LockTwoTone';
 
 class Matches extends Component {

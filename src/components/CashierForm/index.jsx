@@ -4,7 +4,6 @@ import Deposit from "./Deposit";
 import Withdraw from "./Withdraw";
 import { connect } from "react-redux";
 import { getApp, getIcon } from "../../lib/helpers";
-
 import "./index.css";
 import { CopyText } from '../../copy';
 

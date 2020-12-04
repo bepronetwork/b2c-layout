@@ -3,7 +3,6 @@ import PropTypes from "prop-types";
 import keyCode from "utils/keyCode";
 import CloseIcon from "components/Icons/CloseCross";
 import withSetWindowListeners from "containers/withSetWindowListener";
-
 import styles from "./index.css";
 
 class Modal extends React.Component {

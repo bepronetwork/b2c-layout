@@ -2,16 +2,14 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { RouletteGameOptions, RouletteGameCard } from "components";
 import GamePage from "containers/GamePage";
-import { reduce } from "lodash";
 import UserContext from "containers/App/UserContext";
 import rouletteBet from "lib/api/roulette";
 import Cache from "../../lib/cache/cache";
 import { setWonPopupMessageDispatcher } from "../../lib/redux";
-import { find } from "lodash";
+import _, { find, reduce } from "lodash";
 import { Numbers } from "lib/ethereum/lib";
 import { connect } from "react-redux";
 import { compose } from 'lodash/fp';
-import _ from 'lodash';
 
 class RoulettePage extends Component {
     static contextType = UserContext;

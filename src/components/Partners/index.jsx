@@ -3,12 +3,10 @@ import image_1 from 'assets/partners/cruise.png';
 import image_2 from 'assets/partners/genting.png';
 import image_3 from 'assets/partners/sands.png';
 import image_4 from 'assets/partners/waterfront.png';
-
 import { Typography } from 'components';
 import "./index.css";
 import { CopyText } from '../../copy';
 import { connect } from "react-redux";
-
 
 class Partners extends Component {
   render() {

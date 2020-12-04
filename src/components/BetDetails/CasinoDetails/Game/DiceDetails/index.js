@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Slider } from "components";
-import _ from 'lodash';
 import "./index.css";
 
 class DiceDetails extends Component {

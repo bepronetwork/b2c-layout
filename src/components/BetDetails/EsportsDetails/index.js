@@ -9,7 +9,6 @@ import { CopyText } from "../../../copy";
 import classNames from "classnames";
 import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 import _ from 'lodash';
-
 import "./index.css";
 
 const stateOptions = Object.freeze({

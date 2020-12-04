@@ -4,9 +4,7 @@ import { BetSlip } from "components/Esports";
 import { Typography } from 'components';
 import { BetsIcon } from "components";
 import classNames from "classnames";
-import _ from 'lodash';
 import "./index.css";
-
 
 class BetSlipFloat extends Component {
 

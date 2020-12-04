@@ -13,6 +13,7 @@ import { connect } from 'react-redux';
 import { v4 as uuidv4 } from 'uuid';
 import _ from 'lodash';
 import "./index.css";
+
 class BetSlip extends Component {
 
     constructor(props){

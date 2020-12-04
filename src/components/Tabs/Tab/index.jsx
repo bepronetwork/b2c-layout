@@ -3,7 +3,6 @@ import PropTypes from "prop-types";
 import classNames from "classnames";
 import Typography from "../../Typography";
 import { getAppCustomization } from "../../../lib/helpers";
-
 import "./index.css";
 
 const tabletBreakpoint = 1267;

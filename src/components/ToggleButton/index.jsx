@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import classNames from "classnames";
 import Typography from "../Typography";
-
 import "./index.css";
 
 export default class ToggleButton extends Component {

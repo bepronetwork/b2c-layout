@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Typography, Info } from 'components';
+import { Typography } from 'components';
 import { connect } from "react-redux";
 import _ from 'lodash';
 import "./index.css";

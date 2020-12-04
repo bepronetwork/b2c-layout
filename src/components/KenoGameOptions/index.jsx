@@ -18,8 +18,8 @@ import { connect } from "react-redux";
 import { isUserSet } from "../../lib/helpers";
 import { Numbers } from "../../lib/ethereum/lib";
 import delay from 'delay';
-
 import "./index.css";
+
 class KenoGameOptions extends Component {
     static contextType = UserContext;
 

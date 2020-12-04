@@ -5,7 +5,6 @@ import { connect } from 'react-redux';
 import { getGames, getMatches, getMatchesBySeries, getMatch } from "controllers/Esports/EsportsUser";
 import _ from 'lodash';
 import "./index.css";
-
 import socketConnection from '../WebSocket'
 import store from "../../App/store";
 import { setBetSlipResult } from "../../../redux/actions/betSlip";

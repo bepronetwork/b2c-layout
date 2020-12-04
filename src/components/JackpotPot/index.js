@@ -5,7 +5,6 @@ import { getApp, getIcon } from "../../lib/helpers";
 import { formatCurrency } from '../../utils/numberFormatation';
 import _ from 'lodash';
 import coinPng from 'assets/coin.png';
-
 import './index.css';
 
 class JackpotPot extends React.Component{

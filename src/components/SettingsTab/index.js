@@ -3,7 +3,6 @@ import { Typography, Toggle } from 'components';
 import { connect } from "react-redux";
 import Cache from "../../lib/cache/cache";
 import { CopyText } from '../../copy';
-import _ from 'lodash';
 import "./index.css";
 
 class SettingsTab extends Component {

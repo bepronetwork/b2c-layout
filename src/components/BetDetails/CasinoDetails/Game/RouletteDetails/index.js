@@ -4,7 +4,6 @@ import RouletteBoard from "components/RouletteBoard";
 import { Typography } from "components";
 import redColors from "../../../../RouletteGameCard/redColors";
 import classNames from "classnames";
-import _ from 'lodash';
 import "./index.css";
 
 class RouletteDetails extends Component {

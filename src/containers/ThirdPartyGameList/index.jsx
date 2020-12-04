@@ -5,7 +5,6 @@ import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
 import { getProvidersGames } from "../../lib/api/app";
 import { getSkeletonColors, getApp } from "../../lib/helpers";
 import { CopyText } from "../../copy";
-import _ from 'lodash';
 import "./index.css";
 
 class ThirdPartyGameList extends Component {

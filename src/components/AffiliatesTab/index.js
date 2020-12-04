@@ -5,7 +5,6 @@ import PaymentBox from "../PaymentBox";
 import { CopyText } from '../../copy';
 import { Col, Row } from 'reactstrap';
 import { getApp, getIcon } from "../../lib/helpers";
-import _ from 'lodash';
 import './index.css';
 
 const defaultState = {

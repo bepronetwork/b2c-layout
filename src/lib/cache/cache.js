@@ -1,5 +1,3 @@
-var cookies = require('browser-cookies');
-
 class cache{
 
     /**

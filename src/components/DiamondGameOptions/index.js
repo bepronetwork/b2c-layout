@@ -18,7 +18,6 @@ import delay from "delay";
 import { CopyText } from "../../copy";
 import { isUserSet } from "../../lib/helpers";
 import { Numbers } from "../../lib/ethereum/lib";
-
 import "./index.css";
 
 class DiamondGameOptions extends Component {
