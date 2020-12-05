@@ -116,7 +116,7 @@ class Form extends Component {
             checkedAmount = maxBalance
         }
         
-        if (amount.toString().length === 8 && amount < minBalance) {
+        if (amount.toString().length >= 8 && amount < minBalance) {
             checkedAmount = minBalance
         }
 
