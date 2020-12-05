@@ -42,6 +42,7 @@ class Form extends Component {
     constructor(props){
         super(props);
         this.state = { ...defaultProps };
+        this.onCheckAmount = this.onCheckAmount.bind(this);
     }
 
     componentDidMount(){
@@ -107,9 +108,25 @@ class Form extends Component {
         })
     }
 
+    onCheckAmount() {
+        const { amount, maxBalance, minBalance } = this.state;
+        let checkedAmount = amount;
+
+        if (amount > maxBalance) {
+            checkedAmount = maxBalance
+        }
+        
+        if (amount.toString().length === 8 && amount < minBalance) {
+            checkedAmount = minBalance
+        }
+
+        this.setState({ amount: checkedAmount });
+    }
+
     handleAmount = amount => {
         const { toAddress } = this.state;
-        this.setState({...this.state, amount, disabled: !(amount && toAddress)});
+
+        this.setState({...this.state, amount, disabled: !(amount && toAddress)}, this.onCheckAmount);
     }
 
     onToAddressChange = async event => {
