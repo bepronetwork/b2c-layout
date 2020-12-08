@@ -439,7 +439,7 @@ export async function set2FA(params, bearerToken, payload) {
 
 export async function userAuth(params, bearerToken, payload) {
     try{
-        let res = await fetch(`${apiUrl}/api/users/auth`, {
+        let res = await fetch(`${apiUrlWithdraw}/api/users/auth`, {
             method : 'POST',
             headers : addSecurityHeader({bearerToken, payload :  payload || params.user}),
             body : JSON.stringify(params)})
