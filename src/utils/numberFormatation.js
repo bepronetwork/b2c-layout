@@ -6,3 +6,9 @@ export const formatCurrency = (value) => {
 export const formatPercentage = (value) => {
   return parseFloat(value).toFixed(0);
 }
+
+export const formatForCurrency = currency =>
+  new Intl.NumberFormat("en-US", {
+    style: "currency",
+    currency
+  });
