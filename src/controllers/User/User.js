@@ -29,6 +29,7 @@ import Pusher from 'pusher-js';
 import { apiUrl } from "../../lib/api/apiConfig";
 import { setMessageNotification } from "../../redux/actions/message";
 import { formatCurrency } from "../../utils/numberFormatation";
+import getCurrencySlug from "../../utils/getCurrencySlug";
 
 export default class User {
     constructor({
@@ -139,7 +140,15 @@ export default class User {
 
     getWallet = ({currency}) => {return this.user.wallet.find( w => new String(w.currency._id).toString().toLowerCase() == new String(currency._id).toString().toLowerCase())};
 
-    getWallets = () => {return this.user.wallet};
+    getWallets = () => {
+        let wallets = [...this.user.wallet];
+
+        wallets.forEach(({ currency }) => {
+            currency.slug = getCurrencySlug(currency.name)
+        })
+        
+        return wallets;
+    };
 
     getBalanceAsync = async () => Numbers.toFloat((await this.updateUser()).balance);
 
