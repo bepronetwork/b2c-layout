@@ -1,6 +1,8 @@
 import axios from "axios";
+import { multiply } from "lodash";
 import handleError from "./handleError";
 import { apiUrl, appId } from "./apiConfig";
+import { formatCurrency } from "../../utils/numberFormatation";
 
 export default async function getAppInfo() {
     try {
@@ -152,7 +154,35 @@ async function getProvidersGames(params) {
         return handleError(error);
     }
 }
-  
+
+async function getCurrencyConversion(
+  ids = "",
+  vsCurrencies = "",
+  amountToConvert = 0
+) {
+  try {
+    const { data } = await axios.get(
+      `https://api.coingecko.com/api/v3/simple/price?ids=${ids}&vs_currencies=${vsCurrencies}`
+    );
+
+    const formatToCurrency = new Intl.NumberFormat("en-US", {
+      style: "currency",
+      currency: vsCurrencies
+    });
+
+    const currencyUnity = data[Object.keys(data)[0]];
+    let unity = currencyUnity[Object.keys(currencyUnity)[0]];
+    let amount = multiply(formatCurrency(amountToConvert), unity);
+
+    amount = formatToCurrency.format(amount);
+    unity = formatToCurrency.format(unity);
+
+    return { unity, amount };
+  } catch (error) {
+    return handleError(error);
+  }
+}
+
 export { 
     getLastBets, 
     getGames, 
@@ -162,5 +192,6 @@ export {
     ping,
     getBet,
     getProviders,
-    getProvidersGames
+    getProvidersGames,
+    getCurrencyConversion
 }
