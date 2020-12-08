@@ -353,18 +353,18 @@ class PaymentBox extends React.Component{
                                     {`${formatCurrency(wallet.playBalance)} ${wallet.currency.ticker}`}
                                 </Typography>
                             </div>
-                            {hasBonus &&
-                                <div styleName='text-description'>
-                                    <Typography variant={'x-small-body'} color={'white'}>
-                                        Bonus: {formatCurrency(wallet.bonusAmount)}
-                                    </Typography>
-                                </div>
-                            }
                             <div styleName='text-description'>
                                 <Typography variant={'x-small-body'} color={'white'}>
                                     {convertedCurrency.amount}
                                 </Typography>
                             </div>
+                            {hasBonus &&
+                                <div styleName='text-description bonus-amount'>
+                                    <Typography variant={'x-small-body'} color={'white'}>
+                                        Bonus: {formatCurrency(wallet.bonusAmount)}
+                                    </Typography>
+                                </div>
+                            }
                             {price ? 
                                 <div styleName='text-description'>
                                     <Typography variant={'x-small-body'} color={'white'}>
