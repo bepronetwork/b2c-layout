@@ -2,7 +2,7 @@ import React from "react";
 import './index.css';
 import { Row, Col } from 'reactstrap';
 import { Typography, Button } from 'components';
-import _, { result } from 'lodash';
+import _, { isNull } from 'lodash';
 import { connect } from "react-redux";
 import classNames from 'classnames';
 
@@ -10,7 +10,7 @@ import classNames from 'classnames';
 import { getApp, getAppCustomization } from "../../lib/helpers";
 import { CopyText } from "../../copy";
 import { formatCurrency } from '../../utils/numberFormatation';
-import { getCurrencyConversion } from "../../lib/api/app";
+import { getCurrencyConversion } from "../../lib/api/coinGecko";
 
 class PaymentBox extends React.Component{
     constructor(props){
@@ -353,11 +353,13 @@ class PaymentBox extends React.Component{
                                     {`${formatCurrency(wallet.playBalance)} ${wallet.currency.ticker}`}
                                 </Typography>
                             </div>
-                            <div styleName='text-description'>
-                                <Typography variant={'x-small-body'} color={'white'}>
-                                    {convertedCurrency.amount}
-                                </Typography>
-                            </div>
+                            {!isNull(convertedCurrency) && 
+                                <div styleName='text-description'>
+                                    <Typography variant={'x-small-body'} color={'white'}>
+                                        {convertedCurrency.amount}
+                                    </Typography>
+                                </div>                            
+                            }
                             {hasBonus &&
                                 <div styleName='text-description bonus-amount'>
                                     <Typography variant={'x-small-body'} color={'white'}>
