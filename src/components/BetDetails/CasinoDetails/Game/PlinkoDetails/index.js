@@ -9,21 +9,20 @@ class PlinkoDetails extends Component {
     constructor(props){
         super(props);
         this.state = {
-            value: 0,
             result: null,
             game: null
         };
     }
 
     componentDidMount(){
-        this.projectData(this.props);
+        this.projectData();
     }
 
-    componentWillReceiveProps(props){
-        this.projectData(props);
+    componentWillReceiveProps(){
+        this.projectData();
     }
 
-    projectData = async (props) => {
+    projectData = async () => {
         const { bet } = this.props;
         const result = bet.outcomeResultSpace.key;
         const game = bet.game;

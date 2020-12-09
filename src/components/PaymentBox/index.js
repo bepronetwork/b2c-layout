@@ -12,7 +12,6 @@ class PaymentBox extends React.Component{
     constructor(props){
         super(props);
         this.state = {
-            checked : false,
             price : null,
             virtualTicker: null,
             walletImage: null,
@@ -104,7 +103,7 @@ class PaymentBox extends React.Component{
     }
 
     verifyTime = async() => {
-        const { seconds, minutes, isCanvasRenderer } = this.state;
+        const { seconds, minutes } = this.state;
         const { wallet } = this.props;
         if(seconds === 0 && minutes === 0){
             this.setState({ disabledFreeButton: false });
@@ -248,7 +247,7 @@ class PaymentBox extends React.Component{
 
   handleSendCurrancyFree = async () => {
     try {
-        const { profile, ln } = this.props;
+        const { profile } = this.props;
         const resultCurrency = await this.funcVerificationCurrency();
 
         await profile.sendFreeCurrencyRequest({
@@ -274,7 +273,6 @@ class PaymentBox extends React.Component{
 
         if(hours< 0){
             this.setState({
-                hours: 0,
                 minutes: 0,
                 seconds: 0,
                 secondsToCanvas: 0
@@ -283,7 +281,6 @@ class PaymentBox extends React.Component{
             const secondsToCanvas = (miliseconds / 1000);
             const hours = miliseconds / (1000 * 60 * 60);
             const absoluteHours = Math.floor(hours);
-            const h = absoluteHours > 9 ? absoluteHours : absoluteHours;
             const minutes = (hours - absoluteHours) * 60;
             const absoluteMinutes = Math.floor(minutes);
             const m = absoluteMinutes > 9 ? absoluteMinutes : absoluteMinutes;
@@ -292,7 +289,6 @@ class PaymentBox extends React.Component{
             const s = absoluteSeconds > 9 ? absoluteSeconds : absoluteSeconds;
 
             this.setState({
-                hours: h,
                 minutes: m,
                 seconds: s,
                 secondsToCanvas: secondsToCanvas

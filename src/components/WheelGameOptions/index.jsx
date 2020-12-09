@@ -108,7 +108,7 @@ class SlotsGameOptions extends Component {
     });
   };
 
-  handleBet = async callback => {
+  handleBet = async () => {
     const { onBet, profile } = this.props;
     const {
       amount,
@@ -275,7 +275,7 @@ class SlotsGameOptions extends Component {
   }
 
   render() {
-    const { type, amount, isAutoBetting } = this.state;
+    const { type, amount } = this.state;
     const user = this.props.profile;
     const { ln } = this.props;
     const copy = CopyText.kenoGameOptionsIndex[ln];

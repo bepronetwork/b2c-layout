@@ -17,10 +17,6 @@ class NotificationForm extends Component {
         user: PropTypes.shape({})
     };
 
-    handleTabChange = name => {
-        this.setState({ tab: name });
-    };
-
     render() {
         let hasNotification = !_.isEmpty(this.props.message);
         if(!hasNotification){return null};

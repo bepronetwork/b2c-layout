@@ -11,24 +11,16 @@ import TablePagination from '@material-ui/core/TablePagination';
 import TableRow from '@material-ui/core/TableRow';
 import TableSortLabel from '@material-ui/core/TableSortLabel';
 import Toolbar from '@material-ui/core/Toolbar';
-import Paper from '@material-ui/core/Paper';
-import Checkbox from '@material-ui/core/Checkbox';
-import IconButton from '@material-ui/core/IconButton';
 import Tooltip from '@material-ui/core/Tooltip';
 import { lighten } from '@material-ui/core/styles/colorManipulator';
-import FilterListIcon from 'mdi-react/FilterListIcon';
 import { Numbers, AddressConcat } from '../../../lib/ethereum/lib';
 import withdrawStatus from './codes';
-import { Button, Typography } from "components";
+import { Typography } from "components";
 import "./index.css";
 import { CopyText } from '../../../copy';
-import { Row, Col } from 'reactstrap';
-import { fromSmartContractTimeToMinutes } from '../../../lib/helpers';
 import { connect } from "react-redux";
 
-let counter = 0;
 let propsGlobal = null;
-
 
 function desc(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
@@ -82,7 +74,7 @@ class EnhancedTableHead extends React.Component {
     };
 
     render() {
-        const { onSelectAllClick, order, orderBy, numSelected, rowCount } = this.props;
+        const { order, orderBy } = this.props;
         const {ln} = propsGlobal;
         const copy = CopyText.cashierFormWithdrawsTable[ln];
  
@@ -155,12 +147,9 @@ class EnhancedTableHead extends React.Component {
 }
 
 EnhancedTableHead.propTypes = {
-    numSelected: PropTypes.number.isRequired,
     onRequestSort: PropTypes.func.isRequired,
-    onSelectAllClick: PropTypes.func.isRequired,
     order: PropTypes.string.isRequired,
     orderBy: PropTypes.string.isRequired,
-    rowCount: PropTypes.number.isRequired,
 };
 
 const toolbarStyles = theme => ({
@@ -191,7 +180,7 @@ const toolbarStyles = theme => ({
 });
 
 let EnhancedTableToolbar = props => {
-    const { numSelected, classes, time } = props;
+    const { numSelected, classes } = props;
 
         return (
             <Toolbar
@@ -215,7 +204,7 @@ EnhancedTableToolbar.propTypes = {
 
 EnhancedTableToolbar = withStyles(toolbarStyles)(EnhancedTableToolbar);
 
-const styles = theme => ({
+const styles = () => ({
     root: {
         width: '100%',
         margin : 'auto',
@@ -253,7 +242,7 @@ const defaultProps = {
   
 
 
-const StyledTableCell = withStyles(theme => ({
+const StyledTableCell = withStyles(() => ({
     head: {
         color: 'white',
     },
@@ -330,7 +319,7 @@ class WithdrawTable extends React.Component {
     isSelected = id => this.state.selected.indexOf(id) !== -1;
 
     render() {
-        const { classes, ln, time } = this.props;
+        const { classes, ln } = this.props;
         const { data, order, orderBy, selected, rowsPerPage, page } = this.state;
         const emptyRows = rowsPerPage - Math.min(rowsPerPage, data.length - page * rowsPerPage);
         const copy = CopyText.Withdraw[ln];

@@ -11,7 +11,6 @@ import Tooltip from '@material-ui/core/Tooltip';
 import { withStyles } from "@material-ui/core/styles";
 import { getAppCustomization, getIcon } from "../../lib/helpers";
 import _ from 'lodash';
-
 import "./index.css";
 
 const defaultProps = {

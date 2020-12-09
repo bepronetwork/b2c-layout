@@ -76,7 +76,7 @@ class PlinkoPage extends Component {
 
     addToHistory = () => {
         try {
-            var { result, isWon, game } = this.state;
+            var { result, game } = this.state;
             let history = localStorage.getItem("plinko_variation_1History");
             const { resultSpace } = game;
             history = history ? JSON.parse(history) : [];

@@ -15,7 +15,7 @@ class Deposit extends Component {
         this.projectData(props);
     }
     
-    async projectData(props){       
+    async projectData(){       
         this.setState({...this.state})
     }
 
@@ -69,7 +69,6 @@ class Deposit extends Component {
 function mapStateToProps(state){
     return {
         deposit : state.deposit,
-        profile : state.profile,
         ln : state.language
     };
 }

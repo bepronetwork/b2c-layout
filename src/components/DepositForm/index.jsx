@@ -25,7 +25,6 @@ class DepositForm extends Component {
             isTxFee: false,
             isDepositBonus: false,
             depositBonus: 0,
-            amount: 0,
             maxBonusDeposit: 0,
             minBonusDeposit: 0,
             hours: 0,
@@ -202,7 +201,7 @@ class DepositForm extends Component {
         }
     }
 
-    copyToClipboard = (e) => {
+    copyToClipboard = () => {
         const { address } = this.state;
         var textField = document.createElement('textarea');
         textField.innerText = address;
@@ -237,15 +236,8 @@ class DepositForm extends Component {
         const {ln} = this.props;
         const copy = CopyText.depositFormIndex[ln];
         const addressStyles = classNames("address", {"ad-copied": copied});
-        const { colors, skin } = getAppCustomization();
+        const { skin } = getAppCustomization();
         const isValidFree = this.funcVerificationValid();
-
-        const backgroundColor = colors.find(c => {
-            return c.type == "backgroundColor"
-        });
-        const secondaryColor = colors.find(c => {
-            return c.type == "secondaryColor"
-        });
 
         if(!isLoaded){
             return (

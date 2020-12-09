@@ -45,7 +45,6 @@ class GamePage extends Component {
     constructor(props) {
         super(props);
 
-        const { ln } = this.props;
         const sound = localStorage.getItem("sound");
 
         this.state = {

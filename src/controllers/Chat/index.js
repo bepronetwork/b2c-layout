@@ -106,7 +106,7 @@ import http from 'http';
       
     }
 
-    sendMessage = async ({message, data}) => {
+    sendMessage = async ({message}) => {
         try{
             return await this.conversation.sendMessage({
                 text: message

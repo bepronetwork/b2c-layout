@@ -23,7 +23,7 @@ class CurrencyDepositForm extends React.Component{
         this.projectData(props);
     }
 
-    projectData = async (props) => {
+    projectData = async () => {
         const wallets = getApp().wallet.filter(w => w.currency.virtual === false);
 
         this.setState({...this.state,

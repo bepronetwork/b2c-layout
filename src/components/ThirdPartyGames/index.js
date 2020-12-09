@@ -15,7 +15,6 @@ class ThirdPartyGames extends Component {
             providers: [],
             games: [],
             providerId: null,
-            partnerId: null,
             isLoading: true,
             isLoadingGames: true,
             total: 0,
@@ -31,7 +30,7 @@ class ThirdPartyGames extends Component {
         this.projectData(props);
     }
 
-    projectData = async (props) => {
+    projectData = async () => {
         this.setState({ isLoading: true, isLoadingGames: true });
 
         const providers = getApp().casino_providers.filter(p => p.activated === true);
@@ -45,7 +44,6 @@ class ThirdPartyGames extends Component {
 
     formatGames(games) {
         let gameList = [];
-        let { quantity } = this.state;
 
         games.map( p => {
             const url = p.api_url;

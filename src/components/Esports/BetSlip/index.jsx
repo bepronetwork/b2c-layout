@@ -21,7 +21,6 @@ class BetSlip extends Component {
         this.state = {
             betSlip: null,
             tab: "simple",
-            betType: null,
             amount: 0,
             isBetting: false
         };
@@ -177,7 +176,7 @@ class BetSlip extends Component {
 
         });
 
-        this.setState({ betType: tab, betSlip: newBetSlip });
+        this.setState({ betSlip: newBetSlip });
     };
 
     hasMultipleBetOpponnetsInSameMatch() {
@@ -212,7 +211,7 @@ class BetSlip extends Component {
 
     render() {
         const user = this.props.profile;
-        const { betSlip, tab, amount, betType } = this.state;
+        const { betSlip, tab, amount } = this.state;
         let totalSimpleAmount = 0;
         let totalMultipleOdd = 1;
    

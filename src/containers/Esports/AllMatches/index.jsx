@@ -16,7 +16,6 @@ class AllMatches extends Component {
         super(props);
         this.state = {
             gameFilter: [],
-            serieFilter: [],
             games: [],
             matches: [],
             status: ["pre_match", "live"],
@@ -100,7 +99,7 @@ class AllMatches extends Component {
         }
     }
 
-    projectData = async (props) => {
+    projectData = async () => {
         const { status, size } = this.state;
 
         const images = require.context('assets/esports', true);
@@ -169,7 +168,7 @@ class AllMatches extends Component {
 
         const matches = serieFilter.length > 0 ? await getMatchesBySeries({serie_id: serieFilter, status}): await getMatches({status});
 
-        this.setState({ serieFilter, matches, isLoading: false });
+        this.setState({ matches, isLoading: false });
     }
 
     handleCleanSerieFilterClick = async (serieFilter) => {
@@ -182,7 +181,7 @@ class AllMatches extends Component {
             size
         });
 
-        this.setState({ serieFilter, matches, isLoading: false });
+        this.setState({ matches, isLoading: false });
     }
 
     handleFetchMoreData = async () => {

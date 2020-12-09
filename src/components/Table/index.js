@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import {Typography } from "components";
-import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import {CopyText} from "../../copy";
 import UserContext from "containers/App/UserContext";
@@ -14,10 +13,6 @@ class TableDefault extends Component {
     intervalID = 0;
     static contextType = UserContext;
 
-    static propTypes = {
-        onHandleLoginOrRegister: PropTypes.func.isRequired
-    };
-    
     constructor(props){
         super(props);
         this.state = { 

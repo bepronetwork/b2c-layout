@@ -67,7 +67,6 @@ class DepositTable extends Component {
 
     projectData = async (props, options=null) => {
         const { profile, ln } = props;
-        let { view_amount } = this.state;
         const copy = CopyText.depositspage[ln];
         let deposits = [];
 
@@ -132,7 +131,7 @@ class DepositTable extends Component {
     }
 
     render() {
-        const { isLoading, isListLoading, options, view } = this.state;
+        const { isListLoading, view } = this.state;
         const { profile } = this.props;
         if(!isUserSet(profile)){return}
 

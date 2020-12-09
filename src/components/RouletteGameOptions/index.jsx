@@ -58,7 +58,7 @@ class RouletteGameOptions extends Component {
     };
 
 
-    handleBet = async (callback) => {
+    handleBet = async () => {
         const { onBet, profile } = this.props;
         const { amount, type, bets, profitStop, lossStop, onWin, onLoss} = this.state;
         var res;

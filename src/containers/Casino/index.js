@@ -33,7 +33,6 @@ class HomePage extends Component {
     };
 
     renderPlayNow = () => {
-        const { user } = this.context;
         const { onHandleLoginOrRegister } = this.props;
 
         return <PlayInvitation {...this.props} onLoginRegister={onHandleLoginOrRegister} />;

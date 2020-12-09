@@ -228,7 +228,7 @@ class BetsTab extends Component {
                     }
                 }),
                 onTableDetails : onTableDetails ? onTableDetails : null
-            },
+            }, 
             esports : {
                 ...this.state.esports,
                 titles : copy.TABLE.ESPORTS.ITEMS,

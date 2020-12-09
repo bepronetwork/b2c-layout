@@ -3,7 +3,6 @@ import {
   updateUserWallet,
   requestWithdraw,
   finalizeWithdraw,
-  cancelWithdraw,
   requestWithdrawAffiliate,
   createBet,
   getMyBets,
@@ -91,7 +90,7 @@ export default class User {
             this.getAllData(true);
         });
         
-        this.channel.bind('withdraw', (data) => {
+        this.channel.bind('withdraw', () => {
 
         });
 

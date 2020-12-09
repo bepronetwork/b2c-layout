@@ -7,21 +7,10 @@ class UnavailablePage extends Component {
 
     constructor(props){
         super(props);
-        this.state = {
-
-        };
-    }
-
-    componentDidMount(){
-        this.projectData();
     }
 
     isAvailable = () => {
         return false
-    }
-
-    projectData = async () => {
-        let data = await this.getGeoInfo();
     }
 
     getGeoInfo = async () => {
@@ -40,7 +29,6 @@ class UnavailablePage extends Component {
 
     render() {
         const { app } = this.props;
-        const { countryName, countryCode } = this.state;
         if (!app) { return null; }
         if(this.isAvailable()){return null}
 

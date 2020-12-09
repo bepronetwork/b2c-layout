@@ -40,7 +40,7 @@ import DiamondPage from "../DiamondPage";
 import ThirdPartyGamePage from "../ThirdPartyGamePage";
 import ThirdPartyGameList from "../ThirdPartyGameList";
 import SlotsPage from "../SlotsPage";
-import { login, login2FA, logout, register } from "lib/api/users";
+import { login, login2FA, register } from "lib/api/users";
 import getAppInfo from "lib/api/app";
 import handleError from "lib/api/handleError";
 import User from "controllers/User/User";
@@ -110,7 +110,6 @@ class App extends Component {
         this.getQueryParams();
 
         const app = Cache.getFromCache("appInfo");
-        const { user } = this.state;
 
         if(app) {
             const { cripsr } =  app.integrations;
@@ -630,7 +629,7 @@ console.log(form, 'form')
         this.setState({ openCripsrChat : !isOpen });
     };
 
-    renderGamePages = ({history}) => {
+    renderGamePages = () => {
         return (
             <>
                 {this.isGameAvailable("linear_dice_simple") ? (
@@ -780,19 +779,16 @@ console.log(form, 'form')
 
     render() {
         const { user, app, isLoading, chatMobileOpen, betsListOpen, settingsMenuOpen, chatExpand } = this.state;
-        const { profile, startLoadingProgress, modal, ln } = this.props;
+        const { ln } = this.props;
         const mobileBreakpoint = 768;
         const tabletBreakpoint = 1024;
 
         if (!app || isLoading) {return null};
-        const { progress, confirmations } = startLoadingProgress;
 
         const { cripsr } =  app.integrations;
         const chatIcon = getIcon(2);
         const liveChatIcon = getIcon(3);
 
-        let progress100 = parseInt(progress/confirmations*100);
-        let isUserLoaded = (confirmations == progress);
         let { topBar, background, topTab } = getAppCustomization();
 
         topTab = topTab.languages.find(t => t.language.isActivated === true && t.language.prefix === ln.toUpperCase());

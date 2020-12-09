@@ -17,14 +17,14 @@ class RouletteDetails extends Component {
     }
 
     componentDidMount(){
-        this.projectData(this.props);
+        this.projectData();
     }
 
-    componentWillReceiveProps(props){
-        this.projectData(props);
+    componentWillReceiveProps(){
+        this.projectData();
     }
 
-    projectData = async (props) => {
+    projectData = async () => {
         const { bet } = this.props;
 
         const number = bet.outcomeResultSpace.index;

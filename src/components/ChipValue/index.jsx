@@ -58,7 +58,6 @@ class ChipValue extends Component {
     };
 
     getDisabled = value => {
-        const { user } = this.context;
         const { totalBet } = this.props;
         const balance = this.state.balance;
 

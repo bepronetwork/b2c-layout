@@ -11,7 +11,6 @@ class ConfirmEmail extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            confirmed : false,
             confirmedMessage : false
         }
     }
@@ -33,11 +32,11 @@ class ConfirmEmail extends Component {
             let { message, status } = res;
 
             if(status != 200){
-                this.setState({ confirmed : false, confirmedMessage : message });
+                this.setState({ confirmedMessage : message });
                 throw message
             };
                  
-            this.setState({ confirmed : true, confirmedMessage : copy.CONTAINERS.APP.NOTIFICATION[1] });
+            this.setState({ confirmedMessage : copy.CONTAINERS.APP.NOTIFICATION[1] });
 
         } catch(err){
             console.log(err);

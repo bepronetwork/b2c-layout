@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import PropTypes from "prop-types";
 import UserContext from "containers/App/UserContext";
 import { connect } from "react-redux";
 import { getLastBets, getBiggestUserWinners, getBiggestBetWinners } from "../../../lib/api/app";
@@ -15,10 +14,6 @@ import "./index.css";
 
 class LastBets extends Component {
     static contextType = UserContext;
-
-    static propTypes = {
-        onHandleLoginOrRegister: PropTypes.func
-    };
 
     rows = {
         all_bets : {
@@ -201,7 +196,6 @@ class LastBets extends Component {
         let all_bets = [];
         let biggest_winners_bets = [];
         let biggest_win_users = [];
-        let my_bets = [];
 
         if(view_game.value != "all_games") {
             const gameId = games.find(g =>g.metaName === view_game.value)._id;
@@ -211,7 +205,6 @@ class LastBets extends Component {
             biggest_win_users = await getBiggestUserWinners({size : view_amount.value, game : gameId });
 
             if(profile && !_.isEmpty(profile)){
-                my_bets = await profile.getMyBets({size : view_amount.value, game : gameId, tag: "casino"});
             }
         }
         else {
@@ -220,7 +213,6 @@ class LastBets extends Component {
             biggest_win_users = await getBiggestUserWinners({size : view_amount.value});
 
             if(profile && !_.isEmpty(profile)){
-                my_bets = await profile.getMyBets({size : view_amount.value, tag: "casino"});
             }
         }
 
@@ -323,7 +315,6 @@ class LastBets extends Component {
     }
 
     render() {
-        const { onTableDetails } = this.props;
         const { games, gamesOptions, isLoading, isListLoading, view_game } = this.state;
         
         return (

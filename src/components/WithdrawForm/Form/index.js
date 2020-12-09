@@ -126,7 +126,6 @@ class Form extends Component {
 
             this.setState({...this.state, disabled : true, isAsking : true});
 
-            var res;
             if(isAffiliate === true){
                 await profile.askForWithdrawAffiliate({amount : parseFloat(amount), currency, address : toAddress});
             }else{
@@ -139,7 +138,6 @@ class Form extends Component {
             ));
            
             this.setState({...this.state, amount: 0, toAddress: '', isAsking : false, disabled : false });
-            //await this.setWithdrawInfoInRedux({id : res.withdraw._id});
 
         }catch(err){
             this.setState({...this.state, isAsking : false, disabled : false });

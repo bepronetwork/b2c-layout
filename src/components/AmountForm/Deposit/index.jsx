@@ -31,7 +31,7 @@ class AmountDepositForm extends Component {
     }
 
     async projectData(props){
-        const { deposit, profile } = props;
+        const { deposit } = props;
 
         this.setState({...this.state, 
             ticker : deposit.currency.ticker,   

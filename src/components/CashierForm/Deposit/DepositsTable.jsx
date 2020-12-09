@@ -21,7 +21,6 @@ import "./index.css";
 import { CopyText } from '../../../copy';
 import { getApp } from "../../../lib/helpers";
 
-let counter = 0;
 let globalProps = null;
 
 function desc(a, b, orderBy) {
@@ -93,7 +92,7 @@ class EnhancedTableHead extends React.Component {
     };
 
     render() {
-        const { onSelectAllClick, order, orderBy, numSelected, rowCount } = this.props;
+        const { order, orderBy } = this.props;
         const {ln} = globalProps;
         const copy = CopyText.cashierFormDepositsTable[ln];
         
@@ -160,12 +159,9 @@ class EnhancedTableHead extends React.Component {
 }
 
 EnhancedTableHead.propTypes = {
-    numSelected: PropTypes.number.isRequired,
     onRequestSort: PropTypes.func.isRequired,
-    onSelectAllClick: PropTypes.func.isRequired,
     order: PropTypes.string.isRequired,
     orderBy: PropTypes.string.isRequired,
-    rowCount: PropTypes.number.isRequired,
 };
 
 const toolbarStyles = theme => ({
@@ -219,7 +215,7 @@ EnhancedTableToolbar.propTypes = {
 
 EnhancedTableToolbar = withStyles(toolbarStyles)(EnhancedTableToolbar);
 
-const styles = theme => ({
+const styles = () => ({
     root: {
         width: '100%',
         margin : 'auto',
@@ -257,7 +253,7 @@ const defaultProps = {
   
 
 
-const StyledTableCell = withStyles(theme => ({
+const StyledTableCell = withStyles(() => ({
     head: {
         color: 'white',
     },

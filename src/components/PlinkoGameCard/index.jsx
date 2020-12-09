@@ -3,7 +3,6 @@ import { World, Engine, Events, Body, Bodies } from 'matter-js';
 import Particle from './Components/particle';
 import Plinko from './Components/plinko';
 import VerticalWall from './Components/wall';
-import {PARTICLE} from './Components/bodies';
 import { Row, Col } from 'reactstrap';
 import {PEG0, PEG1, PEG2, PEG3, PEG4, PEG5, PEG6, PEG7, PEG8, PEG9} from './Components/bars';
 import plockSound from "assets/plock.mp3";
@@ -30,7 +29,6 @@ class PlinkoGameCard extends React.Component {
             CANVAS_HEIGHT: 440,
             CANVAS_COLOR: '',
             TIMESTEP: MS_IN_SECOND / FPS,
-            PARTICLE: PARTICLE
         }
     
     }
@@ -115,8 +113,6 @@ class PlinkoGameCard extends React.Component {
     }
 
     createBar(x, y, w, angle, label) {
-        const r = this.state.particleradius;
-
         let body = Bodies.rectangle(x, y, 2, w, { 
             isStatic: true,
             label: label
@@ -131,7 +127,7 @@ class PlinkoGameCard extends React.Component {
     }
 
     _createParticle = (result) => {
-        this.engine.world.bodies.filter(el => el.label === "bar").map((el, i) => {
+        this.engine.world.bodies.filter(el => el.label === "bar").map((el) => {
             World.remove(this.engine.world, el);
         });
 
@@ -229,7 +225,7 @@ class PlinkoGameCard extends React.Component {
  
         let ROW_SPACING = this.state.CANVAS_HEIGHT / ROWS * this.state.ROW_ADJUSTMENT;
         let COL_SPACING = this.state.CANVAS_WIDTH / (ROWS + 2) * this.state.COL_ADJUSTMENT;
-        this.setState({ COL_SPACING,particleradius:COL_SPACING/4.4 })
+        this.setState({ particleradius:COL_SPACING/4.4 })
         const VERTICAL_MARGIN = ROW_SPACING * 1.5;
         const HORIZONTAL_OFFSET = COL_SPACING / 2;
         let id = 0;
@@ -252,7 +248,7 @@ class PlinkoGameCard extends React.Component {
         const leftWall = new VerticalWall({x: 178, y: 310});
         const rightWall = new VerticalWall({x: 582, y: 310});
         [leftWall, rightWall].forEach(wall => wall.addToEngine(this.engine.world));
-        this.engine.world.bodies.filter(el => el.label === "wall").forEach((dt,i) => {
+        this.engine.world.bodies.filter(el => el.label === "wall").forEach((dt) => {
             dt.render.opacity = 0
             if(dt.position.x < 250){
                 Body.rotate( dt.parent, 0.56);

@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import { Typography, AnimationNumber, StarIcon, DiamondIcon } from "components";
+import { Typography, AnimationNumber, DiamondIcon } from "components";
 import { find } from "lodash";
 import { connect } from "react-redux";
 import classNames from 'classnames';

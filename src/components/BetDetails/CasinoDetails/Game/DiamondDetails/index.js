@@ -7,7 +7,6 @@ class SlotsDetails extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      value: 0,
       result: 0,
       game: null
     };
@@ -21,7 +20,7 @@ class SlotsDetails extends Component {
     this.projectData(props);
   }
 
-  projectData = async props => {
+  projectData = async () => {
     const { bet } = this.props;
     const result = bet.outcomeResultSpace.index;
     const game = bet.game;

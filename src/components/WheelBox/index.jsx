@@ -8,9 +8,6 @@ import "./index.css";
 class WheelBox extends Component {
     constructor(props){
         super(props);
-        this.state = {
-            options : []
-        }
     }
 
     renderContainer = ({multiplier, index}) => {

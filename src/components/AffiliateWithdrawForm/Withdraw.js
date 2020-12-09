@@ -31,7 +31,7 @@ class Withdraw extends Component {
         store.dispatch(setWithdrawInfo({key : "isAffiliate", value : true}));
         this.projectData(this.props)
     }
-
+ 
     componentWillReceiveProps(props){
         this.projectData(props);
     }
@@ -54,7 +54,7 @@ class Withdraw extends Component {
     render() {
         const { withdraw } = this.props;
         const { userBalance } = this.state;
-        const { currency, nextStep, tx, amount, _id, toAddress } = withdraw;
+        const { currency, nextStep, amount, _id, toAddress } = withdraw;
         const {ln} = this.props;
         const copy = CopyText.affiliateWithdrawFormWithdraw[ln];
 

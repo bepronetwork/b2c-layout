@@ -76,7 +76,7 @@ class WithdrawList extends Component {
                     <Typography variant={'body'} color={'white'}> {copy.INDEX.TABS.LABEL[5]} </Typography>
                 </div>
                 <div>
-                    {rows.map( (row, index) => 
+                    {rows.map( (row) => 
                         <div styleName='row'>
                             <div styleName="col-1">
                                 <Typography variant='x-small-body' color={"grey"}> {row["creation_timestamp"]} </Typography>

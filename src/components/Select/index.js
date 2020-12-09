@@ -40,7 +40,6 @@ class Select extends React.Component{
     }
 
     handleClickOutside = event => {
-        const isOutsideClick = !this.optionsRef.contains(event.target);
         const isLabelClick = this.labelRef.contains(event.target);
 
         if (!isLabelClick) {

@@ -25,18 +25,18 @@ class AffiliatesTab extends React.Component{
         const { isCurrentPath } = this.props;
 
         if (isCurrentPath) {
-            this.projectData(this.props);
+            this.projectData();
         }
     }
 
     componentWillReceiveProps(props){
         const { isCurrentPath } = props;
         if(props !== this.props && isCurrentPath) {
-            this.projectData(props);
+            this.projectData();
         }
     }
 
-    projectData = async (props) => {
+    projectData = async () => {
         const { profile } = this.props;
         let { wallet } = this.state;
         const getCurrenciesApp = getApp().currencies;

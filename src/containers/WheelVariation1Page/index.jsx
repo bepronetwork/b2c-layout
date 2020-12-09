@@ -160,7 +160,7 @@ class WheelVariationOne extends React.Component {
         try{
             var { user } = this.context;
             var { onHandleLoginOrRegister } = this.props;
-            var { betHistory, game } = this.state;
+            var { game } = this.state;
 
             if (!user) return onHandleLoginOrRegister("register");
             
@@ -202,7 +202,7 @@ class WheelVariationOne extends React.Component {
         this.setState({ bet: false, disableControls : false, inResultAnimation : false });
         const { profile } = this.props;
         const { amount } = this.state;
-        const { isWon, result, winAmount, userDelta, totalBetAmount } = this.state.betObjectResult;
+        const { isWon, result, winAmount, userDelta } = this.state.betObjectResult;
         setWonPopupMessageDispatcher(winAmount);
         this.addToHistory({result, won : isWon});
         await profile.updateBalance({ userDelta, amount });

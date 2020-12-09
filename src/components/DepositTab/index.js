@@ -19,7 +19,7 @@ class DepositTab extends Component {
         this.projectData(props);
     }
 
-    projectData = async (props) => {
+    projectData = async () => {
     }
 
     render() {

@@ -25,7 +25,7 @@ class CarousselContainer extends Component {
         this.projectData(props);
     }
 
-    projectData = async (props) => {
+    projectData = async () => {
         const { banners } = getAppCustomization();
         const images = banners.ids.map( id => {
             return {

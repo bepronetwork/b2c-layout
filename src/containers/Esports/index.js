@@ -16,7 +16,6 @@ class Esports extends Component {
         super(props);
         this.state = {
             gameFilter: [],
-            serieFilter: [],
             games: [],
             matches: [],
             slides: [],
@@ -30,14 +29,14 @@ class Esports extends Component {
     }
 
     componentDidMount(){
-        this.projectData(this.props)
+        this.projectData()
     }
 
-    componentWillReceiveProps(props){
-        this.projectData(props);
+    componentWillReceiveProps(){
+        this.projectData();
     }
 
-    projectData = async (props) => {
+    projectData = async () => {
         const { status, size } = this.state;
 
         this.setState({ isLoading: true, isLoadingMatches: true });
@@ -118,10 +117,10 @@ class Esports extends Component {
 
         const matches = serieFilter.length > 0 ? await getMatchesBySeries({serie_id: serieFilter, status}): await getMatches({status});
 
-        this.setState({ serieFilter, matches, isLoadingMatches: false });
+        this.setState({ matches, isLoadingMatches: false });
     }
 
-    handlerCleanSerieFilterClick = async (serieFilter) => {
+    handlerCleanSerieFilterClick = async () => {
         const { status, size } = this.state;
 
         this.setState({ isLoadingMatches: true });
@@ -131,7 +130,7 @@ class Esports extends Component {
             size
         });
 
-        this.setState({ serieFilter, matches, isLoadingMatches: false });
+        this.setState({ matches, isLoadingMatches: false });
     }
 
     goToMatch(slug, id) {

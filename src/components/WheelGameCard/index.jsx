@@ -13,17 +13,13 @@ import Wheel from "../Wheel";
 import WheelBox from "../WheelBox";
 import { Numbers } from "../../lib/ethereum/lib";
 import { formatPercentage } from "../../utils/numberFormatation";
-
 import "./index.css";
-
-const mobileBreakpoint = 768;
 
 class WheelGameCard extends Component {
     redColors = [1, 3, 5, 7, 9, 12, 14, 18, 16, 21, 23, 27, 25, 30, 32, 36, 34];
 
     static propTypes = {
         result: PropTypes.number,
-        onAddChip: PropTypes.func.isRequired,
         betHistory: PropTypes.arrayOf(
         PropTypes.shape({ cell: PropTypes.string, chip: PropTypes.number })
         ).isRequired,
@@ -31,7 +27,6 @@ class WheelGameCard extends Component {
         onUndo: PropTypes.func.isRequired,
         bet: PropTypes.bool,
         onResultAnimation: PropTypes.func.isRequired,
-        isAddChipDisabled: PropTypes.bool.isRequired
     };
 
     static defaultProps = {
@@ -46,11 +41,6 @@ class WheelGameCard extends Component {
     componentDidMount(){
         this.projectData(this.props);
     }
-
-    componentWillReceiveProps(props){
-        //this.projectData(props);
-    }
-
 
     projectData = async (props) => {
         const { bet } = props;
@@ -127,7 +117,6 @@ class WheelGameCard extends Component {
 
     handleRouletteAnimation = value => {
         const { rotating } = this.state;
-        const { bet } = this.props;
 
         if (rotating !== value) {
             this.setState({ rotating: value })
@@ -186,7 +175,6 @@ class WheelGameCard extends Component {
         const {
             result,
             bet,
-            onAnimation,
             game,
             inResultAnimation, 
             colors, 
@@ -196,10 +184,6 @@ class WheelGameCard extends Component {
         const { rotating, popularNumbers} = this.state;
         const rootStyles = classNames("root", {
         animation: rotating
-        });
-
-        const blockStyles = classNames("board-top", {
-            block: bet
         });
 
         return (

@@ -46,11 +46,6 @@ class RouletteGameCard extends Component {
     componentDidMount(){
         this.projectData(this.props);
     }
-
-    componentWillReceiveProps(props){
-        //this.projectData(props);
-    }
-
     
     projectData = async (props) => {
         const { bet } = props;

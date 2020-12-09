@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import PropTypes from "prop-types";
 import UserContext from "containers/App/UserContext";
 import { connect } from "react-redux";
 import { getLastBets, getBiggestBetWinners } from "../../../lib/api/app";
@@ -113,10 +112,6 @@ const defaultProps = {
 class LastBets extends Component {
     static contextType = UserContext;
 
-    static propTypes = {
-        onHandleLoginOrRegister: PropTypes.func.isRequired
-    };
-    
     constructor(props){
         super(props);
         this.state = defaultProps;
@@ -124,9 +119,6 @@ class LastBets extends Component {
 
     componentDidMount(){
         this.projectData(this.props)
-    }
-
-    componentWillReceiveProps(props){
     }
 
     setTimer = (options) => {
@@ -259,7 +251,6 @@ class LastBets extends Component {
     }
 
     render() {
-        const { onTableDetails } = this.props;
         const { isLoading, isListLoading, gameMetaName, games } = this.state;
 
         return (

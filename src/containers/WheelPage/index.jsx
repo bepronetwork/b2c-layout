@@ -37,14 +37,14 @@ class WheelPage extends React.Component {
     }
 
     componentDidMount(){
-        this.projectData(this.props);
+        this.projectData();
     }
 
-    componentWillReceiveProps(props){
-        this.projectData(props);
+    componentWillReceiveProps(){
+        this.projectData();
     }
 
-    projectData = (props) => {
+    projectData = () => {
         const appInfo = Cache.getFromCache("appInfo");
         let game = null
         if(appInfo){
@@ -115,7 +115,7 @@ class WheelPage extends React.Component {
         try{
             var { user } = this.context;
             var { onHandleLoginOrRegister } = this.props;
-            var { betHistory, game } = this.state;
+            var { game } = this.state;
             
             if (!user) return onHandleLoginOrRegister("register");
             

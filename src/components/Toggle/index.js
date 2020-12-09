@@ -8,14 +8,6 @@ import './index.css';
 class Toggle extends React.Component{
     constructor(props){
         super(props);
-        this.state = {
-            checked : false,
-            showText: true
-        }
-    }
-
-    onClick = () => {
-
     }
 
     render(){

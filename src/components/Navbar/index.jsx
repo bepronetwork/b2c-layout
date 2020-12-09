@@ -14,13 +14,8 @@ import "./index.css";
 import nineDots from "assets/icons/nine.png";
 import nineDotsLight from "assets/icons/nine-light.png";
 
-function AddressConcat(string){
-    return  `${string.substring(0, 6)}...${string.substring(string.length - 2)}`;
-}
-
 const defaultProps = {
     user: null,
-    userAddress : 'N/A',
     currentBalance : 0,
     betIDVerified : '',
     openSettingsMenu : false,
@@ -78,8 +73,6 @@ class Navbar extends Component {
                 this.setState({
                     ...opts,
                     user    : user,
-                    userFullAddress : user.getAddress(),
-                    userAddress : user.getAddress() ? AddressConcat(user.getAddress()) : defaultProps.userAddress,
                     isTransparent: _.isEmpty(topTab) ? false : topTab.isTransparent
                 })
             }else{
@@ -99,7 +92,6 @@ class Navbar extends Component {
 
 
     renderLoginOrRegister = () => {
-        let { user } = this.state;
         const {ln} = this.props;
         const copy = CopyText.navbarIndex[ln];
         const skin = getAppCustomization().skin.skin_type;
@@ -257,8 +249,6 @@ class Navbar extends Component {
     }
 
     renderLanguageSelector = () => {
-        let { user } = this.state;
-
         return(
             <div styleName="language-container">
                 <LanguageSelector showArrow={true} expand="bottom"/>

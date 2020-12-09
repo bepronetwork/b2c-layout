@@ -8,9 +8,6 @@ import loading from 'assets/loading.gif';
 class ActionBox extends React.Component{
     constructor(props){
         super(props);
-        this.state = {
-            checked : false
-        }
     }
 
     onClick = () => {

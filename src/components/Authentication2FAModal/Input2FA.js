@@ -5,7 +5,6 @@ class Input2FA extends React.Component {
 
     constructor(props){
         super(props);
-        this.state = {};
     }
 
     onChange = (e) => {

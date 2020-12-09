@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { connect } from 'react-redux';
 import { Modal } from 'components';
 import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
-import { Market, ScoreBoard, SideMenu, Live, BetSlip, BetSlipFloat, Player, OddsTable } from "components/Esports";
+import { Market, ScoreBoard, SideMenu, Live, BetSlip, BetSlipFloat, Player } from "components/Esports";
 import { getMatch } from "controllers/Esports/EsportsUser";
 import { getSkeletonColors } from "../../../lib/helpers";
 import _ from 'lodash';

@@ -128,9 +128,8 @@ class WithdrawTable extends Component {
   };
 
   render() {
-    const { isLoading, isListLoading, clientId, view, flowId } = this.state;
+    const { isListLoading, view } = this.state;
     const { profile } = this.props;
-    const userId = profile.getID();
 
     if (!isUserSet(profile)) {
       return;

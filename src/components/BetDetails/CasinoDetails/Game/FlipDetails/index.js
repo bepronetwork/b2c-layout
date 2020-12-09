@@ -15,14 +15,14 @@ class FlipDetails extends Component {
     }
 
     componentDidMount(){
-        this.projectData(this.props);
+        this.projectData();
     }
 
-    componentWillReceiveProps(props){
-        this.projectData(props);
+    componentWillReceiveProps(){
+        this.projectData();
     }
 
-    projectData = async (props) => {
+    projectData = async () => {
         const { bet } = this.props;
 
         const result = bet.outcomeResultSpace.key;

@@ -12,7 +12,6 @@ class SubSections extends Component {
         super(props);
         this.state = {
             subSections: [],
-            component: null
         };
     }
 

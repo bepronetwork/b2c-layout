@@ -9,7 +9,6 @@ import classNames from "classnames";
 import "./index.css";
 import { WHEEL_SIMPLE, WHEEL_CLASSIC } from "./types";
 
-let endAnim = null;
 const TOTAL_SPACES = 30;
 const ANIMATION_INTERVAL = 20;
 const TOTAL_ANIMATION_TIME = 4*1000;
@@ -19,7 +18,6 @@ export default class Wheel extends Component {
     static propTypes = {
         result: PropTypes.number,
         bet: PropTypes.bool,
-        onAnimation: PropTypes.func.isRequired,
         metaName: PropTypes.string
     };
 
@@ -107,7 +105,7 @@ export default class Wheel extends Component {
         const ONE_SPIN = 360/49.5;
         let SPINS =  3*ONE_SPIN;
         this.desiredSpin = 360;
-        let indexPlace = this.wheel_draw.findIndex( (e, i) => e == result);
+        let indexPlace = this.wheel_draw.findIndex( (e) => e == result);
         this.spinAngleStart = -SPINS - indexPlace*ONE_ARC_ANGLE + this.offset*ONE_ARC_ANGLE;
         this.offset = indexPlace;
         this.spinTime = 0;
@@ -276,7 +274,7 @@ export default class Wheel extends Component {
     };
 
     renderResult = () => {
-        const { result, rotating, game, inResultAnimation, options} = this.props;
+        const { result, game, inResultAnimation, options} = this.props;
         const { metaName } = this.state;
         const isLight = getAppCustomization().theme === "light";
         const containerStyles = classNames("result-container",

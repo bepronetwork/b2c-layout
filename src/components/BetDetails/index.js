@@ -12,8 +12,6 @@ import PlinkoDetails from './CasinoDetails/Game/PlinkoDetails';
 import KenoDetails from './CasinoDetails/Game/KenoDetails';
 import DiamondDetails from './CasinoDetails/Game/DiamondDetails';
 import SlotsDetails from './CasinoDetails/Game/SlotsDetails';
-import { formatCurrency } from "../../utils/numberFormatation";
-import { getApp } from "../../lib/helpers";
 import "./index.css";
 
 class BetDetails extends Component {
@@ -39,7 +37,6 @@ class BetDetails extends Component {
 
     projectData = async (props) => {
         const { betId, tag } = props;
-        let component = null; 
 
         this.setState({ tag });
 
@@ -88,20 +85,8 @@ class BetDetails extends Component {
                         break;
                 }
     
-                const currenncy = (getApp().currencies.find(currency => currency._id == bet.currency._id));
                     
                 this.setState({
-                    component,
-                    clientSeed: bet.clientSeed,
-                    serverHashedSeed: bet.serverHashedSeed,
-                    serverSeed: bet.serverSeed,
-                    timestamp: bet.timestamp.replace('Z', ' ').replace('T', ' '),
-                    winAmount: formatCurrency(bet.winAmount),
-                    betAmount: formatCurrency(bet.betAmount),
-                    userName: bet.user.username,
-                    isWon: bet.isWon,
-                    currencyImage: currenncy.image,
-                    game,
                     isLoading: false,
                     bet
                 });

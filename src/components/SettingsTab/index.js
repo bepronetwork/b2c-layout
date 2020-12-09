@@ -23,7 +23,7 @@ class SettingsTab extends Component {
     }
 
    
-    projectData = async (props) => {
+    projectData = async () => {
         let cacheCustomization = Cache.getFromCache('customization');
 
         this.setState({...this.state, ...cacheCustomization})

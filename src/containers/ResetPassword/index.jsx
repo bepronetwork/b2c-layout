@@ -71,8 +71,6 @@ class ResetPassword extends Component {
     };
 
     renderError(error) {
-        const {ln} = this.props;
-        const copy = CopyText.loginFormIndex[ln];
 
         return (
             <div styleName="error">

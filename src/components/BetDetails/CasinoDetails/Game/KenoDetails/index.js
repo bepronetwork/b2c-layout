@@ -9,21 +9,19 @@ class KenoDetails extends Component {
     constructor(props){
         super(props);
         this.state = {
-            selected: [],
-            result: [],
             cards: defaultCards
         };
     }
 
     componentDidMount(){
-        this.projectData(this.props);
+        this.projectData();
     }
 
-    componentWillReceiveProps(props){
-        this.projectData(props);
+    componentWillReceiveProps(){
+        this.projectData();
     }
 
-    projectData = async (props) => {
+    projectData = async () => {
         const { bet } = this.props;
         const { cards } = this.state;
 

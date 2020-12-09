@@ -115,7 +115,7 @@ class PlinkoGameOptions extends Component {
         });
     }
 
-    handleBet = async (callback) => {
+    handleBet = async () => {
         const { onBet, profile } = this.props;
         const { amount, type, bets, profitStop, lossStop, onWin, onLoss} = this.state;
         var res;
@@ -202,9 +202,7 @@ class PlinkoGameOptions extends Component {
     };
 
     renderManual = () => {
-        const { amount } = this.state;
-        
-   
+
         return (
             <div>
                 
@@ -213,7 +211,7 @@ class PlinkoGameOptions extends Component {
     };
 
     renderAuto = () => {
-        const { bets, profitStop, lossStop, onWin, onLoss } = this.state;
+        const { bets } = this.state;
         const {ln} = this.props;
         const copy = CopyText.plinkoGameOptionsIndex[ln];
         return (
@@ -240,7 +238,7 @@ class PlinkoGameOptions extends Component {
     
 
     render() {
-        const { type, amount, isAutoBetting } = this.state;
+        const { type, amount } = this.state;
         const user = this.props.profile;
         const {ln} = this.props;
             const copy = CopyText.plinkoGameOptionsIndex[ln];

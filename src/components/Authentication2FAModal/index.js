@@ -11,7 +11,7 @@ import info from 'assets/info.png';
 import _ from 'lodash';
 import "./index.css";
 import { CopyText } from '../../copy';
-import { getApp, getAppCustomization } from "../../lib/helpers";
+import { getApp } from "../../lib/helpers";
 
 class Authentication2FAModal extends Component {
     constructor(props) {
@@ -103,13 +103,6 @@ class Authentication2FAModal extends Component {
         const { auth_2fa, error } = this.state;
         const {ln} = this.props;
         const copy = CopyText.authentication2FAModalIndex[ln];
-        const { colors, skin } = getAppCustomization();
-        const backgroundColor = colors.find(c => {
-            return c.type == "backgroundColor"
-        });
-        const secondaryColor = colors.find(c => {
-            return c.type == "secondaryColor"
-        });
 
         if(!modal.Authentication2FAModal){ return null };
         return (    

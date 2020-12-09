@@ -108,7 +108,7 @@ class DiamondGameOptions extends Component {
     })
   };
 
-  handleBet = async callback => {
+  handleBet = async () => {
     const { onBet, profile } = this.props;
     const {
       amount,
@@ -135,11 +135,7 @@ class DiamondGameOptions extends Component {
 
           this.setState({ isAutoBetting: true });
           let totalProfit = 0;
-
           let totalLoss = 0;
-
-          let lastBet = 0;
-
           let wasWon = 0;
           let betAmount = amount;
 
@@ -149,7 +145,7 @@ class DiamondGameOptions extends Component {
               (lossStop == 0 || totalLoss <= lossStop)
             ) {
               if (i != 0) { await delay(1.5 * 1000); };
-              const res = await this.betAction({ amount: betAmount });
+              res = await this.betAction({ amount: betAmount });
 
               if (!_.isEmpty(res)) {
                 const { winAmount } = res;
@@ -281,7 +277,7 @@ class DiamondGameOptions extends Component {
 
 
   render() {
-    const { type, amount, isAutoBetting } = this.state;
+    const { type, amount } = this.state;
     const user = this.props.profile;
     const { ln, onBetAmount } = this.props;
     const copy = CopyText.kenoGameOptionsIndex[ln];

@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import {  DropDownField, AnimationNumber } from "components";
 import { connect } from "react-redux";
 import _ from 'lodash';
@@ -6,7 +6,6 @@ import "./index.css";
 import { MenuItem } from '@material-ui/core';
 import PropTypes from "prop-types";
 import { formatCurrency } from '../../utils/numberFormatation';
-import "./index.css"
 import { setCurrencyView } from "../../redux/actions/currency";
 import { getApp } from "../../lib/helpers";
 

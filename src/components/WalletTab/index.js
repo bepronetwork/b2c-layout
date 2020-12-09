@@ -312,7 +312,6 @@ resultFilter = (firstArray, secondArray) => {
       isMoonpayActive
     } = this.state;
     const copy = CopyText.cashierFormIndex[ln];
-    const skin = getAppCustomization().skin.skin_type;
 
     if (!wallet) {
       return null;

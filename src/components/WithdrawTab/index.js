@@ -8,18 +8,6 @@
     
         constructor(props){
             super(props);
-            this.state = {};
-        }
-    
-        componentDidMount(){
-            this.projectData(this.props);
-        }
-    
-        componentWillReceiveProps(props){
-            this.projectData(props);
-        }
-    
-        projectData = async (props) => {
         }
     
         render() {

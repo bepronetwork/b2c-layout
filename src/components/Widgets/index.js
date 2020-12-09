@@ -12,14 +12,14 @@ class Widgets extends React.Component{
     }
 
     componentDidMount(){
-        this.projectData(this.props);
+        this.projectData();
     }
 
-    componentWillReceiveProps(props){
-        this.projectData(props);
+    componentWillReceiveProps(){
+        this.projectData();
     }
 
-    projectData(props){
+    projectData(){
         let cacheCustomization = Cache.getFromCache('customization');
         if(!cacheCustomization){
             cacheCustomization = {}

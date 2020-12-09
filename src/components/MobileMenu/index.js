@@ -9,7 +9,6 @@ import { getApp, getAddOn, getIcon, getAppCustomization } from "../../lib/helper
 import { formatCurrency } from "../../utils/numberFormatation";
 import _ from 'lodash';
 import "./index.css";
-import { ThumbUpSharp } from "@material-ui/icons";
 
 class MobileMenu extends Component {
 
@@ -70,7 +69,6 @@ class MobileMenu extends Component {
     }
 
     homeClick = (homepage) => {
-        this.setState({ gameType: homepage })
         this.props.history.push(`${homepage}`);
 
         const result = homepage.search("http")

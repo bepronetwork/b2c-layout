@@ -38,7 +38,7 @@ class Banners extends Component {
         })
     }
 
-    handleSelect(selectedIndex, e) {
+    handleSelect(selectedIndex) {
         this.setState({index : selectedIndex});
     }
     

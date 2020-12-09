@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { Typography, Button, Modal } from "components";
 import UserContext from "containers/App/UserContext";
 import "./index.css";
-import { setMessageNotification, SET_MESSAGE_INFO } from "../../redux/actions/message";
+import { setMessageNotification } from "../../redux/actions/message";
 import { connect } from "react-redux";
 import { compose } from 'lodash/fp'
 import _ from 'lodash';

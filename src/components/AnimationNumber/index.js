@@ -22,7 +22,6 @@ class AnimationNumber extends React.Component{
             color : props.color ? props.color : defaultProps.color,
             variant : props.variant ? props.variant : defaultProps.variant,
             span : props.span ? props.span : defaultProps.span,
-            decimals : props.decimals ? props.decimals : defaultProps.decimals,
             isCurrency : props.isCurrency ? props.isCurrency : defaultProps.isCurrency
         }
     }
@@ -36,14 +35,13 @@ class AnimationNumber extends React.Component{
     }
     
     projectData = async (props) => {
-        const { number, color, variant, span, decimals, isCurrency } = props;
+        const { number, color, variant, span, isCurrency } = props;
         if(this.state.number == props.number){return null};
         this.setState({
            number : number ? number : defaultProps.number,
            color : color ? color : defaultProps.color,
            variant : variant ? variant : defaultProps.variant,
            span : span ? span : defaultProps.span,
-           decimals : decimals ? decimals : defaultProps.decimals,
            isCurrency : isCurrency ? isCurrency : defaultProps.isCurrency
        })
         
@@ -54,7 +52,7 @@ class AnimationNumber extends React.Component{
     }
 
     render = () => {
-        const { number, variant='h4', color='white', span=null, decimals, isCurrency } = this.state;
+        const { number, variant='h4', color='white', span=null, isCurrency } = this.state;
         return (
             <Typography variant={variant} color={color}>
                 <AnimatedNumber 

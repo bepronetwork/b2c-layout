@@ -26,11 +26,11 @@ class AffiliateLinkContainer extends React.Component{
         this.setState({...this.state, copied: false});
     }
 
-    componentWillReceiveProps(props){
+    componentWillReceiveProps(){
         this.setState({...this.state, copied: false});
     }
 
-    copyToClipboard = (e) => {
+    copyToClipboard = () => {
         const { link } = this.props;
         var textField = document.createElement('textarea');
         textField.innerText = URL_REF + link;
@@ -51,7 +51,6 @@ class AffiliateLinkContainer extends React.Component{
         const {ln} = this.props;
         const copy = CopyText.affiliateLinkContainerIndex[ln];
         const { skin } = getAppCustomization();
-        const styles = classNames("link-text-container", {"ad-copied": copied});
         const addressStyles = classNames("address", {"ad-copied": copied});
         const copyIcon = getIcon(27);
 

@@ -70,7 +70,7 @@ class ChatPage extends React.Component {
         }
     }
 
-    handleScroll = async (event) => {
+    handleScroll = async () => {
         const { isGoDownVisible } = this.state;
 
         if(isGoDownVisible === false && !this.isInViewport(this.messagesEnd)) {

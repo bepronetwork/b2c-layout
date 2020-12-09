@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Typography, ThirdPartyGameCard, ThirdPartyProviderSelector, Button, GameCounter } from 'components';
+import { Typography, ThirdPartyGameCard, ThirdPartyProviderSelector, GameCounter } from 'components';
 import { connect } from "react-redux";
 import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
 import { getProvidersGames } from "../../lib/api/app";

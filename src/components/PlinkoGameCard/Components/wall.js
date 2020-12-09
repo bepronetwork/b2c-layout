@@ -24,7 +24,7 @@ class Wall extends GameWallObject {
       this.createPhysics({ width, height });
     }
   
-    createPhysics({width, height}) {
+    createPhysics() {
       let options = {
         restitution: 0.1,
         friction: 0.9,
