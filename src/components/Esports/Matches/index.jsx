@@ -57,6 +57,7 @@ class Matches extends Component {
         if(!game){return null};
         const gameImage = game.image;
 
+        const isUpcomingMatch = ['live', 'pre-match'].includes(match.status);
         const activeMarket = match.market ? match.market.status === 'active' : false;
 
         return (
@@ -89,7 +90,7 @@ class Matches extends Component {
                             hasLiveTransmition={!_.isEmpty(match.live_embed_url)} 
                         />
                     </div>
-                    { !activeMarket && <div styleName="lock-icon-background">
+                    { !activeMarket && isUpcomingMatch && <div styleName="lock-icon-background">
                         <LockTwoToneIcon style={{ color: 'white' }} fontSize="inherit"/>
                     </div> }
                     <Opponents 

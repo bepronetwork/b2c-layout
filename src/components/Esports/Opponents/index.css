@@ -233,6 +233,7 @@
 
 .lock-icon-background {
   padding: 5px;
+  width: fit-content;
 
   border-radius: 50%;
 
@@ -243,4 +244,8 @@
 
   margin-top: 5px;
   margin-left: 5px;
+
+  @media screen and (max-width: 767px) {
+    margin-bottom: -35px;
+  } 
 }

@@ -149,10 +149,11 @@ class Opponents extends Component {
         const opponent2Bet = formatOpponentBet(opponent2, matchId, matchName, 0, id);
 
         const drawBet = drawOdd != null ? formatDrawBet(drawId, drawOdd, matchId, matchName, gameImage, 0, id) : null;
+        const isUpcomingMatch = ['live', 'pre-match'].includes(status);
 
         return (
             <div styleName="teams">
-                <div styleName={team1Styles} onClick={(event) => {isOpponent1Selected ? this.handleRemoveToBetSlip(event, opponent1.id) : this.handleAddToBetSlip(event, opponent1Bet)}} style={ activeMarket ? buttonStyles.open : buttonStyles.locked }>
+                <div styleName={team1Styles} onClick={(event) => {isOpponent1Selected ? this.handleRemoveToBetSlip(event, opponent1.id) : this.handleAddToBetSlip(event, opponent1Bet)}} style={ !activeMarket && isUpcomingMatch ? buttonStyles.locked : buttonStyles.open }>
                     <ReactCountryFlag
                         countryCode={opponent1.location}
                         svg
@@ -198,7 +199,7 @@ class Opponents extends Component {
                                 ? 
                                     "VS" 
                                 : 
-                                    <div styleName={drawStyles} onClick={(event) => {isDrawSelected ? this.handleRemoveToBetSlip(event, drawId) : this.handleAddToBetSlip(event, drawBet)}} style={ activeMarket ? buttonStyles.open : buttonStyles.locked }>
+                                    <div styleName={drawStyles} onClick={(event) => {isDrawSelected ? this.handleRemoveToBetSlip(event, drawId) : this.handleAddToBetSlip(event, drawBet)}} style={ !activeMarket && isUpcomingMatch ? buttonStyles.locked : buttonStyles.open }>
                                         <Typography variant={'x-small-body'} color={'grey'}>DRAW</Typography>
                                         <Typography variant={'x-small-body'} color={'white'}>{drawOdd.odd}</Typography>
                                     </div>
@@ -207,7 +208,7 @@ class Opponents extends Component {
                         </div>
 
                 }
-                 <div styleName={team2Styles} onClick={(event) => {isOpponent2Selected ? this.handleRemoveToBetSlip(event, opponent2.id) : this.handleAddToBetSlip(event, opponent2Bet)}} style={ activeMarket ? buttonStyles.open : buttonStyles.locked }>
+                 <div styleName={team2Styles} onClick={(event) => {isOpponent2Selected ? this.handleRemoveToBetSlip(event, opponent2.id) : this.handleAddToBetSlip(event, opponent2Bet)}} style={ !activeMarket && isUpcomingMatch ? buttonStyles.locked : buttonStyles.open }>
                     <ReactCountryFlag
                         countryCode={opponent2.location}
                         svg
