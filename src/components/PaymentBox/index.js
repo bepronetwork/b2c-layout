@@ -66,11 +66,11 @@ class PaymentBox extends React.Component{
         const { wallet, profile} = props;
         const { isCanvasRenderer } = this.state;
         const virtual = getApp().virtual;
-        const convertedCurrency = await getCurrencyConversion(
-            wallet.currency.slug,
-            "usd",
-            wallet.playBalance
-        );
+        const convertedCurrency = await getCurrencyConversion({
+            from: wallet.currency.slug,
+            to: "usd",
+            balance: wallet.playBalance
+        });
 
         this.setState({ isCanvasRenderer: false, convertedCurrency });
 
