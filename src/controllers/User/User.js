@@ -4,6 +4,7 @@ import {
   requestWithdraw,
   finalizeWithdraw,
   cancelWithdraw,
+  getTransactions,
   requestWithdrawAffiliate,
   createBet,
   getMyBets,
@@ -497,6 +498,18 @@ export default class User {
             throw err;
         }
     }
+
+    getTransactions = async () => {
+        try {
+            if(!this.user_id){return []}
+                let res = await getTransactions(this.user_id, this.bearerToken);
+                return await processResponse(res);
+        }catch(err){
+            console.log(err)
+            throw err;
+        }
+    }
+
     getWithdraws = () => {
         if(!this.user.withdraws) { return [] };
 

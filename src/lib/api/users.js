@@ -499,6 +499,23 @@ export async function getCurrencyAddress(params, bearerToken, payload) {
     }    
 }
 
+export async function getTransactions(userId, bearerToken) {
+    try {
+        const response = await axios.post(`${apiUrlWithdraw}/user/transactions`, {
+            headers: {
+                'Content-Type' : 'application/json',
+                'authorization': `Bearer ${bearerToken}`,
+            },
+             user: userId,
+             app: appId,
+        });
+            return console.log(response.json());
+
+    } catch (error) {
+        return handleError(error);
+    }  
+}
+
 /**
  *
  * @param {*} params
