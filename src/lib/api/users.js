@@ -506,8 +506,10 @@ export async function getTransactions(userId, bearerToken) {
                 'Content-Type' : 'application/json',
                 'authorization': `Bearer ${bearerToken}`,
             },
-             user: userId,
-             app: appId,
+            body: {
+                user: userId,
+                app: appId,
+            }
         });
         return console.log(response.json());
 

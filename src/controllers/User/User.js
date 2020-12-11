@@ -505,7 +505,6 @@ export default class User {
                 let res = await getTransactions(this.user_id, this.bearerToken);
                 return await processResponse(res);
         }catch(err){
-            console.log(err)
             throw err;
         }
     }
