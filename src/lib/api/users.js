@@ -509,7 +509,7 @@ export async function getTransactions(userId, bearerToken) {
              user: userId,
              app: appId,
         });
-            return console.log(response.json());
+        return console.log(response.json());
 
     } catch (error) {
         return handleError(error);
