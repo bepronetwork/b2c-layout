@@ -90,12 +90,12 @@ class RegisterForm extends Component {
         const { password, username, email, isConfirmed, terms, userCountry, day, month, year } = this.state;
 
         return (
-            username !== "" &&
-            isValidEmail(email) &&
-            password !== "" &&
-            isValidAge(`${year.value}-${month.value}-${day.value}`) && 
-            userCountry.value && 
-            (!terms || isConfirmed === true)
+        username !== "" &&
+        isValidEmail(email) &&
+        password !== "" &&
+        isValidAge(`${year.value}-${month.value}-${day.value}`) && 
+        userCountry.value && 
+        (!terms || isConfirmed === true)
         );
     };
 
@@ -157,23 +157,23 @@ class RegisterForm extends Component {
         return (
         <form onSubmit={this.handleSubmit}>
             <div styleName="username">
-                <InputText
-                    name="username"
-                    placeholder={copy.INDEX.INPUT_TEXT.LABEL[0]}
-                    onChange={this.handleTextChange}
-                    value={username}
-                    maxlength={12}
-                />
+            <InputText
+                name="username"
+                placeholder={copy.INDEX.INPUT_TEXT.LABEL[0]}
+                onChange={this.handleTextChange}
+                value={username}
+                maxlength={12}
+            />
             </div>
             <div styleName="password">
-                <InputText
-                    name="password"
-                    type="password"
-                    placeholder={copy.INDEX.INPUT_TEXT.LABEL[1]}
-                    onChange={this.handleTextChange}
-                    value={password}
-                    maxlength={15}
-                />
+            <InputText
+                name="password"
+                type="password"
+                placeholder={copy.INDEX.INPUT_TEXT.LABEL[1]}
+                onChange={this.handleTextChange}
+                value={password}
+                maxlength={15}
+            />
             </div>
             <InputText
                 name="email"
