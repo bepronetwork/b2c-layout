@@ -9,6 +9,9 @@ const getCurrencySlug = (symbol = "") => {
     case "FAU": {
       return "ethereum";
     }
+    case "OMG": {
+      return "ethereum";
+    }
     default:
       break;
   }

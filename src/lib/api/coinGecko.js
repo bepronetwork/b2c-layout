@@ -1,27 +1,30 @@
 import axios from "axios";
-import { multiply } from "lodash";
+import { isEmpty, multiply } from "lodash";
 import {
   formatCurrency,
   formatForCurrency,
 } from "../../utils/numberFormatation";
 
-async function getCurrencyConversion(
-  ids = "",
-  vsCurrencies = "",
-  amountToConvert = 0,
-) {
+async function getCurrencyConversion({ from = "", to = "", balance = 0 } = {}) {
   try {
     const { data } = await axios.get(
-      `https://api.coingecko.com/api/v3/simple/price?ids=${ids}&vs_currencies=${vsCurrencies}`,
+      `https://api.coingecko.com/api/v3/simple/price?ids=${from}&vs_currencies=${to}`,
     );
+    let currencyConversion;
 
-    const unity = data[ids][vsCurrencies];
-    const amount = multiply(formatCurrency(amountToConvert), unity);
+    if (isEmpty(data)) {
+      currencyConversion = null;
+    } else {
+      const unity = data[from][to];
+      const amount = multiply(formatCurrency(balance), unity);
 
-    return {
-      unity: formatForCurrency(vsCurrencies).format(unity),
-      amount: formatForCurrency(vsCurrencies).format(amount),
-    };
+      currencyConversion = {
+        unity: formatForCurrency(to).format(unity),
+        amount: formatForCurrency(to).format(amount),
+      };
+    }
+
+    return currencyConversion;
   } catch (error) {
     return null;
   }
