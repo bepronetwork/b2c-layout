@@ -31,12 +31,14 @@ async function getCoinList({ filter = "" } = {}) {
   try {
     const { data } = await axios.get(`${URL}/coins/list`);
 
-    if (isEmpty(data) || isUndefined(data)) return null;
+    if (isEmpty(data)) return null;
 
     if (!isEmpty(filter)) {
       const index = data
         .map(({ symbol }) => symbol)
         .indexOf(filter.toLowerCase());
+
+      if (isUndefined(data[index])) return null;
 
       return data[index];
     }
