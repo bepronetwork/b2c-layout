@@ -11,6 +11,7 @@ import {
   userAuth,
   getCurrencyAddress,
   resendConfirmEmail,
+  getTransactions,
   getJackpotPot,
   getProviderToken,
   sendFreeCurrencyRequest
@@ -285,6 +286,24 @@ export default class User {
       
         }catch(err){
             console.log(err)
+            throw err;
+        }
+    }
+
+    getMyTransactions = async ({ size, offset }) => {
+        try{
+            if(!this.user_id || !this.app_id){return []}
+            
+            const res = await getTransactions({             
+                user: this.user_id,
+                app: this.app_id,
+                size,
+                offset
+            }, this.bearerToken);
+
+            return await processResponse(res);
+    
+        }catch(err){
             throw err;
         }
     }

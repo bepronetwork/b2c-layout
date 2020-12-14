@@ -81,7 +81,9 @@ class WithdrawTable extends Component {
     }
 
     if (profile && !_.isEmpty(profile)) {
-      withdraws = await profile.getWithdraws();
+      const transactions = await profile.getMyTransactions({ size: 10, offset: 0 });
+
+      withdraws = transactions.withdraws;
     }
 
     const withdrawIcon = getIcon(19);
