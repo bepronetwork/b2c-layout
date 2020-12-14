@@ -152,7 +152,7 @@ async function getProvidersGames(params) {
         return handleError(error);
     }
 }
-  
+
 export { 
     getLastBets, 
     getGames, 
