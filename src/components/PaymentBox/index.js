@@ -10,7 +10,7 @@ import classNames from 'classnames';
 import { getApp, getAppCustomization } from "../../lib/helpers";
 import { CopyText } from "../../copy";
 import { formatCurrency } from '../../utils/numberFormatation';
-import { getCurrencyConversion } from "../../lib/api/coinGecko";
+import { getCoinConversion, getCoinList } from "../../lib/api/coinGecko";
 
 class PaymentBox extends React.Component{
     constructor(props){
@@ -66,8 +66,11 @@ class PaymentBox extends React.Component{
         const { wallet, profile} = props;
         const { isCanvasRenderer } = this.state;
         const virtual = getApp().virtual;
-        const convertedCurrency = await getCurrencyConversion({
-            from: wallet.currency.slug,
+        const currency = await getCoinList({
+            filter: wallet.currency.name
+        });
+        const convertedCurrency = await getCoinConversion({
+            from: currency && currency.id,
             to: "usd",
             balance: wallet.playBalance
         });
