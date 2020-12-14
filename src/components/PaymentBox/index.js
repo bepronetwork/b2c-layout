@@ -2,7 +2,7 @@ import React from "react";
 import './index.css';
 import { Row, Col } from 'reactstrap';
 import { Typography, Button } from 'components';
-import _, { result } from 'lodash';
+import _, { isNull } from 'lodash';
 import { connect } from "react-redux";
 import classNames from 'classnames';
 
@@ -10,6 +10,7 @@ import classNames from 'classnames';
 import { getApp, getAppCustomization } from "../../lib/helpers";
 import { CopyText } from "../../copy";
 import { formatCurrency } from '../../utils/numberFormatation';
+import { getCoinConversion, getCoinList } from "../../lib/api/coinGecko";
 
 class PaymentBox extends React.Component{
     constructor(props){
@@ -24,7 +25,8 @@ class PaymentBox extends React.Component{
             seconds: 0,
             amount: 0,
             secondsToCanvas: 0,
-            isCanvasRenderer: false
+            isCanvasRenderer: false,
+            convertedCurrency: {}
         }
     }
 
@@ -64,8 +66,16 @@ class PaymentBox extends React.Component{
         const { wallet, profile} = props;
         const { isCanvasRenderer } = this.state;
         const virtual = getApp().virtual;
+        const currency = await getCoinList({
+            filter: wallet.currency.name
+        });
+        const convertedCurrency = await getCoinConversion({
+            from: currency && currency.id,
+            to: "usd",
+            balance: wallet.playBalance
+        });
 
-        this.setState({ isCanvasRenderer: false });
+        this.setState({ isCanvasRenderer: false, convertedCurrency });
 
         if (virtual === true) {
             const virtualCurrency = getApp().currencies.find(c => c.virtual === true);
@@ -320,14 +330,13 @@ class PaymentBox extends React.Component{
 
     render(){
         let { isPicked, wallet } = this.props;
-        const { price, virtualTicker, walletImage, disabledFreeButton } = this.state;
+        const { price, virtualTicker, walletImage, disabledFreeButton, convertedCurrency } = this.state;
         const styles = classNames("container-root", {
             selected: isPicked
         });
-        const { bonusAmount } = wallet;
-        const hasBonus = !Number.isNaN(bonusAmount) && Number(bonusAmount) > 0;
+        const hasBonus = !Number.isNaN(wallet.bonusAmount) && Number(wallet.bonusAmount) > 0;
         const walletValid = this.funcVerification();
-        
+
         return (
             <button onClick={this.onClick} styleName={styles} disabled={wallet.currency.virtual}>
                 <Col>
@@ -347,10 +356,17 @@ class PaymentBox extends React.Component{
                                     {`${formatCurrency(wallet.playBalance)} ${wallet.currency.ticker}`}
                                 </Typography>
                             </div>
-                            {hasBonus &&
+                            {!isNull(convertedCurrency) && 
                                 <div styleName='text-description'>
                                     <Typography variant={'x-small-body'} color={'white'}>
-                                        Bonus: {formatCurrency(bonusAmount)}
+                                        {convertedCurrency.amount}
+                                    </Typography>
+                                </div>                            
+                            }
+                            {hasBonus &&
+                                <div styleName='text-description bonus-amount'>
+                                    <Typography variant={'x-small-body'} color={'white'}>
+                                        Bonus: {formatCurrency(wallet.bonusAmount)}
                                     </Typography>
                                 </div>
                             }

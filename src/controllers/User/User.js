@@ -139,7 +139,7 @@ export default class User {
 
     getWallet = ({currency}) => {return this.user.wallet.find( w => new String(w.currency._id).toString().toLowerCase() == new String(currency._id).toString().toLowerCase())};
 
-    getWallets = () => {return this.user.wallet};
+    getWallets = () => this.user.wallet;
 
     getBalanceAsync = async () => Numbers.toFloat((await this.updateUser()).balance);
 
