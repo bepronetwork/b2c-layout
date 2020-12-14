@@ -10,13 +10,9 @@ import loading from 'assets/loading-circle.gif';
 import generateMonths from "../../utils/generateMonths";
 import generateIntegers from "../../utils/generateIntegers";
 import leadingWithZero from "../../utils/leadingWithZero";
-import moment from "moment";
-import { countries } from "countries-list"; 
 import "./index.css";
 import getYearsAgo from '../../utils/getYearsAgo';
-import stringToNumber from '../../utils/stringToNumber';
-import checkAge from "../../utils/checkAge";
-import { stubTrue } from "lodash";
+import { isValidAge, isValidCountries, isValidEmail } from "../../utils/isValid";
 
 class RegisterForm extends Component {
     static propTypes = {
@@ -36,7 +32,6 @@ class RegisterForm extends Component {
             username: "",
             password: "",
             email: "",
-            emailValid: false,
             isLoading: false,
             isConfirmed: false,
             terms: null,
@@ -68,15 +63,16 @@ class RegisterForm extends Component {
         this.setState({ terms });
     }
 
-    handleSubmit = async event => {
-        const { username, password, email, day, month, year, userCountry } = this.state;
-        const birthDate = `${year.value}-${month.value}-${day.value}`;
-        this.setState({...this.state, isLoading : true });
-
+	handleSubmit = async event => {
         event.preventDefault();
+		this.setState({ isLoading: true });
+		const { username, password, email, day, month, year, userCountry } = this.state;
+        const birthDate = `${year.value}-${month.value}-${day.value}`;
         const { onSubmit } = this.props;
-        const affiliateLink = Cache.getFromCache('affiliate');
-        if (onSubmit && this.formIsValid()) {
+    	const affiliateLink = Cache.getFromCache("affiliate");
+
+
+        if (onSubmit && this.handleFormValidity()) {
             await onSubmit({
                 username,
                 password,
@@ -87,85 +83,69 @@ class RegisterForm extends Component {
               });
         }
 
-        this.setState({...this.state, isLoading : false});
+    	this.setState({ isLoading: false });
     };
 
-    formIsValid = () => {
-        const { password, username, emailValid, isConfirmed, terms, userCountry, day, month, year } = this.state;
-        const birthDate = `${year.value}-${month.value}-${day.value}`;
+    handleFormValidity = () => {
+        const { password, username, email, isConfirmed, terms, userCountry, day, month, year } = this.state;
 
         return (
         username !== "" &&
-        emailValid &&
+        isValidEmail(email) &&
         password !== "" &&
-        checkAge(birthDate) && 
+        isValidAge(`${year.value}-${month.value}-${day.value}`) && 
         userCountry.value && 
         (!terms || isConfirmed === true)
         );
     };
 
-    onEmailChange = event => {
-        const email = event.target.value;
-        const emailValid = email.match(/^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/i);
-
-        this.setState({ email, emailValid });
-    };
-
-    onChange = event => {
+    handleTextChange = event => {
         this.setState({ [event.target.name]: event.target.value });
     };
 
-    onUsernameChange = event => {
-        this.setState({ username: event.target.value });
+    handleSelectChange = props => ({ option }) => {
+        this.setState({ [props]: option });
     };
 
-    onPasswordChange = event => {
-        this.setState({ password: event.target.value });
-    };
- 
-    onAddressChange = event => {
-        this.setState({ address: event.target.value });
-    };
-
-    onDayChange = ({ option }) => {
-        this.setState({ day: option });
-    };
-
-    onMonthChange = ({ option }) => {
-        this.setState({ month: option });
-    };
-    
-    onYearChange = ({ option }) => {
-        this.setState({ year: option });
-    };
-
-    onCountryChange = ({ option }) => {
-        this.setState({ userCountry: option });
-    };
-
-    onHandlerConfirm() {
+    handleConfirm = () => {
         const { isConfirmed } = this.state;
 
         this.setState({ isConfirmed : !isConfirmed });
     }
 
-    availableCountries = () => {
-        const { restrictedCountries } = this.state;
-        const countriesEntries = [];
-    
-        Object.entries(countries).forEach(([key, value]) => {
-          return countriesEntries.push({
-            country: key,
-            data: value
-          });
-        });
-    
-        const availableCountries = countriesEntries.filter(
-          ({ country }) => !restrictedCountries.includes(country)
-        );
-    
-        return availableCountries;
-      };
+  renderCountryOptions = () => {
+      const { restrictedCountries } = this.state;
+
+    return isValidCountries(restrictedCountries).map(({ country, data }) => ({
+      text: data.name,
+      value: country,
+      channel_id: country
+    }));
+  };
+
+  renderYearOptions = () =>
+    generateIntegers({
+      from: getYearsAgo(72),
+      to: getYearsAgo(18),
+      descend: true
+    }).map(year => ({ text: year, value: year, channel_id: year }));
+
+  renderMonthOptions = () => {
+    const { ln } = this.props;
+
+    return generateMonths(ln, "MMM").map((month, index) => ({
+      text: month,
+      value: leadingWithZero(index),
+      channel_id: month
+    }));
+  }
+
+  renderDayOptions = () =>
+    generateIntegers({ from: 0, to: 30 }).map(day => ({
+      text: leadingWithZero(day),
+      value: leadingWithZero(day),
+      channel_id: leadingWithZero(day)
+    }));
 
     render() {
         const { error } = this.props;
@@ -180,7 +160,7 @@ class RegisterForm extends Component {
             <InputText
                 name="username"
                 placeholder={copy.INDEX.INPUT_TEXT.LABEL[0]}
-                onChange={this.onChange}
+                onChange={this.handleTextChange}
                 value={username}
                 maxlength={12}
             />
@@ -190,7 +170,7 @@ class RegisterForm extends Component {
                 name="password"
                 type="password"
                 placeholder={copy.INDEX.INPUT_TEXT.LABEL[1]}
-                onChange={this.onChange}
+                onChange={this.handleTextChange}
                 value={password}
                 maxlength={15}
             />
@@ -198,7 +178,7 @@ class RegisterForm extends Component {
             <InputText
                 name="email"
                 placeholder={copy.INDEX.INPUT_TEXT.LABEL[3]}
-                onChange={this.onEmailChange}
+                onChange={this.handleTextChange}
                 value={email}
                 maxlength={25}
             />
@@ -207,33 +187,21 @@ class RegisterForm extends Component {
             </Typography>
             <div styleName="birth-fields">
                 <Select
-                    onChange={event => this.onDayChange(event)}
-                    options={generateIntegers(0, 30).map(dayToObj => ({
-                        text: leadingWithZero(dayToObj),
-                        value: leadingWithZero(dayToObj),
-                        channel_id: leadingWithZero(dayToObj) 
-                    }))}
+                    onChange={this.handleSelectChange("day")}
+                    options={this.renderDayOptions()}
                     value={day}
                 />
                 <Select
-                    onChange={event => this.onMonthChange(event)}
-                    options={generateMonths(ln, "MMM").map((monthToObj, index) => ({
-                        text: monthToObj,
-                        value: leadingWithZero(index),
-                        channel_id: monthToObj
-                    }))}
+                    onChange={this.handleSelectChange("month")}
+                    options={this.renderMonthOptions({ language: ln })}
                     value={month}
                 />
             </div>
             <Select
                 gutterBottom
                 fullWidth
-                onChange={event => this.onYearChange(event)}
-                options={generateIntegers(stringToNumber(getYearsAgo(72)), stringToNumber(getYearsAgo(18)), true).map(yearToObj => ({
-                    text: yearToObj,
-                    value: yearToObj,
-                    channel_id: yearToObj
-                }))}
+                onChange={this.handleSelectChange("year")}
+                options={this.renderYearOptions()}
                 value={year}
             />
             <Typography weight="semi-bold" color="white" otherStyles={{ margin: "0 0 8px 0", opacity: '0.5' }}>
@@ -241,12 +209,8 @@ class RegisterForm extends Component {
             </Typography>
             <Select
                 fullWidth
-                onChange={event => this.onCountryChange(event)}
-                options={this.availableCountries().map(({ country, data }) => ({
-                    text: data.name,
-                    value: country,
-                    channel_id: country
-                }))}
+                onChange={this.handleSelectChange("userCountry")}
+                options={this.renderCountryOptions()}
                 value={userCountry}
             />
             {
@@ -258,9 +222,9 @@ class RegisterForm extends Component {
                             {
                                 skin.skin_type == "digital" 
                                 ?
-                                    <Toggle id={'isConfirmed'} checked={isConfirmed} onChange={() => this.onHandlerConfirm()} showText={false}/>
+                                    <Toggle id={'isConfirmed'} checked={isConfirmed} onChange={() => this.handleConfirm()} showText={false}/>
                                 :
-                                    <Checkbox onClick={() => this.onHandlerConfirm()} isSet={isConfirmed} id={'isConfirmed'}/>
+                                    <Checkbox onClick={() => this.handleConfirm()} isSet={isConfirmed} id={'isConfirmed'}/>
                             }
                         </div>
                         <div styleName="agree-right">
@@ -286,7 +250,7 @@ class RegisterForm extends Component {
                 size="medium"
                 theme="primary"
                 onClick={this.handleSubmit}
-                disabled={!this.formIsValid() || isLoading}
+                disabled={!this.handleFormValidity() || isLoading}
                 type="submit"
             >
                 {isLoading 
