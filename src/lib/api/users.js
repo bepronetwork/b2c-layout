@@ -231,6 +231,27 @@ export async function updateUserBalance(user, setUser) {
     }
 }
 
+export async function getTransactions(params, bearerToken, payload) {
+    const { app, user, size, offset } = params;
+
+    try {
+        const response = await fetch(`${apiUrlWithdraw}/api/user/transactions`, {
+            method : 'POST',
+            headers : addSecurityHeader({ bearerToken, payload: payload || user }),
+            body : JSON.stringify({
+                app,
+                user,
+                size,
+                offset
+            })}
+        )
+
+        return response.json();
+    } catch (error) {
+        throw error;
+    }
+}
+
 export async function logout() {
     Cache.setToCache('user', null);
     Cache.setToCache('Authentication', null);

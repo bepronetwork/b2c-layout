@@ -76,7 +76,9 @@ class DepositTable extends Component {
         }
 
         if(profile && !_.isEmpty(profile)){
-            deposits = await profile.getDeposits();
+            const transactions = await profile.getMyTransactions({ size: 10, offset: 0 });
+
+            deposits = transactions.deposits;
         }
 
         const depositsIcon = getIcon(18);
