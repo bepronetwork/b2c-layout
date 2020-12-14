@@ -56,9 +56,9 @@ class Navbar extends Component {
             let { topTab } = getAppCustomization();
             topTab = topTab.languages.find(t => t.language.isActivated === true && t.language.prefix === ln.toUpperCase());
             const user = !_.isEmpty(profile) ? profile : null;
-            const balance = parseFloat(user.getBalanceWithBonus());
 
             if(user){
+                const balance = parseFloat(user.getBalanceWithBonus());
                 const difference = Number(formatCurrency(balance - currentBalance));
                 const isDifferent = !isEqual(difference, 0);
                 // To not exist failed animation of difference and number animation
