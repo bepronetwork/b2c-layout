@@ -1,33 +1,50 @@
 import axios from "axios";
-import { isEmpty, multiply } from "lodash";
+import { isEmpty, isUndefined, multiply } from "lodash";
 import {
   formatCurrency,
   formatForCurrency,
 } from "../../utils/numberFormatation";
 
-async function getCurrencyConversion({ from = "", to = "", balance = 0 } = {}) {
+const URL = "https://api.coingecko.com/api/v3";
+
+async function getCoinConversion({ from = "", to = "", balance = 0 } = {}) {
   try {
     const { data } = await axios.get(
-      `https://api.coingecko.com/api/v3/simple/price?ids=${from}&vs_currencies=${to}`,
+      `${URL}/simple/price?ids=${from}&vs_currencies=${to}`,
     );
-    let currencyConversion;
 
-    if (isEmpty(data)) {
-      currencyConversion = null;
-    } else {
-      const unity = data[from][to];
-      const amount = multiply(formatCurrency(balance), unity);
+    if (isEmpty(data)) return null;
 
-      currencyConversion = {
-        unity: formatForCurrency(to).format(unity),
-        amount: formatForCurrency(to).format(amount),
-      };
-    }
+    const unity = data[from][to];
+    const amount = multiply(formatCurrency(balance), unity);
 
-    return currencyConversion;
+    return {
+      unity: formatForCurrency(to).format(unity),
+      amount: formatForCurrency(to).format(amount),
+    };
   } catch (error) {
     return null;
   }
 }
 
-export { getCurrencyConversion };
+async function getCoinList({ filter = "" } = {}) {
+  try {
+    const { data } = await axios.get(`${URL}/coins/list`);
+
+    if (isEmpty(data) || isUndefined(data)) return null;
+
+    if (!isEmpty(filter)) {
+      const index = data
+        .map(({ symbol }) => symbol)
+        .indexOf(filter.toLowerCase());
+
+      return data[index];
+    }
+
+    return data;
+  } catch (error) {
+    return null;
+  }
+}
+
+export { getCoinConversion, getCoinList };
