@@ -82,10 +82,6 @@ class Form extends Component {
 
         if(wallet && !wallet.address) {
             this.getCurrencyAddress(wallet);
-
-            this.intervalID = setInterval( async () => {
-                this.getCurrencyAddress(wallet);
-            }, 2*10000)
         }
         else {
             this.setState({ isLoaded: true, addressInitialized: true });
