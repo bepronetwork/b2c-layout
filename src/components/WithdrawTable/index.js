@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { WithdrawIcon, Table, LoadMoreData } from "components";
+import { WithdrawIcon, Table, LoadMoreData, SelectBox } from "components";
 import { connect } from "react-redux";
 import _ from "lodash";
 import { dateToHourAndMinute, isUserSet, getIcon } from "../../lib/helpers";
@@ -9,6 +9,7 @@ import { CopyText } from "../../copy";
 import "./index.css";
 
 const views = [
+  { text: 5, value: 5 },
   { text: 10, value: 10 },
   { text: 25, value: 25 },
   { text: 50, value: 50 },
@@ -45,7 +46,7 @@ const rows = {
 const defaultProps = {
   withdraws: rows.withdraws,
   view: "withdraws",
-  view_amount: views[0],
+  view_amount: views[1],
   isLoading: true,
   isListLoading: true
 };
@@ -125,8 +126,13 @@ class WithdrawTable extends Component {
   };
 
   changeView = ({ option }) => {
-    this.setState({ ...this.state, isListLoading: true });
-    this.setTimer({ view_amount: option });
+    const { text, value } = option;
+    const { withdraws } = this.state;
+    const { rows } = withdraws;
+
+    const size = Math.min(rows.length, value);
+
+    this.setState({ view_amount: { text: size, value: size } });
   };
 
   formatWithdraws = withdraws => {
@@ -167,10 +173,19 @@ class WithdrawTable extends Component {
             isListLoading: false 
         })
     }
-}
+  }
+
+  createSlice(size) {
+    const { withdraws } = this.state;
+    const rows = withdraws.rows;
+
+    const sliceIndex = Math.min(rows.length, size);
+
+    return rows.slice(0, sliceIndex)
+  }
 
   render() {
-    const { isLoading, isListLoading, clientId, view, flowId } = this.state;
+    const { isListLoading, view, view_amount } = this.state;
     const { profile } = this.props;
     const userId = profile.getID();
 
@@ -180,42 +195,23 @@ class WithdrawTable extends Component {
 
     return (
       <div styleName="container">
-        {/* isLoading ?
-                    <SkeletonTheme color={ getSkeletonColors().color} highlightColor={ getSkeletonColors().highlightColor}>
-                        <div styleName='lastBets' style={{opacity : '0.5'}}>
-                            <div styleName='filters'>
-                                <div styleName='bets-dropdown-game'>
-                                    <Skeleton width={100} height={30}/>
-                                </div>
-                                <div styleName='bets-dropdown'>
-                                    <Skeleton width={50} height={30}/>
-                                </div>
-                            </div>
-                        </div>
-                    </SkeletonTheme>
-                :
-                    <div styleName='lastBets'>
-                        <Tabs
-                            selected={view}
-                            options={options}
-                        />
-                        <div styleName="filters">
-                            <div styleName='bets-dropdown'>
-                                <SelectBox
-                                    size='small'
-                                    onChange={(e) => this.changeView(e)}
-                                    options={views}
-                                    value={this.state.view_amount}
-                                /> 
-                            </div>
-                        </div>
-                    </div>
-                */}
+        <div styleName='lastBets'>
+          <div styleName="filters">
+              <div styleName='bets-dropdown'>
+                  <SelectBox
+                      size='small'
+                      onChange={(e) => this.changeView(e)}
+                      options={views}
+                      value={this.state.view_amount}
+                  /> 
+              </div>
+          </div>
+        </div>
         <Table
-          rows={this.state[view].rows}
+          rows={this.createSlice(view_amount.value)}
           titles={this.state[view].titles}
           fields={this.state[view].fields}
-          size={this.state.view_amount.value}
+          size={view_amount.value}
           isLoading={isListLoading}
         />
 

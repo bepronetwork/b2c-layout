@@ -30,6 +30,7 @@
 
 .lastBets {
     width: 100%;
+    padding: 15px 10px;
     grid-auto-flow: column;
     display: grid;
     align-items: center;
