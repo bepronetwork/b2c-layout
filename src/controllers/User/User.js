@@ -593,7 +593,6 @@ export default class User {
       
         }catch(err){
             console.log(err)
-            throw err;
         }
     }
 
