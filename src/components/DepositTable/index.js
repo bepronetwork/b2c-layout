@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { DepositsIcon, Table } from 'components';
+import { DepositsIcon, Table, LoadMoreData } from 'components';
 import { connect } from "react-redux";
 import { dateToHourAndMinute, isUserSet, getIcon } from "../../lib/helpers";
 import { formatCurrency } from "../../utils/numberFormatation";
@@ -78,7 +78,7 @@ class DepositTable extends Component {
         if(profile && !_.isEmpty(profile)){
             const transactions = await profile.getMyTransactions({ size: 10, offset: 0 });
 
-            deposits = transactions.deposits;
+            deposits = transactions && transactions.deposits || [];
         }
 
         const depositsIcon = getIcon(18);
@@ -135,44 +135,51 @@ class DepositTable extends Component {
         }
     }
 
+    formatDeposits = deposits => {
+        const formatedDeposits = deposits.map((d) => {
+            return {
+                amount: formatCurrency(Numbers.toFloat(d.amount)),
+                transactionHash: d.transactionHash ? AddressConcat(d.transactionHash) : 'N/A',
+                creation_timestamp: dateToHourAndMinute(d.creation_timestamp),
+                status: d.transactionHash ? 'Confirmed' : 'Confirm',
+                currency: d.currency,
+                link_url: d.link_url,
+                bonusAmount: d.bonusAmount
+            }
+        })
+
+        return formatedDeposits;
+    }
+
+    loadMoreDeposits = async () => {
+        const { profile } = this.props;
+        const { deposits } = this.state;
+
+        if (profile && !_.isEmpty(profile)) {
+            this.setState({ isListLoading: true });
+
+            const dataSize = deposits.rows.length || 0;
+
+            const transactions = await profile.getMyTransactions({ size: 10, offset: dataSize });
+            const rawDepositsData = transactions && transactions.deposits || [];
+            
+            const newDeposits = _.concat(deposits.rows, this.formatDeposits(rawDepositsData));
+
+            this.setState({ 
+                deposits: { ...deposits, rows: newDeposits }, 
+                view_amount: { text: newDeposits.length, value: newDeposits.length }, 
+                isListLoading: false 
+            })
+        }
+    }
+
     render() {
-        const { isLoading, isListLoading, options, view } = this.state;
+        const { isListLoading, view } = this.state;
         const { profile } = this.props;
         if(!isUserSet(profile)){return}
 
         return (
             <div styleName='container'>
-                {/*isLoading ?
-                    <SkeletonTheme color={ getSkeletonColors().color} highlightColor={ getSkeletonColors().highlightColor}>
-                        <div styleName='lastBets' style={{opacity : '0.5'}}>
-                            <div styleName='filters'>
-                                <div styleName='bets-dropdown-game'>
-                                    <Skeleton width={100} height={30}/>
-                                </div>
-                                <div styleName='bets-dropdown'>
-                                    <Skeleton width={50} height={30}/>
-                                </div>
-                            </div>
-                        </div>
-                    </SkeletonTheme>
-                :
-                    <div styleName='lastBets'>
-                        <Tabs
-                            selected={view}
-                            options={options}
-                        />
-                        <div styleName="filters">
-                            <div styleName='bets-dropdown'>
-                                <SelectBox
-                                    size='small'
-                                    onChange={(e) => this.changeView(e)}
-                                    options={views}
-                                    value={this.state.view_amount}
-                                /> 
-                            </div>
-                        </div>
-                    </div>
-                */}
                 <Table
                     rows={this.state[view].rows}
                     titles={this.state[view].titles}
@@ -180,6 +187,8 @@ class DepositTable extends Component {
                     size={this.state.view_amount.value}
                     isLoading={isListLoading}
                 /> 
+                
+                <LoadMoreData isLoading={isListLoading} onLoadMore={this.loadMoreDeposits} />
             </div>
         );
     }
