@@ -184,7 +184,7 @@ class DepositTable extends Component {
         }
     }
 
-    createSlice(size) {
+    createSlice = size => {
         const { deposits } = this.state;
         const rows = deposits.rows;
     

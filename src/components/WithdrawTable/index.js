@@ -175,7 +175,7 @@ class WithdrawTable extends Component {
     }
   }
 
-  createSlice(size) {
+  createSlice = size => {
     const { withdraws } = this.state;
     const rows = withdraws.rows;
 
