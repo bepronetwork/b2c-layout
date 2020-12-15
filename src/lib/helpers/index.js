@@ -115,7 +115,7 @@ async function processResponse(response){
         return response.data.message
     }catch(err){
         await store.dispatch(setMessageNotification(new String(err.message).toString()));
-        throw err;
+        // throw err;
     }
 }
 
