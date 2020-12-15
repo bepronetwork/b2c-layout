@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { DepositsIcon, Table, LoadMoreData } from 'components';
+import { DepositsIcon, Table, LoadMoreData, SelectBox } from 'components';
 import { connect } from "react-redux";
 import { dateToHourAndMinute, isUserSet, getIcon } from "../../lib/helpers";
 import { formatCurrency } from "../../utils/numberFormatation";
@@ -8,7 +8,13 @@ import { CopyText } from "../../copy";
 import _ from 'lodash';
 import "./index.css";
 
-const views = [{ text : 10, value : 10 }, { text : 25, value : 25 }, { text : 50, value : 50 }, { text : 100, value : 100 }];
+const views = [  
+    { text: 5, value: 5 }, 
+    { text : 10, value : 10 }, 
+    { text : 25, value : 25 }, 
+    { text : 50, value : 50 }, 
+    { text : 100, value : 100 }
+];
 
 const rows = {
     deposits : {
@@ -40,7 +46,7 @@ const rows = {
 const defaultProps = {
     deposits     : rows.deposits,
     view        : 'deposits',
-    view_amount : views[0],
+    view_amount : views[1],
     isLoading: true,
     isListLoading : true
 }
@@ -116,10 +122,15 @@ class DepositTable extends Component {
         this.projectData(this.props, options)
     }
 
-    changeView = ({option}) => {
-        this.setState({...this.state, isListLoading : true })
-        this.setTimer({view_amount : option})
-    }
+    changeView = ({ option }) => {
+        const { text, value } = option;
+        const { deposits } = this.state;
+        const { rows } = deposits;
+    
+        const size = Math.min(rows.length, value);
+    
+        this.setState({ view_amount: { text: size, value: size } });
+    };
 
     confirmDeposit = async (deposit) => {
         try{
@@ -173,18 +184,39 @@ class DepositTable extends Component {
         }
     }
 
+    createSlice = size => {
+        const { deposits } = this.state;
+        const rows = deposits.rows;
+    
+        const sliceIndex = Math.min(rows.length, size);
+    
+        return rows.slice(0, sliceIndex)
+    }
+
     render() {
-        const { isListLoading, view } = this.state;
+        const { isListLoading, view, view_amount } = this.state;
         const { profile } = this.props;
         if(!isUserSet(profile)){return}
 
         return (
             <div styleName='container'>
+                <div styleName='lastBets'>
+                    <div styleName="filters">
+                        <div styleName='bets-dropdown'>
+                            <SelectBox
+                                size='small'
+                                onChange={(e) => this.changeView(e)}
+                                options={views}
+                                value={view_amount}
+                            /> 
+                        </div>
+                    </div>
+                </div>
                 <Table
-                    rows={this.state[view].rows}
+                    rows={this.createSlice(view_amount.value)}
                     titles={this.state[view].titles}
                     fields={this.state[view].fields}
-                    size={this.state.view_amount.value}
+                    size={view_amount.value}
                     isLoading={isListLoading}
                 /> 
                 
