@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { WithdrawIcon, Typography, Table } from "components";
+import { WithdrawIcon, Table, LoadMoreData } from "components";
 import { connect } from "react-redux";
 import _ from "lodash";
 import { dateToHourAndMinute, isUserSet, getIcon } from "../../lib/helpers";
@@ -129,6 +129,46 @@ class WithdrawTable extends Component {
     this.setTimer({ view_amount: option });
   };
 
+  formatWithdraws = withdraws => {
+    const formatedWithdraws = withdraws.map(d => {
+      return {
+        amount: formatCurrency(Numbers.toFloat(d.amount)),
+        transactionHash: d.transactionHash
+          ? AddressConcat(d.transactionHash)
+          : "N/A",
+        creation_timestamp: dateToHourAndMinute(d.creation_timestamp),
+        status: d.confirmed ? "Confirmed" : "Open",
+        currency: d.currency,
+        link_url: d.link_url,
+        done: d.confirmed ? "Done" : "Unconfirmed"
+      };
+    })
+
+    return formatedWithdraws;
+}
+
+  loadMoreWithdraws = async () => {
+    const { profile } = this.props;
+    const { withdraws } = this.state;
+
+    if (profile && !_.isEmpty(profile)) {
+        this.setState({ isListLoading: true });
+
+        const dataSize = withdraws.rows.length || 0;
+
+        const transactions = await profile.getMyTransactions({ size: 10, offset: dataSize });
+        const rawWithdrawsData = transactions && transactions.withdraws || [];
+        
+        const newWithdraws = _.concat(withdraws.rows, this.formatWithdraws(rawWithdrawsData));
+
+        this.setState({ 
+            withdraws: { ...withdraws, rows: newWithdraws }, 
+            view_amount: { text: newWithdraws.length, value: newWithdraws.length }, 
+            isListLoading: false 
+        })
+    }
+}
+
   render() {
     const { isLoading, isListLoading, clientId, view, flowId } = this.state;
     const { profile } = this.props;
@@ -178,6 +218,8 @@ class WithdrawTable extends Component {
           size={this.state.view_amount.value}
           isLoading={isListLoading}
         />
+
+        <LoadMoreData isLoading={isListLoading} onLoadMore={this.loadMoreWithdraws}/>
       </div>
     );
   }
