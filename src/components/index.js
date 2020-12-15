@@ -153,6 +153,7 @@ import GameCounter from './GameCounter';
 import Select from './Select';
 import KycStatus from './KycStatus';
 import MatiButton from './MatiButton';
+import LoadMoreData from './LoadMoreData'
 
 export { LegalBox };
 export { Authentication2FAModal };
@@ -308,4 +309,5 @@ export { ThirdPartyProviderSelector };
 export { GameCounter };
 export { Select };
 export { KycStatus };
-export { MatiButton }
+export { MatiButton };
+export { LoadMoreData }
