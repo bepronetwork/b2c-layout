@@ -592,7 +592,7 @@ export default class User {
             }
       
         }catch(err){
-            console.log(err)
+            return null;
         }
     }
 
