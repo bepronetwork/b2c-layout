@@ -152,7 +152,7 @@ class ThirdPartyProviderSelector extends Component {
 
         onChangeProvider(providerId);
 
-        this.setState({...this.state, providerId, open : false})
+        this.setState({providerId, open : false})
     }
 
     render() {

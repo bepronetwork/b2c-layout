@@ -38,7 +38,7 @@ class LanguagePicker extends React.Component {
             }
         })
         await this.props.dispatch(setLanguageInfo(item));
-        this.setState({...this.state, language : item.channel_id})
+        this.setState({language : item.channel_id})
     }
 
     render() {

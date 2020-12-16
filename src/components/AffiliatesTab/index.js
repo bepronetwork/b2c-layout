@@ -53,7 +53,7 @@ class AffiliatesTab extends React.Component{
             wallet = wallets[0];
         }
 
-        this.setState({...this.state,
+        this.setState({
             wallets,
             wallet,
             percentageOnLevelOne,

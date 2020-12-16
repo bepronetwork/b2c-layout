@@ -24,7 +24,7 @@ class Widgets extends React.Component{
         if(!cacheCustomization){
             cacheCustomization = {}
         };
-        this.setState({...this.state, ...cacheCustomization});
+        this.setState({...cacheCustomization});
     }
 
     render () {

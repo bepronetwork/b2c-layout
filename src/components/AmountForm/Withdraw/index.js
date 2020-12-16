@@ -58,7 +58,7 @@ class AmountWithdrawForm extends Component {
 
         const w = getApp().wallet.find(w => w.currency._id === currency._id);
 
-        this.setState({...this.state, 
+        this.setState({
             ticker : currency.ticker,
             amount : withdraw.amount,
             toAddress : withdraw.toAddress,
@@ -68,13 +68,13 @@ class AmountWithdrawForm extends Component {
     }
 
     onChangeAmount = async (amount) => {
-        this.setState({...this.state, amount});
+        this.setState({ amount});
         await store.dispatch(setWithdrawInfo({key : "amount", value : amount}));
     }
 
     onToAddressChange = async event => {
         const toAddress = event.target.value;
-        this.setState({...this.state, toAddress});
+        this.setState({ toAddress });
         await store.dispatch(setWithdrawInfo({key : "toAddress", value : toAddress}));
     };
 

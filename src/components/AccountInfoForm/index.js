@@ -39,7 +39,7 @@ class AccountInfoForm extends React.Component{
         const username = profile.getUsername();
         const avatar = null;
 
-        this.setState({...this.state,
+        this.setState({
             id,
             username,
             avatar

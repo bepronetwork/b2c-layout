@@ -25,7 +25,7 @@ class CurrencyWithdrawForm extends React.Component{
     projectData = async () => {
         let wallets = getApp().wallet;
 
-        this.setState({...this.state,
+        this.setState({
             wallets
         })
     }

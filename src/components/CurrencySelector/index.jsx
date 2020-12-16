@@ -197,7 +197,7 @@ class CurrencySelector extends Component {
 
     changeCurrency = async (item) => {
         await this.props.dispatch(setCurrencyView(item));
-        this.setState({...this.state, currency : item, open : false})
+        this.setState({ currency : item, open : false})
     }
 
     render() {

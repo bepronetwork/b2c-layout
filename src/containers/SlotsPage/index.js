@@ -298,7 +298,7 @@ class SlotsPage extends Component {
     if (appInfo) {
       const game = find(appInfo.games, { name: gameName });
 
-      this.setState({ ...this.state, game });
+      this.setState({ game });
     }
   };
 

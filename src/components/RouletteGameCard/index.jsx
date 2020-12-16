@@ -58,7 +58,7 @@ class RouletteGameCard extends Component {
         let popularNumbers = await getPopularNumbers({size : 15});
         var gamePopularNumbers = find(popularNumbers, { game: props.game._id });
         if(gamePopularNumbers){
-            this.setState({...this.state,
+            this.setState({
                 popularNumbers : gamePopularNumbers.numbers.sort((a, b) => b.resultAmount - a.resultAmount )   
             })    
         }

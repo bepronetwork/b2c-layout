@@ -87,7 +87,6 @@ class WithdrawTable extends Component {
     const withdrawIcon = getIcon(19);
 
     this.setState({
-      ...this.state,
       ...options,
       isLoading: false,
       isListLoading: false,
@@ -123,7 +122,7 @@ class WithdrawTable extends Component {
   };
 
   changeView = ({ option }) => {
-    this.setState({ ...this.state, isListLoading: true });
+    this.setState({ isListLoading: true });
     this.setTimer({ view_amount: option });
   };
 

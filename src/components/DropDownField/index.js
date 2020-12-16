@@ -20,12 +20,12 @@ class DropDownField extends React.Component{
 
     projectData = (props) => {
         if(props.value){
-            this.setState({...this.state, value : props.value})
+            this.setState({ value : props.value})
         }
     }
  
     onChange = e => {
-        this.setState({...this.state, value : e.target.value})
+        this.setState({ value : e.target.value})
         this.props.onChange({
             type : this.props.type,
             value : e.target.value

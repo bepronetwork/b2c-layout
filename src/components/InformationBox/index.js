@@ -24,7 +24,7 @@ class InformationBox extends React.Component{
     }
 
     close = () => {
-        this.setState({...this.state, closed : true});
+        this.setState({closed : true});
     }
 
     render(){

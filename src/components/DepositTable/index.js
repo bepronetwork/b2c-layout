@@ -81,7 +81,7 @@ class DepositTable extends Component {
 
         const depositsIcon = getIcon(18);
 
-        this.setState({...this.state, 
+        this.setState({
             ...options,
             isLoading : false,
             isListLoading : false,
@@ -115,7 +115,7 @@ class DepositTable extends Component {
     }
 
     changeView = ({option}) => {
-        this.setState({...this.state, isListLoading : true })
+        this.setState({ isListLoading : true })
         this.setTimer({view_amount : option})
     }
 

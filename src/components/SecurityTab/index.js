@@ -32,7 +32,7 @@ class SecurityTab extends React.Component{
         let { isActive } = set2FA;
         let has2FA = profile.user.hasOwnProperty('security') ? profile.user.security.hasOwnProperty('2fa_set') ? profile.user.security['2fa_set'] : false : false;
 
-        this.setState({...this.state, has2FA : has2FA || isActive})
+        this.setState({has2FA : has2FA || isActive})
     }
 
 

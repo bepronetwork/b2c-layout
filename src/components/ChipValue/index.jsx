@@ -44,7 +44,7 @@ class ChipValue extends Component {
 
         let balance = parseFloat(user.getBalanceWithBonus());
 
-        this.setState({...this.state, 
+        this.setState({
             balance : balance
         })
     }

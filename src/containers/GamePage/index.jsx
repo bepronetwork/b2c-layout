@@ -103,7 +103,7 @@ class GamePage extends Component {
             const appInfo = Cache.getFromCache("appInfo");
             if(appInfo){
                 let gameInfo = find(appInfo.games, { metaName: gameMetaName });
-                this.setState({...this.state, gameInfo});
+                this.setState({gameInfo});
             }
         }
     };

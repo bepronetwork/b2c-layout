@@ -193,7 +193,7 @@ class BetsTab extends Component {
             }
         }
 
-        this.setState({...this.state, 
+        this.setState({
             ...options,
             isLoading : false,
             isListLoading : false,
@@ -277,18 +277,18 @@ class BetsTab extends Component {
     }
 
     changeViewBets = ({option}) => {
-        this.setState({...this.state, isListLoading : true })
+        this.setState({ isListLoading : true })
         this.setTimer({view_amount : option})
     }
 
     changeViewGames = ({option}) => {
-        this.setState({...this.state, isListLoading : true })
+        this.setState({ isListLoading : true })
         this.setTimer({view_game : option})
     }
 
     handleTabChange = async name => {
         const { casinoGamesOptions, esportsGamesOptions, casinoGames, esportsGames } = this.state;
-        this.setState({...this.state, 
+        this.setState({ 
             view : name, 
             gamesOptions: name == "casino" ? casinoGamesOptions : esportsGamesOptions,
             games: name == "casino" ? casinoGames : esportsGames

@@ -169,7 +169,7 @@ class App extends Component {
     }
 
     start = async () => {
-        this.setState({...this.state, isLoading : false});
+        this.setState({ isLoading : false});
     }
 
 
@@ -599,7 +599,7 @@ console.log(form, 'form')
     updateAppInfo = async () => {
         let app = await getAppInfo();
         Cache.setToCache("appInfo", app);
-        this.setState({...this.state, app})
+        this.setState({ app})
     };
 
     isGameAvailable = metaName => {

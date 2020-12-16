@@ -279,7 +279,7 @@ class WithdrawTable extends React.Component {
     projectData = (props) => {
         let data = props.data;
 
-        this.setState({...this.state, 
+        this.setState({
             data : fromDatabasetoTable(data),
             ticker : 'DAI'
         })

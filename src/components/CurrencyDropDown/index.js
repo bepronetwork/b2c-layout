@@ -59,7 +59,7 @@ class CurrencyDropDown extends React.Component {
             }
         })
         await this.props.dispatch(setCurrencyView(item));
-        this.setState({...this.state, currency : item})
+        this.setState({ currency : item})
     }
 
     render() {

@@ -69,7 +69,7 @@ class RegisterForm extends Component {
     handleSubmit = async event => {
         const { username, password, email, day, month, year, userCountry } = this.state;
         const birthDate = `${year.value}-${month.value}-${day.value}`;
-        this.setState({...this.state, isLoading : true });
+        this.setState({ isLoading : true });
 
         event.preventDefault();
         const { onSubmit } = this.props;
@@ -85,7 +85,7 @@ class RegisterForm extends Component {
               });
         }
 
-        this.setState({...this.state, isLoading : false});
+        this.setState({ isLoading : false});
     };
 
     formIsValid = () => {

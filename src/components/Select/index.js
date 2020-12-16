@@ -51,7 +51,7 @@ class Select extends React.Component{
 
     projectData = (props) => {
         if(props.value){
-            this.setState({...this.state, value : props.value})
+            this.setState({value : props.value})
         }
     }
  
@@ -62,7 +62,7 @@ class Select extends React.Component{
     };
 
     onChange = (option) => {
-        this.setState({...this.state, value : option, open: false});
+        this.setState({value : option, open: false});
         this.props.onChange({ option });
     }
 

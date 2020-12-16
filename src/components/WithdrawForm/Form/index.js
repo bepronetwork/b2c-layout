@@ -109,13 +109,13 @@ class Form extends Component {
 
     onChangeAmount = async (amount) => {
         const { toAddress } = this.state;
-        this.setState({...this.state, amount, disabled: !(amount && toAddress)});
+        this.setState({ amount, disabled: !(amount && toAddress)});
     }
 
     onToAddressChange = async event => {
         const { amount } = this.state;
         const toAddress = event.target.value;
-        this.setState({...this.state, toAddress, disabled: !(amount && toAddress)});
+        this.setState({ toAddress, disabled: !(amount && toAddress)});
     };
 
     askForWithdraw = async () => {
@@ -124,7 +124,7 @@ class Form extends Component {
             const { wallet, profile, isAffiliate } = this.props;
             const { currency } = wallet;
 
-            this.setState({...this.state, disabled : true, isAsking : true});
+            this.setState({ disabled : true, isAsking : true});
 
             if(isAffiliate === true){
                 await profile.askForWithdrawAffiliate({amount : parseFloat(amount), currency, address : toAddress});
@@ -137,10 +137,10 @@ class Form extends Component {
                 'Withdraw was Queued, you can see it in the Withdraws Tab',                
             ));
            
-            this.setState({...this.state, amount: 0, toAddress: '', isAsking : false, disabled : false });
+            this.setState({ amount: 0, toAddress: '', isAsking : false, disabled : false });
 
         }catch(err){
-            this.setState({...this.state, isAsking : false, disabled : false });
+            this.setState({ isAsking : false, disabled : false });
         }
     }
 

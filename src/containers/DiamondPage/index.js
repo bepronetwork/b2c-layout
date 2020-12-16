@@ -351,7 +351,7 @@ class DiamondPage extends Component {
     if (appInfo) {
       const game = find(appInfo.games, { name: gameName });
 
-      this.setState({ ...this.state, game, resultSpace: game.resultSpace });
+      this.setState({ game, resultSpace: game.resultSpace });
     }
   };
 

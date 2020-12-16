@@ -30,7 +30,7 @@ class LoginForm extends Component {
 
     handleSubmit = async event => {
 
-        this.setState({...this.state, isLoading : true });
+        this.setState({isLoading : true });
         
         event.preventDefault();
 
@@ -39,7 +39,7 @@ class LoginForm extends Component {
             await onSubmit(this.state);
         }
 
-        this.setState({...this.state, isLoading : false});
+        this.setState({isLoading : false});
     };
 
     resetPasswordClick = () => {

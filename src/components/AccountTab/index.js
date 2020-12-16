@@ -48,7 +48,6 @@ class AccountTab extends React.Component {
     const avatar = null;
 
     this.setState({
-      ...this.state,
       userId,
       username,
       country,

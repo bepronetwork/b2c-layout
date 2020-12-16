@@ -101,7 +101,7 @@ class WheelVariationOne extends React.Component {
                 }
             }
         }
-        this.setState({...this.state, 
+        this.setState({
             options,
             game
         })
@@ -221,7 +221,7 @@ class WheelVariationOne extends React.Component {
     doubleDownBet = () => {
         const { betHistory } = this.state;
 
-        this.setState({...this.state,
+        this.setState({
             betHistory : betHistory.map( (item) => {
                 return {
                     cell : item.cell,

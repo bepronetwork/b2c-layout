@@ -126,11 +126,11 @@ class LastBets extends Component {
     }
 
     handleTabChange = name => {
-        this.setState({...this.state, view : name})
+        this.setState({view : name})
     };
 
     changeViewBets = ({option}) => {
-        this.setState({...this.state, isListLoading : true })
+        this.setState({ isListLoading : true })
         this.setTimer({view_amount : option})
     }
     
@@ -167,7 +167,7 @@ class LastBets extends Component {
         const latestBetsIcon = getIcon(10);
         const biggestWinsIcon = getIcon(7);
 
-        this.setState({...this.state, 
+        this.setState({
             ...options,
             isLoading : false,
             isListLoading : false,

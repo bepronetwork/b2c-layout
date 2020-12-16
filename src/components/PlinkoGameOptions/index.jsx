@@ -93,7 +93,7 @@ class PlinkoGameOptions extends Component {
     }
 
     projectData(props){
-        this.setState({...this.state, 
+        this.setState({
             edge : props.game.edge
         });
     }

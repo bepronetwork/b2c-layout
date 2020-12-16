@@ -31,7 +31,7 @@ class Authentication2FAModal extends Component {
     }
 
     onClose = async () => {
-        this.setState({...this.state, error : null});
+        this.setState({ error : null});
         await store.dispatch(setModal({key : 'Authentication2FAModal', value : false}));
     }
 
@@ -46,9 +46,7 @@ class Authentication2FAModal extends Component {
             let verified = Security2FASingleton.isVerifiedToken2FA( { secret, token } );
             if (!verified) { 
                 const error = copy.INDEX.ERROR.ERROR[0];
-                this.setState({...this.state,
-                    error
-                }) 
+                this.setState({ error }) 
                 return false;
             }
 
@@ -61,9 +59,7 @@ class Authentication2FAModal extends Component {
             }
             else {
                 const error = copy.INDEX.ERROR.ERROR[1];
-                this.setState({...this.state,
-                    error
-                }) 
+                this.setState({ error }) 
                 return false;
             }
 
@@ -75,7 +71,7 @@ class Authentication2FAModal extends Component {
     }
 
     onChange = (e) => {
-        this.setState({...this.state, input : e});
+        this.setState({ input : e});
     }
 
     projectData = async (props) => {
@@ -93,9 +89,7 @@ class Authentication2FAModal extends Component {
                 secret : res.secret
             }
         }
-        this.setState({...this.state,
-            auth_2fa
-        })     
+        this.setState({ auth_2fa })     
     }
 
     render() {

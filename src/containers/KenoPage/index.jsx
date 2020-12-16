@@ -38,7 +38,7 @@ class KenoPage extends Component {
         const appInfo = Cache.getFromCache("appInfo");
         if(appInfo){
             let game = find(appInfo.games, { name: this.state.game_name });
-            this.setState({...this.state, game});
+            this.setState({ game});
         }
     };
 

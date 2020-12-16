@@ -26,7 +26,7 @@ class SettingsTab extends Component {
     projectData = async () => {
         let cacheCustomization = Cache.getFromCache('customization');
 
-        this.setState({...this.state, ...cacheCustomization})
+        this.setState({...cacheCustomization})
     }
 
     handleBackgroundMusicToggle = async () => {

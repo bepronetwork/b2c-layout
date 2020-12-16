@@ -112,7 +112,6 @@ resultFilter = (firstArray, secondArray) => {
     });
 
     this.setState({
-      ...this.state,
       isMoonpayActive: moonpayIntegration.isActive,
       isKycNeeded,
       colorHexCode: primaryColor.hex,

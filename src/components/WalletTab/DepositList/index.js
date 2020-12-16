@@ -42,7 +42,7 @@ class DepositList extends Component {
             deposits = deposits.length > 3 ? deposits.slice(0, 3) : deposits;
         }
 
-        this.setState({...this.state, 
+        this.setState({
             rows : deposits.map( (d) =>  {
                 return {
                     amount: formatCurrency(Numbers.toFloat(d.amount)),

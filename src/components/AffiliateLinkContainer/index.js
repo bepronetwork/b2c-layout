@@ -23,11 +23,11 @@ class AffiliateLinkContainer extends React.Component{
     }
 
     componentDidMount(){
-        this.setState({...this.state, copied: false});
+        this.setState({ copied: false});
     }
 
     componentWillReceiveProps(){
-        this.setState({...this.state, copied: false});
+        this.setState({ copied: false});
     }
 
     copyToClipboard = () => {

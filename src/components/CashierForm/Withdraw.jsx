@@ -41,7 +41,7 @@ class Withdraw extends Component {
         const { profile, withdraw } = props;
         const { currency } = withdraw;
         let userBalance = profile.getBalance(currency);
-        this.setState({...this.state, userBalance});
+        this.setState({ userBalance });
     }
 
     closeDeposit = () => {

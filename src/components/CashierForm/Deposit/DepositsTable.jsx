@@ -290,7 +290,7 @@ class DepositsTable extends React.Component {
         const { profile } = props;
         let deposits = profile.getDeposits();
 
-        this.setState({...this.state, 
+        this.setState({
             data : fromDatabasetoTable(deposits),
             ticker : 'DAI',
             updated : true

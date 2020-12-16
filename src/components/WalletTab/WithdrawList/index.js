@@ -39,7 +39,7 @@ class WithdrawList extends Component {
             withdraws = withdraws.length > 3 ? withdraws.slice(0, 3) : withdraws;
         }
 
-        this.setState({...this.state, 
+        this.setState({
             rows : withdraws.map( (w) =>  {
                 return {
                     amount: formatCurrency(Numbers.toFloat(w.amount)),

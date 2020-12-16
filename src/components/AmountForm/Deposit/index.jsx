@@ -33,14 +33,14 @@ class AmountDepositForm extends Component {
     async projectData(props){
         const { deposit } = props;
 
-        this.setState({...this.state, 
+        this.setState({
             ticker : deposit.currency.ticker,   
             amount : deposit.amount
         })
     }
 
     onChangeAmount = async (amount) => {
-        this.setState({...this.state, amount : parseFloat(amount)});
+        this.setState({ amount : parseFloat(amount)});
         await store.dispatch(setDepositInfo({key : "amount", value : parseFloat(amount)}));
     }
 

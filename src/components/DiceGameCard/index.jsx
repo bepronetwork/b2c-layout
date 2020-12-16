@@ -61,7 +61,7 @@ class DiceGameCard extends Component {
         let res_popularNumbers = await getPopularNumbers({size : 15});
         var gamePopularNumbers = find(res_popularNumbers, { game: props.game._id });
         if(gamePopularNumbers){
-            this.setState({...this.state,
+            this.setState({
                 popularNumbers : gamePopularNumbers.numbers.sort((a, b) => b.resultAmount - a.resultAmount)
             })    
         }
@@ -83,7 +83,7 @@ class DiceGameCard extends Component {
             history.unshift({ value: nextProps.result, win });
             localStorage.setItem("diceHistory", JSON.stringify(history));
             result = nextProps.result;
-            this.setState({...this.state, 
+            this.setState({
                 result
             });
         }else{

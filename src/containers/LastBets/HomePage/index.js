@@ -159,16 +159,16 @@ class LastBets extends Component {
     }
 
     handleTabChange = name => {
-        this.setState({...this.state, view : name})
+        this.setState({view : name})
     };
 
     changeViewBets = ({option}) => {
-        this.setState({...this.state, isListLoading : true })
+        this.setState({isListLoading : true })
         this.setTimer({view_amount : option})
     }
 
     changeViewGames = ({option}) => {
-        this.setState({...this.state, isListLoading : true })
+        this.setState({isListLoading : true })
         this.setTimer({view_game : option})
     }
     
@@ -232,7 +232,7 @@ class LastBets extends Component {
         const biggestWinsIcon = getIcon(7);
         const leaderBoarderIcon = getIcon(8);
 
-        this.setState({...this.state, 
+        this.setState({
             ...options,
             isLoading : false,
             isListLoading : false,

@@ -38,12 +38,11 @@ class Withdraw extends Component {
     
     async projectData(props){
         const { profile } = props;
-        try{
-            const { wallet : userBalance } = profile.getAffiliateInfo();
-            this.setState({...this.state, userBalance : userBalance ? userBalance.playBalance : null});
-        }catch(err){
-            this.setState({...this.state})
-        }
+        const { wallet : userBalance } = profile.getAffiliateInfo();
+        
+        this.setState({
+            userBalance: userBalance ? userBalance.playBalance : null
+        });
     }
 
     closeDeposit = () => {

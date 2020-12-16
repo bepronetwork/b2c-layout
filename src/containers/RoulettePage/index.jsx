@@ -39,7 +39,7 @@ class RoulettePage extends Component {
         const appInfo = Cache.getFromCache("appInfo");
         if(appInfo){
             let game = find(appInfo.games, { name: this.state.game_name });
-            this.setState({...this.state, game});
+            this.setState({game});
         }
     };
 
@@ -150,7 +150,7 @@ class RoulettePage extends Component {
     doubleDownBet = () => {
         const { betHistory } = this.state;
 
-        this.setState({...this.state,
+        this.setState({
             betHistory : betHistory.map( (item) => {
                 return {
                     cell : item.cell,

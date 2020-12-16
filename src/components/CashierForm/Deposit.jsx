@@ -15,9 +15,7 @@ class Deposit extends Component {
         this.projectData(props);
     }
     
-    async projectData(){       
-        this.setState({...this.state})
-    }
+    async projectData(){}
 
     closeDeposit = () => {
         const { onClose } = this.props;

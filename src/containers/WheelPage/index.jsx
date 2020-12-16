@@ -56,7 +56,7 @@ class WheelPage extends React.Component {
 
         const options = loadWheelOptions(game);
 
-        this.setState({...this.state, 
+        this.setState({
             options,
             game
         })
@@ -176,7 +176,7 @@ class WheelPage extends React.Component {
     doubleDownBet = () => {
         const { betHistory } = this.state;
 
-        this.setState({...this.state,
+        this.setState({
             betHistory : betHistory.map( (item) => {
                 return {
                     cell : item.cell,

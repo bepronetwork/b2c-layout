@@ -59,7 +59,7 @@ class ChatPage extends React.Component {
 
     projectData = async (props) => {
         if(props.chat.messages.length > 0){
-            this.setState({...this.state,
+            this.setState({
                 participants : props.chat.participants,
                 messages :  props.chat.messages,
                 name : props.chat.name,
@@ -97,7 +97,7 @@ class ChatPage extends React.Component {
             this.projectData(this.props);
         }catch(err){
         }
-        this.setState({...this.state, message : ''})
+        this.setState({message : ''})
     }
 
     createMessageBox = ({username, message, id, time}) => {
@@ -166,7 +166,7 @@ class ChatPage extends React.Component {
         })
         let { profile } = this.props;
         profile.getChat().changeLanguage({language : item.name, channel_id : item.name.toLowerCase()});
-        this.setState({...this.state, language : item.name.toLowerCase()})
+        this.setState({language : item.name.toLowerCase()})
     }
 
     changeMessage = event => {

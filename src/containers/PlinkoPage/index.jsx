@@ -41,7 +41,7 @@ class PlinkoPage extends Component {
         const appInfo = Cache.getFromCache("appInfo");
         if(appInfo){
             let game = find(appInfo.games, { metaName: this.state.game_name });
-            this.setState({...this.state, game});
+            this.setState({game});
         }
     };
 

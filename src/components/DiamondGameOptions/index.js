@@ -88,7 +88,7 @@ class DiamondGameOptions extends Component {
   }
 
   projectData(props) {
-    this.setState({ ...this.state, edge: props.game.edge });
+    this.setState({ edge: props.game.edge });
   }
 
   handleSongFinishedPlaying = () => {

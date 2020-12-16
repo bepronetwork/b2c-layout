@@ -62,7 +62,7 @@ class FlipGameCard extends Component {
         let res_popularNumbers = await getPopularNumbers({size : 15});
         var gamePopularNumbers = find(res_popularNumbers, { game: props.game._id });
         if(gamePopularNumbers){
-            this.setState({...this.state,
+            this.setState({
                 popularNumbers : gamePopularNumbers.numbers.sort((a, b) => b.resultAmount - a.resultAmount)   
             })    
         }
@@ -78,7 +78,7 @@ class FlipGameCard extends Component {
             result = null;
         }
 
-        this.setState({...this.state, 
+        this.setState({
             edge : props.game.edge,
             result
         });
