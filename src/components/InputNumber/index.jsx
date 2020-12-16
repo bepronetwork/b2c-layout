@@ -135,12 +135,13 @@ export default class InputNumber extends Component {
   handleBlur = () => {
     const { min, max, onChange } = this.props;
     const { focused, value } = this.state;
-    const newMaxValue = Number(value);
 
     if (focused && value < min) {
       this.setState({ focused: false, value: min });
       onChange(min);
-    } else if (focused && newMaxValue > max) {
+    }
+
+    if (focused && Number(value) > max) {
       this.setState({ focused: false, value: max });
       onChange(max);
     }
