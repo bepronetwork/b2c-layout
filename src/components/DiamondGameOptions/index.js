@@ -136,6 +136,7 @@ class DiamondGameOptions extends Component {
           this.setState({ isAutoBetting: true });
           let totalProfit = 0;
           let totalLoss = 0;
+          let lastBet = 0;
           let wasWon = 0;
           let betAmount = amount;
 

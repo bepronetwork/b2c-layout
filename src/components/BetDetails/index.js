@@ -37,6 +37,7 @@ class BetDetails extends Component {
 
     projectData = async (props) => {
         const { betId, tag } = props;
+        let component = null; 
 
         this.setState({ tag });
 
