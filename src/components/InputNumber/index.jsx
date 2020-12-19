@@ -125,7 +125,10 @@ export default class InputNumber extends Component {
       return onChange("");
     }
 
-    const newValue = max && value > max ? max : value;
+    const parsedValue = parseFloat(value) || 0;
+    const parsedMax = parseFloat(max) || 0;
+
+    const newValue = parsedMax && parsedValue > parsedMax ? max : value;
 
     if (onChange) onChange(newValue);
 
@@ -136,14 +139,18 @@ export default class InputNumber extends Component {
     const { min, max, onChange } = this.props;
     const { focused, value } = this.state;
 
-    if (focused && value < min) {
-      this.setState({ focused: false, value: min });
-      onChange(min);
+    const parsedMin = parseFloat(min);
+    const parsedMax = parseFloat(max);
+    const parsedValue = parseFloat(value);
+
+    if (focused && parsedValue < parsedMin) {
+      this.setState({ focused: false, value: parsedMin });
+      onChange(parsedMin);
     }
 
-    if (focused && Number(value) > max) {
-      this.setState({ focused: false, value: max });
-      onChange(max);
+    if (focused && parsedValue > parsedMax) {
+      this.setState({ focused: false, value: parsedMax });
+      onChange(parsedMax);
     }
 
     this.setState({ focused: false });
