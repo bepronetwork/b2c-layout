@@ -108,11 +108,15 @@ class Form extends Component {
         const { amount, maxBalance, minBalance } = this.state;
         let checkedAmount = amount;
 
-        if (amount > maxBalance) {
-            checkedAmount = maxBalance
+        const parsedAmount = parseFloat(amount); 
+        const parsedMaxBalance = parseFloat(maxBalance); 
+        const parsedMinBalance = parseFloat(minBalance); 
+
+        if (parsedAmount > parsedMaxBalance) {
+            checkedAmount = maxBalance;
         }
         
-        if (amount.toString().length >= 8 && amount < minBalance) {
+        if (amount.toString().length >= 8 && parsedAmount < parsedMinBalance) {
             checkedAmount = minBalance
         }
 
@@ -139,23 +143,40 @@ class Form extends Component {
 
             this.setState({...this.state, disabled : true, isAsking : true});
 
-            var res;
             if(isAffiliate === true){
                 /* Create Withdraw Framework */
-                await profile.askForWithdrawAffiliate({amount : parseFloat(amount), currency, address : toAddress});
+                const response = await profile.askForWithdrawAffiliate({amount : parseFloat(amount), currency, address : toAddress});
+
+                if (response && _.has(response, 'withdraw_id')) {
+                    await profile.updateBalanceByWallet({ currency, amount: parseFloat(amount) });
+
+                    await store.dispatch( setMessageNotification(
+                        'Withdraw was Queued, you can see it in the Withdraws Tab',                
+                    ));
+
+                    await profile.getAllData(true);
+                }
             }else{
                 /* Create Withdraw Framework */
-                await profile.askForWithdraw({amount : parseFloat(amount), currency, address : toAddress});
-                //await profile.updateBalance({ userDelta: parseFloat(-amount) });
-                await profile.getAllData(true);
-            }
+                const response = await profile.askForWithdraw({amount : parseFloat(amount), currency, address : toAddress});
 
-            await store.dispatch( setMessageNotification(
-                'Withdraw was Queued, you can see it in the Withdraws Tab',                
-            ));
+                if (response && _.has(response, 'withdraw_id')) {
+                    await profile.updateBalanceByWallet({ currency, amount: parseFloat(amount) });
+
+                    await store.dispatch( setMessageNotification(
+                        'Withdraw was Queued, you can see it in the Withdraws Tab',                
+                    ));
+
+                    await profile.getAllData(true);
+                }
+            }
            
-            this.setState({...this.state, amount: 0, toAddress: '', isAsking : false, disabled : false });
-            //await this.setWithdrawInfoInRedux({id : res.withdraw._id});
+            this.setState({
+                amount: 0, 
+                toAddress: '', 
+                isAsking : false, 
+                disabled : false
+            });
 
         }catch(err){
             this.setState({...this.state, isAsking : false, disabled : false });
