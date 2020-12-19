@@ -139,6 +139,12 @@ class Form extends Component {
         this.setState({...this.state, toAddress, disabled: !(amount && toAddress)});
     };
 
+    showNotification = async () => {
+        await store.dispatch( setMessageNotification(
+            'Withdraw was Queued, you can see it in the Withdraws Tab',                
+        ));
+    }
+
     askForWithdraw = async () => {
         try{
             const { amount, toAddress } = this.state;
@@ -154,9 +160,7 @@ class Form extends Component {
                 if (response && _.has(response, 'withdraw_id')) {
                     await profile.updateBalanceByWallet({ currency, amount: parseFloat(amount) });
 
-                    await store.dispatch( setMessageNotification(
-                        'Withdraw was Queued, you can see it in the Withdraws Tab',                
-                    ));
+                    await this.showNotification();
 
                     await profile.getAllData(true);
                 }
@@ -167,9 +171,7 @@ class Form extends Component {
                 if (response && _.has(response, 'withdraw_id')) {
                     await profile.updateBalanceByWallet({ currency, amount: parseFloat(amount) });
 
-                    await store.dispatch( setMessageNotification(
-                        'Withdraw was Queued, you can see it in the Withdraws Tab',                
-                    ));
+                    await this.showNotification();
 
                     await profile.getAllData(true);
                 }
