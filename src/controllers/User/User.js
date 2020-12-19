@@ -251,6 +251,16 @@ export default class User {
         await this.updateUserState();
     }
 
+    updateBalanceByWallet = async ({ currency, amount }) => {
+        this.user.wallet.forEach((w) => {
+            if(new String(w.currency._id).toString().toLowerCase() == new String(currency._id).toString().toLowerCase()) {
+                w.playBalance = w.playBalance - amount;
+            }
+        });
+
+        await this.updateUserState();
+    }
+
     updateUserState = async () => {
         await store.dispatch(setProfileInfo(this));
     }
