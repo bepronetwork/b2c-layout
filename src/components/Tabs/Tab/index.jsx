@@ -27,12 +27,8 @@ export default class Tab extends Component {
     onClick(name);
   };
 
-  isMobileOrTablet = () => {
-    if (document.documentElement.clientWidth < tabletBreakpoint){
-        return true;
-    }
-    return false;
-  };
+  isMobileOrTablet = () =>
+    document.documentElement.clientWidth < tabletBreakpoint;
 
   render() {
     const { selected, label, icon, style, variant="small-body" } = this.props;

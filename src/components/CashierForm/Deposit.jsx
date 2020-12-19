@@ -5,6 +5,7 @@ import { compose } from 'lodash/fp';
 import { CurrencyDepositForm, HorizontalStepper, DepositForm } from 'components';
 import { CopyText } from '../../copy';
 import { getApp } from "../../lib/helpers";
+
 class Deposit extends Component {
 
     componentDidMount(){

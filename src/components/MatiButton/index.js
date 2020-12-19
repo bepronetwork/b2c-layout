@@ -1,21 +1,17 @@
 import React, { useEffect, useCallback } from "react";
 import { connect } from "react-redux";
+import PropTypes from "prop-types";
 import { KYC_IN_REVIEW } from "../../config/kycStatus";
 import Cache from "../../lib/cache/cache";
 
-function MatiButton(props) {
+const MatiButton = ({ profile, ...props }) => {
   const button = React.createRef(null);
-
   const handleLoaded = useCallback(() => {}, []);
-
+  const handleExited = useCallback(() => {}, []);
   const handleFinished = useCallback(() => {
-    const { profile } = props;
-
     profile.updateKYCStatus(KYC_IN_REVIEW);
     Cache.setToCache("kyc", { status: KYC_IN_REVIEW });
   }, []);
-
-  const handleExited = useCallback(() => {}, []);
 
   useEffect(() => {
     const ref = button.current;
@@ -36,12 +32,17 @@ function MatiButton(props) {
   }, [button, handleLoaded, handleFinished, handleExited]);
 
   return <mati-button ref={button} {...props} />;
-}
+};
 
-function mapStateToProps({ profile }) {
-  return {
-    profile
-  };
-}
+MatiButton.propTypes = {
+  profile: PropTypes.objectOf(
+    PropTypes.oneOfType([
+      PropTypes.func,
+      PropTypes.object,
+      PropTypes.string,
+      PropTypes.bool,
+    ]),
+  ).isRequired,
+};
 
-export default connect(mapStateToProps)(MatiButton);
+export default connect(({ profile }) => ({ profile }))(MatiButton);

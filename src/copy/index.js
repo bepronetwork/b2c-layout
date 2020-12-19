@@ -4,9 +4,6 @@ import depositCopy from "./deposit";
 import sharedCopy from "./shared";
 import homepageCopy from "./homepage";
 import homepagegameCopy from "./homepagegame";
-
-import accountInfoFormIndexCopy from './accountInfoFormIndex';
-import actionBoxIndexCopy from './actionBoxIndex';
 import affiliateLinkContainerIndexCopy from './affiliateLinkContainerIndex';
 import affiliateWithdrawFormWithdrawCopy from './affiliateWithdrawFormWithdraw';
 import affiliateWithdrawFormIndexCopy from './affiliateWithdrawFormIndex';
@@ -18,7 +15,6 @@ import authentication2FAModalInput2FACopy from './authentication2FAModalInput2FA
 import authentication2FAModalIndexCopy from './authentication2FAModalIndex';
 import buttonIndexCopy from './buttonIndex';
 import buttonIconIndexCopy from './buttonIconIndex';
-import carousselIndexCopy from './carousselIndex';
 import cashierFormDepositsTableCopy from './cashierFormDepositsTable';
 import cashierFormDepositCopy from './cashierFormDeposit';
 import cashierFormLoaderCopy from './cashierFormLoader';
@@ -29,7 +25,6 @@ import cashierFormIndexCopy from './cashierFormIndex';
 import checkboxIndexCopy from './checkboxIndex';
 import chipValueCoinButtonCopy from './chipValueCoinButton';
 import chipValueIndexCopy from './chipValueIndex';
-import currencyDropDownIndexCopy from './currencyDropDownIndex';
 import currencyFormIndexCopy from './currencyFormIndex';
 import dataContainerIndexCopy from './dataContainerIndex';
 import depositFormIndexCopy from './depositFormIndex';
@@ -38,7 +33,6 @@ import diceGameCardIndexCopy from './diceGameCardIndex';
 import diceGameOptionsIndexCopy from './diceGameOptionsIndex';
 import kenoGameCardIndexCopy from './kenoGameCardIndex';
 import kenoGameOptionsIndexCopy from './kenoGameOptionsIndex';
-import dropDownFieldIndexCopy from './dropDownFieldIndex';
 import flipGameCardIndexCopy from './flipGameCardIndex';
 import flipGameOptionsIndexCopy from './flipGameOptionsIndex';
 import gameCardIndexCopy from './gameCardIndex';
@@ -73,12 +67,8 @@ import informationInformationIconCopy from './informationInformationIcon';
 import informationBoxIndexCopy from './informationBoxIndex';
 import inputNumberIndexCopy from './inputNumberIndex';
 import inputTextIndexCopy from './inputTextIndex';
-import languagePickerIndexCopy from './languagePickerIndex';
-import loadingBannerIndexCopy from './loadingBannerIndex';
 import loginFormIndexCopy from './loginFormIndex';
 import mediaIndexCopy from './mediaIndex';
-import messageFormMessageCopy from './messageFormMessage';
-import messageFormIndexCopy from './messageFormIndex';
 import modalIndexCopy from './modalIndex';
 import multiplyMaxButtonIndexCopy from './multiplyMaxButtonIndex';
 import navbarIndexCopy from './navbarIndex';
@@ -86,7 +76,6 @@ import navigationBarIndexCopy from './navigationBarIndex';
 import notificationFormNotificationCopy from './notificationFormNotification';
 import notificationFormIndexCopy from './notificationFormIndex';
 import onWinLossIndexCopy from './onWinLossIndex';
-import partnersIndexCopy from './partnersIndex';
 import paymentBoxIndexCopy from './paymentBoxIndex';
 import playInvitationIndexCopy from './playInvitationIndex';
 import plinkoGameCardGameObjectCopy from './plinkoGameCardGameObject';
@@ -146,8 +135,6 @@ const CopyText = {
     shared: sharedCopy,
     homepage: homepageCopy,
     homepagegame: homepagegameCopy,
-    accountInfoFormIndex: accountInfoFormIndexCopy,
-    actionBoxIndex: actionBoxIndexCopy,
     affiliateLinkContainerIndex: affiliateLinkContainerIndexCopy,
     affiliateWithdrawFormWithdraw: affiliateWithdrawFormWithdrawCopy,
     affiliateWithdrawFormIndex: affiliateWithdrawFormIndexCopy,
@@ -159,7 +146,6 @@ const CopyText = {
     authentication2FAModalIndex: authentication2FAModalIndexCopy,
     buttonIndex: buttonIndexCopy,
     buttonIconIndex: buttonIconIndexCopy,
-    carousselIndex: carousselIndexCopy,
     cashierFormDepositsTable: cashierFormDepositsTableCopy,
     cashierFormCodes: cashierFormCodesCopy,
     cashierFormDeposit: cashierFormDepositCopy,
@@ -170,7 +156,6 @@ const CopyText = {
     checkboxIndex: checkboxIndexCopy,
     chipValueCoinButton: chipValueCoinButtonCopy,
     chipValueIndex: chipValueIndexCopy,
-    currencyDropDownIndex: currencyDropDownIndexCopy,
     currencyFormIndex: currencyFormIndexCopy,
     dataContainerIndex: dataContainerIndexCopy,
     depositFormIndex: depositFormIndexCopy,
@@ -179,7 +164,6 @@ const CopyText = {
     diceGameOptionsIndex: diceGameOptionsIndexCopy,
     kenoGameCardIndex: kenoGameCardIndexCopy,
     kenoGameOptionsIndex: kenoGameOptionsIndexCopy,
-    dropDownFieldIndex: dropDownFieldIndexCopy,
     flipGameCardIndex: flipGameCardIndexCopy,
     flipGameOptionsIndex: flipGameOptionsIndexCopy,
     gameCardIndex: gameCardIndexCopy,
@@ -214,12 +198,8 @@ const CopyText = {
     informationBoxIndex: informationBoxIndexCopy,
     inputNumberIndex: inputNumberIndexCopy,
     inputTextIndex: inputTextIndexCopy,
-    languagePickerIndex: languagePickerIndexCopy,
-    loadingBannerIndex: loadingBannerIndexCopy,
     loginFormIndex: loginFormIndexCopy,
     mediaIndex: mediaIndexCopy,
-    messageFormMessage: messageFormMessageCopy,
-    messageFormIndex: messageFormIndexCopy,
     modalIndex: modalIndexCopy,
     multiplyMaxButtonIndex: multiplyMaxButtonIndexCopy,
     navbarIndex: navbarIndexCopy,
@@ -227,7 +207,6 @@ const CopyText = {
     notificationFormNotification: notificationFormNotificationCopy,
     notificationFormIndex: notificationFormIndexCopy,
     onWinLossIndex: onWinLossIndexCopy,
-    partnersIndex: partnersIndexCopy,
     paymentBoxIndex: paymentBoxIndexCopy,
     playInvitationIndex: playInvitationIndexCopy,
     plinkoGameCardGameObject: plinkoGameCardGameObjectCopy,

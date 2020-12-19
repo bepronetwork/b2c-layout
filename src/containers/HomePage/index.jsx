@@ -103,7 +103,6 @@ class HomePage extends Component {
                                 <LastBets onTableDetails={onTableDetails} />
                             </div>
                     }
-                    {/* <Media/> */}
                 </div>
             </div>
         );
