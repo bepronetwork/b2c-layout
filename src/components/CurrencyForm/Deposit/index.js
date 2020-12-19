@@ -10,7 +10,6 @@ class CurrencyDepositForm extends React.Component{
     constructor(props){
         super(props);
         this.state = {
-            updated : false,
             wallets : []
         }
     }

@@ -14,21 +14,6 @@ class BetSlipBox extends Component {
 
     constructor(props){
         super(props);
-        this.state = {
-            amount: 0
-        };
-    }
-
-    componentDidMount() {
-        this.projectData(this.props);
-    }
-
-    projectData = (props) => {
-        const { bet } = props;
-
-        this.setState({
-            amount: bet.amount
-        })
     }
 
     async handleRemoveToBetSlip(id) {
@@ -45,10 +30,6 @@ class BetSlipBox extends Component {
     }
 
     handleBetAmountChange = value => {
-        this.setState({
-            amount: value
-        });
-
         this.handleAddBetToBetSlip(value);
     };
 

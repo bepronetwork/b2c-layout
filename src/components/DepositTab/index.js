@@ -8,18 +8,6 @@ class DepositTab extends Component {
 
     constructor(props){
         super(props);
-        this.state = {};
-    }
-
-    componentDidMount(){
-        this.projectData(this.props);
-    }
-
-    componentWillReceiveProps(props){
-        this.projectData(props);
-    }
-
-    projectData = async () => {
     }
 
     render() {
@@ -34,8 +22,7 @@ class DepositTab extends Component {
 
 function mapStateToProps(state){
     return {
-        profile: state.profile,
-        ln : state.language
+        profile: state.profile
     };
 }
 

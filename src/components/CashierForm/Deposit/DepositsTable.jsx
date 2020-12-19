@@ -292,7 +292,6 @@ class DepositsTable extends React.Component {
 
         this.setState({
             data : fromDatabasetoTable(deposits),
-            ticker : 'DAI',
             updated : true
         })
     }

@@ -54,7 +54,6 @@ class DiceGameCard extends Component {
 
     componentWillReceiveProps(props){
         this.projectData(props);
-        //this.getBets(props);
     }
 
     async getBets(props){

@@ -22,17 +22,6 @@ class SideMenu extends Component {
         this.setState({ showStats: value, tab: value === false ? "bets" : "stats" });
     }
 
-    componentDidMount(){
-        this.projectData(this.props)
-    }
-
-    componentWillReceiveProps(props){
-        this.projectData(props);
-    }
-
-    projectData = async (props) => {
-    }
-
     getOptions() {
         const { match } = this.props;
         const { showStats } = this.state;

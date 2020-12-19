@@ -67,13 +67,8 @@ class DepositTable extends Component {
 
     projectData = async (props, options=null) => {
         const { profile, ln } = props;
-        let { view_amount } = this.state;
         const copy = CopyText.depositspage[ln];
         let deposits = [];
-
-        if(options){
-            view_amount = options.view_amount ? options.view_amount : view_amount;
-        }
 
         if(profile && !_.isEmpty(profile)){
             deposits = await profile.getDeposits();

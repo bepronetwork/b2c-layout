@@ -13,8 +13,6 @@ class Matches extends Component {
 
     constructor(props) {
         super(props);
-        this.state = {
-        };
     }
 
     createSkeletonRows = (size) => {

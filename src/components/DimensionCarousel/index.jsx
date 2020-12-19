@@ -18,6 +18,7 @@ class DimensionCarousel extends React.Component {
         this.interval = null;
         this.pauseOnMouseOver = true;
     }
+
     componentDidMount() {
         let slides = [];
         this.props.slides.forEach(slide => {
@@ -27,12 +28,7 @@ class DimensionCarousel extends React.Component {
             }
             slides.push(slideobject);
         });
-        this.setState((prevState, props) => {
-            return {
-                slides,
-                slideTotal: this.props.slides.length - 1
-            }
-        });
+        this.setState({ slides, slideTotal: this.props.slides.length - 1 });
         if (this.state.slideCurrent === -1)
             setTimeout(() => {
                 this.slideRight();
@@ -42,8 +38,6 @@ class DimensionCarousel extends React.Component {
                     }, this.props.interval);
             }, 500);
 
-    }
-    componentDidUpdate(prevProps, prevState, snapshot) {
     }
 
     slideRight() {
@@ -73,7 +67,7 @@ class DimensionCarousel extends React.Component {
 
             }
 
-            slide.forEach((slid, index) => {
+            slide.forEach((slid) => {
                 if (slid.class.includes("preactivede")) {
                     slid.class = 'slider-single proactivede';
                 }
@@ -85,15 +79,11 @@ class DimensionCarousel extends React.Component {
             preactiveSlide.class = 'slider-single preactive';
             activeSlide.class = activeClass;
             proactiveSlide.class = 'slider-single proactive';
-            this.setState((prevState, props) => {
-                return { slides: slide, slideCurrent }
-            });
+            this.setState({ slides: slide, slideCurrent });
             if (document.getElementsByClassName("slider-single active").length > 0) {
                 setTimeout(() => {
                     let height = document.getElementsByClassName("slider-single active")[0].clientHeight;
-                    this.setState((prevState, props) => {
-                        return { height: height + "px" }
-                    })
+                    this.setState({ height: height + "px" })
                 }, 500);
             }
             if (this.props.autoplay) {
@@ -105,9 +95,7 @@ class DimensionCarousel extends React.Component {
         } else if(slideTotal == 1) {
             if (slide[0].class !== activeClass) {
                 slide[0].class = activeClass;
-                this.setState((prevState, props) => {
-                    return { slides: slide, slideCurrent: 0 }
-                });
+                this.setState({ slides: slide, slideCurrent: 0 });
             }
         }
     }
@@ -133,7 +121,7 @@ class DimensionCarousel extends React.Component {
             } else {
                 preactiveSlide = slide[slideTotal];
             }
-            slide.forEach((slid, index) => {
+            slide.forEach((slid) => {
                 if (slid.class.includes("proactivede")) {
                     slid.class = 'slider-single preactivede';
                 }
@@ -144,15 +132,11 @@ class DimensionCarousel extends React.Component {
             preactiveSlide.class = 'slider-single preactive';
             activeSlide.class = 'slider-single active';
             proactiveSlide.class = 'slider-single proactive';
-            this.setState((prevState, props) => {
-                return { slides: slide, slideCurrent }
-            });
+            this.setState({ slides: slide, slideCurrent });
             if (document.getElementsByClassName("slider-single active").length > 0) {
                 setTimeout(() => {
                     let height = document.getElementsByClassName("slider-single active")[0].clientHeight;
-                    this.setState((prevState, props) => {
-                        return { height: height + "px" }
-                    })
+                    this.setState({ height: height + "px" })
                 }, 500);
             }
         }

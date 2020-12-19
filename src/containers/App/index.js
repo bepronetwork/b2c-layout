@@ -267,10 +267,6 @@ class App extends Component {
     handleTableDetailsModalClose = async () => {
         this.setState({ tableDetailsOpen: null });
     };
-    
-    handleAccountModalClose = () => {
-        this.setState({ accountInfoOpen: null });
-    };
 
     handleJackpotModalClose = async () => {
         await store.dispatch(setModal({key : 'JackpotModal', value : null}));
@@ -625,8 +621,6 @@ console.log(form, 'form')
             window.$crisp.push(['do', 'chat:open']);
             window.$crisp.push(['do', 'chat:show']);
         }
-
-        this.setState({ openCripsrChat : !isOpen });
     };
 
     renderGamePages = () => {

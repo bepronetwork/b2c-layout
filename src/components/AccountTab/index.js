@@ -45,14 +45,12 @@ class AccountTab extends React.Component {
     const email = profile.user.email
       ? profile.user.email
       : profile.user.user.email;
-    const avatar = null;
 
     this.setState({
       userId,
       username,
       country,
       birthDate,
-      avatar,
       email,
       isKycActive: kycIntegration.isActive
     });

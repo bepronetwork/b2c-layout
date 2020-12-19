@@ -69,11 +69,7 @@ class Authentication2FAModal extends Component {
             throw err;
         }
     }
-
-    onChange = (e) => {
-        this.setState({ input : e});
-    }
-
+    
     projectData = async (props) => {
         const { profile } = props;
 

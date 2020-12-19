@@ -27,24 +27,15 @@ class BetDetails extends Component {
         this.projectData(props);
     }
 
-    projectData = async (props) => {
-        const { betId, tag } = props;
+    projectData = async ({ betId, tag }) => {
+        const { status, message: bet } = await getBet({ betId, tag });
 
-        this.setState({ tag });
-
-        const response = await getBet({ betId, tag });
-
-        if (response.status === 200) {
-            const bet = response.message;
-    
-            this.setState({
-                isLoading: false,
-                bet
-            });
-        }
-        else {
-            this.setState({ isFake: true, isLoading: false });
-        }
+        this.setState({
+            tag,
+            isFake: !(status === 200),
+            isLoading: false,
+            bet
+        });
     }
     
     render() {

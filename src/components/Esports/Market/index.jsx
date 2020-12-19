@@ -11,31 +11,6 @@ class Market extends Component {
 
     constructor(props) {
         super(props);
-        this.state = {
-        };
-    }
-
-    componentDidMount(){
-        this.projectData(this.props)
-    }
-
-    componentWillReceiveProps(props){
-        this.projectData(props);
-    }
-
-    componentWillUnmount() {
-        clearInterval(this.intervalID);
-    }
-    
-    projectData = async (props) => {
-        this.intervalID = setInterval(
-            () => this.tick(),
-            10000
-        );
-    }
-
-    tick() {
-        this.setState({ });
     }
 
     renderer = ({ total }) => {

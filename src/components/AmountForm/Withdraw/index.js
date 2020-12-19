@@ -12,7 +12,6 @@ import { CopyText } from '../../../copy';
 
 const defaultProps = {
     ticker : 'N/A',
-    balance : 0,
     amount : 0,
     addressInitialized: false,
     isLoaded: false,
@@ -50,11 +49,10 @@ class AmountWithdrawForm extends Component {
     }
 
     async projectData(props){
-        const { withdraw, profile } = props;
+        const { withdraw } = props;
         const { currency } = withdraw;
 
         this.getCurrencyAddress();
-        let balance = profile.getBalance(currency);
 
         const w = getApp().wallet.find(w => w.currency._id === currency._id);
 
@@ -62,7 +60,6 @@ class AmountWithdrawForm extends Component {
             ticker : currency.ticker,
             amount : withdraw.amount,
             toAddress : withdraw.toAddress,
-            balance,
             maxWithdraw : w.max_withdraw
         })
     }

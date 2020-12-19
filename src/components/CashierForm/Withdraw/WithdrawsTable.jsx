@@ -281,7 +281,6 @@ class WithdrawTable extends React.Component {
 
         this.setState({
             data : fromDatabasetoTable(data),
-            ticker : 'DAI'
         })
     }
 
