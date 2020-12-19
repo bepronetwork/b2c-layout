@@ -200,7 +200,7 @@ class RegisterForm extends Component {
                 placeholder={copy.INDEX.INPUT_TEXT.LABEL[3]}
                 onChange={this.onEmailChange}
                 value={email}
-                maxlength={25}
+                maxlength={320}
             />
             <Typography weight="semi-bold" color="white" otherStyles={{ marginTop: 16, opacity: '0.5' }}>
                 {copy.INDEX.TYPOGRAPHY.TEXT[4]}
