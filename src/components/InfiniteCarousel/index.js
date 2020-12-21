@@ -115,9 +115,9 @@ class InfiniteCarousel extends Component {
             ...scrollOnDeviceProps,
           };
           const children = this.getChildrenList(propChildren, newSettings.slidesToShow);
-          const slideUniqueIds = children.map(child => uniqid('slide-'));
+          const slideUniqueIds = children.map(() => uniqid("slide-"));
           this.setState(
-            {
+            { 
               settings: newSettings,
               children,
               slideUniqueIds,
@@ -140,7 +140,7 @@ class InfiniteCarousel extends Component {
           ...scrollOnDeviceProps,
         };
         const children = this.getChildrenList(propChildren, newSettings.slidesToShow);
-        const slideUniqueIds = children.map(child => uniqid('slide-'));
+        const slideUniqueIds = children.map(() => uniqid('slide-'));
         this.setState(
           {
             settings: newSettings,
@@ -820,7 +820,7 @@ class InfiniteCarousel extends Component {
       const settings = this.getSettingsForScrollOnDevice();
       const { slidesToShow } = settings;
       const newChildren = this.getChildrenList(children, slidesToShow);
-      const slideUniqueIds = newChildren.map(child => uniqid('slide-'));
+      const slideUniqueIds = newChildren.map(() => uniqid('slide-'));
       this.setState(
         {
           children: newChildren,
@@ -952,31 +952,15 @@ class InfiniteCarousel extends Component {
 }
 
 InfiniteCarousel.propTypes = {
-  children: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.node), PropTypes.node]),
+  children: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.node),
+    PropTypes.node
+  ]),
   name: PropTypes.string,
-  arrows: PropTypes.bool,
-  dots: PropTypes.bool,
-  paging: PropTypes.bool,
   pagingSeparator: PropTypes.string,
-  lazyLoad: PropTypes.bool,
-  swipe: PropTypes.bool,
-  draggable: PropTypes.bool,
-  animationDuration: PropTypes.number,
-  slidesToShow: PropTypes.number,
-  slidesToScroll: PropTypes.number,
-  slidesSpacing: PropTypes.number,
-  autoCycle: PropTypes.bool,
-  cycleInterval: PropTypes.number,
-  pauseOnHover: PropTypes.bool,
   breakpoints: PropTypes.arrayOf(PropTypes.object),
-  placeholderImageSrc: PropTypes.string,
-  nextArrow: PropTypes.element,
-  prevArrow: PropTypes.element,
   scrollOnDevice: PropTypes.bool,
   showSides: PropTypes.bool,
-  sidesOpacity: PropTypes.number,
-  sideSize: PropTypes.number,
-  incrementalSides: PropTypes.bool,
   onSlideChange: PropTypes.func,
   onNextClick: PropTypes.func,
   onPreviousClick: PropTypes.func,
@@ -984,30 +968,11 @@ InfiniteCarousel.propTypes = {
 
 InfiniteCarousel.defaultProps = {
   children: [],
-  name: 'infinite-carousel',
-  arrows: true,
-  dots: false,
-  paging: false,
-  lazyLoad: false,
-  swipe: true,
-  draggable: false,
-  animationDuration: 500,
-  slidesToShow: 1,
-  slidesToScroll: 1,
-  slidesSpacing: 5,
-  autoCycle: false,
-  cycleInterval: 5000,
-  pauseOnHover: true,
+  name: "infinite-carousel",
   breakpoints: [],
-  placeholderImageSrc: '',
-  pagingSeparator: '/',
-  nextArrow: null,
-  prevArrow: null,
+  pagingSeparator: "/",
   scrollOnDevice: false,
   showSides: false,
-  sidesOpacity: 1,
-  sideSize: 0.5,
-  incrementalSides: false,
   onSlideChange: undefined,
   onNextClick: undefined,
   onPreviousClick: undefined,

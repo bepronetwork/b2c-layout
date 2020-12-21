@@ -1,5 +1,4 @@
 import React from "react";
-import { connect } from "react-redux";
 import { BigWinIcon, Typography } from "components";
 import { getIcon } from "../../lib/helpers";
 import './index.css';
@@ -7,19 +6,6 @@ import './index.css';
 class Jackpot extends React.Component{
     constructor(props){
         super(props);
-        this.state = {
-        }
-    }
-
-    componentDidMount(){
-        this.projectData(this.props)
-    }
-
-    componentWillReceiveProps(props){
-        this.projectData(props);
-    }
-
-    projectData = async (props) => {
     }
 
     render(){
@@ -42,7 +28,4 @@ class Jackpot extends React.Component{
     }
 }
 
-function mapStateToProps(state){
-}
-
-export default connect(mapStateToProps)(Jackpot);
+export default Jackpot;

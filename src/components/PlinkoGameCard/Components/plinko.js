@@ -1,6 +1,7 @@
 import { Body, Bodies } from 'matter-js';
 import {PLINKO} from './bodies';
 import GameObject from './GameObject';
+
 export default class Plinko extends GameObject {
   constructor({ id, x, y, r }) {
     super({ id, x, y, r });

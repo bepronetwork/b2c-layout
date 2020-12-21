@@ -32,7 +32,6 @@ class FlipGameCard extends Component {
     static propTypes = {
         flipResult: PropTypes.string,
         hasWon: PropTypes.bool,
-        updateBalance: PropTypes.func.isRequired,
         onResult: PropTypes.func.isRequired
     };
 

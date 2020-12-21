@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import Notification from './Notification';
-import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { compose } from 'lodash/fp'
 import _ from 'lodash';
@@ -9,13 +8,7 @@ import "./index.css";
 class NotificationForm extends Component {
     constructor(props) {
         super(props);
-
-        this.state = {};
     }
-
-    static propTypes = {
-        user: PropTypes.shape({})
-    };
 
     render() {
         let hasNotification = !_.isEmpty(this.props.message);
@@ -38,13 +31,8 @@ class NotificationForm extends Component {
 
 function mapStateToProps(state){
     return {
-        profile: state.profile,
         message : state.message
     };
 }
-
-NotificationForm.propTypes = {
-    dispatch: PropTypes.func
-};
 
 export default compose(connect(mapStateToProps))(NotificationForm);

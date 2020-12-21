@@ -39,7 +39,6 @@ class KenoGameOptions extends Component {
             profitStop: 0,
             lossStop: 0,
             onWin: null,
-            edge : 0,
             onLoss: null,
             sound: false
         };
@@ -79,20 +78,6 @@ class KenoGameOptions extends Component {
         );
     };
 
-    componentDidMount(){
-        this.projectData(this.props);
-    }
-
-    componentWillReceiveProps(props){
-        this.projectData(props);
-    }
-
-    projectData(props){
-        this.setState({
-            edge : props.game.edge
-        });
-    }
-
     handleSongFinishedPlaying = () => {
         this.setState({ sound: false });
     };
@@ -110,22 +95,21 @@ class KenoGameOptions extends Component {
         });
     }
 
-    handleBet = async (callback) => {
+    handleBet = async () => {
         const { onBet, profile } = this.props;
         const { amount, type, bets, profitStop, lossStop, onWin, onLoss} = this.state;
-        var res;
 
         if (this.isBetValid()) {
             this.setState({ sound: true });
             switch(type){
                 case 'manual' : {
-                    res = await onBet({ amount });
+                    await onBet({ amount });
                     break;
                 };
                 case 'auto' : {
                     if(!isUserSet(profile)){return null};
                     this.setState({isAutoBetting : true})
-                    var totalProfit = 0, totalLoss = 0, lastBet = 0, wasWon = 0;
+                    var totalProfit = 0, totalLoss = 0, wasWon = 0;
                     var betAmount = amount;
                     for( var i = 0; i < bets ; i++){
                         if(
@@ -139,7 +123,6 @@ class KenoGameOptions extends Component {
                                 totalProfit += (winAmount-betAmount);
                                 totalLoss += (winAmount == 0) ? -Math.abs(betAmount) : 0;
                                 wasWon = (winAmount != 0);
-                                lastBet = betAmount;
                                 if(onWin && wasWon){ betAmount += Numbers.toFloat(betAmount*onWin/100) }; 
                                 if(onLoss && !wasWon){ betAmount += Numbers.toFloat(betAmount*onLoss/100) }; 
                                 await delay(3*1000);
@@ -248,7 +231,7 @@ class KenoGameOptions extends Component {
     
 
     render() {
-        const { type, amount, isAutoBetting } = this.state;
+        const { type, amount } = this.state;
         const user = this.props.profile;
         const { ln, onBetAmount } = this.props;
         const copy = CopyText.kenoGameOptionsIndex[ln];

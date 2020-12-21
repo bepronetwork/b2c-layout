@@ -37,7 +37,6 @@ class FlipGameOptions extends Component {
         profitStop: 0,
         lossStop: 0,
         edge : 0,
-        onBet : false,
         onWin: null,
         onLoss: null,
         sound: false
@@ -56,7 +55,6 @@ class FlipGameOptions extends Component {
             edge : props.game.edge
         });
     }
-
 
     handleType = type => {
         this.setState({ type });
@@ -104,7 +102,7 @@ class FlipGameOptions extends Component {
                 case 'auto' : {
                     if(!isUserSet(profile)){return null};
                     this.setState({isAutoBetting : true})
-                    var totalProfit = 0, totalLoss = 0, lastBet = 0, wasWon = 0;
+                    var totalProfit = 0, totalLoss = 0, wasWon = 0;
                     for( var i = 0; i < bets ; i++){
                         if(
                             (profitStop == 0  || totalProfit <= profitStop) &&
@@ -115,7 +113,6 @@ class FlipGameOptions extends Component {
                             totalProfit += (winAmount-betAmount);
                             totalLoss += (winAmount == 0) ? -Math.abs(betAmount) : 0;
                             wasWon = (winAmount != 0);
-                            lastBet = betAmount;
                             if(onWin && wasWon){ betAmount += Numbers.toFloat(betAmount*onWin/100) }; 
                             if(onLoss && !wasWon){ betAmount += Numbers.toFloat(betAmount*onLoss/100) }; 
                             await delay(5*1000);

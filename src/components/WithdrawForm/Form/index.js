@@ -5,7 +5,6 @@ import { InputNumber,  Typography, InputText } from 'components';
 import { Col, Row } from 'reactstrap';
 import { getApp, getAddOn } from "../../../lib/helpers";
 import { setMessageNotification } from '../../../redux/actions/message';
-import { setWithdrawInfo } from "../../../redux/actions/withdraw";
 import { ProgressBar } from 'react-bootstrap';
 import store from 'containers/App/store';
 import { CopyText } from '../../../copy';
@@ -55,10 +54,6 @@ class Form extends Component {
     componentWillReceiveProps(props){
         this.setState({ isLoaded: false, addressInitialized: false});
         this.projectData(props);
-    }
-
-    setWithdrawInfoInRedux = async ({id}) => {
-        await store.dispatch(setWithdrawInfo({key : 'id', value : id}));
     }
 
     getCurrencyAddress = async (wallet) => {

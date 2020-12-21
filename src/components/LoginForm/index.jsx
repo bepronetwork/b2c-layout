@@ -60,10 +60,6 @@ class LoginForm extends Component {
         this.setState({ password: event.target.value });
     };
 
-    onUserChange = event => {
-        this.setState({ username_or_email: event.target.value });
-    };
-
     formIsValid = () => {
         const { username, password, token } = this.state;
         const { has2FA } = this.props;
@@ -128,26 +124,6 @@ class LoginForm extends Component {
         );
     }
 
-    renderError(error) {
-        const {ln} = this.props;
-        const copy = CopyText.loginFormIndex[ln];
-
-        return (
-            <div styleName="error">
-                {error && error !== 37 ? (
-                    <Typography color="red" variant="small-body" weight="semi-bold">
-                    {error === 4 || error === 55
-                        ? copy.INDEX.TYPOGRAPHY.TEXT[1]
-                        : 
-                        error === 36 
-                            ? copy.INDEX.TYPOGRAPHY.TEXT[2]
-                            : copy.INDEX.TYPOGRAPHY.TEXT[3]}
-                    </Typography>
-                ) : null}
-            </div>
-        )
-    }
-
     render() {
         const { error, has2FA } = this.props;
         const { isLoading } = this.state;
@@ -205,7 +181,6 @@ class LoginForm extends Component {
 
 function mapStateToProps(state){
     return {
-        profile : state.profile,
         ln: state.language
     };
 }

@@ -383,7 +383,6 @@ class PaymentBox extends React.Component{
 
 function mapStateToProps(state){
     return {
-        deposit : state.deposit,
         profile : state.profile
     };
 }

@@ -109,14 +109,6 @@ class Stats extends Component {
         return aggregatedStats;
     }
 
-    renderMonthPerformance() {
-        for(let i=0; i<5; i++){
-            return (
-                <div>{i}</div>
-            )
-        }
-    }
-
     renderHistoryPerformance() {
         const { stats1, stats2 } = this.state;
         let performance = [];

@@ -39,7 +39,6 @@ class SlotsGameOptions extends Component {
       profitStop: 0,
       lossStop: 0,
       onWin: null,
-      edge: 0,
       onLoss: null,
       sound: false
     };
@@ -79,18 +78,6 @@ class SlotsGameOptions extends Component {
     );
   };
 
-  componentDidMount() {
-    this.projectData(this.props);
-  }
-
-  componentWillReceiveProps(props) {
-    this.projectData(props);
-  }
-
-  projectData(props) {
-    this.setState({ edge: props.game.edge });
-  }
-
   handleSongFinishedPlaying = () => {
     this.setState({ sound: false });
   };
@@ -119,13 +106,12 @@ class SlotsGameOptions extends Component {
       onWin,
       onLoss
     } = this.state;
-    let res;
 
     if (this.isBetValid()) {
       this.setState({ sound: true });
       switch (type) {
         case "manual": {
-          res = await onBet({ amount });
+          await onBet({ amount });
           break;
         }
         case "auto": {
@@ -135,11 +121,7 @@ class SlotsGameOptions extends Component {
 
           this.setState({ isAutoBetting: true });
           let totalProfit = 0;
-
           let totalLoss = 0;
-
-          let lastBet = 0;
-
           let wasWon = 0;
           let betAmount = amount;
 
@@ -157,7 +139,6 @@ class SlotsGameOptions extends Component {
                 totalProfit += winAmount - betAmount;
                 totalLoss += winAmount == 0 ? -Math.abs(betAmount) : 0;
                 wasWon = winAmount != 0;
-                lastBet = betAmount;
 
                 if (onWin && wasWon) {
                   betAmount += Numbers.toFloat((betAmount * onWin) / 100);
@@ -348,7 +329,6 @@ function mapStateToProps(state) {
   return {
     profile: state.profile,
     ln: state.language,
-    currency: state.currency
   };
 }
 

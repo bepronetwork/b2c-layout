@@ -10,31 +10,12 @@ class GameCard extends Component {
     static propTypes = {
         title: PropTypes.string.isRequired,
         edge: PropTypes.number,
-        image: PropTypes.string,
         path: PropTypes.string.isRequired,
-        children: PropTypes.node.isRequired,
-        width: PropTypes.string,
     };
 
     static defaultProps = {
         edge: null,
-        image: "",
-        width: null,
         color: "firefly"
-    };
-
-    renderImage = () => {
-        const { image } = this.props;
-
-        if (!image) {
-        return <div styleName="image-container" />;
-        }
-
-        return (
-        <div styleName="image-container">
-            <img alt="menu" src={image} />
-        </div>
-        );
     };
 
     render() {

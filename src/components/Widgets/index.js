@@ -1,46 +1,39 @@
-import React from 'react';
-import BackgroundMusic from './BackgroundMusic';
-import './index.css';
-import Cache from '../../lib/cache/cache';
-import { connect } from "react-redux";
+import React from "react";
+import BackgroundMusic from "./BackgroundMusic";
+import "./index.css";
+import Cache from "../../lib/cache/cache";
 
-class Widgets extends React.Component{
-    
-    constructor(props){
-        super(props);
-        this.state = {}
-    }
-
-    componentDidMount(){
-        this.projectData();
-    }
-
-    componentWillReceiveProps(){
-        this.projectData();
-    }
-
-    projectData(){
-        let cacheCustomization = Cache.getFromCache('customization');
-        if(!cacheCustomization){
-            cacheCustomization = {}
-        };
-        this.setState({...cacheCustomization});
-    }
-
-    render () {
-        const { backgroundMusic } = this.state;
-        return (
-            <div>
-                <BackgroundMusic mute={!backgroundMusic}/>
-            </div>
-        )
-    }
-}
-
-function mapStateToProps(state){
-    return {
-        profile: state.profile
+class Widgets extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      backgroundMusic: null,
     };
+  }
+
+  componentDidMount() {
+    this.projectData();
+  }
+
+  projectData() {
+    let cacheCustomization = Cache.getFromCache("customization");
+
+    if (!cacheCustomization) {
+      cacheCustomization = {};
+    }
+
+    this.setState({ ...cacheCustomization });
+  }
+
+  render() {
+    const { backgroundMusic } = this.state;
+
+    return (
+      <div>
+        <BackgroundMusic mute={!backgroundMusic} />
+      </div>
+    );
+  }
 }
 
-export default connect(mapStateToProps)(Widgets);
+export default Widgets;

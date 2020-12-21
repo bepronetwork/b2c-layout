@@ -57,22 +57,20 @@ class RouletteGameOptions extends Component {
         return (totalBet > 0 && !disableControls && isAutoBetting == false) || !user;
     };
 
-
     handleBet = async () => {
         const { onBet, profile } = this.props;
         const { amount, type, bets, profitStop, lossStop, onWin, onLoss} = this.state;
-        var res;
         if (this.isBetValid()) {
             this.setState({ sound: true });
             switch(type){
                 case 'manual' : {
-                    res = await onBet({ amount });
+                    await onBet({ amount });
                     break;
                 };
                 case 'auto' : {
                     if(!isUserSet(profile)){return null};
                     this.setState({isAutoBetting : true})
-                    var totalProfit = 0, totalLoss = 0, lastBet = 0, wasWon = 0;
+                    var totalProfit = 0, totalLoss = 0, wasWon = 0;
                     var betAmount = amount;
                     for( var i = 0; i < bets ; i++){
                         if(
@@ -86,7 +84,6 @@ class RouletteGameOptions extends Component {
                                 totalProfit += (winAmount-betAmount);
                                 totalLoss += (winAmount == 0) ? -Math.abs(betAmount) : 0;
                                 wasWon = (winAmount != 0);
-                                lastBet = betAmount;
                                 if(onWin && wasWon){ betAmount += Numbers.toFloat(betAmount*onWin/100) }; 
                                 if(onLoss && !wasWon){ betAmount += Numbers.toFloat(betAmount*onLoss/100) }; 
                                 await delay(4*1000);

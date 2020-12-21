@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import { connect } from "react-redux";
 import { images } from "../SlotsGame/images";
 import "./index.css";
 
@@ -27,10 +26,4 @@ class SlotsBox extends Component {
   }
 }
 
-function mapStateToProps(state) {
-  return {
-    ln: state.language
-  };
-}
-
-export default connect(mapStateToProps)(SlotsBox);
+export default SlotsBox;

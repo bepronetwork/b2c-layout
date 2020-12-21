@@ -72,13 +72,8 @@ class WithdrawTable extends Component {
 
   projectData = async (props, options = null) => {
     const { profile, ln } = props;
-    let { view_amount } = this.state;
     const copy = CopyText.withdrawspage[ln];
     let withdraws = [];
-
-    if (options) {
-      view_amount = options.view_amount ? options.view_amount : view_amount;
-    }
 
     if (profile && !_.isEmpty(profile)) {
       withdraws = await profile.getWithdraws();
@@ -115,15 +110,6 @@ class WithdrawTable extends Component {
         })
       }
     });
-  };
-
-  setTimer = options => {
-    this.projectData(this.props, options);
-  };
-
-  changeView = ({ option }) => {
-    this.setState({ isListLoading: true });
-    this.setTimer({ view_amount: option });
   };
 
   render() {

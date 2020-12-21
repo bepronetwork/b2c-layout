@@ -52,7 +52,7 @@ class PlinkoGameOptions extends Component {
     handleType = type => {
         this.setState({ type });
     };
-
+  
     isBetValid = () => {
         const { user } = this.context;
         const { disableControls } = this.props;
@@ -70,7 +70,7 @@ class PlinkoGameOptions extends Component {
 
         if (!sound || soundConfig !== "on") {
         return null;
-        }
+        } 
 
         return (
             <Sound
@@ -118,19 +118,18 @@ class PlinkoGameOptions extends Component {
     handleBet = async () => {
         const { onBet, profile } = this.props;
         const { amount, type, bets, profitStop, lossStop, onWin, onLoss} = this.state;
-        var res;
 
         if (this.isBetValid()) {
             this.setState({ sound: true });
             switch(type){
                 case 'manual' : {
-                    res = await onBet({ amount });
+                    await onBet({ amount });
                     break;
                 };
                 case 'auto' : {
                     if(!isUserSet(profile)){return null};
                     this.setState({isAutoBetting : true})
-                    var totalProfit = 0, totalLoss = 0, lastBet = 0, wasWon = 0;
+                    var totalProfit = 0, totalLoss = 0, wasWon = 0;
                     var betAmount = amount;
                     for( var i = 0; i < bets ; i++){
                         if(
@@ -144,7 +143,6 @@ class PlinkoGameOptions extends Component {
                                 totalProfit += (winAmount-betAmount);
                                 totalLoss += (winAmount == 0) ? -Math.abs(betAmount) : 0;
                                 wasWon = (winAmount != 0);
-                                lastBet = betAmount;
                                 if(onWin && wasWon){ betAmount += Numbers.toFloat(betAmount*onWin/100) }; 
                                 if(onLoss && !wasWon){ betAmount += Numbers.toFloat(betAmount*onLoss/100) }; 
                                 await delay(4*1000);
@@ -170,44 +168,8 @@ class PlinkoGameOptions extends Component {
         });
     };
 
-    handleOnWin = value => {
-        this.setState({ onWin: value });
-    };
-
-    handleOnLoss = value => {
-        this.setState({ onLoss: value });
-    };
-
     handleBets = value => {
         this.setState({ bets: value });
-    };
-
-    handleStopOnProfit = value => {
-        this.setState({ profitStop: value });
-    };
-
-    handleStopOnLoss = value => {
-        this.setState({ lossStop: value });
-    };
-
-    getPayout = () => {
-   
-        let payout = 1;
-
-        let winEdge = (100-(this.state.edge))/100;
-
-        payout = payout * winEdge;
-
-        return Numbers.toFloat(payout);
-    };
-
-    renderManual = () => {
-
-        return (
-            <div>
-                
-            </div>
-        );
     };
 
     renderAuto = () => {
@@ -277,7 +239,7 @@ class PlinkoGameOptions extends Component {
                     </div>
                 </div>
                 <div styleName="content">
-                    {type === "auto" ? this.renderAuto() : this.renderManual()}
+                    {type === "auto" ? this.renderAuto() : <div />}
                 </div>
                 <div styleName="button">
                     <Button

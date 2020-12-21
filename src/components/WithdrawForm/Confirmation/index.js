@@ -5,18 +5,13 @@ import { compose } from 'lodash/fp';
 import { CopyText } from '../../../copy';
 import "../index.css";
 
-const defaultProps = {
-    isConfirmed: false
-}
-
 class Confirmation extends Component {
 
     constructor(props){
         super(props);
-        this.state = { ...defaultProps };
-    }
-
-    componentDidMount(){
+        this.state = {
+            isConfirmed: false
+        };
     }
 
     onHandlerConfirm() {
@@ -60,7 +55,6 @@ class Confirmation extends Component {
 
 function mapStateToProps(state){
     return {
-        profile : state.profile,
         ln : state.language
     };
 }

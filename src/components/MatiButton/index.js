@@ -1,11 +1,11 @@
-import React, { useEffect, useCallback } from "react";
+import React, { useEffect, useCallback, createRef } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { KYC_IN_REVIEW } from "../../config/kycStatus";
 import Cache from "../../lib/cache/cache";
 
 const MatiButton = ({ profile, ...props }) => {
-  const button = React.createRef(null);
+  const button = createRef(null);
   const handleLoaded = useCallback(() => {}, []);
   const handleExited = useCallback(() => {}, []);
   const handleFinished = useCallback(() => {

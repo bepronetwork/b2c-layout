@@ -43,14 +43,14 @@ GameCounter.propTypes = {
   factorBase: PropTypes.number,
   label: PropTypes.string,
   buttonLabel: PropTypes.string,
-  onMore: PropTypes.func.isRequired
+  onMore: PropTypes.func.isRequired,
 };
 
 GameCounter.defaultProps = {
   total: 0,
   factorBase: 18,
   buttonLabel: "More",
-  label: "Showing quantity of total."
+  label: "Showing quantity of total.",
 };
 
 export default GameCounter;

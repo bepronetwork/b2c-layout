@@ -1,12 +1,9 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import classNames from "classnames";
-import { ButtonIcon, Typography } from "components";
-import { isEmpty } from "lodash";
-import { connect } from "react-redux";
+import { Typography } from "components";
 import { find } from "lodash";
 import { getAppCustomization } from "../../lib/helpers";
-import { CopyText } from "../../copy";
 import { getPopularNumbers } from "../../lib/api/app";
 import AnimationNumber from "../AnimationNumber";
 import Wheel from "../Wheel";
@@ -20,11 +17,6 @@ class WheelGameCard extends Component {
 
     static propTypes = {
         result: PropTypes.number,
-        betHistory: PropTypes.arrayOf(
-        PropTypes.shape({ cell: PropTypes.string, chip: PropTypes.number })
-        ).isRequired,
-        onClear: PropTypes.func.isRequired,
-        onUndo: PropTypes.func.isRequired,
         bet: PropTypes.bool,
         onResultAnimation: PropTypes.func.isRequired,
     };
@@ -65,54 +57,6 @@ class WheelGameCard extends Component {
         if (bet){
             onResultAnimation();
         }
-    };
-
-
-    renderResult = () => {
-        const { result } = this.props;
-        const { rotating } = this.state;
-
-        const resultStyles = classNames("result", {
-        green: result === 0 && !rotating,
-        red: this.redColors.includes(result) && !rotating,
-        picked:
-            result && result !== 0 && !this.redColors.includes(result) && !rotating
-        });
-        
-        return (
-            <div styleName="result-container">
-                <div styleName={resultStyles} onTransitionEnd={this.handleAnimationEnd}>
-                <h4>{result}</h4>
-                </div>
-            </div>
-        );
-    };
-
-    renderClearUndo = () => {
-        const { onClear, onUndo, betHistory, ln } = this.props;
-        const { rotating } = this.state;
-        const copy = CopyText.shared[ln];
-
-        const disabled = !betHistory || isEmpty(betHistory) || rotating;
-
-        return (
-            <div styleName="chip-controls">
-                <ButtonIcon
-                icon="undo"
-                label={copy.UNDO_NAME}
-                iconAtLeft
-                onClick={onUndo}
-                disabled={disabled}
-                />
-
-                <ButtonIcon
-                icon="rotate"
-                label={copy.CLEAR_NAME}
-                onClick={onClear}
-                disabled={disabled}
-                />
-            </div>
-        );
     };
 
     handleRouletteAnimation = value => {
@@ -210,13 +154,4 @@ class WheelGameCard extends Component {
     }
 }
 
-
-
-
-function mapStateToProps(state){
-    return {
-        ln : state.language
-    };
-}
-
-export default connect(mapStateToProps)(WheelGameCard);
+export default WheelGameCard;

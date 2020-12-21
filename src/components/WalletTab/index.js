@@ -33,7 +33,6 @@ const defaultState = {
   isMoonpayActive: null,
   colorHexCode: null,
   isKycNeeded: null,
-  onClose: false,
   kycStatus: ""
 };
 
@@ -59,16 +58,8 @@ class WalletTab extends React.Component {
   }
 
   onCloseTab = () => {
-    this.setState({ onClose: true, tab: "deposit" });
-}
-
-resultFilter = (firstArray, secondArray) => {
-  return firstArray.filter(firstArrayItem =>
-    !secondArray.some(
-      secondArrayItem => firstArrayItem._user === secondArrayItem._user
-    )
-  );
-};
+    this.setState({ tab: "deposit" });
+  }
 
   projectData = async props => {
     const { profile } = this.props;

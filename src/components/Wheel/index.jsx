@@ -91,14 +91,6 @@ export default class Wheel extends Component {
        
     }
 
-    
-
-    /**
-     *
-     * @method Draw Methods
-     * @memberof Wheel
-     */
-
     spin() {
         let { result } = this.props;
         const ONE_ARC_ANGLE = 12/49.5;
@@ -133,7 +125,6 @@ export default class Wheel extends Component {
         const { stopAnimation } = this.props;
         clearTimeout(this.spinTimeout);
         this.wheel.save();
-        //this.wheel.fillText(text, 250 - this.wheel.measureText(text).width / 2, 250 + 10);
         this.wheel.restore();
         this.counter = 15;
         stopAnimation(false);
@@ -144,16 +135,6 @@ export default class Wheel extends Component {
         var tc = ts * t;
         return b + c * (tc + -3 * ts + 3 * t);
     }
-
-   
-
-    /** DRAW TYPES */
-
-    /**
-     *
-     * @type Draws  
-     * @memberof Wheel
-     */
 
     classicDraw(options){
         var canvas = document.getElementById("canvas");
@@ -199,7 +180,6 @@ export default class Wheel extends Component {
         }
     }
 
-
     simpleDraw(options){
         var canvas = document.getElementById("canvas");
 
@@ -240,13 +220,6 @@ export default class Wheel extends Component {
             this.wheel.fill();
         }
     }
-
-
-    /**
-     *
-     * @type Renders  
-     * @memberof Wheel
-     */
 
     renderSound = () => {
         const { anim } = this.state;
@@ -311,7 +284,6 @@ export default class Wheel extends Component {
                         </div>
                     </div>
                 </div>
-                {/* Canvas */}
                     <span 
                         ref={el => {this.el = el;}} 
                         id={`spin`}
@@ -325,7 +297,3 @@ export default class Wheel extends Component {
         );
     }
 }
-
-
-
-

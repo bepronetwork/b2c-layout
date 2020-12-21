@@ -135,7 +135,7 @@ ColorlibStepIcon.propTypes = {
     icon: PropTypes.node,
     };
 
-    const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles(theme => ({
     root: {
         width: '100%',
         margin : 'auto',

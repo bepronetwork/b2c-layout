@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { Typography } from "components";
-import { connect } from "react-redux";
 import { getAppCustomization } from "../../lib/helpers";
 import { Numbers } from "../../lib/ethereum/lib";
 import "./index.css";
@@ -47,10 +46,4 @@ class WheelBox extends Component {
     }
 }
 
-function mapStateToProps(state){
-    return {
-        ln : state.language
-    };
-}
-
-export default connect(mapStateToProps)(WheelBox);
+export default WheelBox;

@@ -1,12 +1,8 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import { Typography, AnimationNumber, DiamondIcon } from "components";
-import { find } from "lodash";
+import { Typography, DiamondIcon } from "components";
 import { connect } from "react-redux";
 import classNames from 'classnames';
-import { getPopularNumbers } from "../../lib/api/app";
-import { Numbers } from "../../lib/ethereum/lib";
-import { formatPercentage } from "../../utils/numberFormatation";
 import { formatCurrency } from "../../utils/numberFormatation";
 import { CopyText } from '../../copy';
 import Keno from './keno';
@@ -20,13 +16,10 @@ import { KenoBoard } from "..";
 const plock = new Audio(plockSound);
 const congrats = new Audio(congratsSound); 
 const tick = new Audio(tickSound); 
-
 const totalOfCards = 40;
 const maxPickedCards = 10;
 
-
 const defaultState = {
-    popularNumbers : [],
     numberOfCardsPicked: 0,
     numberOfDiamonds: 0,
     localCards: [],
@@ -40,7 +33,6 @@ class KenoGameCard extends Component {
 
     static propTypes = {
         result: PropTypes.array,
-        disableControls: PropTypes.bool,
         onResultAnimation: PropTypes.func.isRequired
     };
 
@@ -60,22 +52,10 @@ class KenoGameCard extends Component {
 
     componentDidMount(){
         this.projectData(this.props);
-        this.getBets(this.props);
     }
 
     async componentWillReceiveProps(props){
         await this.projectData(props);
-        //this.getBets(props);
-    }
-
-    async getBets(props){
-        let res_popularNumbers = await getPopularNumbers({size : 15});
-        var gamePopularNumbers = find(res_popularNumbers, { game: props.game._id });
-        if(gamePopularNumbers){
-            this.setState({
-                popularNumbers : gamePopularNumbers.numbers.sort((a, b) => b.resultAmount - a.resultAmount)
-            })    
-        }
     }
 
     async projectData(props){
@@ -90,7 +70,6 @@ class KenoGameCard extends Component {
         }
 
         this.setState({
-            edge : props.game.edge,
             result
         });
     }
@@ -406,37 +385,8 @@ class KenoGameCard extends Component {
 
     }
 
-    renderPopularNumbers = ({popularNumbers}) => {
-        if(!popularNumbers || (popularNumbers && popularNumbers.length < 1)){return null}
-        const totalAmount = popularNumbers.reduce( (acc, item) => {
-            return acc+item.resultAmount;
-        }, 0);
-        return(
-            <div styleName='outer-popular-numbers'>
-                <div styleName='inner-popular-numbers'>
-                    {popularNumbers.map( item => 
-                        {
-                            return(
-                                <div styleName='popular-number-row'>
-                                    <div styleName={`popular-number-container blue-square`}>
-                                        <Typography variant={'small-body'} color={'white'}>
-                                            {item.key}    
-                                        </Typography>       
-                                    </div>
-                                    <div styleName='popular-number-container-amount'>
-                                        <AnimationNumber number={formatPercentage(Numbers.toFloat(item.resultAmount/totalAmount*100))} variant={'small-body'} color={'white'} span={'%'}/>
-                                    </div>
-                                </div>
-                            )
-                        }
-                    )}
-                </div>
-            </div>
-        )
-    }
-
     render() {
-        let { popularNumbers, localCards, numberOfCardsPicked, numberOfDiamonds } = this.state;
+        let { localCards, numberOfCardsPicked, numberOfDiamonds } = this.state;
         const { isWon, winAmount, currency, animating, betAmount } = this.props;
 
         const keno = new Keno({ n: totalOfCards, d: maxPickedCards, x: numberOfCardsPicked, y: numberOfDiamonds });

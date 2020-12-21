@@ -58,13 +58,6 @@ export default class Status extends Component {
         );
     }
 
-    renderFinished() {
-        "finished"
-        return (
-            null
-        )
-    }
-
     renderLive() {
         const { hasLiveTransmition } = this.state;
 

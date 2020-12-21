@@ -88,7 +88,6 @@ const copy = CopyText.onWinLossIndex[ln];
 
 function mapStateToProps(state){
     return {
-        profile : state.profile,
         ln: state.language
     };
 }

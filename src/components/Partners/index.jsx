@@ -32,7 +32,6 @@ const copy = CopyText.partnersIndex[ln];
 
 function mapStateToProps(state){
   return {
-      profile : state.profile,
       ln: state.language
   };
 }

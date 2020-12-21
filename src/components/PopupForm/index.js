@@ -9,13 +9,7 @@ import "./index.css";
 class PopupForm extends Component {
     constructor(props) {
         super(props);
-
-        this.state = {};
     }
-
-    static propTypes = {
-        user: PropTypes.shape({})
-    };
 
     render() {
         let hasNotification = !_.isEmpty(this.props.popup);
@@ -38,7 +32,6 @@ class PopupForm extends Component {
 
 function mapStateToProps(state){
     return {
-        profile: state.profile,
         popup : state.popup
     };
 }

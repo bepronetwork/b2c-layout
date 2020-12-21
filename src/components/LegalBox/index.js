@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import { connect } from "react-redux";
 import "./index.css";
 
 class LegalBox extends Component {
@@ -23,11 +22,4 @@ class LegalBox extends Component {
     }
 }
 
-
-function mapStateToProps(state){
-    return {
-        ln : state.language
-    };
-}
-
-export default connect(mapStateToProps)(LegalBox);
+export default LegalBox;

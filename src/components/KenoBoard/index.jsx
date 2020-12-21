@@ -13,20 +13,6 @@ class KenoBoard extends Component {
 
     constructor(props) {
         super(props);
-
-        this.state = {
-        };
-    }
-
-    componentDidMount(){
-        this.projectData(this.props);
-    }
-
-    async componentWillReceiveProps(props){
-        await this.projectData(props);
-    }
-
-    async projectData(props){
     }
 
     handleCardClick = index => {
