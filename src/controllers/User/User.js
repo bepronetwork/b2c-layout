@@ -553,9 +553,15 @@ export default class User {
     getCurrencyAddress = async ({currency_id}) => {
         try {
             if(!this.user_id){return []}
-            if(currency_id){
+
+            const currencies = this.app.currencies;
+            const currency = currencies.find(c => c._id === currency_id);
+
+            if(currency){
                 let res = await getCurrencyAddress({         
-                    currency : currency_id,      
+                    currency: currency._id,   
+                    ticker: currency.ticker,   
+                    erc20: currency.erc20,
                     id: this.user_id,
                     app: this.app_id
                 }, this.bearerToken);
