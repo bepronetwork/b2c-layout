@@ -149,28 +149,14 @@ class Form extends Component {
 
             this.setState({...this.state, disabled : true, isAsking : true});
 
-            if(isAffiliate === true){
-                /* Create Withdraw Framework */
-                const response = await profile.askForWithdrawAffiliate({amount : parseFloat(amount), currency, address : toAddress});
+            const response = await profile.askForWithdraw({ amount: parseFloat(amount), currency, address: toAddress, isAffiliate });
 
-                if (response && _.has(response, 'withdraw_id')) {
-                    await profile.updateBalanceByWallet({ currency, amount: parseFloat(amount) });
+            if (response && _.has(response, 'withdraw_id')) {
+                await profile.updateBalanceByWallet({ currency, amount: parseFloat(amount) });
 
-                    await this.showNotification();
+                await this.showNotification();
 
-                    await profile.getAllData(true);
-                }
-            }else{
-                /* Create Withdraw Framework */
-                const response = await profile.askForWithdraw({amount : parseFloat(amount), currency, address : toAddress});
-
-                if (response && _.has(response, 'withdraw_id')) {
-                    await profile.updateBalanceByWallet({ currency, amount: parseFloat(amount) });
-
-                    await this.showNotification();
-
-                    await profile.getAllData(true);
-                }
+                await profile.getAllData(true);
             }
            
             this.setState({

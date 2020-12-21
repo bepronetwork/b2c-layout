@@ -4,7 +4,6 @@ import {
   requestWithdraw,
   finalizeWithdraw,
   cancelWithdraw,
-  requestWithdrawAffiliate,
   createBet,
   getMyBets,
   set2FA,
@@ -414,7 +413,7 @@ export default class User {
         return this.user.address;
     }
 
-    askForWithdraw = async ({amount, currency, address}) => {
+    askForWithdraw = async ({ amount, currency, address, isAffiliate }) => {
         try {
             var nonce = getNonce();
             var res = { };
@@ -429,7 +428,8 @@ export default class User {
                         address,
                         tokenAmount : parseFloat(amount),
                         currency : currency._id,
-                        nonce
+                        nonce,
+                        isAffiliate 
                     },
                     this.bearerToken
                 );
@@ -447,43 +447,6 @@ export default class User {
                 res = await processResponse(res);
             }
             return {...res};
-        } catch (err) {
-            throw err;
-        }
-    }
-
-    askForWithdrawAffiliate = async ({amount, currency, address}) => {
-        try {
-            var nonce = getNonce();
-            var res = { };
-            let timeout = false;
-
-            try{
-                /* Ask Permission to Withdraw */
-                res = await requestWithdrawAffiliate(
-                    {
-                        app: this.app_id,
-                        user: this.user_id,
-                        address,
-                        tokenAmount : parseFloat(amount),
-                        currency : currency._id,
-                        nonce
-                    },
-                    this.bearerToken
-                );
-
-            }catch(err){
-                //Timeout Error - But Worked
-                timeout = true;
-            }
-            // Get Withdraw
-            let withdraws = await this.getWithdrawsAsync();
-            let withdraw = withdraws[withdraws.length-1];
-            // Process Ask Withdraw API Call since can have errors
-            if(!timeout){
-                res = await processResponse(res);
-            }
-            return {...res, withdraw};
         } catch (err) {
             throw err;
         }
@@ -590,9 +553,15 @@ export default class User {
     getCurrencyAddress = async ({currency_id}) => {
         try {
             if(!this.user_id){return []}
-            if(currency_id){
+
+            const currencies = this.app.currencies;
+            const currency = currencies.find(c => c._id === currency_id);
+
+            if(currency){
                 let res = await getCurrencyAddress({         
-                    currency : currency_id,      
+                    currency: currency._id,   
+                    ticker: currency.ticker,   
+                    erc20: currency.erc20,
                     id: this.user_id,
                     app: this.app_id
                 }, this.bearerToken);
