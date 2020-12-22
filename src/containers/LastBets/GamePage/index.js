@@ -36,8 +36,6 @@ const rows = {
             },
             {
                 value : 'payout',
-                //dependentColor : true,
-                //condition : 'isWon'
             }
         ],
         rows : []
@@ -60,8 +58,6 @@ const rows = {
             },
             {
                 value : 'payout',
-                //dependentColor : true,
-                //condition : 'isWon'
             }
         ],
         rows : []
@@ -87,8 +83,6 @@ const rows = {
             },
             {
                 value : 'payout',
-                //dependentColor : true,
-                //condition : 'isWon'
             }
         ],
         rows : []

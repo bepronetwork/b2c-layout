@@ -171,7 +171,7 @@ class AllMatches extends Component {
         this.setState({ matches, isLoading: false });
     }
 
-    handleCleanSerieFilterClick = async (serieFilter) => {
+    handleCleanSerieFilterClick = async () => {
         const { status, size } = this.state;
 
         this.setState({ isLoading: true });
@@ -284,8 +284,7 @@ class AllMatches extends Component {
 
 function mapStateToProps(state){
     return {
-        profile : state.profile,
-        ln: state.language
+        profile : state.profile
     };
 }
 

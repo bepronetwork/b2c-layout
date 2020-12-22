@@ -215,8 +215,7 @@ class MatchPage extends Component {
 
 function mapStateToProps(state){
     return {
-        profile : state.profile,
-        ln: state.language
+        profile : state.profile
     };
 }
 

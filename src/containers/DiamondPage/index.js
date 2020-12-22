@@ -17,22 +17,15 @@ class DiamondPage extends Component {
   static contextType = UserContext;
 
   state = {
-    result: null,
     resultBack: 0,
     disableControls: false,
     winAmount: 0,
-    rollNumber: 50,
-    rollType: "under",
-    bet: {},
     gameName: "Diamonds",
-    animating: false,
     amount: 0,
     game: {
       edge: 0
     },
-    betAmount: 0,
     betObjectResult: {},
-    resultTest: null,
     backendResult: [],
     isActiveBottomBar: false,
     isHover: false,
@@ -50,7 +43,6 @@ class DiamondPage extends Component {
     sound: false,
     soundResult: false,
     resultSpace: [],
-    isDisable: true,
     primaryColor: null,
     secondaryColor: null
   };
@@ -131,15 +123,6 @@ class DiamondPage extends Component {
     }
 
     return new Promise(resolve => setTimeout(() => resolve(), 500));
-  };
-
-  checkArray = (item, value) => {
-    const { resultBack } = this.state;
-
-    const newItems = [...resultBack];
-
-    newItems[item] = value;
-    this.setState({ items: newItems });
   };
 
   setActiveHover = () => {
@@ -387,15 +370,11 @@ class DiamondPage extends Component {
 
       if (!user) return onHandleLoginOrRegister("register");
 
-      this.setState({ bet: true });
-
       this.setState({
         resultWinAmount: winAmount.toFixed(8)
       });
     } catch (err) {
       return this.setState({
-        bet: false,
-        hasWon: false,
         disableControls: false
       });
     }
@@ -409,11 +388,11 @@ class DiamondPage extends Component {
     await profile.updateBalance({ userDelta, amount, totalBetAmount });
   };
 
-  handleBetAmountChange = ({ betAmount }) => {
-    this.setState({ betAmount, soundResult: false });
+  handleBetAmountChange = () => {
+    this.setState({ soundResult: false });
   };
 
-  handleBet = async ({ amount }) => {
+  handleBet = async ({ amount }) => {    
     try {
       const { user } = this.context;
       const { onHandleLoginOrRegister } = this.props;
@@ -434,8 +413,6 @@ class DiamondPage extends Component {
 
       this.setState({
         resultBack: res.result,
-        bet: res,
-        animating: true,
         betObjectResult: res,
         winAmount: res.winAmount,
         amount
@@ -696,8 +673,7 @@ DiamondPage.propTypes = {
 
 function mapStateToProps(state) {
   return {
-    profile: state.profile,
-    ln: state.language
+    profile: state.profile
   };
 }
 

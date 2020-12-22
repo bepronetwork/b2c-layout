@@ -13,7 +13,7 @@ import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 import delay from 'delay';
 
 const sound = localStorage.getItem("sound");
-
+const chatUsersConst = Math.floor(Math.random() * (400 - 200) + 200);
 const defaultProps = {
     messages : [],
     soundMode: sound || "off",
@@ -28,7 +28,6 @@ const defaultProps = {
     isGoDownVisible: false
 }
 
-const chatUsersConst = Math.floor(Math.random() * (400 - 200) + 200);
 class ChatPage extends React.Component {
 
     constructor(props) {

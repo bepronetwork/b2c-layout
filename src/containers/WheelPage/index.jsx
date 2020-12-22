@@ -71,16 +71,6 @@ class WheelPage extends React.Component {
         return this.getTotalBet() + selectedChip > user.getBalance();
     };
 
-    handleAddChipToBoard = cell => {
-        const { selectedChip, betHistory } = this.state;
-
-        if (this.isAddChipDisabled()) return null;
-
-        return this.setState({
-            betHistory: [...betHistory, { cell, chip: selectedChip }]
-        });
-    };
-
     handleUndo = () => {
         const { betHistory } = this.state;
 
@@ -126,13 +116,11 @@ class WheelPage extends React.Component {
                 user,
                 game_id : game._id
             });
-            const { isWon, result } = res;
+            const { result } = res;
 
             this.setState({ 
                 result,
                 inResultAnimation : true,
-                hasWon : isWon,
-                disableControls: false,
                 betObjectResult : res,
                 amount
             });
@@ -140,21 +128,13 @@ class WheelPage extends React.Component {
         }catch(err){
             return this.setState({
                 bet : false,
-                flipResult : 0,
                 inResultAnimation : false,
-                hasWon : false,
-                disableControls: false
             });        
         }
     };
 
-
-    stopAnimation = async () => {
-        
-    }
-
     handleAnimation = async () => {
-        this.setState({ bet: false, disableControls : false, inResultAnimation : false });
+        this.setState({ bet: false, inResultAnimation : false });
         const { profile } = this.props;
         const { amount } = this.state;
         const { isWon, result, winAmount, userDelta, totalBetAmount } = this.state.betObjectResult;
@@ -218,7 +198,6 @@ class WheelPage extends React.Component {
                 inResultAnimation={inResultAnimation}
                 game={this.state.game}
                 onUndo={this.handleUndo}
-                stopAnimation={this.stopAnimation}
                 bet={bet}
                 onAnimation={onAnimation}
                 onResultAnimation={this.handleAnimation}
@@ -243,8 +222,7 @@ class WheelPage extends React.Component {
 
 function mapStateToProps(state){
     return {
-        profile: state.profile,
-        ln : state.language
+        profile: state.profile
     };
 }
 

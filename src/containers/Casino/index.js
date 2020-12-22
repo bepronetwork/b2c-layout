@@ -4,7 +4,6 @@ import { find } from "lodash";
 import { GameCard, Banners } from "components";
 import PropTypes from "prop-types";
 import UserContext from "containers/App/UserContext";
-import PlayInvitation from "components/PlayInvitation";
 import games from '../../config/games';
 import LastBets from "../LastBets/HomePage";
 import { connect } from 'react-redux';
@@ -14,7 +13,6 @@ class HomePage extends Component {
     static contextType = UserContext;
 
     static propTypes = {
-        onHandleLoginOrRegister: PropTypes.func.isRequired,
         onHandleResetPassword: PropTypes.func,
         onHandleConfirmEmail: PropTypes.func
     };
@@ -30,12 +28,6 @@ class HomePage extends Component {
             queryParams = { ...queryParams, app : params.app };
             return onHandleConfirmEmail({ params : queryParams });
         }
-    };
-
-    renderPlayNow = () => {
-        const { onHandleLoginOrRegister } = this.props;
-
-        return <PlayInvitation {...this.props} onLoginRegister={onHandleLoginOrRegister} />;
     };
 
     isGameAvailable = metaName => {

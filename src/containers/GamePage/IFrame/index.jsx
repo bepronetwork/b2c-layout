@@ -6,8 +6,6 @@ import "./index.css";
 class IFrame extends Component {
     constructor(props) {
         super(props);
-        this.state = {
-        };
     }
 
     shouldComponentUpdate(nextProps) {
@@ -33,7 +31,6 @@ class IFrame extends Component {
 
 function mapStateToProps(state){
     return {
-        profile : state.profile,
         ln : state.language
     };
 }

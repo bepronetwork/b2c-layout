@@ -4,10 +4,8 @@ import { find } from "lodash";
 import { GameCard, Banners, JackpotPot, SubSections, ThirdPartyGames, Typography } from "components";
 import PropTypes from "prop-types";
 import UserContext from "containers/App/UserContext";
-import PlayInvitation from "components/PlayInvitation";
 import games from '../../config/games';
 import LastBets from "../LastBets/HomePage";
-import { connect } from 'react-redux';
 import { LOCATION } from 'components/SubSections/properties';
 import { getAppCustomization } from "../../lib/helpers";
 import "./index.css";
@@ -32,12 +30,6 @@ class HomePage extends Component {
             queryParams = { ...queryParams, app : params.app };
             return onHandleConfirmEmail({ params : queryParams });
         }
-    };
-
-    renderPlayNow = () => {
-        const { onHandleLoginOrRegister } = this.props;
-
-        return <PlayInvitation {...this.props} onLoginRegister={onHandleLoginOrRegister} />;
     };
 
     isGameAvailable = metaName => {
@@ -109,11 +101,4 @@ class HomePage extends Component {
     }
 }
 
-function mapStateToProps(state){
-    return {
-        profile : state.profile,
-        ln: state.language
-    };
-}
-
-export default connect(mapStateToProps)(HomePage);
+export default HomePage;

@@ -38,7 +38,6 @@ class SlotsPage extends Component {
       result: null,
       resultSound: false,
       gameName: "Slots",
-      gameStore: [],
       line: false,
       betObjectResult: {},
       resultMultiplier: 0,
@@ -302,8 +301,8 @@ class SlotsPage extends Component {
     }
   };
 
-  handleBetAmountChange = betAmount => {
-    this.setState({ betAmount, soundIcon: false, resultSound: false });
+  handleBetAmountChange = () => {
+    this.setState({ soundIcon: false, resultSound: false });
   };
 
   renderGameCard = () => {

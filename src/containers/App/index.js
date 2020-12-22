@@ -90,7 +90,6 @@ class App extends Component {
             registerLoginModalOpen: null,
             cashierOpen: null,
             error: null,
-            has2FA : false,
             tableDetails : null,
             resetPasswordOpen : null,
             resetPasswordParams : null,
@@ -226,24 +225,6 @@ class App extends Component {
                 await store.dispatch(setCurrencyView(currency));
             }
         }
-    }
-
-    loginAccount = async () => {   
-        try{
-            let cache = Cache.getFromCache('Authentication');
-            if(cache && cache.password){
-                let res = await this.handleLogin({
-                    username : cache.username, 
-                    password : cache.password
-                });
-                if(!res || (res.status != 200)){throw new Error('Login didn´t work')}
-            }else{
-                throw new Error('Login didn´t work')
-            }
-        }catch(err){
-            throw err;
-		}
-
     }
 
     handleRegisterLoginModalClose = () => {
@@ -1047,7 +1028,6 @@ console.log(form, 'form')
 function mapStateToProps(state){
     return {
         profile : state.profile,
-        startLoadingProgress : state.startLoadingProgress,
         modal : state.modal,
         currency : state.currency,
         ln: state.language

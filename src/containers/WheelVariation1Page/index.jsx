@@ -171,13 +171,11 @@ class WheelVariationOne extends React.Component {
                 user,
                 game_id : game._id
             });
-            const { isWon, result } = res;
+            const { result } = res;
 
             this.setState({ 
                 result,
                 inResultAnimation : true,
-                hasWon : isWon,
-                disableControls: false,
                 betObjectResult : res,
                 amount
             });
@@ -185,10 +183,7 @@ class WheelVariationOne extends React.Component {
         }catch(err){
             return this.setState({
                 bet : false,
-                flipResult : 0,
                 inResultAnimation : false,
-                hasWon : false,
-                disableControls: false
             });        
         }
     };
@@ -199,7 +194,7 @@ class WheelVariationOne extends React.Component {
     }
 
     handleAnimation = async () => {
-        this.setState({ bet: false, disableControls : false, inResultAnimation : false });
+        this.setState({ bet: false, inResultAnimation : false });
         const { profile } = this.props;
         const { amount } = this.state;
         const { isWon, result, winAmount, userDelta } = this.state.betObjectResult;

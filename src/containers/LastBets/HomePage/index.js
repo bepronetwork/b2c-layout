@@ -37,8 +37,6 @@ class LastBets extends Component {
                 },
                 {
                     value : 'payout',
-                    //dependentColor : true,
-                    //condition : 'isWon'
                 }
             ],
             rows : []
@@ -61,8 +59,6 @@ class LastBets extends Component {
                 },
                 {
                     value : 'payout',
-                    //dependentColor : true,
-                    //condition : 'isWon'
                 }
             ],
             rows : []
@@ -88,8 +84,6 @@ class LastBets extends Component {
                 },
                 {
                     value : 'payout',
-                    //dependentColor : true,
-                    //condition : 'isWon'
                 }
             ],
             rows : []

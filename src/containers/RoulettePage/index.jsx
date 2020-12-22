@@ -107,12 +107,10 @@ class RoulettePage extends Component {
                 betAmount: this.getTotalBet(),
                 user
             });
-            const { isWon, result } = res;
+            const { result } = res;
 
             this.setState({ 
                 result,
-                hasWon : isWon,
-                disableControls: false,
                 betObjectResult : res,
                 amount: this.getTotalBet()
             });
@@ -120,9 +118,6 @@ class RoulettePage extends Component {
         }catch(err){
             return this.setState({
                 bet : false,
-                flipResult : 0,
-                hasWon : false,
-                disableControls: false
             });        
         }
     };
@@ -213,8 +208,7 @@ class RoulettePage extends Component {
 
 function mapStateToProps(state){
     return {
-        profile: state.profile,
-        ln : state.language
+        profile: state.profile
     };
 }
 

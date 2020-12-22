@@ -262,8 +262,6 @@ class GamePage extends Component {
 function mapStateToProps(state){
     return {
         ln : state.language,
-        modal : state.modal,
-        profile : state.profile,
         currency : state.currency
     };
 }
