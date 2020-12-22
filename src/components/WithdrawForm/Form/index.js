@@ -151,7 +151,7 @@ class Form extends Component {
 
             const response = await profile.askForWithdraw({ amount: parseFloat(amount), currency, address: toAddress, isAffiliate });
 
-            if (response && _.has(response, 'withdraw_id')) {
+            if (response && _.has(response, 'request_id')) {
                 await profile.updateBalanceByWallet({ currency, amount: parseFloat(amount) });
 
                 await this.showNotification();
