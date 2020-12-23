@@ -35,7 +35,7 @@ class Select extends React.Component{
         document.removeEventListener("mousedown", this.handleClickOutside);
     }
 
-    componentWillReceiveProps(props){
+    UNSAFE_componentWillReceiveProps(props){
         this.projectData(props)
     }
 

@@ -30,7 +30,7 @@ class CurrencySelector extends Component {
         this.projectData(this.props);
     }
 
-    componentWillReceiveProps(props){
+    UNSAFE_componentWillReceiveProps(props){
         this.projectData(props);
     }
 
@@ -118,7 +118,7 @@ class CurrencySelector extends Component {
         const icon = _.isEmpty(wApp.image) ? currency.image : wApp.image;
         const skin = getAppCustomization().skin.skin_type;
         const { colors } = getAppCustomization();
-        const secondaryColor = colors.find(({ type }) => type == "secondaryColor")
+        const secondaryColor = colors.find(({ type }) => type === "secondaryColor")
         const SecondaryTooltip = withStyles({
             tooltip: {
               color: "white",
@@ -134,32 +134,32 @@ class CurrencySelector extends Component {
                 <SecondaryTooltip title={`Bonus: ${formatCurrency(w.bonusAmount)}`}>
                     <div styleName="label">
                         <div styleName="currency-icon">
-                            <img src={icon} width={20}/>
+                            <img src={icon} width={20} alt="Currency Icon" />
                         </div>
                         <span>
                             <Typography color="white" variant={'small-body'}>{formatCurrency(w.playBalance)}</Typography>
                         </span>                    
                         {open 
                         ? 
-                            arrowUpIcon === null ? skin == "digital" ? <ArrowUpIcon /> : <ArrowUp /> : <img src={arrowUpIcon} /> 
+                            arrowUpIcon === null ? skin === "digital" ? <ArrowUpIcon /> : <ArrowUp /> : <img src={arrowUpIcon} alt="Arrow Up Icon" /> 
                         : 
-                            arrowDownIcon === null ?skin == "digital" ? <ArrowDownIcon /> : <ArrowDown /> : <img src={arrowDownIcon} /> 
+                            arrowDownIcon === null ?skin === "digital" ? <ArrowDownIcon /> : <ArrowDown /> : <img src={arrowDownIcon} alt="Arrow Down Icon" /> 
                         }
                     </div>
                 </SecondaryTooltip>
             :
                 <div styleName="label">
                     <div styleName="currency-icon">
-                        <img src={icon} width={20}/>
+                        <img src={icon} width={20} alt="Currency Icon" />
                     </div>
                     <span>
                         <Typography color="white" variant={'small-body'}>{formatCurrency(w.playBalance)}</Typography>
                     </span>                    
                     {open 
                     ? 
-                        arrowUpIcon === null ? skin == "digital" ? <ArrowUpIcon /> : <ArrowUp /> : <img src={arrowUpIcon} /> 
+                        arrowUpIcon === null ? skin === "digital" ? <ArrowUpIcon /> : <ArrowUp /> : <img src={arrowUpIcon} alt="Arrow Up Icon" /> 
                     : 
-                        arrowDownIcon === null ?skin == "digital" ? <ArrowDownIcon /> : <ArrowDown /> : <img src={arrowDownIcon} /> 
+                        arrowDownIcon === null ? skin === "digital" ? <ArrowDownIcon /> : <ArrowDown /> : <img src={arrowDownIcon} alt="Arrow Down Icon" /> 
                     }
                 </div>
         );
@@ -175,7 +175,7 @@ class CurrencySelector extends Component {
             type="button"
         >
             <div styleName="currency-icon">
-                <img src={icon} width={20}/>
+                <img src={icon} width={20} alt="Currency Icon" />
             </div>
             <Typography variant="small-body" color="white">{label}</Typography>
         </button>
@@ -226,7 +226,6 @@ class CurrencySelector extends Component {
 function mapStateToProps(state){
     return {
         profile : state.profile,
-        ln: state.language,
         currency : state.currency
     };
 }

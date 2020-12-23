@@ -26,7 +26,7 @@ class WithdrawList extends Component {
         }
     }
 
-    componentWillReceiveProps(props){
+    UNSAFE_componentWillReceiveProps(props){
         this.projectData(props);
     }
 

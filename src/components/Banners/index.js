@@ -4,7 +4,7 @@ import { Typography, Button } from "components";
 import { connect } from "react-redux";
 import { getAppCustomization } from "../../lib/helpers";
 import classNames from 'classnames';
-import _ from 'lodash';
+import _, { uniqueId } from 'lodash';
 import "./index.css";
 
 class Banners extends Component {
@@ -22,7 +22,7 @@ class Banners extends Component {
         this.projectData(this.props);
     }
 
-    componentWillReceiveProps(props){
+    UNSAFE_componentWillReceiveProps(props){
         this.projectData(props);
     }
 
@@ -64,7 +64,7 @@ class Banners extends Component {
                         const bannerStyles = classNames("banner", { "banner-full": isFullWidth });
                         const textStyles = classNames("text", { "text-full": isFullWidth, "no-text": isFullWidth && !banner.title && !banner.subtitle });
                         return (
-                            <Carousel.Item>
+                            <Carousel.Item key={uniqueId("banner-")}>
                                 <div styleName={!banner.title && !banner.subtitle ? "banner-without-text" : bannerStyles} style={{background: isFullWidth == true || (isFullWidth == false && !banner.title && !banner.subtitle) ? "url("+banner.image_url+") center center / cover no-repeat" : null}}>
                                     <div styleName={banner.title &&  banner.subtitle ? textStyles : "text-full-without-padding"}>
                                         {

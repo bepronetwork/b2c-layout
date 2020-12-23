@@ -8,11 +8,6 @@ import Countdown from 'react-countdown';
 import moment from 'moment'
 
 class Market extends Component {
-
-    constructor(props) {
-        super(props);
-    }
-
     renderer = ({ total }) => {
         return (    
             <Typography variant={'small-body'} color={'white'}>{dateToHourAndMinute(moment().add(total, 'milliseconds'))}</Typography>
@@ -39,7 +34,7 @@ class Market extends Component {
                         </div>
                     </div>
                     {
-                        match.live_embed_url != null
+                        match.live_embed_url !== null
                         ?
                             <Live streaming={match.live_embed_url} match={match} />
                         :
@@ -51,11 +46,4 @@ class Market extends Component {
     }
 }
 
-function mapStateToProps(state){
-    return {
-        profile : state.profile,
-        ln: state.language
-    };
-}
-
-export default connect(mapStateToProps)(Market);
+export default Market;

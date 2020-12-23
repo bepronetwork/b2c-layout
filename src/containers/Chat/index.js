@@ -2,7 +2,7 @@ import React from "react";
 import { Typography, InputText, UsersIcon } from "components";
 import ArrowDown from "components/Icons/ArrowDown";
 import { connect } from "react-redux";
-import _ from 'lodash';
+import _, { uniqueId } from 'lodash';
 import "./index.css";
 import languages from "../../config/languages";
 import { setMessageNotification } from "../../redux/actions/message";
@@ -39,7 +39,7 @@ class ChatPage extends React.Component {
         this.projectData(this.props);
     }
 
-    componentWillReceiveProps(props){
+    UNSAFE_componentWillReceiveProps(props){
         this.projectData(props);
     }
 
@@ -103,7 +103,7 @@ class ChatPage extends React.Component {
         const { isLoading } = this.state;
 
         return(
-            <div>
+            <div key={id}>
                 {isLoading ?
                     <SkeletonTheme color={getSkeletonColors().color} highlightColor={getSkeletonColors().highlightColor}>
                         <div styleName='message-box' key={id} style={{opacity : '0.5'}}> 
@@ -151,7 +151,7 @@ class ChatPage extends React.Component {
         const { color, highlightColor } = getSkeletonColors();
     
         for (let i = 0; i < 150; i++) {
-            messages.push(<SkeletonTheme color={color} highlightColor={highlightColor}><div styleName='message-box' key={i} style={{opacity : '0.5'}}><div styleName='info'><Skeleton width={100}/></div><div styleName={'info-message-container'}><Skeleton /></div></div></SkeletonTheme>);
+            messages.push(<SkeletonTheme key={uniqueId("skeleton-messages-")} color={color} highlightColor={highlightColor}><div styleName='message-box' key={i} style={{opacity : '0.5'}}><div styleName='info'><Skeleton width={100}/></div><div styleName={'info-message-container'}><Skeleton /></div></div></SkeletonTheme>);
         }
 
         return messages;

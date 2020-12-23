@@ -8,6 +8,7 @@ import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
 import { getSkeletonColors, loadFakeBets, getApp } from "../../lib/helpers";
 import delay from 'delay';
 import "./index.css";
+import { uniqueId } from "lodash";
 
 class TableDefault extends Component {
     intervalID = 0;
@@ -33,7 +34,7 @@ class TableDefault extends Component {
         }
     }
 
-    componentWillReceiveProps(props){
+    UNSAFE_componentWillReceiveProps(props){
         this.projectData(props);
     }
 
@@ -60,7 +61,7 @@ class TableDefault extends Component {
         let tabs = []
 
         for (let i = 0; i < 10; i++) {
-          tabs.push(<div styleName="skeleton-row"><Skeleton height={30} /></div>);
+          tabs.push(<div styleName="skeleton-row" key={uniqueId("skeleton-row-")}><Skeleton height={30} /></div>);
         }
 
         return tabs
@@ -112,7 +113,7 @@ class TableDefault extends Component {
                             <thead styleName='table-head'>
                                 <tr styleName='tr-row'>
                                     {titles.map( text => 
-                                        <th styleName='th-row'>
+                                        <th styleName='th-row' key={text}>
                                             <Typography variant='x-small-body' color="grey" weight="bold"> {text} </Typography>
                                         </th>
                                     )}
@@ -121,7 +122,7 @@ class TableDefault extends Component {
                             <tbody>
                                 {
                                     rows.map( (row) => 
-                                    <tr styleName={rowStyles}>
+                                    <tr styleName={rowStyles} key={row.id}>
                                         {fields.map( (field, index) => {
                                             const styles = classNames("td-row", {
                                                 'td-row-img': field.image,
@@ -135,7 +136,7 @@ class TableDefault extends Component {
 
                                             if(field.dependentColor){
                                                 return (
-                                                    <td styleName={styles} data-label={titles[index]}>
+                                                    <td styleName={styles} data-label={titles[index]} key={uniqueId("table-default-column-")}>
                                                         {onTableDetails 
                                                         ?
                                                             <a href="#" onClick={onTableDetails.bind(this, {titles, fields, row, tag})}>
@@ -153,7 +154,7 @@ class TableDefault extends Component {
                                             }else if(field.image){
                                                 const background = row[field.value].hasOwnProperty("background_url") ? row[field.value].background_url : null;
                                                 return (
-                                                    <td styleName={styles} data-label={titles[index]}>
+                                                    <td styleName={styles} data-label={titles[index]} key={uniqueId("table-default-column-")}>
                                                         {onTableDetails 
                                                         ?
                                                             <a href="#" onClick={onTableDetails.bind(this, {titles, fields, row, tag})}>
@@ -166,7 +167,7 @@ class TableDefault extends Component {
                                                 )
                                             }else if(field.isLink === true){
                                                 return (
-                                                    <td styleName={styles} data-label={titles[index]}>
+                                                    <td styleName={styles} data-label={titles[index]} key={uniqueId("table-default-column-")}>
                                                         <a href={row[field.linkField]} target={'_blank'}>
                                                             <Typography variant={'x-small-body'} color='white'>
                                                                 {row[field.value]}
@@ -176,7 +177,7 @@ class TableDefault extends Component {
                                                 )
                                             }else if(field.isStatus === true){
                                                 return (
-                                                    <td styleName={styles} data-label={titles[index]}>
+                                                    <td styleName={styles} data-label={titles[index]} key={uniqueId("table-default-column-")}>
                                                         <div styleName={statusStyles}>
                                                             {onTableDetails 
                                                             ?
@@ -194,7 +195,7 @@ class TableDefault extends Component {
                                             }
                                             else{
                                                 return (
-                                                    <td styleName={styles} data-label={titles[index]}>
+                                                    <td styleName={styles} data-label={titles[index]} key={uniqueId("table-default-column-")}>
                                                         {onTableDetails 
                                                         ?
                                                             <a href="#" onClick={onTableDetails.bind(this, {titles, fields, row, tag})}>

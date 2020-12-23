@@ -128,7 +128,7 @@ export default class User {
         return wallet.playBalance + wallet.bonusAmount;
     };
 
-    getWallet = ({currency}) => {return this.user.wallet.find( w => new String(w.currency._id).toString().toLowerCase() == new String(currency._id).toString().toLowerCase())};
+    getWallet = ({currency}) => {return this.user.wallet.find( w => String(w.currency._id).toString().toLowerCase() === String(currency._id).toString().toLowerCase())};
 
     getWallets = () => {return this.user.wallet};
 
@@ -169,7 +169,7 @@ export default class User {
         const { currency } = state;
 
         this.user.wallet.forEach((w) => {
-            if (new String(w.currency._id).toString().toLowerCase() == new String(currency._id).toString().toLowerCase()) {
+            if (String(w.currency._id).toString().toLowerCase() === String(currency._id).toString().toLowerCase()) {
                 
                 if (userDelta < 0) {
 
@@ -219,8 +219,8 @@ export default class User {
             }
         });
 
-        if(this.app.addOn.pointSystem && (this.app.addOn.pointSystem.isValid == true) && amount) {
-            const ratio = this.app.addOn.pointSystem.ratio.find( p => p.currency == currency._id ).value;
+        if(this.app.addOn.pointSystem && (this.app.addOn.pointSystem.isValid) && amount) {
+            const ratio = this.app.addOn.pointSystem.ratio.find( p => p.currency === currency._id ).value;
             const points = await this.getPoints();
             this.user.points = points + (amount * ratio);
         }
@@ -233,7 +233,7 @@ export default class User {
         const { currency } = state;
 
         this.user.wallet.forEach((w) => {
-            if(new String(w.currency._id).toString().toLowerCase() == new String(currency._id).toString().toLowerCase()) {
+            if(String(w.currency._id).toString().toLowerCase() === String(currency._id).toString().toLowerCase()) {
                 w.playBalance = w.playBalance + amount;
             }
         });
@@ -352,7 +352,6 @@ export default class User {
     confirmDeposit = async ({ amount, transactionHash, currency }) => {
         try {
             const nonce = getNonce();
-            /* Update API Wallet Update */
             let res = await updateUserWallet(
                 {
                     user: this.user_id,
@@ -382,7 +381,6 @@ export default class User {
             let timeout = false;
 
             try{
-                /* Ask Permission to Withdraw */
                 res = await requestWithdraw(
                     {
                         app: this.app_id,
@@ -414,7 +412,6 @@ export default class User {
             let timeout = false;
 
             try{
-                /* Ask Permission to Withdraw */
                 res = await requestWithdrawAffiliate(
                     {
                         app: this.app_id,
@@ -463,8 +460,6 @@ export default class User {
 
     finalizeWithdraw = async ({withdraw_id, tx}) => {
         try {
-            /* Finalize Withdraw to API */
-
             return await finalizeWithdraw(
                 {
                     app: this.app_id,
@@ -596,7 +591,6 @@ export default class User {
         return this.user.lastTimeCurrencyFree;
     }
 
-
     getJackpotPot = async ({currency_id}) => {
         try {
             if(!this.user_id){return []}
@@ -607,18 +601,14 @@ export default class User {
                     currency : currency_id
                 }, this.bearerToken);
 
-                //workaround to dont show "Jackpot not exist in App" error message notifitication
-                //should be removed when Jackpot will be in the addOns list
-                if(res.data.status == 56 || res.data.status == 45) {
+                if(res.data.status === 56 || res.data.status === 45) {
                     return { pot: 0 };
                 }
-                //finish
 
                 return await processResponse(res);
             }else{
                 return [];
             }
-      
         }catch(err){
             console.log(err)
             throw err;

@@ -88,7 +88,7 @@ class PlinkoGameOptions extends Component {
         this.projectData(this.props);
     }
 
-    componentWillReceiveProps(props){
+    UNSAFE_componentWillReceiveProps(props){
         this.projectData(props);
     }
 
@@ -122,10 +122,9 @@ class PlinkoGameOptions extends Component {
         if (this.isBetValid()) {
             this.setState({ sound: true });
             switch(type){
-                case 'manual' : {
+                case 'manual' : 
                     await onBet({ amount });
                     break;
-                };
                 case 'auto' : {
                     if(!isUserSet(profile)){return null};
                     this.setState({isAutoBetting : true})
@@ -133,15 +132,15 @@ class PlinkoGameOptions extends Component {
                     var betAmount = amount;
                     for( var i = 0; i < bets ; i++){
                         if(
-                            (profitStop == 0  || totalProfit <= profitStop) &&
-                            (lossStop == 0 || totalLoss <= lossStop)
+                            (profitStop === 0  || totalProfit <= profitStop) &&
+                            (lossStop === 0 || totalLoss <= lossStop)
                         ){
-                            if (i != 0) { await delay(4*1000); };
+                            if (i !== 0) { await delay(4*1000); };
                             const res = await this.betAction({amount : betAmount});
                             if(!_.isEmpty(res)) {
                                 let { winAmount } = res;
                                 totalProfit += (winAmount-betAmount);
-                                totalLoss += (winAmount == 0) ? -Math.abs(betAmount) : 0;
+                                totalLoss += (winAmount === 0) ? -Math.abs(betAmount) : 0;
                                 wasWon = (winAmount != 0);
                                 if(onWin && wasWon){ betAmount += Numbers.toFloat(betAmount*onWin/100) }; 
                                 if(onLoss && !wasWon){ betAmount += Numbers.toFloat(betAmount*onLoss/100) }; 
@@ -157,6 +156,8 @@ class PlinkoGameOptions extends Component {
                     this.setState({isAutoBetting : false})
                     break;
                 }
+                default:
+                    break;
             }
         }
         return true;

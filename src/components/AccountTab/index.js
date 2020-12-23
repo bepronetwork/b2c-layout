@@ -25,10 +25,6 @@ class AccountTab extends React.Component {
     this.projectData(this.props);
   }
 
-  componentWillReceiveProps(props) {
-    this.projectData(props);
-  }
-
   projectData = async props => {
     const { profile } = props;
     const appInfo = Cache.getFromCache("appInfo");
@@ -56,6 +52,10 @@ class AccountTab extends React.Component {
     });
   };
 
+  UNSAFE_componentWillReceiveProps(props) {
+    this.projectData(props);
+  }
+
   render() {
     const { ln, onLogout } = this.props;
     const { username, email, userId, isKycActive, country, birthDate } = this.state;
@@ -64,7 +64,7 @@ class AccountTab extends React.Component {
     const skin = getAppCustomization().skin.skin_type;
 
     return (
-      <div styleName={`box ${skin == "digital" ? "box-digital-kyc" : "background-kyc"}`}>
+      <div styleName={`box ${skin === "digital" ? "box-digital-kyc" : "background-kyc"}`}>
         <div styleName="field">
             <div styleName="label">
               <Typography variant="small-body" color="white">
@@ -155,7 +155,7 @@ class AccountTab extends React.Component {
           <div styleName="button" onClick={onLogout}>
             <Button size="x-small" theme="primary">
               <Typography
-                color={skin == "digital" ? "secondary" : "fixedwhite"}
+                color={skin === "digital" ? "secondary" : "fixedwhite"}
                 variant="small-body"
               >
                 {copyLogout.INDEX.TYPOGRAPHY.TEXT[2]}

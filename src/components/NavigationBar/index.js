@@ -21,7 +21,7 @@ class NavigationBar extends Component {
         this.projectData(this.props)
     }
 
-    componentWillReceiveProps(props){
+    UNSAFE_componentWillReceiveProps(props){
         this.projectData(props);
     }
 
@@ -39,7 +39,7 @@ class NavigationBar extends Component {
     renderMenuItem = ({link_url, icon, name}) => {
         if (link_url.startsWith("http")) {
             return (
-                <a href={link_url} styleName={'navigation-step'} target={"_blank"}>
+                <a href={link_url} key={name} styleName={'navigation-step'} target={"_blank"}>
                     {
                         icon
                         ?
@@ -60,7 +60,7 @@ class NavigationBar extends Component {
         }
         else {
             return (
-                <Link to={link_url} styleName={'navigation-step'}>
+                <Link to={link_url} key={name} styleName={'navigation-step'}>
                     {
                         icon
                         ?

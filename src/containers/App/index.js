@@ -113,11 +113,11 @@ class App extends Component {
         if(app) {
             const { cripsr } =  app.integrations;
 
-            if (cripsr && cripsr.key && typeof window.$crisp != "undefined") {
+            if (cripsr && cripsr.key && typeof window.$crisp !== "undefined") {
                 this.intervalID = setInterval( async () => {
                     const isClosed = window.$crisp.is("chat:closed");
         
-                    if(isClosed == true) {
+                    if(isClosed) {
                         window.$crisp.push(['do', 'chat:hide']);
                     }
         
@@ -126,7 +126,7 @@ class App extends Component {
         }
     };
 
-    componentWillReceiveProps(props) {
+    UNSAFE_componentWillReceiveProps(props) {
         const { user } = this.state;
 
         if (user) {
@@ -314,7 +314,7 @@ class App extends Component {
             this.setState({ error: null });
             const response = await login(form);    
             Cache.setToCache('Authentication', form);
-            if (response.status != 200) {
+            if (response.status !== 200) {
                 let has2FA = (response.status === 37) ? true : false;
                 this.setState({ error: response.status, has2FA });
             }else{
@@ -594,7 +594,7 @@ console.log(form, 'form')
     openCripsrChatClick = async () => {
         const isOpen = window.$crisp.is("chat:opened");
 
-        if(isOpen == true ) {
+        if(isOpen) {
             window.$crisp.push(['do', 'chat:close']);
             window.$crisp.push(['do', 'chat:hide']);
         }
@@ -785,7 +785,7 @@ console.log(form, 'form')
         });
 
         const topStyles = classNames("top-bars", {
-            "top-bars-transparent": _.isEmpty(topTab) ? false : topTab.isTransparent == true
+            "top-bars-transparent": _.isEmpty(topTab) ? false : topTab.isTransparent
         });
 
         return (

@@ -12,11 +12,11 @@ export default class InputText extends Component {
     required: PropTypes.bool,
     label: PropTypes.string,
     onChange: PropTypes.func,
-    type: PropTypes.oneOf(["text", "password"]),
+    type: PropTypes.oneOf(["text", "password", "slim"]),
     placeholder: PropTypes.string,
     disabled: PropTypes.bool,
     icon: PropTypes.oneOf(["copy"]),
-    maxlength: PropTypes.number
+    maxLength: PropTypes.number
   };
 
   static defaultProps = {
@@ -28,7 +28,7 @@ export default class InputText extends Component {
     placeholder: "",
     disabled: false,
     icon: null,
-    maxlength: ""
+    maxLength: 0
   };
 
   state = {
@@ -89,7 +89,7 @@ export default class InputText extends Component {
       disabled,
       type,
       icon,
-      maxlength
+      maxLength
     } = this.props;
     const { value } = this.state;
 
@@ -116,12 +116,12 @@ export default class InputText extends Component {
                 onChange={this.handleChange}
                 name={name}
                 placeholder={placeholder}
-                styleName={this.props.type == 'slim' ? "input-slim" : "input"}
+                styleName={type === "slim" ? "input-slim" : "input"}
                 required={required}
                 type={type}
                 value={currentValue}
                 disabled={disabled}
-                maxlength={maxlength}
+                maxLength={maxLength}
               />
             </div>
             {this.icon}

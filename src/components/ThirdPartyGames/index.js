@@ -6,6 +6,7 @@ import { getProvidersGames } from "../../lib/api/app";
 import { getSkeletonColors, getApp, getAppCustomization } from "../../lib/helpers";
 import { CopyText } from "../../copy";
 import "./index.css";
+import { uniqueId } from "lodash";
 
 class ThirdPartyGames extends Component {
 
@@ -26,7 +27,7 @@ class ThirdPartyGames extends Component {
         this.projectData(this.props);
     }
 
-    componentWillReceiveProps(props){
+    UNSAFE_componentWillReceiveProps(props){
         this.projectData(props);
     }
 
@@ -93,7 +94,7 @@ class ThirdPartyGames extends Component {
 
         for (let i = 0; i < 6; i++) {
             providers.push(
-                <div class={"col"} styleName="col">
+                <div styleName="col" key={uniqueId("skeleton-providers-")}>
                     <div styleName="root">
                         <a>
                             <div>
@@ -110,10 +111,10 @@ class ThirdPartyGames extends Component {
 
     createSkeletonGames = () => {
         let games = []
-
+ 
         for (let i = 0; i < 12; i++) {
             games.push(
-                <div class={"col"} styleName="col">
+                <div styleName="col" key={uniqueId("skeleton-games-")}>
                     <div styleName="root-skeleton">
                         <div styleName="image-container">
                             <div styleName="icon">
@@ -194,7 +195,7 @@ class ThirdPartyGames extends Component {
                                     {
                                         providers.map(p => {
                                             return(
-                                                <div class={"col"} styleName="col">
+                                                <div styleName="col" key={p.name}>
                                                     <div styleName="root" onClick={() => this.onClickProvider(p.providerEco)}>
                                                         <a>
                                                             <div>
@@ -242,7 +243,7 @@ class ThirdPartyGames extends Component {
                                         provider: g.provider
                                     };
                                     return (
-                                        <ThirdPartyGameCard game={game} onHandleLoginOrRegister={onHandleLoginOrRegister} history={history}/>
+                                        <ThirdPartyGameCard key={g.id} game={game} onHandleLoginOrRegister={onHandleLoginOrRegister} history={history}/>
                                     )
                                 })}
                             </div>

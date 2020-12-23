@@ -79,7 +79,7 @@ class ThirdPartyGameList extends Component {
 
         for (let i = 0; i < 18; i++) {
             games.push(
-                <div class={"col"} styleName="col">
+                <div styleName="col">
                     <div styleName="root">
                         <div styleName="image-container dice-background-color">
                             <div styleName="icon">

@@ -51,7 +51,7 @@ class Form extends Component {
         clearInterval(this.intervalID);
     }
 
-    componentWillReceiveProps(props){
+    UNSAFE_componentWillReceiveProps(props){
         this.setState({ isLoaded: false, addressInitialized: false});
         this.projectData(props);
     }

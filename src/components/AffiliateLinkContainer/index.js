@@ -24,7 +24,7 @@ class AffiliateLinkContainer extends React.Component{
         this.setState({ copied: false});
     }
 
-    componentWillReceiveProps(){
+    UNSAFE_componentWillReceiveProps(){
         this.setState({ copied: false});
     }
 
@@ -74,14 +74,14 @@ class AffiliateLinkContainer extends React.Component{
                     ) : null}
                     <div styleName={addressStyles}>
                         <div styleName='link-text-container'>
-                            <Typography variant={'x-small-body'} color={skin.skin_type == "digital" ? `white` : `casper`}>
+                            <Typography variant={'x-small-body'} color={skin.skin_type === "digital" ? `white` : `casper`}>
                                 {URL_REF + link}
                             </Typography>
                         </div>
                         <div>
                             <button onClick={this.copyToClipboard} styleName='text-copy-container'>
                                 {
-                                    skin.skin_type == "digital"
+                                    skin.skin_type === "digital"
                                     ?
                                         <div styleName="icon">
                                             {copyIcon === null ? <CopyIcon /> : <img src={copyIcon} />}

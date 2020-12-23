@@ -111,7 +111,7 @@ class LoginForm extends Component {
                         name="token2fa"
                         onChange={this.on2FATokenChange}
                         value={token}
-                        maxlength="6"
+                        maxLength={6}
                         placeholder={`${copy.INDEX.INPUT_TEXT.LABEL[2]} - ${copy.INDEX.INPUT_TEXT.PLACEHOLDER[0]}`}
                     />
                 </div>

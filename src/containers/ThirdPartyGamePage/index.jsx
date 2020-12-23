@@ -30,7 +30,7 @@ class ThirdPartyGamePage extends Component {
         this.projectData(this.props);
     }
 
-    componentWillReceiveProps(props){
+    UNSAFE_componentWillReceiveProps(props){
         if(props.currency != this.props.currency) {
             this.projectData(props);
         }

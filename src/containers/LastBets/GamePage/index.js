@@ -89,26 +89,23 @@ const rows = {
     }
 }
   
-
-const defaultProps = {
-    all_bets    : rows.all_bets,
-    my_bets     : rows.my_bets,
-    biggest_win_bets : rows.biggest_win_bets,
-    view        : 'all_bets',
-    view_amount : views[0],
-    games : [],
-    options : [],
-    gameMetaName : null,
-    isLoading: true,
-    isListLoading : true
-}
-
 class LastBets extends Component {
     static contextType = UserContext;
 
     constructor(props){
         super(props);
-        this.state = defaultProps;
+        this.state = {
+            all_bets    : rows.all_bets,
+            my_bets     : rows.my_bets,
+            biggest_win_bets : rows.biggest_win_bets,
+            view        : 'all_bets',
+            view_amount : views[0],
+            games : [],
+            options : [],
+            gameMetaName : null,
+            isLoading: true,
+            isListLoading : true
+        };
     }
 
     componentDidMount(){

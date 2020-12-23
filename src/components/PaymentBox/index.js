@@ -48,7 +48,7 @@ class PaymentBox extends React.Component{
         }, 1000);
     }
 
-    componentWillReceiveProps(props){
+    UNSAFE_componentWillReceiveProps(props){
         this.setState({ isCanvasRenderer: true })
         if(props !== this.props) {
             this.projectData(props);

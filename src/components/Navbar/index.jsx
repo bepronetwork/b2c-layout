@@ -38,7 +38,7 @@ class Navbar extends Component {
         this.projectData(this.props)
     }
 
-    componentWillReceiveProps(props){
+    UNSAFE_componentWillReceiveProps(props){
         this.projectData(props);
     }
     
@@ -299,9 +299,15 @@ class Navbar extends Component {
             <div  styleName={styles}>
                 {this.renderLogo()}
                 {user ?
-                    [ this.renderCurrencySelector(), this.renderLanguageProfile() ]
+                    <>
+                        {this.renderCurrencySelector()}
+                        {this.renderLanguageProfile()}
+                    </>
                 :
-                    [ <div/>, this.renderLanguageProfile() ]
+                    <>
+                        <div/>
+                        {this.renderLanguageProfile()}
+                    </>
                 }
             </div>
         );

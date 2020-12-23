@@ -23,7 +23,7 @@ class SecurityTab extends React.Component{
         this.projectData(this.props);
     }
 
-    componentWillReceiveProps(props){
+    UNSAFE_componentWillReceiveProps(props){
         this.projectData(props);
     }
 

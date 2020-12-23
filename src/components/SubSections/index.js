@@ -19,7 +19,7 @@ class SubSections extends Component {
         this.projectData(this.props);
     }
 
-    componentWillReceiveProps(props){
+    UNSAFE_componentWillReceiveProps(props){
         this.projectData(props);
     }
 
@@ -39,16 +39,20 @@ class SubSections extends Component {
     }
 
     renderSubSection = (subSection) => {
+        const commonProps = {
+            data: subSection,
+            key: subSection.title
+        }
+
         switch(subSection.position) {
             case POSITION.LEFT:
-              return <LayoutLeft data={subSection}/>;
+              return <LayoutLeft {...commonProps} />;
             case POSITION.RIGHT:
-                return <LayoutRight data={subSection}/>;
+                return <LayoutRight {...commonProps} />;
             case POSITION.TOP:
-                return <LayoutTop data={subSection}/>;
+                return <LayoutTop {...commonProps} />;
             case POSITION.BOTTOM:
-                return <LayoutBottom data={subSection}/>;
-
+                return <LayoutBottom {...commonProps} />;
         }
     }
 

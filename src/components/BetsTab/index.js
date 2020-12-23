@@ -120,7 +120,7 @@ class BetsTab extends Component {
         }
     }
 
-    componentWillReceiveProps(props){
+    UNSAFE_componentWillReceiveProps(props){
         const { isCurrentPath } = props;
         if(props !== this.props && isCurrentPath) {
             this.projectData(props);
@@ -145,6 +145,8 @@ class BetsTab extends Component {
                 text : data.name
             }
             casinoGamesOptions.push(n);
+
+            return null;
         });
 
         const isEsportsEnabled = _.isEmpty(apiUrlEsports) ? false : true;
@@ -163,10 +165,12 @@ class BetsTab extends Component {
                     text : data.name
                 }
                 esportsGamesOptions.push(n);
+
+                return null;
             });   
         }
 
-        games = view == "casino" ? casinoGames : esportsGames;
+        games = view === "casino" ? casinoGames : esportsGames;
 
         if(options){
             view_amount = options.view_amount ? options.view_amount : view_amount;
@@ -174,11 +178,11 @@ class BetsTab extends Component {
         }
 
         if(profile && !_.isEmpty(profile)){
-            if(view_game.value != "all_games") {
-                if(view == "casino") {
+            if(view_game.value !== "all_games") {
+                if(view === "casino") {
                     casinoRows = await profile.getMyBets({size : view_amount.value, game : games.find(g =>g.metaName === view_game.value)._id, tag: "casino"});
                 }
-                else if (view == "esports" && isEsportsEnabled === true) {
+                else if (view === "esports" && isEsportsEnabled === true) {
                     esportsRows = await profile.getMyBets({size : view_amount.value, slug : games.find(g =>g._id === view_game.value).slug, tag: "esports"});
                 }
             }
@@ -198,13 +202,13 @@ class BetsTab extends Component {
             games,
             casinoGames,
             esportsGames,
-            gamesOptions: view == "casino" ? casinoGamesOptions : esportsGamesOptions,
+            gamesOptions: view === "casino" ? casinoGamesOptions : esportsGamesOptions,
             casinoGamesOptions,
             esportsGamesOptions,
             casinoRows,
             esportsRows,
             isEsportsEnabled,
-            options : Object.keys(copy.TABLE).filter((key) => (key != "ESPORTS" || (key === "ESPORTS" && isEsportsEnabled === true))).map( (key) => {
+            options : Object.keys(copy.TABLE).filter((key) => (key !== "ESPORTS" || (key === "ESPORTS" && isEsportsEnabled))).map( (key) => {
                 return {
                     value : new String(key).toLowerCase(),
                     label : copy.TABLE[key].TITLE
@@ -250,8 +254,8 @@ class BetsTab extends Component {
                         }
                     }
 
-                    const state = bet.resolved == false ? stateOptions.pending : bet.isWon == true ? stateOptions.won : stateOptions.lost;
-                    const type = bet.type == "simple" ? typeOptions.simple : typeOptions.multiple;
+                    const state = !bet.resolved ? stateOptions.pending : bet.isWon ? stateOptions.won : stateOptions.lost;
+                    const type = bet.type === "simple" ? typeOptions.simple : typeOptions.multiple;
 
                     return {
                         game: game,
@@ -288,8 +292,8 @@ class BetsTab extends Component {
         const { casinoGamesOptions, esportsGamesOptions, casinoGames, esportsGames } = this.state;
         this.setState({ 
             view : name, 
-            gamesOptions: name == "casino" ? casinoGamesOptions : esportsGamesOptions,
-            games: name == "casino" ? casinoGames : esportsGames
+            gamesOptions: name === "casino" ? casinoGamesOptions : esportsGamesOptions,
+            games: name === "casino" ? casinoGames : esportsGames
         });
     };
 
@@ -345,7 +349,7 @@ class BetsTab extends Component {
                     titles={this.state[view].titles}
                     fields={this.state[view].fields}
                     size={this.state.view_amount.value}
-                    games={games.filter(function(g) { return view_game.value == 'all_games' || g.metaName == view_game.value; }).map(function(g) { return g; })}
+                    games={games.filter(function(g) { return view_game.value === 'all_games' || g.metaName === view_game.value; }).map(function(g) { return g; })}
                     isLoading={isListLoading}
                     onTableDetails={this.state[view].onTableDetails}
                     tag={view}

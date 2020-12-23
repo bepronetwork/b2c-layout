@@ -7,17 +7,6 @@ import { CopyText } from '../../copy';
 import { getApp } from "../../lib/helpers";
 
 class Deposit extends Component {
-
-    componentDidMount(){
-        this.projectData(this.props)
-    }
-
-    componentWillReceiveProps(props){
-        this.projectData(props);
-    }
-    
-    async projectData(){}
-
     closeDeposit = () => {
         const { onClose } = this.props;
         onClose();

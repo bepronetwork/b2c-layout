@@ -9,13 +9,16 @@ class SettingsTab extends Component {
 
     constructor(props) {
         super(props);
+        this.state = {
+            backgroundMusic: null
+        }
     }
 
     componentDidMount(){
         this.projectData(this.props);
     }
 
-    componentWillReceiveProps(props){
+    UNSAFE_componentWillReceiveProps(props){
         this.projectData(props);
     }
 

@@ -97,7 +97,7 @@ export default class TableCell extends Component {
       focused,
       "is-result": isResult,
       active: chipSelected,
-      zero: label == "0"
+      zero: label === "0"
     });
 
     return (

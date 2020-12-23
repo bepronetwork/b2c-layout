@@ -17,7 +17,7 @@ class KenoDetails extends Component {
         this.projectData();
     }
 
-    componentWillReceiveProps(){
+    UNSAFE_componentWillReceiveProps(){
         this.projectData();
     }
 

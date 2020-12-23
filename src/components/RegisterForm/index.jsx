@@ -53,7 +53,7 @@ class RegisterForm extends Component {
         this.setState({ restrictedCountries });
     }
 
-    componentWillReceiveProps(props){
+    UNSAFE_componentWillReceiveProps(props){
         this.projectData(props);
     }
 
@@ -180,7 +180,7 @@ class RegisterForm extends Component {
                 placeholder={copy.INDEX.INPUT_TEXT.LABEL[0]}
                 onChange={this.onChange}
                 value={username}
-                maxlength={12}
+                maxLength={12}
             />
             </div>
             <div styleName="password">
@@ -190,7 +190,7 @@ class RegisterForm extends Component {
                 placeholder={copy.INDEX.INPUT_TEXT.LABEL[1]}
                 onChange={this.onChange}
                 value={password}
-                maxlength={15}
+                maxLength={15}
             />
             </div>
             <InputText
@@ -198,7 +198,7 @@ class RegisterForm extends Component {
                 placeholder={copy.INDEX.INPUT_TEXT.LABEL[3]}
                 onChange={this.onEmailChange}
                 value={email}
-                maxlength={25}
+                maxLength={25}
             />
             <Typography weight="semi-bold" color="white" otherStyles={{ marginTop: 16, opacity: '0.5' }}>
                 {copy.INDEX.TYPOGRAPHY.TEXT[4]}

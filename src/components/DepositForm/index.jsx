@@ -62,7 +62,7 @@ class DepositForm extends Component {
         clearInterval(this.timerInterval)
     }
 
-    componentWillReceiveProps(props){
+    UNSAFE_componentWillReceiveProps(props){
         this.setState({ isLoaded: false, addressInitialized: false});
         this.projectData(props);
     }

@@ -64,7 +64,7 @@ class WithdrawTable extends Component {
     }
   }
 
-  componentWillReceiveProps(props) {
+  UNSAFE_componentWillReceiveProps(props) {
     if (props !== this.props) {
       this.projectData(props);
     }

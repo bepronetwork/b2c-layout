@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { formatToSimpleDate, getSkeletonColors } from "../../../lib/helpers";
 import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
-import _ from 'lodash';
+import _, { uniqueId } from 'lodash';
 import "./index.css";
 import LockTwoToneIcon from '@material-ui/icons/LockTwoTone';
 
@@ -20,7 +20,7 @@ class Matches extends Component {
 
         for (let i = 0; i < size; i++) {
             rows.push(
-                <div styleName="skeleton-match">
+                <div styleName="skeleton-match" key={uniqueId("skeleton-match-")}>
                     <div styleName="skeleton-match-tour">
                         <div styleName="tour-name">
                             <Skeleton circle={true} height={30} width={30}/>

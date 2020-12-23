@@ -46,7 +46,7 @@ class FlipGameOptions extends Component {
         this.projectData(this.props);
     }
     
-    componentWillReceiveProps(props){
+    UNSAFE_componentWillReceiveProps(props){
         this.projectData(props);
     }
 

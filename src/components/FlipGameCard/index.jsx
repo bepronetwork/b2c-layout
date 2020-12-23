@@ -52,7 +52,7 @@ class FlipGameCard extends Component {
         }, 1*1000)
     }
 
-    componentWillReceiveProps(props){
+    UNSAFE_componentWillReceiveProps(props){
         this.projectData(props);
     }
 

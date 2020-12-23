@@ -20,7 +20,7 @@ class RouletteDetails extends Component {
         this.projectData();
     }
 
-    componentWillReceiveProps(){
+    UNSAFE_componentWillReceiveProps(){
         this.projectData();
     }
 
@@ -41,7 +41,7 @@ class RouletteDetails extends Component {
     render() {
         const { betHistory, number } = this.state;
         const resultStyles = classNames("result", {
-            green: number == 0,
+            green: number === 0,
             red: redColors.includes(number)
         });
 

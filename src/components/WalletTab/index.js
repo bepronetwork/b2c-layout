@@ -49,7 +49,7 @@ class WalletTab extends React.Component {
         this.projectData(this.props);
     }
 }
-  componentWillReceiveProps(props) {
+UNSAFE_componentWillReceiveProps(props) {
     const { isCurrentPath } = props;
 
     if (props !== this.props && isCurrentPath) {

@@ -18,7 +18,7 @@ class ThirdPartyGameCard extends Component {
         this.projectData(this.props);
     }
 
-    componentWillReceiveProps(props){
+    UNSAFE_componentWillReceiveProps(props){
         this.projectData(props);
     }
 
@@ -49,7 +49,7 @@ class ThirdPartyGameCard extends Component {
         const { game } = this.props;
 
         return (
-            <div class={"col"} styleName="col">
+            <div styleName="col">
                 <div styleName="root">
                     <div styleName="image-container dice-background-color" onClick={() => this.linkToGamePage({id: game.id, partnerId: game.partnerId, url: game.url, provider: game.provider, name: game.title})} 
                         style={{background: "url("+game.icon+") center center / cover no-repeat"}}>

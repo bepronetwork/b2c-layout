@@ -6,7 +6,7 @@ import { connect } from "react-redux";
 import "./index.css";
 import { getAppCustomization, getApp } from "../../lib/helpers";
 import {CopyText} from "../../copy";
-import _ from 'lodash';
+import _, { uniqueId } from 'lodash';
 import logoMadeByBepro_light from 'assets/media/logo_bepro.png';
 import logoMadeByBepro_dark from 'assets/media/logo_bepro-dark.png';
 import logobBitGo_light from 'assets/partners/logo_bitgo.png';
@@ -90,7 +90,7 @@ const footerStaticOutput = ({props, supportLinks, communityLinks}) => {
                 },
                 items : [{
                     type : 'component',
-                    component: <LanguageSelector showArrow={true} expand="bottom" size="small-body" color="casper"/>
+                    component: <LanguageSelector showArrow key={uniqueId("footer-col-")} expand="bottom" size="small-body" color="casper"/>
                 }]     
             }
         ]
@@ -113,7 +113,7 @@ class Footer extends Component {
         this.projectData(this.props)
     }
 
-    componentWillReceiveProps(props){
+    UNSAFE_componentWillReceiveProps(props){
         this.projectData(props);
     }
 
@@ -155,9 +155,8 @@ class Footer extends Component {
                             }
 
                             return(
-                                <Col md={tab.col}>
+                                <Col md={tab.col} key={tab.title.text}>
                                     <div styleName={tab.align}>
-                                        {/* Title */}
                                         {tab.title ? 
                                             <div styleName='title'>
                                                 <Typography
@@ -170,12 +169,11 @@ class Footer extends Component {
                                             </div>
                                         : null}
 
-                                        {/* Text */}
                                         {tab.items.map( col => {
                                             switch(col.type){
                                                 case 'link' : {
                                                     return (
-                                                        <a styleName='item' href={col.href} target={'_blank'}>
+                                                        <a styleName='item' href={col.href} target={'_blank'} key={col.text}>
                                                             <Typography
                                                                 variant={col.size}
                                                                 weight={col.weight}
@@ -186,12 +184,12 @@ class Footer extends Component {
                                                 };
                                                 case 'image' : {
                                                     return (
-                                                        <img src={col.image} style={{width : col.width}}/>
+                                                        <img src={col.image} style={{width : col.width}} key={col.text}/>
                                                     )
                                                 };
                                                 case 'text' : {
                                                     return (
-                                                        <div styleName='no-hover-item'>
+                                                        <div styleName='no-hover-item' key={col.text}>
                                                             <Typography
                                                                 variant={col.size}
                                                                 weight={col.weight}
@@ -202,7 +200,7 @@ class Footer extends Component {
                                                 };
                                                 case 'route' : {
                                                     return (
-                                                        <Link to={col.href} styleName='item'>
+                                                        <Link to={col.href} styleName='item' key={col.text}>
                                                             <Typography
                                                                 variant={col.size}
                                                                 weight={col.weight}
@@ -293,7 +291,7 @@ class Footer extends Component {
                     </div>
                     <div styleName='footer-info'>
                         <Typography
-                            weight={footerInfo.info.size}
+                            size={footerInfo.info.size}
                             color={footerInfo.info.color}
                         > 
                             {footerInfo.info.text2}

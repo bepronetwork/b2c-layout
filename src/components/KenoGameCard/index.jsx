@@ -54,7 +54,7 @@ class KenoGameCard extends Component {
         this.projectData(this.props);
     }
 
-    async componentWillReceiveProps(props){
+    async UNSAFE_componentWillReceiveProps(props){
         await this.projectData(props);
     }
 

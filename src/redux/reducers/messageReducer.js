@@ -1,25 +1,35 @@
-import newId from '../../utils/newId';
-import _ from 'lodash';
+import { isEmpty, uniqueId, isArray } from "lodash";
 
-const initialState = {
-};
+export default function(state = {}, action) {
+  switch (action.type) {
+    case "SET_MESSAGE_INFO": {
+      let notifications = [];
 
-export default function (state = initialState, action) {
-    switch (action.type) {
-        case 'SET_MESSAGE_INFO' : {
-            let notifications = [];
-            if (!_.isEmpty(action.action)) {
-                (_.isArray(action.action)) ?
-                    Object.values(action.action).map(text => {
-                        (!_.isEmpty(text.id)) ? notifications = action.action : notifications.push({id: newId('notification-id-'), message: text});
-                    })
-                : notifications.push({id: newId('notification-id-'), message: action.action}); 
+      if (!isEmpty(action.action)) {
+        if (isArray(action.action)) {
+          Object.values(action.action).map((text) => {
+            if (!isEmpty(text.id)) {
+              notifications = action.action;
+            } else {
+              notifications.push({
+                id: uniqueId("notification-id-"),
+                message: text,
+              });
             }
-            return notifications;
-        };
-        default: {
-            return state;
-        };
+
+            return null;
+          });
+        } else {
+          notifications.push({
+            id: uniqueId("notification-id-"),
+            message: action.action,
+          });
+        }
+      }
+
+      return notifications;
     }
+    default:
+      return state;
   }
-  
+}

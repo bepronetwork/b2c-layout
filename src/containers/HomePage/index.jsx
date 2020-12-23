@@ -40,7 +40,7 @@ class HomePage extends Component {
         const { onTableDetails } = this.props;
         if(!this.isGameAvailable(metaName)){return null}
         return (
-                <div class={"col"} styleName="col">
+                <div styleName="col" key={name}>
                     <GameCard
                         path={metaName}
                         title={name}

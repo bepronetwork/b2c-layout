@@ -120,7 +120,7 @@ function getBetOnEachNumber(betHistory) {
             ]);
     });
     let distributedBetOnEachNumber = finalBetOnEachNumber.reduce( (array, el) => {
-        var equalElIndex = array.findIndex( currentEl => (currentEl.place == el.place));
+        var equalElIndex = array.findIndex( currentEl => (currentEl.place === el.place));
         if(equalElIndex > -1){
             array[equalElIndex].value +=  parseFloat(el.value);
             return array;

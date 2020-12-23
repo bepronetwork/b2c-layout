@@ -1,16 +1,11 @@
 import React, { Component } from "react";
 import Popup from './Popup';
-import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { compose } from 'lodash/fp'
 import _ from 'lodash';
 import "./index.css";
 
 class PopupForm extends Component {
-    constructor(props) {
-        super(props);
-    }
-
     render() {
         let hasNotification = !_.isEmpty(this.props.popup);
         if(!hasNotification){return null};
@@ -35,9 +30,5 @@ function mapStateToProps(state){
         popup : state.popup
     };
 }
-
-PopupForm.propTypes = {
-    dispatch: PropTypes.func
-};
 
 export default compose(connect(mapStateToProps))(PopupForm);

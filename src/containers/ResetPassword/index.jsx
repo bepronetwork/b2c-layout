@@ -126,7 +126,7 @@ class ResetPassword extends Component {
                             <div styleName="box">
                                 <div styleName="reset-password-title">
                                     <div styleName="reset-password-left">
-                                        {emailIcon === null ? <EmailIcon/> : <img src={emailIcon} />}
+                                        {emailIcon === null ? <EmailIcon/> : <img src={emailIcon} alt="Email Icon" />}
                                     </div>
                                     <div styleName="reset-password-right">
                                         <Typography color="white" variant="small-body">

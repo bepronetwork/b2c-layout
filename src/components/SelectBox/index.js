@@ -18,7 +18,7 @@ class SelectBox extends React.Component{
     componentDidMount(){
         this.projectData(this.props)
     }
-
+    
     componentDidUpdate() {
         const { open } = this.state;
 
@@ -33,7 +33,7 @@ class SelectBox extends React.Component{
         document.removeEventListener("mousedown", this.handleClickOutside);
     }
 
-    componentWillReceiveProps(props){
+    UNSAFE_componentWillReceiveProps(props){
         this.projectData(props)
     }
 
@@ -91,7 +91,7 @@ class SelectBox extends React.Component{
         return options.map(option => (
             <button
                 styleName="option"
-                key={option.channel_id}
+                key={option.text}
                 id={option.channel_id}
                 onClick={() => this.onChange(option)}
                 type="button"

@@ -64,7 +64,7 @@ export default class Wheel extends Component {
         }
     }
 
-    componentWillReceiveProps(props){
+    UNSAFE_componentWillReceiveProps(props){
         
         this.drawSpinnerWheel(props);
     }

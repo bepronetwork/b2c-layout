@@ -40,7 +40,7 @@ class WheelPage extends React.Component {
         this.projectData();
     }
 
-    componentWillReceiveProps(){
+    UNSAFE_componentWillReceiveProps(){
         this.projectData();
     }
 

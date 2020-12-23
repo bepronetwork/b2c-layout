@@ -110,12 +110,12 @@ class LastBets extends Component {
     componentDidMount(){
         this.projectData(this.props)
     }
-        componentWillReceiveProps(props){
+
+    UNSAFE_componentWillReceiveProps(props){
         if(props !== this.props) {
             this.projectData(props);
         }
     }
-
 
     getCopy = () => {
         const {ln} = this.props;
@@ -127,25 +127,22 @@ class LastBets extends Component {
     views = [{ text : 10, value : 10 }, { text : 25, value : 25 }, { text : 50, value : 50 }, { text : 100, value : 100 }];
     allGames = { text : this.getCopy().TABLE_FILTER, value : 'all_games' };    
       
-    
-    defaultProps = {
-        all_bets    : this.rows.all_bets,
-        my_bets     : this.rows.my_bets,
-        biggest_win_bets : this.rows.biggest_win_bets,
-        biggest_win_users : this.rows.biggest_win_users,
-        view        : 'all_bets',
-        view_amount : this.views[0],
-        gamesOptions : [],
-        games : [],
-        options : [],
-        view_game : this.allGames,
-        isLoading: true,
-        isListLoading : true
-    }
-    
     constructor(props){
         super(props);
-        this.state = this.defaultProps;
+        this.state = {
+            all_bets    : this.rows.all_bets,
+            my_bets     : this.rows.my_bets,
+            biggest_win_bets : this.rows.biggest_win_bets,
+            biggest_win_users : this.rows.biggest_win_users,
+            view        : 'all_bets',
+            view_amount : this.views[0],
+            gamesOptions : [],
+            games : [],
+            options : [],
+            view_game : this.allGames,
+            isLoading: true,
+            isListLoading : true
+        };
     }
 
     setTimer = (options) => {

@@ -38,7 +38,7 @@ class CasinoDetails extends Component {
         this.projectData(this.props);
     }
 
-    componentWillReceiveProps(props){
+    UNSAFE_componentWillReceiveProps(props){
         this.projectData(props);
     }
 
@@ -73,7 +73,7 @@ class CasinoDetails extends Component {
                     break;
             }
     
-            const currenncy = (getApp().currencies.find(currency => currency._id == bet.currency._id));
+            const currenncy = (getApp().currencies.find(currency => currency._id === bet.currency._id));
                 
             this.setState({
                 component,
@@ -194,7 +194,7 @@ class CasinoDetails extends Component {
                                             </Typography>
                                         </div>
                                         <div styleName='bet-text'>
-                                            <Typography variant={'x-small-body'} color={isWon == true ? `green` : `white`}>
+                                            <Typography variant={'x-small-body'} color={isWon ? `green` : `white`}>
                                                 {winAmount}
                                             </Typography>
                                             <img src={currencyImage} width={16} height={16}/>

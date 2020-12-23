@@ -30,13 +30,13 @@ class AnimationNumber extends React.Component{
         this.projectData(this.props)
     }
 
-    componentWillReceiveProps(props){
+    UNSAFE_componentWillReceiveProps(props){
         this.projectData(props);
     }
     
     projectData = async (props) => {
         const { number, color, variant, span, isCurrency } = props;
-        if(this.state.number == props.number){return null};
+        if(this.state.number === props.number){return null};
         this.setState({
            number : number ? number : defaultProps.number,
            color : color ? color : defaultProps.color,
@@ -48,7 +48,7 @@ class AnimationNumber extends React.Component{
     }
 
     shouldComponentUpdate(nextProps){
-        return this.state.number != nextProps.number;
+        return this.state.number !== nextProps.number;
     }
 
     render = () => {

@@ -18,7 +18,7 @@ class FlipDetails extends Component {
         this.projectData();
     }
 
-    componentWillReceiveProps(){
+    UNSAFE_componentWillReceiveProps(){
         this.projectData();
     }
 

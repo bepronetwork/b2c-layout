@@ -44,7 +44,7 @@ class MobileMenu extends Component {
         this.projectData(this.props);
     }
 
-    componentWillReceiveProps(props){
+    UNSAFE_componentWillReceiveProps(props){
         this.projectData(props);
     }
 
@@ -89,7 +89,7 @@ class MobileMenu extends Component {
             <ul>
                 {itens.map(item => {
                     return (
-                        <li>
+                        <li key={item.path}>
                             <a href="#" onClick={() => onMenuItem({history, path : item.path})} >
                                 <span styleName="row">
                                     <div styleName="icon">
@@ -123,7 +123,7 @@ class MobileMenu extends Component {
                 {
                     tabs.map(t => {
                         return (
-                            <div>
+                            <div key={t.name}>
                                 <a styleName="title" href={blankBool ? t.link_url : null} onClick={() => this.homeClick(t.link_url)} target={blankBool ? "_blank" : null} rel="noopener">
                                     {t.icon
                                     ?

@@ -36,6 +36,7 @@ export default class Tabs extends Component {
 
                     <Tab
                         label={option.label}
+                        key={option.label}
                         name={option.value}
                         icon={option.icon}
                         onClick={this.handleTabClick}

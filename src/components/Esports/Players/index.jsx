@@ -1,16 +1,10 @@
 import React, { Component } from "react";
 import { Typography } from 'components';
-import { connect } from 'react-redux';
 import { Shield } from "components/Esports";
 import ReactCountryFlag from "react-country-flag"
 import "./index.css";
 
 class Players extends Component {
-
-    constructor(props){
-        super(props);
-    }
-
     handlePlayerClick(player) {
         const { onPlayerClick } = this.props;
 
@@ -137,11 +131,4 @@ class Players extends Component {
     }
 }
 
-function mapStateToProps(state){
-    return {
-        profile : state.profile,
-        ln: state.language
-    };
-}
-
-export default connect(mapStateToProps)(Players);
+export default Players;

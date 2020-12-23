@@ -7,6 +7,7 @@ import { connect } from 'react-redux';
 import classNames from "classnames";
 import { getSkeletonColors } from "../../../lib/helpers";
 import "./index.css";
+import { uniqueId } from "lodash";
 
 class GameFilter extends Component {
 
@@ -51,7 +52,7 @@ class GameFilter extends Component {
 
         for (let i = 0; i < 6; i++) {
             rows.push(
-                <li styleName="skeleton-filter-match">
+                <li styleName="skeleton-filter-match" key={uniqueId("skeleton-filter-match-")}>
                     <Skeleton height={40} width={100}/>
                 </li>
             );
