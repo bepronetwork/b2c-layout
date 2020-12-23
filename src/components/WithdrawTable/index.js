@@ -111,10 +111,10 @@ class WithdrawTable extends Component {
               ? AddressConcat(d.transactionHash)
               : "N/A",
             creation_timestamp: dateToHourAndMinute(d.creation_timestamp),
-            status: d.confirmed ? "Confirmed" : "Open",
+            status: d.status,
             currency: d.currency,
             link_url: d.link_url,
-            done: d.confirmed ? "Done" : "Unconfirmed"
+            done: d.note
           };
         })
       }
@@ -143,10 +143,10 @@ class WithdrawTable extends Component {
           ? AddressConcat(d.transactionHash)
           : "N/A",
         creation_timestamp: dateToHourAndMinute(d.creation_timestamp),
-        status: d.confirmed ? "Confirmed" : "Open",
+        status: d.status,
         currency: d.currency,
         link_url: d.link_url,
-        done: d.confirmed ? "Done" : "Unconfirmed"
+        done: d.note
       };
     })
 
