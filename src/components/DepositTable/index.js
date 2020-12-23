@@ -108,7 +108,7 @@ class DepositTable extends Component {
                         amount: formatCurrency(Numbers.toFloat(d.amount)),
                         transactionHash: d.transactionHash ? AddressConcat(d.transactionHash) : 'N/A',
                         creation_timestamp: dateToHourAndMinute(d.creation_timestamp),
-                        status: d.status,
+                        status: "Confirmed",
                         currency: d.currency,
                         link_url: d.link_url,
                         bonusAmount: d.bonusAmount
@@ -152,7 +152,7 @@ class DepositTable extends Component {
                 amount: formatCurrency(Numbers.toFloat(d.amount)),
                 transactionHash: d.transactionHash ? AddressConcat(d.transactionHash) : 'N/A',
                 creation_timestamp: dateToHourAndMinute(d.creation_timestamp),
-                status: d.status,
+                status: "Confirmed",
                 currency: d.currency,
                 link_url: d.link_url,
                 bonusAmount: d.bonusAmount
