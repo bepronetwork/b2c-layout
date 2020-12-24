@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { Typography } from 'components';
 import { Shield, Opponents, Status } from "components/Esports";
-import { connect } from 'react-redux';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { formatToSimpleDate, getSkeletonColors } from "../../../lib/helpers";
 import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
@@ -10,11 +9,6 @@ import "./index.css";
 import LockTwoToneIcon from '@material-ui/icons/LockTwoTone';
 
 class Matches extends Component {
-
-    constructor(props) {
-        super(props);
-    }
-
     createSkeletonRows = (size) => {
         let rows = []
 
@@ -60,7 +54,7 @@ class Matches extends Component {
             <div>
                 {
                     
-                    beginDate != formatToSimpleDate(match.begin_at)
+                    beginDate !== formatToSimpleDate(match.begin_at)
                     ?
                         <div styleName="date">
                             <Typography variant={'x-small-body'} color={'grey'}>{formatToSimpleDate(match.begin_at)}</Typography>
@@ -91,7 +85,7 @@ class Matches extends Component {
                     </div> }
                     <Opponents 
                         gameImage={gameImage} 
-                        isScoreBoard={match.status == "finished" || match.status == "settled" ? true : false}
+                        isScoreBoard={match.status === "finished" || match.status === "settled"}
                         match={match}
                     />
                     <Status 
@@ -121,7 +115,7 @@ class Matches extends Component {
                 :
                     matches.length > 0
                     ?
-                        showInfiniteScroll == true
+                        showInfiniteScroll
                         ?
                             <InfiniteScroll
                                 dataLength={matches.length}
@@ -159,11 +153,4 @@ class Matches extends Component {
     }
 }
 
-function mapStateToProps(state){
-    return {
-        profile : state.profile,
-        ln: state.language
-    };
-}
-
-export default connect(mapStateToProps)(Matches);
+export default Matches;

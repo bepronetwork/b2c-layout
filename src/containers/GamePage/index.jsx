@@ -159,7 +159,6 @@ class GamePage extends Component {
                             <ButtonIcon
                                 iconAtLeft
                                 icon="copy"
-
                                 onClick={this.handleActionsModalOpen}
                                 soundMode={soundMode}
                                 theme="primary"
@@ -167,7 +166,6 @@ class GamePage extends Component {
                             <ButtonIcon
                                 iconAtLeft
                                 icon="sound"
-
                                 onClick={this.handleSounds}
                                 soundMode={soundMode}
                                 theme="primary"
@@ -222,13 +220,13 @@ class GamePage extends Component {
         const { gameInfo } = this.state;
         const copy = CopyText.shared[ln];
 
-        if (_.isEmpty(gameMetaName) && isThirdParty != true) return null;
+        if (_.isEmpty(gameMetaName) && !isThirdParty) return null;
 
         return (
             <div styleName='main-container'>
                 {
                     
-                    isThirdParty == true
+                    isThirdParty
                     ?
                         this.renderIframe()
                     :

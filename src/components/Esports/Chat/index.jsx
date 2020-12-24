@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import { connect } from 'react-redux';
 import "./index.css";
 
 class Chat extends Component {
@@ -21,11 +20,4 @@ class Chat extends Component {
     }
 }
 
-function mapStateToProps(state){
-    return {
-        profile : state.profile,
-        ln: state.language
-    };
-}
-
-export default connect(mapStateToProps)(Chat);
+export default Chat;

@@ -177,6 +177,8 @@ class LastBets extends Component {
                 text : data.name
             }
             gamesOptions.push(n);
+
+            return null;
         });
 
         if(options){
@@ -188,7 +190,7 @@ class LastBets extends Component {
         let biggest_winners_bets = [];
         let biggest_win_users = [];
 
-        if(view_game.value != "all_games") {
+        if(view_game.value !== "all_games") {
             const gameId = games.find(g =>g.metaName === view_game.value)._id;
 
             all_bets = await getLastBets({size : view_amount.value, game : gameId});
@@ -234,16 +236,16 @@ class LastBets extends Component {
                 const value = new String(key).toLowerCase();
 
                 if(value === "all_bets"){
-                    icon = allBetsIcon === null ? <CheckIcon/> : <img src={allBetsIcon} />;
+                    icon = allBetsIcon === null ? <CheckIcon/> : <img src={allBetsIcon} alt="All Bets Icon" />;
                 }
                 else if(value === "my_bets"){
                     icon = <RewardIcon/>;
                 }
                 else if(value === "biggest_win_bets"){
-                    icon = biggestWinsIcon === null ? <TrophyIcon/> : <img src={biggestWinsIcon} />;
+                    icon = biggestWinsIcon === null ? <TrophyIcon/> : <img src={biggestWinsIcon} alt="Biggest Wins Icon" />;
                 }
                 else if(value === "biggest_win_users"){
-                    icon = leaderBoarderIcon === null ? <AffiliateIcon/> : <img src={leaderBoarderIcon} />;
+                    icon = leaderBoarderIcon === null ? <AffiliateIcon/> : <img src={leaderBoarderIcon} alt="Leader Boarder Icon" />;
                 }
 
                 return {
@@ -350,9 +352,9 @@ class LastBets extends Component {
                     rows={this.state[this.state.view].rows}
                     titles={this.state[this.state.view].titles}
                     fields={this.state[this.state.view].fields}
-                    showRealTimeLoading={this.state.view == "all_bets" ? true : false}
+                    showRealTimeLoading={this.state.view === "all_bets"}
                     size={this.state.view_amount.value}
-                    games={games.filter(function(g) { return view_game.value == 'all_games' || g.metaName == view_game.value; }).map(function(g) { return g; })}
+                    games={games.filter(function(g) { return view_game.value === 'all_games' || g.metaName === view_game.value; }).map(function(g) { return g; })}
                     isLoading={isListLoading}
                     onTableDetails={this.state[this.state.view].onTableDetails}
                 /> 

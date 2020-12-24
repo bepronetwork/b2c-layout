@@ -171,7 +171,7 @@ class Footer extends Component {
 
                                         {tab.items.map( col => {
                                             switch(col.type){
-                                                case 'link' : {
+                                                case 'link' : 
                                                     return (
                                                         <a styleName='item' href={col.href} target={'_blank'} key={col.text}>
                                                             <Typography
@@ -181,13 +181,9 @@ class Footer extends Component {
                                                             > {col.text}</Typography>
                                                         </a>
                                                     )
-                                                };
-                                                case 'image' : {
-                                                    return (
-                                                        <img src={col.image} style={{width : col.width}} key={col.text}/>
-                                                    )
-                                                };
-                                                case 'text' : {
+                                                case 'image' : 
+                                                    return <img src={col.image} style={{width : col.width}} key={col.text} alt="Tab Icon" />
+                                                case 'text' : 
                                                     return (
                                                         <div styleName='no-hover-item' key={col.text}>
                                                             <Typography
@@ -197,8 +193,7 @@ class Footer extends Component {
                                                             > {col.text}</Typography>
                                                         </div>
                                                     )
-                                                };
-                                                case 'route' : {
+                                                case 'route' : 
                                                     return (
                                                         <Link to={col.href} styleName='item' key={col.text}>
                                                             <Typography
@@ -208,14 +203,13 @@ class Footer extends Component {
                                                             > {col.text}</Typography>
                                                         </Link>
                                                     )
-                                                };
-                                                case 'component' : {
-                                                    return (
-                                                        col.component
-                                                    )
-                                                };
-
+                                                case 'component' : 
+                                                    return col.component
+                                                default:
+                                                    break;
                                             }
+
+                                            return null;
                                         })}
                                     </div>
                                 </Col>
@@ -338,14 +332,10 @@ class Footer extends Component {
     }
 }
 
-
-
 function mapStateToProps(state){
     return {
-        profile: state.profile,
         ln : state.language
     };
 }
 
 export default connect(mapStateToProps)(Footer);
-

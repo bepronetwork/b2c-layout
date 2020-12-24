@@ -10,7 +10,6 @@ import "./index.css";
 class LoginForm extends Component {
     static propTypes = {
         onSubmit: PropTypes.func.isRequired,
-        error: PropTypes.number,
         has2FA: PropTypes.bool,
         error: PropTypes.string,
         onClose: PropTypes.func
@@ -160,15 +159,15 @@ class LoginForm extends Component {
                     >
                         {isLoading 
                             ?
-                                <img src={loading} />
+                                <img src={loading} alt="Loading" />
                             :
-                                <Typography color={skin.skin_type == "digital" ? 'secondary' : 'fixedwhite'}>{copy.INDEX.TYPOGRAPHY.TEXT[4]}</Typography>
+                                <Typography color={skin.skin_type === "digital" ? 'secondary' : 'fixedwhite'}>{copy.INDEX.TYPOGRAPHY.TEXT[4]}</Typography>
                         }
                     </Button>
                 </div>
 
                 <div styleName="forgot">
-                    <a href="#" onClick={this.resetPasswordClick}>
+                    <a href="/" onClick={this.resetPasswordClick}>
                         <Typography color="casper" variant="small-body">
                             {copy.INDEX.TYPOGRAPHY.TEXT[5]}
                         </Typography>

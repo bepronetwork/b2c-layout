@@ -1,26 +1,30 @@
-import newId from '../../utils/newId';
-import _ from 'lodash';
+import { isEmpty, isArray } from "lodash";
+import newId from "../../utils/newId";
 
+export default function(state = {}, action) {
+  switch (action.type) {
+    case "SET_POPUP_MESSAGE": {
+      let messages = [];
 
-const initialState = {
-};
-
-export default function (state = initialState, action) {
-    switch (action.type) {
-        case 'SET_POPUP_MESSAGE' : {
-            let messages = [];
-            if (!_.isEmpty(action.action)) {
-                (_.isArray(action.action)) ?
-                    Object.values(action.action).map(text => {
-                        (!_.isEmpty(text.id)) ? messages = action.action : messages.push({id: newId('popup-id-'), message: text});
-                    })
-                : messages.push({id: newId('popup-id-'), message: action.action}); 
+      if (!isEmpty(action.action)) {
+        if (isArray(action.action)) {
+          Object.values(action.action).map((text) => {
+            if (!isEmpty(text.id)) {
+              messages = action.action;
+            } else {
+              messages.push({ id: newId("popup-id-"), message: text });
             }
-            return messages;
-        };
-        default: {
-            return state;
-        };
+
+            return null;
+          });
+        } else {
+          messages.push({ id: newId("popup-id-"), message: action.action });
+        }
+      }
+
+      return messages;
     }
+    default:
+      return state;
   }
-  
+}

@@ -159,9 +159,11 @@ class ChatPage extends React.Component {
 
     changeLanguage = async (item) => {
         item = languages.find( a => {
-            if(a.name.toLowerCase() == item.name.toLowerCase()){
+            if(a.name.toLowerCase() === item.name.toLowerCase()){
                 return a;
             }
+
+            return null;
         })
         let { profile } = this.props;
         profile.getChat().changeLanguage({language : item.name, channel_id : item.name.toLowerCase()});

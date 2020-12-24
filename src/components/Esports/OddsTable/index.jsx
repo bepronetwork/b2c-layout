@@ -142,7 +142,7 @@ class OddsTable extends Component {
                     </div>
                     <div styleName={mainStyles}>
                         <div styleName={opponent1Styles} onClick={() => isOpponent1Selected ? this.handleRemoveToBetSlip(opponent1.id) : this.handleAddToBetSlip(opponent1Bet)} style={ activeMarket ? buttonStyles.open : buttonStyles.locked }>
-                            <img src={opponent1.image} />
+                            <img src={opponent1.image} alt="Opponent" />
                             <Typography variant={'x-small-body'} color={'white'}>{opponent1.name}</Typography>
                             <span styleName="group left">
                                 { opponent1.status !== 'stable' && <div styleName={`arrow ${opponent1.status}`}/> } <Typography variant={'x-small-body'} color={'white'}>{opponent1.odd.odd}</Typography>
@@ -160,7 +160,7 @@ class OddsTable extends Component {
                                 null
                         }
                         <div styleName={opponent2Styles} onClick={() => isOpponent2Selected ? this.handleRemoveToBetSlip(opponent2.id) : this.handleAddToBetSlip(opponent2Bet)} style={ activeMarket ? buttonStyles.open : buttonStyles.locked }>
-                            <img src={opponent2.image} />
+                            <img src={opponent2.image} alt="Opponent" />
                             <Typography variant={'x-small-body'} color={'white'}>{opponent2.name}</Typography>
                             <span styleName="group right">
                                 <Typography variant={'x-small-body'} color={'white'}>{opponent2.odd.odd}</Typography> { opponent2.status !== 'stable' && <div styleName={`arrow ${opponent2.status}`}/> }
@@ -175,8 +175,6 @@ class OddsTable extends Component {
 
 function mapStateToProps(state){
     return {
-        profile : state.profile,
-        ln: state.language,
         betSlip: state.betSlip
     };
 }

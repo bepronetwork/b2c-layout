@@ -252,7 +252,7 @@ class Esports extends Component {
         const { matches, games, size, isLoading, isLoadingMatches, gameFilter, hasHighlight } = this.state;
 
         const mainStyles = classNames("main", {
-            "main-unique": hasHighlight == false
+            "main-unique": !hasHighlight
         });
 
         return (
@@ -313,10 +313,4 @@ class Esports extends Component {
     }
 }
 
-function mapStateToProps(state){
-    return {
-        profile : state.profile
-    };
-}
-
-export default connect(mapStateToProps)(Esports);
+export default Esports;

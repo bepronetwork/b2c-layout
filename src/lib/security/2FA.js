@@ -14,7 +14,7 @@ class Security2FA {
         try{
             let response = twoFactor.verifyToken(secret, token);
             if(!response){ return false};
-            return(response.delta == 0);
+            return(response.delta === 0);
         }catch(error){
             throw error;
         }

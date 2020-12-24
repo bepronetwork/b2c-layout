@@ -141,7 +141,7 @@ class PlinkoGameOptions extends Component {
                                 let { winAmount } = res;
                                 totalProfit += (winAmount-betAmount);
                                 totalLoss += (winAmount === 0) ? -Math.abs(betAmount) : 0;
-                                wasWon = (winAmount != 0);
+                                wasWon = (winAmount !== 0);
                                 if(onWin && wasWon){ betAmount += Numbers.toFloat(betAmount*onWin/100) }; 
                                 if(onLoss && !wasWon){ betAmount += Numbers.toFloat(betAmount*onLoss/100) }; 
                                 await delay(4*1000);

@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { Tabs } from "components";
 import { Matches, SerieFilter, GameFilter, BetSlip, BetSlipFloat } from "components/Esports";
-import { connect } from 'react-redux';
 import { getGames, getMatches, getMatchesBySeries, getMatch } from "controllers/Esports/EsportsUser";
 import _ from 'lodash';
 import "./index.css";
@@ -192,7 +191,7 @@ class AllMatches extends Component {
             status, 
             size, 
             offset,
-            ...tab == "results" && { begin_at : "all" }
+            ...tab === "results" && { begin_at : "all" }
         });
 
         newMatches.unshift(...matches);
@@ -202,14 +201,14 @@ class AllMatches extends Component {
 
     handleTabChange = async (name) => {
         const { size } = this.state;
-        const status = (name == "results") ? ["finished", "settled"] : ["pre_match", "live"];
+        const status = (name === "results") ? ["finished", "settled"] : ["pre_match", "live"];
 
         this.setState({ tab: name, status, isLoading: true });
 
         const matches = await getMatches({
             status, 
             size,
-            ...name == "results" && { begin_at : "all" }
+            ...name === "results" && { begin_at : "all" }
         });
 
         this.setState({ matches, isLoading: false });
@@ -282,10 +281,4 @@ class AllMatches extends Component {
     }
 }
 
-function mapStateToProps(state){
-    return {
-        profile : state.profile
-    };
-}
-
-export default connect(mapStateToProps)(AllMatches);
+export default AllMatches;

@@ -11,11 +11,6 @@ import LockTwoToneIcon from '@material-ui/icons/LockTwoTone';
 import { Tooltip } from "@material-ui/core";
 
 class BetSlipBox extends Component {
-
-    constructor(props){
-        super(props);
-    }
-
     async handleRemoveToBetSlip(id) {
         await this.props.dispatch(removeBetSlipFromResult(id));
     }
@@ -23,7 +18,7 @@ class BetSlipBox extends Component {
     async handleAddBetToBetSlip(amount) {
         const { bet, betSlip } = this.props;
         const newBetSlip = betSlip.map(b =>
-            b.id == bet.id ? { ...b, amount: amount } : b
+            b.id === bet.id ? { ...b, amount: amount } : b
         );
 
         await this.props.dispatch(setBetSlipResult(newBetSlip));
@@ -38,10 +33,10 @@ class BetSlipBox extends Component {
         const user = this.props.profile;
 
         const styles = classNames("section", "odds-section", {
-            "section-one" : type == "multiple"
+            "section-one" : type === "multiple"
         });
         const stylesControls = classNames("controls", {
-            "controls-one" : type == "multiple"
+            "controls-one" : type === "multiple"
         });
 
         const returnBet = bet.odd;
@@ -51,7 +46,7 @@ class BetSlipBox extends Component {
             <div styleName={marketActive ? "box" : "box with-border"}>
                 <div styleName="bet-header">
                     <div styleName="game-section">
-                        <img src={bet.image}/>
+                        <img src={bet.image} alt="Bet" />
                     </div>
                     <div>
                         <Typography variant={'x-small-body'} color={'grey'}>
@@ -71,9 +66,9 @@ class BetSlipBox extends Component {
                 </div>
                 <div styleName={stylesControls}>
                     {
-                        type == "simple"
+                        type === "simple"
                         ?
-                            bet.success != true
+                            !bet.success
                             ?
                                 <div styleName="section section-left">
                                     <InputNumber
@@ -97,7 +92,7 @@ class BetSlipBox extends Component {
                             null
                     }
                     {
-                        bet.success != true
+                        !bet.success
                         ?
                             <div styleName={styles}>
                                 <span styleName="group right">
@@ -112,7 +107,7 @@ class BetSlipBox extends Component {
                     }
                 </div>
                 {
-                    type == "simple"
+                    type === "simple"
                     ?
                         <div styleName="return">
                             { marketActive === false ? <Tooltip title="This game is blocked, please remove it" placement="top">
@@ -140,7 +135,6 @@ class BetSlipBox extends Component {
 function mapStateToProps(state){
     return {
         profile : state.profile,
-        ln: state.language,
         betSlip: state.betSlip
     };
 }

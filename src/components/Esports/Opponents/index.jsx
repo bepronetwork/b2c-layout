@@ -175,9 +175,9 @@ class Opponents extends Component {
                     </div>
                 </div>
                 {
-                    isScoreBoard === true
+                    isScoreBoard
                     ?
-                        status != "pre_match" 
+                        status !== "pre_match" 
                         ?
                         <div styleName="score">
                             <div><Typography variant={'small-body'} color={'white'} weight={"bold"}>{opponent1.score}</Typography></div>
@@ -236,8 +236,6 @@ class Opponents extends Component {
 
 function mapStateToProps(state){
     return {
-        profile : state.profile,
-        ln: state.language,
         betSlip: state.betSlip
     };
 }

@@ -141,7 +141,7 @@ class FlipGameCard extends Component {
                     {popularNumbers.map( item => 
                         {
                             if(!item.key){ return null}
-                            let color = item.key != 'Head' ? 'blue' : 'red';
+                            let color = item.key !== 'Head' ? 'blue' : 'red';
                             return(
                                 <div styleName='popular-number-row'>
                                     <div styleName={`popular-number-container ${color}-square`}>
@@ -223,7 +223,6 @@ class FlipGameCard extends Component {
 
 function mapStateToProps(state){
     return {
-        profile : state.profile,
         ln: state.language
     };
 }

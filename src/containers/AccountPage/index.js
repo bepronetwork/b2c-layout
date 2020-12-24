@@ -10,11 +10,6 @@ import { CopyText } from '../../copy';
 import _ from "lodash";
 
 class AccountPage extends Component {
-
-    constructor(props){
-        super(props);
-    }
-
     componentDidMount(){
         const {profile, onHandleLoginOrRegister} = this.props;
 

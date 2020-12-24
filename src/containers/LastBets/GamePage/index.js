@@ -167,16 +167,16 @@ class LastBets extends Component {
             options : Object.keys(copy.TABLE).map( (key) => {
 
                 let icon = null;
-                const value = new String(key).toLowerCase();
+                const value = String(key).toLowerCase();
 
                 if(value === "all_bets"){
-                    icon = latestWinsIcon === null ? <RewardIcon /> : <img src={latestWinsIcon} />;
+                    icon = latestWinsIcon === null ? <RewardIcon /> : <img src={latestWinsIcon} alt="Reward Icon" />;
                 }
                 else if(value === "my_bets"){
-                    icon = latestBetsIcon === null ? <CheckIcon /> : <img src={latestBetsIcon} />;
+                    icon = latestBetsIcon === null ? <CheckIcon /> : <img src={latestBetsIcon} alt="Check Icon" />;
                 }
                 else if(value === "biggest_win_bets"){
-                    icon = biggestWinsIcon === null ? <TrophyIcon /> : <img src={biggestWinsIcon} />;
+                    icon = biggestWinsIcon === null ? <TrophyIcon /> : <img src={biggestWinsIcon} alt="Trophy Icon" />;
                 }
 
                 return {
@@ -278,9 +278,9 @@ class LastBets extends Component {
                     rows={this.state[this.state.view].rows}
                     titles={this.state[this.state.view].titles}
                     fields={this.state[this.state.view].fields}
-                    showRealTimeLoading={this.state.view == "all_bets" ? true : false}
+                    showRealTimeLoading={this.state.view === "all_bets" ? true : false}
                     size={this.state.view_amount.value}
-                    games={games.filter(function(g) { return g.metaName == gameMetaName; }).map(function(g) { return g; })}
+                    games={games.filter(function(g) { return g.metaName === gameMetaName; }).map(function(g) { return g; })}
                     isLoading={isListLoading}
                     onTableDetails={this.state[this.state.view].onTableDetails}
                 /> 

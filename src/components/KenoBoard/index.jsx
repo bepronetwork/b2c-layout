@@ -5,15 +5,10 @@ import classNames from 'classnames';
 import "./index.css";
 
 class KenoBoard extends Component {
-
     static propTypes = {
         cards: PropTypes.array,
         isDetailsPage: PropTypes.bool
     };
-
-    constructor(props) {
-        super(props);
-    }
 
     handleCardClick = index => {
         const { onCardClick, isDetailsPage=false } = this.props;
