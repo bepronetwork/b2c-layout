@@ -57,50 +57,50 @@ class AccountPage extends Component {
                                     path: "account",
                                     title : copy.CONTAINERS.ACCOUNT.TITLE[6],
                                     container : <AccountTab onLogout={onLogout} />,
-                                    icon : userIcon === null ? <UserIcon/> : <img src={userIcon} />
+                                    icon : userIcon === null ? <UserIcon/> : <img src={userIcon} alt="User" />
                                 },
                                 {
                                     path: "security",
                                     title : copy.CONTAINERS.ACCOUNT.TITLE[7],
                                     container : <SecurityTab/>,
-                                    icon : securityIcon === null ? <ConfirmedIcon /> : <img src={securityIcon} />
+                                    icon : securityIcon === null ? <ConfirmedIcon /> : <img src={securityIcon} alt="Security" />
                                 },
                                 {
                                     path: "bets",
                                     title : copy.CONTAINERS.ACCOUNT.TITLE[5],
                                     container : <BetsTab onTableDetails={onTableDetails} isCurrentPath={this.isCurrentPath("bets")} />,
-                                    icon : betsIcon === null ? <BetsIcon /> : <img src={betsIcon} />
+                                    icon : betsIcon === null ? <BetsIcon /> : <img src={betsIcon} alt="Bets" />
                                 },
                                 {
                                     path: "wallet",
                                     title : copy.CONTAINERS.ACCOUNT.TITLE[8],
                                     container : <WalletTab isCurrentPath={this.isCurrentPath("wallet")} />,
-                                    icon : walletIcon === null ? <WalletIcon /> : <img src={walletIcon} />
+                                    icon : walletIcon === null ? <WalletIcon /> : <img src={walletIcon} alt="Wallet" />
                                 },
                                 {
                                     path: "deposits",
                                     title : virtual ? copy.CONTAINERS.ACCOUNT.TITLE[4] : copy.CONTAINERS.ACCOUNT.TITLE[1],
                                     container : <DepositTab isCurrentPath={this.isCurrentPath("deposits")} />,
-                                    icon : depositsIcon === null ? <DepositsIcon /> : <img src={depositsIcon} />
+                                    icon : depositsIcon === null ? <DepositsIcon /> : <img src={depositsIcon} alt="Deposits" />
                                 },
                                 {
                                     path: "withdraws",
                                     title : copy.CONTAINERS.ACCOUNT.TITLE[2],
                                     container : <WithdrawTab  isCurrentPath={this.isCurrentPath("withdraws")} />,
-                                    icon : withdrawIcon === null ? <WithdrawIcon /> : <img src={withdrawIcon} /> ,
+                                    icon : withdrawIcon === null ? <WithdrawIcon /> : <img src={withdrawIcon} alt="Withdraw" /> ,
                                     disabled: virtual
                                 },
                                 {
                                     path: "affiliate",
                                     title : copy.CONTAINERS.ACCOUNT.TITLE[3],
                                     container : <AffiliatesTab isCurrentPath={this.isCurrentPath("affiliate")} />,
-                                    icon : affiliatesIcon === null ? <UsersIcon /> : <img src={affiliatesIcon} />
+                                    icon : affiliatesIcon === null ? <UsersIcon /> : <img src={affiliatesIcon} alt="Affiliates" />
                                 },
                                 {
                                     path: "preferences",
                                     title : copy.CONTAINERS.ACCOUNT.TITLE[9],
                                     container : <SettingsTab/>,
-                                    icon : preferencesIcon === null ? <SettingsIcon /> : <img src={preferencesIcon} />
+                                    icon : preferencesIcon === null ? <SettingsIcon /> : <img src={preferencesIcon} alt="Preferences" />
                                 }
                             ]
                         }

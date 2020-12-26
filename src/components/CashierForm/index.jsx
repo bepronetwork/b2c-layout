@@ -37,13 +37,13 @@ class DepositWithdrawForm extends Component {
                 {
                     value: "deposit",
                     label: virtual ? copy.INDEX.TABS.LABEL[2] : copy.INDEX.TABS.LABEL[0],
-                    icon: depositIcon === null ? <DepositIcon /> : <img src={depositIcon} />
+                    icon: depositIcon === null ? <DepositIcon /> : <img src={depositIcon} alt="Deposit" />
                 },
                 {   
                     value: "withdraw", 
                     label: copy.INDEX.TABS.LABEL[1],
                     disabled: virtual,
-                    icon: withdrawIcon === null ? <WithdrawIcon /> : <img src={withdrawIcon} />
+                    icon: withdrawIcon === null ? <WithdrawIcon /> : <img src={withdrawIcon} alt="Withdraw" />
                 }
                 ]}
                 onSelect={this.handleTabChange}

@@ -157,7 +157,7 @@ class CasinoDetails extends Component {
                             <div styleName="game">
                                 <div>
                                     <h1 styleName="rule-h1">
-                                        <img styleName="image-icon" src={game.image_url}/> 
+                                        <img styleName="image-icon" src={game.image_url} alt="Game" /> 
                                         <Typography variant='small-body' color={"grey"} weight={"bold"}> {game.name} </Typography>
                                     </h1>
                                 </div>
@@ -184,7 +184,7 @@ class CasinoDetails extends Component {
                                             <Typography variant={'x-small-body'} color={`white`}>
                                                 {betAmount}
                                             </Typography>
-                                            <img src={currencyImage} width={16} height={16}/>
+                                            <img src={currencyImage} width={16} height={16} alt="Currency" />
                                         </div>
                                     </div>
                                     <div styleName="win">  
@@ -197,7 +197,7 @@ class CasinoDetails extends Component {
                                             <Typography variant={'x-small-body'} color={isWon ? `green` : `white`}>
                                                 {winAmount}
                                             </Typography>
-                                            <img src={currencyImage} width={16} height={16}/>
+                                            <img src={currencyImage} width={16} height={16} alt="Currency"/>
                                         </div>
                                     </div>
                                 </div>

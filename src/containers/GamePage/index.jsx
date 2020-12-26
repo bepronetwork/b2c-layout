@@ -207,7 +207,7 @@ class GamePage extends Component {
                         max={max}
                     />
                     <div styleName="functions">
-                        <div onClick={() => this.maximizeIframe(true)}>{ maximizeIcon === null ? <MaximizeIcon /> : <img src={maximizeIcon} /> }</div>
+                        <div onClick={() => this.maximizeIframe(true)}>{ maximizeIcon === null ? <MaximizeIcon /> : <img src={maximizeIcon} alt="Maximize" /> }</div>
                     </div>
                 </div>
                 {this.renderBox({title: providerName, game: providerGameName, info: `1 ${newCurrency.ticker} = ${newCurrency.value} ${currency.ticker}`})}

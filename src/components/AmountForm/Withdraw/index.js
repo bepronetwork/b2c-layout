@@ -91,7 +91,7 @@ class AmountWithdrawForm extends Component {
         if(!isLoaded){
             return (
                 <div>
-                    <img src={process.env.PUBLIC_URL + "/loading.gif"} styleName='loading-gif'/>
+                    <img src={process.env.PUBLIC_URL + "/loading.gif"} styleName='loading-gif' alt="Loading" />
                 </div>
             )
         }
@@ -145,7 +145,7 @@ class AmountWithdrawForm extends Component {
                 </div>
                 :
                 <div>
-                        <img src={process.env.PUBLIC_URL + "/logo.png"} styleName="building-img"/>
+                        <img src={process.env.PUBLIC_URL + "/logo.png"} styleName="building-img" alt="Bulding" />
                         <div styleName="building-info">
                             <Typography variant={'small-body'} color={`white`}>
                                 {copy.INDEX.TYPOGRAPHY.TEXT[0]}

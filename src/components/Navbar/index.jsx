@@ -116,7 +116,7 @@ class Navbar extends Component {
         return(
             <div styleName="logo">
                 <Link styleName='logo-image' to="/">
-                    <img styleName="image" alt="bet protocol logo" src={logo.id} />
+                    <img styleName="image" alt="BetProtocol" src={logo.id} />
                 </Link>
                 {this.renderCasinoSportsSelector()}
             </div>
@@ -191,7 +191,7 @@ class Navbar extends Component {
                                         !_.isEmpty(logoPoints)
                                         ?
                                             <div styleName="currency-icon">
-                                                <img src={logoPoints} height={20}/>
+                                                <img src={logoPoints} height={20} alt="Points" />
                                             </div>
                                         :
                                             null
@@ -227,7 +227,7 @@ class Navbar extends Component {
             <button styleName="profile" onClick={() => onAccount({history})} type="button">
                 <div styleName="label">
                     <div styleName="user-icon">
-                        { userIcon === null ? <UserIcon/> :  <img src={userIcon} /> }
+                        { userIcon === null ? <UserIcon/> :  <img src={userIcon} alt="User" /> }
                     </div>
                     <span>
                         <Typography color="white" variant={'small-body'}>{profile.getUsername()}</Typography>
@@ -242,7 +242,7 @@ class Navbar extends Component {
         return(
             <button styleName="settings" onClick={() => onSettingsMenu()} type="button">
                 <div styleName="settings-icon">
-                    <img src={getAppCustomization().theme === "light" ? nineDotsLight : nineDots} />
+                    <img src={getAppCustomization().theme === "light" ? nineDotsLight : nineDots} alt="Settings" />
                 </div>
             </button>
         )

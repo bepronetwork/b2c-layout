@@ -289,7 +289,7 @@ class RegisterForm extends Component {
             >
                 {isLoading 
                     ?
-                        <img src={loading} />
+                        <img src={loading} alt="Loading" />
                     :
                         <Typography color={skin.skin_type == "digital" ? 'secondary' : 'fixedwhite'}>{copy.INDEX.TYPOGRAPHY.TEXT[0]}</Typography>
                 }

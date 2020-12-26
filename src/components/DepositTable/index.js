@@ -84,7 +84,7 @@ class DepositTable extends Component {
                 return {
                     value : new String(key).toLowerCase(),
                     label : copy.TABLE[key].TITLE,
-                    icon : depositsIcon === null ? <DepositsIcon /> : <img src={depositsIcon} />
+                    icon : depositsIcon === null ? <DepositsIcon /> : <img src={depositsIcon} alt="Deposits" />
                 }
             }),
             deposits : {

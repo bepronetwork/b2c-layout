@@ -110,7 +110,7 @@ class SlotsGame extends React.Component {
                     svg-animation
                   </object>
                 ) : (
-                  <img src={images[num]} alt="" className={styles.iconStatic} />
+                  <img src={images[num]} alt="Slot" className={styles.iconStatic} />
                 );
               })}
             </div>
@@ -126,7 +126,7 @@ class SlotsGame extends React.Component {
                     svg-animation
                   </object>
                 ) : (
-                  <img src={images[num]} alt="" className={styles.iconStatic} />
+                  <img src={images[num]} alt="Slot" className={styles.iconStatic} />
                 );
               })}
             </div>
@@ -142,7 +142,7 @@ class SlotsGame extends React.Component {
                     svg-animation
                   </object>
                 ) : (
-                  <img src={images[num]} alt="" className={styles.iconStatic} />
+                  <img src={images[num]} alt="Slot" className={styles.iconStatic} />
                 );
               })}
             </div>
@@ -158,7 +158,7 @@ class SlotsGame extends React.Component {
                     svg-animation
                   </object>
                 ) : (
-                  <img src={images[num]} alt="" className={styles.iconStatic} />
+                  <img src={images[num]} alt="Slot" className={styles.iconStatic} />
                 );
               })}
             </div>
@@ -174,7 +174,7 @@ class SlotsGame extends React.Component {
                     svg-animation
                   </object>
                 ) : (
-                  <img src={images[num]} alt="" className={styles.iconStatic} />
+                  <img src={images[num]} alt="Slot" className={styles.iconStatic} />
                 );
               })}
             </div>

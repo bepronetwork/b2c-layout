@@ -52,7 +52,7 @@ class JackpotPot extends React.Component{
                     <div styleName="root">
                         <div styleName="main">
                             <div styleName="icon">
-                                { jackpotPotIcon === null ? <JackpotPotIcon /> : <img src={jackpotPotIcon} /> }
+                                { jackpotPotIcon === null ? <JackpotPotIcon /> : <img src={jackpotPotIcon} alt="Jackpot" /> }
                                 <div styleName="text">
                                     <Typography variant={'h4'} color={'white'} weight={"bold"}>
                                         JACKPOT
@@ -65,7 +65,7 @@ class JackpotPot extends React.Component{
 
                             <div styleName="right">
                                 <div styleName="value">   
-                                    <img src={currencyImage} width={"24"} heigth={"24"}/>
+                                    <img src={currencyImage} width={"24"} heigth={"24"} alt="Currency" />
                                     <Typography variant={'h4'} color={'white'} weight={"bold"}>
                                         {formatCurrency(pot)}
                                     </Typography>

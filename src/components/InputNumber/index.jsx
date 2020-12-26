@@ -88,7 +88,7 @@ export default class InputNumber extends Component {
         case "customized":
             return (
             <div styleName="icon">
-                <img src={custmomizedIcon} width={20} />
+                <img src={custmomizedIcon} width={20} alt="Custom" />
             </div>
             );
         default:

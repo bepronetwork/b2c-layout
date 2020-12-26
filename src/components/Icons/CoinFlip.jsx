@@ -9,7 +9,7 @@ export default class CoinFlip extends Component {
     }
     render() {
         return (
-            <img src={coins} styleName={'coinflip-icon'}/>
+            <img src={coins} styleName={'coinflip-icon'} alt="CoinFlip" />
             );
     }
 }

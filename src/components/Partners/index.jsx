@@ -19,10 +19,10 @@ const copy = CopyText.partnersIndex[ln];
               {copy.INDEX.TYPOGRAPHY.TEXT[0]}
             </Typography>
             <div styleName='container'>
-                <img styleName='partner-img' src={image_1}/>
-                <img styleName='partner-img' src={image_2}/>
-                <img styleName='partner-img' src={image_3}/>
-                <img styleName='partner-img' src={image_4}/>
+                <img styleName='partner-img' src={image_1} alt="Partner" />
+                <img styleName='partner-img' src={image_2} alt="Partner" />
+                <img styleName='partner-img' src={image_3} alt="Partner" />
+                <img styleName='partner-img' src={image_4} alt="Partner" />
             </div>
         </div>
     )

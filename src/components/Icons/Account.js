@@ -6,7 +6,7 @@ export default class Account extends Component {
  
     render() {
         return (
-            <img src={avatar} style={{width : 17, marginLeft : -2}}/>
+            <img src={avatar} style={{width : 17, marginLeft : -2}} alt="Avatar"/>
         );
     }
 }

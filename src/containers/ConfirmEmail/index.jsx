@@ -61,7 +61,7 @@ class ConfirmEmail extends Component {
                             <div styleName="box">
                                 <div styleName="confirm-title">
                                     <div styleName="confirm-left">
-                                        {emailIcon === null ? <EmailIcon/> : <img src={emailIcon} />}
+                                        {emailIcon === null ? <EmailIcon/> : <img src={emailIcon} alt="Email" />}
                                     </div>
                                     <div styleName="confirm-right">
                                         <Typography color="white" variant="small-body">

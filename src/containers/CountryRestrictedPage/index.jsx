@@ -53,7 +53,7 @@ class CountryRestrictedPage extends Component {
                             <div styleName="logo">
                                 {
                                     logo ?
-                                            <img styleName="image" alt="bet protocol logo" src={logo} />
+                                            <img styleName="image" alt="BetProtocol" src={logo} />
                                     :
                                             null
                                 }
@@ -65,7 +65,7 @@ class CountryRestrictedPage extends Component {
                             </div>
                             <div styleName="content">
                                     <span styleName="icon">
-                                        {countryIcon === null ? <CountryIcon/> : <img src={countryIcon} />}
+                                        {countryIcon === null ? <CountryIcon/> : <img src={countryIcon} alt="Country" />}
                                     </span>
                                     <Typography variant={'body'} weight={'bold'} color={'casper'}>
                                         {copy.SUBTITLE[0]}
@@ -78,7 +78,7 @@ class CountryRestrictedPage extends Component {
                                 </div>
                                 <div styleName="content">
                                     <span styleName="icon">
-                                        {affiliateReferralIcon === null ? <AffiliateIcon/> : <img src={affiliateReferralIcon} />}
+                                        {affiliateReferralIcon === null ? <AffiliateIcon/> : <img src={affiliateReferralIcon} alt="Affiliate Referral" />}
                                     </span>
                                     <Typography variant={'body'} weight={'bold'} color={'casper'}>
                                         {copy.SUBTITLE[1](appName)}
@@ -91,7 +91,7 @@ class CountryRestrictedPage extends Component {
                                 </div>
                                 <div styleName="content">
                                     <span styleName="icon">
-                                        {emailIcon === null ? <EmailIcon/> : <img src={emailIcon} />}
+                                        {emailIcon === null ? <EmailIcon/> : <img src={emailIcon} alt="Email" />}
                                     </span>
                                     <Typography variant={'body'} weight={'bold'} color={'casper'}>
                                         {copy.SUBTITLE[2]}

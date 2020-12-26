@@ -27,7 +27,7 @@ class GameCard extends Component {
                 <Link to={path} styleName="button">
                     <div styleName={imageStyles} style={{ background: background_url ? 'url('+background_url+') center center / cover no-repeat' : null}}>
                         <div styleName="icon">
-                            <img src={image_url} styleName='game-icon'/>
+                            <img src={image_url} styleName='game-icon' alt="Game" />
                         </div>
                     </div>
                 </Link>

@@ -44,7 +44,7 @@ class InformationBox extends React.Component{
                 <Row>
                     <Col xs={12} md={3}>
                         <div styleName='container-image'>
-                            <img src={image} styleName='payment-image'/>
+                            <img src={image} styleName='payment-image' alt="Payment" />
                         </div>
                     </Col>
                     <Col xs={12} md={9}>

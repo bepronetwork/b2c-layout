@@ -78,9 +78,9 @@ class Select extends React.Component{
                 {value.text}
                 {open
                 ? 
-                    arrowUpIcon === null ? skin == "digital" ? <ArrowUpIcon /> : <ArrowUp /> : <img src={arrowUpIcon} /> 
+                    arrowUpIcon === null ? skin == "digital" ? <ArrowUpIcon /> : <ArrowUp /> : <img src={arrowUpIcon} alt="Arrow Up" /> 
                 :
-                    arrowDownIcon === null ? skin == "digital" ? <ArrowDownIcon /> : <ArrowDown /> : <img src={arrowDownIcon} /> 
+                    arrowDownIcon === null ? skin == "digital" ? <ArrowDownIcon /> : <ArrowDown /> : <img src={arrowDownIcon} alt="Arrow Down" /> 
                 }
             </div>
         );

@@ -616,7 +616,7 @@ class InfiniteCarousel extends Component {
           style={this.getSlideStyles(isVisible)}
         >
           <noscript>{child}</noscript>
-          <img alt="placeholder" src={settings.placeholderImageSrc} />
+          <img alt="Placeholder" src={settings.placeholderImageSrc} />
         </li>
       );
     });

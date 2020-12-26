@@ -30,13 +30,13 @@ const ButtonIcon = ({
   const copyIcon = getIcon(27);
 
   const icons = {
-    rotate: rotateIcon === null ? <RotateIcon color={disabled ? "pickled-bluewood" : "casper"} /> : <img src={rotateIcon} />,
-    undo: undoIcon === null ? <UndoIcon color={disabled ? "pickled-bluewood" : "casper"} /> : <img src={undoIcon} />,
+    rotate: rotateIcon === null ? <RotateIcon color={disabled ? "pickled-bluewood" : "casper"} /> : <img src={rotateIcon} alt="Rotate" />,
+    undo: undoIcon === null ? <UndoIcon color={disabled ? "pickled-bluewood" : "casper"} /> : <img src={undoIcon} alt="Undo" />,
     sound: (
-      soundIcon === null ? <SoundIcon soundMode={soundMode} color={disabled ? "pickled-bluewood" : "casper"} /> : <img src={soundIcon} />
+      soundIcon === null ? <SoundIcon soundMode={soundMode} color={disabled ? "pickled-bluewood" : "casper"} /> : <img src={soundIcon} alt="Sound" />
     ),
     copy: (
-      copyIcon === null ? <CopyIcon color={disabled ? "pickled-bluewood" : "casper"} /> : <img src={copyIcon} />
+      copyIcon === null ? <CopyIcon color={disabled ? "pickled-bluewood" : "casper"} /> : <img src={copyIcon} alt="Copy" />
     )
   };
 

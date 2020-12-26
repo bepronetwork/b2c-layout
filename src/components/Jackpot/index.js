@@ -18,7 +18,7 @@ class Jackpot extends React.Component{
                     <Typography variant="h1" weight="semi-bold" color="fixedwhite">
                         {"Congratulations!!!"}
                     </Typography>
-                    {bigWinIcon === null ? <BigWinIcon /> : <img src={bigWinIcon} />}
+                    {bigWinIcon === null ? <BigWinIcon /> : <img src={bigWinIcon} alt="Big Win" />}
                     <Typography variant="h1" weight="semi-bold" color="fixedwhite">
                         {message}
                     </Typography>

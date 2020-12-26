@@ -84,7 +84,7 @@ class AffiliateLinkContainer extends React.Component{
                                     skin.skin_type === "digital"
                                     ?
                                         <div styleName="icon">
-                                            {copyIcon === null ? <CopyIcon /> : <img src={copyIcon} />}
+                                            {copyIcon === null ? <CopyIcon /> : <img src={copyIcon} alt="Copy" />}
                                         </div>
                                     :
                                         null

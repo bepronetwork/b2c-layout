@@ -74,7 +74,7 @@ class TabedContainer extends React.Component{
                                             !_.isEmpty(logoPoints)
                                             ?
                                                 <div styleName="currency-icon">
-                                                    <img src={logoPoints} width={20}/>
+                                                    <img src={logoPoints} width={20} alt="Points" />
                                                 </div>
                                             :
                                                 null
@@ -96,7 +96,7 @@ class TabedContainer extends React.Component{
                                         active: mainIndex === index
                                     });
                                     return (
-                                        <Nav.Item>
+                                        <Nav.Item key={item.title}>
                                             <Nav.Link as={Link} to={"/"+parent+"/"+item.path.toLowerCase()} eventKey={`item-${index}`}>
                                                 <div styleName={styles}>
                                                     <div styleName="icon">

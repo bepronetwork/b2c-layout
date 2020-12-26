@@ -11,7 +11,7 @@ class SlotsBox extends Component {
         <div styleName="container-blocks">
           {result.map(num => {
             return (
-              <img src={images[num.index]} alt="" styleName="iconStatic" />
+              <img src={images[num.index]} alt="Slots" styleName="iconStatic" />
             );
           })}
         </div>
