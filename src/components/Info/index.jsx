@@ -4,19 +4,17 @@ import { getIcon } from "../../lib/helpers";
 import "./index.css";
 
 export default class Info extends Component {
-
-  constructor(props){
+  constructor(props) {
     super(props);
     this.state = {
-      open: false
-    }
+      open: false,
+    };
   }
 
   onInfoClick = () => {
     const { open } = this.state;
-    this.setState({ open : !open });
+    this.setState({ open: !open });
   };
-
 
   render() {
     const { text } = this.props;
@@ -25,15 +23,18 @@ export default class Info extends Component {
 
     return (
       <div>
-        {
-          open == true
-          ?
-            [<span styleName="triangle"></span>, <div styleName="window"><Typography variant={'x-small-body'} color={'white'}>{text}</Typography></div>]
-          :
-            null
-        }
+        {open === true
+          ? [
+              <span styleName="triangle"></span>,
+              <div styleName="window">
+                <Typography variant={"x-small-body"} color={"white"}>
+                  {text}
+                </Typography>
+              </div>,
+            ]
+          : null}
         <span styleName="info" onClick={() => this.onInfoClick()}>
-            { infoIcon === null ? <InfoIcon /> : <img src={infoIcon} alt="Info" /> }
+          {infoIcon === null ? <InfoIcon /> : <img src={infoIcon} alt="Info" />}
         </span>
       </div>
     );

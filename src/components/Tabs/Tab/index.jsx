@@ -13,12 +13,12 @@ export default class Tab extends Component {
     name: PropTypes.string.isRequired,
     onClick: PropTypes.func,
     selected: PropTypes.bool,
-    style: PropTypes.oneOf(["full-background", "default"])
+    style: PropTypes.oneOf(["full-background", "default"]),
   };
 
   static defaultProps = {
     selected: false,
-    onClick: Function.prototype
+    onClick: Function.prototype,
   };
 
   handleClick = () => {
@@ -31,23 +31,24 @@ export default class Tab extends Component {
     document.documentElement.clientWidth < tabletBreakpoint;
 
   render() {
-    const { selected, label, icon, style, variant="small-body" } = this.props;
+    const { selected, label, icon, style, variant = "small-body" } = this.props;
     const { skin } = getAppCustomization();
     const classes = classNames("tab", {
       selected,
-      fullBackground : style === "full-background",
-      fullBackgroundSelected : style === "full-background" && selected
+      fullBackground: style === "full-background",
+      fullBackgroundSelected: style === "full-background" && selected,
     });
 
     return (
       <div styleName={classes}>
         <button onClick={this.handleClick} type="button">
           <div styleName="main">
-            <div styleName="icon">
-              { icon ? icon : null }
-            </div>
+            <div styleName="icon">{icon ? icon : null}</div>
             <div styleName="label">
-              <Typography variant={this.isMobileOrTablet() ? 'x-small-body' : variant} color={skin.skin_type == "digital" ? 'secondary' : 'white'}>
+              <Typography
+                variant={this.isMobileOrTablet() ? "x-small-body" : variant}
+                color={skin.skin_type === "digital" ? "secondary" : "white"}
+              >
                 {label}
               </Typography>
             </div>

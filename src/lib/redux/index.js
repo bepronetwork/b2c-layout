@@ -3,27 +3,31 @@ import { setStartLoadingProgress } from "../../redux/actions/startLoadingProgres
 import { setMessagePopup } from "../../redux/actions/popup";
 import { formatCurrency } from "../../utils/numberFormatation";
 
-export async function setStartLoadingProcessDispatcher(step){
-    await store.dispatch(setStartLoadingProgress({progress : step}));
+export async function setStartLoadingProcessDispatcher(step) {
+  await store.dispatch(setStartLoadingProgress({ progress: step }));
 }
 
-export async function setWonPopupMessageDispatcher(winAmount){
-    const state = store.getState();
-    const ticker = state.currency ? state.currency.ticker : null;
-    const amountToShow = (function(ticker) {
-        switch(ticker) {
-            case 'ETH':
-                return 1;
-            case 'BTC':
-                return 0.1;
-            case 'Gold':
-                return 1000;
-            default:
-                return 30;
-        }
-    });
-    
-    if (winAmount > amountToShow(ticker)) {
-        await store.dispatch(setMessagePopup(new String(`You won  ${formatCurrency(winAmount)} ${ticker}!`).toString()));
+export async function setWonPopupMessageDispatcher(winAmount) {
+  const state = store.getState();
+  const ticker = state.currency ? state.currency.ticker : null;
+  const amountToShow = function(ticker) {
+    switch (ticker) {
+      case "ETH":
+        return 1;
+      case "BTC":
+        return 0.1;
+      case "Gold":
+        return 1000;
+      default:
+        return 30;
     }
+  };
+
+  if (winAmount > amountToShow(ticker)) {
+    await store.dispatch(
+      setMessagePopup(
+        String(`You won  ${formatCurrency(winAmount)} ${ticker}!`).toString(),
+      ),
+    );
+  }
 }
