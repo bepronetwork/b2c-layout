@@ -3,266 +3,232 @@ import ArrowDown from "components/Icons/ArrowDown";
 import ArrowUp from "components/Icons/ArrowUp";
 import { Typography, ArrowDownIcon, ArrowUpIcon } from "components";
 import { map } from "lodash";
-import { formatCurrency } from "../../utils/numberFormatation";
+import { formatCurrency } from '../../utils/numberFormatation';
 import { connect } from "react-redux";
 import { getApp } from "../../lib/helpers";
 import { setCurrencyView } from "../../redux/actions/currency";
-import Tooltip from "@material-ui/core/Tooltip";
+import Tooltip from '@material-ui/core/Tooltip';
 import { withStyles } from "@material-ui/core/styles";
 import { getAppCustomization, getIcon } from "../../lib/helpers";
-import _ from "lodash";
+import _ from 'lodash';
 import "./index.css";
 
 const defaultProps = {
-  currencies: [],
-  currency: {},
-  open: false,
-};
+    currencies : [],
+    currency : {},
+    open: false
+}
 
 class CurrencySelector extends Component {
-  constructor(props) {
-    super(props);
-    this.state = { ...defaultProps };
-  }
-
-  componentDidMount() {
-    this.projectData(this.props);
-  }
-
-  UNSAFE_componentWillReceiveProps(props) {
-    this.projectData(props);
-  }
-
-  componentDidUpdate() {
-    const { open } = this.state;
-
-    if (open) {
-      document.addEventListener("mousedown", this.handleClickOutside);
-    } else {
-      document.removeEventListener("mousedown", this.handleClickOutside);
+    
+    constructor(props) {
+        super(props);
+        this.state = {  ...defaultProps };
     }
-  }
-
-  componentWillUnmount() {
-    document.removeEventListener("mousedown", this.handleClickOutside);
-  }
-
-  projectData = async (props) => {
-    const { profile, currency } = props;
-    const virtual = getApp().virtual;
-    var currencies = getApp().currencies.filter((c) => c.virtual === virtual);
-
-    if (!currencies || _.isEmpty(currencies) || currencies.length < 0) {
-      return;
+    
+    componentDidMount(){
+        this.projectData(this.props);
     }
-    currencies = currencies.map((c) => {
-      const w = profile.getWallet({ currency: c });
-      const wApp = getApp().wallet.find((w) => w.currency._id === c._id);
-      return {
-        ...c,
-        balance: _.isEmpty(w) ? 0 : w.playBalance,
-        image: _.isEmpty(wApp.image) ? c.image : wApp.image,
-      };
-    });
 
-    this.setState({
-      currencies,
-      currency: !_.isEmpty(currency) ? currency : currencies[0],
-    });
-  };
-
-  getOptions = () => {
-    const { profile } = this.props;
-    let { currencies } = this.state;
-
-    if (!currencies || _.isEmpty(currencies) || currencies.length < 0) {
-      return;
+    UNSAFE_componentWillReceiveProps(props){
+        this.projectData(props);
     }
-    currencies = currencies.map((c) => {
-      const w = profile.getWallet({ currency: c });
-      return {
-        value: c._id,
-        label: _.isEmpty(w)
-          ? 0
-          : w.bonusAmount > 0
-          ? formatCurrency(w.playBalance + w.bonusAmount)
-          : formatCurrency(w.playBalance),
-        icon: c.image,
-        currency: c,
-      };
-    });
 
-    return currencies;
-  };
+    componentDidUpdate() {
+        const { open } = this.state;
 
-  handleClickOutside = (event) => {
-    const isOutsideClick = !this.optionsRef.contains(event.target);
-    const isLabelClick = this.labelRef.contains(event.target);
-
-    if (isOutsideClick && !isLabelClick) {
-      this.setState({ open: false });
+        if (open) {
+            document.addEventListener("mousedown", this.handleClickOutside);
+        } else {
+            document.removeEventListener("mousedown", this.handleClickOutside);
+        }
     }
-  };
 
-  handleLabelClick = () => {
-    const { open } = this.state;
+    componentWillUnmount() {
+        document.removeEventListener("mousedown", this.handleClickOutside);
+    }
 
-    this.setState({ open: !open });
-  };
+    projectData = async (props) => {
+        const { profile, currency } = props;
+        const virtual = getApp().virtual;
+        var currencies = getApp().currencies.filter(c => c.virtual === virtual);
+        
+        if(!currencies || _.isEmpty(currencies) || currencies.length < 0){return}
+        currencies = currencies.map( 
+            c => {
+                const w = profile.getWallet({currency : c});
+                const wApp = getApp().wallet.find(w => w.currency._id === c._id);
+                return {
+                    ...c,
+                    balance : _.isEmpty(w) ? 0 : w.playBalance,
+                    image : _.isEmpty(wApp.image) ? c.image : wApp.image
+                }
+            }
+        );
 
-  renderLabel() {
-    const { open, currency } = this.state;
-    const { profile } = this.props;
+        this.setState({
+            currencies,
+            currency : !_.isEmpty(currency) ? currency : currencies[0]
+        })
+    }
 
-    if (_.isEmpty(currency)) return null;
+    getOptions = () => {
+        const { profile } = this.props;
+        let { currencies } = this.state;
+        
+        if(!currencies || _.isEmpty(currencies) || currencies.length < 0){return}
+        currencies = currencies.map( 
+            c => {
+                const w = profile.getWallet({currency : c});
+                return {
+                    value: c._id,
+                    label: _.isEmpty(w) ? 0 : w.bonusAmount > 0 ? formatCurrency(w.playBalance + w.bonusAmount) : formatCurrency(w.playBalance),
+                    icon: c.image,
+                    currency: c
+                }
+            }
+        )
 
-    const w = profile.getWallet({ currency });
-    const wApp = getApp().wallet.find((w) => w.currency._id === currency._id);
-    const icon = _.isEmpty(wApp.image) ? currency.image : wApp.image;
-    const skin = getAppCustomization().skin.skin_type;
-    const { colors } = getAppCustomization();
-    const secondaryColor = colors.find(({ type }) => type === "secondaryColor");
-    const SecondaryTooltip = withStyles({
-      tooltip: {
-        color: "white",
-        backgroundColor: secondaryColor.hex,
-      },
-    })(Tooltip);
-    const arrowUpIcon = getIcon(24);
-    const arrowDownIcon = getIcon(25);
+        return currencies;
+    };
 
-    return w.bonusAmount > 0 ? (
-      <SecondaryTooltip title={`Bonus: ${formatCurrency(w.bonusAmount)}`}>
-        <div styleName="label">
-          <div styleName="currency-icon">
-            <img src={icon} width={20} alt="Currency" />
-          </div>
-          <span>
-            <Typography color="white" variant={"small-body"}>
-              {formatCurrency(w.playBalance)}
-            </Typography>
-          </span>
-          {open ? (
-            arrowUpIcon === null ? (
-              skin === "digital" ? (
-                <ArrowUpIcon />
-              ) : (
-                <ArrowUp />
-              )
-            ) : (
-              <img src={arrowUpIcon} alt="Arrow Up" />
-            )
-          ) : arrowDownIcon === null ? (
-            skin === "digital" ? (
-              <ArrowDownIcon />
-            ) : (
-              <ArrowDown />
-            )
-          ) : (
-            <img src={arrowDownIcon} alt="Arrow Down" />
-          )}
-        </div>
-      </SecondaryTooltip>
-    ) : (
-      <div styleName="label">
-        <div styleName="currency-icon">
-          <img src={icon} width={20} alt="Currency" />
-        </div>
-        <span>
-          <Typography color="white" variant={"small-body"}>
-            {formatCurrency(w.playBalance)}
-          </Typography>
-        </span>
-        {open ? (
-          arrowUpIcon === null ? (
-            skin === "digital" ? (
-              <ArrowUpIcon />
-            ) : (
-              <ArrowUp />
-            )
-          ) : (
-            <img src={arrowUpIcon} alt="Arrow Up" />
-          )
-        ) : arrowDownIcon === null ? (
-          skin === "digital" ? (
-            <ArrowDownIcon />
-          ) : (
-            <ArrowDown />
-          )
-        ) : (
-          <img src={arrowDownIcon} alt="Arrow Down" />
-        )}
-      </div>
-    );
-  }
+    handleClickOutside = event => {
+        const isOutsideClick = !this.optionsRef.contains(event.target);
+        const isLabelClick = this.labelRef.contains(event.target);
 
-  renderOptionsLines = () => {
-    return map(this.getOptions(), ({ value, label, icon, currency }) => (
-      <button
-        styleName="option"
-        key={value}
-        id={value}
-        onClick={() => this.changeCurrency(currency)}
-        type="button"
-      >
-        <div styleName="currency-icon">
-          <img src={icon} width={20} alt="Currency" />
-        </div>
-        <Typography variant="small-body" color="white">
-          {label}
-        </Typography>
-      </button>
-    ));
-  };
+        if (isOutsideClick && !isLabelClick) {
+            this.setState({ open: false });
+        }
+    };
 
-  renderOptions() {
-    const { open } = this.state;
+    handleLabelClick = () => {
+        const { open } = this.state;
 
-    if (!open) return null;
+        this.setState({ open: !open });
+    };
 
-    return (
-      <div styleName="options">
-        <span styleName="triangle" />
-        {this.renderOptionsLines()}
-      </div>
-    );
-  }
+    renderLabel() {
+        const { open, currency } = this.state;
+        const { profile } = this.props;
 
-  changeCurrency = async (item) => {
-    await this.props.dispatch(setCurrencyView(item));
-    this.setState({ currency: item, open: false });
-  };
+        if (_.isEmpty(currency)) return null;
 
-  render() {
-    return (
-      <div styleName="root">
+        const w = profile.getWallet({ currency });
+        const wApp = getApp().wallet.find(w => w.currency._id === currency._id);
+        const icon = _.isEmpty(wApp.image) ? currency.image : wApp.image;
+        const skin = getAppCustomization().skin.skin_type;
+        const { colors } = getAppCustomization();
+        const secondaryColor = colors.find(({ type }) => type === "secondaryColor")
+        const SecondaryTooltip = withStyles({
+            tooltip: {
+              color: "white",
+              backgroundColor: secondaryColor.hex
+            }
+        })(Tooltip);
+        const arrowUpIcon = getIcon(24);
+        const arrowDownIcon = getIcon(25);
+
+        return (
+            w.bonusAmount > 0
+            ?
+                <SecondaryTooltip title={`Bonus: ${formatCurrency(w.bonusAmount)}`}>
+                    <div styleName="label">
+                        <div styleName="currency-icon">
+                            <img src={icon} width={20} alt="Currency" />
+                        </div>
+                        <span>
+                            <Typography color="white" variant={'small-body'}>{formatCurrency(w.playBalance)}</Typography>
+                        </span>                    
+                        {open 
+                        ? 
+                            arrowUpIcon === null ? skin === "digital" ? <ArrowUpIcon /> : <ArrowUp /> : <img src={arrowUpIcon} alt="Arrow Up" /> 
+                        : 
+                            arrowDownIcon === null ?skin === "digital" ? <ArrowDownIcon /> : <ArrowDown /> : <img src={arrowDownIcon} alt="Arrow Down" /> 
+                        }
+                    </div>
+                </SecondaryTooltip>
+            :
+                <div styleName="label">
+                    <div styleName="currency-icon">
+                        <img src={icon} width={20} alt="Currency" />
+                    </div>
+                    <span>
+                        <Typography color="white" variant={'small-body'}>{formatCurrency(w.playBalance)}</Typography>
+                    </span>                    
+                    {open 
+                    ? 
+                        arrowUpIcon === null ? skin === "digital" ? <ArrowUpIcon /> : <ArrowUp /> : <img src={arrowUpIcon} alt="Arrow Up" /> 
+                    : 
+                        arrowDownIcon === null ? skin === "digital" ? <ArrowDownIcon /> : <ArrowDown /> : <img src={arrowDownIcon} alt="Arrow Down" /> 
+                    }
+                </div>
+        );
+    }
+
+    renderOptionsLines = () => {
+        return map(this.getOptions(), ({ value, label, icon, currency }) => (
         <button
-          ref={(el) => {
-            this.labelRef = el;
-          }}
-          onClick={this.handleLabelClick}
-          type="button"
+            styleName="option"
+            key={value}
+            id={value}
+            onClick={()=>this.changeCurrency(currency)}
+            type="button"
         >
-          {this.renderLabel()}
+            <div styleName="currency-icon">
+                <img src={icon} width={20} alt="Currency" />
+            </div>
+            <Typography variant="small-body" color="white">{label}</Typography>
         </button>
+        ));
+    };
 
-        <div
-          ref={(el) => {
-            this.optionsRef = el;
-          }}
-        >
-          {this.renderOptions()}
+    renderOptions() {
+        const { open } = this.state;
+
+        if (!open) return null;
+
+        return (
+        <div styleName="options">
+            <span styleName="triangle" />
+            {this.renderOptionsLines()}
         </div>
-      </div>
-    );
-  }
+        );
+    }
+
+    changeCurrency = async (item) => {
+        await this.props.dispatch(setCurrencyView(item));
+        this.setState({ currency : item, open : false})
+    }
+
+    render() {
+        return (
+            <div styleName="root">
+                <button
+                    ref={el => {
+                        this.labelRef = el;
+                    }}
+                    onClick={this.handleLabelClick}
+                    type="button">
+                    {this.renderLabel()}
+                </button>
+
+                <div
+                    ref={el => {
+                        this.optionsRef = el;
+                    }}>
+                    {this.renderOptions()}
+                </div>
+            </div>
+        );
+    }
 }
 
-function mapStateToProps(state) {
-  return {
-    profile: state.profile,
-    currency: state.currency,
-  };
+function mapStateToProps(state){
+    return {
+        profile : state.profile,
+        currency : state.currency
+    };
 }
+
 
 export default connect(mapStateToProps)(CurrencySelector);
