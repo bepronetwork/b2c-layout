@@ -1,76 +1,64 @@
 import React, { Component } from "react";
 import "./index.css";
 import { connect } from "react-redux";
-import { compose } from "lodash/fp";
-import {
-  CurrencyDepositForm,
-  HorizontalStepper,
-  DepositForm,
-} from "components";
-import { CopyText } from "../../copy";
+import { compose } from 'lodash/fp';
+import { CurrencyDepositForm, HorizontalStepper, DepositForm } from 'components';
+import { CopyText } from '../../copy';
 import { getApp } from "../../lib/helpers";
 
 class Deposit extends Component {
-  closeDeposit = () => {
-    const { onClose } = this.props;
-    onClose();
-  };
+    closeDeposit = () => {
+        const { onClose } = this.props;
+        onClose();
+    }
 
-  render() {
-    const { deposit } = this.props;
-    const { currency, nextStep } = deposit;
-    const { ln } = this.props;
-    const copy = CopyText.cashierFormDeposit[ln];
-    const virtual = getApp().virtual;
+    render() {
+        const { deposit } = this.props;
+        const { currency, nextStep } = deposit;
+        const {ln} = this.props;
+        const copy = CopyText.cashierFormDeposit[ln];
+        const virtual = getApp().virtual;
 
-    return (
-      <div styleName="root">
-        <div styleName="deposit">
-          <div styleName="title">
-            <HorizontalStepper
-              showStepper={false}
-              nextStep={nextStep}
-              alertMessage={copy.DEPOSIT.HORIZONTAL_STEPPER.ALERT_MESSAGE[0]}
-              steps={[
-                {
-                  label: virtual
-                    ? copy.DEPOSIT.HORIZONTAL_STEPPER.LABEL[2]
-                    : copy.DEPOSIT.HORIZONTAL_STEPPER.LABEL[0],
-                  title: virtual
-                    ? copy.DEPOSIT.HORIZONTAL_STEPPER.TITLE[2]
-                    : copy.DEPOSIT.HORIZONTAL_STEPPER.TITLE[0],
-                  condition: currency !== "",
-                  content: <CurrencyDepositForm />,
-                },
-                {
-                  label: virtual
-                    ? copy.DEPOSIT.HORIZONTAL_STEPPER.LABEL[2]
-                    : copy.DEPOSIT.HORIZONTAL_STEPPER.LABEL[1],
-                  title: virtual
-                    ? copy.DEPOSIT.HORIZONTAL_STEPPER.LABEL[2] +
-                      " " +
-                      currency.ticker
-                    : `${copy.DEPOSIT.HORIZONTAL_STEPPER.TITLE[1]} ${currency.ticker}`,
-                  condition: currency !== "",
-                  content: <DepositForm />,
-                  last: true,
-                  showCloseButton: false,
-                  closeStepper: this.closeDeposit,
-                },
-              ]}
-            />
-          </div>
-        </div>
-      </div>
-    );
-  }
+        return (
+            <div styleName='root'>
+                <div styleName="deposit">
+                    <div styleName="title">
+                        <HorizontalStepper 
+                            showStepper={false}
+                            nextStep={nextStep}
+                            alertMessage={ copy.DEPOSIT.HORIZONTAL_STEPPER.ALERT_MESSAGE[0]}
+                            steps={[
+                                {
+                                    label : virtual ? copy.DEPOSIT.HORIZONTAL_STEPPER.LABEL[2] : copy.DEPOSIT.HORIZONTAL_STEPPER.LABEL[0],
+                                    title : virtual ? copy.DEPOSIT.HORIZONTAL_STEPPER.TITLE[2] : copy.DEPOSIT.HORIZONTAL_STEPPER.TITLE[0],
+                                    condition : (currency != ''),
+                                    content : <CurrencyDepositForm/>
+                                },
+                                {
+                                    label : virtual ? copy.DEPOSIT.HORIZONTAL_STEPPER.LABEL[2] : copy.DEPOSIT.HORIZONTAL_STEPPER.LABEL[1],
+                                    title : virtual ? copy.DEPOSIT.HORIZONTAL_STEPPER.LABEL[2]+' '+currency.ticker : `${copy.DEPOSIT.HORIZONTAL_STEPPER.TITLE[1]} ${currency.ticker}`,
+                                    condition : (currency != ''),
+                                    content : <DepositForm/>,
+                                    last : true,
+                                    showCloseButton : false,
+                                    closeStepper : this.closeDeposit
+                                }
+                            ]}
+                        />
+                    </div>
+               </div>   
+            </div>
+        );
+    }
 }
 
-function mapStateToProps(state) {
-  return {
-    deposit: state.deposit,
-    ln: state.language,
-  };
+
+
+function mapStateToProps(state){
+    return {
+        deposit : state.deposit,
+        ln : state.language
+    };
 }
 
 export default compose(connect(mapStateToProps))(Deposit);

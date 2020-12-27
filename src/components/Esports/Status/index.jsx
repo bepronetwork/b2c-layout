@@ -1,94 +1,89 @@
 import React, { Component } from "react";
 import { dateToHourAndMinute, formatToBeautyDate } from "../../../lib/helpers";
-import Countdown from "react-countdown";
-import { Typography, Button, LiveIcon } from "components";
+import Countdown from 'react-countdown';
+import { Typography, Button, LiveIcon } from 'components';
 import classNames from "classnames";
 import "./index.css";
-import moment from "moment";
+import moment from 'moment'
 
 export default class Status extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      date: null,
-      status: null,
-      hasLiveTransmition: false,
-      isMobile: false,
-    };
-  }
 
-  componentDidMount() {
-    this.projectData(this.props);
-  }
+    constructor(props) {
+        super(props);
+        this.state = {
+            date : null,
+            status : null,
+            hasLiveTransmition : false,
+            isMobile : false
+        };
+    }
 
-  UNSAFE_componentWillReceiveProps(props) {
-    this.projectData(props);
-  }
+    componentDidMount(){
+        this.projectData(this.props)
+    }
 
-  projectData = async (props) => {
-    const { hasLiveTransmition, status, date, isMobile } = props;
+    UNSAFE_componentWillReceiveProps(props){
+        this.projectData(props);
+    }
 
-    this.setState({
-      date,
-      status,
-      hasLiveTransmition,
-      isMobile,
-    });
-  };
+    projectData = async (props) => {
+        const { hasLiveTransmition,  status, date, isMobile } = props;
 
-  renderPreMatch() {
-    const { date } = this.state;
+        this.setState({
+            date,
+            status,
+            hasLiveTransmition,
+            isMobile
+        });
+    }
 
-    const renderer = ({ total }) => {
-      return (
-        <Typography color={"grey"} variant={"x-small-body"}>
-          {dateToHourAndMinute(moment().add(total, "milliseconds"))}
-        </Typography>
-      );
-    };
+    renderPreMatch() {
+        const { date } = this.state;
 
-    return (
-      <div styleName="match-schedule">
-        <span>
-          <Countdown date={date} renderer={renderer} />
-        </span>
-        <span>
-          <Typography color={"grey"} variant={"x-small-body"}>
-            {formatToBeautyDate(date)}
-          </Typography>
-        </span>
-      </div>
-    );
-  }
+        const renderer = ({ total }) => {
+            return (    
+                <Typography color={'grey'} variant={'x-small-body'}>{dateToHourAndMinute(moment().add(total, 'milliseconds'))}</Typography>
+            )
+        }
 
-  renderLive() {
-    const { hasLiveTransmition } = this.state;
+        return (
+            <div styleName="match-schedule">
+                <span>
+                    <Countdown date={date} renderer={renderer}/>
+                </span>
+                <span>
+                    <Typography color={'grey'} variant={'x-small-body'}>{formatToBeautyDate(date)}</Typography>
+                </span>
+            </div>
+        );
+    }
 
-    return (
-      <div styleName="transmition">
-        {hasLiveTransmition === true ? <LiveIcon /> : null}
-        <Button size={"x-small"} theme="primary">
-          <Typography color={"fixedwhite"} variant={"x-small-body"}>
-            Live
-          </Typography>
-        </Button>
-      </div>
-    );
-  }
+    renderLive() {
+        const { hasLiveTransmition } = this.state;
 
-  render() {
-    const { status, isMobile } = this.state;
+        return (
+            <div styleName="transmition">
+                {hasLiveTransmition == true ? <LiveIcon/> : null }
+                <Button size={'x-small'} theme="primary">
+                    <Typography color={'fixedwhite'} variant={'x-small-body'}>Live</Typography>
+                </Button>
+            </div>
+        )
+    }
 
-    const styles = classNames("live", {
-      "live-desktop": isMobile !== true,
-      "live-mobile": isMobile === true,
-    });
+    render() {
+        const { status, isMobile } = this.state;
 
-    return (
-      <div styleName={styles}>
-        {status === "pre_match" ? this.renderPreMatch() : null}
-        {status === "live" ? this.renderLive() : null}
-      </div>
-    );
-  }
+        const styles = classNames("live", {
+            "live-desktop" : isMobile != true,
+            "live-mobile": isMobile == true
+        });
+
+        return (
+            <div styleName={styles}>
+                { status == "pre_match" ? this.renderPreMatch() : null }
+                { status == "live" ? this.renderLive() : null }
+            </div>
+        );
+    }
 }

@@ -2,7 +2,12 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { uniqueId, isEmpty } from "lodash";
 import classNames from "classnames";
-import { Typography, RotateIcon, CrossIcon, InfiniteIcon } from "components";
+import {
+  Typography,
+  RotateIcon,
+  CrossIcon,
+  InfiniteIcon
+} from "components";
 import "./index.css";
 
 export default class InputNumber extends Component {
@@ -16,15 +21,9 @@ export default class InputNumber extends Component {
     step: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     value: PropTypes.number,
     precision: PropTypes.number,
-    icon: PropTypes.oneOf([
-      "rotate",
-      "bitcoin",
-      "cross",
-      "infinite",
-      "customized",
-    ]),
+    icon: PropTypes.oneOf(["rotate", "bitcoin", "cross", "infinite", "customized"]),
     disabled: PropTypes.bool,
-    custmomizedIcon: PropTypes.string,
+    custmomizedIcon: PropTypes.string
   };
 
   static defaultProps = {
@@ -38,7 +37,7 @@ export default class InputNumber extends Component {
     icon: null,
     disabled: false,
     value: 0,
-    custmomizedIcon: null,
+    custmomizedIcon: null
   };
 
   inputId = uniqueId();
@@ -48,7 +47,7 @@ export default class InputNumber extends Component {
 
     this.state = {
       focused: false,
-      value: props.value || props.min,
+      value: props.value || props.min
     };
   }
 
@@ -66,33 +65,33 @@ export default class InputNumber extends Component {
     if (!unit && !icon) return null;
 
     switch (icon) {
-      case "rotate":
-        return (
-          <div styleName="icon">
-            <RotateIcon />
-          </div>
-        );
-      case "bitcoin":
-        return null;
-      case "cross":
-        return (
-          <div styleName="icon">
-            <CrossIcon />
-          </div>
-        );
-      case "infinite":
-        return (
-          <div styleName="icon">
-            <InfiniteIcon />
-          </div>
-        );
-      case "customized":
-        return (
-          <div styleName="icon">
-            <img src={custmomizedIcon} width={20} alt="Custom" />
-          </div>
-        );
-      default:
+        case "rotate":
+            return (
+            <div styleName="icon">
+                <RotateIcon />
+            </div>
+            );
+        case "bitcoin":
+            return null;
+        case "cross":
+            return (
+            <div styleName="icon">
+                <CrossIcon />
+            </div>
+            );
+        case "infinite":
+            return (
+            <div styleName="icon">
+                <InfiniteIcon />
+            </div>
+            );
+        case "customized":
+            return (
+            <div styleName="icon">
+                <img src={custmomizedIcon} width={20} alt="Custom" />
+            </div>
+            );
+        default:
     }
 
     return (
@@ -104,18 +103,17 @@ export default class InputNumber extends Component {
     );
   }
 
-  handleChange = (event) => {
+  handleChange = event => {
     const { onChange, max, type } = this.props;
     let value = event.target.value;
 
-    if (type === "currency") {
+    if (type == "currency") {
       var regex = /^(\d+(?:[\.\,]\d{0,6})?)$/;
-      if (value && !regex.test(value)) {
-        return "";
-      }
+      if (value && !regex.test(value)) { return "" };
 
       value = value.replace(",", ".");
-    } else {
+    }
+    else {
       value = Number(value);
     }
 
@@ -148,7 +146,7 @@ export default class InputNumber extends Component {
     this.setState({ focused: true });
   };
 
-  handleWheel = (event) => {
+  handleWheel = event => {
     const { focused } = this.state;
 
     if (focused) event.preventDefault();
@@ -180,17 +178,18 @@ export default class InputNumber extends Component {
       disabled,
       icon,
       unit,
-      type,
+      type
     } = this.props;
     const { focused, value } = this.state;
 
     const inputClasses = classNames("input-container", {
       "is-focused": focused,
       disabled: disabled === true,
-      "with-icon": icon || unit,
+      "with-icon": icon || unit
     });
 
-    const parsedValue = precision > 0 ? Number(value) : value;
+    const parsedValue =
+      precision > 0 ? Number(value) : value;
 
     return (
       <div styleName="root">
@@ -207,7 +206,7 @@ export default class InputNumber extends Component {
               onFocus={this.handleFocus}
               onWheel={this.handleWheel}
               styleName="input"
-              type={type === "currency" ? "text" : "number"}
+              type={type == "currency" ? "text" : "number"}
               value={focused ? value : parsedValue}
               step={step}
               disabled={disabled}

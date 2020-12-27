@@ -21,7 +21,7 @@ const boardCellsNumbers = {
     29,
     31,
     33,
-    35,
+    35
   ],
   parityEven: [
     2,
@@ -41,7 +41,7 @@ const boardCellsNumbers = {
     30,
     32,
     34,
-    36,
+    36
   ],
   parityOdd: [
     1,
@@ -61,7 +61,7 @@ const boardCellsNumbers = {
     29,
     31,
     33,
-    35,
+    35
   ],
   row1: [3, 6, 9, 12, 15, 18, 21, 24, 27, 30, 33, 36],
   row2: [2, 5, 8, 11, 14, 17, 20, 23, 26, 29, 32, 35],
@@ -85,94 +85,83 @@ const boardCellsNumbers = {
     33,
     34,
     35,
-    36,
+    36
   ],
   range0112: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
   range1324: [13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24],
-  range2536: [25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36],
+  range2536: [25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36]
 };
 
 function getBetOnEachNumber(betHistory) {
-  const totalBetOnEachCell = {};
+    const totalBetOnEachCell = {};
 
-  forEach(betHistory, ({ cell, chip }) => {
-    totalBetOnEachCell[cell]
-      ? (totalBetOnEachCell[cell] += chip)
-      : (totalBetOnEachCell[cell] = chip);
-  });
+    forEach(betHistory, ({ cell, chip }) => {
+        totalBetOnEachCell[cell]
+        ? (totalBetOnEachCell[cell] += chip)
+        : (totalBetOnEachCell[cell] = chip);
+    });
 
-  let finalBetOnEachNumber = [];
+    let finalBetOnEachNumber = [];
 
-  forEach(totalBetOnEachCell, (value, key) => {
-    !boardCellsNumbers[key]
-      ? (finalBetOnEachNumber = [
-          ...finalBetOnEachNumber,
-          { place: Number(key), value },
-        ])
-      : (finalBetOnEachNumber = [
-          ...finalBetOnEachNumber,
-          ...map(boardCellsNumbers[key], (boardNumber) => {
-            return {
-              place: boardNumber,
-              value: value / boardCellsNumbers[key].length,
-            };
-          }),
-        ]);
-  });
-  let distributedBetOnEachNumber = finalBetOnEachNumber
-    .reduce((array, el) => {
-      var equalElIndex = array.findIndex(
-        (currentEl) => currentEl.place === el.place,
-      );
-      if (equalElIndex > -1) {
-        array[equalElIndex].value += parseFloat(el.value);
-        return array;
-      } else {
-        array.push(el);
-        return array;
-      }
-    }, [])
-    .filter((el) => el !== null);
+    forEach(totalBetOnEachCell, (value, key) => {
+        !boardCellsNumbers[key]
+        ? (finalBetOnEachNumber = [
+            ...finalBetOnEachNumber,
+            { place: Number(key), value }
+            ])
+        : (finalBetOnEachNumber = [
+            ...finalBetOnEachNumber,
+            ...map(boardCellsNumbers[key], boardNumber => {
+                return {
+                    place: boardNumber,
+                    value: value / boardCellsNumbers[key].length
+                };
+            })
+            ]);
+    });
+    let distributedBetOnEachNumber = finalBetOnEachNumber.reduce( (array, el) => {
+        var equalElIndex = array.findIndex( currentEl => (currentEl.place === el.place));
+        if(equalElIndex > -1){
+            array[equalElIndex].value +=  parseFloat(el.value);
+            return array;
+        }else{
+            array.push(el);
+            return array;
+        }
+    }, []).filter( el => el != null);
 
-  return distributedBetOnEachNumber;
+    return distributedBetOnEachNumber;
 }
 
 export default async function bet({ betHistory, betAmount, user }) {
-  try {
-    const betOnEachNumber = getBetOnEachNumber(betHistory);
-    const appInfo = JSON.parse(localStorage.getItem("appInfo"));
+    try {
+        const betOnEachNumber = getBetOnEachNumber(betHistory);
+        const appInfo = JSON.parse(localStorage.getItem("appInfo"));
+        
+        const game = find(appInfo.games, { name: "Roulette" });
+                
+        const response = await user.createBet({
+            amount: betAmount,
+            result: betOnEachNumber,
+            gameId: game._id
+        });
 
-    const game = find(appInfo.games, { name: "Roulette" });
+        await processResponse(response);
 
-    const response = await user.createBet({
-      amount: betAmount,
-      result: betOnEachNumber,
-      gameId: game._id,
-    });
+        const { winAmount, betAmount : amountBetted, _id : id, isWon, user_delta, totalBetAmount } = response.data.message;
+        const { index } = response.data.message.outcomeResultSpace;
 
-    await processResponse(response);
-
-    const {
-      winAmount,
-      betAmount: amountBetted,
-      _id: id,
-      isWon,
-      user_delta,
-      totalBetAmount,
-    } = response.data.message;
-    const { index } = response.data.message.outcomeResultSpace;
-
-    return {
-      result: index,
-      winAmount,
-      isWon,
-      betAmount: amountBetted,
-      id,
-      userDelta: user_delta,
-      totalBetAmount,
-    };
-  } catch (error) {
-    console.log(error);
-    throw error;
-  }
+        return {
+            result : index,
+            winAmount, 
+            isWon,
+            betAmount : amountBetted,
+            id,
+            userDelta : user_delta,
+            totalBetAmount
+        };
+    } catch (error) {
+        console.log(error);
+        throw error;
+    }
 }

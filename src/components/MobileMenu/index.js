@@ -41,12 +41,7 @@ class MobileMenu extends Component {
         {
           path: "/settings/account",
           copyValue: 6,
-          icon:
-            userIcon === null ? (
-              <UserIcon />
-            ) : (
-              <img src={userIcon} alt="User" />
-            ),
+          icon: userIcon === null ? <UserIcon /> : <img src={userIcon} alt="User" />,
         },
         {
           path: "/settings/security",
@@ -61,22 +56,12 @@ class MobileMenu extends Component {
         {
           path: "/settings/bets",
           copyValue: 5,
-          icon:
-            betsIcon === null ? (
-              <BetsIcon />
-            ) : (
-              <img src={betsIcon} alt="Bets" />
-            ),
+          icon: betsIcon === null ? <BetsIcon /> : <img src={betsIcon} alt="Bets" />,
         },
         {
           path: "/settings/wallet",
           copyValue: 8,
-          icon:
-            walletIcon === null ? (
-              <WalletIcon />
-            ) : (
-              <img src={walletIcon} alt="Wallet" />
-            ),
+          icon: walletIcon === null ? <WalletIcon /> : <img src={walletIcon} alt="Wallet" />,
         },
         {
           path: "/settings/deposits",
@@ -233,7 +218,7 @@ class MobileMenu extends Component {
             </div>
           );
         })}
-        {isValidPoints === true ? (
+        {isValidPoints == true ? (
           <div styleName="points">
             <div styleName="label-points">
               {!_.isEmpty(logoPoints) ? (

@@ -13,170 +13,145 @@ import { formatPercentage } from "../../utils/numberFormatation";
 import "./index.css";
 
 class WheelGameCard extends Component {
-  redColors = [1, 3, 5, 7, 9, 12, 14, 18, 16, 21, 23, 27, 25, 30, 32, 36, 34];
+    redColors = [1, 3, 5, 7, 9, 12, 14, 18, 16, 21, 23, 27, 25, 30, 32, 36, 34];
 
-  static propTypes = {
-    result: PropTypes.number,
-    bet: PropTypes.bool,
-    onResultAnimation: PropTypes.func.isRequired,
-  };
+    static propTypes = {
+        result: PropTypes.number,
+        bet: PropTypes.bool,
+        onResultAnimation: PropTypes.func.isRequired,
+    };
 
-  static defaultProps = {
-    result: null,
-    bet: false,
-  };
+    static defaultProps = {
+        result: null,
+        bet: false
+    };
 
-  state = {
-    rotating: null,
-  };
+    state = {
+        rotating: null,
+    };
 
-  componentDidMount() {
-    this.projectData(this.props);
-  }
-
-  projectData = async (props) => {
-    const { bet } = props;
-
-    if (bet === false) {
-      this.setPopularNumbers(props);
-    }
-  };
-
-  setPopularNumbers = async (props) => {
-    let popularNumbers = await getPopularNumbers({ size: 15 });
-    var gamePopularNumbers = find(popularNumbers, { game: props.game._id });
-    if (gamePopularNumbers) {
-      this.setState({
-        popularNumbers: gamePopularNumbers.numbers.sort(
-          (a, b) => b.resultAmount - a.resultAmount,
-        ),
-      });
-    }
-  };
-
-  handleAnimationEnd = () => {
-    const { onResultAnimation, bet } = this.props;
-    if (bet) {
-      onResultAnimation();
-    }
-  };
-
-  handleRouletteAnimation = (value) => {
-    const { rotating } = this.state;
-
-    if (rotating !== value) {
-      this.setState({ rotating: value });
-    }
-  };
-
-  renderPopularNumbers = ({ popularNumbers }) => {
-    const { options } = this.props;
-    const isLight = getAppCustomization().theme === "light";
-
-    if (!popularNumbers) {
-      return null;
+    componentDidMount(){
+        this.projectData(this.props);
     }
 
-    const totalAmount = popularNumbers.reduce((acc, item) => {
-      return acc + item.resultAmount;
-    }, 0);
-    let popularSpaces = options
-      .map((opt) => {
-        let resultAmount = popularNumbers.reduce((acc, item) => {
-          if (opt.placings.find((placing) => placing === item.key)) {
-            return acc + item.resultAmount;
-          } else {
-            return acc;
-          }
+    projectData = async (props) => {
+        const { bet } = props;
+
+        if(bet == false){
+            this.setPopularNumbers(props);
+        }
+    }
+
+    setPopularNumbers = async (props) => {
+        let popularNumbers = await getPopularNumbers({size : 15});
+        var gamePopularNumbers = find(popularNumbers, { game: props.game._id });
+        if(gamePopularNumbers){
+            this.setState({
+                popularNumbers : gamePopularNumbers.numbers.sort((a, b) => b.resultAmount - a.resultAmount )   
+            })    
+        }
+    }
+    
+    handleAnimationEnd = () => {
+        const { onResultAnimation, bet } = this.props;
+        if (bet){
+            onResultAnimation();
+        }
+    };
+
+    handleRouletteAnimation = value => {
+        const { rotating } = this.state;
+
+        if (rotating !== value) {
+            this.setState({ rotating: value })
+        }
+    };
+
+    renderPopularNumbers = ({popularNumbers}) => {
+        const { options } = this.props;
+        const isLight = getAppCustomization().theme === "light";
+        
+        if(!popularNumbers){return null}
+
+        const totalAmount = popularNumbers.reduce( (acc, item) => {
+            return acc+item.resultAmount;
         }, 0);
-        return {
-          resultAmount,
-          multiplier: opt.multiplier,
-          index: opt.index,
-        };
-      })
-      .filter((el) => el !== null)
-      .sort((a, b) => b.resultAmount - a.resultAmount);
-    return (
-      <div styleName="outer-popular-numbers">
-        <div styleName="inner-popular-numbers">
-          {popularSpaces.map((item) => {
-            return (
-              <div styleName="popular-number-row">
-                <div
-                  styleName={`popular-number-container multiplier-${String(
-                    parseInt(item.index),
-                  )} ${
-                    isLight
-                      ? ` multiplier-${String(parseInt(item.index))}-light`
-                      : ""
-                  }`}
-                >
-                  <Typography variant={"small-body"} color={"fixedwhite"}>
-                    {item.multiplier}
-                  </Typography>
-                </div>
-                <div styleName="popular-number-container-amount">
-                  <AnimationNumber
-                    number={formatPercentage(
-                      Numbers.toFloat((item.resultAmount / totalAmount) * 100),
+        let popularSpaces = options.map( opt => {
+            let resultAmount = popularNumbers.reduce( (acc, item) => {
+                if(opt.placings.find( placing => placing == item.key)){
+                    return acc+item.resultAmount;
+                }else{
+                    return acc;
+                }
+            }, 0);
+            return {
+                resultAmount,
+                multiplier : opt.multiplier,
+                index : opt.index
+            }
+        }).filter(el => el != null).sort((a, b) => b.resultAmount - a.resultAmount ) ;
+        return(
+            <div styleName='outer-popular-numbers'>
+                <div styleName='inner-popular-numbers'>
+                    {popularSpaces.map( item => 
+                        {
+                            return(
+                                <div styleName='popular-number-row'>
+                                    <div styleName={`popular-number-container multiplier-${new String(parseInt(item.index))} ${isLight ? ` multiplier-${new String(parseInt(item.index))}-light` : ''}`}>
+                                        <Typography variant={'small-body'} color={'fixedwhite'}>
+                                            {item.multiplier}
+                                        </Typography>       
+                                    </div>
+                                    <div styleName='popular-number-container-amount'>
+                                        <AnimationNumber number={formatPercentage(Numbers.toFloat(item.resultAmount/totalAmount*100))} variant={'small-body'} color={'white'} span={'%'}/>
+                                    </div>
+                                </div>
+                            )
+                        }
                     )}
-                    variant={"small-body"}
-                    color={"white"}
-                    span={"%"}
-                  />
                 </div>
-              </div>
-            );
-          })}
-        </div>
-      </div>
-    );
-  };
+            </div>
+        )
+    }
 
-  render() {
-    const {
-      result,
-      bet,
-      game,
-      inResultAnimation,
-      colors,
-      options,
-    } = this.props;
+    render() {
 
-    const { rotating, popularNumbers } = this.state;
-    const rootStyles = classNames("root", {
-      animation: rotating,
-    });
+        const {
+            result,
+            bet,
+            game,
+            inResultAnimation, 
+            colors, 
+            options 
+        } = this.props;
 
-    return (
-      <div styleName={rootStyles}>
-        {this.renderPopularNumbers({ popularNumbers })}
-        <div styleName="wheel">
-          <Wheel
-            bet={bet}
-            colors={colors}
-            inResultAnimation={inResultAnimation}
-            result={result}
-            game={game}
-            options={options}
-            rotating={rotating}
-            stopAnimation={this.handleAnimationEnd}
-            onAnimation={this.handleRouletteAnimation}
-          />
+        const { rotating, popularNumbers} = this.state;
+        const rootStyles = classNames("root", {
+        animation: rotating
+        });
+
+        return (
+        <div styleName={rootStyles}>
+            {this.renderPopularNumbers({popularNumbers})}
+            <div styleName="wheel">
+                <Wheel
+                    bet={bet}
+                    colors={colors}
+                    inResultAnimation={inResultAnimation}
+                    result={result}
+                    game={game}
+                    options={options}
+                    rotating={rotating}
+                    stopAnimation={this.handleAnimationEnd}
+                    onAnimation={this.handleRouletteAnimation}
+                />
+            </div>
+            <div styleName="board">
+                <WheelBox options={options} game={this.props.game} result={result} inResultAnimation={inResultAnimation} game={game}/>
+            </div>
         </div>
-        <div styleName="board">
-          <WheelBox
-            options={options}
-            game={this.props.game}
-            result={result}
-            inResultAnimation={inResultAnimation}
-            game={game}
-          />
-        </div>
-      </div>
-    );
-  }
+        );
+    }
 }
 
 export default WheelGameCard;

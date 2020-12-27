@@ -16,7 +16,7 @@ class LanguageSelector extends Component {
     super(props);
     this.state = {
       open: false,
-      languages: [],
+      languages: []
     };
   }
 
@@ -46,7 +46,7 @@ class LanguageSelector extends Component {
     this.setState({ languages });
   };
 
-  handleClickOutside = (event) => {
+  handleClickOutside = event => {
     const isOutsideClick = !this.optionsRef.contains(event.target);
     const isLabelClick = this.labelRef.contains(event.target);
 
@@ -61,12 +61,12 @@ class LanguageSelector extends Component {
     this.setState({ open: !open });
   };
 
-  changeLanguage = (item) => {
+  changeLanguage = item => {
     const { profile } = this.props;
     const { setLanguage } = this.context;
     const { languages, open } = this.state;
 
-    item = languages.find((language) => {
+    item = languages.find(language => {
       if (language.name.toLowerCase() === item.name.toLowerCase()) {
         return language;
       }
@@ -75,7 +75,7 @@ class LanguageSelector extends Component {
     if (isUserSet(profile)) {
       profile.getChat().changeLanguage({
         language: item.name,
-        channel_id: item.name.toLowerCase(),
+        channel_id: item.name.toLowerCase()
       });
     }
 
@@ -97,7 +97,7 @@ class LanguageSelector extends Component {
     const { onChange, size, color } = this.props;
     const { languages } = this.state;
 
-    return languages.map((option) => (
+    return languages.map(option => (
       <button
         styleName="option"
         key={option.name}
@@ -120,11 +120,11 @@ class LanguageSelector extends Component {
     if (!open) return null;
 
     const optionsStyles = classNames("options", {
-      expandBottom: expand === "bottom",
+      expandBottom: expand === "bottom"
     });
 
     const triangleStyles = classNames("triangle", {
-      triangleBottom: expand === "bottom",
+      triangleBottom: expand === "bottom"
     });
 
     return (
@@ -143,7 +143,7 @@ class LanguageSelector extends Component {
     const arrowUpIcon = getIcon(24);
     const arrowDownIcon = getIcon(25);
     const styles = classNames("item", {
-      itemHor: showArrow,
+      itemHor: showArrow
     });
 
     if (_.isEmpty(language)) {
@@ -153,7 +153,7 @@ class LanguageSelector extends Component {
     return (
       <div styleName="root" key="LanguageSelectorComponent">
         <button
-          ref={(el) => {
+          ref={el => {
             this.labelRef = el;
           }}
           onClick={this.handleLabelClick}
@@ -167,7 +167,7 @@ class LanguageSelector extends Component {
             {showArrow === true ? (
               open ? (
                 arrowUpIcon === null ? (
-                  skin === "digital" ? (
+                  skin == "digital" ? (
                     <ArrowUpIcon />
                   ) : (
                     <ArrowUp />
@@ -176,7 +176,7 @@ class LanguageSelector extends Component {
                   <img src={arrowUpIcon} alt="Arrow Up" />
                 )
               ) : arrowDownIcon === null ? (
-                skin === "digital" ? (
+                skin == "digital" ? (
                   <ArrowDownIcon />
                 ) : (
                   <ArrowDown />
@@ -188,7 +188,7 @@ class LanguageSelector extends Component {
           </span>
         </button>
         <div
-          ref={(el) => {
+          ref={el => {
             this.optionsRef = el;
           }}
         >
@@ -202,7 +202,7 @@ class LanguageSelector extends Component {
 function mapStateToProps(state) {
   return {
     profile: state.profile,
-    ln: state.language,
+    ln: state.language
   };
 }
 

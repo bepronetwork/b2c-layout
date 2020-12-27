@@ -12,7 +12,7 @@ class MultiplyMaxButton extends Component {
   static propTypes = {
     onResult: PropTypes.func.isRequired,
     onBetAmount: PropTypes.func.isRequired,
-    amount: PropTypes.number.isRequired,
+    amount: PropTypes.number.isRequired
   };
 
   constructor(props) {
@@ -20,14 +20,14 @@ class MultiplyMaxButton extends Component {
     this.handleClick = this.handleClick.bind(this);
   }
 
-  handleClick = (event) => {
+  handleClick = event => {
     const { profile, currency, onResult, amount, onBetAmount } = this.props;
     const { name } = event.currentTarget;
 
     if (_.isEmpty(profile)) {
       return null;
-    }
-
+    }    
+    
     const wallet = profile.getWallet({ currency });
     const balance = _.isEmpty(wallet) ? 0 : wallet.playBalance;
     const hadBonus =
@@ -36,7 +36,7 @@ class MultiplyMaxButton extends Component {
         : balance;
     const bonusPlusBalance = _.isEmpty(wallet) ? 0 : hadBonus;
 
-    const newAmount = gameOperations(name, amount, bonusPlusBalance);
+      const newAmount = gameOperations(name, amount, bonusPlusBalance);
 
     if (onBetAmount) {
       onBetAmount(newAmount);
@@ -55,7 +55,7 @@ class MultiplyMaxButton extends Component {
         <div styleName="container">
           <button
             name={0.5}
-            onClick={(event) => this.handleClick(event)}
+            onClick={event => this.handleClick(event)}
             styleName="button"
             type="button"
           >
@@ -63,7 +63,7 @@ class MultiplyMaxButton extends Component {
               <Typography
                 weight="semi-bold"
                 variant="small-body"
-                color={skin === "digital" ? "secondary" : "casper"}
+                color={skin == "digital" ? "secondary" : "casper"}
               >
                 ½
               </Typography>
@@ -71,7 +71,7 @@ class MultiplyMaxButton extends Component {
           </button>
           <button
             name={2}
-            onClick={(event) => this.handleClick(event)}
+            onClick={event => this.handleClick(event)}
             styleName="button"
             type="button"
           >
@@ -79,7 +79,7 @@ class MultiplyMaxButton extends Component {
               <Typography
                 weight="semi-bold"
                 variant="small-body"
-                color={skin === "digital" ? "secondary" : "casper"}
+                color={skin == "digital" ? "secondary" : "casper"}
               >
                 2×
               </Typography>
@@ -87,7 +87,7 @@ class MultiplyMaxButton extends Component {
           </button>
           <button
             name="max"
-            onClick={(event) => this.handleClick(event)}
+            onClick={event => this.handleClick(event)}
             styleName="button"
             type="button"
           >
@@ -95,7 +95,7 @@ class MultiplyMaxButton extends Component {
               <Typography
                 weight="semi-bold"
                 variant="x-small-body"
-                color={skin === "digital" ? "secondary" : "casper"}
+                color={skin == "digital" ? "secondary" : "casper"}
               >
                 {copy.INDEX.TYPOGRAPHY.TEXT[0]}
               </Typography>
@@ -111,7 +111,7 @@ function mapStateToProps(state) {
   return {
     profile: state.profile,
     ln: state.language,
-    currency: state.currency,
+    currency: state.currency
   };
 }
 

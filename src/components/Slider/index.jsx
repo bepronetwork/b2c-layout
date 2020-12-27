@@ -21,7 +21,7 @@ export default class Slider extends Component {
     result: PropTypes.number,
     disableControls: PropTypes.bool,
     onResultAnimation: PropTypes.func.isRequired,
-    isBetDetails: PropTypes.bool,
+    isBetDetails: PropTypes.bool
   };
 
   static defaultProps = {
@@ -30,7 +30,7 @@ export default class Slider extends Component {
     onChange: null,
     result: null,
     disableControls: false,
-    isBetDetails: false,
+    isBetDetails: false
   };
 
   constructor(props) {
@@ -40,59 +40,60 @@ export default class Slider extends Component {
       value: props.value,
       result: null,
       leftP: 0,
-      bet: {},
+      bet : {},
       oldLeftP: 0,
-      moving: false,
+      moving: false
     };
   }
 
-  static getDerivedStateFromProps(nextProps, prevState) {
-    if (nextProps.value !== prevState.value) {
-      return { value: nextProps.value };
+    static getDerivedStateFromProps(nextProps, prevState) {
+        if (nextProps.value !== prevState.value) {
+            return { value: nextProps.value };
+        }
+
+        if (nextProps.result !== prevState.result) {
+            let leftP = (prevState.container.clientWidth * nextProps.result) / 100;
+
+            leftP -= diamondwidth * 0.5;
+
+            let oldLeftP = (prevState.container.clientWidth * prevState.result) / 100;
+
+            oldLeftP -= diamondwidth * 0.5;
+            if (!nextProps.animating && (nextProps.bet.nonce != prevState.bet.nonce)) {
+                return {
+                    result: nextProps.result,
+                    bet : nextProps.bet,
+                    leftP,
+                    oldLeftP
+                };
+            }else{
+                return {
+                    result: nextProps.result,
+                    leftP
+                }
+            }
+
+        }
+
+        return {
+            result: null,
+            leftP: 0
+        };
     }
 
-    if (nextProps.result !== prevState.result) {
-      let leftP = (prevState.container.clientWidth * nextProps.result) / 100;
-
-      leftP -= diamondwidth * 0.5;
-
-      let oldLeftP = (prevState.container.clientWidth * prevState.result) / 100;
-
-      oldLeftP -= diamondwidth * 0.5;
-      if (!nextProps.animating && nextProps.bet.nonce !== prevState.bet.nonce) {
-        return {
-          result: nextProps.result,
-          bet: nextProps.bet,
-          leftP,
-          oldLeftP,
-        };
-      } else {
-        return {
-          result: nextProps.result,
-          leftP,
-        };
-      }
-    }
-
-    return {
-      result: null,
-      leftP: 0,
-    };
-  }
-
-  handleSlide = (props) => {
+  handleSlide = props => {
     const { value, ...restProps } = props;
 
     return <Handle value={value} {...restProps} />;
   };
 
-  handleChange = (type) => (value) => {
+  handleChange = type => value => {
     const { onChange } = this.props;
 
     this.setState({
       value,
       moving: type === "slider",
-      result: null,
+      result: null
     });
 
     if (onChange) onChange(value);
@@ -102,7 +103,7 @@ export default class Slider extends Component {
     this.setState({ moving: false });
   };
 
-  handleRef = (element) => {
+  handleRef = element => {
     const { container } = this.state;
 
     if (!container) {
@@ -256,9 +257,7 @@ export default class Slider extends Component {
 
         <div styleName="container">
           <div styleName="slider-container" ref={this.handleRef}>
-            {isBetDetails === true
-              ? this.renderBetDetailsResult()
-              : this.renderResult()}
+            {isBetDetails === true ? this.renderBetDetailsResult() : this.renderResult()}
             <div styleName="marker-0">
               <Typography weight="bold" variant="small-body" color="white">
                 0
