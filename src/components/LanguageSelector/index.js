@@ -167,7 +167,7 @@ class LanguageSelector extends Component {
             {showArrow === true ? (
               open ? (
                 arrowUpIcon === null ? (
-                  skin == "digital" ? (
+                  skin === "digital" ? (
                     <ArrowUpIcon />
                   ) : (
                     <ArrowUp />
@@ -176,7 +176,7 @@ class LanguageSelector extends Component {
                   <img src={arrowUpIcon} alt="Arrow Up" />
                 )
               ) : arrowDownIcon === null ? (
-                skin == "digital" ? (
+                skin === "digital" ? (
                   <ArrowDownIcon />
                 ) : (
                   <ArrowDown />

@@ -90,7 +90,7 @@ class NavigationBar extends Component {
     render() {
         const { tabs, open } = this.state;
         const styles = classNames("dropdown-content", {
-            "dropdown-content-open": open == true
+            "dropdown-content-open": open === true
         });
 
 

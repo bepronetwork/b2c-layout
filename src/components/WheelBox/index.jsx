@@ -17,9 +17,9 @@ class WheelBox extends Component {
         if(result){
             multiplierResult = game.resultSpace[result].multiplier;
         }
-        const wasSet = (multiplier == multiplierResult) && !inResultAnimation;
-        let styleName = `multiplier-${new String(index).toString().trim()}`;
-        styleName += isLight ? ` multiplier-${new String(index).toString().trim()}-light` : '';
+        const wasSet = (multiplier === multiplierResult) && !inResultAnimation;
+        let styleName = `multiplier-${String(index).toString().trim()}`;
+        styleName += isLight ? ` multiplier-${String(index).toString().trim()}-light` : '';
 
         return (
             <div styleName={`box ${styleName} ${wasSet ? 'no-transform' : ''} ${isLight ? 'box-light' : ''}`}>

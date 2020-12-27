@@ -105,14 +105,14 @@ class FlipGameOptions extends Component {
                     var totalProfit = 0, totalLoss = 0, wasWon = 0;
                     for( var i = 0; i < bets ; i++){
                         if(
-                            (profitStop == 0  || totalProfit <= profitStop) &&
-                            (lossStop == 0 || totalLoss <= lossStop)
+                            (profitStop === 0  || totalProfit <= profitStop) &&
+                            (lossStop === 0 || totalLoss <= lossStop)
                         ){
-                            if (i != 0) { await delay(2.5*1000); };
+                            if (i !== 0) { await delay(2.5*1000); };
                             let { winAmount } = await onBet({amount : betAmount, side});
                             totalProfit += (winAmount-betAmount);
-                            totalLoss += (winAmount == 0) ? -Math.abs(betAmount) : 0;
-                            wasWon = (winAmount != 0);
+                            totalLoss += (winAmount === 0) ? -Math.abs(betAmount) : 0;
+                            wasWon = (winAmount !== 0);
                             if(onWin && wasWon){ betAmount += Numbers.toFloat(betAmount*onWin/100) }; 
                             if(onLoss && !wasWon){ betAmount += Numbers.toFloat(betAmount*onLoss/100) }; 
                             await delay(5*1000);

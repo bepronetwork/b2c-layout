@@ -81,12 +81,12 @@ class BetSlip extends Component {
 
         let newBetSlip = betSlip;
 
-        if (tab == "simple") {
+        if (tab === "simple") {
             newBetSlip = betSlip.map(b =>
                 { return { ...b, bid: uuidv4() } }
             );
 
-            newBetSlip.filter(bet => bet.success != true).map(bet => {
+            newBetSlip.filter(bet => bet.success !== true).map(bet => {
                 websocket.emit("createBet", {
                     bid: bet.bid,
                     app: profile.app_id, 
@@ -103,9 +103,9 @@ class BetSlip extends Component {
                 });
             });
         }
-        else if (tab == "multiple") {
+        else if (tab === "multiple") {
             const bid = uuidv4();
-            newBetSlip = betSlip.filter(bet => bet.success != true).map(b =>
+            newBetSlip = betSlip.filter(bet => bet.success !== true).map(b =>
                 { return { ...b, bid } }
             );
 
@@ -134,23 +134,23 @@ class BetSlip extends Component {
         websocket.on("createBetReturn", (res) => {
             const bid = res.bid;
 
-            if(res.success == true) {
+            if(res.success === true) {
                 newBetSlip = newBetSlip.map(b =>
-                    b.bid == bid ? { ...b, success: res.success } : b
+                    b.bid === bid ? { ...b, success: res.success } : b
                 );
     
                 this.props.dispatch(setBetSlipResult(newBetSlip));
                 this.setState({ betSlip: newBetSlip });
     
-                if (tab == "simple") {
-                    const bet = newBetSlip.find(b => b.bid == bid);
+                if (tab === "simple") {
+                    const bet = newBetSlip.find(b => b.bid === bid);
                     
                     if(!_.isEmpty(bet)) {
                         profile.updateBalance({ userDelta: (bet.amount * -1)});
                     }
                 }
-                else if (tab == "multiple") {
-                    const bet = newBetSlip.find(b => b.bid == bid);
+                else if (tab === "multiple") {
+                    const bet = newBetSlip.find(b => b.bid === bid);
                     
                     if(!_.isEmpty(bet)) {
                         profile.updateBalance({ userDelta: (amount * -1)});
@@ -159,14 +159,14 @@ class BetSlip extends Component {
                 }
             }
             else {
-                const bet = newBetSlip.find(b => b.bid == bid);
+                const bet = newBetSlip.find(b => b.bid === bid);
 
                 if(!_.isEmpty(bet)) {
                     const { message } = res;
 
                     const errorMessage = message && !_.isEmpty(message) 
                     ? message 
-                    : (tab == "simple") ? "Error to bet on '" + bet.name + "' in the match '" + bet.title + "'." : "Error in one or more matches in the multiple bet."
+                    : (tab === "simple") ? "Error to bet on '" + bet.name + "' in the match '" + bet.title + "'." : "Error in one or more matches in the multiple bet."
                     
                     store.dispatch(setMessageNotification(errorMessage));
                 }
@@ -184,9 +184,9 @@ class BetSlip extends Component {
 
         if(_.isEmpty(betSlip)) { return false };
 
-        var valueArr = betSlip.filter(b => b.success != true).map(function(bet){ return bet.matchId });
+        var valueArr = betSlip.filter(b => b.success !== true).map(function(bet){ return bet.matchId });
         var isDuplicate = valueArr.some(function(bet, idx){ 
-            return valueArr.indexOf(bet) != idx
+            return valueArr.indexOf(bet) !== idx
         });
 
         return isDuplicate;
@@ -194,15 +194,15 @@ class BetSlip extends Component {
 
     isBetValid = () => {
         const { betSlip, amount, tab, isBetting } = this.state;
-        const isNotAllSuccessBet = _.isEmpty(betSlip) ? false : (betSlip.filter(b => b.success != true).length > 0);
+        const isNotAllSuccessBet = _.isEmpty(betSlip) ? false : (betSlip.filter(b => b.success !== true).length > 0);
         let isValid = false;
 
-        if(tab == "simple") {
+        if(tab === "simple") {
             const isNotFilledAllAmount = betSlip.filter(b => b.amount <= 0).length > 0;
 
             isValid = !isNotFilledAllAmount;
         }
-        else if(tab == "multiple") {
+        else if(tab === "multiple") {
             isValid = (amount > 0 && !this.hasMultipleBetOpponnetsInSameMatch());
         }
 
@@ -215,7 +215,7 @@ class BetSlip extends Component {
         let totalSimpleAmount = 0;
         let totalMultipleOdd = 1;
    
-        const isSuccessBet = _.isEmpty(betSlip) ? false : (betSlip.filter(b => b.success == true).length > 0);
+        const isSuccessBet = _.isEmpty(betSlip) ? false : (betSlip.filter(b => b.success === true).length > 0);
 
         const hasInvalidOdd = !_.isEmpty(betSlip) ? !!betSlip.find(bet => bet.marketActive !== undefined && bet.marketActive === false) : false;
 
@@ -263,11 +263,11 @@ class BetSlip extends Component {
                                 })}
                                 <div styleName="total-returns">
                                     {
-                                        tab == "multiple"
+                                        tab === "multiple"
                                         ?
                                             <div styleName="multiple-info">
                                                 {
-                                                    isSuccessBet == true 
+                                                    isSuccessBet === true 
                                                     ?
                                                         <Typography variant={'small-body'} color={'casper'}>
                                                             Your bet was done.
@@ -314,7 +314,7 @@ class BetSlip extends Component {
                                     }
                                 </div>
                                 {
-                                    tab == "multiple" && this.hasMultipleBetOpponnetsInSameMatch()
+                                    tab === "multiple" && this.hasMultipleBetOpponnetsInSameMatch()
                                     ?
                                         <div styleName="error">
                                             <Typography variant={'small-body'} color={'red'}>

@@ -15,8 +15,8 @@ class Toggle extends React.Component{
         const skin = getAppCustomization().skin.skin_type;
         
         const stylesOn = classNames("toggle", {
-            "toggleOn": checked && skin == "digital",
-            "toggleOff": !checked && skin == "digital"
+            "toggleOn": checked && skin === "digital",
+            "toggleOff": !checked && skin === "digital"
         });
         const stylesTextOff = classNames("toggle-text", {
             "tOff": !checked
@@ -28,10 +28,10 @@ class Toggle extends React.Component{
         return (
             <div styleName={stylesOn}>
                 {
-                    showText == true
+                    showText === true
                     ?
                         <div styleName={stylesTextOff}>
-                            <Typography variant={'x-small-body'} color={'fixedwhite'} weight={'semi-bold'}>{skin == "digital" ? 'OFF' : checked === true ? 'ON' : 'OFF'}</Typography>
+                            <Typography variant={'x-small-body'} color={'fixedwhite'} weight={'semi-bold'}>{skin === "digital" ? 'OFF' : checked === true ? 'ON' : 'OFF'}</Typography>
                         </div>
                     :
                         <div/>
@@ -48,7 +48,7 @@ class Toggle extends React.Component{
                     offlabel=" "
                     disabled={disabled === true ? true : false}/>
                 {
-                    skin == "digital" && showText == true
+                    skin === "digital" && showText === true
                     ?
                         <div styleName={stylesTextOn}>
                             <Typography variant={'x-small-body'} color={'fixedwhite'} weight={'semi-bold'}>{'ON'}</Typography>

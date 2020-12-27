@@ -163,10 +163,10 @@ class KenoGameCard extends Component {
         const first = arr[0];
         const second = arr[1];
 
-        if(first == 0 && second == 0) {
+        if(first === 0 && second === 0) {
             return 0;
         }
-        else if((first > 0 && second == 0) || first > 9) {
+        else if((first > 0 && second === 0) || first > 9) {
             return first;
         }
         else if(first > 0 && first < 10 && second > 0) {
@@ -229,81 +229,81 @@ class KenoGameCard extends Component {
 
     getGameProbablityNormalizer(probability, x, y){
         let ret = probability;
-        if(x == 1){
-            if(y == 0){ ret = 2.5; }
-            if(y == 1){ ret = 0.36363636363; }
-        }else if( x == 2){
-            if(y == 0){ ret = 0; }
-            if(y == 1){ ret = 0.55555555555; }
-            if(y == 2){ ret = 0.19607843137; }
-        }else if( x == 3){
-            if(y == 0){ ret = 0; }
-            if(y == 1){ ret = 0; }
-            if(y == 2){ ret = 0.35714285714; }
-            if(y == 3){ ret = 0.02; }
-        }else if( x == 4){
-            if(y == 0){ ret = 0; }
-            if(y == 1){ ret = 0; }
-            if(y == 2){ ret = 1/1.7; }
-            if(y == 3){ ret = 1/10; }
-            if(y == 4){ ret = 1/100; }
-        }else if( x == 5){
-            if(y == 0){ ret = 0; }
-            if(y == 1){ ret = 0; }
-            if(y == 2){ ret = 1/1.4; }
-            if(y == 3){ ret = 1/4; }
-            if(y == 4){ ret = 1/14; }
-            if(y == 5){ ret = 1/390; }
-        }else if( x == 6){
-            if(y == 0){ ret = 0; }
-            if(y == 1){ ret = 0; }
-            if(y == 2){ ret = 0; }
-            if(y == 3){ ret = 1/3; }
-            if(y == 4){ ret = 1/9; }
-            if(y == 5){ ret = 1/180; }
-            if(y == 6){ ret = 1/710; }
-        }else if( x == 7){
-            if(y == 0){ ret = 0; }
-            if(y == 1){ ret = 0; }
-            if(y == 2){ ret = 0; }
-            if(y == 3){ ret = 1/2; }
-            if(y == 4){ ret = 1/7; }
-            if(y == 5){ ret = 1/30; }
-            if(y == 6){ ret = 1/400; }
-            if(y == 7){ ret = 1/800; }
-        }else if( x == 8){
-            if(y == 0){ ret = 0; }
-            if(y == 1){ ret = 0; }
-            if(y == 2){ ret = 0; }
-            if(y == 3){ ret = 1/2; }
-            if(y == 4){ ret = 1/4; }
-            if(y == 5){ ret = 1/11; }
-            if(y == 6){ ret = 1/67; }
-            if(y == 7){ ret = 1/400; }
-            if(y == 8){ ret = 1/900; }
-        }else if( x == 9){
-            if(y == 0){ ret = 0; }
-            if(y == 1){ ret = 0; }
-            if(y == 2){ ret = 0; }
-            if(y == 3){ ret = 1/2; }
-            if(y == 4){ ret = 1/2.5; }
-            if(y == 5){ ret = 1/5; }
-            if(y == 6){ ret = 1/15; }
-            if(y == 7){ ret = 1/100; }
-            if(y == 8){ ret = 1/500; }
-            if(y == 9){ ret = 1/1000; }
-        }else if( x == 10){
-            if(y == 0){ ret = 0; }
-            if(y == 1){ ret = 0; }
-            if(y == 2){ ret = 0; }
-            if(y == 3){ ret = 1/1.6; }
-            if(y == 4){ ret = 1/2; }
-            if(y == 5){ ret = 1/4; }
-            if(y == 6){ ret = 1/7; }
-            if(y == 7){ ret = 1/26; }
-            if(y == 8){ ret = 1/100; }
-            if(y == 9){ ret = 1/500; }
-            if(y == 10){ ret = 1/1000; }
+        if(x === 1){
+            if(y === 0){ ret = 2.5; }
+            if(y === 1){ ret = 0.36363636363; }
+        }else if( x === 2){
+            if(y === 0){ ret = 0; }
+            if(y === 1){ ret = 0.55555555555; }
+            if(y === 2){ ret = 0.19607843137; }
+        }else if( x === 3){
+            if(y === 0){ ret = 0; }
+            if(y === 1){ ret = 0; }
+            if(y === 2){ ret = 0.35714285714; }
+            if(y === 3){ ret = 0.02; }
+        }else if( x === 4){
+            if(y === 0){ ret = 0; }
+            if(y === 1){ ret = 0; }
+            if(y === 2){ ret = 1/1.7; }
+            if(y === 3){ ret = 1/10; }
+            if(y === 4){ ret = 1/100; }
+        }else if( x === 5){
+            if(y === 0){ ret = 0; }
+            if(y === 1){ ret = 0; }
+            if(y === 2){ ret = 1/1.4; }
+            if(y === 3){ ret = 1/4; }
+            if(y === 4){ ret = 1/14; }
+            if(y === 5){ ret = 1/390; }
+        }else if( x === 6){
+            if(y === 0){ ret = 0; }
+            if(y === 1){ ret = 0; }
+            if(y === 2){ ret = 0; }
+            if(y === 3){ ret = 1/3; }
+            if(y === 4){ ret = 1/9; }
+            if(y === 5){ ret = 1/180; }
+            if(y === 6){ ret = 1/710; }
+        }else if( x === 7){
+            if(y === 0){ ret = 0; }
+            if(y === 1){ ret = 0; }
+            if(y === 2){ ret = 0; }
+            if(y === 3){ ret = 1/2; }
+            if(y === 4){ ret = 1/7; }
+            if(y === 5){ ret = 1/30; }
+            if(y === 6){ ret = 1/400; }
+            if(y === 7){ ret = 1/800; }
+        }else if( x === 8){
+            if(y === 0){ ret = 0; }
+            if(y === 1){ ret = 0; }
+            if(y === 2){ ret = 0; }
+            if(y === 3){ ret = 1/2; }
+            if(y === 4){ ret = 1/4; }
+            if(y === 5){ ret = 1/11; }
+            if(y === 6){ ret = 1/67; }
+            if(y === 7){ ret = 1/400; }
+            if(y === 8){ ret = 1/900; }
+        }else if( x === 9){
+            if(y === 0){ ret = 0; }
+            if(y === 1){ ret = 0; }
+            if(y === 2){ ret = 0; }
+            if(y === 3){ ret = 1/2; }
+            if(y === 4){ ret = 1/2.5; }
+            if(y === 5){ ret = 1/5; }
+            if(y === 6){ ret = 1/15; }
+            if(y === 7){ ret = 1/100; }
+            if(y === 8){ ret = 1/500; }
+            if(y === 9){ ret = 1/1000; }
+        }else if( x === 10){
+            if(y === 0){ ret = 0; }
+            if(y === 1){ ret = 0; }
+            if(y === 2){ ret = 0; }
+            if(y === 3){ ret = 1/1.6; }
+            if(y === 4){ ret = 1/2; }
+            if(y === 5){ ret = 1/4; }
+            if(y === 6){ ret = 1/7; }
+            if(y === 7){ ret = 1/26; }
+            if(y === 8){ ret = 1/100; }
+            if(y === 9){ ret = 1/500; }
+            if(y === 10){ ret = 1/1000; }
         }
         return ret;
     }
@@ -325,7 +325,7 @@ class KenoGameCard extends Component {
 
         for (let index = 0; index <= numberOfCardsPicked; index++) {
             const styles = classNames("hit", {
-                "highlight": index == numberOfDiamonds
+                "highlight": index === numberOfDiamonds
             });
             hits.push(<div styleName={styles} onMouseOver={() => this.handleChances(index)} onMouseOut={() => this.handleMouseOut()}><Typography variant={'x-small-body'} color={'grey'}>{`${index}x`}</Typography> <DiamondIcon/></div>);
         }
@@ -336,7 +336,7 @@ class KenoGameCard extends Component {
                     {hits}
                 </div>
                 {
-                    showChance == true  
+                    showChance === true  
                     ?
                         <div styleName="show-chance">
                             <div>

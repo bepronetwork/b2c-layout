@@ -218,7 +218,7 @@ class MobileMenu extends Component {
             </div>
           );
         })}
-        {isValidPoints == true ? (
+        {isValidPoints === true ? (
           <div styleName="points">
             <div styleName="label-points">
               {!_.isEmpty(logoPoints) ? (

@@ -46,7 +46,7 @@ class CurrencyWithdrawForm extends React.Component{
                     return (
                         <PaymentBox 
                             onClick={ () => this.changeCurrency(w.currency)}
-                            isPicked={new String(withdraw.currency._id).toString() == new String(w.currency._id).toString()}
+                            isPicked={String(withdraw.currency._id).toString() === String(w.currency._id).toString()}
                             id={`${w.currency.ticker}`}  
                             image={w.image ? w.image : w.currency.image}
                             type={`${w.currency.name}`} 

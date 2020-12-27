@@ -63,7 +63,7 @@ export default class Status extends Component {
 
         return (
             <div styleName="transmition">
-                {hasLiveTransmition == true ? <LiveIcon/> : null }
+                {hasLiveTransmition === true ? <LiveIcon/> : null }
                 <Button size={'x-small'} theme="primary">
                     <Typography color={'fixedwhite'} variant={'x-small-body'}>Live</Typography>
                 </Button>
@@ -75,14 +75,14 @@ export default class Status extends Component {
         const { status, isMobile } = this.state;
 
         const styles = classNames("live", {
-            "live-desktop" : isMobile != true,
-            "live-mobile": isMobile == true
+            "live-desktop" : isMobile !== true,
+            "live-mobile": isMobile === true
         });
 
         return (
             <div styleName={styles}>
-                { status == "pre_match" ? this.renderPreMatch() : null }
-                { status == "live" ? this.renderLive() : null }
+                { status === "pre_match" ? this.renderPreMatch() : null }
+                { status === "live" ? this.renderLive() : null }
             </div>
         );
     }

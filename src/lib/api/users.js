@@ -23,9 +23,9 @@ export async function register({ username, password, email, address, affiliateLi
         birthday: birthDate,
         country: userCountry.text,
         country_acronym: userCountry.value,
-        affiliateLink : (affiliateLink) ? new String(affiliateLink).toString() : ''
+        affiliateLink : (affiliateLink) ? String(affiliateLink).toString() : ''
     }
-    if(postData.affiliateLink == false){
+    if(postData.affiliateLink === false){
         delete postData.affiliateLink;
     }
 

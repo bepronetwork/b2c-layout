@@ -68,7 +68,7 @@ class Withdraw extends Component {
                                 {
                                     label : copy.WITHDRAW.HORIZONTAL_STEPPER.LABEL[0],
                                     title : copy.WITHDRAW.HORIZONTAL_STEPPER.TITLE[0],
-                                    condition : (currency != ''),
+                                    condition : (currency !== ''),
                                     content : <CurrencyWithdrawForm/>
                                 },
                                 {
@@ -81,7 +81,7 @@ class Withdraw extends Component {
                                 {
                                     label : copy.WITHDRAW.HORIZONTAL_STEPPER.LABEL[1],
                                     title : copy.WITHDRAW.HORIZONTAL_STEPPER.TITLE[1],
-                                    condition : (_id && (_id != ('' || null))),
+                                    condition : (_id && (_id !== ('' || null))),
                                     content : <WithdrawForm/>,
                                     last : true,
                                     showCloseButton : false,

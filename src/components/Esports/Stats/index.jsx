@@ -56,8 +56,8 @@ class Stats extends Component {
         const { team1, team2, hasPlayers } = props;
 
         this.setState({
-            stats1: hasPlayers == true ? await this.formatStatsByDate(team1.stats, stats1) : stats1,
-            stats2: hasPlayers == true ? await this.formatStatsByDate(team2.stats, stats2) : stats2
+            stats1: hasPlayers === true ? await this.formatStatsByDate(team1.stats, stats1) : stats1,
+            stats2: hasPlayers === true ? await this.formatStatsByDate(team2.stats, stats2) : stats2
         });
 
     }
@@ -71,9 +71,9 @@ class Stats extends Component {
             const beginDate = moment(s.serie.begin_at);
             const endDate = !_.isEmpty(s.serie.end_at) ? moment(s.serie.end_at) : null;
 
-            if(moment(oneYearAgoDate).isBefore(endDate) || (moment(oneYearAgoDate).isBefore(beginDate) && endDate == null)) {
+            if(moment(oneYearAgoDate).isBefore(endDate) || (moment(oneYearAgoDate).isBefore(beginDate) && endDate === null)) {
 
-                if(endDate == null || beginDate.month() == endDate.month()) {
+                if(endDate === null || beginDate.month() === endDate.month()) {
                     aggregatedStats = aggregatedStats.map(a =>
                         a.index === beginDate.month()
                           ? { ...a, 
@@ -101,7 +101,7 @@ class Stats extends Component {
                               a
                         );
                         
-                    } while (month != beginMonth &&  month != oneYearMonth);
+                    } while (month !== beginMonth &&  month !== oneYearMonth);
                 }
             }
         });

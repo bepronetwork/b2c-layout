@@ -117,7 +117,7 @@ class KenoPage extends Component {
 
         return (
             <KenoGameOptions
-                disableControls={disableControls || pickedCards.length == 0 || animating == true}
+                disableControls={disableControls || pickedCards.length === 0 || animating === true}
                 profile={profile}
                 onBet={this.handleBet}
                 game={this.state.game}

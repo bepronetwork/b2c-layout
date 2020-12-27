@@ -70,7 +70,7 @@ class HomePage extends Component {
                 <SubSections location={LOCATION.BEFORE_GAMES} />
                 <div styleName="container">
                     {
-                        skin == "digital"
+                        skin === "digital"
                         ?
                             <div styleName="title-betprotocol">
                                 <Typography variant="small-body" weight="semi-bold" color="white">

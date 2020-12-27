@@ -47,7 +47,7 @@ function getQueryVariable(variable)
         var vars = query.split("&");
         for (var i=0;i<vars.length;i++) {
             var pair = vars[i].split("=");
-        if(pair[0] == variable){return pair[1];}
+        if(pair[0] === variable){return pair[1];}
          }
          return(false);
 }
@@ -105,14 +105,14 @@ async function getGeo(){
 
 async function processResponse(response){
     try{
-        if(parseInt(response.data.status) != 200){
+        if(parseInt(response.data.status) !== 200){
             let { message } = response.data;
             if(!message){message = 'Technical Issues'}
             throw new Error(message)
         }
         return response.data.message
     }catch(err){
-        await store.dispatch(setMessageNotification(new String(err.message).toString()));
+        await store.dispatch(setMessageNotification(String(err.message).toString()));
         throw err;
     }
 }
@@ -206,7 +206,7 @@ function loadWheelOptions(game){
 
     for(var i = 0; i < game.resultSpace.length; i++){
         let resultSpace = game.resultSpace[i];
-        let optExists = options.find( opt => opt.multiplier == resultSpace.multiplier);
+        let optExists = options.find( opt => opt.multiplier === resultSpace.multiplier);
         if(!optExists){
             let color = resultSpaceColors[indexOptions].color;
             options.push({
@@ -237,7 +237,7 @@ function formatOpponentData(match, index, gameImage, odd) {
     const opponentId = match.opponents[index].opponent.id;
     const oddType = _.isEmpty(match.odds) ? [] : match.odds.winnerTwoWay.length > 0 ? match.odds.winnerTwoWay : match.odds.winnerThreeWay;
 
-    const opponentOdd = oddType.find(o => o.participant_id == opponentId);
+    const opponentOdd = oddType.find(o => o.participant_id === opponentId);
 
     let status;
 
@@ -254,11 +254,11 @@ function formatOpponentData(match, index, gameImage, odd) {
     const opponent = {
         type: _.isEmpty(match.odds) ? null : match.odds.winnerTwoWay.length > 0 ? "winnerTwoWay" : "winnerThreeWay",
         odd: opponentOdd,
-        status: odd && odd != null ? status : 'stable',
-        image: match.opponents[index].opponent.image_url != null ? match.opponents[index].opponent.image_url : gameImage,
+        status: odd && odd !== null ? status : 'stable',
+        image: match.opponents[index].opponent.image_url !== null ? match.opponents[index].opponent.image_url : gameImage,
         name: match.opponents[index].opponent.name,
         location: match.opponents[index].opponent.location,
-        score: match.results.find(r => r.team_id == opponentId).score,
+        score: match.results.find(r => r.team_id === opponentId).score,
         id: opponentId
     };
 
@@ -304,8 +304,8 @@ function formatDrawBet(drawId, odd, matchId, matchName, gameImage, amount, id) {
 function getIcon(index) {
     const { icons } = Cache.getFromCache("appInfo") ? Cache.getFromCache("appInfo").customization : {};
 
-    if(typeof icons.useDefaultIcons != "undefined" && icons.useDefaultIcons !== true) {
-        const icon = icons.ids.find(i => (i.position == index));
+    if(typeof icons.useDefaultIcons !== "undefined" && icons.useDefaultIcons !== true) {
+        const icon = icons.ids.find(i => (i.position === index));
         return icon ? icon.link : null;
     }
 

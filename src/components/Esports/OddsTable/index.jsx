@@ -61,9 +61,9 @@ class OddsTable extends Component {
         const images = require.context('assets/esports', true);
         const gameImage = images('./' + match.videogame.slug + '-ico.png');
 
-        if(match.odds != null && !_.isEmpty(match.odds)) {
+        if(match.odds !== null && !_.isEmpty(match.odds)) {
             const oddType = match.odds.winnerTwoWay.length > 0 ? match.odds.winnerTwoWay : match.odds.winnerThreeWay;
-            drawOdd = match.odds.winnerThreeWay.length > 0 ? oddType.find(o => o.participant_id == null) : null;
+            drawOdd = match.odds.winnerThreeWay.length > 0 ? oddType.find(o => o.participant_id === null) : null;
 
             opponent1 = formatOpponentData(match, 0, gameImage, opponent1.odd);
 
@@ -88,7 +88,7 @@ class OddsTable extends Component {
     async handleAddToBetSlip(bet) {
         const { betSlip } = this.props;
         let arrBets = _.isEmpty(betSlip) ? [] : betSlip;
-        //arrBets = arrBets.filter(bet => bet.success != true);
+        //arrBets = arrBets.filter(bet => bet.success !== true);
         arrBets.push(bet);
 
         await this.props.dispatch(setBetSlipResult(arrBets));
@@ -107,7 +107,7 @@ class OddsTable extends Component {
         const drawId = parseInt(opponent1.odd.participant_id + "" + opponent2.odd.participant_id);
 
         const mainStyles = classNames("bets-placar", {
-            "bets-placar-3" : drawOdd != null
+            "bets-placar-3" : drawOdd !== null
         });
 
         const isOpponent1Selected = !_.isEmpty(betSlip) ? betSlip.some(b => b.id === opponent1.odd.participant_id && b.matchId === matchId) : false;
@@ -129,7 +129,7 @@ class OddsTable extends Component {
 
         const opponent2Bet = formatOpponentBet(opponent2, matchId, matchName, 0, id);
 
-        const drawBet = drawOdd != null ? formatDrawBet(drawId, drawOdd, matchId, matchName, gameImage, 0, id) : null;
+        const drawBet = drawOdd !== null ? formatDrawBet(drawId, drawOdd, matchId, matchName, gameImage, 0, id) : null;
 
         return (
             <div styleName="bets-menu">
@@ -149,7 +149,7 @@ class OddsTable extends Component {
                             </span>
                         </div>
                         {
-                            drawOdd != null 
+                            drawOdd !== null 
                             ?
                                 <div styleName={drawStyles} onClick={() => isDrawSelected ? this.handleRemoveToBetSlip(drawId) : this.handleAddToBetSlip(drawBet)} style={ activeMarket ? buttonStyles.open : buttonStyles.locked }>
                                     <CloseIcon/>

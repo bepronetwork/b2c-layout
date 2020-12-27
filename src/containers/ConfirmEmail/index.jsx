@@ -31,7 +31,7 @@ class ConfirmEmail extends Component {
             let res = await confirmEmail(params.app, params.token);
             let { message, status } = res;
 
-            if(status != 200){
+            if(status !== 200){
                 this.setState({ confirmedMessage : message });
                 throw message
             };

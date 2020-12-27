@@ -97,7 +97,7 @@ export default class Wheel extends Component {
         const ONE_SPIN = 360/49.5;
         let SPINS =  3*ONE_SPIN;
         this.desiredSpin = 360;
-        let indexPlace = this.wheel_draw.findIndex( (e) => e == result);
+        let indexPlace = this.wheel_draw.findIndex( (e) => e === result);
         this.spinAngleStart = -SPINS - indexPlace*ONE_ARC_ANGLE + this.offset*ONE_ARC_ANGLE;
         this.offset = indexPlace;
         this.spinTime = 0;
@@ -157,9 +157,9 @@ export default class Wheel extends Component {
 
                 let place = options.find(opt => {
                     let placing = opt.placings.find( placing => {
-                        return placing == placeWheel;
+                        return placing === placeWheel;
                     })
-                    if(placing != null){return opt}
+                    if(placing !== null){return opt}
                 });
                 this.wheel.fillStyle = place.color;
                 this.wheel.beginPath();
@@ -197,9 +197,9 @@ export default class Wheel extends Component {
                 var angle = this.startAngle + i * this.arc;
                 let place = options.find(opt => {
                     let placing = opt.placings.find( placing => {
-                        return placing == i
+                        return placing === i
                     })
-                    if(placing != null){return opt}
+                    if(placing !== null){return opt}
                 });
 
                 this.wheel.fillStyle = place.color;
@@ -258,9 +258,9 @@ export default class Wheel extends Component {
         if(!result || !game.resultSpace || inResultAnimation){return <div styleName={containerStyles}/>}
 
         let multiplier = game.resultSpace[result].multiplier;
-        let colorMultiplier = options.find(opt => opt.multiplier == multiplier).index;
-        let styleName = `multiplier-${new String(colorMultiplier).toString().trim()}`;
-        styleName += isLight ? ` multiplier-${new String(colorMultiplier).toString().trim()}-light` : '';
+        let colorMultiplier = options.find(opt => opt.multiplier === multiplier).index;
+        let styleName = `multiplier-${String(colorMultiplier).toString().trim()}`;
+        styleName += isLight ? ` multiplier-${String(colorMultiplier).toString().trim()}-light` : '';
 
         return (
             <div styleName={containerStyles}>

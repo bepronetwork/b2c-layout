@@ -5,7 +5,7 @@ import { getApp } from "..";
 let analytics;
 let isAnalyticsActive = false;
 
-if(typeof getApp().analytics != "undefined") {
+if(typeof getApp().analytics !== "undefined") {
     isAnalyticsActive = getApp().analytics.isActive;
 
     if(isAnalyticsActive === true) {

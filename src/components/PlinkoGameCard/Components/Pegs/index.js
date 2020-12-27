@@ -23,7 +23,7 @@ class Pegs extends Component {
                             className = 'peg1'
                         };
                         const hasAnimationClass = this.props[`peg${i+1}`] ? 'peg-animated' : '';
-                        const resultClass = result ? i == result ? 'result' : 'result-no' : 'result';
+                        const resultClass = result ? i === result ? 'result' : 'result-no' : 'result';
 
                         return (
                             <div styleName={`peg ${className} ${hasAnimationClass} ${resultClass}`} >

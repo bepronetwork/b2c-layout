@@ -849,7 +849,7 @@ class InfiniteCarousel extends Component {
     let dots;
 
     if (settings.arrows && !singlePage && !hasScrollOnDevice) {
-      if (settings.prevArrow == null) {
+      if (settings.prevArrow === null) {
         prevArrow = (
           <InfiniteCarouselArrow carouselName={name} next={false} onClick={this.moveToPrevious} />
         );
@@ -860,7 +860,7 @@ class InfiniteCarousel extends Component {
         prevArrow = React.cloneElement(settings.prevArrow, prevArrowProps);
       }
 
-      if (settings.nextArrow == null) {
+      if (settings.nextArrow === null) {
         nextArrow = <InfiniteCarouselArrow carouselName={name} onClick={this.moveToNext} />;
       } else {
         const nextArrowProps = {

@@ -58,19 +58,19 @@ class Match extends Component {
 
         if(!isLoaded) { return null };
 
-        const result = bet.result.find(r => r.match.external_id == match.id);
+        const result = bet.result.find(r => r.match.external_id === match.id);
 
         const team1Styles = classNames("team", "team1", {
-            "selected" : result.participantId == opponent1.id
+            "selected" : result.participantId === opponent1.id
         });
 
         const team2Styles = classNames("team", "team2", {
-            "selected" : result.participantId == opponent2.id
+            "selected" : result.participantId === opponent2.id
         });
 
-        const isDraw = result.participantId == 0;
+        const isDraw = result.participantId === 0;
 
-        const stateOption = result.status == "pending" ? stateOptions.pending : result.status == "gain" ? stateOptions.won : stateOptions.lost;
+        const stateOption = result.status === "pending" ? stateOptions.pending : result.status === "gain" ? stateOptions.won : stateOptions.lost;
         const stateStyles = classNames("status", [stateOption.color]);
 
         return (
@@ -89,7 +89,7 @@ class Match extends Component {
                         <div><Typography variant={'small-body'} color={'white'} weight={"bold"}>{opponent1.score}</Typography></div>
                         <div styleName="vs">
                             {
-                                isDraw == true
+                                isDraw === true
                                 ?
                                     <div styleName="draw">
                                         <Typography variant={'x-small-body'} color={'white'}>DRAW</Typography>

@@ -33,7 +33,7 @@ export default class SubtleButton extends Component {
 
     return (
       <button type="button" name={name} styleName="root" onClick={onClick}>
-        <Typography color={skin == "digital" ? "secondary" : "white"} variant={variant}>
+        <Typography color={skin === "digital" ? "secondary" : "white"} variant={variant}>
           {children}
         </Typography>
       </button>

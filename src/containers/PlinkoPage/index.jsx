@@ -80,7 +80,7 @@ class PlinkoPage extends Component {
             let history = localStorage.getItem("plinko_variation_1History");
             const { resultSpace } = game;
             history = history ? JSON.parse(history) : [];
-            let value = resultSpace.find( r => r.formType == result);
+            let value = resultSpace.find( r => r.formType === result);
             history.unshift({ value : `${value.multiplier}x`, win : value.multiplier >= 1  });
             localStorage.setItem("plinko_variation_1History", JSON.stringify(history));
             this.setState({ result : value });

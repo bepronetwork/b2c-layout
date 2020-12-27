@@ -337,7 +337,7 @@ class App extends Component {
             this.setState({ error: null });
             const response = await login2FA(form);
             Cache.setToCache('Authentication', form);
-            if (response.status != 200) {
+            if (response.status !== 200) {
                 let has2FA = (response.status === 36) ? true : false;
                 this.setState({ error: response.status, has2FA });
             }else{

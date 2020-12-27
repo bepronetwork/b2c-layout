@@ -63,7 +63,7 @@ class MultiplyMaxButton extends Component {
               <Typography
                 weight="semi-bold"
                 variant="small-body"
-                color={skin == "digital" ? "secondary" : "casper"}
+                color={skin === "digital" ? "secondary" : "casper"}
               >
                 ½
               </Typography>
@@ -79,7 +79,7 @@ class MultiplyMaxButton extends Component {
               <Typography
                 weight="semi-bold"
                 variant="small-body"
-                color={skin == "digital" ? "secondary" : "casper"}
+                color={skin === "digital" ? "secondary" : "casper"}
               >
                 2×
               </Typography>
@@ -95,7 +95,7 @@ class MultiplyMaxButton extends Component {
               <Typography
                 weight="semi-bold"
                 variant="x-small-body"
-                color={skin == "digital" ? "secondary" : "casper"}
+                color={skin === "digital" ? "secondary" : "casper"}
               >
                 {copy.INDEX.TYPOGRAPHY.TEXT[0]}
               </Typography>

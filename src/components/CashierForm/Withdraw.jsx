@@ -80,7 +80,7 @@ class Withdraw extends Component {
                                 {
                                     label : copy.WITHDRAW.HORIZONTAL_STEPPER.LABEL[2],
                                     title : copy.WITHDRAW.HORIZONTAL_STEPPER.TITLE[2],
-                                    condition : (_id && (_id != ('' || null))),
+                                    condition : (_id && (_id !== ('' || null))),
                                     content : <WithdrawForm closeStepper={this.closeDeposit}/>,
                                     last : true,
                                     showCloseButton : false,

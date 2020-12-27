@@ -64,7 +64,7 @@ class Navbar extends Component {
 
                 if(points) {
                     let differencePoints = formatCurrency(points - this.state.currentPoints);
-                    if(differencePoints != 0){
+                    if(differencePoints !== 0){
                         opts.differencePoints = differencePoints;
                         opts.currentPoints = points;
                     }
@@ -104,7 +104,7 @@ class Navbar extends Component {
                     </SubtleButton>
                 </div>
                 <Button size="x-small" onClick={this.handleClick} name="register" theme="primary">
-                    <Typography color={skin == "digital" ? "secondary" : "fixedwhite"} variant="small-body">{copy.INDEX.TYPOGRAPHY.TEXT[0]}</Typography> 
+                    <Typography color={skin === "digital" ? "secondary" : "fixedwhite"} variant="small-body">{copy.INDEX.TYPOGRAPHY.TEXT[0]}</Typography> 
                 </Button>
             </div>
         )
@@ -134,7 +134,7 @@ class Navbar extends Component {
         const { colors } = getAppCustomization();
 
         const primaryColor = colors.find(c => {
-            return c.type == "primaryColor"
+            return c.type === "primaryColor"
         })
         const PrimaryTooltip = withStyles({
             tooltip: {
@@ -175,14 +175,14 @@ class Navbar extends Component {
                     }
                     <div styleName='button-deposit'>
                         <button onClick={() => onMenuItem({history, path : "/settings/wallet"})} type="submit" styleName="button">
-                            <Typography variant="small-body" color={skin == "digital" ? "secondary" : "fixedwhite"}>
+                            <Typography variant="small-body" color={skin === "digital" ? "secondary" : "fixedwhite"}>
                                 {virtual ? copy.INDEX.TYPOGRAPHY.TEXT[6] : copy.INDEX.TYPOGRAPHY.TEXT[2]}
                             </Typography>
                         </button>
                     </div>
                 </div>
                 {
-                    isValidPoints == true
+                    isValidPoints === true
                     ?
                         <div styleName="points">
                             <PrimaryTooltip title={`${formatCurrency(currentPoints)} ${namePoints}`}>
@@ -292,7 +292,7 @@ class Navbar extends Component {
         let { user, isTransparent } = this.state;
 
         const styles = classNames("top-menu", {
-            "top-menu-transparent": isTransparent == true
+            "top-menu-transparent": isTransparent === true
         });
 
         return (

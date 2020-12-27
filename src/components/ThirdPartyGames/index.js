@@ -51,7 +51,7 @@ class ThirdPartyGames extends Component {
             const provider = p.name;
             const partnerId = p.partner_id;
 
-            if(typeof p.list.games != "undefined") {
+            if(typeof p.list.games !== "undefined") {
                 p.list.games.map( g => { 
                     const icon = url + g.icon;
                     const game = {
@@ -154,7 +154,7 @@ class ThirdPartyGames extends Component {
             <div>
                 <div styleName="container">
                 {
-                    isLoading == true ?
+                    isLoading === true ?
                         <SkeletonTheme color={ getSkeletonColors().color} highlightColor={ getSkeletonColors().highlightColor}>
                             <div style={{opacity : '0.5'}}> 
                                 <div styleName="container-small carousel">
@@ -190,7 +190,7 @@ class ThirdPartyGames extends Component {
                                     slidesToScroll={2}
                                     slidesToShow={6}
                                     scrollOnDevice={true}
-                                    title={skin == "digital" ? copy.TITLE : copy.TITLE}
+                                    title={skin === "digital" ? copy.TITLE : copy.TITLE}
                                     >
                                     {
                                         providers.map(p => {
@@ -215,7 +215,7 @@ class ThirdPartyGames extends Component {
                 </div>
                 <div styleName="container">
                 {
-                    isLoadingGames == true ?
+                    isLoadingGames === true ?
                         <SkeletonTheme color={ getSkeletonColors().color} highlightColor={ getSkeletonColors().highlightColor}>
                             <div style={{opacity : '0.5'}}> 
                                 <div styleName="container-small">

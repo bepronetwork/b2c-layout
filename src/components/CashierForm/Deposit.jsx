@@ -31,13 +31,13 @@ class Deposit extends Component {
                                 {
                                     label : virtual ? copy.DEPOSIT.HORIZONTAL_STEPPER.LABEL[2] : copy.DEPOSIT.HORIZONTAL_STEPPER.LABEL[0],
                                     title : virtual ? copy.DEPOSIT.HORIZONTAL_STEPPER.TITLE[2] : copy.DEPOSIT.HORIZONTAL_STEPPER.TITLE[0],
-                                    condition : (currency != ''),
+                                    condition : (currency !== ''),
                                     content : <CurrencyDepositForm/>
                                 },
                                 {
                                     label : virtual ? copy.DEPOSIT.HORIZONTAL_STEPPER.LABEL[2] : copy.DEPOSIT.HORIZONTAL_STEPPER.LABEL[1],
                                     title : virtual ? copy.DEPOSIT.HORIZONTAL_STEPPER.LABEL[2]+' '+currency.ticker : `${copy.DEPOSIT.HORIZONTAL_STEPPER.TITLE[1]} ${currency.ticker}`,
-                                    condition : (currency != ''),
+                                    condition : (currency !== ''),
                                     content : <DepositForm/>,
                                     last : true,
                                     showCloseButton : false,

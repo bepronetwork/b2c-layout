@@ -34,7 +34,7 @@ class TeamsTable extends Component {
         let team1 = match.opponents[0].opponent;
         let team2 = match.opponents[1].opponent;
 
-        if (slug == "league-of-legends") {
+        if (slug === "league-of-legends") {
             const teamId1 = match.opponents[0].opponent.id;
             const teamId2 = match.opponents[1].opponent.id;
             team1 = await getTeam(teamId1, slug);

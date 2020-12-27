@@ -30,7 +30,7 @@ class SubSections extends Component {
         subSections = subSections.languages.find(s => s.language.isActivated === true && s.language.prefix === ln.toUpperCase());
 
         if(!_.isEmpty(subSections)){
-            subSections = subSections.ids.filter(s => s.location == location);
+            subSections = subSections.ids.filter(s => s.location === location);
         }
 
         this.setState({

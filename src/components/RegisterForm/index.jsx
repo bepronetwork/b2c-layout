@@ -254,7 +254,7 @@ class RegisterForm extends Component {
                     <div styleName="agree-main">
                         <div>
                             {
-                                skin.skin_type == "digital" 
+                                skin.skin_type === "digital" 
                                 ?
                                     <Toggle id={'isConfirmed'} checked={isConfirmed} onChange={() => this.onHandlerConfirm()} showText={false}/>
                                 :
@@ -291,7 +291,7 @@ class RegisterForm extends Component {
                     ?
                         <img src={loading} alt="Loading" />
                     :
-                        <Typography color={skin.skin_type == "digital" ? 'secondary' : 'fixedwhite'}>{copy.INDEX.TYPOGRAPHY.TEXT[0]}</Typography>
+                        <Typography color={skin.skin_type === "digital" ? 'secondary' : 'fixedwhite'}>{copy.INDEX.TYPOGRAPHY.TEXT[0]}</Typography>
                 }
             </Button>
             </div>

@@ -58,7 +58,7 @@ class SecurityTab extends React.Component{
             let res = await profile.resendConfirmEmail();
             let { message, status } = res.data;        
 
-            if(status != 200){
+            if(status !== 200){
                 store.dispatch(setMessageNotification(message));
                 throw message
             };
@@ -97,7 +97,7 @@ class SecurityTab extends React.Component{
                         </div>
                         <div styleName='value'>
                             <Button size={'x-small'} theme={'action'} disabled={isConfirmationSent} onClick={this.handleResendConfirmEmail} icon={emailIcon === null ? <EmailIcon/> : <img src={emailIcon} alt="Email" />}>
-                                <Typography variant={'small-body'} color={skin.skin_type == "digital" ? 'secondary' : 'fixedwhite'}>{copyConfirmEmail.CONTAINERS.APP.MODAL[2]}</Typography>
+                                <Typography variant={'small-body'} color={skin.skin_type === "digital" ? 'secondary' : 'fixedwhite'}>{copyConfirmEmail.CONTAINERS.APP.MODAL[2]}</Typography>
                             </Button>
                         </div>
                     </div>

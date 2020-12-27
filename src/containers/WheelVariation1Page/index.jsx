@@ -78,7 +78,7 @@ class WheelVariationOne extends React.Component {
 
         for(var i = 0; i < game.resultSpace.length; i++){
             let resultSpace = game.resultSpace[i];
-            let optExists = options.find( opt => opt.multiplier == resultSpace.multiplier);
+            let optExists = options.find( opt => opt.multiplier === resultSpace.multiplier);
             if(!optExists){
                 let color = resultSpaceColors[indexOptions].color;
                 options.push({

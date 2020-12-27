@@ -87,7 +87,7 @@ class WithdrawTable extends Component {
       isListLoading: false,
       options: Object.keys(copy.TABLE).map(key => {
         return {
-          value: new String(key).toLowerCase(),
+          value: String(key).toLowerCase(),
           label: copy.TABLE[key].TITLE,
           icon: withdrawIcon === null ? <WithdrawIcon /> : <img src={withdrawIcon} alt="Withdraw" />
         };

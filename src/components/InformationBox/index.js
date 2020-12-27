@@ -32,8 +32,8 @@ class InformationBox extends React.Component{
         } = this.props;
         const { closed } = this.state;
 
-        let isAlert = (type == 'alert');
-        let isInfo = (type == 'info');
+        let isAlert = (type === 'alert');
+        let isInfo = (type === 'info');
 
         let title = copy[type].title;
         if(closed){return null}

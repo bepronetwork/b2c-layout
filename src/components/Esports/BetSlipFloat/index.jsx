@@ -40,7 +40,7 @@ class BetSlipFloat extends Component {
                             <div styleName="total">
                                 <div>
                                     <Typography variant={'x-small-body'} color={'fixedwhite'}>
-                                        {betSlip !=  null && betSlip.length > 0 ? betSlip.length : 0}
+                                        {betSlip !==  null && betSlip.length > 0 ? betSlip.length : 0}
                                     </Typography>
                                 </div>
                             </div>

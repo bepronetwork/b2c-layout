@@ -26,7 +26,7 @@ export default class Info extends Component {
     return (
       <div>
         {
-          open == true
+          open === true
           ?
             [<span styleName="triangle"></span>, <div styleName="window"><Typography variant={'x-small-body'} color={'white'}>{text}</Typography></div>]
           :

@@ -241,7 +241,7 @@ const HorizontalStepper = (props) => {
                                         <Col md={showCloseButton ? 6 : 12}>   
                                             <div styleName='button-stepper'>
                                                 <Button disabled={activeStep === 0} onClick={handleBack} className={classes.button} theme="primary">
-                                                    <Typography variant={'small-body'} color={skin.skin_type == "digital" ? 'secondary' : 'fixedwhite'}> {copy.INDEX.TYPOGRAPHY.TEXT[1]}  </Typography>
+                                                    <Typography variant={'small-body'} color={skin.skin_type === "digital" ? 'secondary' : 'fixedwhite'}> {copy.INDEX.TYPOGRAPHY.TEXT[1]}  </Typography>
                                                 </Button>
                                             </div>
                                         </Col>
@@ -261,7 +261,7 @@ const HorizontalStepper = (props) => {
                                                     className={classes.button}
                                                     theme="primary"
                                                 >
-                                                    <Typography  variant={'small-body'} color={skin.skin_type == "digital" ? 'secondary' : 'fixedwhite'}> {copy.INDEX.TYPOGRAPHY.TEXT[2]} </Typography>
+                                                    <Typography  variant={'small-body'} color={skin.skin_type === "digital" ? 'secondary' : 'fixedwhite'}> {copy.INDEX.TYPOGRAPHY.TEXT[2]} </Typography>
                                                 </Button>
                                             </div>
                                         </Col>
@@ -282,7 +282,7 @@ const HorizontalStepper = (props) => {
                                             <Col md={6}>   
                                                 <div styleName='button-stepper'>
                                                     <Button disabled={activeStep === 0} onClick={handleBack} className={classes.button} theme="primary">
-                                                        <Typography variant={'small-body'} color={skin.skin_type == "digital" ? 'secondary' : 'fixedwhite'}> {copy.INDEX.TYPOGRAPHY.TEXT[3]} </Typography>
+                                                        <Typography variant={'small-body'} color={skin.skin_type === "digital" ? 'secondary' : 'fixedwhite'}> {copy.INDEX.TYPOGRAPHY.TEXT[3]} </Typography>
                                                     </Button>
                                                 </div>
                                             </Col>
@@ -299,7 +299,7 @@ const HorizontalStepper = (props) => {
                                                 className={classes.button}
                                                 theme="primary"
                                             >
-                                                <Typography  variant={'small-body'} color={skin.skin_type == "digital" ? 'secondary' : 'fixedwhite'}>{nextButtonLabel ? nextButtonLabel : copy.INDEX.TYPOGRAPHY.TEXT[4]} </Typography>
+                                                <Typography  variant={'small-body'} color={skin.skin_type === "digital" ? 'secondary' : 'fixedwhite'}>{nextButtonLabel ? nextButtonLabel : copy.INDEX.TYPOGRAPHY.TEXT[4]} </Typography>
                                             </Button>      
                                         </div>               
                                     </Col>
@@ -316,7 +316,7 @@ const HorizontalStepper = (props) => {
                                                 className={classes.button}
                                                 theme="primary"
                                             >
-                                                <Typography  variant={'small-body'} color={skin.skin_type == "digital" ? 'secondary' : 'fixedwhite'}>{nextButtonLabel ? nextButtonLabel : copy.INDEX.TYPOGRAPHY.TEXT[5]} </Typography>
+                                                <Typography  variant={'small-body'} color={skin.skin_type === "digital" ? 'secondary' : 'fixedwhite'}>{nextButtonLabel ? nextButtonLabel : copy.INDEX.TYPOGRAPHY.TEXT[5]} </Typography>
                                             </Button>      
                                         </div>               
                                     </Col>

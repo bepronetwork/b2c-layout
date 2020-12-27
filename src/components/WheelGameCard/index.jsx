@@ -37,7 +37,7 @@ class WheelGameCard extends Component {
     projectData = async (props) => {
         const { bet } = props;
 
-        if(bet == false){
+        if(bet === false){
             this.setPopularNumbers(props);
         }
     }
@@ -78,7 +78,7 @@ class WheelGameCard extends Component {
         }, 0);
         let popularSpaces = options.map( opt => {
             let resultAmount = popularNumbers.reduce( (acc, item) => {
-                if(opt.placings.find( placing => placing == item.key)){
+                if(opt.placings.find( placing => placing === item.key)){
                     return acc+item.resultAmount;
                 }else{
                     return acc;
@@ -89,7 +89,7 @@ class WheelGameCard extends Component {
                 multiplier : opt.multiplier,
                 index : opt.index
             }
-        }).filter(el => el != null).sort((a, b) => b.resultAmount - a.resultAmount ) ;
+        }).filter(el => el !== null).sort((a, b) => b.resultAmount - a.resultAmount ) ;
         return(
             <div styleName='outer-popular-numbers'>
                 <div styleName='inner-popular-numbers'>
@@ -97,7 +97,7 @@ class WheelGameCard extends Component {
                         {
                             return(
                                 <div styleName='popular-number-row'>
-                                    <div styleName={`popular-number-container multiplier-${new String(parseInt(item.index))} ${isLight ? ` multiplier-${new String(parseInt(item.index))}-light` : ''}`}>
+                                    <div styleName={`popular-number-container multiplier-${String(parseInt(item.index))} ${isLight ? ` multiplier-${String(parseInt(item.index))}-light` : ''}`}>
                                         <Typography variant={'small-body'} color={'fixedwhite'}>
                                             {item.multiplier}
                                         </Typography>       

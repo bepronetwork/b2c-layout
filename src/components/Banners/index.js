@@ -65,7 +65,7 @@ class Banners extends Component {
                         const textStyles = classNames("text", { "text-full": isFullWidth, "no-text": isFullWidth && !banner.title && !banner.subtitle });
                         return (
                             <Carousel.Item key={uniqueId("banner-")}>
-                                <div styleName={!banner.title && !banner.subtitle ? "banner-without-text" : bannerStyles} style={{background: isFullWidth == true || (isFullWidth == false && !banner.title && !banner.subtitle) ? "url("+banner.image_url+") center center / cover no-repeat" : null}}>
+                                <div styleName={!banner.title && !banner.subtitle ? "banner-without-text" : bannerStyles} style={{background: isFullWidth === true || (isFullWidth === false && !banner.title && !banner.subtitle) ? "url("+banner.image_url+") center center / cover no-repeat" : null}}>
                                     <div styleName={banner.title &&  banner.subtitle ? textStyles : "text-full-without-padding"}>
                                         {
                                             banner.title || banner.subtitle || banner.button_text ?
@@ -82,7 +82,7 @@ class Banners extends Component {
                                                         
                                                     {banner.button_text &&  banner.link_url ?
                                                         <Button  onClick={() => this.handleClick(banner.link_url)} theme="action">
-                                                            <Typography color={skin == "digital" ? "secondary" : "fixedwhite"} variant={'small-body'}>{banner.button_text}</Typography>
+                                                            <Typography color={skin === "digital" ? "secondary" : "fixedwhite"} variant={'small-body'}>{banner.button_text}</Typography>
                                                         </Button>
                                                     : 
                                                         null
@@ -93,7 +93,7 @@ class Banners extends Component {
                                                 <div/>
                                         }
                                     </div>
-                                    <div styleName="image" style={{background: (isFullWidth == false && (banner.title || banner.subtitle)) ? "url("+banner.image_url+") center center / cover no-repeat" : banner.title || banner.subtitle ? "linear-gradient(to right, rgba(0,0,0,0.9) 0%,rgba(0,0,0,0) 69%)" : null }}>
+                                    <div styleName="image" style={{background: (isFullWidth === false && (banner.title || banner.subtitle)) ? "url("+banner.image_url+") center center / cover no-repeat" : banner.title || banner.subtitle ? "linear-gradient(to right, rgba(0,0,0,0.9) 0%,rgba(0,0,0,0) 69%)" : null }}>
                                         <div styleName={styles}>
                                             {
                                                 banner.title || banner.subtitle || banner.button_text ?

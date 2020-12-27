@@ -46,7 +46,7 @@ class DimensionCarousel extends React.Component {
         const activeClass = 'slider-single active';
         let slide = this.state.slides;
 
-        if(onMouseOver == true) { return null };
+        if(onMouseOver === true) { return null };
 
         if (slideTotal > 0) {
             if (slideCurrent < slideTotal) {
@@ -92,7 +92,7 @@ class DimensionCarousel extends React.Component {
                     this.slideRight();
                 }, this.props.interval);
             }
-        } else if(slideTotal == 1) {
+        } else if(slideTotal === 1) {
             if (slide[0].class !== activeClass) {
                 slide[0].class = activeClass;
                 this.setState({ slides: slide, slideCurrent: 0 });
@@ -145,7 +145,7 @@ class DimensionCarousel extends React.Component {
     onMouseOverElement(e) {
         this.setState({ onMouseOver: e });
 
-        if (this.props.autoplay && e == false) {
+        if (this.props.autoplay && e === false) {
             clearTimeout(this.interval);
             this.interval = setTimeout(() => {
                 this.slideRight();

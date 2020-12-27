@@ -281,14 +281,14 @@ class DepositForm extends Component {
                             <div styleName={addressStyles}>
                                 <div styleName="flex-row">
                                     <div styleName='link-text-container'>
-                                        <Typography variant={'x-small-body'} color={skin.skin_type == "digital" ? `secondary` : `casper`}>
+                                        <Typography variant={'x-small-body'} color={skin.skin_type === "digital" ? `secondary` : `casper`}>
                                             {address}
                                         </Typography>
                                     </div>
                                     <div styleName="button-text-container">
                                         <button onClick={this.copyToClipboard} styleName='text-copy-container'>
                                             {
-                                                skin.skin_type == "digital"
+                                                skin.skin_type === "digital"
                                                 ?
                                                     <div styleName="icon">
                                                         {copyIcon === null ? <CopyIcon /> : <img src={copyIcon} alt="Copy" />}

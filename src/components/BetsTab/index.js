@@ -210,7 +210,7 @@ class BetsTab extends Component {
             isEsportsEnabled,
             options : Object.keys(copy.TABLE).filter((key) => (key !== "ESPORTS" || (key === "ESPORTS" && isEsportsEnabled))).map( (key) => {
                 return {
-                    value : new String(key).toLowerCase(),
+                    value : String(key).toLowerCase(),
                     label : copy.TABLE[key].TITLE
                 }
             }),

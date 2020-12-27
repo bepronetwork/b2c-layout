@@ -51,7 +51,7 @@ class BetDetails extends Component {
                     </Typography>
                 </div>
             :
-                tag == "casino"
+                tag === "casino"
                 ?
                     <CasinoDetails bet={bet} isLoading={isLoading} />
                 : 

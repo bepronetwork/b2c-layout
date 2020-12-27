@@ -107,7 +107,7 @@ export default class InputNumber extends Component {
     const { onChange, max, type } = this.props;
     let value = event.target.value;
 
-    if (type == "currency") {
+    if (type === "currency") {
       var regex = /^(\d+(?:[\.\,]\d{0,6})?)$/;
       if (value && !regex.test(value)) { return "" };
 
@@ -206,7 +206,7 @@ export default class InputNumber extends Component {
               onFocus={this.handleFocus}
               onWheel={this.handleWheel}
               styleName="input"
-              type={type == "currency" ? "text" : "number"}
+              type={type === "currency" ? "text" : "number"}
               value={focused ? value : parsedValue}
               step={step}
               disabled={disabled}

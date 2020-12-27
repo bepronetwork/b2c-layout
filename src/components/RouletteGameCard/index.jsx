@@ -49,7 +49,7 @@ class RouletteGameCard extends Component {
     
     projectData = async (props) => {
         const { bet } = props;
-        if(bet == false){
+        if(bet === false){
             this.setPopularNumbers(props);
         }
     }

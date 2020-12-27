@@ -69,7 +69,7 @@ class SerieFilter extends Component {
         const { games, gameFilter } = this.props;
         const { moreWindowOpen, serieFilter } = this.state;
 
-        return moreWindowOpen == true ? (
+        return moreWindowOpen === true ? (
             <Modal onClose={this.handleFilterMoreModal}>
                 <SerieFilterMore 
                     serieFilter={serieFilter}
@@ -87,7 +87,7 @@ class SerieFilter extends Component {
 
         let series = [];
 
-        games.filter(game => gameFilter.includes(game.external_id) || gameFilter.length == 0).slice(0, 3).map(game => {
+        games.filter(game => gameFilter.includes(game.external_id) || gameFilter.length === 0).slice(0, 3).map(game => {
             if(!_.isEmpty(game.series)) {
                 const exist = serieFilter.some(el => el === game.series[0].id);
                 const styles = classNames("tournament", {

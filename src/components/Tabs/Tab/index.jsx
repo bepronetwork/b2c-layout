@@ -47,7 +47,7 @@ export default class Tab extends Component {
               { icon ? icon : null }
             </div>
             <div styleName="label">
-              <Typography variant={this.isMobileOrTablet() ? 'x-small-body' : variant} color={skin.skin_type == "digital" ? 'secondary' : 'white'}>
+              <Typography variant={this.isMobileOrTablet() ? 'x-small-body' : variant} color={skin.skin_type === "digital" ? 'secondary' : 'white'}>
                 {label}
               </Typography>
             </div>

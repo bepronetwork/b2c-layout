@@ -75,7 +75,7 @@ class Opponents extends Component {
         }
         else {
             const oddType = match.odds.winnerTwoWay.length > 0 ? match.odds.winnerTwoWay : match.odds.winnerThreeWay;
-            drawOdd = match.odds.winnerThreeWay.length > 0 ? oddType.find(o => o.participant_id == null) : null;
+            drawOdd = match.odds.winnerThreeWay.length > 0 ? oddType.find(o => o.participant_id === null) : null;
 
             opponent1 = formatOpponentData(match, 0, gameImage, opponent1.odd);
             
@@ -103,7 +103,7 @@ class Opponents extends Component {
         event.stopPropagation();
         const { betSlip } = this.props;
         let arrBets = _.isEmpty(betSlip) ? [] : betSlip;
-        //arrBets = arrBets.filter(bet => bet.success != true);
+        //arrBets = arrBets.filter(bet => bet.success !== true);
         arrBets.push(bet);
 
         await this.props.dispatch(setBetSlipResult(arrBets));
@@ -146,7 +146,7 @@ class Opponents extends Component {
 
         const opponent2Bet = formatOpponentBet(opponent2, matchId, matchName, 0, id);
 
-        const drawBet = drawOdd != null ? formatDrawBet(drawId, drawOdd, matchId, matchName, gameImage, 0, id) : null;
+        const drawBet = drawOdd !== null ? formatDrawBet(drawId, drawOdd, matchId, matchName, gameImage, 0, id) : null;
 
         return (
             <div styleName="teams">
@@ -164,7 +164,7 @@ class Opponents extends Component {
                     <div styleName="name">
                         <Typography variant={'x-small-body'} color={'white'}>{opponent1.name}</Typography>
                         {
-                            opponent1.odd != null
+                            opponent1.odd !== null
                             ?
                                 <span styleName="group left">
                                     { opponent1.status !== 'stable' && <div styleName={`arrow ${opponent1.status}`}/> } <Typography variant={'x-small-body'} color={'grey'}>{opponent1.odd.odd}</Typography>
@@ -192,7 +192,7 @@ class Opponents extends Component {
                         <div styleName="vs">
                             <Typography variant={'x-small-body'} color={'grey'}>
                             {
-                                drawOdd == null 
+                                drawOdd === null 
                                 ? 
                                     "VS" 
                                 : 
@@ -219,7 +219,7 @@ class Opponents extends Component {
                     <div styleName="name">
                         <Typography variant={'x-small-body'} color={'white'}>{opponent2.name}</Typography>
                         {
-                            opponent2.odd != null
+                            opponent2.odd !== null
                             ?
                                 <span styleName="group right">
                                     <Typography variant={'x-small-body'} color={'grey'}>{opponent2.odd.odd}</Typography> { opponent2.status !== 'stable' && <div styleName={`arrow ${opponent2.status}`}/> }

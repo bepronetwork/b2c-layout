@@ -82,7 +82,7 @@ class DepositTable extends Component {
             isListLoading : false,
             options : Object.keys(copy.TABLE).map( (key) => {
                 return {
-                    value : new String(key).toLowerCase(),
+                    value : String(key).toLowerCase(),
                     label : copy.TABLE[key].TITLE,
                     icon : depositsIcon === null ? <DepositsIcon /> : <img src={depositsIcon} alt="Deposits" />
                 }
@@ -119,7 +119,7 @@ class DepositTable extends Component {
             const { profile } = this.props;
             let res = await profile.confirmDeposit(deposit);
             let { message, status } = res.data;
-            if(status != 200){throw message};
+            if(status !== 200){throw message};
             await profile.getAllData(true);            
         }catch(err){
             console.log(err)

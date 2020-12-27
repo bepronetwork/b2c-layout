@@ -24,6 +24,6 @@ export async function setWonPopupMessageDispatcher(winAmount){
     });
     
     if (winAmount > amountToShow(ticker)) {
-        await store.dispatch(setMessagePopup(new String(`You won  ${formatCurrency(winAmount)} ${ticker}!`).toString()));
+        await store.dispatch(setMessagePopup(String(`You won  ${formatCurrency(winAmount)} ${ticker}!`).toString()));
     }
 }

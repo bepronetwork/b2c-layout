@@ -59,7 +59,7 @@ export default class Slider extends Component {
             let oldLeftP = (prevState.container.clientWidth * prevState.result) / 100;
 
             oldLeftP -= diamondwidth * 0.5;
-            if (!nextProps.animating && (nextProps.bet.nonce != prevState.bet.nonce)) {
+            if (!nextProps.animating && (nextProps.bet.nonce !== prevState.bet.nonce)) {
                 return {
                     result: nextProps.result,
                     bet : nextProps.bet,

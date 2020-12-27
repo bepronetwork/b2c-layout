@@ -25,7 +25,7 @@ export default async function bet({ amount, user, game_id }) {
             result : index,
             winAmount, 
             nonce,
-            isWon : parseFloat(winAmount) != 0,
+            isWon : parseFloat(winAmount) !== 0,
             betAmount : amountBetted,
             id,
             userDelta : user_delta,

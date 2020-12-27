@@ -65,7 +65,7 @@ class SerieFilterMore extends Component {
                 <div styleName="more-content">
                     <div styleName="box">
                         {
-                            games.filter(game => gameFilter.includes(game.external_id) || gameFilter.length == 0).map(game => {
+                            games.filter(game => gameFilter.includes(game.external_id) || gameFilter.length === 0).map(game => {
                                 return (
                                     <div styleName="more-group" data-order="1">
                                         <div styleName="more-heading">

@@ -128,7 +128,7 @@ function getBetOnEachNumber(betHistory) {
             array.push(el);
             return array;
         }
-    }, []).filter( el => el != null);
+    }, []).filter( el => el !== null);
 
     return distributedBetOnEachNumber;
 }

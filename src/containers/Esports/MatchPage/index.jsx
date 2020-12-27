@@ -49,7 +49,7 @@ class MatchPage extends Component {
             const matchUpdated = await getMatch(data.message);
 
             if (matchUpdated && !_.isEmpty(matchUpdated.odds)) {
-                const isLive = matchUpdated.status == "live";
+                const isLive = matchUpdated.status === "live";
     
                 this.setState({
                     match: matchUpdated,
@@ -102,12 +102,12 @@ class MatchPage extends Component {
         let match = null;
 
         const matchParam = String(params.match);
-        if(matchParam != null) {
+        if(matchParam !== null) {
             const matchId = parseInt(matchParam.split(/[-]+/).pop());
             match = await getMatch(matchId);
         }
 
-        const isLive = match.status == "live";
+        const isLive = match.status === "live";
 
         this.setState({
             match,
@@ -132,7 +132,7 @@ class MatchPage extends Component {
     renderPlayerModal = () => {
         const { openPlayer, match, player } = this.state;
 
-        return openPlayer == true ? (
+        return openPlayer === true ? (
             <Modal onClose={this.handlePlayerModal}>
                 <Player 
                     match={match}
@@ -182,13 +182,13 @@ class MatchPage extends Component {
                                 </div>
                             </SkeletonTheme>
                         :
-                            isLive == true && match.live_embed_url !== null
+                            isLive === true && match.live_embed_url !== null
                             ?
-                                <div styleName={isLive == true ? "isLive middle" : "middle"}>
+                                <div styleName={isLive === true ? "isLive middle" : "middle"}>
                                     <Live streaming={match.live_embed_url} match={match} />
                                 </div>
                             :
-                                match.status == "finished" || match.status == "settled"
+                                match.status === "finished" || match.status === "settled"
                                 ?
                                     <div/>
                                 :

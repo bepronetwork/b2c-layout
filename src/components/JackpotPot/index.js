@@ -44,7 +44,7 @@ class JackpotPot extends React.Component{
         const { pot, currencyImage } = this.state;
         const jackpotPotIcon = getIcon(5);
 
-        if(pot == 0) { return null };
+        if(pot === 0) { return null };
 
         return (
             <div styleName="box">

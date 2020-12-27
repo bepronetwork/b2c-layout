@@ -43,7 +43,7 @@ class ThirdPartyGameList extends Component {
             const provider = p.name;
             const partnerId = p.partner_id;
 
-            if(typeof p.list.games != "undefined") {
+            if(typeof p.list.games !== "undefined") {
                 p.list.games.map( g => { 
                     const icon = url + g.icon;
                     const game = {
@@ -116,7 +116,7 @@ class ThirdPartyGameList extends Component {
         return (
             <div styleName="container">
                 {
-                isLoading == true ?
+                isLoading === true ?
                     <SkeletonTheme color={ getSkeletonColors().color} highlightColor={ getSkeletonColors().highlightColor}>
                         <div style={{opacity : '0.5'}}> 
                             <div styleName="container-small">

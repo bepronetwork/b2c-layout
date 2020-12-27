@@ -38,13 +38,13 @@ class SideMenu extends Component {
         options.push({
             value: "bets",
             label: "Bets",
-            disabled: match.status == "finished" || match.status == "settled"
+            disabled: match.status === "finished" || match.status === "settled"
         });
 
         options.push({
             value: "chat",
             label: "Chat",
-            disabled: match.live_embed_url == null
+            disabled: match.live_embed_url === null
         });
 
         return options;

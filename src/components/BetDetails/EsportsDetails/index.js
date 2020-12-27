@@ -63,7 +63,7 @@ class EsportsDetails extends Component {
             const images = require.context('assets/esports', true);
             const games = await getVideoGames();
             let videogame = bet.result.map(r => {
-                const game = games.find(g => r.match.videogame == g._id);
+                const game = games.find(g => r.match.videogame === g._id);
                 return {
                     id: game._id,
                     name: game.name,
@@ -72,7 +72,7 @@ class EsportsDetails extends Component {
             });
             videogame = videogame.filter((v,i,a)=>a.findIndex(t=>(t.id === v.id))===i);
 
-            const currenncy = (getApp().currencies.find(currency => currency._id == bet.currency));
+            const currenncy = (getApp().currencies.find(currency => currency._id === bet.currency));
                 
             this.setState({
                 matches,
@@ -103,9 +103,9 @@ class EsportsDetails extends Component {
             });
         }
 
-        const typeOption = type == "multiple" ? typeOptions.multiple : typeOptions.simple;
+        const typeOption = type === "multiple" ? typeOptions.multiple : typeOptions.simple;
         const typeStyles = classNames("status", [typeOption.color]);
-        const stateOption = resolved == false ? stateOptions.pending : isWon == true ? stateOptions.won : stateOptions.lost;
+        const stateOption = resolved === false ? stateOptions.pending : isWon === true ? stateOptions.won : stateOptions.lost;
         const stateStyles = classNames("status", [stateOption.color]);
 
         return (
@@ -226,7 +226,7 @@ class EsportsDetails extends Component {
                                             </Typography>
                                         </div>
                                         <div styleName='bet-text'>
-                                            <Typography variant={'x-small-body'} color={isWon == true ? `green` : `white`}>
+                                            <Typography variant={'x-small-body'} color={isWon === true ? `green` : `white`}>
                                                 {winAmount}
                                             </Typography>
                                             <img src={currencyImage} width={16} height={16} alt="Currency"/>

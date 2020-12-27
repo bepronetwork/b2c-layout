@@ -58,7 +58,7 @@ class DepositList extends Component {
         if(!currencyId) return null;
 
         const currencies = getApp().currencies;
-        const currenncy = (currencies.find(currency => currency._id == currencyId));
+        const currenncy = (currencies.find(currency => currency._id === currencyId));
 
         if(!currenncy) return null;
 

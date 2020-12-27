@@ -31,7 +31,7 @@ class ThirdPartyGamePage extends Component {
     }
 
     UNSAFE_componentWillReceiveProps(props){
-        if(props.currency != this.props.currency) {
+        if(props.currency !== this.props.currency) {
             this.projectData(props);
         }
     }
@@ -46,7 +46,7 @@ class ThirdPartyGamePage extends Component {
 
         const gameId = String(params.providerGameId);
 
-        if(gameId != null) {
+        if(gameId !== null) {
             const queryParams = queryString.parse(this.props.location.search);
             const token = await profile.getProviderToken({
                     game_id: gameId,
@@ -68,7 +68,7 @@ class ThirdPartyGamePage extends Component {
         const { ln } = this.props;
         const { gameId, token, partnerId, url, externalId, provider, name, ticker } = this.state;
 
-        if(gameId == null || token == null) { return null };
+        if(gameId === null || token === null) { return null };
 
         if (document.documentElement.clientWidth <= 768) {
             window.location.href = `${url}/game?token=${token}&partner_id=${partnerId}&player_id=${externalId}&game_id=${gameId}&language=${ln}&currency=${ticker.ticker}`;

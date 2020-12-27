@@ -66,7 +66,7 @@ class TabedContainer extends React.Component{
                     <Row>
                         <Col sm={0} md={0} lg={4} xl={3} styleName="container-menu">
                             {
-                            isValidPoints == true
+                            isValidPoints === true
                             ?
                                 <div styleName="points">
                                     <div styleName="label-points">

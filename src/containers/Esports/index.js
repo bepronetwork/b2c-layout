@@ -196,7 +196,7 @@ class Esports extends Component {
             slidesElements.push(
                 <div styleName="element" onClick={() => this.goToMatch(match.slug, match.id)}>
                     {
-                        match.live_embed_url != null
+                        match.live_embed_url !== null
                         ?
                             <div styleName="background">
                                 <iframe
