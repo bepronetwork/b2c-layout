@@ -53,13 +53,12 @@ class Navbar extends Component {
 
             if(user){
                 const difference = Number(formatCurrency(balance - currentBalance));
-                const isDifferent = !isEqual(difference, 0);
                 var opts = {};
-                if (isDifferent || isDifferent && currentBalance > balance) {
+                if (!isEqual(difference, 0) && currentBalance > balance) {
                     opts.difference = difference;
                     opts.currentBalance = balance;
                 }
-
+ 
                 const points = await user.getPoints();
 
                 if(points) {

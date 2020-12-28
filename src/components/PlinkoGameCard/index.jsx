@@ -54,46 +54,38 @@ class PlinkoGameCard extends React.Component {
 
     createBallPath(result) {
         switch(result){
-            case 0 : {
+            case 0 : 
                 this.createBars(PEG0);
                 break;
-            };
-            case 1 : {
+            case 1 :
                 this.createBars(PEG1);
                 break;
-            };
-            case 2 : {
+            case 2 : 
                 this.createBars(PEG2);
                 break;
-            };
-            case 3 : {
+            case 3 :
                 this.createBars(PEG3);
                 break;
-            };
-            case 4 : {
+            case 4 : 
                 this.createBars(PEG4);
                 break;
-            };
-            case 5 : {
+            case 5 : 
                 this.createBars(PEG5);
                 break;
-            };
-            case 6 : {
+            case 6 : 
                 this.createBars(PEG6);
                 break;
-            };
-            case 7 : {
+            case 7 : 
                 this.createBars(PEG7);
                 break;
-            };
-            case 8 : {
+            case 8 : 
                 this.createBars(PEG8);
                 break;
-            };
-            case 9 : {
+            case 9 : 
                 this.createBars(PEG9);
                 break;
-            };
+            default:
+                break;
         }
     }
 

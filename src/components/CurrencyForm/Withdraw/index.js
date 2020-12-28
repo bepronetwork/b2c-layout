@@ -50,7 +50,8 @@ class CurrencyWithdrawForm extends React.Component{
                             id={`${w.currency.ticker}`}  
                             image={w.image ? w.image : w.currency.image}
                             type={`${w.currency.name}`} 
-                            description={copy.INDEX.PAYMENTBOX.DESCRIPTION[0]} time={'fast withdraw'} id={`${w.currency.ticker}`}
+                            description={copy.INDEX.PAYMENTBOX.DESCRIPTION[0]}
+                            time={'fast withdraw'}
                         />
                     )
                 })}

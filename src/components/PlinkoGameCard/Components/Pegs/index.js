@@ -3,10 +3,6 @@ import { Typography } from "components";
 import "./index.css";
 
 class Pegs extends Component {
-    constructor(props) {
-        super(props);
-    }
-
     render() {
         const { game, result } = this.props;
 

@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { OddsTable } from 'components/Esports';
-import { connect } from 'react-redux';
 import _ from 'lodash';
 import "./index.css";
 
@@ -26,6 +25,7 @@ class Live extends Component {
                         frameborder="true"
                         scrolling="true"
                         allowfullscreen="true"
+                        title="Live"
                     >
                     </iframe>
                 </div>
@@ -37,11 +37,4 @@ class Live extends Component {
     }
 }
 
-function mapStateToProps(state){
-    return {
-        profile : state.profile,
-        ln: state.language
-    };
-}
-
-export default connect(mapStateToProps)(Live);
+export default Live;

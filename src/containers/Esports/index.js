@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import { Typography, Button, DimensionCarousel } from 'components';
 import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
 import { Opponents, BetSlip, GameFilter, SerieFilter, Matches, Shield, BetSlipFloat } from "components/Esports";
-import { connect } from 'react-redux';
 import { getGames, getMatches, getMatchesBySeries } from "controllers/Esports/EsportsUser";
 import { getSkeletonColors, getAppCustomization } from "../../lib/helpers";
 import classNames from "classnames";
@@ -169,7 +168,7 @@ class Esports extends Component {
                     </div>
                     <div styleName="button">                     
                         {highlight.button_text &&  highlight.link_url ?
-                            <Button theme="action" onClick={() => this.onHighlightClick(highlight.link_url)} theme="action">
+                            <Button theme="action" onClick={() => this.onHighlightClick(highlight.link_url)}>
                                 <Typography color={'fixedwhite'} variant={'small-body'}>{highlight.button_text}</Typography>
                             </Button>
                         : 
@@ -206,6 +205,7 @@ class Esports extends Component {
                                     frameborder="false"
                                     scrolling="false"
                                     allowfullscreen="false"
+                                    title="Slide Elements"
                                 >
                                 </iframe>
                             </div>
@@ -230,6 +230,8 @@ class Esports extends Component {
                     </div>
                 </div>
             );
+
+            return null;
         });
 
         return slidesElements;

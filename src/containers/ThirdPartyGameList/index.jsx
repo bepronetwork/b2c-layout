@@ -55,8 +55,12 @@ class ThirdPartyGameList extends Component {
                         title: g.title
                     }
                     gameList.push(game);
+
+                    return null;
                 });
             }
+
+            return null;
         });
 
         const total = gameList.length;

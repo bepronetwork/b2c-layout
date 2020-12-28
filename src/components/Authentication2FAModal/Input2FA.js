@@ -2,11 +2,6 @@ import ReactCodeInput from 'react-code-input';
 import React from 'react';
 
 class Input2FA extends React.Component {
-
-    constructor(props){
-        super(props);
-    }
-
     onChange = (e) => {
         if (e.length === 6) {
             this.props.confirm({token : e});

@@ -63,11 +63,15 @@ class ThirdPartyGames extends Component {
                         title: g.title
                     }
                     gameList.push(game);
+
+                    return null;
                 });
             }
             else {
                 this.setState({ isLoading: false, isLoadingGames: false });
             }
+
+            return null;
         });
 
         const total = gameList.length;

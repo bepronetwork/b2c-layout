@@ -87,6 +87,8 @@ export default class Wheel extends Component {
                 this.simpleDraw(options);
                 break;
             }
+            default:
+                break;
         }
        
     }
@@ -160,6 +162,8 @@ export default class Wheel extends Component {
                         return placing === placeWheel;
                     })
                     if(placing !== null){return opt}
+
+                    return null;
                 });
                 this.wheel.fillStyle = place.color;
                 this.wheel.beginPath();
@@ -200,6 +204,8 @@ export default class Wheel extends Component {
                         return placing === i
                     })
                     if(placing !== null){return opt}
+
+                    return null;
                 });
 
                 this.wheel.fillStyle = place.color;
@@ -208,7 +214,6 @@ export default class Wheel extends Component {
                 this.wheel.arc(500, 500, insideRadius, angle + this.arc, angle, true);
                 this.wheel.stroke();
                 this.wheel.fill();
-
                 this.wheel.save();
                 this.wheel.shadowBlur = 0;
                 this.wheel.shadowColor = "rgb(220,220,220)";

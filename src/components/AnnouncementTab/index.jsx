@@ -2,11 +2,6 @@ import React, { Component } from 'react'
 import './index.css';
 
 class AnnouncementTab extends Component {
-
-    constructor(props){
-        super(props);
-    }
-
     render() {
         const { topBar } = this.props;
         if(!topBar ){ return null};

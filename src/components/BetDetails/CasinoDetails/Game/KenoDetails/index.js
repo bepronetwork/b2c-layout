@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import { connect } from "react-redux";
 import KenoBoard from "../../../../KenoBoard";
 import defaultCards from "../../../../../containers/KenoPage/defaultCards";
 import "./index.css";
@@ -31,18 +30,24 @@ class KenoDetails extends Component {
         bet.outcomeResultSpace.map( r => {
             cards.find( c => {
                 if (c.id === r.index) { c.isSelected = true };
+
+                return null;
             });
+
+            return null;
         });
 
         bet.result.map( r => {
             cards.find( c => {
                 if (c.id === parseInt(r._id.place)) { c.isPicked = true };
+
+                return null;
             });
+
+            return null;
         });
 
-        this.setState({
-            cards
-        });
+        this.setState({ cards });
     }
     
     render() {
@@ -53,11 +58,4 @@ class KenoDetails extends Component {
     }
 }
 
-function mapStateToProps(state){
-    return {
-        profile: state.profile,
-        ln : state.language
-    };
-}
-
-export default connect(mapStateToProps)(KenoDetails);
+export default KenoDetails;

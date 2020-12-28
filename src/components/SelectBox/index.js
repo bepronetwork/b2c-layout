@@ -7,12 +7,9 @@ import "./index.css";
 
 class SelectBox extends React.Component{
 
-    constructor(props){
-        super(props);
-        this.state = {
-            open: false,
-            value : props.value 
-        };
+    state = {
+        open: false, 
+        value : this.props.value
     }
 
     componentDidMount(){
@@ -114,10 +111,7 @@ class SelectBox extends React.Component{
         );
     }
 
-    render = () => {
-
-        const {  } = this.props;
-
+    render() {
         return (
             <div styleName="root">
                 <button

@@ -63,10 +63,9 @@ class RouletteGameOptions extends Component {
         if (this.isBetValid()) {
             this.setState({ sound: true });
             switch(type){
-                case 'manual' : {
+                case 'manual' : 
                     await onBet({ amount });
                     break;
-                };
                 case 'auto' : {
                     if(!isUserSet(profile)){return null};
                     this.setState({isAutoBetting : true})
@@ -98,6 +97,8 @@ class RouletteGameOptions extends Component {
                     this.setState({isAutoBetting : false})
                     break;
                 }
+                default:
+                    break;
             }
         }
     };

@@ -11,5 +11,7 @@ export default function routeChange(callback) {
         callback(arguments[2])
         return historyState.apply(history, arguments);
       }
+
+      return null;
     })
-  }
+  } 

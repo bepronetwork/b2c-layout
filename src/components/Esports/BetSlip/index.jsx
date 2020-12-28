@@ -243,7 +243,6 @@ class BetSlip extends Component {
                             }
                             ]}
                             onSelect={this.handleTabChange}
-                            style="full-background"
                         />
                         <div>
                             <div styleName="betslip-header">

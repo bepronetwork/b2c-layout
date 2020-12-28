@@ -147,7 +147,7 @@ class WheelGameCard extends Component {
                 />
             </div>
             <div styleName="board">
-                <WheelBox options={options} game={this.props.game} result={result} inResultAnimation={inResultAnimation} game={game}/>
+                <WheelBox options={options} result={result} inResultAnimation={inResultAnimation} game={game}/>
             </div>
         </div>
         );

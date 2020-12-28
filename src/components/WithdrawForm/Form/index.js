@@ -205,7 +205,6 @@ class Form extends Component {
                                 <div style={{marginBottom : 20, marginTop : 10}}>
                                     <InputText
                                         name="toAddress"
-                                        onChange={(toAddress) => this.onToAddressChange(toAddress)}
                                         onChange={this.onToAddressChange}
                                         value={toAddress}
                                         placeholder={copy.INDEX.INPUT_TEXT.PLACEHOLDER[0]}

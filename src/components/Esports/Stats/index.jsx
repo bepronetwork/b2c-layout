@@ -104,6 +104,8 @@ class Stats extends Component {
                     } while (month !== beginMonth &&  month !== oneYearMonth);
                 }
             }
+
+            return null;
         });
 
         return aggregatedStats;

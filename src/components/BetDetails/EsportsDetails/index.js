@@ -55,7 +55,7 @@ class EsportsDetails extends Component {
 
         if (!_.isEmpty(bet)) {
             for (let index = 0; index < bet.result.length; index++) {
-                const match = bet.result[index].data_external_match;
+                let match = bet.result[index].data_external_match;
                 match = {...match, status: bet.result[index].status, odd: bet.result[index].odd}
                 matches.push(match);
             }
@@ -100,6 +100,8 @@ class EsportsDetails extends Component {
         if(!_.isEmpty(bet)) {
             bet.result.map(b => {
                 totalMultipleOdd = totalMultipleOdd * b.odd;
+
+                return null;
             });
         }
 

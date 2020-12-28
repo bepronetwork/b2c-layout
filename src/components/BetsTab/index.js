@@ -240,6 +240,8 @@ class BetsTab extends Component {
                         let name = "";
                         bet.videogames.map(g => {
                             name = name + " " + g.name;
+
+                            return null;
                         })
 
                         game = {

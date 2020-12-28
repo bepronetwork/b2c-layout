@@ -131,16 +131,20 @@ function loadFakeBets(rows, games, size) {
     let fakeId = faker.random.uuid().replace(/-/g, '').substring(0, 24);
     let randomArray = [];
     let lostValue = {isWon : false, payout : '0.000000', winAmount : '0.000000'};
-    var i = 0; do { i++; randomArray.push(lostValue) } while (i < 4);
-    var i = 0; do { 
-        i++; 
+
+    for (let index = 0; index < 4; index += 1) {
+        randomArray.push(lostValue)
+    }
+
+    for (let index = 0; index < 6; index += 1) {
         let payout = Math.random() * (2.000000 - 0.050000) + 0.050000;
         let winAmount = Math.random() * (2.000000 - 0.050000) + 0.050000;
         payout = virtual === true ? payout * 10 : payout;
         winAmount = virtual === true ? winAmount * 10 : winAmount;
         const winValue =  { isWon : true, payout : formatCurrency(payout), winAmount : formatCurrency(winAmount)};
         randomArray.push(winValue) 
-    } while (i < 6);
+    }
+
     var randomValue = randomArray[Math.floor(Math.random() * randomArray.length)];
 
     if(game) {

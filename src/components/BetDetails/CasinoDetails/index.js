@@ -71,6 +71,8 @@ class CasinoDetails extends Component {
                 case 'keno_simple':
                     component = <KenoDetails bet={bet}/>;
                     break;
+                default:
+                    break;
             }
     
             const currenncy = (getApp().currencies.find(currency => currency._id === bet.currency._id));

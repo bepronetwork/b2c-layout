@@ -4,10 +4,6 @@ import classNames from "classnames";
 import "./index.css";
 
 class IFrame extends Component {
-    constructor(props) {
-        super(props);
-    }
-
     shouldComponentUpdate(nextProps) {
         return nextProps.max !== this.props.max 
             || nextProps.ticker !== this.props.ticker 
@@ -21,9 +17,14 @@ class IFrame extends Component {
         });
 
         return (
-            <iframe key={gameId} styleName={thirdStyles} allowFullScreen="" 
+            <iframe
+                key={gameId}
+                styleName={thirdStyles}
+                allowFullScreen="" 
                 src={`${providerUrl}/game?token=${token}&partner_id=${partnerId}&player_id=${playerId}&game_id=${gameId}&language=${ln}&currency=${ticker}`}
-                frameBorder="0">
+                frameBorder="0"
+                title="Game"
+            >
             </iframe>
         );
     }

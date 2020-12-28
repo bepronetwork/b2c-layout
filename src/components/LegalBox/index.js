@@ -2,10 +2,6 @@ import React, { Component } from "react";
 import "./index.css";
 
 class LegalBox extends Component {
-    constructor(props){
-        super(props);
-    }
-
     componentDidMount(){
         if(this.props.licenseID){
             window['ceg_'+this.props.licenseID.replace(/-/g, '_')].init();

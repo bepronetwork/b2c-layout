@@ -63,6 +63,8 @@ class ThirdPartyProviderSelector extends Component {
                     label: p.name,
                     icon: p.logo
                 })
+
+                return null;
             }
         );
 

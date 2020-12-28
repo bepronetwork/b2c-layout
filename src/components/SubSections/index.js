@@ -8,11 +8,8 @@ import "./index.css";
 
 class SubSections extends Component {
 
-    constructor(props){
-        super(props);
-        this.state = {
-            subSections: [],
-        };
+    state = {
+        subSections: [],
     }
 
     componentDidMount(){
@@ -53,7 +50,11 @@ class SubSections extends Component {
                 return <LayoutTop {...commonProps} />;
             case POSITION.BOTTOM:
                 return <LayoutBottom {...commonProps} />;
+            default:
+                break;
         }
+
+        return null;
     }
 
     render() {

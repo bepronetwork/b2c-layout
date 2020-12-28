@@ -12,12 +12,9 @@ import { LanguageContext } from "../../containers/App/LanguageContext";
 class LanguageSelector extends Component {
   static contextType = LanguageContext;
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      open: false,
-      languages: []
-    };
+  state = {
+    open: false,
+    languages: []
   }
 
   componentDidMount() {
@@ -70,6 +67,8 @@ class LanguageSelector extends Component {
       if (language.name.toLowerCase() === item.name.toLowerCase()) {
         return language;
       }
+
+      return null;
     });
 
     if (isUserSet(profile)) {

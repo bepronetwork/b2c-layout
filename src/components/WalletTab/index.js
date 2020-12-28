@@ -240,6 +240,7 @@ UNSAFE_componentWillReceiveProps(props) {
               <CloseCross />
             </button>
             <iframe
+              title="Moonpay Box"
               styleName="bg-moonpay-box"
               allow="accelerometer; autoplay; camera; gyroscope; payment"
               frameBorder="0"
@@ -373,7 +374,6 @@ UNSAFE_componentWillReceiveProps(props) {
                     }
                   ]}
                   onSelect={this.handleTabChange}
-                  style="full-background"
                 />
               </div>
               {isEmailConfirmed === true ? (

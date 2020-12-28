@@ -228,7 +228,7 @@ class Footer extends Component {
                                     socialLink.map(s => {
                                         return (
                                             <div styleName="social-icon">
-                                                <a href={s.href} target="_blank">
+                                                <a href={s.href} target="_blank" rel="noopener noreferrer">
                                                     <img src={s.image_url} alt={s.name}/>
                                                 </a>
                                             </div>

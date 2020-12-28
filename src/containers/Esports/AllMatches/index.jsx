@@ -244,7 +244,6 @@ class AllMatches extends Component {
                                 }
                                 ]}
                                 onSelect={this.handleTabChange}
-                                style="full-background"
                             />
                         </div>
                     </div>

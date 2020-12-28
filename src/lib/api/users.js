@@ -466,9 +466,6 @@ export async function userAuth(params, bearerToken, payload) {
             deposits    : message.deposits,
             ...message
         };
-
-        return null;
-
     } catch (error) {
         return handleError(error);
     } 
