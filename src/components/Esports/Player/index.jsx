@@ -5,11 +5,6 @@ import { connect } from 'react-redux';
 import "./index.css";
 
 class Player extends Component {
-
-    constructor(props){
-        super(props);
-    }
-
     render() {
         const { player } = this.props;
 
@@ -65,11 +60,4 @@ class Player extends Component {
     }
 }
 
-function mapStateToProps(state){
-    return {
-        profile : state.profile,
-        ln: state.language
-    };
-}
-
-export default connect(mapStateToProps)(Player);
+export default Player;

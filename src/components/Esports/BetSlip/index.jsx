@@ -101,6 +101,8 @@ class BetSlip extends Component {
                     betAmount: bet.amount, 
                     currency: currency._id
                 });
+
+                return null;
             });
         }
         else if (tab === "multiple") {

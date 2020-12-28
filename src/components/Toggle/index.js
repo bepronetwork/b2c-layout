@@ -6,10 +6,6 @@ import { getAppCustomization } from "../../lib/helpers";
 import './index.css';
 
 class Toggle extends React.Component{
-    constructor(props){
-        super(props);
-    }
-
     render(){
         const { checked, id, disabled, onChange, showText=true } = this.props;
         const skin = getAppCustomization().skin.skin_type;

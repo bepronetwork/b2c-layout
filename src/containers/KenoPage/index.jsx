@@ -91,6 +91,8 @@ class KenoPage extends Component {
 
         cards.map(card => {
             card.isSelected = result.includes(card.id) ? true : false;
+
+            return null;
         });
 
         this.setState({

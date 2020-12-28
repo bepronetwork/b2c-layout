@@ -5,10 +5,6 @@ import { Numbers } from "../../lib/ethereum/lib";
 import "./index.css";
 
 class WheelBox extends Component {
-    constructor(props){
-        super(props);
-    }
-
     renderContainer = ({multiplier, index}) => {
         const { result, inResultAnimation, game } = this.props;
         const isLight = getAppCustomization().theme === "light";
@@ -31,6 +27,7 @@ class WheelBox extends Component {
             </div>
         )
     }
+    
     render() {
         const { options } = this.props;
 

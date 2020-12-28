@@ -3,11 +3,6 @@ import { Typography } from "components";
 import "./index.css";
 
 class LayoutTop extends Component {
-
-    constructor(props){
-        super(props);
-    }
-
     render() {
         const { data } = this.props;
 

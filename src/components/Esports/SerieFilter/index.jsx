@@ -102,6 +102,8 @@ class SerieFilter extends Component {
                     </li>
                 )
             }
+
+            return null;
         });
 
         if(series.length > 0) {

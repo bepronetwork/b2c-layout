@@ -6,10 +6,6 @@ import _ from 'lodash';
 import "./index.css";
 
 class NotificationForm extends Component {
-    constructor(props) {
-        super(props);
-    }
-
     render() {
         let hasNotification = !_.isEmpty(this.props.message);
         if(!hasNotification){return null};

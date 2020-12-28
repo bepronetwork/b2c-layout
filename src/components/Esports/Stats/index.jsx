@@ -87,9 +87,9 @@ class Stats extends Component {
                 else {
                     const beginMonth = moment(beginDate).month();
                     const oneYearMonth = moment(oneYearAgoDate).month();
-                    var i = 0; var month = 0; do { 
-                        month = moment(endDate).subtract(i, 'month').month();
-                        i++; 
+                    let index = 0; let month = 0; do { 
+                        month = moment(endDate).subtract(index, 'month').month();
+                        index += 1; 
 
                         aggregatedStats = aggregatedStats.map(a =>
                             a.index === month
@@ -101,7 +101,7 @@ class Stats extends Component {
                               a
                         );
                         
-                    } while (month !== beginMonth &&  month !== oneYearMonth);
+                    } while (month !== beginMonth && month !== oneYearMonth);
                 }
             }
 
@@ -115,9 +115,9 @@ class Stats extends Component {
         const { stats1, stats2 } = this.state;
         let performance = [];
 
-        var i = 0; var month = 0; do { 
-            month = moment().subtract(i, 'month').month();
-            i++; 
+        let index = 0; let month = 0; do { 
+            month = moment().subtract(index, 'month').month();
+            index += 1; 
 
             const monthName = stats1.find(s => s.index === month).month;
 
@@ -144,7 +144,7 @@ class Stats extends Component {
                 rate2Label
             });
             
-        } while (i < 12);
+        } while (index < 12);
 
         return (
             performance.map(p => {

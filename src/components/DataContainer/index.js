@@ -1,13 +1,8 @@
 import React from "react";
 import { Typography } from 'components';
-import { connect } from "react-redux";
 import './index.css';
 
 class DataContainer extends React.Component{
-    constructor(props){
-        super(props);
-    }
-
     render(){
         const { 
             message, image, title
@@ -33,11 +28,4 @@ class DataContainer extends React.Component{
     }
 }
 
-
-function mapStateToProps(state){
-    return {
-        profile : state.profile
-    };
-}
-
-export default connect(mapStateToProps)(DataContainer);
+export default DataContainer;

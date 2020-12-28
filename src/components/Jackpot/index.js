@@ -4,10 +4,6 @@ import { getIcon } from "../../lib/helpers";
 import './index.css';
 
 class Jackpot extends React.Component{
-    constructor(props){
-        super(props);
-    }
-
     render(){
         const { message } = this.props;
         const bigWinIcon = getIcon(26);

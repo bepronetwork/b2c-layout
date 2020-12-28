@@ -148,13 +148,13 @@ export default class Wheel extends Component {
             this.wheel.clearRect(0, 0, 1000, 1000);
             
             this.wheel.lineWidth = 5;
-            for (var i = 0; i < TOTAL_SPACES; i++) {    
-                let placeWheel = this.wheel_draw[i];
+            for (var index = 0; index < TOTAL_SPACES; index += 1) {    
+                let placeWheel = this.wheel_draw[index];
                 var angle;
                 if(this.isFirstRotation){
-                    angle = this.startAngle + i * this.arc + this.initialRotation*this.arc;
+                    angle = this.startAngle + index * this.arc + this.initialRotation*this.arc;
                 }else{
-                    angle = this.startAngle + i * this.arc;
+                    angle = this.startAngle + index * this.arc;
                 }
 
                 let place = options.find(opt => {
@@ -197,11 +197,11 @@ export default class Wheel extends Component {
 
             this.wheel.lineWidth = 5;
             
-            for (var i = 0; i < 30; i++) {
-                var angle = this.startAngle + i * this.arc;
+            for (let index = 0; index < 30; index += 1) {
+                var angle = this.startAngle + index * this.arc;
                 let place = options.find(opt => {
-                    let placing = opt.placings.find( placing => {
-                        return placing === i
+                    let placing = opt.placings.find( placing => { 
+                        return placing === index
                     })
                     if(placing !== null){return opt}
 

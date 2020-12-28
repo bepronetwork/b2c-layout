@@ -5,11 +5,6 @@
     import "./index.css";
  
     class WithdrawTab extends Component {
-    
-        constructor(props){
-            super(props);
-        }
-    
         render() {
             const { profile, isCurrentPath } = this.props;
             if(!isUserSet(profile)){return}

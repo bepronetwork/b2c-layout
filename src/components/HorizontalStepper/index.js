@@ -92,7 +92,6 @@ const useColorlibStepIconStyles = makeStyles({
     backgroundColor: 'transparent',
     zIndex: 1,
     width: 50,
-    backgroundColor : 'transparent',
     height: 50,
     display: 'flex',
     borderRadius: '50%',

@@ -95,10 +95,9 @@ class FlipGameOptions extends Component {
         if (this.isBetValid()) {
             this.setState({ sound: true });
             switch(type){
-                case 'manual' : {
+                case 'manual' : 
                     await onBet({ amount : betAmount, side });
                     break;
-                };
                 case 'auto' : {
                     if(!isUserSet(profile)){return null};
                     this.setState({isAutoBetting : true})
@@ -123,6 +122,8 @@ class FlipGameOptions extends Component {
                     this.setState({isAutoBetting : false})
                     break;
                 }
+                default:
+                    break;
             }
         }
         return true;

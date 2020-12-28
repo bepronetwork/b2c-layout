@@ -87,6 +87,8 @@ class KenoGameCard extends Component {
                         if(c.id === r){
                             return c;
                         }
+
+                        return null;
                     });
                     card.isSelected = true;
                     if (card.isPicked) {
@@ -134,6 +136,8 @@ class KenoGameCard extends Component {
 
         localCards.map(card => {
             card.isSelected = false;
+
+            return null;
         });
 
         const total = localCards.filter(function(card) {  

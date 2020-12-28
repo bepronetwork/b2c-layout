@@ -68,6 +68,8 @@ class SubSections extends Component {
                     if(!_.isEmpty(s.title) && !_.isEmpty(s.text)) {
                         return this.renderSubSection(s);
                     }
+
+                    return null;
                 })}
             </div>
         );

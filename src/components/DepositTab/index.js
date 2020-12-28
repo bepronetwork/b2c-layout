@@ -5,11 +5,6 @@ import DepositTable from "../DepositTable";
 import "./index.css";
 
 class DepositTab extends Component {
-
-    constructor(props){
-        super(props);
-    }
-
     render() {
         const { profile, isCurrentPath } = this.props;
         if(!isUserSet(profile)){return}

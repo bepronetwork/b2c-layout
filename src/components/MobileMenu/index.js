@@ -141,7 +141,7 @@ class MobileMenu extends Component {
                     })
                 }
                 {
-                    isValidPoints == true
+                    isValidPoints
                     ?
                         <div styleName="points">
                             <div styleName="label-points">

@@ -92,6 +92,8 @@ class PlinkoGameCard extends React.Component {
     createBars(pegBars) {
         pegBars.map((el) => {
             this.createBar(el.x, el.y, el.w, el.a, 'bar');
+
+            return null;
         })
     }
 

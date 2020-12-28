@@ -4,11 +4,6 @@ import Form from "./Form"
 import "./index.css";
 
 class WithdrawForm extends Component {
-
-    constructor(props){
-        super(props);
-    }
-
     render() {
         const {isAffiliate, wallet, onAddress} = this.props;
 
