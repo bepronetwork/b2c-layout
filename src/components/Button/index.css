@@ -156,3 +156,7 @@
     height: 20px;
   }
 }
+
+.link:hover {
+  text-decoration: underline $secondaryColor;
+}

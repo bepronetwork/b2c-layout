@@ -167,3 +167,7 @@
     margin-right: $spacing-4;
   }
 }
+
+.link:hover {
+  text-decoration: underline $secondaryColor;
+}

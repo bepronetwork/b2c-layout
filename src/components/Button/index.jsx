@@ -6,7 +6,7 @@ import "./index.css";
 export default class Button extends Component {
   static propTypes = {
     onClick: PropTypes.func,
-    theme: PropTypes.oneOf(["default", "primary", "action"]),
+    theme: PropTypes.oneOf(["default", "primary", "action", "link"]),
     type: PropTypes.oneOf(["button", "submit"]),
     fullWidth: PropTypes.bool,
     disabled: PropTypes.bool,
@@ -14,7 +14,8 @@ export default class Button extends Component {
     size: PropTypes.oneOf(["x-small", "small", "medium", "large"]),
     name: PropTypes.string,
     animation: PropTypes.node,
-    icon: PropTypes.string
+    icon: PropTypes.string,
+    style: PropTypes.objectOf(PropTypes.string)
   };
 
   static defaultProps = {
@@ -25,7 +26,9 @@ export default class Button extends Component {
     disabled: false,
     size: "small",
     name: null,
-    animation: null
+    animation: null,
+    icon: null,
+    style: null
   };
 
   state = {
@@ -57,12 +60,12 @@ export default class Button extends Component {
     }
 
     return (
-      <div>
+      <>
         <div styleName="hide-children">{children}</div>
         <div onAnimationEnd={this.handleAnimation} styleName="animation">
           {animation}
         </div>
-      </div>
+      </>
     );
   };
 
@@ -75,40 +78,28 @@ export default class Button extends Component {
       type,
       name,
       onClick,
-      icon
+      icon,
+      style
     } = this.props;
-    const rootStyles = classNames("root", {
-      [theme]: true,
-      fullwidth: fullWidth,
-      disabled
-    });
 
-    const contentStyles = classNames("content", {
-      [size]: true,
-      fullwidth: fullWidth
-    });
     return (
-        <button
-            style={this.props.style}
-            styleName={rootStyles}
-            onClick={onClick ? this.handleClick : null}
-            type={type}
-            name={name}
-            disabled={disabled}
-        >
-            <div styleName={contentStyles}>
-              {
-                icon
-                ?
-                  <div styleName="icon">
-                    {icon}
-                  </div>
-                :
-                  null
-              }
-              {this.renderContent()}
-            </div>
-        </button>
+      <button
+        styleName={classNames("root", {
+          [theme]: !!theme,
+          fullWidth,
+          disabled
+        })}
+        onClick={onClick ? this.handleClick : null}
+        type={type}
+        name={name}
+        disabled={disabled}
+        style={style}
+      >
+        <div styleName={classNames("content", { [size]: !!size, fullWidth })}>
+          {icon ? <div styleName="icon">{icon}</div> : null}
+          {this.renderContent()}
+        </div>
+      </button>
     );
   }
 }
