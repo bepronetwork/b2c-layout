@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import {Typography } from "components";
+import { Typography, Button } from "components";
 import { connect } from "react-redux";
 import {CopyText} from "../../copy";
 import UserContext from "containers/App/UserContext";
@@ -139,10 +139,10 @@ class TableDefault extends Component {
                                                     <td styleName={styles} data-label={titles[index]} key={uniqueId("table-default-column-")}>
                                                         {onTableDetails 
                                                         ?
-                                                            <a href="#" onClick={onTableDetails.bind(this, {titles, fields, row, tag})}>
+                                                            <Button theme="link" onClick={onTableDetails.bind(this, {titles, fields, row, tag})}>
                                                                 <Typography variant='x-small-body' color={ row[field.condition] ? 'green' : "grey"}> {row[field.value]} </Typography>
                                                                 {this.getCurrencyImage(field.currency, row['currency'])}
-                                                            </a>
+                                                            </Button>
                                                         :
                                                             <div>
                                                                 <Typography variant='x-small-body' color={ row[field.condition] ? 'green' : "grey"}> {row[field.value]} </Typography>
@@ -157,9 +157,9 @@ class TableDefault extends Component {
                                                     <td styleName={styles} data-label={titles[index]} key={uniqueId("table-default-column-")}>
                                                         {onTableDetails 
                                                         ?
-                                                            <a href="#" onClick={onTableDetails.bind(this, {titles, fields, row, tag})}>
+                                                            <Button theme="link" onClick={onTableDetails.bind(this, {titles, fields, row, tag})}>
                                                                 {this.renderGameColumn(row[field.value], background)}
-                                                            </a>
+                                                            </Button>
                                                         :
                                                             this.renderGameColumn(row[field.value], background)
                                                         }
@@ -181,9 +181,9 @@ class TableDefault extends Component {
                                                         <div styleName={statusStyles}>
                                                             {onTableDetails 
                                                             ?
-                                                                <a href="#" onClick={onTableDetails.bind(this, {titles, fields, row, tag})}>
+                                                                <Button theme="link" onClick={onTableDetails.bind(this, {titles, fields, row, tag})}>
                                                                     <Typography variant='x-small-body' color={"fixedwhite"} weight={"bold"}> {row[field.value].text} </Typography>
-                                                                </a>
+                                                                </Button>
                                                             :
                                                                 <div>
                                                                     <Typography variant='x-small-body' color={"fixedwhite"} weight={"bold"}> {row[field.value].text} </Typography>
@@ -198,10 +198,10 @@ class TableDefault extends Component {
                                                     <td styleName={styles} data-label={titles[index]} key={uniqueId("table-default-column-")}>
                                                         {onTableDetails 
                                                         ?
-                                                            <a href="#" onClick={onTableDetails.bind(this, {titles, fields, row, tag})}>
+                                                            <Button theme="link" onClick={onTableDetails.bind(this, {titles, fields, row, tag})}>
                                                                 <Typography variant='x-small-body' color={"white"}> {row[field.value]} </Typography>
                                                                 {this.getCurrencyImage(field.currency, row['currency'])}
-                                                            </a>
+                                                            </Button>
                                                         :
                                                             <div>
                                                                 <Typography variant='x-small-body' color={"white"}> {row[field.value]} </Typography>

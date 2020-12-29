@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { withRouter } from 'react-router-dom';
-import { Typography, LanguageSelector, BetsIcon, DepositIcon, ChatIcon, CasinoIcon, UsersIcon } from "components";
+import { Typography, LanguageSelector, BetsIcon, DepositIcon, ChatIcon, CasinoIcon, UsersIcon, Button } from "components";
 import UserContext from "containers/App/UserContext";
 import { connect } from "react-redux";
 import { CopyText } from '../../copy';
@@ -66,7 +66,7 @@ class BottomNavbar extends Component {
                         {
                             gameType === "casino"
                             ?
-                                <a href="#" onClick={() => this.homeClick("esports")}>
+                                <Button theme="link" onClick={() => this.homeClick("esports")}>
                                     <span styleName="item">
                                         <div styleName="icon">
                                             { usersIcon === null ? <UsersIcon /> : <img src={usersIcon} alt="Users" /> }
@@ -75,9 +75,9 @@ class BottomNavbar extends Component {
                                             Esports
                                         </Typography>
                                     </span>
-                                </a>  
+                                </Button>  
                             :
-                                <a href="#" onClick={() => this.homeClick("")}>
+                                <Button theme="link" onClick={() => this.homeClick("")}>
                                     <span styleName="item">
                                         <div styleName="icon">
                                             { casinoIcon === null ? <CasinoIcon /> : <img src={casinoIcon} alt="Casino" /> }
@@ -86,11 +86,11 @@ class BottomNavbar extends Component {
                                             {copy.INDEX.TYPOGRAPHY.TEXT[3]}
                                         </Typography>
                                     </span>
-                                </a>
+                                </Button>
                         }
                     </li>
                     <li>
-                        <a href="#" onClick={this.openDeposit}>
+                        <Button theme="link" onClick={this.openDeposit}>
                             <span styleName="item">
                                 <div styleName="icon">
                                     { depositIcon === null ? <DepositIcon /> : <img src={depositIcon} alt="Deposit" /> }
@@ -99,10 +99,10 @@ class BottomNavbar extends Component {
                                     {copy.INDEX.TYPOGRAPHY.TEXT[2]}
                                 </Typography>
                             </span>
-                        </a>
+                        </Button>
                     </li>
                     <li>
-                        <a href="#" onClick={() => onBetsList()}>
+                        <Button theme="link" onClick={() => onBetsList()}>
                             <span styleName="item">
                                 <div styleName="icon">
                                     { betsIcon === null ? <BetsIcon /> : <img src={betsIcon} alt="Bets" /> }
@@ -111,10 +111,10 @@ class BottomNavbar extends Component {
                                     {copy.INDEX.TYPOGRAPHY.TEXT[5]}
                                 </Typography>
                             </span>
-                        </a>
+                        </Button>
                     </li>
                     <li>
-                        <a href="#" onClick={() => onChat()}>
+                        <Button theme="link" onClick={() => onChat()}>
                             <span styleName="item">
                                 <div styleName="icon">
                                     { chatIcon === null ? <ChatIcon /> : <img src={chatIcon} alt="Chat" /> }
@@ -123,7 +123,7 @@ class BottomNavbar extends Component {
                                     {copy.INDEX.TYPOGRAPHY.TEXT[4]}
                                 </Typography>
                             </span>
-                        </a>
+                        </Button>
                     </li>
                     <li>
                         <LanguageSelector expand="top" />

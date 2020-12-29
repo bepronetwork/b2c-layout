@@ -119,7 +119,7 @@ class Select extends React.Component{
         const { value } = this.state;
 
         return (
-            <div styleName={classNames('root', { fullWidth }, { 'checked': value.value }, { 'small': size === 'small' }, { gutterBottom })} onClick={this.handleLabelClick}>
+            <div styleName={classNames('root', { fullWidth,'checked': value.value }, { 'small': size === 'small' }, { gutterBottom })} onClick={this.handleLabelClick}>
                 <button
                     ref={el => {
                         this.labelRef = el;

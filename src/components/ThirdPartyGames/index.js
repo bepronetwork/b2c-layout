@@ -100,11 +100,7 @@ class ThirdPartyGames extends Component {
             providers.push(
                 <div styleName="col" key={uniqueId("skeleton-providers-")}>
                     <div styleName="root">
-                        <a>
-                            <div>
-                                <Skeleton width={"175"} height={"70"}/>
-                            </div>
-                        </a>
+                        <Skeleton width={"175"} height={"70"}/>
                     </div>
                 </div>
           );
@@ -201,11 +197,7 @@ class ThirdPartyGames extends Component {
                                             return(
                                                 <div styleName="col" key={p.name}>
                                                     <div styleName="root" onClick={() => this.onClickProvider(p.providerEco)}>
-                                                        <a>
-                                                            <div>
-                                                                <img alt={p.name} src={p.logo} />
-                                                            </div>
-                                                        </a>
+                                                        <img alt={p.name} src={p.logo} />
                                                     </div>
                                                 </div>
                                             )

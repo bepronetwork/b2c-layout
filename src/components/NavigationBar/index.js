@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { getAppCustomization } from "../../lib/helpers";
 import { Link } from "react-router-dom";
 import classNames from 'classnames';
-import { Typography } from 'components';
+import { Typography, Button } from 'components';
 import _ from 'lodash';
 import "./index.css";
 import dots from "assets/dots.png";
@@ -125,9 +125,9 @@ class NavigationBar extends Component {
                             }
                             </div>
                             <div styleName="dropdown">
-                                <a onClick={() => this.onOpenMenu()}>
+                                <Button theme="link" onClick={() => this.onOpenMenu()}>
                                     <div styleName="dropdown-dots" style={{ backgroundImage: 'url(' + dots + ')'}}/>
-                                </a>
+                                </Button>
                                 <div styleName={styles}>
                                     <div styleName="dropdown-nav">
                                         <div styleName="dropdown-column">

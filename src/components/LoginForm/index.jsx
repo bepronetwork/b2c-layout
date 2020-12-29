@@ -167,11 +167,11 @@ class LoginForm extends Component {
                 </div>
 
                 <div styleName="forgot">
-                    <a href="/" onClick={this.resetPasswordClick}>
+                    <Button theme="link" onClick={this.resetPasswordClick}>
                         <Typography color="casper" variant="small-body">
                             {copy.INDEX.TYPOGRAPHY.TEXT[5]}
                         </Typography>
-                    </a>
+                    </Button>
                 </div>
             </form>
         );

@@ -1,5 +1,5 @@
 import React from "react";
-import { Typography, InputText, UsersIcon } from "components";
+import { Typography, InputText, UsersIcon, Button } from "components";
 import ArrowDown from "components/Icons/ArrowDown";
 import { connect } from "react-redux";
 import _, { uniqueId } from 'lodash';
@@ -219,11 +219,11 @@ class ChatPage extends React.Component {
                         {isGoDownVisible === true
                             ?
                                 <div styleName="go-down"> 
-                                    <a href="#" onClick={() => this.scrollToBottom()}>
+                                    <Button theme="link" onClick={() => this.scrollToBottom()}>
                                         <div styleName="arrow"> 
                                             <ArrowDown />
                                         </div>
-                                    </a>
+                                    </Button>
                                 </div>
                             :
                                 null

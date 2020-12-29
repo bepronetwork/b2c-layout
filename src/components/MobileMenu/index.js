@@ -1,9 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { 
-        Typography, WalletIcon,
-        SettingsIcon, DepositsIcon, WithdrawIcon, BetsIcon, UserIcon, UsersIcon, ConfirmedIcon
-       } from 'components';
+import { Typography, WalletIcon, SettingsIcon, DepositsIcon, WithdrawIcon, BetsIcon, UserIcon, UsersIcon, ConfirmedIcon, Button } from 'components';
 import { CopyText } from "../../copy";
 import { getApp, getAddOn, getIcon, getAppCustomization } from "../../lib/helpers";
 import { formatCurrency } from "../../utils/numberFormatation";
@@ -90,7 +87,7 @@ class MobileMenu extends Component {
                 {itens.map(item => {
                     return (
                         <li key={item.path}>
-                            <a href="#" onClick={() => onMenuItem({history, path : item.path})} >
+                            <Button theme="link" onClick={() => onMenuItem({history, path : item.path})} >
                                 <span styleName="row">
                                     <div styleName="icon">
                                         {item.icon}
@@ -99,7 +96,7 @@ class MobileMenu extends Component {
                                         {copy.CONTAINERS.ACCOUNT.TITLE[item.copyValue]}
                                     </Typography>
                                 </span>
-                            </a>
+                            </Button>
                         </li>
                     )
                 })}

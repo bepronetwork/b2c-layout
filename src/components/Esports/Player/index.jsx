@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { Typography } from 'components';
-import ReactCountryFlag from "react-country-flag"
-import { connect } from 'react-redux';
+import ReactCountryFlag from "react-country-flag";
 import "./index.css";
 
 class Player extends Component {
