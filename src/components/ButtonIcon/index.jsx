@@ -45,21 +45,25 @@ const ButtonIcon = ({
       <div role="presentation" styleName={buttonStyles}>
         {icons[icon]}
       </div>
-      <Typography
-        weight="semi-bold"
-        color={disabled ? "pickled-bluewood" : "casper"}
-      >
-        {label}
-      </Typography>
+      {label && (
+        <Typography
+          weight="semi-bold"
+          color={disabled ? "pickled-bluewood" : "casper"}
+        >
+          {label}
+        </Typography>
+      )}
     </button>
   ) : (
     <button type="button" onClick={onClick} styleName={rootStyles}>
-      <Typography
-        weight="semi-bold"
-        color={disabled ? "pickled-bluewood" : "casper"}
-      >
-        {label}
-      </Typography>
+      {label && (
+        <Typography
+          weight="semi-bold"
+          color={disabled ? "pickled-bluewood" : "casper"}
+        >
+          {label}
+        </Typography>
+      )}
       <div role="presentation" styleName={buttonStyles}>
         {icons[icon]}
       </div>
@@ -72,7 +76,7 @@ ButtonIcon.propTypes = {
   iconAtLeft: PropTypes.bool,
   disabled: PropTypes.bool,
   label: PropTypes.string,
-  rollType: PropTypes.oneOf(["over", "under", "sound", null]),
+  rollType: PropTypes.oneOf(["over", "under", "sound"]),
   icon: PropTypes.string,
   soundMode: PropTypes.oneOf(["on", "off"]),
   theme: PropTypes.oneOf(["default", "primary"])

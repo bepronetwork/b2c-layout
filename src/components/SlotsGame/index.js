@@ -1,5 +1,6 @@
 import React from "react";
-import propTypes from "prop-types";
+import PropTypes from "prop-types";
+import { uniqueId } from "lodash";
 import styles from "./index.css";
 import { images } from "./images";
 import HandleLines from "../SlotsLines/Lines";
@@ -16,6 +17,26 @@ import Triangle from "../../assets/icons/SlotsIcons/triangle2.svg";
 import Pentagon from "../../assets/icons/SlotsIcons/pentagon2.svg";
 import Beetle from "../../assets/icons/SlotsIcons/beetle2.svg";
 import Esfinge from "../../assets/icons/SlotsIcons/esfinge2.svg";
+
+const propTypes = {
+  testBol: PropTypes.arrayOf(PropTypes.bool).isRequired,
+  line: PropTypes.bool.isRequired,
+  testArray: PropTypes.arrayOf(PropTypes.number).isRequired,
+  result: PropTypes.bool,
+  resultFirstColumn: PropTypes.arrayOf(PropTypes.number).isRequired,
+  resultSecondColumn: PropTypes.arrayOf(PropTypes.number).isRequired,
+  resultThirstColumn: PropTypes.arrayOf(PropTypes.number).isRequired,
+  resultFourthColumn: PropTypes.arrayOf(PropTypes.number).isRequired,
+  resultFiveColumn: PropTypes.arrayOf(PropTypes.number).isRequired,
+  insertIndex: PropTypes.arrayOf(PropTypes.number).isRequired,
+  winAmount: PropTypes.string,
+  multiplier: PropTypes.number.isRequired
+};
+
+const defaultProps = {
+  result: false,
+  winAmount: ""
+};
 
 class SlotsGame extends React.Component {
   selectNumber = num => {
@@ -46,10 +67,11 @@ class SlotsGame extends React.Component {
         return Beetle;
       case 12:
         return Esfinge;
-
       default:
         break;
     }
+
+    return null;
   };
 
   render() {
@@ -110,7 +132,12 @@ class SlotsGame extends React.Component {
                     svg-animation
                   </object>
                 ) : (
-                  <img src={images[num]} alt="Slot" className={styles.iconStatic} />
+                  <img
+                    key={uniqueId("slots-game--column-item-")}
+                    src={images[num]}
+                    alt="Slot"
+                    className={styles.iconStatic}
+                  />
                 );
               })}
             </div>
@@ -126,7 +153,12 @@ class SlotsGame extends React.Component {
                     svg-animation
                   </object>
                 ) : (
-                  <img src={images[num]} alt="Slot" className={styles.iconStatic} />
+                  <img
+                    key={uniqueId("slots-game--column-item-2-")}
+                    src={images[num]}
+                    alt="Slot"
+                    className={styles.iconStatic}
+                  />
                 );
               })}
             </div>
@@ -142,7 +174,12 @@ class SlotsGame extends React.Component {
                     svg-animation
                   </object>
                 ) : (
-                  <img src={images[num]} alt="Slot" className={styles.iconStatic} />
+                  <img
+                    key={uniqueId("slots-game--column-item-3-")}
+                    src={images[num]}
+                    alt="Slot"
+                    className={styles.iconStatic}
+                  />
                 );
               })}
             </div>
@@ -158,7 +195,12 @@ class SlotsGame extends React.Component {
                     svg-animation
                   </object>
                 ) : (
-                  <img src={images[num]} alt="Slot" className={styles.iconStatic} />
+                  <img
+                    key={uniqueId("slots-game--column-item-4-")}
+                    src={images[num]}
+                    alt="Slot"
+                    className={styles.iconStatic}
+                  />
                 );
               })}
             </div>
@@ -174,7 +216,12 @@ class SlotsGame extends React.Component {
                     svg-animation
                   </object>
                 ) : (
-                  <img src={images[num]} alt="Slot" className={styles.iconStatic} />
+                  <img
+                    key={uniqueId("slots-game--column-item-5-")}
+                    src={images[num]}
+                    alt="Slot"
+                    className={styles.iconStatic}
+                  />
                 );
               })}
             </div>
@@ -185,19 +232,7 @@ class SlotsGame extends React.Component {
   }
 }
 
-SlotsGame.propTypes = {
-  testBol: propTypes.bool.isRequired,
-  line: propTypes.bool.isRequired,
-  testArray: propTypes.arrayOf(propTypes.number).isRequired,
-  result: propTypes.bool.isRequired,
-  resultFirstColumn: propTypes.arrayOf(propTypes.number).isRequired,
-  resultSecondColumn: propTypes.arrayOf(propTypes.number).isRequired,
-  resultThirstColumn: propTypes.arrayOf(propTypes.number).isRequired,
-  resultFourthColumn: propTypes.arrayOf(propTypes.number).isRequired,
-  resultFiveColumn: propTypes.arrayOf(propTypes.number).isRequired,
-  insertIndex: propTypes.arrayOf(propTypes.number).isRequired,
-  winAmount: propTypes.string.isRequired,
-  multiplier: propTypes.string.isRequired
-};
+SlotsGame.propTypes = propTypes;
+SlotsGame.defaultProps = defaultProps;
 
 export default SlotsGame;

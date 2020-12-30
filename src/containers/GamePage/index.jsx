@@ -136,11 +136,13 @@ class GamePage extends Component {
                         {title}
                     </Typography>
                 </div>
-                <div styleName="box-game">
-                    <Typography variant='x-small-body' color={"white"}>
-                        {game}
-                    </Typography>
-                </div>
+                {game && (
+                    <div styleName="box-game">
+                        <Typography variant='x-small-body' color={"white"}>
+                            {game}
+                        </Typography>
+                    </div>
+                )}
                 {
                     info 
                     ?

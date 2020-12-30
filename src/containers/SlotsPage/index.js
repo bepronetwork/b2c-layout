@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import propTypes from "prop-types";
+import PropTypes from "prop-types";
 import { compose } from "lodash/fp";
 import { connect } from "react-redux";
 import { find } from "lodash";
@@ -28,6 +28,14 @@ import {
   randomNumber
 } from "../../lib/helpers/slotsHelpers";
 import Cache from "../../lib/cache/cache";
+
+const propTypes = {
+  profile: PropTypes.objectOf(
+    PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.func])
+  ).isRequired,
+  onTableDetails: PropTypes.func.isRequired,
+  onHandleLoginOrRegister: PropTypes.func.isRequired
+};
 
 class SlotsPage extends Component {
   static contextType = UserContext;
@@ -378,16 +386,11 @@ class SlotsPage extends Component {
   }
 }
 
-SlotsPage.propTypes = {
-  profile: propTypes.objectOf.isRequired,
-  onTableDetails: propTypes.string.isRequired,
-  onHandleLoginOrRegister: propTypes.func.isRequired
-};
+SlotsPage.propTypes = propTypes;
 
 function mapStateToProps(state) {
   return {
-    profile: state.profile,
-    ln: state.language
+    profile: state.profile
   };
 }
 

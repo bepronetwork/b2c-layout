@@ -26,20 +26,20 @@ class TableDefault extends Component {
         this.projectData(this.props);
         const { showRealTimeLoading } = this.props;
 
-        if(showRealTimeLoading) {
-            this.intervalID = setInterval( async () => {
-                this.setState({ isLoadingRow : false });
-                this.addRow();
+        if (this.intervalID) {
+          clearInterval(this.intervalID);
+        } else {
+          if (showRealTimeLoading) {
+            this.intervalID = setInterval(async () => {
+              this.setState({ isLoadingRow: false });
+              this.addRow();
             }, 6000);
+          }
         }
     }
 
     UNSAFE_componentWillReceiveProps(props){
         this.projectData(props);
-    }
-
-    componentWillUnmount() {
-        clearInterval(this.intervalID);
     }
 
     projectData = async (props) => {
