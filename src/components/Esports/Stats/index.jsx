@@ -87,19 +87,21 @@ class Stats extends Component {
                 else {
                     const beginMonth = moment(beginDate).month();
                     const oneYearMonth = moment(oneYearAgoDate).month();
+                    const aggregatedArray = params => aggregatedStats.map(a =>
+                        a.index === params
+                          ? { ...a, 
+                                matchesWon: a.matchesWon + s.totals.matches_won,
+                                matchesPlayed: a.matchesPlayed + s.totals.matches_played
+                            }
+                          : 
+                          a
+                    )
+
                     let index = 0; let month = 0; do { 
                         month = moment(endDate).subtract(index, 'month').month();
                         index += 1; 
 
-                        aggregatedStats = aggregatedStats.map(a =>
-                            a.index === month
-                              ? { ...a, 
-                                    matchesWon: a.matchesWon + s.totals.matches_won,
-                                    matchesPlayed: a.matchesPlayed + s.totals.matches_played
-                                }
-                              : 
-                              a
-                        );
+                        aggregatedStats = aggregatedArray(month);
                         
                     } while (month !== beginMonth && month !== oneYearMonth);
                 }
@@ -114,15 +116,17 @@ class Stats extends Component {
     renderHistoryPerformance() {
         const { stats1, stats2 } = this.state;
         let performance = [];
+        const monthNameFinder = params => stats1.find(s => s.index === params).month;
+        const stat1Finder = params =>  stats1.find(s => s.index === params)
+        const stat2Finder = params =>  stats2.find(s => s.index === params)
 
         let index = 0; let month = 0; do { 
             month = moment().subtract(index, 'month').month();
             index += 1; 
 
-            const monthName = stats1.find(s => s.index === month).month;
-
-            const stat1 = stats1.find(s => s.index === month)
-            const stat2 = stats2.find(s => s.index === month)
+            const monthName = monthNameFinder(month);
+            const stat1 = stat1Finder(month);
+            const stat2 = stat2Finder(month);
 
             const sumWon1 = stat1.matchesWon;
             const sumWon2 = stat2.matchesWon;

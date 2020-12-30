@@ -84,18 +84,14 @@ export default class Button extends Component {
 
     return (
       <button
-        styleName={classNames("root", {
-          [theme]: !!theme,
-          fullWidth,
-          disabled
-        })}
+        styleName={classNames("root", { [theme]: !!theme, fullWidth, disabled })}
         onClick={onClick ? this.handleClick : null}
         type={type}
         name={name}
         disabled={disabled}
         style={style}
       >
-        <div styleName={classNames("content", { [size]: !!size, fullWidth })}>
+        <div styleName={classNames("content", { [size]: !!size, fullWidth })} >
           {icon ? <div styleName="icon">{icon}</div> : null}
           {this.renderContent()}
         </div>
