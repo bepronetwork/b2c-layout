@@ -20,22 +20,26 @@ class TableDefault extends Component {
             rows : [],
             isLoadingRow : false
          };
+        this._isMounted = false;
     }
 
     componentDidMount(){
         this.projectData(this.props);
         const { showRealTimeLoading } = this.props;
 
-        if (this.intervalID) {
-          clearInterval(this.intervalID);
-        } else {
-          if (showRealTimeLoading) {
+        this._isMounted = true;
+
+        if (this._isMounted && showRealTimeLoading) {
             this.intervalID = setInterval(async () => {
-              this.setState({ isLoadingRow: false });
-              this.addRow();
+                this.setState({ isLoadingRow: false });
+                this.addRow();
             }, 6000);
-          }
         }
+    }
+
+    componentWillUnmount() {
+        clearInterval(this.intervalID);
+        this._isMounted = false;
     }
 
     UNSAFE_componentWillReceiveProps(props){
@@ -95,141 +99,141 @@ class TableDefault extends Component {
         let { titles, fields, isLoading, onTableDetails, tag, ln} = this.props;
         const copy = CopyText.tableIndex[ln];
 
-        const rowStyles = classNames("tr-row", {
-            addRow: isLoadingRow
-        });
+        if (isLoading) {
+            return (
+                <SkeletonTheme color={ getSkeletonColors().color} highlightColor={ getSkeletonColors().highlightColor}>
+                    <div style={{opacity : '0.5'}}> 
+                        {this.createSkeletonRows()}
+                    </div>
+                </SkeletonTheme>
+            )
+        }
 
         return (
-            <div>
-                {isLoading ?
-                    <SkeletonTheme color={ getSkeletonColors().color} highlightColor={ getSkeletonColors().highlightColor}>
-                        <div style={{opacity : '0.5'}}> 
-                            {this.createSkeletonRows()}
-                        </div>
-                    </SkeletonTheme>
-                :
-                    <div>
-                        <table styleName='table-row'>
-                            <thead styleName='table-head'>
-                                <tr styleName='tr-row'>
-                                    {titles.map( text => 
-                                        <th styleName='th-row' key={text}>
-                                            <Typography variant='x-small-body' color="grey" weight="bold"> {text} </Typography>
-                                        </th>
-                                    )}
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {
-                                    rows.map( (row) => 
-                                    <tr styleName={rowStyles} key={row.id}>
-                                        {fields.map( (field, index) => {
-                                            const styles = classNames("td-row", {
-                                                'td-row-img': field.image,
-                                                'td-row-currency': field.currency,
-                                                'td-row-state': field.isStatus
-                                            });
-                                            const statusStyles = classNames("status", {
-                                                [row[field.value].color]: field.isStatus === true
-                                            });
-
-
-                                            if(field.dependentColor){
-                                                return (
-                                                    <td styleName={styles} data-label={titles[index]} key={uniqueId("table-default-column-")}>
-                                                        {onTableDetails 
-                                                        ?
-                                                            <Button theme="link" onClick={onTableDetails.bind(this, {titles, fields, row, tag})}>
-                                                                <Typography variant='x-small-body' color={ row[field.condition] ? 'green' : "grey"}> {row[field.value]} </Typography>
-                                                                {this.getCurrencyImage(field.currency, row['currency'])}
-                                                            </Button>
-                                                        :
-                                                            <div>
-                                                                <Typography variant='x-small-body' color={ row[field.condition] ? 'green' : "grey"}> {row[field.value]} </Typography>
-                                                                {this.getCurrencyImage(field.currency, row['currency'])}
-                                                            </div>
-                                                        }
-                                                    </td>     
-                                                )
-                                            }else if(field.image){
-                                                const background = row[field.value].hasOwnProperty("background_url") ? row[field.value].background_url : null;
-                                                return (
-                                                    <td styleName={styles} data-label={titles[index]} key={uniqueId("table-default-column-")}>
-                                                        {onTableDetails 
-                                                        ?
-                                                            <Button theme="link" onClick={onTableDetails.bind(this, {titles, fields, row, tag})}>
-                                                                {this.renderGameColumn(row[field.value], background)}
-                                                            </Button>
-                                                        :
-                                                            this.renderGameColumn(row[field.value], background)
-                                                        }
-                                                    </td>
-                                                )
-                                            }else if(field.isLink === true){
-                                                return (
-                                                    <td styleName={styles} data-label={titles[index]} key={uniqueId("table-default-column-")}>
-                                                        <a href={row[field.linkField]} target={'_blank'}>
-                                                            <Typography variant={'x-small-body'} color='white'>
-                                                                {row[field.value]}
-                                                            </Typography>
-                                                        </a>
-                                                    </td>     
-                                                )
-                                            }else if(field.isStatus === true){
-                                                return (
-                                                    <td styleName={styles} data-label={titles[index]} key={uniqueId("table-default-column-")}>
-                                                        <div styleName={statusStyles}>
-                                                            {onTableDetails 
-                                                            ?
-                                                                <Button theme="link" onClick={onTableDetails.bind(this, {titles, fields, row, tag})}>
-                                                                    <Typography variant='x-small-body' color={"fixedwhite"} weight={"bold"}> {row[field.value].text} </Typography>
-                                                                </Button>
-                                                            :
-                                                                <div>
-                                                                    <Typography variant='x-small-body' color={"fixedwhite"} weight={"bold"}> {row[field.value].text} </Typography>
-                                                                </div>
-                                                            }
-                                                        </div>
-                                                    </td>  
-                                                )
-                                            }
-                                            else{
-                                                return (
-                                                    <td styleName={styles} data-label={titles[index]} key={uniqueId("table-default-column-")}>
-                                                        {onTableDetails 
-                                                        ?
-                                                            <Button theme="link" onClick={onTableDetails.bind(this, {titles, fields, row, tag})}>
-                                                                <Typography variant='x-small-body' color={"white"}> {row[field.value]} </Typography>
-                                                                {this.getCurrencyImage(field.currency, row['currency'])}
-                                                            </Button>
-                                                        :
-                                                            <div>
-                                                                <Typography variant='x-small-body' color={"white"}> {row[field.value]} </Typography>
-                                                                {this.getCurrencyImage(field.currency, row['currency'])}
-                                                            </div>
-                                                        }
-                                                    </td>
-                                                )
-                                            
-                                            }
-                                            
-                                        })}
-                                    </tr>)
-                                }
-                            </tbody>
-                        </table>
+            <>
+                <table styleName='table-row'>
+                    <thead styleName='table-head'>
+                        <tr styleName='tr-row'>
+                            {titles.map( text => 
+                                <th styleName='th-row' key={text}>
+                                    <Typography variant='x-small-body' color="grey" weight="bold"> {text} </Typography>
+                                </th>
+                            )}
+                        </tr>
+                    </thead>
+                    <tbody>
                         {
-                            !rows.length ?
-                                <div styleName="no-info">
-                                    <Typography variant='small-body' color={"grey"}>{copy.TITLE}</Typography>
-                                </div>
-                            :
-                                null
-                        }
+                            rows.map( (row) => 
+                            <tr 
+                                styleName={classNames("tr-row", {
+                                    addRow: isLoadingRow
+                                })} 
+                                key={row.id}
+                            >
+                                {fields.map( (field, index) => {
+                                    const styles = classNames("td-row", {
+                                        'td-row-img': field.image,
+                                        'td-row-currency': field.currency,
+                                        'td-row-state': field.isStatus
+                                    });
+                                    const statusStyles = classNames("status", {
+                                        [row[field.value].color]: field.isStatus === true
+                                    });
 
-                    </div>
+
+                                    if(field.dependentColor){
+                                        return (
+                                            <td styleName={styles} data-label={titles[index]} key={uniqueId("table-default-column-")}>
+                                                {onTableDetails 
+                                                ?
+                                                    <Button theme="link" onClick={onTableDetails.bind(this, {titles, fields, row, tag})}>
+                                                        <Typography variant='x-small-body' color={ row[field.condition] ? 'green' : "grey"}> {row[field.value]} </Typography>
+                                                        {this.getCurrencyImage(field.currency, row['currency'])}
+                                                    </Button>
+                                                :
+                                                    <div>
+                                                        <Typography variant='x-small-body' color={ row[field.condition] ? 'green' : "grey"}> {row[field.value]} </Typography>
+                                                        {this.getCurrencyImage(field.currency, row['currency'])}
+                                                    </div>
+                                                }
+                                            </td>     
+                                        )
+                                    }else if(field.image){
+                                        const background = row[field.value].hasOwnProperty("background_url") ? row[field.value].background_url : null;
+                                        return (
+                                            <td styleName={styles} data-label={titles[index]} key={uniqueId("table-default-column-")}>
+                                                {onTableDetails 
+                                                ?
+                                                    <Button theme="link" onClick={onTableDetails.bind(this, {titles, fields, row, tag})}>
+                                                        {this.renderGameColumn(row[field.value], background)}
+                                                    </Button>
+                                                :
+                                                    this.renderGameColumn(row[field.value], background)
+                                                }
+                                            </td>
+                                        )
+                                    }else if(field.isLink === true){
+                                        return (
+                                            <td styleName={styles} data-label={titles[index]} key={uniqueId("table-default-column-")}>
+                                                <a href={row[field.linkField]} target={'_blank'}>
+                                                    <Typography variant={'x-small-body'} color='white'>
+                                                        {row[field.value]}
+                                                    </Typography>
+                                                </a>
+                                            </td>     
+                                        )
+                                    }else if(field.isStatus === true){
+                                        return (
+                                            <td styleName={styles} data-label={titles[index]} key={uniqueId("table-default-column-")}>
+                                                <div styleName={statusStyles}>
+                                                    {onTableDetails 
+                                                    ?
+                                                        <Button theme="link" onClick={onTableDetails.bind(this, {titles, fields, row, tag})}>
+                                                            <Typography variant='x-small-body' color={"fixedwhite"} weight={"bold"}> {row[field.value].text} </Typography>
+                                                        </Button>
+                                                    :
+                                                        <div>
+                                                            <Typography variant='x-small-body' color={"fixedwhite"} weight={"bold"}> {row[field.value].text} </Typography>
+                                                        </div>
+                                                    }
+                                                </div>
+                                            </td>  
+                                        )
+                                    }
+                                    else{
+                                        return (
+                                            <td styleName={styles} data-label={titles[index]} key={uniqueId("table-default-column-")}>
+                                                {onTableDetails 
+                                                ?
+                                                    <Button theme="link" onClick={onTableDetails.bind(this, {titles, fields, row, tag})}>
+                                                        <Typography variant='x-small-body' color={"white"}> {row[field.value]} </Typography>
+                                                        {this.getCurrencyImage(field.currency, row['currency'])}
+                                                    </Button>
+                                                :
+                                                    <div>
+                                                        <Typography variant='x-small-body' color={"white"}> {row[field.value]} </Typography>
+                                                        {this.getCurrencyImage(field.currency, row['currency'])}
+                                                    </div>
+                                                }
+                                            </td>
+                                        )
+                                    
+                                    }
+                                    
+                                })}
+                            </tr>)
+                        }
+                    </tbody>
+                </table>
+                {
+                    !rows.length ?
+                        <div styleName="no-info">
+                            <Typography variant='small-body' color={"grey"}>{copy.TITLE}</Typography>
+                        </div>
+                    :
+                        null
                 }
-            </div>
+            </>
         );
     }
 }

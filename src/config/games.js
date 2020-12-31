@@ -7,6 +7,8 @@ import WheelVariation1 from "../containers/WheelVariation1Page";
 import KenoPage from "../containers/KenoPage";
 import DiamondPage from "../containers/DiamondPage";
 import SlotsPage from "../containers/SlotsPage";
+import ThirdPartyGamePage from "../containers/ThirdPartyGamePage";
+import ThirdPartyGameList from "../containers/ThirdPartyGameList";
 
 export default [
   {
@@ -48,5 +50,13 @@ export default [
   {
     metaName: "slots_simple",
     component: SlotsPage,
+  },
+  {
+    metaName: "games/:providerGameId",
+    component: ThirdPartyGameList,
+  },
+  {
+    metaName: "game/:providerGameId",
+    component: ThirdPartyGamePage,
   },
 ];

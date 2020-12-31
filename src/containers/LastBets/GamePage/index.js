@@ -109,7 +109,7 @@ class LastBets extends Component {
     }
 
     componentDidMount(){
-        this.projectData(this.props)
+        this.projectData(this.props);
     }
 
     setTimer = (options) => {
@@ -241,44 +241,54 @@ class LastBets extends Component {
         })
     }
 
+    renderLastBets = () => {
+        const { isLoading } = this.state;
+
+        if (isLoading) {
+            return (
+                <SkeletonTheme color={ getSkeletonColors().color} highlightColor={ getSkeletonColors().highlightColor}>
+                    <div styleName='lastBets' style={{opacity : '0.5'}}>
+                        <div styleName='skeleton-tabs'>
+                            <Skeleton height={40}/>
+                        </div>
+                    </div>
+                </SkeletonTheme>
+            )
+        }
+
+        return (
+            <div styleName='lastBets'>
+                <Tabs
+                    selected={this.state.view}
+                    options={this.state.options}
+                    onSelect={this.handleTabChange}
+                    color="primary"
+                />
+                <div styleName="filters">
+                    <div styleName='bets-dropdown'>
+                        <SelectBox
+                            size='small'
+                            onChange={(e) => this.changeViewBets(e)}
+                            options={views}
+                            value={this.state.view_amount}
+                        /> 
+                    </div>
+                </div>
+            </div>
+        )
+    }
+
     render() {
-        const { isLoading, isListLoading, gameMetaName, games } = this.state;
+        const { isListLoading, gameMetaName, games } = this.state;
 
         return (
             <div styleName='container'>
-                {isLoading ?
-                    <SkeletonTheme color={ getSkeletonColors().color} highlightColor={ getSkeletonColors().highlightColor}>
-                        <div styleName='lastBets' style={{opacity : '0.5'}}>
-                            <div styleName='skeleton-tabs'>
-                                <Skeleton height={40}/>
-                            </div>
-                        </div>
-                    </SkeletonTheme>
-                :
-                    <div styleName='lastBets'>
-                        <Tabs
-                            selected={this.state.view}
-                            options={this.state.options}
-                            onSelect={this.handleTabChange}
-                            color="primary"
-                        />
-                        <div styleName="filters">
-                            <div styleName='bets-dropdown'>
-                                <SelectBox
-                                    size='small'
-                                    onChange={(e) => this.changeViewBets(e)}
-                                    options={views}
-                                    value={this.state.view_amount}
-                                /> 
-                            </div>
-                        </div>
-                    </div>
-                }
+                {this.renderLastBets()}
                 <Table
                     rows={this.state[this.state.view].rows}
                     titles={this.state[this.state.view].titles}
                     fields={this.state[this.state.view].fields}
-                    showRealTimeLoading={this.state.view === "all_bets" ? true : false}
+                    showRealTimeLoading={this.state.view === "all_bets"}
                     size={this.state.view_amount.value}
                     games={games.filter(function(g) { return g.metaName === gameMetaName; }).map(function(g) { return g; })}
                     isLoading={isListLoading}

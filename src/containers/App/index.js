@@ -29,8 +29,6 @@ import {
     LiveChatIcon,
     SubSections
 } from "components";
-import ThirdPartyGamePage from "../ThirdPartyGamePage";
-import ThirdPartyGameList from "../ThirdPartyGameList";
 import { login, login2FA, register } from "lib/api/users";
 import getAppInfo from "lib/api/app";
 import handleError from "lib/api/handleError";
@@ -356,7 +354,7 @@ class App extends Component {
             this.setState({ error: null });
             const response = await register(form);
             if (response.status !== 200) { return this.setState({ error: response }); }
-console.log(form, 'form')
+
             await this.handleLogin({username : form.username, password : form.password});
             const { user, app } = this.state;
             if (user) {
@@ -597,46 +595,30 @@ console.log(form, 'form')
     };
 
 
-    renderGamePages = () => {
-        const gameRouteProps = {
-            onHandleLoginOrRegister: this.handleLoginOrRegisterOpen,
-            onTableDetails: this.handleTableDetailsOpen
-        }
+    renderGamePages = () => (
+        <>
+            {/* Still need a refactor. The below action was made to fix the un/controlled component symptom for location existent with no rendered node problem. */}
+            {games.map(({ metaName, component }) => {
+                if (!component) {
+                    return null;
+                }
 
-        return (
-            <>
-                {/* Still need a refactor. The below action was made to fix the un/controlled component symptom for location existent with no rendered node problem. */}
-                {games.map(({ metaName, component }) => {
-                    if (!component) {
-                        return null;
-                    }
-
-                    return (
-                        <GameRoute
-                            key={`game-route--${metaName}`}
-                            path={metaName}
-                            render={(props) =>
-                                createElement(component, {
-                                    ...props,
-                                    ...gameRouteProps,
-                                })
-                            }
-                        />
-                    );
-                })}
-                <Route
-                    exact
-                    path="/games/:providerGameId"
-                    render={props => <ThirdPartyGameList {...props} {...gameRouteProps} />}
-                />
-                <Route
-                    exact
-                    path="/game/:providerGameId"
-                    render={props => <ThirdPartyGamePage {...props} {...gameRouteProps} /> }
-                />
-            </>
-        )
-    }
+                return (
+                    <GameRoute
+                        key={`game-route--${metaName}`}
+                        path={metaName}
+                        render={(props) =>
+                            createElement(component, {
+                                ...props,
+                                onHandleLoginOrRegister: this.handleLoginOrRegisterOpen,
+                                onTableDetails: this.handleTableDetailsOpen
+                            })
+                        }
+                    />
+                );
+            })}
+        </>
+    )
 
     render() {
         const { user, app, isLoading, chatMobileOpen, betsListOpen, settingsMenuOpen, chatExpand } = this.state;
@@ -829,7 +811,7 @@ console.log(form, 'form')
                                                 )}
                                             /> 
 
-                                            {this.renderGamePages({history})}
+                                            {this.renderGamePages()}
 
                                         </Switch>
                                         <SubSections location={LOCATION.BEFORE_FOOTER} />

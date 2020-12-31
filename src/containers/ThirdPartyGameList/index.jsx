@@ -6,6 +6,7 @@ import { getProvidersGames } from "../../lib/api/app";
 import { getSkeletonColors, getApp } from "../../lib/helpers";
 import { CopyText } from "../../copy";
 import "./index.css";
+import { uniqueId } from "lodash";
 
 class ThirdPartyGameList extends Component {
 
@@ -83,7 +84,7 @@ class ThirdPartyGameList extends Component {
 
         for (let i = 0; i < 18; i++) {
             games.push(
-                <div styleName="col">
+                <div styleName="col" key={uniqueId("create-skeleton-games-")}>
                     <div styleName="root">
                         <div styleName="image-container dice-background-color">
                             <div styleName="icon">
@@ -137,19 +138,14 @@ class ThirdPartyGameList extends Component {
                         <ThirdPartyProviderSelector providers={providers} providerId={providerId} onChangeProvider={this.changeProvider}/>  
                     </div>
                     <div styleName="container-small">
-                        {games.slice(0, quantity).map(g => {
-                            const game = {
-                                id: g.id, 
-                                partnerId: g.partnerId, 
-                                url: g.url,
-                                icon: g.icon,
-                                title: g.title,
-                                provider: g.provider
-                            };
-                            return (
-                                <ThirdPartyGameCard game={game} onHandleLoginOrRegister={onHandleLoginOrRegister} history={history}/>
-                            )
-                        })}
+                        {games.slice(0, quantity).map(({ id, partnerId, url, icon, title, provider }) => (
+                            <ThirdPartyGameCard
+                                key={id}
+                                game={{ id, partnerId, url, icon, title, provider }} 
+                                onHandleLoginOrRegister={onHandleLoginOrRegister} 
+                                history={history}
+                            />
+                        ))}
                     </div>
                 </div>
                 }
