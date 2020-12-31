@@ -19,7 +19,7 @@ class HomePage extends Component {
         onHandleConfirmEmail: PropTypes.func
     };
 
-    componentDidMount = () => {
+    componentDidMount() {
         const { onHandleResetPassword, onHandleConfirmEmail,  match: { params } } = this.props;
 
         let queryParams = queryString.parse(this.props.location.search);

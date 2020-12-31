@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, createElement } from "react";
 import { Router, Switch, Route } from "react-router-dom";
 import { createBrowserHistory } from "history";
 import _, { find } from "lodash";
@@ -29,17 +29,8 @@ import {
     LiveChatIcon,
     SubSections
 } from "components";
-import PlinkoPage from "containers/PlinkoPage";
-import DicePage from "containers/DicePage";
-import FlipPage from "containers/FlipPage";
-import RoulettePage from "containers/RoulettePage";
-import WheelPage from "../WheelPage";
-import WheelVariation1 from "../WheelVariation1Page";
-import KenoPage from "../KenoPage";
-import DiamondPage from "../DiamondPage";
 import ThirdPartyGamePage from "../ThirdPartyGamePage";
 import ThirdPartyGameList from "../ThirdPartyGameList";
-import SlotsPage from "../SlotsPage";
 import { login, login2FA, register } from "lib/api/users";
 import getAppInfo from "lib/api/app";
 import handleError from "lib/api/handleError";
@@ -69,6 +60,8 @@ import delay from 'delay';
 import MobileMenu from "../../components/MobileMenu";
 import { analyticsIdentify, analyticsPage } from '../../lib/helpers/analytics'
 import socketKycConnection from './WebSocket';
+import GameRoute from "../../components/GameRoute";
+import games from "../../config/games";
 
 const history = createBrowserHistory();
 
@@ -135,7 +128,7 @@ class App extends Component {
     }
 
     componentWillUnmount() {
-        clearInterval(this.intervalID);
+        // clearInterval(this.intervalID);
 
         const { connection } = this.context;
 
@@ -603,150 +596,44 @@ console.log(form, 'form')
         }
     };
 
+
     renderGamePages = () => {
+        const gameRouteProps = {
+            onHandleLoginOrRegister: this.handleLoginOrRegisterOpen,
+            onTableDetails: this.handleTableDetailsOpen
+        }
+
         return (
             <>
-                {this.isGameAvailable("linear_dice_simple") ? (
-                    <Route
-                    exact
-                    path="/linear_dice_simple"
-                    render={props => (
-                        <DicePage
-                        {...props}
-                        onHandleLoginOrRegister={this.handleLoginOrRegisterOpen}
-                        onTableDetails={this.handleTableDetailsOpen}
+                {/* Still need a refactor. The below action was made to fix the un/controlled component symptom for location existent with no rendered node problem. */}
+                {games.map(({ metaName, component }) => {
+                    if (!component) {
+                        return null;
+                    }
+
+                    return (
+                        <GameRoute
+                            key={`game-route--${metaName}`}
+                            path={metaName}
+                            render={(props) =>
+                                createElement(component, {
+                                    ...props,
+                                    ...gameRouteProps,
+                                })
+                            }
                         />
-                    )}
-                    />
-                ) : null}
-                {this.isGameAvailable("coinflip_simple") ? (
-                    <Route
-                    exact
-                    path="/coinflip_simple"
-                    render={props => (
-                        <FlipPage
-                        {...props}
-                        onHandleLoginOrRegister={this.handleLoginOrRegisterOpen}
-                        onTableDetails={this.handleTableDetailsOpen}
-                        />
-                    )}
-                    />
-                ) : null}
-                {this.isGameAvailable("european_roulette_simple") ? (
-                    <Route
-                    exact
-                    path="/european_roulette_simple"
-                    render={props => (
-                        <RoulettePage
-                        {...props}
-                        onHandleLoginOrRegister={this.handleLoginOrRegisterOpen}
-                        onTableDetails={this.handleTableDetailsOpen}
-                        />
-                    )}
-                    />
-                ) : null}
-                {this.isGameAvailable("wheel_simple") ? (
-                    <Route
-                    exact
-                    path="/wheel_simple"
-                    render={props => (
-                        <WheelPage
-                        {...props}
-                        game={this.isGameAvailable("wheel_simple")}
-                        onHandleLoginOrRegister={this.handleLoginOrRegisterOpen}
-                        onTableDetails={this.handleTableDetailsOpen}
-                        />
-                    )}
-                    />
-                ) : null}
-                    {this.isGameAvailable("wheel_variation_1") ? (
-                    <Route
-                    exact
-                    path="/wheel_variation_1"
-                    render={props => (
-                        <WheelVariation1
-                            {...props}
-                            game={this.isGameAvailable("wheel_variation_1")}
-                            onHandleLoginOrRegister={this.handleLoginOrRegisterOpen}
-                            onTableDetails={this.handleTableDetailsOpen}
-                        />
-                    )}
-                    />
-                ) : null}
-                    {this.isGameAvailable("plinko_variation_1") ? (
-                    <Route
-                    exact
-                    path="/plinko_variation_1"
-                    render={props => (
-                        <PlinkoPage
-                        {...props}
-                        onHandleLoginOrRegister={this.handleLoginOrRegisterOpen}
-                        onTableDetails={this.handleTableDetailsOpen}
-                        />
-                    )}
-                    />
-                ) : null}
-                    {this.isGameAvailable("keno_simple") ? (
-                    <Route
-                    exact
-                    path="/keno_simple"
-                    render={props => (
-                        <KenoPage
-                        {...props}
-                        onHandleLoginOrRegister={this.handleLoginOrRegisterOpen}
-                        onTableDetails={this.handleTableDetailsOpen}
-                        />
-                    )}
-                    />
-                ) : null}
-                {this.isGameAvailable("diamonds_simple") ? (
-                    <Route
-                    exact
-                    path="/diamonds_simple"
-                    render={props => (
-                        <DiamondPage
-                        {...props}
-                        onHandleLoginOrRegister={this.handleLoginOrRegisterOpen}
-                        onTableDetails={this.handleTableDetailsOpen}
-                        />
-                    )}
-                    />
-                ) : null}
-                {this.isGameAvailable("slots_simple") ? (
-                    <Route
-                    exact
-                    path="/slots_simple"
-                    render={props => (
-                        <SlotsPage
-                        {...props}
-                        onHandleLoginOrRegister={this.handleLoginOrRegisterOpen}
-                        onTableDetails={this.handleTableDetailsOpen}
-                        />
-                    )}
-                    />
-                ) : null}
+                    );
+                })}
                 <Route
                     exact
                     path="/games/:providerGameId"
-                    render={props => (
-                        <ThirdPartyGameList
-                        {...props}
-                        onHandleLoginOrRegister={this.handleLoginOrRegisterOpen}
-                        onTableDetails={this.handleTableDetailsOpen}
-                        />
-                    )}
-                    />
+                    render={props => <ThirdPartyGameList {...props} {...gameRouteProps} />}
+                />
                 <Route
                     exact
                     path="/game/:providerGameId"
-                    render={props => (
-                        <ThirdPartyGamePage
-                        {...props}
-                        onHandleLoginOrRegister={this.handleLoginOrRegisterOpen}
-                        onTableDetails={this.handleTableDetailsOpen}
-                        />
-                    )}
-                    />
+                    render={props => <ThirdPartyGamePage {...props} {...gameRouteProps} /> }
+                />
             </>
         )
     }
