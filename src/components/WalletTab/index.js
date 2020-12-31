@@ -392,19 +392,19 @@ resultFilter = (firstArray, secondArray) => {
                 tab === "deposit" ? (
                   <>
                     <div>
-                      <DepositForm
+                      {/* <DepositForm
                         wallet={wallet}
                         onAddress={this.handleAddress}
-                      />
+                      /> */}
                       <DepositList isCurrentPath={isCurrentPath} />
                     </div>
                   </>
                 ) : (
                   <div>
-                    <WithdrawForm
+                    {/* <WithdrawForm
                       wallet={wallet}
                       onAddress={this.handleAddress}
-                    />{" "}
+                    />{" "} */}
                     <WithdrawList isCurrentPath={isCurrentPath} />
                   </div>
                   
