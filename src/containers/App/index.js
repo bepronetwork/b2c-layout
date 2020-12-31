@@ -128,7 +128,7 @@ class App extends Component {
     }
 
     componentWillUnmount() {
-        // clearInterval(this.intervalID);
+        clearInterval(this.intervalID);
 
         const { connection } = this.context;
 
