@@ -77,7 +77,7 @@ class LoginForm extends Component {
                 <div styleName="username">
                     <InputText
                         name="username"
-                        placeholder= {copy.INDEX.INPUT_TEXT.LABEL[0]}
+                        placeholder={copy.INDEX.INPUT_TEXT.LABEL[0]}
                         onChange={this.onUsernameChange}
                         value={username}
                         disabled={has2FA}
@@ -85,7 +85,7 @@ class LoginForm extends Component {
                 </div>
                 <InputText
                     name="password"
-                    placeholder= {copy.INDEX.INPUT_TEXT.LABEL[1]}
+                    placeholder={copy.INDEX.INPUT_TEXT.LABEL[1]}
                     type="password"
                     onChange={this.onPasswordChange}
                     value={password}
@@ -131,7 +131,7 @@ class LoginForm extends Component {
         const { skin } = getAppCustomization();
 
         return (
-            <form onSubmit={this.handleSubmit}>
+            <form onSubmit={this.handleSubmit} autoComplete="off">
 
                 {this.renderStageOne()}
                 

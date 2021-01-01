@@ -16,20 +16,20 @@ import getYearsAgo from '../../utils/getYearsAgo';
 import stringToNumber from '../../utils/stringToNumber';
 import checkAge from "../../utils/checkAge";
 
+const propTypes = {
+    onSubmit: PropTypes.func.isRequired,
+    error: PropTypes.number
+}
+
+const defaultProps = {
+    error: null
+}
+
 class RegisterForm extends Component {
-    static propTypes = {
-        onSubmit: PropTypes.func.isRequired,
-        error: PropTypes.number
-    };
-
-    static defaultProps = {
-        error: null
-    };
-
-    constructor({ ln, ...props }) {
-        super(props);
-        const copy = CopyText.registerFormIndex[ln];
+    constructor({ ln }) {
+        super();
         
+        this.copy = CopyText.registerFormIndex[ln];
         this.state = {
             username: "",
             password: "",
@@ -38,32 +38,25 @@ class RegisterForm extends Component {
             isLoading: false,
             isConfirmed: false,
             terms: null,
-            month: { text: copy.INDEX.INPUT_TEXT.LABEL[7] },
-            day: { text: copy.INDEX.INPUT_TEXT.LABEL[6] },
-            year: { text: copy.INDEX.INPUT_TEXT.LABEL[8] },
+            month: { text: this.copy.INDEX.INPUT_TEXT.LABEL[7] },
+            day: { text: this.copy.INDEX.INPUT_TEXT.LABEL[6] },
+            year: { text: this.copy.INDEX.INPUT_TEXT.LABEL[8] },
             restrictedCountries: [],
-            userCountry: { text: copy.INDEX.INPUT_TEXT.LABEL[9] }
-        };
+            userCountry: { text: this.copy.INDEX.INPUT_TEXT.LABEL[9] }
+        }
     }
 
-    componentDidMount = async () => {
+    componentDidMount() {
+        this.projectData(this.props);
+    }
+
+    projectData = async ({ ln }) => {
         const { restrictedCountries } = await getApp();
-
-        this.projectData(this.props)
-        this.setState({ restrictedCountries });
-    }
-
-    UNSAFE_componentWillReceiveProps(props){
-        this.projectData(props);
-    }
-
-    projectData = async (props) => {
-        const { ln } = props;
-        const { footer } = await getAppCustomization();
-        const supportLinks = footer.languages.find(f => f.language.isActivated === true && f.language.prefix === ln.toUpperCase()).supportLinks;
-        const terms = supportLinks.find(s => { return s.name.trim().toLowerCase() === "terms of service"});
-
-        this.setState({ terms });
+        const { footer: { languages } } = await getAppCustomization();
+        const { supportLinks } = languages.find(({ language: { isActivated, prefix } }) => isActivated && prefix === ln.toUpperCase());
+        const terms = supportLinks.find(({ name }) => name.trim().toLowerCase() === "terms of service");
+ 
+        this.setState({ terms, restrictedCountries });
     }
 
     handleSubmit = async event => {
@@ -300,10 +293,11 @@ class RegisterForm extends Component {
     }
 }
 
+RegisterForm.propTypes = propTypes;
+RegisterForm.defaultProps = defaultProps;
 
 function mapStateToProps(state){
     return {
-        profile: state.profile,
         ln : state.language
     };
 }
