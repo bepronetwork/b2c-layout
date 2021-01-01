@@ -8,26 +8,30 @@ import "./index.css";
 import gameOperations from "../../utils/gameOperations";
 import _ from "lodash";
 
-class MultiplyMaxButton extends Component {
-  static propTypes = {
-    onResult: PropTypes.func.isRequired,
-    onBetAmount: PropTypes.func.isRequired,
-    amount: PropTypes.number.isRequired
-  };
+const propTypes = {
+  onResult: PropTypes.func.isRequired,
+  onBetAmount: PropTypes.func,
+  amount: PropTypes.number.isRequired,
+};
 
+const defaultProps = {
+  onBetAmount: () => {}
+}
+
+class MultiplyMaxButton extends Component {
   constructor(props) {
     super(props);
     this.handleClick = this.handleClick.bind(this);
   }
 
-  handleClick = event => {
+  handleClick = (event) => {
     const { profile, currency, onResult, amount, onBetAmount } = this.props;
     const { name } = event.currentTarget;
 
     if (_.isEmpty(profile)) {
       return null;
-    }    
-    
+    }
+
     const wallet = profile.getWallet({ currency });
     const balance = _.isEmpty(wallet) ? 0 : wallet.playBalance;
     const hadBonus =
@@ -36,7 +40,7 @@ class MultiplyMaxButton extends Component {
         : balance;
     const bonusPlusBalance = _.isEmpty(wallet) ? 0 : hadBonus;
 
-      const newAmount = gameOperations(name, amount, bonusPlusBalance);
+    const newAmount = gameOperations(name, amount, bonusPlusBalance);
 
     if (onBetAmount) {
       onBetAmount(newAmount);
@@ -55,7 +59,7 @@ class MultiplyMaxButton extends Component {
         <div styleName="container">
           <button
             name={0.5}
-            onClick={event => this.handleClick(event)}
+            onClick={(event) => this.handleClick(event)}
             styleName="button"
             type="button"
           >
@@ -71,7 +75,7 @@ class MultiplyMaxButton extends Component {
           </button>
           <button
             name={2}
-            onClick={event => this.handleClick(event)}
+            onClick={(event) => this.handleClick(event)}
             styleName="button"
             type="button"
           >
@@ -87,7 +91,7 @@ class MultiplyMaxButton extends Component {
           </button>
           <button
             name="max"
-            onClick={event => this.handleClick(event)}
+            onClick={(event) => this.handleClick(event)}
             styleName="button"
             type="button"
           >
@@ -107,11 +111,14 @@ class MultiplyMaxButton extends Component {
   }
 }
 
+MultiplyMaxButton.propTypes = propTypes;
+MultiplyMaxButton.defaultProps = defaultProps;
+
 function mapStateToProps(state) {
   return {
     profile: state.profile,
     ln: state.language,
-    currency: state.currency
+    currency: state.currency,
   };
 }
 

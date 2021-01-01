@@ -21,9 +21,11 @@ class ThirdPartyGames extends Component {
             total: 0,
             quantity: 0
         };
+        this._isMounted = false;
     }
 
     componentDidMount(){
+        this._isMounted = true;
         this.projectData(this.props);
     }
 
@@ -31,16 +33,21 @@ class ThirdPartyGames extends Component {
         this.projectData(props);
     }
 
+    componentWillUnmount() {
+        this._isMounted = false;
+    }
+
     projectData = async () => {
         this.setState({ isLoading: true, isLoadingGames: true });
 
         const providers = getApp().casino_providers.filter(p => p.activated === true);
         const games = await getProvidersGames();
-        
-        this.formatGames(games);
+
+        if (this._isMounted) {
+            this.formatGames(games);
+        }
 
         this.setState({ providers, isLoading: false, isLoadingGames: false });
-
     }
 
     formatGames(games) {

@@ -54,7 +54,7 @@ class TableDefault extends Component {
         let { rows } = this.state; 
         const { showRealTimeLoading, size, games } = this.props;
 
-        if(showRealTimeLoading) {
+        if(this._isMounted && showRealTimeLoading) {
             await delay(1000);
             rows = loadFakeBets(rows, games, size);
             this.setState({ rows, isLoadingRow : true });

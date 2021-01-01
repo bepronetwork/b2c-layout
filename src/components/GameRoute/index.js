@@ -14,11 +14,11 @@ function GameRoute({ path = "", ...props }) {
     return find(appInfo.games, { path });
   };
 
-  if (isGameAvailable) {
-    return <Route exact path={`/${path}`} {...props} />;
+  if (!isGameAvailable) {
+    return null;
   }
 
-  return null;
+  return <Route exact path={`/${path}`} {...props} />;
 }
 
 GameRoute.propTypes = {

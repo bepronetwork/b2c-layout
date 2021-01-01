@@ -18,9 +18,9 @@ class WheelBox extends Component {
         styleName += isLight ? ` multiplier-${String(index).toString().trim()}-light` : '';
 
         return (
-            <div styleName={`box ${styleName} ${wasSet ? 'no-transform' : ''} ${isLight ? 'box-light' : ''}`}>
+            <div styleName={`box ${styleName} ${wasSet ? 'no-transform' : ''} ${isLight ? 'box-light' : ''}`} key={`wheel-box--${multiplier}-${index}`}>
                 <div style={{zIndex : 5}}>
-                    <Typography weight="small-body" color="white">
+                    <Typography size="small-body" color="white">
                         {Numbers.toFloat(multiplier)}x
                     </Typography>
                 </div>

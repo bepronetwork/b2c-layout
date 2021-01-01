@@ -6,7 +6,7 @@ import classNames from 'classnames';
 import { formatCurrency } from "../../utils/numberFormatation";
 import { CopyText } from '../../copy';
 import Keno from './keno';
-import _ from 'lodash';
+import _, { uniqueId } from 'lodash';
 import plockSound from "assets/keno-selected.mp3";
 import congratsSound from "assets/keno-diamond.mp3";
 import tickSound from "assets/keno-tick.mp3";
@@ -199,7 +199,7 @@ class KenoGameCard extends Component {
                 if(betAmount > 0) { payout = profit / betAmount; };
             }
 
-            payouts.push(<div styleName="payout"><Typography variant={'x-small-body'} color={'grey'}>{`${this.formatPayout(payout.toFixed(2))}x`}</Typography></div>);
+            payouts.push(<div styleName="payout" key={uniqueId("render-payouts-")}><Typography variant={'x-small-body'} color={'grey'}>{`${this.formatPayout(payout.toFixed(2))}x`}</Typography></div>);
         }
 
         return (
@@ -331,7 +331,7 @@ class KenoGameCard extends Component {
             const styles = classNames("hit", {
                 "highlight": index === numberOfDiamonds
             });
-            hits.push(<div styleName={styles} onMouseOver={() => this.handleChances(index)} onMouseOut={() => this.handleMouseOut()}><Typography variant={'x-small-body'} color={'grey'}>{`${index}x`}</Typography> <DiamondIcon/></div>);
+            hits.push(<div styleName={styles} onMouseOver={() => this.handleChances(index)} onMouseOut={() => this.handleMouseOut()} key={uniqueId("render-hits-")}><Typography variant={'x-small-body'} color={'grey'}>{`${index}x`}</Typography> <DiamondIcon/></div>);
         }
 
         return (

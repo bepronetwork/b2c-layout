@@ -9,6 +9,38 @@ import DiamondWithBorder from "../../assets/DiamondIcons/diamond-with-border";
 import images from "./images";
 import "./index.css";
 
+const propTypes = {
+  backendResult: PropTypes.arrayOf(PropTypes.object).isRequired,
+  isActiveBottomBar: PropTypes.bool.isRequired,
+  isHover: PropTypes.bool.isRequired,
+  isHover1: PropTypes.bool.isRequired,
+  isHover2: PropTypes.bool.isRequired,
+  isHover3: PropTypes.bool.isRequired,
+  isHover4: PropTypes.bool.isRequired,
+  isHover5: PropTypes.bool.isRequired,
+  isHover6: PropTypes.bool.isRequired,
+  handleMouseEnter: PropTypes.func.isRequired,
+  handleMouseEnter1: PropTypes.func.isRequired,
+  handleMouseEnter2: PropTypes.func.isRequired,
+  handleMouseEnter3: PropTypes.func.isRequired,
+  handleMouseEnter4: PropTypes.func.isRequired,
+  handleMouseEnter5: PropTypes.func.isRequired,
+  handleMouseEnter6: PropTypes.func.isRequired,
+  isVisible1: PropTypes.bool.isRequired,
+  isVisible2: PropTypes.bool.isRequired,
+  isVisible3: PropTypes.bool.isRequired,
+  isVisible4: PropTypes.bool.isRequired,
+  isVisible5: PropTypes.bool.isRequired,
+  profitAmount: PropTypes.number,
+  resultSpace: PropTypes.arrayOf(
+    PropTypes.oneOfType([PropTypes.number, PropTypes.object])
+  ).isRequired
+};
+
+const defaultProps = {
+  profitAmount: 0
+}
+
 class DiamondGame extends Component {
   render() {
     const {
@@ -456,31 +488,8 @@ class DiamondGame extends Component {
   }
 }
 
-DiamondGame.propTypes = {
-  backendResult: PropTypes.arrayOf.isRequired,
-  isActiveBottomBar: PropTypes.bool.isRequired,
-  isHover: PropTypes.bool.isRequired,
-  isHover1: PropTypes.bool.isRequired,
-  isHover2: PropTypes.bool.isRequired,
-  isHover3: PropTypes.bool.isRequired,
-  isHover4: PropTypes.bool.isRequired,
-  isHover5: PropTypes.bool.isRequired,
-  isHover6: PropTypes.bool.isRequired,
-  handleMouseEnter: PropTypes.func.isRequired,
-  handleMouseEnter1: PropTypes.func.isRequired,
-  handleMouseEnter2: PropTypes.func.isRequired,
-  handleMouseEnter3: PropTypes.func.isRequired,
-  handleMouseEnter4: PropTypes.func.isRequired,
-  handleMouseEnter5: PropTypes.func.isRequired,
-  handleMouseEnter6: PropTypes.func.isRequired,
-  isVisible1: PropTypes.bool.isRequired,
-  isVisible2: PropTypes.bool.isRequired,
-  isVisible3: PropTypes.bool.isRequired,
-  isVisible4: PropTypes.bool.isRequired,
-  isVisible5: PropTypes.bool.isRequired,
-  profitAmount: PropTypes.number.isRequired,
-  resultSpace: PropTypes.number.isRequired
-};
+DiamondGame.propTypes = propTypes;
+DiamondGame.defaultProps = defaultProps;
 
 function mapStateToProps(state) {
   return {

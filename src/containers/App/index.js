@@ -594,10 +594,8 @@ class App extends Component {
         }
     };
 
-
     renderGamePages = () => (
         <>
-            {/* Still need a refactor. The below action was made to fix the un/controlled component symptom for location existent with no rendered node problem. */}
             {games.map(({ metaName, component }) => {
                 if (!component) {
                     return null;

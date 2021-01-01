@@ -81,11 +81,7 @@ export default class Slider extends Component {
         };
     }
 
-  handleSlide = props => {
-    const { value, ...restProps } = props;
-
-    return <Handle value={value} {...restProps} />;
-  };
+  handleSlide = ({ value }) => <Handle value={value} />;
 
   handleChange = type => value => {
     const { onChange } = this.props;

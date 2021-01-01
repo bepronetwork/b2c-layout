@@ -13,6 +13,20 @@ import images from "../../components/DiamondGame/images";
 import Cache from "../../lib/cache/cache";
 import { getAppCustomization } from "../../lib/helpers";
 
+const propTypes = {
+  profile: PropTypes.objectOf(
+    PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.number,
+      PropTypes.func,
+      PropTypes.bool,
+      PropTypes.object
+    ])
+  ).isRequired,
+  onTableDetails: PropTypes.func.isRequired,
+  onHandleLoginOrRegister: PropTypes.func.isRequired
+}
+
 class DiamondPage extends Component {
   static contextType = UserContext;
 
@@ -665,11 +679,7 @@ class DiamondPage extends Component {
   }
 }
 
-DiamondPage.propTypes = {
-  profile: PropTypes.arrayOf.isRequired,
-  onHandleLoginOrRegister: PropTypes.objectOf.isRequired,
-  onTableDetails: PropTypes.objectOf.isRequired
-};
+DiamondPage.propTypes = propTypes;
 
 function mapStateToProps(state) {
   return {

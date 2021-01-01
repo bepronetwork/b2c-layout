@@ -233,9 +233,9 @@ class KenoGameOptions extends Component {
 
     render() {
         const { type, amount } = this.state;
-        const user = this.props.profile;
-        const { ln, onBetAmount } = this.props;
+        const { ln, onBetAmount, profile } = this.props;
         const copy = CopyText.kenoGameOptionsIndex[ln];
+        const balanceWithBonus = Number(profile.getBalanceWithBonus().toFixed(6));
 
         return (
         <div styleName="root">
@@ -260,8 +260,8 @@ class KenoGameOptions extends Component {
                     <div styleName="amount-container">
                         <InputNumber
                             name="amount"
-                            value={amount}
-                            max={(user && !_.isEmpty(user)) ? user.getBalanceWithBonus().toFixed(6) : null}
+                            value={Number(amount)}
+                            max={balanceWithBonus || null}
                             step={0.01}
                             icon="bitcoin"
                             precision={2}
@@ -269,7 +269,7 @@ class KenoGameOptions extends Component {
                         />
                         <MultiplyMaxButton
                             onBetAmount={onBetAmount}
-                            amount={amount}
+                            amount={Number(amount)}
                             onResult={this.handleMultiplyResult}
                         />
                     </div>

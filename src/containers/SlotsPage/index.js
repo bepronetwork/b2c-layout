@@ -31,7 +31,13 @@ import Cache from "../../lib/cache/cache";
 
 const propTypes = {
   profile: PropTypes.objectOf(
-    PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.func])
+    PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.number,
+      PropTypes.func,
+      PropTypes.bool,
+      PropTypes.object
+    ])
   ).isRequired,
   onTableDetails: PropTypes.func.isRequired,
   onHandleLoginOrRegister: PropTypes.func.isRequired
@@ -86,6 +92,7 @@ class SlotsPage extends Component {
     const { userDelta, totalBetAmount } = this.state.betObjectResult;
 
     await profile.updateBalance({ userDelta, amount, totalBetAmount });
+
     return new Promise(resolve => setTimeout(() => resolve(), 500));
   };
 

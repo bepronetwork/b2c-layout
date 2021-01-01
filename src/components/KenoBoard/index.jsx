@@ -33,7 +33,7 @@ class KenoBoard extends Component {
                                 "cover-selected": card.isSelected === true && card.isPicked === false
                             });
                             return(
-                                <button styleName="card" onClick={() => this.handleCardClick(index)} style={{outline: "none"}}>
+                                <button styleName="card" onClick={() => this.handleCardClick(index)} style={{outline: "none"}} key={`keno-board--button-${card.display}`}>
                                     {
                                         card.isSelected === true && card.isPicked === true
                                         ?

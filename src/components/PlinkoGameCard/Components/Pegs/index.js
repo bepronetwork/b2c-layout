@@ -22,7 +22,7 @@ class Pegs extends Component {
                         const resultClass = result ? i === result ? 'result' : 'result-no' : 'result';
 
                         return (
-                            <div styleName={`peg ${className} ${hasAnimationClass} ${resultClass}`} >
+                            <div styleName={`peg ${className} ${hasAnimationClass} ${resultClass}`} key={`pegs--${el.multiplier}-${i}`}>
                                 <Typography variant={'small-body'} color={'fixedwhite'} >{el.multiplier}x</Typography>
                             </div>
                         )

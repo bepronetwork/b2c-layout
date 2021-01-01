@@ -15,7 +15,6 @@ import Dice from "components/Icons/Dice";
 import delay from 'delay';
 import "./index.css";
 import { Numbers } from "../../lib/ethereum/lib";
-import _ from 'lodash';
 import { isUserSet } from "../../lib/helpers";
 import { formatCurrency } from "../../utils/numberFormatation";
 import { CopyText } from '../../copy';
@@ -248,9 +247,7 @@ const copy = CopyText.flipGameOptionsIndex[ln];
 
     render() {
         const { type, betAmount, side, isAutoBetting } = this.state;
-        const { isCoinSpinning } = this.props;
-        const user = this.props.profile;
-        const {ln, onBetAmount} = this.props;
+        const { isCoinSpinning, profile, ln, onBetAmount} = this.props;
         const copy = CopyText.flipGameOptionsIndex[ln];
 
         return (
@@ -278,14 +275,14 @@ const copy = CopyText.flipGameOptionsIndex[ln];
                         name="amount"
                         step={0.01}
                         icon="bitcoin"
-                        max={(user && !_.isEmpty(user)) ? user.getBalance() : null}
+                        max={profile.getBalance() || null}
                         precision={2}
-                        value={betAmount}
+                        value={Number(betAmount)}
                         onChange={this.handleBetAmountChange}
                         />
                         <MultiplyMaxButton
                             onBetAmount={onBetAmount}
-                            amount={betAmount}
+                            amount={Number(betAmount)}
                             onResult={this.handleMultiplyResult}
                         />
                     </div>

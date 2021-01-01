@@ -34,14 +34,20 @@ class WheelPage extends React.Component {
             bet: false,
             amount: 0
         }
+        this._isMounted = false;
     }
 
     componentDidMount(){
+        this._isMounted = true;
         this.projectData();
     }
 
     UNSAFE_componentWillReceiveProps(){
         this.projectData();
+    }
+
+    componentWillUnmount() {
+        this._isMounted = false;
     }
 
     projectData = () => {
@@ -138,9 +144,12 @@ class WheelPage extends React.Component {
         const { profile } = this.props;
         const { amount } = this.state;
         const { isWon, result, winAmount, userDelta, totalBetAmount } = this.state.betObjectResult;
-        setWonPopupMessageDispatcher(winAmount);
-        this.addToHistory({result, won : isWon});
-        await profile.updateBalance({ userDelta, amount, totalBetAmount });
+
+        if (this._isMounted) {
+            setWonPopupMessageDispatcher(winAmount);
+            this.addToHistory({result, won : isWon});
+            await profile.updateBalance({ userDelta, amount, totalBetAmount });
+        }
     };
 
     getTotalBet = () => {

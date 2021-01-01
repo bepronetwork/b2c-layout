@@ -15,20 +15,19 @@ import Dice from "components/Icons/Dice";
 import delay from 'delay';
 import "./index.css";
 import { Numbers } from "../../lib/ethereum/lib";
-import _ from 'lodash';
 import { isUserSet } from "../../lib/helpers";
 import { CopyText } from '../../copy';
 import { connect } from "react-redux";
 
+const propTypes = {
+    onBet: PropTypes.func.isRequired,
+    disableControls: PropTypes.bool,
+    rollType: PropTypes.string.isRequired,
+    rollNumber: PropTypes.number.isRequired
+};
+
 class DiceGameOptions extends Component {
     static contextType = UserContext;
-
-    static propTypes = {
-        onBet: PropTypes.func.isRequired,
-        disableControls: PropTypes.bool,
-        rollType: PropTypes.number.isRequired,
-        rollNumber: PropTypes.number.isRequired
-    };
 
     constructor(props) {
         super(props);
@@ -306,9 +305,10 @@ class DiceGameOptions extends Component {
 
     render() {
         const { type, amount } = this.state;
-        const user = this.props.profile;
-        const {ln} = this.props;
+        const { profile, ln } = this.props;
         const copy = CopyText.diceGameOptionsIndex[ln];
+        const balanceWithBonus = Number(profile.getBalanceWithBonus().toFixed(6));
+
         return (
         <div styleName="root">
             {this.renderSound()}
@@ -332,14 +332,14 @@ class DiceGameOptions extends Component {
                     <div styleName="amount-container">
                         <InputNumber
                             name="amount"
-                            value={amount}
-                            max={(user && !_.isEmpty(user)) ? user.getBalanceWithBonus().toFixed(6) : null}
+                            value={Number(amount)}
+                            max={balanceWithBonus || null}
                             step={0.01}
                             icon="bitcoin"
                             precision={2}
                             onChange={this.handleBetAmountChange}
                             />
-                        <MultiplyMaxButton amount={amount} onResult={this.handleMultiplyResult} />
+                        <MultiplyMaxButton amount={Number(amount)} onResult={this.handleMultiplyResult} />
                     </div>
                 </div>
                 <div styleName="content">
@@ -368,6 +368,8 @@ class DiceGameOptions extends Component {
         );
     }
 }
+
+DiceGameOptions.propTypes = propTypes;
 
 function mapStateToProps(state){
     return {

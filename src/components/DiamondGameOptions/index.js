@@ -265,6 +265,7 @@ class DiamondGameOptions extends Component {
     const user = this.props.profile;
     const { ln, onBetAmount } = this.props;
     const copy = CopyText.kenoGameOptionsIndex[ln];
+    const balanceWithBonus = Number(user.getBalanceWithBonus().toFixed(6));
 
     return (
       <div styleName="root">
@@ -292,8 +293,8 @@ class DiamondGameOptions extends Component {
             <div styleName="amount-container">
               <InputNumber
                 name="amount"
-                value={amount}
-                max={user && !_.isEmpty(user) ? user.getBalanceWithBonus().toFixed(6) : null}
+                value={Number(amount)}
+                max={balanceWithBonus || null}
                 step={0.01}
                 icon="bitcoin"
                 precision={2}
@@ -301,7 +302,7 @@ class DiamondGameOptions extends Component {
               />
               <MultiplyMaxButton
                 onBetAmount={onBetAmount}
-                amount={amount}
+                amount={Number(amount)}
                 onResult={this.handleMultiplyResult}
               />
             </div>

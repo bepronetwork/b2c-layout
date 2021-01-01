@@ -202,9 +202,9 @@ class PlinkoGameOptions extends Component {
 
     render() {
         const { type, amount } = this.state;
-        const user = this.props.profile;
-        const {ln} = this.props;
-            const copy = CopyText.plinkoGameOptionsIndex[ln];
+        const { ln, profile } = this.props;
+        const copy = CopyText.plinkoGameOptionsIndex[ln];
+        const balanceWithBonus = Number(profile.getBalanceWithBonus().toFixed(6));
 
         return (
         <div styleName="root">
@@ -229,14 +229,14 @@ class PlinkoGameOptions extends Component {
                     <div styleName="amount-container">
                         <InputNumber
                             name="amount"
-                            value={amount}
-                            max={(user && !_.isEmpty(user)) ? user.getBalanceWithBonus().toFixed(6) : null}
+                            value={Number(amount)}
+                            max={balanceWithBonus || null}
                             step={0.01}
                             icon="bitcoin"
                             precision={2}
                             onChange={this.handleBetAmountChange}
                             />
-                        <MultiplyMaxButton amount={amount} onResult={this.handleMultiplyResult} />
+                        <MultiplyMaxButton amount={Number(amount)} onResult={this.handleMultiplyResult} />
                     </div>
                 </div>
                 <div styleName="content">
