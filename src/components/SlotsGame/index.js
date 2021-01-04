@@ -74,6 +74,32 @@ class SlotsGame extends React.Component {
     return null;
   };
 
+  renderColumn = (results, insert) => {
+    return (
+      <div id="columnItem" className={styles.columnSpinner}>
+        {results.map((num, index) => {
+          return index === insert ? (
+            <object
+              key={uniqueId(`slots-game--column-item--${num}-`)}
+              type="image/svg+xml"
+              data={this.selectNumber(num)}
+              className={styles.icon}
+            >
+              svg-animation
+            </object>
+          ) : (
+            <img
+              key={uniqueId(`slots-game--column-item--${num}-`)}
+              src={images[num]}
+              alt="Slot"
+              className={styles.iconStatic}
+            />
+          );
+        })}
+      </div>
+    );
+  };
+
   render() {
     const {
       testBol,
@@ -95,7 +121,7 @@ class SlotsGame extends React.Component {
         <div className={styles.rowContainer}>
           <div className={styles.spinnerContainer}>
             <div className={styles.lineTest}>
-              {line === true ? (
+              {line && (
                 <HandleLines
                   arrayResult={testArray[0]}
                   insertion1={insertIndex[0]}
@@ -104,127 +130,26 @@ class SlotsGame extends React.Component {
                   insertion4={insertIndex[3]}
                   insertion5={insertIndex[4]}
                 />
-              ) : null}
+              )}
             </div>
-            {testBol[0] ||
-            testBol[1] ||
-            testBol[2] ||
-            testBol[4] ||
-            testBol[3] ? (
-              <div className={styles.backgroundTransparence} />
-            ) : null}
-            {result ? (
+            {(testBol[0] ||
+              testBol[1] ||
+              testBol[2] ||
+              testBol[4] ||
+              testBol[3]) && <div className={styles.backgroundTransparence} />}
+            {result && (
               <div className={styles.resultCard}>
                 <div className={styles.columnContainer}>
                   <p className={styles.resultCardText}>{multiplier}x</p>
                   <p className={styles.resultCardText}>{winAmount}</p>
                 </div>
               </div>
-            ) : null}
-            <div id="columnItem" className={styles.columnSpinner}>
-              {resultFirstColumn.map((num, index) => {
-                return index === insertIndex[0] ? (
-                  <object
-                    type="image/svg+xml"
-                    data={this.selectNumber(num)}
-                    className={styles.icon}
-                  >
-                    svg-animation
-                  </object>
-                ) : (
-                  <img
-                    key={uniqueId("slots-game--column-item-")}
-                    src={images[num]}
-                    alt="Slot"
-                    className={styles.iconStatic}
-                  />
-                );
-              })}
-            </div>
-            <div className={styles.separatedLine} />
-            <div id="columnItem2" className={styles.columnSpinner}>
-              {resultSecondColumn.map((num, index) => {
-                return index === insertIndex[1] ? (
-                  <object
-                    type="image/svg+xml"
-                    data={this.selectNumber(num)}
-                    className={styles.icon}
-                  >
-                    svg-animation
-                  </object>
-                ) : (
-                  <img
-                    key={uniqueId("slots-game--column-item-2-")}
-                    src={images[num]}
-                    alt="Slot"
-                    className={styles.iconStatic}
-                  />
-                );
-              })}
-            </div>
-            <div className={styles.separatedLine} />
-            <div id="columnItem3" className={styles.columnSpinner}>
-              {resultThirstColumn.map((num, index) => {
-                return index === insertIndex[2] ? (
-                  <object
-                    type="image/svg+xml"
-                    data={this.selectNumber(num)}
-                    className={styles.icon}
-                  >
-                    svg-animation
-                  </object>
-                ) : (
-                  <img
-                    key={uniqueId("slots-game--column-item-3-")}
-                    src={images[num]}
-                    alt="Slot"
-                    className={styles.iconStatic}
-                  />
-                );
-              })}
-            </div>
-            <div className={styles.separatedLine} />
-            <div id="columnItem4" className={styles.columnSpinner}>
-              {resultFourthColumn.map((num, index) => {
-                return index === insertIndex[3] ? (
-                  <object
-                    type="image/svg+xml"
-                    data={this.selectNumber(num)}
-                    className={styles.icon}
-                  >
-                    svg-animation
-                  </object>
-                ) : (
-                  <img
-                    key={uniqueId("slots-game--column-item-4-")}
-                    src={images[num]}
-                    alt="Slot"
-                    className={styles.iconStatic}
-                  />
-                );
-              })}
-            </div>
-            <div className={styles.separatedLine} />
-            <div id="columnItem5" className={styles.columnSpinner}>
-              {resultFiveColumn.map((num, index) => {
-                return index === insertIndex[4] ? (
-                  <object
-                    type="image/svg+xml"
-                    data={this.selectNumber(num)}
-                    className={styles.icon}
-                  >
-                    svg-animation
-                  </object>
-                ) : (
-                  <img
-                    key={uniqueId("slots-game--column-item-5-")}
-                    src={images[num]}
-                    alt="Slot"
-                    className={styles.iconStatic}
-                  />
-                );
-              })}
-            </div>
+            )}
+            {this.renderColumn(resultFirstColumn, insertIndex[0])}
+            {this.renderColumn(resultSecondColumn, insertIndex[1])}
+            {this.renderColumn(resultThirstColumn, insertIndex[2])}
+            {this.renderColumn(resultFourthColumn, insertIndex[3])}
+            {this.renderColumn(resultFiveColumn, insertIndex[4])}
           </div>
         </div>
       </div>

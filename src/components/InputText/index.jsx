@@ -25,10 +25,10 @@ export default class InputText extends Component {
     label: null,
     onChange: null,
     type: "text",
-    placeholder: "",
+    placeholder: null,
     disabled: false,
     icon: null,
-    maxLength: 0
+    maxLength: null
   };
 
   state = {
@@ -81,7 +81,6 @@ export default class InputText extends Component {
 
   render() {
     const {
-      label,
       name,
       placeholder,
       required,
@@ -92,15 +91,11 @@ export default class InputText extends Component {
       maxLength
     } = this.props;
     const { value } = this.state;
-
-    const currentValue =
-      defaultValue || defaultValue === "" ? defaultValue : value;
-
+    const currentValue = defaultValue || value;
     const containerClasses = classNames("container", {
-      disabled: disabled === true,
+      disabled,
       "with-icon": icon
     });
-
     const inputContainerClasses = classNames("input-container", {
       "with-icon": icon
     });

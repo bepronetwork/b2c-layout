@@ -125,7 +125,9 @@ class SlotsPage extends Component {
         testArray: res.result,
         betObjectResult: res,
         winAmount: res.winAmount.toFixed(8),
-        resultMultiplier: (res.winAmount / res.betAmount).toFixed(2),
+        resultMultiplier: parseFloat(
+          (res.winAmount / res.betAmount).toFixed(2)
+        ),
         amount
       });
       this.setState({ soundReel: true });

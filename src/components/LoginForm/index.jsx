@@ -11,34 +11,46 @@ class LoginForm extends Component {
     static propTypes = {
         onSubmit: PropTypes.func.isRequired,
         has2FA: PropTypes.bool,
-        error: PropTypes.string,
+        error: PropTypes.number,
         onClose: PropTypes.func
     };
 
     static defaultProps = {
-        error: null,
+        error: 0,
         has2FA: false
     };
 
-    state = {
-        username: "",
-        password: "",
-        token: "",
-        isLoading: false
-    };
+    constructor(props) {
+        super(props);
+        this.state = {
+            username: "",
+            password: "",
+            token: "",
+            isLoading: false
+        };
+        this._isMounted = false;
+    }
+
+    componentDidMount() {
+        this._isMounted = true;
+    }
+
+    componentWillUnmount() {
+        this._isMounted = false;
+    }
 
     handleSubmit = async event => {
-
         this.setState({isLoading : true });
-        
         event.preventDefault();
-
         const { onSubmit } = this.props;
+
         if (onSubmit && this.formIsValid()) {
             await onSubmit(this.state);
         }
 
-        this.setState({isLoading : false});
+        if (this._isMounted) {
+            this.setState({isLoading : false});
+        }
     };
 
     resetPasswordClick = () => {
@@ -131,12 +143,9 @@ class LoginForm extends Component {
         const { skin } = getAppCustomization();
 
         return (
-            <form onSubmit={this.handleSubmit} autoComplete="off">
-
+            <form onSubmit={this.handleSubmit}>
                 {this.renderStageOne()}
-                
                 {has2FA ? this.renderStageTwo() : null}
-
                 <div styleName="error">
                 {error && error !== 37 ? (
                     <Typography color="red" variant="small-body" weight="semi-bold">
@@ -149,7 +158,6 @@ class LoginForm extends Component {
                     </Typography>
                 ) : null}
                 </div>
-
                 <div styleName="button">
                     <Button
                         size="medium"
