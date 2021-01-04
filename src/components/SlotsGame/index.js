@@ -74,41 +74,6 @@ class SlotsGame extends React.Component {
     return null;
   };
 
-  renderColumn = (results, columnIndex) => {
-    const { insertIndex } = this.props;
-
-    return (
-      <>
-        <div
-          id="columnItem"
-          className={styles.columnSpinner}
-          key={uniqueId(`slots-game--column--${columnIndex}-`)}
-        >
-          {results.map((num, index) => {
-            return index === insertIndex[index] ? (
-              <object
-                key={uniqueId(`slots-game--column-item--${num}-`)}
-                type="image/svg+xml"
-                data={this.selectNumber(num)}
-                className={styles.icon}
-              >
-                svg-animation
-              </object>
-            ) : (
-              <img
-                key={uniqueId(`slots-game--column-item--${num}-`)}
-                src={images[num]}
-                alt="Slot"
-                className={styles.iconStatic}
-              />
-            );
-          })}
-        </div>
-        {!(columnIndex === 4) && <div className={styles.separatedLine} />}
-      </>
-    );
-  };
-
   render() {
     const {
       testBol,
@@ -154,13 +119,115 @@ class SlotsGame extends React.Component {
                 </div>
               </div>
             )}
-            {[
-              resultFirstColumn,
-              resultSecondColumn,
-              resultThirstColumn,
-              resultFourthColumn,
-              resultFiveColumn
-            ].map((column, index) => this.renderColumn(column, index))}
+            <div id="columnItem" className={styles.columnSpinner}>
+              {resultFirstColumn.map((num, index) => {
+                return index === insertIndex[0] ? (
+                  <object
+                    key={uniqueId("slots-game--column-item-5-")}
+                    type="image/svg+xml"
+                    data={this.selectNumber(num)}
+                    className={styles.icon}
+                  >
+                    svg-animation
+                  </object>
+                ) : (
+                  <img
+                    key={uniqueId("slots-game--column-item-")}
+                    src={images[num]}
+                    alt="Slot"
+                    className={styles.iconStatic}
+                  />
+                );
+              })}
+            </div>
+            <div className={styles.separatedLine} />
+            <div id="columnItem2" className={styles.columnSpinner}>
+              {resultSecondColumn.map((num, index) => {
+                return index === insertIndex[1] ? (
+                  <object
+                    key={uniqueId("slots-game--column-item-5-")}
+                    type="image/svg+xml"
+                    data={this.selectNumber(num)}
+                    className={styles.icon}
+                  >
+                    svg-animation
+                  </object>
+                ) : (
+                  <img
+                    key={uniqueId("slots-game--column-item-2-")}
+                    src={images[num]}
+                    alt="Slot"
+                    className={styles.iconStatic}
+                  />
+                );
+              })}
+            </div>
+            <div className={styles.separatedLine} />
+            <div id="columnItem3" className={styles.columnSpinner}>
+              {resultThirstColumn.map((num, index) => {
+                return index === insertIndex[2] ? (
+                  <object
+                    key={uniqueId("slots-game--column-item-5-")}
+                    type="image/svg+xml"
+                    data={this.selectNumber(num)}
+                    className={styles.icon}
+                  >
+                    svg-animation
+                  </object>
+                ) : (
+                  <img
+                    key={uniqueId("slots-game--column-item-3-")}
+                    src={images[num]}
+                    alt="Slot"
+                    className={styles.iconStatic}
+                  />
+                );
+              })}
+            </div>
+            <div className={styles.separatedLine} />
+            <div id="columnItem4" className={styles.columnSpinner}>
+              {resultFourthColumn.map((num, index) => {
+                return index === insertIndex[3] ? (
+                  <object
+                    key={uniqueId("slots-game--column-item-5-")}
+                    type="image/svg+xml"
+                    data={this.selectNumber(num)}
+                    className={styles.icon}
+                  >
+                    svg-animation
+                  </object>
+                ) : (
+                  <img
+                    key={uniqueId("slots-game--column-item-4-")}
+                    src={images[num]}
+                    alt="Slot"
+                    className={styles.iconStatic}
+                  />
+                );
+              })}
+            </div>
+            <div className={styles.separatedLine} />
+            <div id="columnItem5" className={styles.columnSpinner}>
+              {resultFiveColumn.map((num, index) => {
+                return index === insertIndex[4] ? (
+                  <object
+                    key={uniqueId("slots-game--column-item-5-")}
+                    type="image/svg+xml"
+                    data={this.selectNumber(num)}
+                    className={styles.icon}
+                  >
+                    svg-animation
+                  </object>
+                ) : (
+                  <img
+                    key={uniqueId("slots-game--column-item-5-")}
+                    src={images[num]}
+                    alt="Slot"
+                    className={styles.iconStatic}
+                  />
+                );
+              })}
+            </div>
           </div>
         </div>
       </div>

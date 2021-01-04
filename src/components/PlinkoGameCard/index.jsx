@@ -178,16 +178,22 @@ class PlinkoGameCard extends React.Component {
 
     playSound = (sound, timeout) => {
         const soundConfig = localStorage.getItem("sound");
+        const playPromise = sound.play();
 
         if (soundConfig !== "on") {
             return null;
         }
 
-        sound.play();
-        setTimeout(() => {
-            sound.pause();
-            sound.currentTime = 0;
-        }, timeout);
+        if (playPromise !== undefined) {
+            playPromise.then(() => {
+                setTimeout(() => {
+                    sound.pause();
+                    sound.currentTime = 0;
+                }, timeout);
+            });
+        }
+
+        return null;
     };
 
     renderResult = () => {
