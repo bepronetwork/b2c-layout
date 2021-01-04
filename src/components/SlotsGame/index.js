@@ -74,29 +74,38 @@ class SlotsGame extends React.Component {
     return null;
   };
 
-  renderColumn = (results, insert) => {
+  renderColumn = (results, columnIndex) => {
+    const { insertIndex } = this.props;
+
     return (
-      <div id="columnItem" className={styles.columnSpinner}>
-        {results.map((num, index) => {
-          return index === insert ? (
-            <object
-              key={uniqueId(`slots-game--column-item--${num}-`)}
-              type="image/svg+xml"
-              data={this.selectNumber(num)}
-              className={styles.icon}
-            >
-              svg-animation
-            </object>
-          ) : (
-            <img
-              key={uniqueId(`slots-game--column-item--${num}-`)}
-              src={images[num]}
-              alt="Slot"
-              className={styles.iconStatic}
-            />
-          );
-        })}
-      </div>
+      <>
+        <div
+          id="columnItem"
+          className={styles.columnSpinner}
+          key={uniqueId(`slots-game--column--${columnIndex}-`)}
+        >
+          {results.map((num, index) => {
+            return index === insertIndex[index] ? (
+              <object
+                key={uniqueId(`slots-game--column-item--${num}-`)}
+                type="image/svg+xml"
+                data={this.selectNumber(num)}
+                className={styles.icon}
+              >
+                svg-animation
+              </object>
+            ) : (
+              <img
+                key={uniqueId(`slots-game--column-item--${num}-`)}
+                src={images[num]}
+                alt="Slot"
+                className={styles.iconStatic}
+              />
+            );
+          })}
+        </div>
+        {!(columnIndex === 4) && <div className={styles.separatedLine} />}
+      </>
     );
   };
 
@@ -145,11 +154,13 @@ class SlotsGame extends React.Component {
                 </div>
               </div>
             )}
-            {this.renderColumn(resultFirstColumn, insertIndex[0])}
-            {this.renderColumn(resultSecondColumn, insertIndex[1])}
-            {this.renderColumn(resultThirstColumn, insertIndex[2])}
-            {this.renderColumn(resultFourthColumn, insertIndex[3])}
-            {this.renderColumn(resultFiveColumn, insertIndex[4])}
+            {[
+              resultFirstColumn,
+              resultSecondColumn,
+              resultThirstColumn,
+              resultFourthColumn,
+              resultFiveColumn
+            ].map((column, index) => this.renderColumn(column, index))}
           </div>
         </div>
       </div>
