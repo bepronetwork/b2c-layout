@@ -20,16 +20,12 @@ class LoginForm extends Component {
         has2FA: false
     };
 
-    constructor(props) {
-        super(props);
-        this.state = {
-            username: "",
-            password: "",
-            token: "",
-            isLoading: false
-        };
-        this._isMounted = false;
-    }
+    state = {
+        username: "",
+        password: "",
+        token: "",
+        isLoading: false
+    };
 
     componentDidMount() {
         this._isMounted = true;

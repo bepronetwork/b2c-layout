@@ -36,7 +36,12 @@ class FlipPage extends Component {
     }
 
     componentDidMount(){
-        this.getGame()
+        this.getGame();
+        this._isMounted = true;
+    }
+
+    componentWillUnmount() {
+        this._isMounted = false;
     }
 
     handleAnimationEnd = () => {
@@ -53,9 +58,12 @@ class FlipPage extends Component {
         const { profile } = this.props;
         const { amount } = this.state;
         const { result, hasWon, winAmount, userDelta, totalBetAmount } = this.state.betObjectResult;
-        setWonPopupMessageDispatcher(winAmount);
-        await profile.updateBalance({ userDelta, amount, totalBetAmount });
-        this.addToHistory({result : `${result} `, won : hasWon})
+
+        if (this._isMounted) {
+            setWonPopupMessageDispatcher(winAmount);
+            await profile.updateBalance({ userDelta, amount, totalBetAmount });
+            this.addToHistory({result : `${result} `, won : hasWon})
+        }
     };
 
     handleEnableControls = () => {

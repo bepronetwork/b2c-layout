@@ -61,6 +61,11 @@ class WheelVariationOne extends React.Component {
 
     componentDidMount(){
         this.projectData(this.props);
+        this._isMounted = true;
+    }
+
+    componentWillUnmount() {
+        this._isMounted = false;
     }
 
     UNSAFE_componentWillReceiveProps(props){
@@ -188,19 +193,17 @@ class WheelVariationOne extends React.Component {
         }
     };
 
-
-    stopAnimation = async () => {
-        
-    }
-
     handleAnimation = async () => {
         this.setState({ bet: false, inResultAnimation : false });
         const { profile } = this.props;
         const { amount } = this.state;
         const { isWon, result, winAmount, userDelta } = this.state.betObjectResult;
-        setWonPopupMessageDispatcher(winAmount);
-        this.addToHistory({result, won : isWon});
-        await profile.updateBalance({ userDelta, amount });
+
+        if (this._isMounted) {
+            setWonPopupMessageDispatcher(winAmount);
+            this.addToHistory({result, won : isWon});
+            await profile.updateBalance({ userDelta, amount });
+        }
     };
 
     getTotalBet = () => {

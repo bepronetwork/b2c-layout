@@ -14,14 +14,10 @@ class TableDefault extends Component {
     intervalID = 0;
     static contextType = UserContext;
 
-    constructor(props){
-        super(props);
-        this.state = { 
-            rows : [],
-            isLoadingRow : false
-         };
-        this._isMounted = false;
-    }
+    state = { 
+        rows : [],
+        isLoadingRow : false
+    };
 
     componentDidMount(){
         this.projectData(this.props);

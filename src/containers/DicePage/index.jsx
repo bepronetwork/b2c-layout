@@ -32,6 +32,11 @@ class DicePage extends Component {
 
     componentDidMount(){
         this.getGame();
+        this._isMounted = true;
+    }
+
+    componentWillUnmount() {
+        this._isMounted = false;
     }
 
     getGame = () => {
@@ -79,8 +84,12 @@ class DicePage extends Component {
         const { profile } = this.props;
         const { amount } = this.state;
         const { winAmount, userDelta, totalBetAmount } = this.state.betObjectResult;
-        setWonPopupMessageDispatcher(winAmount);
-        await profile.updateBalance({ userDelta, amount, totalBetAmount });
+
+        if (this._isMounted) {
+            setWonPopupMessageDispatcher(winAmount);
+            await profile.updateBalance({ userDelta, amount, totalBetAmount });
+        }
+
         this.setState({ result: null, animating : false, disableControls: false });
     };
 

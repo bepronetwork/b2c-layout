@@ -92,22 +92,18 @@ const rows = {
 class LastBets extends Component {
     static contextType = UserContext;
 
-    constructor(props){
-        super(props);
-        this.state = {
-            all_bets    : rows.all_bets,
-            my_bets     : rows.my_bets,
-            biggest_win_bets : rows.biggest_win_bets,
-            view        : 'all_bets',
-            view_amount : views[0],
-            games : [],
-            options : [],
-            gameMetaName : null,
-            isLoading: true,
-            isListLoading : true
-        };
-        this._isMounted = false;
-    }
+    state = {
+        all_bets    : rows.all_bets,
+        my_bets     : rows.my_bets,
+        biggest_win_bets : rows.biggest_win_bets,
+        view        : 'all_bets',
+        view_amount : views[0],
+        games : [],
+        options : [],
+        gameMetaName : null,
+        isLoading: true,
+        isListLoading : true
+    };
 
     componentDidMount(){
         this.projectData(this.props);
@@ -119,9 +115,7 @@ class LastBets extends Component {
     }
 
     setTimer = (options) => {
-        if (this._isMounted) {
-            this.projectData(this.props, options)
-        }
+        this.projectData(this.props, options)
     }
 
     handleTabChange = name => {
@@ -129,8 +123,11 @@ class LastBets extends Component {
     };
 
     changeViewBets = ({option}) => {
-        this.setState({ isListLoading : true })
-        this.setTimer({view_amount : option})
+        this.setState({ isListLoading : true });
+        
+        if (this._isMounted) {
+            this.setTimer({view_amount : option})
+        }
     }
     
     projectData = async (props, options=null) => {

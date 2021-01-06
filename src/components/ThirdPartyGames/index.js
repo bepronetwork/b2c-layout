@@ -9,20 +9,15 @@ import "./index.css";
 import { uniqueId } from "lodash";
 
 class ThirdPartyGames extends Component {
-
-    constructor(props){
-        super(props);
-        this.state = {
-            providers: [],
-            games: [],
-            providerId: null,
-            isLoading: true,
-            isLoadingGames: true,
-            total: 0,
-            quantity: 0
-        };
-        this._isMounted = false;
-    }
+    state = {
+        providers: [],
+        games: [],
+        providerId: null,
+        isLoading: true,
+        isLoadingGames: true,
+        total: 0,
+        quantity: 0
+    };
 
     componentDidMount(){
         this._isMounted = true;

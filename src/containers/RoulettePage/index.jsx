@@ -33,6 +33,11 @@ class RoulettePage extends Component {
 
     componentDidMount(){
         this.getGame();
+        this._isMounted = true;
+    }
+
+    componentWillUnmount() {
+        this._isMounted = false;
     }
 
     getGame = () => {
@@ -127,9 +132,12 @@ class RoulettePage extends Component {
         const { profile } = this.props;
         const { amount } = this.state;
         const { isWon, result, winAmount, userDelta, totalBetAmount } = this.state.betObjectResult;
-        setWonPopupMessageDispatcher(winAmount);
-        this.addToHistory({result, won : isWon});
-        await profile.updateBalance({ userDelta, amount, totalBetAmount });
+
+        if (this._isMounted) {
+            setWonPopupMessageDispatcher(winAmount);
+            this.addToHistory({result, won : isWon});
+            await profile.updateBalance({ userDelta, amount, totalBetAmount });
+        }
     };
 
     getTotalBet = () => {

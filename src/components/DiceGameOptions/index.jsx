@@ -113,13 +113,14 @@ class DiceGameOptions extends Component {
     }
 
     handleBet = async () => {
-        const { profile } = this.props;
+        const { onBet, profile } = this.props;
         const { amount, type, bets, profitStop, lossStop, onWin, onLoss} = this.state;
 
         if (this.isBetValid()) {
             this.setState({ sound: true });
             switch(type){
                 case 'manual' : 
+                    await onBet({ amount });
                     break;
                 case 'auto' : {
                     if(!isUserSet(profile)){return null};

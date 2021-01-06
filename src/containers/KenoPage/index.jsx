@@ -32,6 +32,11 @@ class KenoPage extends Component {
 
     componentDidMount(){
         this.getGame();
+        this._isMounted = true;
+    }
+
+    componentWillUnmount() {
+        this._isMounted = false;
     }
 
     getGame = () => {
@@ -105,9 +110,12 @@ class KenoPage extends Component {
         const { profile } = this.props;
         const { betAmount } = this.state;
         const { winAmount, userDelta, totalBetAmount } = this.state.betObjectResult;
-        setWonPopupMessageDispatcher(winAmount);
-        await profile.updateBalance({ userDelta, amount: betAmount, totalBetAmount });
-        this.setState({ result: null, animating : false, disableControls: false });
+
+        if (this._isMounted) {
+            setWonPopupMessageDispatcher(winAmount);
+            await profile.updateBalance({ userDelta, amount: betAmount, totalBetAmount });
+            this.setState({ result: null, animating : false, disableControls: false });
+        }
     };
 
     getOptions = () => {

@@ -19,22 +19,18 @@ class WheelPage extends React.Component {
         onHandleLoginOrRegister: PropTypes.func.isRequired
     };
 
-    constructor(props){
-        super(props);
-        this.state = {
-            result: null,
-            selectedChip: 0.01,
-            betHistory: [],
-            game_name : 'Wheel',
-            game : {
-                edge : 0
-            },
-            options : [],
-            betObjectResult : {},
-            bet: false,
-            amount: 0
-        }
-        this._isMounted = false;
+    state = {
+        result: null,
+        selectedChip: 0.01,
+        betHistory: [],
+        game_name : 'Wheel',
+        game : {
+            edge : 0
+        },
+        options : [],
+        betObjectResult : {},
+        bet: false,
+        amount: 0
     }
 
     componentDidMount(){
