@@ -16,7 +16,7 @@ class NotificationForm extends Component {
                 <div styleName="notify-wrapper">
                     {notificationArray.map( notification => {
                         return (
-                            <Notification {...this.props} id={notification.id} title={notification.title} message={notification.message} type={notification.type} messages={notificationArray}/> 
+                            <Notification {...this.props} key={notification.id} id={notification.id} title={notification.title} message={notification.message} type={notification.type} messages={notificationArray}/> 
                         );
                     })}
                 </div>

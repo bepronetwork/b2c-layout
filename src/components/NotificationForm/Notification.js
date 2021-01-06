@@ -13,7 +13,7 @@ class Notification extends Component {
     static propTypes = {
         id: PropTypes.string,
         title: PropTypes.string,
-        messages: PropTypes.arrayOf(PropTypes.string),
+        messages: PropTypes.arrayOf(PropTypes.oneOfType(PropTypes.string)),
         message: PropTypes.string,
         type: PropTypes.oneOf(["success","info","error"])
     };
