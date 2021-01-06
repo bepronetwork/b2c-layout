@@ -106,14 +106,22 @@ class LastBets extends Component {
             isLoading: true,
             isListLoading : true
         };
+        this._isMounted = false;
     }
 
     componentDidMount(){
         this.projectData(this.props);
+        this._isMounted = true;
+    }
+
+    componentWillUnmount() {
+        this._isMounted = false;
     }
 
     setTimer = (options) => {
-        this.projectData(this.props, options)
+        if (this._isMounted) {
+            this.projectData(this.props, options)
+        }
     }
 
     handleTabChange = name => {

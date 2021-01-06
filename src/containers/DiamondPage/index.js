@@ -385,7 +385,7 @@ class DiamondPage extends Component {
       if (!user) return onHandleLoginOrRegister("register");
 
       this.setState({
-        resultWinAmount: winAmount.toFixed(8)
+        resultWinAmount: Number(winAmount.toFixed(8))
       });
     } catch (err) {
       return this.setState({
@@ -631,8 +631,8 @@ class DiamondPage extends Component {
 
     return (
       <>
-        {sound ? this.SoundComponent(DiamondSound) : null}
-        {soundResult ? this.SoundComponent(DiamondResult) : null}
+        {sound && this.SoundComponent(DiamondSound)}
+        {soundResult && this.SoundComponent(DiamondResult)}
         <DiamondGamePage
           backendResult={backendResult}
           isActiveBottomBar={isActiveBottomBar}

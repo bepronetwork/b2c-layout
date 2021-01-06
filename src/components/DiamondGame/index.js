@@ -8,9 +8,10 @@ import DiamondFill from "../../assets/DiamondIcons/diamond-fill";
 import DiamondWithBorder from "../../assets/DiamondIcons/diamond-with-border";
 import images from "./images";
 import "./index.css";
+import { uniqueId } from "lodash";
 
 const propTypes = {
-  backendResult: PropTypes.arrayOf(PropTypes.object).isRequired,
+  backendResult: PropTypes.arrayOf(PropTypes.number).isRequired,
   isActiveBottomBar: PropTypes.bool.isRequired,
   isHover: PropTypes.bool.isRequired,
   isHover1: PropTypes.bool.isRequired,
@@ -39,7 +40,7 @@ const propTypes = {
 
 const defaultProps = {
   profitAmount: 0
-}
+};
 
 class DiamondGame extends Component {
   render() {
@@ -370,7 +371,7 @@ class DiamondGame extends Component {
                 >
                   {backendResult.slice(0, 1).map(num => {
                     return isVisible1 ? (
-                      <div styleName="svg-animated">
+                      <div styleName="svg-animated" key={uniqueId(`diamond-game--diamond-animation--${num}`)}>
                         <object
                           type="image/svg+xml"
                           data={images[num].img}
@@ -388,7 +389,7 @@ class DiamondGame extends Component {
                 >
                   {backendResult.slice(1, 2).map(num => {
                     return isVisible2 ? (
-                      <div styleName="svg-animated">
+                      <div styleName="svg-animated" key={uniqueId(`diamond-game--diamond-animation--${num}`)}>
                         <object
                           type="image/svg+xml"
                           data={images[num].img}
@@ -406,7 +407,7 @@ class DiamondGame extends Component {
                 >
                   {backendResult.slice(2, 3).map(num => {
                     return isVisible3 ? (
-                      <div styleName="svg-animated">
+                      <div styleName="svg-animated" key={uniqueId(`diamond-game--diamond-animation--${num}`)}>
                         <object
                           type="image/svg+xml"
                           data={images[num].img}
@@ -424,7 +425,7 @@ class DiamondGame extends Component {
                 >
                   {backendResult.slice(3, 4).map(num => {
                     return isVisible4 ? (
-                      <div styleName="svg-animated">
+                      <div styleName="svg-animated" key={uniqueId(`diamond-game--diamond-animation--${num}`)}>
                         <object
                           type="image/svg+xml"
                           data={images[num].img}
@@ -442,7 +443,7 @@ class DiamondGame extends Component {
                 >
                   {backendResult.slice(4, 5).map(num => {
                     return isVisible5 ? (
-                      <div styleName="svg-animated">
+                      <div styleName="svg-animated" key={uniqueId(`diamond-game--diamond-animation--${num}`)}>
                         <object
                           type="image/svg+xml"
                           data={images[num].img}
@@ -461,7 +462,7 @@ class DiamondGame extends Component {
                     return (
                       <div
                         styleName="bottom-base-svg"
-                        key={images.id}
+                        key={uniqueId(`diamond-game--diamond-animation--${num}`)}
                         style={{
                           backgroundColor: images[num].isActive
                             ? images[num].color

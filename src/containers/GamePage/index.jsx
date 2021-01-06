@@ -82,11 +82,15 @@ class GamePage extends Component {
     renderActions = () => {
         const { actionsOpen, gameInfo } = this.state;
 
-        return actionsOpen ? (
+        if (!actionsOpen) {
+            return null
+        }
+
+        return (
             <Modal onClose={this.handleActionsModalClose}>
                 <Actions game={gameInfo}/>
             </Modal>
-        ) : null;
+        )
     };
 
     handleActionsModalOpen = () => {
