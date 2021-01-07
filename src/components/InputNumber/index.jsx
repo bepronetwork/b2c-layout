@@ -21,7 +21,13 @@ export default class InputNumber extends Component {
     step: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     value: PropTypes.number,
     precision: PropTypes.number,
-    icon: PropTypes.oneOf(["rotate", "bitcoin", "cross", "infinite", "customized"]),
+    icon: PropTypes.oneOf([
+      "rotate",
+      "bitcoin",
+      "cross",
+      "infinite",
+      "customized"
+    ]),
     disabled: PropTypes.bool,
     custmomizedIcon: PropTypes.string
   };
@@ -108,12 +114,11 @@ export default class InputNumber extends Component {
     let value = event.target.value;
 
     if (type === "currency") {
-      var regex = /^(\d+(?:[\.\,]\d{0,6})?)$/;
+      var regex = /^(\d+(?:[.,]\d{0,6})?)$/;
       if (value && !regex.test(value)) { return "" };
 
       value = value.replace(",", ".");
-    }
-    else {
+    } else {
       value = Number(value);
     }
 
