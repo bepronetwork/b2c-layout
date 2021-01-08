@@ -20,7 +20,7 @@ const propTypes = {
       PropTypes.number,
       PropTypes.func,
       PropTypes.bool,
-      PropTypes.object
+      PropTypes.object,
     ])
   ).isRequired,
   onTableDetails: PropTypes.func.isRequired,

@@ -37,10 +37,11 @@ const MatiButton = ({ profile, ...props }) => {
 MatiButton.propTypes = {
   profile: PropTypes.objectOf(
     PropTypes.oneOfType([
-      PropTypes.func,
-      PropTypes.object,
       PropTypes.string,
+      PropTypes.number,
+      PropTypes.func,
       PropTypes.bool,
+      PropTypes.object,
     ]),
   ).isRequired,
 };

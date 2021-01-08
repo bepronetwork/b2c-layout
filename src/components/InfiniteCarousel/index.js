@@ -953,7 +953,7 @@ class InfiniteCarousel extends Component {
 
 InfiniteCarousel.propTypes = {
   children: PropTypes.oneOfType([
-    PropTypes.arrayOf(PropTypes.node),
+    PropTypes.arrayOf([PropTypes.oneOfType([PropTypes.node])]),
     PropTypes.node
   ]),
   name: PropTypes.string,
