@@ -1,6 +1,5 @@
 @import "../../styles/all.css";
 
-
 .container-root{
     display: flex;
     width : 100%;
@@ -11,9 +10,15 @@
     border-radius : $border-radius;
     opacity : 1;
     transition: all 0.2s ease-in;
+    flex-direction: column;
 
     &:hover{
         opacity : 0.4;
+    }
+
+    button {
+        background-color: transparent;
+        color: inherit;
     }
 }
 

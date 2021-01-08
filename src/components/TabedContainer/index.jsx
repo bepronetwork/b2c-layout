@@ -116,7 +116,7 @@ class TabedContainer extends React.Component{
                             <Tab.Content>
                                 {filteredItems.map( (item, index) => {
                                     return (
-                                        <Tab.Pane eventKey={`item-${index}`}>
+                                        <Tab.Pane eventKey={`item-${index}`} key={`item-${index}`}>
                                             <div styleName="content">
                                                 {item.container}
                                             </div>

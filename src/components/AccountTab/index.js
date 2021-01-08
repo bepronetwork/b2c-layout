@@ -72,9 +72,11 @@ class AccountTab extends React.Component {
               </Typography>
             </div>
             <div styleName="value">
+            {userId && (
               <Typography variant="small-body" color="white">
                 {userId}
               </Typography>
+            )}
             </div>
           </div>
           <div styleName="field">

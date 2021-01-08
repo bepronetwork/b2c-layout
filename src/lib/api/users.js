@@ -398,7 +398,8 @@ export async function updateUserWallet(params, bearerToken, payload) {
 
 function addSecurityHeader({bearerToken, payload}) {
   return {
-        'Content-Type' : 'application/json',
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
         'authorization': `Bearer ${bearerToken}`,
         'payload'       : JSON.stringify({id : payload})
   };

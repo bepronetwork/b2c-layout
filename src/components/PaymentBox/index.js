@@ -310,73 +310,82 @@ class PaymentBox extends React.Component{
         }
     }
 
+    renderWallet() {
+        const { wallet } = this.props;
+        const { disabledFreeButton } = this.state;
+        const walletValid = this.funcVerification();
+
+        if (!walletValid) {
+            return null;
+        }
+
+        return (
+            <div styleName="bottom-line">
+                <Col xs={4} md={4} styleName="button-padding">
+                    <div styleName="border-radius">
+                        <canvas id={wallet.currency.name} width="30" height="30"></canvas>
+                    </div>
+                </Col>
+                <Col xs={8} md={8} styleName="button-padding">
+                    <Button size={'x-small'}
+                    theme={'action'}
+                    disabled={disabledFreeButton}
+                    onClick={this.handleSendCurrancyFree}>
+                        <Typography color={'white'} variant={'small-body'}>Replenish</Typography>
+                    </Button>
+                </Col>
+            </div>
+        )
+    }
+
     render(){
-        let { isPicked, wallet } = this.props;
-        const { price, virtualTicker, walletImage, disabledFreeButton } = this.state;
+        const { isPicked, wallet } = this.props;
+        const { price, virtualTicker, walletImage } = this.state;
         const styles = classNames("container-root", {
             selected: isPicked
         });
         const { bonusAmount } = wallet;
         const hasBonus = !Number.isNaN(bonusAmount) && Number(bonusAmount) > 0;
-        const walletValid = this.funcVerification();
         
         return (
-            <button onClick={this.onClick} styleName={styles} disabled={wallet.currency.virtual}>
-                <Col>
-                <Row>
-                    <Col xs={4} md={4}>
-                        <div styleName='container-image'>
-                            <img src={walletImage} styleName='payment-image' alt="Payment" />
-                        </div>
-                    </Col>
-                    <Col xs={8} md={8}>
-                        <div styleName={'container-text'}>
-                            <Typography variant={'small-body'} color={'white'}>
-                                {`${wallet.currency.name} (${wallet.currency.ticker})`}
-                            </Typography>
-                            <div styleName='text-description'>
-                                <Typography variant={'x-small-body'} color={'white'}>
-                                    {`${formatCurrency(wallet.playBalance)} ${wallet.currency.ticker}`}
-                                </Typography>
+            <Col styleName={styles}>
+                <button onClick={this.onClick} disabled={wallet.currency.virtual}>
+                    <Row>
+                        <Col xs={4} md={4}>
+                            <div styleName='container-image'>
+                                <img src={walletImage} styleName='payment-image' alt="Payment" />
                             </div>
-                            {hasBonus &&
+                        </Col>
+                        <Col xs={8} md={8}>
+                            <div styleName={'container-text'}>
+                                <Typography variant={'small-body'} color={'white'}>
+                                    {`${wallet.currency.name} (${wallet.currency.ticker})`}
+                                </Typography>
                                 <div styleName='text-description'>
                                     <Typography variant={'x-small-body'} color={'white'}>
-                                        Bonus: {formatCurrency(bonusAmount)}
+                                        {`${formatCurrency(wallet.playBalance)} ${wallet.currency.ticker}`}
                                     </Typography>
                                 </div>
-                            }
-                            {price ? 
-                                <div styleName='text-description'>
-                                    <Typography variant={'x-small-body'} color={'white'}>
-                                        {`1 ${virtualTicker} = ${price} ${wallet.currency.ticker}`}
-                                    </Typography>
-                                </div>
-                            : null}
-                        </div>
-                    </Col>
-                </Row>
-                {
-                    walletValid ?
-                        <div styleName="bottom-line">
-                            <Col xs={4} md={4} styleName="button-padding">
-                                <div styleName="border-radius">
-                                    <canvas id={wallet.currency.name} width="30" height="30"></canvas>
-                                </div>
-                            </Col>
-                            <Col xs={8} md={8} styleName="button-padding">
-                                <Button size={'x-small'}
-                                theme={'action'}
-                                disabled={disabledFreeButton}
-                                onClick={this.handleSendCurrancyFree}>
-                                    <Typography color={'white'} variant={'small-body'}>Replenish</Typography>
-                                </Button>
-                            </Col>
-                        </div> 
-                    : null
-                }
-                </Col>
-            </button>
+                                {hasBonus &&
+                                    <div styleName='text-description'>
+                                        <Typography variant={'x-small-body'} color={'white'}>
+                                            Bonus: {formatCurrency(bonusAmount)}
+                                        </Typography>
+                                    </div>
+                                }
+                                {price ? 
+                                    <div styleName='text-description'>
+                                        <Typography variant={'x-small-body'} color={'white'}>
+                                            {`1 ${virtualTicker} = ${price} ${wallet.currency.ticker}`}
+                                        </Typography>
+                                    </div>
+                                : null}
+                            </div>
+                        </Col>
+                    </Row>
+                </button>
+                {this.renderWallet()}
+            </Col>
         )
     }
 }

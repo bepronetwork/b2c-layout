@@ -48,8 +48,9 @@ class WalletTab extends React.Component {
     if (isCurrentPath) {
         this.projectData(this.props);
     }
-}
-UNSAFE_componentWillReceiveProps(props) {
+  }
+  
+  UNSAFE_componentWillReceiveProps(props) {
     const { isCurrentPath } = props;
 
     if (props !== this.props && isCurrentPath) {
@@ -318,6 +319,7 @@ UNSAFE_componentWillReceiveProps(props) {
                 {wallets.map(w => {
                   return (
                     <PaymentBox
+                      key={w.currency._id}
                       onClick={() => this.changeWallet(w)}
                       isPicked={
                         String(wallet.currency._id).toString() ===
@@ -378,21 +380,19 @@ UNSAFE_componentWillReceiveProps(props) {
               </div>
               {isEmailConfirmed === true ? (
                 tab === "deposit" ? (
-                  <>
-                    <div>
-                      <DepositForm
-                        wallet={wallet}
-                        onAddress={this.handleAddress}
-                      />
-                      <DepositList isCurrentPath={isCurrentPath} />
-                    </div>
-                  </>
+                  <div>
+                    <DepositForm
+                      wallet={wallet}
+                      onAddress={this.handleAddress}
+                    />
+                    <DepositList isCurrentPath={isCurrentPath} />
+                </div>
                 ) : (
                   <div>
                     <WithdrawForm
                       wallet={wallet}
                       onAddress={this.handleAddress}
-                    />{" "}
+                    />
                     <WithdrawList isCurrentPath={isCurrentPath} />
                   </div>
                   

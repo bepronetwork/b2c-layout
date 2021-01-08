@@ -88,7 +88,12 @@ async function getGeo(){
             var latitude  = position.coords.latitude;
             var longitude = position.coords.longitude;
             fetch(`https://maps.googleapis.com/maps/api/geocode/json?
-                latlng=${latitude},${longitude}&key=${'AIzaSyBPbFrvt8RmLg6TqXtk_9E1YRs1YK4iBvM'}`)
+                latlng=${latitude},${longitude}&key=${'AIzaSyBPbFrvt8RmLg6TqXtk_9E1YRs1YK4iBvM'}`, {
+                    headers : { 
+                      'Content-Type': 'application/json',
+                      'Accept': 'application/json'
+                     }
+                  })
             .then( res => res.json())
             .then(response => {
                 alert("a")
