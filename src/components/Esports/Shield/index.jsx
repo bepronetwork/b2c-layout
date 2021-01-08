@@ -21,7 +21,7 @@ export default class Shield extends Component {
         return (
             <div styleName={rootStyles}>
                 {
-                    tooltip !== null
+                    tooltip
                     ?
                         <Tooltip title={tooltip}>
                             <span styleName={shieldStyles} style={{ backgroundImage: "url(" + image + ")" }} />

@@ -4,9 +4,8 @@ import CloseIcon from "components/Icons/CloseCross";
 import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
 import { getSkeletonColors } from "../../../lib/helpers";
 import { Shield, SerieFilterMore } from "components/Esports";
-import { connect } from 'react-redux';
 import classNames from "classnames";
-import _ from 'lodash';
+import _, { uniqueId } from 'lodash';
 import "./index.css";
 
 class SerieFilter extends Component {
@@ -108,7 +107,7 @@ class SerieFilter extends Component {
 
         if(series.length > 0) {
             series.push(
-                <div styleName="tournament-more" onClick={() => this.handleFilterMoreModal()}>
+                <div styleName="tournament-more" onClick={() => this.handleFilterMoreModal()} key={uniqueId("tournament-more-")}>
                     <MoreIcon />
                 </div>
             )
@@ -169,11 +168,4 @@ class SerieFilter extends Component {
     }
 }
 
-function mapStateToProps(state){
-    return {
-        profile : state.profile,
-        ln: state.language
-    };
-}
-
-export default connect(mapStateToProps)(SerieFilter);
+export default SerieFilter;

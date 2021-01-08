@@ -25,6 +25,7 @@ class PaymentBox extends React.Component{
     }
 
     async componentDidMount(){
+        this._isMounted = true;
         this.projectData(this.props);
         this.setState({ isCanvasRenderer: true })
         setInterval(() => this.parseMillisecondsIntoReadableTime() , 0)
@@ -46,6 +47,10 @@ class PaymentBox extends React.Component{
             }
         }
         }, 1000);
+    }
+
+    componentWillUnmount() {
+        this._isMounted = false;
     }
 
     UNSAFE_componentWillReceiveProps(props){
@@ -265,42 +270,42 @@ class PaymentBox extends React.Component{
   }
 
     parseMillisecondsIntoReadableTime = async () => {
-            
-        const resultUserDate =  await this.funcVerifyUserWalletDate();
-        const miliseconds = resultUserDate + this.funcVerificationTime() - Date.now();
-        const hours = miliseconds / (1000 * 60 * 60);
-
-
-        if(hours< 0){
-            this.setState({
-                minutes: 0,
-                seconds: 0,
-                secondsToCanvas: 0
-            });
-        }else{
-            const secondsToCanvas = (miliseconds / 1000);
+        if (this._isMounted) {
+            const resultUserDate =  await this.funcVerifyUserWalletDate();
+            const miliseconds = resultUserDate + this.funcVerificationTime() - Date.now();
             const hours = miliseconds / (1000 * 60 * 60);
-            const absoluteHours = Math.floor(hours);
-            const minutes = (hours - absoluteHours) * 60;
-            const absoluteMinutes = Math.floor(minutes);
-            const m = absoluteMinutes > 9 ? absoluteMinutes : absoluteMinutes;
-            const seconds = (minutes - absoluteMinutes) * 60;
-            const absoluteSeconds = Math.floor(seconds);
-            const s = absoluteSeconds > 9 ? absoluteSeconds : absoluteSeconds;
-
-            this.setState({
-                minutes: m,
-                seconds: s,
-                secondsToCanvas: secondsToCanvas
-            });
-
+    
+            if(hours< 0){
+                this.setState({
+                    minutes: 0,
+                    seconds: 0,
+                    secondsToCanvas: 0
+                });
+            }else{
+                const secondsToCanvas = (miliseconds / 1000);
+                const hours = miliseconds / (1000 * 60 * 60);
+                const absoluteHours = Math.floor(hours);
+                const minutes = (hours - absoluteHours) * 60;
+                const absoluteMinutes = Math.floor(minutes);
+                const m = absoluteMinutes > 9 ? absoluteMinutes : absoluteMinutes;
+                const seconds = (minutes - absoluteMinutes) * 60;
+                const absoluteSeconds = Math.floor(seconds);
+                const s = absoluteSeconds > 9 ? absoluteSeconds : absoluteSeconds;
+    
+                this.setState({
+                    minutes: m,
+                    seconds: s,
+                    secondsToCanvas: secondsToCanvas
+                });
+    
                 if(s === 0 && s === 0){
                     this.setState({ disabledFreeButton: false });
                 }else{
                     this.setState({ disabledFreeButton: true });
                 }
             }
-        };
+        }
+    };
 
     onClick = () => {
         const { id, onClick } = this.props;

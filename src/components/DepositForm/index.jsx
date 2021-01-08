@@ -36,6 +36,7 @@ class DepositForm extends Component {
     }
 
     async componentDidMount(){
+        this._isMounted = true;
         await this.projectData(this.props);
         setInterval(() => this.parseMillisecondsIntoReadableTime() ,0)
         this.timerInterval = setInterval(() => {
@@ -58,6 +59,7 @@ class DepositForm extends Component {
     }
 
     componentWillUnmount() {
+        this._isMounted = false;
         clearInterval(this.intervalID);
         clearInterval(this.timerInterval)
     }
@@ -84,9 +86,7 @@ class DepositForm extends Component {
     projectData = async (props) => {
         const { wallet } = props;
         const isTxFee = (getAddOn().txFee) ? getAddOn().txFee.isTxFee : false;
-
         const depositBonus = getAddOn().depositBonus;
-
         const isDepositBonus = depositBonus && !_.isEmpty(depositBonus.isDepositBonus) ? depositBonus.isDepositBonus.find(w => w.currency === wallet.currency._id).value : false;
 
         if(wallet && !wallet.address) {
@@ -139,7 +139,7 @@ class DepositForm extends Component {
     }
 
     parseMillisecondsIntoReadableTime = async () => {
-        
+        if (this._isMounted) {
             const resultUserDate =  await this.funcVerifyUserWalletDate();
             const miliseconds = resultUserDate + this.funcVerificationTime() - Date.now();
             const hours = miliseconds / (1000 * 60 * 60);
@@ -166,11 +166,11 @@ class DepositForm extends Component {
                     minutes: m,
                     seconds: s,
                     staticHour: h, 
-                    staticMinute: minutesToRender });
-    
+                    staticMinute: minutesToRender 
+                });
             }
-
-      };
+        }
+    };
 
       funcVerificationTime = () => {
         const { wallet } = this.props;
