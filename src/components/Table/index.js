@@ -42,7 +42,7 @@ class TableDefault extends Component {
         this.projectData(props);
     }
 
-    projectData = async (props) => {
+    projectData = (props) => {
         this.setState({ rows : props.rows});
     }
 
@@ -119,12 +119,12 @@ class TableDefault extends Component {
                     </thead>
                     <tbody>
                         {
-                            rows.map( (row) => 
+                            rows.map( (row, index) => 
                             <tr 
                                 styleName={classNames("tr-row", {
                                     addRow: isLoadingRow
                                 })} 
-                                key={row.id}
+                                key={`${row.id}_${index}`}
                             >
                                 {fields.map( (field, index) => {
                                     const styles = classNames("td-row", {

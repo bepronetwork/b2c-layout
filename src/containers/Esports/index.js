@@ -28,7 +28,12 @@ class Esports extends Component {
     }
 
     componentDidMount(){
+        this._isMounted = true;
         this.projectData()
+    }
+
+    componentWillUnmount() {
+        this._isMounted = false;
     }
 
     UNSAFE_componentWillReceiveProps(){
@@ -39,12 +44,13 @@ class Esports extends Component {
         const { status, size } = this.state;
 
         this.setState({ isLoading: true, isLoadingMatches: true });
-        const { esportsScrenner } = await getAppCustomization();
+        const { esportsScrenner } = getAppCustomization();
         const hasHighlight = esportsScrenner.title || esportsScrenner.subtitle || esportsScrenner.button_text ? true : false;
 
         const images = require.context('assets/esports', true);
 
         let games = await getGames();
+        
         games = games.filter(g => g.series.length > 0).map(g => {
             g.image = images('./' + g.slug + '-ico.png');
             return g;
@@ -145,8 +151,8 @@ class Esports extends Component {
     renderHighlight() {
         const { highlight, isLoading } = this.state;
 
-        return (
-            isLoading ?
+        if (isLoading) {
+            return (
                 <SkeletonTheme color={ getSkeletonColors().color} highlightColor={ getSkeletonColors().highlightColor}>
                     <div style={{opacity : '0.5'}}> 
                         <div styleName="highlight">
@@ -160,22 +166,23 @@ class Esports extends Component {
                         </div>
                     </div>
                 </SkeletonTheme>
-            :
-                <div styleName="highlight">
-                    <Typography variant={'h2'} color={'white'} weight={'bold'}>{highlight.title}</Typography>
-                    <div styleName="intro">
-                        <Typography variant={'small-body'} color={'white'}>{highlight.subtitle}</Typography>
-                    </div>
-                    <div styleName="button">                     
-                        {highlight.button_text &&  highlight.link_url ?
-                            <Button theme="action" onClick={() => this.onHighlightClick(highlight.link_url)}>
-                                <Typography color={'fixedwhite'} variant={'small-body'}>{highlight.button_text}</Typography>
-                            </Button>
-                        : 
-                            null
-                        }
-                    </div>
+            )
+        }
+
+        return (
+            <div styleName="highlight">
+                <Typography variant={'h2'} color={'white'} weight={'bold'}>{highlight.title}</Typography>
+                <div styleName="intro">
+                    <Typography variant={'small-body'} color={'white'}>{highlight.subtitle}</Typography>
                 </div>
+                <div styleName="button">
+                    {highlight.button_text &&  highlight.link_url && (
+                        <Button theme="action" onClick={() => this.onHighlightClick(highlight.link_url)}>
+                            <Typography color={'fixedwhite'} variant={'small-body'}>{highlight.button_text}</Typography>
+                        </Button>
+                    )}
+                </div>
+            </div>
         );
     }
 

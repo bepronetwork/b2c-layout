@@ -6,7 +6,6 @@ import { Numbers } from "../../../lib/ethereum/lib";
 import { dateToHourAndMinute, getGames, getSkeletonColors, getIcon } from "../../../lib/helpers";
 import Tabs from "../../../components/Tabs";
 import { SelectBox, Table, CheckIcon, RewardIcon, TrophyIcon, AffiliateIcon } from 'components';
-import _ from 'lodash';
 import { CopyText } from "../../../copy";
 import { formatCurrency } from "../../../utils/numberFormatation";
 import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
@@ -108,7 +107,12 @@ class LastBets extends Component {
     }
 
     componentDidMount(){
+        this._isMounted = true;
         this.projectData(this.props)
+    }
+
+    componentWillUnmount() {
+        this._isMounted = false;
     }
 
     UNSAFE_componentWillReceiveProps(props){
@@ -164,7 +168,7 @@ class LastBets extends Component {
     }
     
     projectData = async (props, options=null) => {
-        let { profile, ln, onTableDetails } = props;
+        let { ln, onTableDetails } = props;
         let { view_amount, view_game } = this.state;
 
         let games = getGames();
@@ -196,17 +200,11 @@ class LastBets extends Component {
             all_bets = await getLastBets({size : view_amount.value, game : gameId});
             biggest_winners_bets = await getBiggestBetWinners({size : view_amount.value, game : gameId });
             biggest_win_users = await getBiggestUserWinners({size : view_amount.value, game : gameId });
-
-            if(profile && !_.isEmpty(profile)){
-            }
         }
         else {
             all_bets = await getLastBets({size : view_amount.value});
             biggest_winners_bets = await getBiggestBetWinners({size : view_amount.value});
             biggest_win_users = await getBiggestUserWinners({size : view_amount.value});
-
-            if(profile && !_.isEmpty(profile)){
-            }
         }
 
         if(all_bets.length > view_amount.value) {
@@ -307,47 +305,56 @@ class LastBets extends Component {
         this.getCopy();
     }
 
+    renderLastBets() {
+        const { gamesOptions, isLoading } = this.state;
+
+        if (isLoading) {
+            return (
+                <SkeletonTheme color={ getSkeletonColors().color} highlightColor={ getSkeletonColors().highlightColor}>
+                    <div styleName='lastBets' style={{opacity : '0.5'}}>
+                        <div styleName='skeleton-tabs'>
+                            <Skeleton height={40}/>
+                        </div>
+                    </div>
+                </SkeletonTheme>
+            )
+        }
+
+        return (
+            <div styleName='lastBets'>
+                <Tabs
+                    selected={this.state.view}
+                    options={this.state.options}
+                    onSelect={this.handleTabChange}
+                />
+                <div styleName="filters">
+                    <div styleName='bets-dropdown-game'>
+                        <SelectBox
+                            size='small'
+                            onChange={(e) => this.changeViewGames(e)}
+                            options={gamesOptions}
+                            value={this.state.view_game}
+                        /> 
+                    </div>
+                    <div styleName='bets-dropdown'>
+                        <SelectBox
+                            size='small'
+                            onChange={(e) => this.changeViewBets(e)}
+                            options={this.views}
+                            value={this.state.view_amount}
+                        /> 
+                    </div>
+                </div>
+            </div>
+        )
+    }
+
     render() {
-        const { games, gamesOptions, isLoading, isListLoading, view_game } = this.state;
+        const { games, isListLoading, view_game } = this.state;
         
         return (
             <div styleName='container'>
-                {isLoading ?
-                    <SkeletonTheme color={ getSkeletonColors().color} highlightColor={ getSkeletonColors().highlightColor}>
-                        <div styleName='lastBets' style={{opacity : '0.5'}}>
-                            <div styleName='skeleton-tabs'>
-                                <Skeleton height={40}/>
-                            </div>
-                        </div>
-                    </SkeletonTheme>
-                :
-                    <div styleName='lastBets'>
-                        <Tabs
-                            selected={this.state.view}
-                            options={this.state.options}
-                            onSelect={this.handleTabChange}
-                        />
-                        <div styleName="filters">
-                            <div styleName='bets-dropdown-game'>
-                                <SelectBox
-                                    size='small'
-                                    onChange={(e) => this.changeViewGames(e)}
-                                    options={gamesOptions}
-                                    value={this.state.view_game}
-                                /> 
-                            </div>
-
-                            <div styleName='bets-dropdown'>
-                                <SelectBox
-                                    size='small'
-                                    onChange={(e) => this.changeViewBets(e)}
-                                    options={this.views}
-                                    value={this.state.view_amount}
-                                /> 
-                            </div>
-                        </div>
-                    </div>
-                }
+                {this.renderLastBets()}
                 <Table
                     rows={this.state[this.state.view].rows}
                     titles={this.state[this.state.view].titles}
