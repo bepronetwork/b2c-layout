@@ -48,6 +48,7 @@ import getAppInfo from "lib/api/app";
 import handleError from "lib/api/handleError";
 import User from "controllers/User/User";
 import UserContext from "./UserContext";
+import LanguageProvider from "./LanguageContext";
 import "./index.css";
 import { setProfileInfo } from "../../redux/actions/profile";
 import { setModal } from "../../redux/actions/modal";
@@ -71,6 +72,7 @@ import classNames from "classnames";
 import delay from 'delay';
 import MobileMenu from "../../components/MobileMenu";
 import { analyticsIdentify, analyticsPage } from '../../lib/helpers/analytics'
+import languages from "../../config/languages";
 
 import socketKycConnection from './WebSocket'
 
@@ -489,6 +491,7 @@ console.log(form, 'form')
         this.setState({ user: null });
         window.location.reload();
         window.location.href = '/'
+        // language do not need to be removed due to human context reasons (user can be still in the application even if not logged on) 
     };
 
     renderLoginRegisterModal = () => {
@@ -835,6 +838,7 @@ console.log(form, 'form')
                         setUser: (() => {})
                     }}
                 >
+                    <LanguageProvider>
                     <Router history={history}>
                         <Widgets/>
                         <header>
@@ -1073,6 +1077,7 @@ console.log(form, 'form')
                             onMenuItem={this.handleOpenMenuItem}
                         />
                     </Router>
+                    </LanguageProvider>
                 </UserContext.Provider>
         );
     }

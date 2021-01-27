@@ -231,6 +231,27 @@ export async function updateUserBalance(user, setUser) {
     }
 }
 
+export async function getTransactions(params, bearerToken, payload) {
+    const { app, user, size, offset } = params;
+
+    try {
+        const response = await fetch(`${apiUrlWithdraw}/api/user/transactions`, {
+            method : 'POST',
+            headers : addSecurityHeader({ bearerToken, payload: payload || user }),
+            body : JSON.stringify({
+                app,
+                user,
+                size,
+                offset
+            })}
+        )
+
+        return response.json();
+    } catch (error) {
+        throw error;
+    }
+}
+
 export async function logout() {
     Cache.setToCache('user', null);
     Cache.setToCache('Authentication', null);
@@ -263,28 +284,7 @@ export async function logout() {
 
 export async function requestWithdraw(params, bearerToken, payload) {
     try{
-        let res = await fetch(`${apiUrlWithdraw}/api/users/requestWithdraw`, {
-            method : 'POST',
-            timeout: 1000*1000,
-            headers : addSecurityHeader({bearerToken, payload :  payload || params.user}),
-            body : JSON.stringify(params)})
-        return res.json();
-    }catch(err){
-        throw err;
-    }
-}
-
-/**
- *
- * @param {*} params
- * @param {*} bearerToken
- * @name Request Withdraw Affiliates
- * @use Once User Wants to Withdraw Decentralized
- */
-
-export async function requestWithdrawAffiliate(params, bearerToken, payload) {
-    try{
-        let res = await fetch(`${apiUrlWithdraw}/api/users/affiliate/requestWithdraw`, {
+        let res = await fetch(`${apiUrl}/api/user/withdraw/credit`, {
             method : 'POST',
             timeout: 1000*1000,
             headers : addSecurityHeader({bearerToken, payload :  payload || params.user}),
@@ -489,7 +489,7 @@ export async function userAuth(params, bearerToken, payload) {
 
 export async function getCurrencyAddress(params, bearerToken, payload) {
     try{
-        let res = await fetch(`${apiUrl}/api/app/address/get`, {
+        let res = await fetch(`${apiUrlWithdraw}/api/app/address/get`, {
             method : 'POST',
             headers : addSecurityHeader({bearerToken, payload :  payload || params.id}),
             body : JSON.stringify(params)})

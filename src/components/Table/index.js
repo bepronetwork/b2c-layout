@@ -135,11 +135,9 @@ class TableDefault extends Component {
                                                 'td-row-currency': field.currency,
                                                 'td-row-state': field.isStatus
                                             });
-                                            const statusStyles = classNames("status", {
-                                                [row[field.value].color]: field.isStatus === true
-                                            });
 
-
+                                            const statusStyles = classNames("status");
+                                        
                                             if(field.dependentColor){
                                                 return (
                                                     <td styleName={styles} data-label={titles[index]}>

@@ -1,29 +1,31 @@
-# BetProtocol Casino
+# Casino
+This repository has all the functionality of the Casino front-end, with its screens and connections.
 
-An example frontend-only game backed by the BetProtocol API.
+# Getting started
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app) and extended with CRACO.
+### Project Configuration
+The first step is to fork the project onto your machine. After fork, enter the project and in its root folder create an `.env` file. In this file, you put all your sensitive and environment info.
 
-## Available Scripts
+The `.env` variables are in this link, second part: https://www.notion.so/betprotocol/Layout-1-User-Interface-e4137a6341414ce4af05995c5f1ea3c2
 
-In the project directory, you can run:
+Note: In the link above is also the step by step of what is needed to create an online machine of the entire project in Heroku.
 
-### `npm dev`
+### Project Installation
 
-Runs the app in the development mode.<br>
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+After creating the `.env` file, we now open a terminal in the project's root folder and install all project dependencies with the command:
 
-The page will reload if you make edits.<br>
-You will also see any lint errors in the console.
+    npm install
 
-### `npm test`
+After that we have to `build` the project, so that we can `start` it and we do it with:
 
-Runs tests using `jest` and `react-testing-library`.
+    npm build
 
-### `npm build`
+Finally, we started the project with:
 
-Builds the app for production to the `build` folder.<br>
+    npm start
 
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### Docs
 
-The build is minified and the filenames include the hashes.<br>
+- Endpoint documentation: https://betprotocol.readme.io/reference
+- General documentation BEPRO.NETWORK operation: https://www.notion.so/betprotocol/BEPRO-NETWORK-c3d96d49ccc04f49b07ea9ea8fd5c149
+

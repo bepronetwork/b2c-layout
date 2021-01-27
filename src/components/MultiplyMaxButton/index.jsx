@@ -1,42 +1,36 @@
-import React, { Component } from "react";
+import React from "react";
 import PropTypes from "prop-types";
+import { connect } from "react-redux";
+import { isEmpty, uniqueId } from "lodash";
 import Typography from "../Typography";
 import { CopyText } from "../../copy";
-import { connect } from "react-redux";
 import { getAppCustomization } from "../../lib/helpers";
 import "./index.css";
 import gameOperations from "../../utils/gameOperations";
-import _ from "lodash";
 
-class MultiplyMaxButton extends Component {
-  static propTypes = {
-    onResult: PropTypes.func.isRequired,
-    onBetAmount: PropTypes.func.isRequired,
-    amount: PropTypes.number.isRequired
-  };
-
-  constructor(props) {
-    super(props);
-    this.handleClick = this.handleClick.bind(this);
-  }
-
-  handleClick = event => {
-    const { profile, currency, onResult, amount, onBetAmount } = this.props;
-    const { name } = event.currentTarget;
-
-    if (_.isEmpty(profile)) {
+export const MultiplyMaxButton = ({
+  profile,
+  onResult,
+  amount,
+  onBetAmount,
+  language
+}) => {
+  const copy = CopyText.multiplyMaxButtonIndex[language];
+  const skin = getAppCustomization().skin.skin_type;
+  const handleClick = event => {
+    if (isEmpty(profile)) {
       return null;
-    }    
-    
-    const wallet = profile.getWallet({ currency });
-    const balance = _.isEmpty(wallet) ? 0 : wallet.playBalance;
-    const hadBonus =
-      wallet.bonusAmount > 0
-        ? Number(wallet.bonusAmount) + Number(balance)
-        : balance;
-    const bonusPlusBalance = _.isEmpty(wallet) ? 0 : hadBonus;
+    }
 
-      const newAmount = gameOperations(name, amount, bonusPlusBalance);
+    const { name } = event.currentTarget;
+    const balance = parseFloat(profile.getBalanceWithBonus());
+    let newAmount;
+
+    newAmount = gameOperations(name, amount, balance);
+
+    if (newAmount.toString().length > 6) {
+      newAmount = Number(newAmount.toFixed(6));
+    }
 
     if (onBetAmount) {
       onBetAmount(newAmount);
@@ -45,17 +39,29 @@ class MultiplyMaxButton extends Component {
     return onResult(newAmount);
   };
 
-  render() {
-    const { ln } = this.props;
-    const copy = CopyText.multiplyMaxButtonIndex[ln];
-    const skin = getAppCustomization().skin.skin_type;
+  const multiplyButtons = [
+    {
+      name: 0.5,
+      typography: "½"
+    },
+    {
+      name: 2,
+      typography: "2×"
+    },
+    {
+      name: "max",
+      typography: copy.INDEX.TYPOGRAPHY.TEXT[0]
+    }
+  ];
 
-    return (
-      <div styleName="root">
-        <div styleName="container">
+  return (
+    <div styleName="root">
+      <div styleName="container">
+        {multiplyButtons.map(({ name, typography }) => (
           <button
-            name={0.5}
-            onClick={event => this.handleClick(event)}
+            key={uniqueId("multiply_max_button_")}
+            name={name}
+            onClick={handleClick}
             styleName="button"
             type="button"
           >
@@ -63,56 +69,26 @@ class MultiplyMaxButton extends Component {
               <Typography
                 weight="semi-bold"
                 variant="small-body"
-                color={skin == "digital" ? "secondary" : "casper"}
+                color={skin === "digital" ? "secondary" : "casper"}
               >
-                ½
+                {typography}
               </Typography>
             </div>
           </button>
-          <button
-            name={2}
-            onClick={event => this.handleClick(event)}
-            styleName="button"
-            type="button"
-          >
-            <div styleName="button-container">
-              <Typography
-                weight="semi-bold"
-                variant="small-body"
-                color={skin == "digital" ? "secondary" : "casper"}
-              >
-                2×
-              </Typography>
-            </div>
-          </button>
-          <button
-            name="max"
-            onClick={event => this.handleClick(event)}
-            styleName="button"
-            type="button"
-          >
-            <div styleName="button-container">
-              <Typography
-                weight="semi-bold"
-                variant="x-small-body"
-                color={skin == "digital" ? "secondary" : "casper"}
-              >
-                {copy.INDEX.TYPOGRAPHY.TEXT[0]}
-              </Typography>
-            </div>
-          </button>
-        </div>
+        ))}
       </div>
-    );
-  }
-}
+    </div>
+  );
+};
 
-function mapStateToProps(state) {
-  return {
-    profile: state.profile,
-    ln: state.language,
-    currency: state.currency
-  };
-}
+MultiplyMaxButton.propTypes = {
+  onResult: PropTypes.func.isRequired,
+  onBetAmount: PropTypes.func.isRequired,
+  amount: PropTypes.number.isRequired,
+  language: PropTypes.string.isRequired,
+  profile: PropTypes.objectOf([PropTypes.object]).isRequired
+};
+
+const mapStateToProps = ({ profile, language }) => ({ profile, language });
 
 export default connect(mapStateToProps)(MultiplyMaxButton);

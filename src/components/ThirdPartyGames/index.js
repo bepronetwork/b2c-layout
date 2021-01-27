@@ -74,9 +74,7 @@ class ThirdPartyGames extends Component {
 
         const total = gameList.length;
 
-        quantity = quantity + 18 > total ? total : quantity + 18;
-
-        this.setState({ games: gameList, total, quantity });
+        this.setState({ games: gameList, total });
     }
 
     linkToGameListPage(id) {
@@ -144,11 +142,7 @@ class ThirdPartyGames extends Component {
         return games;
     }
 
-    onLoadMoreGames = async () => {
-        let { quantity } = this.state;
-        const { total } = this.state;
-        quantity = quantity + 18 > total ? total : quantity + 18;
-
+    onLoadMoreGames = quantity => {
         this.setState({ quantity });
     };    
 
@@ -260,9 +254,11 @@ class ThirdPartyGames extends Component {
                         null
                 }
                 <GameCounter
-                    quantity={quantity}
                     total={total}
-                    onClick={() => this.onLoadMoreGames()}
+                    label={CopyText.gameCounter[ln].DESCRIPTION}
+                    buttonLabel={CopyText.gameCounter[ln].BUTTON}
+                    factorBase={18}
+                    onMore={this.onLoadMoreGames}
                 />
                 </div>
             </div>

@@ -73,14 +73,9 @@ class FlipGameOptions extends Component {
         });
     };
 
-    handleMultiplyResult = result => {
-        result.toString().length > 6 ?
-          this.setState({ betAmount: result.toFixed(6) })
-          :
-          this.setState({ betAmount: result });
-      }
-    
-    
+    handleMultiplyResult = betAmount => {
+        this.setState({ betAmount });
+    };
 
     isBetValid = () => {
         const { profile } = this.props;

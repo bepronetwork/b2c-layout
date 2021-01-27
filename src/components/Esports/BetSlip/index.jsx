@@ -162,8 +162,13 @@ class BetSlip extends Component {
                 const bet = newBetSlip.find(b => b.bid == bid);
 
                 if(!_.isEmpty(bet)) {
-                    const message = (tab == "simple") ? "Error to bet on '" + bet.name + "' in the match '" + bet.title + "'." : "Error in one or more matches in the multiple bet."
-                    store.dispatch(setMessageNotification(message));
+                    const { message } = res;
+
+                    const errorMessage = message && !_.isEmpty(message) 
+                    ? message 
+                    : (tab == "simple") ? "Error to bet on '" + bet.name + "' in the match '" + bet.title + "'." : "Error in one or more matches in the multiple bet."
+                    
+                    store.dispatch(setMessageNotification(errorMessage));
                 }
             }
 

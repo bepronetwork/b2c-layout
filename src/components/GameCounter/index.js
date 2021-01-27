@@ -1,52 +1,56 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { LinearProgress } from "@material-ui/core";
 import { Typography, Button } from "components";
 import PropTypes from "prop-types";
-import { connect } from "react-redux";
-import { CopyText } from "../../copy";
 import "./index.css";
 
-// GameCounter is just a dumb component to show how many
-// games are being shown on the page
-const GameCounter = ({ quantity, total, ln, ...props }) =>
-  quantity < total ? (
+const GameCounter = ({ total, factorBase, buttonLabel, label, onMore }) => {
+  const [more, setMore] = useState(factorBase);
+
+  useEffect(() => {
+    setMore(more);
+    onMore(more);
+  }, []);
+
+  const handleMore = () => {
+    const quantity = more + factorBase > total ? total : more + factorBase;
+
+    setMore(quantity);
+    onMore(quantity);
+  };
+
+  return more < total ? (
     <div styleName="progress">
       <div styleName="line">
-        <LinearProgress
-          variant="determinate"
-          value={(quantity / total) * 100}
-        />
+        <LinearProgress variant="determinate" value={(more / total) * 100} />
       </div>
       <div styleName="text">
         <Typography variant="x-small-body" color="white">
-          {CopyText.gameCounter[ln].DESCRIPTION.replace(
-            /quantity/gi,
-            quantity
-          ).replace(/total/gi, total)}
+          {label.replace(/quantity/gi, more).replace(/total/gi, total)}
         </Typography>
       </div>
-      <Button size="x-small" theme="action" {...props}>
+      <Button size="x-small" theme="action" onClick={handleMore}>
         <Typography color="white" variant="small-body">
-          {CopyText.gameCounter[ln].BUTTON}
+          {buttonLabel}
         </Typography>
       </Button>
     </div>
   ) : null;
+};
 
 GameCounter.propTypes = {
-  quantity: PropTypes.number,
-  total: PropTypes.number
+  total: PropTypes.number,
+  factorBase: PropTypes.number,
+  label: PropTypes.string,
+  buttonLabel: PropTypes.string,
+  onMore: PropTypes.func.isRequired
 };
 
 GameCounter.defaultProps = {
-  quantity: 0,
-  total: 0
+  total: 0,
+  factorBase: 18,
+  buttonLabel: "More",
+  label: "Showing quantity of total."
 };
 
-function mapStateToProps(state) {
-  return {
-    ln: state.language
-  };
-}
-
-export default connect(mapStateToProps)(GameCounter);
+export default GameCounter;
