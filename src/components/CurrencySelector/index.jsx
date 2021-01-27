@@ -115,6 +115,7 @@ class CurrencySelector extends Component {
         if (_.isEmpty(currency)) return null;
 
         const w = profile.getWallet({ currency });
+        const balanceWithBonus = profile.getBalanceWithBonus({ currency });
         const wApp = getApp().wallet.find(w => w.currency._id === currency._id);
         const icon = _.isEmpty(wApp.image) ? currency.image : wApp.image;
         const skin = getAppCustomization().skin.skin_type;
@@ -138,7 +139,7 @@ class CurrencySelector extends Component {
                             <img src={icon} width={20}/>
                         </div>
                         <span>
-                            <Typography color="white" variant={'small-body'}>{formatCurrency(w.playBalance)}</Typography>
+                            <Typography color="white" variant={'small-body'}>{formatCurrency(balanceWithBonus)}</Typography>
                         </span>                    
                         {open 
                         ? 
