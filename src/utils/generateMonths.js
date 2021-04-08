@@ -2,7 +2,7 @@ import moment from "moment";
 import "moment/min/locales";
 
 const generateMonths = (locale, format) => {
-  moment.locale(locale);
+  moment().locale(locale);
 
   const userLocale = moment.locale();
   const months = [];
