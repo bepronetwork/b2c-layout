@@ -29,6 +29,7 @@ const isValidAge = (birthDate) => {
   const thisDay = thisMoment.getDate();
   const ageFx = moment(
     `${thisYear}-${leadingWithZero(thisMonth)}-${thisDay}`,
+    "YYYY-MM-DD",
   ).diff(birthDate, "years");
   const isLegalAge = ageFx >= 18;
   const isUndefinedAge = ageFx > 72;
