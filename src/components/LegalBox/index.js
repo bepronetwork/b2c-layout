@@ -9,8 +9,13 @@ class LegalBox extends Component {
     }
 
     componentDidMount(){
-        if(this.props.licenseID){
-            window['ceg_'+this.props.licenseID.replace(/-/g, '_')].init();
+        const cegKey = `ceg_${this.props.licenseID.replace(/-/g, "_")}`;
+
+        if (
+          this.props.licenseID &&
+          Object.prototype.hasOwnProperty.call(window, cegKey)
+        ) {
+          window[cegKey].init();
         }
     }
 
